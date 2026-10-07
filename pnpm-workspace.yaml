@@ -1,0 +1,57 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+
+allowBuilds:
+  "@parcel/watcher": true
+  "@swc/core": true
+  esbuild: true
+  msw: false
+  sharp: true
+  unrs-resolver: true
+
+overrides:
+  kysely: "0.28.17"
+  "eslint-plugin-react-hooks": "7.0.1"
+  "@swc/core": "1.15.21"
+
+catalog:
+  "@better-auth/drizzle-adapter": "1.7.7"
+  "@better-auth/oauth-provider": "1.7.7"
+  "@better-auth/passkey": "1.7.7"
+  "@better-auth/sso": "1.7.7"
+  "@tailwindcss/postcss": "4.2.2"
+  "@types/node": "20.19.37"
+  "@types/pg": "8.20.0"
+  "@types/react": "19.2.14"
+  "@types/react-dom": "19.2.3"
+  "@vitejs/plugin-react": "6.0.1"
+  "better-auth": "1.7.7"
+  "class-variance-authority": "0.7.1"
+  "clsx": "2.1.1"
+  "dotenv": "17.3.1"
+  "drizzle-kit": "0.31.10"
+  "drizzle-orm": "0.45.2"
+  "eslint": "9.39.4"
+  "eslint-config-next": "16.2.1"
+  "framer-motion": "12.38.0"
+  "lucide-react": "0.577.0"
+  "next": "16.2.1"
+  "next-intl": "4.8.3"
+  "next-themes": "0.4.6"
+  "pg": "8.20.0"
+  "radix-ui": "1.4.3"
+  "react": "19.2.4"
+  "react-dom": "19.2.4"
+  "recharts": "3.8.0"
+  "resend": "6.9.4"
+  "shadcn": "4.1.0"
+  "sonner": "2.0.7"
+  "tailwind-merge": "3.5.0"
+  "tailwindcss": "4.2.2"
+  "sharp": "0.34.5"
+  "tsx": "4.21.0"
+  "tw-animate-css": "1.4.0"
+  "typescript": "5.9.3"
+  "vitest": "4.1.1"
+  "zod": "3.25.76"

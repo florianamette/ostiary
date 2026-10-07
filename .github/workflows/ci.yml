@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    env:
+      RESEND_API_KEY: re_ci_placeholder_not_used_at_build_time
+      RESEND_FROM: "Ostiary <onboarding@resend.dev>"
+    steps:
+      - uses: actions/checkout@v4
+
+      # pnpm version comes from "packageManager" in package.json
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "pnpm"
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Test
+        run: pnpm test
+
+      - name: Build (auth and admin apps)
+        run: pnpm build
+        env:
+          DATABASE_URL: postgresql://127.0.0.1:5432/ci
+          BETTER_AUTH_SECRET: "01234567890123456789012345678901"
+          BETTER_AUTH_URL: http://localhost:3000
+          NEXT_PUBLIC_APP_URL: http://localhost:3000
+          AUTH_APP_URL: http://localhost:3000
+          ADMIN_APP_URL: http://localhost:3001
+          NEXT_PUBLIC_ADMIN_APP_URL: http://localhost:3001

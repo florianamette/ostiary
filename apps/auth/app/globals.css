@@ -1,0 +1,4 @@
+@import "../../../packages/core/src/styles/globals.css";
+
+/* Tailwind scans the shared UI package too, so its classes are generated here. */
+@source "../../../packages/core/src";

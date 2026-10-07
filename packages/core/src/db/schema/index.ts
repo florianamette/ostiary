@@ -1,0 +1,5 @@
+/** Re-export all Drizzle tables for the app and Better Auth. */
+export * from "./auth";
+export * from "./sso";
+export * from "./auth-events";
+export * from "./audit";

@@ -1,0 +1,352 @@
+import { randomUUID } from "node:crypto";
+import { betterAuth } from "better-auth";
+import { APIError, createAuthMiddleware, getSessionFromCtx } from "better-auth/api";
+import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { oauthProvider } from "@better-auth/oauth-provider";
+import { passkey } from "@better-auth/passkey";
+import { sso } from "@better-auth/sso";
+import {
+    admin,
+    haveIBeenPwned,
+    jwt,
+    lastLoginMethod,
+    organization,
+    username,
+} from "better-auth/plugins";
+
+import { db } from "@ostiary/core/db/index";
+import * as schema from "@ostiary/core/db/schema";
+import { queueOrganizationInviteEmail } from "@ostiary/core/lib/email/queue-organization-invite-email";
+import { queueChangeEmailConfirmation } from "@ostiary/core/lib/email/queue-change-email-confirmation";
+import { queuePasswordResetEmail } from "@ostiary/core/lib/email/queue-password-reset-email";
+import { queueVerificationEmail } from "@ostiary/core/lib/email/queue-verification-email";
+import { routing } from "@ostiary/core/i18n/routing";
+import { recordAudit } from "@ostiary/core/lib/audit";
+import { clientIp, recordAuthEvent } from "@ostiary/core/lib/auth-events";
+import { userHasAdminRole } from "@ostiary/core/lib/admin/user-has-admin-role";
+import { PUBLIC_ORGANIZATION_ID } from "@ostiary/core/lib/organization-public";
+import { getPasskeyWebAuthnOptions } from "@ostiary/core/lib/passkey-options";
+import { env } from "@ostiary/core/lib/env";
+import { ALL_SCOPES } from "@ostiary/core/lib/oauth-scopes";
+import { socialProvidersConfig } from "@ostiary/core/lib/social-providers";
+
+type AuditTarget = "user" | "oauth_client" | "sso_provider" | "organization";
+type Bag = Record<string, unknown>;
+const str = (v: unknown) => (typeof v === "string" ? v : undefined);
+
+/**
+ * Better Auth admin endpoints that change something, mapped to an audit action and how to
+ * find the target's id (from the request body, or from the response for created objects).
+ */
+const AUDITED_ENDPOINTS: Record<string, { action: string; target?: AuditTarget; id?: (body: Bag, res: Bag) => string | undefined }> = {
+    "/admin/create-user": { action: "user.create", target: "user", id: (_b, r) => str((r.user as Bag | undefined)?.id) },
+    "/admin/update-user": { action: "user.update", target: "user", id: (b) => str(b.userId) },
+    "/admin/set-role": { action: "user.set_role", target: "user", id: (b) => str(b.userId) },
+    "/admin/set-user-password": { action: "user.set_password", target: "user", id: (b) => str(b.userId) },
+    "/admin/ban-user": { action: "user.ban", target: "user", id: (b) => str(b.userId) },
+    "/admin/unban-user": { action: "user.unban", target: "user", id: (b) => str(b.userId) },
+    "/admin/remove-user": { action: "user.delete", target: "user", id: (b) => str(b.userId) },
+    "/admin/revoke-user-session": { action: "user.revoke_session" },
+    "/admin/revoke-user-sessions": { action: "user.revoke_all_sessions", target: "user", id: (b) => str(b.userId) },
+    "/admin/impersonate-user": { action: "user.impersonate", target: "user", id: (b) => str(b.userId) },
+    "/oauth2/delete-client": { action: "oauth_client.delete", target: "oauth_client", id: (b) => str(b.client_id) },
+    "/oauth2/client/rotate-secret": { action: "oauth_client.rotate_secret", target: "oauth_client", id: (b) => str(b.client_id) },
+    "/oauth2/update-consent": { action: "oauth_consent.update" },
+    "/oauth2/delete-consent": { action: "oauth_consent.delete" },
+    "/sso/register": { action: "sso_provider.create", target: "sso_provider", id: (b) => str(b.providerId) },
+    "/organization/create": { action: "organization.create", target: "organization", id: (_b, r) => str(r.id) },
+};
+
+/** Request fields that are never written to the audit log. */
+const SECRET_FIELDS = new Set(["password", "newPassword", "sessionToken", "clientSecret", "client_secret", "oidcConfig", "samlConfig"]);
+
+/**
+ * Endpoints that grant lasting access to the account. They need a sign-in from the last
+ * 10 minutes, measured from when the session was created: Better Auth's own `freshAge`
+ * counts from the session's last refresh, which a stolen cookie can trigger by itself.
+ */
+const RECENT_SIGN_IN_PATHS = new Set([
+    "/passkey/generate-register-options",
+    "/passkey/verify-registration",
+    // Connecting a GitHub (or other) account adds a way to sign in, like a passkey.
+    "/link-social",
+]);
+const RECENT_SIGN_IN_SECONDS = 10 * 60;
+
+/** Password sign-in endpoints whose failures are counted for the security page. */
+const PASSWORD_SIGN_IN_PATHS = new Set(["/sign-in/email", "/sign-in/username"]);
+
+// Resource servers (APIs) that may receive JWT access tokens (OAUTH_API_AUDIENCES).
+// Clients ask for one with the RFC 8707 `resource` parameter.
+/** First-run setup: these addresses get the admin role when their account is created. */
+const adminEmails = new Set(
+    (env.ADMIN_EMAILS ?? "")
+        .split(",")
+        .map((email) => email.trim().toLowerCase())
+        .filter(Boolean),
+);
+
+const apiAudiences = (env.OAUTH_API_AUDIENCES ?? "")
+    .split(",")
+    .map((audience) => audience.trim())
+    .filter(Boolean);
+
+export type AuthFactoryOptions = {
+    /**
+     * Canonical URL of the auth app. Every instance uses it, even when served from another
+     * origin: OAuth issuer, SSO callbacks and invitation links all land on the auth app.
+     */
+    baseURL: string;
+    /** Origins allowed as callbackURL and for state-changing requests (includes the serving app). */
+    trustedOrigins: string[];
+    /** Parent domain shared by every app, e.g. `.example.com`. Enables cross-app session cookies. */
+    cookieDomain?: string;
+};
+
+/**
+ * Builds the Better Auth instance shared by every app in the monorepo. Each app
+ * calls this with its own origin; they all read and write the same database and
+ * use the same secret, so a session created by the auth app is valid in the admin app.
+ */
+export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactoryOptions) {
+    const passkeyWebAuthn = getPasskeyWebAuthnOptions(baseURL);
+
+    return betterAuth({
+        baseURL,
+        trustedOrigins,
+        advanced: cookieDomain
+            ? { crossSubDomainCookies: { enabled: true, domain: cookieDomain } }
+            : undefined,
+        databaseHooks: {
+            user: {
+                create: {
+                    before: async (newUser) => {
+                        if (!adminEmails.has(newUser.email.toLowerCase())) return;
+                        return { data: { ...newUser, role: "admin" } };
+                    },
+                    after: async (createdUser) => {
+                        await db
+                            .insert(schema.member)
+                            .values({
+                                id: randomUUID(),
+                                organizationId: PUBLIC_ORGANIZATION_ID,
+                                userId: createdUser.id,
+                                role: "member",
+                                createdAt: new Date(),
+                            })
+                            .onConflictDoNothing({
+                                target: [
+                                    schema.member.userId,
+                                    schema.member.organizationId,
+                                ],
+                            });
+                        await recordAuthEvent("sign_up", createdUser.id);
+                    },
+                },
+            },
+            session: {
+                create: {
+                    before: async (sess) => {
+                        if (sess.activeOrganizationId) return;
+                        return {
+                            data: {
+                                ...sess,
+                                activeOrganizationId: PUBLIC_ORGANIZATION_ID,
+                            },
+                        };
+                    },
+                    // Every new session is a sign-in, whatever the method (password, passkey, SSO, OAuth).
+                    after: async (createdSession) => {
+                        await recordAuthEvent("sign_in", createdSession.userId);
+                    },
+                },
+            },
+        },
+        hooks: {
+            // Sign-out deletes the session, so read who is signing out before the handler runs.
+            before: createAuthMiddleware(async (ctx) => {
+                if (RECENT_SIGN_IN_PATHS.has(ctx.path)) {
+                    const current = await getSessionFromCtx(ctx);
+                    const signedInAt = current ? new Date(current.session.createdAt).getTime() : 0;
+                    if (current && Date.now() - signedInAt > RECENT_SIGN_IN_SECONDS * 1000) {
+                        throw new APIError("FORBIDDEN", {
+                            message: "Sign in again to add a new way to sign in.",
+                            code: "RECENT_SIGN_IN_REQUIRED",
+                        });
+                    }
+                    return;
+                }
+                if (ctx.path === "/change-email") {
+                    // Better Auth only asks the current inbox to approve a change when that address is
+                    // verified; for an unverified one it emails the new address directly. Refuse that
+                    // case so a stolen session cookie alone can never move an account to another inbox.
+                    const current = await getSessionFromCtx(ctx);
+                    if (current && !current.user.emailVerified) {
+                        throw new APIError("FORBIDDEN", {
+                            message: "Verify your current email address before changing it.",
+                            code: "EMAIL_NOT_VERIFIED",
+                        });
+                    }
+                    return;
+                }
+                if (ctx.path !== "/sign-out") return;
+                const current = await getSessionFromCtx(ctx);
+                if (current) await recordAuthEvent("sign_out", current.user.id, { ipAddress: clientIp(ctx.headers) });
+            }),
+            after: createAuthMiddleware(async (ctx) => {
+                const returned = ctx.context.returned;
+                const failed = returned instanceof Error;
+                const body = (ctx.body ?? {}) as Record<string, unknown>;
+
+                if (PASSWORD_SIGN_IN_PATHS.has(ctx.path) && failed) {
+                    const identifier = typeof body.email === "string" ? body.email : typeof body.username === "string" ? body.username : null;
+                    await recordAuthEvent("sign_in_failed", null, { identifier, ipAddress: clientIp(ctx.headers) });
+                    return;
+                }
+
+                const audited = AUDITED_ENDPOINTS[ctx.path];
+                if (!audited || failed) return;
+
+                // An address set by an admin is unproven: the user must verify it at next sign-in.
+                const changes = body.data as Bag | undefined;
+                if (ctx.path === "/admin/update-user" && typeof body.userId === "string" && typeof changes?.email === "string") {
+                    await ctx.context.internalAdapter.updateUser(body.userId, { emailVerified: false });
+                }
+                const actor = ctx.context.session?.user;
+                const response = (returned && typeof returned === "object" ? returned : {}) as Bag;
+                const targetId = audited.id?.(body, response);
+                const metadata = Object.fromEntries(Object.entries(body).filter(([key]) => !SECRET_FIELDS.has(key)));
+                await recordAudit({
+                    actor: actor ? { id: actor.id, email: actor.email } : null,
+                    action: audited.action,
+                    target: audited.target && targetId ? { type: audited.target, id: targetId } : undefined,
+                    metadata: Object.keys(metadata).length ? metadata : undefined,
+                    ipAddress: clientIp(ctx.headers),
+                });
+            }),
+        },
+        database: drizzleAdapter(db, {
+            provider: "pg",
+            schema,
+        }),
+        socialProviders: socialProvidersConfig(),
+        account: {
+            accountLinking: {
+                enabled: true,
+                // Explicit "Connect GitHub" from the dashboard may use a different email: the user is
+                // signed in and, per the hooks below, signed in recently. Sign-in with GitHub only joins
+                // an existing account when GitHub reports that email as verified (Better Auth default).
+                allowDifferentEmails: true,
+            },
+        },
+        session: {
+            // Deleting the account and similar actions need a session refreshed in the last
+            // 10 minutes (default: a day). Passkeys use the stricter check in the hooks below.
+            freshAge: RECENT_SIGN_IN_SECONDS,
+            // Required by @better-auth/oauth-provider as soon as any session option is set (its
+            // init throws otherwise). Sessions already live in the database here, so no change.
+            storeSessionInDatabase: true,
+        },
+        user: {
+            changeEmail: {
+                enabled: true,
+                // The current address must approve the change first, then the new address is
+                // verified. A stolen session alone cannot move the account to another inbox.
+                sendChangeEmailConfirmation: async ({ user, newEmail, url }) => {
+                    queueChangeEmailConfirmation({ to: user.email, newEmail, url });
+                },
+            },
+        },
+        emailVerification: {
+            sendVerificationEmail: async ({ user, url }) => {
+                queueVerificationEmail({ to: user.email, url });
+            },
+            sendOnSignUp: true,
+            sendOnSignIn: true,
+            autoSignInAfterVerification: true,
+        },
+        emailAndPassword: {
+            enabled: true,
+            autoSignIn: false,
+            requireEmailVerification: true,
+            revokeSessionsOnPasswordReset: true,
+            sendResetPassword: async ({ user, url }) => {
+                queuePasswordResetEmail({ to: user.email, url });
+            },
+        },
+        plugins: [
+            jwt(),
+            admin(),
+            lastLoginMethod({
+                customResolveMethod: (ctx) => {
+                    if (ctx.path.includes("sign-in/username")) return "username";
+                    return null;
+                },
+            }),
+            username(),
+            haveIBeenPwned(),
+            passkey({
+                rpID: passkeyWebAuthn.rpID,
+                rpName: passkeyWebAuthn.rpName,
+                origin: passkeyWebAuthn.origin,
+            }),
+            organization({
+                // Only platform admins can create organizations. The check runs on the
+                // server, so the UI is not the only gate.
+                allowUserToCreateOrganization: (user) =>
+                    userHasAdminRole(user.role, ["admin"]),
+                sendInvitationEmail: async (data) => {
+                    const inviteUrl = `${baseURL}/${routing.defaultLocale}/accept-invitation/${data.id}`;
+                    queueOrganizationInviteEmail({
+                        to: data.email,
+                        inviteUrl,
+                        organizationName: data.organization.name,
+                        inviterName: data.inviter.user.name,
+                    });
+                },
+            }),
+            oauthProvider({
+                loginPage: "/login",
+                consentPage: "/consent",
+                scopes: [...ALL_SCOPES],
+                // Protected resources (1.7 replaces `validAudiences`). The auth server itself stays
+                // one, so tokens issued without `resource` keep it as their audience.
+                resources: [baseURL, ...apiAudiences],
+                // As in 1.5: any client may request any listed resource. Per-client links
+                // (oauthClientResource) can be introduced later from the admin app.
+                enforcePerClientResources: false,
+                // 1.7 requires a policy before anyone may grant client_credentials scopes. Only
+                // platform admins may; every other client action keeps its 1.5 behavior.
+                clientPrivileges: ({ action, user }) =>
+                    action === "configure-client-credentials-scopes"
+                        ? userHasAdminRole(user?.role as string | null | undefined, ["admin"])
+                        : true,
+                // Explicit (not left to the library default): resource servers reject tokens
+                // only after expiry, so this bounds how long a leaked access token works.
+                accessTokenExpiresIn: 60 * 60,
+                // Resource servers authorize on the admin plugin's role (e.g. "admin" or "admin,user").
+                customAccessTokenClaims: ({ user }) =>
+                    typeof user?.role === "string" ? { role: user.role } : {},
+                // 1.7 leaves profile and email claims out of ID tokens (they are on UserInfo).
+                // Many OIDC clients read them from the ID token, so keep issuing them per scope.
+                customIdTokenClaims: ({ user, scopes }) => ({
+                    ...(scopes.includes("profile")
+                        ? { name: user.name, ...(user.image ? { picture: user.image } : {}) }
+                        : {}),
+                    ...(scopes.includes("email")
+                        ? { email: user.email, email_verified: Boolean(user.emailVerified) }
+                        : {}),
+                }),
+            }),
+            // Enterprise SSO (OIDC / SAML) per organization. Providers are managed from the admin app.
+            // Only platform admins may register providers: a provider claims an email domain, so
+            // letting any user register one would let them intercept that domain's SSO sign-ins.
+            sso({
+                // A provider only takes sign-ins once its domain owner publishes a DNS TXT record.
+                domainVerification: { enabled: true, tokenPrefix: "ostiary" },
+                providersLimit: (user) =>
+                    userHasAdminRole((user as { role?: string | null }).role, ["admin"]) ? 100 : 0,
+            }),
+        ],
+    });
+}
