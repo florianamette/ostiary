@@ -23,62 +23,29 @@ import {
 } from "@ostiary/core/components/ui/dialog";
 import { Skeleton } from "@ostiary/core/components/ui/skeleton";
 import { authClient } from "@/lib/auth-client";
+import { disconnectMyApp, getMyConnectedApps } from "@/lib/connected-apps-actions";
+import type { ConnectedApp } from "@/lib/connected-apps";
 
-function asRecord(v: unknown): Record<string, unknown> | null {
-  return v && typeof v === "object" && !Array.isArray(v)
-    ? (v as Record<string, unknown>)
-    : null;
-}
-
-function asStringArray(v: unknown): string[] {
-  if (!Array.isArray(v)) return [];
-  return v.filter((x): x is string => typeof x === "string");
-}
-
-function normalizeGetConsentsPayload(data: unknown): unknown[] {
-  if (Array.isArray(data)) return data;
-  const o = asRecord(data);
-  if (o && Array.isArray(o.consents)) return o.consents;
-  return [];
-}
-
-function normalizeGetClientsPayload(data: unknown): unknown[] {
-  if (Array.isArray(data)) return data;
-  const o = asRecord(data);
-  if (o && Array.isArray(o.clients)) return o.clients;
-  return [];
-}
-
-function buildClientNameMap(clientsPayload: unknown): Map<string, string> {
-  const map = new Map<string, string>();
-  for (const raw of normalizeGetClientsPayload(clientsPayload)) {
-    const o = asRecord(raw);
-    if (!o) continue;
-    const id = String(o.client_id ?? o.clientId ?? "");
-    if (!id) continue;
-    const name = String(o.client_name ?? o.clientName ?? o.name ?? id);
-    map.set(id, name);
+/** The app's site, shown under its name; the client ID when it has none. */
+function appSubtitle(app: ConnectedApp): string {
+  if (!app.uri) return app.clientId;
+  try {
+    return new URL(app.uri).host;
+  } catch {
+    return app.uri;
   }
-  return map;
 }
-
-type AppRow = {
-  id: string;
-  clientId: string;
-  clientLabel: string;
-  scopes: string[];
-};
 
 export function DashboardAppsSection() {
   const t = useTranslations("dashboard.apps");
   const { data: sessionWrap } = authClient.useSession();
   const userId = sessionWrap?.user?.id;
 
-  const [rows, setRows] = React.useState<AppRow[]>([]);
+  const [rows, setRows] = React.useState<ConnectedApp[]>([]);
   const [loading, setLoading] = React.useState(true);
   const [listError, setListError] = React.useState<string | null>(null);
   const [removingId, setRemovingId] = React.useState<string | null>(null);
-  const [pendingRevoke, setPendingRevoke] = React.useState<AppRow | null>(
+  const [pendingRevoke, setPendingRevoke] = React.useState<ConnectedApp | null>(
     null,
   );
 
@@ -91,38 +58,16 @@ export function DashboardAppsSection() {
     setLoading(true);
     setListError(null);
     try {
-      const [consentsRes, clientsRes] = await Promise.all([
-        authClient.oauth2.getConsents(),
-        authClient.oauth2.getClients(),
-      ]);
-      if (consentsRes.error) {
-        setListError(consentsRes.error.message ?? t("loadError"));
+      const apps = await getMyConnectedApps();
+      if (apps === null) {
+        setListError(t("loadError"));
         setRows([]);
         return;
       }
-      if (clientsRes.error) {
-        setListError(clientsRes.error.message ?? t("loadError"));
-        setRows([]);
-        return;
-      }
-      const clientNames = buildClientNameMap(clientsRes.data);
-      const list: AppRow[] = [];
-      for (const raw of normalizeGetConsentsPayload(consentsRes.data)) {
-        const o = asRecord(raw);
-        if (!o) continue;
-        const id = String(o.id ?? "");
-        const rowUserId = String(o.userId ?? o.user_id ?? "");
-        if (!id || rowUserId !== userId) continue;
-        const clientId = String(o.clientId ?? o.client_id ?? "");
-        if (!clientId) continue;
-        list.push({
-          id,
-          clientId,
-          clientLabel: clientNames.get(clientId) ?? clientId,
-          scopes: asStringArray(o.scopes),
-        });
-      }
-      setRows(list);
+      setRows(apps);
+    } catch {
+      setListError(t("loadError"));
+      setRows([]);
     } finally {
       setLoading(false);
     }
@@ -136,15 +81,15 @@ export function DashboardAppsSection() {
     const row = pendingRevoke;
     if (!row) return;
     setPendingRevoke(null);
-    await revoke(row.id);
+    await revoke(row.clientId);
   }
 
-  async function revoke(id: string) {
-    setRemovingId(id);
+  async function revoke(clientId: string) {
+    setRemovingId(clientId);
     try {
-      const { error } = await authClient.oauth2.deleteConsent({ id });
-      if (error) {
-        toast.error(error.message ?? t("revokeError"));
+      const { ok } = await disconnectMyApp(clientId).catch(() => ({ ok: false }));
+      if (!ok) {
+        toast.error(t("revokeError"));
         return;
       }
       toast.success(t("revoked"));
@@ -176,14 +121,12 @@ export function DashboardAppsSection() {
           <ul className="space-y-4">
             {rows.map((row) => (
               <li
-                key={row.id}
+                key={row.clientId}
                 className="flex flex-col gap-3 rounded-lg border border-border/80 p-4 sm:flex-row sm:items-start sm:justify-between"
               >
                 <div className="min-w-0 space-y-1">
-                  <p className="font-medium text-foreground">{row.clientLabel}</p>
-                  <p className="font-mono text-xs text-muted-foreground">
-                    {row.clientId}
-                  </p>
+                  <p className="font-medium text-foreground">{row.name}</p>
+                  <p className="text-xs text-muted-foreground">{appSubtitle(row)}</p>
                   <p className="text-xs text-muted-foreground">
                     <span className="font-medium text-foreground">
                       {t("scopes")}
@@ -196,10 +139,10 @@ export function DashboardAppsSection() {
                   variant="outline"
                   size="sm"
                   className="shrink-0 gap-1.5"
-                  disabled={removingId === row.id}
+                  disabled={removingId === row.clientId}
                   onClick={() => setPendingRevoke(row)}
                 >
-                  {removingId === row.id ? (
+                  {removingId === row.clientId ? (
                     <Loader2 className="size-4 animate-spin" aria-hidden />
                   ) : (
                     <Trash2Icon className="size-3.5" aria-hidden />
@@ -221,7 +164,7 @@ export function DashboardAppsSection() {
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
             <DialogTitle>
-              {t("confirmRevokeTitle", { app: pendingRevoke?.clientLabel ?? "" })}
+              {t("confirmRevokeTitle", { app: pendingRevoke?.name ?? "" })}
             </DialogTitle>
             <DialogDescription>{t("confirmRevokeBody")}</DialogDescription>
           </DialogHeader>
