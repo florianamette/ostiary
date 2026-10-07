@@ -28,6 +28,7 @@ import { PUBLIC_ORGANIZATION_ID } from "@ostiary/core/lib/organization-public";
 import { getPasskeyWebAuthnOptions } from "@ostiary/core/lib/passkey-options";
 import { env } from "@ostiary/core/lib/env";
 import { ALL_SCOPES } from "@ostiary/core/lib/oauth-scopes";
+import { oauthResourceIdentifiers } from "@ostiary/core/lib/oauth-resources";
 import { socialProvidersConfig } from "@ostiary/core/lib/social-providers";
 
 type AuditTarget = "user" | "oauth_client" | "sso_provider" | "organization";
@@ -76,8 +77,6 @@ const RECENT_SIGN_IN_SECONDS = 10 * 60;
 /** Password sign-in endpoints whose failures are counted for the security page. */
 const PASSWORD_SIGN_IN_PATHS = new Set(["/sign-in/email", "/sign-in/username"]);
 
-// Resource servers (APIs) that may receive JWT access tokens (OAUTH_API_AUDIENCES).
-// Clients ask for one with the RFC 8707 `resource` parameter.
 /** First-run setup: these addresses get the admin role when their account is created. */
 const adminEmails = new Set(
     (env.ADMIN_EMAILS ?? "")
@@ -85,11 +84,6 @@ const adminEmails = new Set(
         .map((email) => email.trim().toLowerCase())
         .filter(Boolean),
 );
-
-const apiAudiences = (env.OAUTH_API_AUDIENCES ?? "")
-    .split(",")
-    .map((audience) => audience.trim())
-    .filter(Boolean);
 
 export type AuthFactoryOptions = {
     /**
@@ -309,9 +303,9 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
                 loginPage: "/login",
                 consentPage: "/consent",
                 scopes: [...ALL_SCOPES],
-                // Protected resources (1.7 replaces `validAudiences`). The auth server itself stays
-                // one, so tokens issued without `resource` keep it as their audience.
-                resources: [baseURL, ...apiAudiences],
+                // Protected resources (1.7 replaces `validAudiences`): the auth server, then your
+                // APIs. The build registers the same rows first (`db:seed`), see db/seed-resources.ts.
+                resources: oauthResourceIdentifiers(baseURL),
                 // As in 1.5: any client may request any listed resource. Per-client links
                 // (oauthClientResource) can be introduced later from the admin app.
                 enforcePerClientResources: false,

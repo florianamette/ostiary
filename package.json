@@ -10,7 +10,7 @@
     "lint": "pnpm -r lint",
     "test": "pnpm -r test",
     "db:generate": "pnpm --filter @ostiary/core db:generate",
-    "db:migrate": "pnpm --filter @ostiary/core db:migrate"
+    "db:migrate": "pnpm --filter @ostiary/core db:migrate && pnpm --filter @ostiary/core db:seed"
   },
   "description": "Self-hosted identity provider built on Better Auth: an open-source alternative to Auth0.",
   "license": "MIT"

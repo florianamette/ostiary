@@ -6,7 +6,8 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate"
+    "db:migrate": "drizzle-kit migrate",
+    "db:seed": "tsx src/db/seed-resources.ts"
   },
   "dependencies": {
     "@better-auth/drizzle-adapter": "catalog:",

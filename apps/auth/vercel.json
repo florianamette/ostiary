@@ -1,5 +1,5 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "nextjs",
-  "buildCommand": "pnpm --filter @ostiary/core db:migrate && next build"
+  "buildCommand": "pnpm --filter @ostiary/core db:migrate && pnpm --filter @ostiary/core db:seed && next build"
 }
