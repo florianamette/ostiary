@@ -11,6 +11,7 @@
 </p>
 
 <p align="center">
+  <a href="https://www.ostiary.dev"><strong>Website</strong></a> ·
   <a href="https://demo.ostiary.dev"><strong>Live demo</strong></a> ·
   <a href="#deploy">Deploy</a> ·
   <a href="#connect-an-app">Connect an app</a>
