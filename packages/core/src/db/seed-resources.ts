@@ -39,6 +39,12 @@ async function main() {
   const client = new pg.Client({ connectionString: env.DATABASE_URL });
   await client.connect();
   try {
+    const { rows } = await client.query(`select to_regclass('public.oauth_resource') as table`);
+    if (!rows[0]?.table) {
+      // Migrations not applied yet (e.g. a preview database): Better Auth seeds on first use.
+      console.warn("oauth_resource table not found: run the migrations first. Skipping the seed.");
+      return;
+    }
     for (const identifier of identifiers) {
       const { rowCount } = await client.query(
         `insert into oauth_resource (id, identifier, name, dpop_bound_access_tokens_required, disabled, policy_version, created_at, updated_at)
