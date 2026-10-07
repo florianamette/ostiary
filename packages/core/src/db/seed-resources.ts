@@ -12,6 +12,7 @@
  * edits made from the admin console survive redeploys.
  */
 import { randomBytes } from "node:crypto";
+import net from "node:net";
 import { config } from "dotenv";
 import pg from "pg";
 
@@ -27,6 +28,26 @@ function generateId() {
   return Array.from(randomBytes(32), (byte) => alphabet[byte % alphabet.length]).join("");
 }
 
+// Node gives each resolved address 250 ms by default, too short while a serverless database
+// (Neon) wakes up: every address times out and the build fails.
+net.setDefaultAutoSelectFamilyAttemptTimeout(2_000);
+
+/** Connects with a few retries, for the same cold-start reason. */
+async function connect(connectionString: string): Promise<pg.Client> {
+  for (let attempt = 1; ; attempt++) {
+    const client = new pg.Client({ connectionString, connectionTimeoutMillis: 15_000 });
+    try {
+      await client.connect();
+      return client;
+    } catch (error) {
+      await client.end().catch(() => {});
+      if (attempt >= 5) throw error;
+      console.warn(`Database connection failed (attempt ${attempt} of 5), retrying.`);
+      await new Promise((resolve) => setTimeout(resolve, attempt * 1_000));
+    }
+  }
+}
+
 async function main() {
   // Imported after dotenv so the env schema sees the loaded variables.
   const { env } = await import("@ostiary/core/lib/env");
@@ -36,8 +57,7 @@ async function main() {
   // The canonical auth URL, as in apps/auth/lib/auth.ts.
   const identifiers = oauthResourceIdentifiers(env.AUTH_APP_URL ?? getBaseURL());
 
-  const client = new pg.Client({ connectionString: env.DATABASE_URL });
-  await client.connect();
+  const client = await connect(env.DATABASE_URL);
   try {
     const { rows } = await client.query(`select to_regclass('public.oauth_resource') as table`);
     if (!rows[0]?.table) {
