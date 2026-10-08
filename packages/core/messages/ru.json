@@ -200,6 +200,12 @@
       "profile": "Name and profile information",
       "email": "Email address",
       "offline_access": "Access when you are not actively using the application"
+    },
+    "unverified": {
+      "title": "Непроверенное приложение",
+      "dynamic": "Это приложение зарегистрировалось само и не было проверено. Разрешайте доступ, только если доверяете ему и сами начали этот вход.",
+      "metadataDocument": "Это приложение представляется документом, опубликованным на {host}, и не было проверено. Разрешайте доступ, только если доверяете ему и сами начали этот вход.",
+      "redirect": "Если вы разрешите, вас перенаправят на <strong>{host}</strong>."
     }
   },
   "admin": {

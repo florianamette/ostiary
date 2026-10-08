@@ -200,6 +200,12 @@
       "profile": "Name and profile information",
       "email": "Email address",
       "offline_access": "Access when you are not actively using the application"
+    },
+    "unverified": {
+      "title": "Niet-geverifieerde app",
+      "dynamic": "Deze app heeft zichzelf geregistreerd en is niet gecontroleerd. Sta hem alleen toe als je hem vertrouwt en je deze aanmelding zelf hebt gestart.",
+      "metadataDocument": "Deze app identificeert zich met een document op {host} en is niet gecontroleerd. Sta hem alleen toe als je hem vertrouwt en je deze aanmelding zelf hebt gestart.",
+      "redirect": "Als je toestaat, word je doorgestuurd naar <strong>{host}</strong>."
     }
   },
   "admin": {

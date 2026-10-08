@@ -200,6 +200,12 @@
       "profile": "Name and profile information",
       "email": "Email address",
       "offline_access": "Access when you are not actively using the application"
+    },
+    "unverified": {
+      "title": "확인되지 않은 앱",
+      "dynamic": "이 앱은 스스로 등록되었으며 검토되지 않았습니다. 신뢰할 수 있고 이 로그인을 직접 시작한 경우에만 허용하세요.",
+      "metadataDocument": "이 앱은 {host}에 게시된 문서로 자신을 식별하며 검토되지 않았습니다. 신뢰할 수 있고 이 로그인을 직접 시작한 경우에만 허용하세요.",
+      "redirect": "허용하면 <strong>{host}</strong>(으)로 이동합니다."
     }
   },
   "admin": {

@@ -200,6 +200,12 @@
       "profile": "Name and profile information",
       "email": "Email address",
       "offline_access": "Access when you are not actively using the application"
+    },
+    "unverified": {
+      "title": "Overifierad app",
+      "dynamic": "Den här appen registrerade sig själv och har inte granskats. Tillåt den bara om du litar på den och själv startade den här inloggningen.",
+      "metadataDocument": "Den här appen identifierar sig med ett dokument på {host} och har inte granskats. Tillåt den bara om du litar på den och själv startade den här inloggningen.",
+      "redirect": "Om du tillåter skickas du till <strong>{host}</strong>."
     }
   },
   "admin": {

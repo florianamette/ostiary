@@ -200,6 +200,12 @@
       "profile": "Name and profile information",
       "email": "Email address",
       "offline_access": "Access when you are not actively using the application"
+    },
+    "unverified": {
+      "title": "असत्यापित ऐप",
+      "dynamic": "इस ऐप ने खुद को पंजीकृत किया है और इसकी समीक्षा नहीं हुई है। इसे तभी अनुमति दें जब आपको इस पर भरोसा हो और यह साइन-इन आपने खुद शुरू किया हो।",
+      "metadataDocument": "यह ऐप {host} पर प्रकाशित एक दस्तावेज़ से अपनी पहचान देता है और इसकी समीक्षा नहीं हुई है। इसे तभी अनुमति दें जब आपको इस पर भरोसा हो और यह साइन-इन आपने खुद शुरू किया हो।",
+      "redirect": "अनुमति देने पर आपको <strong>{host}</strong> पर भेजा जाएगा।"
     }
   },
   "admin": {

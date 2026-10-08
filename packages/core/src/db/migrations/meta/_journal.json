@@ -29,6 +29,13 @@
       "when": 1791443352834,
       "tag": "0003_scim_provisioning",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1791444355630,
+      "tag": "0004_app_setting",
+      "breakpoints": true
     }
   ]
 }

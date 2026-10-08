@@ -33,6 +33,7 @@ import {
 import { Input } from "@ostiary/core/components/ui/input";
 import { Label } from "@ostiary/core/components/ui/label";
 import { Textarea } from "@ostiary/core/components/ui/textarea";
+import type { RegistrationSource } from "@ostiary/core/lib/client-registration-policy";
 import { authClient } from "@/lib/auth-client";
 import { DEVICE_CODE_GRANT_TYPE } from "@ostiary/core/lib/admin/oauth-clients/oauth-client-admin.types";
 
@@ -52,10 +53,13 @@ export type OAuthApplicationRow = {
   tokenEndpointAuthMethod:
     | "none"
     | "client_secret_basic"
-    | "client_secret_post";
+    | "client_secret_post"
+    | "private_key_jwt";
   grantTypes: string[];
   redirectUris: string[];
   createdAt: string;
+  /** Registered by an admin, or by the client itself (see client-registration-policy.ts). */
+  registration: RegistrationSource;
 };
 
 export function AdminApplicationRowActions({

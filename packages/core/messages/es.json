@@ -200,6 +200,12 @@
       "profile": "Name and profile information",
       "email": "Email address",
       "offline_access": "Access when you are not actively using the application"
+    },
+    "unverified": {
+      "title": "Aplicación no verificada",
+      "dynamic": "Esta aplicación se registró por sí misma y no ha sido revisada. Autorízala solo si confías en ella y tú mismo iniciaste este inicio de sesión.",
+      "metadataDocument": "Esta aplicación se identifica con un documento publicado en {host} y no ha sido revisada. Autorízala solo si confías en ella y tú mismo iniciaste este inicio de sesión.",
+      "redirect": "Si la autorizas, se te enviará a <strong>{host}</strong>."
     }
   },
   "admin": {

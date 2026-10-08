@@ -16,6 +16,7 @@ overrides:
   "@swc/core": "1.15.21"
 
 catalog:
+  "@better-auth/cimd": "1.7.7"
   "@better-auth/drizzle-adapter": "1.7.7"
   "@better-auth/oauth-provider": "1.7.7"
   "@better-auth/passkey": "1.7.7"

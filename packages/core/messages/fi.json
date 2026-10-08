@@ -200,6 +200,12 @@
       "profile": "Name and profile information",
       "email": "Email address",
       "offline_access": "Access when you are not actively using the application"
+    },
+    "unverified": {
+      "title": "Vahvistamaton sovellus",
+      "dynamic": "Tämä sovellus rekisteröityi itse, eikä sitä ole tarkistettu. Salli se vain, jos luotat siihen ja aloitit tämän kirjautumisen itse.",
+      "metadataDocument": "Tämä sovellus tunnistautuu sivustolla {host} julkaistulla asiakirjalla, eikä sitä ole tarkistettu. Salli se vain, jos luotat siihen ja aloitit tämän kirjautumisen itse.",
+      "redirect": "Jos sallit, sinut ohjataan osoitteeseen <strong>{host}</strong>."
     }
   },
   "admin": {

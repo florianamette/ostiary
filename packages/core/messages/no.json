@@ -200,6 +200,12 @@
       "profile": "Name and profile information",
       "email": "Email address",
       "offline_access": "Access when you are not actively using the application"
+    },
+    "unverified": {
+      "title": "Ubekreftet app",
+      "dynamic": "Denne appen registrerte seg selv og er ikke gjennomgått. Tillat den bare hvis du stoler på den og selv startet denne innloggingen.",
+      "metadataDocument": "Denne appen identifiserer seg med et dokument på {host} og er ikke gjennomgått. Tillat den bare hvis du stoler på den og selv startet denne innloggingen.",
+      "redirect": "Hvis du tillater, blir du sendt til <strong>{host}</strong>."
     }
   },
   "admin": {

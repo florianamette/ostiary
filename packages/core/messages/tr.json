@@ -200,6 +200,12 @@
       "profile": "Name and profile information",
       "email": "Email address",
       "offline_access": "Access when you are not actively using the application"
+    },
+    "unverified": {
+      "title": "Doğrulanmamış uygulama",
+      "dynamic": "Bu uygulama kendini kaydetti ve incelenmedi. Yalnızca ona güveniyorsanız ve bu girişi kendiniz başlattıysanız izin verin.",
+      "metadataDocument": "Bu uygulama kendini {host} üzerindeki bir belgeyle tanıtıyor ve incelenmedi. Yalnızca ona güveniyorsanız ve bu girişi kendiniz başlattıysanız izin verin.",
+      "redirect": "İzin verirseniz <strong>{host}</strong> adresine yönlendirileceksiniz."
     }
   },
   "admin": {
