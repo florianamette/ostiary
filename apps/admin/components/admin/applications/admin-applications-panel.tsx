@@ -164,7 +164,11 @@ function filterApplications(
   });
 }
 
-export function AdminApplicationsPanel() {
+/**
+ * @param linkedApis API names per client id: the APIs each application is linked to on the
+ * APIs page. APIs open to every application are not listed.
+ */
+export function AdminApplicationsPanel({ linkedApis = {} }: { linkedApis?: Record<string, string[]> }) {
   const [searchInput, setSearchInput] = React.useState("");
   const [debouncedSearch, setDebouncedSearch] = React.useState("");
   const [kindFilter, setKindFilter] =
@@ -324,6 +328,11 @@ export function AdminApplicationsPanel() {
                       <code className="text-muted-foreground max-w-[min(100%,320px)] truncate font-mono text-xs">
                         {row.clientId}
                       </code>
+                      {linkedApis[row.clientId]?.length ? (
+                        <span className="text-muted-foreground text-xs">
+                          Linked APIs: {linkedApis[row.clientId].join(", ")}
+                        </span>
+                      ) : null}
                       <div className="mt-1 flex flex-wrap gap-1 sm:hidden">
                         <Badge variant={row.public ? "secondary" : "default"}>
                           {row.public ? "Public" : "Confidential"}

@@ -259,7 +259,7 @@
       },
       "apis": {
         "title": "APIs",
-        "description": "Your APIs (protected resources) that accept {name} access tokens, and the scopes clients can request for them."
+        "description": "Your APIs (protected resources) that accept {name} access tokens: the scopes clients can request, which applications can use them, and their token settings."
       },
       "users": {
         "title": "Users",

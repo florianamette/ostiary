@@ -259,7 +259,7 @@
       },
       "apis": {
         "title": "API",
-        "description": "Twoje API (chronione zasoby), które przyjmują tokeny dostępu {name}, oraz scope'y, o które klienci mogą dla nich prosić."
+        "description": "Twoje API (chronione zasoby), które przyjmują tokeny dostępu {name}: scope'y, o które klienci mogą prosić, aplikacje, które mogą z nich korzystać, i ustawienia ich tokenów."
       },
       "users": {
         "title": "Users",

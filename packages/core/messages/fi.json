@@ -259,7 +259,7 @@
       },
       "apis": {
         "title": "API:t",
-        "description": "API:si (suojatut resurssit), jotka hyväksyvät {name}-käyttöoikeustunnukset, ja scopet, joita asiakkaat voivat pyytää niille."
+        "description": "API:si (suojatut resurssit), jotka hyväksyvät {name}-käyttöoikeustunnukset: scopet, joita asiakkaat voivat pyytää, sovellukset, jotka voivat käyttää niitä, ja niiden tunnusasetukset."
       },
       "users": {
         "title": "Users",

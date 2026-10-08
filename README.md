@@ -128,6 +128,8 @@ Any OIDC library works the same way (Better Auth's generic OAuth, `openid-client
 
 To protect an API, register it in the admin console under **APIs**: its identifier (usually its URL) and the scopes clients may request for it. Clients request a token for it with the `resource` parameter, and the API verifies the JWT against Ostiary's JWKS. New scopes reach the auth server within a minute, no redeploy needed. You can also declare APIs with `OAUTH_API_AUDIENCES` and scopes with `OAUTH_API_SCOPES`, for example to provision a new instance.
 
+Every application can get tokens for an API by default. To limit an API to some applications, open **Change** next to *Applications* and pick **Only linked applications**, then check the applications that may call it; the others get `invalid_target`. Linked applications can also introspect the API's tokens. **Change** next to *Tokens* sets the API's access and refresh token lifetimes (shorter than the defaults of 1 hour and 30 days), custom claims added to its tokens (a JSON object, e.g. `{"tenant": "acme"}`), and whether tokens must be DPoP-bound, in which case the API must check the DPoP proof.
+
 ### Sign in from a CLI or a TV (device flow)
 
 Apps that cannot open a browser use the device authorization grant (RFC 8628). In the admin console, register the app (usually a public client) and tick **Device sign-in**. The discovery document then lists `device_authorization_endpoint`.

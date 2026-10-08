@@ -259,7 +259,7 @@
       },
       "apis": {
         "title": "APIs",
-        "description": "Ihre APIs (geschützte Ressourcen), die Zugriffstoken von {name} akzeptieren, und die Scopes, die Clients für sie anfordern können."
+        "description": "Ihre APIs (geschützte Ressourcen), die Zugriffstoken von {name} akzeptieren: die Scopes, die Clients anfordern können, welche Anwendungen sie nutzen dürfen, und ihre Token-Einstellungen."
       },
       "users": {
         "title": "Users",
