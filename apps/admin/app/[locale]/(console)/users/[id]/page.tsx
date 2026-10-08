@@ -34,7 +34,10 @@ import {
   session,
   user,
 } from "@ostiary/core/db/schema";
+import { listUserApiKeys } from "@ostiary/core/lib/api-keys";
 import { env } from "@ostiary/core/lib/env";
+import { ApiKeysTable } from "@/components/admin/api-keys/api-keys-table";
+import { toAdminApiKeyRows } from "@/lib/api-key-rows";
 import { SOCIAL_PROVIDER_LABELS } from "@ostiary/core/lib/social-provider-meta";
 import { Link } from "@/i18n/navigation";
 import { AUDIT_ACTION_LABELS } from "@/lib/admin-audit";
@@ -88,7 +91,7 @@ export default async function AdminUserPage({
   const [u] = await db.select().from(user).where(eq(user.id, id));
   if (!u) notFound();
 
-  const [sessions, accounts, passkeys, memberships, events, audits] = await Promise.all([
+  const [sessions, accounts, passkeys, memberships, events, audits, apiKeys] = await Promise.all([
     db.select().from(session).where(and(eq(session.userId, id), gt(session.expiresAt, new Date()))).orderBy(desc(session.updatedAt)),
     db.select({ id: account.id, providerId: account.providerId, createdAt: account.createdAt }).from(account).where(eq(account.userId, id)),
     db.select({ id: passkey.id, name: passkey.name, deviceType: passkey.deviceType, createdAt: passkey.createdAt }).from(passkey).where(eq(passkey.userId, id)),
@@ -104,6 +107,7 @@ export default async function AdminUserPage({
       .orderBy(desc(authEvent.createdAt))
       .limit(15),
     db.select().from(auditLog).where(and(eq(auditLog.targetType, "user"), eq(auditLog.targetId, id))).orderBy(desc(auditLog.createdAt)).limit(15),
+    listUserApiKeys(id),
   ]);
 
   const roles = (u.role ?? "user").split(",").map((r) => r.trim()).filter(Boolean);
@@ -177,6 +181,10 @@ export default async function AdminUserPage({
             </TableBody>
           </Table>
         )}
+      </Section>
+
+      <Section title="API keys" description="Keys this account created for scripts. Banning or deleting the account revokes them.">
+        <ApiKeysTable rows={toAdminApiKeyRows(apiKeys)} locale={locale} showOwner={false} />
       </Section>
 
       <div className="grid gap-6 lg:grid-cols-2">

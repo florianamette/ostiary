@@ -29,6 +29,7 @@ const FILTERS = [
   { key: "oauth_client", label: "OAuth clients" },
   { key: "oauth_consent", label: "Consents" },
   { key: "oauth_resource", label: "APIs" },
+  { key: "api_key", label: "API keys" },
   { key: "sso_provider", label: "SSO" },
   { key: "signing_key", label: "Signing keys" },
   { key: "webhook", label: "Webhooks" },

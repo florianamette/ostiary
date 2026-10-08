@@ -95,6 +95,11 @@ export const envSchema = z
      * loopback address). Ignored when NODE_ENV is "production".
      */
     WEBHOOKS_ALLOW_LOCALHOST: optional(z.enum(["true", "false"])),
+    /**
+     * Prefix of new API keys (letters, digits, `_` and `-`), so they are easy to recognize and
+     * to find with secret scanners. Existing keys keep theirs.
+     */
+    API_KEY_PREFIX: optional(z.string().regex(/^[A-Za-z0-9_-]{1,16}$/)),
     /** Enable verbose request logging when "true". */
     LOG_REQUESTS: z.enum(["true", "false"]).optional(),
   })

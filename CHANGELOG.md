@@ -8,6 +8,18 @@ All notable changes are documented here. The format follows
 
 ### Added
 
+- **API keys** for the APIs registered in Ostiary, with Better Auth's `@better-auth/api-key`
+  plugin. Users create keys from the account page: a name, one API, some of its scopes and an
+  expiry (needs a sign-in from the last 10 minutes); the key is shown once and stored as a
+  digest. APIs verify keys at `POST /api/auth/api-key/verify`, authenticated as a confidential
+  application linked to the API; a key for another API is refused, as are expired, revoked and
+  banned users' keys. Keys are never sessions (`enableSessionForAPIKeys` stays off) and the
+  plugin's own HTTP endpoints are closed. Admin console: a new **API keys** page (turn keys on,
+  off by default; maximum lifetime; every key with revoke), keys on the user's page, and
+  creations and revocations in the audit log. Banning or deleting an account (or a SCIM
+  deactivation) revokes its keys. Rate limits: 300 verifications per key per minute, 600 per
+  minute per address on the endpoint. Optional `API_KEY_PREFIX`. Needs the `apikey` table
+  (migration `0007_api_keys`).
 - Rate limits that work on serverless: Better Auth's counters are kept in Postgres
   (new `rate_limit` table, migration `0005_rate_limit`) instead of each instance's
   memory, so a limit holds across every Vercel function instance and both apps. On in

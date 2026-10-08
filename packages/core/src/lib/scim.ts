@@ -136,6 +136,8 @@ export async function setScimDeactivated(database: Database, userId: string, dea
       update: { revoked: now },
     });
   }
+  // API keys go too, as when an admin bans the account (see the user update hook).
+  await database.deleteMany({ model: "apikey", where: [{ field: "referenceId", value: userId }] });
 }
 
 /**

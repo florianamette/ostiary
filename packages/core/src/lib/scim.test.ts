@@ -56,14 +56,16 @@ type Db = Parameters<typeof setScimDeactivated>[0];
 const asDb = (db: ReturnType<typeof fakeDatabase>) => db as unknown as Db;
 
 describe("setScimDeactivated", () => {
-  it("bans the account and revokes its OAuth tokens", async () => {
+  it("bans the account and revokes its OAuth tokens and API keys", async () => {
     const now = new Date("2026-10-08T12:00:00Z");
     const db = fakeDatabase({
       user: [{ id: "u1", banned: false }],
       oauthRefreshToken: [{ id: "r1", userId: "u1", revoked: null }, { id: "r2", userId: "u2", revoked: null }],
       oauthAccessToken: [{ id: "a1", userId: "u1", revoked: null }],
+      apikey: [{ id: "k1", referenceId: "u1" }, { id: "k2", referenceId: "u2" }],
     });
     await setScimDeactivated(asDb(db), "u1", true, now);
+    expect(db.tables.apikey!.map((k) => k.id)).toEqual(["k2"]);
     expect(db.tables.user![0]).toMatchObject({ banned: true, banReason: SCIM_DEACTIVATED_REASON });
     expect(db.tables.oauthRefreshToken![0]!.revoked).toBe(now);
     expect(db.tables.oauthRefreshToken![1]!.revoked).toBeNull();
