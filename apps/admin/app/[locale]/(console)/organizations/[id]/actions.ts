@@ -9,12 +9,15 @@ import { queueOrganizationInviteEmail } from "@ostiary/core/lib/email/queue-orga
 import { env } from "@ostiary/core/lib/env";
 import { PUBLIC_ORGANIZATION_ID } from "@ostiary/core/lib/organization-public";
 import { routing } from "@ostiary/core/i18n/routing";
+import { makeEvent, memberSnapshot } from "@ostiary/core/lib/webhooks/events";
+import { emitWebhookEvents } from "@ostiary/core/lib/webhooks/outbox";
 import { adminActor } from "@/lib/admin-audit";
 
 /*
  * Platform admins usually aren't members of the organizations they manage, and Better Auth's
  * organization endpoints only allow members with the right role. These actions write to the
  * shared database directly, after checking for an admin session, and record each change.
+ * Writing past Better Auth's adapter, they also send the membership webhook events themselves.
  */
 
 const ROLES = ["owner", "admin", "member"] as const;
@@ -44,12 +47,17 @@ export async function updateMemberRole(orgId: string, memberId: string, role: Ro
   const { audit } = await adminActor();
   if (!ROLES.includes(role)) return { ok: false, error: "Unknown role." };
   const [row] = await db
-    .select({ email: user.email })
+    .select({ email: user.email, member })
     .from(member)
     .innerJoin(user, eq(member.userId, user.id))
     .where(and(eq(member.id, memberId), eq(member.organizationId, orgId)));
   if (!row) return { ok: false, error: "Member not found." };
   await db.update(member).set({ role }).where(eq(member.id, memberId));
+  if (row.member.role !== role) {
+    await emitWebhookEvents([
+      makeEvent("organization.member.role_changed", { member: memberSnapshot({ ...row.member, role }), previousRole: row.member.role }),
+    ]);
+  }
   await audit({ action: "organization.update_member_role", target: { type: "organization", id: orgId, label: await orgName(orgId) }, metadata: { member: row.email, role } });
   return { ok: true };
 }
@@ -58,12 +66,13 @@ export async function removeMember(orgId: string, memberId: string): Promise<Res
   const { audit } = await adminActor();
   if (orgId === PUBLIC_ORGANIZATION_ID) return { ok: false, error: "Every account belongs to the Public workspace." };
   const [row] = await db
-    .select({ email: user.email })
+    .select({ email: user.email, member })
     .from(member)
     .innerJoin(user, eq(member.userId, user.id))
     .where(and(eq(member.id, memberId), eq(member.organizationId, orgId)));
   if (!row) return { ok: false, error: "Member not found." };
   await db.delete(member).where(eq(member.id, memberId));
+  await emitWebhookEvents([makeEvent("organization.member.removed", { member: memberSnapshot(row.member) })]);
   await audit({ action: "organization.remove_member", target: { type: "organization", id: orgId, label: await orgName(orgId) }, metadata: { member: row.email } });
   return { ok: true };
 }

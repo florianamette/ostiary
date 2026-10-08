@@ -226,6 +226,7 @@
       "consent": "Consent",
       "organizations": "Organizations",
       "sso": "SSO",
+      "webhooks": "Webhook",
       "security": "Security",
       "audit": "Audit log",
       "signingKeys": "署名鍵"
@@ -240,6 +241,7 @@
       "consent": "Consent",
       "organizations": "Organizations",
       "sso": "SSO",
+      "webhooks": "Webhook",
       "security": "Security",
       "audit": "Audit log",
       "signingKeys": "署名鍵"
@@ -268,6 +270,11 @@
       "apis": {
         "title": "API",
         "description": "{name} のアクセストークンを受け付ける API(保護されたリソース):クライアントが要求できるスコープ、利用できるアプリケーション、トークンの設定。"
+      },
+      "webhooks": {
+        "title": "Webhook",
+        "description": "{name} のユーザー、ロール、組織メンバーシップが変わったときにアプリへ知らせる署名付き HTTPS 通知です。",
+        "deliveries": "配信ログ"
       },
       "users": {
         "title": "Users",

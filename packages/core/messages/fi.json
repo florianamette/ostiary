@@ -226,6 +226,7 @@
       "consent": "Consent",
       "organizations": "Organizations",
       "sso": "SSO",
+      "webhooks": "Webhookit",
       "security": "Security",
       "audit": "Audit log",
       "signingKeys": "Allekirjoitusavaimet"
@@ -240,6 +241,7 @@
       "consent": "Consent",
       "organizations": "Organizations",
       "sso": "SSO",
+      "webhooks": "Webhookit",
       "security": "Security",
       "audit": "Audit log",
       "signingKeys": "Allekirjoitusavaimet"
@@ -268,6 +270,11 @@
       "apis": {
         "title": "API:t",
         "description": "API:si (suojatut resurssit), jotka hyväksyvät {name}-käyttöoikeustunnukset: scopet, joita asiakkaat voivat pyytää, sovellukset, jotka voivat käyttää niitä, ja niiden tunnusasetukset."
+      },
+      "webhooks": {
+        "title": "Webhookit",
+        "description": "Allekirjoitetut HTTPS-ilmoitukset, jotka kertovat sovelluksillesi, kun {name}-käyttäjät, roolit tai organisaatiojäsenyydet muuttuvat.",
+        "deliveries": "Toimitusloki"
       },
       "users": {
         "title": "Users",

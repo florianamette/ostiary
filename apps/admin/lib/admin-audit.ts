@@ -65,4 +65,12 @@ export const AUDIT_ACTION_LABELS: Record<string, string> = {
   "scim.token_revoke": "Revoked SCIM token",
   "signing_key.rotate": "Rotated signing key",
   "signing_key.update_settings": "Changed signing key rotation",
+  "webhook.create": "Added webhook endpoint",
+  "webhook.update": "Updated webhook endpoint",
+  "webhook.enable": "Enabled webhook endpoint",
+  "webhook.disable": "Disabled webhook endpoint",
+  "webhook.delete": "Deleted webhook endpoint",
+  "webhook.rotate_secret": "Regenerated webhook secret",
+  "webhook.test": "Sent webhook test event",
+  "webhook.redeliver": "Redelivered webhook event",
 };

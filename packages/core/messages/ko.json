@@ -226,6 +226,7 @@
       "consent": "Consent",
       "organizations": "Organizations",
       "sso": "SSO",
+      "webhooks": "웹훅",
       "security": "Security",
       "audit": "Audit log",
       "signingKeys": "서명 키"
@@ -240,6 +241,7 @@
       "consent": "Consent",
       "organizations": "Organizations",
       "sso": "SSO",
+      "webhooks": "웹훅",
       "security": "Security",
       "audit": "Audit log",
       "signingKeys": "서명 키"
@@ -268,6 +270,11 @@
       "apis": {
         "title": "API",
         "description": "{name} 액세스 토큰을 받는 API(보호된 리소스): 클라이언트가 요청할 수 있는 스코프, 사용할 수 있는 애플리케이션, 토큰 설정입니다."
+      },
+      "webhooks": {
+        "title": "웹훅",
+        "description": "{name}의 사용자, 역할, 조직 멤버십이 바뀔 때 앱에 알려 주는 서명된 HTTPS 알림입니다.",
+        "deliveries": "전송 기록"
       },
       "users": {
         "title": "Users",

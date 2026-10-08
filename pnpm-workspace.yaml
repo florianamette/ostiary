@@ -17,6 +17,7 @@ overrides:
 
 catalog:
   "@better-auth/cimd": "1.7.7"
+  "@better-auth/core": "1.7.7"
   "@better-auth/drizzle-adapter": "1.7.7"
   "@better-auth/oauth-provider": "1.7.7"
   "@better-auth/passkey": "1.7.7"

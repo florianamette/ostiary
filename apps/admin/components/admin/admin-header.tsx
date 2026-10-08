@@ -24,11 +24,12 @@ function headerTitleKey(
   | "consent"
   | "organizations"
   | "sso"
+  | "webhooks"
   | "security"
   | "audit"
   | "signingKeys"
   | "fallback" {
-  // Detail pages (/users/<id>, /organizations/<id>) take their section's crumb.
+  // Detail pages (/users/<id>, /organizations/<id>, /webhooks/<id>) take their section's crumb.
   const section = pathname === "/" ? "/" : `/${pathname.split("/").filter(Boolean)[0] ?? ""}`;
   switch (section) {
     case "/":
@@ -45,6 +46,8 @@ function headerTitleKey(
       return "organizations";
     case "/sso":
       return "sso";
+    case "/webhooks":
+      return "webhooks";
     case "/security":
       return "security";
     case "/audit":

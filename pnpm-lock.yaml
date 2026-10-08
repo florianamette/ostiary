@@ -9,6 +9,9 @@ catalogs:
     '@better-auth/cimd':
       specifier: 1.7.7
       version: 1.7.7
+    '@better-auth/core':
+      specifier: 1.7.7
+      version: 1.7.7
     '@better-auth/drizzle-adapter':
       specifier: 1.7.7
       version: 1.7.7
@@ -389,6 +392,9 @@ importers:
       '@better-auth/cimd':
         specifier: 'catalog:'
         version: 1.7.7(8b830aae57024e475ddd9f632a72b788)
+      '@better-auth/core':
+        specifier: 'catalog:'
+        version: 1.7.7(@better-auth/utils@0.4.2)(@better-fetch/fetch@1.3.2)(better-call@1.4.0(zod@3.25.76))(jose@6.2.12)(kysely@0.28.17)(nanostores@1.5.4)
       '@better-auth/drizzle-adapter':
         specifier: 'catalog:'
         version: 1.7.7(@better-auth/core@1.7.7(@better-auth/utils@0.4.2)(@better-fetch/fetch@1.3.2)(better-call@1.4.0(zod@3.25.76))(jose@6.2.12)(kysely@0.28.17)(nanostores@1.5.4))(@better-auth/utils@0.4.2)(drizzle-orm@0.45.2(@types/pg@8.20.0)(kysely@0.28.17)(pg@8.20.0))

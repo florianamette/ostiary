@@ -226,6 +226,7 @@
       "consent": "Consent",
       "organizations": "Organizations",
       "sso": "SSO",
+      "webhooks": "خطافات الويب",
       "security": "Security",
       "audit": "Audit log",
       "signingKeys": "مفاتيح التوقيع"
@@ -240,6 +241,7 @@
       "consent": "Consent",
       "organizations": "Organizations",
       "sso": "SSO",
+      "webhooks": "خطافات الويب",
       "security": "Security",
       "audit": "Audit log",
       "signingKeys": "مفاتيح التوقيع"
@@ -268,6 +270,11 @@
       "apis": {
         "title": "واجهات API",
         "description": "واجهات API الخاصة بك (الموارد المحمية) التي تقبل رموز الوصول من {name}: النطاقات (scopes) التي يمكن للعملاء طلبها، والتطبيقات التي يمكنها استخدامها، وإعدادات رموزها."
+      },
+      "webhooks": {
+        "title": "خطافات الويب",
+        "description": "إشعارات HTTPS موقّعة تُعلم تطبيقاتك عند تغيّر مستخدمي {name} وأدوارهم وعضويات المؤسسات.",
+        "deliveries": "سجل التسليم"
       },
       "users": {
         "title": "Users",

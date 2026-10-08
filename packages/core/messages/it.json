@@ -226,6 +226,7 @@
       "consent": "Consent",
       "organizations": "Organizations",
       "sso": "SSO",
+      "webhooks": "Webhook",
       "security": "Security",
       "audit": "Audit log",
       "signingKeys": "Chiavi di firma"
@@ -240,6 +241,7 @@
       "consent": "Consent",
       "organizations": "Organizations",
       "sso": "SSO",
+      "webhooks": "Webhook",
       "security": "Security",
       "audit": "Audit log",
       "signingKeys": "Chiavi di firma"
@@ -268,6 +270,11 @@
       "apis": {
         "title": "API",
         "description": "Le tue API (risorse protette) che accettano i token di accesso di {name}: gli scope che i client possono richiedere, quali applicazioni possono usarle e le impostazioni dei loro token."
+      },
+      "webhooks": {
+        "title": "Webhook",
+        "description": "Notifiche HTTPS firmate che avvisano le tue app quando cambiano utenti, ruoli o appartenenze alle organizzazioni di {name}.",
+        "deliveries": "Registro delle consegne"
       },
       "users": {
         "title": "Users",
