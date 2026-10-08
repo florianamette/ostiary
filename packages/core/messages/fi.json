@@ -484,5 +484,12 @@
     "signInSubmit": "Continue",
     "signInError": "Could not start single sign-on for this address.",
     "signInLink": "Sign in with SSO"
+  },
+  "selectAccount": {
+    "title": "Valitse tili",
+    "description": "Jatka sovellukseen tällä tilillä tai kirjaudu toisella.",
+    "continueAs": "Jatka nimellä {name}",
+    "useAnother": "Käytä toista tiliä",
+    "error": "Jokin meni pieleen. Yritä uudelleen."
   }
 }

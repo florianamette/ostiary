@@ -484,5 +484,12 @@
     "signInSubmit": "Continue",
     "signInError": "Could not start single sign-on for this address.",
     "signInLink": "Sign in with SSO"
+  },
+  "selectAccount": {
+    "title": "Elige una cuenta",
+    "description": "Continúa a la aplicación con esta cuenta o inicia sesión con otra.",
+    "continueAs": "Continuar como {name}",
+    "useAnother": "Usar otra cuenta",
+    "error": "Algo salió mal. Inténtalo de nuevo."
   }
 }

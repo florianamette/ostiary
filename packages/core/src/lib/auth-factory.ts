@@ -302,6 +302,9 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
             oauthProvider({
                 loginPage: "/login",
                 consentPage: "/consent",
+                // Only for clients that ask with prompt=select_account (e.g. a native app signing in
+                // through the system browser, whose session may belong to someone else).
+                selectAccount: { page: "/select-account", shouldRedirect: () => false },
                 scopes: [...ALL_SCOPES],
                 // Protected resources (1.7 replaces `validAudiences`): the auth server, then your
                 // APIs. The build registers the same rows first (`db:seed`), see db/seed-resources.ts.

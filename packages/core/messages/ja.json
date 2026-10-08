@@ -484,5 +484,12 @@
     "signInSubmit": "Continue",
     "signInError": "Could not start single sign-on for this address.",
     "signInLink": "Sign in with SSO"
+  },
+  "selectAccount": {
+    "title": "アカウントを選択",
+    "description": "このアカウントでアプリに進むか、別のアカウントでサインインしてください。",
+    "continueAs": "{name} として続行",
+    "useAnother": "別のアカウントを使う",
+    "error": "問題が発生しました。もう一度お試しください。"
   }
 }
