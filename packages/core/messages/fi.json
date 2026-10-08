@@ -39,7 +39,8 @@
         "sent": "If an unverified account uses this address, a new link is on its way. Check your inbox and spam folder.",
         "invalidEmail": "Enter a valid email address.",
         "error": "Could not send the email. Try again in a minute."
-      }
+      },
+      "addAccountDescription": "Tässä selaimessa jo kirjautuneet tilit pysyvät kirjautuneina."
     },
     "twoFactor": {
       "metaTitle": "Kaksivaiheinen tunnistautuminen",
@@ -484,6 +485,13 @@
       "error": "Something went wrong. Try again.",
       "signInAgainToChange": "For your security, connecting an account needs a recent sign-in. Sign in again, then connect it.",
       "signInAgain": "Sign in again"
+    },
+    "accounts": {
+      "switchTo": "Vaihda tiliin",
+      "add": "Lisää toinen tili",
+      "signOutOf": "Kirjaudu ulos tililtä {email}",
+      "signOutAll": "Kirjaudu ulos kaikilta tileiltä",
+      "switchFailed": "Tilin vaihto epäonnistui. Yritä uudelleen."
     }
   },
   "acceptInvitation": {
@@ -565,7 +573,8 @@
     "description": "Jatka sovellukseen tällä tilillä tai kirjaudu toisella.",
     "continueAs": "Jatka nimellä {name}",
     "useAnother": "Käytä toista tiliä",
-    "error": "Jokin meni pieleen. Yritä uudelleen."
+    "error": "Jokin meni pieleen. Yritä uudelleen.",
+    "descriptionMany": "Valitse tili, jolla jatkat sovellukseen."
   },
   "device": {
     "title": "Yhdistä laite",

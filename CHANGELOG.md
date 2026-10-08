@@ -35,6 +35,15 @@ All notable changes are documented here. The format follows
 - Admin console: the user page shows whether two-factor authentication is on, and an
   admin can reset it for a user who lost their authenticator (recorded in the audit
   log).
+- SCIM 2.0 provisioning per organization (`@better-auth/scim`), at `/api/auth/scim/v2`.
+  Platform admins generate, replace and revoke the bearer token from the organization page
+  of the admin console (audited). Provisioned people join the organization; deactivating or
+  deleting them in the identity provider bans the account, signs it out and revokes its OAuth
+  tokens, without deleting it. Setup steps for Okta and Entra ID are in the README. New
+  tables `scim_*` (migration), optional `SCIM_TOKEN_SECRET`.
+- Several accounts in one browser (up to 5). The account menu lists them, switches between
+  them, adds one and signs out of one or all. The select-account page (`prompt=select_account`)
+  lists every signed-in account and continues the app's request with the one picked.
 
 ### Fixed
 

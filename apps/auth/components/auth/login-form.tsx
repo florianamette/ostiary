@@ -45,6 +45,8 @@ export function LoginForm({
   const searchParams = useSearchParams()
   const callbackURL = safeCallbackURL(searchParams.get("callbackURL"), `/${locale}`)
   const showPostRegisterHint = searchParams.get("registered") === "1"
+  // Signing in one more account (account menu, select-account page): the others stay signed in.
+  const addingAccount = searchParams.get("addAccount") === "1"
   // Set by Better Auth when a social sign-in fails (errorCallbackURL).
   const socialError = searchParams.get("error")
   const tSocial = useTranslations("auth.social")
@@ -173,7 +175,7 @@ export function LoginForm({
       <Card>
         <CardHeader>
           <CardTitle>{t("title")}</CardTitle>
-          <CardDescription>{t("description")}</CardDescription>
+          <CardDescription>{addingAccount ? t("addAccountDescription") : t("description")}</CardDescription>
           {lastUsedMethod ? (
             <p className="text-xs text-muted-foreground" role="note">
               {lastUsedMethod === "email"

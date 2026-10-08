@@ -50,6 +50,11 @@ const envSchema = z
     /** GitHub OAuth App credentials. "Sign in with GitHub" appears only when both are set. */
     GITHUB_CLIENT_ID: z.string().min(1).optional(),
     GITHUB_CLIENT_SECRET: z.string().min(1).optional(),
+    /**
+     * Optional key (32+ characters) for the digests of SCIM provisioning tokens. Defaults to a
+     * key derived from BETTER_AUTH_SECRET; set it to rotate one without the other.
+     */
+    SCIM_TOKEN_SECRET: z.string().min(32).optional(),
     /** Enable verbose request logging when "true". */
     LOG_REQUESTS: z.enum(["true", "false"]).optional(),
   })

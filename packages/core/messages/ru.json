@@ -39,7 +39,8 @@
         "sent": "If an unverified account uses this address, a new link is on its way. Check your inbox and spam folder.",
         "invalidEmail": "Enter a valid email address.",
         "error": "Could not send the email. Try again in a minute."
-      }
+      },
+      "addAccountDescription": "Аккаунты, уже вошедшие в этом браузере, останутся в системе."
     },
     "twoFactor": {
       "metaTitle": "Двухфакторная аутентификация",
@@ -484,6 +485,13 @@
       "error": "Something went wrong. Try again.",
       "signInAgainToChange": "For your security, connecting an account needs a recent sign-in. Sign in again, then connect it.",
       "signInAgain": "Sign in again"
+    },
+    "accounts": {
+      "switchTo": "Переключиться на",
+      "add": "Добавить другой аккаунт",
+      "signOutOf": "Выйти из {email}",
+      "signOutAll": "Выйти из всех аккаунтов",
+      "switchFailed": "Не удалось сменить аккаунт. Попробуйте ещё раз."
     }
   },
   "acceptInvitation": {
@@ -565,7 +573,8 @@
     "description": "Продолжите в приложении с этим аккаунтом или войдите с другим.",
     "continueAs": "Продолжить как {name}",
     "useAnother": "Использовать другой аккаунт",
-    "error": "Что-то пошло не так. Попробуйте ещё раз."
+    "error": "Что-то пошло не так. Попробуйте ещё раз.",
+    "descriptionMany": "Выберите аккаунт, с которым продолжить в приложении."
   },
   "device": {
     "title": "Подключить устройство",

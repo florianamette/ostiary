@@ -4,12 +4,14 @@ import { APIError, createAuthMiddleware, getSessionFromCtx } from "better-auth/a
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { oauthDeviceAuthorization, oauthProvider } from "@better-auth/oauth-provider";
 import { passkey } from "@better-auth/passkey";
+import { scim } from "@better-auth/scim";
 import { sso } from "@better-auth/sso";
 import {
     admin,
     haveIBeenPwned,
     jwt,
     lastLoginMethod,
+    multiSession,
     organization,
     username,
 } from "better-auth/plugins";
@@ -25,6 +27,7 @@ import { routing } from "@ostiary/core/i18n/routing";
 import { recordAudit } from "@ostiary/core/lib/audit";
 import { clientIp, recordAuthEvent } from "@ostiary/core/lib/auth-events";
 import { adminNeedsTwoFactor } from "@ostiary/core/lib/admin/admin-two-factor";
+import { MAX_DEVICE_SESSIONS } from "@ostiary/core/lib/device-accounts";
 import { userHasAdminRole } from "@ostiary/core/lib/admin/user-has-admin-role";
 import { brand } from "@ostiary/core/lib/brand";
 import { PUBLIC_ORGANIZATION_ID } from "@ostiary/core/lib/organization-public";
@@ -33,6 +36,13 @@ import { env } from "@ostiary/core/lib/env";
 import { ENV_API_SCOPES, OIDC_SCOPES, syncProviderScopes } from "@ostiary/core/lib/oauth-scopes";
 import { oauthResourceIdentifiers } from "@ostiary/core/lib/oauth-resources";
 import { socialProvidersConfig } from "@ostiary/core/lib/social-providers";
+import {
+    SCIM_DEACTIVATED_MESSAGE,
+    SCIM_DEACTIVATED_REASON,
+    scimCredentialHashSecret,
+    scimIdentity,
+    scimProjection,
+} from "@ostiary/core/lib/scim";
 
 type AuditTarget = "user" | "oauth_client" | "sso_provider" | "organization";
 type Bag = Record<string, unknown>;
@@ -187,8 +197,10 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
         databaseHooks: {
             user: {
                 create: {
-                    before: async (newUser) => {
+                    before: async (newUser, context) => {
                         if (!adminEmails.has(newUser.email.toLowerCase())) return;
+                        // An identity provider pushing users must not be able to claim an admin address.
+                        if (context?.path?.startsWith("/scim/")) return;
                         return { data: { ...newUser, role: "admin" } };
                     },
                     after: async (createdUser) => {
@@ -270,7 +282,15 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
                     }
                     return;
                 }
+                // Signing out of one of several accounts (account switcher) deletes that session only.
+                if (ctx.path === "/multi-session/revoke") {
+                    const token = (ctx.body as { sessionToken?: unknown } | undefined)?.sessionToken;
+                    const revoked = typeof token === "string" ? await ctx.context.internalAdapter.findSession(token) : null;
+                    if (revoked) await recordAuthEvent("sign_out", revoked.user.id, { ipAddress: clientIp(ctx.headers) });
+                    return;
+                }
                 // Sign-out deletes the session, so read who is signing out before the handler runs.
+                // With several accounts signed in, it signs out of all of them; this records the active one.
                 if (ctx.path !== "/sign-out") return;
                 const current = await getSessionFromCtx(ctx);
                 if (current) await recordAuthEvent("sign_out", current.user.id, { ipAddress: clientIp(ctx.headers) });
@@ -310,6 +330,9 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
         database: drizzleAdapter(db, {
             provider: "pg",
             schema,
+            // Real transactions (the SCIM plugin refuses to start without them). Better Auth then
+            // runs multi-step writes such as sign-up atomically; after-hooks still run post-commit.
+            transaction: true,
         }),
         socialProviders: socialProvidersConfig(),
         account: {
@@ -358,7 +381,12 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
         },
         plugins: [
             jwt(),
-            admin(),
+            admin({
+                bannedUserMessage: (user: { banReason?: string | null }) =>
+                    user.banReason === SCIM_DEACTIVATED_REASON
+                        ? SCIM_DEACTIVATED_MESSAGE
+                        : "You have been banned from this application. Please contact support if you believe this is an error.",
+            }),
             lastLoginMethod({
                 customResolveMethod: (ctx) => {
                     if (ctx.path.includes("sign-in/username")) return "username";
@@ -418,6 +446,23 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
                 domainVerification: { enabled: true, tokenPrefix: "ostiary" },
                 providersLimit: (user) =>
                     userHasAdminRole((user as { role?: string | null }).role, ["admin"]) ? 100 : 0,
+            }),
+            // Several accounts in one browser: the account menu switches between them and the
+            // select-account page (prompt=select_account) lets the person pick one. Each account
+            // has its own signed cookie, scoped like the session cookie (shared across subdomains).
+            multiSession({ maximumSessions: MAX_DEVICE_SESSIONS }),
+            // SCIM 2.0 provisioning at /api/auth/scim/v2, one connection per organization.
+            // Connections and tokens are managed only through the plugin's server-only endpoints,
+            // which have no HTTP route: the admin console calls them after its admin check
+            // (see apps/admin .../organizations/[id]/scim-actions.ts). Okta or Entra authenticate
+            // with the bearer token; nothing else (no session, no API key) reaches SCIM.
+            scim({
+                connections: [],
+                managedConnections: { credentialHashSecret: scimCredentialHashSecret(env) },
+                identity: scimIdentity,
+                projection: scimProjection,
+                // Entra ID sends this legacy group schema; accepting it avoids failed group pushes.
+                compatibility: { microsoftEntra: { acceptLegacyGroupSchema: true } },
             }),
         ],
     });

@@ -39,7 +39,8 @@
         "sent": "If an unverified account uses this address, a new link is on its way. Check your inbox and spam folder.",
         "invalidEmail": "Enter a valid email address.",
         "error": "Could not send the email. Try again in a minute."
-      }
+      },
+      "addAccountDescription": "Konton som redan är inloggade i den här webbläsaren förblir inloggade."
     },
     "twoFactor": {
       "metaTitle": "Tvåfaktorsautentisering",
@@ -484,6 +485,13 @@
       "error": "Something went wrong. Try again.",
       "signInAgainToChange": "For your security, connecting an account needs a recent sign-in. Sign in again, then connect it.",
       "signInAgain": "Sign in again"
+    },
+    "accounts": {
+      "switchTo": "Byt till",
+      "add": "Lägg till ett annat konto",
+      "signOutOf": "Logga ut från {email}",
+      "signOutAll": "Logga ut från alla konton",
+      "switchFailed": "Det gick inte att byta konto. Försök igen."
     }
   },
   "acceptInvitation": {
@@ -565,7 +573,8 @@
     "description": "Fortsätt till appen med det här kontot eller logga in med ett annat.",
     "continueAs": "Fortsätt som {name}",
     "useAnother": "Använd ett annat konto",
-    "error": "Något gick fel. Försök igen."
+    "error": "Något gick fel. Försök igen.",
+    "descriptionMany": "Välj kontot du vill fortsätta till appen med."
   },
   "device": {
     "title": "Anslut en enhet",

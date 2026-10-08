@@ -39,7 +39,8 @@
         "sent": "If an unverified account uses this address, a new link is on its way. Check your inbox and spam folder.",
         "invalidEmail": "Enter a valid email address.",
         "error": "Could not send the email. Try again in a minute."
-      }
+      },
+      "addAccountDescription": "このブラウザでサインイン済みのアカウントはそのまま維持されます。"
     },
     "twoFactor": {
       "metaTitle": "2段階認証",
@@ -484,6 +485,13 @@
       "error": "Something went wrong. Try again.",
       "signInAgainToChange": "For your security, connecting an account needs a recent sign-in. Sign in again, then connect it.",
       "signInAgain": "Sign in again"
+    },
+    "accounts": {
+      "switchTo": "切り替え先",
+      "add": "別のアカウントを追加",
+      "signOutOf": "{email} からサインアウト",
+      "signOutAll": "すべてのアカウントからサインアウト",
+      "switchFailed": "アカウントを切り替えられませんでした。もう一度お試しください。"
     }
   },
   "acceptInvitation": {
@@ -565,7 +573,8 @@
     "description": "このアカウントでアプリに進むか、別のアカウントでサインインしてください。",
     "continueAs": "{name} として続行",
     "useAnother": "別のアカウントを使う",
-    "error": "問題が発生しました。もう一度お試しください。"
+    "error": "問題が発生しました。もう一度お試しください。",
+    "descriptionMany": "アプリに進むアカウントを選択してください。"
   },
   "device": {
     "title": "デバイスを接続",

@@ -39,7 +39,8 @@
         "sent": "If an unverified account uses this address, a new link is on its way. Check your inbox and spam folder.",
         "invalidEmail": "Enter a valid email address.",
         "error": "Could not send the email. Try again in a minute."
-      }
+      },
+      "addAccountDescription": "Konta zalogowane już w tej przeglądarce pozostaną zalogowane."
     },
     "twoFactor": {
       "metaTitle": "Uwierzytelnianie dwuskładnikowe",
@@ -484,6 +485,13 @@
       "error": "Something went wrong. Try again.",
       "signInAgainToChange": "For your security, connecting an account needs a recent sign-in. Sign in again, then connect it.",
       "signInAgain": "Sign in again"
+    },
+    "accounts": {
+      "switchTo": "Przełącz na",
+      "add": "Dodaj kolejne konto",
+      "signOutOf": "Wyloguj z {email}",
+      "signOutAll": "Wyloguj ze wszystkich kont",
+      "switchFailed": "Nie udało się przełączyć konta. Spróbuj ponownie."
     }
   },
   "acceptInvitation": {
@@ -565,7 +573,8 @@
     "description": "Przejdź do aplikacji z tym kontem lub zaloguj się innym.",
     "continueAs": "Kontynuuj jako {name}",
     "useAnother": "Użyj innego konta",
-    "error": "Coś poszło nie tak. Spróbuj ponownie."
+    "error": "Coś poszło nie tak. Spróbuj ponownie.",
+    "descriptionMany": "Wybierz konto, którym chcesz przejść do aplikacji."
   },
   "device": {
     "title": "Połącz urządzenie",

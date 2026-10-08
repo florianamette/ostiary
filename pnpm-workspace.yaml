@@ -19,6 +19,7 @@ catalog:
   "@better-auth/drizzle-adapter": "1.7.7"
   "@better-auth/oauth-provider": "1.7.7"
   "@better-auth/passkey": "1.7.7"
+  "@better-auth/scim": "1.7.7"
   "@better-auth/sso": "1.7.7"
   "@tailwindcss/postcss": "4.2.2"
   "@types/node": "20.19.37"

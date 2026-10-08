@@ -1,21 +1,11 @@
 "use client";
 
 import * as React from "react";
-import { ChevronDownIcon, LogOutIcon } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 
 import { Logo } from "@ostiary/core/components/brand/logo";
-import { PreferencesMenuItems } from "@ostiary/core/components/layout/preferences-menu-items";
-import { Avatar, AvatarFallback } from "@ostiary/core/components/ui/avatar";
 import { Button } from "@ostiary/core/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@ostiary/core/components/ui/dropdown-menu";
+import { AccountMenu } from "@/components/dashboard/account-menu";
 import { Link } from "@/i18n/navigation";
 import { authClient } from "@/lib/auth-client";
 import { cn } from "@ostiary/core/lib/utils";
@@ -93,7 +83,7 @@ export function DashboardShell({
   impersonation,
 }: {
   children: React.ReactNode;
-  user: { name: string; email: string };
+  user: { id: string; name: string; email: string };
   isAdmin: boolean;
   /** False when the user is only in the default Public workspace. */
   showOrganizations: boolean;
@@ -109,9 +99,6 @@ export function DashboardShell({
   );
   const activeId = useActiveSection(sectionIds);
 
-  const displayName = user.name || user.email;
-  const initial = displayName.trim().charAt(0).toUpperCase();
-
   const sections = [
     { id: "overview", href: "/dashboard", label: t("nav.overview") },
     { id: "profile", href: "/dashboard#profile", label: t("nav.profile") },
@@ -123,16 +110,6 @@ export function DashboardShell({
     { id: "security", href: "/dashboard#security", label: t("nav.security") },
     { id: "apps", href: "/dashboard#apps", label: t("nav.apps") },
   ].filter((item) => sectionIds.includes(item.id));
-
-  function handleSignOut() {
-    void authClient.signOut({
-      fetchOptions: {
-        onSuccess: () => {
-          window.location.href = `/${locale}/login`;
-        },
-      },
-    });
-  }
 
   return (
     <div className="flex min-h-svh flex-col bg-background">
@@ -155,55 +132,7 @@ export function DashboardShell({
             <Logo />
           </Link>
 
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                type="button"
-                variant="ghost"
-                className="h-9 min-w-0 gap-2 px-1.5"
-                aria-label={t("accountMenu")}
-              >
-                <Avatar className="size-7">
-                  <AvatarFallback className="text-xs font-medium">
-                    {initial}
-                  </AvatarFallback>
-                </Avatar>
-                <span className="hidden max-w-40 truncate text-sm sm:inline">
-                  {displayName}
-                </span>
-                <ChevronDownIcon
-                  className="size-4 text-muted-foreground"
-                  aria-hidden
-                />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-60">
-              <DropdownMenuLabel className="flex min-w-0 flex-col gap-0.5 font-normal">
-                <span className="truncate text-sm font-medium text-foreground">
-                  {displayName}
-                </span>
-                <span className="truncate text-xs text-muted-foreground">
-                  {user.email}
-                </span>
-              </DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              {isAdmin ? (
-                <DropdownMenuItem asChild>
-                  <a href={process.env.NEXT_PUBLIC_ADMIN_APP_URL ?? "/"}>{t("nav.admin")}</a>
-                </DropdownMenuItem>
-              ) : null}
-              <DropdownMenuItem asChild>
-                <Link href="/">{t("nav.marketingHome")}</Link>
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <PreferencesMenuItems />
-              <DropdownMenuSeparator />
-              <DropdownMenuItem onSelect={handleSignOut}>
-                <LogOutIcon className="size-4" aria-hidden />
-                {t("nav.signOut")}
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <AccountMenu user={user} isAdmin={isAdmin} multiAccount={!impersonation} />
         </div>
 
         <nav

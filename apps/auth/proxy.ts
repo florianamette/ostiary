@@ -142,7 +142,9 @@ export async function proxy(request: NextRequest) {
     }
   }
 
-  if (restPath === "/login" || restPath === "/signup") {
+  // `addAccount=1` signs in one more account (account menu, select-account page): no redirect.
+  const addingAccount = restPath === "/login" && request.nextUrl.searchParams.get("addAccount") === "1";
+  if ((restPath === "/login" || restPath === "/signup") && !addingAccount) {
     const session = await auth.api.getSession({
       headers: request.headers,
     });
