@@ -227,7 +227,8 @@
       "organizations": "Organisations",
       "sso": "SSO",
       "security": "Sécurité",
-      "audit": "Journal d’audit"
+      "audit": "Journal d’audit",
+      "signingKeys": "Clés de signature"
     },
     "header": {
       "crumb": "Admin",
@@ -240,7 +241,8 @@
       "organizations": "Organisations",
       "sso": "SSO",
       "security": "Sécurité",
-      "audit": "Journal d’audit"
+      "audit": "Journal d’audit",
+      "signingKeys": "Clés de signature"
     },
     "pages": {
       "overview": {
@@ -283,6 +285,63 @@
       "security": {
         "title": "Sécurité",
         "description": "Tentatives de connexion échouées, comptes et adresses concernés, et comptes bannis."
+      },
+      "signingKeys": {
+        "title": "Clés de signature",
+        "description": "Les clés avec lesquelles {name} signe les jetons d’ID et les jetons d’accès JWT. Les applications et les API vérifient les jetons avec les clés publiques publiées dans le JWKS.",
+        "jwksUrl": "URL du JWKS",
+        "days": "{count, plural, one {# jour} other {# jours}}",
+        "rotation": {
+          "title": "Rotation automatique",
+          "description": "Remplace la clé de signature selon un calendrier. Une clé retirée reste dans le JWKS pendant le délai de grâce, pour que les jetons qu’elle a signés restent vérifiables.",
+          "on": "Activée",
+          "off": "Désactivée",
+          "edit": "Modifier",
+          "interval": "Renouveler la clé",
+          "never": "Jamais (rotation manuelle uniquement)",
+          "every": "Tous les {count, plural, one {# jour} other {# jours}}",
+          "grace": "Délai de grâce",
+          "graceValue": "{count, plural, one {# jour} other {# jours}} après la mise hors service d’une clé",
+          "dialogTitle": "Rotation automatique",
+          "dialogDescription": "Une nouvelle clé est créée quand la clé actuelle atteint l’intervalle. Les applications qui mettent le JWKS en cache le récupèrent à nouveau quand elles voient le nouvel ID de clé.",
+          "intervalHint": "Le nouvel intervalle s’applique aussi à la clé actuelle : elle est retirée quand elle atteint le nouvel âge, ou au prochain jeton si elle est déjà plus ancienne.",
+          "graceHint": "Durée pendant laquelle une clé retirée reste publiée. Prévoyez plus que la durée de vie de jeton la plus longue (jetons d’accès : 1 heure, jetons d’ID : 10 heures).",
+          "save": "Enregistrer",
+          "cancel": "Annuler",
+          "saved": "Paramètres enregistrés. Le serveur d’authentification les applique en moins d’une minute."
+        },
+        "keys": {
+          "title": "Clés",
+          "description": "Les clés privées sont stockées chiffrées et ne sont jamais affichées.",
+          "keyId": "ID de clé (kid)",
+          "algorithm": "Algorithme",
+          "created": "Créée",
+          "retires": "Signe jusqu’au",
+          "unpublished": "Publiée jusqu’au",
+          "status": "Statut",
+          "current": "Actuelle",
+          "published": "Publiée pour vérification",
+          "expired": "Expirée",
+          "noExpiry": "Sans expiration",
+          "empty": "Aucune clé pour l’instant. La première est créée à la signature du premier jeton, ou lors d’une rotation."
+        },
+        "rotate": {
+          "button": "Renouveler maintenant",
+          "title": "Renouveler la clé de signature maintenant ?",
+          "newKey": "Une nouvelle clé signe chaque jeton à partir de maintenant.",
+          "caching": "Les applications et API qui mettent le JWKS en cache adoptent la nouvelle clé automatiquement : elles récupèrent à nouveau le JWKS dès qu’elles rencontrent son ID de clé.",
+          "oldTokens": "Les jetons signés avec la clé actuelle restent valides jusqu’à leur expiration : la clé reste publiée pendant le délai de grâce ({grace}).",
+          "compromised": "Si la clé a pu fuiter, renouvelez-la maintenant, puis choisissez un délai de grâce court : une clé retirée vérifie les jetons tant qu’elle est publiée.",
+          "confirm": "Renouveler maintenant",
+          "cancel": "Annuler",
+          "done": "Clé renouvelée. Les nouveaux jetons utilisent la clé {kid}."
+        },
+        "errors": {
+          "interval": "Choisissez l’un des intervalles de rotation proposés.",
+          "grace": "Choisissez l’un des délais de grâce proposés.",
+          "save": "Impossible d’enregistrer les paramètres.",
+          "rotate": "Impossible de renouveler la clé."
+        }
       }
     }
   },

@@ -227,7 +227,8 @@
       "organizations": "Organizations",
       "sso": "SSO",
       "security": "Security",
-      "audit": "Audit log"
+      "audit": "Audit log",
+      "signingKeys": "Claves de firma"
     },
     "header": {
       "crumb": "Admin",
@@ -240,7 +241,8 @@
       "organizations": "Organizations",
       "sso": "SSO",
       "security": "Security",
-      "audit": "Audit log"
+      "audit": "Audit log",
+      "signingKeys": "Claves de firma"
     },
     "pages": {
       "overview": {
@@ -283,6 +285,63 @@
       "security": {
         "title": "Security",
         "description": "Failed sign-in attempts, the accounts and addresses behind them, and banned accounts."
+      },
+      "signingKeys": {
+        "title": "Claves de firma",
+        "description": "Las claves con las que {name} firma los tokens de ID y los tokens de acceso JWT. Las aplicaciones y las API verifican los tokens con las claves públicas publicadas en el JWKS.",
+        "jwksUrl": "URL del JWKS",
+        "days": "{count, plural, one {# día} other {# días}}",
+        "rotation": {
+          "title": "Rotación automática",
+          "description": "Sustituye la clave de firma según un calendario. Una clave retirada sigue en el JWKS durante el periodo de gracia, para que los tokens que firmó se sigan verificando.",
+          "on": "Activada",
+          "off": "Desactivada",
+          "edit": "Editar",
+          "interval": "Rotar la clave",
+          "never": "Nunca (solo rotación manual)",
+          "every": "Cada {count, plural, one {# día} other {# días}}",
+          "grace": "Periodo de gracia",
+          "graceValue": "{count, plural, one {# día} other {# días}} después de retirar una clave",
+          "dialogTitle": "Rotación automática",
+          "dialogDescription": "Se crea una clave nueva cuando la actual alcanza el intervalo. Las aplicaciones que guardan el JWKS en caché lo vuelven a descargar al ver el nuevo ID de clave.",
+          "intervalHint": "El nuevo intervalo también se aplica a la clave actual: se retira al alcanzar la nueva antigüedad, o en el siguiente token si ya es más antigua.",
+          "graceHint": "Cuánto tiempo sigue publicada una clave retirada. Debe ser mayor que la vida útil más larga de tus tokens (tokens de acceso: 1 hora, tokens de ID: 10 horas).",
+          "save": "Guardar",
+          "cancel": "Cancelar",
+          "saved": "Ajustes guardados. El servidor de autenticación los aplica en menos de un minuto."
+        },
+        "keys": {
+          "title": "Claves",
+          "description": "Las claves privadas se almacenan cifradas y nunca se muestran.",
+          "keyId": "ID de clave (kid)",
+          "algorithm": "Algoritmo",
+          "created": "Creada",
+          "retires": "Firma hasta",
+          "unpublished": "Publicada hasta",
+          "status": "Estado",
+          "current": "Actual",
+          "published": "Publicada para verificación",
+          "expired": "Caducada",
+          "noExpiry": "Sin caducidad",
+          "empty": "Aún no hay ninguna clave. La primera se crea al firmar el primer token o al rotar."
+        },
+        "rotate": {
+          "button": "Rotar ahora",
+          "title": "¿Rotar la clave de firma ahora?",
+          "newKey": "Una clave nueva firma todos los tokens a partir de ahora.",
+          "caching": "Las aplicaciones y API que guardan el JWKS en caché adoptan la clave nueva automáticamente: vuelven a descargar el JWKS cuando encuentran su ID de clave.",
+          "oldTokens": "Los tokens firmados con la clave actual siguen siendo válidos hasta que caducan: la clave sigue publicada durante el periodo de gracia ({grace}).",
+          "compromised": "Si la clave pudo filtrarse, rótala ahora y luego elige un periodo de gracia corto: una clave retirada verifica tokens mientras siga publicada.",
+          "confirm": "Rotar ahora",
+          "cancel": "Cancelar",
+          "done": "Clave rotada. Los tokens nuevos usan la clave {kid}."
+        },
+        "errors": {
+          "interval": "Elige uno de los intervalos de rotación disponibles.",
+          "grace": "Elige uno de los periodos de gracia disponibles.",
+          "save": "No se pudieron guardar los ajustes.",
+          "rotate": "No se pudo rotar la clave."
+        }
       }
     }
   },

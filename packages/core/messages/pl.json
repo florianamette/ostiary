@@ -227,7 +227,8 @@
       "organizations": "Organizations",
       "sso": "SSO",
       "security": "Security",
-      "audit": "Audit log"
+      "audit": "Audit log",
+      "signingKeys": "Klucze podpisujące"
     },
     "header": {
       "crumb": "Admin",
@@ -240,7 +241,8 @@
       "organizations": "Organizations",
       "sso": "SSO",
       "security": "Security",
-      "audit": "Audit log"
+      "audit": "Audit log",
+      "signingKeys": "Klucze podpisujące"
     },
     "pages": {
       "overview": {
@@ -283,6 +285,63 @@
       "security": {
         "title": "Security",
         "description": "Failed sign-in attempts, the accounts and addresses behind them, and banned accounts."
+      },
+      "signingKeys": {
+        "title": "Klucze podpisujące",
+        "description": "Klucze, którymi {name} podpisuje tokeny ID i tokeny dostępu JWT. Aplikacje i API weryfikują tokeny kluczami publicznymi opublikowanymi w JWKS.",
+        "jwksUrl": "Adres URL JWKS",
+        "days": "{count, plural, one {# dzień} few {# dni} many {# dni} other {# dnia}}",
+        "rotation": {
+          "title": "Automatyczna rotacja",
+          "description": "Wymienia klucz podpisujący według harmonogramu. Wycofany klucz pozostaje w JWKS przez okres karencji, więc podpisane nim tokeny nadal się weryfikują.",
+          "on": "Włączona",
+          "off": "Wyłączona",
+          "edit": "Edytuj",
+          "interval": "Obróć klucz",
+          "never": "Nigdy (tylko ręczna rotacja)",
+          "every": "Co {count, plural, one {# dzień} few {# dni} many {# dni} other {# dnia}}",
+          "grace": "Okres karencji",
+          "graceValue": "{count, plural, one {# dzień} few {# dni} many {# dni} other {# dnia}} po wycofaniu klucza",
+          "dialogTitle": "Automatyczna rotacja",
+          "dialogDescription": "Nowy klucz powstaje, gdy bieżący osiągnie ustalony odstęp. Aplikacje buforujące JWKS pobierają go ponownie, gdy zobaczą nowy identyfikator klucza.",
+          "intervalHint": "Nowy odstęp dotyczy też bieżącego klucza: zostanie wycofany po osiągnięciu nowego wieku albo przy następnym tokenie, jeśli jest już starszy.",
+          "graceHint": "Jak długo wycofany klucz pozostaje opublikowany. Ustaw dłużej niż najdłuższy czas życia tokenów (tokeny dostępu: 1 godzina, tokeny ID: 10 godzin).",
+          "save": "Zapisz",
+          "cancel": "Anuluj",
+          "saved": "Ustawienia zapisane. Serwer uwierzytelniania zastosuje je w ciągu minuty."
+        },
+        "keys": {
+          "title": "Klucze",
+          "description": "Klucze prywatne są przechowywane w postaci zaszyfrowanej i nigdy nie są wyświetlane.",
+          "keyId": "Identyfikator klucza (kid)",
+          "algorithm": "Algorytm",
+          "created": "Utworzono",
+          "retires": "Podpisuje do",
+          "unpublished": "Opublikowany do",
+          "status": "Status",
+          "current": "Bieżący",
+          "published": "Opublikowany do weryfikacji",
+          "expired": "Wygasły",
+          "noExpiry": "Bez wygaśnięcia",
+          "empty": "Brak kluczy. Pierwszy powstanie przy podpisaniu pierwszego tokenu lub przy rotacji."
+        },
+        "rotate": {
+          "button": "Obróć teraz",
+          "title": "Obrócić teraz klucz podpisujący?",
+          "newKey": "Od teraz każdy token podpisuje nowy klucz.",
+          "caching": "Aplikacje i API buforujące JWKS przejmą nowy klucz automatycznie: pobiorą JWKS ponownie, gdy trafią na jego identyfikator.",
+          "oldTokens": "Tokeny podpisane bieżącym kluczem pozostają ważne do wygaśnięcia: klucz pozostaje opublikowany przez okres karencji ({grace}).",
+          "compromised": "Jeśli klucz mógł wyciec, obróć go teraz, a potem wybierz krótki okres karencji: wycofany klucz weryfikuje tokeny, dopóki jest opublikowany.",
+          "confirm": "Obróć teraz",
+          "cancel": "Anuluj",
+          "done": "Klucz obrócony. Nowe tokeny używają klucza {kid}."
+        },
+        "errors": {
+          "interval": "Wybierz jeden z dostępnych odstępów rotacji.",
+          "grace": "Wybierz jeden z dostępnych okresów karencji.",
+          "save": "Nie udało się zapisać ustawień.",
+          "rotate": "Nie udało się obrócić klucza."
+        }
       }
     }
   },

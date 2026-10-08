@@ -15,6 +15,7 @@ import {
     emailOTP,
     haveIBeenPwned,
     jwt,
+    type JwtOptions,
     lastLoginMethod,
     multiSession,
     organization,
@@ -43,6 +44,7 @@ import { PUBLIC_ORGANIZATION_ID } from "@ostiary/core/lib/organization-public";
 import { getPasskeyWebAuthnOptions } from "@ostiary/core/lib/passkey-options";
 import { env } from "@ostiary/core/lib/env";
 import { ENV_API_SCOPES, OIDC_SCOPES, syncProviderScopes } from "@ostiary/core/lib/oauth-scopes";
+import { syncSigningKeys } from "@ostiary/core/lib/signing-keys";
 import { oauthResourceIdentifiers } from "@ostiary/core/lib/oauth-resources";
 import { withOpenApiLinks } from "@ostiary/core/lib/oauth-resource-access";
 import { ACCESS_TOKEN_EXPIRES_IN, REFRESH_TOKEN_EXPIRES_IN } from "@ostiary/core/lib/oauth-resource-policy";
@@ -273,6 +275,10 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
             },
         }),
     };
+    // Signs ID tokens and JWT access tokens and publishes /jwks. Key rotation (interval and
+    // grace period) is set from the admin console before each request, see syncSigningKeys:
+    // Better Auth reads both from this options object on every call.
+    const jwtOptions: JwtOptions = { jwks: {} };
     const provider = oauthProvider({
         loginPage: "/login",
         consentPage: "/consent",
@@ -383,6 +389,8 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
             before: createAuthMiddleware(async (ctx) => {
                 // APIs registered from the admin console add scopes without a redeploy.
                 await syncProviderScopes(provider.options);
+                // Signing key rotation interval and grace period, from the admin console.
+                await syncSigningKeys(jwtOptions);
                 if (env.REQUIRE_ADMIN_2FA === "true" && isAdminPath(ctx.path)) {
                     const current = await getSessionFromCtx(ctx);
                     if (current && adminNeedsTwoFactor(current.user as { role?: string | null; twoFactorEnabled?: boolean | null }, true)) {
@@ -552,7 +560,7 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
             },
         },
         plugins: [
-            jwt(),
+            jwt(jwtOptions),
             admin({
                 bannedUserMessage: (user: { banReason?: string | null }) =>
                     user.banReason === SCIM_DEACTIVATED_REASON

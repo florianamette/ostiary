@@ -227,7 +227,8 @@
       "organizations": "Organizations",
       "sso": "SSO",
       "security": "Security",
-      "audit": "Audit log"
+      "audit": "Audit log",
+      "signingKeys": "Signing keys"
     },
     "header": {
       "crumb": "Admin",
@@ -240,7 +241,8 @@
       "organizations": "Organizations",
       "sso": "SSO",
       "security": "Security",
-      "audit": "Audit log"
+      "audit": "Audit log",
+      "signingKeys": "Signing keys"
     },
     "pages": {
       "overview": {
@@ -283,6 +285,63 @@
       "security": {
         "title": "Security",
         "description": "Failed sign-in attempts, the accounts and addresses behind them, and banned accounts."
+      },
+      "signingKeys": {
+        "title": "Signing keys",
+        "description": "The keys {name} signs ID tokens and JWT access tokens with. Apps and APIs verify tokens against the public keys published in the JWKS.",
+        "jwksUrl": "JWKS URL",
+        "days": "{count, plural, one {# day} other {# days}}",
+        "rotation": {
+          "title": "Automatic rotation",
+          "description": "Replaces the signing key on a schedule. A retired key stays in the JWKS for the grace period, so tokens it signed keep verifying.",
+          "on": "On",
+          "off": "Off",
+          "edit": "Edit",
+          "interval": "Rotate the key",
+          "never": "Never (rotate by hand only)",
+          "every": "Every {count, plural, one {# day} other {# days}}",
+          "grace": "Grace period",
+          "graceValue": "{count, plural, one {# day} other {# days}} after a key retires",
+          "dialogTitle": "Automatic rotation",
+          "dialogDescription": "A new key is created when the current one reaches the interval. Apps that cache the JWKS fetch it again when they see the new key id.",
+          "intervalHint": "Changing the interval also applies to the current key: it retires when it reaches the new age, or at the next token if it is already older.",
+          "graceHint": "How long a retired key stays published. Keep it longer than your longest token lifetime (access tokens: 1 hour, ID tokens: 10 hours).",
+          "save": "Save",
+          "cancel": "Cancel",
+          "saved": "Settings saved. The auth server applies them within a minute."
+        },
+        "keys": {
+          "title": "Keys",
+          "description": "Private keys are stored encrypted and never shown.",
+          "keyId": "Key ID (kid)",
+          "algorithm": "Algorithm",
+          "created": "Created",
+          "retires": "Signs until",
+          "unpublished": "Published until",
+          "status": "Status",
+          "current": "Current",
+          "published": "Published for verification",
+          "expired": "Expired",
+          "noExpiry": "No expiry",
+          "empty": "No key yet. The first one is created when the first token is signed, or when you rotate."
+        },
+        "rotate": {
+          "button": "Rotate now",
+          "title": "Rotate the signing key now?",
+          "newKey": "A new key signs every token from now on.",
+          "caching": "Apps and APIs that cache the JWKS pick up the new key automatically: they fetch the JWKS again when they meet its key id.",
+          "oldTokens": "Tokens signed with the current key stay valid until they expire: the key stays published for the grace period ({grace}).",
+          "compromised": "If the key may have leaked, rotate now, then choose a short grace period: a retired key verifies tokens for as long as it is published.",
+          "confirm": "Rotate now",
+          "cancel": "Cancel",
+          "done": "Key rotated. New tokens use key {kid}."
+        },
+        "errors": {
+          "interval": "Choose one of the rotation intervals offered.",
+          "grace": "Choose one of the grace periods offered.",
+          "save": "Could not save the settings.",
+          "rotate": "Could not rotate the key."
+        }
       }
     }
   },

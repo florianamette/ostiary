@@ -227,7 +227,8 @@
       "organizations": "Organizations",
       "sso": "SSO",
       "security": "Security",
-      "audit": "Audit log"
+      "audit": "Audit log",
+      "signingKeys": "Signeringsnøkler"
     },
     "header": {
       "crumb": "Admin",
@@ -240,7 +241,8 @@
       "organizations": "Organizations",
       "sso": "SSO",
       "security": "Security",
-      "audit": "Audit log"
+      "audit": "Audit log",
+      "signingKeys": "Signeringsnøkler"
     },
     "pages": {
       "overview": {
@@ -283,6 +285,63 @@
       "security": {
         "title": "Security",
         "description": "Failed sign-in attempts, the accounts and addresses behind them, and banned accounts."
+      },
+      "signingKeys": {
+        "title": "Signeringsnøkler",
+        "description": "Nøklene {name} signerer ID-tokens og JWT-tilgangstokens med. Apper og API-er verifiserer tokens mot de offentlige nøklene i JWKS-en.",
+        "jwksUrl": "JWKS-URL",
+        "days": "{count, plural, one {# dag} other {# dager}}",
+        "rotation": {
+          "title": "Automatisk rotasjon",
+          "description": "Bytter ut signeringsnøkkelen etter en tidsplan. En utgått nøkkel blir liggende i JWKS-en i utsettelsesperioden, slik at tokens den har signert fortsatt kan verifiseres.",
+          "on": "På",
+          "off": "Av",
+          "edit": "Rediger",
+          "interval": "Roter nøkkelen",
+          "never": "Aldri (kun manuell rotasjon)",
+          "every": "Hver {count, plural, one {# dag} other {# dager}}",
+          "grace": "Utsettelsesperiode",
+          "graceValue": "{count, plural, one {# dag} other {# dager}} etter at en nøkkel er utgått",
+          "dialogTitle": "Automatisk rotasjon",
+          "dialogDescription": "En ny nøkkel opprettes når den nåværende når intervallet. Apper som mellomlagrer JWKS-en, henter den på nytt når de ser den nye nøkkel-ID-en.",
+          "intervalHint": "Et nytt intervall gjelder også for den nåværende nøkkelen: Den utgår når den når den nye alderen, eller ved neste token hvis den allerede er eldre.",
+          "graceHint": "Hvor lenge en utgått nøkkel forblir publisert. Velg lenger enn den lengste levetiden til tokens (tilgangstokens: 1 time, ID-tokens: 10 timer).",
+          "save": "Lagre",
+          "cancel": "Avbryt",
+          "saved": "Innstillingene er lagret. Autentiseringsserveren bruker dem innen et minutt."
+        },
+        "keys": {
+          "title": "Nøkler",
+          "description": "Private nøkler lagres kryptert og vises aldri.",
+          "keyId": "Nøkkel-ID (kid)",
+          "algorithm": "Algoritme",
+          "created": "Opprettet",
+          "retires": "Signerer til",
+          "unpublished": "Publisert til",
+          "status": "Status",
+          "current": "Gjeldende",
+          "published": "Publisert for verifisering",
+          "expired": "Utløpt",
+          "noExpiry": "Ingen utløpsdato",
+          "empty": "Ingen nøkkel ennå. Den første opprettes når det første tokenet signeres, eller når du roterer."
+        },
+        "rotate": {
+          "button": "Roter nå",
+          "title": "Rotere signeringsnøkkelen nå?",
+          "newKey": "En ny nøkkel signerer alle tokens fra nå av.",
+          "caching": "Apper og API-er som mellomlagrer JWKS-en, henter den nye nøkkelen automatisk: De henter JWKS-en på nytt når de møter nøkkel-ID-en.",
+          "oldTokens": "Tokens signert med den nåværende nøkkelen er gyldige til de utløper: Nøkkelen forblir publisert i utsettelsesperioden ({grace}).",
+          "compromised": "Hvis nøkkelen kan ha lekket, roter den nå og velg deretter en kort utsettelsesperiode: En utgått nøkkel verifiserer tokens så lenge den er publisert.",
+          "confirm": "Roter nå",
+          "cancel": "Avbryt",
+          "done": "Nøkkelen er rotert. Nye tokens bruker nøkkelen {kid}."
+        },
+        "errors": {
+          "interval": "Velg et av de tilbudte rotasjonsintervallene.",
+          "grace": "Velg en av de tilbudte utsettelsesperiodene.",
+          "save": "Kunne ikke lagre innstillingene.",
+          "rotate": "Kunne ikke rotere nøkkelen."
+        }
       }
     }
   },

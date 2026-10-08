@@ -227,7 +227,8 @@
       "organizations": "Organizations",
       "sso": "SSO",
       "security": "Security",
-      "audit": "Audit log"
+      "audit": "Audit log",
+      "signingKeys": "Allekirjoitusavaimet"
     },
     "header": {
       "crumb": "Admin",
@@ -240,7 +241,8 @@
       "organizations": "Organizations",
       "sso": "SSO",
       "security": "Security",
-      "audit": "Audit log"
+      "audit": "Audit log",
+      "signingKeys": "Allekirjoitusavaimet"
     },
     "pages": {
       "overview": {
@@ -283,6 +285,63 @@
       "security": {
         "title": "Security",
         "description": "Failed sign-in attempts, the accounts and addresses behind them, and banned accounts."
+      },
+      "signingKeys": {
+        "title": "Allekirjoitusavaimet",
+        "description": "Avaimet, joilla {name} allekirjoittaa ID-tokenit ja JWT-käyttötokenit. Sovellukset ja API:t tarkistavat tokenit JWKS:ssä julkaistuja julkisia avaimia vasten.",
+        "jwksUrl": "JWKS-URL",
+        "days": "{count, plural, one {# päivä} other {# päivää}}",
+        "rotation": {
+          "title": "Automaattinen kierrätys",
+          "description": "Vaihtaa allekirjoitusavaimen aikataulun mukaan. Poistettu avain pysyy JWKS:ssä siirtymäajan, jotta sen allekirjoittamat tokenit tarkistuvat edelleen.",
+          "on": "Päällä",
+          "off": "Pois",
+          "edit": "Muokkaa",
+          "interval": "Kierrätä avain",
+          "never": "Ei koskaan (vain käsin)",
+          "every": "Joka {count, plural, one {# päivä} other {# päivää}}",
+          "grace": "Siirtymäaika",
+          "graceValue": "{count, plural, one {# päivä} other {# päivää}} avaimen poistamisen jälkeen",
+          "dialogTitle": "Automaattinen kierrätys",
+          "dialogDescription": "Uusi avain luodaan, kun nykyinen saavuttaa aikavälin. JWKS:ää välimuistissa pitävät sovellukset hakevat sen uudelleen, kun ne näkevät uuden avaintunnuksen.",
+          "intervalHint": "Uusi aikaväli koskee myös nykyistä avainta: se poistetaan, kun se saavuttaa uuden iän, tai seuraavan tokenin kohdalla, jos se on jo vanhempi.",
+          "graceHint": "Kuinka kauan poistettu avain pysyy julkaistuna. Valitse pidempi kuin pisin tokenin elinaika (käyttötokenit: 1 tunti, ID-tokenit: 10 tuntia).",
+          "save": "Tallenna",
+          "cancel": "Peruuta",
+          "saved": "Asetukset tallennettu. Todennuspalvelin ottaa ne käyttöön minuutissa."
+        },
+        "keys": {
+          "title": "Avaimet",
+          "description": "Yksityiset avaimet tallennetaan salattuina, eikä niitä näytetä koskaan.",
+          "keyId": "Avaintunnus (kid)",
+          "algorithm": "Algoritmi",
+          "created": "Luotu",
+          "retires": "Allekirjoittaa asti",
+          "unpublished": "Julkaistu asti",
+          "status": "Tila",
+          "current": "Nykyinen",
+          "published": "Julkaistu tarkistusta varten",
+          "expired": "Vanhentunut",
+          "noExpiry": "Ei vanhene",
+          "empty": "Ei vielä avainta. Ensimmäinen luodaan, kun ensimmäinen token allekirjoitetaan tai kun kierrätät."
+        },
+        "rotate": {
+          "button": "Kierrätä nyt",
+          "title": "Kierrätetäänkö allekirjoitusavain nyt?",
+          "newKey": "Uusi avain allekirjoittaa jokaisen tokenin tästä lähtien.",
+          "caching": "JWKS:ää välimuistissa pitävät sovellukset ja API:t ottavat uuden avaimen käyttöön automaattisesti: ne hakevat JWKS:n uudelleen, kun ne kohtaavat sen avaintunnuksen.",
+          "oldTokens": "Nykyisellä avaimella allekirjoitetut tokenit pysyvät voimassa vanhenemiseensa asti: avain pysyy julkaistuna siirtymäajan ({grace}).",
+          "compromised": "Jos avain on voinut vuotaa, kierrätä se nyt ja valitse sitten lyhyt siirtymäaika: poistettu avain tarkistaa tokeneita niin kauan kuin se on julkaistu.",
+          "confirm": "Kierrätä nyt",
+          "cancel": "Peruuta",
+          "done": "Avain kierrätetty. Uudet tokenit käyttävät avainta {kid}."
+        },
+        "errors": {
+          "interval": "Valitse jokin tarjotuista kierrätysväleistä.",
+          "grace": "Valitse jokin tarjotuista siirtymäajoista.",
+          "save": "Asetusten tallennus epäonnistui.",
+          "rotate": "Avaimen kierrätys epäonnistui."
+        }
       }
     }
   },

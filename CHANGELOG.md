@@ -8,6 +8,18 @@ All notable changes are documented here. The format follows
 
 ### Added
 
+- Admin console: a **Signing keys** page for the keys that sign ID tokens and JWT
+  access tokens. It lists every key (key ID, algorithm, created, signs until, published
+  until, and whether it is current, still published for verification, or expired; private
+  keys are never shown), has a **Rotate now** button, and sets automatic rotation (off,
+  or every 30, 90, 180 or 365 days) and the grace period a retired key stays in the JWKS
+  (1, 7, 30 or 90 days). Settings are stored in `app_setting` and applied to Better
+  Auth's jwt plugin before each request, so they reach the auth server within a minute.
+  Rotation stays off and the grace period stays 30 days until an admin changes them, so
+  upgrading changes nothing. Turning rotation on also dates the current key (it retires
+  when it reaches the interval, or at the next token if it is already older). Rotations
+  and setting changes are in the audit log, with a new **Signing keys** filter. The
+  discovery document and the JWKS URL are unchanged. No migration.
 - Admin console: an **APIs** page to register the APIs (OAuth protected resources)
   that accept access tokens, with the scopes clients may request for each. Scopes
   are read from the database and reach the auth server within a minute, without a

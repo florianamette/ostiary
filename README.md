@@ -69,6 +69,7 @@ Hosted identity platforms are great until the bill scales with your users or you
 - Users: search, roles, bans, sessions, impersonation, two-factor reset
 - OAuth clients with usage statistics, consents, organizations, SSO providers
 - Audit log of every admin action, sign-in activity and failed sign-in monitoring
+- Signing keys: automatic rotation on a schedule, or rotate now, with a grace period during which old tokens keep verifying
 
 ## How it compares
 
@@ -130,6 +131,16 @@ Any OIDC library works the same way (Better Auth's generic OAuth, `openid-client
 To protect an API, register it in the admin console under **APIs**: its identifier (usually its URL) and the scopes clients may request for it. Clients request a token for it with the `resource` parameter, and the API verifies the JWT against Ostiary's JWKS. New scopes reach the auth server within a minute, no redeploy needed. You can also declare APIs with `OAUTH_API_AUDIENCES` and scopes with `OAUTH_API_SCOPES`, for example to provision a new instance.
 
 Every application can get tokens for an API by default. To limit an API to some applications, open **Change** next to *Applications* and pick **Only linked applications**, then check the applications that may call it; the others get `invalid_target`. Linked applications can also introspect the API's tokens. **Change** next to *Tokens* sets the API's access and refresh token lifetimes (shorter than the defaults of 1 hour and 30 days), custom claims added to its tokens (a JSON object, e.g. `{"tenant": "acme"}`), and whether tokens must be DPoP-bound, in which case the API must check the DPoP proof.
+
+### Signing keys and rotation
+
+ID tokens and JWT access tokens are signed with an Ed25519 key; apps and APIs verify them against the public keys at `https://<your-ostiary-domain>/api/auth/jwks` (the `jwks_uri` of the discovery document). The admin console's **Signing keys** page lists the keys (key ID, algorithm, dates and whether each one is current, still published for verification, or expired) and never shows private keys, which are stored encrypted with `BETTER_AUTH_SECRET`.
+
+- **Rotate now** creates a new key that signs every token from then on. The previous key stays in the JWKS for the grace period, so tokens it signed keep verifying until they expire.
+- **Automatic rotation** (off by default) replaces the key every 30, 90, 180 or 365 days. The new key is created when the first token is signed after the current one reaches that age.
+- **Grace period** (default 30 days, as before): how long a retired key stays published. Keep it longer than your longest token lifetime (access tokens: 1 hour, ID tokens: 10 hours).
+
+Settings reach the auth server within a minute. Rotation needs nothing from your apps as long as they read keys from the JWKS by `kid` and fetch it again when they meet an unknown one, as `jose`'s `createRemoteJWKSet`, `openid-client`, Auth.js and Better Auth do. Apps that pin a single public key must be updated after each rotation.
 
 ### Sign in from a CLI or a TV (device flow)
 
@@ -329,6 +340,7 @@ Both apps run the same Better Auth configuration against one database. The admin
 - Sign-in codes open existing accounts only (an unknown address gets the same answer and no email), expire after 10 minutes, are stored hashed and are void after 3 wrong tries. On an account whose email was never verified, the first code verifies it and removes the unproven password and sessions.
 - Only admins can create organizations and register SSO providers; SSO domains must be verified with a DNS record.
 - SCIM tokens are stored as HMAC digests and can only be issued by platform admins; each one only reaches its own organization.
+- Token signing keys can be rotated on a schedule or on demand (**Signing keys**); retired keys stay published only for the grace period. Rotations and setting changes are in the audit log.
 - The audit log never stores passwords, secrets or session tokens.
 
 Found a vulnerability? Please email the maintainer rather than opening a public issue.

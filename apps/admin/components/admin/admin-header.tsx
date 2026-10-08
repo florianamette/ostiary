@@ -26,6 +26,7 @@ function headerTitleKey(
   | "sso"
   | "security"
   | "audit"
+  | "signingKeys"
   | "fallback" {
   // Detail pages (/users/<id>, /organizations/<id>) take their section's crumb.
   const section = pathname === "/" ? "/" : `/${pathname.split("/").filter(Boolean)[0] ?? ""}`;
@@ -48,6 +49,8 @@ function headerTitleKey(
       return "security";
     case "/audit":
       return "audit";
+    case "/signing-keys":
+      return "signingKeys";
     default:
       return "fallback";
   }

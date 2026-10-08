@@ -227,7 +227,8 @@
       "organizations": "Organizations",
       "sso": "SSO",
       "security": "Security",
-      "audit": "Audit log"
+      "audit": "Audit log",
+      "signingKeys": "署名鍵"
     },
     "header": {
       "crumb": "Admin",
@@ -240,7 +241,8 @@
       "organizations": "Organizations",
       "sso": "SSO",
       "security": "Security",
-      "audit": "Audit log"
+      "audit": "Audit log",
+      "signingKeys": "署名鍵"
     },
     "pages": {
       "overview": {
@@ -283,6 +285,63 @@
       "security": {
         "title": "Security",
         "description": "Failed sign-in attempts, the accounts and addresses behind them, and banned accounts."
+      },
+      "signingKeys": {
+        "title": "署名鍵",
+        "description": "{name} が ID トークンと JWT アクセストークンの署名に使う鍵です。アプリと API は、JWKS で公開されている公開鍵でトークンを検証します。",
+        "jwksUrl": "JWKS URL",
+        "days": "{count, plural, other {#日}}",
+        "rotation": {
+          "title": "自動ローテーション",
+          "description": "スケジュールに従って署名鍵を入れ替えます。退役した鍵は猶予期間のあいだ JWKS に残るため、その鍵で署名されたトークンも引き続き検証できます。",
+          "on": "オン",
+          "off": "オフ",
+          "edit": "編集",
+          "interval": "鍵をローテーション",
+          "never": "なし（手動のみ）",
+          "every": "{count, plural, other {#日}}ごと",
+          "grace": "猶予期間",
+          "graceValue": "鍵の退役後 {count, plural, other {#日}}",
+          "dialogTitle": "自動ローテーション",
+          "dialogDescription": "現在の鍵が間隔に達すると新しい鍵が作成されます。JWKS をキャッシュしているアプリは、新しい鍵 ID を見つけると JWKS を再取得します。",
+          "intervalHint": "新しい間隔は現在の鍵にも適用されます。新しい期間に達した時点、すでに超えている場合は次のトークン発行時に退役します。",
+          "graceHint": "退役した鍵を公開し続ける期間です。トークンの最長有効期間より長くしてください（アクセストークン: 1 時間、ID トークン: 10 時間）。",
+          "save": "保存",
+          "cancel": "キャンセル",
+          "saved": "設定を保存しました。認証サーバーが 1 分以内に反映します。"
+        },
+        "keys": {
+          "title": "鍵",
+          "description": "秘密鍵は暗号化して保存され、表示されることはありません。",
+          "keyId": "鍵 ID（kid）",
+          "algorithm": "アルゴリズム",
+          "created": "作成日時",
+          "retires": "署名の終了",
+          "unpublished": "公開の終了",
+          "status": "ステータス",
+          "current": "現在",
+          "published": "検証用に公開中",
+          "expired": "期限切れ",
+          "noExpiry": "無期限",
+          "empty": "鍵はまだありません。最初の鍵は、最初のトークンに署名するとき、またはローテーションしたときに作成されます。"
+        },
+        "rotate": {
+          "button": "今すぐローテーション",
+          "title": "署名鍵を今すぐローテーションしますか？",
+          "newKey": "以後、すべてのトークンは新しい鍵で署名されます。",
+          "caching": "JWKS をキャッシュしているアプリと API は新しい鍵を自動的に取得します。鍵 ID を見つけると JWKS を再取得します。",
+          "oldTokens": "現在の鍵で署名されたトークンは、期限が切れるまで有効です。鍵は猶予期間（{grace}）のあいだ公開されたままです。",
+          "compromised": "鍵が漏えいした可能性がある場合は、今すぐローテーションして、短い猶予期間を選んでください。退役した鍵は、公開されているあいだトークンを検証します。",
+          "confirm": "今すぐローテーション",
+          "cancel": "キャンセル",
+          "done": "鍵をローテーションしました。新しいトークンは鍵 {kid} を使います。"
+        },
+        "errors": {
+          "interval": "用意されたローテーション間隔から選んでください。",
+          "grace": "用意された猶予期間から選んでください。",
+          "save": "設定を保存できませんでした。",
+          "rotate": "鍵をローテーションできませんでした。"
+        }
       }
     }
   },

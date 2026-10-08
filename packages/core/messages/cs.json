@@ -227,7 +227,8 @@
       "organizations": "Organizations",
       "sso": "SSO",
       "security": "Security",
-      "audit": "Audit log"
+      "audit": "Audit log",
+      "signingKeys": "Podpisové klíče"
     },
     "header": {
       "crumb": "Admin",
@@ -240,7 +241,8 @@
       "organizations": "Organizations",
       "sso": "SSO",
       "security": "Security",
-      "audit": "Audit log"
+      "audit": "Audit log",
+      "signingKeys": "Podpisové klíče"
     },
     "pages": {
       "overview": {
@@ -283,6 +285,63 @@
       "security": {
         "title": "Security",
         "description": "Failed sign-in attempts, the accounts and addresses behind them, and banned accounts."
+      },
+      "signingKeys": {
+        "title": "Podpisové klíče",
+        "description": "Klíče, kterými {name} podepisuje tokeny ID a přístupové tokeny JWT. Aplikace a API ověřují tokeny veřejnými klíči zveřejněnými v JWKS.",
+        "jwksUrl": "URL JWKS",
+        "days": "{count, plural, one {# den} few {# dny} many {# dne} other {# dní}}",
+        "rotation": {
+          "title": "Automatická rotace",
+          "description": "Vyměňuje podpisový klíč podle plánu. Vyřazený klíč zůstává v JWKS po dobu odkladu, takže tokeny, které podepsal, se dál ověřují.",
+          "on": "Zapnuto",
+          "off": "Vypnuto",
+          "edit": "Upravit",
+          "interval": "Otočit klíč",
+          "never": "Nikdy (jen ruční rotace)",
+          "every": "Jednou za {count, plural, one {# den} few {# dny} many {# dne} other {# dní}}",
+          "grace": "Doba odkladu",
+          "graceValue": "{count, plural, one {# den} few {# dny} many {# dne} other {# dní}} po vyřazení klíče",
+          "dialogTitle": "Automatická rotace",
+          "dialogDescription": "Nový klíč se vytvoří, když ten současný dosáhne intervalu. Aplikace, které JWKS ukládají do mezipaměti, ho načtou znovu, jakmile uvidí nové ID klíče.",
+          "intervalHint": "Nový interval platí i pro současný klíč: bude vyřazen, až dosáhne nového stáří, nebo u dalšího tokenu, pokud je už starší.",
+          "graceHint": "Jak dlouho zůstane vyřazený klíč zveřejněný. Nastavte víc, než je nejdelší životnost tokenů (přístupové tokeny: 1 hodina, tokeny ID: 10 hodin).",
+          "save": "Uložit",
+          "cancel": "Zrušit",
+          "saved": "Nastavení uloženo. Autentizační server ho použije do minuty."
+        },
+        "keys": {
+          "title": "Klíče",
+          "description": "Soukromé klíče se ukládají šifrované a nikdy se nezobrazují.",
+          "keyId": "ID klíče (kid)",
+          "algorithm": "Algoritmus",
+          "created": "Vytvořeno",
+          "retires": "Podepisuje do",
+          "unpublished": "Zveřejněn do",
+          "status": "Stav",
+          "current": "Současný",
+          "published": "Zveřejněn pro ověřování",
+          "expired": "Vypršel",
+          "noExpiry": "Bez vypršení",
+          "empty": "Zatím žádný klíč. První se vytvoří při podpisu prvního tokenu nebo při rotaci."
+        },
+        "rotate": {
+          "button": "Otočit hned",
+          "title": "Otočit podpisový klíč hned?",
+          "newKey": "Od teď každý token podepisuje nový klíč.",
+          "caching": "Aplikace a API, které JWKS ukládají do mezipaměti, převezmou nový klíč automaticky: načtou JWKS znovu, jakmile narazí na jeho ID klíče.",
+          "oldTokens": "Tokeny podepsané současným klíčem zůstávají platné do vypršení: klíč zůstává zveřejněný po dobu odkladu ({grace}).",
+          "compromised": "Pokud mohl klíč uniknout, otočte ho hned a pak zvolte krátkou dobu odkladu: vyřazený klíč ověřuje tokeny, dokud je zveřejněný.",
+          "confirm": "Otočit hned",
+          "cancel": "Zrušit",
+          "done": "Klíč otočen. Nové tokeny používají klíč {kid}."
+        },
+        "errors": {
+          "interval": "Vyberte jeden z nabízených intervalů rotace.",
+          "grace": "Vyberte jednu z nabízených dob odkladu.",
+          "save": "Nastavení se nepodařilo uložit.",
+          "rotate": "Klíč se nepodařilo otočit."
+        }
       }
     }
   },

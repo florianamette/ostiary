@@ -227,7 +227,8 @@
       "organizations": "Organizations",
       "sso": "SSO",
       "security": "Security",
-      "audit": "Audit log"
+      "audit": "Audit log",
+      "signingKeys": "Signaturschlüssel"
     },
     "header": {
       "crumb": "Admin",
@@ -240,7 +241,8 @@
       "organizations": "Organizations",
       "sso": "SSO",
       "security": "Security",
-      "audit": "Audit log"
+      "audit": "Audit log",
+      "signingKeys": "Signaturschlüssel"
     },
     "pages": {
       "overview": {
@@ -283,6 +285,63 @@
       "security": {
         "title": "Security",
         "description": "Failed sign-in attempts, the accounts and addresses behind them, and banned accounts."
+      },
+      "signingKeys": {
+        "title": "Signaturschlüssel",
+        "description": "Die Schlüssel, mit denen {name} ID-Tokens und JWT-Access-Tokens signiert. Apps und APIs prüfen Tokens anhand der öffentlichen Schlüssel im JWKS.",
+        "jwksUrl": "JWKS-URL",
+        "days": "{count, plural, one {# Tag} other {# Tage}}",
+        "rotation": {
+          "title": "Automatische Rotation",
+          "description": "Ersetzt den Signaturschlüssel nach einem Zeitplan. Ein ausgemusterter Schlüssel bleibt für die Übergangsfrist im JWKS, damit von ihm signierte Tokens weiter gültig geprüft werden.",
+          "on": "An",
+          "off": "Aus",
+          "edit": "Bearbeiten",
+          "interval": "Schlüssel rotieren",
+          "never": "Nie (nur manuell rotieren)",
+          "every": "Alle {count, plural, one {# Tag} other {# Tage}}",
+          "grace": "Übergangsfrist",
+          "graceValue": "{count, plural, one {# Tag} other {# Tage}} nach Ausmusterung eines Schlüssels",
+          "dialogTitle": "Automatische Rotation",
+          "dialogDescription": "Sobald der aktuelle Schlüssel das Intervall erreicht, wird ein neuer erstellt. Apps, die das JWKS zwischenspeichern, laden es neu, wenn sie die neue Schlüssel-ID sehen.",
+          "intervalHint": "Das Intervall gilt auch für den aktuellen Schlüssel: Er wird ausgemustert, sobald er das neue Alter erreicht, oder beim nächsten Token, falls er schon älter ist.",
+          "graceHint": "Wie lange ein ausgemusterter Schlüssel veröffentlicht bleibt. Wähle mehr als die längste Token-Lebensdauer (Access-Tokens: 1 Stunde, ID-Tokens: 10 Stunden).",
+          "save": "Speichern",
+          "cancel": "Abbrechen",
+          "saved": "Einstellungen gespeichert. Der Auth-Server übernimmt sie innerhalb einer Minute."
+        },
+        "keys": {
+          "title": "Schlüssel",
+          "description": "Private Schlüssel werden verschlüsselt gespeichert und nie angezeigt.",
+          "keyId": "Schlüssel-ID (kid)",
+          "algorithm": "Algorithmus",
+          "created": "Erstellt",
+          "retires": "Signiert bis",
+          "unpublished": "Veröffentlicht bis",
+          "status": "Status",
+          "current": "Aktuell",
+          "published": "Zur Prüfung veröffentlicht",
+          "expired": "Abgelaufen",
+          "noExpiry": "Kein Ablauf",
+          "empty": "Noch kein Schlüssel. Der erste wird beim Signieren des ersten Tokens oder bei einer Rotation erstellt."
+        },
+        "rotate": {
+          "button": "Jetzt rotieren",
+          "title": "Signaturschlüssel jetzt rotieren?",
+          "newKey": "Ein neuer Schlüssel signiert ab sofort jedes Token.",
+          "caching": "Apps und APIs, die das JWKS zwischenspeichern, übernehmen den neuen Schlüssel automatisch: Sie laden das JWKS neu, sobald sie seine Schlüssel-ID sehen.",
+          "oldTokens": "Mit dem aktuellen Schlüssel signierte Tokens bleiben bis zum Ablauf gültig: Der Schlüssel bleibt für die Übergangsfrist ({grace}) veröffentlicht.",
+          "compromised": "Wenn der Schlüssel kompromittiert sein könnte, rotiere ihn jetzt und wähle dann eine kurze Übergangsfrist: Ein ausgemusterter Schlüssel prüft Tokens, solange er veröffentlicht ist.",
+          "confirm": "Jetzt rotieren",
+          "cancel": "Abbrechen",
+          "done": "Schlüssel rotiert. Neue Tokens verwenden den Schlüssel {kid}."
+        },
+        "errors": {
+          "interval": "Wähle eines der angebotenen Rotationsintervalle.",
+          "grace": "Wähle eine der angebotenen Übergangsfristen.",
+          "save": "Einstellungen konnten nicht gespeichert werden.",
+          "rotate": "Schlüssel konnte nicht rotiert werden."
+        }
       }
     }
   },

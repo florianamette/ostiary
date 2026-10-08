@@ -3,6 +3,7 @@
 import {
   Boxes,
   Building2,
+  FileKey,
   History,
   KeyRound,
   Network,
@@ -69,6 +70,11 @@ export function useOauthSectionNavItems(): NavMainItem[] {
       title: t("consent"),
       url: "/consent",
       icon: <ScrollText />,
+    },
+    {
+      title: t("signingKeys"),
+      url: "/signing-keys",
+      icon: <FileKey />,
     },
   ];
 }
