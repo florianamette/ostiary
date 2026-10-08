@@ -46,7 +46,7 @@ Hosted identity platforms are great until the bill scales with your users or you
 - Optional captcha (Cloudflare Turnstile, hCaptcha or reCAPTCHA v2) on sign-up, password sign-in, password reset and sign-in codes
 - Passkeys (WebAuthn), plus a recent sign-in required to add one
 - Two-factor authentication: authenticator app (TOTP) and backup codes, with "trust this device"
-- Social sign-in (GitHub included; others are a config entry)
+- Social sign-in with every Better Auth provider (Google, Apple, Microsoft, GitHub and 32 more), set up from the admin console, with brand buttons and connected accounts
 - Enterprise SSO (OIDC), with DNS domain verification
 - Account dashboard: profile, email change (approved from the current inbox), sessions, passkeys, two-factor authentication, connected accounts, authorized apps
 
@@ -68,6 +68,7 @@ Hosted identity platforms are great until the bill scales with your users or you
 **For you (admin console)**
 
 - Users: search, roles, bans, sessions, impersonation, two-factor reset
+- Sign-in providers: turn social sign-in providers on and off, order them and paste their credentials (stored encrypted) without a redeploy
 - OAuth clients with usage statistics, consents, organizations, SSO providers
 - API keys: turn them on, set their maximum lifetime, see and revoke every key
 - Audit log of every admin action, sign-in activity and failed sign-in monitoring
@@ -173,6 +174,57 @@ Apps that cannot open a browser use the device authorization grant (RFC 8628). I
    Until the user decides it gets `authorization_pending` (or `slow_down` when it polls too fast: wait 5 more seconds). Then it gets the usual tokens (access token, ID token with `openid`, refresh token with `offline_access`), or `access_denied`. After 10 minutes the code expires (`expired_token`) and the app starts again. A confidential client also sends its secret on both requests.
 
 The user always approves on the page, even for clients with **Skip consent**.
+
+## Social sign-in
+
+Every social provider Better Auth ships can be turned on from the admin console, under **Sign-in providers**, without a redeploy:
+
+1. Open the provider and copy its **callback URL**: `https://auth.example.com/api/auth/callback/<id>`.
+2. Create an OAuth app with the provider (**Create the app** links to its console), register the callback URL, and paste the credentials.
+3. Leave **Show on the sign-in page** on and save. The sign-in, sign-up and account pages show it within 30 seconds; turning it off removes the button and refuses its sign-ins and callbacks.
+
+Secrets are stored encrypted and never shown again (you can replace them). **Create accounts for new users** off lets the provider sign in existing accounts only. Users connect and disconnect providers from **Connected accounts** in their dashboard (never their last way to sign in). `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET` keep working and take precedence over the console. Changing `BETTER_AUTH_SECRET` makes stored provider secrets unreadable: the console then asks for them again.
+
+| Provider | Id | Fields (besides the client ID and secret, unless stated) |
+| --- | --- | --- |
+| Apple | `apple` | Services ID, Team ID, Key ID and the `.p8` private key (the client secret JWT is generated and renewed for you); optional app bundle ID for native iOS. Needs HTTPS |
+| Atlassian | `atlassian` | - |
+| Cloudflare | `cloudflare` | Client secret optional (PKCE public client) |
+| Amazon Cognito | `cognito` | Cognito domain, region, user pool ID; client secret optional |
+| Discord | `discord` | - |
+| Dropbox | `dropbox` | App key and secret |
+| Facebook | `facebook` | App ID and secret |
+| Figma | `figma` | - |
+| GitHub | `github` | Or `GITHUB_CLIENT_ID` / `GITHUB_CLIENT_SECRET` |
+| GitLab | `gitlab` | Optional GitLab URL (self-managed) |
+| Google | `google` | Optional Workspace domain (`hd`) to accept only that domain |
+| Hugging Face | `huggingface` | - |
+| Kakao | `kakao` | REST API key; client secret optional |
+| Kick | `kick` | - |
+| LINE | `line` | Channel ID and secret |
+| Linear | `linear` | - |
+| LinkedIn | `linkedin` | - |
+| Microsoft (Entra ID) | `microsoft` | Optional tenant: `common` (default), `organizations`, `consumers` or a tenant ID |
+| Naver | `naver` | - |
+| Notion | `notion` | - |
+| Paybin | `paybin` | Optional issuer |
+| PayPal | `paypal` | Environment: `live` or `sandbox` |
+| Polar | `polar` | - |
+| Railway | `railway` | - |
+| Reddit | `reddit` | - |
+| Roblox | `roblox` | - |
+| Salesforce | `salesforce` | Environment (`production` or `sandbox`), optional My Domain host |
+| Slack | `slack` | - |
+| Spotify | `spotify` | - |
+| TikTok | `tiktok` | Client key instead of a client ID |
+| Twitch | `twitch` | - |
+| X (Twitter) | `twitter` | OAuth 2.0 client ID and secret |
+| Vercel | `vercel` | - |
+| VK | `vk` | App ID and protected key |
+| WeChat | `wechat` | AppID and AppSecret (website app; no email) |
+| Zoom | `zoom` | - |
+
+With a few providers the sign-in page shows a full-width button for each; from four, a grid with names; from seven, a grid of logos with tooltips. The provider used last on that device keeps its full-width button.
 
 ## Provision users with SCIM
 
@@ -395,7 +447,7 @@ Without Resend configured, development prints verification and reset links, and 
 | `COOKIE_DOMAIN` | both | admin console | Parent domain shared by both apps, e.g. `.example.com` |
 | `OAUTH_API_AUDIENCES` | both | optional | Comma-separated URLs of your APIs, registered at build time (or use the admin console) |
 | `OAUTH_API_SCOPES` | both | optional | Comma-separated scopes available to every API (or declare them per API in the admin console) |
-| `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET` | auth | optional | "Sign in with GitHub" |
+| `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET` | both | optional | "Sign in with GitHub" from the environment (read-only in the admin console). Other providers are set up in the admin console, see [Social sign-in](#social-sign-in) |
 | `SCIM_TOKEN_SECRET` | both | optional | 32+ characters to hash SCIM tokens with; derived from `BETTER_AUTH_SECRET` when unset. Changing either invalidates SCIM tokens |
 | `RATE_LIMIT_ENABLED` | both | optional | Rate limiting of the auth endpoints, see [Rate limiting](#rate-limiting). Default: on in production, off in development. `false` turns it off |
 | `IP_ADDRESS_HEADERS` | both | optional | Comma-separated headers holding the client IP, tried in order. Default `x-forwarded-for` (right on Vercel). See [Client IP](#client-ip) |
@@ -421,13 +473,14 @@ Both apps run the same Better Auth configuration against one database. The admin
 
 - Email changes need approval from the current inbox; a stolen session alone cannot move an account.
 - Adding a passkey or connecting an account needs a sign-in from the last 10 minutes.
-- Two-factor authentication (authenticator app or backup code) applies to password sign-ins and emailed sign-in codes. Passkeys are already two factors; GitHub and SSO sign-ins rely on that provider's own checks. Backup codes and authenticator secrets are stored encrypted.
+- Two-factor authentication (authenticator app or backup code) applies to password sign-ins and emailed sign-in codes. Passkeys are already two factors; social and SSO sign-ins rely on that provider's own checks. Backup codes and authenticator secrets are stored encrypted.
 - Admins must turn on two-factor authentication (`REQUIRE_ADMIN_2FA`). An admin without it is sent to set it up and cannot use the console or the admin endpoints until then; their own account keeps working. An admin who loses their authenticator and backup codes can have another admin reset it from the user's page (audited).
 - Sign-in codes open existing accounts only (an unknown address gets the same answer and no email), expire after 10 minutes, are stored hashed and are void after 3 wrong tries. On an account whose email was never verified, the first code verifies it and removes the unproven password and sessions.
 - Only admins can create organizations and register SSO providers; SSO domains must be verified with a DNS record.
 - SCIM tokens are stored as HMAC digests and can only be issued by platform admins; each one only reaches its own organization.
 - API keys are stored as SHA-256 digests, always expire, never act as a session, and are verified only by applications linked to the key's API. Banning or deleting an account revokes its keys.
 - Token signing keys can be rotated on a schedule or on demand (**Signing keys**); retired keys stay published only for the grace period. Rotations and setting changes are in the audit log.
+- Social provider secrets (client secrets, Apple's private key) are encrypted at rest with AES-256-GCM, under a key derived from `BETTER_AUTH_SECRET`, and never sent back to the browser.
 - The audit log never stores passwords, secrets or session tokens.
 - Sign-in, codes, password reset and the token endpoint are rate limited per client IP, see below.
 
@@ -440,6 +493,7 @@ A refused request gets `429 Too Many Requests` with a `Retry-After` header (seco
 | Endpoint | Limit per IP | Why |
 | --- | --- | --- |
 | `/sign-in/email`, `/sign-in/username` | 10 per minute | Password guessing; room for several people behind one address |
+| `/sign-in/social` | 60 per minute | Only returns the provider's authorization URL; room for an office signing in at once |
 | `/sign-up/email` | 10 per 5 minutes | Each sends a verification email |
 | `/request-password-reset`, `/send-verification-email` | 5 per 10 minutes | Each sends an email to any address |
 | `/email-otp/send-verification-otp`, `/sign-in/email-otp` | 3 per minute | Sign-in codes (also void after 3 wrong tries) |

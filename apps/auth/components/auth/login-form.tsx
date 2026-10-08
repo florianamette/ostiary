@@ -22,7 +22,7 @@ import {
 } from "@ostiary/core/components/ui/field"
 import { Input } from "@ostiary/core/components/ui/input"
 import { Link } from "@/i18n/navigation"
-import type { SocialProvider } from "@ostiary/core/lib/social-provider-meta"
+import type { SocialProviderOption } from "@ostiary/core/lib/social-provider-meta"
 import { brand } from "@ostiary/core/lib/brand"
 import { SocialSignInButtons } from "@/components/auth/social-sign-in-buttons"
 import { authClient } from "@/lib/auth-client"
@@ -43,7 +43,7 @@ export function LoginForm({
   socialProviders = [],
   captcha: captchaConfig = null,
   ...props
-}: React.ComponentProps<"div"> & { socialProviders?: SocialProvider[]; captcha?: CaptchaConfig | null }) {
+}: React.ComponentProps<"div"> & { socialProviders?: SocialProviderOption[]; captcha?: CaptchaConfig | null }) {
   const t = useTranslations("auth.login")
   const tLimit = useTranslations("rateLimit")
   const tSso = useTranslations("sso");
@@ -219,7 +219,9 @@ export function LoginForm({
                     : lastUsedMethod === "email-otp"
                       ? t("lastUsedHintEmailCode")
                       : t("lastUsedHintOther", {
-                        method: formatLastUsedMethodLabel(lastUsedMethod),
+                        method:
+                          socialProviders.find((p) => p.id === lastUsedMethod)?.name ??
+                          formatLastUsedMethodLabel(lastUsedMethod),
                       })}
             </p>
           ) : null}

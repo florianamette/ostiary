@@ -33,6 +33,7 @@ const FILTERS = [
   { key: "sso_provider", label: "SSO" },
   { key: "signing_key", label: "Signing keys" },
   { key: "webhook", label: "Webhooks" },
+  { key: "social_provider", label: "Sign-in providers" },
 ] as const;
 
 export async function generateMetadata({
@@ -50,6 +51,7 @@ function targetHref(type: string | null, id: string | null) {
   if (type === "user") return `/users/${id}`;
   if (type === "organization") return `/organizations/${id}`;
   if (type === "webhook") return `/webhooks/${id}`;
+  if (type === "social_provider") return "/sign-in-providers";
   return null;
 }
 

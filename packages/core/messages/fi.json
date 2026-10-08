@@ -170,9 +170,11 @@
       "ecosystem": "Works with"
     },
     "social": {
-      "or": "or",
-      "continueWith": "Continue with {provider}",
-      "lastUsed": "Last used",
+      "or": "tai",
+      "continueWith": "Jatka palvelulla {provider}",
+      "signInWith": "Kirjaudu palvelulla {provider}",
+      "lastUsed": "Viimeksi käytetty",
+      "otherProviders": "Muita kirjautumistapoja",
       "error": "Could not sign in with that account. Try again or use another method.",
       "notLinked": "That account isn't connected to a {name} account yet. Sign in another way, then connect it from your security settings."
     }
@@ -227,6 +229,7 @@
       "consent": "Consent",
       "organizations": "Organizations",
       "sso": "SSO",
+      "signInProviders": "Kirjautumispalvelut",
       "webhooks": "Webhookit",
       "security": "Security",
       "audit": "Audit log",
@@ -243,6 +246,7 @@
       "consent": "Consent",
       "organizations": "Organizations",
       "sso": "SSO",
+      "signInProviders": "Kirjautumispalvelut",
       "webhooks": "Webhookit",
       "security": "Security",
       "audit": "Audit log",
@@ -272,6 +276,10 @@
       "apis": {
         "title": "API:t",
         "description": "API:si (suojatut resurssit), jotka hyväksyvät {name}-käyttöoikeustunnukset: scopet, joita asiakkaat voivat pyytää, sovellukset, jotka voivat käyttää niitä, ja niiden tunnusasetukset."
+      },
+      "signInProviders": {
+        "title": "Kirjautumispalvelut",
+        "description": "Anna käyttäjien kirjautua palveluun {name} Google-, Apple-, Microsoft- ja yli 30 muulla tilillä."
       },
       "apiKeys": {
         "title": "API-avaimet",

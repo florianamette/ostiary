@@ -9,7 +9,7 @@ import { DashboardChangePasswordForm } from "@/components/dashboard/dashboard-ch
 import { DashboardConnectedAccounts } from "@/components/dashboard/dashboard-connected-accounts";
 import { DashboardPasskeysSection } from "@/components/dashboard/dashboard-passkeys-section";
 import { DashboardTwoFactorSection } from "@/components/dashboard/dashboard-two-factor-section";
-import type { SocialProvider } from "@ostiary/core/lib/social-provider-meta";
+import type { SocialProviderOption } from "@ostiary/core/lib/social-provider-meta";
 import { Button } from "@ostiary/core/components/ui/button";
 import {
   Card,
@@ -56,7 +56,7 @@ export function DashboardSecuritySection({
   adminConsoleUrl,
 }: {
   /** Sign-in providers configured on the server; the section is hidden when empty. */
-  socialProviders?: SocialProvider[];
+  socialProviders?: SocialProviderOption[];
   /** Set when this admin must turn on 2FA before using the admin console. */
   adminConsoleUrl?: string;
 }) {

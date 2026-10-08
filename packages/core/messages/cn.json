@@ -172,7 +172,9 @@
     "social": {
       "or": "或",
       "continueWith": "使用 {provider} 继续",
+      "signInWith": "使用 {provider} 登录",
       "lastUsed": "上次使用",
+      "otherProviders": "更多登录方式",
       "error": "无法使用该账户登录。请重试或改用其他方式。",
       "notLinked": "该账户尚未关联到 {name} 账户。请先用其他方式登录，再在安全设置中关联。"
     }
@@ -227,6 +229,7 @@
       "consent": "授权记录",
       "organizations": "组织",
       "sso": "SSO",
+      "signInProviders": "登录提供商",
       "webhooks": "Webhook",
       "security": "安全",
       "audit": "审计日志",
@@ -243,6 +246,7 @@
       "consent": "授权记录",
       "organizations": "组织",
       "sso": "SSO",
+      "signInProviders": "登录提供商",
       "webhooks": "Webhook",
       "security": "安全",
       "audit": "审计日志",
@@ -272,6 +276,10 @@
       "apis": {
         "title": "API",
         "description": "接受 {name} 访问令牌的 API(受保护资源):客户端可以请求的 scope、可以使用它们的应用,以及它们的令牌设置。"
+      },
+      "signInProviders": {
+        "title": "登录提供商",
+        "description": "让用户使用 Google、Apple、Microsoft 等 30 多种账号登录 {name}。"
       },
       "apiKeys": {
         "title": "API 密钥",

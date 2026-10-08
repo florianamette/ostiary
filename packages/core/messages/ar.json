@@ -170,9 +170,11 @@
       "ecosystem": "Works with"
     },
     "social": {
-      "or": "or",
-      "continueWith": "Continue with {provider}",
-      "lastUsed": "Last used",
+      "or": "أو",
+      "continueWith": "المتابعة باستخدام {provider}",
+      "signInWith": "تسجيل الدخول باستخدام {provider}",
+      "lastUsed": "آخر استخدام",
+      "otherProviders": "طرق أخرى لتسجيل الدخول",
       "error": "Could not sign in with that account. Try again or use another method.",
       "notLinked": "That account isn't connected to a {name} account yet. Sign in another way, then connect it from your security settings."
     }
@@ -227,6 +229,7 @@
       "consent": "Consent",
       "organizations": "Organizations",
       "sso": "SSO",
+      "signInProviders": "مزودو تسجيل الدخول",
       "webhooks": "خطافات الويب",
       "security": "Security",
       "audit": "Audit log",
@@ -243,6 +246,7 @@
       "consent": "Consent",
       "organizations": "Organizations",
       "sso": "SSO",
+      "signInProviders": "مزودو تسجيل الدخول",
       "webhooks": "خطافات الويب",
       "security": "Security",
       "audit": "Audit log",
@@ -272,6 +276,10 @@
       "apis": {
         "title": "واجهات API",
         "description": "واجهات API الخاصة بك (الموارد المحمية) التي تقبل رموز الوصول من {name}: النطاقات (scopes) التي يمكن للعملاء طلبها، والتطبيقات التي يمكنها استخدامها، وإعدادات رموزها."
+      },
+      "signInProviders": {
+        "title": "مزودو تسجيل الدخول",
+        "description": "اسمح للأشخاص بتسجيل الدخول إلى {name} باستخدام Google وApple وMicrosoft وأكثر من 30 حسابًا آخر."
       },
       "apiKeys": {
         "title": "مفاتيح API",

@@ -63,7 +63,7 @@ import {
     metadataDocumentHostAllowed,
     registrationRequestError,
 } from "@ostiary/core/lib/client-registration-policy";
-import { socialProvidersConfig } from "@ostiary/core/lib/social-providers";
+import { socialProvidersConfig, syncSocialProviders } from "@ostiary/core/lib/social-providers";
 import { KEY_RATE_LIMIT, API_KEY_NAME_MAX_LENGTH, MAX_LIFETIME_DAYS_LIMIT } from "@ostiary/core/lib/api-key-policy";
 import { deleteUserApiKeys } from "@ostiary/core/lib/api-keys";
 import { apiKeyVerification } from "@ostiary/core/lib/api-key-verification";
@@ -362,7 +362,8 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
 
     return betterAuth({
         baseURL,
-        trustedOrigins,
+        // Sign in with Apple returns with a form POST from Apple's origin.
+        trustedOrigins: [...trustedOrigins, "https://appleid.apple.com"],
         disabledPaths: [...UNUSED_EMAIL_OTP_PATHS, ...API_KEY_PLUGIN_PATHS],
         // Per-IP limits counted in the database, shared by every serverless instance. Rules in
         // lib/rate-limit.ts; off in development unless RATE_LIMIT_ENABLED=true.
@@ -449,6 +450,8 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
                 await syncProviderScopes(provider.options);
                 // Signing key rotation interval and grace period, from the admin console.
                 await syncSigningKeys(jwtOptions);
+                // Sign-in providers enabled from the admin console, without a restart.
+                await syncSocialProviders(ctx.context);
                 if (env.REQUIRE_ADMIN_2FA === "true" && isAdminPath(ctx.path)) {
                     const current = await getSessionFromCtx(ctx);
                     if (current && adminNeedsTwoFactor(current.user as { role?: string | null; twoFactorEnabled?: boolean | null }, true)) {
@@ -575,6 +578,7 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
                 }),
             ),
         ),
+        // The environment's (GitHub); the admin console's are added per request, see syncSocialProviders.
         socialProviders: socialProvidersConfig(),
         account: {
             accountLinking: {

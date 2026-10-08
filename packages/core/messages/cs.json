@@ -170,9 +170,11 @@
       "ecosystem": "Works with"
     },
     "social": {
-      "or": "or",
-      "continueWith": "Continue with {provider}",
-      "lastUsed": "Last used",
+      "or": "nebo",
+      "continueWith": "Pokračovat přes {provider}",
+      "signInWith": "Přihlásit se přes {provider}",
+      "lastUsed": "Naposledy použito",
+      "otherProviders": "Další způsoby přihlášení",
       "error": "Could not sign in with that account. Try again or use another method.",
       "notLinked": "That account isn't connected to a {name} account yet. Sign in another way, then connect it from your security settings."
     }
@@ -227,6 +229,7 @@
       "consent": "Consent",
       "organizations": "Organizations",
       "sso": "SSO",
+      "signInProviders": "Poskytovatelé přihlášení",
       "webhooks": "Webhooky",
       "security": "Security",
       "audit": "Audit log",
@@ -243,6 +246,7 @@
       "consent": "Consent",
       "organizations": "Organizations",
       "sso": "SSO",
+      "signInProviders": "Poskytovatelé přihlášení",
       "webhooks": "Webhooky",
       "security": "Security",
       "audit": "Audit log",
@@ -272,6 +276,10 @@
       "apis": {
         "title": "API",
         "description": "Vaše API (chráněné zdroje), která přijímají přístupové tokeny {name}: scopy, které si klienti mohou vyžádat, aplikace, které je mohou používat, a nastavení jejich tokenů."
+      },
+      "signInProviders": {
+        "title": "Poskytovatelé přihlášení",
+        "description": "Umožněte lidem přihlásit se do {name} účtem Google, Apple, Microsoft a více než 30 dalšími."
       },
       "apiKeys": {
         "title": "API klíče",

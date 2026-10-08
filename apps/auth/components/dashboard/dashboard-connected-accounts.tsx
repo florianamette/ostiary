@@ -17,19 +17,26 @@ import {
 } from "@ostiary/core/components/ui/dialog";
 import { FieldDescription } from "@ostiary/core/components/ui/field";
 import { Skeleton } from "@ostiary/core/components/ui/skeleton";
-import { SOCIAL_PROVIDER_LABELS, type SocialProvider } from "@ostiary/core/lib/social-provider-meta";
+import {
+  isSocialProvider,
+  SOCIAL_PROVIDER_LABELS,
+  type SocialProviderOption,
+} from "@ostiary/core/lib/social-provider-meta";
 import { authClient } from "@/lib/auth-client";
 import { needsRecentSignIn, signInAgain } from "@/lib/sign-in-again";
 
 type LinkedAccount = { id: string; accountId: string; providerId: string };
 
-/** Connect or disconnect GitHub and other sign-in providers. */
-export function DashboardConnectedAccounts({ providers }: { providers: SocialProvider[] }) {
+/**
+ * Connect or disconnect the sign-in providers turned on in the admin console. Accounts linked to
+ * a provider that has since been turned off are listed too, so they can be disconnected.
+ */
+export function DashboardConnectedAccounts({ providers }: { providers: SocialProviderOption[] }) {
   const t = useTranslations("dashboard.connectedAccounts");
   const locale = useLocale();
   const [accounts, setAccounts] = React.useState<LinkedAccount[] | null>(null);
-  const [busy, setBusy] = React.useState<SocialProvider | null>(null);
-  const [pendingDisconnect, setPendingDisconnect] = React.useState<{ provider: SocialProvider; accountId: string } | null>(null);
+  const [busy, setBusy] = React.useState<string | null>(null);
+  const [pendingDisconnect, setPendingDisconnect] = React.useState<{ provider: SocialProviderOption; accountId: string } | null>(null);
 
   const load = React.useCallback(async () => {
     const res = await authClient.listAccounts();
@@ -58,10 +65,10 @@ export function DashboardConnectedAccounts({ providers }: { providers: SocialPro
     toast.error(error.message ?? t("error"));
   }
 
-  async function connect(provider: SocialProvider) {
-    setBusy(provider);
+  async function connect(provider: SocialProviderOption) {
+    setBusy(provider.id);
     const { error } = await authClient.linkSocial({
-      provider,
+      provider: provider.id,
       callbackURL: `/${locale}/dashboard#security`,
       errorCallbackURL: `/${locale}/dashboard#security`,
     });
@@ -74,7 +81,7 @@ export function DashboardConnectedAccounts({ providers }: { providers: SocialPro
 
   async function disconnect() {
     if (!pendingDisconnect) return;
-    setBusy(pendingDisconnect.provider);
+    setBusy(pendingDisconnect.provider.id);
     try {
       // 1.7 selects the account by its local row id (not the provider's account id).
       const { error } = await authClient.unlinkAccount({ accountId: pendingDisconnect.accountId });
@@ -82,13 +89,22 @@ export function DashboardConnectedAccounts({ providers }: { providers: SocialPro
         reportError(error);
         return;
       }
-      toast.success(t("disconnected", { provider: SOCIAL_PROVIDER_LABELS[pendingDisconnect.provider] }));
+      toast.success(t("disconnected", { provider: pendingDisconnect.provider.name }));
       setPendingDisconnect(null);
       void load();
     } finally {
       setBusy(null);
     }
   }
+
+  // Enabled providers, then providers turned off since but still linked to this account.
+  const rows: SocialProviderOption[] = [
+    ...providers,
+    ...(accounts ?? [])
+      .map((a) => a.providerId)
+      .filter((id, i, all) => isSocialProvider(id) && all.indexOf(id) === i && !providers.some((p) => p.id === id))
+      .map((id) => ({ id, name: SOCIAL_PROVIDER_LABELS[id as keyof typeof SOCIAL_PROVIDER_LABELS] })),
+  ] as SocialProviderOption[];
 
   return (
     <div className="space-y-3">
@@ -100,15 +116,16 @@ export function DashboardConnectedAccounts({ providers }: { providers: SocialPro
         <Skeleton className="h-14 w-full" />
       ) : (
         <ul className="divide-y divide-border rounded-md border border-border">
-          {providers.map((provider) => {
-            const linked = accounts.find((a) => a.providerId === provider);
-            const label = SOCIAL_PROVIDER_LABELS[provider];
+          {rows.map((provider) => {
+            const linked = accounts.find((a) => a.providerId === provider.id);
+            // Better Auth refuses to remove the only account (password or provider) left.
+            const onlyMethod = linked !== undefined && accounts.length === 1;
             return (
-              <li key={provider} className="flex items-center justify-between gap-3 px-3 py-2.5">
-                <span className="flex items-center gap-3 text-sm">
+              <li key={provider.id} className="flex items-center justify-between gap-3 px-3 py-2.5">
+                <span className="flex min-w-0 items-center gap-3 text-sm">
                   <ProviderIcon provider={provider} className="size-5" />
-                  <span>
-                    <span className="block font-medium">{label}</span>
+                  <span className="min-w-0">
+                    <span className="block truncate font-medium">{provider.name}</span>
                     <span className="text-xs text-muted-foreground">
                       {linked ? t("connected") : t("notConnected")}
                     </span>
@@ -119,14 +136,23 @@ export function DashboardConnectedAccounts({ providers }: { providers: SocialPro
                     type="button"
                     variant="ghost"
                     size="sm"
-                    disabled={busy !== null}
+                    disabled={busy !== null || onlyMethod}
+                    title={onlyMethod ? t("lastMethod") : undefined}
+                    aria-label={`${t("disconnect")} ${provider.name}`}
                     onClick={() => setPendingDisconnect({ provider, accountId: linked.id })}
                   >
                     {t("disconnect")}
                   </Button>
                 ) : (
-                  <Button type="button" variant="outline" size="sm" disabled={busy !== null} onClick={() => void connect(provider)}>
-                    {busy === provider ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    disabled={busy !== null}
+                    aria-label={`${t("connect")} ${provider.name}`}
+                    onClick={() => void connect(provider)}
+                  >
+                    {busy === provider.id ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
                     {t("connect")}
                   </Button>
                 )}
@@ -140,7 +166,7 @@ export function DashboardConnectedAccounts({ providers }: { providers: SocialPro
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
             <DialogTitle>
-              {t("confirmTitle", { provider: pendingDisconnect ? SOCIAL_PROVIDER_LABELS[pendingDisconnect.provider] : "" })}
+              {t("confirmTitle", { provider: pendingDisconnect?.provider.name ?? "" })}
             </DialogTitle>
             <DialogDescription>{t("confirmBody")}</DialogDescription>
           </DialogHeader>

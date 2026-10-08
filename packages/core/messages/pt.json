@@ -170,9 +170,11 @@
       "ecosystem": "Works with"
     },
     "social": {
-      "or": "or",
-      "continueWith": "Continue with {provider}",
-      "lastUsed": "Last used",
+      "or": "ou",
+      "continueWith": "Continuar com {provider}",
+      "signInWith": "Entrar com {provider}",
+      "lastUsed": "Usado por último",
+      "otherProviders": "Mais formas de entrar",
       "error": "Could not sign in with that account. Try again or use another method.",
       "notLinked": "That account isn't connected to a {name} account yet. Sign in another way, then connect it from your security settings."
     }
@@ -227,6 +229,7 @@
       "consent": "Consent",
       "organizations": "Organizations",
       "sso": "SSO",
+      "signInProviders": "Provedores de login",
       "webhooks": "Webhooks",
       "security": "Security",
       "audit": "Audit log",
@@ -243,6 +246,7 @@
       "consent": "Consent",
       "organizations": "Organizations",
       "sso": "SSO",
+      "signInProviders": "Provedores de login",
       "webhooks": "Webhooks",
       "security": "Security",
       "audit": "Audit log",
@@ -272,6 +276,10 @@
       "apis": {
         "title": "APIs",
         "description": "As suas APIs (recursos protegidos) que aceitam tokens de acesso do {name}: os scopes que os clientes podem pedir, que aplicações as podem usar e as definições dos seus tokens."
+      },
+      "signInProviders": {
+        "title": "Provedores de login",
+        "description": "Permita entrar no {name} com Google, Apple, Microsoft e mais de 30 outras contas."
       },
       "apiKeys": {
         "title": "Chaves de API",

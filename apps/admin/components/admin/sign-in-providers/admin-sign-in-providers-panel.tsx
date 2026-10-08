@@ -1,0 +1,561 @@
+"use client";
+
+import * as React from "react";
+import { ArrowDown, ArrowUp, Check, Copy, ExternalLink, Loader2, Search, Settings2 } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+
+import { SocialProviderIcon } from "@ostiary/core/components/brand/social-provider-icon";
+import { Badge } from "@ostiary/core/components/ui/badge";
+import { Button } from "@ostiary/core/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@ostiary/core/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@ostiary/core/components/ui/dialog";
+import { Field, FieldDescription, FieldGroup, FieldLabel } from "@ostiary/core/components/ui/field";
+import { Input } from "@ostiary/core/components/ui/input";
+import { Label } from "@ostiary/core/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@ostiary/core/components/ui/select";
+import { Textarea } from "@ostiary/core/components/ui/textarea";
+import {
+  SOCIAL_PROVIDER_META,
+  socialCallbackUrl,
+  type ProviderField,
+  type SocialProvider,
+} from "@ostiary/core/lib/social-provider-meta";
+import { removeProvider, reorderProviders, saveProvider } from "@/app/[locale]/(console)/sign-in-providers/actions";
+
+export type SignInProviderRow = {
+  id: SocialProvider;
+  source: "environment" | "database" | null;
+  enabled: boolean;
+  position: number;
+  allowSignUp: boolean;
+  config: Record<string, string>;
+  secretsSet: string[];
+  secretsUnreadable: boolean;
+  missing: string[];
+  updatedAt: string | null;
+  linkedAccounts: number;
+};
+
+type Result = { ok: true } | { ok: false; error: string };
+
+function CheckboxField({
+  id,
+  checked,
+  onChange,
+  disabled,
+  label,
+  hint,
+}: {
+  id: string;
+  checked: boolean;
+  onChange: (checked: boolean) => void;
+  disabled?: boolean;
+  label: string;
+  hint: string;
+}) {
+  return (
+    <div className="flex gap-3 rounded-md border border-border/80 bg-muted/30 p-3">
+      <input
+        id={id}
+        type="checkbox"
+        className="mt-0.5 size-4 shrink-0 rounded border-input"
+        checked={checked}
+        disabled={disabled}
+        onChange={(e) => onChange(e.target.checked)}
+      />
+      <div className="grid gap-1">
+        <Label htmlFor={id} className="cursor-pointer font-medium leading-none">
+          {label}
+        </Label>
+        <p className="text-muted-foreground text-xs leading-snug">{hint}</p>
+      </div>
+    </div>
+  );
+}
+
+function CopyField({ id, value }: { id: string; value: string }) {
+  const [copied, setCopied] = React.useState(false);
+  return (
+    <div className="flex gap-2">
+      <Input id={id} readOnly value={value} className="font-mono text-xs" onFocus={(e) => e.target.select()} />
+      <Button
+        type="button"
+        variant="outline"
+        size="icon"
+        aria-label="Copy the callback URL"
+        onClick={() => {
+          void navigator.clipboard.writeText(value).then(() => {
+            setCopied(true);
+            setTimeout(() => setCopied(false), 1500);
+          });
+        }}
+      >
+        {copied ? <Check /> : <Copy />}
+      </Button>
+    </div>
+  );
+}
+
+function StatusBadge({ row }: { row: SignInProviderRow }) {
+  if (row.source === "environment") return <Badge variant="secondary">Environment</Badge>;
+  if (row.enabled) return <Badge>On</Badge>;
+  if (row.source === "database") return <Badge variant="outline" className="font-normal">Off</Badge>;
+  return null;
+}
+
+/** Social sign-in providers: which ones the sign-in page offers, in which order, with which credentials. */
+export function AdminSignInProvidersPanel({
+  providers,
+  authAppUrl,
+}: {
+  providers: SignInProviderRow[];
+  authAppUrl: string;
+}) {
+  const router = useRouter();
+  const [query, setQuery] = React.useState("");
+  const [editing, setEditing] = React.useState<SocialProvider | null>(null);
+  const [busy, setBusy] = React.useState(false);
+
+  const active = providers
+    .filter((p) => p.enabled)
+    .sort((a, b) => a.position - b.position || a.id.localeCompare(b.id));
+  const needle = query.trim().toLowerCase();
+  const listed = providers.filter(
+    (p) => !needle || p.id.includes(needle) || SOCIAL_PROVIDER_META[p.id].name.toLowerCase().includes(needle),
+  );
+  const current = editing ? providers.find((p) => p.id === editing) ?? null : null;
+
+  async function run(action: () => Promise<Result>, success?: string) {
+    setBusy(true);
+    try {
+      const res = await action();
+      if (!res.ok) {
+        toast.error(res.error);
+        return false;
+      }
+      if (success) toast.success(success);
+      router.refresh();
+      return true;
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  function move(index: number, delta: number) {
+    const ids = active.map((p) => p.id);
+    const [moved] = ids.splice(index, 1);
+    ids.splice(index + delta, 0, moved!);
+    void run(() => reorderProviders(ids));
+  }
+
+  return (
+    <div className="grid gap-6 xl:grid-cols-[2fr_3fr]">
+      <Card className="h-fit border-border/80 shadow-sm">
+        <CardHeader>
+          <CardTitle>On the sign-in page</CardTitle>
+          <CardDescription>
+            In this order on the sign-in and sign-up pages, and under Connected accounts in each user&apos;s dashboard.
+            Changes reach the sign-in page within 30 seconds.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          {active.length === 0 ? (
+            <p className="rounded-md border border-dashed border-border p-4 text-sm text-muted-foreground">
+              No provider is on. Pick one in the list to set it up.
+            </p>
+          ) : (
+            <ol className="divide-y divide-border rounded-md border border-border">
+              {active.map((row, index) => (
+                <li key={row.id} className="flex items-center gap-3 px-3 py-2">
+                  <SocialProviderIcon provider={row.id} name={SOCIAL_PROVIDER_META[row.id].name} className="size-5" />
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate text-sm font-medium">
+                      {row.config.buttonName || SOCIAL_PROVIDER_META[row.id].name}
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      {row.source === "environment" ? "Set by environment variables" : null}
+                      {row.source !== "environment" && !row.allowSignUp ? "Existing accounts only" : null}
+                      {row.source !== "environment" && row.allowSignUp ? `${row.linkedAccounts} connected account${row.linkedAccounts === 1 ? "" : "s"}` : null}
+                    </p>
+                  </div>
+                  <div className="flex shrink-0 items-center gap-1">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="size-8"
+                      disabled={busy || index === 0}
+                      aria-label={`Move ${SOCIAL_PROVIDER_META[row.id].name} up`}
+                      onClick={() => move(index, -1)}
+                    >
+                      <ArrowUp />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="size-8"
+                      disabled={busy || index === active.length - 1}
+                      aria-label={`Move ${SOCIAL_PROVIDER_META[row.id].name} down`}
+                      onClick={() => move(index, 1)}
+                    >
+                      <ArrowDown />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="size-8"
+                      aria-label={`Edit ${SOCIAL_PROVIDER_META[row.id].name}`}
+                      onClick={() => setEditing(row.id)}
+                    >
+                      <Settings2 />
+                    </Button>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          )}
+        </CardContent>
+      </Card>
+
+      <Card className="border-border/80 shadow-sm">
+        <CardHeader>
+          <CardTitle>Providers</CardTitle>
+          <CardDescription>
+            Every provider Better Auth supports. Create an OAuth app with the provider, register the callback URL shown
+            in its settings, then paste the credentials. Secrets are stored encrypted and never shown again.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="relative">
+            <Search className="pointer-events-none absolute top-1/2 left-2.5 size-4 -translate-y-1/2 text-muted-foreground" aria-hidden />
+            <Input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search providers"
+              aria-label="Search providers"
+              className="pl-8"
+            />
+          </div>
+          <ul className="grid gap-2 sm:grid-cols-2 2xl:grid-cols-3">
+            {listed.map((row) => (
+              <li key={row.id}>
+                <button
+                  type="button"
+                  onClick={() => setEditing(row.id)}
+                  className="flex w-full items-center gap-3 rounded-md border border-border/80 px-3 py-2.5 text-left text-sm transition-colors hover:bg-muted/50 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
+                >
+                  <SocialProviderIcon provider={row.id} name={SOCIAL_PROVIDER_META[row.id].name} className="size-5" />
+                  <span className="min-w-0 flex-1 truncate font-medium">{SOCIAL_PROVIDER_META[row.id].name}</span>
+                  <StatusBadge row={row} />
+                </button>
+              </li>
+            ))}
+          </ul>
+          {listed.length === 0 ? <p className="text-sm text-muted-foreground">No provider matches.</p> : null}
+        </CardContent>
+      </Card>
+
+      <ProviderDialog
+        key={current?.id ?? "none"}
+        row={current}
+        authAppUrl={authAppUrl}
+        onClose={() => setEditing(null)}
+        onSaved={() => {
+          setEditing(null);
+          router.refresh();
+        }}
+      />
+    </div>
+  );
+}
+
+function ProviderDialog({
+  row,
+  authAppUrl,
+  onClose,
+  onSaved,
+}: {
+  row: SignInProviderRow | null;
+  authAppUrl: string;
+  onClose: () => void;
+  onSaved: () => void;
+}) {
+  const meta = row ? SOCIAL_PROVIDER_META[row.id] : null;
+  const readOnly = row?.source === "environment";
+  const [config, setConfig] = React.useState<Record<string, string>>(row?.config ?? {});
+  // Secret fields being replaced (or cleared, with null). Untouched ones keep their value.
+  const [secrets, setSecrets] = React.useState<Record<string, string | null>>({});
+  const [enabled, setEnabled] = React.useState(row ? row.enabled || row.source === null : false);
+  const [allowSignUp, setAllowSignUp] = React.useState(row?.allowSignUp ?? true);
+  const [saving, setSaving] = React.useState(false);
+  const [confirmRemove, setConfirmRemove] = React.useState(false);
+
+  if (!row || !meta) return <Dialog open={false} />;
+  const callbackUrl = socialCallbackUrl(authAppUrl, row.id);
+  const fieldId = (key: string) => `provider-${row.id}-${key}`;
+
+  async function save(e: React.FormEvent) {
+    e.preventDefault();
+    if (!row) return;
+    setSaving(true);
+    try {
+      const res = await saveProvider(row.id, { enabled, allowSignUp, config, secrets });
+      if (!res.ok) {
+        toast.error(res.error);
+        return;
+      }
+      toast.success(enabled ? `${meta!.name} is on` : `${meta!.name} saved`);
+      onSaved();
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  async function remove() {
+    if (!row) return;
+    setSaving(true);
+    try {
+      const res = await removeProvider(row.id);
+      if (!res.ok) {
+        toast.error(res.error);
+        return;
+      }
+      toast.success(`${meta!.name} settings removed`);
+      onSaved();
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  function renderField(field: ProviderField) {
+    const id = fieldId(field.key);
+    const label = (
+      <FieldLabel htmlFor={id}>
+        {field.label}
+        {field.optional ? <span className="font-normal text-muted-foreground">(optional)</span> : null}
+      </FieldLabel>
+    );
+    const hint = field.hint ? <FieldDescription>{field.hint}</FieldDescription> : null;
+    if (field.secret) {
+      const isSet = row!.secretsSet.includes(field.key);
+      const replacing = field.key in secrets;
+      if (readOnly || (isSet && !replacing)) {
+        return (
+          <Field key={field.key}>
+            {label}
+            <div className="flex flex-wrap items-center gap-2">
+              <span id={id} className="rounded-md border border-border/80 bg-muted/40 px-3 py-1.5 font-mono text-sm tracking-widest">
+                ••••••••
+              </span>
+              <span className="text-xs text-muted-foreground">Set</span>
+              {readOnly ? null : (
+                <>
+                  <Button type="button" variant="outline" size="sm" onClick={() => setSecrets((s) => ({ ...s, [field.key]: "" }))}>
+                    Replace
+                  </Button>
+                  {field.optional ? (
+                    <Button type="button" variant="ghost" size="sm" onClick={() => setSecrets((s) => ({ ...s, [field.key]: null }))}>
+                      Remove
+                    </Button>
+                  ) : null}
+                </>
+              )}
+            </div>
+            {hint}
+          </Field>
+        );
+      }
+      const value = secrets[field.key] ?? "";
+      const onChange = (next: string) => setSecrets((s) => ({ ...s, [field.key]: next }));
+      return (
+        <Field key={field.key}>
+          {label}
+          {secrets[field.key] === null ? (
+            <p className="text-sm text-muted-foreground">
+              Removed when you save.{" "}
+              <button type="button" className="underline underline-offset-4" onClick={() =>
+                  setSecrets((current) => Object.fromEntries(Object.entries(current).filter(([key]) => key !== field.key)))
+                }>
+                Undo
+              </button>
+            </p>
+          ) : field.multiline ? (
+            <Textarea
+              id={id}
+              value={value}
+              onChange={(e) => onChange(e.target.value)}
+              placeholder={field.placeholder}
+              rows={5}
+              spellCheck={false}
+              autoComplete="off"
+              className="font-mono text-xs"
+            />
+          ) : (
+            <Input
+              id={id}
+              type="password"
+              value={value}
+              onChange={(e) => onChange(e.target.value)}
+              placeholder={isSet ? "New value" : field.placeholder}
+              autoComplete="new-password"
+              spellCheck={false}
+            />
+          )}
+          {hint}
+        </Field>
+      );
+    }
+    if (field.options) {
+      return (
+        <Field key={field.key}>
+          {label}
+          <Select
+            value={config[field.key] || field.options[0]}
+            onValueChange={(v) => setConfig((c) => ({ ...c, [field.key]: v }))}
+            disabled={readOnly}
+          >
+            <SelectTrigger id={id} className="w-full">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {field.options.map((option) => (
+                <SelectItem key={option} value={option}>
+                  {option}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          {hint}
+        </Field>
+      );
+    }
+    return (
+      <Field key={field.key}>
+        {label}
+        <Input
+          id={id}
+          value={config[field.key] ?? ""}
+          onChange={(e) => setConfig((c) => ({ ...c, [field.key]: e.target.value }))}
+          placeholder={field.placeholder}
+          readOnly={readOnly}
+          spellCheck={false}
+          autoComplete="off"
+        />
+        {hint}
+      </Field>
+    );
+  }
+
+  return (
+    <Dialog open onOpenChange={(open) => !open && !saving && onClose()}>
+      <DialogContent className="max-h-[90dvh] overflow-y-auto sm:max-w-xl">
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2">
+            <SocialProviderIcon provider={row.id} name={meta.name} className="size-5" />
+            {meta.name}
+            <StatusBadge row={row} />
+          </DialogTitle>
+          <DialogDescription>
+            {readOnly
+              ? "Set by environment variables (GITHUB_CLIENT_ID and GITHUB_CLIENT_SECRET): change them there, or remove them to manage this provider here."
+              : meta.note ?? `Create an OAuth app with ${meta.name}, register the callback URL below, then paste its credentials.`}
+          </DialogDescription>
+        </DialogHeader>
+        <form onSubmit={save}>
+          <FieldGroup>
+            <Field>
+              <FieldLabel htmlFor={fieldId("callback")}>Callback URL</FieldLabel>
+              <CopyField id={fieldId("callback")} value={callbackUrl} />
+              <FieldDescription>
+                Also called redirect URI or return URL.{" "}
+                <a href={meta.consoleUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 underline underline-offset-4">
+                  Create the app <ExternalLink className="size-3" aria-hidden />
+                </a>
+                {" · "}
+                <a href={meta.docsUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 underline underline-offset-4">
+                  Setup guide <ExternalLink className="size-3" aria-hidden />
+                </a>
+              </FieldDescription>
+            </Field>
+            {row.secretsUnreadable ? (
+              <p role="alert" className="rounded-md border border-destructive/40 bg-destructive/5 p-3 text-sm text-destructive">
+                The stored secrets cannot be decrypted (BETTER_AUTH_SECRET has changed). Enter them again.
+              </p>
+            ) : null}
+            {meta.fields.map(renderField)}
+            {readOnly ? null : (
+              <>
+                <Field>
+                  <FieldLabel htmlFor={fieldId("buttonName")}>
+                    Button name <span className="font-normal text-muted-foreground">(optional)</span>
+                  </FieldLabel>
+                  <Input
+                    id={fieldId("buttonName")}
+                    value={config.buttonName ?? ""}
+                    onChange={(e) => setConfig((c) => ({ ...c, buttonName: e.target.value }))}
+                    placeholder={meta.name}
+                    maxLength={40}
+                  />
+                  <FieldDescription>Shown as &quot;Continue with …&quot; on the sign-in page.</FieldDescription>
+                </Field>
+                <Field>
+                  <CheckboxField
+                    id={fieldId("allowSignUp")}
+                    checked={allowSignUp}
+                    onChange={setAllowSignUp}
+                    disabled={saving}
+                    label="Create accounts for new users"
+                    hint="Off: only people who already have an account can sign in with it (connected from their dashboard, or with the same verified email)."
+                  />
+                </Field>
+                <Field>
+                  <CheckboxField
+                    id={fieldId("enabled")}
+                    checked={enabled}
+                    onChange={setEnabled}
+                    disabled={saving}
+                    label="Show on the sign-in page"
+                    hint="Off: the button disappears and sign-ins with this provider are refused. Settings are kept."
+                  />
+                </Field>
+              </>
+            )}
+          </FieldGroup>
+          <DialogFooter className="mt-6 gap-2 sm:justify-between">
+            {row.source === "database" && !readOnly ? (
+              confirmRemove ? (
+                <Button type="button" variant="destructive" disabled={saving} onClick={() => void remove()}>
+                  Remove settings and secrets?
+                </Button>
+              ) : (
+                <Button type="button" variant="ghost" className="text-destructive" disabled={saving} onClick={() => setConfirmRemove(true)}>
+                  Remove settings
+                </Button>
+              )
+            ) : (
+              <span />
+            )}
+            <div className="flex flex-col-reverse gap-2 sm:flex-row">
+              <Button type="button" variant="outline" disabled={saving} onClick={onClose}>
+                {readOnly ? "Close" : "Cancel"}
+              </Button>
+              {readOnly ? null : (
+                <Button type="submit" disabled={saving}>
+                  {saving ? <Loader2 className="animate-spin" aria-hidden /> : null}
+                  Save
+                </Button>
+              )}
+            </div>
+          </DialogFooter>
+        </form>
+      </DialogContent>
+    </Dialog>
+  );
+}

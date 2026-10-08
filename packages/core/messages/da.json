@@ -170,9 +170,11 @@
       "ecosystem": "Works with"
     },
     "social": {
-      "or": "or",
-      "continueWith": "Continue with {provider}",
-      "lastUsed": "Last used",
+      "or": "eller",
+      "continueWith": "Fortsæt med {provider}",
+      "signInWith": "Log ind med {provider}",
+      "lastUsed": "Sidst brugt",
+      "otherProviders": "Flere måder at logge ind på",
       "error": "Could not sign in with that account. Try again or use another method.",
       "notLinked": "That account isn't connected to a {name} account yet. Sign in another way, then connect it from your security settings."
     }
@@ -227,6 +229,7 @@
       "consent": "Consent",
       "organizations": "Organizations",
       "sso": "SSO",
+      "signInProviders": "Loginudbydere",
       "webhooks": "Webhooks",
       "security": "Security",
       "audit": "Audit log",
@@ -243,6 +246,7 @@
       "consent": "Consent",
       "organizations": "Organizations",
       "sso": "SSO",
+      "signInProviders": "Loginudbydere",
       "webhooks": "Webhooks",
       "security": "Security",
       "audit": "Audit log",
@@ -272,6 +276,10 @@
       "apis": {
         "title": "API'er",
         "description": "Dine API'er (beskyttede ressourcer), der accepterer adgangstokens fra {name}: de scopes, klienter kan anmode om, hvilke applikationer der må bruge dem, og deres tokenindstillinger."
+      },
+      "signInProviders": {
+        "title": "Loginudbydere",
+        "description": "Lad folk logge ind på {name} med Google, Apple, Microsoft og over 30 andre konti."
       },
       "apiKeys": {
         "title": "API-nøgler",
