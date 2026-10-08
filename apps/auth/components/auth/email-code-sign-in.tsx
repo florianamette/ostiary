@@ -23,6 +23,7 @@ import type { CaptchaConfig } from "@ostiary/core/lib/captcha-providers"
 import { SIGN_IN_CODE_LENGTH, SIGN_IN_CODE_MINUTES } from "@ostiary/core/lib/sign-in-code"
 import { useCaptcha } from "@/components/auth/captcha"
 import { authClient } from "@/lib/auth-client"
+import { rateLimitMessage } from "@ostiary/core/lib/rate-limit-message"
 
 /**
  * "Email me a sign-in code": ask for a code, then type it, without leaving the page. Inside
@@ -44,6 +45,7 @@ export function EmailCodeSignIn({
   onTwoFactor: () => void
 }) {
   const t = useTranslations("auth.emailCode")
+  const tLimit = useTranslations("rateLimit")
   const captcha = useCaptcha(captchaConfig)
   const [step, setStep] = useState<"email" | "code">("email")
   const [email, setEmail] = useState(defaultEmail ?? "")
@@ -74,6 +76,7 @@ export function EmailCodeSignIn({
       if (error) {
         toast.error(
           captcha.errorMessage(error.code) ??
+            rateLimitMessage(error, tLimit) ??
             (error.status === 429 ? t("errors.rateLimited") : t("errors.sendFailed")),
         )
         return
@@ -99,7 +102,8 @@ export function EmailCodeSignIn({
       setCode("")
       codeInput.current?.focus()
       const message =
-        error.code === "INVALID_OTP"
+        rateLimitMessage(error, tLimit) ??
+        (error.code === "INVALID_OTP"
           ? t("errors.invalidCode")
           : error.code === "OTP_EXPIRED"
             ? t("errors.expired")
@@ -108,7 +112,7 @@ export function EmailCodeSignIn({
               : error.status === 429
                 ? t("errors.rateLimited")
                 : // e.g. a banned account: the server's message says why.
-                  error.message || t("errors.signInFailed")
+                  error.message || t("errors.signInFailed"))
       toast.error(message)
       return
     }

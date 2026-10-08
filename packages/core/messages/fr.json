@@ -631,6 +631,11 @@
     "boundaryDescription": "Une erreur est survenue lors du chargement de cette page.",
     "retry": "Réessayer"
   },
+  "rateLimit": {
+    "seconds": "Trop de tentatives. Réessayez dans {seconds, plural, one {# seconde} other {# secondes}}.",
+    "minutes": "Trop de tentatives. Réessayez dans {minutes, plural, one {# minute} other {# minutes}}.",
+    "later": "Trop de tentatives. Patientez quelques minutes et réessayez."
+  },
   "sso": {
     "title": "Authentification unique (SSO)",
     "description": "Connectez le fournisseur d’identité de votre organisation (OIDC) pour que vos membres se connectent avec leur compte professionnel.",

@@ -18,6 +18,7 @@ import {
 import { Field, FieldGroup, FieldLabel } from "@ostiary/core/components/ui/field";
 import { Input } from "@ostiary/core/components/ui/input";
 import { formatUserCode, normalizeUserCode, USER_CODE_LENGTH } from "@ostiary/core/lib/device-code";
+import { rateLimitMessage } from "@ostiary/core/lib/rate-limit-message";
 
 type PublicClient = {
   client_id: string;
@@ -36,8 +37,9 @@ type DeviceRequest = {
 
 type ErrorKey = "invalid" | "expired" | "processed" | "otherAccount" | "tooManyAttempts" | "failed";
 
+/** `limited`: the rate limiter's "try again in …" message, shown instead of the key's text. */
 type State =
-  | { step: "enter"; error?: ErrorKey }
+  | { step: "enter"; error?: ErrorKey; limited?: string | null }
   | { step: "loading" }
   | { step: "review"; request: DeviceRequest; client: PublicClient | null }
   | { step: "done"; approved: boolean };
@@ -61,6 +63,7 @@ function errorKey(error: { status?: number; error?: unknown; error_description?:
 export function DeviceForm() {
   const t = useTranslations("device");
   const tConsent = useTranslations("consent");
+  const tLimit = useTranslations("rateLimit");
   const locale = useLocale();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -82,7 +85,7 @@ export function DeviceForm() {
   );
   const [input, setInput] = useState(formatUserCode(userCode));
   const [busy, setBusy] = useState<"approve" | "deny" | "switch" | null>(null);
-  const [actionError, setActionError] = useState<ErrorKey | null>(null);
+  const [actionError, setActionError] = useState<{ key: ErrorKey; limited: string | null } | null>(null);
 
   useEffect(() => {
     if (!userCode) return;
@@ -94,7 +97,11 @@ export function DeviceForm() {
       });
       if (cancelled) return;
       if (error || !data) {
-        setState({ step: "enter", error: error ? errorKey(error) : "failed" });
+        setState({
+          step: "enter",
+          error: error ? errorKey(error) : "failed",
+          limited: rateLimitMessage(error, tLimit),
+        });
         return;
       }
       if (data.status !== "pending") {
@@ -115,7 +122,7 @@ export function DeviceForm() {
     return () => {
       cancelled = true;
     };
-  }, [userCode, setState]);
+  }, [userCode, setState, tLimit]);
 
   function submitCode(e: React.FormEvent) {
     e.preventDefault();
@@ -134,7 +141,7 @@ export function DeviceForm() {
     });
     setBusy(null);
     if (error) {
-      setActionError(errorKey(error));
+      setActionError({ key: errorKey(error), limited: rateLimitMessage(error, tLimit) });
       return;
     }
     setState({ step: "done", approved: approve });
@@ -206,7 +213,7 @@ export function DeviceForm() {
                 />
                 {state.error ? (
                   <p id="device-user-code-error" role="alert" className="text-sm text-destructive">
-                    {t(`errors.${state.error}`)}
+                    {state.limited ?? t(`errors.${state.error}`)}
                   </p>
                 ) : null}
               </Field>
@@ -299,7 +306,7 @@ export function DeviceForm() {
 
         {actionError ? (
           <p role="alert" className="text-sm text-destructive">
-            {t(`errors.${actionError}`)}
+            {actionError.limited ?? t(`errors.${actionError.key}`)}
           </p>
         ) : null}
 

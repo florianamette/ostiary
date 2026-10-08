@@ -8,6 +8,18 @@ All notable changes are documented here. The format follows
 
 ### Added
 
+- Rate limits that work on serverless: Better Auth's counters are kept in Postgres
+  (new `rate_limit` table, migration `0005_rate_limit`) instead of each instance's
+  memory, so a limit holds across every Vercel function instance and both apps. On in
+  production, off in development (`RATE_LIMIT_ENABLED`). Stricter limits per client IP
+  on password sign-in (10 a minute), sign-up, password reset and verification emails,
+  and two-factor codes (5 a minute); a higher one on `/oauth2/token` (300 a minute)
+  for machine clients and refreshes; none on `/get-session` and `/jwks`. A refused
+  request gets a standard `Retry-After` header, and the sign-in, code, two-factor and
+  device screens say how long to wait, in all 20 languages. See README, Rate limiting.
+- `IP_ADDRESS_HEADERS` and `TRUSTED_PROXIES` to read the client IP behind proxies other
+  than Vercel's (Cloudflare, nginx, load balancers). The default, a single-address
+  `x-forwarded-for`, is right on Vercel.
 - Admin console: a **Signing keys** page for the keys that sign ID tokens and JWT
   access tokens. It lists every key (key ID, algorithm, created, signs until, published
   until, and whether it is current, still published for verification, or expired; private
