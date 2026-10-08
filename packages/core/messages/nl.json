@@ -170,9 +170,11 @@
       "ecosystem": "Works with"
     },
     "social": {
-      "or": "or",
-      "continueWith": "Continue with {provider}",
-      "lastUsed": "Last used",
+      "or": "of",
+      "continueWith": "Doorgaan met {provider}",
+      "signInWith": "Inloggen met {provider}",
+      "lastUsed": "Laatst gebruikt",
+      "otherProviders": "Meer manieren om in te loggen",
       "error": "Could not sign in with that account. Try again or use another method.",
       "notLinked": "That account isn't connected to a {name} account yet. Sign in another way, then connect it from your security settings."
     }
@@ -227,6 +229,7 @@
       "consent": "Consent",
       "organizations": "Organizations",
       "sso": "SSO",
+      "signInProviders": "Inlogproviders",
       "webhooks": "Webhooks",
       "security": "Security",
       "audit": "Audit log",
@@ -243,6 +246,7 @@
       "consent": "Consent",
       "organizations": "Organizations",
       "sso": "SSO",
+      "signInProviders": "Inlogproviders",
       "webhooks": "Webhooks",
       "security": "Security",
       "audit": "Audit log",
@@ -272,6 +276,10 @@
       "apis": {
         "title": "API's",
         "description": "Je API's (beschermde resources) die toegangstokens van {name} accepteren: de scopes die clients kunnen aanvragen, welke applicaties ze mogen gebruiken en hun tokeninstellingen."
+      },
+      "signInProviders": {
+        "title": "Inlogproviders",
+        "description": "Laat mensen inloggen bij {name} met Google, Apple, Microsoft en meer dan 30 andere accounts."
       },
       "apiKeys": {
         "title": "API-sleutels",

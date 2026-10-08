@@ -3,6 +3,9 @@ import { captchaConfig } from "@ostiary/core/lib/captcha";
 import { SignupForm } from "@/components/auth/signup-form";
 import { enabledSocialProviders } from "@ostiary/core/lib/social-providers";
 
+// Providers enabled from the admin console are read at request time.
+export const dynamic = "force-dynamic";
+
 export default async function Page({
   params,
 }: {
@@ -12,7 +15,7 @@ export default async function Page({
 
   return (
     <AuthScreen locale={locale}>
-        <SignupForm socialProviders={enabledSocialProviders()} captcha={captchaConfig()} />
+        <SignupForm socialProviders={await enabledSocialProviders()} captcha={captchaConfig()} />
     </AuthScreen>
   );
 }

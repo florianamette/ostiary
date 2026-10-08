@@ -59,6 +59,30 @@ All notable changes are documented here. The format follows
   public addresses (`WEBHOOKS_ALLOW_LOCALHOST=true` for local development). Admin
   actions are in the audit log. Migration `0006_webhooks` adds `webhook_endpoint`
   and `webhook_delivery`.
+- Social sign-in with every provider Better Auth supports (36: Apple, Atlassian,
+  Cloudflare, Amazon Cognito, Discord, Dropbox, Facebook, Figma, GitHub, GitLab,
+  Google, Hugging Face, Kakao, Kick, LINE, Linear, LinkedIn, Microsoft, Naver,
+  Notion, Paybin, PayPal, Polar, Railway, Reddit, Roblox, Salesforce, Slack,
+  Spotify, TikTok, Twitch, X, Vercel, VK, WeChat, Zoom). Admin console: a new
+  **Sign-in providers** page lists them with their logos; each one shows the
+  callback URL to register, links to the provider's console and the setup guide,
+  and takes its credentials, including provider-specific fields (Apple's team ID,
+  key ID and private key, from which the client secret JWT is generated; the
+  Microsoft tenant; Cognito's domain, region and user pool; GitLab's URL...).
+  Providers can be turned on and off, ordered, renamed on their button, and limited
+  to existing accounts. Secrets are encrypted at rest (AES-256-GCM, key derived from
+  `BETTER_AUTH_SECRET`) and never sent back to the browser. Changes reach the auth
+  server within 30 seconds, without a restart, and are in the audit log (with a
+  **Sign-in providers** filter). `GITHUB_CLIENT_ID` / `GITHUB_CLIENT_SECRET` keep
+  working and show as set by the environment. Needs the new `social_provider` table
+  (migration `0008_social_provider`).
+- Sign-in and sign-up pages: brand buttons in each provider's colours (legible in
+  dark mode), "Sign in with Apple" / "Continue with Google" wording, and a layout
+  that stays compact with many providers (a grid of names, then of logos with
+  tooltips), keeping the last-used provider highlighted. Account dashboard:
+  **Connected accounts** lists every enabled provider with its logo, still shows
+  accounts of providers turned off since, and cannot remove the last way to sign
+  in. The admin user page shows each linked provider's logo.
 - Admin console: an **APIs** page to register the APIs (OAuth protected resources)
   that accept access tokens, with the scopes clients may request for each. Scopes
   are read from the database and reach the auth server within a minute, without a

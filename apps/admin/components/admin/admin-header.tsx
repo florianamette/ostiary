@@ -26,6 +26,7 @@ function headerTitleKey(
   | "organizations"
   | "sso"
   | "webhooks"
+  | "signInProviders"
   | "security"
   | "audit"
   | "signingKeys"
@@ -51,6 +52,8 @@ function headerTitleKey(
       return "sso";
     case "/webhooks":
       return "webhooks";
+    case "/sign-in-providers":
+      return "signInProviders";
     case "/security":
       return "security";
     case "/audit":

@@ -170,9 +170,11 @@
       "ecosystem": "Works with"
     },
     "social": {
-      "or": "or",
-      "continueWith": "Continue with {provider}",
-      "lastUsed": "Last used",
+      "or": "veya",
+      "continueWith": "{provider} ile devam et",
+      "signInWith": "{provider} ile oturum aç",
+      "lastUsed": "Son kullanılan",
+      "otherProviders": "Diğer oturum açma yolları",
       "error": "Could not sign in with that account. Try again or use another method.",
       "notLinked": "That account isn't connected to a {name} account yet. Sign in another way, then connect it from your security settings."
     }
@@ -227,6 +229,7 @@
       "consent": "Consent",
       "organizations": "Organizations",
       "sso": "SSO",
+      "signInProviders": "Oturum açma sağlayıcıları",
       "webhooks": "Webhook'lar",
       "security": "Security",
       "audit": "Audit log",
@@ -243,6 +246,7 @@
       "consent": "Consent",
       "organizations": "Organizations",
       "sso": "SSO",
+      "signInProviders": "Oturum açma sağlayıcıları",
       "webhooks": "Webhook'lar",
       "security": "Security",
       "audit": "Audit log",
@@ -272,6 +276,10 @@
       "apis": {
         "title": "API'ler",
         "description": "{name} erişim belirteçlerini kabul eden API'leriniz (korumalı kaynaklar): istemcilerin isteyebileceği scope'lar, bunları kullanabilecek uygulamalar ve belirteç ayarları."
+      },
+      "signInProviders": {
+        "title": "Oturum açma sağlayıcıları",
+        "description": "Kullanıcıların {name} hesabına Google, Apple, Microsoft ve 30'dan fazla başka hesapla oturum açmasını sağlayın."
       },
       "apiKeys": {
         "title": "API anahtarları",

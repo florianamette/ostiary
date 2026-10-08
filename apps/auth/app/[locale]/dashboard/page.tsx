@@ -51,7 +51,7 @@ export default async function DashboardPage({
         <DashboardProfileSection />
         {hasOrganizations ? <DashboardOrganizationsSection /> : null}
         <DashboardSecuritySection
-          socialProviders={enabledSocialProviders()}
+          socialProviders={await enabledSocialProviders()}
           adminConsoleUrl={twoFactorRequired ? env.ADMIN_APP_URL : undefined}
         />
         <DashboardAppsSection />

@@ -170,9 +170,11 @@
       "ecosystem": "Works with"
     },
     "social": {
-      "or": "or",
-      "continueWith": "Continue with {provider}",
-      "lastUsed": "Last used",
+      "or": "या",
+      "continueWith": "{provider} के साथ जारी रखें",
+      "signInWith": "{provider} से साइन इन करें",
+      "lastUsed": "पिछली बार उपयोग किया गया",
+      "otherProviders": "साइन इन करने के और तरीके",
       "error": "Could not sign in with that account. Try again or use another method.",
       "notLinked": "That account isn't connected to a {name} account yet. Sign in another way, then connect it from your security settings."
     }
@@ -227,6 +229,7 @@
       "consent": "Consent",
       "organizations": "Organizations",
       "sso": "SSO",
+      "signInProviders": "साइन-इन प्रदाता",
       "webhooks": "वेबहुक",
       "security": "Security",
       "audit": "Audit log",
@@ -243,6 +246,7 @@
       "consent": "Consent",
       "organizations": "Organizations",
       "sso": "SSO",
+      "signInProviders": "साइन-इन प्रदाता",
       "webhooks": "वेबहुक",
       "security": "Security",
       "audit": "Audit log",
@@ -272,6 +276,10 @@
       "apis": {
         "title": "API",
         "description": "आपके API (सुरक्षित संसाधन) जो {name} के एक्सेस टोकन स्वीकार करते हैं: वे scope जिन्हें क्लाइंट माँग सकते हैं, कौन-से ऐप्लिकेशन उनका उपयोग कर सकते हैं, और उनके टोकन की सेटिंग।"
+      },
+      "signInProviders": {
+        "title": "साइन-इन प्रदाता",
+        "description": "लोगों को Google, Apple, Microsoft और 30 से अधिक अन्य खातों से {name} में साइन इन करने दें।"
       },
       "apiKeys": {
         "title": "API कुंजियाँ",

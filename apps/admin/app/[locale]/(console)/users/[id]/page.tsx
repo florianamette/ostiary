@@ -38,7 +38,8 @@ import { listUserApiKeys } from "@ostiary/core/lib/api-keys";
 import { env } from "@ostiary/core/lib/env";
 import { ApiKeysTable } from "@/components/admin/api-keys/api-keys-table";
 import { toAdminApiKeyRows } from "@/lib/api-key-rows";
-import { SOCIAL_PROVIDER_LABELS } from "@ostiary/core/lib/social-provider-meta";
+import { SocialProviderIcon } from "@ostiary/core/components/brand/social-provider-icon";
+import { isSocialProvider, SOCIAL_PROVIDER_LABELS } from "@ostiary/core/lib/social-provider-meta";
 import { Link } from "@/i18n/navigation";
 import { AUDIT_ACTION_LABELS } from "@/lib/admin-audit";
 import { requireAdminSession } from "@/lib/require-admin-session";
@@ -192,7 +193,12 @@ export default async function AdminUserPage({
           <ul className="space-y-2 text-sm">
             {accounts.map((a) => (
               <li key={a.id} className="flex justify-between gap-3">
-                <span>{PROVIDER_LABELS[a.providerId] ?? `SSO: ${a.providerId}`}</span>
+                <span className="flex items-center gap-2">
+                  {isSocialProvider(a.providerId) ? (
+                    <SocialProviderIcon provider={a.providerId} className="size-4" />
+                  ) : null}
+                  {PROVIDER_LABELS[a.providerId] ?? `SSO: ${a.providerId}`}
+                </span>
                 <span className="text-muted-foreground">{formatDateTime(a.createdAt, locale)}</span>
               </li>
             ))}

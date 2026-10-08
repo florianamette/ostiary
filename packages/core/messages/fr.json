@@ -172,7 +172,9 @@
     "social": {
       "or": "ou",
       "continueWith": "Continuer avec {provider}",
+      "signInWith": "Se connecter avec {provider}",
       "lastUsed": "Dernière utilisation",
+      "otherProviders": "Autres moyens de se connecter",
       "error": "Connexion impossible avec ce compte. Réessayez ou utilisez une autre méthode.",
       "notLinked": "Ce compte n’est pas encore relié à un compte {name}. Connectez-vous autrement, puis reliez-le depuis vos paramètres de sécurité."
     }
@@ -227,6 +229,7 @@
       "consent": "Consentements",
       "organizations": "Organisations",
       "sso": "SSO",
+      "signInProviders": "Fournisseurs de connexion",
       "webhooks": "Webhooks",
       "security": "Sécurité",
       "audit": "Journal d’audit",
@@ -243,6 +246,7 @@
       "consent": "Consentements",
       "organizations": "Organisations",
       "sso": "SSO",
+      "signInProviders": "Fournisseurs de connexion",
       "webhooks": "Webhooks",
       "security": "Sécurité",
       "audit": "Journal d’audit",
@@ -272,6 +276,10 @@
       "apis": {
         "title": "API",
         "description": "Vos API (ressources protégées) qui acceptent les jetons d’accès {name} : les scopes que les clients peuvent demander, les applications qui peuvent les utiliser et les réglages de leurs jetons."
+      },
+      "signInProviders": {
+        "title": "Fournisseurs de connexion",
+        "description": "Permettez la connexion à {name} avec Google, Apple, Microsoft et plus de 30 autres comptes."
       },
       "apiKeys": {
         "title": "Clés d’API",

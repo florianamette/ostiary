@@ -170,9 +170,11 @@
       "ecosystem": "Works with"
     },
     "social": {
-      "or": "or",
-      "continueWith": "Continue with {provider}",
-      "lastUsed": "Last used",
+      "or": "lub",
+      "continueWith": "Kontynuuj przez {provider}",
+      "signInWith": "Zaloguj się przez {provider}",
+      "lastUsed": "Ostatnio używane",
+      "otherProviders": "Inne sposoby logowania",
       "error": "Could not sign in with that account. Try again or use another method.",
       "notLinked": "That account isn't connected to a {name} account yet. Sign in another way, then connect it from your security settings."
     }
@@ -227,6 +229,7 @@
       "consent": "Consent",
       "organizations": "Organizations",
       "sso": "SSO",
+      "signInProviders": "Dostawcy logowania",
       "webhooks": "Webhooki",
       "security": "Security",
       "audit": "Audit log",
@@ -243,6 +246,7 @@
       "consent": "Consent",
       "organizations": "Organizations",
       "sso": "SSO",
+      "signInProviders": "Dostawcy logowania",
       "webhooks": "Webhooki",
       "security": "Security",
       "audit": "Audit log",
@@ -272,6 +276,10 @@
       "apis": {
         "title": "API",
         "description": "Twoje API (chronione zasoby), które przyjmują tokeny dostępu {name}: scope'y, o które klienci mogą prosić, aplikacje, które mogą z nich korzystać, i ustawienia ich tokenów."
+      },
+      "signInProviders": {
+        "title": "Dostawcy logowania",
+        "description": "Pozwól logować się do {name} kontem Google, Apple, Microsoft i ponad 30 innymi."
       },
       "apiKeys": {
         "title": "Klucze API",

@@ -2,7 +2,7 @@
 
 import { Loader2 } from "lucide-react"
 import { useLocale, useTranslations } from "next-intl"
-import type { SocialProvider } from "@ostiary/core/lib/social-provider-meta"
+import type { SocialProviderOption } from "@ostiary/core/lib/social-provider-meta"
 import { SocialSignInButtons } from "@/components/auth/social-sign-in-buttons"
 import { toast } from "sonner"
 import { Button } from "@ostiary/core/components/ui/button"
@@ -31,7 +31,7 @@ export function SignupForm({
   socialProviders = [],
   captcha: captchaConfig = null,
   ...props
-}: React.ComponentProps<typeof Card> & { socialProviders?: SocialProvider[]; captcha?: CaptchaConfig | null }) {
+}: React.ComponentProps<typeof Card> & { socialProviders?: SocialProviderOption[]; captcha?: CaptchaConfig | null }) {
   const t = useTranslations("auth.signup")
   const tLimit = useTranslations("rateLimit")
   const locale = useLocale()

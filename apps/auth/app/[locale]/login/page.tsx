@@ -11,6 +11,9 @@ function LoginFallback() {
   );
 }
 
+// Providers enabled from the admin console are read at request time.
+export const dynamic = "force-dynamic";
+
 export default async function Page({
   params,
 }: {
@@ -21,7 +24,7 @@ export default async function Page({
   return (
     <AuthScreen locale={locale}>
         <Suspense fallback={<LoginFallback />}>
-          <LoginForm socialProviders={enabledSocialProviders()} captcha={captchaConfig()} />
+          <LoginForm socialProviders={await enabledSocialProviders()} captcha={captchaConfig()} />
         </Suspense>
     </AuthScreen>
   );

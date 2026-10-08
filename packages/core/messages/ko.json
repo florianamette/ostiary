@@ -170,9 +170,11 @@
       "ecosystem": "Works with"
     },
     "social": {
-      "or": "or",
-      "continueWith": "Continue with {provider}",
-      "lastUsed": "Last used",
+      "or": "또는",
+      "continueWith": "{provider}(으)로 계속하기",
+      "signInWith": "{provider}(으)로 로그인",
+      "lastUsed": "최근 사용",
+      "otherProviders": "다른 로그인 방법",
       "error": "Could not sign in with that account. Try again or use another method.",
       "notLinked": "That account isn't connected to a {name} account yet. Sign in another way, then connect it from your security settings."
     }
@@ -227,6 +229,7 @@
       "consent": "Consent",
       "organizations": "Organizations",
       "sso": "SSO",
+      "signInProviders": "로그인 제공자",
       "webhooks": "웹훅",
       "security": "Security",
       "audit": "Audit log",
@@ -243,6 +246,7 @@
       "consent": "Consent",
       "organizations": "Organizations",
       "sso": "SSO",
+      "signInProviders": "로그인 제공자",
       "webhooks": "웹훅",
       "security": "Security",
       "audit": "Audit log",
@@ -272,6 +276,10 @@
       "apis": {
         "title": "API",
         "description": "{name} 액세스 토큰을 받는 API(보호된 리소스): 클라이언트가 요청할 수 있는 스코프, 사용할 수 있는 애플리케이션, 토큰 설정입니다."
+      },
+      "signInProviders": {
+        "title": "로그인 제공자",
+        "description": "Google, Apple, Microsoft 등 30개 이상의 계정으로 {name}에 로그인할 수 있게 합니다."
       },
       "apiKeys": {
         "title": "API 키",

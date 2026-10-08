@@ -9,6 +9,7 @@ import {
   KeySquare,
   Network,
   LayoutDashboard,
+  LogIn,
   ScrollText,
   ShieldAlert,
   Users,
@@ -41,6 +42,11 @@ export function useAdminSectionNavItems(): NavMainItem[] {
       title: t("sso"),
       url: "/sso",
       icon: <KeyRound />,
+    },
+    {
+      title: t("signInProviders"),
+      url: "/sign-in-providers",
+      icon: <LogIn />,
     },
     {
       title: t("webhooks"),
