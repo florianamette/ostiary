@@ -370,6 +370,36 @@ export const oauthClientAssertion = pgTable("oauth_client_assertion", {
   expiresAt: timestamp("expires_at").notNull(),
 });
 
+/**
+ * Pending device sign-ins (RFC 8628, `oauthDeviceAuthorization`). A row lives from the device's
+ * request until the device collects its tokens, or until it expires. `userId` is set when a
+ * signed-in user opens the code on the /device page.
+ */
+export const deviceCode = pgTable(
+  "device_code",
+  {
+    id: text("id").primaryKey(),
+    deviceCode: text("device_code").notNull(),
+    userCode: text("user_code").notNull(),
+    userId: text("user_id").references(() => user.id, { onDelete: "cascade" }),
+    expiresAt: timestamp("expires_at").notNull(),
+    status: text("status").notNull(),
+    lastPolledAt: timestamp("last_polled_at"),
+    pollingInterval: integer("polling_interval"),
+    clientId: text("client_id"),
+    scope: text("scope"),
+    // Added by the OAuth provider: the registered client and the requested RFC 8707 resources.
+    oauthClientId: text("oauth_client_id").references(() => oauthClient.clientId, {
+      onDelete: "cascade",
+    }),
+    resources: text("resources").array(),
+  },
+  (table) => [
+    uniqueIndex("deviceCode_deviceCode_uidx").on(table.deviceCode),
+    uniqueIndex("deviceCode_userCode_uidx").on(table.userCode),
+  ],
+);
+
 export const userRelations = relations(user, ({ many }) => ({
   sessions: many(session),
   accounts: many(account),

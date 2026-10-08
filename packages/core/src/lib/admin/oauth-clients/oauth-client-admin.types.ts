@@ -7,10 +7,14 @@ export type TokenEndpointAuthMethod =
 
 export type OAuthClientApplicationType = "web" | "native" | "user-agent-based";
 
+/** RFC 8628 device authorization grant (CLIs, TVs). Same value as Better Auth's constant. */
+export const DEVICE_CODE_GRANT_TYPE = "urn:ietf:params:oauth:grant-type:device_code";
+
 export type OAuthGrantType =
   | "authorization_code"
   | "client_credentials"
-  | "refresh_token";
+  | "refresh_token"
+  | typeof DEVICE_CODE_GRANT_TYPE;
 
 export type CreateOAuthClientAdminInput = {
   redirect_uris: string[];
@@ -33,6 +37,8 @@ export type UpdateOAuthClientAdminInput = {
   client_name?: string;
   redirect_uris?: string[];
   skip_consent?: boolean;
+  /** Adds or removes the device code grant, other grants unchanged. */
+  device_code?: boolean;
 };
 
 export type OAuthClientAdminPayload = Record<string, unknown>;

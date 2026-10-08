@@ -497,5 +497,32 @@
     "continueAs": "{name} olarak devam et",
     "useAnother": "Başka bir hesap kullan",
     "error": "Bir şeyler ters gitti. Tekrar deneyin."
+  },
+  "device": {
+    "title": "Cihaz bağla",
+    "description": "Cihazınızda, TV’nizde veya komut satırında gösterilen kodu girin.",
+    "codeLabel": "Kod",
+    "continue": "Devam",
+    "reviewTitle": "{name} hesabınızı kullanmak istiyor",
+    "reviewDescription": "Yalnızca bu oturum açmayı siz başlattıysanız ve aşağıdaki kod cihazınızdakiyle aynıysa onaylayın.",
+    "codeOnDevice": "Cihazınızdaki kod",
+    "noScopes": "Hesabınıza temel erişim, özel izin yok.",
+    "signedInAs": "{email} olarak oturum açıldı",
+    "switchAccount": "Başka bir hesap kullan",
+    "deny": "Reddet",
+    "approve": "Onayla",
+    "useAnotherCode": "Başka bir kod gir",
+    "approvedTitle": "Cihaz bağlandı",
+    "approvedDescription": "Cihazınıza dönebilirsiniz. Oturum açmayı kendisi tamamlar.",
+    "deniedTitle": "İstek reddedildi",
+    "deniedDescription": "Cihaz hesabınıza erişim alamadı.",
+    "errors": {
+      "invalid": "Bu kod geçerli değil. Kontrol edip tekrar deneyin.",
+      "expired": "Bu kodun süresi doldu. Yeni bir kod almak için cihazınızda yeniden başlayın.",
+      "processed": "Bu kod zaten kullanıldı. Hâlâ oturum açmanız gerekiyorsa cihazınızda yeniden başlayın.",
+      "otherAccount": "Bu kod başka bir hesap tarafından kullanılıyor.",
+      "tooManyAttempts": "Çok fazla deneme. Birkaç dakika bekleyip tekrar deneyin.",
+      "failed": "Bir şeyler ters gitti. Tekrar deneyin."
+    }
   }
 }

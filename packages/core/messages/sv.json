@@ -497,5 +497,32 @@
     "continueAs": "Fortsätt som {name}",
     "useAnother": "Använd ett annat konto",
     "error": "Något gick fel. Försök igen."
+  },
+  "device": {
+    "title": "Anslut en enhet",
+    "description": "Ange koden som visas på din enhet, tv eller kommandorad.",
+    "codeLabel": "Kod",
+    "continue": "Fortsätt",
+    "reviewTitle": "{name} vill använda ditt konto",
+    "reviewDescription": "Godkänn bara om du själv startade den här inloggningen och koden nedan stämmer med den på din enhet.",
+    "codeOnDevice": "Kod på din enhet",
+    "noScopes": "Grundläggande åtkomst till ditt konto, inga särskilda behörigheter.",
+    "signedInAs": "Inloggad som {email}",
+    "switchAccount": "Använd ett annat konto",
+    "deny": "Neka",
+    "approve": "Godkänn",
+    "useAnotherCode": "Ange en annan kod",
+    "approvedTitle": "Enheten är ansluten",
+    "approvedDescription": "Du kan gå tillbaka till din enhet. Den slutför inloggningen själv.",
+    "deniedTitle": "Begäran nekad",
+    "deniedDescription": "Enheten fick inte åtkomst till ditt konto.",
+    "errors": {
+      "invalid": "Koden är ogiltig. Kontrollera den och försök igen.",
+      "expired": "Koden har gått ut. Börja om på din enhet för att få en ny.",
+      "processed": "Koden har redan använts. Börja om på din enhet om du fortfarande behöver logga in.",
+      "otherAccount": "Koden används av ett annat konto.",
+      "tooManyAttempts": "För många försök. Vänta några minuter och försök igen.",
+      "failed": "Något gick fel. Försök igen."
+    }
   }
 }

@@ -1,9 +1,10 @@
 import { z } from "zod";
 import { ENV_API_SCOPES, OIDC_SCOPES } from "@ostiary/core/lib/oauth-scopes";
 
-import type {
-  CreateOAuthClientAdminInput,
-  UpdateOAuthClientAdminInput,
+import {
+  DEVICE_CODE_GRANT_TYPE,
+  type CreateOAuthClientAdminInput,
+  type UpdateOAuthClientAdminInput,
 } from "@ostiary/core/lib/admin/oauth-clients/oauth-client-admin.types";
 
 export type BodyParseResult<T> =
@@ -26,6 +27,7 @@ const oauthGrantTypeSchema = z.enum([
   "authorization_code",
   "client_credentials",
   "refresh_token",
+  DEVICE_CODE_GRANT_TYPE,
 ]);
 
 const DEFAULT_GRANT_TYPES = [
@@ -90,13 +92,15 @@ export const updateOAuthClientBodyTransformSchema = z
     client_name: z.string().optional(),
     redirect_uris: z.array(z.string().min(1)).min(1).optional(),
     skip_consent: z.boolean().optional(),
+    device_code: z.boolean().optional(),
   })
   .strict()
   .refine(
     (data) =>
       data.client_name !== undefined ||
       data.redirect_uris !== undefined ||
-      data.skip_consent !== undefined,
+      data.skip_consent !== undefined ||
+      data.device_code !== undefined,
     { message: "No updatable fields provided" },
   )
   .transform((data): UpdateOAuthClientAdminInput => {
@@ -110,8 +114,24 @@ export const updateOAuthClientBodyTransformSchema = z
     if (data.skip_consent !== undefined) {
       out.skip_consent = data.skip_consent;
     }
+    if (data.device_code !== undefined) {
+      out.device_code = data.device_code;
+    }
     return out;
   });
+
+/**
+ * A client's grants with the device code grant added or removed. A client stored without grants
+ * has Better Auth's default, authorization_code.
+ */
+export function withDeviceCodeGrant(
+  grantTypes: readonly string[] | null | undefined,
+  enabled: boolean,
+): string[] {
+  const current = grantTypes?.length ? [...grantTypes] : ["authorization_code"];
+  const others = current.filter((grant) => grant !== DEVICE_CODE_GRANT_TYPE);
+  return enabled ? [...others, DEVICE_CODE_GRANT_TYPE] : others;
+}
 
 /**
  * Validates and normalizes the JSON body for POST /api/admin/oauth-clients.
