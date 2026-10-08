@@ -20,10 +20,12 @@
       "verifyEmailAfterSignup": "Check your inbox for a verification link. You must verify your email before signing in.",
       "passkey": "Sign in with passkey",
       "passkeySubmitting": "Waiting for passkey…",
+      "emailCode": "Bana e-postayla giriş kodu gönder",
       "lastUsedBadge": "Last used",
       "lastUsedHintEmail": "You last signed in with email and password.",
       "lastUsedHintUsername": "You last signed in with username and password.",
       "lastUsedHintPasskey": "You last signed in with a passkey.",
+      "lastUsedHintEmailCode": "En son e-postayla gönderilen bir kodla giriş yaptınız.",
       "lastUsedHintOther": "You last signed in with {method}.",
       "errors": {
         "emailNotVerified": "Please verify your email first. We sent you a new verification link, check your inbox.",
@@ -41,6 +43,30 @@
         "error": "Could not send the email. Try again in a minute."
       },
       "addAccountDescription": "Bu tarayıcıda oturumu açık olan hesaplar açık kalır."
+    },
+    "emailCode": {
+      "title": "Kodla giriş yap",
+      "description": "Hesabınızın e-posta adresine 6 haneli bir kod göndereceğiz. Kodu herhangi bir cihazda okuyun, sonra buraya yazın.",
+      "emailLabel": "E-posta",
+      "emailPlaceholder": "siz@ornek.com",
+      "send": "Kod gönder",
+      "sending": "Gönderiliyor…",
+      "sentTitle": "E-postanızı kontrol edin",
+      "sent": "{email} adresini kullanan bir hesap varsa 6 haneli bir kod gönderildi. Kodun süresi {minutes} dakika içinde dolar.",
+      "codeLabel": "Giriş kodu",
+      "verify": "Giriş yap",
+      "verifying": "Giriş yapılıyor…",
+      "newCode": "Ulaşmadı mı? Yeni kod gönder",
+      "usePassword": "Bunun yerine şifremi kullan",
+      "errors": {
+        "invalidEmail": "Geçerli bir e-posta adresi girin.",
+        "invalidCode": "Bu kod doğru değil. Kontrol edip tekrar deneyin.",
+        "expired": "Bu kodun süresi doldu. Yeni bir kod isteyin.",
+        "tooManyAttempts": "Çok fazla yanlış kod girildi. Yeni bir kod isteyin.",
+        "rateLimited": "Çok fazla deneme. Bir dakika bekleyip tekrar deneyin.",
+        "sendFailed": "Kod gönderilemedi. Bir dakika sonra tekrar deneyin.",
+        "signInFailed": "Giriş yapılamadı. Tekrar deneyin."
+      }
     },
     "twoFactor": {
       "metaTitle": "İki faktörlü kimlik doğrulama",
@@ -601,6 +627,22 @@
       "otherAccount": "Bu kod başka bir hesap tarafından kullanılıyor.",
       "tooManyAttempts": "Çok fazla deneme. Birkaç dakika bekleyip tekrar deneyin.",
       "failed": "Bir şeyler ters gitti. Tekrar deneyin."
+    }
+  },
+  "captcha": {
+    "label": "Güvenlik kontrolü",
+    "required": "Önce güvenlik kontrolünü tamamlayın.",
+    "failed": "Güvenlik kontrolü başarısız oldu. Tekrar deneyin.",
+    "unavailable": "Güvenlik kontrolü yüklenemedi. Bağlantınızı kontrol edin veya içerik engelleyicileri kapatın, ardından sayfayı yeniden yükleyin."
+  },
+  "emails": {
+    "signInCode": {
+      "subject": "{brand} giriş kodunuz",
+      "preheader": "Giriş yapmak için bu kodu kullanın. Süresi {minutes} dakika içinde dolar.",
+      "heading": "Giriş kodunuz",
+      "body": "Girişi tamamlamak için bu kodu {brand} giriş sayfasına girin.",
+      "note": "Kodun süresi {minutes} dakika içinde dolar ve yalnızca bir kez çalışır.",
+      "footnote": "Kod istemediniz mi? Bu e-postayı yok sayın: kod olmadan kimse giriş yapamaz. Kodu asla kimseyle paylaşmayın."
     }
   }
 }

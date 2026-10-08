@@ -20,10 +20,12 @@
       "verifyEmailAfterSignup": "Check your inbox for a verification link. You must verify your email before signing in.",
       "passkey": "Sign in with passkey",
       "passkeySubmitting": "Waiting for passkey…",
+      "emailCode": "Inviami un codice di accesso via email",
       "lastUsedBadge": "Last used",
       "lastUsedHintEmail": "You last signed in with email and password.",
       "lastUsedHintUsername": "You last signed in with username and password.",
       "lastUsedHintPasskey": "You last signed in with a passkey.",
+      "lastUsedHintEmailCode": "L’ultima volta hai effettuato l’accesso con un codice ricevuto via email.",
       "lastUsedHintOther": "You last signed in with {method}.",
       "errors": {
         "emailNotVerified": "Please verify your email first. We sent you a new verification link, check your inbox.",
@@ -41,6 +43,30 @@
         "error": "Could not send the email. Try again in a minute."
       },
       "addAccountDescription": "Gli account già connessi su questo browser restano connessi."
+    },
+    "emailCode": {
+      "title": "Accedi con un codice",
+      "description": "Invieremo un codice di 6 cifre all’indirizzo del tuo account. Leggilo su qualsiasi dispositivo, poi inseriscilo qui.",
+      "emailLabel": "Email",
+      "emailPlaceholder": "tu@esempio.com",
+      "send": "Invia codice",
+      "sending": "Invio…",
+      "sentTitle": "Controlla la tua email",
+      "sent": "Se un account usa {email}, è in arrivo un codice di 6 cifre. Scade tra {minutes} minuti.",
+      "codeLabel": "Codice di accesso",
+      "verify": "Accedi",
+      "verifying": "Accesso in corso…",
+      "newCode": "Non l’hai ricevuto? Invia un nuovo codice",
+      "usePassword": "Usa la password",
+      "errors": {
+        "invalidEmail": "Inserisci un indirizzo email valido.",
+        "invalidCode": "Il codice non è corretto. Controllalo e riprova.",
+        "expired": "Questo codice è scaduto. Richiedine uno nuovo.",
+        "tooManyAttempts": "Troppi codici errati. Richiedine uno nuovo.",
+        "rateLimited": "Troppi tentativi. Attendi un minuto e riprova.",
+        "sendFailed": "Impossibile inviare il codice. Riprova tra un minuto.",
+        "signInFailed": "Impossibile accedere. Riprova."
+      }
     },
     "twoFactor": {
       "metaTitle": "Autenticazione a due fattori",
@@ -601,6 +627,22 @@
       "otherAccount": "Questo codice è in uso da un altro account.",
       "tooManyAttempts": "Troppi tentativi. Attendi qualche minuto e riprova.",
       "failed": "Si è verificato un errore. Riprova."
+    }
+  },
+  "captcha": {
+    "label": "Controllo di sicurezza",
+    "required": "Completa prima il controllo di sicurezza.",
+    "failed": "Il controllo di sicurezza non è riuscito. Riprova.",
+    "unavailable": "Impossibile caricare il controllo di sicurezza. Controlla la connessione o disattiva i blocchi dei contenuti, poi ricarica la pagina."
+  },
+  "emails": {
+    "signInCode": {
+      "subject": "Il tuo codice di accesso a {brand}",
+      "preheader": "Usa questo codice per accedere. Scade tra {minutes} minuti.",
+      "heading": "Il tuo codice di accesso",
+      "body": "Inserisci questo codice nella pagina di accesso di {brand} per completare l’accesso.",
+      "note": "Il codice scade tra {minutes} minuti e funziona una sola volta.",
+      "footnote": "Non hai richiesto un codice? Ignora questa email: nessuno può accedere senza. Non condividerlo mai con nessuno."
     }
   }
 }

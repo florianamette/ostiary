@@ -20,10 +20,12 @@
       "verifyEmailAfterSignup": "Check your inbox for a verification link. You must verify your email before signing in.",
       "passkey": "Sign in with passkey",
       "passkeySubmitting": "Waiting for passkey…",
+      "emailCode": "Stuur mij een inlogcode per e-mail",
       "lastUsedBadge": "Last used",
       "lastUsedHintEmail": "You last signed in with email and password.",
       "lastUsedHintUsername": "You last signed in with username and password.",
       "lastUsedHintPasskey": "You last signed in with a passkey.",
+      "lastUsedHintEmailCode": "Je hebt de vorige keer ingelogd met een code per e-mail.",
       "lastUsedHintOther": "You last signed in with {method}.",
       "errors": {
         "emailNotVerified": "Please verify your email first. We sent you a new verification link, check your inbox.",
@@ -41,6 +43,30 @@
         "error": "Could not send the email. Try again in a minute."
       },
       "addAccountDescription": "Accounts die al zijn aangemeld in deze browser blijven aangemeld."
+    },
+    "emailCode": {
+      "title": "Inloggen met een code",
+      "description": "We sturen een 6-cijferige code naar het e-mailadres van je account. Lees hem op elk apparaat en typ hem hier in.",
+      "emailLabel": "E-mail",
+      "emailPlaceholder": "jij@voorbeeld.nl",
+      "send": "Code versturen",
+      "sending": "Versturen…",
+      "sentTitle": "Controleer je e-mail",
+      "sent": "Als een account {email} gebruikt, is er een 6-cijferige code onderweg. Hij verloopt over {minutes} minuten.",
+      "codeLabel": "Inlogcode",
+      "verify": "Inloggen",
+      "verifying": "Inloggen…",
+      "newCode": "Niets ontvangen? Stuur een nieuwe code",
+      "usePassword": "Gebruik je wachtwoord",
+      "errors": {
+        "invalidEmail": "Voer een geldig e-mailadres in.",
+        "invalidCode": "Die code klopt niet. Controleer hem en probeer het opnieuw.",
+        "expired": "Deze code is verlopen. Vraag een nieuwe aan.",
+        "tooManyAttempts": "Te veel onjuiste codes. Vraag een nieuwe aan.",
+        "rateLimited": "Te veel pogingen. Wacht een minuut en probeer het opnieuw.",
+        "sendFailed": "De code kon niet worden verstuurd. Probeer het over een minuut opnieuw.",
+        "signInFailed": "Inloggen is mislukt. Probeer het opnieuw."
+      }
     },
     "twoFactor": {
       "metaTitle": "Tweestapsverificatie",
@@ -601,6 +627,22 @@
       "otherAccount": "Deze code wordt door een ander account gebruikt.",
       "tooManyAttempts": "Te veel pogingen. Wacht een paar minuten en probeer het opnieuw.",
       "failed": "Er ging iets mis. Probeer het opnieuw."
+    }
+  },
+  "captcha": {
+    "label": "Beveiligingscontrole",
+    "required": "Voltooi eerst de beveiligingscontrole.",
+    "failed": "De beveiligingscontrole is mislukt. Probeer het opnieuw.",
+    "unavailable": "De beveiligingscontrole kon niet worden geladen. Controleer je verbinding of schakel contentblokkers uit en laad de pagina opnieuw."
+  },
+  "emails": {
+    "signInCode": {
+      "subject": "Je inlogcode voor {brand}",
+      "preheader": "Gebruik deze code om in te loggen. Hij verloopt over {minutes} minuten.",
+      "heading": "Je inlogcode",
+      "body": "Voer deze code in op de inlogpagina van {brand} om het inloggen af te ronden.",
+      "note": "De code verloopt over {minutes} minuten en werkt maar één keer.",
+      "footnote": "Geen code aangevraagd? Negeer deze e-mail: zonder de code kan niemand inloggen. Deel hem nooit met iemand."
     }
   }
 }

@@ -20,10 +20,12 @@
       "verifyEmailAfterSignup": "Check your inbox for a verification link. You must verify your email before signing in.",
       "passkey": "Sign in with passkey",
       "passkeySubmitting": "Waiting for passkey…",
+      "emailCode": "Lähetä minulle kirjautumiskoodi sähköpostiin",
       "lastUsedBadge": "Last used",
       "lastUsedHintEmail": "You last signed in with email and password.",
       "lastUsedHintUsername": "You last signed in with username and password.",
       "lastUsedHintPasskey": "You last signed in with a passkey.",
+      "lastUsedHintEmailCode": "Kirjauduit viimeksi sähköpostiin lähetetyllä koodilla.",
       "lastUsedHintOther": "You last signed in with {method}.",
       "errors": {
         "emailNotVerified": "Please verify your email first. We sent you a new verification link, check your inbox.",
@@ -41,6 +43,30 @@
         "error": "Could not send the email. Try again in a minute."
       },
       "addAccountDescription": "Tässä selaimessa jo kirjautuneet tilit pysyvät kirjautuneina."
+    },
+    "emailCode": {
+      "title": "Kirjaudu koodilla",
+      "description": "Lähetämme 6-numeroisen koodin tilisi sähköpostiosoitteeseen. Lue se millä tahansa laitteella ja kirjoita se tähän.",
+      "emailLabel": "Sähköposti",
+      "emailPlaceholder": "sina@esimerkki.fi",
+      "send": "Lähetä koodi",
+      "sending": "Lähetetään…",
+      "sentTitle": "Tarkista sähköpostisi",
+      "sent": "Jos osoite {email} kuuluu tilille, 6-numeroinen koodi on matkalla. Se vanhenee {minutes} minuutissa.",
+      "codeLabel": "Kirjautumiskoodi",
+      "verify": "Kirjaudu",
+      "verifying": "Kirjaudutaan…",
+      "newCode": "Eikö koodia kuulunut? Lähetä uusi koodi",
+      "usePassword": "Käytä salasanaa",
+      "errors": {
+        "invalidEmail": "Anna kelvollinen sähköpostiosoite.",
+        "invalidCode": "Koodi ei ole oikein. Tarkista se ja yritä uudelleen.",
+        "expired": "Koodi on vanhentunut. Pyydä uusi.",
+        "tooManyAttempts": "Liian monta väärää koodia. Pyydä uusi.",
+        "rateLimited": "Liian monta yritystä. Odota minuutti ja yritä uudelleen.",
+        "sendFailed": "Koodia ei voitu lähettää. Yritä uudelleen minuutin kuluttua.",
+        "signInFailed": "Kirjautuminen epäonnistui. Yritä uudelleen."
+      }
     },
     "twoFactor": {
       "metaTitle": "Kaksivaiheinen tunnistautuminen",
@@ -601,6 +627,22 @@
       "otherAccount": "Toinen tili käyttää tätä koodia.",
       "tooManyAttempts": "Liian monta yritystä. Odota muutama minuutti ja yritä uudelleen.",
       "failed": "Jokin meni vikaan. Yritä uudelleen."
+    }
+  },
+  "captcha": {
+    "label": "Turvatarkistus",
+    "required": "Suorita ensin turvatarkistus.",
+    "failed": "Turvatarkistus epäonnistui. Yritä uudelleen.",
+    "unavailable": "Turvatarkistusta ei voitu ladata. Tarkista yhteys tai poista sisällönesto käytöstä ja lataa sivu uudelleen."
+  },
+  "emails": {
+    "signInCode": {
+      "subject": "{brand}-kirjautumiskoodisi",
+      "preheader": "Kirjaudu tällä koodilla. Se vanhenee {minutes} minuutissa.",
+      "heading": "Kirjautumiskoodisi",
+      "body": "Viimeistele kirjautuminen syöttämällä tämä koodi {brand}-kirjautumissivulle.",
+      "note": "Koodi vanhenee {minutes} minuutissa ja toimii vain kerran.",
+      "footnote": "Etkö pyytänyt koodia? Voit ohittaa tämän viestin: kukaan ei voi kirjautua ilman koodia. Älä koskaan kerro sitä kenellekään."
     }
   }
 }

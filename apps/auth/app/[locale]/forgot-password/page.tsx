@@ -1,4 +1,5 @@
 import { AuthScreen } from "@/components/auth/auth-screen";
+import { captchaConfig } from "@ostiary/core/lib/captcha";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { Suspense } from "react";
@@ -37,7 +38,7 @@ export default async function Page({
   return (
     <AuthScreen locale={locale}>
         <Suspense fallback={<ForgotPasswordFallback />}>
-          <ForgotPasswordForm />
+          <ForgotPasswordForm captcha={captchaConfig()} />
         </Suspense>
     </AuthScreen>
   );

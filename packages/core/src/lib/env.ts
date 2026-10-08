@@ -1,6 +1,12 @@
 import { z } from "zod";
 
-const envSchema = z
+import { CAPTCHA_PROVIDERS } from "@ostiary/core/lib/captcha-providers";
+
+/** An empty value (`CAPTCHA_PROVIDER=` in a copied .env file) counts as unset. */
+const optional = <T extends z.ZodTypeAny>(schema: T) =>
+  z.preprocess((v) => (v === "" ? undefined : v), schema.optional());
+
+export const envSchema = z
   .object({
     NODE_ENV: z
       .enum(["development", "production", "test"])
@@ -55,10 +61,27 @@ const envSchema = z
      * key derived from BETTER_AUTH_SECRET; set it to rotate one without the other.
      */
     SCIM_TOKEN_SECRET: z.string().min(32).optional(),
+    /**
+     * Optional captcha on sign-up, password sign-in, password reset and sign-in codes.
+     * Off unless all three are set: the provider, its public site key and its secret key.
+     */
+    CAPTCHA_PROVIDER: optional(z.enum(CAPTCHA_PROVIDERS)),
+    CAPTCHA_SITE_KEY: optional(z.string().min(1)),
+    CAPTCHA_SECRET_KEY: optional(z.string().min(1)),
     /** Enable verbose request logging when "true". */
     LOG_REQUESTS: z.enum(["true", "false"]).optional(),
   })
   .superRefine((data, ctx) => {
+    const captcha = ["CAPTCHA_PROVIDER", "CAPTCHA_SITE_KEY", "CAPTCHA_SECRET_KEY"] as const;
+    if (captcha.some((key) => data[key])) {
+      for (const key of captcha.filter((k) => !data[k])) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: `${key} is required when any CAPTCHA_* variable is set`,
+          path: [key],
+        });
+      }
+    }
     if (data.NODE_ENV !== "production") return;
     if (!data.RESEND_API_KEY?.trim()) {
       ctx.addIssue({

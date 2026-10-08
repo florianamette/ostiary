@@ -42,6 +42,8 @@ Hosted identity platforms are great until the bill scales with your users or you
 **For your users**
 
 - Email and password with verification, username sign-in, password reset
+- Passwordless sign-in with a 6-digit code sent by email (works across devices and inside OAuth sign-ins)
+- Optional captcha (Cloudflare Turnstile, hCaptcha or reCAPTCHA v2) on sign-up, password sign-in, password reset and sign-in codes
 - Passkeys (WebAuthn), plus a recent sign-in required to add one
 - Two-factor authentication: authenticator app (TOTP) and backup codes, with "trust this device"
 - Social sign-in (GitHub included; others are a config entry)
@@ -197,7 +199,7 @@ pnpm dev:auth     # http://localhost:3000
 pnpm dev:admin    # http://localhost:3001
 ```
 
-Without Resend configured, development prints verification and reset links to the console.
+Without Resend configured, development prints verification and reset links, and sign-in codes, to the console.
 
 ## Configuration
 
@@ -215,6 +217,7 @@ Without Resend configured, development prints verification and reset links to th
 | `OAUTH_API_SCOPES` | both | optional | Comma-separated scopes available to every API (or declare them per API in the admin console) |
 | `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET` | auth | optional | "Sign in with GitHub" |
 | `SCIM_TOKEN_SECRET` | both | optional | 32+ characters to hash SCIM tokens with; derived from `BETTER_AUTH_SECRET` when unset. Changing either invalidates SCIM tokens |
+| `CAPTCHA_PROVIDER`, `CAPTCHA_SITE_KEY`, `CAPTCHA_SECRET_KEY` | auth | optional | Captcha on sign-up, password sign-in, password reset and sign-in codes. Provider: `cloudflare-turnstile`, `hcaptcha` or `google-recaptcha` (v2 checkbox). Set all three or none, before building (the CSP is built with them) |
 
 **Rebrand** by editing `packages/core/src/lib/brand.ts` (name, tagline, colors, logo geometry) and the matching tokens in `packages/core/src/styles/globals.css`, then run `pnpm --filter @ostiary/auth brand:assets` to regenerate `logo.png` and `logo.svg`.
 
@@ -232,8 +235,9 @@ Both apps run the same Better Auth configuration against one database. The admin
 
 - Email changes need approval from the current inbox; a stolen session alone cannot move an account.
 - Adding a passkey or connecting an account needs a sign-in from the last 10 minutes.
-- Two-factor authentication (authenticator app or backup code) applies to password sign-ins. Passkeys are already two factors; GitHub and SSO sign-ins rely on that provider's own checks. Backup codes and authenticator secrets are stored encrypted.
+- Two-factor authentication (authenticator app or backup code) applies to password sign-ins and emailed sign-in codes. Passkeys are already two factors; GitHub and SSO sign-ins rely on that provider's own checks. Backup codes and authenticator secrets are stored encrypted.
 - Admins must turn on two-factor authentication (`REQUIRE_ADMIN_2FA`). An admin without it is sent to set it up and cannot use the console or the admin endpoints until then; their own account keeps working. An admin who loses their authenticator and backup codes can have another admin reset it from the user's page (audited).
+- Sign-in codes open existing accounts only (an unknown address gets the same answer and no email), expire after 10 minutes, are stored hashed and are void after 3 wrong tries. On an account whose email was never verified, the first code verifies it and removes the unproven password and sessions.
 - Only admins can create organizations and register SSO providers; SSO domains must be verified with a DNS record.
 - SCIM tokens are stored as HMAC digests and can only be issued by platform admins; each one only reaches its own organization.
 - The audit log never stores passwords, secrets or session tokens.

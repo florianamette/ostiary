@@ -20,10 +20,12 @@
       "verifyEmailAfterSignup": "Consultez votre boîte mail pour le lien de vérification. Vous devez confirmer votre e-mail avant de vous connecter.",
       "passkey": "Se connecter avec une clé d’accès",
       "passkeySubmitting": "En attente de la clé d’accès…",
+      "emailCode": "Recevoir un code de connexion par e-mail",
       "lastUsedBadge": "Dernière fois",
       "lastUsedHintEmail": "La dernière fois, vous vous êtes connecté avec e-mail et mot de passe.",
       "lastUsedHintUsername": "La dernière fois, vous vous êtes connecté avec nom d’utilisateur et mot de passe.",
       "lastUsedHintPasskey": "La dernière fois, vous vous êtes connecté avec une clé d’accès.",
+      "lastUsedHintEmailCode": "Votre dernière connexion s’est faite avec un code reçu par e-mail.",
       "lastUsedHintOther": "La dernière fois, vous vous êtes connecté avec {method}.",
       "errors": {
         "emailNotVerified": "Veuillez d'abord vérifier votre email. Si vous ne trouvez pas le lien, demandez-en un nouveau ci-dessous.",
@@ -41,6 +43,30 @@
         "error": "Impossible d'envoyer l'email. Réessayez dans une minute."
       },
       "addAccountDescription": "Les comptes déjà connectés sur ce navigateur restent connectés."
+    },
+    "emailCode": {
+      "title": "Se connecter avec un code",
+      "description": "Nous envoyons un code à 6 chiffres à l’adresse de votre compte. Lisez-le sur n’importe quel appareil, puis saisissez-le ici.",
+      "emailLabel": "E-mail",
+      "emailPlaceholder": "vous@exemple.com",
+      "send": "Envoyer le code",
+      "sending": "Envoi…",
+      "sentTitle": "Consultez vos e-mails",
+      "sent": "Si un compte utilise {email}, un code à 6 chiffres est en route. Il expire dans {minutes} minutes.",
+      "codeLabel": "Code de connexion",
+      "verify": "Se connecter",
+      "verifying": "Connexion…",
+      "newCode": "Rien reçu ? Envoyer un nouveau code",
+      "usePassword": "Utiliser mon mot de passe",
+      "errors": {
+        "invalidEmail": "Saisissez une adresse e-mail valide.",
+        "invalidCode": "Ce code n’est pas le bon. Vérifiez-le et réessayez.",
+        "expired": "Ce code a expiré. Demandez-en un nouveau.",
+        "tooManyAttempts": "Trop de codes erronés. Demandez-en un nouveau.",
+        "rateLimited": "Trop de tentatives. Patientez une minute et réessayez.",
+        "sendFailed": "Impossible d’envoyer le code. Réessayez dans une minute.",
+        "signInFailed": "Connexion impossible. Réessayez."
+      }
     },
     "twoFactor": {
       "metaTitle": "Authentification à deux facteurs",
@@ -601,6 +627,22 @@
       "otherAccount": "Ce code est utilisé par un autre compte.",
       "tooManyAttempts": "Trop de tentatives. Patientez quelques minutes et réessayez.",
       "failed": "Une erreur s’est produite. Réessayez."
+    }
+  },
+  "captcha": {
+    "label": "Vérification de sécurité",
+    "required": "Effectuez d’abord la vérification de sécurité.",
+    "failed": "La vérification de sécurité a échoué. Réessayez.",
+    "unavailable": "La vérification de sécurité n’a pas pu se charger. Vérifiez votre connexion ou désactivez vos bloqueurs de contenu, puis rechargez la page."
+  },
+  "emails": {
+    "signInCode": {
+      "subject": "Votre code de connexion {brand}",
+      "preheader": "Utilisez ce code pour vous connecter. Il expire dans {minutes} minutes.",
+      "heading": "Votre code de connexion",
+      "body": "Saisissez ce code sur la page de connexion {brand} pour terminer la connexion.",
+      "note": "Le code expire dans {minutes} minutes et ne fonctionne qu’une fois.",
+      "footnote": "Vous n’avez pas demandé de code ? Ignorez cet e-mail : personne ne peut se connecter sans lui. Ne le communiquez jamais à personne."
     }
   }
 }

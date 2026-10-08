@@ -27,7 +27,12 @@ export interface EmailContent {
   heading: string;
   /** Paragraphs, plain text (escaped here). */
   body: string[];
-  button: { label: string; url: string };
+  /** The call to action. Every email has either a button or a code. */
+  button?: { label: string; url: string };
+  /** A one-time code shown large instead of a button (sign-in codes). */
+  code?: string;
+  /** BCP-47 language of the text (default `en`); Arabic is laid out right to left. */
+  lang?: string;
   /** Small print under the button, e.g. expiry. */
   note?: string;
   /** Last line: why you got this / what to do if it wasn't you. */
@@ -47,17 +52,19 @@ const LOGO_URL = `${SITE_URL}/logo.png`;
  */
 const MARK = `<table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
   <td width="28" height="28" valign="middle" style="width:28px;height:28px;"><img src="${LOGO_URL}" width="28" height="28" alt="${escapeHtml(brand.name)}" style="display:block;width:28px;height:28px;border:0;border-radius:7px;"></td>
-  <td style="padding-left:10px;font:600 15px/28px ${FONT};letter-spacing:-0.2px;" class="fg">${escapeHtml(brand.name)}</td>
+  <td style="padding:0 10px;font:600 15px/28px ${FONT};letter-spacing:-0.2px;" class="fg">${escapeHtml(brand.name)}</td>
 </tr></table>`;
 
 export function renderEmail(c: EmailContent): { html: string; text: string } {
-  const url = escapeHtml(c.button.url);
+  const lang = c.lang ?? "en";
+  const dir = lang === "ar" ? "rtl" : "ltr";
+  const url = c.button ? escapeHtml(c.button.url) : "";
   const paragraphs = c.body
     .map((p) => `<p class="muted" style="margin:0 0 16px;font:400 15px/24px ${FONT};color:#4a463e;">${escapeHtml(p)}</p>`)
     .join("");
 
   const html = `<!doctype html>
-<html lang="en">
+<html lang="${escapeHtml(lang)}" dir="${dir}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -76,6 +83,7 @@ export function renderEmail(c: EmailContent): { html: string; text: string } {
     .btn a { color:#0c0b09 !important; }
     .mark { background:#d4a13a !important; color:#0c0b09 !important; }
     .link { color:#e3b65a !important; }
+    .code { background:#0c0b09 !important; }
   }
   @media (max-width: 600px) { .pad { padding:28px 22px !important; } }
 </style>
@@ -89,15 +97,16 @@ export function renderEmail(c: EmailContent): { html: string; text: string } {
       <tr><td class="card pad" style="background:#ffffff;border:1px solid #e6e1d6;border-radius:12px;padding:36px 32px;">
         <h1 class="fg" style="margin:0 0 16px;font:600 22px/30px ${FONT};letter-spacing:-0.4px;color:#0c0b09;">${escapeHtml(c.heading)}</h1>
         ${paragraphs}
-        <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:24px 0 8px;">
+        ${c.code ? `<p class="code rule fg" dir="ltr" style="margin:24px 0 8px;padding:16px 0 16px 10px;border:1px solid #e6e1d6;border-radius:8px;background:#f7f5f0;text-align:center;font:600 32px/40px ${MONO};letter-spacing:10px;color:#0c0b09;">${escapeHtml(c.code)}</p>` : ""}
+        ${c.button ? `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:24px 0 8px;">
           <tr><td class="btn" align="center" style="border-radius:8px;background:#0c0b09;">
             <a href="${url}" target="_blank" style="display:inline-block;padding:12px 22px;font:500 15px/20px ${FONT};color:#f7f5f0;text-decoration:none;border-radius:8px;">${escapeHtml(c.button.label)}</a>
           </td></tr>
-        </table>
+        </table>` : ""}
         ${c.note ? `<p class="faint" style="margin:12px 0 0;font:400 13px/20px ${FONT};color:#8a8478;">${escapeHtml(c.note)}</p>` : ""}
-        <hr class="rule" style="margin:28px 0 20px;border:0;border-top:1px solid #e6e1d6;">
+        ${c.button ? `<hr class="rule" style="margin:28px 0 20px;border:0;border-top:1px solid #e6e1d6;">
         <p class="faint" style="margin:0 0 6px;font:400 12px/18px ${FONT};color:#8a8478;">Button not working? Paste this link into your browser:</p>
-        <p style="margin:0;font:400 12px/18px ${MONO};word-break:break-all;"><a class="link" href="${url}" target="_blank" style="color:#0c0b09;">${url}</a></p>
+        <p style="margin:0;font:400 12px/18px ${MONO};word-break:break-all;"><a class="link" href="${url}" target="_blank" style="color:#0c0b09;">${url}</a></p>` : ""}
       </td></tr>
       <tr><td style="padding:20px 4px 0;">
         <p class="faint" style="margin:0 0 6px;font:400 12px/18px ${FONT};color:#8a8478;">${escapeHtml(c.footnote)}</p>
@@ -113,7 +122,8 @@ export function renderEmail(c: EmailContent): { html: string; text: string } {
     c.heading,
     "",
     ...c.body.flatMap((p) => [p, ""]),
-    `${c.button.label}: ${c.button.url}`,
+    ...(c.code ? [c.code] : []),
+    ...(c.button ? [`${c.button.label}: ${c.button.url}`] : []),
     ...(c.note ? ["", c.note] : []),
     "",
     "",

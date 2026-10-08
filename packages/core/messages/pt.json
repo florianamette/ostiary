@@ -20,10 +20,12 @@
       "verifyEmailAfterSignup": "Check your inbox for a verification link. You must verify your email before signing in.",
       "passkey": "Sign in with passkey",
       "passkeySubmitting": "Waiting for passkey…",
+      "emailCode": "Enviar-me um código de acesso por e-mail",
       "lastUsedBadge": "Last used",
       "lastUsedHintEmail": "You last signed in with email and password.",
       "lastUsedHintUsername": "You last signed in with username and password.",
       "lastUsedHintPasskey": "You last signed in with a passkey.",
+      "lastUsedHintEmailCode": "Da última vez, entrou com um código enviado por e-mail.",
       "lastUsedHintOther": "You last signed in with {method}.",
       "errors": {
         "emailNotVerified": "Please verify your email first. We sent you a new verification link, check your inbox.",
@@ -41,6 +43,30 @@
         "error": "Could not send the email. Try again in a minute."
       },
       "addAccountDescription": "As contas com sessão iniciada neste navegador continuam com sessão iniciada."
+    },
+    "emailCode": {
+      "title": "Entrar com um código",
+      "description": "Enviaremos um código de 6 dígitos para o endereço da sua conta. Leia-o em qualquer dispositivo e introduza-o aqui.",
+      "emailLabel": "E-mail",
+      "emailPlaceholder": "voce@exemplo.com",
+      "send": "Enviar código",
+      "sending": "A enviar…",
+      "sentTitle": "Verifique o seu e-mail",
+      "sent": "Se uma conta usar {email}, está a caminho um código de 6 dígitos. Expira dentro de {minutes} minutos.",
+      "codeLabel": "Código de acesso",
+      "verify": "Entrar",
+      "verifying": "A entrar…",
+      "newCode": "Não recebeu? Enviar um novo código",
+      "usePassword": "Usar a minha palavra-passe",
+      "errors": {
+        "invalidEmail": "Introduza um endereço de e-mail válido.",
+        "invalidCode": "Esse código não está correto. Verifique-o e tente novamente.",
+        "expired": "Este código expirou. Peça um novo.",
+        "tooManyAttempts": "Demasiados códigos errados. Peça um novo.",
+        "rateLimited": "Demasiadas tentativas. Aguarde um minuto e tente novamente.",
+        "sendFailed": "Não foi possível enviar o código. Tente novamente dentro de um minuto.",
+        "signInFailed": "Não foi possível entrar. Tente novamente."
+      }
     },
     "twoFactor": {
       "metaTitle": "Autenticação em dois fatores",
@@ -601,6 +627,22 @@
       "otherAccount": "Este código está sendo usado por outra conta.",
       "tooManyAttempts": "Muitas tentativas. Aguarde alguns minutos e tente novamente.",
       "failed": "Algo deu errado. Tente novamente."
+    }
+  },
+  "captcha": {
+    "label": "Verificação de segurança",
+    "required": "Conclua primeiro a verificação de segurança.",
+    "failed": "A verificação de segurança falhou. Tente novamente.",
+    "unavailable": "Não foi possível carregar a verificação de segurança. Verifique a sua ligação ou desative os bloqueadores de conteúdo e recarregue a página."
+  },
+  "emails": {
+    "signInCode": {
+      "subject": "O seu código de acesso a {brand}",
+      "preheader": "Use este código para entrar. Expira dentro de {minutes} minutos.",
+      "heading": "O seu código de acesso",
+      "body": "Introduza este código na página de início de sessão de {brand} para concluir o acesso.",
+      "note": "O código expira dentro de {minutes} minutos e só funciona uma vez.",
+      "footnote": "Não pediu um código? Ignore este e-mail: ninguém consegue entrar sem ele. Nunca o partilhe com ninguém."
     }
   }
 }

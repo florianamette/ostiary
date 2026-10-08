@@ -20,10 +20,12 @@
       "verifyEmailAfterSignup": "Check your inbox for a verification link. You must verify your email before signing in.",
       "passkey": "Sign in with passkey",
       "passkeySubmitting": "Waiting for passkey…",
+      "emailCode": "Wyślij mi kod logowania e-mailem",
       "lastUsedBadge": "Last used",
       "lastUsedHintEmail": "You last signed in with email and password.",
       "lastUsedHintUsername": "You last signed in with username and password.",
       "lastUsedHintPasskey": "You last signed in with a passkey.",
+      "lastUsedHintEmailCode": "Ostatnio zalogowano się kodem wysłanym e-mailem.",
       "lastUsedHintOther": "You last signed in with {method}.",
       "errors": {
         "emailNotVerified": "Please verify your email first. We sent you a new verification link, check your inbox.",
@@ -41,6 +43,30 @@
         "error": "Could not send the email. Try again in a minute."
       },
       "addAccountDescription": "Konta zalogowane już w tej przeglądarce pozostaną zalogowane."
+    },
+    "emailCode": {
+      "title": "Zaloguj się kodem",
+      "description": "Wyślemy 6-cyfrowy kod na adres e-mail Twojego konta. Odczytaj go na dowolnym urządzeniu i wpisz tutaj.",
+      "emailLabel": "E-mail",
+      "emailPlaceholder": "ty@przyklad.pl",
+      "send": "Wyślij kod",
+      "sending": "Wysyłanie…",
+      "sentTitle": "Sprawdź pocztę",
+      "sent": "Jeśli konto używa adresu {email}, wysłaliśmy na niego 6-cyfrowy kod. Wygaśnie za {minutes} minut.",
+      "codeLabel": "Kod logowania",
+      "verify": "Zaloguj się",
+      "verifying": "Logowanie…",
+      "newCode": "Nie dotarł? Wyślij nowy kod",
+      "usePassword": "Użyj hasła",
+      "errors": {
+        "invalidEmail": "Wpisz prawidłowy adres e-mail.",
+        "invalidCode": "Ten kod jest nieprawidłowy. Sprawdź go i spróbuj ponownie.",
+        "expired": "Ten kod wygasł. Poproś o nowy.",
+        "tooManyAttempts": "Zbyt wiele błędnych kodów. Poproś o nowy.",
+        "rateLimited": "Zbyt wiele prób. Odczekaj minutę i spróbuj ponownie.",
+        "sendFailed": "Nie udało się wysłać kodu. Spróbuj ponownie za minutę.",
+        "signInFailed": "Nie udało się zalogować. Spróbuj ponownie."
+      }
     },
     "twoFactor": {
       "metaTitle": "Uwierzytelnianie dwuskładnikowe",
@@ -601,6 +627,22 @@
       "otherAccount": "Ten kod jest używany przez inne konto.",
       "tooManyAttempts": "Zbyt wiele prób. Odczekaj kilka minut i spróbuj ponownie.",
       "failed": "Coś poszło nie tak. Spróbuj ponownie."
+    }
+  },
+  "captcha": {
+    "label": "Weryfikacja bezpieczeństwa",
+    "required": "Najpierw ukończ weryfikację bezpieczeństwa.",
+    "failed": "Weryfikacja bezpieczeństwa nie powiodła się. Spróbuj ponownie.",
+    "unavailable": "Nie udało się wczytać weryfikacji bezpieczeństwa. Sprawdź połączenie lub wyłącz blokowanie treści, a następnie odśwież stronę."
+  },
+  "emails": {
+    "signInCode": {
+      "subject": "Twój kod logowania do {brand}",
+      "preheader": "Użyj tego kodu, aby się zalogować. Wygaśnie za {minutes} minut.",
+      "heading": "Twój kod logowania",
+      "body": "Wpisz ten kod na stronie logowania {brand}, aby dokończyć logowanie.",
+      "note": "Kod wygaśnie za {minutes} minut i działa tylko raz.",
+      "footnote": "Nie prosiłeś o kod? Zignoruj tę wiadomość: bez kodu nikt się nie zaloguje. Nigdy nikomu go nie udostępniaj."
     }
   }
 }

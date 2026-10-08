@@ -20,10 +20,12 @@
       "verifyEmailAfterSignup": "Check your inbox for a verification link. You must verify your email before signing in.",
       "passkey": "Sign in with passkey",
       "passkeySubmitting": "Waiting for passkey…",
+      "emailCode": "Email me a sign-in code",
       "lastUsedBadge": "Last used",
       "lastUsedHintEmail": "You last signed in with email and password.",
       "lastUsedHintUsername": "You last signed in with username and password.",
       "lastUsedHintPasskey": "You last signed in with a passkey.",
+      "lastUsedHintEmailCode": "You last signed in with a code sent by email.",
       "lastUsedHintOther": "You last signed in with {method}.",
       "errors": {
         "emailNotVerified": "Please verify your email first. Can't find the link? Ask for a new one below.",
@@ -41,6 +43,30 @@
         "error": "Could not send the email. Try again in a minute."
       },
       "addAccountDescription": "Accounts already signed in on this browser stay signed in."
+    },
+    "emailCode": {
+      "title": "Sign in with a code",
+      "description": "We'll email a 6-digit code to the address on your account. Read it on any device, then type it here.",
+      "emailLabel": "Email",
+      "emailPlaceholder": "you@example.com",
+      "send": "Send code",
+      "sending": "Sending…",
+      "sentTitle": "Check your email",
+      "sent": "If an account uses {email}, a 6-digit code is on its way. It expires in {minutes} minutes.",
+      "codeLabel": "Sign-in code",
+      "verify": "Sign in",
+      "verifying": "Signing in…",
+      "newCode": "Didn't get it? Send a new code",
+      "usePassword": "Use your password instead",
+      "errors": {
+        "invalidEmail": "Enter a valid email address.",
+        "invalidCode": "That code isn't right. Check it and try again.",
+        "expired": "This code has expired. Ask for a new one.",
+        "tooManyAttempts": "Too many wrong codes. Ask for a new one.",
+        "rateLimited": "Too many attempts. Wait a minute and try again.",
+        "sendFailed": "Could not send the code. Try again in a minute.",
+        "signInFailed": "Could not sign in. Try again."
+      }
     },
     "twoFactor": {
       "metaTitle": "Two-factor authentication",
@@ -601,6 +627,22 @@
       "otherAccount": "This code is being used by another account.",
       "tooManyAttempts": "Too many attempts. Wait a few minutes and try again.",
       "failed": "Something went wrong. Try again."
+    }
+  },
+  "captcha": {
+    "label": "Security check",
+    "required": "Complete the security check first.",
+    "failed": "The security check failed. Try again.",
+    "unavailable": "The security check could not load. Check your connection or turn off content blockers, then reload the page."
+  },
+  "emails": {
+    "signInCode": {
+      "subject": "Your {brand} sign-in code",
+      "preheader": "Use this code to sign in. It expires in {minutes} minutes.",
+      "heading": "Your sign-in code",
+      "body": "Enter this code on the {brand} sign-in page to finish signing in.",
+      "note": "The code expires in {minutes} minutes and works only once.",
+      "footnote": "Didn't ask for a code? Ignore this email: no one can sign in without it. Never share it with anyone."
     }
   }
 }

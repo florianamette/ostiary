@@ -20,10 +20,12 @@
       "verifyEmailAfterSignup": "Check your inbox for a verification link. You must verify your email before signing in.",
       "passkey": "Sign in with passkey",
       "passkeySubmitting": "Waiting for passkey…",
+      "emailCode": "Прислать код для входа на почту",
       "lastUsedBadge": "Last used",
       "lastUsedHintEmail": "You last signed in with email and password.",
       "lastUsedHintUsername": "You last signed in with username and password.",
       "lastUsedHintPasskey": "You last signed in with a passkey.",
+      "lastUsedHintEmailCode": "В прошлый раз вы вошли с кодом из письма.",
       "lastUsedHintOther": "You last signed in with {method}.",
       "errors": {
         "emailNotVerified": "Please verify your email first. We sent you a new verification link, check your inbox.",
@@ -41,6 +43,30 @@
         "error": "Could not send the email. Try again in a minute."
       },
       "addAccountDescription": "Аккаунты, уже вошедшие в этом браузере, останутся в системе."
+    },
+    "emailCode": {
+      "title": "Вход по коду",
+      "description": "Мы отправим 6-значный код на адрес вашей учётной записи. Откройте письмо на любом устройстве и введите код здесь.",
+      "emailLabel": "Эл. почта",
+      "emailPlaceholder": "you@example.com",
+      "send": "Отправить код",
+      "sending": "Отправка…",
+      "sentTitle": "Проверьте почту",
+      "sent": "Если адрес {email} привязан к учётной записи, на него отправлен 6-значный код. Он действует {minutes} минут.",
+      "codeLabel": "Код для входа",
+      "verify": "Войти",
+      "verifying": "Вход…",
+      "newCode": "Не пришёл? Отправить новый код",
+      "usePassword": "Войти с паролем",
+      "errors": {
+        "invalidEmail": "Введите корректный адрес эл. почты.",
+        "invalidCode": "Неверный код. Проверьте его и попробуйте ещё раз.",
+        "expired": "Срок действия кода истёк. Запросите новый.",
+        "tooManyAttempts": "Слишком много неверных кодов. Запросите новый.",
+        "rateLimited": "Слишком много попыток. Подождите минуту и попробуйте снова.",
+        "sendFailed": "Не удалось отправить код. Попробуйте через минуту.",
+        "signInFailed": "Не удалось войти. Попробуйте ещё раз."
+      }
     },
     "twoFactor": {
       "metaTitle": "Двухфакторная аутентификация",
@@ -601,6 +627,22 @@
       "otherAccount": "Этот код использует другой аккаунт.",
       "tooManyAttempts": "Слишком много попыток. Подождите несколько минут и попробуйте снова.",
       "failed": "Что-то пошло не так. Попробуйте снова."
+    }
+  },
+  "captcha": {
+    "label": "Проверка безопасности",
+    "required": "Сначала пройдите проверку безопасности.",
+    "failed": "Проверка безопасности не пройдена. Попробуйте ещё раз.",
+    "unavailable": "Не удалось загрузить проверку безопасности. Проверьте подключение или отключите блокировщики контента и перезагрузите страницу."
+  },
+  "emails": {
+    "signInCode": {
+      "subject": "Ваш код для входа в {brand}",
+      "preheader": "Используйте этот код для входа. Он действует {minutes} минут.",
+      "heading": "Ваш код для входа",
+      "body": "Введите этот код на странице входа {brand}, чтобы завершить вход.",
+      "note": "Код действует {minutes} минут и срабатывает только один раз.",
+      "footnote": "Не запрашивали код? Просто проигнорируйте это письмо: без кода войти никто не сможет. Никому его не сообщайте."
     }
   }
 }
