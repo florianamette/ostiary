@@ -21,6 +21,7 @@ function headerTitleKey(
   | "users"
   | "applications"
   | "apis"
+  | "apiKeys"
   | "consent"
   | "organizations"
   | "sso"
@@ -40,6 +41,8 @@ function headerTitleKey(
       return "applications";
     case "/apis":
       return "apis";
+    case "/api-keys":
+      return "apiKeys";
     case "/consent":
       return "consent";
     case "/organizations":

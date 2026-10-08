@@ -2,6 +2,7 @@ import { ShieldAlert } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
 import { DashboardAccountSummary } from "@/components/dashboard/dashboard-account-summary";
+import { DashboardApiKeysSection } from "@/components/dashboard/dashboard-api-keys-section";
 import { DashboardAppsSection } from "@/components/dashboard/dashboard-apps-section";
 import { DashboardOrganizationsSection } from "@/components/dashboard/dashboard-organizations-section";
 import { DashboardProfileSection } from "@/components/dashboard/dashboard-profile-section";
@@ -19,7 +20,7 @@ export default async function DashboardPage({
 }) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "dashboard" });
-  const { session, hasOrganizations } = await getDashboardContext();
+  const { session, hasOrganizations, showApiKeys } = await getDashboardContext();
   // The admin console sends admins here until they turn on two-factor authentication.
   const twoFactorRequired = adminNeedsTwoFactor(session?.user, env.REQUIRE_ADMIN_2FA === "true");
 
@@ -54,6 +55,7 @@ export default async function DashboardPage({
           adminConsoleUrl={twoFactorRequired ? env.ADMIN_APP_URL : undefined}
         />
         <DashboardAppsSection />
+        {showApiKeys ? <DashboardApiKeysSection /> : null}
       </div>
     </div>
   );

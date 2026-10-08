@@ -10,7 +10,7 @@ import { Link } from "@/i18n/navigation";
 import { authClient } from "@/lib/auth-client";
 import { cn } from "@ostiary/core/lib/utils";
 
-const SECTION_IDS = ["overview", "profile", "organizations", "security", "apps"];
+const SECTION_IDS = ["overview", "profile", "organizations", "security", "apps", "api-keys"];
 
 /**
  * Tracks which dashboard section is in the reading band near the top of the
@@ -80,6 +80,7 @@ export function DashboardShell({
   user,
   isAdmin,
   showOrganizations,
+  showApiKeys,
   impersonation,
 }: {
   children: React.ReactNode;
@@ -87,6 +88,8 @@ export function DashboardShell({
   isAdmin: boolean;
   /** False when the user is only in the default Public workspace. */
   showOrganizations: boolean;
+  /** True while API keys are allowed, or the user still has some. */
+  showApiKeys: boolean;
   /** Set while an admin is viewing this account through impersonation. */
   impersonation: { userId: string; adminAppUrl: string | null } | null;
 }) {
@@ -94,8 +97,11 @@ export function DashboardShell({
   const locale = useLocale();
 
   const sectionIds = React.useMemo(
-    () => SECTION_IDS.filter((id) => showOrganizations || id !== "organizations"),
-    [showOrganizations],
+    () =>
+      SECTION_IDS.filter(
+        (id) => (showOrganizations || id !== "organizations") && (showApiKeys || id !== "api-keys"),
+      ),
+    [showOrganizations, showApiKeys],
   );
   const activeId = useActiveSection(sectionIds);
 
@@ -109,6 +115,7 @@ export function DashboardShell({
     },
     { id: "security", href: "/dashboard#security", label: t("nav.security") },
     { id: "apps", href: "/dashboard#apps", label: t("nav.apps") },
+    { id: "api-keys", href: "/dashboard#api-keys", label: t("nav.apiKeys") },
   ].filter((item) => sectionIds.includes(item.id));
 
   return (

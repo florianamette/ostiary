@@ -2,6 +2,7 @@ import { randomUUID } from "node:crypto";
 import { betterAuth, type BetterAuthPlugin } from "better-auth";
 import { APIError, createAuthMiddleware, getSessionFromCtx } from "better-auth/api";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { apiKey } from "@better-auth/api-key";
 import { createCimdClientDiscovery } from "@better-auth/cimd";
 import { fetchClientMetadataResource } from "@better-auth/cimd/node";
 import { oauthDeviceAuthorization, oauthProvider } from "@better-auth/oauth-provider";
@@ -63,6 +64,9 @@ import {
     registrationRequestError,
 } from "@ostiary/core/lib/client-registration-policy";
 import { socialProvidersConfig } from "@ostiary/core/lib/social-providers";
+import { KEY_RATE_LIMIT, API_KEY_NAME_MAX_LENGTH, MAX_LIFETIME_DAYS_LIMIT } from "@ostiary/core/lib/api-key-policy";
+import { deleteUserApiKeys } from "@ostiary/core/lib/api-keys";
+import { apiKeyVerification } from "@ostiary/core/lib/api-key-verification";
 import {
     SCIM_DEACTIVATED_MESSAGE,
     SCIM_DEACTIVATED_REASON,
@@ -114,7 +118,7 @@ const RECENT_SIGN_IN_PATHS = new Set([
     // Connecting a GitHub (or other) account adds a way to sign in, like a passkey.
     "/link-social",
 ]);
-const RECENT_SIGN_IN_SECONDS = 10 * 60;
+export const RECENT_SIGN_IN_SECONDS = 10 * 60;
 
 /** Password sign-in endpoints whose failures are counted for the security page. */
 const PASSWORD_SIGN_IN_PATHS = new Set(["/sign-in/email", "/sign-in/username"]);
@@ -163,6 +167,17 @@ const UNUSED_EMAIL_OTP_PATHS = [
     "/email-otp/request-email-change",
     "/email-otp/change-email",
 ];
+
+/**
+ * The API key plugin's HTTP endpoints. Keys are created, listed and revoked only through the
+ * dashboard's and the admin console's server actions, which apply Ostiary's rules (the global
+ * switch, one registered API and its scopes, the maximum lifetime) and write the audit log.
+ * The plugin's verification has no HTTP route; APIs use /api-key/verify (api-key-verification.ts).
+ */
+const API_KEY_PLUGIN_PATHS = ["/api-key/create", "/api-key/get", "/api-key/update", "/api-key/delete", "/api-key/list"];
+
+/** Prefix of new API keys. */
+const API_KEY_PREFIX = env.API_KEY_PREFIX ?? "ost_";
 
 /** First-run setup: these addresses get the admin role when their account is created. */
 const adminEmails = new Set(
@@ -329,10 +344,26 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
         }),
     });
 
+    // API keys for the APIs registered in Ostiary, owned by users. Each key holds one API and
+    // some of its scopes in `permissions`. Never a session: `enableSessionForAPIKeys` stays off
+    // (the default), so a key sent to Ostiary itself (x-api-key or otherwise) signs nobody in,
+    // on the auth app as on the admin console.
+    const apiKeys = apiKey({
+        enableSessionForAPIKeys: false,
+        defaultPrefix: API_KEY_PREFIX,
+        // 64 random letters after the prefix (the default), stored as a SHA-256 digest.
+        startingCharactersConfig: { shouldStore: true, charactersLength: API_KEY_PREFIX.length + 6 },
+        requireName: true,
+        maximumNameLength: API_KEY_NAME_MAX_LENGTH,
+        // Every key expires; the admin console sets the maximum (checked before creation).
+        keyExpiration: { defaultExpiresIn: null, minExpiresIn: 1, maxExpiresIn: MAX_LIFETIME_DAYS_LIMIT },
+        rateLimit: { enabled: true, timeWindow: KEY_RATE_LIMIT.timeWindowMs, maxRequests: KEY_RATE_LIMIT.maxRequests },
+    });
+
     return betterAuth({
         baseURL,
         trustedOrigins,
-        disabledPaths: UNUSED_EMAIL_OTP_PATHS,
+        disabledPaths: [...UNUSED_EMAIL_OTP_PATHS, ...API_KEY_PLUGIN_PATHS],
         // Per-IP limits counted in the database, shared by every serverless instance. Rules in
         // lib/rate-limit.ts; off in development unless RATE_LIMIT_ENABLED=true.
         rateLimit: rateLimitOptions(env),
@@ -369,6 +400,24 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
                                 ],
                             });
                         await recordAuthEvent("sign_up", createdUser.id);
+                    },
+                },
+                update: {
+                    // A banned account loses its API keys (admin ban; a ban written elsewhere, such
+                    // as SCIM deactivation, is also refused at verification). Deleting an account
+                    // deletes its keys with it (foreign key).
+                    after: async (updatedUser, context) => {
+                        if (!updatedUser.banned) return;
+                        const revoked = await deleteUserApiKeys(updatedUser.id);
+                        if (revoked === 0) return;
+                        const actor = context?.context.session?.user;
+                        await recordAudit({
+                            actor: actor ? { id: actor.id, email: actor.email } : null,
+                            action: "api_key.revoke_all",
+                            target: { type: "user", id: updatedUser.id, label: updatedUser.email },
+                            metadata: { reason: "banned", keys: revoked },
+                            ipAddress: context ? clientIp(context.headers) : null,
+                        });
                     },
                 },
             },
@@ -669,6 +718,12 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
             // which have no HTTP route: the admin console calls them after its admin check
             // (see apps/admin .../organizations/[id]/scim-actions.ts). Okta or Entra authenticate
             // with the bearer token; nothing else (no session, no API key) reaches SCIM.
+            apiKeys,
+            apiKeyVerification({
+                providerOptions: provider.options,
+                verifyApiKey: apiKeys.endpoints.verifyApiKey as never,
+                authServer: baseURL,
+            }),
             scim({
                 connections: [],
                 managedConnections: { credentialHashSecret: scimCredentialHashSecret(env) },

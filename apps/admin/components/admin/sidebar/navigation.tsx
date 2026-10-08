@@ -6,6 +6,7 @@ import {
   FileKey,
   History,
   KeyRound,
+  KeySquare,
   Network,
   LayoutDashboard,
   ScrollText,
@@ -71,6 +72,11 @@ export function useOauthSectionNavItems(): NavMainItem[] {
       title: t("apis"),
       url: "/apis",
       icon: <Network />,
+    },
+    {
+      title: t("apiKeys"),
+      url: "/api-keys",
+      icon: <KeySquare />,
     },
     {
       title: t("consent"),

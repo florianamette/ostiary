@@ -35,6 +35,10 @@ export const RATE_LIMIT_RULES = {
     // users from one server address. Every credential it accepts is long and random, so this
     // only caps load. The OAuth provider's own default is 20 a minute.
     "/oauth2/token": { window: 60, max: 300 },
+    // API key verification (api-key-verification.ts): resource servers, each from one address,
+    // checking the keys of all their users. The caller is an authenticated client and each key
+    // has its own limit too (300 a minute, counted on the key's row by the api-key plugin).
+    "/api-key/verify": { window: 60, max: 600 },
     // Hot, read-only paths with nothing to guess: no counter (each counted request costs
     // database writes).
     "/get-session": false,

@@ -7,3 +7,4 @@ export * from "./audit";
 export * from "./settings";
 export * from "./rate-limit";
 export * from "./webhooks";
+export * from "./api-keys";

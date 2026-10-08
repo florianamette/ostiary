@@ -58,6 +58,7 @@ Hosted identity platforms are great until the bill scales with your users or you
 
 - OAuth 2.1 / OpenID Connect provider: discovery, PKCE, refresh tokens, consent, UserInfo, introspection, JWKS
 - Machine-to-machine tokens (client credentials) with per-client scopes
+- API keys for scripts: users create keys for one of your APIs and some of its scopes; your API verifies them with Ostiary
 - Self-registration for MCP clients and AI agents: Dynamic Client Registration and Client ID Metadata Documents, off by default
 - Device sign-in (RFC 8628) for CLIs, TVs and other apps without a browser
 - Protected resources: JWT access tokens scoped to your APIs, with the user's role as a claim
@@ -68,6 +69,7 @@ Hosted identity platforms are great until the bill scales with your users or you
 
 - Users: search, roles, bans, sessions, impersonation, two-factor reset
 - OAuth clients with usage statistics, consents, organizations, SSO providers
+- API keys: turn them on, set their maximum lifetime, see and revoke every key
 - Audit log of every admin action, sign-in activity and failed sign-in monitoring
 - Signing keys: automatic rotation on a schedule, or rotate now, with a grace period during which old tokens keep verifying
 - Rate limits per client IP on sign-in, codes, password reset and token endpoints, counted in Postgres so they hold on serverless
@@ -332,6 +334,38 @@ export async function requireToken(request: Request) {
 }
 ```
 
+## API keys for your APIs
+
+People can create **API keys** for their scripts and tools, for one of the APIs registered in Ostiary (admin console, **APIs**). Off by default: turn them on in the admin console, **API keys**, and set the maximum lifetime (90 days by default, 365 at most).
+
+**Creating a key** (account page, **API keys**): a name, one API, some of that API's scopes, and an expiry within the maximum. The key (`ost_` and 64 random letters) is shown once; Ostiary stores only its SHA-256 digest and its first characters. Creating a key needs a sign-in from the last 10 minutes, like adding a passkey, and an admin impersonating the user cannot create one. Up to 25 keys per account. Users list and revoke their keys on the same page; admins see every key (owner, API, scopes, created, last used, expires) and revoke any of them, also from the user's page. Creations and revocations are in the audit log.
+
+Which APIs accept keys: every enabled API that declares scopes and is open to every application. **Not** an API limited to linked applications: there an admin chose which apps may call it, and a key is not tied to an app, so keys would be a way around that choice. If an API is later disabled, deleted or limited to linked applications, its keys stop working; scopes removed from an API are removed from its keys' answers.
+
+**Verifying a key (in your API).** Your API receives the key from the script (how is up to you, for example an `x-api-key` header) and asks Ostiary:
+
+```bash
+curl -X POST https://auth.example.com/api/auth/api-key/verify \
+  -u "$CLIENT_ID:$CLIENT_SECRET" \
+  -H 'content-type: application/json' \
+  -d '{"key": "ost_...", "resource": "https://api.example.com"}'
+
+# {"valid": true, "keyId": "...", "userId": "...", "api": "https://api.example.com",
+#  "scopes": ["orders:read"], "expiresAt": "2026-11-07T15:49:36.523Z"}
+# {"valid": false, "error": "invalid_key"}
+```
+
+- **Who may call it.** Your API authenticates as a confidential application registered by an admin (Applications), with HTTP Basic as above (`client_secret_basic`, the default), or `client_secret_post` / `private_key_jwt` if the application is registered that way: the same client authentication as `/oauth2/introspect`. That application must be **linked** to the API (APIs, Access, "Linked applications"; links work whether or not the API is limited to them), which is also what lets it introspect the API's tokens. Public and self-registered applications are refused (`401 invalid_client`); an application not linked to `resource` gets `403 access_denied`.
+- **Audience.** `resource` is your API's identifier. A key made for another API gets `invalid_key`, the same answer as an unknown key, and does not use up that key's rate limit.
+- **Answers** (HTTP 200): `valid: true` with the owner's user id and the scopes the key grants; or `valid: false` with `error`: `invalid_key` (unknown, revoked, for another API, or its owner is banned), `expired`, `rate_limited` (with `retryAfter` in seconds), `api_unavailable` (the API was disabled, deleted or limited to linked applications), `api_keys_disabled` (turned off in the admin console). Form-encoded bodies work too.
+- **Rate limits.** 300 verifications per key per minute, and 600 per minute per calling address on the endpoint. Cache a successful answer for a short while (a minute or so) rather than verifying on every request; revocation then takes effect within that time.
+
+**A key is never a session.** The Better Auth plugin can turn API keys into sessions (`enableSessionForAPIKeys`); Ostiary keeps that off. A key sent to Ostiary itself (`x-api-key`, `Authorization: Bearer`, anything) signs nobody in, on the auth app or the admin console. The plugin's own HTTP endpoints (`/api-key/create`, `/list`, `/get`, `/update`, `/delete`) are closed: keys are managed only from the account page and the admin console, which apply the rules above.
+
+**Revocation.** Banning a user (admin console, or SCIM deactivation) deletes their keys; deleting the account deletes them too. A ban written any other way is still checked at verification. Turning API keys off in the admin console refuses every key without deleting them. Expired keys are refused, then deleted.
+
+Keys belong to users. The plugin also supports keys owned by an organization; Ostiary does not offer them yet (they need per-organization roles for managing keys).
+
 ## Run locally
 
 Requirements: Node.js 20+, pnpm 11, a Postgres database.
@@ -365,6 +399,7 @@ Without Resend configured, development prints verification and reset links, and 
 | `SCIM_TOKEN_SECRET` | both | optional | 32+ characters to hash SCIM tokens with; derived from `BETTER_AUTH_SECRET` when unset. Changing either invalidates SCIM tokens |
 | `RATE_LIMIT_ENABLED` | both | optional | Rate limiting of the auth endpoints, see [Rate limiting](#rate-limiting). Default: on in production, off in development. `false` turns it off |
 | `IP_ADDRESS_HEADERS` | both | optional | Comma-separated headers holding the client IP, tried in order. Default `x-forwarded-for` (right on Vercel). See [Client IP](#client-ip) |
+| `API_KEY_PREFIX` | both | optional | Prefix of new API keys (default `ost_`; letters, digits, `_`, `-`, 16 at most). Existing keys keep theirs |
 | `TRUSTED_PROXIES` | both | optional | Comma-separated IPs or CIDR ranges of your own reverse proxies, to read the client IP from a multi-hop `x-forwarded-for` |
 | `CAPTCHA_PROVIDER`, `CAPTCHA_SITE_KEY`, `CAPTCHA_SECRET_KEY` | auth | optional | Captcha on sign-up, password sign-in, password reset and sign-in codes. Provider: `cloudflare-turnstile`, `hcaptcha` or `google-recaptcha` (v2 checkbox). Set all three or none, before building (the CSP is built with them) |
 | `CRON_SECRET` | auth | for webhooks | 16+ characters. Protects `/api/cron/webhooks`, which retries failed webhook deliveries (Vercel Cron sends it) |
@@ -391,6 +426,7 @@ Both apps run the same Better Auth configuration against one database. The admin
 - Sign-in codes open existing accounts only (an unknown address gets the same answer and no email), expire after 10 minutes, are stored hashed and are void after 3 wrong tries. On an account whose email was never verified, the first code verifies it and removes the unproven password and sessions.
 - Only admins can create organizations and register SSO providers; SSO domains must be verified with a DNS record.
 - SCIM tokens are stored as HMAC digests and can only be issued by platform admins; each one only reaches its own organization.
+- API keys are stored as SHA-256 digests, always expire, never act as a session, and are verified only by applications linked to the key's API. Banning or deleting an account revokes its keys.
 - Token signing keys can be rotated on a schedule or on demand (**Signing keys**); retired keys stay published only for the grace period. Rotations and setting changes are in the audit log.
 - The audit log never stores passwords, secrets or session tokens.
 - Sign-in, codes, password reset and the token endpoint are rate limited per client IP, see below.
@@ -411,6 +447,7 @@ A refused request gets `429 Too Many Requests` with a `Retry-After` header (seco
 | `/device` (code lookup) | 5 per 10 minutes | Device user codes |
 | `/device/approve`, `/device/deny` | 10 per minute | |
 | `/oauth2/token` | 300 per minute | Machine clients, refreshes and device polling share server addresses; every credential it takes is long and random |
+| `/api-key/verify` | 600 per minute | API servers verifying their users' keys; each key also has its own limit (300 a minute) |
 | `/oauth2/register` | 5 per minute | Plus the hourly cap set in the admin console |
 | `/oauth2/authorize`, `/oauth2/userinfo`, `/oauth2/introspect` | 30, 60, 100 per minute | Better Auth's OAuth provider defaults |
 | `/get-session`, `/jwks` | none | Hot, read-only, nothing to guess |
