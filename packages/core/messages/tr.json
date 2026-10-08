@@ -259,7 +259,7 @@
       },
       "apis": {
         "title": "API'ler",
-        "description": "{name} erişim belirteçlerini kabul eden API'leriniz (korumalı kaynaklar) ve istemcilerin bunlar için isteyebileceği scope'lar."
+        "description": "{name} erişim belirteçlerini kabul eden API'leriniz (korumalı kaynaklar): istemcilerin isteyebileceği scope'lar, bunları kullanabilecek uygulamalar ve belirteç ayarları."
       },
       "users": {
         "title": "Users",

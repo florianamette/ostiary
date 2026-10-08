@@ -1,6 +1,9 @@
+import { asc, eq } from "drizzle-orm";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
+import { db } from "@ostiary/core/db/index";
+import { oauthClientResource, oauthResource } from "@ostiary/core/db/schema";
 import { brand } from "@ostiary/core/lib/brand";
 
 import { AdminApplicationsPanel } from "@/components/admin/applications/admin-applications-panel";
@@ -38,7 +41,17 @@ export default async function AdminApplicationsPage({
   });
 
   await requireAdminSession();
-  const usage = await getOAuthClientUsage();
+  const [usage, links] = await Promise.all([
+    getOAuthClientUsage(),
+    db
+      .select({ clientId: oauthClientResource.clientId, name: oauthResource.name })
+      .from(oauthClientResource)
+      .innerJoin(oauthResource, eq(oauthResource.identifier, oauthClientResource.resourceId))
+      .orderBy(asc(oauthResource.name)),
+  ]);
+  // The APIs each application is linked to (managed from the APIs page).
+  const linkedApis: Record<string, string[]> = {};
+  for (const link of links) (linkedApis[link.clientId] ??= []).push(link.name);
 
   return (
     <div className="space-y-6">
@@ -49,7 +62,7 @@ export default async function AdminApplicationsPage({
         </p>
       </div>
       <OAuthUsageCard usage={usage} locale={locale} />
-      <AdminApplicationsPanel />
+      <AdminApplicationsPanel linkedApis={linkedApis} />
     </div>
   );
 }

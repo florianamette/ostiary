@@ -13,6 +13,16 @@ All notable changes are documented here. The format follows
   are read from the database and reach the auth server within a minute, without a
   redeploy. An API can be restricted to its own scopes, or disabled.
   `OAUTH_API_SCOPES` and `OAUTH_API_AUDIENCES` keep working.
+- Admin console, **APIs**: choose which applications can use each API. An API is
+  open to every application (the default, unchanged for existing APIs) or only to
+  the applications linked to it; other clients get `invalid_target`, including when
+  they refresh a token. The Applications page lists each application's linked APIs.
+  Better Auth's `enforcePerClientResources` is now on, with APIs open to every
+  application counted as linked to every client.
+- Admin console, **APIs**: token settings per API: access and refresh token
+  lifetimes (shorter than the defaults only), custom claims added to its access
+  tokens (reserved claims such as `sub`, `aud` or `role` are refused), and
+  DPoP-bound tokens. Changes apply to the next token and are in the audit log.
 - Device sign-in (OAuth 2.0 Device Authorization Grant, RFC 8628) for CLIs, TVs and
   other apps without a browser. The app gets a code from `/api/auth/device/code`, the
   user enters it on the new `/device` page (or opens the link with the code filled

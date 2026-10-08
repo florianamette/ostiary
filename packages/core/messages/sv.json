@@ -259,7 +259,7 @@
       },
       "apis": {
         "title": "API:er",
-        "description": "Dina API:er (skyddade resurser) som tar emot åtkomsttoken från {name}, och de scopes som klienter kan begära för dem."
+        "description": "Dina API:er (skyddade resurser) som tar emot åtkomsttoken från {name}: de scopes som klienter kan begära, vilka applikationer som får använda dem och deras tokeninställningar."
       },
       "users": {
         "title": "Users",

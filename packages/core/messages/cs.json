@@ -259,7 +259,7 @@
       },
       "apis": {
         "title": "API",
-        "description": "Vaše API (chráněné zdroje), která přijímají přístupové tokeny {name}, a scopy, které si pro ně klienti mohou vyžádat."
+        "description": "Vaše API (chráněné zdroje), která přijímají přístupové tokeny {name}: scopy, které si klienti mohou vyžádat, aplikace, které je mohou používat, a nastavení jejich tokenů."
       },
       "users": {
         "title": "Users",

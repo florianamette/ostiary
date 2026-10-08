@@ -259,7 +259,7 @@
       },
       "apis": {
         "title": "API",
-        "description": "Vos API (ressources protégées) qui acceptent les jetons d’accès {name}, et les scopes que les clients peuvent demander pour elles."
+        "description": "Vos API (ressources protégées) qui acceptent les jetons d’accès {name} : les scopes que les clients peuvent demander, les applications qui peuvent les utiliser et les réglages de leurs jetons."
       },
       "users": {
         "title": "Utilisateurs",

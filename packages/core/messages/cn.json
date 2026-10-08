@@ -259,7 +259,7 @@
       },
       "apis": {
         "title": "API",
-        "description": "接受 {name} 访问令牌的 API(受保护资源),以及客户端可以为其请求的 scope。"
+        "description": "接受 {name} 访问令牌的 API(受保护资源):客户端可以请求的 scope、可以使用它们的应用,以及它们的令牌设置。"
       },
       "users": {
         "title": "用户",

@@ -41,6 +41,8 @@ import { getPasskeyWebAuthnOptions } from "@ostiary/core/lib/passkey-options";
 import { env } from "@ostiary/core/lib/env";
 import { ENV_API_SCOPES, OIDC_SCOPES, syncProviderScopes } from "@ostiary/core/lib/oauth-scopes";
 import { oauthResourceIdentifiers } from "@ostiary/core/lib/oauth-resources";
+import { withOpenApiLinks } from "@ostiary/core/lib/oauth-resource-access";
+import { ACCESS_TOKEN_EXPIRES_IN, REFRESH_TOKEN_EXPIRES_IN } from "@ostiary/core/lib/oauth-resource-policy";
 import { socialProvidersConfig } from "@ostiary/core/lib/social-providers";
 import {
     SCIM_DEACTIVATED_MESSAGE,
@@ -204,9 +206,9 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
         // OAUTH_API_AUDIENCES. The build registers the same rows first (`db:seed`), see
         // db/seed-resources.ts. APIs added from the admin console live only in the database.
         resources: oauthResourceIdentifiers(baseURL),
-        // As in 1.5: any client may request any listed resource. Per-client links
-        // (oauthClientResource) can be introduced later from the admin app.
-        enforcePerClientResources: false,
+        // A client gets a token for an API only if it is linked to it. APIs open to every
+        // application (the default) count as linked to every client, see withOpenApiLinks.
+        enforcePerClientResources: true,
         // 1.7 requires a policy before anyone may grant client_credentials scopes. Only
         // platform admins may; every other client action keeps its 1.5 behavior.
         clientPrivileges: ({ action, user }) =>
@@ -218,7 +220,9 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
             userHasAdminRole(user?.role as string | null | undefined, ["admin"]),
         // Explicit (not left to the library default): resource servers reject tokens
         // only after expiry, so this bounds how long a leaked access token works.
-        accessTokenExpiresIn: 60 * 60,
+        accessTokenExpiresIn: ACCESS_TOKEN_EXPIRES_IN,
+        // Better Auth's default, explicit because per-API lifetimes can only be shorter.
+        refreshTokenExpiresIn: REFRESH_TOKEN_EXPIRES_IN,
         // Resource servers authorize on the admin plugin's role (e.g. "admin" or "admin,user").
         customAccessTokenClaims: ({ user }) =>
             typeof user?.role === "string" ? { role: user.role } : {},
@@ -374,13 +378,16 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
                 });
             }),
         },
-        database: drizzleAdapter(db, {
-            provider: "pg",
-            schema,
-            // Real transactions (the SCIM plugin refuses to start without them). Better Auth then
-            // runs multi-step writes such as sign-up atomically; after-hooks still run post-commit.
-            transaction: true,
-        }),
+        // Per-API access: APIs open to every application count as linked to every client.
+        database: withOpenApiLinks(
+            drizzleAdapter(db, {
+                provider: "pg",
+                schema,
+                // Real transactions (the SCIM plugin refuses to start without them). Better Auth then
+                // runs multi-step writes such as sign-up atomically; after-hooks still run post-commit.
+                transaction: true,
+            }),
+        ),
         socialProviders: socialProvidersConfig(),
         account: {
             accountLinking: {

@@ -39,6 +39,8 @@ export const AUDIT_ACTION_LABELS: Record<string, string> = {
   "oauth_resource.create": "Registered API",
   "oauth_resource.update": "Updated API",
   "oauth_resource.delete": "Deleted API",
+  "oauth_resource.access": "Changed API access",
+  "oauth_resource.tokens": "Changed API token settings",
   "oauth_consent.update": "Updated consent",
   "oauth_consent.delete": "Revoked consent",
   "oauth_device.approve": "Approved a device sign-in",

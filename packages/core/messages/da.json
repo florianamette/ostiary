@@ -259,7 +259,7 @@
       },
       "apis": {
         "title": "API'er",
-        "description": "Dine API'er (beskyttede ressourcer), der accepterer adgangstokens fra {name}, og de scopes, klienter kan anmode om til dem."
+        "description": "Dine API'er (beskyttede ressourcer), der accepterer adgangstokens fra {name}: de scopes, klienter kan anmode om, hvilke applikationer der må bruge dem, og deres tokenindstillinger."
       },
       "users": {
         "title": "Users",

@@ -1,5 +1,6 @@
 import { db } from "@ostiary/core/db/index";
 import { oauthResource } from "@ostiary/core/db/schema";
+import type { OAuthResourceMetadata } from "@ostiary/core/lib/oauth-resource-policy";
 
 /** Standard OpenID Connect scopes (Better Auth's defaults). */
 export const OIDC_SCOPES = ["openid", "profile", "email", "offline_access"] as const;
@@ -12,9 +13,6 @@ export const ENV_API_SCOPES: readonly string[] = (process.env.OAUTH_API_SCOPES ?
   .split(",")
   .map((scope) => scope.trim())
   .filter(Boolean);
-
-/** Shape of `oauth_resource.metadata` for APIs managed from the admin console. */
-export type OAuthResourceMetadata = { scopes?: string[] };
 
 /** The scopes an API declares, read from its `oauth_resource` row. */
 export function resourceScopes(row: {

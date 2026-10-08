@@ -259,7 +259,7 @@
       },
       "apis": {
         "title": "API-er",
-        "description": "API-ene dine (beskyttede ressurser) som godtar tilgangstokener fra {name}, og scopene klienter kan be om for dem."
+        "description": "API-ene dine (beskyttede ressurser) som godtar tilgangstokener fra {name}: scopene klienter kan be om, hvilke applikasjoner som kan bruke dem, og tokeninnstillingene deres."
       },
       "users": {
         "title": "Users",
