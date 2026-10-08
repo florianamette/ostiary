@@ -227,7 +227,8 @@
       "organizations": "Organizations",
       "sso": "SSO",
       "security": "Security",
-      "audit": "Audit log"
+      "audit": "Audit log",
+      "signingKeys": "Chaves de assinatura"
     },
     "header": {
       "crumb": "Admin",
@@ -240,7 +241,8 @@
       "organizations": "Organizations",
       "sso": "SSO",
       "security": "Security",
-      "audit": "Audit log"
+      "audit": "Audit log",
+      "signingKeys": "Chaves de assinatura"
     },
     "pages": {
       "overview": {
@@ -283,6 +285,63 @@
       "security": {
         "title": "Security",
         "description": "Failed sign-in attempts, the accounts and addresses behind them, and banned accounts."
+      },
+      "signingKeys": {
+        "title": "Chaves de assinatura",
+        "description": "As chaves com que {name} assina tokens de ID e tokens de acesso JWT. Aplicações e APIs verificam os tokens com as chaves públicas publicadas no JWKS.",
+        "jwksUrl": "URL do JWKS",
+        "days": "{count, plural, one {# dia} other {# dias}}",
+        "rotation": {
+          "title": "Rotação automática",
+          "description": "Substitui a chave de assinatura de acordo com um calendário. Uma chave retirada continua no JWKS durante o período de tolerância, para que os tokens que ela assinou continuem a ser verificados.",
+          "on": "Ativada",
+          "off": "Desativada",
+          "edit": "Editar",
+          "interval": "Rodar a chave",
+          "never": "Nunca (apenas rotação manual)",
+          "every": "A cada {count, plural, one {# dia} other {# dias}}",
+          "grace": "Período de tolerância",
+          "graceValue": "{count, plural, one {# dia} other {# dias}} depois de uma chave ser retirada",
+          "dialogTitle": "Rotação automática",
+          "dialogDescription": "Uma nova chave é criada quando a atual atinge o intervalo. As aplicações que guardam o JWKS em cache voltam a obtê-lo quando veem o novo ID de chave.",
+          "intervalHint": "O novo intervalo também se aplica à chave atual: ela é retirada ao atingir a nova idade, ou no próximo token se já for mais antiga.",
+          "graceHint": "Quanto tempo uma chave retirada continua publicada. Mantenha-o acima da duração máxima dos seus tokens (tokens de acesso: 1 hora, tokens de ID: 10 horas).",
+          "save": "Guardar",
+          "cancel": "Cancelar",
+          "saved": "Definições guardadas. O servidor de autenticação aplica-as em menos de um minuto."
+        },
+        "keys": {
+          "title": "Chaves",
+          "description": "As chaves privadas são guardadas cifradas e nunca são mostradas.",
+          "keyId": "ID da chave (kid)",
+          "algorithm": "Algoritmo",
+          "created": "Criada",
+          "retires": "Assina até",
+          "unpublished": "Publicada até",
+          "status": "Estado",
+          "current": "Atual",
+          "published": "Publicada para verificação",
+          "expired": "Expirada",
+          "noExpiry": "Sem expiração",
+          "empty": "Ainda não há chaves. A primeira é criada quando o primeiro token é assinado, ou quando fizer uma rotação."
+        },
+        "rotate": {
+          "button": "Rodar agora",
+          "title": "Rodar agora a chave de assinatura?",
+          "newKey": "Uma nova chave assina todos os tokens a partir de agora.",
+          "caching": "As aplicações e APIs que guardam o JWKS em cache adotam a nova chave automaticamente: voltam a obter o JWKS quando encontram o respetivo ID de chave.",
+          "oldTokens": "Os tokens assinados com a chave atual continuam válidos até expirarem: a chave continua publicada durante o período de tolerância ({grace}).",
+          "compromised": "Se a chave puder ter sido exposta, rode-a agora e depois escolha um período de tolerância curto: uma chave retirada verifica tokens enquanto estiver publicada.",
+          "confirm": "Rodar agora",
+          "cancel": "Cancelar",
+          "done": "Chave rodada. Os novos tokens usam a chave {kid}."
+        },
+        "errors": {
+          "interval": "Escolha um dos intervalos de rotação disponíveis.",
+          "grace": "Escolha um dos períodos de tolerância disponíveis.",
+          "save": "Não foi possível guardar as definições.",
+          "rotate": "Não foi possível rodar a chave."
+        }
       }
     }
   },

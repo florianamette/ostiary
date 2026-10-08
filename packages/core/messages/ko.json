@@ -227,7 +227,8 @@
       "organizations": "Organizations",
       "sso": "SSO",
       "security": "Security",
-      "audit": "Audit log"
+      "audit": "Audit log",
+      "signingKeys": "서명 키"
     },
     "header": {
       "crumb": "Admin",
@@ -240,7 +241,8 @@
       "organizations": "Organizations",
       "sso": "SSO",
       "security": "Security",
-      "audit": "Audit log"
+      "audit": "Audit log",
+      "signingKeys": "서명 키"
     },
     "pages": {
       "overview": {
@@ -283,6 +285,63 @@
       "security": {
         "title": "Security",
         "description": "Failed sign-in attempts, the accounts and addresses behind them, and banned accounts."
+      },
+      "signingKeys": {
+        "title": "서명 키",
+        "description": "{name}이(가) ID 토큰과 JWT 액세스 토큰에 서명하는 데 쓰는 키입니다. 앱과 API는 JWKS에 게시된 공개 키로 토큰을 검증합니다.",
+        "jwksUrl": "JWKS URL",
+        "days": "{count, plural, other {#일}}",
+        "rotation": {
+          "title": "자동 교체",
+          "description": "일정에 따라 서명 키를 교체합니다. 폐기된 키는 유예 기간 동안 JWKS에 남아 있어, 그 키로 서명한 토큰도 계속 검증됩니다.",
+          "on": "켜짐",
+          "off": "꺼짐",
+          "edit": "편집",
+          "interval": "키 교체",
+          "never": "안 함(수동 교체만)",
+          "every": "{count, plural, other {#일}}마다",
+          "grace": "유예 기간",
+          "graceValue": "키 폐기 후 {count, plural, other {#일}}",
+          "dialogTitle": "자동 교체",
+          "dialogDescription": "현재 키가 설정한 주기에 도달하면 새 키가 만들어집니다. JWKS를 캐시하는 앱은 새 키 ID를 발견하면 JWKS를 다시 가져옵니다.",
+          "intervalHint": "새 주기는 현재 키에도 적용됩니다. 새 사용 기간에 도달하면 폐기되고, 이미 넘었다면 다음 토큰 발급 시 폐기됩니다.",
+          "graceHint": "폐기된 키를 게시 상태로 유지하는 기간입니다. 토큰의 가장 긴 수명보다 길게 설정하세요(액세스 토큰: 1시간, ID 토큰: 10시간).",
+          "save": "저장",
+          "cancel": "취소",
+          "saved": "설정을 저장했습니다. 인증 서버가 1분 안에 적용합니다."
+        },
+        "keys": {
+          "title": "키",
+          "description": "비공개 키는 암호화되어 저장되며 표시되지 않습니다.",
+          "keyId": "키 ID(kid)",
+          "algorithm": "알고리즘",
+          "created": "생성일",
+          "retires": "서명 종료",
+          "unpublished": "게시 종료",
+          "status": "상태",
+          "current": "현재",
+          "published": "검증용으로 게시됨",
+          "expired": "만료됨",
+          "noExpiry": "만료 없음",
+          "empty": "아직 키가 없습니다. 첫 번째 키는 첫 토큰에 서명할 때 또는 교체할 때 만들어집니다."
+        },
+        "rotate": {
+          "button": "지금 교체",
+          "title": "서명 키를 지금 교체할까요?",
+          "newKey": "지금부터 모든 토큰은 새 키로 서명됩니다.",
+          "caching": "JWKS를 캐시하는 앱과 API는 새 키를 자동으로 반영합니다. 해당 키 ID를 만나면 JWKS를 다시 가져옵니다.",
+          "oldTokens": "현재 키로 서명한 토큰은 만료될 때까지 유효합니다. 키는 유예 기간({grace}) 동안 게시된 상태로 유지됩니다.",
+          "compromised": "키가 유출되었을 수 있다면 지금 교체한 뒤 짧은 유예 기간을 선택하세요. 폐기된 키는 게시된 동안 토큰을 검증합니다.",
+          "confirm": "지금 교체",
+          "cancel": "취소",
+          "done": "키를 교체했습니다. 새 토큰은 키 {kid}을(를) 사용합니다."
+        },
+        "errors": {
+          "interval": "제공된 교체 주기 중에서 선택하세요.",
+          "grace": "제공된 유예 기간 중에서 선택하세요.",
+          "save": "설정을 저장하지 못했습니다.",
+          "rotate": "키를 교체하지 못했습니다."
+        }
       }
     }
   },

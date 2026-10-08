@@ -227,7 +227,8 @@
       "organizations": "Organizations",
       "sso": "SSO",
       "security": "Security",
-      "audit": "Audit log"
+      "audit": "Audit log",
+      "signingKeys": "Signeringsnycklar"
     },
     "header": {
       "crumb": "Admin",
@@ -240,7 +241,8 @@
       "organizations": "Organizations",
       "sso": "SSO",
       "security": "Security",
-      "audit": "Audit log"
+      "audit": "Audit log",
+      "signingKeys": "Signeringsnycklar"
     },
     "pages": {
       "overview": {
@@ -283,6 +285,63 @@
       "security": {
         "title": "Security",
         "description": "Failed sign-in attempts, the accounts and addresses behind them, and banned accounts."
+      },
+      "signingKeys": {
+        "title": "Signeringsnycklar",
+        "description": "Nycklarna som {name} signerar ID-token och JWT-åtkomsttoken med. Appar och API:er verifierar token mot de publika nycklarna i JWKS.",
+        "jwksUrl": "JWKS-URL",
+        "days": "{count, plural, one {# dag} other {# dagar}}",
+        "rotation": {
+          "title": "Automatisk rotation",
+          "description": "Byter ut signeringsnyckeln enligt ett schema. En tillbakadragen nyckel finns kvar i JWKS under respitperioden, så att token den har signerat fortsätter att verifieras.",
+          "on": "På",
+          "off": "Av",
+          "edit": "Redigera",
+          "interval": "Rotera nyckeln",
+          "never": "Aldrig (endast manuell rotation)",
+          "every": "Var {count, plural, one {# dag} other {# dagar}}",
+          "grace": "Respitperiod",
+          "graceValue": "{count, plural, one {# dag} other {# dagar}} efter att en nyckel dragits tillbaka",
+          "dialogTitle": "Automatisk rotation",
+          "dialogDescription": "En ny nyckel skapas när den nuvarande når intervallet. Appar som cachar JWKS hämtar den igen när de ser det nya nyckel-id:t.",
+          "intervalHint": "Ett nytt intervall gäller även den nuvarande nyckeln: den dras tillbaka när den når den nya åldern, eller vid nästa token om den redan är äldre.",
+          "graceHint": "Hur länge en tillbakadragen nyckel förblir publicerad. Välj längre än din längsta token-livslängd (åtkomsttoken: 1 timme, ID-token: 10 timmar).",
+          "save": "Spara",
+          "cancel": "Avbryt",
+          "saved": "Inställningarna sparades. Autentiseringsservern tillämpar dem inom en minut."
+        },
+        "keys": {
+          "title": "Nycklar",
+          "description": "Privata nycklar lagras krypterade och visas aldrig.",
+          "keyId": "Nyckel-id (kid)",
+          "algorithm": "Algoritm",
+          "created": "Skapad",
+          "retires": "Signerar till",
+          "unpublished": "Publicerad till",
+          "status": "Status",
+          "current": "Aktuell",
+          "published": "Publicerad för verifiering",
+          "expired": "Utgången",
+          "noExpiry": "Ingen utgång",
+          "empty": "Ingen nyckel än. Den första skapas när den första token signeras, eller när du roterar."
+        },
+        "rotate": {
+          "button": "Rotera nu",
+          "title": "Rotera signeringsnyckeln nu?",
+          "newKey": "En ny nyckel signerar varje token från och med nu.",
+          "caching": "Appar och API:er som cachar JWKS hämtar den nya nyckeln automatiskt: de hämtar JWKS igen när de möter nyckelns id.",
+          "oldTokens": "Token som signerats med den nuvarande nyckeln gäller tills de går ut: nyckeln förblir publicerad under respitperioden ({grace}).",
+          "compromised": "Om nyckeln kan ha läckt, rotera den nu och välj sedan en kort respitperiod: en tillbakadragen nyckel verifierar token så länge den är publicerad.",
+          "confirm": "Rotera nu",
+          "cancel": "Avbryt",
+          "done": "Nyckeln roterades. Nya token använder nyckeln {kid}."
+        },
+        "errors": {
+          "interval": "Välj ett av de erbjudna rotationsintervallen.",
+          "grace": "Välj en av de erbjudna respitperioderna.",
+          "save": "Det gick inte att spara inställningarna.",
+          "rotate": "Det gick inte att rotera nyckeln."
+        }
       }
     }
   },

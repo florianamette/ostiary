@@ -227,7 +227,8 @@
       "organizations": "Organizations",
       "sso": "SSO",
       "security": "Security",
-      "audit": "Audit log"
+      "audit": "Audit log",
+      "signingKeys": "Ondertekeningssleutels"
     },
     "header": {
       "crumb": "Admin",
@@ -240,7 +241,8 @@
       "organizations": "Organizations",
       "sso": "SSO",
       "security": "Security",
-      "audit": "Audit log"
+      "audit": "Audit log",
+      "signingKeys": "Ondertekeningssleutels"
     },
     "pages": {
       "overview": {
@@ -283,6 +285,63 @@
       "security": {
         "title": "Security",
         "description": "Failed sign-in attempts, the accounts and addresses behind them, and banned accounts."
+      },
+      "signingKeys": {
+        "title": "Ondertekeningssleutels",
+        "description": "De sleutels waarmee {name} ID-tokens en JWT-toegangstokens ondertekent. Apps en API’s controleren tokens met de openbare sleutels die in de JWKS staan.",
+        "jwksUrl": "JWKS-URL",
+        "days": "{count, plural, one {# dag} other {# dagen}}",
+        "rotation": {
+          "title": "Automatische rotatie",
+          "description": "Vervangt de ondertekeningssleutel volgens een schema. Een ingetrokken sleutel blijft tijdens de overgangsperiode in de JWKS staan, zodat de tokens die hij heeft ondertekend blijven kloppen.",
+          "on": "Aan",
+          "off": "Uit",
+          "edit": "Bewerken",
+          "interval": "Sleutel roteren",
+          "never": "Nooit (alleen handmatig roteren)",
+          "every": "Elke {count, plural, one {# dag} other {# dagen}}",
+          "grace": "Overgangsperiode",
+          "graceValue": "{count, plural, one {# dag} other {# dagen}} nadat een sleutel is ingetrokken",
+          "dialogTitle": "Automatische rotatie",
+          "dialogDescription": "Er wordt een nieuwe sleutel aangemaakt zodra de huidige het interval bereikt. Apps die de JWKS cachen, halen hem opnieuw op wanneer ze de nieuwe sleutel-ID zien.",
+          "intervalHint": "Een nieuw interval geldt ook voor de huidige sleutel: die wordt ingetrokken zodra hij de nieuwe leeftijd bereikt, of bij het volgende token als hij al ouder is.",
+          "graceHint": "Hoe lang een ingetrokken sleutel gepubliceerd blijft. Kies een periode die langer is dan je langste tokengeldigheid (toegangstokens: 1 uur, ID-tokens: 10 uur).",
+          "save": "Opslaan",
+          "cancel": "Annuleren",
+          "saved": "Instellingen opgeslagen. De authenticatieserver past ze binnen een minuut toe."
+        },
+        "keys": {
+          "title": "Sleutels",
+          "description": "Privésleutels worden versleuteld opgeslagen en nooit getoond.",
+          "keyId": "Sleutel-ID (kid)",
+          "algorithm": "Algoritme",
+          "created": "Aangemaakt",
+          "retires": "Ondertekent tot",
+          "unpublished": "Gepubliceerd tot",
+          "status": "Status",
+          "current": "Huidig",
+          "published": "Gepubliceerd voor verificatie",
+          "expired": "Verlopen",
+          "noExpiry": "Verloopt niet",
+          "empty": "Nog geen sleutel. De eerste wordt aangemaakt bij het ondertekenen van het eerste token, of wanneer je roteert."
+        },
+        "rotate": {
+          "button": "Nu roteren",
+          "title": "De ondertekeningssleutel nu roteren?",
+          "newKey": "Vanaf nu ondertekent een nieuwe sleutel elk token.",
+          "caching": "Apps en API’s die de JWKS cachen, nemen de nieuwe sleutel automatisch over: ze halen de JWKS opnieuw op zodra ze de sleutel-ID tegenkomen.",
+          "oldTokens": "Tokens die met de huidige sleutel zijn ondertekend, blijven geldig tot ze verlopen: de sleutel blijft gedurende de overgangsperiode ({grace}) gepubliceerd.",
+          "compromised": "Als de sleutel gelekt kan zijn, roteer hem dan nu en kies daarna een korte overgangsperiode: een ingetrokken sleutel controleert tokens zolang hij gepubliceerd is.",
+          "confirm": "Nu roteren",
+          "cancel": "Annuleren",
+          "done": "Sleutel geroteerd. Nieuwe tokens gebruiken sleutel {kid}."
+        },
+        "errors": {
+          "interval": "Kies een van de aangeboden rotatie-intervallen.",
+          "grace": "Kies een van de aangeboden overgangsperioden.",
+          "save": "Kan de instellingen niet opslaan.",
+          "rotate": "Kan de sleutel niet roteren."
+        }
       }
     }
   },

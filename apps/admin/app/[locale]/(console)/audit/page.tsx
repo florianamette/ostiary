@@ -30,6 +30,7 @@ const FILTERS = [
   { key: "oauth_consent", label: "Consents" },
   { key: "oauth_resource", label: "APIs" },
   { key: "sso_provider", label: "SSO" },
+  { key: "signing_key", label: "Signing keys" },
 ] as const;
 
 export async function generateMetadata({

@@ -63,4 +63,6 @@ export const AUDIT_ACTION_LABELS: Record<string, string> = {
   "scim.token_create": "Generated SCIM token",
   "scim.token_rotate": "Replaced SCIM token",
   "scim.token_revoke": "Revoked SCIM token",
+  "signing_key.rotate": "Rotated signing key",
+  "signing_key.update_settings": "Changed signing key rotation",
 };

@@ -227,7 +227,8 @@
       "organizations": "组织",
       "sso": "SSO",
       "security": "安全",
-      "audit": "审计日志"
+      "audit": "审计日志",
+      "signingKeys": "签名密钥"
     },
     "header": {
       "crumb": "管理",
@@ -240,7 +241,8 @@
       "organizations": "组织",
       "sso": "SSO",
       "security": "安全",
-      "audit": "审计日志"
+      "audit": "审计日志",
+      "signingKeys": "签名密钥"
     },
     "pages": {
       "overview": {
@@ -283,6 +285,63 @@
       "security": {
         "title": "安全",
         "description": "登录失败记录、相关账户与 IP 地址，以及被封禁的账户。"
+      },
+      "signingKeys": {
+        "title": "签名密钥",
+        "description": "{name} 用来签署 ID 令牌和 JWT 访问令牌的密钥。应用和 API 通过 JWKS 中发布的公钥验证令牌。",
+        "jwksUrl": "JWKS URL",
+        "days": "{count, plural, other {#天}}",
+        "rotation": {
+          "title": "自动轮换",
+          "description": "按计划更换签名密钥。已退役的密钥会在宽限期内保留在 JWKS 中，因此它签发的令牌仍可验证。",
+          "on": "开启",
+          "off": "关闭",
+          "edit": "编辑",
+          "interval": "轮换密钥",
+          "never": "从不（仅手动轮换）",
+          "every": "每 {count, plural, other {#天}}",
+          "grace": "宽限期",
+          "graceValue": "密钥退役后 {count, plural, other {#天}}",
+          "dialogTitle": "自动轮换",
+          "dialogDescription": "当前密钥达到间隔时会创建新密钥。缓存 JWKS 的应用看到新的密钥 ID 后会重新获取。",
+          "intervalHint": "新的间隔也适用于当前密钥：达到新的使用时长时退役；如果已经超过，则在下一个令牌签发时退役。",
+          "graceHint": "已退役的密钥继续公开的时间。请设置得比最长的令牌有效期更长（访问令牌：1 小时，ID 令牌：10 小时）。",
+          "save": "保存",
+          "cancel": "取消",
+          "saved": "设置已保存。认证服务器会在一分钟内生效。"
+        },
+        "keys": {
+          "title": "密钥",
+          "description": "私钥加密存储，不会显示。",
+          "keyId": "密钥 ID (kid)",
+          "algorithm": "算法",
+          "created": "创建时间",
+          "retires": "签名截止",
+          "unpublished": "公开截止",
+          "status": "状态",
+          "current": "当前",
+          "published": "已公开用于验证",
+          "expired": "已过期",
+          "noExpiry": "无过期时间",
+          "empty": "还没有密钥。第一个密钥会在签署第一个令牌时或你执行轮换时创建。"
+        },
+        "rotate": {
+          "button": "立即轮换",
+          "title": "现在轮换签名密钥？",
+          "newKey": "从现在起，每个令牌都由新密钥签名。",
+          "caching": "缓存 JWKS 的应用和 API 会自动采用新密钥：遇到其密钥 ID 时会重新获取 JWKS。",
+          "oldTokens": "用当前密钥签发的令牌在过期前仍然有效：密钥会在宽限期（{grace}）内保持公开。",
+          "compromised": "如果密钥可能已泄露，请立即轮换，然后选择较短的宽限期：已退役的密钥只要仍处于公开状态，就能验证令牌。",
+          "confirm": "立即轮换",
+          "cancel": "取消",
+          "done": "密钥已轮换。新令牌使用密钥 {kid}。"
+        },
+        "errors": {
+          "interval": "请选择提供的轮换间隔之一。",
+          "grace": "请选择提供的宽限期之一。",
+          "save": "无法保存设置。",
+          "rotate": "无法轮换密钥。"
+        }
       }
     }
   },

@@ -227,7 +227,8 @@
       "organizations": "Organizations",
       "sso": "SSO",
       "security": "Security",
-      "audit": "Audit log"
+      "audit": "Audit log",
+      "signingKeys": "Signeringsnøgler"
     },
     "header": {
       "crumb": "Admin",
@@ -240,7 +241,8 @@
       "organizations": "Organizations",
       "sso": "SSO",
       "security": "Security",
-      "audit": "Audit log"
+      "audit": "Audit log",
+      "signingKeys": "Signeringsnøgler"
     },
     "pages": {
       "overview": {
@@ -283,6 +285,63 @@
       "security": {
         "title": "Security",
         "description": "Failed sign-in attempts, the accounts and addresses behind them, and banned accounts."
+      },
+      "signingKeys": {
+        "title": "Signeringsnøgler",
+        "description": "De nøgler, {name} signerer ID-tokens og JWT-adgangstokens med. Apps og API’er verificerer tokens mod de offentlige nøgler i JWKS’et.",
+        "jwksUrl": "JWKS-URL",
+        "days": "{count, plural, one {# dag} other {# dage}}",
+        "rotation": {
+          "title": "Automatisk rotation",
+          "description": "Udskifter signeringsnøglen efter en plan. En udgået nøgle bliver i JWKS’et i udsættelsesperioden, så tokens, den har signeret, stadig kan verificeres.",
+          "on": "Til",
+          "off": "Fra",
+          "edit": "Rediger",
+          "interval": "Rotér nøglen",
+          "never": "Aldrig (kun manuel rotation)",
+          "every": "Hver {count, plural, one {# dag} other {# dage}}",
+          "grace": "Udsættelsesperiode",
+          "graceValue": "{count, plural, one {# dag} other {# dage}} efter at en nøgle er udgået",
+          "dialogTitle": "Automatisk rotation",
+          "dialogDescription": "Der oprettes en ny nøgle, når den nuværende når intervallet. Apps, der cacher JWKS’et, henter det igen, når de ser det nye nøgle-id.",
+          "intervalHint": "Et nyt interval gælder også for den nuværende nøgle: Den udgår, når den når den nye alder, eller ved næste token, hvis den allerede er ældre.",
+          "graceHint": "Hvor længe en udgået nøgle forbliver publiceret. Vælg længere end din længste token-levetid (adgangstokens: 1 time, ID-tokens: 10 timer).",
+          "save": "Gem",
+          "cancel": "Annuller",
+          "saved": "Indstillinger gemt. Godkendelsesserveren anvender dem inden for et minut."
+        },
+        "keys": {
+          "title": "Nøgler",
+          "description": "Private nøgler gemmes krypteret og vises aldrig.",
+          "keyId": "Nøgle-id (kid)",
+          "algorithm": "Algoritme",
+          "created": "Oprettet",
+          "retires": "Signerer indtil",
+          "unpublished": "Publiceret indtil",
+          "status": "Status",
+          "current": "Nuværende",
+          "published": "Publiceret til verificering",
+          "expired": "Udløbet",
+          "noExpiry": "Ingen udløb",
+          "empty": "Ingen nøgle endnu. Den første oprettes, når det første token signeres, eller når du roterer."
+        },
+        "rotate": {
+          "button": "Rotér nu",
+          "title": "Rotér signeringsnøglen nu?",
+          "newKey": "En ny nøgle signerer alle tokens fra nu af.",
+          "caching": "Apps og API’er, der cacher JWKS’et, henter den nye nøgle automatisk: De henter JWKS’et igen, når de møder dens nøgle-id.",
+          "oldTokens": "Tokens signeret med den nuværende nøgle er gyldige, til de udløber: Nøglen forbliver publiceret i udsættelsesperioden ({grace}).",
+          "compromised": "Hvis nøglen kan være lækket, så rotér den nu og vælg derefter en kort udsættelsesperiode: En udgået nøgle verificerer tokens, så længe den er publiceret.",
+          "confirm": "Rotér nu",
+          "cancel": "Annuller",
+          "done": "Nøgle roteret. Nye tokens bruger nøglen {kid}."
+        },
+        "errors": {
+          "interval": "Vælg et af de tilbudte rotationsintervaller.",
+          "grace": "Vælg en af de tilbudte udsættelsesperioder.",
+          "save": "Indstillingerne kunne ikke gemmes.",
+          "rotate": "Nøglen kunne ikke roteres."
+        }
       }
     }
   },

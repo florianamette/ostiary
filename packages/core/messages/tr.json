@@ -227,7 +227,8 @@
       "organizations": "Organizations",
       "sso": "SSO",
       "security": "Security",
-      "audit": "Audit log"
+      "audit": "Audit log",
+      "signingKeys": "İmzalama anahtarları"
     },
     "header": {
       "crumb": "Admin",
@@ -240,7 +241,8 @@
       "organizations": "Organizations",
       "sso": "SSO",
       "security": "Security",
-      "audit": "Audit log"
+      "audit": "Audit log",
+      "signingKeys": "İmzalama anahtarları"
     },
     "pages": {
       "overview": {
@@ -283,6 +285,63 @@
       "security": {
         "title": "Security",
         "description": "Failed sign-in attempts, the accounts and addresses behind them, and banned accounts."
+      },
+      "signingKeys": {
+        "title": "İmzalama anahtarları",
+        "description": "{name} uygulamasının ID token’larını ve JWT erişim token’larını imzalamak için kullandığı anahtarlar. Uygulamalar ve API’ler token’ları JWKS’te yayımlanan açık anahtarlarla doğrular.",
+        "jwksUrl": "JWKS URL’si",
+        "days": "{count, plural, one {# gün} other {# gün}}",
+        "rotation": {
+          "title": "Otomatik döndürme",
+          "description": "İmzalama anahtarını bir takvime göre değiştirir. Kullanımdan kalkan anahtar, imzaladığı token’lar doğrulanmaya devam etsin diye ek süre boyunca JWKS’te kalır.",
+          "on": "Açık",
+          "off": "Kapalı",
+          "edit": "Düzenle",
+          "interval": "Anahtarı döndür",
+          "never": "Hiçbir zaman (yalnızca elle döndür)",
+          "every": "Her {count, plural, one {# gün} other {# gün}}",
+          "grace": "Ek süre",
+          "graceValue": "Anahtar kullanımdan kalktıktan {count, plural, one {# gün} other {# gün}} sonra",
+          "dialogTitle": "Otomatik döndürme",
+          "dialogDescription": "Geçerli anahtar aralığa ulaştığında yeni bir anahtar oluşturulur. JWKS’i önbelleğe alan uygulamalar, yeni anahtar kimliğini gördüklerinde onu yeniden alır.",
+          "intervalHint": "Yeni aralık geçerli anahtara da uygulanır: yeni yaşa ulaştığında ya da zaten daha eskiyse bir sonraki token’da kullanımdan kalkar.",
+          "graceHint": "Kullanımdan kalkan anahtarın ne kadar süre yayımda kalacağı. En uzun token ömründen daha uzun tutun (erişim token’ları: 1 saat, ID token’lar: 10 saat).",
+          "save": "Kaydet",
+          "cancel": "İptal",
+          "saved": "Ayarlar kaydedildi. Kimlik doğrulama sunucusu bunları bir dakika içinde uygular."
+        },
+        "keys": {
+          "title": "Anahtarlar",
+          "description": "Özel anahtarlar şifrelenmiş saklanır ve asla gösterilmez.",
+          "keyId": "Anahtar kimliği (kid)",
+          "algorithm": "Algoritma",
+          "created": "Oluşturulma",
+          "retires": "İmzalama bitişi",
+          "unpublished": "Yayım bitişi",
+          "status": "Durum",
+          "current": "Geçerli",
+          "published": "Doğrulama için yayımda",
+          "expired": "Süresi doldu",
+          "noExpiry": "Süresiz",
+          "empty": "Henüz anahtar yok. İlki, ilk token imzalandığında ya da döndürdüğünüzde oluşturulur."
+        },
+        "rotate": {
+          "button": "Şimdi döndür",
+          "title": "İmzalama anahtarı şimdi döndürülsün mü?",
+          "newKey": "Bundan sonra her token’ı yeni bir anahtar imzalar.",
+          "caching": "JWKS’i önbelleğe alan uygulamalar ve API’ler yeni anahtarı otomatik alır: anahtar kimliğiyle karşılaştıklarında JWKS’i yeniden getirirler.",
+          "oldTokens": "Geçerli anahtarla imzalanan token’lar süresi dolana kadar geçerli kalır: anahtar ek süre ({grace}) boyunca yayımda kalır.",
+          "compromised": "Anahtar sızmış olabilirse şimdi döndürün, ardından kısa bir ek süre seçin: kullanımdan kalkan anahtar, yayımda kaldığı sürece token’ları doğrular.",
+          "confirm": "Şimdi döndür",
+          "cancel": "İptal",
+          "done": "Anahtar döndürüldü. Yeni token’lar {kid} anahtarını kullanır."
+        },
+        "errors": {
+          "interval": "Sunulan döndürme aralıklarından birini seçin.",
+          "grace": "Sunulan ek sürelerden birini seçin.",
+          "save": "Ayarlar kaydedilemedi.",
+          "rotate": "Anahtar döndürülemedi."
+        }
       }
     }
   },
