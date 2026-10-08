@@ -23,11 +23,14 @@ import { Input } from "@ostiary/core/components/ui/input"
 import { useEffect, useState } from "react"
 import { Link, useRouter } from "@/i18n/navigation"
 import { authClient } from "@/lib/auth-client"
+import { useCaptcha } from "@/components/auth/captcha"
+import type { CaptchaConfig } from "@ostiary/core/lib/captcha-providers"
 
 export function SignupForm({
   socialProviders = [],
+  captcha: captchaConfig = null,
   ...props
-}: React.ComponentProps<typeof Card> & { socialProviders?: SocialProvider[] }) {
+}: React.ComponentProps<typeof Card> & { socialProviders?: SocialProvider[]; captcha?: CaptchaConfig | null }) {
   const t = useTranslations("auth.signup")
   const locale = useLocale()
   const router = useRouter()
@@ -41,6 +44,7 @@ export function SignupForm({
   >("idle");
   const [passwordMismatch, setPasswordMismatch] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const captcha = useCaptcha(captchaConfig)
 
   const resetForm = () => {
     setName("")
@@ -106,6 +110,9 @@ export function SignupForm({
       }
     }
 
+    const headers = captcha.headers()
+    if (!headers) return
+
     setIsSubmitting(true)
     try {
       await authClient.signUp.email(
@@ -117,6 +124,7 @@ export function SignupForm({
           callbackURL: `/${locale}`,
         },
         {
+          headers,
           onSuccess: () => {
             resetForm()
             toast.success(t("afterRegisterRedirect"))
@@ -124,6 +132,11 @@ export function SignupForm({
           },
           onError(ctx) {
             const code = ctx.error.code
+            const captchaError = captcha.errorMessage(code)
+            if (captchaError) {
+              toast.error(captchaError)
+              return
+            }
             if (code === "PASSWORD_COMPROMISED") {
               toast.error(t("errors.compromisedPassword"))
               return
@@ -152,6 +165,7 @@ export function SignupForm({
         },
       )
     } finally {
+      captcha.reset()
       setIsSubmitting(false)
     }
   }
@@ -261,6 +275,7 @@ export function SignupForm({
                 </FieldDescription>
               ) : null}
             </Field>
+            {captcha.widget}
             <Field>
               <Button type="submit" disabled={isSubmitting} className="w-full sm:w-auto">
                 {isSubmitting ? (

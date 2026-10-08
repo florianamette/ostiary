@@ -27,6 +27,9 @@ import { brand } from "@ostiary/core/lib/brand"
 import { SocialSignInButtons } from "@/components/auth/social-sign-in-buttons"
 import { authClient } from "@/lib/auth-client"
 import { ResendVerification } from "@/components/auth/resend-verification"
+import { EmailCodeSignIn } from "@/components/auth/email-code-sign-in"
+import { useCaptcha } from "@/components/auth/captcha"
+import type { CaptchaConfig } from "@ostiary/core/lib/captcha-providers"
 import { safeCallbackURL } from "@/lib/safe-callback-url"
 
 /** Sign-in responses for accounts with two-factor authentication: no session yet. */
@@ -37,8 +40,9 @@ function needsTwoFactor(data: unknown): boolean {
 export function LoginForm({
   className,
   socialProviders = [],
+  captcha: captchaConfig = null,
   ...props
-}: React.ComponentProps<"div"> & { socialProviders?: SocialProvider[] }) {
+}: React.ComponentProps<"div"> & { socialProviders?: SocialProvider[]; captcha?: CaptchaConfig | null }) {
   const t = useTranslations("auth.login")
   const tSso = useTranslations("sso");
   const locale = useLocale()
@@ -56,6 +60,9 @@ export function LoginForm({
   const [passkeySubmitting, setPasskeySubmitting] = useState(false);
   const [lastUsedMethod, setLastUsedMethod] = useState<string | null>(null);
   const [needsVerification, setNeedsVerification] = useState(false);
+  // "Email me a sign-in code" replaces the card until the user goes back to their password.
+  const [mode, setMode] = useState<"password" | "code">("password");
+  const captcha = useCaptcha(captchaConfig);
 
   useEffect(() => {
     const raw = authClient.getLastUsedLoginMethod();
@@ -101,7 +108,7 @@ export function LoginForm({
       setNeedsVerification(true);
       return;
     }
-    toast.error(ctx.error.message || t("errors.signInFailed"));
+    toast.error(captcha.errorMessage(code) ?? (ctx.error.message || t("errors.signInFailed")));
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -111,17 +118,19 @@ export function LoginForm({
       toast.error(t("errors.signInFailed"));
       return;
     }
+    const headers = captcha.headers();
+    if (!headers) return;
     setIsSubmitting(true);
     try {
       const useEmail = trimmed.includes("@");
       const { data } = useEmail
         ? await authClient.signIn.email(
             { email: trimmed, password, callbackURL },
-            { onError: handleSignInError },
+            { headers, onError: handleSignInError },
           )
         : await authClient.signIn.username(
             { username: trimmed, password, callbackURL },
-            { onError: handleSignInError },
+            { headers, onError: handleSignInError },
           );
       if (needsTwoFactor(data)) {
         // Same query string: it carries the callbackURL and, for an app's sign-in, the
@@ -129,6 +138,7 @@ export function LoginForm({
         window.location.assign(`/${locale}/two-factor${window.location.search}`);
       }
     } finally {
+      captcha.reset();
       setIsSubmitting(false);
     }
   };
@@ -154,6 +164,21 @@ export function LoginForm({
     } finally {
       setPasskeySubmitting(false);
     }
+  }
+
+  if (mode === "code") {
+    return (
+      <div className={cn("flex flex-col gap-6", className)} {...props}>
+        <EmailCodeSignIn
+          defaultEmail={loginIdentifier.includes("@") ? loginIdentifier.trim() : undefined}
+          callbackURL={callbackURL}
+          captcha={captchaConfig}
+          onUsePassword={() => setMode("password")}
+          // Same query string as after a password: callbackURL and any signed OAuth request.
+          onTwoFactor={() => window.location.assign(`/${locale}/two-factor${window.location.search}`)}
+        />
+      </div>
+    );
   }
 
   return (
@@ -184,7 +209,9 @@ export function LoginForm({
                   ? t("lastUsedHintUsername")
                   : lastUsedMethod === "passkey"
                     ? t("lastUsedHintPasskey")
-                    : t("lastUsedHintOther", {
+                    : lastUsedMethod === "email-otp"
+                      ? t("lastUsedHintEmailCode")
+                      : t("lastUsedHintOther", {
                         method: formatLastUsedMethodLabel(lastUsedMethod),
                       })}
             </p>
@@ -237,6 +264,7 @@ export function LoginForm({
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </Field>
+              {captcha.widget}
               <Field>
                 <Button type="submit" disabled={isSubmitting} className="w-full sm:w-auto">
                   {isSubmitting ? (
@@ -261,6 +289,20 @@ export function LoginForm({
                   ) : null}
                   {passkeySubmitting ? t("passkeySubmitting") : t("passkey")}
                   {lastUsedMethod === "passkey" && !passkeySubmitting ? (
+                    <Badge variant="secondary" className="ml-2 text-xs font-normal">
+                      {t("lastUsedBadge")}
+                    </Badge>
+                  ) : null}
+                </Button>
+                <Button
+                  type="button"
+                  variant={lastUsedMethod === "email-otp" ? "default" : "outline"}
+                  className="mt-2 w-full sm:w-auto"
+                  disabled={isSubmitting || passkeySubmitting}
+                  onClick={() => setMode("code")}
+                >
+                  {t("emailCode")}
+                  {lastUsedMethod === "email-otp" ? (
                     <Badge variant="secondary" className="ml-2 text-xs font-normal">
                       {t("lastUsedBadge")}
                     </Badge>

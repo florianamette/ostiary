@@ -20,10 +20,12 @@
       "verifyEmailAfterSignup": "Check your inbox for a verification link. You must verify your email before signing in.",
       "passkey": "Sign in with passkey",
       "passkeySubmitting": "Waiting for passkey…",
+      "emailCode": "Mejla mig en inloggningskod",
       "lastUsedBadge": "Last used",
       "lastUsedHintEmail": "You last signed in with email and password.",
       "lastUsedHintUsername": "You last signed in with username and password.",
       "lastUsedHintPasskey": "You last signed in with a passkey.",
+      "lastUsedHintEmailCode": "Du loggade senast in med en kod som skickades via e-post.",
       "lastUsedHintOther": "You last signed in with {method}.",
       "errors": {
         "emailNotVerified": "Please verify your email first. We sent you a new verification link, check your inbox.",
@@ -41,6 +43,30 @@
         "error": "Could not send the email. Try again in a minute."
       },
       "addAccountDescription": "Konton som redan är inloggade i den här webbläsaren förblir inloggade."
+    },
+    "emailCode": {
+      "title": "Logga in med en kod",
+      "description": "Vi mejlar en 6-siffrig kod till e-postadressen för ditt konto. Läs den på valfri enhet och skriv in den här.",
+      "emailLabel": "E-post",
+      "emailPlaceholder": "du@exempel.se",
+      "send": "Skicka kod",
+      "sending": "Skickar…",
+      "sentTitle": "Kolla din e-post",
+      "sent": "Om ett konto använder {email} är en 6-siffrig kod på väg. Den går ut om {minutes} minuter.",
+      "codeLabel": "Inloggningskod",
+      "verify": "Logga in",
+      "verifying": "Loggar in…",
+      "newCode": "Fick du ingen? Skicka en ny kod",
+      "usePassword": "Använd ditt lösenord i stället",
+      "errors": {
+        "invalidEmail": "Ange en giltig e-postadress.",
+        "invalidCode": "Koden stämmer inte. Kontrollera den och försök igen.",
+        "expired": "Koden har gått ut. Begär en ny.",
+        "tooManyAttempts": "För många felaktiga koder. Begär en ny.",
+        "rateLimited": "För många försök. Vänta en minut och försök igen.",
+        "sendFailed": "Det gick inte att skicka koden. Försök igen om en minut.",
+        "signInFailed": "Det gick inte att logga in. Försök igen."
+      }
     },
     "twoFactor": {
       "metaTitle": "Tvåfaktorsautentisering",
@@ -601,6 +627,22 @@
       "otherAccount": "Koden används av ett annat konto.",
       "tooManyAttempts": "För många försök. Vänta några minuter och försök igen.",
       "failed": "Något gick fel. Försök igen."
+    }
+  },
+  "captcha": {
+    "label": "Säkerhetskontroll",
+    "required": "Slutför säkerhetskontrollen först.",
+    "failed": "Säkerhetskontrollen misslyckades. Försök igen.",
+    "unavailable": "Säkerhetskontrollen kunde inte laddas. Kontrollera anslutningen eller stäng av innehållsblockerare och ladda sedan om sidan."
+  },
+  "emails": {
+    "signInCode": {
+      "subject": "Din inloggningskod för {brand}",
+      "preheader": "Använd den här koden för att logga in. Den går ut om {minutes} minuter.",
+      "heading": "Din inloggningskod",
+      "body": "Ange den här koden på inloggningssidan för {brand} för att slutföra inloggningen.",
+      "note": "Koden går ut om {minutes} minuter och fungerar bara en gång.",
+      "footnote": "Har du inte begärt någon kod? Ignorera det här mejlet: ingen kan logga in utan koden. Dela den aldrig med någon."
     }
   }
 }

@@ -20,10 +20,12 @@
       "verifyEmailAfterSignup": "Check your inbox for a verification link. You must verify your email before signing in.",
       "passkey": "Sign in with passkey",
       "passkeySubmitting": "Waiting for passkey…",
+      "emailCode": "Send meg en innloggingskode på e-post",
       "lastUsedBadge": "Last used",
       "lastUsedHintEmail": "You last signed in with email and password.",
       "lastUsedHintUsername": "You last signed in with username and password.",
       "lastUsedHintPasskey": "You last signed in with a passkey.",
+      "lastUsedHintEmailCode": "Du logget sist inn med en kode sendt på e-post.",
       "lastUsedHintOther": "You last signed in with {method}.",
       "errors": {
         "emailNotVerified": "Please verify your email first. We sent you a new verification link, check your inbox.",
@@ -41,6 +43,30 @@
         "error": "Could not send the email. Try again in a minute."
       },
       "addAccountDescription": "Kontoer som allerede er logget inn i denne nettleseren, forblir logget inn."
+    },
+    "emailCode": {
+      "title": "Logg inn med en kode",
+      "description": "Vi sender en 6-sifret kode til e-postadressen på kontoen din. Les den på en hvilken som helst enhet, og skriv den inn her.",
+      "emailLabel": "E-post",
+      "emailPlaceholder": "deg@eksempel.no",
+      "send": "Send kode",
+      "sending": "Sender…",
+      "sentTitle": "Sjekk e-posten din",
+      "sent": "Hvis en konto bruker {email}, er en 6-sifret kode på vei. Den utløper om {minutes} minutter.",
+      "codeLabel": "Innloggingskode",
+      "verify": "Logg inn",
+      "verifying": "Logger inn…",
+      "newCode": "Ikke mottatt? Send en ny kode",
+      "usePassword": "Bruk passordet ditt i stedet",
+      "errors": {
+        "invalidEmail": "Skriv inn en gyldig e-postadresse.",
+        "invalidCode": "Koden er feil. Sjekk den og prøv igjen.",
+        "expired": "Koden har utløpt. Be om en ny.",
+        "tooManyAttempts": "For mange feil koder. Be om en ny.",
+        "rateLimited": "For mange forsøk. Vent ett minutt og prøv igjen.",
+        "sendFailed": "Kunne ikke sende koden. Prøv igjen om ett minutt.",
+        "signInFailed": "Kunne ikke logge inn. Prøv igjen."
+      }
     },
     "twoFactor": {
       "metaTitle": "Tofaktorautentisering",
@@ -601,6 +627,22 @@
       "otherAccount": "Koden brukes av en annen konto.",
       "tooManyAttempts": "For mange forsøk. Vent noen minutter og prøv igjen.",
       "failed": "Noe gikk galt. Prøv igjen."
+    }
+  },
+  "captcha": {
+    "label": "Sikkerhetssjekk",
+    "required": "Fullfør sikkerhetssjekken først.",
+    "failed": "Sikkerhetssjekken mislyktes. Prøv igjen.",
+    "unavailable": "Sikkerhetssjekken kunne ikke lastes inn. Sjekk tilkoblingen eller slå av innholdsblokkering, og last inn siden på nytt."
+  },
+  "emails": {
+    "signInCode": {
+      "subject": "Innloggingskoden din for {brand}",
+      "preheader": "Bruk denne koden for å logge inn. Den utløper om {minutes} minutter.",
+      "heading": "Innloggingskoden din",
+      "body": "Skriv inn denne koden på innloggingssiden til {brand} for å fullføre innloggingen.",
+      "note": "Koden utløper om {minutes} minutter og fungerer bare én gang.",
+      "footnote": "Har du ikke bedt om en kode? Se bort fra denne e-posten: ingen kan logge inn uten koden. Del den aldri med noen."
     }
   }
 }

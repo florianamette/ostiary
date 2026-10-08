@@ -1,5 +1,6 @@
 import {
     adminClient,
+    emailOTPClient,
     jwtClient,
     lastLoginMethodClient,
     multiSessionClient,
@@ -23,6 +24,7 @@ export function createAppAuthClient(baseURL: string | undefined) {
             jwtClient(),
             lastLoginMethodClient(),
             usernameClient(),
+            emailOTPClient(),
             passkeyClient(),
             // No redirect option: the login form reads `twoFactorRedirect` and opens the code step.
             twoFactorClient(),

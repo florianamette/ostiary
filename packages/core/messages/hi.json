@@ -20,10 +20,12 @@
       "verifyEmailAfterSignup": "Check your inbox for a verification link. You must verify your email before signing in.",
       "passkey": "Sign in with passkey",
       "passkeySubmitting": "Waiting for passkey…",
+      "emailCode": "मुझे ईमेल पर साइन-इन कोड भेजें",
       "lastUsedBadge": "Last used",
       "lastUsedHintEmail": "You last signed in with email and password.",
       "lastUsedHintUsername": "You last signed in with username and password.",
       "lastUsedHintPasskey": "You last signed in with a passkey.",
+      "lastUsedHintEmailCode": "आपने पिछली बार ईमेल से भेजे गए कोड से साइन इन किया था।",
       "lastUsedHintOther": "You last signed in with {method}.",
       "errors": {
         "emailNotVerified": "Please verify your email first. We sent you a new verification link, check your inbox.",
@@ -41,6 +43,30 @@
         "error": "Could not send the email. Try again in a minute."
       },
       "addAccountDescription": "इस ब्राउज़र में पहले से साइन इन खाते साइन इन रहेंगे।"
+    },
+    "emailCode": {
+      "title": "कोड से साइन इन करें",
+      "description": "हम आपके खाते के ईमेल पते पर 6 अंकों का कोड भेजेंगे। उसे किसी भी डिवाइस पर पढ़ें, फिर यहाँ टाइप करें।",
+      "emailLabel": "ईमेल",
+      "emailPlaceholder": "you@example.com",
+      "send": "कोड भेजें",
+      "sending": "भेजा जा रहा है…",
+      "sentTitle": "अपना ईमेल देखें",
+      "sent": "अगर कोई खाता {email} का उपयोग करता है, तो 6 अंकों का कोड भेज दिया गया है। यह {minutes} मिनट में समाप्त हो जाएगा।",
+      "codeLabel": "साइन-इन कोड",
+      "verify": "साइन इन करें",
+      "verifying": "साइन इन हो रहा है…",
+      "newCode": "कोड नहीं मिला? नया कोड भेजें",
+      "usePassword": "इसके बजाय पासवर्ड का उपयोग करें",
+      "errors": {
+        "invalidEmail": "एक मान्य ईमेल पता दर्ज करें।",
+        "invalidCode": "यह कोड सही नहीं है। जाँचें और फिर से कोशिश करें।",
+        "expired": "इस कोड की समय-सीमा समाप्त हो गई है। नया कोड माँगें।",
+        "tooManyAttempts": "बहुत सारे गलत कोड। नया कोड माँगें।",
+        "rateLimited": "बहुत सारे प्रयास। एक मिनट रुकें और फिर से कोशिश करें।",
+        "sendFailed": "कोड नहीं भेजा जा सका। एक मिनट बाद फिर से कोशिश करें।",
+        "signInFailed": "साइन इन नहीं हो सका। फिर से कोशिश करें।"
+      }
     },
     "twoFactor": {
       "metaTitle": "टू-फ़ैक्टर ऑथेंटिकेशन",
@@ -601,6 +627,22 @@
       "otherAccount": "यह कोड किसी दूसरे खाते द्वारा इस्तेमाल किया जा रहा है।",
       "tooManyAttempts": "बहुत अधिक प्रयास। कुछ मिनट रुककर फिर से कोशिश करें।",
       "failed": "कुछ गलत हो गया। फिर से कोशिश करें।"
+    }
+  },
+  "captcha": {
+    "label": "सुरक्षा जाँच",
+    "required": "पहले सुरक्षा जाँच पूरी करें।",
+    "failed": "सुरक्षा जाँच विफल रही। फिर से कोशिश करें।",
+    "unavailable": "सुरक्षा जाँच लोड नहीं हो सकी। अपना कनेक्शन जाँचें या कंटेंट ब्लॉकर बंद करें, फिर पेज को रीलोड करें।"
+  },
+  "emails": {
+    "signInCode": {
+      "subject": "आपका {brand} साइन-इन कोड",
+      "preheader": "साइन इन करने के लिए इस कोड का उपयोग करें। यह {minutes} मिनट में समाप्त हो जाएगा।",
+      "heading": "आपका साइन-इन कोड",
+      "body": "साइन इन पूरा करने के लिए {brand} के साइन-इन पेज पर यह कोड दर्ज करें।",
+      "note": "यह कोड {minutes} मिनट में समाप्त हो जाएगा और केवल एक बार काम करता है।",
+      "footnote": "आपने कोड नहीं माँगा? इस ईमेल को अनदेखा करें: इसके बिना कोई भी साइन इन नहीं कर सकता। इसे कभी किसी के साथ साझा न करें।"
     }
   }
 }

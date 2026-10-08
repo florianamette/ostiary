@@ -20,10 +20,12 @@
       "verifyEmailAfterSignup": "Check your inbox for a verification link. You must verify your email before signing in.",
       "passkey": "Sign in with passkey",
       "passkeySubmitting": "Waiting for passkey…",
+      "emailCode": "Enviarme un código de acceso por correo",
       "lastUsedBadge": "Last used",
       "lastUsedHintEmail": "You last signed in with email and password.",
       "lastUsedHintUsername": "You last signed in with username and password.",
       "lastUsedHintPasskey": "You last signed in with a passkey.",
+      "lastUsedHintEmailCode": "La última vez iniciaste sesión con un código enviado por correo.",
       "lastUsedHintOther": "You last signed in with {method}.",
       "errors": {
         "emailNotVerified": "Please verify your email first. We sent you a new verification link, check your inbox.",
@@ -41,6 +43,30 @@
         "error": "Could not send the email. Try again in a minute."
       },
       "addAccountDescription": "Las cuentas que ya tienen sesión en este navegador la mantienen."
+    },
+    "emailCode": {
+      "title": "Iniciar sesión con un código",
+      "description": "Te enviaremos un código de 6 dígitos a la dirección de tu cuenta. Léelo en cualquier dispositivo y escríbelo aquí.",
+      "emailLabel": "Correo electrónico",
+      "emailPlaceholder": "tu@ejemplo.com",
+      "send": "Enviar código",
+      "sending": "Enviando…",
+      "sentTitle": "Revisa tu correo",
+      "sent": "Si una cuenta usa {email}, te hemos enviado un código de 6 dígitos. Caduca en {minutes} minutos.",
+      "codeLabel": "Código de acceso",
+      "verify": "Iniciar sesión",
+      "verifying": "Iniciando sesión…",
+      "newCode": "¿No te ha llegado? Enviar un código nuevo",
+      "usePassword": "Usar mi contraseña",
+      "errors": {
+        "invalidEmail": "Introduce una dirección de correo válida.",
+        "invalidCode": "Ese código no es correcto. Revísalo e inténtalo de nuevo.",
+        "expired": "Este código ha caducado. Pide uno nuevo.",
+        "tooManyAttempts": "Demasiados códigos incorrectos. Pide uno nuevo.",
+        "rateLimited": "Demasiados intentos. Espera un minuto e inténtalo de nuevo.",
+        "sendFailed": "No se pudo enviar el código. Inténtalo de nuevo en un minuto.",
+        "signInFailed": "No se pudo iniciar sesión. Inténtalo de nuevo."
+      }
     },
     "twoFactor": {
       "metaTitle": "Autenticación en dos pasos",
@@ -601,6 +627,22 @@
       "otherAccount": "Otra cuenta está usando este código.",
       "tooManyAttempts": "Demasiados intentos. Espera unos minutos e inténtalo de nuevo.",
       "failed": "Algo salió mal. Inténtalo de nuevo."
+    }
+  },
+  "captcha": {
+    "label": "Verificación de seguridad",
+    "required": "Completa primero la verificación de seguridad.",
+    "failed": "La verificación de seguridad ha fallado. Inténtalo de nuevo.",
+    "unavailable": "No se pudo cargar la verificación de seguridad. Comprueba tu conexión o desactiva los bloqueadores de contenido y vuelve a cargar la página."
+  },
+  "emails": {
+    "signInCode": {
+      "subject": "Tu código de acceso a {brand}",
+      "preheader": "Usa este código para iniciar sesión. Caduca en {minutes} minutos.",
+      "heading": "Tu código de acceso",
+      "body": "Introduce este código en la página de inicio de sesión de {brand} para terminar de iniciar sesión.",
+      "note": "El código caduca en {minutes} minutos y solo funciona una vez.",
+      "footnote": "¿No has pedido un código? Ignora este correo: nadie puede iniciar sesión sin él. No lo compartas nunca con nadie."
     }
   }
 }

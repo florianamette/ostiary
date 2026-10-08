@@ -20,10 +20,12 @@
       "verifyEmailAfterSignup": "Check your inbox for a verification link. You must verify your email before signing in.",
       "passkey": "Sign in with passkey",
       "passkeySubmitting": "Waiting for passkey…",
+      "emailCode": "Send mig en loginkode på e-mail",
       "lastUsedBadge": "Last used",
       "lastUsedHintEmail": "You last signed in with email and password.",
       "lastUsedHintUsername": "You last signed in with username and password.",
       "lastUsedHintPasskey": "You last signed in with a passkey.",
+      "lastUsedHintEmailCode": "Du loggede sidst ind med en kode sendt på e-mail.",
       "lastUsedHintOther": "You last signed in with {method}.",
       "errors": {
         "emailNotVerified": "Please verify your email first. We sent you a new verification link, check your inbox.",
@@ -41,6 +43,30 @@
         "error": "Could not send the email. Try again in a minute."
       },
       "addAccountDescription": "Konti, der allerede er logget ind i denne browser, forbliver logget ind."
+    },
+    "emailCode": {
+      "title": "Log ind med en kode",
+      "description": "Vi sender en 6-cifret kode til e-mailadressen på din konto. Læs den på en hvilken som helst enhed, og skriv den her.",
+      "emailLabel": "E-mail",
+      "emailPlaceholder": "dig@eksempel.dk",
+      "send": "Send kode",
+      "sending": "Sender…",
+      "sentTitle": "Tjek din e-mail",
+      "sent": "Hvis en konto bruger {email}, er en 6-cifret kode på vej. Den udløber om {minutes} minutter.",
+      "codeLabel": "Loginkode",
+      "verify": "Log ind",
+      "verifying": "Logger ind…",
+      "newCode": "Ikke modtaget? Send en ny kode",
+      "usePassword": "Brug din adgangskode i stedet",
+      "errors": {
+        "invalidEmail": "Indtast en gyldig e-mailadresse.",
+        "invalidCode": "Koden er forkert. Tjek den, og prøv igen.",
+        "expired": "Koden er udløbet. Bed om en ny.",
+        "tooManyAttempts": "For mange forkerte koder. Bed om en ny.",
+        "rateLimited": "For mange forsøg. Vent et minut, og prøv igen.",
+        "sendFailed": "Koden kunne ikke sendes. Prøv igen om et minut.",
+        "signInFailed": "Du kunne ikke logges ind. Prøv igen."
+      }
     },
     "twoFactor": {
       "metaTitle": "Totrinsgodkendelse",
@@ -601,6 +627,22 @@
       "otherAccount": "Koden bruges af en anden konto.",
       "tooManyAttempts": "For mange forsøg. Vent et par minutter, og prøv igen.",
       "failed": "Noget gik galt. Prøv igen."
+    }
+  },
+  "captcha": {
+    "label": "Sikkerhedstjek",
+    "required": "Gennemfør sikkerhedstjekket først.",
+    "failed": "Sikkerhedstjekket mislykkedes. Prøv igen.",
+    "unavailable": "Sikkerhedstjekket kunne ikke indlæses. Tjek din forbindelse, eller slå indholdsblokering fra, og genindlæs siden."
+  },
+  "emails": {
+    "signInCode": {
+      "subject": "Din loginkode til {brand}",
+      "preheader": "Brug denne kode til at logge ind. Den udløber om {minutes} minutter.",
+      "heading": "Din loginkode",
+      "body": "Indtast denne kode på loginsiden for {brand} for at fuldføre login.",
+      "note": "Koden udløber om {minutes} minutter og virker kun én gang.",
+      "footnote": "Har du ikke bedt om en kode? Ignorer denne e-mail: ingen kan logge ind uden koden. Del den aldrig med nogen."
     }
   }
 }

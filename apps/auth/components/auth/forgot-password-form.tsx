@@ -22,15 +22,19 @@ import {
 import { Input } from "@ostiary/core/components/ui/input";
 import { Link } from "@/i18n/navigation";
 import { authClient } from "@/lib/auth-client";
+import { useCaptcha } from "@/components/auth/captcha";
+import type { CaptchaConfig } from "@ostiary/core/lib/captcha-providers";
 
 export function ForgotPasswordForm({
   className,
+  captcha: captchaConfig = null,
   ...props
-}: React.ComponentProps<"div">) {
+}: React.ComponentProps<"div"> & { captcha?: CaptchaConfig | null }) {
   const t = useTranslations("auth.forgotPassword");
   const locale = useLocale();
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const captcha = useCaptcha(captchaConfig);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -39,22 +43,25 @@ export function ForgotPasswordForm({
       toast.error(t("errors.emailRequired"));
       return;
     }
+    const headers = captcha.headers();
+    if (!headers) return;
     setIsSubmitting(true);
     try {
       const redirectTo = new URL(
         `/${locale}/reset-password`,
         window.location.origin,
       ).href;
-      const { error } = await authClient.requestPasswordReset({
-        email: trimmed,
-        redirectTo,
-      });
+      const { error } = await authClient.requestPasswordReset(
+        { email: trimmed, redirectTo },
+        { headers },
+      );
       if (error) {
-        toast.error(error.message ?? t("errors.requestFailed"));
+        toast.error(captcha.errorMessage(error.code) ?? error.message ?? t("errors.requestFailed"));
         return;
       }
       toast.success(t("emailSent"));
     } finally {
+      captcha.reset();
       setIsSubmitting(false);
     }
   };
@@ -83,6 +90,7 @@ export function ForgotPasswordForm({
                 />
                 <FieldDescription>{t("emailHint")}</FieldDescription>
               </Field>
+              {captcha.widget}
               <Field>
                 <Button
                   type="submit"

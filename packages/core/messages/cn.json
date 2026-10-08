@@ -20,10 +20,12 @@
       "verifyEmailAfterSignup": "请查收邮件中的验证链接。必须先验证邮箱后才能登录。",
       "passkey": "使用通行密钥登录",
       "passkeySubmitting": "等待通行密钥…",
+      "emailCode": "通过邮件发送登录验证码",
       "lastUsedBadge": "上次使用",
       "lastUsedHintEmail": "您上次使用邮箱和密码登录。",
       "lastUsedHintUsername": "您上次使用用户名和密码登录。",
       "lastUsedHintPasskey": "您上次使用通行密钥登录。",
+      "lastUsedHintEmailCode": "你上次使用邮件验证码登录。",
       "lastUsedHintOther": "您上次使用 {method} 登录。",
       "errors": {
         "emailNotVerified": "请先验证邮箱。我们已重新发送验证链接，请查收邮件。",
@@ -41,6 +43,30 @@
         "error": "Could not send the email. Try again in a minute."
       },
       "addAccountDescription": "此浏览器上已登录的账户将保持登录。"
+    },
+    "emailCode": {
+      "title": "使用验证码登录",
+      "description": "我们会向你账户的邮箱发送 6 位验证码。你可以在任何设备上查看，然后在此处输入。",
+      "emailLabel": "邮箱",
+      "emailPlaceholder": "you@example.com",
+      "send": "发送验证码",
+      "sending": "正在发送…",
+      "sentTitle": "请查收邮件",
+      "sent": "如果有账户使用 {email}，6 位验证码已发出。验证码将在 {minutes} 分钟后失效。",
+      "codeLabel": "登录验证码",
+      "verify": "登录",
+      "verifying": "正在登录…",
+      "newCode": "没有收到？重新发送验证码",
+      "usePassword": "改用密码登录",
+      "errors": {
+        "invalidEmail": "请输入有效的邮箱地址。",
+        "invalidCode": "验证码不正确。请检查后重试。",
+        "expired": "验证码已过期。请重新获取。",
+        "tooManyAttempts": "错误次数过多。请重新获取验证码。",
+        "rateLimited": "尝试次数过多。请等待一分钟后重试。",
+        "sendFailed": "无法发送验证码。请一分钟后重试。",
+        "signInFailed": "无法登录。请重试。"
+      }
     },
     "twoFactor": {
       "metaTitle": "双重身份验证",
@@ -601,6 +627,22 @@
       "otherAccount": "此代码正被其他账户使用。",
       "tooManyAttempts": "尝试次数过多。请等待几分钟后重试。",
       "failed": "出现问题。请重试。"
+    }
+  },
+  "captcha": {
+    "label": "安全验证",
+    "required": "请先完成安全验证。",
+    "failed": "安全验证失败。请重试。",
+    "unavailable": "无法加载安全验证。请检查网络连接或关闭内容拦截器，然后刷新页面。"
+  },
+  "emails": {
+    "signInCode": {
+      "subject": "你的 {brand} 登录验证码",
+      "preheader": "使用此验证码登录。验证码将在 {minutes} 分钟后失效。",
+      "heading": "你的登录验证码",
+      "body": "在 {brand} 登录页面输入此验证码即可完成登录。",
+      "note": "验证码将在 {minutes} 分钟后失效，且只能使用一次。",
+      "footnote": "没有请求验证码？请忽略此邮件：没有验证码，任何人都无法登录。切勿将验证码告诉任何人。"
     }
   }
 }

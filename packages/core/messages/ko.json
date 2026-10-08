@@ -20,10 +20,12 @@
       "verifyEmailAfterSignup": "Check your inbox for a verification link. You must verify your email before signing in.",
       "passkey": "Sign in with passkey",
       "passkeySubmitting": "Waiting for passkey…",
+      "emailCode": "이메일로 로그인 코드 받기",
       "lastUsedBadge": "Last used",
       "lastUsedHintEmail": "You last signed in with email and password.",
       "lastUsedHintUsername": "You last signed in with username and password.",
       "lastUsedHintPasskey": "You last signed in with a passkey.",
+      "lastUsedHintEmailCode": "지난번에 이메일로 받은 코드로 로그인했습니다.",
       "lastUsedHintOther": "You last signed in with {method}.",
       "errors": {
         "emailNotVerified": "Please verify your email first. We sent you a new verification link, check your inbox.",
@@ -41,6 +43,30 @@
         "error": "Could not send the email. Try again in a minute."
       },
       "addAccountDescription": "이 브라우저에 이미 로그인된 계정은 로그인 상태로 유지됩니다."
+    },
+    "emailCode": {
+      "title": "코드로 로그인",
+      "description": "계정 이메일 주소로 6자리 코드를 보내드립니다. 어느 기기에서든 확인한 뒤 여기에 입력하세요.",
+      "emailLabel": "이메일",
+      "emailPlaceholder": "you@example.com",
+      "send": "코드 보내기",
+      "sending": "보내는 중…",
+      "sentTitle": "이메일을 확인하세요",
+      "sent": "{email} 주소를 사용하는 계정이 있으면 6자리 코드가 발송되었습니다. {minutes}분 후에 만료됩니다.",
+      "codeLabel": "로그인 코드",
+      "verify": "로그인",
+      "verifying": "로그인 중…",
+      "newCode": "받지 못하셨나요? 새 코드 보내기",
+      "usePassword": "비밀번호로 로그인",
+      "errors": {
+        "invalidEmail": "올바른 이메일 주소를 입력하세요.",
+        "invalidCode": "코드가 올바르지 않습니다. 확인 후 다시 시도하세요.",
+        "expired": "코드가 만료되었습니다. 새 코드를 요청하세요.",
+        "tooManyAttempts": "잘못된 코드를 너무 많이 입력했습니다. 새 코드를 요청하세요.",
+        "rateLimited": "시도 횟수가 너무 많습니다. 1분 후 다시 시도하세요.",
+        "sendFailed": "코드를 보낼 수 없습니다. 1분 후 다시 시도하세요.",
+        "signInFailed": "로그인할 수 없습니다. 다시 시도하세요."
+      }
     },
     "twoFactor": {
       "metaTitle": "2단계 인증",
@@ -601,6 +627,22 @@
       "otherAccount": "다른 계정에서 이 코드를 사용 중입니다.",
       "tooManyAttempts": "시도 횟수가 너무 많습니다. 몇 분 후 다시 시도하세요.",
       "failed": "문제가 발생했습니다. 다시 시도하세요."
+    }
+  },
+  "captcha": {
+    "label": "보안 확인",
+    "required": "먼저 보안 확인을 완료하세요.",
+    "failed": "보안 확인에 실패했습니다. 다시 시도하세요.",
+    "unavailable": "보안 확인을 불러올 수 없습니다. 연결을 확인하거나 콘텐츠 차단 기능을 끈 뒤 페이지를 새로고침하세요."
+  },
+  "emails": {
+    "signInCode": {
+      "subject": "{brand} 로그인 코드",
+      "preheader": "이 코드로 로그인하세요. {minutes}분 후에 만료됩니다.",
+      "heading": "로그인 코드",
+      "body": "{brand} 로그인 페이지에 이 코드를 입력하여 로그인을 완료하세요.",
+      "note": "이 코드는 {minutes}분 후에 만료되며 한 번만 사용할 수 있습니다.",
+      "footnote": "코드를 요청하지 않으셨나요? 이 이메일은 무시하셔도 됩니다. 코드 없이는 아무도 로그인할 수 없습니다. 코드는 누구와도 공유하지 마세요."
     }
   }
 }

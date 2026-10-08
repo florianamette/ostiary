@@ -8,6 +8,8 @@ import { scim } from "@better-auth/scim";
 import { sso } from "@better-auth/sso";
 import {
     admin,
+    captcha,
+    emailOTP,
     haveIBeenPwned,
     jwt,
     lastLoginMethod,
@@ -23,6 +25,10 @@ import { queueOrganizationInviteEmail } from "@ostiary/core/lib/email/queue-orga
 import { queueChangeEmailConfirmation } from "@ostiary/core/lib/email/queue-change-email-confirmation";
 import { queuePasswordResetEmail } from "@ostiary/core/lib/email/queue-password-reset-email";
 import { queueVerificationEmail } from "@ostiary/core/lib/email/queue-verification-email";
+import { queueSignInCodeEmail } from "@ostiary/core/lib/email/queue-sign-in-code-email";
+import { SIGN_IN_CODE_LENGTH, SIGN_IN_CODE_MINUTES } from "@ostiary/core/lib/sign-in-code";
+import { emailLocale } from "@ostiary/core/lib/email/email-locale";
+import { captchaPluginOptions } from "@ostiary/core/lib/captcha";
 import { routing } from "@ostiary/core/i18n/routing";
 import { recordAudit } from "@ostiary/core/lib/audit";
 import { clientIp, recordAuthEvent } from "@ostiary/core/lib/auth-events";
@@ -92,6 +98,9 @@ const RECENT_SIGN_IN_SECONDS = 10 * 60;
 /** Password sign-in endpoints whose failures are counted for the security page. */
 const PASSWORD_SIGN_IN_PATHS = new Set(["/sign-in/email", "/sign-in/username"]);
 
+/** Sign-ins that may stop for two-factor authentication: passwords and emailed codes. */
+const TWO_STEP_SIGN_IN_PATHS = new Set([...PASSWORD_SIGN_IN_PATHS, "/sign-in/email-otp"]);
+
 /** Admin-only endpoints. An admin who must turn on two-factor authentication first cannot call them. */
 function isAdminPath(path: string): boolean {
     // Never block the way back from impersonation.
@@ -100,8 +109,8 @@ function isAdminPath(path: string): boolean {
 }
 
 /**
- * Records a password sign-in once it has a session. Placed after the twoFactor plugin, whose
- * hook deletes the session (and clears `newSession`) while the second step is pending: that
+ * Records a password or code sign-in once it has a session. Placed after the twoFactor plugin,
+ * whose hook deletes the session (and clears `newSession`) while the second step is pending: that
  * sign-in is counted when the code is verified, by the session hook.
  */
 const passwordSignInEvents = {
@@ -109,7 +118,7 @@ const passwordSignInEvents = {
     hooks: {
         after: [
             {
-                matcher: (ctx) => PASSWORD_SIGN_IN_PATHS.has(ctx.path ?? ""),
+                matcher: (ctx) => TWO_STEP_SIGN_IN_PATHS.has(ctx.path ?? ""),
                 handler: createAuthMiddleware(async (ctx) => {
                     const created = ctx.context.newSession;
                     if (created) await recordAuthEvent("sign_in", created.user.id);
@@ -118,6 +127,21 @@ const passwordSignInEvents = {
         ],
     },
 } satisfies BetterAuthPlugin;
+
+/**
+ * The email OTP plugin's endpoints other than sign-in codes. Email verification and password
+ * reset keep their links, so these stay closed rather than becoming a second, unprotected way
+ * to do the same thing (and to send email to any address).
+ */
+const UNUSED_EMAIL_OTP_PATHS = [
+    "/email-otp/check-verification-otp",
+    "/email-otp/verify-email",
+    "/email-otp/request-password-reset",
+    "/forget-password/email-otp",
+    "/email-otp/reset-password",
+    "/email-otp/request-email-change",
+    "/email-otp/change-email",
+];
 
 /** First-run setup: these addresses get the admin role when their account is created. */
 const adminEmails = new Set(
@@ -146,6 +170,28 @@ export type AuthFactoryOptions = {
  */
 export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactoryOptions) {
     const passkeyWebAuthn = getPasskeyWebAuthnOptions(baseURL);
+    const captchaOptions = captchaPluginOptions();
+    const twoFactorPlugin = twoFactor({
+        issuer: brand.name,
+        // Users without a password (passkey or GitHub only) can turn it on too, so an
+        // admin who never set a password is not locked out of the console. Accounts with
+        // a password must still confirm it.
+        allowPasswordless: true,
+    });
+    /**
+     * The twoFactor plugin asks for the second step after password sign-ins only. A sign-in
+     * code proves the inbox: one factor, like a password. Run the same check after it (trusted
+     * device, else the /two-factor challenge), so a code never skips an authenticator.
+     */
+    const emailCodeTwoFactor = {
+        id: "ostiary-email-code-two-factor",
+        hooks: {
+            after: twoFactorPlugin.hooks.after.map((hook) => ({
+                ...hook,
+                matcher: (ctx: { path?: string }) => ctx.path === "/sign-in/email-otp",
+            })),
+        },
+    } satisfies BetterAuthPlugin;
     const provider = oauthProvider({
         loginPage: "/login",
         consentPage: "/consent",
@@ -191,6 +237,7 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
     return betterAuth({
         baseURL,
         trustedOrigins,
+        disabledPaths: UNUSED_EMAIL_OTP_PATHS,
         advanced: cookieDomain
             ? { crossSubDomainCookies: { enabled: true, domain: cookieDomain } }
             : undefined,
@@ -236,8 +283,8 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
                     },
                     // Every new session is a sign-in, whatever the method (password, passkey, SSO, OAuth).
                     after: async (createdSession, ctx) => {
-                        // Password sign-ins are counted by passwordSignInEvents, after the 2FA check.
-                        if (ctx && PASSWORD_SIGN_IN_PATHS.has(ctx.path)) return;
+                        // Password and code sign-ins are counted by passwordSignInEvents, after the 2FA check.
+                        if (ctx && TWO_STEP_SIGN_IN_PATHS.has(ctx.path)) return;
                         // Turning 2FA on or off replaces the current session: not a new sign-in.
                         if (ctx?.path.startsWith("/two-factor/") && ctx.context.session) return;
                         await recordAuthEvent("sign_in", createdSession.userId);
@@ -396,17 +443,38 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
             username(),
             haveIBeenPwned(),
             // Authenticator app (TOTP) and backup codes. The second step applies to password
-            // sign-ins (email or username). Passkeys are already two factors; social and SSO
+            // sign-ins (email or username) and emailed sign-in codes. Passkeys are already two factors; social and SSO
             // sign-ins rely on the identity provider's own checks. Must come before the OAuth
             // provider: its hook replaces the sign-in response before an authorization resumes.
-            twoFactor({
-                issuer: brand.name,
-                // Users without a password (passkey or GitHub only) can turn it on too, so an
-                // admin who never set a password is not locked out of the console. Accounts with
-                // a password must still confirm it.
-                allowPasswordless: true,
-            }),
+            twoFactorPlugin,
+            emailCodeTwoFactor,
             passwordSignInEvents,
+            // "Email me a sign-in code": a 6-digit code, typed on the sign-in page that asked for
+            // it, so an OAuth sign-in carries on in that tab even when the email is read on a phone.
+            emailOTP({
+                // A code signs in to an existing account only. Creating one takes the sign-up page
+                // (username, password, captcha); an unknown address gets the same answer and no email.
+                disableSignUp: true,
+                otpLength: SIGN_IN_CODE_LENGTH,
+                expiresIn: SIGN_IN_CODE_MINUTES * 60,
+                // Kept as a hash, like a password: a database read does not reveal live codes.
+                storeOTP: "hashed",
+                // Better Auth's defaults, stated: 3 wrong codes void the code, and each IP may ask
+                // for 3 codes and try 3 times a minute.
+                allowedAttempts: 3,
+                rateLimit: { window: 60, max: 3 },
+                // A code proves the inbox. Better Auth marks an unverified account as verified on
+                // first use, after removing its password and sessions (they were never proven).
+                sendVerificationOTP: async ({ email, otp, type }, ctx) => {
+                    if (type !== "sign-in") return;
+                    const locale = emailLocale(ctx?.headers ?? ctx?.request?.headers);
+                    void queueSignInCodeEmail({ to: email, code: otp, locale }).catch((error: unknown) => {
+                        console.error("[email] sign-in code error:", error);
+                    });
+                },
+            }),
+            // Optional: off unless CAPTCHA_PROVIDER, CAPTCHA_SITE_KEY and CAPTCHA_SECRET_KEY are set.
+            ...(captchaOptions ? [captcha(captchaOptions)] : []),
             passkey({
                 rpID: passkeyWebAuthn.rpID,
                 rpName: passkeyWebAuthn.rpName,

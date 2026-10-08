@@ -44,6 +44,20 @@ All notable changes are documented here. The format follows
 - Several accounts in one browser (up to 5). The account menu lists them, switches between
   them, adds one and signs out of one or all. The select-account page (`prompt=select_account`)
   lists every signed-in account and continues the app's request with the one picked.
+- Sign-in: **Email me a sign-in code**. The login screen sends a 6-digit code to the
+  account's address; typing it on the same page signs in, so it works when the email is
+  read on another device and an OAuth sign-in carries on to the app. Codes open existing
+  accounts only (unknown addresses get the same answer and no email), expire after 10
+  minutes, are stored hashed and are void after 3 wrong tries. A code proves the inbox:
+  on an unverified account it verifies the address and removes the unproven password
+  and sessions. Banned users stay out, and accounts with two-factor authentication still
+  get the second step. The email is written in the language of the page it was asked
+  from, in all 20 locales.
+- Optional captcha on sign-up, password sign-in (email or username), password reset
+  requests and sign-in code requests: Cloudflare Turnstile, hCaptcha or reCAPTCHA v2,
+  with Better Auth's `captcha` plugin. Off unless `CAPTCHA_PROVIDER`, `CAPTCHA_SITE_KEY`
+  and `CAPTCHA_SECRET_KEY` are set; the CSP then allows that provider only. The widget
+  follows the light or dark theme.
 
 ### Fixed
 

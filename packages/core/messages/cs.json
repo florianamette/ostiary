@@ -20,10 +20,12 @@
       "verifyEmailAfterSignup": "Check your inbox for a verification link. You must verify your email before signing in.",
       "passkey": "Sign in with passkey",
       "passkeySubmitting": "Waiting for passkey…",
+      "emailCode": "Poslat přihlašovací kód e-mailem",
       "lastUsedBadge": "Last used",
       "lastUsedHintEmail": "You last signed in with email and password.",
       "lastUsedHintUsername": "You last signed in with username and password.",
       "lastUsedHintPasskey": "You last signed in with a passkey.",
+      "lastUsedHintEmailCode": "Naposledy jste se přihlásili kódem zaslaným e-mailem.",
       "lastUsedHintOther": "You last signed in with {method}.",
       "errors": {
         "emailNotVerified": "Please verify your email first. We sent you a new verification link, check your inbox.",
@@ -41,6 +43,30 @@
         "error": "Could not send the email. Try again in a minute."
       },
       "addAccountDescription": "Účty, které jsou v tomto prohlížeči už přihlášené, zůstanou přihlášené."
+    },
+    "emailCode": {
+      "title": "Přihlášení kódem",
+      "description": "Na e-mailovou adresu vašeho účtu pošleme 6místný kód. Přečtěte si ho na libovolném zařízení a zadejte ho sem.",
+      "emailLabel": "E-mail",
+      "emailPlaceholder": "vy@priklad.cz",
+      "send": "Poslat kód",
+      "sending": "Odesílání…",
+      "sentTitle": "Zkontrolujte e-mail",
+      "sent": "Pokud adresu {email} používá nějaký účet, posíláme na ni 6místný kód. Platnost vyprší za {minutes} minut.",
+      "codeLabel": "Přihlašovací kód",
+      "verify": "Přihlásit se",
+      "verifying": "Přihlašování…",
+      "newCode": "Nepřišel? Poslat nový kód",
+      "usePassword": "Použít heslo",
+      "errors": {
+        "invalidEmail": "Zadejte platnou e-mailovou adresu.",
+        "invalidCode": "Tento kód není správný. Zkontrolujte ho a zkuste to znovu.",
+        "expired": "Platnost kódu vypršela. Požádejte o nový.",
+        "tooManyAttempts": "Příliš mnoho chybných kódů. Požádejte o nový.",
+        "rateLimited": "Příliš mnoho pokusů. Počkejte minutu a zkuste to znovu.",
+        "sendFailed": "Kód se nepodařilo odeslat. Zkuste to znovu za minutu.",
+        "signInFailed": "Přihlášení se nezdařilo. Zkuste to znovu."
+      }
     },
     "twoFactor": {
       "metaTitle": "Dvoufázové ověření",
@@ -601,6 +627,22 @@
       "otherAccount": "Tento kód používá jiný účet.",
       "tooManyAttempts": "Příliš mnoho pokusů. Počkejte několik minut a zkuste to znovu.",
       "failed": "Něco se pokazilo. Zkuste to znovu."
+    }
+  },
+  "captcha": {
+    "label": "Bezpečnostní kontrola",
+    "required": "Nejprve dokončete bezpečnostní kontrolu.",
+    "failed": "Bezpečnostní kontrola selhala. Zkuste to znovu.",
+    "unavailable": "Bezpečnostní kontrolu se nepodařilo načíst. Zkontrolujte připojení nebo vypněte blokování obsahu a stránku znovu načtěte."
+  },
+  "emails": {
+    "signInCode": {
+      "subject": "Váš přihlašovací kód do {brand}",
+      "preheader": "Tímto kódem se přihlásíte. Platnost vyprší za {minutes} minut.",
+      "heading": "Váš přihlašovací kód",
+      "body": "Zadejte tento kód na přihlašovací stránce {brand} a dokončete přihlášení.",
+      "note": "Platnost kódu vyprší za {minutes} minut a lze ho použít jen jednou.",
+      "footnote": "Nežádali jste o kód? Tento e-mail ignorujte: bez kódu se nikdo nepřihlásí. Nikdy ho nikomu nesdělujte."
     }
   }
 }
