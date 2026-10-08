@@ -18,6 +18,7 @@ import {
 } from "@ostiary/core/components/ui/dialog";
 import { authClient } from "@/lib/auth-client";
 import {
+  resetUserTwoFactor,
   revokeAllUserSessions,
   revokeUserSession,
 } from "@/app/[locale]/(console)/users/[id]/actions";
@@ -159,5 +160,57 @@ export function RevokeSessionButton({ userId, sessionId }: { userId: string; ses
       {busy ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
       Revoke
     </Button>
+  );
+}
+
+/** Turns off a user's two-factor authentication, after a confirmation. Audited. */
+export function ResetTwoFactorButton({ userId, email }: { userId: string; email: string }) {
+  const router = useRouter();
+  const [open, setOpen] = React.useState(false);
+  const [busy, setBusy] = React.useState(false);
+
+  async function reset() {
+    setBusy(true);
+    try {
+      const { ok } = await resetUserTwoFactor(userId);
+      if (!ok) {
+        toast.error("Could not reset two-factor authentication.");
+        return;
+      }
+      toast.success("Two-factor authentication turned off");
+      setOpen(false);
+      router.refresh();
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <>
+      <Button type="button" variant="outline" size="sm" onClick={() => setOpen(true)}>
+        Reset
+      </Button>
+      <Dialog open={open} onOpenChange={(next) => !next && !busy && setOpen(false)}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Reset two-factor authentication for {email}?</DialogTitle>
+            <DialogDescription>
+              Their authenticator app, backup codes and trusted devices stop working, and they sign in
+              with their password alone until they set it up again. Only do this once you have
+              confirmed who is asking. This is recorded in the audit log.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button type="button" variant="outline" disabled={busy} onClick={() => setOpen(false)}>
+              Cancel
+            </Button>
+            <Button type="button" variant="destructive" disabled={busy} onClick={() => void reset()}>
+              {busy ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
+              Reset
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 }

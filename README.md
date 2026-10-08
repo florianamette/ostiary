@@ -43,9 +43,10 @@ Hosted identity platforms are great until the bill scales with your users or you
 
 - Email and password with verification, username sign-in, password reset
 - Passkeys (WebAuthn), plus a recent sign-in required to add one
+- Two-factor authentication: authenticator app (TOTP) and backup codes, with "trust this device"
 - Social sign-in (GitHub included; others are a config entry)
 - Enterprise SSO (OIDC), with DNS domain verification
-- Account dashboard: profile, email change (approved from the current inbox), sessions, passkeys, connected accounts, authorized apps
+- Account dashboard: profile, email change (approved from the current inbox), sessions, passkeys, two-factor authentication, connected accounts, authorized apps
 - 20 locales, light and dark themes
 
 **For your apps**
@@ -58,7 +59,7 @@ Hosted identity platforms are great until the bill scales with your users or you
 
 **For you (admin console)**
 
-- Users: search, roles, bans, sessions, impersonation
+- Users: search, roles, bans, sessions, impersonation, two-factor reset
 - OAuth clients with usage statistics, consents, organizations, SSO providers
 - Audit log of every admin action, sign-in activity and failed sign-in monitoring
 
@@ -69,7 +70,7 @@ Hosted identity platforms are great until the bill scales with your users or you
 | Hosting | Your Vercel account and Postgres | Auth0 cloud |
 | Pricing | Your infrastructure | Per monthly active user |
 | OIDC / OAuth 2.1 provider | Yes | Yes |
-| Passkeys, social sign-in, organizations | Yes | Yes |
+| Passkeys, two-factor authentication, social sign-in, organizations | Yes | Yes |
 | Enterprise SSO | OIDC (SAML via Better Auth) | OIDC and SAML |
 | Admin console and audit log | Yes | Yes |
 | SCIM, breached-password detection, compliance certifications | Not yet | Yes |
@@ -83,7 +84,7 @@ Ostiary is a good fit when you want to own your identity layer. If you need a ma
    - `BETTER_AUTH_SECRET`: 32+ random characters (`openssl rand -base64 32`)
    - `ADMIN_EMAILS`: your email address, so your account becomes an admin when you sign up
    - `RESEND_API_KEY` and `RESEND_FROM`: from [resend.com](https://resend.com), to send verification emails
-2. The build applies the database migrations. When it finishes, open your deployment and sign up with the email you put in `ADMIN_EMAILS`.
+2. The build applies the database migrations. When it finishes, open your deployment and sign up with the email you put in `ADMIN_EMAILS`. The admin console asks you to turn on two-factor authentication before you use it.
 3. Optional: deploy the admin console as a second project with the same database and secret:
 
    <a href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fflorianamette%2Fostiary%2Ftree%2Fmain%2Fapps%2Fadmin&project-name=ostiary-admin&repository-name=ostiary&env=DATABASE_URL%2CBETTER_AUTH_SECRET%2CAUTH_APP_URL%2CADMIN_APP_URL%2CRESEND_API_KEY%2CRESEND_FROM&envDescription=Use%20the%20same%20DATABASE_URL%20and%20BETTER_AUTH_SECRET%20as%20your%20Ostiary%20auth%20app.%20AUTH_APP_URL%3A%20its%20URL.%20ADMIN_APP_URL%3A%20this%20app%27s%20URL.&envLink=https%3A%2F%2Fgithub.com%2Fflorianamette%2Fostiary%23configuration"><img src="https://vercel.com/button" alt="Deploy the admin console"></a>
@@ -173,6 +174,7 @@ Without Resend configured, development prints verification and reset links to th
 | `BETTER_AUTH_SECRET` | both | yes | 32+ characters, the same for both apps |
 | `RESEND_API_KEY`, `RESEND_FROM` | both | in production | Sending verification, reset and invitation emails |
 | `ADMIN_EMAILS` | auth | first run | Emails that become admins when they sign up |
+| `REQUIRE_ADMIN_2FA` | both | optional | `true` (default): admins must turn on two-factor authentication before using the admin console. `false` turns this off |
 | `AUTH_APP_URL`, `ADMIN_APP_URL` | both | admin console | The two apps' public URLs |
 | `NEXT_PUBLIC_ADMIN_APP_URL` | auth | admin console | Shows the "Admin" link in the account menu |
 | `COOKIE_DOMAIN` | both | admin console | Parent domain shared by both apps, e.g. `.example.com` |
@@ -196,6 +198,8 @@ Both apps run the same Better Auth configuration against one database. The admin
 
 - Email changes need approval from the current inbox; a stolen session alone cannot move an account.
 - Adding a passkey or connecting an account needs a sign-in from the last 10 minutes.
+- Two-factor authentication (authenticator app or backup code) applies to password sign-ins. Passkeys are already two factors; GitHub and SSO sign-ins rely on that provider's own checks. Backup codes and authenticator secrets are stored encrypted.
+- Admins must turn on two-factor authentication (`REQUIRE_ADMIN_2FA`). An admin without it is sent to set it up and cannot use the console or the admin endpoints until then; their own account keeps working. An admin who loses their authenticator and backup codes can have another admin reset it from the user's page (audited).
 - Only admins can create organizations and register SSO providers; SSO domains must be verified with a DNS record.
 - The audit log never stores passwords, secrets or session tokens.
 

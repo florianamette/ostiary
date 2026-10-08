@@ -40,6 +40,11 @@ const envSchema = z
      * setup: put your own address here, then sign up). Existing accounts are not changed.
      */
     ADMIN_EMAILS: z.string().optional(),
+    /**
+     * When "true" (default), platform admins must turn on two-factor authentication before
+     * they can use the admin console. Set to "false" to let admins in without it.
+     */
+    REQUIRE_ADMIN_2FA: z.enum(["true", "false"]).default("true"),
     /** Comma-separated scopes for your own APIs, e.g. "orders:read,orders:write". */
     OAUTH_API_SCOPES: z.string().optional(),
     /** GitHub OAuth App credentials. "Sign in with GitHub" appears only when both are set. */

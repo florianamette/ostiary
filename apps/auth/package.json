@@ -36,6 +36,7 @@
     "tailwind-merge": "catalog:",
     "tailwindcss": "catalog:",
     "tw-animate-css": "catalog:",
+    "uqr": "catalog:",
     "zod": "catalog:",
     "@ostiary/core": "workspace:*"
   },

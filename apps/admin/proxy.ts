@@ -1,6 +1,7 @@
 import createMiddleware from "next-intl/middleware";
 import { NextRequest, NextResponse } from "next/server";
 
+import { adminNeedsTwoFactor } from "@ostiary/core/lib/admin/admin-two-factor";
 import { userHasAdminRole } from "@ostiary/core/lib/admin/user-has-admin-role";
 import { env } from "@ostiary/core/lib/env";
 import { routing, type AppLocale } from "@ostiary/core/i18n/routing";
@@ -17,8 +18,9 @@ function localeFrom(pathname: string): AppLocale {
 
 /**
  * Sends signed-out visitors to sign in on the auth app, then back to the page they asked for,
- * and signed-in non-admins to their account dashboard. The (console) layout repeats the role
- * check as a second gate.
+ * signed-in non-admins to their account dashboard, and admins without two-factor
+ * authentication (when REQUIRE_ADMIN_2FA is on) to its setup there. The (console) layout
+ * repeats these checks as a second gate.
  */
 export async function proxy(request: NextRequest) {
   const intlResponse = handleI18n(request);
@@ -37,6 +39,9 @@ export async function proxy(request: NextRequest) {
   }
   if (!userHasAdminRole(session.user.role, ["admin"])) {
     return NextResponse.redirect(`${env.AUTH_APP_URL}/${locale}/dashboard`);
+  }
+  if (adminNeedsTwoFactor(session.user, env.REQUIRE_ADMIN_2FA === "true")) {
+    return NextResponse.redirect(`${env.AUTH_APP_URL}/${locale}/dashboard#two-factor`);
   }
 
   return intlResponse;

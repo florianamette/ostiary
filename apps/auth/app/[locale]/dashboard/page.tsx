@@ -1,3 +1,4 @@
+import { ShieldAlert } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
 import { DashboardAccountSummary } from "@/components/dashboard/dashboard-account-summary";
@@ -6,6 +7,9 @@ import { DashboardOrganizationsSection } from "@/components/dashboard/dashboard-
 import { DashboardProfileSection } from "@/components/dashboard/dashboard-profile-section";
 import { DashboardSecuritySection } from "@/components/dashboard/dashboard-security-section";
 import { getDashboardContext } from "@/lib/dashboard-context";
+import { Alert, AlertDescription, AlertTitle } from "@ostiary/core/components/ui/alert";
+import { adminNeedsTwoFactor } from "@ostiary/core/lib/admin/admin-two-factor";
+import { env } from "@ostiary/core/lib/env";
 import { enabledSocialProviders } from "@ostiary/core/lib/social-providers";
 
 export default async function DashboardPage({
@@ -15,7 +19,9 @@ export default async function DashboardPage({
 }) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "dashboard" });
-  const { hasOrganizations } = await getDashboardContext();
+  const { session, hasOrganizations } = await getDashboardContext();
+  // The admin console sends admins here until they turn on two-factor authentication.
+  const twoFactorRequired = adminNeedsTwoFactor(session?.user, env.REQUIRE_ADMIN_2FA === "true");
 
   return (
     <div className="space-y-10">
@@ -26,12 +32,27 @@ export default async function DashboardPage({
             {t("description")}
           </p>
         </div>
+        {twoFactorRequired ? (
+          <Alert>
+            <ShieldAlert aria-hidden />
+            <AlertTitle>{t("twoFactor.adminRequiredTitle")}</AlertTitle>
+            <AlertDescription>
+              {t("twoFactor.adminRequiredBody")}{" "}
+              <a href="#two-factor" className="font-medium text-foreground underline underline-offset-4">
+                {t("twoFactor.adminRequiredLink")}
+              </a>
+            </AlertDescription>
+          </Alert>
+        ) : null}
         <DashboardAccountSummary />
       </section>
       <div className="space-y-10">
         <DashboardProfileSection />
         {hasOrganizations ? <DashboardOrganizationsSection /> : null}
-        <DashboardSecuritySection socialProviders={enabledSocialProviders()} />
+        <DashboardSecuritySection
+          socialProviders={enabledSocialProviders()}
+          adminConsoleUrl={twoFactorRequired ? env.ADMIN_APP_URL : undefined}
+        />
         <DashboardAppsSection />
       </div>
     </div>

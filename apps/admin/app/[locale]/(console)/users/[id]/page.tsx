@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { formatDateTime, PageHeader } from "@/components/admin/common/page-header";
 import {
   AdminUserDetailActions,
+  ResetTwoFactorButton,
   RevokeSessionButton,
 } from "@/components/admin/users/admin-user-detail-actions";
 import { Badge } from "@ostiary/core/components/ui/badge";
@@ -132,11 +133,12 @@ export default async function AdminUserPage({
         }
       />
 
-      <div className="grid gap-4 sm:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {[
           { label: "Joined", value: formatDateTime(u.createdAt, locale) },
           { label: "Active sessions", value: String(sessions.length) },
           { label: "Passkeys", value: String(passkeys.length) },
+          { label: "Two-factor", value: u.twoFactorEnabled ? "On" : "Off" },
         ].map((tile) => (
           <div key={tile.label} className="rounded-lg border border-border/80 bg-card p-4 shadow-sm">
             <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">{tile.label}</p>
@@ -193,6 +195,16 @@ export default async function AdminUserPage({
               </li>
             ))}
             {accounts.length + passkeys.length === 0 ? <Empty>No sign-in methods.</Empty> : null}
+            {u.twoFactorEnabled ? (
+              <li className="flex items-center justify-between gap-3 border-t border-border/60 pt-2">
+                <span>Two-factor authentication <span className="text-muted-foreground">(authenticator app)</span></span>
+                {u.id === admin.user.id ? (
+                  <span className="text-muted-foreground">Managed from your account</span>
+                ) : (
+                  <ResetTwoFactorButton userId={u.id} email={u.email} />
+                )}
+              </li>
+            ) : null}
           </ul>
         </Section>
 
