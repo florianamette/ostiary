@@ -32,6 +32,21 @@ All notable changes are documented here. The format follows
   when it reaches the interval, or at the next token if it is already older). Rotations
   and setting changes are in the audit log, with a new **Signing keys** filter. The
   discovery document and the JWKS URL are unchanged. No migration.
+- **Webhooks**: apps are told when users change. Admin console **Webhooks** page to
+  add, edit, disable and delete endpoints, choose events, regenerate the signing
+  secret (shown once, stored encrypted; the old one keeps signing for 24 hours),
+  send a test event, and read each endpoint's delivery log with **Redeliver**.
+  Events: `user.created`, `user.updated`, `user.deleted`, `user.banned`,
+  `user.unbanned` (including SCIM deactivation), `user.role_changed`,
+  `organization.member.added`, `organization.member.removed` and
+  `organization.member.role_changed`, recorded once the change is committed, with
+  a minimal payload. Deliveries are signed per Standard Webhooks, sent right after
+  the request, and retried with backoff (5 attempts over about a day) by the new
+  `/api/cron/webhooks` route (`CRON_SECRET`; daily in `vercel.json`, as Vercel Hobby
+  allows); an endpoint failing 15 times in a row is disabled. URLs must be HTTPS on
+  public addresses (`WEBHOOKS_ALLOW_LOCALHOST=true` for local development). Admin
+  actions are in the audit log. Migration `0006_webhooks` adds `webhook_endpoint`
+  and `webhook_delivery`.
 - Admin console: an **APIs** page to register the APIs (OAuth protected resources)
   that accept access tokens, with the scopes clients may request for each. Scopes
   are read from the database and reach the auth server within a minute, without a

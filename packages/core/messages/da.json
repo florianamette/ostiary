@@ -226,6 +226,7 @@
       "consent": "Consent",
       "organizations": "Organizations",
       "sso": "SSO",
+      "webhooks": "Webhooks",
       "security": "Security",
       "audit": "Audit log",
       "signingKeys": "Signeringsnøgler"
@@ -240,6 +241,7 @@
       "consent": "Consent",
       "organizations": "Organizations",
       "sso": "SSO",
+      "webhooks": "Webhooks",
       "security": "Security",
       "audit": "Audit log",
       "signingKeys": "Signeringsnøgler"
@@ -268,6 +270,11 @@
       "apis": {
         "title": "API'er",
         "description": "Dine API'er (beskyttede ressourcer), der accepterer adgangstokens fra {name}: de scopes, klienter kan anmode om, hvilke applikationer der må bruge dem, og deres tokenindstillinger."
+      },
+      "webhooks": {
+        "title": "Webhooks",
+        "description": "Signerede HTTPS-notifikationer, der fortæller dine apps, når brugere, roller og organisationsmedlemskaber i {name} ændres.",
+        "deliveries": "Leveringslog"
       },
       "users": {
         "title": "Users",

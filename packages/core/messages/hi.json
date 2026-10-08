@@ -226,6 +226,7 @@
       "consent": "Consent",
       "organizations": "Organizations",
       "sso": "SSO",
+      "webhooks": "वेबहुक",
       "security": "Security",
       "audit": "Audit log",
       "signingKeys": "साइनिंग कुंजियाँ"
@@ -240,6 +241,7 @@
       "consent": "Consent",
       "organizations": "Organizations",
       "sso": "SSO",
+      "webhooks": "वेबहुक",
       "security": "Security",
       "audit": "Audit log",
       "signingKeys": "साइनिंग कुंजियाँ"
@@ -268,6 +270,11 @@
       "apis": {
         "title": "API",
         "description": "आपके API (सुरक्षित संसाधन) जो {name} के एक्सेस टोकन स्वीकार करते हैं: वे scope जिन्हें क्लाइंट माँग सकते हैं, कौन-से ऐप्लिकेशन उनका उपयोग कर सकते हैं, और उनके टोकन की सेटिंग।"
+      },
+      "webhooks": {
+        "title": "वेबहुक",
+        "description": "हस्ताक्षरित HTTPS सूचनाएँ जो आपके ऐप्स को बताती हैं कि {name} के उपयोगकर्ता, भूमिकाएँ या संगठन सदस्यताएँ कब बदलती हैं।",
+        "deliveries": "डिलीवरी लॉग"
       },
       "users": {
         "title": "Users",

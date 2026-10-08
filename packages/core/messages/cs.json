@@ -226,6 +226,7 @@
       "consent": "Consent",
       "organizations": "Organizations",
       "sso": "SSO",
+      "webhooks": "Webhooky",
       "security": "Security",
       "audit": "Audit log",
       "signingKeys": "Podpisové klíče"
@@ -240,6 +241,7 @@
       "consent": "Consent",
       "organizations": "Organizations",
       "sso": "SSO",
+      "webhooks": "Webhooky",
       "security": "Security",
       "audit": "Audit log",
       "signingKeys": "Podpisové klíče"
@@ -268,6 +270,11 @@
       "apis": {
         "title": "API",
         "description": "Vaše API (chráněné zdroje), která přijímají přístupové tokeny {name}: scopy, které si klienti mohou vyžádat, aplikace, které je mohou používat, a nastavení jejich tokenů."
+      },
+      "webhooks": {
+        "title": "Webhooky",
+        "description": "Podepsaná HTTPS oznámení, která vašim aplikacím sdělí, když se změní uživatelé, role nebo členství v organizacích v {name}.",
+        "deliveries": "Protokol doručení"
       },
       "users": {
         "title": "Users",

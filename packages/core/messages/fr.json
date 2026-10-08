@@ -226,6 +226,7 @@
       "consent": "Consentements",
       "organizations": "Organisations",
       "sso": "SSO",
+      "webhooks": "Webhooks",
       "security": "Sécurité",
       "audit": "Journal d’audit",
       "signingKeys": "Clés de signature"
@@ -240,6 +241,7 @@
       "consent": "Consentements",
       "organizations": "Organisations",
       "sso": "SSO",
+      "webhooks": "Webhooks",
       "security": "Sécurité",
       "audit": "Journal d’audit",
       "signingKeys": "Clés de signature"
@@ -268,6 +270,11 @@
       "apis": {
         "title": "API",
         "description": "Vos API (ressources protégées) qui acceptent les jetons d’accès {name} : les scopes que les clients peuvent demander, les applications qui peuvent les utiliser et les réglages de leurs jetons."
+      },
+      "webhooks": {
+        "title": "Webhooks",
+        "description": "Notifications HTTPS signées qui préviennent vos applications quand les utilisateurs, les rôles ou les adhésions aux organisations de {name} changent.",
+        "deliveries": "Journal des envois"
       },
       "users": {
         "title": "Utilisateurs",

@@ -226,6 +226,7 @@
       "consent": "Consent",
       "organizations": "Organizations",
       "sso": "SSO",
+      "webhooks": "Webhook'lar",
       "security": "Security",
       "audit": "Audit log",
       "signingKeys": "İmzalama anahtarları"
@@ -240,6 +241,7 @@
       "consent": "Consent",
       "organizations": "Organizations",
       "sso": "SSO",
+      "webhooks": "Webhook'lar",
       "security": "Security",
       "audit": "Audit log",
       "signingKeys": "İmzalama anahtarları"
@@ -268,6 +270,11 @@
       "apis": {
         "title": "API'ler",
         "description": "{name} erişim belirteçlerini kabul eden API'leriniz (korumalı kaynaklar): istemcilerin isteyebileceği scope'lar, bunları kullanabilecek uygulamalar ve belirteç ayarları."
+      },
+      "webhooks": {
+        "title": "Webhook'lar",
+        "description": "{name} kullanıcıları, rolleri veya kuruluş üyelikleri değiştiğinde uygulamalarınızı bilgilendiren imzalı HTTPS bildirimleri.",
+        "deliveries": "Teslimat günlüğü"
       },
       "users": {
         "title": "Users",

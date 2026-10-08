@@ -226,6 +226,7 @@
       "consent": "Consent",
       "organizations": "Organizations",
       "sso": "SSO",
+      "webhooks": "Вебхуки",
       "security": "Security",
       "audit": "Audit log",
       "signingKeys": "Ключи подписи"
@@ -240,6 +241,7 @@
       "consent": "Consent",
       "organizations": "Organizations",
       "sso": "SSO",
+      "webhooks": "Вебхуки",
       "security": "Security",
       "audit": "Audit log",
       "signingKeys": "Ключи подписи"
@@ -268,6 +270,11 @@
       "apis": {
         "title": "API",
         "description": "Ваши API (защищённые ресурсы), которые принимают токены доступа {name}: scope, которые могут запрашивать клиенты, приложения, которым разрешён доступ, и настройки их токенов."
+      },
+      "webhooks": {
+        "title": "Вебхуки",
+        "description": "Подписанные HTTPS-уведомления, которые сообщают вашим приложениям об изменении пользователей, ролей и членства в организациях {name}.",
+        "deliveries": "Журнал доставки"
       },
       "users": {
         "title": "Users",

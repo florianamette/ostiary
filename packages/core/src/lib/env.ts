@@ -85,6 +85,16 @@ export const envSchema = z
      * header with several addresses is not trusted at all.
      */
     TRUSTED_PROXIES: optional(z.string()),
+    /**
+     * Secret that the webhook retry route (/api/cron/webhooks) expects as a bearer token.
+     * Vercel Cron sends `Authorization: Bearer $CRON_SECRET` by itself. Unset: the route refuses.
+     */
+    CRON_SECRET: optional(z.string().min(16)),
+    /**
+     * Development only: when "true", webhook endpoints may be http://localhost (or another
+     * loopback address). Ignored when NODE_ENV is "production".
+     */
+    WEBHOOKS_ALLOW_LOCALHOST: optional(z.enum(["true", "false"])),
     /** Enable verbose request logging when "true". */
     LOG_REQUESTS: z.enum(["true", "false"]).optional(),
   })

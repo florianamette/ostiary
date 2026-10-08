@@ -11,6 +11,7 @@ import {
   ScrollText,
   ShieldAlert,
   Users,
+  Webhook,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
 
@@ -39,6 +40,11 @@ export function useAdminSectionNavItems(): NavMainItem[] {
       title: t("sso"),
       url: "/sso",
       icon: <KeyRound />,
+    },
+    {
+      title: t("webhooks"),
+      url: "/webhooks",
+      icon: <Webhook />,
     },
     {
       title: t("security"),

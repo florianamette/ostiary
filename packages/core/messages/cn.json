@@ -226,6 +226,7 @@
       "consent": "授权记录",
       "organizations": "组织",
       "sso": "SSO",
+      "webhooks": "Webhook",
       "security": "安全",
       "audit": "审计日志",
       "signingKeys": "签名密钥"
@@ -240,6 +241,7 @@
       "consent": "授权记录",
       "organizations": "组织",
       "sso": "SSO",
+      "webhooks": "Webhook",
       "security": "安全",
       "audit": "审计日志",
       "signingKeys": "签名密钥"
@@ -268,6 +270,11 @@
       "apis": {
         "title": "API",
         "description": "接受 {name} 访问令牌的 API(受保护资源):客户端可以请求的 scope、可以使用它们的应用,以及它们的令牌设置。"
+      },
+      "webhooks": {
+        "title": "Webhook",
+        "description": "签名的 HTTPS 通知，在 {name} 的用户、角色和组织成员关系发生变化时通知你的应用。",
+        "deliveries": "投递日志"
       },
       "users": {
         "title": "用户",

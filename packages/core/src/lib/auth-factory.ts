@@ -48,6 +48,7 @@ import { ENV_API_SCOPES, OIDC_SCOPES, syncProviderScopes } from "@ostiary/core/l
 import { syncSigningKeys } from "@ostiary/core/lib/signing-keys";
 import { oauthResourceIdentifiers } from "@ostiary/core/lib/oauth-resources";
 import { withOpenApiLinks } from "@ostiary/core/lib/oauth-resource-access";
+import { withWebhookEvents } from "@ostiary/core/lib/webhooks/adapter";
 import { ACCESS_TOKEN_EXPIRES_IN, REFRESH_TOKEN_EXPIRES_IN } from "@ostiary/core/lib/oauth-resource-policy";
 import {
     clientExists,
@@ -513,14 +514,17 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
             }),
         },
         // Per-API access: APIs open to every application count as linked to every client.
+        // User and membership changes become webhook events once committed (lib/webhooks).
         database: withOpenApiLinks(
-            drizzleAdapter(db, {
-                provider: "pg",
-                schema,
-                // Real transactions (the SCIM plugin refuses to start without them). Better Auth then
-                // runs multi-step writes such as sign-up atomically; after-hooks still run post-commit.
-                transaction: true,
-            }),
+            withWebhookEvents(
+                drizzleAdapter(db, {
+                    provider: "pg",
+                    schema,
+                    // Real transactions (the SCIM plugin refuses to start without them). Better Auth then
+                    // runs multi-step writes such as sign-up atomically; after-hooks still run post-commit.
+                    transaction: true,
+                }),
+            ),
         ),
         socialProviders: socialProvidersConfig(),
         account: {

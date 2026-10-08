@@ -1,5 +1,11 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "nextjs",
-  "buildCommand": "pnpm --filter @ostiary/core db:migrate && pnpm --filter @ostiary/core db:seed && next build"
+  "buildCommand": "pnpm --filter @ostiary/core db:migrate && pnpm --filter @ostiary/core db:seed && next build",
+  "crons": [
+    {
+      "path": "/api/cron/webhooks",
+      "schedule": "0 4 * * *"
+    }
+  ]
 }
