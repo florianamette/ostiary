@@ -8,7 +8,7 @@ import {
 
 describe("createOAuthClientBodySchema", () => {
   it("accepts minimal valid body with defaults", () => {
-    const out = createOAuthClientBodySchema.parse({
+    const out = createOAuthClientBodySchema().parse({
       redirect_uris: ["https://a.test/cb"],
     });
     expect(out.token_endpoint_auth_method).toBe("client_secret_basic");
@@ -18,7 +18,7 @@ describe("createOAuthClientBodySchema", () => {
 
   it("rejects empty redirect_uris", () => {
     expect(() =>
-      createOAuthClientBodySchema.parse({ redirect_uris: [] }),
+      createOAuthClientBodySchema().parse({ redirect_uris: [] }),
     ).toThrow();
   });
 });
@@ -111,5 +111,17 @@ describe("parseUpdateOAuthClientBody", () => {
     if (r.ok) {
       expect(r.value.client_name).toBeUndefined();
     }
+  });
+});
+
+describe("API scopes registered at runtime", () => {
+  it("accepts a machine client limited to a scope from the database", () => {
+    const body = {
+      redirect_uris: ["https://x/cb"],
+      grant_types: ["client_credentials"],
+      scope: "labs:publish",
+    };
+    expect(parseCreateOAuthClientBody(body).ok).toBe(false);
+    expect(parseCreateOAuthClientBody(body, ["labs:publish"]).ok).toBe(true);
   });
 });

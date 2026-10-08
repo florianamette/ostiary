@@ -8,6 +8,7 @@ import { assertRequestBodyWithinLimit } from "@ostiary/core/lib/api/request-body
 import {
   parseCreateOAuthClientBody,
 } from "@ostiary/core/lib/admin/oauth-clients/oauth-client-admin.validation";
+import { currentApiScopes } from "@ostiary/core/lib/oauth-scopes";
 import { createOAuthClientForAdmin } from "@/lib/oauth-client-admin.service";
 import { requireAdminApiRequest } from "@/lib/require-admin-api-request";
 import { handleError, ValidationError } from "@ostiary/core/lib/errors";
@@ -32,7 +33,7 @@ export async function POST(req: Request) {
       throw new ValidationError("Invalid JSON body");
     }
 
-    const parsed = parseCreateOAuthClientBody(raw);
+    const parsed = parseCreateOAuthClientBody(raw, await currentApiScopes());
     if (!parsed.ok) {
       throw new ValidationError(parsed.error);
     }

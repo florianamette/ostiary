@@ -28,6 +28,7 @@ const FILTERS = [
   { key: "organization", label: "Organizations" },
   { key: "oauth_client", label: "OAuth clients" },
   { key: "oauth_consent", label: "Consents" },
+  { key: "oauth_resource", label: "APIs" },
   { key: "sso_provider", label: "SSO" },
 ] as const;
 

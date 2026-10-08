@@ -27,7 +27,7 @@ import { userHasAdminRole } from "@ostiary/core/lib/admin/user-has-admin-role";
 import { PUBLIC_ORGANIZATION_ID } from "@ostiary/core/lib/organization-public";
 import { getPasskeyWebAuthnOptions } from "@ostiary/core/lib/passkey-options";
 import { env } from "@ostiary/core/lib/env";
-import { ALL_SCOPES } from "@ostiary/core/lib/oauth-scopes";
+import { ENV_API_SCOPES, OIDC_SCOPES, syncProviderScopes } from "@ostiary/core/lib/oauth-scopes";
 import { oauthResourceIdentifiers } from "@ostiary/core/lib/oauth-resources";
 import { socialProvidersConfig } from "@ostiary/core/lib/social-providers";
 
@@ -104,6 +104,47 @@ export type AuthFactoryOptions = {
  */
 export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactoryOptions) {
     const passkeyWebAuthn = getPasskeyWebAuthnOptions(baseURL);
+    const provider = oauthProvider({
+        loginPage: "/login",
+        consentPage: "/consent",
+        // Only for clients that ask with prompt=select_account (e.g. a native app signing in
+        // through the system browser, whose session may belong to someone else).
+        selectAccount: { page: "/select-account", shouldRedirect: () => false },
+        // Replaced from the database before each request, see syncProviderScopes.
+        scopes: [...OIDC_SCOPES, ...ENV_API_SCOPES],
+        // Protected resources (1.7 replaces `validAudiences`): the auth server, then the APIs in
+        // OAUTH_API_AUDIENCES. The build registers the same rows first (`db:seed`), see
+        // db/seed-resources.ts. APIs added from the admin console live only in the database.
+        resources: oauthResourceIdentifiers(baseURL),
+        // As in 1.5: any client may request any listed resource. Per-client links
+        // (oauthClientResource) can be introduced later from the admin app.
+        enforcePerClientResources: false,
+        // 1.7 requires a policy before anyone may grant client_credentials scopes. Only
+        // platform admins may; every other client action keeps its 1.5 behavior.
+        clientPrivileges: ({ action, user }) =>
+            action === "configure-client-credentials-scopes"
+                ? userHasAdminRole(user?.role as string | null | undefined, ["admin"])
+                : true,
+        // The resource admin endpoints are server-only; this keeps them admin-only as well.
+        resourcePrivileges: ({ user }) =>
+            userHasAdminRole(user?.role as string | null | undefined, ["admin"]),
+        // Explicit (not left to the library default): resource servers reject tokens
+        // only after expiry, so this bounds how long a leaked access token works.
+        accessTokenExpiresIn: 60 * 60,
+        // Resource servers authorize on the admin plugin's role (e.g. "admin" or "admin,user").
+        customAccessTokenClaims: ({ user }) =>
+            typeof user?.role === "string" ? { role: user.role } : {},
+        // 1.7 leaves profile and email claims out of ID tokens (they are on UserInfo).
+        // Many OIDC clients read them from the ID token, so keep issuing them per scope.
+        customIdTokenClaims: ({ user, scopes }) => ({
+            ...(scopes.includes("profile")
+                ? { name: user.name, ...(user.image ? { picture: user.image } : {}) }
+                : {}),
+            ...(scopes.includes("email")
+                ? { email: user.email, email_verified: Boolean(user.emailVerified) }
+                : {}),
+        }),
+    });
 
     return betterAuth({
         baseURL,
@@ -157,8 +198,9 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
             },
         },
         hooks: {
-            // Sign-out deletes the session, so read who is signing out before the handler runs.
             before: createAuthMiddleware(async (ctx) => {
+                // APIs registered from the admin console add scopes without a redeploy.
+                await syncProviderScopes(provider.options);
                 if (RECENT_SIGN_IN_PATHS.has(ctx.path)) {
                     const current = await getSessionFromCtx(ctx);
                     const signedInAt = current ? new Date(current.session.createdAt).getTime() : 0;
@@ -183,6 +225,7 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
                     }
                     return;
                 }
+                // Sign-out deletes the session, so read who is signing out before the handler runs.
                 if (ctx.path !== "/sign-out") return;
                 const current = await getSessionFromCtx(ctx);
                 if (current) await recordAuthEvent("sign_out", current.user.id, { ipAddress: clientIp(ctx.headers) });
@@ -299,42 +342,7 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
                     });
                 },
             }),
-            oauthProvider({
-                loginPage: "/login",
-                consentPage: "/consent",
-                // Only for clients that ask with prompt=select_account (e.g. a native app signing in
-                // through the system browser, whose session may belong to someone else).
-                selectAccount: { page: "/select-account", shouldRedirect: () => false },
-                scopes: [...ALL_SCOPES],
-                // Protected resources (1.7 replaces `validAudiences`): the auth server, then your
-                // APIs. The build registers the same rows first (`db:seed`), see db/seed-resources.ts.
-                resources: oauthResourceIdentifiers(baseURL),
-                // As in 1.5: any client may request any listed resource. Per-client links
-                // (oauthClientResource) can be introduced later from the admin app.
-                enforcePerClientResources: false,
-                // 1.7 requires a policy before anyone may grant client_credentials scopes. Only
-                // platform admins may; every other client action keeps its 1.5 behavior.
-                clientPrivileges: ({ action, user }) =>
-                    action === "configure-client-credentials-scopes"
-                        ? userHasAdminRole(user?.role as string | null | undefined, ["admin"])
-                        : true,
-                // Explicit (not left to the library default): resource servers reject tokens
-                // only after expiry, so this bounds how long a leaked access token works.
-                accessTokenExpiresIn: 60 * 60,
-                // Resource servers authorize on the admin plugin's role (e.g. "admin" or "admin,user").
-                customAccessTokenClaims: ({ user }) =>
-                    typeof user?.role === "string" ? { role: user.role } : {},
-                // 1.7 leaves profile and email claims out of ID tokens (they are on UserInfo).
-                // Many OIDC clients read them from the ID token, so keep issuing them per scope.
-                customIdTokenClaims: ({ user, scopes }) => ({
-                    ...(scopes.includes("profile")
-                        ? { name: user.name, ...(user.image ? { picture: user.image } : {}) }
-                        : {}),
-                    ...(scopes.includes("email")
-                        ? { email: user.email, email_verified: Boolean(user.emailVerified) }
-                        : {}),
-                }),
-            }),
+            provider,
             // Enterprise SSO (OIDC / SAML) per organization. Providers are managed from the admin app.
             // Only platform admins may register providers: a provider claims an email domain, so
             // letting any user register one would let them intercept that domain's SSO sign-ins.

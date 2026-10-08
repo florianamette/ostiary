@@ -165,6 +165,7 @@
       "overview": "Vue d'ensemble",
       "users": "Utilisateurs",
       "applications": "Applications",
+      "apis": "API",
       "consent": "Consentements",
       "organizations": "Organisations",
       "sso": "SSO",
@@ -177,6 +178,7 @@
       "overview": "Vue d'ensemble",
       "users": "Utilisateurs",
       "applications": "Applications",
+      "apis": "API",
       "consent": "Consentements",
       "organizations": "Organisations",
       "sso": "SSO",
@@ -203,6 +205,10 @@
       "applications": {
         "title": "Applications",
         "description": "Les clients OAuth qui connectent les utilisateurs avec {name} : URL de redirection, types d’autorisation, consentement et utilisation."
+      },
+      "apis": {
+        "title": "API",
+        "description": "Vos API (ressources protégées) qui acceptent les jetons d’accès {name}, et les scopes que les clients peuvent demander pour elles."
       },
       "users": {
         "title": "Utilisateurs",
