@@ -4,6 +4,17 @@ All notable changes are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses
 [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Fixed
+
+- Admin console: registering or editing an OAuth application showed "Request failed"
+  instead of the reason. Better Auth 1.7 puts it in `error_description`, which is now
+  shown (for example, a confidential client with an `http://localhost` redirect URI).
+- Admin console: the redirect URI hint now says that confidential (web) clients need
+  HTTPS everywhere, localhost included, and only public clients may use http on
+  localhost.
+
 ## [0.1.1] - 2026-10-07
 
 ### Fixed

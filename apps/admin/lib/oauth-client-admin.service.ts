@@ -12,6 +12,16 @@ import type {
 } from "@ostiary/core/lib/admin/oauth-clients/oauth-client-admin.types";
 
 function messageFromUnknown(error: unknown): string {
+  // Better Auth 1.7 OAuth errors carry the reason in the body (`error_description`) and leave
+  // `message` empty.
+  if (error && typeof error === "object" && "body" in error) {
+    const body = (error as { body?: unknown }).body;
+    if (body && typeof body === "object") {
+      const { error_description: description, message } = body as Record<string, unknown>;
+      if (typeof description === "string" && description.trim()) return description;
+      if (typeof message === "string" && message.trim()) return message;
+    }
+  }
   if (error && typeof error === "object" && "message" in error) {
     const m = (error as { message?: unknown }).message;
     if (typeof m === "string" && m.trim()) return m;

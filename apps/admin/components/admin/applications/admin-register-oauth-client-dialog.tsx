@@ -200,8 +200,9 @@ export function AdminRegisterOAuthClientDialog({
                   className="font-mono text-sm"
                 />
                 <p className="text-muted-foreground text-xs">
-                  One per line or comma-separated. HTTPS required except on
-                  localhost.
+                  {clientKind === "public"
+                    ? "One per line or comma-separated. HTTPS, or http on localhost, 127.0.0.1 or [::1]."
+                    : "One per line or comma-separated. HTTPS only, localhost included. For local development, register a separate public client."}
                 </p>
               </Field>
               <Field>

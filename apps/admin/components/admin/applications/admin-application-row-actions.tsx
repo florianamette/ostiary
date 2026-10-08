@@ -305,8 +305,8 @@ export function AdminApplicationRowActions({
                   className="font-mono text-sm"
                 />
                 <p className="text-muted-foreground text-xs">
-                  One per line or comma-separated. HTTPS required except on
-                  localhost.
+                  One per line or comma-separated. HTTPS required. Only public
+                  clients may use http on localhost.
                 </p>
               </Field>
               <Field>
