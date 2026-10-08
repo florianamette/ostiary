@@ -6,6 +6,14 @@ All notable changes are documented here. The format follows
 
 ## [Unreleased]
 
+### Added
+
+- Admin console: an **APIs** page to register the APIs (OAuth protected resources)
+  that accept access tokens, with the scopes clients may request for each. Scopes
+  are read from the database and reach the auth server within a minute, without a
+  redeploy. An API can be restricted to its own scopes, or disabled.
+  `OAUTH_API_SCOPES` and `OAUTH_API_AUDIENCES` keep working.
+
 ### Fixed
 
 - Admin console: registering or editing an OAuth application showed "Request failed"

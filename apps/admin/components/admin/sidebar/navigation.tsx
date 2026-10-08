@@ -5,6 +5,7 @@ import {
   Building2,
   History,
   KeyRound,
+  Network,
   LayoutDashboard,
   ScrollText,
   ShieldAlert,
@@ -58,6 +59,11 @@ export function useOauthSectionNavItems(): NavMainItem[] {
       title: t("applications"),
       url: "/applications",
       icon: <Boxes />,
+    },
+    {
+      title: t("apis"),
+      url: "/apis",
+      icon: <Network />,
     },
     {
       title: t("consent"),

@@ -165,6 +165,7 @@
       "overview": "Overview",
       "users": "Users",
       "applications": "Applications",
+      "apis": "API",
       "consent": "Consent",
       "organizations": "Organizations",
       "sso": "SSO",
@@ -177,6 +178,7 @@
       "overview": "Overview",
       "users": "Users",
       "applications": "Applications",
+      "apis": "API",
       "consent": "Consent",
       "organizations": "Organizations",
       "sso": "SSO",
@@ -203,6 +205,10 @@
       "applications": {
         "title": "Applications",
         "description": "OAuth clients that can sign people in with {name}: their redirect URLs, grant types, consent settings and usage."
+      },
+      "apis": {
+        "title": "API",
+        "description": "आपके API (सुरक्षित संसाधन) जो {name} के एक्सेस टोकन स्वीकार करते हैं, और वे scope जिन्हें क्लाइंट उनके लिए माँग सकते हैं।"
       },
       "users": {
         "title": "Users",

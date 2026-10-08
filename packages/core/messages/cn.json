@@ -165,6 +165,7 @@
       "overview": "概览",
       "users": "用户",
       "applications": "应用",
+      "apis": "API",
       "consent": "授权记录",
       "organizations": "组织",
       "sso": "SSO",
@@ -177,6 +178,7 @@
       "overview": "概览",
       "users": "用户",
       "applications": "应用",
+      "apis": "API",
       "consent": "授权记录",
       "organizations": "组织",
       "sso": "SSO",
@@ -203,6 +205,10 @@
       "applications": {
         "title": "应用",
         "description": "可使用 {name} 登录用户的 OAuth 客户端：重定向地址、授权类型、同意设置和使用情况。"
+      },
+      "apis": {
+        "title": "API",
+        "description": "接受 {name} 访问令牌的 API(受保护资源),以及客户端可以为其请求的 scope。"
       },
       "users": {
         "title": "用户",

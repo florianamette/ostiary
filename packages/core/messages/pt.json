@@ -165,6 +165,7 @@
       "overview": "Overview",
       "users": "Users",
       "applications": "Applications",
+      "apis": "APIs",
       "consent": "Consent",
       "organizations": "Organizations",
       "sso": "SSO",
@@ -177,6 +178,7 @@
       "overview": "Overview",
       "users": "Users",
       "applications": "Applications",
+      "apis": "APIs",
       "consent": "Consent",
       "organizations": "Organizations",
       "sso": "SSO",
@@ -203,6 +205,10 @@
       "applications": {
         "title": "Applications",
         "description": "OAuth clients that can sign people in with {name}: their redirect URLs, grant types, consent settings and usage."
+      },
+      "apis": {
+        "title": "APIs",
+        "description": "As suas APIs (recursos protegidos) que aceitam tokens de acesso do {name}, e os scopes que os clientes podem pedir para elas."
       },
       "users": {
         "title": "Users",

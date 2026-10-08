@@ -118,7 +118,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
 Any OIDC library works the same way (Better Auth's generic OAuth, `openid-client`, AppAuth on mobile): give it the issuer, client ID and secret.
 
-To protect an API, add its URL to `OAUTH_API_AUDIENCES` and its scopes to `OAUTH_API_SCOPES`. Clients request a token for it with the `resource` parameter, and the API verifies the JWT against Ostiary's JWKS.
+To protect an API, register it in the admin console under **APIs**: its identifier (usually its URL) and the scopes clients may request for it. Clients request a token for it with the `resource` parameter, and the API verifies the JWT against Ostiary's JWKS. New scopes reach the auth server within a minute, no redeploy needed. You can also declare APIs with `OAUTH_API_AUDIENCES` and scopes with `OAUTH_API_SCOPES`, for example to provision a new instance.
 
 ## Run locally
 
@@ -146,8 +146,8 @@ Without Resend configured, development prints verification and reset links to th
 | `AUTH_APP_URL`, `ADMIN_APP_URL` | both | admin console | The two apps' public URLs |
 | `NEXT_PUBLIC_ADMIN_APP_URL` | auth | admin console | Shows the "Admin" link in the account menu |
 | `COOKIE_DOMAIN` | both | admin console | Parent domain shared by both apps, e.g. `.example.com` |
-| `OAUTH_API_AUDIENCES` | both | optional | Comma-separated URLs of your APIs |
-| `OAUTH_API_SCOPES` | both | optional | Comma-separated scopes for your APIs |
+| `OAUTH_API_AUDIENCES` | both | optional | Comma-separated URLs of your APIs, registered at build time (or use the admin console) |
+| `OAUTH_API_SCOPES` | both | optional | Comma-separated scopes available to every API (or declare them per API in the admin console) |
 | `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET` | auth | optional | "Sign in with GitHub" |
 
 **Rebrand** by editing `packages/core/src/lib/brand.ts` (name, tagline, colors, logo geometry) and the matching tokens in `packages/core/src/styles/globals.css`, then run `pnpm --filter @ostiary/auth brand:assets` to regenerate `logo.png` and `logo.svg`.
