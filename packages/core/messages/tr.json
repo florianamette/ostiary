@@ -39,7 +39,8 @@
         "sent": "If an unverified account uses this address, a new link is on its way. Check your inbox and spam folder.",
         "invalidEmail": "Enter a valid email address.",
         "error": "Could not send the email. Try again in a minute."
-      }
+      },
+      "addAccountDescription": "Bu tarayıcıda oturumu açık olan hesaplar açık kalır."
     },
     "twoFactor": {
       "metaTitle": "İki faktörlü kimlik doğrulama",
@@ -484,6 +485,13 @@
       "error": "Something went wrong. Try again.",
       "signInAgainToChange": "For your security, connecting an account needs a recent sign-in. Sign in again, then connect it.",
       "signInAgain": "Sign in again"
+    },
+    "accounts": {
+      "switchTo": "Şuna geç",
+      "add": "Başka bir hesap ekle",
+      "signOutOf": "{email} hesabından çıkış yap",
+      "signOutAll": "Tüm hesaplardan çıkış yap",
+      "switchFailed": "Hesap değiştirilemedi. Tekrar deneyin."
     }
   },
   "acceptInvitation": {
@@ -565,7 +573,8 @@
     "description": "Uygulamaya bu hesapla devam edin veya başka bir hesapla giriş yapın.",
     "continueAs": "{name} olarak devam et",
     "useAnother": "Başka bir hesap kullan",
-    "error": "Bir şeyler ters gitti. Tekrar deneyin."
+    "error": "Bir şeyler ters gitti. Tekrar deneyin.",
+    "descriptionMany": "Uygulamaya devam etmek için bir hesap seçin."
   },
   "device": {
     "title": "Cihaz bağla",

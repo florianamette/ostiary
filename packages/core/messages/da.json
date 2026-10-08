@@ -39,7 +39,8 @@
         "sent": "If an unverified account uses this address, a new link is on its way. Check your inbox and spam folder.",
         "invalidEmail": "Enter a valid email address.",
         "error": "Could not send the email. Try again in a minute."
-      }
+      },
+      "addAccountDescription": "Konti, der allerede er logget ind i denne browser, forbliver logget ind."
     },
     "twoFactor": {
       "metaTitle": "Totrinsgodkendelse",
@@ -484,6 +485,13 @@
       "error": "Something went wrong. Try again.",
       "signInAgainToChange": "For your security, connecting an account needs a recent sign-in. Sign in again, then connect it.",
       "signInAgain": "Sign in again"
+    },
+    "accounts": {
+      "switchTo": "Skift til",
+      "add": "Tilføj en anden konto",
+      "signOutOf": "Log ud af {email}",
+      "signOutAll": "Log ud af alle konti",
+      "switchFailed": "Kunne ikke skifte konto. Prøv igen."
     }
   },
   "acceptInvitation": {
@@ -565,7 +573,8 @@
     "description": "Fortsæt til appen med denne konto, eller log ind med en anden.",
     "continueAs": "Fortsæt som {name}",
     "useAnother": "Brug en anden konto",
-    "error": "Noget gik galt. Prøv igen."
+    "error": "Noget gik galt. Prøv igen.",
+    "descriptionMany": "Vælg den konto, du vil fortsætte til appen med."
   },
   "device": {
     "title": "Tilslut en enhed",

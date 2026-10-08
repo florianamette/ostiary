@@ -39,7 +39,8 @@
         "sent": "If an unverified account uses this address, a new link is on its way. Check your inbox and spam folder.",
         "invalidEmail": "Enter a valid email address.",
         "error": "Could not send the email. Try again in a minute."
-      }
+      },
+      "addAccountDescription": "Účty, které jsou v tomto prohlížeči už přihlášené, zůstanou přihlášené."
     },
     "twoFactor": {
       "metaTitle": "Dvoufázové ověření",
@@ -484,6 +485,13 @@
       "error": "Something went wrong. Try again.",
       "signInAgainToChange": "For your security, connecting an account needs a recent sign-in. Sign in again, then connect it.",
       "signInAgain": "Sign in again"
+    },
+    "accounts": {
+      "switchTo": "Přepnout na",
+      "add": "Přidat další účet",
+      "signOutOf": "Odhlásit {email}",
+      "signOutAll": "Odhlásit všechny účty",
+      "switchFailed": "Účet se nepodařilo přepnout. Zkuste to znovu."
     }
   },
   "acceptInvitation": {
@@ -565,7 +573,8 @@
     "description": "Pokračujte do aplikace s tímto účtem, nebo se přihlaste jiným.",
     "continueAs": "Pokračovat jako {name}",
     "useAnother": "Použít jiný účet",
-    "error": "Něco se pokazilo. Zkuste to znovu."
+    "error": "Něco se pokazilo. Zkuste to znovu.",
+    "descriptionMany": "Vyberte účet, se kterým chcete pokračovat do aplikace."
   },
   "device": {
     "title": "Připojit zařízení",

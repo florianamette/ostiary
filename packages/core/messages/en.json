@@ -39,7 +39,8 @@
         "sent": "If an unverified account uses this address, a new link is on its way. Check your inbox and spam folder.",
         "invalidEmail": "Enter a valid email address.",
         "error": "Could not send the email. Try again in a minute."
-      }
+      },
+      "addAccountDescription": "Accounts already signed in on this browser stay signed in."
     },
     "twoFactor": {
       "metaTitle": "Two-factor authentication",
@@ -484,6 +485,13 @@
       "error": "Something went wrong. Try again.",
       "signInAgainToChange": "For your security, connecting an account needs a recent sign-in. Sign in again, then connect it.",
       "signInAgain": "Sign in again"
+    },
+    "accounts": {
+      "switchTo": "Switch to",
+      "add": "Add another account",
+      "signOutOf": "Sign out of {email}",
+      "signOutAll": "Sign out of all accounts",
+      "switchFailed": "Couldn't switch accounts. Try again."
     }
   },
   "acceptInvitation": {
@@ -565,7 +573,8 @@
     "description": "Continue to the app with this account, or sign in with another one.",
     "continueAs": "Continue as {name}",
     "useAnother": "Use another account",
-    "error": "Something went wrong. Try again."
+    "error": "Something went wrong. Try again.",
+    "descriptionMany": "Choose the account to continue to the app with."
   },
   "device": {
     "title": "Connect a device",

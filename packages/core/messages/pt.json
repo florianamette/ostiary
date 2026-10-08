@@ -39,7 +39,8 @@
         "sent": "If an unverified account uses this address, a new link is on its way. Check your inbox and spam folder.",
         "invalidEmail": "Enter a valid email address.",
         "error": "Could not send the email. Try again in a minute."
-      }
+      },
+      "addAccountDescription": "As contas com sessão iniciada neste navegador continuam com sessão iniciada."
     },
     "twoFactor": {
       "metaTitle": "Autenticação em dois fatores",
@@ -484,6 +485,13 @@
       "error": "Something went wrong. Try again.",
       "signInAgainToChange": "For your security, connecting an account needs a recent sign-in. Sign in again, then connect it.",
       "signInAgain": "Sign in again"
+    },
+    "accounts": {
+      "switchTo": "Mudar para",
+      "add": "Adicionar outra conta",
+      "signOutOf": "Terminar sessão de {email}",
+      "signOutAll": "Terminar sessão em todas as contas",
+      "switchFailed": "Não foi possível mudar de conta. Tente novamente."
     }
   },
   "acceptInvitation": {
@@ -565,7 +573,8 @@
     "description": "Continue para o aplicativo com esta conta ou entre com outra.",
     "continueAs": "Continuar como {name}",
     "useAnother": "Usar outra conta",
-    "error": "Algo deu errado. Tente novamente."
+    "error": "Algo deu errado. Tente novamente.",
+    "descriptionMany": "Escolha a conta com que continuar para a aplicação."
   },
   "device": {
     "title": "Conectar um dispositivo",

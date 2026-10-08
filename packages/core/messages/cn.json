@@ -39,7 +39,8 @@
         "sent": "If an unverified account uses this address, a new link is on its way. Check your inbox and spam folder.",
         "invalidEmail": "Enter a valid email address.",
         "error": "Could not send the email. Try again in a minute."
-      }
+      },
+      "addAccountDescription": "此浏览器上已登录的账户将保持登录。"
     },
     "twoFactor": {
       "metaTitle": "双重身份验证",
@@ -484,6 +485,13 @@
       "error": "出现问题，请重试。",
       "signInAgainToChange": "为了安全，关联账户需要最近登录过。请重新登录后再关联。",
       "signInAgain": "重新登录"
+    },
+    "accounts": {
+      "switchTo": "切换到",
+      "add": "添加其他账户",
+      "signOutOf": "退出 {email}",
+      "signOutAll": "退出所有账户",
+      "switchFailed": "无法切换账户，请重试。"
     }
   },
   "acceptInvitation": {
@@ -565,7 +573,8 @@
     "description": "使用此账户继续前往应用，或使用其他账户登录。",
     "continueAs": "以 {name} 身份继续",
     "useAnother": "使用其他账户",
-    "error": "出了点问题，请重试。"
+    "error": "出了点问题，请重试。",
+    "descriptionMany": "选择用于继续访问应用的账户。"
   },
   "device": {
     "title": "连接设备",

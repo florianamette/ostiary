@@ -39,7 +39,8 @@
         "sent": "If an unverified account uses this address, a new link is on its way. Check your inbox and spam folder.",
         "invalidEmail": "Enter a valid email address.",
         "error": "Could not send the email. Try again in a minute."
-      }
+      },
+      "addAccountDescription": "Kontoer som allerede er logget inn i denne nettleseren, forblir logget inn."
     },
     "twoFactor": {
       "metaTitle": "Tofaktorautentisering",
@@ -484,6 +485,13 @@
       "error": "Something went wrong. Try again.",
       "signInAgainToChange": "For your security, connecting an account needs a recent sign-in. Sign in again, then connect it.",
       "signInAgain": "Sign in again"
+    },
+    "accounts": {
+      "switchTo": "Bytt til",
+      "add": "Legg til en annen konto",
+      "signOutOf": "Logg ut av {email}",
+      "signOutAll": "Logg ut av alle kontoer",
+      "switchFailed": "Kunne ikke bytte konto. Prøv igjen."
     }
   },
   "acceptInvitation": {
@@ -565,7 +573,8 @@
     "description": "Fortsett til appen med denne kontoen, eller logg inn med en annen.",
     "continueAs": "Fortsett som {name}",
     "useAnother": "Bruk en annen konto",
-    "error": "Noe gikk galt. Prøv igjen."
+    "error": "Noe gikk galt. Prøv igjen.",
+    "descriptionMany": "Velg kontoen du vil fortsette til appen med."
   },
   "device": {
     "title": "Koble til en enhet",

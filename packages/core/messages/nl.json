@@ -39,7 +39,8 @@
         "sent": "If an unverified account uses this address, a new link is on its way. Check your inbox and spam folder.",
         "invalidEmail": "Enter a valid email address.",
         "error": "Could not send the email. Try again in a minute."
-      }
+      },
+      "addAccountDescription": "Accounts die al zijn aangemeld in deze browser blijven aangemeld."
     },
     "twoFactor": {
       "metaTitle": "Tweestapsverificatie",
@@ -484,6 +485,13 @@
       "error": "Something went wrong. Try again.",
       "signInAgainToChange": "For your security, connecting an account needs a recent sign-in. Sign in again, then connect it.",
       "signInAgain": "Sign in again"
+    },
+    "accounts": {
+      "switchTo": "Overschakelen naar",
+      "add": "Ander account toevoegen",
+      "signOutOf": "Afmelden bij {email}",
+      "signOutAll": "Afmelden bij alle accounts",
+      "switchFailed": "Wisselen van account mislukt. Probeer het opnieuw."
     }
   },
   "acceptInvitation": {
@@ -565,7 +573,8 @@
     "description": "Ga verder naar de app met dit account, of meld je aan met een ander.",
     "continueAs": "Doorgaan als {name}",
     "useAnother": "Een ander account gebruiken",
-    "error": "Er ging iets mis. Probeer het opnieuw."
+    "error": "Er ging iets mis. Probeer het opnieuw.",
+    "descriptionMany": "Kies het account waarmee je doorgaat naar de app."
   },
   "device": {
     "title": "Apparaat koppelen",

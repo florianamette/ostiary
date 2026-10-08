@@ -47,6 +47,9 @@ Hosted identity platforms are great until the bill scales with your users or you
 - Social sign-in (GitHub included; others are a config entry)
 - Enterprise SSO (OIDC), with DNS domain verification
 - Account dashboard: profile, email change (approved from the current inbox), sessions, passkeys, two-factor authentication, connected accounts, authorized apps
+
+- Account dashboard: profile, email change (approved from the current inbox), sessions, passkeys, connected accounts, authorized apps
+- Several accounts in one browser (up to 5): switch from the account menu, or pick one when an app asks with `prompt=select_account`
 - 20 locales, light and dark themes
 
 **For your apps**
@@ -56,6 +59,7 @@ Hosted identity platforms are great until the bill scales with your users or you
 - Device sign-in (RFC 8628) for CLIs, TVs and other apps without a browser
 - Protected resources: JWT access tokens scoped to your APIs, with the user's role as a claim
 - Organizations with members, roles and invitations
+- SCIM 2.0 provisioning per organization: Okta, Entra ID and other identity providers create and deactivate accounts
 
 **For you (admin console)**
 
@@ -151,6 +155,35 @@ Apps that cannot open a browser use the device authorization grant (RFC 8628). I
 
 The user always approves on the page, even for clients with **Skip consent**.
 
+## Provision users with SCIM
+
+An organization's identity provider can create its people's accounts and deactivate them when they leave. In the admin console, open the organization and, under **SCIM provisioning**, choose **Generate token**. Copy the base URL and the token (it is shown once and expires after a year).
+
+**Okta**: in your app integration, **General** > enable **SCIM provisioning**. Under **Provisioning** > **Integration**:
+
+- SCIM connector base URL: the base URL, e.g. `https://auth.example.com/api/auth/scim/v2`
+- Unique identifier field for users: `userName`
+- Supported provisioning actions: Push New Users, Push Profile Updates (and Push Groups if you use them)
+- Authentication mode: **HTTP Header**, Authorization: the token
+
+Then under **Provisioning** > **To App**, enable Create Users, Update User Attributes and Deactivate Users, and assign people to the app.
+
+**Microsoft Entra ID**: in your enterprise application, **Provisioning** > **New configuration** (or set Provisioning Mode to **Automatic**):
+
+- Tenant URL: the base URL
+- Secret token: the token
+
+Choose **Test connection**, save, assign users and groups, and start provisioning. Entra ID sends the email in `userName`; the default attribute mappings work as they are.
+
+Google Workspace only provisions to apps from its catalog, so it can't push to Ostiary directly; use its SSO and invite people instead, or sync Google to Okta or Entra ID first.
+
+What happens to accounts:
+
+- A new person gets an account in the organization (and the Public workspace). They sign in with the organization's SSO, or set a password with "Forgot password".
+- An existing account is only linked when its email is verified and the organization has verified that email domain for SSO. Otherwise the identity provider gets a conflict (409): it can't take over an account by naming its address. Platform admins are never linked.
+- Deactivating (`active: false`) or deleting a person keeps the account but bans it, signs it out everywhere and revokes its OAuth tokens. Reactivating lifts that ban (never one set by an admin). Deleting also removes them from the organization unless they are an owner or admin there.
+- **New token** replaces the token at once; **Revoke** stops provisioning and leaves accounts as they are. Both are in the audit log.
+
 ## Run locally
 
 Requirements: Node.js 20+, pnpm 11, a Postgres database.
@@ -181,6 +214,7 @@ Without Resend configured, development prints verification and reset links to th
 | `OAUTH_API_AUDIENCES` | both | optional | Comma-separated URLs of your APIs, registered at build time (or use the admin console) |
 | `OAUTH_API_SCOPES` | both | optional | Comma-separated scopes available to every API (or declare them per API in the admin console) |
 | `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET` | auth | optional | "Sign in with GitHub" |
+| `SCIM_TOKEN_SECRET` | both | optional | 32+ characters to hash SCIM tokens with; derived from `BETTER_AUTH_SECRET` when unset. Changing either invalidates SCIM tokens |
 
 **Rebrand** by editing `packages/core/src/lib/brand.ts` (name, tagline, colors, logo geometry) and the matching tokens in `packages/core/src/styles/globals.css`, then run `pnpm --filter @ostiary/auth brand:assets` to regenerate `logo.png` and `logo.svg`.
 
@@ -201,6 +235,7 @@ Both apps run the same Better Auth configuration against one database. The admin
 - Two-factor authentication (authenticator app or backup code) applies to password sign-ins. Passkeys are already two factors; GitHub and SSO sign-ins rely on that provider's own checks. Backup codes and authenticator secrets are stored encrypted.
 - Admins must turn on two-factor authentication (`REQUIRE_ADMIN_2FA`). An admin without it is sent to set it up and cannot use the console or the admin endpoints until then; their own account keeps working. An admin who loses their authenticator and backup codes can have another admin reset it from the user's page (audited).
 - Only admins can create organizations and register SSO providers; SSO domains must be verified with a DNS record.
+- SCIM tokens are stored as HMAC digests and can only be issued by platform admins; each one only reaches its own organization.
 - The audit log never stores passwords, secrets or session tokens.
 
 Found a vulnerability? Please email the maintainer rather than opening a public issue.

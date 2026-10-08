@@ -2,6 +2,7 @@ import {
     adminClient,
     jwtClient,
     lastLoginMethodClient,
+    multiSessionClient,
     organizationClient,
     twoFactorClient,
     usernameClient,
@@ -29,6 +30,7 @@ export function createAppAuthClient(baseURL: string | undefined) {
             oauthProviderClient(),
             adminClient(),
             ssoClient(),
+            multiSessionClient(),
         ],
     });
 }

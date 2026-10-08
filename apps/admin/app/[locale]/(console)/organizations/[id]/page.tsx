@@ -1,4 +1,4 @@
-import { and, asc, desc, eq, gt } from "drizzle-orm";
+import { and, asc, count, desc, eq, gt } from "drizzle-orm";
 import { notFound } from "next/navigation";
 
 import { formatDateTime, PageHeader } from "@/components/admin/common/page-header";
@@ -9,6 +9,7 @@ import {
   RemoveMemberButton,
   RenameOrganizationForm,
 } from "@/components/admin/organizations/admin-organization-controls";
+import { OrganizationScim, type ScimTokenSummary } from "@/components/admin/organizations/admin-organization-scim";
 import { Badge } from "@ostiary/core/components/ui/badge";
 import {
   Card,
@@ -26,8 +27,20 @@ import {
   TableRow,
 } from "@ostiary/core/components/ui/table";
 import { db } from "@ostiary/core/db/index";
-import { auditLog, invitation, member, organization, ssoProvider, user } from "@ostiary/core/db/schema";
+import {
+  auditLog,
+  invitation,
+  member,
+  organization,
+  scimManagedConnection,
+  scimManagedCredential,
+  scimUser,
+  ssoProvider,
+  user,
+} from "@ostiary/core/db/schema";
+import { env } from "@ostiary/core/lib/env";
 import { PUBLIC_ORGANIZATION_ID } from "@ostiary/core/lib/organization-public";
+import { scimBaseUrl } from "@ostiary/core/lib/scim";
 import { Link } from "@/i18n/navigation";
 import { AUDIT_ACTION_LABELS } from "@/lib/admin-audit";
 import { requireAdminSession } from "@/lib/require-admin-session";
@@ -46,9 +59,10 @@ export default async function AdminOrganizationPage({
   if (!org) notFound();
   const isPublic = org.id === PUBLIC_ORGANIZATION_ID;
 
-  const [members, invites, providers, audits] = await Promise.all([
+  const now = new Date();
+  const [members, invites, providers, audits, scimTokens, scimUsers] = await Promise.all([
     db
-      .select({ id: member.id, role: member.role, joined: member.createdAt, userId: user.id, name: user.name, email: user.email })
+      .select({ id: member.id, role: member.role, joined: member.createdAt, userId: user.id, name: user.name, email: user.email, banned: user.banned })
       .from(member)
       .innerJoin(user, eq(member.userId, user.id))
       .where(eq(member.organizationId, id))
@@ -61,7 +75,40 @@ export default async function AdminOrganizationPage({
       .orderBy(desc(invitation.createdAt)),
     db.select({ providerId: ssoProvider.providerId, domain: ssoProvider.domain, verified: ssoProvider.domainVerified }).from(ssoProvider).where(eq(ssoProvider.organizationId, id)),
     db.select().from(auditLog).where(and(eq(auditLog.targetType, "organization"), eq(auditLog.targetId, id))).orderBy(desc(auditLog.createdAt)).limit(15),
+    db
+      .select({ createdAt: scimManagedCredential.createdAt, expiresAt: scimManagedCredential.expiresAt, lastUsedAt: scimManagedCredential.lastUsedAt })
+      .from(scimManagedCredential)
+      .innerJoin(scimManagedConnection, eq(scimManagedCredential.connectionRecordId, scimManagedConnection.id))
+      .where(
+        and(
+          eq(scimManagedConnection.provisioningDomainId, id),
+          eq(scimManagedConnection.status, "active"),
+          eq(scimManagedCredential.status, "active"),
+          gt(scimManagedCredential.expiresAt, now),
+        ),
+      )
+      .orderBy(desc(scimManagedCredential.createdAt))
+      .limit(1),
+    db
+      .select({ active: scimUser.active, n: count() })
+      .from(scimUser)
+      .where(eq(scimUser.provisioningDomainId, id))
+      .groupBy(scimUser.active),
   ]);
+  const provisionedIds = isPublic
+    ? new Set<string>()
+    : new Set(
+        (await db.select({ userId: scimUser.userId }).from(scimUser).where(eq(scimUser.provisioningDomainId, id))).map((r) => r.userId),
+      );
+  const scimToken: ScimTokenSummary | null = scimTokens[0]
+    ? {
+        created: formatDateTime(scimTokens[0].createdAt, locale),
+        expires: formatDateTime(scimTokens[0].expiresAt, locale),
+        lastUsed: scimTokens[0].lastUsedAt ? formatDateTime(scimTokens[0].lastUsedAt, locale) : null,
+      }
+    : null;
+  const provisionedActive = scimUsers.find((r) => r.active)?.n ?? 0;
+  const provisionedInactive = scimUsers.find((r) => !r.active)?.n ?? 0;
 
   return (
     <div className="space-y-6">
@@ -105,7 +152,11 @@ export default async function AdminOrganizationPage({
                     <TableRow key={m.id}>
                       <TableCell>
                         <Link href={`/users/${m.userId}`} className="block font-medium underline-offset-4 hover:underline">{m.name || m.email}</Link>
-                        <span className="text-xs text-muted-foreground">{m.email}</span>
+                        <span className="flex flex-wrap items-center gap-1.5 text-xs text-muted-foreground">
+                          {m.email}
+                          {provisionedIds.has(m.userId) ? <Badge variant="outline">SCIM</Badge> : null}
+                          {m.banned ? <Badge variant="destructive">{provisionedIds.has(m.userId) ? "Deactivated" : "Banned"}</Badge> : null}
+                        </span>
                       </TableCell>
                       <TableCell className="hidden text-sm text-muted-foreground sm:table-cell">{formatDateTime(m.joined, locale)}</TableCell>
                       <TableCell>
@@ -180,6 +231,23 @@ export default async function AdminOrganizationPage({
               )}
             </CardContent>
           </Card>
+
+          {isPublic ? null : (
+            <Card className="border-border/80 shadow-sm">
+              <CardHeader>
+                <CardTitle className="text-base">SCIM provisioning</CardTitle>
+                <CardDescription>
+                  Your identity provider (Okta, Entra ID and others) creates this organization&apos;s accounts and deactivates them when people leave.
+                  {provisionedActive + provisionedInactive > 0
+                    ? ` ${provisionedActive} provisioned, ${provisionedInactive} deactivated.`
+                    : null}
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <OrganizationScim orgId={org.id} baseUrl={scimBaseUrl(env.AUTH_APP_URL ?? "")} token={scimToken} />
+              </CardContent>
+            </Card>
+          )}
 
           <Card className="border-border/80 shadow-sm">
             <CardHeader>

@@ -39,7 +39,8 @@
         "sent": "Si un compte non vérifié utilise cette adresse, un nouveau lien est en route. Vérifiez votre boîte de réception et vos spams.",
         "invalidEmail": "Saisissez une adresse email valide.",
         "error": "Impossible d'envoyer l'email. Réessayez dans une minute."
-      }
+      },
+      "addAccountDescription": "Les comptes déjà connectés sur ce navigateur restent connectés."
     },
     "twoFactor": {
       "metaTitle": "Authentification à deux facteurs",
@@ -484,6 +485,13 @@
       "error": "Une erreur est survenue. Réessayez.",
       "signInAgainToChange": "Pour votre sécurité, connecter un compte nécessite une connexion récente. Reconnectez-vous, puis connectez-le.",
       "signInAgain": "Se reconnecter"
+    },
+    "accounts": {
+      "switchTo": "Passer à",
+      "add": "Ajouter un autre compte",
+      "signOutOf": "Se déconnecter de {email}",
+      "signOutAll": "Se déconnecter de tous les comptes",
+      "switchFailed": "Impossible de changer de compte. Réessayez."
     }
   },
   "acceptInvitation": {
@@ -565,7 +573,8 @@
     "description": "Continuez vers l'application avec ce compte, ou connectez-vous avec un autre.",
     "continueAs": "Continuer en tant que {name}",
     "useAnother": "Utiliser un autre compte",
-    "error": "Une erreur est survenue. Réessayez."
+    "error": "Une erreur est survenue. Réessayez.",
+    "descriptionMany": "Choisissez le compte avec lequel continuer vers l'application."
   },
   "device": {
     "title": "Connecter un appareil",
