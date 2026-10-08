@@ -1,9 +1,11 @@
 import { describe, expect, it } from "vitest";
 
+import { DEVICE_CODE_GRANT_TYPE } from "@ostiary/core/lib/admin/oauth-clients/oauth-client-admin.types";
 import {
   createOAuthClientBodySchema,
   parseCreateOAuthClientBody,
   parseUpdateOAuthClientBody,
+  withDeviceCodeGrant,
 } from "@ostiary/core/lib/admin/oauth-clients/oauth-client-admin.validation";
 
 describe("createOAuthClientBodySchema", () => {
@@ -84,6 +86,28 @@ describe("parseCreateOAuthClientBody", () => {
     if (!r.ok) expect(r.error).toMatch(/^scope:/);
   });
 
+  it("accepts the device code grant next to the browser grants", () => {
+    const r = parseCreateOAuthClientBody({
+      redirect_uris: ["http://127.0.0.1/callback"],
+      token_endpoint_auth_method: "none",
+      type: "native",
+      grant_types: ["authorization_code", "refresh_token", DEVICE_CODE_GRANT_TYPE],
+    });
+    expect(r.ok).toBe(true);
+    if (r.ok) {
+      expect(r.value.grant_types).toContain(DEVICE_CODE_GRANT_TYPE);
+      expect(r.value.response_types).toEqual(["code"]);
+    }
+  });
+
+  it("rejects unknown grant types", () => {
+    const r = parseCreateOAuthClientBody({
+      redirect_uris: ["https://x/cb"],
+      grant_types: ["urn:ietf:params:oauth:grant-type:jwt-bearer"],
+    });
+    expect(r.ok).toBe(false);
+  });
+
   it("leaves user-facing clients without scope unchanged", () => {
     const r = parseCreateOAuthClientBody({ redirect_uris: ["https://x/cb"] });
     expect(r.ok).toBe(true);
@@ -105,6 +129,15 @@ describe("parseUpdateOAuthClientBody", () => {
     }
   });
 
+  it("accepts device_code on its own", () => {
+    const r = parseUpdateOAuthClientBody({ device_code: true });
+    expect(r.ok && r.value).toEqual({ device_code: true });
+  });
+
+  it("rejects a non-boolean device_code", () => {
+    expect(parseUpdateOAuthClientBody({ device_code: "yes" }).ok).toBe(false);
+  });
+
   it("maps empty client_name to undefined", () => {
     const r = parseUpdateOAuthClientBody({ client_name: "   " });
     expect(r.ok).toBe(true);
@@ -123,5 +156,27 @@ describe("API scopes registered at runtime", () => {
     };
     expect(parseCreateOAuthClientBody(body).ok).toBe(false);
     expect(parseCreateOAuthClientBody(body, ["labs:publish"]).ok).toBe(true);
+  });
+});
+
+describe("withDeviceCodeGrant", () => {
+  it("adds the grant once and keeps the others", () => {
+    const grants = ["authorization_code", "refresh_token"];
+    expect(withDeviceCodeGrant(grants, true)).toEqual([...grants, DEVICE_CODE_GRANT_TYPE]);
+    expect(withDeviceCodeGrant([...grants, DEVICE_CODE_GRANT_TYPE], true)).toEqual([
+      ...grants,
+      DEVICE_CODE_GRANT_TYPE,
+    ]);
+  });
+
+  it("removes only the device code grant", () => {
+    expect(
+      withDeviceCodeGrant(["client_credentials", DEVICE_CODE_GRANT_TYPE], false),
+    ).toEqual(["client_credentials"]);
+  });
+
+  it("starts from Better Auth's default when no grants are stored", () => {
+    expect(withDeviceCodeGrant(null, true)).toEqual(["authorization_code", DEVICE_CODE_GRANT_TYPE]);
+    expect(withDeviceCodeGrant([], false)).toEqual(["authorization_code"]);
   });
 });

@@ -497,5 +497,32 @@
     "continueAs": "Jatka nimellä {name}",
     "useAnother": "Käytä toista tiliä",
     "error": "Jokin meni pieleen. Yritä uudelleen."
+  },
+  "device": {
+    "title": "Yhdistä laite",
+    "description": "Syötä laitteessa, televisiossa tai komentorivillä näkyvä koodi.",
+    "codeLabel": "Koodi",
+    "continue": "Jatka",
+    "reviewTitle": "{name} haluaa käyttää tiliäsi",
+    "reviewDescription": "Hyväksy vain, jos aloitit tämän kirjautumisen itse ja alla oleva koodi vastaa laitteessasi näkyvää.",
+    "codeOnDevice": "Koodi laitteessasi",
+    "noScopes": "Perustason pääsy tiliisi ilman erityisiä oikeuksia.",
+    "signedInAs": "Kirjautuneena: {email}",
+    "switchAccount": "Käytä toista tiliä",
+    "deny": "Hylkää",
+    "approve": "Hyväksy",
+    "useAnotherCode": "Syötä toinen koodi",
+    "approvedTitle": "Laite yhdistetty",
+    "approvedDescription": "Voit palata laitteeseesi. Se viimeistelee kirjautumisen itse.",
+    "deniedTitle": "Pyyntö hylätty",
+    "deniedDescription": "Laite ei saanut pääsyä tiliisi.",
+    "errors": {
+      "invalid": "Koodi ei kelpaa. Tarkista se ja yritä uudelleen.",
+      "expired": "Koodi on vanhentunut. Aloita alusta laitteessasi saadaksesi uuden.",
+      "processed": "Koodi on jo käytetty. Aloita alusta laitteessasi, jos sinun on yhä kirjauduttava.",
+      "otherAccount": "Toinen tili käyttää tätä koodia.",
+      "tooManyAttempts": "Liian monta yritystä. Odota muutama minuutti ja yritä uudelleen.",
+      "failed": "Jokin meni vikaan. Yritä uudelleen."
+    }
   }
 }

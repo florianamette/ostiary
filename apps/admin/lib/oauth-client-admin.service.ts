@@ -1,4 +1,9 @@
+import { eq } from "drizzle-orm";
+
 import { auth } from "@/lib/auth";
+import { db } from "@ostiary/core/db/index";
+import { oauthClient } from "@ostiary/core/db/schema";
+import { withDeviceCodeGrant } from "@ostiary/core/lib/admin/oauth-clients/oauth-client-admin.validation";
 import {
   BadRequestError,
   ForbiddenError,
@@ -95,12 +100,24 @@ export async function updateOAuthClientForAdmin(
   clientId: string,
   input: UpdateOAuthClientAdminInput,
 ): Promise<OAuthClientAdminPayload> {
+  const { device_code: deviceCode, ...update } = input;
+  let grantTypes: string[] | undefined;
+  if (deviceCode !== undefined) {
+    // Better Auth replaces the whole grant list, so start from the stored one.
+    const [row] = await db
+      .select({ grantTypes: oauthClient.grantTypes })
+      .from(oauthClient)
+      .where(eq(oauthClient.clientId, clientId))
+      .limit(1);
+    if (!row) throw new NotFoundError("OAuth client not found");
+    grantTypes = withDeviceCodeGrant(row.grantTypes, deviceCode);
+  }
   try {
     const data = await auth.api.adminUpdateOAuthClient({
       headers: requestHeaders,
       body: {
         client_id: clientId,
-        update: input,
+        update: { ...update, ...(grantTypes ? { grant_types: grantTypes } : {}) },
       },
     });
     return data as unknown as OAuthClientAdminPayload;

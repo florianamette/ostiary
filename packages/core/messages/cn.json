@@ -497,5 +497,32 @@
     "continueAs": "以 {name} 身份继续",
     "useAnother": "使用其他账户",
     "error": "出了点问题，请重试。"
+  },
+  "device": {
+    "title": "连接设备",
+    "description": "输入设备、电视或命令行中显示的代码。",
+    "codeLabel": "代码",
+    "continue": "继续",
+    "reviewTitle": "{name} 想要使用你的账户",
+    "reviewDescription": "仅当这次登录是你本人发起、且下方代码与设备上显示的一致时才批准。",
+    "codeOnDevice": "设备上的代码",
+    "noScopes": "对你账户的基本访问，不含特定权限。",
+    "signedInAs": "已登录为 {email}",
+    "switchAccount": "使用其他账户",
+    "deny": "拒绝",
+    "approve": "批准",
+    "useAnotherCode": "输入其他代码",
+    "approvedTitle": "设备已连接",
+    "approvedDescription": "你可以回到设备上，它会自动完成登录。",
+    "deniedTitle": "请求已拒绝",
+    "deniedDescription": "该设备未获得你账户的访问权限。",
+    "errors": {
+      "invalid": "此代码无效。请检查后重试。",
+      "expired": "此代码已过期。请在设备上重新开始以获取新代码。",
+      "processed": "此代码已被使用。如仍需登录，请在设备上重新开始。",
+      "otherAccount": "此代码正被其他账户使用。",
+      "tooManyAttempts": "尝试次数过多。请等待几分钟后重试。",
+      "failed": "出现问题。请重试。"
+    }
   }
 }

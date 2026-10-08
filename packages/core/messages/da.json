@@ -497,5 +497,32 @@
     "continueAs": "Fortsæt som {name}",
     "useAnother": "Brug en anden konto",
     "error": "Noget gik galt. Prøv igen."
+  },
+  "device": {
+    "title": "Tilslut en enhed",
+    "description": "Indtast koden, der vises på din enhed, dit tv eller i kommandolinjen.",
+    "codeLabel": "Kode",
+    "continue": "Fortsæt",
+    "reviewTitle": "{name} vil bruge din konto",
+    "reviewDescription": "Godkend kun, hvis du selv har startet dette login, og koden nedenfor matcher den på din enhed.",
+    "codeOnDevice": "Kode på din enhed",
+    "noScopes": "Grundlæggende adgang til din konto uden særlige tilladelser.",
+    "signedInAs": "Logget ind som {email}",
+    "switchAccount": "Brug en anden konto",
+    "deny": "Afvis",
+    "approve": "Godkend",
+    "useAnotherCode": "Indtast en anden kode",
+    "approvedTitle": "Enheden er tilsluttet",
+    "approvedDescription": "Du kan gå tilbage til din enhed. Den fuldfører selv login.",
+    "deniedTitle": "Anmodning afvist",
+    "deniedDescription": "Enheden fik ikke adgang til din konto.",
+    "errors": {
+      "invalid": "Koden er ugyldig. Tjek den, og prøv igen.",
+      "expired": "Koden er udløbet. Start forfra på din enhed for at få en ny.",
+      "processed": "Koden er allerede brugt. Start forfra på din enhed, hvis du stadig skal logge ind.",
+      "otherAccount": "Koden bruges af en anden konto.",
+      "tooManyAttempts": "For mange forsøg. Vent et par minutter, og prøv igen.",
+      "failed": "Noget gik galt. Prøv igen."
+    }
   }
 }

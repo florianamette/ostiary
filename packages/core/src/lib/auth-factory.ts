@@ -2,7 +2,7 @@ import { randomUUID } from "node:crypto";
 import { betterAuth } from "better-auth";
 import { APIError, createAuthMiddleware, getSessionFromCtx } from "better-auth/api";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
-import { oauthProvider } from "@better-auth/oauth-provider";
+import { oauthDeviceAuthorization, oauthProvider } from "@better-auth/oauth-provider";
 import { passkey } from "@better-auth/passkey";
 import { sso } from "@better-auth/sso";
 import {
@@ -54,12 +54,14 @@ const AUDITED_ENDPOINTS: Record<string, { action: string; target?: AuditTarget; 
     "/oauth2/client/rotate-secret": { action: "oauth_client.rotate_secret", target: "oauth_client", id: (b) => str(b.client_id) },
     "/oauth2/update-consent": { action: "oauth_consent.update" },
     "/oauth2/delete-consent": { action: "oauth_consent.delete" },
+    "/device/approve": { action: "oauth_device.approve" },
+    "/device/deny": { action: "oauth_device.deny" },
     "/sso/register": { action: "sso_provider.create", target: "sso_provider", id: (b) => str(b.providerId) },
     "/organization/create": { action: "organization.create", target: "organization", id: (_b, r) => str(r.id) },
 };
 
 /** Request fields that are never written to the audit log. */
-const SECRET_FIELDS = new Set(["password", "newPassword", "sessionToken", "clientSecret", "client_secret", "oidcConfig", "samlConfig"]);
+const SECRET_FIELDS = new Set(["password", "newPassword", "sessionToken", "clientSecret", "client_secret", "oidcConfig", "samlConfig", "userCode"]);
 
 /**
  * Endpoints that grant lasting access to the account. They need a sign-in from the last
@@ -343,6 +345,16 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
                 },
             }),
             provider,
+            // RFC 8628 device sign-in for CLIs, TVs and other apps without a browser. Clients opt in
+            // with the device_code grant (admin console). The device shows a code, the user enters
+            // it on the auth app's /device page, then the device collects tokens at /oauth2/token.
+            oauthDeviceAuthorization({
+                // The page, not the plugin's JSON endpoint (`/api/auth/device`). The locale is added
+                // by the auth app's middleware.
+                verificationUri: `${baseURL}/device`,
+                expiresIn: "10m",
+                interval: "5s",
+            }),
             // Enterprise SSO (OIDC / SAML) per organization. Providers are managed from the admin app.
             // Only platform admins may register providers: a provider claims an email domain, so
             // letting any user register one would let them intercept that domain's SSO sign-ins.

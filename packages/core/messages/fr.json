@@ -497,5 +497,32 @@
     "continueAs": "Continuer en tant que {name}",
     "useAnother": "Utiliser un autre compte",
     "error": "Une erreur est survenue. Réessayez."
+  },
+  "device": {
+    "title": "Connecter un appareil",
+    "description": "Saisissez le code affiché sur votre appareil, votre TV ou dans le terminal.",
+    "codeLabel": "Code",
+    "continue": "Continuer",
+    "reviewTitle": "{name} veut utiliser votre compte",
+    "reviewDescription": "N’approuvez que si vous avez lancé cette connexion vous-même et que le code ci-dessous correspond à celui de votre appareil.",
+    "codeOnDevice": "Code sur votre appareil",
+    "noScopes": "Accès de base à votre compte, sans autorisation particulière.",
+    "signedInAs": "Connecté en tant que {email}",
+    "switchAccount": "Utiliser un autre compte",
+    "deny": "Refuser",
+    "approve": "Approuver",
+    "useAnotherCode": "Saisir un autre code",
+    "approvedTitle": "Appareil connecté",
+    "approvedDescription": "Vous pouvez revenir à votre appareil. Il termine la connexion tout seul.",
+    "deniedTitle": "Demande refusée",
+    "deniedDescription": "L’appareil n’a pas obtenu l’accès à votre compte.",
+    "errors": {
+      "invalid": "Ce code n’est pas valide. Vérifiez-le et réessayez.",
+      "expired": "Ce code a expiré. Recommencez sur votre appareil pour en obtenir un nouveau.",
+      "processed": "Ce code a déjà été utilisé. Recommencez sur votre appareil si vous devez encore vous connecter.",
+      "otherAccount": "Ce code est utilisé par un autre compte.",
+      "tooManyAttempts": "Trop de tentatives. Patientez quelques minutes et réessayez.",
+      "failed": "Une erreur s’est produite. Réessayez."
+    }
   }
 }

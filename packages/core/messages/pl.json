@@ -497,5 +497,32 @@
     "continueAs": "Kontynuuj jako {name}",
     "useAnother": "Użyj innego konta",
     "error": "Coś poszło nie tak. Spróbuj ponownie."
+  },
+  "device": {
+    "title": "Połącz urządzenie",
+    "description": "Wpisz kod wyświetlony na urządzeniu, telewizorze lub w wierszu poleceń.",
+    "codeLabel": "Kod",
+    "continue": "Dalej",
+    "reviewTitle": "{name} chce używać Twojego konta",
+    "reviewDescription": "Zatwierdź tylko wtedy, gdy to Ty rozpocząłeś logowanie, a poniższy kod zgadza się z kodem na urządzeniu.",
+    "codeOnDevice": "Kod na urządzeniu",
+    "noScopes": "Podstawowy dostęp do konta, bez szczególnych uprawnień.",
+    "signedInAs": "Zalogowano jako {email}",
+    "switchAccount": "Użyj innego konta",
+    "deny": "Odrzuć",
+    "approve": "Zatwierdź",
+    "useAnotherCode": "Wpisz inny kod",
+    "approvedTitle": "Urządzenie połączone",
+    "approvedDescription": "Możesz wrócić do urządzenia. Samo dokończy logowanie.",
+    "deniedTitle": "Prośba odrzucona",
+    "deniedDescription": "Urządzenie nie otrzymało dostępu do Twojego konta.",
+    "errors": {
+      "invalid": "Ten kod jest nieprawidłowy. Sprawdź go i spróbuj ponownie.",
+      "expired": "Ten kod wygasł. Zacznij od nowa na urządzeniu, aby otrzymać nowy.",
+      "processed": "Ten kod został już użyty. Zacznij od nowa na urządzeniu, jeśli nadal chcesz się zalogować.",
+      "otherAccount": "Ten kod jest używany przez inne konto.",
+      "tooManyAttempts": "Zbyt wiele prób. Odczekaj kilka minut i spróbuj ponownie.",
+      "failed": "Coś poszło nie tak. Spróbuj ponownie."
+    }
   }
 }

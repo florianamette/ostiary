@@ -13,6 +13,15 @@ All notable changes are documented here. The format follows
   are read from the database and reach the auth server within a minute, without a
   redeploy. An API can be restricted to its own scopes, or disabled.
   `OAUTH_API_SCOPES` and `OAUTH_API_AUDIENCES` keep working.
+- Device sign-in (OAuth 2.0 Device Authorization Grant, RFC 8628) for CLIs, TVs and
+  other apps without a browser. The app gets a code from `/api/auth/device/code`, the
+  user enters it on the new `/device` page (or opens the link with the code filled
+  in), sees the app and the scopes, and approves or denies; the app then collects its
+  tokens from `/oauth2/token`. Discovery lists `device_authorization_endpoint` and the
+  `urn:ietf:params:oauth:grant-type:device_code` grant. Codes expire after 10 minutes.
+  Admin console: **Device sign-in** when registering or editing an application, a
+  badge and a filter in the list. Approvals and denials are in the audit log. Needs
+  the new `device_code` table (migration `0001_device_code`).
 
 ### Fixed
 

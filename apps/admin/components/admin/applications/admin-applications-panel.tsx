@@ -38,10 +38,16 @@ import {
 } from "@ostiary/core/lib/admin/admin-table-page-size";
 import { authClient } from "@/lib/auth-client";
 import { adminNotify } from "@ostiary/core/lib/admin/admin-notify";
+import { DEVICE_CODE_GRANT_TYPE } from "@ostiary/core/lib/admin/oauth-clients/oauth-client-admin.types";
 
 export type { OAuthApplicationRow };
 
-type ClientKindFilter = "all" | "public" | "confidential" | "trusted";
+type ClientKindFilter = "all" | "public" | "confidential" | "trusted" | "device";
+
+/** Grant badge text: the device grant is a long URN, show its short name. */
+function grantLabel(grant: string) {
+  return grant === DEVICE_CODE_GRANT_TYPE ? "device_code" : grant;
+}
 
 function formatDate(iso: string) {
   try {
@@ -148,6 +154,7 @@ function filterApplications(
     if (kind === "public" && !r.public) return false;
     if (kind === "confidential" && r.public) return false;
     if (kind === "trusted" && !r.skipConsent) return false;
+    if (kind === "device" && !r.grantTypes.includes(DEVICE_CODE_GRANT_TYPE)) return false;
     if (!q) return true;
     const inName = r.name.toLowerCase().includes(q);
     const inId = r.clientId.toLowerCase().includes(q);
@@ -251,6 +258,7 @@ export function AdminApplicationsPanel() {
               <SelectItem value="public">Public</SelectItem>
               <SelectItem value="confidential">Confidential</SelectItem>
               <SelectItem value="trusted">Trusted (skip consent)</SelectItem>
+              <SelectItem value="device">Device sign-in</SelectItem>
             </SelectContent>
           </Select>
           <AdminRegisterOAuthClientDialog onCreated={refetch} />
@@ -320,6 +328,9 @@ export function AdminApplicationsPanel() {
                         <Badge variant={row.public ? "secondary" : "default"}>
                           {row.public ? "Public" : "Confidential"}
                         </Badge>
+                        {row.grantTypes.includes(DEVICE_CODE_GRANT_TYPE) ? (
+                          <Badge variant="outline">Device</Badge>
+                        ) : null}
                         {row.skipConsent ? (
                           <Badge variant="outline">Trusted</Badge>
                         ) : (
@@ -367,8 +378,9 @@ export function AdminApplicationsPanel() {
                           key={g}
                           variant="outline"
                           className="font-mono text-xs font-normal"
+                          title={g}
                         >
-                          {g}
+                          {grantLabel(g)}
                         </Badge>
                       ))}
                     </div>

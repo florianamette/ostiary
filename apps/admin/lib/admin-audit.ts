@@ -40,6 +40,8 @@ export const AUDIT_ACTION_LABELS: Record<string, string> = {
   "oauth_resource.delete": "Deleted API",
   "oauth_consent.update": "Updated consent",
   "oauth_consent.delete": "Revoked consent",
+  "oauth_device.approve": "Approved a device sign-in",
+  "oauth_device.deny": "Denied a device sign-in",
   "organization.create": "Created organization",
   "organization.update": "Renamed organization",
   "organization.delete": "Deleted organization",

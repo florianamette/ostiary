@@ -497,5 +497,32 @@
     "continueAs": "Pokračovat jako {name}",
     "useAnother": "Použít jiný účet",
     "error": "Něco se pokazilo. Zkuste to znovu."
+  },
+  "device": {
+    "title": "Připojit zařízení",
+    "description": "Zadejte kód zobrazený na zařízení, televizi nebo v příkazovém řádku.",
+    "codeLabel": "Kód",
+    "continue": "Pokračovat",
+    "reviewTitle": "{name} chce používat váš účet",
+    "reviewDescription": "Schvalte jen tehdy, pokud jste toto přihlášení zahájili sami a kód níže odpovídá kódu na zařízení.",
+    "codeOnDevice": "Kód na zařízení",
+    "noScopes": "Základní přístup k účtu bez zvláštních oprávnění.",
+    "signedInAs": "Přihlášeni jako {email}",
+    "switchAccount": "Použít jiný účet",
+    "deny": "Zamítnout",
+    "approve": "Schválit",
+    "useAnotherCode": "Zadat jiný kód",
+    "approvedTitle": "Zařízení připojeno",
+    "approvedDescription": "Můžete se vrátit k zařízení. Přihlášení dokončí samo.",
+    "deniedTitle": "Žádost zamítnuta",
+    "deniedDescription": "Zařízení nezískalo přístup k vašemu účtu.",
+    "errors": {
+      "invalid": "Tento kód není platný. Zkontrolujte ho a zkuste to znovu.",
+      "expired": "Platnost kódu vypršela. Začněte znovu na zařízení a získejte nový.",
+      "processed": "Tento kód už byl použit. Pokud se stále potřebujete přihlásit, začněte znovu na zařízení.",
+      "otherAccount": "Tento kód používá jiný účet.",
+      "tooManyAttempts": "Příliš mnoho pokusů. Počkejte několik minut a zkuste to znovu.",
+      "failed": "Něco se pokazilo. Zkuste to znovu."
+    }
   }
 }

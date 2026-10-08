@@ -497,5 +497,32 @@
     "continueAs": "Continuar como {name}",
     "useAnother": "Usar otra cuenta",
     "error": "Algo salió mal. Inténtalo de nuevo."
+  },
+  "device": {
+    "title": "Conectar un dispositivo",
+    "description": "Introduce el código que aparece en tu dispositivo, TV o línea de comandos.",
+    "codeLabel": "Código",
+    "continue": "Continuar",
+    "reviewTitle": "{name} quiere usar tu cuenta",
+    "reviewDescription": "Aprueba solo si iniciaste este acceso tú mismo y el código de abajo coincide con el de tu dispositivo.",
+    "codeOnDevice": "Código en tu dispositivo",
+    "noScopes": "Acceso básico a tu cuenta, sin permisos específicos.",
+    "signedInAs": "Sesión iniciada como {email}",
+    "switchAccount": "Usar otra cuenta",
+    "deny": "Denegar",
+    "approve": "Aprobar",
+    "useAnotherCode": "Introducir otro código",
+    "approvedTitle": "Dispositivo conectado",
+    "approvedDescription": "Puedes volver a tu dispositivo. Terminará de iniciar sesión por sí solo.",
+    "deniedTitle": "Solicitud denegada",
+    "deniedDescription": "El dispositivo no obtuvo acceso a tu cuenta.",
+    "errors": {
+      "invalid": "Este código no es válido. Revísalo e inténtalo de nuevo.",
+      "expired": "Este código ha caducado. Vuelve a empezar en tu dispositivo para obtener uno nuevo.",
+      "processed": "Este código ya se ha usado. Vuelve a empezar en tu dispositivo si aún necesitas iniciar sesión.",
+      "otherAccount": "Otra cuenta está usando este código.",
+      "tooManyAttempts": "Demasiados intentos. Espera unos minutos e inténtalo de nuevo.",
+      "failed": "Algo salió mal. Inténtalo de nuevo."
+    }
   }
 }

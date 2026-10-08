@@ -52,6 +52,7 @@ Hosted identity platforms are great until the bill scales with your users or you
 
 - OAuth 2.1 / OpenID Connect provider: discovery, PKCE, refresh tokens, consent, UserInfo, introspection, JWKS
 - Machine-to-machine tokens (client credentials) with per-client scopes
+- Device sign-in (RFC 8628) for CLIs, TVs and other apps without a browser
 - Protected resources: JWT access tokens scoped to your APIs, with the user's role as a claim
 - Organizations with members, roles and invitations
 
@@ -119,6 +120,35 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 Any OIDC library works the same way (Better Auth's generic OAuth, `openid-client`, AppAuth on mobile): give it the issuer, client ID and secret.
 
 To protect an API, register it in the admin console under **APIs**: its identifier (usually its URL) and the scopes clients may request for it. Clients request a token for it with the `resource` parameter, and the API verifies the JWT against Ostiary's JWKS. New scopes reach the auth server within a minute, no redeploy needed. You can also declare APIs with `OAUTH_API_AUDIENCES` and scopes with `OAUTH_API_SCOPES`, for example to provision a new instance.
+
+### Sign in from a CLI or a TV (device flow)
+
+Apps that cannot open a browser use the device authorization grant (RFC 8628). In the admin console, register the app (usually a public client) and tick **Device sign-in**. The discovery document then lists `device_authorization_endpoint`.
+
+1. The app asks for a code:
+
+   ```bash
+   curl -s https://auth.example.com/api/auth/device/code \
+     -d client_id=$CLIENT_ID \
+     -d scope="openid profile email offline_access"
+   # {"device_code":"…","user_code":"WDJBMJHT","verification_uri":"https://auth.example.com/device",
+   #  "verification_uri_complete":"https://auth.example.com/device?user_code=WDJBMJHT","expires_in":600,"interval":5}
+   ```
+
+2. It shows `user_code` (for example as WDJB-MJHT, the dash is optional) and `verification_uri` (or a QR code of `verification_uri_complete`). The user opens the page, signs in if needed, checks the app and the scopes, and approves.
+
+3. Meanwhile the app polls the token endpoint every `interval` seconds:
+
+   ```bash
+   curl -s https://auth.example.com/api/auth/oauth2/token \
+     -d grant_type=urn:ietf:params:oauth:grant-type:device_code \
+     -d device_code=$DEVICE_CODE \
+     -d client_id=$CLIENT_ID
+   ```
+
+   Until the user decides it gets `authorization_pending` (or `slow_down` when it polls too fast: wait 5 more seconds). Then it gets the usual tokens (access token, ID token with `openid`, refresh token with `offline_access`), or `access_denied`. After 10 minutes the code expires (`expired_token`) and the app starts again. A confidential client also sends its secret on both requests.
+
+The user always approves on the page, even for clients with **Skip consent**.
 
 ## Run locally
 

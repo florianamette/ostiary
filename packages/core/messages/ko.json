@@ -497,5 +497,32 @@
     "continueAs": "{name}(으)로 계속",
     "useAnother": "다른 계정 사용",
     "error": "문제가 발생했습니다. 다시 시도하세요."
+  },
+  "device": {
+    "title": "기기 연결",
+    "description": "기기, TV 또는 명령줄에 표시된 코드를 입력하세요.",
+    "codeLabel": "코드",
+    "continue": "계속",
+    "reviewTitle": "{name}에서 계정을 사용하려고 합니다",
+    "reviewDescription": "직접 이 로그인을 시작했고 아래 코드가 기기에 표시된 코드와 같을 때만 승인하세요.",
+    "codeOnDevice": "기기에 표시된 코드",
+    "noScopes": "특정 권한 없이 계정에 대한 기본 접근.",
+    "signedInAs": "{email}(으)로 로그인됨",
+    "switchAccount": "다른 계정 사용",
+    "deny": "거부",
+    "approve": "승인",
+    "useAnotherCode": "다른 코드 입력",
+    "approvedTitle": "기기가 연결되었습니다",
+    "approvedDescription": "기기로 돌아가세요. 로그인이 자동으로 완료됩니다.",
+    "deniedTitle": "요청이 거부되었습니다",
+    "deniedDescription": "기기가 계정에 접근하지 못했습니다.",
+    "errors": {
+      "invalid": "유효하지 않은 코드입니다. 확인 후 다시 시도하세요.",
+      "expired": "코드가 만료되었습니다. 기기에서 다시 시작해 새 코드를 받으세요.",
+      "processed": "이미 사용된 코드입니다. 로그인이 필요하면 기기에서 다시 시작하세요.",
+      "otherAccount": "다른 계정에서 이 코드를 사용 중입니다.",
+      "tooManyAttempts": "시도 횟수가 너무 많습니다. 몇 분 후 다시 시도하세요.",
+      "failed": "문제가 발생했습니다. 다시 시도하세요."
+    }
   }
 }

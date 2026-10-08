@@ -30,6 +30,7 @@ import {
 import { Textarea } from "@ostiary/core/components/ui/textarea";
 import { MotionPanel } from "@ostiary/core/components/motion/motion-panel";
 import { adminNotify } from "@ostiary/core/lib/admin/admin-notify";
+import { DEVICE_CODE_GRANT_TYPE } from "@ostiary/core/lib/admin/oauth-clients/oauth-client-admin.types";
 
 function parseRedirectUris(raw: string): string[] {
   return raw
@@ -57,6 +58,7 @@ export function AdminRegisterOAuthClientDialog({
     "confidential"
   );
   const [skipConsent, setSkipConsent] = React.useState(false);
+  const [deviceCode, setDeviceCode] = React.useState(false);
   const [pending, setPending] = React.useState(false);
   const [formError, setFormError] = React.useState<string | null>(null);
   const [issuedClientId, setIssuedClientId] = React.useState("");
@@ -68,6 +70,7 @@ export function AdminRegisterOAuthClientDialog({
     setRedirectUrisRaw("");
     setClientKind("confidential");
     setSkipConsent(false);
+    setDeviceCode(false);
     setFormError(null);
     setIssuedClientId("");
     setIssuedSecret(null);
@@ -92,7 +95,11 @@ export function AdminRegisterOAuthClientDialog({
           client_name: clientName.trim() || undefined,
           token_endpoint_auth_method:
             clientKind === "public" ? "none" : "client_secret_basic",
-          grant_types: ["authorization_code", "refresh_token"],
+          grant_types: [
+            "authorization_code",
+            "refresh_token",
+            ...(deviceCode ? [DEVICE_CODE_GRANT_TYPE] : []),
+          ],
           response_types: ["code"],
           type: clientKind === "public" ? "native" : "web",
           skip_consent: skipConsent,
@@ -225,6 +232,30 @@ export function AdminRegisterOAuthClientDialog({
                     </SelectItem>
                   </SelectContent>
                 </Select>
+              </Field>
+              <Field>
+                <div className="flex gap-3 rounded-md border border-border/80 bg-muted/30 p-3">
+                  <input
+                    id="oauth-reg-device-code"
+                    type="checkbox"
+                    className="mt-0.5 size-4 shrink-0 rounded border-input"
+                    checked={deviceCode}
+                    onChange={(e) => setDeviceCode(e.target.checked)}
+                  />
+                  <div className="grid gap-1">
+                    <Label
+                      htmlFor="oauth-reg-device-code"
+                      className="cursor-pointer font-medium leading-none"
+                    >
+                      Device sign-in (CLIs, TVs)
+                    </Label>
+                    <p className="text-muted-foreground text-xs leading-snug">
+                      Adds the device code grant (RFC 8628): the app shows a code
+                      and the user approves it at <code>/device</code> on another
+                      screen. Usually a public client.
+                    </p>
+                  </div>
+                </div>
               </Field>
               <Field>
                 <div className="flex gap-3 rounded-md border border-border/80 bg-muted/30 p-3">

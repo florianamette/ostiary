@@ -34,6 +34,7 @@ import { Input } from "@ostiary/core/components/ui/input";
 import { Label } from "@ostiary/core/components/ui/label";
 import { Textarea } from "@ostiary/core/components/ui/textarea";
 import { authClient } from "@/lib/auth-client";
+import { DEVICE_CODE_GRANT_TYPE } from "@ostiary/core/lib/admin/oauth-clients/oauth-client-admin.types";
 
 function parseRedirectUris(raw: string): string[] {
   return raw
@@ -77,14 +78,17 @@ export function AdminApplicationRowActions({
   const [editName, setEditName] = React.useState("");
   const [editRedirectsRaw, setEditRedirectsRaw] = React.useState("");
   const [editSkipConsent, setEditSkipConsent] = React.useState(false);
+  const [editDeviceCode, setEditDeviceCode] = React.useState(false);
   const [editError, setEditError] = React.useState<string | null>(null);
 
   const canRotateSecret = !row.public && !row.disabled;
+  const hasDeviceCode = row.grantTypes.includes(DEVICE_CODE_GRANT_TYPE);
 
   function openEdit() {
     setEditName(row.name);
     setEditRedirectsRaw(row.redirectUris.join("\n"));
     setEditSkipConsent(row.skipConsent);
+    setEditDeviceCode(hasDeviceCode);
     setEditError(null);
     setEditOpen(true);
   }
@@ -114,6 +118,9 @@ export function AdminApplicationRowActions({
             client_name: editName,
             redirect_uris,
             skip_consent: editSkipConsent,
+            ...(editDeviceCode !== hasDeviceCode
+              ? { device_code: editDeviceCode }
+              : {}),
           }),
         },
       );
@@ -219,7 +226,7 @@ export function AdminApplicationRowActions({
           <DropdownMenuSeparator />
           <DropdownMenuItem
             onClick={() => openEdit()}
-            title="Name, redirect URIs, and skip consent"
+            title="Name, redirect URIs, device sign-in and skip consent"
           >
             <PencilIcon />
             Edit application
@@ -308,6 +315,29 @@ export function AdminApplicationRowActions({
                   One per line or comma-separated. HTTPS required. Only public
                   clients may use http on localhost.
                 </p>
+              </Field>
+              <Field>
+                <div className="flex gap-3 rounded-md border border-border/80 bg-muted/30 p-3">
+                  <input
+                    id={`oauth-edit-device-code-${row.clientId}`}
+                    type="checkbox"
+                    className="mt-0.5 size-4 shrink-0 rounded border-input"
+                    checked={editDeviceCode}
+                    onChange={(e) => setEditDeviceCode(e.target.checked)}
+                  />
+                  <div className="grid gap-1">
+                    <Label
+                      htmlFor={`oauth-edit-device-code-${row.clientId}`}
+                      className="cursor-pointer font-medium leading-none"
+                    >
+                      Device sign-in (CLIs, TVs)
+                    </Label>
+                    <p className="text-muted-foreground text-xs leading-snug">
+                      Allows the device code grant. Turning it off stops new
+                      device sign-ins; tokens already issued keep working.
+                    </p>
+                  </div>
+                </div>
               </Field>
               <Field>
                 <div className="flex gap-3 rounded-md border border-border/80 bg-muted/30 p-3">

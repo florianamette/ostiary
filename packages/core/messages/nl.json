@@ -497,5 +497,32 @@
     "continueAs": "Doorgaan als {name}",
     "useAnother": "Een ander account gebruiken",
     "error": "Er ging iets mis. Probeer het opnieuw."
+  },
+  "device": {
+    "title": "Apparaat koppelen",
+    "description": "Voer de code in die op je apparaat, tv of opdrachtregel wordt getoond.",
+    "codeLabel": "Code",
+    "continue": "Doorgaan",
+    "reviewTitle": "{name} wil je account gebruiken",
+    "reviewDescription": "Keur alleen goed als je deze aanmelding zelf hebt gestart en de code hieronder overeenkomt met die op je apparaat.",
+    "codeOnDevice": "Code op je apparaat",
+    "noScopes": "Basistoegang tot je account, zonder specifieke rechten.",
+    "signedInAs": "Aangemeld als {email}",
+    "switchAccount": "Ander account gebruiken",
+    "deny": "Weigeren",
+    "approve": "Goedkeuren",
+    "useAnotherCode": "Andere code invoeren",
+    "approvedTitle": "Apparaat gekoppeld",
+    "approvedDescription": "Je kunt teruggaan naar je apparaat. Het rondt de aanmelding zelf af.",
+    "deniedTitle": "Verzoek geweigerd",
+    "deniedDescription": "Het apparaat heeft geen toegang tot je account gekregen.",
+    "errors": {
+      "invalid": "Deze code is ongeldig. Controleer hem en probeer het opnieuw.",
+      "expired": "Deze code is verlopen. Begin opnieuw op je apparaat voor een nieuwe code.",
+      "processed": "Deze code is al gebruikt. Begin opnieuw op je apparaat als je je nog moet aanmelden.",
+      "otherAccount": "Deze code wordt door een ander account gebruikt.",
+      "tooManyAttempts": "Te veel pogingen. Wacht een paar minuten en probeer het opnieuw.",
+      "failed": "Er ging iets mis. Probeer het opnieuw."
+    }
   }
 }

@@ -497,5 +497,32 @@
     "continueAs": "Continua come {name}",
     "useAnother": "Usa un altro account",
     "error": "Qualcosa è andato storto. Riprova."
+  },
+  "device": {
+    "title": "Collega un dispositivo",
+    "description": "Inserisci il codice mostrato sul dispositivo, sulla TV o nella riga di comando.",
+    "codeLabel": "Codice",
+    "continue": "Continua",
+    "reviewTitle": "{name} vuole usare il tuo account",
+    "reviewDescription": "Approva solo se hai avviato tu questo accesso e il codice qui sotto corrisponde a quello sul dispositivo.",
+    "codeOnDevice": "Codice sul dispositivo",
+    "noScopes": "Accesso di base al tuo account, senza autorizzazioni specifiche.",
+    "signedInAs": "Accesso effettuato come {email}",
+    "switchAccount": "Usa un altro account",
+    "deny": "Rifiuta",
+    "approve": "Approva",
+    "useAnotherCode": "Inserisci un altro codice",
+    "approvedTitle": "Dispositivo collegato",
+    "approvedDescription": "Puoi tornare al dispositivo. Completerà l’accesso da solo.",
+    "deniedTitle": "Richiesta rifiutata",
+    "deniedDescription": "Il dispositivo non ha ottenuto l’accesso al tuo account.",
+    "errors": {
+      "invalid": "Questo codice non è valido. Controllalo e riprova.",
+      "expired": "Questo codice è scaduto. Ricomincia dal dispositivo per ottenerne uno nuovo.",
+      "processed": "Questo codice è già stato usato. Ricomincia dal dispositivo se devi ancora accedere.",
+      "otherAccount": "Questo codice è in uso da un altro account.",
+      "tooManyAttempts": "Troppi tentativi. Attendi qualche minuto e riprova.",
+      "failed": "Si è verificato un errore. Riprova."
+    }
   }
 }

@@ -497,5 +497,32 @@
     "continueAs": "Continuar como {name}",
     "useAnother": "Usar outra conta",
     "error": "Algo deu errado. Tente novamente."
+  },
+  "device": {
+    "title": "Conectar um dispositivo",
+    "description": "Digite o código exibido no seu dispositivo, TV ou linha de comando.",
+    "codeLabel": "Código",
+    "continue": "Continuar",
+    "reviewTitle": "{name} quer usar sua conta",
+    "reviewDescription": "Aprove somente se você mesmo iniciou este acesso e o código abaixo corresponde ao do seu dispositivo.",
+    "codeOnDevice": "Código no seu dispositivo",
+    "noScopes": "Acesso básico à sua conta, sem permissões específicas.",
+    "signedInAs": "Conectado como {email}",
+    "switchAccount": "Usar outra conta",
+    "deny": "Negar",
+    "approve": "Aprovar",
+    "useAnotherCode": "Digitar outro código",
+    "approvedTitle": "Dispositivo conectado",
+    "approvedDescription": "Você pode voltar ao seu dispositivo. Ele conclui o acesso sozinho.",
+    "deniedTitle": "Solicitação negada",
+    "deniedDescription": "O dispositivo não recebeu acesso à sua conta.",
+    "errors": {
+      "invalid": "Este código não é válido. Verifique e tente novamente.",
+      "expired": "Este código expirou. Recomece no seu dispositivo para obter um novo.",
+      "processed": "Este código já foi usado. Recomece no seu dispositivo se ainda precisar entrar.",
+      "otherAccount": "Este código está sendo usado por outra conta.",
+      "tooManyAttempts": "Muitas tentativas. Aguarde alguns minutos e tente novamente.",
+      "failed": "Algo deu errado. Tente novamente."
+    }
   }
 }

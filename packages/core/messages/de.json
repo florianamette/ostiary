@@ -497,5 +497,32 @@
     "continueAs": "Weiter als {name}",
     "useAnother": "Anderes Konto verwenden",
     "error": "Etwas ist schiefgelaufen. Bitte erneut versuchen."
+  },
+  "device": {
+    "title": "Gerät verbinden",
+    "description": "Gib den Code ein, der auf deinem Gerät, Fernseher oder in der Kommandozeile angezeigt wird.",
+    "codeLabel": "Code",
+    "continue": "Weiter",
+    "reviewTitle": "{name} möchte dein Konto verwenden",
+    "reviewDescription": "Bestätige nur, wenn du diese Anmeldung selbst gestartet hast und der Code unten mit dem auf deinem Gerät übereinstimmt.",
+    "codeOnDevice": "Code auf deinem Gerät",
+    "noScopes": "Grundlegender Zugriff auf dein Konto, ohne besondere Berechtigungen.",
+    "signedInAs": "Angemeldet als {email}",
+    "switchAccount": "Anderes Konto verwenden",
+    "deny": "Ablehnen",
+    "approve": "Bestätigen",
+    "useAnotherCode": "Anderen Code eingeben",
+    "approvedTitle": "Gerät verbunden",
+    "approvedDescription": "Du kannst zu deinem Gerät zurückkehren. Es schließt die Anmeldung selbst ab.",
+    "deniedTitle": "Anfrage abgelehnt",
+    "deniedDescription": "Das Gerät hat keinen Zugriff auf dein Konto erhalten.",
+    "errors": {
+      "invalid": "Dieser Code ist ungültig. Prüfe ihn und versuche es erneut.",
+      "expired": "Dieser Code ist abgelaufen. Starte auf deinem Gerät neu, um einen neuen zu erhalten.",
+      "processed": "Dieser Code wurde bereits verwendet. Starte auf deinem Gerät neu, falls du dich noch anmelden musst.",
+      "otherAccount": "Dieser Code wird von einem anderen Konto verwendet.",
+      "tooManyAttempts": "Zu viele Versuche. Warte ein paar Minuten und versuche es erneut.",
+      "failed": "Etwas ist schiefgelaufen. Versuche es erneut."
+    }
   }
 }

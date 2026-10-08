@@ -497,5 +497,32 @@
     "continueAs": "Continue as {name}",
     "useAnother": "Use another account",
     "error": "Something went wrong. Try again."
+  },
+  "device": {
+    "title": "Connect a device",
+    "description": "Enter the code shown on your device, TV or command line.",
+    "codeLabel": "Code",
+    "continue": "Continue",
+    "reviewTitle": "{name} wants to use your account",
+    "reviewDescription": "Approve only if you started this sign-in yourself and the code below matches the one on your device.",
+    "codeOnDevice": "Code on your device",
+    "noScopes": "Basic access to your account, no specific permissions.",
+    "signedInAs": "Signed in as {email}",
+    "switchAccount": "Use another account",
+    "deny": "Deny",
+    "approve": "Approve",
+    "useAnotherCode": "Enter a different code",
+    "approvedTitle": "Device connected",
+    "approvedDescription": "You can go back to your device. It finishes signing in on its own.",
+    "deniedTitle": "Request denied",
+    "deniedDescription": "The device did not get access to your account.",
+    "errors": {
+      "invalid": "This code is not valid. Check it and try again.",
+      "expired": "This code has expired. Start again on your device to get a new one.",
+      "processed": "This code was already used. Start again on your device if you still need to sign in.",
+      "otherAccount": "This code is being used by another account.",
+      "tooManyAttempts": "Too many attempts. Wait a few minutes and try again.",
+      "failed": "Something went wrong. Try again."
+    }
   }
 }
