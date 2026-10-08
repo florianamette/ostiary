@@ -27,26 +27,11 @@ import { brand } from "@ostiary/core/lib/brand"
 import { SocialSignInButtons } from "@/components/auth/social-sign-in-buttons"
 import { authClient } from "@/lib/auth-client"
 import { ResendVerification } from "@/components/auth/resend-verification"
-/**
- * Only follow callbacks to this app or the admin app. The passkey path navigates on the
- * client, so without this check a crafted link could send a fresh session elsewhere.
- */
-function safeCallbackURL(raw: string | null, fallback: string): string {
-  if (!raw) return fallback
-  if (raw.startsWith("/") && !raw.startsWith("//")) return raw
-  try {
-    const target = new URL(raw)
-    const allowed = [
-      typeof window === "undefined" ? undefined : window.location.origin,
-      process.env.NEXT_PUBLIC_APP_URL,
-      process.env.NEXT_PUBLIC_ADMIN_APP_URL,
-    ]
-      .filter((o): o is string => Boolean(o))
-      .map((o) => new URL(o).origin)
-    return allowed.includes(target.origin) ? raw : fallback
-  } catch {
-    return fallback
-  }
+import { safeCallbackURL } from "@/lib/safe-callback-url"
+
+/** Sign-in responses for accounts with two-factor authentication: no session yet. */
+function needsTwoFactor(data: unknown): boolean {
+  return typeof data === "object" && data !== null && "twoFactorRedirect" in data
 }
 
 export function LoginForm({
@@ -127,16 +112,19 @@ export function LoginForm({
     setIsSubmitting(true);
     try {
       const useEmail = trimmed.includes("@");
-      if (useEmail) {
-        await authClient.signIn.email(
-          { email: trimmed, password, callbackURL },
-          { onError: handleSignInError },
-        );
-      } else {
-        await authClient.signIn.username(
-          { username: trimmed, password, callbackURL },
-          { onError: handleSignInError },
-        );
+      const { data } = useEmail
+        ? await authClient.signIn.email(
+            { email: trimmed, password, callbackURL },
+            { onError: handleSignInError },
+          )
+        : await authClient.signIn.username(
+            { username: trimmed, password, callbackURL },
+            { onError: handleSignInError },
+          );
+      if (needsTwoFactor(data)) {
+        // Same query string: it carries the callbackURL and, for an app's sign-in, the
+        // signed OAuth request that resumes once the code is verified.
+        window.location.assign(`/${locale}/two-factor${window.location.search}`);
       }
     } finally {
       setIsSubmitting(false);

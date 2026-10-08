@@ -3,6 +3,7 @@ import {
     jwtClient,
     lastLoginMethodClient,
     organizationClient,
+    twoFactorClient,
     usernameClient,
 } from "better-auth/client/plugins";
 import { createAuthClient } from "better-auth/react";
@@ -22,6 +23,8 @@ export function createAppAuthClient(baseURL: string | undefined) {
             lastLoginMethodClient(),
             usernameClient(),
             passkeyClient(),
+            // No redirect option: the login form reads `twoFactorRedirect` and opens the code step.
+            twoFactorClient(),
             organizationClient(),
             oauthProviderClient(),
             adminClient(),

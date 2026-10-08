@@ -2,6 +2,7 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 import { AdminShell } from "@/components/admin/admin-shell";
+import { adminNeedsTwoFactor } from "@ostiary/core/lib/admin/admin-two-factor";
 import { userHasAdminRole } from "@ostiary/core/lib/admin/user-has-admin-role";
 import { env } from "@ostiary/core/lib/env";
 import { auth } from "@/lib/auth";
@@ -30,6 +31,11 @@ export default async function AdminLayout({
 
   if (!userHasAdminRole(sessionUser.role, ["admin"])) {
     redirect(`${env.AUTH_APP_URL}/${locale}/dashboard`);
+  }
+
+  // Admins must turn on two-factor authentication first (REQUIRE_ADMIN_2FA), on the auth app.
+  if (adminNeedsTwoFactor(sessionUser, env.REQUIRE_ADMIN_2FA === "true")) {
+    redirect(`${env.AUTH_APP_URL}/${locale}/dashboard#two-factor`);
   }
 
   return (

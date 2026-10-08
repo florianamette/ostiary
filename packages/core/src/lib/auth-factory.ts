@@ -1,5 +1,5 @@
 import { randomUUID } from "node:crypto";
-import { betterAuth } from "better-auth";
+import { betterAuth, type BetterAuthPlugin } from "better-auth";
 import { APIError, createAuthMiddleware, getSessionFromCtx } from "better-auth/api";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { oauthDeviceAuthorization, oauthProvider } from "@better-auth/oauth-provider";
@@ -13,6 +13,7 @@ import {
     organization,
     username,
 } from "better-auth/plugins";
+import { twoFactor } from "better-auth/plugins/two-factor";
 
 import { db } from "@ostiary/core/db/index";
 import * as schema from "@ostiary/core/db/schema";
@@ -23,7 +24,9 @@ import { queueVerificationEmail } from "@ostiary/core/lib/email/queue-verificati
 import { routing } from "@ostiary/core/i18n/routing";
 import { recordAudit } from "@ostiary/core/lib/audit";
 import { clientIp, recordAuthEvent } from "@ostiary/core/lib/auth-events";
+import { adminNeedsTwoFactor } from "@ostiary/core/lib/admin/admin-two-factor";
 import { userHasAdminRole } from "@ostiary/core/lib/admin/user-has-admin-role";
+import { brand } from "@ostiary/core/lib/brand";
 import { PUBLIC_ORGANIZATION_ID } from "@ostiary/core/lib/organization-public";
 import { getPasskeyWebAuthnOptions } from "@ostiary/core/lib/passkey-options";
 import { env } from "@ostiary/core/lib/env";
@@ -78,6 +81,33 @@ const RECENT_SIGN_IN_SECONDS = 10 * 60;
 
 /** Password sign-in endpoints whose failures are counted for the security page. */
 const PASSWORD_SIGN_IN_PATHS = new Set(["/sign-in/email", "/sign-in/username"]);
+
+/** Admin-only endpoints. An admin who must turn on two-factor authentication first cannot call them. */
+function isAdminPath(path: string): boolean {
+    // Never block the way back from impersonation.
+    if (path === "/admin/stop-impersonating") return false;
+    return path.startsWith("/admin/") || path === "/sso/register" || path === "/organization/create";
+}
+
+/**
+ * Records a password sign-in once it has a session. Placed after the twoFactor plugin, whose
+ * hook deletes the session (and clears `newSession`) while the second step is pending: that
+ * sign-in is counted when the code is verified, by the session hook.
+ */
+const passwordSignInEvents = {
+    id: "ostiary-password-sign-in-events",
+    hooks: {
+        after: [
+            {
+                matcher: (ctx) => PASSWORD_SIGN_IN_PATHS.has(ctx.path ?? ""),
+                handler: createAuthMiddleware(async (ctx) => {
+                    const created = ctx.context.newSession;
+                    if (created) await recordAuthEvent("sign_in", created.user.id);
+                }),
+            },
+        ],
+    },
+} satisfies BetterAuthPlugin;
 
 /** First-run setup: these addresses get the admin role when their account is created. */
 const adminEmails = new Set(
@@ -193,7 +223,11 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
                         };
                     },
                     // Every new session is a sign-in, whatever the method (password, passkey, SSO, OAuth).
-                    after: async (createdSession) => {
+                    after: async (createdSession, ctx) => {
+                        // Password sign-ins are counted by passwordSignInEvents, after the 2FA check.
+                        if (ctx && PASSWORD_SIGN_IN_PATHS.has(ctx.path)) return;
+                        // Turning 2FA on or off replaces the current session: not a new sign-in.
+                        if (ctx?.path.startsWith("/two-factor/") && ctx.context.session) return;
                         await recordAuthEvent("sign_in", createdSession.userId);
                     },
                 },
@@ -203,6 +237,15 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
             before: createAuthMiddleware(async (ctx) => {
                 // APIs registered from the admin console add scopes without a redeploy.
                 await syncProviderScopes(provider.options);
+                if (env.REQUIRE_ADMIN_2FA === "true" && isAdminPath(ctx.path)) {
+                    const current = await getSessionFromCtx(ctx);
+                    if (current && adminNeedsTwoFactor(current.user as { role?: string | null; twoFactorEnabled?: boolean | null }, true)) {
+                        throw new APIError("FORBIDDEN", {
+                            message: "Turn on two-factor authentication to use admin features.",
+                            code: "TWO_FACTOR_REQUIRED",
+                        });
+                    }
+                }
                 if (RECENT_SIGN_IN_PATHS.has(ctx.path)) {
                     const current = await getSessionFromCtx(ctx);
                     const signedInAt = current ? new Date(current.session.createdAt).getTime() : 0;
@@ -324,6 +367,18 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
             }),
             username(),
             haveIBeenPwned(),
+            // Authenticator app (TOTP) and backup codes. The second step applies to password
+            // sign-ins (email or username). Passkeys are already two factors; social and SSO
+            // sign-ins rely on the identity provider's own checks. Must come before the OAuth
+            // provider: its hook replaces the sign-in response before an authorization resumes.
+            twoFactor({
+                issuer: brand.name,
+                // Users without a password (passkey or GitHub only) can turn it on too, so an
+                // admin who never set a password is not locked out of the console. Accounts with
+                // a password must still confirm it.
+                allowPasswordless: true,
+            }),
+            passwordSignInEvents,
             passkey({
                 rpID: passkeyWebAuthn.rpID,
                 rpName: passkeyWebAuthn.rpName,

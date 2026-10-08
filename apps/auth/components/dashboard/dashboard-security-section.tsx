@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { DashboardChangePasswordForm } from "@/components/dashboard/dashboard-change-password-form";
 import { DashboardConnectedAccounts } from "@/components/dashboard/dashboard-connected-accounts";
 import { DashboardPasskeysSection } from "@/components/dashboard/dashboard-passkeys-section";
+import { DashboardTwoFactorSection } from "@/components/dashboard/dashboard-two-factor-section";
 import type { SocialProvider } from "@ostiary/core/lib/social-provider-meta";
 import { Button } from "@ostiary/core/components/ui/button";
 import {
@@ -52,9 +53,12 @@ function formatWhen(d: Date, label: string) {
 
 export function DashboardSecuritySection({
   socialProviders = [],
+  adminConsoleUrl,
 }: {
   /** Sign-in providers configured on the server; the section is hidden when empty. */
   socialProviders?: SocialProvider[];
+  /** Set when this admin must turn on 2FA before using the admin console. */
+  adminConsoleUrl?: string;
 }) {
   const t = useTranslations("dashboard.security");
   const { data: sessionData } = authClient.useSession();
@@ -136,6 +140,10 @@ export function DashboardSecuritySection({
       </CardHeader>
       <CardContent className="space-y-8">
         <DashboardChangePasswordForm onPasswordChanged={() => void loadSessions()} />
+
+        <Separator />
+
+        <DashboardTwoFactorSection adminConsoleUrl={adminConsoleUrl} />
 
         <Separator />
 

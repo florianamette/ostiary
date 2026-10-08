@@ -1,6 +1,8 @@
 import { headers } from "next/headers";
 
+import { adminNeedsTwoFactor } from "@ostiary/core/lib/admin/admin-two-factor";
 import { userHasAdminRole } from "@ostiary/core/lib/admin/user-has-admin-role";
+import { env } from "@ostiary/core/lib/env";
 import { auth } from "@/lib/auth";
 
 export type AdminApiAuthFailure = {
@@ -25,6 +27,9 @@ export async function requireAdminApiRequest(): Promise<
   }
   if (!userHasAdminRole(session.user.role, ["admin"])) {
     return { ok: false, status: 403, message: "Forbidden" };
+  }
+  if (adminNeedsTwoFactor(session.user, env.REQUIRE_ADMIN_2FA === "true")) {
+    return { ok: false, status: 403, message: "Turn on two-factor authentication to use admin features." };
   }
   return {
     ok: true,

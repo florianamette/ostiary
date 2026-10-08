@@ -22,6 +22,19 @@ All notable changes are documented here. The format follows
   Admin console: **Device sign-in** when registering or editing an application, a
   badge and a filter in the list. Approvals and denials are in the audit log. Needs
   the new `device_code` table (migration `0001_device_code`).
+- Two-factor authentication with an authenticator app (TOTP) and single-use backup
+  codes. Users turn it on from the account dashboard (password, QR code, a code to
+  confirm, then the backup codes, shown once), and can create new backup codes or
+  turn it off. Password sign-ins then ask for a code or a backup code, with a "trust
+  this device for 30 days" option; sign-ins started by an app (OAuth) continue to the
+  app after the code. Migration `0002_two_factor` adds the `two_factor` table and
+  `user.two_factor_enabled`.
+- Admins must use two-factor authentication: an admin without it is sent to set it
+  up, and the admin console and admin endpoints refuse them until then. Controlled by
+  `REQUIRE_ADMIN_2FA` (default `true`; `false` turns it off).
+- Admin console: the user page shows whether two-factor authentication is on, and an
+  admin can reset it for a user who lost their authenticator (recorded in the audit
+  log).
 
 ### Fixed
 
