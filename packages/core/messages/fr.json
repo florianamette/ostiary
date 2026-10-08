@@ -200,6 +200,12 @@
       "profile": "Nom et informations de profil",
       "email": "Adresse e-mail",
       "offline_access": "Accès lorsque vous n'utilisez pas activement l'application"
+    },
+    "unverified": {
+      "title": "Application non vérifiée",
+      "dynamic": "Cette application s'est inscrite elle-même et n'a pas été vérifiée. Ne l'autorisez que si vous lui faites confiance et que vous avez lancé cette connexion vous-même.",
+      "metadataDocument": "Cette application s'identifie avec un document publié sur {host} et n'a pas été vérifiée. Ne l'autorisez que si vous lui faites confiance et que vous avez lancé cette connexion vous-même.",
+      "redirect": "Si vous autorisez, vous serez redirigé vers <strong>{host}</strong>."
     }
   },
   "admin": {

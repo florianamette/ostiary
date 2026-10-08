@@ -12,6 +12,7 @@ import {
   type OAuthApplicationRow,
 } from "@/components/admin/applications/admin-application-row-actions";
 import { AdminRegisterOAuthClientDialog } from "@/components/admin/applications/admin-register-oauth-client-dialog";
+import { SelfRegisteredRowActions } from "@/components/admin/applications/self-registered-row-actions";
 import { Alert, AlertDescription, AlertTitle } from "@ostiary/core/components/ui/alert";
 import { Badge } from "@ostiary/core/components/ui/badge";
 import { Button } from "@ostiary/core/components/ui/button";
@@ -39,15 +40,44 @@ import {
 import { authClient } from "@/lib/auth-client";
 import { adminNotify } from "@ostiary/core/lib/admin/admin-notify";
 import { DEVICE_CODE_GRANT_TYPE } from "@ostiary/core/lib/admin/oauth-clients/oauth-client-admin.types";
+import type { RegistrationSource } from "@ostiary/core/lib/client-registration-policy";
 
 export type { OAuthApplicationRow };
 
 type ClientKindFilter = "all" | "public" | "confidential" | "trusted" | "device";
+type RegistrationFilter = "all" | "self" | RegistrationSource;
 
 /** Grant badge text: the device grant is a long URN, show its short name. */
 function grantLabel(grant: string) {
   return grant === DEVICE_CODE_GRANT_TYPE ? "device_code" : grant;
 }
+
+const REGISTRATION_LABELS: Record<RegistrationSource, string> = {
+  admin: "Admin",
+  dynamic: "Dynamic registration",
+  metadata_document: "Metadata document",
+};
+
+/** Badge for a client that registered itself; admin-registered clients get none. */
+function RegistrationBadge({ source }: { source: RegistrationSource }) {
+  if (source === "admin") return null;
+  return (
+    <Badge
+      variant="outline"
+      className="border-amber-500/40 bg-amber-500/10 font-normal text-amber-800 dark:text-amber-300"
+      title="Registered itself: not reviewed by an admin"
+    >
+      {source === "dynamic" ? "Self-registered" : "Metadata document"}
+    </Badge>
+  );
+}
+
+const AUTH_METHOD_LABELS: Record<OAuthApplicationRow["tokenEndpointAuthMethod"], string> = {
+  none: "auth: none",
+  client_secret_basic: "auth: secret (basic)",
+  client_secret_post: "auth: secret (post)",
+  private_key_jwt: "auth: private key JWT",
+};
 
 function formatDate(iso: string) {
   try {
@@ -88,11 +118,12 @@ function normalizeGetClientsPayload(data: unknown): unknown[] {
 
 function normalizeAuthMethod(
   v: unknown
-): "none" | "client_secret_basic" | "client_secret_post" {
+): OAuthApplicationRow["tokenEndpointAuthMethod"] {
   if (
     v === "none" ||
     v === "client_secret_basic" ||
-    v === "client_secret_post"
+    v === "client_secret_post" ||
+    v === "private_key_jwt"
   ) {
     return v;
   }
@@ -141,16 +172,21 @@ function mapApiClientToRow(raw: unknown): OAuthApplicationRow | null {
     grantTypes,
     redirectUris,
     createdAt,
+    // Dynamic clients carry the marker in their metadata, which Better Auth returns inline.
+    registration: o.ostiary_registration === "dynamic" ? "dynamic" : "admin",
   };
 }
 
 function filterApplications(
   rows: OAuthApplicationRow[],
   search: string,
-  kind: ClientKindFilter
+  kind: ClientKindFilter,
+  registration: RegistrationFilter
 ): OAuthApplicationRow[] {
   const q = search.trim().toLowerCase();
   return rows.filter((r) => {
+    if (registration === "self" && r.registration === "admin") return false;
+    if (registration !== "all" && registration !== "self" && r.registration !== registration) return false;
     if (kind === "public" && !r.public) return false;
     if (kind === "confidential" && r.public) return false;
     if (kind === "trusted" && !r.skipConsent) return false;
@@ -165,14 +201,25 @@ function filterApplications(
 }
 
 /**
+ * Lists the OAuth clients: the signed-in admin's (from Better Auth's `getClients`) and every
+ * self-registered one (`selfRegistered`, loaded on the server: they have no owner).
+ *
  * @param linkedApis API names per client id: the APIs each application is linked to on the
  * APIs page. APIs open to every application are not listed.
  */
-export function AdminApplicationsPanel({ linkedApis = {} }: { linkedApis?: Record<string, string[]> }) {
+export function AdminApplicationsPanel({
+  linkedApis = {},
+  selfRegistered,
+}: {
+  linkedApis?: Record<string, string[]>;
+  selfRegistered: OAuthApplicationRow[];
+}) {
   const [searchInput, setSearchInput] = React.useState("");
   const [debouncedSearch, setDebouncedSearch] = React.useState("");
   const [kindFilter, setKindFilter] =
     React.useState<ClientKindFilter>("all");
+  const [registrationFilter, setRegistrationFilter] =
+    React.useState<RegistrationFilter>("all");
   const [page, setPage] = React.useState(0);
   const [pageSize, setPageSize] =
     React.useState<AdminTablePageSize>(DEFAULT_ADMIN_TABLE_PAGE_SIZE);
@@ -188,7 +235,7 @@ export function AdminApplicationsPanel({ linkedApis = {} }: { linkedApis?: Recor
 
   React.useEffect(() => {
     setPage(0);
-  }, [debouncedSearch, kindFilter, pageSize]);
+  }, [debouncedSearch, kindFilter, registrationFilter, pageSize]);
 
   const refetch = React.useCallback(() => {
     setRefreshKey((k) => k + 1);
@@ -219,9 +266,16 @@ export function AdminApplicationsPanel({ linkedApis = {} }: { linkedApis?: Recor
     };
   }, [refreshKey]);
 
+  // Self-registered rows come from the server and win over the same client in `rows`.
+  const allRows = React.useMemo(() => {
+    const byId = new Map(rows.map((row) => [row.clientId, row]));
+    for (const row of selfRegistered) byId.set(row.clientId, row);
+    return [...byId.values()].sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+  }, [rows, selfRegistered]);
+
   const filtered = React.useMemo(
-    () => filterApplications(rows, debouncedSearch, kindFilter),
-    [rows, debouncedSearch, kindFilter]
+    () => filterApplications(allRows, debouncedSearch, kindFilter, registrationFilter),
+    [allRows, debouncedSearch, kindFilter, registrationFilter]
   );
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
@@ -263,6 +317,21 @@ export function AdminApplicationsPanel({ linkedApis = {} }: { linkedApis?: Recor
               <SelectItem value="confidential">Confidential</SelectItem>
               <SelectItem value="trusted">Trusted (skip consent)</SelectItem>
               <SelectItem value="device">Device sign-in</SelectItem>
+            </SelectContent>
+          </Select>
+          <Select
+            value={registrationFilter}
+            onValueChange={(v) => setRegistrationFilter(v as RegistrationFilter)}
+          >
+            <SelectTrigger size="sm" className="w-[190px]" aria-label="Registered by">
+              <SelectValue placeholder="Registered by" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">Any registration</SelectItem>
+              <SelectItem value="admin">{REGISTRATION_LABELS.admin}</SelectItem>
+              <SelectItem value="self">Self-registered</SelectItem>
+              <SelectItem value="dynamic">{REGISTRATION_LABELS.dynamic}</SelectItem>
+              <SelectItem value="metadata_document">{REGISTRATION_LABELS.metadata_document}</SelectItem>
             </SelectContent>
           </Select>
           <AdminRegisterOAuthClientDialog onCreated={refetch} />
@@ -314,7 +383,7 @@ export function AdminApplicationsPanel({ linkedApis = {} }: { linkedApis?: Recor
                   colSpan={8}
                   className="h-24 text-center text-muted-foreground"
                 >
-                  {rows.length === 0
+                  {allRows.length === 0
                     ? "No OAuth clients for this account yet."
                     : "No applications match your filters."}
                 </TableCell>
@@ -325,6 +394,11 @@ export function AdminApplicationsPanel({ linkedApis = {} }: { linkedApis?: Recor
                   <TableCell>
                     <div className="flex flex-col gap-0.5">
                       <span className="font-medium">{row.name}</span>
+                      {row.registration !== "admin" ? (
+                        <span className="mb-0.5">
+                          <RegistrationBadge source={row.registration} />
+                        </span>
+                      ) : null}
                       <code className="text-muted-foreground max-w-[min(100%,320px)] truncate font-mono text-xs">
                         {row.clientId}
                       </code>
@@ -363,12 +437,7 @@ export function AdminApplicationsPanel({ linkedApis = {} }: { linkedApis?: Recor
                         {row.public ? "Public" : "Confidential"}
                       </Badge>
                       <span className="text-muted-foreground text-xs">
-                        {row.tokenEndpointAuthMethod === "none"
-                          ? "auth: none"
-                          : row.tokenEndpointAuthMethod ===
-                              "client_secret_basic"
-                            ? "auth: secret (basic)"
-                            : "auth: secret (post)"}
+                        {AUTH_METHOD_LABELS[row.tokenEndpointAuthMethod]}
                       </span>
                     </div>
                   </TableCell>
@@ -416,16 +485,20 @@ export function AdminApplicationsPanel({ linkedApis = {} }: { linkedApis?: Recor
                     {formatDate(row.createdAt)}
                   </TableCell>
                   <TableCell className="text-right">
-                    <AdminApplicationRowActions
-                      row={row}
-                      onChanged={refetch}
-                      onNotify={(message, variant = "success") => {
-                        adminNotify(
-                          message,
-                          variant === "error" ? "error" : "success"
-                        );
-                      }}
-                    />
+                    {row.registration === "admin" ? (
+                      <AdminApplicationRowActions
+                        row={row}
+                        onChanged={refetch}
+                        onNotify={(message, variant = "success") => {
+                          adminNotify(
+                            message,
+                            variant === "error" ? "error" : "success"
+                          );
+                        }}
+                      />
+                    ) : (
+                      <SelfRegisteredRowActions row={row} />
+                    )}
                   </TableCell>
                 </TableRow>
               ))
@@ -533,7 +606,8 @@ export function AdminApplicationsPanel({ linkedApis = {} }: { linkedApis?: Recor
         <code className="rounded bg-muted px-1 py-0.5 font-mono">
           clientReference
         </code>{" "}
-        when configured).
+        when configured). Self-registered clients have no owner and are all listed; they can
+        be disabled or deleted, not edited.
       </p>
     </div>
   );

@@ -8,6 +8,7 @@ import { assertRequestBodyWithinLimit } from "@ostiary/core/lib/api/request-body
 import {
   parseUpdateOAuthClientBody,
 } from "@ostiary/core/lib/admin/oauth-clients/oauth-client-admin.validation";
+import { clientRegistrationSource } from "@ostiary/core/lib/client-registration";
 import { updateOAuthClientForAdmin } from "@/lib/oauth-client-admin.service";
 import { requireAdminApiRequest } from "@/lib/require-admin-api-request";
 import { handleError, ValidationError } from "@ostiary/core/lib/errors";
@@ -42,6 +43,11 @@ export async function PATCH(req: Request, context: RouteContext) {
     const parsed = parseUpdateOAuthClientBody(raw);
     if (!parsed.ok) {
       throw new ValidationError(parsed.error);
+    }
+
+    // Self-registered clients are unreviewed: they always show the consent screen.
+    if (parsed.value.skip_consent && (await clientRegistrationSource(clientId)) !== "admin") {
+      throw new ValidationError("A self-registered client cannot skip the consent screen.");
     }
 
     const data = await updateOAuthClientForAdmin(

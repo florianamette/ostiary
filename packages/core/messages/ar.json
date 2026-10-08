@@ -200,6 +200,12 @@
       "profile": "Name and profile information",
       "email": "Email address",
       "offline_access": "Access when you are not actively using the application"
+    },
+    "unverified": {
+      "title": "تطبيق غير موثّق",
+      "dynamic": "سجّل هذا التطبيق نفسه ولم تتم مراجعته. لا تسمح له إلا إذا كنت تثق به وبدأت تسجيل الدخول هذا بنفسك.",
+      "metadataDocument": "يعرّف هذا التطبيق نفسه بمستند منشور على {host} ولم تتم مراجعته. لا تسمح له إلا إذا كنت تثق به وبدأت تسجيل الدخول هذا بنفسك.",
+      "redirect": "إذا سمحت، فسيتم توجيهك إلى <strong>{host}</strong>."
     }
   },
   "admin": {

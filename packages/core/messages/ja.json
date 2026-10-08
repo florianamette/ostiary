@@ -200,6 +200,12 @@
       "profile": "Name and profile information",
       "email": "Email address",
       "offline_access": "Access when you are not actively using the application"
+    },
+    "unverified": {
+      "title": "未確認のアプリ",
+      "dynamic": "このアプリは自身で登録されており、審査されていません。信頼でき、このサインインをご自身で開始した場合にのみ許可してください。",
+      "metadataDocument": "このアプリは {host} で公開されたドキュメントで自身を識別しており、審査されていません。信頼でき、このサインインをご自身で開始した場合にのみ許可してください。",
+      "redirect": "許可すると <strong>{host}</strong> に移動します。"
     }
   },
   "admin": {

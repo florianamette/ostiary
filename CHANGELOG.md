@@ -68,6 +68,19 @@ All notable changes are documented here. The format follows
   with Better Auth's `captcha` plugin. Off unless `CAPTCHA_PROVIDER`, `CAPTCHA_SITE_KEY`
   and `CAPTCHA_SECRET_KEY` are set; the CSP then allows that provider only. The widget
   follows the light or dark theme.
+- Self-registration of OAuth clients for MCP clients and AI agents: Dynamic Client
+  Registration (RFC 7591, `POST /api/auth/oauth2/register`) and Client ID Metadata
+  Documents (an HTTPS URL as `client_id`). Both are off by default and turned on in
+  the admin console (**Applications > Self-registration**): who may register (signed-in
+  users or anyone), the scopes self-registered clients may request, allowed metadata
+  document hosts and an hourly cap. Settings are stored in the database (new
+  `app_setting` table, migration `0004_app_setting`) and reach the auth server within
+  a minute. Self-registered clients get authorization code with PKCE only (no client
+  credentials, no device sign-in, never skip consent), are marked as unverified on the
+  consent screen, and are listed with a badge and a filter on the Applications page,
+  where an admin can disable or delete them. Discovery advertises
+  `registration_endpoint` and `client_id_metadata_document_supported` while on. The
+  README explains how an MCP server points clients to Ostiary (RFC 9728).
 
 ### Fixed
 

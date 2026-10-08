@@ -10,6 +10,7 @@ import {
   CardTitle,
 } from "@ostiary/core/components/ui/card";
 import { cn } from "@ostiary/core/lib/utils";
+import { ShieldAlertIcon } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
@@ -24,10 +25,20 @@ type PublicClient = {
   tos_uri?: string;
 };
 
+/** Set for a client that registered itself, see the consent page. */
+export type ConsentClientOrigin = {
+  source: "dynamic" | "metadata_document";
+  /** Host of the client_id URL, for a metadata-document client. */
+  documentHost: string | null;
+  /** Host of the redirect URI the user is sent to after answering. */
+  redirectHost: string | null;
+};
+
 export function ConsentForm({
   className,
+  origin = null,
   ...props
-}: React.ComponentProps<"div">) {
+}: React.ComponentProps<"div"> & { origin?: ConsentClientOrigin | null }) {
   const t = useTranslations("consent");
   const tCommon = useTranslations("common");
   const searchParams = useSearchParams();
@@ -131,7 +142,9 @@ export function ConsentForm({
       <Card>
         <CardHeader className="space-y-4">
           <div className="flex items-start gap-4">
-            {client?.logo_uri ? (
+            {/* A self-registered client's logo is not shown: it could imitate a trusted app,
+                and loading it would tell that client's host who is signing in. */}
+            {client?.logo_uri && !origin ? (
               // OAuth `logo_uri` can point to any HTTPS URL from client registration.
               // eslint-disable-next-line @next/next/no-img-element
               <img
@@ -168,6 +181,31 @@ export function ConsentForm({
 
           {!loadError && !client ? (
             <p className="text-sm text-muted-foreground">{tCommon("loading")}</p>
+          ) : null}
+
+          {client && origin ? (
+            <div
+              role="note"
+              className="flex gap-3 rounded-md border border-amber-500/40 bg-amber-500/10 px-3 py-3 text-sm text-amber-950 dark:text-amber-100"
+            >
+              <ShieldAlertIcon className="mt-0.5 size-4 shrink-0 text-amber-600 dark:text-amber-400" aria-hidden />
+              <div className="min-w-0 space-y-1">
+                <p className="font-medium">{t("unverified.title")}</p>
+                <p>
+                  {origin.source === "metadata_document" && origin.documentHost
+                    ? t("unverified.metadataDocument", { host: origin.documentHost })
+                    : t("unverified.dynamic")}
+                </p>
+                {origin.redirectHost ? (
+                  <p className="break-all">
+                    {t.rich("unverified.redirect", {
+                      host: origin.redirectHost,
+                      strong: (chunks) => <strong className="font-semibold">{chunks}</strong>,
+                    })}
+                  </p>
+                ) : null}
+              </div>
+            </div>
           ) : null}
 
           {client ? (

@@ -200,6 +200,12 @@
       "profile": "Name and profile information",
       "email": "Email address",
       "offline_access": "Access when you are not actively using the application"
+    },
+    "unverified": {
+      "title": "Neověřená aplikace",
+      "dynamic": "Tato aplikace se zaregistrovala sama a nebyla zkontrolována. Povolte ji, jen pokud jí důvěřujete a toto přihlášení jste zahájili sami.",
+      "metadataDocument": "Tato aplikace se identifikuje dokumentem zveřejněným na {host} a nebyla zkontrolována. Povolte ji, jen pokud jí důvěřujete a toto přihlášení jste zahájili sami.",
+      "redirect": "Pokud povolíte, budete přesměrováni na <strong>{host}</strong>."
     }
   },
   "admin": {

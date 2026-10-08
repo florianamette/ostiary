@@ -6,6 +6,9 @@ settings:
 
 catalogs:
   default:
+    '@better-auth/cimd':
+      specifier: 1.7.7
+      version: 1.7.7
     '@better-auth/drizzle-adapter':
       specifier: 1.7.7
       version: 1.7.7
@@ -383,6 +386,9 @@ importers:
 
   packages/core:
     dependencies:
+      '@better-auth/cimd':
+        specifier: 'catalog:'
+        version: 1.7.7(8b830aae57024e475ddd9f632a72b788)
       '@better-auth/drizzle-adapter':
         specifier: 'catalog:'
         version: 1.7.7(@better-auth/core@1.7.7(@better-auth/utils@0.4.2)(@better-fetch/fetch@1.3.2)(better-call@1.4.0(zod@3.25.76))(jose@6.2.12)(kysely@0.28.17)(nanostores@1.5.4))(@better-auth/utils@0.4.2)(drizzle-orm@0.45.2(@types/pg@8.20.0)(kysely@0.28.17)(pg@8.20.0))
@@ -631,6 +637,14 @@ packages:
   '@babel/types@7.29.8':
     resolution: {integrity: sha512-Vj1jF3cPfxg7OAfoI7QnVKLoILlm2JF9pnVHrX8qx7AHMiYWT+NDAA7jChlNgRS4WTLc/fD1lXLmPixluj+3Gg==}
     engines: {node: '>=6.9.0'}
+
+  '@better-auth/cimd@1.7.7':
+    resolution: {integrity: sha512-jFSuQ3B77usVZbPxqDdsDgd78Gy8ZwwLxAyfDJwZrvmSyDMB0Qt9rHba6chBXjvXsyiaItmdWeF/hlhbl6S1Zg==}
+    peerDependencies:
+      '@better-auth/core': ^1.7.7
+      '@better-auth/oauth-provider': ^1.7.7
+      better-auth: ^1.7.7
+      better-call: 1.4.0
 
   '@better-auth/core@1.7.7':
     resolution: {integrity: sha512-srgFzHEjB2WWlokFz1i4BfG41sNhsA105Pukgqu6RrEh5A+LSkzf1mCHydVipkjt9l5qswtBMi7IL6ouHbZL4Q==}
@@ -6457,6 +6471,13 @@ snapshots:
     dependencies:
       '@babel/helper-string-parser': 7.29.7
       '@babel/helper-validator-identifier': 7.29.7
+
+  '@better-auth/cimd@1.7.7(8b830aae57024e475ddd9f632a72b788)':
+    dependencies:
+      '@better-auth/core': 1.7.7(@better-auth/utils@0.4.2)(@better-fetch/fetch@1.3.2)(better-call@1.4.0(zod@3.25.76))(jose@6.2.12)(kysely@0.28.17)(nanostores@1.5.4)
+      '@better-auth/oauth-provider': 1.7.7(@better-auth/core@1.7.7(@better-auth/utils@0.4.2)(@better-fetch/fetch@1.3.2)(better-call@1.4.0(zod@3.25.76))(jose@6.2.12)(kysely@0.28.17)(nanostores@1.5.4))(@better-auth/utils@0.4.2)(@better-fetch/fetch@1.3.2)(better-auth@1.7.7(drizzle-kit@0.31.10)(drizzle-orm@0.45.2(@types/pg@8.20.0)(kysely@0.28.17)(pg@8.20.0))(next@16.2.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(pg@8.20.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(vitest@4.1.1(@types/node@20.19.37)(msw@2.15.0(@types/node@20.19.37)(typescript@5.9.3))(vite@8.3.2(@types/node@20.19.37)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.21.0))))(better-call@1.4.0(zod@3.25.76))
+      better-auth: 1.7.7(drizzle-kit@0.31.10)(drizzle-orm@0.45.2(@types/pg@8.20.0)(kysely@0.28.17)(pg@8.20.0))(next@16.2.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(pg@8.20.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(vitest@4.1.1(@types/node@20.19.37)(msw@2.15.0(@types/node@20.19.37)(typescript@5.9.3))(vite@8.3.2(@types/node@20.19.37)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.21.0)))
+      better-call: 1.4.0(zod@3.25.76)
 
   '@better-auth/core@1.7.7(@better-auth/utils@0.4.2)(@better-fetch/fetch@1.3.2)(better-call@1.4.0(zod@3.25.76))(jose@6.2.12)(kysely@0.28.17)(nanostores@1.5.4)':
     dependencies:

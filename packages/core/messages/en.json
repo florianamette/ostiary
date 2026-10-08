@@ -200,6 +200,12 @@
       "profile": "Name and profile information",
       "email": "Email address",
       "offline_access": "Access when you are not actively using the application"
+    },
+    "unverified": {
+      "title": "Unverified app",
+      "dynamic": "This app registered itself and has not been reviewed. Only allow it if you trust it and started this sign-in yourself.",
+      "metadataDocument": "This app identifies itself with a document on {host} and has not been reviewed. Only allow it if you trust it and started this sign-in yourself.",
+      "redirect": "If you allow, you will be sent to <strong>{host}</strong>."
     }
   },
   "admin": {

@@ -200,6 +200,12 @@
       "profile": "姓名与资料信息",
       "email": "电子邮箱地址",
       "offline_access": "在您未主动使用应用时仍可访问"
+    },
+    "unverified": {
+      "title": "未经验证的应用",
+      "dynamic": "此应用是自行注册的，未经审核。只有在您信任它并且是您本人发起此次登录时才允许。",
+      "metadataDocument": "此应用通过发布在 {host} 上的文档标识自己，未经审核。只有在您信任它并且是您本人发起此次登录时才允许。",
+      "redirect": "如果允许，您将被转到 <strong>{host}</strong>。"
     }
   },
   "admin": {

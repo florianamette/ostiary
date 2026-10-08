@@ -2,7 +2,10 @@ import { randomUUID } from "node:crypto";
 import { betterAuth, type BetterAuthPlugin } from "better-auth";
 import { APIError, createAuthMiddleware, getSessionFromCtx } from "better-auth/api";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { createCimdClientDiscovery } from "@better-auth/cimd";
+import { fetchClientMetadataResource } from "@better-auth/cimd/node";
 import { oauthDeviceAuthorization, oauthProvider } from "@better-auth/oauth-provider";
+import { eq } from "drizzle-orm";
 import { passkey } from "@better-auth/passkey";
 import { scim } from "@better-auth/scim";
 import { sso } from "@better-auth/sso";
@@ -43,6 +46,18 @@ import { ENV_API_SCOPES, OIDC_SCOPES, syncProviderScopes } from "@ostiary/core/l
 import { oauthResourceIdentifiers } from "@ostiary/core/lib/oauth-resources";
 import { withOpenApiLinks } from "@ostiary/core/lib/oauth-resource-access";
 import { ACCESS_TOKEN_EXPIRES_IN, REFRESH_TOKEN_EXPIRES_IN } from "@ostiary/core/lib/oauth-resource-policy";
+import {
+    clientExists,
+    clientRegistrationSource,
+    currentClientRegistrationSettings,
+    registrationCapacityLeft,
+    syncClientRegistration,
+} from "@ostiary/core/lib/client-registration";
+import {
+    markDynamicRegistration,
+    metadataDocumentHostAllowed,
+    registrationRequestError,
+} from "@ostiary/core/lib/client-registration-policy";
 import { socialProvidersConfig } from "@ostiary/core/lib/social-providers";
 import {
     SCIM_DEACTIVATED_MESSAGE,
@@ -153,6 +168,42 @@ const adminEmails = new Set(
         .filter(Boolean),
 );
 
+/**
+ * Records that a client came from /oauth2/register (`oauth_client.metadata`), which is how
+ * the admin console and the consent screen tell it from an admin-registered one. If that
+ * fails the client is deleted, so an unmarked client never passes for a reviewed one.
+ */
+async function markDynamicClient(
+    returned: unknown,
+    actor: { id: string; email: string } | null,
+    ipAddress: string | null,
+) {
+    const created = (returned && typeof returned === "object" ? returned : {}) as Bag;
+    const clientId = str(created.client_id);
+    if (!clientId) return;
+    try {
+        const [row] = await db
+            .select({ metadata: schema.oauthClient.metadata })
+            .from(schema.oauthClient)
+            .where(eq(schema.oauthClient.clientId, clientId));
+        await db
+            .update(schema.oauthClient)
+            .set({ metadata: markDynamicRegistration(row?.metadata) })
+            .where(eq(schema.oauthClient.clientId, clientId));
+    } catch (error) {
+        console.error("Could not mark a dynamically registered client; deleting it", error);
+        await db.delete(schema.oauthClient).where(eq(schema.oauthClient.clientId, clientId)).catch(() => {});
+        throw new APIError("INTERNAL_SERVER_ERROR", { error: "server_error", error_description: "Registration failed" });
+    }
+    await recordAudit({
+        actor: actor ? { id: actor.id, email: actor.email } : null,
+        action: "oauth_client.self_register",
+        target: { type: "oauth_client", id: clientId, label: str(created.client_name) ?? null },
+        metadata: { source: "dynamic", redirect_uris: created.redirect_uris, scope: created.scope },
+        ipAddress,
+    });
+}
+
 export type AuthFactoryOptions = {
     /**
      * Canonical URL of the auth app. Every instance uses it, even when served from another
@@ -194,9 +245,41 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
             })),
         },
     } satisfies BetterAuthPlugin;
+    // Client ID Metadata Documents (the client_id is an HTTPS URL to the client's JSON
+    // metadata, as MCP clients use). Added to the provider only while an admin has turned it
+    // on, see syncClientRegistration. Better Auth's Node transport resolves the host once,
+    // refuses private and reserved addresses, pins the connection and never follows
+    // redirects; documents are capped at 5 KB and fetched with a 5 s timeout.
+    const metadataDocuments = {
+        clientDiscovery: createCimdClientDiscovery({
+            fetchClientMetadataResource,
+            // Requires client_name and redirect_uris, both shown on the consent screen.
+            metadataProfile: "mcp-2026-07-28",
+            isMetadataDocumentUrlAllowed: async (url) => {
+                const settings = await currentClientRegistrationSettings();
+                if (!settings.metadataDocuments) return false;
+                if (!metadataDocumentHostAllowed(url, settings.metadataDocumentHosts)) return false;
+                // Refreshing a known client is not a new registration.
+                return (await clientExists(url)) || (await registrationCapacityLeft(settings));
+            },
+            onClientCreated: async ({ client, context }) => {
+                await recordAudit({
+                    actor: null,
+                    action: "oauth_client.self_register",
+                    target: { type: "oauth_client", id: client.clientId, label: client.name ?? null },
+                    metadata: { source: "metadata_document" },
+                    ipAddress: clientIp(context.headers),
+                });
+            },
+        }),
+    };
     const provider = oauthProvider({
         loginPage: "/login",
         consentPage: "/consent",
+        // Self-registration (Dynamic Client Registration, metadata documents) is off here and
+        // set from the admin console's settings before each request, see syncClientRegistration.
+        allowDynamicClientRegistration: false,
+        allowUnauthenticatedClientRegistration: false,
         // Only for clients that ask with prompt=select_account (e.g. a native app signing in
         // through the system browser, whose session may belong to someone else).
         selectAccount: { page: "/select-account", shouldRedirect: () => false },
@@ -309,6 +392,36 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
                         });
                     }
                 }
+                const registration = await syncClientRegistration(provider.options, metadataDocuments);
+                if (ctx.path === "/device/code") {
+                    // Device sign-in shows only the app's name to the user, who types a code
+                    // elsewhere: an easy phishing setup for an app nobody reviewed. Self-registered
+                    // clients (whatever grants their metadata lists) sign in through the browser.
+                    const clientId = str((ctx.body as Bag | undefined)?.client_id);
+                    if (clientId && (await clientRegistrationSource(clientId)) !== "admin") {
+                        throw new APIError("BAD_REQUEST", {
+                            error: "unauthorized_client",
+                            error_description: "Self-registered clients cannot use device sign-in",
+                        });
+                    }
+                    return;
+                }
+                if (ctx.path === "/oauth2/register" && registration.dynamic !== "off") {
+                    // Better Auth checks scopes, redirect URIs and PKCE. Self-registered clients
+                    // also get no machine access, and an hourly cap across instances limits abuse
+                    // (on top of Better Auth's per-IP limit of 5 registrations a minute).
+                    const refused = registrationRequestError(ctx.body);
+                    if (refused) {
+                        throw new APIError("BAD_REQUEST", { error: "invalid_client_metadata", error_description: refused });
+                    }
+                    if (!(await registrationCapacityLeft(registration))) {
+                        throw new APIError("TOO_MANY_REQUESTS", {
+                            error: "temporarily_unavailable",
+                            error_description: "Too many clients registered in the last hour. Try again later.",
+                        });
+                    }
+                    return;
+                }
                 if (RECENT_SIGN_IN_PATHS.has(ctx.path)) {
                     const current = await getSessionFromCtx(ctx);
                     const signedInAt = current ? new Date(current.session.createdAt).getTime() : 0;
@@ -354,6 +467,11 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
                 if (PASSWORD_SIGN_IN_PATHS.has(ctx.path) && failed) {
                     const identifier = typeof body.email === "string" ? body.email : typeof body.username === "string" ? body.username : null;
                     await recordAuthEvent("sign_in_failed", null, { identifier, ipAddress: clientIp(ctx.headers) });
+                    return;
+                }
+
+                if (ctx.path === "/oauth2/register" && !failed) {
+                    await markDynamicClient(returned, ctx.context.session?.user ?? null, clientIp(ctx.headers));
                     return;
                 }
 
