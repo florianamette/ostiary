@@ -484,5 +484,12 @@
     "signInSubmit": "继续",
     "signInError": "无法为此邮箱启动单点登录。",
     "signInLink": "使用 SSO 登录"
+  },
+  "selectAccount": {
+    "title": "选择账户",
+    "description": "使用此账户继续前往应用，或使用其他账户登录。",
+    "continueAs": "以 {name} 身份继续",
+    "useAnother": "使用其他账户",
+    "error": "出了点问题，请重试。"
   }
 }

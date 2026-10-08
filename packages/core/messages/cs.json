@@ -484,5 +484,12 @@
     "signInSubmit": "Continue",
     "signInError": "Could not start single sign-on for this address.",
     "signInLink": "Sign in with SSO"
+  },
+  "selectAccount": {
+    "title": "Vyberte účet",
+    "description": "Pokračujte do aplikace s tímto účtem, nebo se přihlaste jiným.",
+    "continueAs": "Pokračovat jako {name}",
+    "useAnother": "Použít jiný účet",
+    "error": "Něco se pokazilo. Zkuste to znovu."
   }
 }

@@ -484,5 +484,12 @@
     "signInSubmit": "Continue",
     "signInError": "Could not start single sign-on for this address.",
     "signInLink": "Sign in with SSO"
+  },
+  "selectAccount": {
+    "title": "खाता चुनें",
+    "description": "इस खाते के साथ ऐप पर जारी रखें, या किसी दूसरे खाते से साइन इन करें।",
+    "continueAs": "{name} के रूप में जारी रखें",
+    "useAnother": "दूसरा खाता इस्तेमाल करें",
+    "error": "कुछ गलत हो गया। फिर से कोशिश करें।"
   }
 }

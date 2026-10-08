@@ -484,5 +484,12 @@
     "signInSubmit": "Continue",
     "signInError": "Could not start single sign-on for this address.",
     "signInLink": "Sign in with SSO"
+  },
+  "selectAccount": {
+    "title": "اختر حسابًا",
+    "description": "تابع إلى التطبيق بهذا الحساب، أو سجّل الدخول بحساب آخر.",
+    "continueAs": "المتابعة باسم {name}",
+    "useAnother": "استخدام حساب آخر",
+    "error": "حدث خطأ ما. حاول مرة أخرى."
   }
 }

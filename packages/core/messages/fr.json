@@ -484,5 +484,12 @@
     "signInSubmit": "Continuer",
     "signInError": "Impossible de démarrer la connexion SSO pour cette adresse.",
     "signInLink": "Se connecter avec SSO"
+  },
+  "selectAccount": {
+    "title": "Choisissez un compte",
+    "description": "Continuez vers l'application avec ce compte, ou connectez-vous avec un autre.",
+    "continueAs": "Continuer en tant que {name}",
+    "useAnother": "Utiliser un autre compte",
+    "error": "Une erreur est survenue. Réessayez."
   }
 }
