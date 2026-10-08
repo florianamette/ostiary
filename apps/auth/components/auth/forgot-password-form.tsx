@@ -23,6 +23,7 @@ import { Input } from "@ostiary/core/components/ui/input";
 import { Link } from "@/i18n/navigation";
 import { authClient } from "@/lib/auth-client";
 import { useCaptcha } from "@/components/auth/captcha";
+import { rateLimitMessage } from "@ostiary/core/lib/rate-limit-message";
 import type { CaptchaConfig } from "@ostiary/core/lib/captcha-providers";
 
 export function ForgotPasswordForm({
@@ -31,6 +32,7 @@ export function ForgotPasswordForm({
   ...props
 }: React.ComponentProps<"div"> & { captcha?: CaptchaConfig | null }) {
   const t = useTranslations("auth.forgotPassword");
+  const tLimit = useTranslations("rateLimit");
   const locale = useLocale();
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -56,7 +58,7 @@ export function ForgotPasswordForm({
         { headers },
       );
       if (error) {
-        toast.error(captcha.errorMessage(error.code) ?? error.message ?? t("errors.requestFailed"));
+        toast.error(captcha.errorMessage(error.code) ?? rateLimitMessage(error, tLimit) ?? error.message ?? t("errors.requestFailed"));
         return;
       }
       toast.success(t("emailSent"));

@@ -31,6 +31,7 @@ import { EmailCodeSignIn } from "@/components/auth/email-code-sign-in"
 import { useCaptcha } from "@/components/auth/captcha"
 import type { CaptchaConfig } from "@ostiary/core/lib/captcha-providers"
 import { safeCallbackURL } from "@/lib/safe-callback-url"
+import { rateLimitMessage } from "@ostiary/core/lib/rate-limit-message"
 
 /** Sign-in responses for accounts with two-factor authentication: no session yet. */
 function needsTwoFactor(data: unknown): boolean {
@@ -44,6 +45,7 @@ export function LoginForm({
   ...props
 }: React.ComponentProps<"div"> & { socialProviders?: SocialProvider[]; captcha?: CaptchaConfig | null }) {
   const t = useTranslations("auth.login")
+  const tLimit = useTranslations("rateLimit")
   const tSso = useTranslations("sso");
   const locale = useLocale()
   const searchParams = useSearchParams()
@@ -97,6 +99,11 @@ export function LoginForm({
   function handleSignInError(ctx: {
     error: { status?: number; code?: string; message?: string };
   }) {
+    const limited = rateLimitMessage(ctx.error, tLimit);
+    if (limited) {
+      toast.error(limited);
+      return;
+    }
     const status = ctx.error.status;
     const code = ctx.error.code;
     if (

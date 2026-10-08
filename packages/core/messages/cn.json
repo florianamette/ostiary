@@ -631,6 +631,11 @@
     "boundaryDescription": "加载此页面时发生错误。",
     "retry": "重试"
   },
+  "rateLimit": {
+    "seconds": "尝试次数过多。请在 {seconds} 秒后重试。",
+    "minutes": "尝试次数过多。请在 {minutes} 分钟后重试。",
+    "later": "尝试次数过多。请等待几分钟后重试。"
+  },
   "sso": {
     "title": "单点登录（SSO）",
     "description": "连接贵组织的身份提供方（OIDC），让成员使用工作账户登录。",

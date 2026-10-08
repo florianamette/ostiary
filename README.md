@@ -70,6 +70,7 @@ Hosted identity platforms are great until the bill scales with your users or you
 - OAuth clients with usage statistics, consents, organizations, SSO providers
 - Audit log of every admin action, sign-in activity and failed sign-in monitoring
 - Signing keys: automatic rotation on a schedule, or rotate now, with a grace period during which old tokens keep verifying
+- Rate limits per client IP on sign-in, codes, password reset and token endpoints, counted in Postgres so they hold on serverless
 
 ## How it compares
 
@@ -317,6 +318,9 @@ Without Resend configured, development prints verification and reset links, and 
 | `OAUTH_API_SCOPES` | both | optional | Comma-separated scopes available to every API (or declare them per API in the admin console) |
 | `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET` | auth | optional | "Sign in with GitHub" |
 | `SCIM_TOKEN_SECRET` | both | optional | 32+ characters to hash SCIM tokens with; derived from `BETTER_AUTH_SECRET` when unset. Changing either invalidates SCIM tokens |
+| `RATE_LIMIT_ENABLED` | both | optional | Rate limiting of the auth endpoints, see [Rate limiting](#rate-limiting). Default: on in production, off in development. `false` turns it off |
+| `IP_ADDRESS_HEADERS` | both | optional | Comma-separated headers holding the client IP, tried in order. Default `x-forwarded-for` (right on Vercel). See [Client IP](#client-ip) |
+| `TRUSTED_PROXIES` | both | optional | Comma-separated IPs or CIDR ranges of your own reverse proxies, to read the client IP from a multi-hop `x-forwarded-for` |
 | `CAPTCHA_PROVIDER`, `CAPTCHA_SITE_KEY`, `CAPTCHA_SECRET_KEY` | auth | optional | Captcha on sign-up, password sign-in, password reset and sign-in codes. Provider: `cloudflare-turnstile`, `hcaptcha` or `google-recaptcha` (v2 checkbox). Set all three or none, before building (the CSP is built with them) |
 
 **Rebrand** by editing `packages/core/src/lib/brand.ts` (name, tagline, colors, logo geometry) and the matching tokens in `packages/core/src/styles/globals.css`, then run `pnpm --filter @ostiary/auth brand:assets` to regenerate `logo.png` and `logo.svg`.
@@ -342,6 +346,45 @@ Both apps run the same Better Auth configuration against one database. The admin
 - SCIM tokens are stored as HMAC digests and can only be issued by platform admins; each one only reaches its own organization.
 - Token signing keys can be rotated on a schedule or on demand (**Signing keys**); retired keys stay published only for the grace period. Rotations and setting changes are in the audit log.
 - The audit log never stores passwords, secrets or session tokens.
+- Sign-in, codes, password reset and the token endpoint are rate limited per client IP, see below.
+
+### Rate limiting
+
+Better Auth counts requests per client IP and endpoint. Ostiary keeps the counts in Postgres (table `rate_limit`, migration `0005_rate_limit`) instead of each server's memory: on Vercel every function instance has its own memory, so in-memory limits barely apply. It is on in production and off in development; set `RATE_LIMIT_ENABLED=true` to try it locally.
+
+A refused request gets `429 Too Many Requests` with a `Retry-After` header (seconds) and `{"code": "RATE_LIMITED", "retryAfter": 42, "message": "..."}`. The sign-in, code, two-factor and device screens show "Try again in 42 seconds" in the user's language. A rule allows `max` requests, then refuses until `window` seconds have passed since the last allowed one.
+
+| Endpoint | Limit per IP | Why |
+| --- | --- | --- |
+| `/sign-in/email`, `/sign-in/username` | 10 per minute | Password guessing; room for several people behind one address |
+| `/sign-up/email` | 10 per 5 minutes | Each sends a verification email |
+| `/request-password-reset`, `/send-verification-email` | 5 per 10 minutes | Each sends an email to any address |
+| `/email-otp/send-verification-otp`, `/sign-in/email-otp` | 3 per minute | Sign-in codes (also void after 3 wrong tries) |
+| `/two-factor/verify-totp`, `/verify-backup-code`, `/verify-otp` | 5 per minute | Second step; the account also locks after repeated wrong codes |
+| `/device` (code lookup) | 5 per 10 minutes | Device user codes |
+| `/device/approve`, `/device/deny` | 10 per minute | |
+| `/oauth2/token` | 300 per minute | Machine clients, refreshes and device polling share server addresses; every credential it takes is long and random |
+| `/oauth2/register` | 5 per minute | Plus the hourly cap set in the admin console |
+| `/oauth2/authorize`, `/oauth2/userinfo`, `/oauth2/introspect` | 30, 60, 100 per minute | Better Auth's OAuth provider defaults |
+| `/get-session`, `/jwks` | none | Hot, read-only, nothing to guess |
+| Anything else | 100 per 10 seconds | Better Auth's default |
+
+The rules are in `packages/core/src/lib/rate-limit.ts`. Limits are per address, so an office or a classroom behind one IP shares them: raise a rule there if your users sign in from large shared networks.
+
+**Table size.** One row per client IP and endpoint. When a counter's window ends, Better Auth deletes the rows not used for longer than the longest window (10 minutes), so the table holds roughly the addresses seen in the last 10 minutes; no cron job is needed. Each counted request costs two small queries (read, then a conditional update or insert).
+
+**Redis (optional, not built in).** For heavy traffic, Better Auth can keep the counts in a key-value store instead: pass `secondaryStorage` (with an atomic `increment`, e.g. Upstash Redis) to `betterAuth()` and set `rateLimit.storage: "secondary-storage"` in `packages/core/src/lib/auth-factory.ts`. Note that `secondaryStorage` also moves sessions and verification values out of Postgres.
+
+### Client IP
+
+Rate limits (and the IP stored with sessions) need the real client address. By default Better Auth reads `x-forwarded-for` and trusts it only when it holds a single address.
+
+- **Vercel**: nothing to set. Vercel overwrites `x-forwarded-for` with the client's address, so clients cannot spoof it.
+- **Behind Cloudflare**: `IP_ADDRESS_HEADERS=cf-connecting-ip` (only if the origin accepts traffic from Cloudflare alone).
+- **Behind nginx, a load balancer or several proxies** that append to `x-forwarded-for`: set `TRUSTED_PROXIES` to their addresses (e.g. `10.0.0.0/8`). The client IP is then the right-most address that is not a trusted proxy. Or have the proxy overwrite a header (`proxy_set_header X-Real-IP $remote_addr;`) and set `IP_ADDRESS_HEADERS=x-real-ip`.
+- **Exposed directly, no proxy**: clients control every header. Put a proxy in front, or limits can be dodged by sending a different `x-forwarded-for` each time.
+
+Never name a header your proxy passes through from the client: anyone could then pick their own IP. When no trusted address is found, all such requests share a single counter per endpoint, and Better Auth logs a warning.
 
 Found a vulnerability? Please email the maintainer rather than opening a public issue.
 

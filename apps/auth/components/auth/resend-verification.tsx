@@ -6,6 +6,7 @@ import { toast } from "sonner"
 import { Button } from "@ostiary/core/components/ui/button"
 import { Input } from "@ostiary/core/components/ui/input"
 import { authClient } from "@/lib/auth-client"
+import { rateLimitMessage } from "@ostiary/core/lib/rate-limit-message"
 
 /** Lets someone who lost or never got the verification email ask for a new link. */
 export function ResendVerification({
@@ -16,6 +17,7 @@ export function ResendVerification({
   callbackURL: string
 }) {
   const t = useTranslations("auth.login.resend")
+  const tLimit = useTranslations("rateLimit")
   const [email, setEmail] = useState(defaultEmail ?? "")
   const [sending, setSending] = useState(false)
   const [sent, setSent] = useState(false)
@@ -32,7 +34,7 @@ export function ResendVerification({
       const res = await authClient.sendVerificationEmail({ email: value, callbackURL })
       // Same answer whether or not the address has an account (no enumeration).
       if (res.error && res.error.status !== 400) {
-        toast.error(t("error"))
+        toast.error(rateLimitMessage(res.error, tLimit) ?? t("error"))
         return
       }
       setSent(true)

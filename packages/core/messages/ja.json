@@ -631,6 +631,11 @@
     "boundaryDescription": "An error occurred while loading this page.",
     "retry": "Try again"
   },
+  "rateLimit": {
+    "seconds": "試行回数が多すぎます。{seconds} 秒後にもう一度お試しください。",
+    "minutes": "試行回数が多すぎます。{minutes} 分後にもう一度お試しください。",
+    "later": "試行回数が多すぎます。数分待ってからもう一度お試しください。"
+  },
   "sso": {
     "title": "Single sign-on",
     "description": "Connect your organization's identity provider (OIDC) so members can sign in with their work account.",

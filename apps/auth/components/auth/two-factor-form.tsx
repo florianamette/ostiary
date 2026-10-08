@@ -24,6 +24,7 @@ import {
 import { Input } from "@ostiary/core/components/ui/input";
 import { authClient } from "@/lib/auth-client";
 import { safeCallbackURL } from "@/lib/safe-callback-url";
+import { rateLimitMessage } from "@ostiary/core/lib/rate-limit-message";
 
 type Method = "totp" | "backup";
 
@@ -38,6 +39,7 @@ export function TwoFactorForm({
   ...props
 }: React.ComponentProps<"div">) {
   const t = useTranslations("auth.twoFactor");
+  const tLimit = useTranslations("rateLimit");
   const locale = useLocale();
   const searchParams = useSearchParams();
   const callbackURL = safeCallbackURL(searchParams.get("callbackURL"), `/${locale}`);
@@ -70,7 +72,7 @@ export function TwoFactorForm({
         return;
     }
     if (error.status === 429) {
-      toast.error(t("errors.rateLimited"));
+      toast.error(rateLimitMessage(error, tLimit) ?? t("errors.rateLimited"));
       return;
     }
     toast.error(error.message || t("errors.failed"));

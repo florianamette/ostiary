@@ -1,5 +1,6 @@
 import { toNextJsHandler } from "better-auth/next-js";
 
+import { withRateLimitHeaders } from "@ostiary/core/lib/rate-limit";
 import { auth } from "@/lib/auth";
 
 /**
@@ -46,7 +47,7 @@ const ALLOWED_PATHS = new Set([
   "/sso/get-provider",
 ]);
 
-const handlers = toNextJsHandler(auth);
+const handlers = withRateLimitHeaders(toNextJsHandler(auth));
 
 function notAllowed(request: Request): Response | null {
   const path = new URL(request.url).pathname.replace(/^\/api\/auth/, "");

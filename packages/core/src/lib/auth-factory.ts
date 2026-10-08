@@ -43,6 +43,7 @@ import { brand } from "@ostiary/core/lib/brand";
 import { PUBLIC_ORGANIZATION_ID } from "@ostiary/core/lib/organization-public";
 import { getPasskeyWebAuthnOptions } from "@ostiary/core/lib/passkey-options";
 import { env } from "@ostiary/core/lib/env";
+import { ipAddressOptions, rateLimitOptions } from "@ostiary/core/lib/rate-limit";
 import { ENV_API_SCOPES, OIDC_SCOPES, syncProviderScopes } from "@ostiary/core/lib/oauth-scopes";
 import { syncSigningKeys } from "@ostiary/core/lib/signing-keys";
 import { oauthResourceIdentifiers } from "@ostiary/core/lib/oauth-resources";
@@ -331,9 +332,16 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
         baseURL,
         trustedOrigins,
         disabledPaths: UNUSED_EMAIL_OTP_PATHS,
-        advanced: cookieDomain
-            ? { crossSubDomainCookies: { enabled: true, domain: cookieDomain } }
-            : undefined,
+        // Per-IP limits counted in the database, shared by every serverless instance. Rules in
+        // lib/rate-limit.ts; off in development unless RATE_LIMIT_ENABLED=true.
+        rateLimit: rateLimitOptions(env),
+        advanced: {
+            // Client IP for rate limits and sessions: IP_ADDRESS_HEADERS and TRUSTED_PROXIES.
+            ipAddress: ipAddressOptions(env),
+            ...(cookieDomain
+                ? { crossSubDomainCookies: { enabled: true, domain: cookieDomain } }
+                : {}),
+        },
         databaseHooks: {
             user: {
                 create: {
@@ -593,7 +601,7 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
                 // Kept as a hash, like a password: a database read does not reveal live codes.
                 storeOTP: "hashed",
                 // Better Auth's defaults, stated: 3 wrong codes void the code, and each IP may ask
-                // for 3 codes and try 3 times a minute.
+                // for 3 codes and try 3 times a minute (counted in the database, see lib/rate-limit.ts).
                 allowedAttempts: 3,
                 rateLimit: { window: 60, max: 3 },
                 // A code proves the inbox. Better Auth marks an unverified account as verified on

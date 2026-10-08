@@ -631,6 +631,11 @@
     "boundaryDescription": "An error occurred while loading this page.",
     "retry": "Try again"
   },
+  "rateLimit": {
+    "seconds": "Demasiados intentos. Vuelve a intentarlo en {seconds, plural, one {# segundo} other {# segundos}}.",
+    "minutes": "Demasiados intentos. Vuelve a intentarlo en {minutes, plural, one {# minuto} other {# minutos}}.",
+    "later": "Demasiados intentos. Espera unos minutos e inténtalo de nuevo."
+  },
   "sso": {
     "title": "Single sign-on",
     "description": "Connect your organization's identity provider (OIDC) so members can sign in with their work account.",
