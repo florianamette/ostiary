@@ -516,14 +516,14 @@ The rules are in `packages/core/src/lib/rate-limit.ts`. Limits are per address, 
 
 ### Client IP
 
-Rate limits (and the IP stored with sessions) need the real client address. By default Better Auth reads `x-forwarded-for` and trusts it only when it holds a single address.
+Rate limits, the IP stored with sessions, the audit log and the sign-in history all need the real client address, and all resolve it the same way (Better Auth's `getIPFromHeader`, with the settings below). By default Better Auth reads `x-forwarded-for` and trusts it only when it holds a single address.
 
 - **Vercel**: nothing to set. Vercel overwrites `x-forwarded-for` with the client's address, so clients cannot spoof it.
 - **Behind Cloudflare**: `IP_ADDRESS_HEADERS=cf-connecting-ip` (only if the origin accepts traffic from Cloudflare alone).
 - **Behind nginx, a load balancer or several proxies** that append to `x-forwarded-for`: set `TRUSTED_PROXIES` to their addresses (e.g. `10.0.0.0/8`). The client IP is then the right-most address that is not a trusted proxy. Or have the proxy overwrite a header (`proxy_set_header X-Real-IP $remote_addr;`) and set `IP_ADDRESS_HEADERS=x-real-ip`.
 - **Exposed directly, no proxy**: clients control every header. Put a proxy in front, or limits can be dodged by sending a different `x-forwarded-for` each time.
 
-Never name a header your proxy passes through from the client: anyone could then pick their own IP. When no trusted address is found, all such requests share a single counter per endpoint, and Better Auth logs a warning.
+Never name a header your proxy passes through from the client: anyone could then pick their own IP. When no trusted address is found, all such requests share a single counter per endpoint, and Better Auth logs a warning. The audit log and sign-in history then record no IP rather than a guessed one. They keep IPv6 addresses whole, written in full (`2001:0db8:0000:…:0001`), where rate limits group them by /64.
 
 Found a vulnerability? Please email the maintainer rather than opening a public issue.
 

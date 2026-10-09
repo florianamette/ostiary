@@ -1,3 +1,4 @@
+import { getIPFromHeader } from "@better-auth/core/utils/ip";
 import type { BetterAuthAdvancedOptions, BetterAuthRateLimitOptions } from "better-auth";
 
 import { RATE_LIMITED_CODE } from "@ostiary/core/lib/rate-limit-message";
@@ -99,6 +100,30 @@ export function ipAddressOptions(env: RateLimitEnv): NonNullable<BetterAuthAdvan
         ...(headers.length ? { ipAddressHeaders: headers } : {}),
         ...(trustedProxies.length ? { trustedProxies } : {}),
     };
+}
+
+type IpAddressOptions = ReturnType<typeof ipAddressOptions>;
+
+/** Better Auth's default when `ipAddressHeaders` is not set. */
+const DEFAULT_IP_HEADERS = ["x-forwarded-for"];
+
+/**
+ * The client IP of a request, resolved exactly as Better Auth does for rate limits and session
+ * IPs (same headers, tried in order; same trusted-proxy rule; a header with several addresses
+ * is ignored without TRUSTED_PROXIES), so the audit log and sign-in history name the same
+ * address. Better Auth's own `getIPFromHeader` does the work. Differences, for a log: IPv6
+ * addresses are kept whole (rate limits group them by /64) and nothing is made up when no
+ * address can be trusted (Better Auth uses 127.0.0.1 in development): `null`.
+ */
+export function resolveClientIp(headers: Headers | undefined | null, options: IpAddressOptions): string | null {
+    if (!headers || options.disableIpTracking) return null;
+    for (const name of options.ipAddressHeaders ?? DEFAULT_IP_HEADERS) {
+        const value = headers.get(name);
+        if (!value) continue;
+        const ip = getIPFromHeader(value, { trustedProxies: options.trustedProxies, ipv6Subnet: 128 });
+        if (ip) return ip;
+    }
+    return null;
 }
 
 /**
