@@ -2,6 +2,7 @@ import { Resend } from "resend";
 
 import { env } from "@ostiary/core/lib/env";
 import { renderEmail, type EmailContent } from "@ostiary/core/lib/email/layout";
+import { captureTestEmail } from "@ostiary/core/lib/e2e-test-mode";
 
 /**
  * Sends an email via Resend without awaiting the network call
@@ -9,6 +10,9 @@ import { renderEmail, type EmailContent } from "@ostiary/core/lib/email/layout";
  * In development without Resend, logs the link or code so local flows still work.
  */
 export function queueEmail(kind: string, to: string, subject: string, content: EmailContent): void {
+  // End-to-end tests only (E2E_TEST_MODE on a loopback URL): written to a file, never sent.
+  if (captureTestEmail({ kind, to, subject, code: content.code, url: content.button?.url })) return;
+
   const key = env.RESEND_API_KEY?.trim();
   const from = env.RESEND_FROM?.trim();
 

@@ -48,3 +48,9 @@ next-env.d.ts
 **/next-env.d.ts
 apps/*/.env.local
 **/node_modules/
+
+# end-to-end tests
+!e2e/.env.test
+e2e/.data/
+e2e/test-results/
+e2e/playwright-report/
