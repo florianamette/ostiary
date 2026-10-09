@@ -1,46 +1,46 @@
 {
   "layout": {
-    "title": "Sign in",
-    "description": "Log in to your work tools and profile."
+    "title": "Giriş yap",
+    "description": "İş araçlarınıza ve profilinize giriş yapın."
   },
   "auth": {
     "login": {
-      "title": "Login to your account",
-      "description": "Sign in with your email or username and password.",
-      "identifierLabel": "Email or username",
-      "identifierPlaceholder": "you@example.com or your_username",
-      "emailLabel": "Email",
+      "title": "Hesabınıza giriş yapın",
+      "description": "E-posta adresiniz veya kullanıcı adınız ve parolanızla giriş yapın.",
+      "identifierLabel": "E-posta veya kullanıcı adı",
+      "identifierPlaceholder": "siz@ornek.com veya your_username",
+      "emailLabel": "E-posta",
       "emailPlaceholder": "m@example.com",
-      "passwordLabel": "Password",
-      "forgotPasswordLink": "Forgot password?",
-      "submit": "Login",
-      "submitting": "Signing in…",
-      "noAccount": "Don't have an account?",
-      "signUpLink": "Sign up",
-      "verifyEmailAfterSignup": "Check your inbox for a verification link. You must verify your email before signing in.",
-      "passkey": "Sign in with passkey",
-      "passkeySubmitting": "Waiting for passkey…",
+      "passwordLabel": "Parola",
+      "forgotPasswordLink": "Parolanızı mı unuttunuz?",
+      "submit": "Giriş yap",
+      "submitting": "Giriş yapılıyor…",
+      "noAccount": "Hesabınız yok mu?",
+      "signUpLink": "Kaydolun",
+      "verifyEmailAfterSignup": "Doğrulama bağlantısı için gelen kutunuzu kontrol edin. Giriş yapmadan önce e-postanızı doğrulamanız gerekir.",
+      "passkey": "Geçiş anahtarıyla giriş yap",
+      "passkeySubmitting": "Geçiş anahtarı bekleniyor…",
       "emailCode": "Bana e-postayla giriş kodu gönder",
-      "lastUsedBadge": "Last used",
-      "lastUsedHintEmail": "You last signed in with email and password.",
-      "lastUsedHintUsername": "You last signed in with username and password.",
-      "lastUsedHintPasskey": "You last signed in with a passkey.",
+      "lastUsedBadge": "Son kullanılan",
+      "lastUsedHintEmail": "En son e-posta ve parolayla giriş yaptınız.",
+      "lastUsedHintUsername": "En son kullanıcı adı ve parolayla giriş yaptınız.",
+      "lastUsedHintPasskey": "En son bir geçiş anahtarıyla giriş yaptınız.",
       "lastUsedHintEmailCode": "En son e-postayla gönderilen bir kodla giriş yaptınız.",
-      "lastUsedHintOther": "You last signed in with {method}.",
+      "lastUsedHintOther": "En son {method} ile giriş yaptınız.",
       "errors": {
         "emailNotVerified": "Please verify your email first. We sent you a new verification link, check your inbox.",
-        "signInFailed": "Could not sign in. Check your details and try again.",
-        "passkeyFailed": "Passkey sign-in failed. Try again or use your password."
+        "signInFailed": "Giriş yapılamadı. Bilgilerinizi kontrol edip tekrar deneyin.",
+        "passkeyFailed": "Geçiş anahtarıyla giriş başarısız oldu. Tekrar deneyin veya parolanızı kullanın."
       },
       "resend": {
-        "title": "Didn't get the email?",
-        "description": "Enter your email and we'll send you a new verification link.",
-        "emailPlaceholder": "you@example.com",
-        "send": "Send a new link",
-        "sendAgain": "Send again",
-        "sent": "If an unverified account uses this address, a new link is on its way. Check your inbox and spam folder.",
-        "invalidEmail": "Enter a valid email address.",
-        "error": "Could not send the email. Try again in a minute."
+        "title": "E-posta gelmedi mi?",
+        "description": "E-posta adresinizi girin, size yeni bir doğrulama bağlantısı gönderelim.",
+        "emailPlaceholder": "siz@ornek.com",
+        "send": "Yeni bağlantı gönder",
+        "sendAgain": "Tekrar gönder",
+        "sent": "Bu adresi doğrulanmamış bir hesap kullanıyorsa yeni bir bağlantı yolda. Gelen kutunuzu ve spam klasörünüzü kontrol edin.",
+        "invalidEmail": "Geçerli bir e-posta adresi girin.",
+        "error": "E-posta gönderilemedi. Bir dakika sonra tekrar deneyin."
       },
       "addAccountDescription": "Bu tarayıcıda oturumu açık olan hesaplar açık kalır."
     },
@@ -93,81 +93,81 @@
       }
     },
     "forgotPassword": {
-      "metaTitle": "Forgot password",
-      "title": "Reset your password",
-      "description": "Enter the email on your account. If it exists, we will send you a link to choose a new password.",
-      "emailLabel": "Email",
+      "metaTitle": "Parolamı unuttum",
+      "title": "Parolanızı sıfırlayın",
+      "description": "Hesabınızdaki e-posta adresini girin. Hesap varsa yeni bir parola belirlemeniz için size bir bağlantı göndeririz.",
+      "emailLabel": "E-posta",
       "emailPlaceholder": "m@example.com",
-      "emailHint": "Use the same email you registered with. If you usually sign in with a username, recovery still uses your account email.",
-      "submit": "Send reset link",
-      "submitting": "Sending…",
-      "backToLogin": "Back to login",
-      "emailSent": "If an account exists for that email, you will receive a reset link shortly.",
+      "emailHint": "Kaydolurken kullandığınız e-posta adresini kullanın. Genellikle kullanıcı adıyla giriş yapıyor olsanız da kurtarma hesabınızın e-posta adresini kullanır.",
+      "submit": "Sıfırlama bağlantısı gönder",
+      "submitting": "Gönderiliyor…",
+      "backToLogin": "Girişe dön",
+      "emailSent": "Bu e-posta adresine ait bir hesap varsa kısa süre içinde bir sıfırlama bağlantısı alacaksınız.",
       "errors": {
-        "emailRequired": "Please enter your email address.",
-        "requestFailed": "Could not send the reset email. Try again."
+        "emailRequired": "Lütfen e-posta adresinizi girin.",
+        "requestFailed": "Sıfırlama e-postası gönderilemedi. Tekrar deneyin."
       }
     },
     "resetPassword": {
-      "metaTitle": "Set new password",
-      "title": "Choose a new password",
-      "description": "Enter and confirm your new password below.",
-      "invalidTokenTitle": "Link expired or invalid",
-      "invalidTokenDescription": "This reset link is no longer valid. Request a new one to continue.",
-      "missingTokenTitle": "No reset link",
-      "missingTokenDescription": "Open the link from your email, or request a new password reset.",
-      "requestNewLink": "Request new link",
-      "backToLogin": "Back to login",
-      "newPasswordLabel": "New password",
-      "confirmPasswordLabel": "Confirm password",
-      "passwordHint": "Must be at least 8 characters long.",
-      "passwordMismatch": "Passwords do not match",
-      "submit": "Update password",
-      "submitting": "Updating…",
-      "success": "Your password was updated. You can sign in now.",
+      "metaTitle": "Yeni parola belirle",
+      "title": "Yeni bir parola seçin",
+      "description": "Yeni parolanızı aşağıya girin ve onaylayın.",
+      "invalidTokenTitle": "Bağlantının süresi dolmuş veya geçersiz",
+      "invalidTokenDescription": "Bu sıfırlama bağlantısı artık geçerli değil. Devam etmek için yeni bir bağlantı isteyin.",
+      "missingTokenTitle": "Sıfırlama bağlantısı yok",
+      "missingTokenDescription": "E-postanızdaki bağlantıyı açın veya yeni bir parola sıfırlama isteyin.",
+      "requestNewLink": "Yeni bağlantı iste",
+      "backToLogin": "Girişe dön",
+      "newPasswordLabel": "Yeni parola",
+      "confirmPasswordLabel": "Parolayı onaylayın",
+      "passwordHint": "En az 8 karakter uzunluğunda olmalıdır.",
+      "passwordMismatch": "Parolalar eşleşmiyor",
+      "submit": "Parolayı güncelle",
+      "submitting": "Güncelleniyor…",
+      "success": "Parolanız güncellendi. Artık giriş yapabilirsiniz.",
       "errors": {
-        "resetFailed": "Could not reset your password. Try again or request a new link."
+        "resetFailed": "Parolanız sıfırlanamadı. Tekrar deneyin veya yeni bir bağlantı isteyin."
       }
     },
     "signup": {
-      "title": "Create an account",
-      "description": "Enter your information below to create your account",
-      "usernameLabel": "Username",
+      "title": "Hesap oluşturun",
+      "description": "Hesabınızı oluşturmak için bilgilerinizi aşağıya girin",
+      "usernameLabel": "Kullanıcı adı",
       "usernamePlaceholder": "your_username",
-      "usernameHint": "3-30 characters: letters, numbers, dots, and underscores only.",
-      "usernameChecking": "Checking availability…",
-      "usernameAvailable": "This username is available.",
-      "usernameTaken": "This username is already taken.",
-      "usernameInvalidHint": "Use only letters, numbers, dots, and underscores.",
-      "fullNameLabel": "Full Name",
-      "namePlaceholder": "John Doe",
-      "emailLabel": "Email",
+      "usernameHint": "3-30 karakter: yalnızca harf, rakam, nokta ve alt çizgi.",
+      "usernameChecking": "Kullanılabilirlik kontrol ediliyor…",
+      "usernameAvailable": "Bu kullanıcı adı kullanılabilir.",
+      "usernameTaken": "Bu kullanıcı adı zaten alınmış.",
+      "usernameInvalidHint": "Yalnızca harf, rakam, nokta ve alt çizgi kullanın.",
+      "fullNameLabel": "Ad Soyad",
+      "namePlaceholder": "Ahmet Yılmaz",
+      "emailLabel": "E-posta",
       "emailPlaceholder": "m@example.com",
-      "emailDescription": "We'll use this to contact you. We will not share your email with anyone else.",
-      "passwordLabel": "Password",
-      "confirmPasswordLabel": "Confirm Password",
-      "passwordHint": "Must be at least 8 characters long.",
-      "confirmPasswordHint": "Please confirm your password.",
-      "passwordMismatch": "Passwords do not match",
-      "submit": "Create Account",
-      "submitting": "Creating account…",
-      "hasAccount": "Already have an account?",
-      "signInLink": "Sign in",
-      "loginLink": "Login",
-      "afterRegisterRedirect": "Account created. Check your email to verify before signing in.",
+      "emailDescription": "Bunu sizinle iletişim kurmak için kullanacağız. E-posta adresinizi kimseyle paylaşmayız.",
+      "passwordLabel": "Parola",
+      "confirmPasswordLabel": "Parolayı Onaylayın",
+      "passwordHint": "En az 8 karakter uzunluğunda olmalıdır.",
+      "confirmPasswordHint": "Lütfen parolanızı onaylayın.",
+      "passwordMismatch": "Parolalar eşleşmiyor",
+      "submit": "Hesap Oluştur",
+      "submitting": "Hesap oluşturuluyor…",
+      "hasAccount": "Zaten hesabınız var mı?",
+      "signInLink": "Giriş yapın",
+      "loginLink": "Giriş yap",
+      "afterRegisterRedirect": "Hesap oluşturuldu. Giriş yapmadan önce doğrulamak için e-postanızı kontrol edin.",
       "errors": {
-        "signUpFailed": "Could not create your account. Try again.",
-        "compromisedPassword": "This password appears in known data breaches. Choose a different one.",
-        "usernameTooShort": "Username must be at least 3 characters.",
-        "usernameInvalid": "That username is not valid.",
-        "usernameTaken": "That username is already taken. Try another."
+        "signUpFailed": "Hesabınız oluşturulamadı. Tekrar deneyin.",
+        "compromisedPassword": "Bu parola bilinen veri ihlallerinde yer alıyor. Farklı bir parola seçin.",
+        "usernameTooShort": "Kullanıcı adı en az 3 karakter olmalıdır.",
+        "usernameInvalid": "Bu kullanıcı adı geçerli değil.",
+        "usernameTaken": "Bu kullanıcı adı zaten alınmış. Başka bir tane deneyin."
       }
     },
     "screen": {
-      "headline": "One account for all your apps.",
-      "subhead": "Sign in once and reach every app connected to {name}. Your profile and security settings follow you everywhere.",
-      "footer": "Secured by {name}.",
-      "ecosystem": "Works with"
+      "headline": "<accent>Tüm uygulamalarınız</accent> için tek hesap.",
+      "subhead": "Bir kez giriş yapın ve {name} hizmetine bağlı tüm uygulamalara erişin. Profiliniz ve güvenlik ayarlarınız her yerde sizinle.",
+      "footer": "{name} tarafından korunuyor.",
+      "ecosystem": "Şunlarla çalışır"
     },
     "social": {
       "or": "veya",
@@ -175,8 +175,8 @@
       "signInWith": "{provider} ile oturum aç",
       "lastUsed": "Son kullanılan",
       "otherProviders": "Diğer oturum açma yolları",
-      "error": "Could not sign in with that account. Try again or use another method.",
-      "notLinked": "That account isn't connected to a {name} account yet. Sign in another way, then connect it from your security settings.",
+      "error": "Bu hesapla giriş yapılamadı. Tekrar deneyin veya başka bir yöntem kullanın.",
+      "notLinked": "Bu hesap henüz bir {name} hesabına bağlı değil. Başka bir yolla giriş yapın, ardından güvenlik ayarlarınızdan bağlayın.",
       "noEmail": "Bu hesap bir e-posta adresi paylaşmadı. Daha sonra tekrar deneyin veya başka bir yolla giriş yapın.",
       "signUpDisabled": "Bu adres için henüz bir hesap yok ve bu oturum açma yöntemi hesap oluşturamaz. Başka bir yolla oturum açın."
     },
@@ -189,23 +189,23 @@
     }
   },
   "consent": {
-    "emptyTitle": "Authorization",
-    "emptyDescription": "There is no pending OAuth request. Start the flow from the application you want to connect.",
-    "connectTitle": "Connect {name}",
-    "intro": "This application is requesting access to your account. Review the permissions below before continuing.",
+    "emptyTitle": "Yetkilendirme",
+    "emptyDescription": "Bekleyen bir OAuth isteği yok. Akışı bağlamak istediğiniz uygulamadan başlatın.",
+    "connectTitle": "{name} uygulamasını bağla",
+    "intro": "Bu uygulama hesabınıza erişim istiyor. Devam etmeden önce aşağıdaki izinleri inceleyin.",
     "errors": {
-      "needSignIn": "You need to sign in before you can approve this request.",
-      "loadFailed": "Could not load application details.",
-      "actionFailed": "Something went wrong."
+      "needSignIn": "Bu isteği onaylayabilmek için giriş yapmanız gerekir.",
+      "loadFailed": "Uygulama ayrıntıları yüklenemedi.",
+      "actionFailed": "Bir şeyler ters gitti."
     },
-    "signIn": "Sign in",
-    "visitWebsite": "Visit application website",
-    "requestedAccess": "Requested access",
-    "defaultScopes": "Default permissions for this client (no explicit scopes in the request).",
-    "terms": "Terms of service",
-    "privacy": "Privacy policy",
-    "deny": "Deny",
-    "allow": "Allow",
+    "signIn": "Giriş yap",
+    "visitWebsite": "Uygulamanın web sitesini ziyaret et",
+    "requestedAccess": "İstenen erişim",
+    "defaultScopes": "Bu istemcinin varsayılan izinleri (istekte açıkça belirtilmiş scope yok).",
+    "terms": "Hizmet şartları",
+    "privacy": "Gizlilik politikası",
+    "deny": "Reddet",
+    "allow": "İzin ver",
     "scopes": {
       "openid": "Kimliğinizi doğrulama (OpenID Connect)",
       "profile": "Ad ve profil bilgileri",
@@ -221,108 +221,1540 @@
   },
   "admin": {
     "themeToggle": {
-      "light": "Light",
-      "dark": "Dark",
-      "system": "System",
-      "srOnly": "Toggle theme",
-      "label": "Theme"
+      "light": "Açık",
+      "dark": "Koyu",
+      "system": "Sistem",
+      "srOnly": "Temayı değiştir",
+      "label": "Tema"
     },
     "nav": {
-      "groupAdmin": "Admin",
+      "groupAdmin": "Yönetim",
       "groupOAuth": "OAuth",
-      "overview": "Overview",
-      "users": "Users",
-      "applications": "Applications",
+      "overview": "Genel bakış",
+      "users": "Kullanıcılar",
+      "applications": "Uygulamalar",
       "apis": "API'ler",
       "apiKeys": "API anahtarları",
-      "consent": "Consent",
-      "organizations": "Organizations",
+      "consent": "Onaylar",
+      "organizations": "Kuruluşlar",
       "sso": "SSO",
       "signInProviders": "Oturum açma sağlayıcıları",
       "webhooks": "Webhook'lar",
-      "security": "Security",
+      "security": "Güvenlik",
       "usage": "Uygulama kullanımı",
-      "audit": "Audit log",
+      "audit": "Denetim günlüğü",
       "signingKeys": "İmzalama anahtarları"
     },
     "header": {
-      "crumb": "Admin",
-      "fallback": "Admin",
-      "overview": "Overview",
-      "users": "Users",
-      "applications": "Applications",
+      "crumb": "Yönetim",
+      "fallback": "Yönetim",
+      "overview": "Genel bakış",
+      "users": "Kullanıcılar",
+      "applications": "Uygulamalar",
       "apis": "API'ler",
       "apiKeys": "API anahtarları",
-      "consent": "Consent",
-      "organizations": "Organizations",
+      "consent": "Onaylar",
+      "organizations": "Kuruluşlar",
       "sso": "SSO",
       "signInProviders": "Oturum açma sağlayıcıları",
       "webhooks": "Webhook'lar",
-      "security": "Security",
+      "security": "Güvenlik",
       "usage": "Uygulama kullanımı",
-      "audit": "Audit log",
+      "audit": "Denetim günlüğü",
       "signingKeys": "İmzalama anahtarları"
     },
     "pages": {
       "overview": {
-        "title": "Overview",
+        "title": "Genel bakış",
         "activity": {
-          "title": "Sign-in activity",
-          "description": "Sign-ins, new accounts and sign-outs per day, last 30 days.",
-          "signIns": "Sign-ins",
-          "signUps": "Sign-ups",
-          "signOuts": "Sign-outs",
-          "showTable": "View as table",
-          "showChart": "View as chart",
-          "legend": "Totals for the last 30 days",
-          "day": "Day",
-          "note": "Sign-outs are tracked from October 6, 2026. Earlier sign-ins only include sessions that were still active then."
+          "title": "Giriş etkinliği",
+          "description": "Son 30 gündeki günlük girişler, yeni hesaplar ve çıkışlar.",
+          "signIns": "Girişler",
+          "signUps": "Kayıtlar",
+          "signOuts": "Çıkışlar",
+          "showTable": "Tablo olarak göster",
+          "showChart": "Grafik olarak göster",
+          "legend": "Son 30 günün toplamları",
+          "day": "Gün",
+          "note": "Çıkışlar 6 Ekim 2026'dan itibaren izleniyor. Daha önceki girişler yalnızca o tarihte hâlâ etkin olan oturumları içerir."
         },
-        "description": "Accounts, sign-in activity and the newest members of the platform."
+        "description": "Platformun hesapları, giriş etkinliği ve en yeni üyeleri.",
+        "recentUsers": {
+          "title": "Son katılanlar",
+          "description": "En yeni hesaplar. Oturumlarını ve etkinliklerini görmek için birini açın.",
+          "loading": "Yükleniyor…",
+          "empty": "Henüz kullanıcı yok."
+        },
+        "stats": {
+          "error": "Bir veya daha fazla metrik yüklenemedi. Yönetici olarak giriş yaptığınızdan emin olun.",
+          "errorTitle": "Metrikler kullanılamıyor",
+          "loadingTitle": "Yükleniyor",
+          "loadingHint": "Yükleniyor…",
+          "totalUsers": {
+            "title": "Toplam kullanıcı",
+            "hint": "Platformdaki tüm hesaplar."
+          },
+          "admins": {
+            "title": "Yöneticiler",
+            "hint": "Bu konsola erişimi olan hesaplar."
+          },
+          "banned": {
+            "title": "Yasaklı",
+            "hint": "Şu anda giriş yapamayan hesaplar."
+          },
+          "verified": {
+            "title": "Doğrulanmış e-posta",
+            "hint": "E-posta adresini onaylamış hesaplar."
+          },
+          "recent": {
+            "title": "Yeni (7 gün)",
+            "hint": "Son 7 günde oluşturulan hesaplar."
+          }
+        }
       },
       "applications": {
-        "title": "Applications",
+        "title": "Uygulamalar",
         "description": "{name} ile kullanıcıların oturum açmasını sağlayabilen OAuth istemcileri: yönlendirme URL’leri, grant türleri ve onay ayarları.",
         "unusedHint": "{count, plural, other {# uygulama}} son 30 gündür kullanılmadı.",
-        "viewUsage": "Kullanımı gör"
+        "viewUsage": "Kullanımı gör",
+        "panel": {
+          "selfRegisteredHint": "Kendini kaydetti: bir yönetici tarafından incelenmedi",
+          "selfRegisteredBadge": "Kendi kaydı",
+          "registration": {
+            "all": "Tüm kayıt türleri",
+            "admin": "Yönetici",
+            "dynamic": "Dinamik kayıt",
+            "metadata_document": "Meta veri belgesi"
+          },
+          "authMethod": {
+            "none": "kimlik doğrulama: yok",
+            "client_secret_basic": "kimlik doğrulama: gizli anahtar (basic)",
+            "client_secret_post": "kimlik doğrulama: gizli anahtar (post)",
+            "private_key_jwt": "kimlik doğrulama: özel anahtar JWT"
+          },
+          "loadFailed": "OAuth istemcileri yüklenemedi",
+          "loadErrorTitle": "Uygulamalar yüklenemedi",
+          "searchPlaceholder": "Ad, istemci kimliği, yönlendirme URI'si veya grant ile arayın…",
+          "searchLabel": "Uygulamalarda ara",
+          "clientType": "İstemci türü",
+          "registeredBy": "Kaydeden",
+          "kind": {
+            "all": "Tüm istemciler",
+            "public": "Genel",
+            "confidential": "Gizli",
+            "trusted": "Güvenilir (onayı atla)",
+            "device": "Cihazla giriş"
+          },
+          "columns": {
+            "application": "Uygulama",
+            "redirects": "Yönlendirmeler",
+            "grants": "Grant'lar",
+            "consent": "Onay"
+          },
+          "badges": {
+            "device": "Cihaz",
+            "trusted": "Güvenilir",
+            "consent": "Onay",
+            "active": "Etkin",
+            "skipped": "Atlanır",
+            "required": "Gerekli"
+          },
+          "loadingRows": "Uygulamalar yükleniyor…",
+          "empty": "Bu hesap için henüz OAuth istemcisi yok.",
+          "noMatch": "Filtrelerinizle eşleşen uygulama yok.",
+          "linkedApis": "Bağlı API'ler: {apis}",
+          "noApplications": "0 uygulama",
+          "showing": "{total} kayıttan {from}-{to} arası gösteriliyor",
+          "rowsPerPage": "Sayfa başına satır",
+          "previous": "Önceki",
+          "next": "Sonraki",
+          "page": "Sayfa {page} / {total}",
+          "footnote": "Veriler <code>{getClients}</code> kaynağından gelir. Kaydetme ve düzenleme (<code>{skipConsent}</code> dahil) <code>{create}</code> ve <code>{update}</code> çağrılarını kullanır; diğer değişiklikler <code>{deleteClient}</code> ve <code>{rotateSecret}</code> kullanır. <docs>OAuth provider</docs> belgelerine bakın. İstemciler giriş yapmış kullanıcıyla (veya yapılandırılmışsa <code>{clientReference}</code> ile) sınırlıdır. Kendini kaydeden istemcilerin sahibi yoktur ve hepsi listelenir; devre dışı bırakılabilir veya silinebilir, ancak düzenlenemezler."
+        },
+        "registration": {
+          "title": "Kendi kendine kayıt",
+          "description": "MCP istemcilerinin ve yapay zekâ ajanlarının buraya eklenmek yerine kendilerini kaydetmesine izin verir. Yalnızca aşağıdaki scope'ları alırlar, onay ekranında her zaman doğrulanmamış olarak işaretlenirler ve hiçbir zaman makine (client credentials) erişimi almazlar.",
+          "dynamicRegistration": "Dinamik kayıt",
+          "dynamic": {
+            "off": {
+              "label": "Kapalı",
+              "hint": "POST /oauth2/register reddedilir."
+            },
+            "signed_in": {
+              "label": "Yalnızca giriş yapmış kullanıcılar",
+              "hint": "Yalnızca bir kullanıcının oturumunu taşıyan istekler kayıt olabilir. Çoğu MCP istemcisi bunu yapamaz."
+            },
+            "open": {
+              "label": "Herkes (açık kayıt)",
+              "hint": "MCP istemcilerinin beklediği: her uygulama kayıt olabilir, ardından her kullanıcı onu onay ekranında onaylar."
+            }
+          },
+          "metadataDocuments": "Meta veri belgeleri (client_id URL'si)",
+          "metadataOnFrom": "Açık, şu sunuculardan: {hosts}",
+          "metadataOnAnyHost": "Açık, herhangi bir HTTPS sunucusu",
+          "scopes": "İsteyebilecekleri scope'lar",
+          "missingScope": "Artık bu sunucunun bir scope'u değil: yok sayılır",
+          "perHour": "Saat başına yeni istemci",
+          "endpoint": "Kayıt uç noktası: <code>{url}</code> (discovery belgesinde duyurulur).",
+          "saved": "Ayarlar kaydedildi. Kimlik doğrulama sunucusu bunları bir dakika içinde uygular.",
+          "dialogDescription": "Kendini kaydeden istemciler incelenmez. Kullanıcılar bunları doğrulanmamış uygulamalar olarak görür ve her birini onay ekranında onaylar.",
+          "dynamicLabel": "Dinamik İstemci Kaydı (RFC 7591)",
+          "cimdLabel": "Client ID Metadata Documents",
+          "cimdHint": "client_id, yeni MCP istemcilerinin kullandığı gibi uygulamanın JSON meta verisine giden bir HTTPS URL'sidir. Yalnızca genel sunuculardan, yönlendirme olmadan ve en fazla 5 KB alınır.",
+          "hostsLabel": "İzin verilen sunucular",
+          "hostsHint": "Her satıra bir tane. Boş: herhangi bir genel HTTPS sunucusu.",
+          "scopesLabel": "Kendini kaydeden istemcilerin isteyebileceği scope'lar",
+          "scopesHint": "Her kullanıcı yine de uygulamanın istediği scope'ları onaylar. Bir scope'u kaldırmak, onu önceden kayıtlı istemcilerden de kaldırır; daha önce verilen token'lar süreleri dolana kadar onu korur.",
+          "perHourHint": "Tüm örnekler genelinde, her iki yöntem için. Her adres ayrıca dakikada 5 kayıtla sınırlıdır."
+        },
+        "branding": {
+          "title": "Giriş ekranı markalaması",
+          "description": "Kullanıcılar <app>{client}</app> üzerinden geldiğinde giriş ekranlarının görünümü: giriş, kayıt, iki faktörlü doğrulama, parola sıfırlama ve onay. {brand} işareti her ekranda görünür kalır.",
+          "logoFetchedOnSave": "Sunucu, kaydettiğinizde logoyu alır; önizleme onu o zaman gösterir.",
+          "accentInvalid": "Vurgu rengini {example} gibi bir hex renk olarak girin.",
+          "hexInvalid": "{example} gibi bir hex renk girin.",
+          "saved": "Giriş ekranı markalaması kaydedildi",
+          "resetDone": "Giriş ekranı markalaması sıfırlandı",
+          "displayName": "Görünen ad",
+          "displayNameHint": "“… ile devam etmek için giriş yapın” olarak gösterilir. Boş bırakılırsa uygulama adı kullanılır.",
+          "tagline": "Slogan (isteğe bağlı)",
+          "taglinePlaceholder": "Okuma listeniz, her yerde.",
+          "accent": "Vurgu rengi",
+          "accentPick": "Vurgu rengini seçin",
+          "accentHex": "Vurgu rengi (hex)",
+          "accentOff": "Kapalı: ekranlar temanın renklerini korur.",
+          "contrast": {
+            "label": "Kontrast kontrolleri",
+            "ratio": "{label}: <value>{ratio}:1</value>",
+            "passes": "({min}:1 karşılanıyor)",
+            "below": "({min}:1 altında)",
+            "buttonLabel": "Düğme etiketi ({color, select, black {siyah} other {beyaz}})",
+            "lightCard": "Açık karttaki düğmeler",
+            "darkCard": "Koyu karttaki düğmeler",
+            "textAdjusted": "Vurgu rengindeki metin {min}:1 oranına ulaşmak için {color} kullanır."
+          },
+          "logo": "Logo",
+          "logoSourceLabel": "Logo kaynağı",
+          "logoSource": {
+            "app_icon": "Uygulama simgesi",
+            "url": "Bir URL'den",
+            "upload": "Yükle"
+          },
+          "logoAppIconHint": "Onay ekranındaki gibi, uygulama için bulunan simge ({field} alanı veya sitesi).",
+          "logoUrl": "Logo URL'si",
+          "logoUrlHint": "Genel bir sunucuda https. {name} onu alır ve önbelleğe kaydeder; tarayıcılar onu asla oradan yüklemez.",
+          "logoFile": "Logo dosyası",
+          "logoFileHint": "PNG, JPEG, WebP, AVIF, GIF, ICO veya SVG, en fazla 256 KB. Kare görseller en iyi sonucu verir.",
+          "panel": "Yan panel (geniş ekranlar, isteğe bağlı)",
+          "panelImage": "Yan panel görseli",
+          "removeImage": "Görseli kaldır",
+          "panelHint": "Koyu panelin başlığı ve arka plan görseli. PNG, JPEG, WebP veya AVIF, en fazla 1 MB.",
+          "social": "Bu uygulamanın ekranlarında sosyal giriş",
+          "socialNone": "Etkin sosyal sağlayıcı yok.",
+          "socialShown": "Gösterilen sosyal sağlayıcılar",
+          "socialAll": "Tüm etkin olanlar",
+          "socialSome": "Yalnızca bunlar",
+          "socialHint": "Düğmeleri yalnızca bu uygulamanın ekranlarında gizler; kimsenin başka bir yolla giriş yapmasını engellemez.",
+          "previewTitle": "Önizleme",
+          "previewScheme": "Önizleme renk düzeni",
+          "light": "Açık",
+          "dark": "Koyu",
+          "faintOnLight": "Bu renkteki düğmeler açık karttan zor ayırt ediliyor (WCAG, kontroller için 3:1 ister). Etiketler okunabilir kalır; daha koyu bir ton düşünün.",
+          "faintOnDark": "Bu renkteki düğmeler koyu karttan zor ayırt ediliyor (WCAG, kontroller için 3:1 ister). Etiketler okunabilir kalır; daha açık bir ton düşünün.",
+          "resetting": "Sıfırlanıyor…",
+          "reset": "Varsayılana sıfırla",
+          "save": "Markalamayı kaydet",
+          "preview": {
+            "label": "Giriş sayfası önizlemesi",
+            "appFallback": "Uygulama",
+            "title": "Giriş yap",
+            "submit": "Giriş yap",
+            "noAccount": "Hesabınız yok mu? <link>Hesap oluşturun</link>"
+          }
+        },
+        "actions": {
+          "registration": {
+            "chooseMode": "İstemcileri kimlerin kaydedebileceğini seçin.",
+            "unknownScope": "“{scope}” bu sunucunun bir scope'u değil.",
+            "noScopes": "En az bir scope'a izin verin.",
+            "invalidHost": "“{raw}” bir sunucu adı değil, ör. {example}.",
+            "invalidLimit": "Saatlik sınır 0 ile {max} arasında bir tam sayı olmalıdır.",
+            "saveFailed": "Ayarlar kaydedilemedi.",
+            "clientGone": "Bu istemci artık mevcut değil.",
+            "notSelfRegistered": "Burada yalnızca kendini kaydeden istemciler değiştirilebilir."
+          },
+          "branding": {
+            "clientGone": "Bu uygulama artık mevcut değil.",
+            "selfRegistered": "Kendini kaydeden istemciler markalanamaz.",
+            "logoMissing": "Yüklenecek bir logo dosyası seçin.",
+            "logoFetchFailed": "Logo URL'sinden görsel alınamadı. Genel erişime açık olduğunu ve bir görsel olduğunu kontrol edin.",
+            "faintOnLight": "Vurgu rengi açık kartta soluk: düğmeler zor ayırt edilecek.",
+            "faintOnDark": "Vurgu rengi koyu kartta soluk: düğmeler zor ayırt edilecek.",
+            "saveFailed": "Markalama kaydedilemedi."
+          }
+        },
+        "register": {
+          "trigger": "Uygulama kaydet",
+          "title": "OAuth uygulaması kaydedin",
+          "description": "<code>{endpoint}</code> aracılığıyla hesabınıza bağlı bir istemci oluşturur (güvenilir uygulamalar <code>{field}</code> ayarlayabilir). Bkz. <link>Better Auth, Create client</link>.",
+          "nameLabel": "Uygulama adı",
+          "namePlaceholder": "Uygulamam",
+          "redirectUrisLabel": "Yönlendirme URI'leri",
+          "redirectUrisHintPublic": "Her satıra bir tane veya virgülle ayrılmış. HTTPS ya da localhost, 127.0.0.1 veya [::1] üzerinde http.",
+          "redirectUrisHintConfidential": "Her satıra bir tane veya virgülle ayrılmış. localhost dahil yalnızca HTTPS. Yerel geliştirme için ayrı bir genel istemci kaydedin.",
+          "redirectUrisRequired": "En az bir yönlendirme URI'si girin (her satıra bir tane veya virgülle ayrılmış).",
+          "clientTypeLabel": "İstemci türü",
+          "clientTypeConfidential": "Gizli (istemci gizli anahtarı)",
+          "clientTypePublic": "Genel (PKCE, gizli anahtar yok)",
+          "deviceCodeLabel": "Cihazla giriş (CLI'lar, TV'ler)",
+          "deviceCodeHint": "Cihaz kodu grant'ını (RFC 8628) ekler: uygulama bir kod gösterir ve kullanıcı bunu başka bir ekranda <code>{path}</code> adresinde onaylar. Genellikle genel bir istemcidir.",
+          "skipConsentLabel": "Onayı atla (güvenilir istemci)",
+          "skipConsentHint": "Kullanıcılar bu uygulama için onay ekranını görmez. Yalnızca birinci taraf veya tamamen güvenilir entegrasyonlar için kullanın.",
+          "registerFailed": "Uygulama kaydedilemedi",
+          "missingClientId": "Sunucu bir {field} döndürmedi.",
+          "registered": "OAuth uygulaması kaydedildi",
+          "creating": "Oluşturuluyor…",
+          "create": "Uygulama oluştur",
+          "successTitle": "Uygulama oluşturuldu",
+          "successWithSecret": "İstemci gizli anahtarını şimdi kopyalayın, yalnızca bir kez gösterilebilir.",
+          "successPublic": "Genel istemci, gizli anahtar verilmez. Token uç noktasında PKCE kullanın.",
+          "clientId": "İstemci kimliği",
+          "clientSecret": "İstemci gizli anahtarı",
+          "copyClientId": "İstemci kimliğini kopyala",
+          "copyClientSecret": "İstemci gizli anahtarını kopyala"
+        },
+        "rowActions": {
+          "menuLabel": "{name} için işlemler",
+          "copyClientId": "İstemci kimliğini kopyala",
+          "clientIdCopied": "İstemci kimliği kopyalandı",
+          "edit": "Uygulamayı düzenle",
+          "editHint": "Ad, yönlendirme URI'leri, cihazla giriş ve onayı atlama",
+          "branding": "Giriş ekranı markalaması",
+          "brandingHint": "Bu uygulamanın giriş ekranlarının logosu, vurgu rengi ve metinleri",
+          "rotateSecret": "Gizli anahtarı yenile",
+          "rotateHintPublic": "Genel istemcilerin gizli anahtarı yoktur",
+          "rotateHintDisabled": "Önce istemciyi etkinleştirin",
+          "rotateHint": "Gizli istemcinin gizli anahtarını yeniler",
+          "delete": "Uygulamayı sil",
+          "editDialog": {
+            "title": "Uygulamayı düzenle",
+            "description": "<id>{clientId}</id> istemcisini <code>{endpoint}</code> aracılığıyla günceller (<code>{field}</code> gibi kısıtlı alanlar). Bkz. <link>Better Auth, Update client</link>.",
+            "nameLabel": "Uygulama adı",
+            "namePlaceholder": "Uygulamam",
+            "redirectUrisLabel": "Yönlendirme URI'leri",
+            "redirectUrisHint": "Her satıra bir tane veya virgülle ayrılmış. HTTPS gereklidir. Yalnızca genel istemciler localhost üzerinde http kullanabilir.",
+            "redirectUrisRequired": "En az bir yönlendirme URI'si girin (her satıra bir tane veya virgülle ayrılmış).",
+            "deviceCodeLabel": "Cihazla giriş (CLI'lar, TV'ler)",
+            "deviceCodeHint": "Cihaz kodu grant'ına izin verir. Kapatmak yeni cihaz girişlerini durdurur; daha önce verilen token'lar çalışmaya devam eder.",
+            "skipConsentLabel": "Onayı atla (güvenilir istemci)",
+            "skipConsentHint": "Etkinleştirildiğinde kullanıcılardan bu uygulama için scope'ları onaylamaları istenmez.",
+            "updateFailed": "Uygulama güncellenemedi",
+            "updated": "Uygulama güncellendi"
+          },
+          "deleteDialog": {
+            "title": "Uygulama silinsin mi?",
+            "description": "<strong>{name}</strong> (<code>{clientId}</code>) kalıcı olarak kaldırılır. Bu istemcinin OAuth token'ları ve onayları etkilenebilir.",
+            "deleteFailed": "İstemci silinemedi",
+            "deleted": "Uygulama kaldırıldı"
+          },
+          "rotateDialog": {
+            "title": "İstemci gizli anahtarı yenilensin mi?",
+            "description": "Önceki gizli anahtar hemen çalışmayı durdurur. Yeni gizli anahtarı güvenli bir yere kaydedin, yalnızca bir kez gösterilebilir.",
+            "newSecretLabel": "Yeni istemci gizli anahtarı",
+            "copySecret": "Gizli anahtarı kopyala",
+            "secretCopied": "Gizli anahtar kopyalandı",
+            "rotating": "Yenileniyor…",
+            "rotateFailed": "Gizli anahtar yenilenemedi",
+            "newSecretIssued": "Yeni istemci gizli anahtarı oluşturuldu, şimdi kopyalayın",
+            "rotated": "Gizli anahtar yenilendi"
+          }
+        },
+        "selfRegistered": {
+          "menuLabel": "{name} için işlemler",
+          "enabled": "İstemci etkinleştirildi",
+          "disabled": "İstemci devre dışı bırakıldı",
+          "deleted": "İstemci silindi",
+          "disableTitle": "{name} devre dışı bırakılsın mı?",
+          "disableDescription": "Artık kimsenin girişini yapamaz veya token'larını yenileyemez. Daha önce verilen erişim token'ları süreleri dolana kadar (en fazla bir saat) çalışır.",
+          "deleteTitle": "{name} silinsin mi?",
+          "deleteDescriptionMetadataDocument": "Token'ları ve kullanıcıların ona verdiği onaylar da silinir. Meta veri belgesi istemcisi, bir sonraki girişte yeniden oluşturulur. Engellemek için bunun yerine devre dışı bırakın.",
+          "deleteDescriptionDynamic": "Token'ları ve kullanıcıların ona verdiği onaylar da silinir. Dinamik kayıt açık olduğu sürece uygulama yeniden kayıt olabilir."
+        },
+        "brandingErrors": {
+          "textTooLong": "{max} karakterin altında tutun.",
+          "displayNameTooLong": "Görünen ad: {max} karakterin altında tutun.",
+          "taglineTooLong": "Slogan: {max} karakterin altında tutun.",
+          "panelTextTooLong": "Yan panel metni: {max} karakterin altında tutun.",
+          "accentColor": "Vurgu rengi: {example} gibi bir hex renk girin.",
+          "logoSource": "Logonun nereden geleceğini seçin.",
+          "logoUrl": "Logo URL'si: genel bir sunucuda (varsayılan port) bir https URL'si girin.",
+          "logoEmpty": "Logo dosyası boş.",
+          "logoTooLarge": "Logo en fazla 256 KB olmalıdır.",
+          "logoType": "Logo PNG, JPEG, GIF, WebP, AVIF, ICO veya SVG görseli olmalıdır.",
+          "panelImageEmpty": "Yan panel görseli boş.",
+          "panelImageTooLarge": "Yan panel görseli en fazla 1 MB olmalıdır.",
+          "panelImageType": "Yan panel görseli PNG, JPEG, WebP veya AVIF olmalıdır."
+        }
       },
       "apis": {
         "title": "API'ler",
-        "description": "{name} erişim belirteçlerini kabul eden API'leriniz (korumalı kaynaklar): istemcilerin isteyebileceği scope'lar, bunları kullanabilecek uygulamalar ve belirteç ayarları."
+        "description": "{name} erişim belirteçlerini kabul eden API'leriniz (korumalı kaynaklar): istemcilerin isteyebileceği scope'lar, bunları kullanabilecek uygulamalar ve belirteç ayarları.",
+        "errors": {
+          "tokenSettings": {
+            "lifetimePositive": "{field, select, access {Erişim token'ı ömrü pozitif bir dakika sayısı olmalıdır.} other {Yenileme token'ı ömrü pozitif bir gün sayısı olmalıdır.}}",
+            "lifetimeMinimum": "{field, select, access {Erişim token'ı ömrü} other {Yenileme token'ı ömrü}} en az bir dakika olmalıdır.",
+            "lifetimeMaximum": "{field, select, access {Erişim token'ı ömrü en fazla sunucu varsayılanı olan {max} dakika olabilir.} other {Yenileme token'ı ömrü en fazla sunucu varsayılanı olan {max} gün olabilir.}}",
+            "claimsInvalidJson": "Özel claim'ler geçerli JSON olmalıdır, ör. {example}.",
+            "claimsNotObject": "Özel claim'ler bir JSON nesnesi olmalıdır, ör. {example}.",
+            "claimsEmptyName": "Özel claim adı boş olamaz.",
+            "claimsReserved": "{count, plural, one {{claims} ayrılmış bir claim: sunucu onu ayarlar.} other {{claims} ayrılmış claim'ler: sunucu bunları ayarlar.}} Ayrılmış: {reserved}.",
+            "claimsTooLarge": "Özel claim'ler çok büyük (en fazla {kilobytes} KB): her token'a eklenirler."
+          },
+          "invalidScope": "“{scope}” geçerli bir scope değil.",
+          "reservedScope": "“{scope}” bir OpenID Connect scope'u ve zaten her istemcinin kullanımına açık.",
+          "invalidIdentifier": "Tanımlayıcı, parça (fragment) içermeyen mutlak bir URL olmalıdır, ör. {example}.",
+          "registerFailed": "API kaydedilemedi.",
+          "authServerCannotBeDisabled": "Kimlik doğrulama sunucusunun kendisi devre dışı bırakılamaz.",
+          "updateFailed": "API güncellenemedi.",
+          "deleteFromEnv": "Bu API {variable} içinde tanımlı ve bir sonraki dağıtımda geri gelir. Bunun yerine devre dışı bırakın.",
+          "deleteFailed": "API silinemedi.",
+          "authServerStaysOpen": "Kimlik doğrulama sunucusu her uygulamaya açık kalır: giriş yapmak ona bağlıdır.",
+          "accessFailed": "API'yi hangi uygulamaların kullanabileceği değiştirilemedi.",
+          "tokensFailed": "Token ayarları kaydedilemedi."
+        },
+        "duration": {
+          "days": "{count, plural, one {# gün} other {# gün}}",
+          "hours": "{count} sa",
+          "minutes": "{count} dk"
+        },
+        "tokenSummary": {
+          "accessToken": "Erişim token'ı {duration}",
+          "refreshToken": "Yenileme token'ı {duration}",
+          "dpopRequired": "DPoP gerekli",
+          "claims": "Claim'ler: {claims}"
+        },
+        "restrictLabel": "Bu API için yalnızca bu scope'ları ver",
+        "restrictHint": "Bu API'nin token'ları yalnızca bu scope'ları (ve OpenID Connect scope'larını) taşır. Kapalı: istemciye verilen tüm scope'ları taşırlar.",
+        "register": {
+          "title": "API kaydedin",
+          "description": "İstemciler bunun için <code>{param}</code> parametresiyle token ister. Token'ın audience değeri tanımlayıcıdır ve API onu JWKS ile doğrular.",
+          "identifier": "Tanımlayıcı",
+          "identifierHint": "Genellikle API'nin temel URL'si. Daha sonra değiştirilemez.",
+          "namePlaceholder": "Siparişler API'si",
+          "scopes": "Scope'lar",
+          "scopesHint": "Boşluk veya virgülle ayrılmış. Makine istemcileri ({grant}) bunların bir kısmıyla sınırlandırılmalıdır.",
+          "submit": "API'yi kaydet",
+          "submitting": "Kaydediliyor…",
+          "registered": "API kaydedildi"
+        },
+        "list": {
+          "description": "Yeni ve değiştirilen scope'lar kimlik doğrulama sunucusuna bir dakika içinde ulaşır. Erişim ve token ayarları bir sonraki token'a uygulanır.",
+          "empty": "Henüz API yok.",
+          "envScopesTitle": "{variable} kaynaklı scope'lar",
+          "envScopesText": "Hangi API'yi çağırırsa çağırsın her istemcinin kullanımına açık: <mono>{scopes}</mono>. Bunları burada yönetmek için ait oldukları API'ye ekleyin, ardından değişkeni kaldırın."
+        },
+        "item": {
+          "authServer": "Kimlik doğrulama sunucusu",
+          "restricted": "Kısıtlı",
+          "linkedOnly": "Yalnızca bağlı uygulamalar",
+          "noResourceParam": "Resource parametresi olmadan verilen token'lar.",
+          "noScopes": "Scope yok.",
+          "editAria": "{name} düzenle",
+          "deleteAria": "{name} sil",
+          "applications": "Uygulamalar",
+          "everyApplication": "Tüm uygulamalar",
+          "onlyLinked": "Yalnızca {names}",
+          "noneLinked": "Bağlı uygulama yok: hiçbir uygulama token alamaz",
+          "change": "Değiştir",
+          "changeAccessAria": "{name} API'sini hangi uygulamaların kullanabileceğini değiştir",
+          "tokens": "Token'lar",
+          "defaultSettings": "Varsayılan ayarlar",
+          "changeTokensAria": "{name} token ayarlarını değiştir"
+        },
+        "edit": {
+          "title": "{name} düzenle",
+          "scopesHint": "Bir scope'u kaldırmak ona zaten sahip olan istemcileri değiştirmez, ancak hiçbir yeni token onu taşımaz.",
+          "disabledHint": "Bu API için yeni token verilmez. Daha önce verilen token'lar süreleri dolana kadar çalışır.",
+          "updated": "API güncellendi"
+        },
+        "access": {
+          "title": "{name} API'sini kullanabilecek uygulamalar",
+          "allHint": "Her uygulama, kendi scope'ları dahilinde bu API için token alabilir.",
+          "linkedLabel": "Yalnızca bağlı uygulamalar",
+          "linkedHint": "Diğer uygulamalar, token yenilerken de dahil olmak üzere reddedilir ({error}).",
+          "linkedTitle": "Bağlı uygulamalar",
+          "filterAria": "Uygulamaları filtrele",
+          "filterPlaceholder": "Ada veya istemci kimliğine göre filtrele",
+          "noApplications": "Henüz uygulama yok.",
+          "noMatch": "Eşleşen uygulama yok.",
+          "linksHintAll": "Bağlantılar yalnızca API bağlı uygulamalarla sınırlandırıldığında önem taşır. Bağlı bir uygulama bu API'nin token'larını introspect de edebilir.",
+          "linksHintLinked": "Bağlı bir uygulama bu API'nin token'larını introspect de edebilir.",
+          "noneLinkedWarning": "Bağlı uygulama yok: hiçbiri bu API için token alamaz.",
+          "updated": "Erişim güncellendi"
+        },
+        "tokens": {
+          "title": "{name} token ayarları",
+          "description": "Bu API için verilen her erişim token'ına uygulanır. Daha önce verilen token'lar kendi ayarlarını korur.",
+          "accessTtl": "Erişim token'ı ömrü (dakika)",
+          "accessTtlHint": "Varsayılan: {minutes, plural, one {# dakika} other {# dakika}}. Yalnızca kısaltılabilir.",
+          "refreshTtl": "Yenileme token'ı ömrü (gün)",
+          "refreshTtlHint": "Varsayılan: {days, plural, one {# gün} other {# gün}}. Yalnızca kısaltılabilir.",
+          "claims": "Özel claim'ler",
+          "claimsHint": "Bu API için her erişim token'ına eklenen bir JSON nesnesi. Ayrılmış: <mono>{claims}</mono>.",
+          "dpopLabel": "DPoP'a bağlı token'lar gerektir",
+          "dpopHint": "İstemciler bu API için token almak üzere bir DPoP kanıtı göndermelidir ve token onların anahtarına bağlanır. API her istekte kanıtı kontrol etmelidir.",
+          "saved": "Token ayarları kaydedildi"
+        },
+        "delete": {
+          "title": "{name} silinsin mi?",
+          "description": "İstemciler artık bunun için token alamaz ve daha önce verilen token'lar hemen çalışmayı durdurur. Yalnızca yeni token'ları durdurmak için bunun yerine devre dışı bırakın.",
+          "deleted": "API silindi"
+        }
       },
       "signInProviders": {
         "title": "Oturum açma sağlayıcıları",
-        "description": "Kullanıcıların {name} hesabına Google, Apple, Microsoft ve 30'dan fazla başka hesapla oturum açmasını sağlayın."
+        "description": "Kullanıcıların {name} hesabına Google, Apple, Microsoft ve 30'dan fazla başka hesapla oturum açmasını sağlayın.",
+        "panel": {
+          "copyCallback": "Geri çağırma URL'sini kopyala",
+          "authAppFallback": "giriş uygulamasının adresi",
+          "environment": "Ortam",
+          "activeTitle": "Giriş sayfasında",
+          "activeDescription": "Giriş ve kayıt sayfalarında ve her kullanıcının panelinde Bağlı hesaplar altında bu sırayla gösterilir. Değişiklikler giriş sayfasına 30 saniye içinde ulaşır.",
+          "noneActive": "Açık sağlayıcı yok. Ayarlamak için listeden birini seçin.",
+          "setByEnvironment": "Ortam değişkenleriyle ayarlandı",
+          "existingAccountsOnly": "Yalnızca mevcut hesaplar",
+          "connectedAccounts": "{count, plural, one {# bağlı hesap} other {# bağlı hesap}}",
+          "moveUp": "{name} yukarı taşı",
+          "moveDown": "{name} aşağı taşı",
+          "edit": "{name} düzenle",
+          "providersTitle": "Sağlayıcılar",
+          "providersDescription": "Better Auth'un desteklediği tüm sağlayıcılar. Sağlayıcıda bir OAuth uygulaması oluşturun, ayarlarında gösterilen geri çağırma URL'sini kaydedin, ardından kimlik bilgilerini yapıştırın. Gizli anahtarlar şifrelenmiş olarak saklanır ve bir daha gösterilmez.",
+          "search": "Sağlayıcılarda ara",
+          "noMatch": "Eşleşen sağlayıcı yok.",
+          "savedOn": "{name} açık",
+          "saved": "{name} kaydedildi",
+          "removed": "{name} ayarları kaldırıldı",
+          "optional": "(isteğe bağlı)",
+          "secretSet": "Ayarlandı",
+          "replace": "Değiştir",
+          "removedOnSave": "Kaydettiğinizde kaldırılır.",
+          "undo": "Geri al",
+          "newValue": "Yeni değer",
+          "environmentDescription": "Ortam değişkenleriyle ayarlandı ({clientIdVar} ve {clientSecretVar}): onları orada değiştirin veya bu sağlayıcıyı burada yönetmek için kaldırın.",
+          "defaultNote": "{name} üzerinde bir OAuth uygulaması oluşturun, aşağıdaki geri çağırma URL'sini kaydedin, ardından kimlik bilgilerini yapıştırın.",
+          "callbackUrl": "Geri çağırma URL'si",
+          "callbackHint": "Yönlendirme URI'si veya dönüş URL'si olarak da adlandırılır.",
+          "createApp": "Uygulamayı oluştur",
+          "setupGuide": "Kurulum kılavuzu",
+          "secretsUnreadable": "Saklanan gizli anahtarların şifresi çözülemiyor ({envVar} değişti). Bunları yeniden girin.",
+          "buttonName": "Düğme adı",
+          "buttonNameHint": "Giriş sayfasında “… ile devam et” olarak gösterilir.",
+          "allowSignUp": "Yeni kullanıcılar için hesap oluştur",
+          "allowSignUpHint": "Kapalı: yalnızca zaten hesabı olan kişiler bununla giriş yapabilir (panellerinden bağlanmış veya aynı doğrulanmış e-postaya sahip).",
+          "oneTap": "Google One Tap'i göster",
+          "oneTapHint": "Google'ın kendi giriş istemi; tarayıcılarında Google'a zaten giriş yapmış kişiler için giriş ve kayıt sayfalarının üstünde gösterilir. Bu istemci kimliğini kullanır: Google Cloud konsolunda {origin} adresini Authorized JavaScript origins listesine ekleyin. Yalnızca Google açıkken.",
+          "enabled": "Giriş sayfasında göster",
+          "enabledHint": "Kapalı: düğme kaybolur ve bu sağlayıcıyla girişler reddedilir. Ayarlar korunur.",
+          "removeConfirm": "Ayarlar ve gizli anahtarlar kaldırılsın mı?",
+          "removeSettings": "Ayarları kaldır"
+        },
+        "errors": {
+          "unknownProvider": "Bilinmeyen sağlayıcı.",
+          "envManaged": "Bu sağlayıcı ortam değişkenleriyle ayarlanmış. Onları değiştirin veya burada yönetmek için kaldırın.",
+          "invalidOption": "{field}: {options} seçin.",
+          "appleKeyNotEc": "Özel anahtar: Apple'dan indirilen EC (P-256) anahtarı (.p8) bekleniyor.",
+          "appleKeyInvalid": "Özel anahtar: geçerli bir PEM özel anahtarı değil. BEGIN ve END satırları dahil .p8 dosyasının tamamını yapıştırın.",
+          "issuerNotHttps": "URL https:// ile başlamalıdır.",
+          "salesforceDomain": "My Domain: example.my.salesforce.com gibi bir sunucu adı.",
+          "cognitoRegion": "Bölge: eu-west-1 gibi bir AWS bölgesi.",
+          "googleHd": "Workspace alan adı: example.com gibi bir alan adı.",
+          "missingFields": "Açmadan önce {fields} alanlarını doldurun.",
+          "unusable": "Bu ayarlar kullanılamaz."
+        },
+        "providers": {
+          "apple": {
+            "note": "Apple, gerçek bir alan adında (localhost değil) HTTPS dönüş URL'si gerektirir ve kullanıcıyı POST ile geri gönderir.",
+            "fields": {
+              "clientId": {
+                "label": "Services ID",
+                "hint": "Sign in with Apple açık olan bir Services ID'nin tanımlayıcısı, ör. com.example.signin."
+              },
+              "teamId": {
+                "label": "Team ID"
+              },
+              "keyId": {
+                "label": "Key ID",
+                "hint": "Sign in with Apple etkin bir anahtar."
+              },
+              "privateKey": {
+                "label": "Özel anahtar (.p8)",
+                "hint": "İstemci gizli anahtarı bu anahtarla imzalanmış bir JWT'dir; otomatik olarak oluşturulur ve yenilenir."
+              },
+              "appBundleIdentifier": {
+                "label": "Uygulama paket kimliği (bundle ID)",
+                "hint": "Yalnızca yerel iOS girişi için (Services ID yerine uygulamanıza verilen ID token'lar)."
+              }
+            }
+          },
+          "atlassian": {
+            "fields": {
+              "clientId": {
+                "label": "İstemci kimliği"
+              },
+              "clientSecret": {
+                "label": "İstemci gizli anahtarı"
+              }
+            }
+          },
+          "cloudflare": {
+            "fields": {
+              "clientId": {
+                "label": "İstemci kimliği"
+              },
+              "clientSecret": {
+                "label": "İstemci gizli anahtarı",
+                "hint": "Genel bir istemci için boş bırakın (yalnızca PKCE)."
+              }
+            }
+          },
+          "cognito": {
+            "fields": {
+              "clientId": {
+                "label": "Uygulama istemci kimliği"
+              },
+              "clientSecret": {
+                "label": "Uygulama istemci gizli anahtarı",
+                "hint": "Yalnızca uygulama istemcisinin bir gizli anahtarı varsa."
+              },
+              "domain": {
+                "label": "Cognito alan adı"
+              },
+              "region": {
+                "label": "Bölge"
+              },
+              "userPoolId": {
+                "label": "Kullanıcı havuzu kimliği"
+              }
+            }
+          },
+          "discord": {
+            "fields": {
+              "clientId": {
+                "label": "İstemci kimliği"
+              },
+              "clientSecret": {
+                "label": "İstemci gizli anahtarı"
+              }
+            }
+          },
+          "dropbox": {
+            "fields": {
+              "clientId": {
+                "label": "App key"
+              },
+              "clientSecret": {
+                "label": "App secret"
+              }
+            }
+          },
+          "facebook": {
+            "fields": {
+              "clientId": {
+                "label": "Uygulama kimliği"
+              },
+              "clientSecret": {
+                "label": "Uygulama gizli anahtarı"
+              }
+            }
+          },
+          "figma": {
+            "fields": {
+              "clientId": {
+                "label": "İstemci kimliği"
+              },
+              "clientSecret": {
+                "label": "İstemci gizli anahtarı"
+              }
+            }
+          },
+          "github": {
+            "note": "Bir OAuth App olduğu gibi çalışır. Bir GitHub App için ayrıca Email addresses hesap izninin Read-only olarak ayarlanması gerekir, aksi halde giriş e-posta olmadığı için başarısız olur.",
+            "fields": {
+              "clientId": {
+                "label": "İstemci kimliği"
+              },
+              "clientSecret": {
+                "label": "İstemci gizli anahtarı"
+              }
+            }
+          },
+          "gitlab": {
+            "fields": {
+              "clientId": {
+                "label": "Uygulama kimliği"
+              },
+              "clientSecret": {
+                "label": "İstemci gizli anahtarı"
+              },
+              "issuer": {
+                "label": "GitLab URL'si",
+                "hint": "Kendi barındırdığınız bir GitLab için."
+              }
+            }
+          },
+          "google": {
+            "fields": {
+              "clientId": {
+                "label": "İstemci kimliği"
+              },
+              "clientSecret": {
+                "label": "İstemci gizli anahtarı"
+              },
+              "hd": {
+                "label": "Workspace alan adı",
+                "hint": "Yalnızca bu Google Workspace alan adına ait hesapları kabul et."
+              }
+            }
+          },
+          "huggingface": {
+            "fields": {
+              "clientId": {
+                "label": "İstemci kimliği"
+              },
+              "clientSecret": {
+                "label": "İstemci gizli anahtarı"
+              }
+            }
+          },
+          "kakao": {
+            "fields": {
+              "clientId": {
+                "label": "REST API anahtarı"
+              },
+              "clientSecret": {
+                "label": "İstemci gizli anahtarı",
+                "hint": "Yalnızca uygulama için client secret açıksa."
+              }
+            }
+          },
+          "kick": {
+            "fields": {
+              "clientId": {
+                "label": "İstemci kimliği"
+              },
+              "clientSecret": {
+                "label": "İstemci gizli anahtarı"
+              }
+            }
+          },
+          "line": {
+            "fields": {
+              "clientId": {
+                "label": "Channel ID"
+              },
+              "clientSecret": {
+                "label": "Channel secret"
+              }
+            }
+          },
+          "linear": {
+            "fields": {
+              "clientId": {
+                "label": "İstemci kimliği"
+              },
+              "clientSecret": {
+                "label": "İstemci gizli anahtarı"
+              }
+            }
+          },
+          "linkedin": {
+            "fields": {
+              "clientId": {
+                "label": "İstemci kimliği"
+              },
+              "clientSecret": {
+                "label": "İstemci gizli anahtarı"
+              }
+            }
+          },
+          "microsoft": {
+            "fields": {
+              "clientId": {
+                "label": "Uygulama (istemci) kimliği"
+              },
+              "clientSecret": {
+                "label": "İstemci gizli anahtarı değeri"
+              },
+              "tenantId": {
+                "label": "Kiracı (tenant)",
+                "hint": "common (her hesap), organizations, consumers veya yalnızca kuruluşunuza izin vermek için dizin (tenant) kimliğiniz."
+              }
+            }
+          },
+          "naver": {
+            "fields": {
+              "clientId": {
+                "label": "İstemci kimliği"
+              },
+              "clientSecret": {
+                "label": "İstemci gizli anahtarı"
+              }
+            }
+          },
+          "notion": {
+            "fields": {
+              "clientId": {
+                "label": "OAuth istemci kimliği"
+              },
+              "clientSecret": {
+                "label": "OAuth istemci gizli anahtarı"
+              }
+            }
+          },
+          "paybin": {
+            "fields": {
+              "clientId": {
+                "label": "İstemci kimliği"
+              },
+              "clientSecret": {
+                "label": "İstemci gizli anahtarı"
+              },
+              "issuer": {
+                "label": "Issuer"
+              }
+            }
+          },
+          "paypal": {
+            "note": "Uygulama için “Log in with PayPal” seçeneğini açın ve e-posta adresini isteyin.",
+            "fields": {
+              "clientId": {
+                "label": "İstemci kimliği"
+              },
+              "clientSecret": {
+                "label": "İstemci gizli anahtarı"
+              },
+              "environment": {
+                "label": "Ortam"
+              }
+            }
+          },
+          "polar": {
+            "fields": {
+              "clientId": {
+                "label": "İstemci kimliği"
+              },
+              "clientSecret": {
+                "label": "İstemci gizli anahtarı"
+              }
+            }
+          },
+          "railway": {
+            "fields": {
+              "clientId": {
+                "label": "İstemci kimliği"
+              },
+              "clientSecret": {
+                "label": "İstemci gizli anahtarı"
+              }
+            }
+          },
+          "reddit": {
+            "fields": {
+              "clientId": {
+                "label": "İstemci kimliği"
+              },
+              "clientSecret": {
+                "label": "İstemci gizli anahtarı"
+              }
+            }
+          },
+          "roblox": {
+            "fields": {
+              "clientId": {
+                "label": "İstemci kimliği"
+              },
+              "clientSecret": {
+                "label": "İstemci gizli anahtarı"
+              }
+            }
+          },
+          "salesforce": {
+            "fields": {
+              "clientId": {
+                "label": "Consumer key"
+              },
+              "clientSecret": {
+                "label": "Consumer secret"
+              },
+              "environment": {
+                "label": "Ortam"
+              },
+              "loginUrl": {
+                "label": "My Domain",
+                "hint": "Yalnızca sunucu adı. login.salesforce.com veya test.salesforce.com yerine geçer."
+              }
+            }
+          },
+          "slack": {
+            "fields": {
+              "clientId": {
+                "label": "İstemci kimliği"
+              },
+              "clientSecret": {
+                "label": "İstemci gizli anahtarı"
+              }
+            }
+          },
+          "spotify": {
+            "fields": {
+              "clientId": {
+                "label": "İstemci kimliği"
+              },
+              "clientSecret": {
+                "label": "İstemci gizli anahtarı"
+              }
+            }
+          },
+          "tiktok": {
+            "fields": {
+              "clientKey": {
+                "label": "Client key"
+              },
+              "clientSecret": {
+                "label": "İstemci gizli anahtarı"
+              }
+            }
+          },
+          "twitch": {
+            "fields": {
+              "clientId": {
+                "label": "İstemci kimliği"
+              },
+              "clientSecret": {
+                "label": "İstemci gizli anahtarı"
+              }
+            }
+          },
+          "twitter": {
+            "note": "OAuth 2.0 kimlik bilgilerini (API anahtarını değil) kullanın ve uygulamanın ayarlarında e-posta erişimi isteyin.",
+            "fields": {
+              "clientId": {
+                "label": "OAuth 2.0 istemci kimliği"
+              },
+              "clientSecret": {
+                "label": "OAuth 2.0 istemci gizli anahtarı"
+              }
+            }
+          },
+          "vercel": {
+            "fields": {
+              "clientId": {
+                "label": "İstemci kimliği"
+              },
+              "clientSecret": {
+                "label": "İstemci gizli anahtarı"
+              }
+            }
+          },
+          "vk": {
+            "fields": {
+              "clientId": {
+                "label": "Uygulama kimliği"
+              },
+              "clientSecret": {
+                "label": "Korumalı anahtar"
+              }
+            }
+          },
+          "wechat": {
+            "note": "Web sitesi uygulaması (QR kodu ile giriş). WeChat e-posta adresi döndürmez.",
+            "fields": {
+              "clientId": {
+                "label": "AppID"
+              },
+              "clientSecret": {
+                "label": "AppSecret"
+              }
+            }
+          },
+          "zoom": {
+            "fields": {
+              "clientId": {
+                "label": "İstemci kimliği"
+              },
+              "clientSecret": {
+                "label": "İstemci gizli anahtarı"
+              }
+            }
+          }
+        }
       },
       "apiKeys": {
         "title": "API anahtarları",
-        "description": "Kullanıcıların, betiklerinin API'lerinizi çağırması için oluşturduğu anahtarlar: bunları açın veya kapatın, en uzun geçerlilik sürelerini belirleyin ve herhangi bir anahtarı geçersiz kılın."
+        "description": "Kullanıcıların, betiklerinin API'lerinizi çağırması için oluşturduğu anahtarlar: bunları açın veya kapatın, en uzun geçerlilik sürelerini belirleyin ve herhangi bir anahtarı geçersiz kılın.",
+        "allKeys": {
+          "title": "Tüm anahtarlar",
+          "description": "En yeniler önce{truncated, select, true {, son {limit} anahtar} other {}}. Süresi dolan anahtarlar, anahtarlar bir sonraki kullanıldığında veya oluşturulduğunda silinir. Bir hesabı yasaklamak veya silmek anahtarlarını geçersiz kılar; bir kuruluşu silmek anahtarlarını siler (bir kuruluşa ait anahtarlar, onları oluşturan üye ayrıldığında kalır)."
+        },
+        "settings": {
+          "description": "Kullanıcılar, API'lerinizden biri ve onun bazı scope'ları için hesap sayfalarından anahtar oluşturur. API her anahtarı bu sunucuyla kontrol eder. Bir anahtar hiç kimseyi bu sunucuya veya yönetim konsoluna giriş yaptırmaz.",
+          "statusOn": "Açık: kullanıcılar anahtar oluşturabilir",
+          "statusOff": "Kapalı: yeni anahtar yok ve tüm anahtarlar reddedilir",
+          "maxLifetime": "En uzun geçerlilik süresi",
+          "maxLifetimeValue": "{count, plural, one {# gün} other {# gün}}",
+          "apisAccepting": "Anahtar kabul eden API'ler",
+          "apisNone": "Yok: scope'ları olan ve tüm uygulamalara açık bir API kaydedin",
+          "verifyEndpoint": "Doğrulama uç noktası: <code>{endpoint}</code>. API, burada kayıtlı ve o API'ye bağlı bir uygulama olarak kimlik doğrular (API'ler sayfası, Erişim). Bağlı uygulamalarla sınırlı API'ler anahtar kabul etmez."
+        },
+        "dialog": {
+          "description": "Anahtarlar uzun ömürlüdür: kısa geçerlilik sürelerini tercih edin. En uzun süreyi düşürmek yalnızca yeni anahtarlara uygulanır.",
+          "allowLabel": "API anahtarlarına izin ver",
+          "allowHint": "Kapalı: kimse anahtar oluşturamaz ve mevcut tüm anahtarlar doğrulamada reddedilir. Anahtarlar korunur ve bunu yeniden açtığınızda tekrar çalışır.",
+          "maxLifetimeLabel": "En uzun geçerlilik süresi (gün)",
+          "maxLifetimeHint": "1 ile {max} arası. Her anahtarın süresi dolar.",
+          "saved": "Ayarlar kaydedildi. Kimlik doğrulama sunucusu bunları bir dakika içinde uygular."
+        },
+        "table": {
+          "empty": "API anahtarı yok.",
+          "key": "Anahtar",
+          "owner": "Sahip",
+          "api": "API",
+          "scopes": "Scope'lar",
+          "lastUsed": "Son kullanım",
+          "expires": "Bitiş",
+          "createdBy": "oluşturan: {email}",
+          "org": "Kuruluş",
+          "removedApi": "Kaldırılan API",
+          "expired": "Süresi doldu",
+          "revoke": "Geçersiz kıl",
+          "revoked": "API anahtarı geçersiz kılındı",
+          "revokeTitle": "{name} geçersiz kılınsın mı?",
+          "revokeOrgDescription": "{owner} kuruluşunun bu anahtarı hemen çalışmayı durdurur. API anahtarları açıksa sahipleri ve yöneticileri yeni bir tane oluşturabilir.",
+          "revokeUserDescription": "{owner} kullanıcısının anahtarı hemen çalışmayı durdurur. API anahtarları açıksa yeni bir tane oluşturabilir."
+        },
+        "errors": {
+          "chooseEnabled": "API anahtarlarının açık olup olmayacağını seçin.",
+          "maxLifetimeRange": "En uzun geçerlilik süresi 1 ile {max} arasında tam gün sayısı olmalıdır.",
+          "saveFailed": "Ayarlar kaydedilemedi.",
+          "noKey": "Anahtar belirtilmedi.",
+          "keyGone": "Bu anahtar artık mevcut değil."
+        }
       },
       "webhooks": {
         "title": "Webhook'lar",
         "description": "{name} kullanıcıları, rolleri veya kuruluş üyelikleri değiştiğinde uygulamalarınızı bilgilendiren imzalı HTTPS bildirimleri.",
-        "deliveries": "Teslimat günlüğü"
+        "deliveries": "Teslimat günlüğü",
+        "eventDescriptions": {
+          "user_created": "Bir hesap oluşturulur (kayıt, yönetici, SSO, SCIM).",
+          "user_updated": "Ad, e-posta, e-posta doğrulaması, kullanıcı adı veya resim değişir.",
+          "user_deleted": "Bir hesap silinir.",
+          "user_banned": "Bir hesap yasaklanır veya SCIM tarafından devre dışı bırakılır.",
+          "user_unbanned": "Bir yasak kaldırılır veya SCIM hesabı yeniden etkinleştirir.",
+          "user_role_changed": "Bir hesabın platform rolü değişir.",
+          "organization_member_added": "Biri bir kuruluşa katılır.",
+          "organization_member_removed": "Biri bir kuruluştan ayrılır veya çıkarılır.",
+          "organization_member_role_changed": "Bir üyenin kuruluştaki rolü değişir."
+        },
+        "panel": {
+          "events": "Olaylar",
+          "clear": "Temizle",
+          "selectAll": "Tümünü seç",
+          "signingSecret": "İmzalama gizli anahtarı",
+          "secretCopied": "Gizli anahtar kopyalandı",
+          "copySecret": "Gizli anahtarı kopyala",
+          "url": "URL",
+          "add": {
+            "title": "Uç nokta ekleyin",
+            "description": "Seçilen olaylardan biri gerçekleştiğinde Ostiary bu URL'ye imzalı bir JSON olayı POST eder ve başarısız olursa yaklaşık bir gün boyunca yeniden dener.",
+            "urlHint": "Genel bir adreste HTTPS.",
+            "urlHintLocalhost": "Genel bir adreste HTTPS. {url} kabul edilir ({envVar}, yalnızca geliştirme).",
+            "descriptionPlaceholder": "Faturalama uygulaması: kullanıcı senkronizasyonu",
+            "adding": "Ekleniyor…",
+            "submit": "Uç nokta ekle"
+          },
+          "list": {
+            "title": "Uç noktalar",
+            "description": "Her istek <code>{id}</code>, <code>{timestamp}</code> ve <code>{signature}</code> başlıklarını taşır (Standard Webhooks). Art arda {count, plural, one {# kez} other {# kez}} başarısız olan bir uç nokta devre dışı bırakılır.",
+            "empty": "Henüz uç nokta yok."
+          },
+          "created": {
+            "title": "Uç nokta eklendi",
+            "description": "İmzalama gizli anahtarını {url} adresindeki uygulamaya kopyalayın: uygulama her teslimatı onunla doğrular. Bir daha gösterilmez."
+          },
+          "test": {
+            "delivered": "Test olayı teslim edildi (HTTP {status})",
+            "failed": "Test olayı başarısız oldu: {reason}"
+          },
+          "item": {
+            "disabledFailures": "Tekrarlanan hatalardan sonra devre dışı bırakıldı",
+            "rotating": "Gizli anahtar yenileniyor",
+            "editLabel": "{label} düzenle",
+            "deleteLabel": "{label} sil",
+            "disabledNotice": "Art arda {count, plural, one {# başarısız denemeden} other {# başarısız denemeden}} sonra devre dışı bırakıldı. Alıcıyı düzeltin, ardından yeniden açın: bekleyen olaylar tekrar gönderilir.",
+            "disabledNoticeOn": "{date} tarihinde art arda {count, plural, one {# başarısız denemeden} other {# başarısız denemeden}} sonra devre dışı bırakıldı. Alıcıyı düzeltin, ardından yeniden açın: bekleyen olaylar tekrar gönderilir.",
+            "lastSuccess": "Son başarılı",
+            "lastFailure": "Son başarısız",
+            "inARow": "(art arda {count})",
+            "deliveries": "Teslimatlar",
+            "deliveriesValue": "{pending} bekliyor veya yeniden deneniyor · {failed} başarısız",
+            "sendTest": "Test olayı gönder",
+            "deliveryLog": "Teslimat günlüğü",
+            "regenerateSecret": "Gizli anahtarı yeniden oluştur"
+          },
+          "edit": {
+            "title": "Uç noktayı düzenle",
+            "enabledHint": "Devre dışıyken bu uç nokta için yeni olaylar kaydedilmez ve yeniden denemeler bekler.",
+            "updated": "Uç nokta güncellendi"
+          },
+          "rotate": {
+            "title": "İmzalama gizli anahtarı yeniden oluşturulsun mu?",
+            "description": "Teslimatlar 24 saat boyunca hem eski hem de yeni gizli anahtarla imzalanır, böylece uygulama olay kaçırmadan geçiş yapabilir.",
+            "newTitle": "Yeni imzalama gizli anahtarı",
+            "newDescription": "Şimdi uygulamaya kopyalayın: bir daha gösterilmez. Önümüzdeki 24 saat boyunca teslimatlar eski gizli anahtarla oluşturulmuş bir imza da taşır.",
+            "confirm": "Yeniden oluştur"
+          },
+          "delete": {
+            "title": "Bu uç nokta silinsin mi?",
+            "description": "{url} artık olay almaz; teslimat günlüğü ve bekleyen yeniden denemeleri silinir. Duraklatmak için bunun yerine devre dışı bırakın.",
+            "deleted": "Uç nokta silindi"
+          }
+        },
+        "redeliver": {
+          "button": "Yeniden teslim et",
+          "delivered": "Teslim edildi (HTTP {status})",
+          "failed": "Başarısız: {reason}"
+        },
+        "log": {
+          "status": {
+            "succeeded": "Teslim edildi",
+            "failed": "Başarısız",
+            "pending": "Bekliyor"
+          },
+          "disabled": "Devre dışı: yeniden denemeler, yeniden açılana kadar bekler.",
+          "empty": "Henüz teslimat yok. Uç noktayı denemek için Webhook'lar sayfasında “Test olayı gönder” seçeneğini kullanın.",
+          "event": "Olay",
+          "response": "Yanıt",
+          "attempts": "Denemeler",
+          "nextRetry": "Sonraki deneme",
+          "answer": "Yanıt",
+          "error": "hata",
+          "footer": "Son {shown} teslimat. Teslimatlar {days, plural, one {# gün} other {# gün}} saklanır. Başarısız bir teslimat yaklaşık bir gün boyunca {retries, plural, one {# kez} other {# kez}} yeniden denenir; “Yeniden teslim et” aynı olayı (aynı {header}) şimdi tekrar gönderir."
+        },
+        "errors": {
+          "noEvents": "En az bir olay seçin.",
+          "tooMany": "En fazla {max} uç nokta.",
+          "endpointNotFound": "Uç nokta bulunamadı.",
+          "disabledTest": "Uç nokta devre dışı: test olayı göndermek için açın.",
+          "testNotSent": "Test olayı gönderilemedi.",
+          "deliveryNotFound": "Teslimat bulunamadı.",
+          "disabledRedeliver": "Uç nokta devre dışı: yeniden teslim etmek için açın.",
+          "eventNotSent": "Olay gönderilemedi."
+        }
       },
       "users": {
-        "title": "Users",
-        "description": "Find accounts, change roles, ban or remove them, and open an account to see its sessions and activity."
+        "title": "Kullanıcılar",
+        "description": "Hesapları bulun, rollerini değiştirin, yasaklayın veya kaldırın; oturumlarını ve etkinliklerini görmek için bir hesabı açın.",
+        "list": {
+          "searchPlaceholder": "Ad veya e-postaya göre arayın…",
+          "searchLabel": "Kullanıcılarda ara",
+          "rolePlaceholder": "Rol",
+          "roleAll": "Tüm roller",
+          "roleAdmin": "Yönetici",
+          "roleUser": "Kullanıcı",
+          "loadErrorTitle": "Kullanıcılar yüklenemedi",
+          "loadErrorFallback": "Kullanıcılar yüklenemedi",
+          "columns": {
+            "user": "Kullanıcı",
+            "role": "Rol",
+            "status": "Durum",
+            "verified": "Doğrulandı",
+            "joined": "Katılma"
+          },
+          "loading": "Kullanıcılar yükleniyor…",
+          "empty": "Filtrelerinizle eşleşen kullanıcı yok.",
+          "noUsers": "0 kullanıcı",
+          "showing": "{total} kayıttan {from}-{to} arası gösteriliyor",
+          "rowsPerPage": "Sayfa başına satır",
+          "previous": "Önceki",
+          "next": "Sonraki",
+          "pageOf": "Sayfa {page} / {pages}",
+          "poweredBy": "<link>Better Auth admin eklentisinin</link> <code>listUsers</code>, <code>createUser</code>, <code>setRole</code>, <code>updateUser</code>, <code>setUserPassword</code> ve ilgili yöntemleriyle çalışır. Yönetici olarak giriş yapmış olmanız gerekir."
+        },
+        "status": {
+          "banned": "Yasaklı",
+          "active": "Etkin"
+        },
+        "create": {
+          "trigger": "Kullanıcı ekle",
+          "title": "Kullanıcı ekleyin",
+          "description": "<code>createUser</code> aracılığıyla bir hesap oluşturur.",
+          "email": "E-posta",
+          "password": "Parola",
+          "name": "Ad",
+          "role": "Rol",
+          "error": "Kullanıcı oluşturulamadı",
+          "created": "Kullanıcı oluşturuldu",
+          "submit": "Kullanıcı oluştur",
+          "creating": "Oluşturuluyor…"
+        },
+        "rowActions": {
+          "menuLabel": "{name} için işlemler",
+          "copyId": "Kullanıcı kimliğini kopyala",
+          "idCopied": "Kullanıcı kimliği kopyalandı",
+          "edit": "Kullanıcıyı düzenle",
+          "setPassword": "Parola belirle",
+          "makeAdmin": "Yönetici yap",
+          "makeUser": "Kullanıcı yap",
+          "ban": "Kullanıcıyı yasakla",
+          "unban": "Yasağı kaldır",
+          "remove": "Kullanıcıyı kaldır",
+          "roleError": "Rol güncellenemedi",
+          "roleSet": "Rol {role} olarak ayarlandı",
+          "unbanError": "Kullanıcının yasağı kaldırılamadı",
+          "unbanned": "Kullanıcının yasağı kaldırıldı",
+          "banError": "Kullanıcı yasaklanamadı",
+          "banned": "Kullanıcı yasaklandı",
+          "removeError": "Kullanıcı kaldırılamadı",
+          "removed": "Kullanıcı kaldırıldı",
+          "emailRequired": "E-posta gereklidir",
+          "noChanges": "Kaydedilecek değişiklik yok",
+          "updateError": "Kullanıcı güncellenemedi",
+          "updated": "Kullanıcı güncellendi",
+          "passwordRequired": "Yeni bir parola girin.",
+          "passwordMismatch": "Parolalar eşleşmiyor.",
+          "passwordError": "Parola belirlenemedi",
+          "passwordUpdated": "Parola güncellendi",
+          "editTitle": "Kullanıcıyı düzenle",
+          "editDescription": "Adı veya e-posta adresini değiştirin. Yeni bir e-posta adresi, kullanıcı yeniden giriş yapabilmeden önce kullanıcı tarafından doğrulanmalıdır.",
+          "name": "Ad",
+          "email": "E-posta",
+          "passwordTitle": "Parola belirleyin",
+          "passwordDescription": "<code>setUserPassword</code> kullanarak <strong>{email}</strong> için yeni bir parola belirler.",
+          "newPassword": "Yeni parola",
+          "confirmPassword": "Parolayı onaylayın",
+          "updatePassword": "Parolayı güncelle",
+          "removeTitle": "Kullanıcı kaldırılsın mı?",
+          "removeDescription": "Bu işlem <strong>{name}</strong> ({email}) hesabını ve ona bağlı her şeyi kalıcı olarak siler. Denetim günlüğü kayıtları ad veya e-posta olmadan saklanır. Bu işlem geri alınamaz.",
+          "removeConfirm": "Kaldır",
+          "removing": "Kaldırılıyor…"
+        },
+        "detailActions": {
+          "impersonateError": "Bu kullanıcının kimliğine bürünülemedi.",
+          "signOutError": "Bu kullanıcının oturumu kapatılamadı.",
+          "signedOut": "{count, plural, one {# oturum} other {# oturum}} kapatıldı",
+          "exportError": "Bu kullanıcının verileri dışa aktarılamadı.",
+          "exported": "Veriler dışa aktarıldı. Dışa aktarma denetim günlüğüne kaydedildi.",
+          "exportData": "Verileri dışa aktar",
+          "impersonate": "Kimliğine bürün",
+          "signOutEverywhere": "Her yerden çıkış yaptır",
+          "impersonateTitle": "{email} olarak giriş yapılsın mı?",
+          "signOutTitle": "{email} her yerden çıkış yaptırılsın mı?",
+          "impersonateDescription": "Hesap panelini en fazla bir saat boyunca tam olarak bu kullanıcının gördüğü gibi göreceksiniz. Oradaki bir başlık çubuğu durdurup geri dönmenizi sağlar. Bu işlem denetim günlüğüne kaydedilir.",
+          "signOutDescription": "Bu kullanıcının tüm oturumları şimdi, her cihazda sona erer. Yeniden giriş yapması gerekecek.",
+          "sessionRevoked": "Oturum iptal edildi",
+          "revokeError": "Bu oturum iptal edilemedi.",
+          "revoke": "İptal et",
+          "resetTwoFactorError": "İki faktörlü kimlik doğrulama sıfırlanamadı.",
+          "twoFactorReset": "İki faktörlü kimlik doğrulama kapatıldı",
+          "reset": "Sıfırla",
+          "resetTwoFactorTitle": "{email} için iki faktörlü kimlik doğrulama sıfırlansın mı?",
+          "resetTwoFactorDescription": "Kimlik doğrulama uygulaması, yedek kodları ve güvenilir cihazları çalışmayı bırakır; yeniden ayarlayana kadar yalnızca parolasıyla giriş yapar. Bunu yalnızca talepte bulunan kişinin kimliğini doğruladıktan sonra yapın. Bu işlem denetim günlüğüne kaydedilir."
+        },
+        "detail": {
+          "emailVerified": "E-posta doğrulandı",
+          "emailNotVerified": "E-posta doğrulanmadı",
+          "banned": "Yasaklı",
+          "bannedWithReason": "Yasaklı: {reason}",
+          "scimTitle": "SCIM ile sağlandı: {organizations}",
+          "scimDescription": "Bu hesabı kimlik sağlayıcı yönetir. Kullanıcıyı orada kaldırın: hesabı burada silmek, dizinin bir sonraki senkronizasyonda onu yeniden oluşturmasını engellemez. Kullanıcı hesabı kendi panelinden silemez.",
+          "tiles": {
+            "joined": "Katılma",
+            "activeSessions": "Etkin oturumlar",
+            "passkeys": "Geçiş anahtarları",
+            "twoFactor": "İki faktörlü"
+          },
+          "device": {
+            "unknown": "Bilinmeyen cihaz",
+            "browser": "Tarayıcı",
+            "browserOnOs": "{os} üzerinde {browser}"
+          },
+          "sessions": {
+            "title": "Etkin oturumlar",
+            "description": "Bu hesabın oturum açık olduğu cihazlar.",
+            "empty": "Etkin oturum yok.",
+            "device": "Cihaz",
+            "ipAddress": "IP adresi",
+            "lastActive": "Son etkinlik",
+            "impersonated": "Kimliğine bürünüldü"
+          },
+          "apiKeys": {
+            "title": "API anahtarları",
+            "description": "Bu hesabın betikler için oluşturduğu anahtarlar. Hesabı yasaklamak veya silmek bunları geçersiz kılar."
+          },
+          "signInMethods": {
+            "title": "Giriş yöntemleri",
+            "credential": "E-posta ve parola",
+            "sso": "SSO: {provider}",
+            "passkey": "Geçiş anahtarı: {name} <muted>({deviceType})</muted>",
+            "unnamed": "Adsız",
+            "empty": "Giriş yöntemi yok.",
+            "twoFactor": "İki faktörlü kimlik doğrulama <muted>(kimlik doğrulama uygulaması)</muted>",
+            "managedByYou": "Kendi hesabınızdan yönetilir"
+          },
+          "organizations": {
+            "title": "Kuruluşlar",
+            "empty": "Hiçbir kuruluşun üyesi değil."
+          },
+          "activity": {
+            "title": "Son giriş etkinliği",
+            "empty": "Henüz kaydedilmiş etkinlik yok.",
+            "events": {
+              "sign_in": "Giriş yaptı",
+              "sign_up": "Hesap oluşturdu",
+              "sign_out": "Çıkış yaptı",
+              "sign_in_failed": "Başarısız giriş"
+            }
+          },
+          "audit": {
+            "title": "Bu hesaptaki yönetici işlemleri",
+            "empty": "Henüz yönetici işlemi yok.",
+            "by": "yapan: {actor}",
+            "system": "sistem"
+          }
+        }
       },
       "consent": {
-        "title": "Consent",
-        "description": "Permissions people have granted to OAuth clients, with the scopes and when they were given."
+        "title": "Onaylar",
+        "description": "Kullanıcıların OAuth istemcilerine verdiği izinler, scope'ları ve ne zaman verildikleriyle birlikte.",
+        "panel": {
+          "signedInUser": "Giriş yapmış kullanıcı",
+          "loadConsentsFailed": "Onaylar yüklenemedi",
+          "loadClientsFailed": "OAuth istemcileri yüklenemedi",
+          "loadErrorTitle": "Onaylar yüklenemedi",
+          "searchPlaceholder": "Kullanıcı, istemci, onay kimliği, referans veya scope ile arayın…",
+          "searchLabel": "Onaylarda ara",
+          "filter": {
+            "placeholder": "Scope filtresi",
+            "all": "Tüm onaylar",
+            "hasScope": "{scope} içeren"
+          },
+          "columns": {
+            "user": "Kullanıcı",
+            "application": "Uygulama",
+            "scopes": "Scope'lar",
+            "reference": "Referans",
+            "granted": "Verilme",
+            "updated": "Güncellenme"
+          },
+          "loading": "Onaylar yükleniyor…",
+          "emptyNone": "Bu hesap için henüz kaydedilmiş onay yok.",
+          "emptyFiltered": "Filtrelerinizle eşleşen onay yok.",
+          "noResults": "0 onay",
+          "showing": "{total} kayıttan {from}-{to} arası gösteriliyor",
+          "rowsPerPage": "Sayfa başına satır",
+          "previous": "Önceki",
+          "next": "Sonraki",
+          "pageOf": "Sayfa {page} / {total}",
+          "footnote": "Veriler <code>{getConsents}</code> kaynağından gelir; istemci adları <code>{getClients}</code> ile çözümlenir. İptal işlemi <code>{deleteConsent}</code> kullanır. <providerLink>OAuth provider</providerLink> belgelerindeki <consentLink>OAuth consent</consentLink> bölümüne bakın. Etkileşimli yetkilendirme arayüzü <code>{path}</code> adresindedir."
+        },
+        "rowActions": {
+          "menuLabel": "{id}… onayı için işlemler",
+          "copyConsentId": "Onay kimliğini kopyala",
+          "consentIdCopied": "Onay kimliği kopyalandı",
+          "copyClientId": "İstemci kimliğini kopyala",
+          "clientIdCopied": "İstemci kimliği kopyalandı",
+          "viewDetails": "Ayrıntıları görüntüle",
+          "updateScopes": "Scope'ları güncelle",
+          "wireTo": "{method} yöntemine bağla",
+          "revoke": "Onayı iptal et",
+          "revokeFailed": "Onay iptal edilemedi",
+          "revoked": "Onay iptal edildi",
+          "dialogTitle": "Onay iptal edilsin mi?",
+          "dialogDescription": "Bu kullanıcının <strong>{client}</strong> (<code>{clientId}</code>) için verdiği izni kaldırır. İstemcinin yeniden yetkilendirme istemesi gerekebilir.",
+          "revoking": "İptal ediliyor…",
+          "revokeButton": "İptal et"
+        }
       },
       "usage": {
         "title": "Uygulama kullanımı",
-        "description": "Hangi uygulamalar kullanılıyor: son 30 gündeki uygulama başına erişim belirteçleri, kullanıcılar ve onaylar."
+        "description": "Hangi uygulamalar kullanılıyor: son 30 gündeki uygulama başına erişim belirteçleri, kullanıcılar ve onaylar.",
+        "tiles": {
+          "tokens": "Verilen token'lar, 30 gün",
+          "active": "Kullanımdaki uygulamalar",
+          "unused": "Kullanılmayan uygulamalar"
+        },
+        "card": {
+          "title": "Uygulama başına erişim token'ları, son 30 gün",
+          "unused": "{count, plural, one {# etkin uygulama 30 gündür token vermedi: devre dışı bırakmayı veya silmeyi düşünün.} other {# etkin uygulama 30 gündür token vermedi: devre dışı bırakmayı veya silmeyi düşünün.}}",
+          "allUsed": "Tüm etkin uygulamalar son 30 günde token verdi.",
+          "empty": "Kayıtlı OAuth istemcisi yok.",
+          "application": "Uygulama",
+          "tokens": "Token'lar",
+          "users": "Kullanıcılar",
+          "consents": "Onaylar",
+          "lastToken": "Son token",
+          "lastTokenValue": "Son token: {date}",
+          "showInApplications": "Uygulamalar'da göster",
+          "unusedBadge": "Kullanılmıyor"
+        }
       },
       "audit": {
-        "title": "Audit log",
-        "description": "Every change made from this console or the admin API: who did it, to what, and when.",
-        "footnote": "Showing the latest 200 entries. Passwords and secrets are never recorded."
+        "title": "Denetim günlüğü",
+        "description": "Bu konsoldan veya yönetim API'sinden yapılan her değişiklik: kimin yaptığı, neyi değiştirdiği ve ne zaman.",
+        "footnote": "Son 200 kayıt gösteriliyor. Parolalar ve gizli anahtarlar asla kaydedilmez.",
+        "filterLabel": "Alana göre filtrele",
+        "filters": {
+          "all": "Tümü",
+          "user": "Kullanıcılar",
+          "organization": "Kuruluşlar",
+          "oauth_client": "OAuth istemcileri",
+          "oauth_consent": "Onaylar",
+          "oauth_resource": "API'ler",
+          "api_key": "API anahtarları",
+          "sso_provider": "SSO",
+          "signing_key": "İmzalama anahtarları",
+          "webhook": "Webhook'lar",
+          "social_provider": "Oturum açma sağlayıcıları"
+        },
+        "empty": "Henüz kaydedilmiş yönetici işlemi yok.",
+        "columns": {
+          "when": "Zaman",
+          "who": "Kim",
+          "action": "İşlem",
+          "target": "Hedef",
+          "details": "Ayrıntılar",
+          "ip": "IP"
+        },
+        "system": "Sistem",
+        "actions": {
+          "user": {
+            "create": "Kullanıcı oluşturdu",
+            "update": "Kullanıcıyı güncelledi",
+            "set_role": "Rolü değiştirdi",
+            "set_password": "Parola belirledi",
+            "ban": "Kullanıcıyı yasakladı",
+            "unban": "Kullanıcının yasağını kaldırdı",
+            "delete": "Kullanıcıyı sildi",
+            "revoke_session": "Bir oturumu iptal etti",
+            "revoke_all_sessions": "Kullanıcıyı her yerden çıkardı",
+            "impersonate": "Kullanıcının kimliğine büründü",
+            "reset_two_factor": "İki faktörlü kimlik doğrulamayı sıfırladı",
+            "export_data": "Hesap verilerini dışa aktardı",
+            "self_delete": "Kendi hesabını sildi"
+          },
+          "oauth_client": {
+            "create": "OAuth istemcisi kaydetti",
+            "update": "OAuth istemcisini güncelledi",
+            "delete": "OAuth istemcisini sildi",
+            "rotate_secret": "İstemci gizli anahtarını yeniledi",
+            "self_register": "İstemci kendini kaydetti",
+            "disable": "OAuth istemcisini devre dışı bıraktı",
+            "enable": "OAuth istemcisini etkinleştirdi",
+            "branding_update": "Giriş ekranı markalamasını değiştirdi",
+            "branding_reset": "Giriş ekranı markalamasını sıfırladı"
+          },
+          "client_registration": {
+            "update": "İstemcilerin kendi kendine kaydını değiştirdi"
+          },
+          "oauth_resource": {
+            "create": "API kaydetti",
+            "update": "API'yi güncelledi",
+            "delete": "API'yi sildi",
+            "access": "API erişimini değiştirdi",
+            "tokens": "API token ayarlarını değiştirdi"
+          },
+          "api_key": {
+            "create": "API anahtarı oluşturdu",
+            "revoke": "API anahtarını geçersiz kıldı",
+            "revoke_all": "Tüm API anahtarlarını geçersiz kıldı",
+            "settings": "API anahtarı ayarlarını değiştirdi"
+          },
+          "oauth_consent": {
+            "update": "Onayı güncelledi",
+            "delete": "Onayı iptal etti"
+          },
+          "oauth_device": {
+            "approve": "Bir cihaz girişini onayladı",
+            "deny": "Bir cihaz girişini reddetti"
+          },
+          "organization": {
+            "create": "Kuruluş oluşturdu",
+            "update": "Kuruluşu yeniden adlandırdı",
+            "delete": "Kuruluşu sildi",
+            "invite": "Üye davet etti",
+            "cancel_invitation": "Daveti iptal etti",
+            "update_member_role": "Üye rolünü değiştirdi",
+            "remove_member": "Üyeyi çıkardı"
+          },
+          "sso_provider": {
+            "create": "SSO sağlayıcısı kaydetti",
+            "update": "SSO sağlayıcısını güncelledi",
+            "delete": "SSO sağlayıcısını sildi",
+            "verify_domain": "SSO alan adını doğruladı"
+          },
+          "social_provider": {
+            "create": "Oturum açma sağlayıcısı ayarladı",
+            "update": "Oturum açma sağlayıcısını güncelledi",
+            "delete": "Oturum açma sağlayıcısını kaldırdı",
+            "reorder": "Oturum açma sağlayıcılarını yeniden sıraladı"
+          },
+          "scim": {
+            "token_create": "SCIM token'ı oluşturdu",
+            "token_rotate": "SCIM token'ını değiştirdi",
+            "token_revoke": "SCIM token'ını iptal etti"
+          },
+          "signing_key": {
+            "rotate": "İmzalama anahtarını döndürdü",
+            "update_settings": "İmzalama anahtarı döndürme ayarını değiştirdi"
+          },
+          "webhook": {
+            "create": "Webhook uç noktası ekledi",
+            "update": "Webhook uç noktasını güncelledi",
+            "enable": "Webhook uç noktasını etkinleştirdi",
+            "disable": "Webhook uç noktasını devre dışı bıraktı",
+            "delete": "Webhook uç noktasını sildi",
+            "rotate_secret": "Webhook gizli anahtarını yeniden oluşturdu",
+            "test": "Webhook test olayı gönderdi",
+            "redeliver": "Webhook olayını yeniden teslim etti"
+          }
+        }
       },
       "security": {
-        "title": "Security",
-        "description": "Failed sign-in attempts, the accounts and addresses behind them, and banned accounts."
+        "title": "Güvenlik",
+        "description": "Başarısız giriş denemeleri, bunların arkasındaki hesaplar ve adresler ile yasaklanmış hesaplar.",
+        "tiles": {
+          "failed24h": "Başarısız girişler, 24 saat",
+          "failed7d": "Başarısız girişler, 7 gün",
+          "banned": "Yasaklı hesaplar"
+        },
+        "chart": {
+          "failed": "Başarısız girişler"
+        },
+        "perDay": {
+          "title": "Günlük başarısız girişler",
+          "description": "Yanlış parola veya bilinmeyen hesap, son 30 gün (toplam {total, number}). 6 Ekim 2026'dan itibaren izleniyor."
+        },
+        "noFailures": "Son 7 günde başarısız giriş yok.",
+        "attempts": "Denemeler",
+        "topAccounts": {
+          "title": "En çok hedef alınan hesaplar, 7 gün",
+          "description": "Hesap var olsun ya da olmasın denenen e-posta veya kullanıcı adı.",
+          "identifier": "E-posta veya kullanıcı adı",
+          "last": "Son"
+        },
+        "topIps": {
+          "title": "En yoğun IP adresleri, 7 gün",
+          "description": "Birçok hesabı deneyen tek bir adres genellikle kimlik bilgisi doldurma (credential stuffing) saldırısı anlamına gelir.",
+          "ip": "IP adresi",
+          "accounts": "Denenen hesaplar"
+        },
+        "banned": {
+          "title": "Yasaklı hesaplar",
+          "empty": "Yasaklı hesap yok.",
+          "noReason": "Neden belirtilmedi",
+          "until": "{date} tarihine kadar",
+          "permanent": "kalıcı"
+        }
       },
       "signingKeys": {
         "title": "İmzalama anahtarları",
@@ -380,88 +1812,236 @@
           "save": "Ayarlar kaydedilemedi.",
           "rotate": "Anahtar döndürülemedi."
         }
+      },
+      "organizations": {
+        "controls": {
+          "unexpectedError": "Bir şeyler ters gitti.",
+          "organizationUpdated": "Kuruluş güncellendi",
+          "slug": "Slug",
+          "role": "Rol",
+          "roleUpdated": "Rol güncellendi",
+          "roles": {
+            "owner": "sahip",
+            "admin": "yönetici",
+            "member": "üye"
+          },
+          "removeMemberLabel": "{email} üyesini çıkar",
+          "removeMemberTitle": "{email} çıkarılsın mı?",
+          "removeMemberBody": "Bu kuruluşa erişimini kaybeder. Hesabı kalır.",
+          "memberRemoved": "Üye çıkarıldı",
+          "cancelInvitationLabel": "{email} davetini iptal et",
+          "cancelInvitationTitle": "{email} daveti iptal edilsin mi?",
+          "cancelInvitationBody": "E-postadaki bağlantı çalışmayı durdurur.",
+          "cancelInvitation": "Daveti iptal et",
+          "invitationCancelled": "Davet iptal edildi",
+          "invitationSent": "Davet gönderildi",
+          "inviteByEmail": "E-postayla davet et",
+          "sendInvitation": "Davet gönder"
+        },
+        "scim": {
+          "unexpectedError": "Bir şeyler ters gitti.",
+          "tokenRevoked": "Token iptal edildi",
+          "baseUrl": "Temel URL",
+          "copyBaseUrl": "Temel URL'yi kopyala",
+          "token": "Token",
+          "copyToken": "Token'ı kopyala",
+          "active": "Etkin",
+          "expires": "Bitiş",
+          "lastUsed": "Son kullanım",
+          "noToken": "Etkin token yok. Siz bir tane oluşturana kadar kimlik sağlayıcı hesap sağlayamaz.",
+          "newToken": "Yeni token",
+          "revoke": "İptal et",
+          "generateToken": "Token oluştur",
+          "rotateTitle": "SCIM token'ı değiştirilsin mi?",
+          "revokeTitle": "SCIM token'ı iptal edilsin mi?",
+          "rotateBody": "Mevcut token şimdi çalışmayı durdurur. Hesap sağlamaya devam etmek için yenisini kimlik sağlayıcınıza yapıştırın.",
+          "revokeBody": "Kimlik sağlayıcınız artık hesap oluşturamaz, güncelleyemez veya devre dışı bırakamaz. Mevcut hesaplar değişmez.",
+          "replaceToken": "Token'ı değiştir",
+          "revokeToken": "Token'ı iptal et",
+          "issuedTitle": "SCIM token'ı",
+          "issuedDescription": "Şimdi kopyalayın: bir daha gösterilmez. Süresi bir yıl sonra dolar.",
+          "tokenHint": "Bearer token olarak yapıştırın (Okta: API token, Entra ID: secret token)."
+        },
+        "detail": {
+          "back": "Kuruluşlar",
+          "defaultWorkspace": "Varsayılan çalışma alanı",
+          "createdAt": "Oluşturulma: {date}",
+          "members": "Üyeler",
+          "publicMembers": "Her hesap Public çalışma alanına ait olduğundan üyeler burada çıkarılamaz. İlk 50 gösteriliyor.",
+          "memberCount": "{count, plural, one {# üye} other {# üye}}.",
+          "noMembers": "Henüz üye yok.",
+          "member": "Üye",
+          "joined": "Katılma",
+          "role": "Rol",
+          "deactivated": "Devre dışı",
+          "banned": "Yasaklı",
+          "invitationExpires": "bitiş: {date}",
+          "noInvitations": "Bekleyen davet yok.",
+          "apiKeys": "API anahtarları",
+          "apiKeysDescription": "Bu kuruluşa ait, sahipleri ve yöneticileri tarafından hesap panellerinde oluşturulan anahtarlar. Onları oluşturan üye ayrıldığında da çalışmaya devam eder ve kuruluşla birlikte silinirler.",
+          "details": "Ayrıntılar",
+          "sso": "Çoklu oturum açma",
+          "ssoDescription": "Bu kuruluşa bağlı kimlik sağlayıcılar.",
+          "ssoNone": "Yok. <link>Bir tane ayarlayın</link>.",
+          "verified": "Doğrulandı",
+          "unverified": "Doğrulanmadı",
+          "scim": "SCIM ile hesap sağlama",
+          "scimDescription": "Kimlik sağlayıcınız (Okta, Entra ID ve diğerleri) bu kuruluşun hesaplarını oluşturur ve kişiler ayrıldığında devre dışı bırakır.",
+          "scimCounts": "{active} sağlandı, {inactive} devre dışı.",
+          "recentActions": "Son yönetici işlemleri",
+          "noActions": "Henüz yok.",
+          "system": "sistem"
+        },
+        "errors": {
+          "invalidNameSlug": "Bir ad ve harf, rakam ve tirelerden oluşan bir slug girin.",
+          "publicSlug": "Public çalışma alanı “public” slug'ını korur.",
+          "slugTaken": "Bu slug başka bir kuruluş tarafından kullanılıyor.",
+          "unknownRole": "Bilinmeyen rol.",
+          "memberNotFound": "Üye bulunamadı.",
+          "publicMembers": "Her hesap Public çalışma alanına aittir.",
+          "invalidEmail": "Geçerli bir e-posta adresi girin.",
+          "noInvitations": "Bu kuruluş davet kabul etmiyor.",
+          "alreadyMember": "Bu kişi zaten üye.",
+          "invitationNotFound": "Davet bulunamadı.",
+          "requestFailed": "İstek başarısız oldu.",
+          "scimUnavailable": "Bu kuruluş SCIM ile hesap sağlamayı kullanamaz.",
+          "noActiveToken": "Etkin token yok."
+        }
+      }
+    },
+    "common": {
+      "cancel": "İptal",
+      "save": "Kaydet",
+      "saving": "Kaydediliyor…",
+      "saveChanges": "Değişiklikleri kaydet",
+      "delete": "Sil",
+      "deleting": "Siliniyor…",
+      "edit": "Düzenle",
+      "remove": "Kaldır",
+      "close": "Kapat",
+      "copied": "Kopyalandı",
+      "enabled": "Etkin",
+      "disabled": "Devre dışı",
+      "enable": "Etkinleştir",
+      "disable": "Devre dışı bırak",
+      "on": "Açık",
+      "off": "Kapalı",
+      "yes": "Evet",
+      "no": "Hayır",
+      "never": "Hiçbir zaman",
+      "none": "Yok",
+      "actions": "İşlemler",
+      "created": "Oluşturulma",
+      "name": "Ad",
+      "description": "Açıklama",
+      "status": "Durum",
+      "back": "Geri",
+      "done": "Bitti",
+      "loading": "Yükleniyor…",
+      "refresh": "Yenile",
+      "search": "Ara",
+      "optional": "İsteğe bağlı",
+      "unexpectedError": "Bir şeyler ters gitti. Tekrar deneyin."
+    },
+    "urlCheck": {
+      "tooLong": "URL çok uzun.",
+      "notAbsolute": "Mutlak bir URL girin, ör. https://app.example.com/webhooks.",
+      "credentials": "URL kullanıcı adı veya parola içermemelidir.",
+      "fragment": "URL parça (#) içermemelidir.",
+      "notHttps": "URL https:// kullanmalıdır.",
+      "localhost": "URL bu makineyi (localhost) gösteriyor.",
+      "nonPublic": "URL {kind, select, loopback {bir loopback} private {özel bir} linkLocal {link-local bir} cloudMetadata {bir bulut meta veri} sharedAddressSpace {paylaşılan (carrier-grade NAT) bir} other {genel olmayan bir}} adresi gösteriyor.",
+      "unresolved": "{host} sunucusu çözümlenemedi.",
+      "noAddress": "{host} sunucusunun adresi yok.",
+      "resolvesNonPublic": "{host} sunucusu {kind, select, loopback {bir loopback} private {özel bir} linkLocal {link-local bir} cloudMetadata {bir bulut meta veri} sharedAddressSpace {paylaşılan (carrier-grade NAT) bir} other {genel olmayan bir}} adrese ({address}) çözümleniyor."
+    },
+    "shell": {
+      "userFallbackName": "Yönetici",
+      "userMenu": {
+        "home": "Ana sayfa",
+        "logOut": "Çıkış yap"
       }
     }
   },
   "dashboard": {
-    "title": "Account",
-    "description": "Manage your profile, organizations, passkeys, sessions, and connected applications.",
-    "navAria": "Account navigation",
+    "title": "Hesap",
+    "description": "Profilinizi, kuruluşlarınızı, geçiş anahtarlarınızı, oturumlarınızı ve bağlı uygulamalarınızı yönetin.",
+    "navAria": "Hesap gezinmesi",
     "nav": {
-      "overview": "Overview",
-      "profile": "Profile",
-      "organizations": "Organizations",
-      "security": "Security",
-      "apps": "Connected apps",
+      "overview": "Genel bakış",
+      "profile": "Profil",
+      "organizations": "Kuruluşlar",
+      "security": "Güvenlik",
+      "apps": "Bağlı uygulamalar",
       "apiKeys": "API anahtarları",
-      "admin": "Admin",
-      "marketingHome": "About",
-      "signOut": "Sign out",
+      "admin": "Yönetim",
+      "marketingHome": "Hakkında",
+      "signOut": "Çıkış yap",
       "data": "Verileriniz"
     },
     "profile": {
-      "title": "Profile",
-      "description": "Your display name, username, and email status for this account.",
-      "nameLabel": "Display name",
-      "usernameLabel": "Username",
-      "usernameHint": "3-30 characters: letters, numbers, dots, and underscores. Used to sign in instead of email.",
-      "usernameChecking": "Checking availability…",
-      "usernameAvailable": "This username is available.",
-      "usernameTaken": "This username is already taken.",
-      "usernameInvalidHint": "Use only letters, numbers, dots, and underscores.",
-      "usernameTooShort": "Username must be at least 3 characters.",
-      "usernameInvalid": "That username is not valid.",
-      "save": "Save",
-      "saving": "Saving…",
-      "saved": "Profile updated",
-      "saveError": "Could not update profile.",
-      "emailLabel": "Email",
-      "verified": "Verified",
-      "unverified": "Not verified",
-      "unverifiedHint": "Verify your email to protect your account and meet sign-in requirements.",
-      "resendVerification": "Resend verification email",
-      "verificationSent": "Check your inbox for the verification link.",
-      "verificationError": "Could not send verification email.",
-      "changeEmail": "Change",
-      "newEmailLabel": "New email address",
-      "changeEmailHintVerified": "We'll email your current address to approve the change, then send a verification link to the new one. Your email stays the same until both are done.",
-      "changeEmailSubmit": "Send confirmation",
-      "changingEmail": "Sending…",
-      "cancel": "Cancel",
-      "changeEmailSame": "Enter a different email address.",
-      "changeEmailError": "Could not start the email change.",
-      "changeEmailSentToCurrent": "Check {current} to approve the change to {next}. After that, verify {next} from the link we send there.",
-      "changeEmailNeedsVerified": "You can change it once it is verified."
+      "title": "Profil",
+      "description": "Bu hesabın görünen adı, kullanıcı adı ve e-posta durumu.",
+      "nameLabel": "Görünen ad",
+      "usernameLabel": "Kullanıcı adı",
+      "usernameHint": "3-30 karakter: harf, rakam, nokta ve alt çizgi. E-posta yerine giriş yapmak için kullanılır.",
+      "usernameChecking": "Kullanılabilirlik kontrol ediliyor…",
+      "usernameAvailable": "Bu kullanıcı adı kullanılabilir.",
+      "usernameTaken": "Bu kullanıcı adı zaten alınmış.",
+      "usernameInvalidHint": "Yalnızca harf, rakam, nokta ve alt çizgi kullanın.",
+      "usernameTooShort": "Kullanıcı adı en az 3 karakter olmalıdır.",
+      "usernameInvalid": "Bu kullanıcı adı geçerli değil.",
+      "save": "Kaydet",
+      "saving": "Kaydediliyor…",
+      "saved": "Profil güncellendi",
+      "saveError": "Profil güncellenemedi.",
+      "emailLabel": "E-posta",
+      "verified": "Doğrulandı",
+      "unverified": "Doğrulanmadı",
+      "unverifiedHint": "Hesabınızı korumak ve giriş gereksinimlerini karşılamak için e-postanızı doğrulayın.",
+      "resendVerification": "Doğrulama e-postasını yeniden gönder",
+      "verificationSent": "Doğrulama bağlantısı için gelen kutunuzu kontrol edin.",
+      "verificationError": "Doğrulama e-postası gönderilemedi.",
+      "changeEmail": "Değiştir",
+      "newEmailLabel": "Yeni e-posta adresi",
+      "changeEmailHintVerified": "Değişikliği onaylamak için mevcut adresinize bir e-posta, ardından yeni adrese bir doğrulama bağlantısı göndeririz. Her ikisi tamamlanana kadar e-posta adresiniz değişmez.",
+      "changeEmailSubmit": "Onay gönder",
+      "changingEmail": "Gönderiliyor…",
+      "cancel": "İptal",
+      "changeEmailSame": "Farklı bir e-posta adresi girin.",
+      "changeEmailError": "E-posta değişikliği başlatılamadı.",
+      "changeEmailSentToCurrent": "{next} adresine geçişi onaylamak için {current} adresini kontrol edin. Ardından {next} adresini, oraya gönderdiğimiz bağlantıyla doğrulayın.",
+      "changeEmailNeedsVerified": "Doğrulandıktan sonra değiştirebilirsiniz."
     },
     "passkeys": {
-      "title": "Passkeys",
-      "hint": "Use a passkey for phishing-resistant sign-in. Add one on this device or with a security key.",
-      "addThisDevice": "Add passkey (this device)",
-      "addSecurityKey": "Add passkey (security key)",
-      "defaultName": "My passkey",
-      "empty": "No passkeys yet. Add one to sign in without typing your password.",
-      "name": "Name",
-      "unnamed": "Unnamed passkey",
-      "deviceType": "Device type",
-      "created": "Added",
-      "actions": "Actions",
-      "rename": "Rename",
-      "delete": "Remove",
-      "save": "Save",
-      "cancel": "Cancel",
-      "loadError": "Could not load passkeys.",
-      "addError": "Could not add passkey.",
-      "deleteError": "Could not remove passkey.",
-      "updateError": "Could not update passkey.",
-      "added": "Passkey added",
-      "deleted": "Passkey removed",
-      "updated": "Passkey updated",
-      "nameRequired": "Enter a name for this passkey.",
-      "none": "None",
-      "confirmRemoveTitle": "Remove this passkey?",
-      "confirmRemoveBody": "You won’t be able to sign in with this passkey anymore. You can add a new one at any time.",
-      "signInAgainToAdd": "For your security, adding a passkey needs a recent sign-in. Sign in again, then add it.",
-      "signInAgain": "Sign in again"
+      "title": "Geçiş anahtarları",
+      "hint": "Kimlik avına dayanıklı giriş için bir geçiş anahtarı kullanın. Bu cihazda veya bir güvenlik anahtarıyla ekleyin.",
+      "addThisDevice": "Geçiş anahtarı ekle (bu cihaz)",
+      "addSecurityKey": "Geçiş anahtarı ekle (güvenlik anahtarı)",
+      "defaultName": "Geçiş anahtarım",
+      "empty": "Henüz geçiş anahtarı yok. Parolanızı yazmadan giriş yapmak için bir tane ekleyin.",
+      "name": "Ad",
+      "unnamed": "Adsız geçiş anahtarı",
+      "deviceType": "Cihaz türü",
+      "created": "Eklenme",
+      "actions": "İşlemler",
+      "rename": "Yeniden adlandır",
+      "delete": "Kaldır",
+      "save": "Kaydet",
+      "cancel": "İptal",
+      "loadError": "Geçiş anahtarları yüklenemedi.",
+      "addError": "Geçiş anahtarı eklenemedi.",
+      "deleteError": "Geçiş anahtarı kaldırılamadı.",
+      "updateError": "Geçiş anahtarı güncellenemedi.",
+      "added": "Geçiş anahtarı eklendi",
+      "deleted": "Geçiş anahtarı kaldırıldı",
+      "updated": "Geçiş anahtarı güncellendi",
+      "nameRequired": "Bu geçiş anahtarı için bir ad girin.",
+      "none": "Yok",
+      "confirmRemoveTitle": "Bu geçiş anahtarı kaldırılsın mı?",
+      "confirmRemoveBody": "Artık bu geçiş anahtarıyla giriş yapamayacaksınız. İstediğiniz zaman yeni bir tane ekleyebilirsiniz.",
+      "signInAgainToAdd": "Güvenliğiniz için geçiş anahtarı eklemek yakın zamanda giriş yapmış olmayı gerektirir. Yeniden giriş yapın, ardından ekleyin.",
+      "signInAgain": "Yeniden giriş yap"
     },
     "twoFactor": {
       "title": "İki faktörlü kimlik doğrulama",
@@ -509,45 +2089,45 @@
       }
     },
     "organizations": {
-      "title": "Organizations",
-      "description": "Teams and partner organizations you belong to. Switch between them and invite members. Platform administrators create new organizations.",
-      "yourOrganizations": "Your organizations",
-      "empty": "No organizations loaded.",
-      "active": "Active",
-      "switchTo": "Set active",
-      "setActiveError": "Could not switch organization.",
-      "setActiveSuccess": "Active organization updated.",
-      "createTitle": "Create an organization",
-      "createHint": "Use a unique URL slug (e.g. acme-corp). The reserved slug “public” is not available.",
-      "orgName": "Organization name",
+      "title": "Kuruluşlar",
+      "description": "Üyesi olduğunuz ekipler ve iş ortağı kuruluşlar. Aralarında geçiş yapın ve üye davet edin. Yeni kuruluşları platform yöneticileri oluşturur.",
+      "yourOrganizations": "Kuruluşlarınız",
+      "empty": "Yüklenmiş kuruluş yok.",
+      "active": "Etkin",
+      "switchTo": "Etkin yap",
+      "setActiveError": "Kuruluş değiştirilemedi.",
+      "setActiveSuccess": "Etkin kuruluş güncellendi.",
+      "createTitle": "Kuruluş oluşturun",
+      "createHint": "Benzersiz bir URL slug'ı kullanın (ör. acme-corp). Ayrılmış “public” slug'ı kullanılamaz.",
+      "orgName": "Kuruluş adı",
       "orgSlug": "Slug",
-      "create": "Create organization",
-      "creating": "Creating…",
-      "createSuccess": "Organization created",
-      "createError": "Could not create organization.",
-      "createValidation": "Enter a name and slug.",
-      "reservedSlug": "This slug is reserved.",
-      "slugTaken": "That slug is already in use.",
-      "loadError": "Could not load organizations.",
-      "inviteTitle": "Invite a member",
-      "inviteHint": "Sends an email with a link to accept the invitation. Available when your role in the active organization is owner or admin.",
-      "inviteEmail": "Email",
-      "inviteRole": "Role",
-      "roleMember": "Member",
-      "roleAdmin": "Admin",
-      "inviteSend": "Send invitation",
-      "inviting": "Sending…",
-      "inviteSuccess": "Invitation sent",
-      "inviteError": "Could not send invitation.",
-      "inviteValidation": "Enter an email address.",
-      "allOrganizations": "All organizations",
-      "memberCount": "{count, plural, one {# member} other {# members}}",
-      "delete": "Delete",
-      "cancel": "Cancel",
-      "deleted": "Organization deleted",
-      "deleteError": "Could not delete the organization.",
-      "confirmDeleteTitle": "Delete {name}?",
-      "confirmDeleteBody": "This removes the organization, its {count, plural, one {# membership} other {# memberships}} and pending invitations. Member accounts stay. This cannot be undone.",
+      "create": "Kuruluş oluştur",
+      "creating": "Oluşturuluyor…",
+      "createSuccess": "Kuruluş oluşturuldu",
+      "createError": "Kuruluş oluşturulamadı.",
+      "createValidation": "Bir ad ve slug girin.",
+      "reservedSlug": "Bu slug ayrılmış.",
+      "slugTaken": "Bu slug zaten kullanılıyor.",
+      "loadError": "Kuruluşlar yüklenemedi.",
+      "inviteTitle": "Üye davet edin",
+      "inviteHint": "Daveti kabul etmek için bağlantı içeren bir e-posta gönderir. Etkin kuruluştaki rolünüz sahip veya yönetici olduğunda kullanılabilir.",
+      "inviteEmail": "E-posta",
+      "inviteRole": "Rol",
+      "roleMember": "Üye",
+      "roleAdmin": "Yönetici",
+      "inviteSend": "Davet gönder",
+      "inviting": "Gönderiliyor…",
+      "inviteSuccess": "Davet gönderildi",
+      "inviteError": "Davet gönderilemedi.",
+      "inviteValidation": "Bir e-posta adresi girin.",
+      "allOrganizations": "Tüm kuruluşlar",
+      "memberCount": "{count, plural, other {# üye}}",
+      "delete": "Sil",
+      "cancel": "İptal",
+      "deleted": "Kuruluş silindi",
+      "deleteError": "Kuruluş silinemedi.",
+      "confirmDeleteTitle": "{name} silinsin mi?",
+      "confirmDeleteBody": "Bu işlem kuruluşu, {count, plural, other {# üyeliğini}} ve bekleyen davetleri kaldırır. Üye hesapları kalır. Bu işlem geri alınamaz.",
       "apiKeys": {
         "show": "API anahtarları",
         "hide": "API anahtarlarını gizle",
@@ -559,41 +2139,43 @@
       }
     },
     "security": {
-      "title": "Security",
-      "description": "Update your password, manage passkeys, and review where you are signed in.",
-      "passwordHeading": "Password",
-      "passwordHint": "Use at least {min} characters. Choose a password you don’t use elsewhere.",
-      "currentPassword": "Current password",
-      "newPassword": "New password",
-      "confirmNewPassword": "Confirm new password",
-      "changePassword": "Update password",
-      "changing": "Updating…",
-      "passwordChanged": "Password updated",
-      "passwordError": "Could not change password.",
-      "passwordTooShort": "The new password must be at least {min} characters.",
-      "passwordMismatch": "New passwords do not match.",
-      "sameAsCurrent": "Choose a different password from your current one.",
-      "invalidCurrentPassword": "Current password is incorrect.",
-      "compromisedPassword": "This new password appears in known data breaches. Choose a different one.",
-      "revokeOthersAfterChange": "Sign out my other devices when the password changes",
-      "revokeOthersAfterChangeHint": "Recommended if you think someone else may know your old password.",
-      "sessionsTitle": "Active sessions",
-      "sessionsHint": "Revoke sessions you do not recognize. Revoking this device will sign you out.",
-      "sessionsLoadError": "Could not load sessions.",
-      "revoke": "Revoke",
-      "revokeOthers": "Sign out other sessions",
-      "revokeError": "Something went wrong.",
-      "sessionRevoked": "Session revoked",
-      "othersRevoked": "Other sessions signed out",
-      "currentSession": "This device",
-      "unknownDevice": "Unknown device",
-      "noSessions": "No sessions found.",
-      "device": "Device",
-      "network": "IP address",
-      "actions": "Actions",
-      "started": "Started",
-      "expires": "Expires",
-      "none": "None"
+      "title": "Güvenlik",
+      "description": "Parolanızı güncelleyin, geçiş anahtarlarınızı yönetin ve nerelerde oturum açtığınızı inceleyin.",
+      "passwordHeading": "Parola",
+      "passwordHint": "En az {min} karakter kullanın. Başka yerde kullanmadığınız bir parola seçin.",
+      "currentPassword": "Mevcut parola",
+      "newPassword": "Yeni parola",
+      "confirmNewPassword": "Yeni parolayı onaylayın",
+      "changePassword": "Parolayı güncelle",
+      "changing": "Güncelleniyor…",
+      "passwordChanged": "Parola güncellendi",
+      "passwordError": "Parola değiştirilemedi.",
+      "passwordTooShort": "Yeni parola en az {min} karakter olmalıdır.",
+      "passwordMismatch": "Yeni parolalar eşleşmiyor.",
+      "sameAsCurrent": "Mevcut parolanızdan farklı bir parola seçin.",
+      "invalidCurrentPassword": "Mevcut parola yanlış.",
+      "compromisedPassword": "Bu yeni parola bilinen veri ihlallerinde yer alıyor. Farklı bir parola seçin.",
+      "revokeOthersAfterChange": "Parola değiştiğinde diğer cihazlarımdan çıkış yap",
+      "revokeOthersAfterChangeHint": "Eski parolanızı başka birinin bildiğini düşünüyorsanız önerilir.",
+      "sessionsTitle": "Etkin oturumlar",
+      "sessionsHint": "Tanımadığınız oturumları iptal edin. Bu cihazı iptal etmek oturumunuzu kapatır.",
+      "sessionsLoadError": "Oturumlar yüklenemedi.",
+      "revoke": "İptal et",
+      "revokeOthers": "Diğer oturumları kapat",
+      "revokeError": "Bir şeyler ters gitti.",
+      "sessionRevoked": "Oturum iptal edildi",
+      "othersRevoked": "Diğer oturumlar kapatıldı",
+      "currentSession": "Bu cihaz",
+      "unknownDevice": "Bilinmeyen cihaz",
+      "noSessions": "Oturum bulunamadı.",
+      "device": "Cihaz",
+      "network": "IP adresi",
+      "actions": "İşlemler",
+      "started": "Başlangıç",
+      "expires": "Bitiş",
+      "none": "Yok",
+      "startedAt": "Başlangıç: {date}",
+      "expiresAt": "Bitiş: {date}"
     },
     "apps": {
       "title": "Bağlı uygulamalar",
@@ -669,22 +2251,22 @@
       "createdBy": "oluşturan: {name}",
       "createdByDeleted": "oluşturanın hesabı silindi"
     },
-    "accountMenu": "Account menu",
+    "accountMenu": "Hesap menüsü",
     "connectedAccounts": {
-      "title": "Connected accounts",
-      "hint": "Sign in with these accounts as well as your password or passkeys.",
-      "connected": "Connected",
-      "notConnected": "Not connected",
-      "connect": "Connect",
-      "disconnect": "Disconnect",
-      "disconnected": "{provider} disconnected",
-      "cancel": "Cancel",
-      "confirmTitle": "Disconnect {provider}?",
-      "confirmBody": "You won't be able to sign in with this account anymore. You can connect it again later.",
-      "lastMethod": "This is your only way to sign in. Add a password or passkey first.",
-      "error": "Something went wrong. Try again.",
-      "signInAgainToChange": "For your security, connecting an account needs a recent sign-in. Sign in again, then connect it.",
-      "signInAgain": "Sign in again"
+      "title": "Bağlı hesaplar",
+      "hint": "Parolanız veya geçiş anahtarlarınızın yanı sıra bu hesaplarla da giriş yapın.",
+      "connected": "Bağlı",
+      "notConnected": "Bağlı değil",
+      "connect": "Bağla",
+      "disconnect": "Bağlantıyı kes",
+      "disconnected": "{provider} bağlantısı kesildi",
+      "cancel": "İptal",
+      "confirmTitle": "{provider} bağlantısı kesilsin mi?",
+      "confirmBody": "Artık bu hesapla giriş yapamayacaksınız. Daha sonra yeniden bağlayabilirsiniz.",
+      "lastMethod": "Bu, giriş yapmanın tek yolu. Önce bir parola veya geçiş anahtarı ekleyin.",
+      "error": "Bir şeyler ters gitti. Tekrar deneyin.",
+      "signInAgainToChange": "Güvenliğiniz için hesap bağlamak yakın zamanda giriş yapmış olmayı gerektirir. Yeniden giriş yapın, ardından bağlayın.",
+      "signInAgain": "Yeniden giriş yap"
     },
     "accounts": {
       "switchTo": "Şuna geç",
@@ -752,26 +2334,30 @@
         "impersonating": "Bir yönetici görüntülerken hesap silinemez.",
         "failed": "Silme işlemi başlatılamadı. Tekrar deneyin."
       }
+    },
+    "impersonation": {
+      "viewingAs": "Bu hesabı <strong>{email}</strong> olarak görüntülüyorsunuz.",
+      "stop": "Kimliğe bürünmeyi durdur"
     }
   },
   "acceptInvitation": {
-    "loading": "Checking session…",
-    "needSignInTitle": "Sign in to continue",
-    "needSignInDescription": "You need to be signed in with the invited email address before accepting this invitation.",
-    "signIn": "Sign in",
-    "title": "Accept invitation",
-    "description": "Join the organization that invited you.",
-    "signedInAs": "Signed in as {email}.",
-    "accept": "Accept invitation",
-    "accepting": "Accepting…",
-    "success": "You have joined the organization.",
-    "successTitle": "Welcome",
-    "successDescription": "Redirecting to your dashboard…",
-    "error": "Could not accept the invitation."
+    "loading": "Oturum kontrol ediliyor…",
+    "needSignInTitle": "Devam etmek için giriş yapın",
+    "needSignInDescription": "Bu daveti kabul etmeden önce davet edilen e-posta adresiyle giriş yapmış olmanız gerekir.",
+    "signIn": "Giriş yap",
+    "title": "Daveti kabul et",
+    "description": "Sizi davet eden kuruluşa katılın.",
+    "signedInAs": "{email} olarak giriş yapıldı.",
+    "accept": "Daveti kabul et",
+    "accepting": "Kabul ediliyor…",
+    "success": "Kuruluşa katıldınız.",
+    "successTitle": "Hoş geldiniz",
+    "successDescription": "Panonuza yönlendiriliyorsunuz…",
+    "error": "Davet kabul edilemedi."
   },
   "common": {
-    "loading": "Loading…",
-    "language": "Language",
+    "loading": "Yükleniyor…",
+    "language": "Dil",
     "localeNames": {
       "en": "İngilizce",
       "fr": "Fransızca",
@@ -793,12 +2379,20 @@
       "no": "Norveççe",
       "fi": "Fince",
       "cs": "Çekçe"
+    },
+    "ui": {
+      "close": "Kapat",
+      "sidebar": "Kenar çubuğu",
+      "sidebarDescription": "Mobil kenar çubuğunu gösterir.",
+      "toggleSidebar": "Kenar çubuğunu aç/kapat",
+      "breadcrumb": "içerik haritası",
+      "more": "Daha fazla"
     }
   },
   "errors": {
-    "boundaryTitle": "Something went wrong",
-    "boundaryDescription": "An error occurred while loading this page.",
-    "retry": "Try again"
+    "boundaryTitle": "Bir şeyler ters gitti",
+    "boundaryDescription": "Bu sayfa yüklenirken bir hata oluştu.",
+    "retry": "Tekrar dene"
   },
   "rateLimit": {
     "seconds": "Çok fazla deneme. {seconds} saniye sonra yeniden deneyin.",
@@ -806,94 +2400,156 @@
     "later": "Çok fazla deneme. Birkaç dakika bekleyip tekrar deneyin."
   },
   "sso": {
-    "title": "Single sign-on",
-    "description": "Connect your organization's identity provider (OIDC or SAML 2.0) so members can sign in with their work account.",
-    "registerTitle": "Register a provider",
-    "registerDescription": "Your identity provider must redirect back to the callback URL shown below.",
-    "providerId": "Provider ID",
-    "providerIdHint": "A short identifier, e.g. acme-okta.",
-    "issuer": "Issuer URL",
-    "domain": "Email domain",
-    "domainHint": "Users with this email domain are sent to this provider.",
-    "clientId": "Client ID",
-    "clientSecret": "Client secret",
-    "organization": "Organization (optional)",
-    "register": "Register provider",
-    "registering": "Registering…",
-    "registered": "SSO provider registered",
-    "registerError": "Could not register the provider.",
-    "callbackTitle": "Callback URL to configure in your identity provider",
-    "providersTitle": "Configured providers",
-    "providersEmpty": "No SSO provider configured yet.",
-    "loadError": "Could not load SSO providers.",
-    "signInTitle": "Sign in with SSO",
-    "signInDescription": "Enter your work email. We'll redirect you to your organization's identity provider.",
-    "signInEmail": "Work email",
-    "signInSubmit": "Continue",
-    "signInError": "Could not start single sign-on for this address.",
-    "signInLink": "Sign in with SSO",
-    "signInFailed": "Single sign-on did not complete. Try again, or ask your administrator to check the identity provider settings.",
+    "title": "Çoklu oturum açma",
+    "description": "Üyelerin iş hesaplarıyla giriş yapabilmesi için kuruluşunuzun kimlik sağlayıcısını (OIDC veya SAML 2.0) bağlayın.",
+    "registerTitle": "Sağlayıcı kaydedin",
+    "registerDescription": "Kimlik sağlayıcınız aşağıda gösterilen geri çağırma URL'sine yönlendirmelidir.",
+    "providerId": "Sağlayıcı kimliği",
+    "providerIdHint": "Kısa bir tanımlayıcı, ör. acme-okta.",
+    "issuer": "Issuer URL'si",
+    "domain": "E-posta alan adı",
+    "domainHint": "Bu e-posta alan adına sahip kullanıcılar bu sağlayıcıya yönlendirilir.",
+    "clientId": "İstemci kimliği",
+    "clientSecret": "İstemci gizli anahtarı",
+    "organization": "Kuruluş (isteğe bağlı)",
+    "register": "Sağlayıcıyı kaydet",
+    "registering": "Kaydediliyor…",
+    "registered": "SSO sağlayıcısı kaydedildi",
+    "registerError": "Sağlayıcı kaydedilemedi.",
+    "callbackTitle": "Kimlik sağlayıcınızda yapılandırılacak geri çağırma URL'si",
+    "providersTitle": "Yapılandırılmış sağlayıcılar",
+    "providersEmpty": "Henüz yapılandırılmış SSO sağlayıcısı yok.",
+    "loadError": "SSO sağlayıcıları yüklenemedi.",
+    "signInTitle": "SSO ile giriş yap",
+    "signInDescription": "İş e-postanızı girin. Sizi kuruluşunuzun kimlik sağlayıcısına yönlendireceğiz.",
+    "signInEmail": "İş e-postası",
+    "signInSubmit": "Devam",
+    "signInError": "Bu adres için çoklu oturum açma başlatılamadı.",
+    "signInLink": "SSO ile giriş yap",
+    "signInFailed": "Çoklu oturum açma tamamlanmadı. Tekrar deneyin veya yöneticinizden kimlik sağlayıcı ayarlarını kontrol etmesini isteyin.",
     "saml": {
-      "protocol": "Protocol",
-      "registerDescription": "The identity provider posts signed SAML assertions to the ACS URL below. Sign-in starts from Ostiary (SP-initiated).",
-      "idpSource": "Identity provider configuration",
-      "sourceUrl": "Metadata URL",
-      "sourceXml": "Paste metadata XML",
-      "sourceManual": "Enter manually",
-      "metadataUrl": "IdP metadata URL",
-      "metadataUrlHint": "The server fetches it once when you save. After a certificate rotation, fetch it again from Edit.",
-      "metadataXml": "IdP metadata XML",
-      "metadataXmlHint": "The EntityDescriptor your identity provider exports.",
-      "idpEntityId": "IdP entity ID (issuer)",
-      "ssoUrl": "IdP single sign-on URL",
-      "ssoUrlHint": "The URL for the HTTP-Redirect binding.",
-      "certificate": "IdP signing certificate",
-      "certificateHint": "PEM (-----BEGIN CERTIFICATE-----) or its base64 body.",
-      "mappingTitle": "Attribute mapping",
-      "mappingPreset": "Preset",
+      "protocol": "Protokol",
+      "registerDescription": "Kimlik sağlayıcı, imzalı SAML assertion'larını aşağıdaki ACS URL'sine gönderir. Giriş Ostiary'den başlar (SP tarafından başlatılan).",
+      "idpSource": "Kimlik sağlayıcı yapılandırması",
+      "sourceUrl": "Meta veri URL'si",
+      "sourceXml": "Meta veri XML'ini yapıştır",
+      "sourceManual": "Elle gir",
+      "metadataUrl": "IdP meta veri URL'si",
+      "metadataUrlHint": "Sunucu, kaydettiğinizde bunu bir kez alır. Sertifika değiştirildikten sonra Düzenle'den yeniden alın.",
+      "metadataXml": "IdP meta veri XML'i",
+      "metadataXmlHint": "Kimlik sağlayıcınızın dışa aktardığı EntityDescriptor.",
+      "idpEntityId": "IdP varlık kimliği (entity ID, issuer)",
+      "ssoUrl": "IdP çoklu oturum açma URL'si",
+      "ssoUrlHint": "HTTP-Redirect binding'i için URL.",
+      "certificate": "IdP imzalama sertifikası",
+      "certificateHint": "PEM (-----BEGIN CERTIFICATE-----) veya base64 gövdesi.",
+      "mappingTitle": "Öznitelik eşleme",
+      "mappingPreset": "Ön ayar",
       "preset_okta": "Okta",
       "preset_entra": "Microsoft Entra ID",
       "preset_google": "Google Workspace",
       "preset_jumpcloud": "JumpCloud",
-      "preset_custom": "Custom",
-      "attrEmail": "Email attribute",
-      "attrName": "Display name attribute",
-      "attrFirstName": "First name attribute",
-      "attrLastName": "Last name attribute",
-      "mappingHint": "First and last name are used when the identity provider sends them, otherwise the display name. The user ID is the assertion's NameID: configure a persistent identifier.",
-      "wantAssertionsSigned": "Require signed assertions",
-      "wantAssertionsSignedHint": "Recommended. When off, the whole response must still be signed: unsigned responses are always refused.",
-      "requestSigningNote": "Ostiary does not sign authentication requests: leave request signing off in the identity provider.",
-      "spTitle": "Values to enter in your identity provider",
-      "acsUrl": "ACS URL (single sign-on URL, reply URL)",
-      "spEntityId": "SP entity ID (audience URI, identifier)",
-      "spMetadataUrl": "SP metadata URL",
-      "copy": "Copy",
-      "copied": "Copied",
-      "setupTitle": "Setup notes",
-      "oktaStep1": "In the Okta admin console: Applications, Create App Integration, SAML 2.0.",
-      "oktaStep2": "Single sign-on URL: the ACS URL. Audience URI (SP Entity ID): the SP entity ID. Name ID format: Persistent. Application username: Email.",
-      "oktaStep3": "Attribute statements: email = user.email, firstName = user.firstName, lastName = user.lastName (the Okta preset).",
-      "oktaStep4": "Assign people, then copy the metadata URL from the Sign On tab into Ostiary.",
-      "entraStep1": "In Microsoft Entra ID: Enterprise applications, New application, Create your own application (non-gallery), then Single sign-on, SAML.",
-      "entraStep2": "Basic SAML configuration: Identifier (Entity ID) = the SP entity ID, Reply URL = the ACS URL.",
-      "entraStep3": "Keep the default claims (the Entra ID preset). The default signing option, Sign SAML assertion, works.",
-      "entraStep4": "Assign users and groups, then copy the App Federation Metadata URL into Ostiary.",
-      "spInitiatedNote": "Only sign-in started from Ostiary is supported. Point app tiles in the identity provider's portal to {url}.",
-      "spDetails": "SP details",
-      "detailsTitle": "{id}: SAML settings",
-      "detailsDescription": "Enter these values in the identity provider.",
-      "assertionsSignedOn": "Signed assertions are required.",
-      "assertionsSignedOff": "Signed responses are required (assertions may be unsigned).",
-      "certExpires": "Signing certificate valid until {date}",
-      "certExpired": "The signing certificate has expired: sign-ins will fail until the IdP metadata is updated.",
-      "editTitle": "Edit {id}",
-      "editDescription": "Changing the domain means it must be verified again. The SP entity ID and ACS URL stay the same.",
-      "replaceIdp": "Replace the identity provider configuration (new metadata or certificate)",
-      "updated": "Provider updated",
-      "save": "Save",
-      "cancel": "Cancel",
-      "close": "Close"
+      "preset_custom": "Özel",
+      "attrEmail": "E-posta özniteliği",
+      "attrName": "Görünen ad özniteliği",
+      "attrFirstName": "Ad özniteliği",
+      "attrLastName": "Soyadı özniteliği",
+      "mappingHint": "Kimlik sağlayıcı gönderdiğinde ad ve soyadı, aksi halde görünen ad kullanılır. Kullanıcı kimliği assertion'ın NameID değeridir: kalıcı (persistent) bir tanımlayıcı yapılandırın.",
+      "wantAssertionsSigned": "İmzalı assertion'lar gerektir",
+      "wantAssertionsSignedHint": "Önerilir. Kapalıyken de yanıtın tamamı imzalı olmalıdır: imzasız yanıtlar her zaman reddedilir.",
+      "requestSigningNote": "Ostiary kimlik doğrulama isteklerini imzalamaz: kimlik sağlayıcıda istek imzalamayı kapalı bırakın.",
+      "spTitle": "Kimlik sağlayıcınıza girilecek değerler",
+      "acsUrl": "ACS URL'si (single sign-on URL, reply URL)",
+      "spEntityId": "SP varlık kimliği (entity ID, audience URI, identifier)",
+      "spMetadataUrl": "SP meta veri URL'si",
+      "copy": "Kopyala",
+      "copied": "Kopyalandı",
+      "setupTitle": "Kurulum notları",
+      "oktaStep1": "Okta yönetim konsolunda: Applications, Create App Integration, SAML 2.0.",
+      "oktaStep2": "Single sign-on URL: ACS URL'si. Audience URI (SP Entity ID): SP varlık kimliği. Name ID format: Persistent. Application username: Email.",
+      "oktaStep3": "Attribute statements: email = user.email, firstName = user.firstName, lastName = user.lastName (Okta ön ayarı).",
+      "oktaStep4": "Kullanıcıları atayın, ardından Sign On sekmesindeki meta veri URL'sini Ostiary'ye kopyalayın.",
+      "entraStep1": "Microsoft Entra ID'de: Enterprise applications, New application, Create your own application (non-gallery), ardından Single sign-on, SAML.",
+      "entraStep2": "Basic SAML configuration: Identifier (Entity ID) = SP varlık kimliği, Reply URL = ACS URL'si.",
+      "entraStep3": "Varsayılan claim'leri koruyun (Entra ID ön ayarı). Varsayılan imzalama seçeneği olan Sign SAML assertion çalışır.",
+      "entraStep4": "Kullanıcıları ve grupları atayın, ardından App Federation Metadata URL'sini Ostiary'ye kopyalayın.",
+      "spInitiatedNote": "Yalnızca Ostiary'den başlatılan giriş desteklenir. Kimlik sağlayıcının portalındaki uygulama kutucuklarını {url} adresine yönlendirin.",
+      "spDetails": "SP ayrıntıları",
+      "detailsTitle": "{id}: SAML ayarları",
+      "detailsDescription": "Bu değerleri kimlik sağlayıcıya girin.",
+      "assertionsSignedOn": "İmzalı assertion'lar gereklidir.",
+      "assertionsSignedOff": "İmzalı yanıtlar gereklidir (assertion'lar imzasız olabilir).",
+      "certExpires": "İmzalama sertifikası {date} tarihine kadar geçerli",
+      "certExpired": "İmzalama sertifikasının süresi doldu: IdP meta verisi güncellenene kadar girişler başarısız olacak.",
+      "editTitle": "{id} düzenle",
+      "editDescription": "Alan adını değiştirmek, alan adının yeniden doğrulanmasını gerektirir. SP varlık kimliği ve ACS URL'si aynı kalır.",
+      "replaceIdp": "Kimlik sağlayıcı yapılandırmasını değiştir (yeni meta veri veya sertifika)",
+      "updated": "Sağlayıcı güncellendi",
+      "save": "Kaydet",
+      "cancel": "İptal",
+      "close": "Kapat",
+      "copyLabel": "Kopyala: {label}",
+      "errors": {
+        "metadataEmpty": "Meta veri boş.",
+        "metadataTooLarge": "Meta veri 100 KB'den büyük.",
+        "metadataDoctype": "Meta veri DOCTYPE içermemelidir.",
+        "metadataNotXml": "Meta veri düzgün biçimlendirilmiş bir XML değil.",
+        "notSamlMetadata": "Bu bir SAML meta verisi değil.",
+        "multipleEntities": "Meta veri tam olarak bir kimlik sağlayıcıyı tanımlamalıdır.",
+        "noEntityId": "Meta veride entityID yok.",
+        "noIdpDescriptor": "Meta veride kimlik sağlayıcı (IDPSSODescriptor) yok.",
+        "noSaml2": "Kimlik sağlayıcı SAML 2.0'ı desteklemiyor.",
+        "signedRequestsRequired": "Kimlik sağlayıcı, Ostiary'nin göndermediği imzalı istekler gerektiriyor. Kimlik sağlayıcıda istek imzalamayı kapatın.",
+        "noRedirectBinding": "Meta veride HTTP-Redirect binding'ine sahip bir SingleSignOnService yok.",
+        "metadataSsoUrlNotHttps": "Kimlik sağlayıcının SSO URL'si https:// kullanmalıdır.",
+        "unreadableCertificate": "Meta verideki bir imzalama sertifikası okunamadı.",
+        "noSigningCertificate": "Meta veride imzalama sertifikası yok.",
+        "invalidMapping": "E-posta ve ad için öznitelik adlarını girin (boşluk veya tırnak işareti olmadan).",
+        "allCertificatesExpired": "Meta verideki tüm imzalama sertifikalarının süresi doldu.",
+        "missingEntityId": "Kimlik sağlayıcının varlık kimliğini (issuer) girin.",
+        "ssoUrlNotHttps": "SSO URL'si bir https:// URL'si olmalıdır.",
+        "invalidCertificate": "İmzalama sertifikası geçerli bir X.509 sertifikası (PEM) değil.",
+        "certificateExpired": "İmzalama sertifikasının süresi doldu.",
+        "fetchFailed": "Meta veri alınamadı: {reason}",
+        "invalidRedirect": "Meta veri URL'si geçersiz bir adrese yönlendiriyor.",
+        "httpStatus": "Meta veri URL'si {status} yanıtını verdi.",
+        "tooManyRedirects": "Meta veri URL'si çok fazla kez yönlendiriyor."
+      }
+    },
+    "panel": {
+      "noOrganization": "Kuruluş yok",
+      "providersDescription": "Bir sağlayıcı, e-posta alan adı bir DNS kaydıyla doğrulandıktan sonra girişleri kabul eder.",
+      "verified": "Doğrulandı",
+      "domainNotVerified": "Alan adı doğrulanmadı",
+      "verifyDomain": "Alan adını doğrula",
+      "editLabel": "{id} düzenle",
+      "deleteLabel": "{id} sil",
+      "verifyTitle": "{domain} doğrulayın",
+      "verifyDescription": "Alan adı sahibinden bu TXT kaydını DNS'ine eklemesini isteyin, ardından burada kontrol edin. Bu sağlayıcı üzerinden girişler, alan adı doğrulandığında çalışmaya başlar.",
+      "recordName": "Ad",
+      "recordValue": "Değer",
+      "copyRecordName": "Adı kopyala",
+      "copyRecordValue": "Değeri kopyala",
+      "recordValidity": "Değer 7 gün boyunca geçerli kalır.",
+      "domainVerified": "Alan adı doğrulandı",
+      "checkDns": "DNS'i kontrol et",
+      "editDescription": "Alan adını değiştirmek, alan adının yeniden doğrulanmasını gerektirir. İstemci kimlik bilgilerini değiştirmek için sağlayıcıyı silip yeniden kaydedin.",
+      "organization": "Kuruluş",
+      "deleteTitle": "{id} silinsin mi?",
+      "deleteDescription": "{domain} adresine sahip kişiler artık bu sağlayıcı üzerinden giriş yapamaz. Hesapları kalır ve yine de parola veya geçiş anahtarı kullanabilirler.",
+      "providerDeleted": "Sağlayıcı silindi"
+    },
+    "errors": {
+      "providerNotFound": "Sağlayıcı bulunamadı.",
+      "issuerNotUrl": "Issuer bir URL olmalıdır.",
+      "invalidDomain": "Bir e-posta alan adı girin, ör. acme.com.",
+      "organizationNotFound": "Kuruluş bulunamadı.",
+      "samlIssuerLocked": "Bir SAML sağlayıcısının SP varlık kimliği değiştirilemez.",
+      "invalidProviderDomain": "Sağlayıcının alan adı geçerli değil.",
+      "txtRecordNotFound": "TXT kaydı henüz bulunamadı. DNS değişikliklerinin görünmesi birkaç dakika sürebilir.",
+      "envNotSet": "{name} ayarlanmamış.",
+      "invalidProviderId": "Sağlayıcı kimliği 2 ile 63 arasında küçük harf, rakam, - veya _ karakterinden oluşmalıdır.",
+      "unreadableSamlConfig": "Saklanan SAML yapılandırması okunamıyor; sağlayıcıyı silip yeniden kaydedin."
     }
   },
   "selectAccount": {

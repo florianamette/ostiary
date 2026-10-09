@@ -1,46 +1,46 @@
 {
   "layout": {
-    "title": "Sign in",
-    "description": "Log in to your work tools and profile."
+    "title": "Přihlášení",
+    "description": "Přihlaste se do svých pracovních nástrojů a profilu."
   },
   "auth": {
     "login": {
-      "title": "Login to your account",
-      "description": "Sign in with your email or username and password.",
-      "identifierLabel": "Email or username",
-      "identifierPlaceholder": "you@example.com or your_username",
-      "emailLabel": "Email",
+      "title": "Přihlaste se ke svému účtu",
+      "description": "Přihlaste se e-mailem nebo uživatelským jménem a heslem.",
+      "identifierLabel": "E-mail nebo uživatelské jméno",
+      "identifierPlaceholder": "you@example.com nebo your_username",
+      "emailLabel": "E-mail",
       "emailPlaceholder": "m@example.com",
-      "passwordLabel": "Password",
-      "forgotPasswordLink": "Forgot password?",
-      "submit": "Login",
-      "submitting": "Signing in…",
-      "noAccount": "Don't have an account?",
-      "signUpLink": "Sign up",
-      "verifyEmailAfterSignup": "Check your inbox for a verification link. You must verify your email before signing in.",
-      "passkey": "Sign in with passkey",
-      "passkeySubmitting": "Waiting for passkey…",
+      "passwordLabel": "Heslo",
+      "forgotPasswordLink": "Zapomněli jste heslo?",
+      "submit": "Přihlásit se",
+      "submitting": "Přihlašování…",
+      "noAccount": "Nemáte účet?",
+      "signUpLink": "Zaregistrujte se",
+      "verifyEmailAfterSignup": "Ve schránce najdete ověřovací odkaz. Před přihlášením musíte svůj e-mail ověřit.",
+      "passkey": "Přihlásit se přístupovým klíčem",
+      "passkeySubmitting": "Čekání na přístupový klíč…",
       "emailCode": "Poslat přihlašovací kód e-mailem",
-      "lastUsedBadge": "Last used",
-      "lastUsedHintEmail": "You last signed in with email and password.",
-      "lastUsedHintUsername": "You last signed in with username and password.",
-      "lastUsedHintPasskey": "You last signed in with a passkey.",
+      "lastUsedBadge": "Naposledy použito",
+      "lastUsedHintEmail": "Naposledy jste se přihlásili e-mailem a heslem.",
+      "lastUsedHintUsername": "Naposledy jste se přihlásili uživatelským jménem a heslem.",
+      "lastUsedHintPasskey": "Naposledy jste se přihlásili přístupovým klíčem.",
       "lastUsedHintEmailCode": "Naposledy jste se přihlásili kódem zaslaným e-mailem.",
-      "lastUsedHintOther": "You last signed in with {method}.",
+      "lastUsedHintOther": "Naposledy jste se přihlásili přes {method}.",
       "errors": {
         "emailNotVerified": "Please verify your email first. We sent you a new verification link, check your inbox.",
-        "signInFailed": "Could not sign in. Check your details and try again.",
-        "passkeyFailed": "Passkey sign-in failed. Try again or use your password."
+        "signInFailed": "Přihlášení se nezdařilo. Zkontrolujte údaje a zkuste to znovu.",
+        "passkeyFailed": "Přihlášení přístupovým klíčem se nezdařilo. Zkuste to znovu nebo použijte heslo."
       },
       "resend": {
-        "title": "Didn't get the email?",
-        "description": "Enter your email and we'll send you a new verification link.",
+        "title": "Nepřišel vám e-mail?",
+        "description": "Zadejte svůj e-mail a pošleme vám nový ověřovací odkaz.",
         "emailPlaceholder": "you@example.com",
-        "send": "Send a new link",
-        "sendAgain": "Send again",
-        "sent": "If an unverified account uses this address, a new link is on its way. Check your inbox and spam folder.",
-        "invalidEmail": "Enter a valid email address.",
-        "error": "Could not send the email. Try again in a minute."
+        "send": "Poslat nový odkaz",
+        "sendAgain": "Poslat znovu",
+        "sent": "Pokud tuto adresu používá neověřený účet, nový odkaz je na cestě. Zkontrolujte doručenou poštu i složku se spamem.",
+        "invalidEmail": "Zadejte platnou e-mailovou adresu.",
+        "error": "E-mail se nepodařilo odeslat. Zkuste to znovu za minutu."
       },
       "addAccountDescription": "Účty, které jsou v tomto prohlížeči už přihlášené, zůstanou přihlášené."
     },
@@ -93,81 +93,81 @@
       }
     },
     "forgotPassword": {
-      "metaTitle": "Forgot password",
-      "title": "Reset your password",
-      "description": "Enter the email on your account. If it exists, we will send you a link to choose a new password.",
-      "emailLabel": "Email",
+      "metaTitle": "Zapomenuté heslo",
+      "title": "Obnovení hesla",
+      "description": "Zadejte e-mail svého účtu. Pokud účet existuje, pošleme vám odkaz pro nastavení nového hesla.",
+      "emailLabel": "E-mail",
       "emailPlaceholder": "m@example.com",
-      "emailHint": "Use the same email you registered with. If you usually sign in with a username, recovery still uses your account email.",
-      "submit": "Send reset link",
-      "submitting": "Sending…",
-      "backToLogin": "Back to login",
-      "emailSent": "If an account exists for that email, you will receive a reset link shortly.",
+      "emailHint": "Použijte stejný e-mail, se kterým jste se registrovali. I když se obvykle přihlašujete uživatelským jménem, obnovení probíhá přes e-mail účtu.",
+      "submit": "Poslat odkaz pro obnovení",
+      "submitting": "Odesílání…",
+      "backToLogin": "Zpět na přihlášení",
+      "emailSent": "Pokud k tomuto e-mailu existuje účet, brzy vám přijde odkaz pro obnovení.",
       "errors": {
-        "emailRequired": "Please enter your email address.",
-        "requestFailed": "Could not send the reset email. Try again."
+        "emailRequired": "Zadejte svou e-mailovou adresu.",
+        "requestFailed": "E-mail pro obnovení se nepodařilo odeslat. Zkuste to znovu."
       }
     },
     "resetPassword": {
-      "metaTitle": "Set new password",
-      "title": "Choose a new password",
-      "description": "Enter and confirm your new password below.",
-      "invalidTokenTitle": "Link expired or invalid",
-      "invalidTokenDescription": "This reset link is no longer valid. Request a new one to continue.",
-      "missingTokenTitle": "No reset link",
-      "missingTokenDescription": "Open the link from your email, or request a new password reset.",
-      "requestNewLink": "Request new link",
-      "backToLogin": "Back to login",
-      "newPasswordLabel": "New password",
-      "confirmPasswordLabel": "Confirm password",
-      "passwordHint": "Must be at least 8 characters long.",
-      "passwordMismatch": "Passwords do not match",
-      "submit": "Update password",
-      "submitting": "Updating…",
-      "success": "Your password was updated. You can sign in now.",
+      "metaTitle": "Nastavení nového hesla",
+      "title": "Zvolte nové heslo",
+      "description": "Níže zadejte a potvrďte nové heslo.",
+      "invalidTokenTitle": "Odkaz vypršel nebo je neplatný",
+      "invalidTokenDescription": "Tento odkaz pro obnovení už neplatí. Pokračujte vyžádáním nového.",
+      "missingTokenTitle": "Chybí odkaz pro obnovení",
+      "missingTokenDescription": "Otevřete odkaz z e-mailu nebo si vyžádejte nové obnovení hesla.",
+      "requestNewLink": "Vyžádat nový odkaz",
+      "backToLogin": "Zpět na přihlášení",
+      "newPasswordLabel": "Nové heslo",
+      "confirmPasswordLabel": "Potvrzení hesla",
+      "passwordHint": "Musí mít alespoň 8 znaků.",
+      "passwordMismatch": "Hesla se neshodují",
+      "submit": "Změnit heslo",
+      "submitting": "Ukládání…",
+      "success": "Heslo bylo změněno. Nyní se můžete přihlásit.",
       "errors": {
-        "resetFailed": "Could not reset your password. Try again or request a new link."
+        "resetFailed": "Heslo se nepodařilo obnovit. Zkuste to znovu nebo si vyžádejte nový odkaz."
       }
     },
     "signup": {
-      "title": "Create an account",
-      "description": "Enter your information below to create your account",
-      "usernameLabel": "Username",
+      "title": "Vytvoření účtu",
+      "description": "Pro vytvoření účtu vyplňte níže své údaje",
+      "usernameLabel": "Uživatelské jméno",
       "usernamePlaceholder": "your_username",
-      "usernameHint": "3-30 characters: letters, numbers, dots, and underscores only.",
-      "usernameChecking": "Checking availability…",
-      "usernameAvailable": "This username is available.",
-      "usernameTaken": "This username is already taken.",
-      "usernameInvalidHint": "Use only letters, numbers, dots, and underscores.",
-      "fullNameLabel": "Full Name",
-      "namePlaceholder": "John Doe",
-      "emailLabel": "Email",
+      "usernameHint": "3–30 znaků: pouze písmena, číslice, tečky a podtržítka.",
+      "usernameChecking": "Ověřování dostupnosti…",
+      "usernameAvailable": "Toto uživatelské jméno je volné.",
+      "usernameTaken": "Toto uživatelské jméno je už obsazené.",
+      "usernameInvalidHint": "Používejte pouze písmena, číslice, tečky a podtržítka.",
+      "fullNameLabel": "Celé jméno",
+      "namePlaceholder": "Jan Novák",
+      "emailLabel": "E-mail",
       "emailPlaceholder": "m@example.com",
-      "emailDescription": "We'll use this to contact you. We will not share your email with anyone else.",
-      "passwordLabel": "Password",
-      "confirmPasswordLabel": "Confirm Password",
-      "passwordHint": "Must be at least 8 characters long.",
-      "confirmPasswordHint": "Please confirm your password.",
-      "passwordMismatch": "Passwords do not match",
-      "submit": "Create Account",
-      "submitting": "Creating account…",
-      "hasAccount": "Already have an account?",
-      "signInLink": "Sign in",
-      "loginLink": "Login",
-      "afterRegisterRedirect": "Account created. Check your email to verify before signing in.",
+      "emailDescription": "Použijeme ho, abychom vás mohli kontaktovat. Váš e-mail nikomu dalšímu neposkytneme.",
+      "passwordLabel": "Heslo",
+      "confirmPasswordLabel": "Potvrzení hesla",
+      "passwordHint": "Musí mít alespoň 8 znaků.",
+      "confirmPasswordHint": "Potvrďte prosím heslo.",
+      "passwordMismatch": "Hesla se neshodují",
+      "submit": "Vytvořit účet",
+      "submitting": "Vytváření účtu…",
+      "hasAccount": "Už máte účet?",
+      "signInLink": "Přihlaste se",
+      "loginLink": "Přihlásit se",
+      "afterRegisterRedirect": "Účet byl vytvořen. Před přihlášením ověřte svůj e-mail.",
       "errors": {
-        "signUpFailed": "Could not create your account. Try again.",
-        "compromisedPassword": "This password appears in known data breaches. Choose a different one.",
-        "usernameTooShort": "Username must be at least 3 characters.",
-        "usernameInvalid": "That username is not valid.",
-        "usernameTaken": "That username is already taken. Try another."
+        "signUpFailed": "Účet se nepodařilo vytvořit. Zkuste to znovu.",
+        "compromisedPassword": "Toto heslo se objevilo ve známých únicích dat. Zvolte jiné.",
+        "usernameTooShort": "Uživatelské jméno musí mít alespoň 3 znaky.",
+        "usernameInvalid": "Toto uživatelské jméno není platné.",
+        "usernameTaken": "Toto uživatelské jméno je už obsazené. Zkuste jiné."
       }
     },
     "screen": {
-      "headline": "One account for all your apps.",
-      "subhead": "Sign in once and reach every app connected to {name}. Your profile and security settings follow you everywhere.",
-      "footer": "Secured by {name}.",
-      "ecosystem": "Works with"
+      "headline": "Jeden účet pro <accent>všechny vaše aplikace</accent>.",
+      "subhead": "Přihlaste se jednou a máte přístup ke všem aplikacím propojeným s {name}. Váš profil a nastavení zabezpečení jdou všude s vámi.",
+      "footer": "Zabezpečeno službou {name}.",
+      "ecosystem": "Funguje s"
     },
     "social": {
       "or": "nebo",
@@ -175,8 +175,8 @@
       "signInWith": "Přihlásit se přes {provider}",
       "lastUsed": "Naposledy použito",
       "otherProviders": "Další způsoby přihlášení",
-      "error": "Could not sign in with that account. Try again or use another method.",
-      "notLinked": "That account isn't connected to a {name} account yet. Sign in another way, then connect it from your security settings.",
+      "error": "Tímto účtem se nepodařilo přihlásit. Zkuste to znovu nebo použijte jiný způsob.",
+      "notLinked": "Tento účet zatím není propojen s účtem {name}. Přihlaste se jinak a pak ho propojte v nastavení zabezpečení.",
       "noEmail": "Tento účet nesdílel e-mailovou adresu. Zkuste to později nebo se přihlaste jinak.",
       "signUpDisabled": "Pro tuto adresu zatím neexistuje účet a tímto způsobem přihlášení ho nelze vytvořit. Přihlaste se jinak."
     },
@@ -189,23 +189,23 @@
     }
   },
   "consent": {
-    "emptyTitle": "Authorization",
-    "emptyDescription": "There is no pending OAuth request. Start the flow from the application you want to connect.",
-    "connectTitle": "Connect {name}",
-    "intro": "This application is requesting access to your account. Review the permissions below before continuing.",
+    "emptyTitle": "Autorizace",
+    "emptyDescription": "Žádný požadavek OAuth nečeká na vyřízení. Zahajte proces z aplikace, kterou chcete připojit.",
+    "connectTitle": "Připojit {name}",
+    "intro": "Tato aplikace žádá o přístup k vašemu účtu. Než budete pokračovat, zkontrolujte níže uvedená oprávnění.",
     "errors": {
-      "needSignIn": "You need to sign in before you can approve this request.",
-      "loadFailed": "Could not load application details.",
-      "actionFailed": "Something went wrong."
+      "needSignIn": "Před schválením tohoto požadavku se musíte přihlásit.",
+      "loadFailed": "Údaje o aplikaci se nepodařilo načíst.",
+      "actionFailed": "Něco se pokazilo."
     },
-    "signIn": "Sign in",
-    "visitWebsite": "Visit application website",
-    "requestedAccess": "Requested access",
-    "defaultScopes": "Default permissions for this client (no explicit scopes in the request).",
-    "terms": "Terms of service",
-    "privacy": "Privacy policy",
-    "deny": "Deny",
-    "allow": "Allow",
+    "signIn": "Přihlásit se",
+    "visitWebsite": "Navštívit web aplikace",
+    "requestedAccess": "Požadovaný přístup",
+    "defaultScopes": "Výchozí oprávnění tohoto klienta (požadavek neuvádí žádné scopy).",
+    "terms": "Podmínky služby",
+    "privacy": "Zásady ochrany osobních údajů",
+    "deny": "Zamítnout",
+    "allow": "Povolit",
     "scopes": {
       "openid": "Ověření vaší identity (OpenID Connect)",
       "profile": "Jméno a údaje profilu",
@@ -221,108 +221,1540 @@
   },
   "admin": {
     "themeToggle": {
-      "light": "Light",
-      "dark": "Dark",
-      "system": "System",
-      "srOnly": "Toggle theme",
-      "label": "Theme"
+      "light": "Světlý",
+      "dark": "Tmavý",
+      "system": "Systémový",
+      "srOnly": "Přepnout motiv",
+      "label": "Motiv"
     },
     "nav": {
-      "groupAdmin": "Admin",
+      "groupAdmin": "Administrace",
       "groupOAuth": "OAuth",
-      "overview": "Overview",
-      "users": "Users",
-      "applications": "Applications",
+      "overview": "Přehled",
+      "users": "Uživatelé",
+      "applications": "Aplikace",
       "apis": "API",
       "apiKeys": "API klíče",
-      "consent": "Consent",
-      "organizations": "Organizations",
+      "consent": "Souhlasy",
+      "organizations": "Organizace",
       "sso": "SSO",
       "signInProviders": "Poskytovatelé přihlášení",
       "webhooks": "Webhooky",
-      "security": "Security",
+      "security": "Zabezpečení",
       "usage": "Využití aplikací",
-      "audit": "Audit log",
+      "audit": "Auditní protokol",
       "signingKeys": "Podpisové klíče"
     },
     "header": {
-      "crumb": "Admin",
-      "fallback": "Admin",
-      "overview": "Overview",
-      "users": "Users",
-      "applications": "Applications",
+      "crumb": "Administrace",
+      "fallback": "Administrace",
+      "overview": "Přehled",
+      "users": "Uživatelé",
+      "applications": "Aplikace",
       "apis": "API",
       "apiKeys": "API klíče",
-      "consent": "Consent",
-      "organizations": "Organizations",
+      "consent": "Souhlasy",
+      "organizations": "Organizace",
       "sso": "SSO",
       "signInProviders": "Poskytovatelé přihlášení",
       "webhooks": "Webhooky",
-      "security": "Security",
+      "security": "Zabezpečení",
       "usage": "Využití aplikací",
-      "audit": "Audit log",
+      "audit": "Auditní protokol",
       "signingKeys": "Podpisové klíče"
     },
     "pages": {
       "overview": {
-        "title": "Overview",
+        "title": "Přehled",
         "activity": {
-          "title": "Sign-in activity",
-          "description": "Sign-ins, new accounts and sign-outs per day, last 30 days.",
-          "signIns": "Sign-ins",
-          "signUps": "Sign-ups",
-          "signOuts": "Sign-outs",
-          "showTable": "View as table",
-          "showChart": "View as chart",
-          "legend": "Totals for the last 30 days",
-          "day": "Day",
-          "note": "Sign-outs are tracked from October 6, 2026. Earlier sign-ins only include sessions that were still active then."
+          "title": "Aktivita přihlášení",
+          "description": "Přihlášení, nové účty a odhlášení po dnech za posledních 30 dní.",
+          "signIns": "Přihlášení",
+          "signUps": "Registrace",
+          "signOuts": "Odhlášení",
+          "showTable": "Zobrazit jako tabulku",
+          "showChart": "Zobrazit jako graf",
+          "legend": "Součty za posledních 30 dní",
+          "day": "Den",
+          "note": "Odhlášení se sledují od 6. října 2026. Dřívější přihlášení zahrnují jen relace, které byly tehdy ještě aktivní."
         },
-        "description": "Accounts, sign-in activity and the newest members of the platform."
+        "description": "Účty, aktivita přihlášení a nejnovější členové platformy.",
+        "recentUsers": {
+          "title": "Nově připojení",
+          "description": "Nejnovější účty. Otevřete účet a uvidíte jeho relace a aktivitu.",
+          "loading": "Načítání…",
+          "empty": "Zatím žádní uživatelé."
+        },
+        "stats": {
+          "error": "Některé metriky se nepodařilo načíst. Ověřte, že jste přihlášeni jako administrátor.",
+          "errorTitle": "Metriky nejsou k dispozici",
+          "loadingTitle": "Načítání",
+          "loadingHint": "Načítání…",
+          "totalUsers": {
+            "title": "Uživatelé celkem",
+            "hint": "Všechny účty na platformě."
+          },
+          "admins": {
+            "title": "Administrátoři",
+            "hint": "Účty s přístupem k této konzoli."
+          },
+          "banned": {
+            "title": "Zablokovaní",
+            "hint": "Účty, které se teď nemohou přihlásit."
+          },
+          "verified": {
+            "title": "Ověřený e-mail",
+            "hint": "Účty, které potvrdily svou e-mailovou adresu."
+          },
+          "recent": {
+            "title": "Nové (7 dní)",
+            "hint": "Účty vytvořené za posledních 7 dní."
+          }
+        }
       },
       "applications": {
-        "title": "Applications",
+        "title": "Aplikace",
         "description": "Klienti OAuth, kteří mohou přihlašovat uživatele přes {name}: adresy přesměrování, typy grantů a nastavení souhlasu.",
         "unusedHint": "{count, plural, one {# aplikace nebyla použita} few {# aplikace nebyly použity} many {# aplikace nebylo použito} other {# aplikací nebylo použito}} za posledních 30 dní.",
-        "viewUsage": "Zobrazit využití"
+        "viewUsage": "Zobrazit využití",
+        "panel": {
+          "selfRegisteredHint": "Zaregistroval se sám: administrátor ho nezkontroloval",
+          "selfRegisteredBadge": "Samoregistrovaný",
+          "registration": {
+            "all": "Jakákoli registrace",
+            "admin": "Administrátor",
+            "dynamic": "Dynamická registrace",
+            "metadata_document": "Dokument metadat"
+          },
+          "authMethod": {
+            "none": "ověření: žádné",
+            "client_secret_basic": "ověření: tajný klíč (basic)",
+            "client_secret_post": "ověření: tajný klíč (post)",
+            "private_key_jwt": "ověření: JWT se soukromým klíčem"
+          },
+          "loadFailed": "Klienty OAuth se nepodařilo načíst",
+          "loadErrorTitle": "Aplikace se nepodařilo načíst",
+          "searchPlaceholder": "Hledat podle názvu, ID klienta, URI přesměrování nebo grantu…",
+          "searchLabel": "Hledat aplikace",
+          "clientType": "Typ klienta",
+          "registeredBy": "Registrace",
+          "kind": {
+            "all": "Všichni klienti",
+            "public": "Veřejný",
+            "confidential": "Důvěrný",
+            "trusted": "Důvěryhodný (bez souhlasu)",
+            "device": "Přihlášení zařízení"
+          },
+          "columns": {
+            "application": "Aplikace",
+            "redirects": "Přesměrování",
+            "grants": "Granty",
+            "consent": "Souhlas"
+          },
+          "badges": {
+            "device": "Zařízení",
+            "trusted": "Důvěryhodný",
+            "consent": "Souhlas",
+            "active": "Aktivní",
+            "skipped": "Přeskočen",
+            "required": "Vyžadován"
+          },
+          "loadingRows": "Načítání aplikací…",
+          "empty": "Pro tento účet zatím nejsou žádní klienti OAuth.",
+          "noMatch": "Vašim filtrům neodpovídají žádné aplikace.",
+          "linkedApis": "Propojená API: {apis}",
+          "noApplications": "0 aplikací",
+          "showing": "Zobrazeno {from}–{to} z {total}",
+          "rowsPerPage": "Řádků na stránku",
+          "previous": "Předchozí",
+          "next": "Další",
+          "page": "Stránka {page} / {total}",
+          "footnote": "Data z <code>{getClients}</code>. Registrace a úpravy (včetně <code>{skipConsent}</code>) volají <code>{create}</code> a <code>{update}</code>; ostatní změny používají <code>{deleteClient}</code> a <code>{rotateSecret}</code>. Viz dokumentaci <docs>OAuth provider</docs>. Klienti jsou omezeni na přihlášeného uživatele (nebo na <code>{clientReference}</code>, pokud je nastaveno). Samoregistrovaní klienti nemají vlastníka a zobrazují se všichni; lze je vypnout nebo smazat, ne upravit."
+        },
+        "registration": {
+          "title": "Samoregistrace",
+          "description": "Umožňuje klientům MCP a agentům AI zaregistrovat se samostatně, místo aby byli přidáni zde. Dostanou jen níže uvedené scopy, vždy zobrazí obrazovku souhlasu s označením neověřené a nikdy nezískají strojový přístup (client credentials).",
+          "dynamicRegistration": "Dynamická registrace",
+          "dynamic": {
+            "off": {
+              "label": "Vypnuto",
+              "hint": "POST /oauth2/register je odmítnut."
+            },
+            "signed_in": {
+              "label": "Jen přihlášení uživatelé",
+              "hint": "Registrovat se mohou jen požadavky s relací uživatele. Většina klientů MCP to neumí."
+            },
+            "open": {
+              "label": "Kdokoli (otevřená registrace)",
+              "hint": "Co klienti MCP očekávají: zaregistrovat se může jakákoli aplikace a každý uživatel ji pak schválí na obrazovce souhlasu."
+            }
+          },
+          "metadataDocuments": "Dokumenty metadat (client_id jako URL)",
+          "metadataOnFrom": "Zapnuto, z {hosts}",
+          "metadataOnAnyHost": "Zapnuto, libovolný hostitel HTTPS",
+          "scopes": "Scopy, které si mohou vyžádat",
+          "missingScope": "Už není scopem tohoto serveru: ignorováno",
+          "perHour": "Nových klientů za hodinu",
+          "endpoint": "Registrační endpoint: <code>{url}</code> (uveden v discovery dokumentu).",
+          "saved": "Nastavení uloženo. Autentizační server ho použije do minuty.",
+          "dialogDescription": "Klienti, kteří se registrují sami, nejsou kontrolováni. Lidé je vidí jako neověřené aplikace a každou schvalují na obrazovce souhlasu.",
+          "dynamicLabel": "Dynamic Client Registration (RFC 7591)",
+          "cimdLabel": "Client ID Metadata Documents",
+          "cimdHint": "client_id je HTTPS URL na metadata aplikace ve formátu JSON, jak to používají novější klienti MCP. Načítají se jen veřejní hostitelé, bez přesměrování, nejvýše 5 KB.",
+          "hostsLabel": "Povolení hostitelé",
+          "hostsHint": "Jeden na řádek. Prázdné: libovolný veřejný hostitel HTTPS.",
+          "scopesLabel": "Scopy, které si mohou samoregistrovaní klienti vyžádat",
+          "scopesHint": "Každý uživatel stále schvaluje scopy, o které aplikace žádá. Odebráním scopu se odebere i již registrovaným klientům; již vydané tokeny si ho ponechají do vypršení.",
+          "perHourHint": "Napříč všemi instancemi, pro obě metody. Každá adresa je navíc omezena na 5 registrací za minutu."
+        },
+        "branding": {
+          "title": "Vzhled přihlášení",
+          "description": "Jak vypadají přihlašovací obrazovky, když lidé přicházejí z <app>{client}</app>: přihlášení, registrace, dvoufázové ověření, obnovení hesla a souhlas. Značka {brand} zůstává viditelná na každé obrazovce.",
+          "logoFetchedOnSave": "Server načte logo při uložení; náhled ho pak zobrazí.",
+          "accentInvalid": "Zadejte barvu zvýraznění jako hex kód, např. {example}.",
+          "hexInvalid": "Zadejte barvu jako hex kód, např. {example}.",
+          "saved": "Vzhled přihlášení uložen",
+          "resetDone": "Vzhled přihlášení obnoven",
+          "displayName": "Zobrazovaný název",
+          "displayNameHint": "Zobrazí se jako „Přihlaste se a pokračujte do …“. Prázdné použije název aplikace.",
+          "tagline": "Slogan (volitelné)",
+          "taglinePlaceholder": "Váš seznam četby, všude.",
+          "accent": "Barva zvýraznění",
+          "accentPick": "Vyberte barvu zvýraznění",
+          "accentHex": "Barva zvýraznění (hex)",
+          "accentOff": "Vypnuto: obrazovky si ponechají barvy motivu.",
+          "contrast": {
+            "label": "Kontroly kontrastu",
+            "ratio": "{label}: <value>{ratio}:1</value>",
+            "passes": "(splňuje {min}:1)",
+            "below": "(pod {min}:1)",
+            "buttonLabel": "Popisek tlačítka ({color, select, black {černý} other {bílý}})",
+            "lightCard": "Tlačítka na světlé kartě",
+            "darkCard": "Tlačítka na tmavé kartě",
+            "textAdjusted": "Text v barvě zvýraznění používá {color}, aby dosáhl {min}:1."
+          },
+          "logo": "Logo",
+          "logoSourceLabel": "Zdroj loga",
+          "logoSource": {
+            "app_icon": "Ikona aplikace",
+            "url": "Z URL",
+            "upload": "Nahrát"
+          },
+          "logoAppIconHint": "Ikona nalezená pro aplikaci (její {field} nebo její web), stejně jako na obrazovce souhlasu.",
+          "logoUrl": "URL loga",
+          "logoUrlHint": "https na veřejném hostiteli. {name} ho načte a uloží do mezipaměti; prohlížeče ho odtud nikdy nenačítají.",
+          "logoFile": "Soubor loga",
+          "logoFileHint": "PNG, JPEG, WebP, AVIF, GIF, ICO nebo SVG, do 256 KB. Nejlépe čtvercové.",
+          "panel": "Boční panel (široké obrazovky, volitelné)",
+          "panelImage": "Obrázek bočního panelu",
+          "removeImage": "Odebrat obrázek",
+          "panelHint": "Nadpis a obrázek na pozadí tmavého panelu. PNG, JPEG, WebP nebo AVIF, do 1 MB.",
+          "social": "Přihlášení přes sociální sítě na obrazovkách této aplikace",
+          "socialNone": "Nejsou zapnuti žádní poskytovatelé sociálních sítí.",
+          "socialShown": "Zobrazení poskytovatelé sociálních sítí",
+          "socialAll": "Všichni zapnutí",
+          "socialSome": "Jen tito",
+          "socialHint": "Skryje tlačítka jen na obrazovkách této aplikace; nikomu nebrání přihlásit se jinak.",
+          "previewTitle": "Náhled",
+          "previewScheme": "Barevné schéma náhledu",
+          "light": "Světlé",
+          "dark": "Tmavé",
+          "faintOnLight": "Tlačítka v této barvě na světlé kartě téměř nevyniknou (WCAG vyžaduje pro ovládací prvky 3:1). Popisky zůstanou čitelné; zvažte tmavší odstín.",
+          "faintOnDark": "Tlačítka v této barvě na tmavé kartě téměř nevyniknou (WCAG vyžaduje pro ovládací prvky 3:1). Popisky zůstanou čitelné; zvažte světlejší odstín.",
+          "resetting": "Obnovování…",
+          "reset": "Obnovit výchozí",
+          "save": "Uložit vzhled",
+          "preview": {
+            "label": "Náhled přihlašovací stránky",
+            "appFallback": "Aplikace",
+            "title": "Přihlásit se",
+            "submit": "Přihlásit se",
+            "noAccount": "Nemáte účet? <link>Vytvořte si ho</link>"
+          }
+        },
+        "actions": {
+          "registration": {
+            "chooseMode": "Zvolte, kdo smí registrovat klienty.",
+            "unknownScope": "„{scope}“ není scope tohoto serveru.",
+            "noScopes": "Povolte alespoň jeden scope.",
+            "invalidHost": "„{raw}“ není název hostitele, např. {example}.",
+            "invalidLimit": "Hodinový limit musí být celé číslo od 0 do {max}.",
+            "saveFailed": "Nastavení se nepodařilo uložit.",
+            "clientGone": "Tento klient už neexistuje.",
+            "notSelfRegistered": "Zde lze měnit jen samoregistrované klienty."
+          },
+          "branding": {
+            "clientGone": "Tato aplikace už neexistuje.",
+            "selfRegistered": "Samoregistrovaným klientům nelze nastavit vzhled.",
+            "logoMissing": "Vyberte soubor loga k nahrání.",
+            "logoFetchFailed": "Z URL loga se nepodařilo načíst obrázek. Ověřte, že je veřejná a jde o obrázek.",
+            "faintOnLight": "Barva zvýraznění je na světlé kartě slabá: tlačítka téměř nevyniknou.",
+            "faintOnDark": "Barva zvýraznění je na tmavé kartě slabá: tlačítka téměř nevyniknou.",
+            "saveFailed": "Vzhled se nepodařilo uložit."
+          }
+        },
+        "register": {
+          "trigger": "Registrovat aplikaci",
+          "title": "Registrovat aplikaci OAuth",
+          "description": "Vytvoří klienta vázaného na váš účet přes <code>{endpoint}</code> (důvěryhodné aplikace mohou nastavit <code>{field}</code>). Viz <link>Better Auth, Create client</link>.",
+          "nameLabel": "Název aplikace",
+          "namePlaceholder": "Moje aplikace",
+          "redirectUrisLabel": "URI přesměrování",
+          "redirectUrisHintPublic": "Jedno na řádek nebo oddělené čárkami. HTTPS, nebo http na localhost, 127.0.0.1 či [::1].",
+          "redirectUrisHintConfidential": "Jedno na řádek nebo oddělené čárkami. Jen HTTPS, včetně localhost. Pro lokální vývoj zaregistrujte samostatného veřejného klienta.",
+          "redirectUrisRequired": "Zadejte alespoň jedno URI přesměrování (jedno na řádek nebo oddělené čárkami).",
+          "clientTypeLabel": "Typ klienta",
+          "clientTypeConfidential": "Důvěrný (tajný klíč klienta)",
+          "clientTypePublic": "Veřejný (PKCE, bez tajného klíče)",
+          "deviceCodeLabel": "Přihlášení zařízení (CLI, televize)",
+          "deviceCodeHint": "Přidá grant device code (RFC 8628): aplikace zobrazí kód a uživatel ho schválí na <code>{path}</code> na jiné obrazovce. Obvykle veřejný klient.",
+          "skipConsentLabel": "Přeskočit souhlas (důvěryhodný klient)",
+          "skipConsentHint": "Uživatelé neuvidí u této aplikace obrazovku souhlasu. Používejte jen pro vlastní nebo plně důvěryhodné integrace.",
+          "registerFailed": "Aplikaci se nepodařilo zaregistrovat",
+          "missingClientId": "Server nevrátil {field}.",
+          "registered": "Aplikace OAuth zaregistrována",
+          "creating": "Vytváření…",
+          "create": "Vytvořit aplikaci",
+          "successTitle": "Aplikace vytvořena",
+          "successWithSecret": "Zkopírujte si tajný klíč klienta hned, může se zobrazit jen jednou.",
+          "successPublic": "Veřejný klient, žádný tajný klíč se nevydává. Na token endpointu použijte PKCE.",
+          "clientId": "ID klienta",
+          "clientSecret": "Tajný klíč klienta",
+          "copyClientId": "Kopírovat ID klienta",
+          "copyClientSecret": "Kopírovat tajný klíč klienta"
+        },
+        "rowActions": {
+          "menuLabel": "Akce pro {name}",
+          "copyClientId": "Kopírovat ID klienta",
+          "clientIdCopied": "ID klienta zkopírováno",
+          "edit": "Upravit aplikaci",
+          "editHint": "Název, URI přesměrování, přihlášení zařízení a přeskočení souhlasu",
+          "branding": "Vzhled přihlášení",
+          "brandingHint": "Logo, barva zvýraznění a texty přihlašovacích obrazovek této aplikace",
+          "rotateSecret": "Otočit tajný klíč",
+          "rotateHintPublic": "Veřejní klienti nemají tajný klíč",
+          "rotateHintDisabled": "Nejprve klienta zapněte",
+          "rotateHint": "Otočí tajný klíč důvěrného klienta",
+          "delete": "Smazat aplikaci",
+          "editDialog": {
+            "title": "Upravit aplikaci",
+            "description": "Aktualizuje <id>{clientId}</id> přes <code>{endpoint}</code> (omezená pole jako <code>{field}</code>). Viz <link>Better Auth, Update client</link>.",
+            "nameLabel": "Název aplikace",
+            "namePlaceholder": "Moje aplikace",
+            "redirectUrisLabel": "URI přesměrování",
+            "redirectUrisHint": "Jedno na řádek nebo oddělené čárkami. Vyžaduje se HTTPS. Jen veřejní klienti mohou používat http na localhost.",
+            "redirectUrisRequired": "Zadejte alespoň jedno URI přesměrování (jedno na řádek nebo oddělené čárkami).",
+            "deviceCodeLabel": "Přihlášení zařízení (CLI, televize)",
+            "deviceCodeHint": "Povoluje grant device code. Vypnutím se zastaví nová přihlášení zařízení; již vydané tokeny fungují dál.",
+            "skipConsentLabel": "Přeskočit souhlas (důvěryhodný klient)",
+            "skipConsentHint": "Když je zapnuto, uživatelé nejsou u této aplikace vyzváni ke schválení scopů.",
+            "updateFailed": "Aplikaci se nepodařilo aktualizovat",
+            "updated": "Aplikace aktualizována"
+          },
+          "deleteDialog": {
+            "title": "Smazat aplikaci?",
+            "description": "Trvale odstraní <strong>{name}</strong> (<code>{clientId}</code>). Může to ovlivnit tokeny OAuth a souhlasy tohoto klienta.",
+            "deleteFailed": "Klienta se nepodařilo smazat",
+            "deleted": "Aplikace odstraněna"
+          },
+          "rotateDialog": {
+            "title": "Otočit tajný klíč klienta?",
+            "description": "Předchozí tajný klíč okamžitě přestane fungovat. Uložte nový tajný klíč na bezpečné místo, může se zobrazit jen jednou.",
+            "newSecretLabel": "Nový tajný klíč klienta",
+            "copySecret": "Kopírovat tajný klíč",
+            "secretCopied": "Tajný klíč zkopírován",
+            "rotating": "Otáčení…",
+            "rotateFailed": "Tajný klíč se nepodařilo otočit",
+            "newSecretIssued": "Nový tajný klíč klienta byl vydán, zkopírujte si ho hned",
+            "rotated": "Tajný klíč otočen"
+          }
+        },
+        "selfRegistered": {
+          "menuLabel": "Akce pro {name}",
+          "enabled": "Klient zapnut",
+          "disabled": "Klient vypnut",
+          "deleted": "Klient smazán",
+          "disableTitle": "Vypnout {name}?",
+          "disableDescription": "Už nebude moci nikoho přihlásit ani obnovovat své tokeny. Již vydané přístupové tokeny fungují do vypršení (nejvýše hodinu).",
+          "deleteTitle": "Smazat {name}?",
+          "deleteDescriptionMetadataDocument": "Smažou se i jeho tokeny a souhlasy, které mu lidé udělili. Klient s dokumentem metadat se znovu vytvoří, až příště někoho přihlásí. Chcete-li ho zablokovat, raději ho vypněte.",
+          "deleteDescriptionDynamic": "Smažou se i jeho tokeny a souhlasy, které mu lidé udělili. Aplikace se může znovu zaregistrovat, dokud je dynamická registrace zapnutá."
+        },
+        "brandingErrors": {
+          "textTooLong": "Nepřekračujte {max} znaků.",
+          "displayNameTooLong": "Zobrazovaný název: nepřekračujte {max} znaků.",
+          "taglineTooLong": "Slogan: nepřekračujte {max} znaků.",
+          "panelTextTooLong": "Text bočního panelu: nepřekračujte {max} znaků.",
+          "accentColor": "Barva zvýraznění: zadejte hex kód barvy, např. {example}.",
+          "logoSource": "Zvolte, odkud logo pochází.",
+          "logoUrl": "URL loga: zadejte https URL na veřejném hostiteli (výchozí port).",
+          "logoEmpty": "Soubor loga je prázdný.",
+          "logoTooLarge": "Logo může mít nejvýše 256 KB.",
+          "logoType": "Logo musí být obrázek PNG, JPEG, GIF, WebP, AVIF, ICO nebo SVG.",
+          "panelImageEmpty": "Obrázek bočního panelu je prázdný.",
+          "panelImageTooLarge": "Obrázek bočního panelu může mít nejvýše 1 MB.",
+          "panelImageType": "Obrázek bočního panelu musí být PNG, JPEG, WebP nebo AVIF."
+        }
       },
       "apis": {
         "title": "API",
-        "description": "Vaše API (chráněné zdroje), která přijímají přístupové tokeny {name}: scopy, které si klienti mohou vyžádat, aplikace, které je mohou používat, a nastavení jejich tokenů."
+        "description": "Vaše API (chráněné zdroje), která přijímají přístupové tokeny {name}: scopy, které si klienti mohou vyžádat, aplikace, které je mohou používat, a nastavení jejich tokenů.",
+        "errors": {
+          "tokenSettings": {
+            "lifetimePositive": "{field, select, access {Životnost přístupového tokenu musí být kladný počet minut.} other {Životnost obnovovacího tokenu musí být kladný počet dní.}}",
+            "lifetimeMinimum": "{field, select, access {Životnost přístupového tokenu} other {Životnost obnovovacího tokenu}} musí být alespoň jedna minuta.",
+            "lifetimeMaximum": "{field, select, access {Životnost přístupového tokenu může být nejvýše {max} minut, výchozí hodnota serveru.} other {Životnost obnovovacího tokenu může být nejvýše {max} dní, výchozí hodnota serveru.}}",
+            "claimsInvalidJson": "Vlastní deklarace musí být platný JSON, např. {example}.",
+            "claimsNotObject": "Vlastní deklarace musí být objekt JSON, např. {example}.",
+            "claimsEmptyName": "Název vlastní deklarace nesmí být prázdný.",
+            "claimsReserved": "{count, plural, one {{claims} je rezervovaná deklarace: nastavuje ji server.} few {{claims} jsou rezervované deklarace: nastavuje je server.} many {{claims} jsou rezervované deklarace: nastavuje je server.} other {{claims} jsou rezervované deklarace: nastavuje je server.}} Rezervované: {reserved}.",
+            "claimsTooLarge": "Vlastní deklarace jsou příliš velké (nejvýše {kilobytes} KB): přidávají se do každého tokenu."
+          },
+          "invalidScope": "„{scope}“ není platný scope.",
+          "reservedScope": "„{scope}“ je scope OpenID Connect, který je už dostupný každému klientovi.",
+          "invalidIdentifier": "Identifikátor musí být absolutní URL bez fragmentu, např. {example}.",
+          "registerFailed": "API se nepodařilo zaregistrovat.",
+          "authServerCannotBeDisabled": "Samotný autentizační server nelze vypnout.",
+          "updateFailed": "API se nepodařilo aktualizovat.",
+          "deleteFromEnv": "Toto API je nastaveno v {variable} a při dalším nasazení by se vrátilo. Raději ho vypněte.",
+          "deleteFailed": "API se nepodařilo smazat.",
+          "authServerStaysOpen": "Autentizační server zůstává otevřený všem aplikacím: závisí na něm přihlašování.",
+          "accessFailed": "Nepodařilo se změnit, které aplikace mohou API používat.",
+          "tokensFailed": "Nastavení tokenů se nepodařilo uložit."
+        },
+        "duration": {
+          "days": "{count, plural, one {# den} few {# dny} many {# dne} other {# dní}}",
+          "hours": "{count} h",
+          "minutes": "{count} min"
+        },
+        "tokenSummary": {
+          "accessToken": "Přístupový token {duration}",
+          "refreshToken": "Obnovovací token {duration}",
+          "dpopRequired": "Vyžaduje DPoP",
+          "claims": "Deklarace: {claims}"
+        },
+        "restrictLabel": "Pro toto API vydávat jen tyto scopy",
+        "restrictHint": "Tokeny pro toto API nesou jen tyto scopy (a scopy OpenID Connect). Vypnuto: nesou všechny scopy, které klient získal.",
+        "register": {
+          "title": "Registrovat API",
+          "description": "Klienti o token pro něj žádají parametrem <code>{param}</code>. Audience tokenu je identifikátor a API ho ověřuje proti JWKS.",
+          "identifier": "Identifikátor",
+          "identifierHint": "Obvykle základní URL API. Později ho nelze změnit.",
+          "namePlaceholder": "API objednávek",
+          "scopes": "Scopy",
+          "scopesHint": "Oddělené mezerami nebo čárkami. Strojoví klienti ({grant}) musí být omezeni na některé z nich.",
+          "submit": "Registrovat API",
+          "submitting": "Registrace…",
+          "registered": "API zaregistrováno"
+        },
+        "list": {
+          "description": "Nové a změněné scopy se na autentizační server dostanou do minuty. Nastavení přístupu a tokenů platí od dalšího tokenu.",
+          "empty": "Zatím žádné API.",
+          "envScopesTitle": "Scopy z {variable}",
+          "envScopesText": "Dostupné každému klientovi bez ohledu na to, které API volá: <mono>{scopes}</mono>. Chcete-li je spravovat zde, přidejte je k API, ke kterému patří, a pak proměnnou odeberte."
+        },
+        "item": {
+          "authServer": "Autentizační server",
+          "restricted": "Omezeno",
+          "linkedOnly": "Jen propojené aplikace",
+          "noResourceParam": "Tokeny vydané bez parametru resource.",
+          "noScopes": "Žádné scopy.",
+          "editAria": "Upravit {name}",
+          "deleteAria": "Smazat {name}",
+          "applications": "Aplikace",
+          "everyApplication": "Všechny aplikace",
+          "onlyLinked": "Jen {names}",
+          "noneLinked": "Žádná propojená: žádná aplikace nemůže získat tokeny",
+          "change": "Změnit",
+          "changeAccessAria": "Změnit, které aplikace mohou používat {name}",
+          "tokens": "Tokeny",
+          "defaultSettings": "Výchozí nastavení",
+          "changeTokensAria": "Změnit nastavení tokenů pro {name}"
+        },
+        "edit": {
+          "title": "Upravit {name}",
+          "scopesHint": "Odebrání scopu nezmění klienty, kteří ho už mají, ale žádný nový token ho nebude nést.",
+          "disabledHint": "Pro toto API se nevydávají žádné nové tokeny. Již vydané tokeny fungují do vypršení.",
+          "updated": "API aktualizováno"
+        },
+        "access": {
+          "title": "Aplikace, které mohou používat {name}",
+          "allHint": "Tokeny pro toto API může získat jakákoli aplikace, v rámci svých scopů.",
+          "linkedLabel": "Jen propojené aplikace",
+          "linkedHint": "Ostatní aplikace jsou odmítnuty ({error}), i při obnovování tokenu.",
+          "linkedTitle": "Propojené aplikace",
+          "filterAria": "Filtrovat aplikace",
+          "filterPlaceholder": "Filtrovat podle názvu nebo ID klienta",
+          "noApplications": "Zatím žádná aplikace.",
+          "noMatch": "Žádná aplikace neodpovídá.",
+          "linksHintAll": "Propojení mají význam, až když je API omezeno na propojené aplikace. Propojená aplikace může také introspektovat tokeny tohoto API.",
+          "linksHintLinked": "Propojená aplikace může také introspektovat tokeny tohoto API.",
+          "noneLinkedWarning": "Žádná aplikace není propojena: žádná nemůže získat tokeny pro toto API.",
+          "updated": "Přístup aktualizován"
+        },
+        "tokens": {
+          "title": "Nastavení tokenů pro {name}",
+          "description": "Platí pro každý přístupový token vydaný pro toto API. Již vydané tokeny si ponechají své nastavení.",
+          "accessTtl": "Životnost přístupového tokenu (minuty)",
+          "accessTtlHint": "Výchozí: {minutes, plural, one {# minuta} few {# minuty} many {# minuty} other {# minut}}. Může být jen kratší.",
+          "refreshTtl": "Životnost obnovovacího tokenu (dny)",
+          "refreshTtlHint": "Výchozí: {days, plural, one {# den} few {# dny} many {# dne} other {# dní}}. Může být jen kratší.",
+          "claims": "Vlastní deklarace",
+          "claimsHint": "Objekt JSON přidaný do každého přístupového tokenu pro toto API. Rezervované: <mono>{claims}</mono>.",
+          "dpopLabel": "Vyžadovat tokeny vázané přes DPoP",
+          "dpopHint": "Klienti musí poslat důkaz DPoP, aby získali token pro toto API, a token je vázán na jejich klíč. API musí důkaz kontrolovat u každého požadavku.",
+          "saved": "Nastavení tokenů uloženo"
+        },
+        "delete": {
+          "title": "Smazat {name}?",
+          "description": "Klienti pro něj už nebudou moci získat tokeny a již vydané tokeny okamžitě přestanou fungovat. Chcete-li zastavit jen nové tokeny, raději ho vypněte.",
+          "deleted": "API smazáno"
+        }
       },
       "signInProviders": {
         "title": "Poskytovatelé přihlášení",
-        "description": "Umožněte lidem přihlásit se do {name} účtem Google, Apple, Microsoft a více než 30 dalšími."
+        "description": "Umožněte lidem přihlásit se do {name} účtem Google, Apple, Microsoft a více než 30 dalšími.",
+        "panel": {
+          "copyCallback": "Kopírovat URL zpětného volání",
+          "authAppFallback": "adresa přihlašovací aplikace",
+          "environment": "Prostředí",
+          "activeTitle": "Na přihlašovací stránce",
+          "activeDescription": "V tomto pořadí na přihlašovací a registrační stránce a v části Připojené účty na nástěnce každého uživatele. Změny se na přihlašovací stránku dostanou do 30 sekund.",
+          "noneActive": "Není zapnutý žádný poskytovatel. Vyberte jednoho v seznamu a nastavte ho.",
+          "setByEnvironment": "Nastaveno proměnnými prostředí",
+          "existingAccountsOnly": "Jen existující účty",
+          "connectedAccounts": "{count, plural, one {# připojený účet} few {# připojené účty} many {# připojeného účtu} other {# připojených účtů}}",
+          "moveUp": "Posunout {name} nahoru",
+          "moveDown": "Posunout {name} dolů",
+          "edit": "Upravit {name}",
+          "providersTitle": "Poskytovatelé",
+          "providersDescription": "Všichni poskytovatelé, které Better Auth podporuje. Vytvořte u poskytovatele aplikaci OAuth, zaregistrujte URL zpětného volání zobrazenou v jejím nastavení a pak vložte přihlašovací údaje. Tajné klíče se ukládají šifrované a už se nikdy nezobrazí.",
+          "search": "Hledat poskytovatele",
+          "noMatch": "Žádný poskytovatel neodpovídá.",
+          "savedOn": "{name} je zapnutý",
+          "saved": "{name} uložen",
+          "removed": "Nastavení {name} odebráno",
+          "optional": "(volitelné)",
+          "secretSet": "Nastaveno",
+          "replace": "Nahradit",
+          "removedOnSave": "Odebere se při uložení.",
+          "undo": "Vrátit",
+          "newValue": "Nová hodnota",
+          "environmentDescription": "Nastaveno proměnnými prostředí ({clientIdVar} a {clientSecretVar}): změňte je tam, nebo je odeberte a spravujte tohoto poskytovatele zde.",
+          "defaultNote": "Vytvořte aplikaci OAuth u {name}, zaregistrujte níže uvedenou URL zpětného volání a pak vložte její přihlašovací údaje.",
+          "callbackUrl": "URL zpětného volání",
+          "callbackHint": "Také nazývaná URI přesměrování nebo návratová URL.",
+          "createApp": "Vytvořit aplikaci",
+          "setupGuide": "Návod k nastavení",
+          "secretsUnreadable": "Uložené tajné klíče nelze dešifrovat ({envVar} se změnila). Zadejte je znovu.",
+          "buttonName": "Název tlačítka",
+          "buttonNameHint": "Na přihlašovací stránce se zobrazí jako „Pokračovat přes …“.",
+          "allowSignUp": "Vytvářet účty pro nové uživatele",
+          "allowSignUpHint": "Vypnuto: přihlásit se jím mohou jen lidé, kteří už účet mají (připojený z nástěnky nebo se stejným ověřeným e-mailem).",
+          "oneTap": "Zobrazit Google One Tap",
+          "oneTapHint": "Vlastní přihlašovací výzva Google v horní části přihlašovací a registrační stránky pro lidi, kteří jsou v prohlížeči už přihlášeni ke Googlu. Používá toto ID klienta: přidejte {origin} do jeho Authorized JavaScript origins v konzoli Google Cloud. Jen když je Google zapnutý.",
+          "enabled": "Zobrazit na přihlašovací stránce",
+          "enabledHint": "Vypnuto: tlačítko zmizí a přihlášení přes tohoto poskytovatele jsou odmítnuta. Nastavení zůstane zachováno.",
+          "removeConfirm": "Odebrat nastavení a tajné klíče?",
+          "removeSettings": "Odebrat nastavení"
+        },
+        "errors": {
+          "unknownProvider": "Neznámý poskytovatel.",
+          "envManaged": "Tento poskytovatel je nastaven proměnnými prostředí. Změňte je, nebo je odeberte a spravujte ho zde.",
+          "invalidOption": "{field}: zvolte {options}.",
+          "appleKeyNotEc": "Soukromý klíč: očekává se klíč EC (P-256) stažený od Apple (.p8).",
+          "appleKeyInvalid": "Soukromý klíč: není platný soukromý klíč PEM. Vložte celý soubor .p8 včetně řádků BEGIN a END.",
+          "issuerNotHttps": "URL musí začínat https://.",
+          "salesforceDomain": "My Domain: název hostitele, např. example.my.salesforce.com.",
+          "cognitoRegion": "Region: region AWS, např. eu-west-1.",
+          "googleHd": "Doména Workspace: doména, např. example.com.",
+          "missingFields": "Před zapnutím vyplňte {fields}.",
+          "unusable": "Toto nastavení nelze použít."
+        },
+        "providers": {
+          "apple": {
+            "note": "Apple vyžaduje návratovou URL s HTTPS na skutečné doméně (ne localhost) a uživatele vrací požadavkem POST.",
+            "fields": {
+              "clientId": {
+                "label": "Services ID",
+                "hint": "Identifikátor Services ID se zapnutým Sign in with Apple, např. com.example.signin."
+              },
+              "teamId": {
+                "label": "ID týmu (Team ID)"
+              },
+              "keyId": {
+                "label": "ID klíče (Key ID)",
+                "hint": "Klíč se zapnutým Sign in with Apple."
+              },
+              "privateKey": {
+                "label": "Soukromý klíč (.p8)",
+                "hint": "Tajný klíč klienta je JWT podepsaný tímto klíčem; generuje se a obnovuje automaticky."
+              },
+              "appBundleIdentifier": {
+                "label": "Bundle ID aplikace",
+                "hint": "Jen pro nativní přihlášení v iOS (tokeny ID vydané vaší aplikaci místo Services ID)."
+              }
+            }
+          },
+          "atlassian": {
+            "fields": {
+              "clientId": {
+                "label": "ID klienta"
+              },
+              "clientSecret": {
+                "label": "Tajný klíč klienta"
+              }
+            }
+          },
+          "cloudflare": {
+            "fields": {
+              "clientId": {
+                "label": "ID klienta"
+              },
+              "clientSecret": {
+                "label": "Tajný klíč klienta",
+                "hint": "Pro veřejného klienta (jen PKCE) nechte prázdné."
+              }
+            }
+          },
+          "cognito": {
+            "fields": {
+              "clientId": {
+                "label": "ID klienta aplikace"
+              },
+              "clientSecret": {
+                "label": "Tajný klíč klienta aplikace",
+                "hint": "Jen pokud má klient aplikace tajný klíč."
+              },
+              "domain": {
+                "label": "Doména Cognito"
+              },
+              "region": {
+                "label": "Region"
+              },
+              "userPoolId": {
+                "label": "ID fondu uživatelů (User pool ID)"
+              }
+            }
+          },
+          "discord": {
+            "fields": {
+              "clientId": {
+                "label": "ID klienta"
+              },
+              "clientSecret": {
+                "label": "Tajný klíč klienta"
+              }
+            }
+          },
+          "dropbox": {
+            "fields": {
+              "clientId": {
+                "label": "Klíč aplikace (App key)"
+              },
+              "clientSecret": {
+                "label": "Tajný klíč aplikace (App secret)"
+              }
+            }
+          },
+          "facebook": {
+            "fields": {
+              "clientId": {
+                "label": "ID aplikace"
+              },
+              "clientSecret": {
+                "label": "Tajný klíč aplikace"
+              }
+            }
+          },
+          "figma": {
+            "fields": {
+              "clientId": {
+                "label": "ID klienta"
+              },
+              "clientSecret": {
+                "label": "Tajný klíč klienta"
+              }
+            }
+          },
+          "github": {
+            "note": "OAuth App funguje tak, jak je. GitHub App navíc potřebuje oprávnění účtu Email addresses nastavené na Read-only, jinak přihlášení selže bez e-mailu.",
+            "fields": {
+              "clientId": {
+                "label": "ID klienta"
+              },
+              "clientSecret": {
+                "label": "Tajný klíč klienta"
+              }
+            }
+          },
+          "gitlab": {
+            "fields": {
+              "clientId": {
+                "label": "ID aplikace"
+              },
+              "clientSecret": {
+                "label": "Tajný klíč klienta"
+              },
+              "issuer": {
+                "label": "URL GitLabu",
+                "hint": "Pro GitLab ve vlastní správě."
+              }
+            }
+          },
+          "google": {
+            "fields": {
+              "clientId": {
+                "label": "ID klienta"
+              },
+              "clientSecret": {
+                "label": "Tajný klíč klienta"
+              },
+              "hd": {
+                "label": "Doména Workspace",
+                "hint": "Přijímat jen účty této domény Google Workspace."
+              }
+            }
+          },
+          "huggingface": {
+            "fields": {
+              "clientId": {
+                "label": "ID klienta"
+              },
+              "clientSecret": {
+                "label": "Tajný klíč klienta"
+              }
+            }
+          },
+          "kakao": {
+            "fields": {
+              "clientId": {
+                "label": "Klíč REST API"
+              },
+              "clientSecret": {
+                "label": "Tajný klíč klienta",
+                "hint": "Jen pokud má aplikace zapnutý tajný klíč klienta."
+              }
+            }
+          },
+          "kick": {
+            "fields": {
+              "clientId": {
+                "label": "ID klienta"
+              },
+              "clientSecret": {
+                "label": "Tajný klíč klienta"
+              }
+            }
+          },
+          "line": {
+            "fields": {
+              "clientId": {
+                "label": "ID kanálu (Channel ID)"
+              },
+              "clientSecret": {
+                "label": "Tajný klíč kanálu (Channel secret)"
+              }
+            }
+          },
+          "linear": {
+            "fields": {
+              "clientId": {
+                "label": "ID klienta"
+              },
+              "clientSecret": {
+                "label": "Tajný klíč klienta"
+              }
+            }
+          },
+          "linkedin": {
+            "fields": {
+              "clientId": {
+                "label": "ID klienta"
+              },
+              "clientSecret": {
+                "label": "Tajný klíč klienta"
+              }
+            }
+          },
+          "microsoft": {
+            "fields": {
+              "clientId": {
+                "label": "ID aplikace (klienta)"
+              },
+              "clientSecret": {
+                "label": "Hodnota tajného klíče klienta"
+              },
+              "tenantId": {
+                "label": "Tenant",
+                "hint": "common (jakýkoli účet), organizations, consumers nebo ID vašeho adresáře (tenanta), chcete-li povolit jen svou organizaci."
+              }
+            }
+          },
+          "naver": {
+            "fields": {
+              "clientId": {
+                "label": "ID klienta"
+              },
+              "clientSecret": {
+                "label": "Tajný klíč klienta"
+              }
+            }
+          },
+          "notion": {
+            "fields": {
+              "clientId": {
+                "label": "ID klienta OAuth"
+              },
+              "clientSecret": {
+                "label": "Tajný klíč klienta OAuth"
+              }
+            }
+          },
+          "paybin": {
+            "fields": {
+              "clientId": {
+                "label": "ID klienta"
+              },
+              "clientSecret": {
+                "label": "Tajný klíč klienta"
+              },
+              "issuer": {
+                "label": "Vydavatel"
+              }
+            }
+          },
+          "paypal": {
+            "note": "Zapněte pro aplikaci „Log in with PayPal“ a vyžádejte si e-mailovou adresu.",
+            "fields": {
+              "clientId": {
+                "label": "ID klienta"
+              },
+              "clientSecret": {
+                "label": "Tajný klíč klienta"
+              },
+              "environment": {
+                "label": "Prostředí"
+              }
+            }
+          },
+          "polar": {
+            "fields": {
+              "clientId": {
+                "label": "ID klienta"
+              },
+              "clientSecret": {
+                "label": "Tajný klíč klienta"
+              }
+            }
+          },
+          "railway": {
+            "fields": {
+              "clientId": {
+                "label": "ID klienta"
+              },
+              "clientSecret": {
+                "label": "Tajný klíč klienta"
+              }
+            }
+          },
+          "reddit": {
+            "fields": {
+              "clientId": {
+                "label": "ID klienta"
+              },
+              "clientSecret": {
+                "label": "Tajný klíč klienta"
+              }
+            }
+          },
+          "roblox": {
+            "fields": {
+              "clientId": {
+                "label": "ID klienta"
+              },
+              "clientSecret": {
+                "label": "Tajný klíč klienta"
+              }
+            }
+          },
+          "salesforce": {
+            "fields": {
+              "clientId": {
+                "label": "Consumer key"
+              },
+              "clientSecret": {
+                "label": "Consumer secret"
+              },
+              "environment": {
+                "label": "Prostředí"
+              },
+              "loginUrl": {
+                "label": "My Domain",
+                "hint": "Jen název hostitele. Nahrazuje login.salesforce.com nebo test.salesforce.com."
+              }
+            }
+          },
+          "slack": {
+            "fields": {
+              "clientId": {
+                "label": "ID klienta"
+              },
+              "clientSecret": {
+                "label": "Tajný klíč klienta"
+              }
+            }
+          },
+          "spotify": {
+            "fields": {
+              "clientId": {
+                "label": "ID klienta"
+              },
+              "clientSecret": {
+                "label": "Tajný klíč klienta"
+              }
+            }
+          },
+          "tiktok": {
+            "fields": {
+              "clientKey": {
+                "label": "Klíč klienta (Client key)"
+              },
+              "clientSecret": {
+                "label": "Tajný klíč klienta"
+              }
+            }
+          },
+          "twitch": {
+            "fields": {
+              "clientId": {
+                "label": "ID klienta"
+              },
+              "clientSecret": {
+                "label": "Tajný klíč klienta"
+              }
+            }
+          },
+          "twitter": {
+            "note": "Použijte přihlašovací údaje OAuth 2.0 (ne API klíč) a v nastavení aplikace si vyžádejte přístup k e-mailu.",
+            "fields": {
+              "clientId": {
+                "label": "ID klienta OAuth 2.0"
+              },
+              "clientSecret": {
+                "label": "Tajný klíč klienta OAuth 2.0"
+              }
+            }
+          },
+          "vercel": {
+            "fields": {
+              "clientId": {
+                "label": "ID klienta"
+              },
+              "clientSecret": {
+                "label": "Tajný klíč klienta"
+              }
+            }
+          },
+          "vk": {
+            "fields": {
+              "clientId": {
+                "label": "ID aplikace"
+              },
+              "clientSecret": {
+                "label": "Chráněný klíč"
+              }
+            }
+          },
+          "wechat": {
+            "note": "Webová aplikace (přihlášení QR kódem). WeChat nevrací e-mailovou adresu.",
+            "fields": {
+              "clientId": {
+                "label": "AppID"
+              },
+              "clientSecret": {
+                "label": "AppSecret"
+              }
+            }
+          },
+          "zoom": {
+            "fields": {
+              "clientId": {
+                "label": "ID klienta"
+              },
+              "clientSecret": {
+                "label": "Tajný klíč klienta"
+              }
+            }
+          }
+        }
       },
       "apiKeys": {
         "title": "API klíče",
-        "description": "Klíče, které si lidé vytvářejí, aby jejich skripty mohly volat vaše API: zapněte je nebo vypněte, nastavte jejich maximální platnost a odvolejte libovolný klíč."
+        "description": "Klíče, které si lidé vytvářejí, aby jejich skripty mohly volat vaše API: zapněte je nebo vypněte, nastavte jejich maximální platnost a odvolejte libovolný klíč.",
+        "allKeys": {
+          "title": "Všechny klíče",
+          "description": "Od nejnovějších{truncated, select, true {, posledních {limit}} other {}}. Klíče s vypršenou platností se smažou při dalším použití nebo vytvoření klíčů. Zablokováním nebo smazáním účtu se jeho klíče odvolají; smazáním organizace se smažou její klíče (klíče vlastněné organizací zůstanou, když člen, který je vytvořil, odejde)."
+        },
+        "settings": {
+          "description": "Lidé si klíče vytvářejí na stránce svého účtu pro jedno z vašich API a některé z jeho scopů. API každý klíč ověřuje u tohoto serveru. Klíč nikdy nikoho nepřihlásí k tomuto serveru ani do administrační konzole.",
+          "statusOn": "Zapnuto: lidé mohou vytvářet klíče",
+          "statusOff": "Vypnuto: žádné nové klíče a každý klíč je odmítnut",
+          "maxLifetime": "Maximální platnost",
+          "maxLifetimeValue": "{count, plural, one {# den} few {# dny} many {# dne} other {# dní}}",
+          "apisAccepting": "API přijímající klíče",
+          "apisNone": "Žádná: zaregistrujte API se scopy, otevřené všem aplikacím",
+          "verifyEndpoint": "Ověřovací endpoint: <code>{endpoint}</code>. API se ověřuje jako aplikace zaregistrovaná zde a propojená s tímto API (stránka API, Přístup). API omezená na propojené aplikace klíče nepřijímají."
+        },
+        "dialog": {
+          "description": "Klíče mají dlouhou platnost: dávejte přednost krátké. Snížení maxima platí jen pro nové klíče.",
+          "allowLabel": "Povolit API klíče",
+          "allowHint": "Vypnuto: nikdo nemůže vytvořit klíč a každý existující klíč je při ověření odmítnut. Klíče zůstanou zachovány a po opětovném zapnutí budou znovu fungovat.",
+          "maxLifetimeLabel": "Maximální platnost (dny)",
+          "maxLifetimeHint": "Od 1 do {max}. Každý klíč vyprší.",
+          "saved": "Nastavení uloženo. Autentizační server ho použije do minuty."
+        },
+        "table": {
+          "empty": "Žádné API klíče.",
+          "key": "Klíč",
+          "owner": "Vlastník",
+          "api": "API",
+          "scopes": "Scopy",
+          "lastUsed": "Naposledy použito",
+          "expires": "Vyprší",
+          "createdBy": "vytvořil(a) {email}",
+          "org": "Organizace",
+          "removedApi": "Odebrané API",
+          "expired": "Platnost vypršela",
+          "revoke": "Odvolat",
+          "revoked": "API klíč byl odvolán",
+          "revokeTitle": "Odvolat {name}?",
+          "revokeOrgDescription": "Tento klíč organizace {owner} okamžitě přestane fungovat. Její vlastníci a správci mohou vytvořit nový, pokud jsou API klíče zapnuté.",
+          "revokeUserDescription": "Klíč uživatele {owner} okamžitě přestane fungovat. Může si vytvořit nový, pokud jsou API klíče zapnuté."
+        },
+        "errors": {
+          "chooseEnabled": "Zvolte, zda jsou API klíče zapnuté.",
+          "maxLifetimeRange": "Maximální platnost musí být celý počet dní od 1 do {max}.",
+          "saveFailed": "Nastavení se nepodařilo uložit.",
+          "noKey": "Nebyl zadán žádný klíč.",
+          "keyGone": "Tento klíč už neexistuje."
+        }
       },
       "webhooks": {
         "title": "Webhooky",
         "description": "Podepsaná HTTPS oznámení, která vašim aplikacím sdělí, když se změní uživatelé, role nebo členství v organizacích v {name}.",
-        "deliveries": "Protokol doručení"
+        "deliveries": "Protokol doručení",
+        "eventDescriptions": {
+          "user_created": "Je vytvořen účet (registrace, administrátor, SSO, SCIM).",
+          "user_updated": "Změní se jméno, e-mail, ověření e-mailu, uživatelské jméno nebo obrázek.",
+          "user_deleted": "Účet je smazán.",
+          "user_banned": "Účet je zablokován nebo deaktivován přes SCIM.",
+          "user_unbanned": "Blokování je zrušeno nebo SCIM účet znovu aktivuje.",
+          "user_role_changed": "Změní se role účtu na platformě.",
+          "organization_member_added": "Někdo se připojí k organizaci.",
+          "organization_member_removed": "Někdo opustí organizaci nebo je z ní odebrán.",
+          "organization_member_role_changed": "Změní se role člena v organizaci."
+        },
+        "panel": {
+          "events": "Události",
+          "clear": "Vymazat",
+          "selectAll": "Vybrat vše",
+          "signingSecret": "Podpisový tajný klíč",
+          "secretCopied": "Tajný klíč zkopírován",
+          "copySecret": "Kopírovat tajný klíč",
+          "url": "URL",
+          "add": {
+            "title": "Přidat endpoint",
+            "description": "Ostiary odešle na tuto URL požadavkem POST podepsanou událost JSON, když nastane jedna ze zvolených událostí, a při selhání to zkouší znovu přibližně den.",
+            "urlHint": "HTTPS na veřejné adrese.",
+            "urlHintLocalhost": "HTTPS na veřejné adrese. {url} je přijata ({envVar}, jen pro vývoj).",
+            "descriptionPlaceholder": "Fakturační aplikace: synchronizace uživatelů",
+            "adding": "Přidávání…",
+            "submit": "Přidat endpoint"
+          },
+          "list": {
+            "title": "Endpointy",
+            "description": "Každý požadavek nese hlavičky <code>{id}</code>, <code>{timestamp}</code> a <code>{signature}</code> (Standard Webhooks). Endpoint, který selže {count, plural, one {# krát} few {# krát} many {# krát} other {# krát}} po sobě, se vypne.",
+            "empty": "Zatím žádný endpoint."
+          },
+          "created": {
+            "title": "Endpoint přidán",
+            "description": "Zkopírujte podpisový tajný klíč do aplikace na {url}: ověřuje jím každé doručení. Znovu se nezobrazí."
+          },
+          "test": {
+            "delivered": "Testovací událost doručena (HTTP {status})",
+            "failed": "Testovací událost selhala: {reason}"
+          },
+          "item": {
+            "disabledFailures": "Vypnuto po opakovaných selháních",
+            "rotating": "Probíhá rotace tajného klíče",
+            "editLabel": "Upravit {label}",
+            "deleteLabel": "Smazat {label}",
+            "disabledNotice": "Vypnuto po {count, plural, one {# neúspěšném pokusu} few {# neúspěšných pokusech} many {# neúspěšného pokusu} other {# neúspěšných pokusech}} po sobě. Opravte příjemce a pak endpoint znovu zapněte: čekající události se odešlou znovu.",
+            "disabledNoticeOn": "Vypnuto {date} po {count, plural, one {# neúspěšném pokusu} few {# neúspěšných pokusech} many {# neúspěšného pokusu} other {# neúspěšných pokusech}} po sobě. Opravte příjemce a pak endpoint znovu zapněte: čekající události se odešlou znovu.",
+            "lastSuccess": "Poslední úspěch",
+            "lastFailure": "Poslední selhání",
+            "inARow": "({count} po sobě)",
+            "deliveries": "Doručení",
+            "deliveriesValue": "{pending} čeká nebo se opakuje · {failed} selhalo",
+            "sendTest": "Odeslat testovací událost",
+            "deliveryLog": "Protokol doručení",
+            "regenerateSecret": "Vygenerovat nový tajný klíč"
+          },
+          "edit": {
+            "title": "Upravit endpoint",
+            "enabledHint": "Když je vypnutý, nové události se pro tento endpoint nezaznamenávají a opakované pokusy čekají.",
+            "updated": "Endpoint aktualizován"
+          },
+          "rotate": {
+            "title": "Vygenerovat nový podpisový tajný klíč?",
+            "description": "Doručení se 24 hodin podepisují starým i novým tajným klíčem, takže aplikace může přejít bez ztráty událostí.",
+            "newTitle": "Nový podpisový tajný klíč",
+            "newDescription": "Zkopírujte ho hned do aplikace: znovu se nezobrazí. Dalších 24 hodin nesou doručení i podpis starým tajným klíčem.",
+            "confirm": "Vygenerovat"
+          },
+          "delete": {
+            "title": "Smazat tento endpoint?",
+            "description": "{url} přestane dostávat události a jeho protokol doručení i čekající opakované pokusy se smažou. Chcete-li ho pozastavit, raději ho vypněte.",
+            "deleted": "Endpoint smazán"
+          }
+        },
+        "redeliver": {
+          "button": "Doručit znovu",
+          "delivered": "Doručeno (HTTP {status})",
+          "failed": "Selhalo: {reason}"
+        },
+        "log": {
+          "status": {
+            "succeeded": "Doručeno",
+            "failed": "Selhalo",
+            "pending": "Čeká"
+          },
+          "disabled": "Vypnuto: opakované pokusy čekají, dokud endpoint znovu nezapnete.",
+          "empty": "Zatím žádné doručení. Endpoint vyzkoušíte tlačítkem „Odeslat testovací událost“ na stránce Webhooky.",
+          "event": "Událost",
+          "response": "Odpověď",
+          "attempts": "Pokusy",
+          "nextRetry": "Další pokus",
+          "answer": "Odpověď",
+          "error": "chyba",
+          "footer": "Posledních {shown} doručení. Doručení se uchovávají {days, plural, one {# den} few {# dny} many {# dne} other {# dní}}. Neúspěšné doručení se opakuje {retries, plural, one {# krát} few {# krát} many {# krát} other {# krát}} přibližně během jednoho dne; „Doručit znovu“ odešle stejnou událost (stejná {header}) hned znovu."
+        },
+        "errors": {
+          "noEvents": "Vyberte alespoň jednu událost.",
+          "tooMany": "Nejvýše {max} endpointů.",
+          "endpointNotFound": "Endpoint nebyl nalezen.",
+          "disabledTest": "Endpoint je vypnutý: zapněte ho, abyste mohli odeslat testovací událost.",
+          "testNotSent": "Testovací událost se nepodařilo odeslat.",
+          "deliveryNotFound": "Doručení nebylo nalezeno.",
+          "disabledRedeliver": "Endpoint je vypnutý: zapněte ho, abyste mohli doručit znovu.",
+          "eventNotSent": "Událost se nepodařilo odeslat."
+        }
       },
       "users": {
-        "title": "Users",
-        "description": "Find accounts, change roles, ban or remove them, and open an account to see its sessions and activity."
+        "title": "Uživatelé",
+        "description": "Vyhledávejte účty, měňte role, blokujte je nebo odstraňujte a otevřete účet, abyste viděli jeho relace a aktivitu.",
+        "list": {
+          "searchPlaceholder": "Hledat podle jména nebo e-mailu…",
+          "searchLabel": "Hledat uživatele",
+          "rolePlaceholder": "Role",
+          "roleAll": "Všechny role",
+          "roleAdmin": "Administrátor",
+          "roleUser": "Uživatel",
+          "loadErrorTitle": "Uživatele se nepodařilo načíst",
+          "loadErrorFallback": "Načtení uživatelů selhalo",
+          "columns": {
+            "user": "Uživatel",
+            "role": "Role",
+            "status": "Stav",
+            "verified": "Ověřeno",
+            "joined": "Připojen"
+          },
+          "loading": "Načítání uživatelů…",
+          "empty": "Vašim filtrům neodpovídají žádní uživatelé.",
+          "noUsers": "0 uživatelů",
+          "showing": "Zobrazeno {from}–{to} z {total}",
+          "rowsPerPage": "Řádků na stránku",
+          "previous": "Předchozí",
+          "next": "Další",
+          "pageOf": "Stránka {page} / {pages}",
+          "poweredBy": "Využívá <code>listUsers</code>, <code>createUser</code>, <code>setRole</code>, <code>updateUser</code>, <code>setUserPassword</code> a související metody z <link>pluginu Better Auth admin</link>. Musíte být přihlášeni jako administrátor."
+        },
+        "status": {
+          "banned": "Zablokován",
+          "active": "Aktivní"
+        },
+        "create": {
+          "trigger": "Přidat uživatele",
+          "title": "Přidat uživatele",
+          "description": "Vytvoří účet přes <code>createUser</code>.",
+          "email": "E-mail",
+          "password": "Heslo",
+          "name": "Jméno",
+          "role": "Role",
+          "error": "Uživatele se nepodařilo vytvořit",
+          "created": "Uživatel vytvořen",
+          "submit": "Vytvořit uživatele",
+          "creating": "Vytváření…"
+        },
+        "rowActions": {
+          "menuLabel": "Akce pro {name}",
+          "copyId": "Kopírovat ID uživatele",
+          "idCopied": "ID uživatele zkopírováno",
+          "edit": "Upravit uživatele",
+          "setPassword": "Nastavit heslo",
+          "makeAdmin": "Udělat administrátorem",
+          "makeUser": "Udělat uživatelem",
+          "ban": "Zablokovat uživatele",
+          "unban": "Odblokovat uživatele",
+          "remove": "Odstranit uživatele",
+          "roleError": "Roli se nepodařilo aktualizovat",
+          "roleSet": "Role nastavena na {role}",
+          "unbanError": "Uživatele se nepodařilo odblokovat",
+          "unbanned": "Uživatel odblokován",
+          "banError": "Uživatele se nepodařilo zablokovat",
+          "banned": "Uživatel zablokován",
+          "removeError": "Uživatele se nepodařilo odstranit",
+          "removed": "Uživatel odstraněn",
+          "emailRequired": "E-mail je povinný",
+          "noChanges": "Žádné změny k uložení",
+          "updateError": "Uživatele se nepodařilo aktualizovat",
+          "updated": "Uživatel aktualizován",
+          "passwordRequired": "Zadejte nové heslo.",
+          "passwordMismatch": "Hesla se neshodují.",
+          "passwordError": "Heslo se nepodařilo nastavit",
+          "passwordUpdated": "Heslo aktualizováno",
+          "editTitle": "Upravit uživatele",
+          "editDescription": "Změňte jméno nebo e-mailovou adresu. Novou e-mailovou adresu musí uživatel ověřit, než se bude moci znovu přihlásit.",
+          "name": "Jméno",
+          "email": "E-mail",
+          "passwordTitle": "Nastavit heslo",
+          "passwordDescription": "Nastaví nové heslo pro <strong>{email}</strong> pomocí <code>setUserPassword</code>.",
+          "newPassword": "Nové heslo",
+          "confirmPassword": "Potvrzení hesla",
+          "updatePassword": "Aktualizovat heslo",
+          "removeTitle": "Odstranit uživatele?",
+          "removeDescription": "Tím se trvale smaže <strong>{name}</strong> ({email}) a vše, co je s účtem propojené. Záznamy v auditním protokolu zůstanou, ale bez jména a e-mailu. Tuto akci nelze vrátit zpět.",
+          "removeConfirm": "Odstranit",
+          "removing": "Odstraňování…"
+        },
+        "detailActions": {
+          "impersonateError": "Za tohoto uživatele se nepodařilo přihlásit.",
+          "signOutError": "Tohoto uživatele se nepodařilo odhlásit.",
+          "signedOut": "Odhlášeno z {count, plural, one {# relace} few {# relací} many {# relace} other {# relací}}",
+          "exportError": "Data tohoto uživatele se nepodařilo exportovat.",
+          "exported": "Data exportována. Export je zaznamenán v auditním protokolu.",
+          "exportData": "Exportovat data",
+          "impersonate": "Přihlásit se jako uživatel",
+          "signOutEverywhere": "Odhlásit všude",
+          "impersonateTitle": "Přihlásit se jako {email}?",
+          "signOutTitle": "Odhlásit {email} všude?",
+          "impersonateDescription": "Uvidíte nástěnku účtu přesně tak, jak ji vidí tento uživatel, až po dobu jedné hodiny. Pruh nahoře vám umožní skončit a vrátit se. Akce se zaznamená do auditního protokolu.",
+          "signOutDescription": "Všechny relace tohoto uživatele nyní skončí, na všech zařízeních. Bude se muset znovu přihlásit.",
+          "sessionRevoked": "Relace odvolána",
+          "revokeError": "Tuto relaci se nepodařilo odvolat.",
+          "revoke": "Odvolat",
+          "resetTwoFactorError": "Dvoufázové ověření se nepodařilo resetovat.",
+          "twoFactorReset": "Dvoufázové ověření bylo vypnuto",
+          "reset": "Resetovat",
+          "resetTwoFactorTitle": "Resetovat dvoufázové ověření pro {email}?",
+          "resetTwoFactorDescription": "Ověřovací aplikace, záložní kódy a důvěryhodná zařízení uživatele přestanou fungovat a bude se přihlašovat jen heslem, dokud si ověření znovu nenastaví. Udělejte to, jen když jste ověřili, kdo o to žádá. Akce se zaznamená do auditního protokolu."
+        },
+        "detail": {
+          "emailVerified": "E-mail ověřen",
+          "emailNotVerified": "E-mail neověřen",
+          "banned": "Zablokován",
+          "bannedWithReason": "Zablokován: {reason}",
+          "scimTitle": "Zřízeno přes SCIM: {organizations}",
+          "scimDescription": "Tento účet spravuje poskytovatel identit. Odeberte uživatele tam: smazáním účtu zde nezabráníte adresáři, aby ho při další synchronizaci znovu vytvořil. Uživatel nemůže účet smazat ze své nástěnky.",
+          "tiles": {
+            "joined": "Připojen",
+            "activeSessions": "Aktivní relace",
+            "passkeys": "Přístupové klíče",
+            "twoFactor": "Dvoufázové ověření"
+          },
+          "device": {
+            "unknown": "Neznámé zařízení",
+            "browser": "Prohlížeč",
+            "browserOnOs": "{browser} v systému {os}"
+          },
+          "sessions": {
+            "title": "Aktivní relace",
+            "description": "Zařízení, na kterých je tento účet přihlášen.",
+            "empty": "Žádné aktivní relace.",
+            "device": "Zařízení",
+            "ipAddress": "IP adresa",
+            "lastActive": "Naposledy aktivní",
+            "impersonated": "Přihlášení za uživatele"
+          },
+          "apiKeys": {
+            "title": "API klíče",
+            "description": "Klíče, které tento účet vytvořil pro skripty. Zablokováním nebo smazáním účtu se odvolají."
+          },
+          "signInMethods": {
+            "title": "Metody přihlášení",
+            "credential": "E-mail a heslo",
+            "sso": "SSO: {provider}",
+            "passkey": "Přístupový klíč: {name} <muted>({deviceType})</muted>",
+            "unnamed": "Bez názvu",
+            "empty": "Žádné metody přihlášení.",
+            "twoFactor": "Dvoufázové ověření <muted>(ověřovací aplikace)</muted>",
+            "managedByYou": "Spravováno z vašeho účtu"
+          },
+          "organizations": {
+            "title": "Organizace",
+            "empty": "Není členem žádné organizace."
+          },
+          "activity": {
+            "title": "Nedávná aktivita přihlášení",
+            "empty": "Zatím nebyla zaznamenána žádná aktivita.",
+            "events": {
+              "sign_in": "Přihlášení",
+              "sign_up": "Vytvoření účtu",
+              "sign_out": "Odhlášení",
+              "sign_in_failed": "Neúspěšné přihlášení"
+            }
+          },
+          "audit": {
+            "title": "Akce administrátorů u tohoto účtu",
+            "empty": "Zatím žádné akce administrátorů.",
+            "by": "provedl(a) {actor}",
+            "system": "systém"
+          }
+        }
       },
       "consent": {
-        "title": "Consent",
-        "description": "Permissions people have granted to OAuth clients, with the scopes and when they were given."
+        "title": "Souhlasy",
+        "description": "Oprávnění, která lidé udělili klientům OAuth, včetně scopů a data udělení.",
+        "panel": {
+          "signedInUser": "Přihlášený uživatel",
+          "loadConsentsFailed": "Načtení souhlasů selhalo",
+          "loadClientsFailed": "Načtení klientů OAuth selhalo",
+          "loadErrorTitle": "Souhlasy se nepodařilo načíst",
+          "searchPlaceholder": "Hledat podle uživatele, klienta, ID souhlasu, reference nebo scopu…",
+          "searchLabel": "Hledat souhlasy",
+          "filter": {
+            "placeholder": "Filtr scopů",
+            "all": "Všechny souhlasy",
+            "hasScope": "Obsahuje {scope}"
+          },
+          "columns": {
+            "user": "Uživatel",
+            "application": "Aplikace",
+            "scopes": "Scopy",
+            "reference": "Reference",
+            "granted": "Uděleno",
+            "updated": "Aktualizováno"
+          },
+          "loading": "Načítání souhlasů…",
+          "emptyNone": "Pro tento účet zatím nejsou zaznamenány žádné souhlasy.",
+          "emptyFiltered": "Vašim filtrům neodpovídají žádné souhlasy.",
+          "noResults": "0 souhlasů",
+          "showing": "Zobrazeno {from}–{to} z {total}",
+          "rowsPerPage": "Řádků na stránku",
+          "previous": "Předchozí",
+          "next": "Další",
+          "pageOf": "Stránka {page} / {total}",
+          "footnote": "Data z <code>{getConsents}</code>; názvy klientů zjištěny přes <code>{getClients}</code>. Odvolání používá <code>{deleteConsent}</code>. Viz <consentLink>OAuth consent</consentLink> v dokumentaci <providerLink>OAuth provider</providerLink>. Interaktivní autorizační rozhraní je na <code>{path}</code>."
+        },
+        "rowActions": {
+          "menuLabel": "Akce pro souhlas {id}…",
+          "copyConsentId": "Kopírovat ID souhlasu",
+          "consentIdCopied": "ID souhlasu zkopírováno",
+          "copyClientId": "Kopírovat ID klienta",
+          "clientIdCopied": "ID klienta zkopírováno",
+          "viewDetails": "Zobrazit podrobnosti",
+          "updateScopes": "Aktualizovat scopy",
+          "wireTo": "Napojit na {method}",
+          "revoke": "Odvolat souhlas",
+          "revokeFailed": "Souhlas se nepodařilo odvolat",
+          "revoked": "Souhlas odvolán",
+          "dialogTitle": "Odvolat souhlas?",
+          "dialogDescription": "Odebere oprávnění tohoto uživatele pro <strong>{client}</strong> (<code>{clientId}</code>). Klient možná bude muset znovu požádat o autorizaci.",
+          "revoking": "Odvolávání…",
+          "revokeButton": "Odvolat"
+        }
       },
       "usage": {
         "title": "Využití aplikací",
-        "description": "Které aplikace se používají: přístupové tokeny, uživatelé a souhlasy podle aplikace za posledních 30 dní."
+        "description": "Které aplikace se používají: přístupové tokeny, uživatelé a souhlasy podle aplikace za posledních 30 dní.",
+        "tiles": {
+          "tokens": "Vydané tokeny, 30 dní",
+          "active": "Používané aplikace",
+          "unused": "Nepoužívané aplikace"
+        },
+        "card": {
+          "title": "Přístupové tokeny podle aplikace, posledních 30 dní",
+          "unused": "{count, plural, one {# aktivní aplikace za 30 dní nevydala žádný token: zvažte její vypnutí nebo smazání.} few {# aktivní aplikace za 30 dní nevydaly žádný token: zvažte jejich vypnutí nebo smazání.} many {# aktivní aplikace za 30 dní nevydalo žádný token: zvažte jejich vypnutí nebo smazání.} other {# aktivních aplikací za 30 dní nevydalo žádný token: zvažte jejich vypnutí nebo smazání.}}",
+          "allUsed": "Každá aktivní aplikace vydala za posledních 30 dní tokeny.",
+          "empty": "Nejsou zaregistrováni žádní klienti OAuth.",
+          "application": "Aplikace",
+          "tokens": "Tokeny",
+          "users": "Uživatelé",
+          "consents": "Souhlasy",
+          "lastToken": "Poslední token",
+          "lastTokenValue": "Poslední token: {date}",
+          "showInApplications": "Zobrazit v Aplikacích",
+          "unusedBadge": "Nepoužívaná"
+        }
       },
       "audit": {
-        "title": "Audit log",
-        "description": "Every change made from this console or the admin API: who did it, to what, and when.",
-        "footnote": "Showing the latest 200 entries. Passwords and secrets are never recorded."
+        "title": "Auditní protokol",
+        "description": "Každá změna provedená z této konzole nebo přes administrační API: kdo ji provedl, čeho se týkala a kdy.",
+        "footnote": "Zobrazuje se posledních 200 záznamů. Hesla a tajné klíče se nikdy nezaznamenávají.",
+        "filterLabel": "Filtrovat podle oblasti",
+        "filters": {
+          "all": "Vše",
+          "user": "Uživatelé",
+          "organization": "Organizace",
+          "oauth_client": "Klienti OAuth",
+          "oauth_consent": "Souhlasy",
+          "oauth_resource": "API",
+          "api_key": "API klíče",
+          "sso_provider": "SSO",
+          "signing_key": "Podpisové klíče",
+          "webhook": "Webhooky",
+          "social_provider": "Poskytovatelé přihlášení"
+        },
+        "empty": "Zatím nejsou zaznamenány žádné akce administrátorů.",
+        "columns": {
+          "when": "Kdy",
+          "who": "Kdo",
+          "action": "Akce",
+          "target": "Cíl",
+          "details": "Podrobnosti",
+          "ip": "IP"
+        },
+        "system": "Systém",
+        "actions": {
+          "user": {
+            "create": "Vytvoření uživatele",
+            "update": "Úprava uživatele",
+            "set_role": "Změna role",
+            "set_password": "Nastavení hesla",
+            "ban": "Zablokování uživatele",
+            "unban": "Odblokování uživatele",
+            "delete": "Smazání uživatele",
+            "revoke_session": "Odvolání relace",
+            "revoke_all_sessions": "Odhlášení uživatele všude",
+            "impersonate": "Přihlášení za uživatele",
+            "reset_two_factor": "Reset dvoufázového ověření",
+            "export_data": "Export dat účtu",
+            "self_delete": "Smazání vlastního účtu"
+          },
+          "oauth_client": {
+            "create": "Registrace klienta OAuth",
+            "update": "Úprava klienta OAuth",
+            "delete": "Smazání klienta OAuth",
+            "rotate_secret": "Rotace tajného klíče klienta",
+            "self_register": "Samoregistrace klienta",
+            "disable": "Vypnutí klienta OAuth",
+            "enable": "Zapnutí klienta OAuth",
+            "branding_update": "Změna vzhledu přihlášení",
+            "branding_reset": "Obnovení vzhledu přihlášení"
+          },
+          "client_registration": {
+            "update": "Změna samoregistrace klientů"
+          },
+          "oauth_resource": {
+            "create": "Registrace API",
+            "update": "Úprava API",
+            "delete": "Smazání API",
+            "access": "Změna přístupu k API",
+            "tokens": "Změna nastavení tokenů API"
+          },
+          "api_key": {
+            "create": "Vytvoření API klíče",
+            "revoke": "Odvolání API klíče",
+            "revoke_all": "Odvolání všech API klíčů",
+            "settings": "Změna nastavení API klíčů"
+          },
+          "oauth_consent": {
+            "update": "Úprava souhlasu",
+            "delete": "Odvolání souhlasu"
+          },
+          "oauth_device": {
+            "approve": "Schválení přihlášení zařízení",
+            "deny": "Zamítnutí přihlášení zařízení"
+          },
+          "organization": {
+            "create": "Vytvoření organizace",
+            "update": "Přejmenování organizace",
+            "delete": "Smazání organizace",
+            "invite": "Pozvání člena",
+            "cancel_invitation": "Zrušení pozvánky",
+            "update_member_role": "Změna role člena",
+            "remove_member": "Odebrání člena"
+          },
+          "sso_provider": {
+            "create": "Registrace poskytovatele SSO",
+            "update": "Úprava poskytovatele SSO",
+            "delete": "Smazání poskytovatele SSO",
+            "verify_domain": "Ověření domény SSO"
+          },
+          "social_provider": {
+            "create": "Nastavení poskytovatele přihlášení",
+            "update": "Úprava poskytovatele přihlášení",
+            "delete": "Odebrání poskytovatele přihlášení",
+            "reorder": "Změna pořadí poskytovatelů přihlášení"
+          },
+          "scim": {
+            "token_create": "Vygenerování tokenu SCIM",
+            "token_rotate": "Nahrazení tokenu SCIM",
+            "token_revoke": "Odvolání tokenu SCIM"
+          },
+          "signing_key": {
+            "rotate": "Rotace podpisového klíče",
+            "update_settings": "Změna rotace podpisového klíče"
+          },
+          "webhook": {
+            "create": "Přidání endpointu webhooku",
+            "update": "Úprava endpointu webhooku",
+            "enable": "Zapnutí endpointu webhooku",
+            "disable": "Vypnutí endpointu webhooku",
+            "delete": "Smazání endpointu webhooku",
+            "rotate_secret": "Nový tajný klíč webhooku",
+            "test": "Odeslání testovací události webhooku",
+            "redeliver": "Opětovné doručení události webhooku"
+          }
+        }
       },
       "security": {
-        "title": "Security",
-        "description": "Failed sign-in attempts, the accounts and addresses behind them, and banned accounts."
+        "title": "Zabezpečení",
+        "description": "Neúspěšné pokusy o přihlášení, účty a adresy, ze kterých pocházejí, a zablokované účty.",
+        "tiles": {
+          "failed24h": "Neúspěšná přihlášení, 24 hodin",
+          "failed7d": "Neúspěšná přihlášení, 7 dní",
+          "banned": "Zablokované účty"
+        },
+        "chart": {
+          "failed": "Neúspěšná přihlášení"
+        },
+        "perDay": {
+          "title": "Neúspěšná přihlášení po dnech",
+          "description": "Chybné heslo nebo neznámý účet, posledních 30 dní (celkem {total, number}). Sleduje se od 6. října 2026."
+        },
+        "noFailures": "Za posledních 7 dní žádná neúspěšná přihlášení.",
+        "attempts": "Pokusy",
+        "topAccounts": {
+          "title": "Nejčastěji napadené účty, 7 dní",
+          "description": "Zkoušený e-mail nebo uživatelské jméno, bez ohledu na to, zda účet existuje.",
+          "identifier": "E-mail nebo uživatelské jméno",
+          "last": "Naposledy"
+        },
+        "topIps": {
+          "title": "Nejaktivnější IP adresy, 7 dní",
+          "description": "Jedna adresa zkoušející mnoho účtů obvykle znamená credential stuffing.",
+          "ip": "IP adresa",
+          "accounts": "Zkoušené účty"
+        },
+        "banned": {
+          "title": "Zablokované účty",
+          "empty": "Žádné zablokované účty.",
+          "noReason": "Bez uvedení důvodu",
+          "until": "do {date}",
+          "permanent": "trvale"
+        }
       },
       "signingKeys": {
         "title": "Podpisové klíče",
@@ -380,88 +1812,236 @@
           "save": "Nastavení se nepodařilo uložit.",
           "rotate": "Klíč se nepodařilo otočit."
         }
+      },
+      "organizations": {
+        "controls": {
+          "unexpectedError": "Něco se pokazilo.",
+          "organizationUpdated": "Organizace aktualizována",
+          "slug": "Slug",
+          "role": "Role",
+          "roleUpdated": "Role aktualizována",
+          "roles": {
+            "owner": "vlastník",
+            "admin": "správce",
+            "member": "člen"
+          },
+          "removeMemberLabel": "Odebrat {email}",
+          "removeMemberTitle": "Odebrat {email}?",
+          "removeMemberBody": "Ztratí přístup k této organizaci. Jejich účet zůstane.",
+          "memberRemoved": "Člen odebrán",
+          "cancelInvitationLabel": "Zrušit pozvánku pro {email}",
+          "cancelInvitationTitle": "Zrušit pozvánku pro {email}?",
+          "cancelInvitationBody": "Odkaz v e-mailu přestane fungovat.",
+          "cancelInvitation": "Zrušit pozvánku",
+          "invitationCancelled": "Pozvánka zrušena",
+          "invitationSent": "Pozvánka odeslána",
+          "inviteByEmail": "Pozvat e-mailem",
+          "sendInvitation": "Odeslat pozvánku"
+        },
+        "scim": {
+          "unexpectedError": "Něco se pokazilo.",
+          "tokenRevoked": "Token odvolán",
+          "baseUrl": "Základní URL",
+          "copyBaseUrl": "Kopírovat základní URL",
+          "token": "Token",
+          "copyToken": "Kopírovat token",
+          "active": "Aktivní",
+          "expires": "Vyprší",
+          "lastUsed": "Naposledy použit",
+          "noToken": "Žádný aktivní token. Poskytovatel identit nemůže zřizovat účty, dokud ho nevygenerujete.",
+          "newToken": "Nový token",
+          "revoke": "Odvolat",
+          "generateToken": "Vygenerovat token",
+          "rotateTitle": "Nahradit token SCIM?",
+          "revokeTitle": "Odvolat token SCIM?",
+          "rotateBody": "Současný token nyní přestane fungovat. Vložte nový do svého poskytovatele identit, aby zřizování pokračovalo.",
+          "revokeBody": "Váš poskytovatel identit už nebude moci vytvářet, aktualizovat ani deaktivovat účty. Stávající účty se nezmění.",
+          "replaceToken": "Nahradit token",
+          "revokeToken": "Odvolat token",
+          "issuedTitle": "Token SCIM",
+          "issuedDescription": "Zkopírujte si ho hned: znovu se nezobrazí. Vyprší za jeden rok.",
+          "tokenHint": "Vložte ho jako bearer token (Okta: API token, Entra ID: secret token)."
+        },
+        "detail": {
+          "back": "Organizace",
+          "defaultWorkspace": "Výchozí pracovní prostor",
+          "createdAt": "Vytvořeno {date}",
+          "members": "Členové",
+          "publicMembers": "Každý účet patří do pracovního prostoru Public, takže zde nelze členy odebírat. Zobrazuje se prvních 50.",
+          "memberCount": "{count, plural, one {# člen} few {# členové} many {# člena} other {# členů}}.",
+          "noMembers": "Zatím žádní členové.",
+          "member": "Člen",
+          "joined": "Připojen",
+          "role": "Role",
+          "deactivated": "Deaktivován",
+          "banned": "Zablokován",
+          "invitationExpires": "vyprší {date}",
+          "noInvitations": "Žádné nevyřízené pozvánky.",
+          "apiKeys": "API klíče",
+          "apiKeysDescription": "Klíče vlastněné touto organizací, které vytvořili její vlastníci a správci na nástěnce svého účtu. Fungují dál, i když člen, který je vytvořil, odejde, a smažou se spolu s organizací.",
+          "details": "Podrobnosti",
+          "sso": "Jednotné přihlášení",
+          "ssoDescription": "Poskytovatelé identit připojení k této organizaci.",
+          "ssoNone": "Žádný. <link>Nastavte ho</link>.",
+          "verified": "Ověřeno",
+          "unverified": "Neověřeno",
+          "scim": "Zřizování přes SCIM",
+          "scimDescription": "Váš poskytovatel identit (Okta, Entra ID a další) vytváří účty této organizace a deaktivuje je, když lidé odejdou.",
+          "scimCounts": "Zřízeno: {active}, deaktivováno: {inactive}.",
+          "recentActions": "Nedávné akce administrátorů",
+          "noActions": "Zatím žádné.",
+          "system": "systém"
+        },
+        "errors": {
+          "invalidNameSlug": "Zadejte název a slug složený z písmen, číslic a pomlček.",
+          "publicSlug": "Pracovní prostor Public si ponechává slug „public“.",
+          "slugTaken": "Tento slug už používá jiná organizace.",
+          "unknownRole": "Neznámá role.",
+          "memberNotFound": "Člen nebyl nalezen.",
+          "publicMembers": "Každý účet patří do pracovního prostoru Public.",
+          "invalidEmail": "Zadejte platnou e-mailovou adresu.",
+          "noInvitations": "Tato organizace nepřijímá pozvánky.",
+          "alreadyMember": "Tato osoba už je členem.",
+          "invitationNotFound": "Pozvánka nebyla nalezena.",
+          "requestFailed": "Požadavek selhal.",
+          "scimUnavailable": "Tato organizace nemůže používat zřizování přes SCIM.",
+          "noActiveToken": "Neexistuje žádný aktivní token."
+        }
+      }
+    },
+    "common": {
+      "cancel": "Zrušit",
+      "save": "Uložit",
+      "saving": "Ukládání…",
+      "saveChanges": "Uložit změny",
+      "delete": "Smazat",
+      "deleting": "Mazání…",
+      "edit": "Upravit",
+      "remove": "Odebrat",
+      "close": "Zavřít",
+      "copied": "Zkopírováno",
+      "enabled": "Zapnuto",
+      "disabled": "Vypnuto",
+      "enable": "Zapnout",
+      "disable": "Vypnout",
+      "on": "Zapnuto",
+      "off": "Vypnuto",
+      "yes": "Ano",
+      "no": "Ne",
+      "never": "Nikdy",
+      "none": "Žádné",
+      "actions": "Akce",
+      "created": "Vytvořeno",
+      "name": "Název",
+      "description": "Popis",
+      "status": "Stav",
+      "back": "Zpět",
+      "done": "Hotovo",
+      "loading": "Načítání…",
+      "refresh": "Obnovit",
+      "search": "Hledat",
+      "optional": "Volitelné",
+      "unexpectedError": "Něco se pokazilo. Zkuste to znovu."
+    },
+    "urlCheck": {
+      "tooLong": "URL je příliš dlouhá.",
+      "notAbsolute": "Zadejte absolutní URL, např. https://app.example.com/webhooks.",
+      "credentials": "URL nesmí obsahovat uživatelské jméno ani heslo.",
+      "fragment": "URL nesmí obsahovat fragment (#).",
+      "notHttps": "URL musí používat https://.",
+      "localhost": "URL odkazuje na tento počítač (localhost).",
+      "nonPublic": "URL odkazuje na {kind, select, loopback {adresu loopback} private {privátní adresu} linkLocal {adresu link-local} cloudMetadata {adresu cloudových metadat} sharedAddressSpace {sdílenou adresu (carrier-grade NAT)} other {neveřejnou adresu}}.",
+      "unresolved": "Hostitele {host} se nepodařilo přeložit.",
+      "noAddress": "Hostitel {host} nemá žádnou adresu.",
+      "resolvesNonPublic": "Hostitel {host} se překládá na {kind, select, loopback {adresu loopback} private {privátní adresu} linkLocal {adresu link-local} cloudMetadata {adresu cloudových metadat} sharedAddressSpace {sdílenou adresu (carrier-grade NAT)} other {neveřejnou adresu}} ({address})."
+    },
+    "shell": {
+      "userFallbackName": "Administrátor",
+      "userMenu": {
+        "home": "Domů",
+        "logOut": "Odhlásit se"
       }
     }
   },
   "dashboard": {
-    "title": "Account",
-    "description": "Manage your profile, organizations, passkeys, sessions, and connected applications.",
-    "navAria": "Account navigation",
+    "title": "Účet",
+    "description": "Spravujte svůj profil, organizace, přístupové klíče, relace a připojené aplikace.",
+    "navAria": "Navigace účtu",
     "nav": {
-      "overview": "Overview",
-      "profile": "Profile",
-      "organizations": "Organizations",
-      "security": "Security",
-      "apps": "Connected apps",
+      "overview": "Přehled",
+      "profile": "Profil",
+      "organizations": "Organizace",
+      "security": "Zabezpečení",
+      "apps": "Připojené aplikace",
       "apiKeys": "API klíče",
-      "admin": "Admin",
-      "marketingHome": "About",
-      "signOut": "Sign out",
+      "admin": "Administrace",
+      "marketingHome": "O službě",
+      "signOut": "Odhlásit se",
       "data": "Vaše data"
     },
     "profile": {
-      "title": "Profile",
-      "description": "Your display name, username, and email status for this account.",
-      "nameLabel": "Display name",
-      "usernameLabel": "Username",
-      "usernameHint": "3-30 characters: letters, numbers, dots, and underscores. Used to sign in instead of email.",
-      "usernameChecking": "Checking availability…",
-      "usernameAvailable": "This username is available.",
-      "usernameTaken": "This username is already taken.",
-      "usernameInvalidHint": "Use only letters, numbers, dots, and underscores.",
-      "usernameTooShort": "Username must be at least 3 characters.",
-      "usernameInvalid": "That username is not valid.",
-      "save": "Save",
-      "saving": "Saving…",
-      "saved": "Profile updated",
-      "saveError": "Could not update profile.",
-      "emailLabel": "Email",
-      "verified": "Verified",
-      "unverified": "Not verified",
-      "unverifiedHint": "Verify your email to protect your account and meet sign-in requirements.",
-      "resendVerification": "Resend verification email",
-      "verificationSent": "Check your inbox for the verification link.",
-      "verificationError": "Could not send verification email.",
-      "changeEmail": "Change",
-      "newEmailLabel": "New email address",
-      "changeEmailHintVerified": "We'll email your current address to approve the change, then send a verification link to the new one. Your email stays the same until both are done.",
-      "changeEmailSubmit": "Send confirmation",
-      "changingEmail": "Sending…",
-      "cancel": "Cancel",
-      "changeEmailSame": "Enter a different email address.",
-      "changeEmailError": "Could not start the email change.",
-      "changeEmailSentToCurrent": "Check {current} to approve the change to {next}. After that, verify {next} from the link we send there.",
-      "changeEmailNeedsVerified": "You can change it once it is verified."
+      "title": "Profil",
+      "description": "Zobrazované jméno, uživatelské jméno a stav e-mailu tohoto účtu.",
+      "nameLabel": "Zobrazované jméno",
+      "usernameLabel": "Uživatelské jméno",
+      "usernameHint": "3–30 znaků: písmena, číslice, tečky a podtržítka. Slouží k přihlášení místo e-mailu.",
+      "usernameChecking": "Ověřování dostupnosti…",
+      "usernameAvailable": "Toto uživatelské jméno je volné.",
+      "usernameTaken": "Toto uživatelské jméno je už obsazené.",
+      "usernameInvalidHint": "Používejte pouze písmena, číslice, tečky a podtržítka.",
+      "usernameTooShort": "Uživatelské jméno musí mít alespoň 3 znaky.",
+      "usernameInvalid": "Toto uživatelské jméno není platné.",
+      "save": "Uložit",
+      "saving": "Ukládání…",
+      "saved": "Profil byl aktualizován",
+      "saveError": "Profil se nepodařilo aktualizovat.",
+      "emailLabel": "E-mail",
+      "verified": "Ověřeno",
+      "unverified": "Neověřeno",
+      "unverifiedHint": "Ověřte svůj e-mail, abyste ochránili účet a splnili požadavky pro přihlášení.",
+      "resendVerification": "Znovu poslat ověřovací e-mail",
+      "verificationSent": "Ověřovací odkaz najdete ve své schránce.",
+      "verificationError": "Ověřovací e-mail se nepodařilo odeslat.",
+      "changeEmail": "Změnit",
+      "newEmailLabel": "Nová e-mailová adresa",
+      "changeEmailHintVerified": "Na vaši současnou adresu pošleme e-mail ke schválení změny a poté ověřovací odkaz na novou. Dokud nebude obojí hotové, váš e-mail se nezmění.",
+      "changeEmailSubmit": "Poslat potvrzení",
+      "changingEmail": "Odesílání…",
+      "cancel": "Zrušit",
+      "changeEmailSame": "Zadejte jinou e-mailovou adresu.",
+      "changeEmailError": "Změnu e-mailu se nepodařilo zahájit.",
+      "changeEmailSentToCurrent": "Ve schránce {current} schvalte změnu na {next}. Poté ověřte {next} odkazem, který tam pošleme.",
+      "changeEmailNeedsVerified": "Změnit ho můžete, až bude ověřen."
     },
     "passkeys": {
-      "title": "Passkeys",
-      "hint": "Use a passkey for phishing-resistant sign-in. Add one on this device or with a security key.",
-      "addThisDevice": "Add passkey (this device)",
-      "addSecurityKey": "Add passkey (security key)",
-      "defaultName": "My passkey",
-      "empty": "No passkeys yet. Add one to sign in without typing your password.",
-      "name": "Name",
-      "unnamed": "Unnamed passkey",
-      "deviceType": "Device type",
-      "created": "Added",
-      "actions": "Actions",
-      "rename": "Rename",
-      "delete": "Remove",
-      "save": "Save",
-      "cancel": "Cancel",
-      "loadError": "Could not load passkeys.",
-      "addError": "Could not add passkey.",
-      "deleteError": "Could not remove passkey.",
-      "updateError": "Could not update passkey.",
-      "added": "Passkey added",
-      "deleted": "Passkey removed",
-      "updated": "Passkey updated",
-      "nameRequired": "Enter a name for this passkey.",
-      "none": "None",
-      "confirmRemoveTitle": "Remove this passkey?",
-      "confirmRemoveBody": "You won’t be able to sign in with this passkey anymore. You can add a new one at any time.",
-      "signInAgainToAdd": "For your security, adding a passkey needs a recent sign-in. Sign in again, then add it.",
-      "signInAgain": "Sign in again"
+      "title": "Přístupové klíče",
+      "hint": "Přihlašujte se přístupovým klíčem odolným vůči phishingu. Přidejte ho na tomto zařízení nebo pomocí bezpečnostního klíče.",
+      "addThisDevice": "Přidat přístupový klíč (toto zařízení)",
+      "addSecurityKey": "Přidat přístupový klíč (bezpečnostní klíč)",
+      "defaultName": "Můj přístupový klíč",
+      "empty": "Zatím nemáte žádné přístupové klíče. Přidejte si jeden a přihlašujte se bez zadávání hesla.",
+      "name": "Název",
+      "unnamed": "Nepojmenovaný přístupový klíč",
+      "deviceType": "Typ zařízení",
+      "created": "Přidáno",
+      "actions": "Akce",
+      "rename": "Přejmenovat",
+      "delete": "Odebrat",
+      "save": "Uložit",
+      "cancel": "Zrušit",
+      "loadError": "Přístupové klíče se nepodařilo načíst.",
+      "addError": "Přístupový klíč se nepodařilo přidat.",
+      "deleteError": "Přístupový klíč se nepodařilo odebrat.",
+      "updateError": "Přístupový klíč se nepodařilo aktualizovat.",
+      "added": "Přístupový klíč byl přidán",
+      "deleted": "Přístupový klíč byl odebrán",
+      "updated": "Přístupový klíč byl aktualizován",
+      "nameRequired": "Zadejte název tohoto přístupového klíče.",
+      "none": "Žádný",
+      "confirmRemoveTitle": "Odebrat tento přístupový klíč?",
+      "confirmRemoveBody": "Tímto přístupovým klíčem se už nebudete moct přihlásit. Nový můžete kdykoli přidat.",
+      "signInAgainToAdd": "Z bezpečnostních důvodů vyžaduje přidání přístupového klíče nedávné přihlášení. Přihlaste se znovu a pak ho přidejte.",
+      "signInAgain": "Přihlásit se znovu"
     },
     "twoFactor": {
       "title": "Dvoufázové ověření",
@@ -509,45 +2089,45 @@
       }
     },
     "organizations": {
-      "title": "Organizations",
-      "description": "Teams and partner organizations you belong to. Switch between them and invite members. Platform administrators create new organizations.",
-      "yourOrganizations": "Your organizations",
-      "empty": "No organizations loaded.",
-      "active": "Active",
-      "switchTo": "Set active",
-      "setActiveError": "Could not switch organization.",
-      "setActiveSuccess": "Active organization updated.",
-      "createTitle": "Create an organization",
-      "createHint": "Use a unique URL slug (e.g. acme-corp). The reserved slug “public” is not available.",
-      "orgName": "Organization name",
+      "title": "Organizace",
+      "description": "Týmy a partnerské organizace, jejichž jste členem. Přepínejte mezi nimi a zvěte členy. Nové organizace vytvářejí administrátoři platformy.",
+      "yourOrganizations": "Vaše organizace",
+      "empty": "Nejsou načteny žádné organizace.",
+      "active": "Aktivní",
+      "switchTo": "Nastavit jako aktivní",
+      "setActiveError": "Organizaci se nepodařilo přepnout.",
+      "setActiveSuccess": "Aktivní organizace byla změněna.",
+      "createTitle": "Vytvořit organizaci",
+      "createHint": "Použijte jedinečný slug pro URL (např. acme-corp). Rezervovaný slug „public“ není k dispozici.",
+      "orgName": "Název organizace",
       "orgSlug": "Slug",
-      "create": "Create organization",
-      "creating": "Creating…",
-      "createSuccess": "Organization created",
-      "createError": "Could not create organization.",
-      "createValidation": "Enter a name and slug.",
-      "reservedSlug": "This slug is reserved.",
-      "slugTaken": "That slug is already in use.",
-      "loadError": "Could not load organizations.",
-      "inviteTitle": "Invite a member",
-      "inviteHint": "Sends an email with a link to accept the invitation. Available when your role in the active organization is owner or admin.",
-      "inviteEmail": "Email",
+      "create": "Vytvořit organizaci",
+      "creating": "Vytváření…",
+      "createSuccess": "Organizace byla vytvořena",
+      "createError": "Organizaci se nepodařilo vytvořit.",
+      "createValidation": "Zadejte název a slug.",
+      "reservedSlug": "Tento slug je rezervovaný.",
+      "slugTaken": "Tento slug se už používá.",
+      "loadError": "Organizace se nepodařilo načíst.",
+      "inviteTitle": "Pozvat člena",
+      "inviteHint": "Odešle e-mail s odkazem pro přijetí pozvánky. K dispozici, pokud máte v aktivní organizaci roli vlastníka nebo správce.",
+      "inviteEmail": "E-mail",
       "inviteRole": "Role",
-      "roleMember": "Member",
-      "roleAdmin": "Admin",
-      "inviteSend": "Send invitation",
-      "inviting": "Sending…",
-      "inviteSuccess": "Invitation sent",
-      "inviteError": "Could not send invitation.",
-      "inviteValidation": "Enter an email address.",
-      "allOrganizations": "All organizations",
-      "memberCount": "{count, plural, one {# member} other {# members}}",
-      "delete": "Delete",
-      "cancel": "Cancel",
-      "deleted": "Organization deleted",
-      "deleteError": "Could not delete the organization.",
-      "confirmDeleteTitle": "Delete {name}?",
-      "confirmDeleteBody": "This removes the organization, its {count, plural, one {# membership} other {# memberships}} and pending invitations. Member accounts stay. This cannot be undone.",
+      "roleMember": "Člen",
+      "roleAdmin": "Správce",
+      "inviteSend": "Odeslat pozvánku",
+      "inviting": "Odesílání…",
+      "inviteSuccess": "Pozvánka byla odeslána",
+      "inviteError": "Pozvánku se nepodařilo odeslat.",
+      "inviteValidation": "Zadejte e-mailovou adresu.",
+      "allOrganizations": "Všechny organizace",
+      "memberCount": "{count, plural, one {# člen} few {# členové} many {# člena} other {# členů}}",
+      "delete": "Smazat",
+      "cancel": "Zrušit",
+      "deleted": "Organizace byla smazána",
+      "deleteError": "Organizaci se nepodařilo smazat.",
+      "confirmDeleteTitle": "Smazat {name}?",
+      "confirmDeleteBody": "Tím se odstraní organizace, {count, plural, one {její # členství} few {její # členství} many {jejích # členství} other {jejích # členství}} a nevyřízené pozvánky. Účty členů zůstanou. Tuto akci nelze vrátit zpět.",
       "apiKeys": {
         "show": "Klíče API",
         "hide": "Skrýt klíče API",
@@ -559,41 +2139,43 @@
       }
     },
     "security": {
-      "title": "Security",
-      "description": "Update your password, manage passkeys, and review where you are signed in.",
-      "passwordHeading": "Password",
-      "passwordHint": "Use at least {min} characters. Choose a password you don’t use elsewhere.",
-      "currentPassword": "Current password",
-      "newPassword": "New password",
-      "confirmNewPassword": "Confirm new password",
-      "changePassword": "Update password",
-      "changing": "Updating…",
-      "passwordChanged": "Password updated",
-      "passwordError": "Could not change password.",
-      "passwordTooShort": "The new password must be at least {min} characters.",
-      "passwordMismatch": "New passwords do not match.",
-      "sameAsCurrent": "Choose a different password from your current one.",
-      "invalidCurrentPassword": "Current password is incorrect.",
-      "compromisedPassword": "This new password appears in known data breaches. Choose a different one.",
-      "revokeOthersAfterChange": "Sign out my other devices when the password changes",
-      "revokeOthersAfterChangeHint": "Recommended if you think someone else may know your old password.",
-      "sessionsTitle": "Active sessions",
-      "sessionsHint": "Revoke sessions you do not recognize. Revoking this device will sign you out.",
-      "sessionsLoadError": "Could not load sessions.",
-      "revoke": "Revoke",
-      "revokeOthers": "Sign out other sessions",
-      "revokeError": "Something went wrong.",
-      "sessionRevoked": "Session revoked",
-      "othersRevoked": "Other sessions signed out",
-      "currentSession": "This device",
-      "unknownDevice": "Unknown device",
-      "noSessions": "No sessions found.",
-      "device": "Device",
-      "network": "IP address",
-      "actions": "Actions",
-      "started": "Started",
-      "expires": "Expires",
-      "none": "None"
+      "title": "Zabezpečení",
+      "description": "Změňte heslo, spravujte přístupové klíče a zkontrolujte, kde jste přihlášeni.",
+      "passwordHeading": "Heslo",
+      "passwordHint": "Použijte alespoň {min} znaků. Zvolte heslo, které nepoužíváte jinde.",
+      "currentPassword": "Současné heslo",
+      "newPassword": "Nové heslo",
+      "confirmNewPassword": "Potvrzení nového hesla",
+      "changePassword": "Změnit heslo",
+      "changing": "Ukládání…",
+      "passwordChanged": "Heslo bylo změněno",
+      "passwordError": "Heslo se nepodařilo změnit.",
+      "passwordTooShort": "Nové heslo musí mít alespoň {min} znaků.",
+      "passwordMismatch": "Nová hesla se neshodují.",
+      "sameAsCurrent": "Zvolte heslo odlišné od současného.",
+      "invalidCurrentPassword": "Současné heslo je nesprávné.",
+      "compromisedPassword": "Toto nové heslo se objevilo ve známých únicích dat. Zvolte jiné.",
+      "revokeOthersAfterChange": "Po změně hesla odhlásit má ostatní zařízení",
+      "revokeOthersAfterChangeHint": "Doporučeno, pokud máte podezření, že vaše staré heslo zná někdo jiný.",
+      "sessionsTitle": "Aktivní relace",
+      "sessionsHint": "Zrušte relace, které nepoznáváte. Zrušením relace tohoto zařízení se odhlásíte.",
+      "sessionsLoadError": "Relace se nepodařilo načíst.",
+      "revoke": "Zrušit",
+      "revokeOthers": "Odhlásit ostatní relace",
+      "revokeError": "Něco se pokazilo.",
+      "sessionRevoked": "Relace byla zrušena",
+      "othersRevoked": "Ostatní relace byly odhlášeny",
+      "currentSession": "Toto zařízení",
+      "unknownDevice": "Neznámé zařízení",
+      "noSessions": "Nebyly nalezeny žádné relace.",
+      "device": "Zařízení",
+      "network": "IP adresa",
+      "actions": "Akce",
+      "started": "Zahájeno",
+      "expires": "Vyprší",
+      "none": "Žádné",
+      "startedAt": "Zahájeno: {date}",
+      "expiresAt": "Vyprší: {date}"
     },
     "apps": {
       "title": "Připojené aplikace",
@@ -669,22 +2251,22 @@
       "createdBy": "vytvořil(a) {name}",
       "createdByDeleted": "účet autora smazán"
     },
-    "accountMenu": "Account menu",
+    "accountMenu": "Nabídka účtu",
     "connectedAccounts": {
-      "title": "Connected accounts",
-      "hint": "Sign in with these accounts as well as your password or passkeys.",
-      "connected": "Connected",
-      "notConnected": "Not connected",
-      "connect": "Connect",
-      "disconnect": "Disconnect",
-      "disconnected": "{provider} disconnected",
-      "cancel": "Cancel",
-      "confirmTitle": "Disconnect {provider}?",
-      "confirmBody": "You won't be able to sign in with this account anymore. You can connect it again later.",
-      "lastMethod": "This is your only way to sign in. Add a password or passkey first.",
-      "error": "Something went wrong. Try again.",
-      "signInAgainToChange": "For your security, connecting an account needs a recent sign-in. Sign in again, then connect it.",
-      "signInAgain": "Sign in again"
+      "title": "Propojené účty",
+      "hint": "Přihlašujte se těmito účty i heslem nebo přístupovými klíči.",
+      "connected": "Propojeno",
+      "notConnected": "Nepropojeno",
+      "connect": "Propojit",
+      "disconnect": "Odpojit",
+      "disconnected": "{provider} byl odpojen",
+      "cancel": "Zrušit",
+      "confirmTitle": "Odpojit {provider}?",
+      "confirmBody": "Tímto účtem se už nebudete moct přihlásit. Později ho můžete znovu propojit.",
+      "lastMethod": "Toto je váš jediný způsob přihlášení. Nejprve přidejte heslo nebo přístupový klíč.",
+      "error": "Něco se pokazilo. Zkuste to znovu.",
+      "signInAgainToChange": "Z bezpečnostních důvodů vyžaduje propojení účtu nedávné přihlášení. Přihlaste se znovu a pak účet propojte.",
+      "signInAgain": "Přihlásit se znovu"
     },
     "accounts": {
       "switchTo": "Přepnout na",
@@ -752,26 +2334,30 @@
         "impersonating": "Účet nelze smazat, když si ho prohlíží správce.",
         "failed": "Mazání se nepodařilo zahájit. Zkuste to znovu."
       }
+    },
+    "impersonation": {
+      "viewingAs": "Prohlížíte tento účet jako <strong>{email}</strong>.",
+      "stop": "Ukončit přihlášení za uživatele"
     }
   },
   "acceptInvitation": {
-    "loading": "Checking session…",
-    "needSignInTitle": "Sign in to continue",
-    "needSignInDescription": "You need to be signed in with the invited email address before accepting this invitation.",
-    "signIn": "Sign in",
-    "title": "Accept invitation",
-    "description": "Join the organization that invited you.",
-    "signedInAs": "Signed in as {email}.",
-    "accept": "Accept invitation",
-    "accepting": "Accepting…",
-    "success": "You have joined the organization.",
-    "successTitle": "Welcome",
-    "successDescription": "Redirecting to your dashboard…",
-    "error": "Could not accept the invitation."
+    "loading": "Kontrola relace…",
+    "needSignInTitle": "Pro pokračování se přihlaste",
+    "needSignInDescription": "Před přijetím této pozvánky musíte být přihlášeni pozvanou e-mailovou adresou.",
+    "signIn": "Přihlásit se",
+    "title": "Přijmout pozvánku",
+    "description": "Připojte se k organizaci, která vás pozvala.",
+    "signedInAs": "Přihlášeni jako {email}.",
+    "accept": "Přijmout pozvánku",
+    "accepting": "Přijímání…",
+    "success": "Připojili jste se k organizaci.",
+    "successTitle": "Vítejte",
+    "successDescription": "Přesměrování na váš přehled…",
+    "error": "Pozvánku se nepodařilo přijmout."
   },
   "common": {
-    "loading": "Loading…",
-    "language": "Language",
+    "loading": "Načítání…",
+    "language": "Jazyk",
     "localeNames": {
       "en": "Angličtina",
       "fr": "Francouzština",
@@ -793,12 +2379,20 @@
       "no": "Norština",
       "fi": "Finština",
       "cs": "Čeština"
+    },
+    "ui": {
+      "close": "Zavřít",
+      "sidebar": "Postranní panel",
+      "sidebarDescription": "Zobrazí mobilní postranní panel.",
+      "toggleSidebar": "Přepnout postranní panel",
+      "breadcrumb": "drobečková navigace",
+      "more": "Další"
     }
   },
   "errors": {
-    "boundaryTitle": "Something went wrong",
-    "boundaryDescription": "An error occurred while loading this page.",
-    "retry": "Try again"
+    "boundaryTitle": "Něco se pokazilo",
+    "boundaryDescription": "Při načítání této stránky došlo k chybě.",
+    "retry": "Zkusit znovu"
   },
   "rateLimit": {
     "seconds": "Příliš mnoho pokusů. Zkuste to znovu za {seconds, plural, one {# sekundu} few {# sekundy} many {# sekundy} other {# sekund}}.",
@@ -806,94 +2400,156 @@
     "later": "Příliš mnoho pokusů. Počkejte několik minut a zkuste to znovu."
   },
   "sso": {
-    "title": "Single sign-on",
-    "description": "Connect your organization's identity provider (OIDC or SAML 2.0) so members can sign in with their work account.",
-    "registerTitle": "Register a provider",
-    "registerDescription": "Your identity provider must redirect back to the callback URL shown below.",
-    "providerId": "Provider ID",
-    "providerIdHint": "A short identifier, e.g. acme-okta.",
-    "issuer": "Issuer URL",
-    "domain": "Email domain",
-    "domainHint": "Users with this email domain are sent to this provider.",
-    "clientId": "Client ID",
-    "clientSecret": "Client secret",
-    "organization": "Organization (optional)",
-    "register": "Register provider",
-    "registering": "Registering…",
-    "registered": "SSO provider registered",
-    "registerError": "Could not register the provider.",
-    "callbackTitle": "Callback URL to configure in your identity provider",
-    "providersTitle": "Configured providers",
-    "providersEmpty": "No SSO provider configured yet.",
-    "loadError": "Could not load SSO providers.",
-    "signInTitle": "Sign in with SSO",
-    "signInDescription": "Enter your work email. We'll redirect you to your organization's identity provider.",
-    "signInEmail": "Work email",
-    "signInSubmit": "Continue",
-    "signInError": "Could not start single sign-on for this address.",
-    "signInLink": "Sign in with SSO",
-    "signInFailed": "Single sign-on did not complete. Try again, or ask your administrator to check the identity provider settings.",
+    "title": "Jednotné přihlášení",
+    "description": "Připojte poskytovatele identit vaší organizace (OIDC nebo SAML 2.0), aby se členové mohli přihlašovat pracovním účtem.",
+    "registerTitle": "Registrovat poskytovatele",
+    "registerDescription": "Váš poskytovatel identit musí přesměrovávat zpět na níže uvedenou URL zpětného volání.",
+    "providerId": "ID poskytovatele",
+    "providerIdHint": "Krátký identifikátor, např. acme-okta.",
+    "issuer": "URL vydavatele",
+    "domain": "E-mailová doména",
+    "domainHint": "Uživatelé s touto e-mailovou doménou jsou směrováni k tomuto poskytovateli.",
+    "clientId": "ID klienta",
+    "clientSecret": "Tajný klíč klienta",
+    "organization": "Organizace (volitelné)",
+    "register": "Registrovat poskytovatele",
+    "registering": "Registrace…",
+    "registered": "Poskytovatel SSO byl zaregistrován",
+    "registerError": "Poskytovatele se nepodařilo zaregistrovat.",
+    "callbackTitle": "URL zpětného volání, kterou nastavíte u poskytovatele identit",
+    "providersTitle": "Nastavení poskytovatelé",
+    "providersEmpty": "Zatím není nastaven žádný poskytovatel SSO.",
+    "loadError": "Poskytovatele SSO se nepodařilo načíst.",
+    "signInTitle": "Přihlášení přes SSO",
+    "signInDescription": "Zadejte svůj pracovní e-mail. Přesměrujeme vás k poskytovateli identit vaší organizace.",
+    "signInEmail": "Pracovní e-mail",
+    "signInSubmit": "Pokračovat",
+    "signInError": "Pro tuto adresu se nepodařilo zahájit jednotné přihlášení.",
+    "signInLink": "Přihlásit se přes SSO",
+    "signInFailed": "Jednotné přihlášení nebylo dokončeno. Zkuste to znovu nebo požádejte administrátora, aby zkontroloval nastavení poskytovatele identit.",
     "saml": {
-      "protocol": "Protocol",
-      "registerDescription": "The identity provider posts signed SAML assertions to the ACS URL below. Sign-in starts from Ostiary (SP-initiated).",
-      "idpSource": "Identity provider configuration",
-      "sourceUrl": "Metadata URL",
-      "sourceXml": "Paste metadata XML",
-      "sourceManual": "Enter manually",
-      "metadataUrl": "IdP metadata URL",
-      "metadataUrlHint": "The server fetches it once when you save. After a certificate rotation, fetch it again from Edit.",
-      "metadataXml": "IdP metadata XML",
-      "metadataXmlHint": "The EntityDescriptor your identity provider exports.",
-      "idpEntityId": "IdP entity ID (issuer)",
-      "ssoUrl": "IdP single sign-on URL",
-      "ssoUrlHint": "The URL for the HTTP-Redirect binding.",
-      "certificate": "IdP signing certificate",
-      "certificateHint": "PEM (-----BEGIN CERTIFICATE-----) or its base64 body.",
-      "mappingTitle": "Attribute mapping",
-      "mappingPreset": "Preset",
+      "protocol": "Protokol",
+      "registerDescription": "Poskytovatel identit odesílá podepsané SAML aserce na níže uvedenou ACS URL. Přihlášení začíná v Ostiary (iniciované SP).",
+      "idpSource": "Konfigurace poskytovatele identit",
+      "sourceUrl": "URL metadat",
+      "sourceXml": "Vložit XML metadat",
+      "sourceManual": "Zadat ručně",
+      "metadataUrl": "URL metadat IdP",
+      "metadataUrlHint": "Server je načte jednou při uložení. Po výměně certifikátu je načtěte znovu přes Upravit.",
+      "metadataXml": "XML metadat IdP",
+      "metadataXmlHint": "EntityDescriptor exportovaný vaším poskytovatelem identit.",
+      "idpEntityId": "Entity ID IdP (vydavatel)",
+      "ssoUrl": "URL jednotného přihlášení IdP",
+      "ssoUrlHint": "URL pro vazbu HTTP-Redirect.",
+      "certificate": "Podpisový certifikát IdP",
+      "certificateHint": "PEM (-----BEGIN CERTIFICATE-----) nebo jeho tělo v base64.",
+      "mappingTitle": "Mapování atributů",
+      "mappingPreset": "Předvolba",
       "preset_okta": "Okta",
       "preset_entra": "Microsoft Entra ID",
       "preset_google": "Google Workspace",
       "preset_jumpcloud": "JumpCloud",
-      "preset_custom": "Custom",
-      "attrEmail": "Email attribute",
-      "attrName": "Display name attribute",
-      "attrFirstName": "First name attribute",
-      "attrLastName": "Last name attribute",
-      "mappingHint": "First and last name are used when the identity provider sends them, otherwise the display name. The user ID is the assertion's NameID: configure a persistent identifier.",
-      "wantAssertionsSigned": "Require signed assertions",
-      "wantAssertionsSignedHint": "Recommended. When off, the whole response must still be signed: unsigned responses are always refused.",
-      "requestSigningNote": "Ostiary does not sign authentication requests: leave request signing off in the identity provider.",
-      "spTitle": "Values to enter in your identity provider",
+      "preset_custom": "Vlastní",
+      "attrEmail": "Atribut e-mailu",
+      "attrName": "Atribut zobrazovaného jména",
+      "attrFirstName": "Atribut křestního jména",
+      "attrLastName": "Atribut příjmení",
+      "mappingHint": "Křestní jméno a příjmení se použijí, pokud je poskytovatel identit posílá, jinak zobrazované jméno. ID uživatele je NameID aserce: nastavte trvalý identifikátor.",
+      "wantAssertionsSigned": "Vyžadovat podepsané aserce",
+      "wantAssertionsSignedHint": "Doporučeno. Když je vypnuto, celá odpověď musí být stále podepsaná: nepodepsané odpovědi jsou vždy odmítnuty.",
+      "requestSigningNote": "Ostiary nepodepisuje požadavky na ověření: podepisování požadavků u poskytovatele identit nechte vypnuté.",
+      "spTitle": "Hodnoty, které zadáte u poskytovatele identit",
       "acsUrl": "ACS URL (single sign-on URL, reply URL)",
-      "spEntityId": "SP entity ID (audience URI, identifier)",
-      "spMetadataUrl": "SP metadata URL",
-      "copy": "Copy",
-      "copied": "Copied",
-      "setupTitle": "Setup notes",
-      "oktaStep1": "In the Okta admin console: Applications, Create App Integration, SAML 2.0.",
-      "oktaStep2": "Single sign-on URL: the ACS URL. Audience URI (SP Entity ID): the SP entity ID. Name ID format: Persistent. Application username: Email.",
-      "oktaStep3": "Attribute statements: email = user.email, firstName = user.firstName, lastName = user.lastName (the Okta preset).",
-      "oktaStep4": "Assign people, then copy the metadata URL from the Sign On tab into Ostiary.",
-      "entraStep1": "In Microsoft Entra ID: Enterprise applications, New application, Create your own application (non-gallery), then Single sign-on, SAML.",
-      "entraStep2": "Basic SAML configuration: Identifier (Entity ID) = the SP entity ID, Reply URL = the ACS URL.",
-      "entraStep3": "Keep the default claims (the Entra ID preset). The default signing option, Sign SAML assertion, works.",
-      "entraStep4": "Assign users and groups, then copy the App Federation Metadata URL into Ostiary.",
-      "spInitiatedNote": "Only sign-in started from Ostiary is supported. Point app tiles in the identity provider's portal to {url}.",
-      "spDetails": "SP details",
-      "detailsTitle": "{id}: SAML settings",
-      "detailsDescription": "Enter these values in the identity provider.",
-      "assertionsSignedOn": "Signed assertions are required.",
-      "assertionsSignedOff": "Signed responses are required (assertions may be unsigned).",
-      "certExpires": "Signing certificate valid until {date}",
-      "certExpired": "The signing certificate has expired: sign-ins will fail until the IdP metadata is updated.",
-      "editTitle": "Edit {id}",
-      "editDescription": "Changing the domain means it must be verified again. The SP entity ID and ACS URL stay the same.",
-      "replaceIdp": "Replace the identity provider configuration (new metadata or certificate)",
-      "updated": "Provider updated",
-      "save": "Save",
-      "cancel": "Cancel",
-      "close": "Close"
+      "spEntityId": "Entity ID SP (audience URI, identifier)",
+      "spMetadataUrl": "URL metadat SP",
+      "copy": "Kopírovat",
+      "copied": "Zkopírováno",
+      "setupTitle": "Poznámky k nastavení",
+      "oktaStep1": "V administrační konzoli Okta: Applications, Create App Integration, SAML 2.0.",
+      "oktaStep2": "Single sign-on URL: ACS URL. Audience URI (SP Entity ID): Entity ID SP. Name ID format: Persistent. Application username: Email.",
+      "oktaStep3": "Attribute statements: email = user.email, firstName = user.firstName, lastName = user.lastName (předvolba Okta).",
+      "oktaStep4": "Přiřaďte uživatele a pak zkopírujte URL metadat z karty Sign On do Ostiary.",
+      "entraStep1": "V Microsoft Entra ID: Enterprise applications, New application, Create your own application (non-gallery), potom Single sign-on, SAML.",
+      "entraStep2": "Basic SAML configuration: Identifier (Entity ID) = Entity ID SP, Reply URL = ACS URL.",
+      "entraStep3": "Ponechte výchozí deklarace (předvolba Entra ID). Výchozí možnost podepisování, Sign SAML assertion, funguje.",
+      "entraStep4": "Přiřaďte uživatele a skupiny a pak zkopírujte App Federation Metadata URL do Ostiary.",
+      "spInitiatedNote": "Podporováno je jen přihlášení zahájené z Ostiary. Dlaždice aplikací na portálu poskytovatele identit nasměrujte na {url}.",
+      "spDetails": "Údaje SP",
+      "detailsTitle": "{id}: nastavení SAML",
+      "detailsDescription": "Zadejte tyto hodnoty u poskytovatele identit.",
+      "assertionsSignedOn": "Vyžadují se podepsané aserce.",
+      "assertionsSignedOff": "Vyžadují se podepsané odpovědi (aserce mohou být nepodepsané).",
+      "certExpires": "Podpisový certifikát platí do {date}",
+      "certExpired": "Platnost podpisového certifikátu vypršela: přihlášení budou selhávat, dokud nebudou metadata IdP aktualizována.",
+      "editTitle": "Upravit {id}",
+      "editDescription": "Změna domény znamená, že ji bude nutné znovu ověřit. Entity ID SP a ACS URL zůstanou stejné.",
+      "replaceIdp": "Nahradit konfiguraci poskytovatele identit (nová metadata nebo certifikát)",
+      "updated": "Poskytovatel byl aktualizován",
+      "save": "Uložit",
+      "cancel": "Zrušit",
+      "close": "Zavřít",
+      "copyLabel": "Kopírovat: {label}",
+      "errors": {
+        "metadataEmpty": "Metadata jsou prázdná.",
+        "metadataTooLarge": "Metadata jsou větší než 100 KB.",
+        "metadataDoctype": "Metadata nesmí obsahovat DOCTYPE.",
+        "metadataNotXml": "Metadata nejsou správně formátovaný XML.",
+        "notSamlMetadata": "Nejde o metadata SAML.",
+        "multipleEntities": "Metadata musí popisovat právě jednoho poskytovatele identit.",
+        "noEntityId": "Metadata neobsahují entityID.",
+        "noIdpDescriptor": "Metadata neobsahují poskytovatele identit (IDPSSODescriptor).",
+        "noSaml2": "Poskytovatel identit nepodporuje SAML 2.0.",
+        "signedRequestsRequired": "Poskytovatel identit vyžaduje podepsané požadavky, které Ostiary neposílá. Vypněte podepisování požadavků u poskytovatele identit.",
+        "noRedirectBinding": "Metadata neobsahují SingleSignOnService s vazbou HTTP-Redirect.",
+        "metadataSsoUrlNotHttps": "URL SSO poskytovatele identit musí používat https://.",
+        "unreadableCertificate": "Podpisový certifikát v metadatech se nepodařilo přečíst.",
+        "noSigningCertificate": "Metadata neobsahují podpisový certifikát.",
+        "invalidMapping": "Zadejte názvy atributů pro e-mail a jméno (bez mezer a uvozovek).",
+        "allCertificatesExpired": "Platnost všech podpisových certifikátů v metadatech vypršela.",
+        "missingEntityId": "Zadejte entity ID poskytovatele identit (vydavatel).",
+        "ssoUrlNotHttps": "URL SSO musí být URL s https://.",
+        "invalidCertificate": "Podpisový certifikát není platný certifikát X.509 (PEM).",
+        "certificateExpired": "Platnost podpisového certifikátu vypršela.",
+        "fetchFailed": "Metadata se nepodařilo načíst: {reason}",
+        "invalidRedirect": "URL metadat přesměrovává na neplatnou adresu.",
+        "httpStatus": "URL metadat odpověděla {status}.",
+        "tooManyRedirects": "URL metadat přesměrovává příliš mnohokrát."
+      }
+    },
+    "panel": {
+      "noOrganization": "Bez organizace",
+      "providersDescription": "Poskytovatel přijímá přihlášení až po ověření jeho e-mailové domény záznamem DNS.",
+      "verified": "Ověřeno",
+      "domainNotVerified": "Doména neověřena",
+      "verifyDomain": "Ověřit doménu",
+      "editLabel": "Upravit {id}",
+      "deleteLabel": "Smazat {id}",
+      "verifyTitle": "Ověřit {domain}",
+      "verifyDescription": "Požádejte vlastníka domény, aby do svého DNS přidal tento záznam TXT, a pak ho zde zkontrolujte. Přihlášení přes tohoto poskytovatele začnou fungovat po ověření.",
+      "recordName": "Název",
+      "recordValue": "Hodnota",
+      "copyRecordName": "Kopírovat název",
+      "copyRecordValue": "Kopírovat hodnotu",
+      "recordValidity": "Hodnota zůstává platná 7 dní.",
+      "domainVerified": "Doména ověřena",
+      "checkDns": "Zkontrolovat DNS",
+      "editDescription": "Změna domény znamená, že ji bude nutné znovu ověřit. Chcete-li změnit přihlašovací údaje klienta, smažte poskytovatele a zaregistrujte ho znovu.",
+      "organization": "Organizace",
+      "deleteTitle": "Smazat {id}?",
+      "deleteDescription": "Lidé s adresou {domain} se už přes tohoto poskytovatele nebudou moci přihlásit. Jejich účty zůstanou a stále mohou použít heslo nebo přístupový klíč.",
+      "providerDeleted": "Poskytovatel smazán"
+    },
+    "errors": {
+      "providerNotFound": "Poskytovatel nebyl nalezen.",
+      "issuerNotUrl": "Vydavatel musí být URL.",
+      "invalidDomain": "Zadejte e-mailovou doménu, např. acme.com.",
+      "organizationNotFound": "Organizace nebyla nalezena.",
+      "samlIssuerLocked": "Entity ID SP poskytovatele SAML nelze změnit.",
+      "invalidProviderDomain": "Doména poskytovatele není platná.",
+      "txtRecordNotFound": "Záznam TXT zatím nebyl nalezen. Projevení změn v DNS může trvat několik minut.",
+      "envNotSet": "{name} není nastaveno.",
+      "invalidProviderId": "ID poskytovatele musí mít 2 až 63 znaků: malá písmena, číslice, - nebo _.",
+      "unreadableSamlConfig": "Uloženou konfiguraci SAML nelze přečíst; smažte poskytovatele a zaregistrujte ho znovu."
     }
   },
   "selectAccount": {
