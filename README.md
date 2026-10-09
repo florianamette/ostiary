@@ -48,7 +48,7 @@ Hosted identity platforms are great until the bill scales with your users or you
 - Two-factor authentication: authenticator app (TOTP) and backup codes, with "trust this device"
 - Social sign-in with every Better Auth provider (Google, Apple, Microsoft, GitHub and 32 more), set up from the admin console, with brand buttons and connected accounts
 - Enterprise SSO (OIDC), with DNS domain verification
-- Account dashboard: profile, email change (approved from the current inbox), sessions, passkeys, two-factor authentication, connected accounts, authorized apps
+- Account dashboard: profile, email change (approved from the current inbox), sessions, passkeys, two-factor authentication, connected accounts, connected apps (with their icons, permissions in plain words, when they were connected and last used)
 
 - Account dashboard: profile, email change (approved from the current inbox), sessions, passkeys, connected accounts, authorized apps
 - Several accounts in one browser (up to 5): switch from the account menu, or pick one when an app asks with `prompt=select_account`
@@ -69,7 +69,7 @@ Hosted identity platforms are great until the bill scales with your users or you
 
 - Users: search, roles, bans, sessions, impersonation, two-factor reset
 - Sign-in providers: turn social sign-in providers on and off, order them and paste their credentials (stored encrypted) without a redeploy
-- OAuth clients with usage statistics, consents, organizations, SSO providers
+- OAuth clients with their icons, an **App usage** page (tokens, users and consents per app over 30 days), consents, organizations, SSO providers
 - API keys: turn them on, set their maximum lifetime, see and revoke every key
 - Audit log of every admin action, sign-in activity and failed sign-in monitoring
 - Signing keys: automatic rotation on a schedule, or rotate now, with a grace period during which old tokens keep verifying
@@ -482,6 +482,7 @@ Both apps run the same Better Auth configuration against one database. The admin
 - Token signing keys can be rotated on a schedule or on demand (**Signing keys**); retired keys stay published only for the grace period. Rotations and setting changes are in the audit log.
 - Social provider secrets (client secrets, Apple's private key) are encrypted at rest with AES-256-GCM, under a key derived from `BETTER_AUTH_SECRET`, and never sent back to the browser.
 - The audit log never stores passwords, secrets or session tokens.
+- App icons are fetched by Ostiary, never by the user's browser (so the app's site and favicon services don't learn who uses which app), with the webhook SSRF guard: https on port 443 only, public addresses only, pinned connections, two redirects at most, size and time limits, image types checked from the bytes. They are served with a CSP that blocks scripts.
 - Sign-in, codes, password reset and the token endpoint are rate limited per client IP, see below.
 
 ### Rate limiting

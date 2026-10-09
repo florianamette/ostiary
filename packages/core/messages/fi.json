@@ -198,10 +198,10 @@
     "deny": "Deny",
     "allow": "Allow",
     "scopes": {
-      "openid": "Verify who you are (OpenID Connect)",
-      "profile": "Name and profile information",
-      "email": "Email address",
-      "offline_access": "Access when you are not actively using the application"
+      "openid": "Henkilöllisyytesi vahvistaminen (OpenID Connect)",
+      "profile": "Nimi ja profiilitiedot",
+      "email": "Sähköpostiosoite",
+      "offline_access": "Pääsy silloinkin, kun et käytä sovellusta aktiivisesti"
     },
     "unverified": {
       "title": "Vahvistamaton sovellus",
@@ -232,6 +232,7 @@
       "signInProviders": "Kirjautumispalvelut",
       "webhooks": "Webhookit",
       "security": "Security",
+      "usage": "Sovellusten käyttö",
       "audit": "Audit log",
       "signingKeys": "Allekirjoitusavaimet"
     },
@@ -249,6 +250,7 @@
       "signInProviders": "Kirjautumispalvelut",
       "webhooks": "Webhookit",
       "security": "Security",
+      "usage": "Sovellusten käyttö",
       "audit": "Audit log",
       "signingKeys": "Allekirjoitusavaimet"
     },
@@ -271,7 +273,9 @@
       },
       "applications": {
         "title": "Applications",
-        "description": "OAuth clients that can sign people in with {name}: their redirect URLs, grant types, consent settings and usage."
+        "description": "OAuth-asiakkaat, jotka voivat kirjata ihmisiä sisään palvelulla {name}: uudelleenohjausosoitteet, grant-tyypit ja suostumusasetukset.",
+        "unusedHint": "{count, plural, one {# sovellusta ei ole} other {# sovellusta ei ole}} käytetty viimeisten 30 päivän aikana.",
+        "viewUsage": "Näytä käyttö"
       },
       "apis": {
         "title": "API:t",
@@ -297,6 +301,10 @@
       "consent": {
         "title": "Consent",
         "description": "Permissions people have granted to OAuth clients, with the scopes and when they were given."
+      },
+      "usage": {
+        "title": "Sovellusten käyttö",
+        "description": "Mitä sovelluksia käytetään: käyttöoikeustunnukset, käyttäjät ja suostumukset sovelluksittain viimeisten 30 päivän ajalta."
       },
       "audit": {
         "title": "Audit log",
@@ -569,18 +577,22 @@
       "none": "None"
     },
     "apps": {
-      "title": "Connected applications",
-      "description": "OAuth applications you have authorized to access your account.",
-      "empty": "You have not authorized any applications yet.",
-      "revokeAccess": "Revoke access",
-      "scopes": "Scopes",
-      "loadError": "Could not load your authorizations.",
-      "revokeError": "Could not revoke access.",
-      "revoked": "Access revoked",
-      "none": "None",
-      "cancel": "Cancel",
-      "confirmRevokeTitle": "Revoke access for {app}?",
-      "confirmRevokeBody": "This app will no longer be able to access your account until you authorize it again."
+      "title": "Yhdistetyt sovellukset",
+      "description": "Sovellukset, joille olet antanut pääsyn tiliisi.",
+      "empty": "Et ole vielä yhdistänyt sovelluksia.",
+      "disconnect": "Katkaise yhteys",
+      "disconnectApp": "Katkaise yhteys sovellukseen {app}",
+      "permissions": "Käyttöoikeudet",
+      "signInOnly": "Vain kirjautuminen",
+      "connectedOn": "Yhdistetty {date}",
+      "lastUsed": "Viimeksi käytetty {time}",
+      "opensInNewTab": "(avautuu uuteen välilehteen)",
+      "loadError": "Yhdistettyjä sovelluksia ei voitu ladata.",
+      "revokeError": "Yhteyttä sovellukseen ei voitu katkaista.",
+      "revoked": "Yhteys sovellukseen katkaistu",
+      "cancel": "Peruuta",
+      "confirmRevokeTitle": "Katkaistaanko yhteys sovellukseen {app}?",
+      "confirmRevokeBody": "Sovellus ei enää pääse tiliisi ennen kuin valtuutat sen uudelleen."
     },
     "apiKeys": {
       "title": "API-avaimet",

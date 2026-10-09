@@ -8,6 +8,25 @@ All notable changes are documented here. The format follows
 
 ### Added
 
+- **App icons.** Each OAuth application gets a real icon on the account dashboard, the
+  consent screen and the admin console: its `logo_uri`, else the icon its site links to
+  (`<link rel="icon">`, `apple-touch-icon`, largest `sizes` or SVG first, then
+  `/favicon.ico`); the site is `client_uri`, else the first public https redirect URI.
+  Ostiary fetches the icon itself and serves it from `/api/app-icon/<client_id>` (signed-in
+  users, for apps they are connected to or registered by an admin) and
+  `/api/admin/app-icon/<client_id>` (admins), so neither the app nor a favicon service
+  learns who uses which app. Fetching reuses the webhook SSRF guard (https on port 443,
+  every resolved address public, pinned connection, at most two redirects each re-checked,
+  3 s per request, 512 KB of HTML, 256 KB per icon) and the image type is sniffed from the
+  bytes; SVG is served with `Content-Security-Policy: default-src 'none'` and `nosniff`.
+  Icons are cached in the new `app_icon` table (migration `0009_app_icons`), refreshed
+  after 7 days, failures retried after a day. Without an icon, a colored monogram. A
+  self-registered app keeps the monogram on the consent screen (its icon could imitate a
+  trusted app), and the consent screen no longer loads `logo_uri` from the browser.
+- Admin console: an **App usage** page (tokens issued, users and consents per application
+  over 30 days, with tiles), moved out of **Applications**, which keeps a link when some
+  apps went unused. Each row links to the application (`/applications?q=<client_id>`).
+
 - **API keys** for the APIs registered in Ostiary, with Better Auth's `@better-auth/api-key`
   plugin. Users create keys from the account page: a name, one API, some of its scopes and an
   expiry (needs a sign-in from the last 10 minutes); the key is shown once and stored as a
@@ -156,6 +175,14 @@ All notable changes are documented here. The format follows
   where an admin can disable or delete them. Discovery advertises
   `registration_endpoint` and `client_id_metadata_document_supported` while on. The
   README explains how an MCP server points clients to Ostiary (RFC 9728).
+
+### Changed
+
+- Account dashboard, **Connected applications**: each app shows its icon and its site's
+  host instead of the client ID, permissions in plain words (API scopes such as
+  `labs:publish` as they are; `openid` is implied), "Connected on" and "Last used", and
+  links to its site. **Revoke access** is now a lighter **Disconnect** button (same
+  confirmation). Strings in all 20 locales.
 
 ### Fixed
 

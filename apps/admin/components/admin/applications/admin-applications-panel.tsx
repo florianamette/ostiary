@@ -13,6 +13,7 @@ import {
 } from "@/components/admin/applications/admin-application-row-actions";
 import { AdminRegisterOAuthClientDialog } from "@/components/admin/applications/admin-register-oauth-client-dialog";
 import { SelfRegisteredRowActions } from "@/components/admin/applications/self-registered-row-actions";
+import { AppIcon } from "@ostiary/core/components/app-icon";
 import { Alert, AlertDescription, AlertTitle } from "@ostiary/core/components/ui/alert";
 import { Badge } from "@ostiary/core/components/ui/badge";
 import { Button } from "@ostiary/core/components/ui/button";
@@ -37,6 +38,7 @@ import {
   DEFAULT_ADMIN_TABLE_PAGE_SIZE,
   type AdminTablePageSize,
 } from "@ostiary/core/lib/admin/admin-table-page-size";
+import { adminAppIconUrl } from "@/lib/app-icon-url";
 import { authClient } from "@/lib/auth-client";
 import { adminNotify } from "@ostiary/core/lib/admin/admin-notify";
 import { DEVICE_CODE_GRANT_TYPE } from "@ostiary/core/lib/admin/oauth-clients/oauth-client-admin.types";
@@ -208,14 +210,17 @@ function filterApplications(
  * APIs page. APIs open to every application are not listed.
  */
 export function AdminApplicationsPanel({
+  initialSearch = "",
   linkedApis = {},
   selfRegistered,
 }: {
+  /** Prefilled search, e.g. a client ID from the App usage page (`?q=`). */
+  initialSearch?: string;
   linkedApis?: Record<string, string[]>;
   selfRegistered: OAuthApplicationRow[];
 }) {
-  const [searchInput, setSearchInput] = React.useState("");
-  const [debouncedSearch, setDebouncedSearch] = React.useState("");
+  const [searchInput, setSearchInput] = React.useState(initialSearch);
+  const [debouncedSearch, setDebouncedSearch] = React.useState(initialSearch);
   const [kindFilter, setKindFilter] =
     React.useState<ClientKindFilter>("all");
   const [registrationFilter, setRegistrationFilter] =
@@ -392,42 +397,45 @@ export function AdminApplicationsPanel({
               pageRows.map((row) => (
                 <TableRow key={row.clientId}>
                   <TableCell>
-                    <div className="flex flex-col gap-0.5">
-                      <span className="font-medium">{row.name}</span>
-                      {row.registration !== "admin" ? (
-                        <span className="mb-0.5">
-                          <RegistrationBadge source={row.registration} />
-                        </span>
-                      ) : null}
-                      <code className="text-muted-foreground max-w-[min(100%,320px)] truncate font-mono text-xs">
-                        {row.clientId}
-                      </code>
-                      {linkedApis[row.clientId]?.length ? (
-                        <span className="text-muted-foreground text-xs">
-                          Linked APIs: {linkedApis[row.clientId].join(", ")}
-                        </span>
-                      ) : null}
-                      <div className="mt-1 flex flex-wrap gap-1 sm:hidden">
-                        <Badge variant={row.public ? "secondary" : "default"}>
-                          {row.public ? "Public" : "Confidential"}
-                        </Badge>
-                        {row.grantTypes.includes(DEVICE_CODE_GRANT_TYPE) ? (
-                          <Badge variant="outline">Device</Badge>
+                    <div className="flex items-start gap-2.5">
+                      <AppIcon name={row.name} src={adminAppIconUrl(row.clientId)} size={28} className="mt-0.5" />
+                      <div className="flex min-w-0 flex-col gap-0.5">
+                        <span className="font-medium">{row.name}</span>
+                        {row.registration !== "admin" ? (
+                          <span className="mb-0.5">
+                            <RegistrationBadge source={row.registration} />
+                          </span>
                         ) : null}
-                        {row.skipConsent ? (
-                          <Badge variant="outline">Trusted</Badge>
-                        ) : (
-                          <Badge variant="outline" className="font-normal">
-                            Consent
+                        <code className="text-muted-foreground max-w-[min(100%,320px)] truncate font-mono text-xs">
+                          {row.clientId}
+                        </code>
+                        {linkedApis[row.clientId]?.length ? (
+                          <span className="text-muted-foreground text-xs">
+                            Linked APIs: {linkedApis[row.clientId].join(", ")}
+                          </span>
+                        ) : null}
+                        <div className="mt-1 flex flex-wrap gap-1 sm:hidden">
+                          <Badge variant={row.public ? "secondary" : "default"}>
+                            {row.public ? "Public" : "Confidential"}
                           </Badge>
-                        )}
-                        {row.disabled ? (
-                          <Badge variant="destructive">Disabled</Badge>
-                        ) : (
-                          <Badge variant="outline" className="font-normal">
-                            Active
-                          </Badge>
-                        )}
+                          {row.grantTypes.includes(DEVICE_CODE_GRANT_TYPE) ? (
+                            <Badge variant="outline">Device</Badge>
+                          ) : null}
+                          {row.skipConsent ? (
+                            <Badge variant="outline">Trusted</Badge>
+                          ) : (
+                            <Badge variant="outline" className="font-normal">
+                              Consent
+                            </Badge>
+                          )}
+                          {row.disabled ? (
+                            <Badge variant="destructive">Disabled</Badge>
+                          ) : (
+                            <Badge variant="outline" className="font-normal">
+                              Active
+                            </Badge>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </TableCell>

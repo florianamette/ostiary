@@ -199,9 +199,9 @@
     "allow": "允许",
     "scopes": {
       "openid": "验证您的身份（OpenID Connect）",
-      "profile": "姓名与资料信息",
-      "email": "电子邮箱地址",
-      "offline_access": "在您未主动使用应用时仍可访问"
+      "profile": "姓名和个人资料信息",
+      "email": "电子邮件地址",
+      "offline_access": "在您未主动使用应用时访问"
     },
     "unverified": {
       "title": "未经验证的应用",
@@ -232,6 +232,7 @@
       "signInProviders": "登录提供商",
       "webhooks": "Webhook",
       "security": "安全",
+      "usage": "应用使用情况",
       "audit": "审计日志",
       "signingKeys": "签名密钥"
     },
@@ -249,6 +250,7 @@
       "signInProviders": "登录提供商",
       "webhooks": "Webhook",
       "security": "安全",
+      "usage": "应用使用情况",
       "audit": "审计日志",
       "signingKeys": "签名密钥"
     },
@@ -271,7 +273,9 @@
       },
       "applications": {
         "title": "应用",
-        "description": "可使用 {name} 登录用户的 OAuth 客户端：重定向地址、授权类型、同意设置和使用情况。"
+        "description": "可使用 {name} 登录用户的 OAuth 客户端：重定向地址、授权类型和同意设置。",
+        "unusedHint": "{count, plural, other {# 个应用}}在最近 30 天内未被使用。",
+        "viewUsage": "查看使用情况"
       },
       "apis": {
         "title": "API",
@@ -297,6 +301,10 @@
       "consent": {
         "title": "授权记录",
         "description": "用户授予 OAuth 客户端的权限，包括范围和授予时间。"
+      },
+      "usage": {
+        "title": "应用使用情况",
+        "description": "哪些应用在使用中：最近 30 天内每个应用的访问令牌、用户和同意记录。"
       },
       "audit": {
         "title": "审计日志",
@@ -570,16 +578,20 @@
     },
     "apps": {
       "title": "已连接应用",
-      "description": "您已授权访问账户的 OAuth 应用。",
-      "empty": "尚未授权任何应用。",
-      "revokeAccess": "撤销授权",
-      "scopes": "权限范围",
-      "loadError": "无法加载授权列表。",
-      "revokeError": "无法撤销授权。",
-      "revoked": "授权已撤销",
-      "none": "无",
+      "description": "您已允许访问账户的应用。",
+      "empty": "尚未连接任何应用。",
+      "disconnect": "断开连接",
+      "disconnectApp": "断开 {app}",
+      "permissions": "权限",
+      "signInOnly": "仅登录",
+      "connectedOn": "连接于 {date}",
+      "lastUsed": "上次使用：{time}",
+      "opensInNewTab": "（在新标签页中打开）",
+      "loadError": "无法加载已连接的应用。",
+      "revokeError": "无法断开该应用。",
+      "revoked": "已断开应用",
       "cancel": "取消",
-      "confirmRevokeTitle": "撤销 {app} 的访问权限？",
+      "confirmRevokeTitle": "断开 {app}？",
       "confirmRevokeBody": "在您重新授权之前，该应用将无法再访问您的账户。"
     },
     "apiKeys": {
