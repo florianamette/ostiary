@@ -634,7 +634,7 @@
           "claims": "클레임: {claims}"
         },
         "restrictLabel": "이 API에는 다음 스코프만 발급",
-        "restrictHint": "이 API용 토큰에는 이 스코프(및 OpenID Connect 스코프)만 포함됩니다. 끄면 클라이언트에 부여된 모든 스코프가 포함됩니다.",
+        "restrictHint": "이 API용 토큰에는 이 스코프(및 OpenID Connect 스코프)만 포함됩니다. 끄면 다른 API가 선언하지 않은 부여된 스코프도 포함될 수 있지만, 다른 API의 스코프는 절대 포함되지 않습니다.",
         "register": {
           "title": "API 등록",
           "description": "클라이언트는 <code>{param}</code> 매개변수로 이 API용 토큰을 요청합니다. 토큰의 대상(audience)은 식별자이며, API는 JWKS로 토큰을 검증합니다.",

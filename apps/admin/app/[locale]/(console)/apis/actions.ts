@@ -23,7 +23,8 @@ import { auth } from "@/lib/auth";
  * APIs are Better Auth's OAuth protected resources (`oauth_resource`), changed through its
  * admin endpoints. The scopes an API declares live in the row's metadata; when "restrict" is
  * on they are also its `allowedScopes`, so its tokens carry nothing else (plus the OIDC
- * scopes, so sign-in keeps working). The auth app picks up new scopes within a minute.
+ * scopes, so sign-in keeps working). Without it, its tokens still never carry another API's
+ * scopes (withApiScopeBinding). The auth app picks up new scopes within a minute.
  *
  * Access ("every application" or "only linked applications") is `metadata.access`, and the
  * links are Better Auth's `oauth_client_resource` rows. Token settings are the row's own

@@ -71,6 +71,7 @@ const selectClient = {
   disabled: oauthClient.disabled,
   clientDiscoveryId: oauthClient.clientDiscoveryId,
   metadata: oauthClient.metadata,
+  adminRegistered: oauthClient.adminRegistered,
   icon: oauthClient.icon,
   uri: oauthClient.uri,
   redirectUris: oauthClient.redirectUris,

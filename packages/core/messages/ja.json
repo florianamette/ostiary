@@ -634,7 +634,7 @@
           "claims": "クレーム: {claims}"
         },
         "restrictLabel": "この API にはこれらのスコープのみ発行する",
-        "restrictHint": "この API 向けのトークンには、これらのスコープ（と OpenID Connect のスコープ）のみが含まれます。オフの場合は、クライアントに付与されたすべてのスコープが含まれます。",
+        "restrictHint": "この API 向けのトークンには、これらのスコープ（と OpenID Connect のスコープ）のみが含まれます。オフの場合は、ほかの API が宣言していない付与済みスコープも含まれることがありますが、ほかの API のスコープは含まれません。",
         "register": {
           "title": "API を登録",
           "description": "クライアントは <code>{param}</code> パラメーターでこの API 用のトークンを要求します。トークンのオーディエンスは識別子で、API は JWKS を使ってトークンを検証します。",

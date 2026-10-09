@@ -634,7 +634,7 @@
           "claims": "声明：{claims}"
         },
         "restrictLabel": "此 API 仅签发这些权限范围",
-        "restrictHint": "此 API 的令牌只包含这些权限范围（以及 OpenID Connect 权限范围）。关闭：包含客户端已获授予的所有权限范围。",
+        "restrictHint": "此 API 的令牌只包含这些权限范围（以及 OpenID Connect 权限范围）。关闭：还可包含已授予且未被其他 API 声明的权限范围，但绝不包含其他 API 的权限范围。",
         "register": {
           "title": "注册 API",
           "description": "客户端通过 <code>{param}</code> 参数为其请求令牌。令牌的受众（audience）即为标识符，API 会根据 JWKS 验证令牌。",

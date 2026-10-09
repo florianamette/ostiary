@@ -32,11 +32,9 @@ const ALLOWED_PATHS = new Set([
   "/organization/cancel-invitation",
   "/organization/remove-member",
   "/organization/update-member-role",
-  // OAuth clients and consents
+  // OAuth clients (admins only; changes go through /api/admin/oauth-clients) and consents
   "/oauth2/get-clients",
   "/oauth2/get-client",
-  "/oauth2/delete-client",
-  "/oauth2/client/rotate-secret",
   "/oauth2/get-consents",
   "/oauth2/get-consent",
   "/oauth2/update-consent",

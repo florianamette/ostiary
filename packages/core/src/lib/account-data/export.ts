@@ -180,6 +180,7 @@ async function collect(db: Database, u: typeof user.$inferSelect, options: { ins
         createdAt: oauthClient.createdAt,
         clientDiscoveryId: oauthClient.clientDiscoveryId,
         metadata: oauthClient.metadata,
+        adminRegistered: oauthClient.adminRegistered,
       })
       .from(oauthClient)
       .where(eq(oauthClient.userId, userId)),

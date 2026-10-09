@@ -3,6 +3,7 @@ import { eq } from "drizzle-orm";
 import { auth } from "@/lib/auth";
 import { db } from "@ostiary/core/db/index";
 import { oauthClient } from "@ostiary/core/db/schema";
+import { markAdminRegisteredClient } from "@ostiary/core/lib/client-registration";
 import { withDeviceCodeGrant } from "@ostiary/core/lib/admin/oauth-clients/oauth-client-admin.validation";
 import {
   BadRequestError,
@@ -62,15 +63,18 @@ function machineScopes(grantTypes: readonly string[] | undefined, scope: string 
 }
 
 /**
- * Creates an OAuth client using Better Auth’s server-only admin API.
+ * Creates an OAuth client using Better Auth’s server-only admin API, then marks it
+ * admin-registered (`oauth_client.admin_registered`). Better Auth gives it the platform's
+ * reference (see `clientReference`), so every admin, and only admins, can manage it.
  * Caller must already enforce admin session (e.g. route guard).
  */
 export async function createOAuthClientForAdmin(
   requestHeaders: Headers,
   input: CreateOAuthClientAdminInput,
 ): Promise<OAuthClientAdminPayload> {
+  let data: OAuthClientAdminPayload;
   try {
-    const data = await auth.api.adminCreateOAuthClient({
+    data = (await auth.api.adminCreateOAuthClient({
       headers: requestHeaders,
       body: {
         redirect_uris: input.redirect_uris,
@@ -85,7 +89,38 @@ export async function createOAuthClientForAdmin(
         scope: input.scope,
         ...machineScopes(input.grant_types, input.scope),
       },
-    });
+    })) as unknown as OAuthClientAdminPayload;
+  } catch (e) {
+    throwFromBetterAuthCall(e);
+  }
+  const clientId = (data as { client_id?: unknown }).client_id;
+  // Unmarked, the client would pass for a self-registered one: delete it rather than leave it.
+  const marked = typeof clientId === "string" && (await markAdminRegisteredClient(clientId).catch(() => false));
+  if (!marked) {
+    if (typeof clientId === "string") {
+      await db.delete(oauthClient).where(eq(oauthClient.clientId, clientId)).catch(() => {});
+    }
+    throw new Error("Could not register the OAuth client");
+  }
+  return data;
+}
+
+/** Deletes an admin-registered client (Better Auth's endpoint, called on the server). */
+export async function deleteOAuthClientForAdmin(requestHeaders: Headers, clientId: string): Promise<void> {
+  try {
+    await auth.api.deleteOAuthClient({ headers: requestHeaders, body: { client_id: clientId } });
+  } catch (e) {
+    throwFromBetterAuthCall(e);
+  }
+}
+
+/** Issues a new secret for an admin-registered confidential client; returns it once. */
+export async function rotateOAuthClientSecretForAdmin(
+  requestHeaders: Headers,
+  clientId: string,
+): Promise<OAuthClientAdminPayload> {
+  try {
+    const data = await auth.api.rotateClientSecret({ headers: requestHeaders, body: { client_id: clientId } });
     return data as unknown as OAuthClientAdminPayload;
   } catch (e) {
     throwFromBetterAuthCall(e);
