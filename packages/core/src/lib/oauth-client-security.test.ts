@@ -52,23 +52,28 @@ let seq = 0;
 
 /** A verified user with a password, signed in; returns the headers of their session. */
 async function signedIn(role: "admin" | "user"): Promise<{ id: string; headers: Headers }> {
-  const ctx = await auth.$context;
   const email = `${role}-${++seq}@example.test`;
   const password = `Pw-${seq}-correct-horse-battery`;
-  const user = await ctx.internalAdapter.createUser({ email, name: `${role} ${seq}`, emailVerified: true, role }, { method: "admin" });
-  await ctx.internalAdapter.linkAccount({
-    userId: user.id,
+  const id = `usr_${role}_${seq}`;
+  const now = new Date();
+  // Written directly: the account itself is not under test (sign-up has its own gates).
+  await db.insert(schema.user).values({ id, email, name: `${role} ${seq}`, emailVerified: true, role, createdAt: now, updatedAt: now });
+  await db.insert(schema.account).values({
+    id: `acc_${seq}`,
+    userId: id,
     providerId: "credential",
-    accountId: user.id,
+    accountId: id,
     // Better Auth's default scrypt hash (ctx.password.hash goes through haveIBeenPwned).
     password: await hashPassword(password),
+    createdAt: now,
+    updatedAt: now,
   });
   const { headers } = (await auth.api.signInEmail({ body: { email, password }, returnHeaders: true })) as { headers: Headers };
   const cookie = headers
     .getSetCookie()
     .map((c) => c.split(";")[0])
     .join("; ");
-  return { id: user.id, headers: new Headers({ cookie, origin: BASE }) };
+  return { id, headers: new Headers({ cookie, origin: BASE }) };
 }
 
 async function setRole(userId: string, role: string) {
