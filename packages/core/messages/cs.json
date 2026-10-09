@@ -179,6 +179,13 @@
       "notLinked": "That account isn't connected to a {name} account yet. Sign in another way, then connect it from your security settings.",
       "noEmail": "Tento účet nesdílel e-mailovou adresu. Zkuste to později nebo se přihlaste jinak.",
       "signUpDisabled": "Pro tuto adresu zatím neexistuje účet a tímto způsobem přihlášení ho nelze vytvořit. Přihlaste se jinak."
+    },
+    "app": {
+      "signIn": "Přihlaste se a pokračujte do <app>{name}</app>",
+      "signUp": "Vytvořte si účet a pokračujte do <app>{name}</app>",
+      "continue": "Pokračovat do <app>{name}</app>",
+      "unverified": "Neověřená aplikace.",
+      "unverifiedHint": "{name} ji nezkontroloval: pokračujte, jen pokud jí důvěřujete."
     }
   },
   "consent": {

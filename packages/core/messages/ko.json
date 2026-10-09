@@ -179,6 +179,13 @@
       "notLinked": "That account isn't connected to a {name} account yet. Sign in another way, then connect it from your security settings.",
       "noEmail": "이 계정에서 이메일 주소를 공유하지 않았습니다. 나중에 다시 시도하거나 다른 방법으로 로그인하세요.",
       "signUpDisabled": "이 주소로 된 계정이 아직 없으며 이 로그인 방법으로는 계정을 만들 수 없습니다. 다른 방법으로 로그인하세요."
+    },
+    "app": {
+      "signIn": "로그인하고 <app>{name}</app>(으)로 계속",
+      "signUp": "계정을 만들고 <app>{name}</app>(으)로 계속",
+      "continue": "<app>{name}</app>(으)로 계속",
+      "unverified": "확인되지 않은 앱입니다.",
+      "unverifiedHint": "{name}에서 검토하지 않은 앱입니다. 신뢰하는 경우에만 계속하세요."
     }
   },
   "consent": {
