@@ -13,6 +13,7 @@ import {
   type ProviderValues,
 } from "@ostiary/core/lib/social-provider-config";
 import {
+  type GoogleOneTapConfig,
   isSocialProvider,
   SOCIAL_PROVIDER_META,
   SOCIAL_PROVIDERS,
@@ -32,6 +33,11 @@ import {
  * most every 30 seconds and swaps the providers in that list before each request (see
  * syncSocialProviders, called from the auth instance's before hook). A change made in the
  * admin console applies at once on the instance that made it and within 30 seconds elsewhere.
+ *
+ * Google One Tap (Better Auth's oneTap plugin) has no provider instance: its endpoint reads
+ * the Google client ID, `hd` and `disableSignUp` from the auth options (`socialProviders.google`)
+ * on each request. syncSocialProviders keeps those options in step with the same providers, so
+ * One Tap always checks ID tokens against the client ID the admin console set.
  */
 
 const SECRETS_PURPOSE = "social-provider";
@@ -60,6 +66,10 @@ type Loaded = {
   enabled: SocialProviderOption[];
   /** Better Auth provider instances for the enabled providers. */
   instances: ProviderInstance[];
+  /** Better Auth options of the enabled providers (`socialProviders[id]`). */
+  options: Partial<Record<SocialProvider, Record<string, unknown>>>;
+  /** Google One Tap, when Google is on and its One Tap setting too. */
+  oneTap: GoogleOneTapConfig | null;
 };
 
 type Cache = { loadedAt: number; inFlight: Promise<Loaded> | null; current: Loaded | null };
@@ -94,7 +104,7 @@ function instantiate(id: SocialProvider, options: Record<string, unknown>): Prov
 export async function loadSocialProviders(): Promise<Loaded> {
   const rows = await db.select().from(socialProvider).orderBy(asc(socialProvider.position), asc(socialProvider.id));
   const fromEnv = envSocialProviders();
-  const entries: { id: SocialProvider; name: string; position: number; options: Record<string, unknown> }[] = [];
+  const entries: { id: SocialProvider; name: string; position: number; options: Record<string, unknown>; oneTap: boolean }[] = [];
 
   for (const [id, values] of Object.entries(fromEnv) as [SocialProvider, ProviderValues][]) {
     const row = rows.find((r) => r.id === id);
@@ -103,6 +113,7 @@ export async function loadSocialProviders(): Promise<Loaded> {
       name: row?.config.buttonName?.trim() || SOCIAL_PROVIDER_META[id].name,
       position: row?.position ?? -1,
       options: buildProviderOptions(id, values, { allowSignUp: row?.allowSignUp ?? true }),
+      oneTap: id === "google" && Boolean(row?.oneTap),
     });
   }
   for (const row of rows) {
@@ -118,6 +129,7 @@ export async function loadSocialProviders(): Promise<Loaded> {
         name: row.config.buttonName?.trim() || SOCIAL_PROVIDER_META[row.id].name,
         position: row.position,
         options: buildProviderOptions(row.id, { ...row.config, ...secrets }, { allowSignUp: row.allowSignUp }),
+        oneTap: row.id === "google" && row.oneTap,
       });
     } catch (error) {
       console.error(`Social provider ${row.id} is enabled but cannot be used; skipped.`, error);
@@ -126,15 +138,26 @@ export async function loadSocialProviders(): Promise<Loaded> {
   entries.sort((a, b) => a.position - b.position || a.id.localeCompare(b.id));
   const instances: ProviderInstance[] = [];
   const enabled: SocialProviderOption[] = [];
+  const options: Loaded["options"] = {};
+  let oneTap: GoogleOneTapConfig | null = null;
   for (const entry of entries) {
     try {
       instances.push(instantiate(entry.id, entry.options));
       enabled.push({ id: entry.id, name: entry.name });
+      options[entry.id] = entry.options;
+      if (entry.oneTap) oneTap = googleOneTapConfig(entry.options);
     } catch (error) {
       console.error(`Social provider ${entry.id} could not be set up; skipped.`, error);
     }
   }
-  return { enabled, instances };
+  return { enabled, instances, options, oneTap };
+}
+
+/** One Tap takes Google's client ID (the first one, when several are listed for other platforms). */
+function googleOneTapConfig(options: Record<string, unknown>): GoogleOneTapConfig | null {
+  const raw = options.clientId;
+  const clientId = (Array.isArray(raw) ? raw[0] : raw) as unknown;
+  return typeof clientId === "string" && clientId.trim() ? { clientId: clientId.trim() } : null;
 }
 
 /** The environment's providers alone, while the database cannot be read. */
@@ -143,6 +166,9 @@ function environmentOnly(): Loaded {
   return {
     enabled: entries.map(([id]) => ({ id, name: SOCIAL_PROVIDER_META[id].name })),
     instances: entries.map(([id, values]) => instantiate(id, buildProviderOptions(id, values))),
+    options: Object.fromEntries(entries.map(([id, values]) => [id, buildProviderOptions(id, values)])),
+    // One Tap is a database setting: off until the table can be read.
+    oneTap: null,
   };
 }
 
@@ -171,6 +197,11 @@ export function invalidateSocialProviders() {
   cache.loadedAt = 0;
 }
 
+/** Google One Tap's settings for the sign-in and sign-up pages, or null when it is off. */
+export async function googleOneTap(): Promise<GoogleOneTapConfig | null> {
+  return (await currentSocialProviders()).oneTap;
+}
+
 /** Providers the sign-in, sign-up and account pages offer, in display order. */
 export async function enabledSocialProviders(): Promise<SocialProviderOption[]> {
   return (await currentSocialProviders()).enabled;
@@ -178,18 +209,45 @@ export async function enabledSocialProviders(): Promise<SocialProviderOption[]> 
 
 const BUILT_IN = new Set<string>(SOCIAL_PROVIDERS);
 
+type SyncedContext = {
+  socialProviders: unknown[];
+  options: { socialProviders?: Record<string, unknown> };
+};
+
 /**
  * Replaces the built-in social providers in Better Auth's context with the current ones. The
  * list is changed in place: each request's context is a shallow copy sharing it. Providers
  * added by plugins (ids Better Auth does not ship) are kept.
+ *
+ * The options' `socialProviders` get the same providers' options, also in place (the options
+ * object is shared by every request too). Better Auth only reads them at startup, except the
+ * One Tap endpoint, which takes Google's client ID, `hd` and sign-up setting from there.
  */
-export async function syncSocialProviders(context: { socialProviders: unknown[] }) {
-  const { instances } = await currentSocialProviders();
+export async function syncSocialProviders(context: SyncedContext) {
+  const { instances, options } = await currentSocialProviders();
+  syncProviderOptions(context.options, options);
   const list = context.socialProviders as ProviderInstance[];
   const others = list.filter((p) => !BUILT_IN.has(p.id));
   const next = [...instances, ...others];
   if (next.length === list.length && next.every((p, i) => p === list[i])) return;
   list.splice(0, list.length, ...next);
+}
+
+/** Sets `authOptions.socialProviders` to `current`, in place, for the built-in providers. */
+export function syncProviderOptions(
+  authOptions: SyncedContext["options"],
+  current: Partial<Record<string, Record<string, unknown>>>,
+) {
+  const target = (authOptions.socialProviders ??= {});
+  for (const id of Object.keys(target)) {
+    if (BUILT_IN.has(id) && !(id in current)) delete target[id];
+  }
+  for (const [id, value] of Object.entries(current)) {
+    if (!value) continue;
+    // One Tap reads `disableSignUp` (the buttons, `disableImplicitSignUp`): the provider's
+    // "Create accounts for new users" setting applies to both.
+    target[id] = value.disableImplicitSignUp ? { ...value, disableSignUp: true } : value;
+  }
 }
 
 // --- Admin console -------------------------------------------------------------------------
@@ -201,6 +259,8 @@ export type SocialProviderAdminView = {
   enabled: boolean;
   position: number;
   allowSignUp: boolean;
+  /** Google only: Google One Tap on the sign-in and sign-up pages. */
+  oneTap: boolean;
   /** Non-secret fields (and the button name). */
   config: Record<string, string>;
   /** Secret fields that have a value. The values never leave the server. */
@@ -226,6 +286,7 @@ export async function listSocialProviderSettings(): Promise<SocialProviderAdminV
         enabled: true,
         position: row?.position ?? -1,
         allowSignUp: row?.allowSignUp ?? true,
+        oneTap: Boolean(row?.oneTap),
         config: Object.fromEntries(plain.filter((k) => envValues[k]).map((k) => [k, envValues[k]!])),
         secretsSet: providerFieldKeys(id).secret.filter((k) => envValues[k]),
         secretsUnreadable: false,
@@ -241,6 +302,7 @@ export async function listSocialProviderSettings(): Promise<SocialProviderAdminV
       enabled: Boolean(row?.enabled),
       position: row?.position ?? 0,
       allowSignUp: row?.allowSignUp ?? true,
+      oneTap: Boolean(row?.oneTap),
       config,
       secretsSet: Object.keys(secrets ?? {}).filter((k) => secrets?.[k]),
       secretsUnreadable: secrets === null,
@@ -253,6 +315,8 @@ export async function listSocialProviderSettings(): Promise<SocialProviderAdminV
 export type SocialProviderInput = {
   enabled: boolean;
   allowSignUp: boolean;
+  /** Google only (ignored for other providers): offer Google One Tap. */
+  oneTap?: boolean;
   /** Non-secret fields; missing keys are cleared. */
   config: Record<string, string>;
   /**
@@ -312,17 +376,19 @@ export async function saveSocialProvider(
     }
   }
 
+  const oneTap = id === "google" && input.oneTap === true;
   const changed = [
     ...plain.filter((k) => (row?.config[k] ?? "") !== (config[k] ?? "")),
     ...secret.filter((k) => (stored?.[k] ?? "") !== (secrets[k] ?? "")),
     ...(Boolean(row?.enabled) !== input.enabled ? ["enabled"] : []),
     ...((row?.allowSignUp ?? true) !== input.allowSignUp ? ["allowSignUp"] : []),
+    ...(Boolean(row?.oneTap) !== oneTap ? ["oneTap"] : []),
   ];
   const sealed = Object.keys(secrets).length
     ? sealSecret(JSON.stringify(secrets), env.BETTER_AUTH_SECRET, SECRETS_PURPOSE)
     : null;
   const now = new Date();
-  const fields = { config, secrets: sealed, enabled: input.enabled, allowSignUp: input.allowSignUp, updatedAt: now, updatedBy };
+  const fields = { config, secrets: sealed, enabled: input.enabled, allowSignUp: input.allowSignUp, oneTap, updatedAt: now, updatedBy };
   if (row) {
     await db.update(socialProvider).set(fields).where(eq(socialProvider.id, id));
   } else {

@@ -49,6 +49,9 @@ export function isSocialProvider(value: string): value is SocialProvider {
   return (SOCIAL_PROVIDERS as readonly string[]).includes(value);
 }
 
+/** What the sign-in and sign-up pages need to show Google One Tap (no secret). */
+export type GoogleOneTapConfig = { clientId: string };
+
 export type ProviderField = {
   /** Better Auth option name, except where the provider builds the option from several fields (Apple). */
   key: string;

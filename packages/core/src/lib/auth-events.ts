@@ -2,6 +2,8 @@ import { randomUUID } from "node:crypto";
 
 import { db } from "@ostiary/core/db/index";
 import { authEvent } from "@ostiary/core/db/schema";
+import { env } from "@ostiary/core/lib/env";
+import { ipAddressOptions, resolveClientIp } from "@ostiary/core/lib/rate-limit";
 
 export type AuthEventType = "sign_in" | "sign_up" | "sign_out" | "sign_in_failed";
 
@@ -24,9 +26,12 @@ export async function recordAuthEvent(
   }
 }
 
-/** Client IP from the proxy headers Vercel sets. */
+const ipOptions = ipAddressOptions(env);
+
+/**
+ * Client IP for the audit log and sign-in events: the address Better Auth uses for rate limits
+ * and sessions (IP_ADDRESS_HEADERS, TRUSTED_PROXIES), see resolveClientIp.
+ */
 export function clientIp(headers: Headers | undefined | null): string | null {
-  const forwarded = headers?.get("x-forwarded-for");
-  if (forwarded) return forwarded.split(",")[0]!.trim();
-  return headers?.get("x-real-ip") ?? null;
+  return resolveClientIp(headers, ipOptions);
 }

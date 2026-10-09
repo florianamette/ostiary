@@ -8,6 +8,22 @@ All notable changes are documented here. The format follows
 
 ### Added
 
+- **Google One Tap** on the sign-in and sign-up pages, with Better Auth's `oneTap` plugin.
+  Turned on per provider in the admin console (**Sign-in providers** > Google > **Show
+  Google One Tap**, new `social_provider.one_tap` column, migration `0010_google_one_tap`),
+  only while Google is on. It uses Google's runtime settings from the console: before each
+  request, the providers' options are mirrored into Better Auth's `socialProviders`, which
+  is where the plugin reads the client ID, `hd` and the sign-up setting, so a change
+  applies within 30 seconds without a restart. `POST /api/auth/one-tap/callback` answers
+  404 while One Tap is off and is limited to 60 a minute per address. A One Tap sign-in
+  counts as Google for "last used", resumes a pending app authorization like other
+  sign-ins, and never auto-selects an account. Not shown to someone signed in, when
+  adding an account, or when the device last used another method; dismissed or
+  unsupported (no FedCM), nothing appears. The Content Security Policy allows
+  `accounts.google.com/gsi/` on the sign-in and sign-up pages only. Needs the auth app's
+  origin in the Google client's Authorized JavaScript origins.
+- Sign-in page: a social sign-in refused because the provider may not create accounts now
+  says so (`signup_disabled`), in all 20 languages.
 - **App icons.** Each OAuth application gets a real icon on the account dashboard, the
   consent screen and the admin console: its `logo_uri`, else the icon its site links to
   (`<link rel="icon">`, `apple-touch-icon`, largest `sizes` or SVG first, then
@@ -186,6 +202,14 @@ All notable changes are documented here. The format follows
 
 ### Fixed
 
+- **Client IP in the audit log and sign-in history behind proxies.** These took the
+  left-most `x-forwarded-for` value (whatever the client sent) and fell back to
+  `x-real-ip`, unlike rate limits and sessions. They now resolve the address the way
+  Better Auth does, with Better Auth's own function and the same `IP_ADDRESS_HEADERS` and
+  `TRUSTED_PROXIES`: a single-address `x-forwarded-for` by default (Vercel), or the
+  right-most address that is not a trusted proxy. A multi-address header without
+  `TRUSTED_PROXIES`, or `x-real-ip` not listed in `IP_ADDRESS_HEADERS`, now records no IP
+  instead of a spoofable one. IPv6 addresses are stored whole, in full form.
 - Admin console: registering or editing an OAuth application showed "Request failed"
   instead of the reason. Better Auth 1.7 puts it in `error_description`, which is now
   shown (for example, a confidential client with an `http://localhost` redirect URI).
