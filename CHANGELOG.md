@@ -31,7 +31,8 @@ All notable changes are documented here. The format follows
   the admin console, per-client API access, social providers turned on at runtime with a full
   social sign-in, signing key rotation, sign-up with email verification, password and code
   sign-ins, TOTP, the admin two-factor gate, rate limits, authorization code with PKCE and
-  consent, refresh, UserInfo, device flow, webhooks, API keys and Dynamic Client Registration.
+  consent, refresh, UserInfo, device flow, webhooks, API keys, Dynamic Client Registration
+  and per-app branding of the login page.
   Test seam `E2E_TEST_MODE` (emails to a file, localhost webhooks, no Have I Been Pwned call),
   honoured only on a loopback `http://` auth URL. See README, Testing.
 - **Organization API keys.** Owners and admins of an organization create, list and revoke

@@ -549,7 +549,7 @@ pnpm lint && pnpm typecheck && pnpm test   # lint, types and unit tests (Vitest)
 - Signing key rotation: new key id in new tokens, both keys in the JWKS, old tokens still verify
 - Sign-up with email verification, password sign-in, sign-in codes, TOTP two-factor, the admin two-factor gate (`REQUIRE_ADMIN_2FA`), rate limiting (429 and `Retry-After`)
 - Authorization code with PKCE, consent (allow and deny), refresh, UserInfo, device flow
-- Webhook delivery to a local receiver (Standard Webhooks signature checked), API key creation and verification, Dynamic Client Registration
+- Webhook delivery to a local receiver (Standard Webhooks signature checked), API key creation and verification, Dynamic Client Registration, per-app branding of the login page (signed authorization only)
 
 Run them locally with Postgres in Docker:
 
