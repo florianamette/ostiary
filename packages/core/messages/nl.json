@@ -396,7 +396,8 @@
       "apiKeys": "API-sleutels",
       "admin": "Admin",
       "marketingHome": "About",
-      "signOut": "Sign out"
+      "signOut": "Sign out",
+      "data": "Je gegevens"
     },
     "profile": {
       "title": "Profile",
@@ -691,6 +692,66 @@
       "signOutOf": "Afmelden bij {email}",
       "signOutAll": "Afmelden bij alle accounts",
       "switchFailed": "Wisselen van account mislukt. Probeer het opnieuw."
+    },
+    "data": {
+      "exportTitle": "Je gegevens exporteren",
+      "exportDescription": "Download een JSON-bestand met alles wat deze dienst over je account opslaat: profiel, inlogmethoden, passkeys, sessies, verbonden applicaties, API-sleutels, organisaties en activiteitengeschiedenis. Wachtwoorden, tokens, sleutels en geheimen voor tweestapsverificatie worden nooit meegenomen.",
+      "exportButton": "Mijn gegevens downloaden",
+      "exportDone": "Je gegevens zijn gedownload.",
+      "exportErrors": {
+        "signedOut": "Je sessie is beëindigd. Log opnieuw in.",
+        "impersonating": "Je kunt geen gegevens exporteren terwijl je het account van iemand anders bekijkt.",
+        "recentSignIn": "Log voor je veiligheid opnieuw in om je gegevens te exporteren.",
+        "rateLimited": "Je hebt je gegevens het afgelopen uur al meerdere keren geëxporteerd. Probeer het later opnieuw.",
+        "failed": "Je gegevens konden niet worden geëxporteerd. Probeer het opnieuw."
+      },
+      "signInAgain": "Opnieuw inloggen",
+      "deleteTitle": "Account verwijderen",
+      "deleteDescription": "Verwijder je account en alles wat eraan gekoppeld is definitief. Dit kan niet ongedaan worden gemaakt.",
+      "deleteButton": "Mijn account verwijderen",
+      "loadError": "Kon niet controleren of dit account kan worden verwijderd.",
+      "blockers": {
+        "admin": {
+          "title": "Je bent beheerder",
+          "body": "Vraag eerst een andere beheerder om je beheerdersrol in te trekken. Zo blijft de dienst nooit zonder beheerder en wordt de wijziging vastgelegd."
+        },
+        "sole_owner": {
+          "title": "Je bent de enige eigenaar van een organisatie",
+          "body": "Je bent de enige eigenaar van {organizations}. Maak een ander lid eigenaar, of vraag een beheerder om de organisatie te verwijderen, en kom dan terug."
+        },
+        "scim": {
+          "title": "Je account wordt beheerd door je organisatie",
+          "body": "De directory van je bedrijf heeft dit account aangemaakt en zou het opnieuw aanmaken. Vraag in plaats daarvan je IT-beheerder om je uit de directory te verwijderen.",
+          "bodyNamed": "De directory van {organizations} heeft dit account aangemaakt en zou het opnieuw aanmaken. Vraag in plaats daarvan je IT-beheerder om je uit de directory te verwijderen."
+        }
+      },
+      "confirmTitle": "Je account verwijderen?",
+      "confirmDescription": "Dit kan niet ongedaan worden gemaakt. Zodra je bevestigt via de e-mail die we je sturen:",
+      "consequences": {
+        "signIn": "Word je overal uitgelogd en kun je niet meer inloggen met dit account.",
+        "apps": "Verliezen apps waarbij je met dit account bent ingelogd direct de toegang.",
+        "data": "Worden je passkeys, instellingen voor tweestapsverificatie, API-sleutels en gekoppelde accounts verwijderd en verlaat je je organisaties.",
+        "records": "Tonen gegevens die voor de beveiliging worden bewaard, zoals het auditlogboek, je naam en e-mailadres niet meer."
+      },
+      "exportFirst": "Wil je eerst een kopie? Download je gegevens voordat je verdergaat.",
+      "typeEmail": "Typ {email} om te bevestigen",
+      "password": "Wachtwoord",
+      "noPassword": "Je account heeft geen wachtwoord: je recente aanmelding bevestigt dat jij het bent.",
+      "signInFirst": "Je account heeft geen wachtwoord, dus log eerst opnieuw in om te bevestigen dat jij het bent.",
+      "sendLink": "Stuur mij de bevestigingslink",
+      "cancel": "Annuleren",
+      "sentTitle": "Controleer je inbox",
+      "sentBody": "We hebben een link gestuurd naar {email}. Open hem binnen {minutes} minuten in een browser waarin je bij dit account bent ingelogd, en bevestig om het te verwijderen.",
+      "done": "Klaar",
+      "deleteErrors": {
+        "mismatch": "Het e-mailadres hoort niet bij dit account.",
+        "password": "Voer je wachtwoord in.",
+        "wrongPassword": "Dat wachtwoord is onjuist.",
+        "recentSignIn": "Log voor je veiligheid opnieuw in voordat je je account verwijdert.",
+        "blocked": "Dit account kan nog niet worden verwijderd. Sluit dit venster om te zien waarom.",
+        "impersonating": "Een account kan niet worden verwijderd terwijl een beheerder het bekijkt.",
+        "failed": "Het verwijderen kon niet worden gestart. Probeer het opnieuw."
+      }
     }
   },
   "acceptInvitation": {
@@ -870,6 +931,25 @@
       "failed": "Er ging iets mis. Probeer het opnieuw."
     }
   },
+  "deleteAccount": {
+    "title": "Je account verwijderen",
+    "description": "Je hebt gevraagd om het account {email} te verwijderen. Zodra je bevestigt, is het definitief weg.",
+    "signedOut": "Log in bij het account dat je wilt verwijderen en open de link daarna opnieuw.",
+    "consequenceApps": "Apps waarbij je ermee bent ingelogd, verliezen direct de toegang.",
+    "consequenceSignIn": "Je wordt overal uitgelogd en kunt er niet meer mee inloggen.",
+    "consequenceUndo": "Dit kan niet ongedaan worden gemaakt.",
+    "confirm": "Mijn account definitief verwijderen",
+    "keep": "Mijn account behouden",
+    "deletedTitle": "Je account is verwijderd",
+    "deletedBody": "Alles wat eraan gekoppeld was, is verwijderd. Bedankt dat je {brand} hebt gebruikt.",
+    "toSignIn": "Naar inloggen",
+    "errors": {
+      "missing": "Deze link is onvolledig. Open de link in de e-mail opnieuw, of begin opnieuw vanaf je accountpagina.",
+      "invalid": "Deze link is verlopen, al gebruikt of naar een ander account gestuurd. Controleer of je bent ingelogd bij het account dat je wilt verwijderen, of begin opnieuw vanaf je accountpagina.",
+      "blocked": "Dit account kan nog niet worden verwijderd. Open je accountpagina om te zien wat je eerst moet doen.",
+      "failed": "Het account kon niet worden verwijderd. Probeer het opnieuw."
+    }
+  },
   "captcha": {
     "label": "Beveiligingscontrole",
     "required": "Voltooi eerst de beveiligingscontrole.",
@@ -884,6 +964,16 @@
       "body": "Voer deze code in op de inlogpagina van {brand} om het inloggen af te ronden.",
       "note": "De code verloopt over {minutes} minuten en werkt maar één keer.",
       "footnote": "Geen code aangevraagd? Negeer deze e-mail: zonder de code kan niemand inloggen. Deel hem nooit met iemand."
+    },
+    "deleteAccount": {
+      "subject": "Bevestig het verwijderen van je {brand}-account",
+      "preheader": "Iemand heeft gevraagd om je {brand}-account te verwijderen. Er gebeurt niets totdat je bevestigt.",
+      "heading": "Je account verwijderen?",
+      "body": "Er is gevraagd om het {brand}-account {email} definitief te verwijderen. Wil je doorgaan? Open de link hieronder in een browser waarin je bij dit account bent ingelogd, en bevestig.",
+      "consequences": "Apps waarbij je met dit account inlogt, verliezen de toegang en het account kan niet worden hersteld.",
+      "button": "Bekijken en verwijderen",
+      "note": "De link verloopt over {minutes} minuten en werkt maar één keer.",
+      "footnote": "Heb je dit niet aangevraagd? Negeer dan deze e-mail: je account blijft zoals het is. Overweeg wel je wachtwoord te wijzigen, want het verzoek kwam vanuit een ingelogde sessie."
     }
   }
 }

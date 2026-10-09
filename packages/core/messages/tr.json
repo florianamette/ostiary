@@ -396,7 +396,8 @@
       "apiKeys": "API anahtarları",
       "admin": "Admin",
       "marketingHome": "About",
-      "signOut": "Sign out"
+      "signOut": "Sign out",
+      "data": "Verileriniz"
     },
     "profile": {
       "title": "Profile",
@@ -691,6 +692,66 @@
       "signOutOf": "{email} hesabından çıkış yap",
       "signOutAll": "Tüm hesaplardan çıkış yap",
       "switchFailed": "Hesap değiştirilemedi. Tekrar deneyin."
+    },
+    "data": {
+      "exportTitle": "Verilerinizi dışa aktarın",
+      "exportDescription": "Bu hizmetin hesabınız hakkında sakladığı her şeyi içeren bir JSON dosyası indirin: profil, giriş yöntemleri, geçiş anahtarları, oturumlar, bağlı uygulamalar, API anahtarları, kuruluşlar ve etkinlik geçmişi. Parolalar, belirteçler, anahtarlar ve iki faktörlü kimlik doğrulama sırları asla dahil edilmez.",
+      "exportButton": "Verilerimi indir",
+      "exportDone": "Verileriniz indirildi.",
+      "exportErrors": {
+        "signedOut": "Oturumunuz sona erdi. Yeniden giriş yapın.",
+        "impersonating": "Başka birinin hesabını görüntülerken veriler dışa aktarılamaz.",
+        "recentSignIn": "Güvenliğiniz için verilerinizi dışa aktarmadan önce yeniden giriş yapın.",
+        "rateLimited": "Son bir saat içinde verilerinizi birkaç kez dışa aktardınız. Daha sonra tekrar deneyin.",
+        "failed": "Verileriniz dışa aktarılamadı. Tekrar deneyin."
+      },
+      "signInAgain": "Yeniden giriş yap",
+      "deleteTitle": "Hesabı sil",
+      "deleteDescription": "Hesabınızı ve ona bağlı her şeyi kalıcı olarak silin. Bu işlem geri alınamaz.",
+      "deleteButton": "Hesabımı sil",
+      "loadError": "Bu hesabın silinip silinemeyeceği kontrol edilemedi.",
+      "blockers": {
+        "admin": {
+          "title": "Yöneticisiniz",
+          "body": "Önce başka bir yöneticiden yönetici rolünüzü kaldırmasını isteyin. Böylece hizmet hiçbir zaman yöneticisiz kalmaz ve değişiklik kayda geçer."
+        },
+        "sole_owner": {
+          "title": "Bir kuruluşun tek sahibisiniz",
+          "body": "Şu kuruluşların tek sahibisiniz: {organizations}. Başka bir üyeyi sahip yapın veya bir yöneticiden kuruluşu silmesini isteyin, sonra geri gelin."
+        },
+        "scim": {
+          "title": "Hesabınız kuruluşunuz tarafından yönetiliyor",
+          "body": "Bu hesabı şirket dizininiz oluşturdu ve yeniden oluşturur. Bunun yerine BT yöneticinizden sizi dizinden kaldırmasını isteyin.",
+          "bodyNamed": "Bu hesabı {organizations} dizini oluşturdu ve yeniden oluşturur. Bunun yerine BT yöneticinizden sizi dizinden kaldırmasını isteyin."
+        }
+      },
+      "confirmTitle": "Hesabınız silinsin mi?",
+      "confirmDescription": "Bu işlem geri alınamaz. Size göndereceğimiz e-postadan onayladığınızda:",
+      "consequences": {
+        "signIn": "Her yerde oturumunuz kapatılır ve bu hesapla artık giriş yapamazsınız.",
+        "apps": "Bu hesapla giriş yaptığınız uygulamalar erişimini hemen kaybeder.",
+        "data": "Geçiş anahtarlarınız, iki faktörlü kimlik doğrulama ayarlarınız, API anahtarlarınız ve bağlı hesaplarınız silinir ve kuruluşlarınızdan ayrılırsınız.",
+        "records": "Denetim günlüğü gibi güvenlik amacıyla tutulan kayıtlar artık adınızı veya e-posta adresinizi göstermez."
+      },
+      "exportFirst": "Önce bir kopya mı istiyorsunuz? Devam etmeden önce verilerinizi indirin.",
+      "typeEmail": "Onaylamak için {email} yazın",
+      "password": "Parola",
+      "noPassword": "Hesabınızın parolası yok: yakın zamanda yaptığınız giriş, kimliğinizi doğrular.",
+      "signInFirst": "Hesabınızın parolası yok; kimliğinizi doğrulamak için önce yeniden giriş yapın.",
+      "sendLink": "Onay bağlantısını e-postayla gönder",
+      "cancel": "İptal",
+      "sentTitle": "Gelen kutunuzu kontrol edin",
+      "sentBody": "{email} adresine bir bağlantı gönderdik. Bağlantıyı {minutes} dakika içinde, bu hesapla giriş yapmış olduğunuz bir tarayıcıda açın ve silme işlemini onaylayın.",
+      "done": "Tamam",
+      "deleteErrors": {
+        "mismatch": "E-posta adresi bu hesapla eşleşmiyor.",
+        "password": "Parolanızı girin.",
+        "wrongPassword": "Parola yanlış.",
+        "recentSignIn": "Güvenliğiniz için hesabınızı silmeden önce yeniden giriş yapın.",
+        "blocked": "Bu hesap henüz silinemez. Nedenini görmek için bu pencereyi kapatın.",
+        "impersonating": "Bir yönetici görüntülerken hesap silinemez.",
+        "failed": "Silme işlemi başlatılamadı. Tekrar deneyin."
+      }
     }
   },
   "acceptInvitation": {
@@ -870,6 +931,25 @@
       "failed": "Bir şeyler ters gitti. Tekrar deneyin."
     }
   },
+  "deleteAccount": {
+    "title": "Hesabınızı silin",
+    "description": "{email} hesabının silinmesini istediniz. Onayladığınızda hesap kalıcı olarak silinir.",
+    "signedOut": "Silmek istediğiniz hesapla giriş yapın, ardından bağlantıyı yeniden açın.",
+    "consequenceApps": "Bu hesapla giriş yaptığınız uygulamalar erişimini hemen kaybeder.",
+    "consequenceSignIn": "Her yerde oturumunuz kapatılır ve bu hesapla bir daha giriş yapamazsınız.",
+    "consequenceUndo": "Bu işlem geri alınamaz.",
+    "confirm": "Hesabımı kalıcı olarak sil",
+    "keep": "Hesabımı koru",
+    "deletedTitle": "Hesabınız silindi",
+    "deletedBody": "Hesaba bağlı her şey kaldırıldı. {brand} hizmetini kullandığınız için teşekkür ederiz.",
+    "toSignIn": "Giriş sayfasına git",
+    "errors": {
+      "missing": "Bu bağlantı eksik. E-postadaki bağlantıyı yeniden açın veya hesap sayfanızdan baştan başlayın.",
+      "invalid": "Bu bağlantının süresi dolmuş, daha önce kullanılmış veya başka bir hesaba gönderilmiş. Silmek istediğiniz hesapla giriş yaptığınızdan emin olun veya hesap sayfanızdan baştan başlayın.",
+      "blocked": "Bu hesap henüz silinemez. Önce ne yapmanız gerektiğini görmek için hesap sayfanızı açın.",
+      "failed": "Hesap silinemedi. Tekrar deneyin."
+    }
+  },
   "captcha": {
     "label": "Güvenlik kontrolü",
     "required": "Önce güvenlik kontrolünü tamamlayın.",
@@ -884,6 +964,16 @@
       "body": "Girişi tamamlamak için bu kodu {brand} giriş sayfasına girin.",
       "note": "Kodun süresi {minutes} dakika içinde dolar ve yalnızca bir kez çalışır.",
       "footnote": "Kod istemediniz mi? Bu e-postayı yok sayın: kod olmadan kimse giriş yapamaz. Kodu asla kimseyle paylaşmayın."
+    },
+    "deleteAccount": {
+      "subject": "{brand} hesabınızın silinmesini onaylayın",
+      "preheader": "Biri {brand} hesabınızın silinmesini istedi. Siz onaylamadıkça hiçbir şey olmaz.",
+      "heading": "Hesabınız silinsin mi?",
+      "body": "{brand} hesabı {email} için kalıcı silme isteği yapıldı. Devam etmek için aşağıdaki bağlantıyı bu hesapla giriş yapmış olduğunuz bir tarayıcıda açın ve onaylayın.",
+      "consequences": "Bu hesapla giriş yaptığınız uygulamalar erişimini kaybeder ve hesap geri getirilemez.",
+      "button": "İncele ve sil",
+      "note": "Bağlantının süresi {minutes} dakika içinde dolar ve yalnızca bir kez çalışır.",
+      "footnote": "Bunu siz istemediyseniz bu e-postayı yok sayın: hesabınız olduğu gibi kalır. İstek, giriş yapılmış bir oturumdan geldiği için parolanızı değiştirmeyi düşünün."
     }
   }
 }

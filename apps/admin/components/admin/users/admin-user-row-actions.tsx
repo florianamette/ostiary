@@ -382,7 +382,8 @@ export function AdminUserRowActions({
             <DialogDescription>
               This permanently deletes{" "}
               <span className="font-medium text-foreground">{user.name}</span>{" "}
-              ({user.email}). This cannot be undone.
+              ({user.email}) and everything linked to the account. Audit log entries are kept
+              without their name or email. This cannot be undone.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>

@@ -396,7 +396,8 @@
       "apiKeys": "API-Schlüssel",
       "admin": "Admin",
       "marketingHome": "About",
-      "signOut": "Sign out"
+      "signOut": "Sign out",
+      "data": "Ihre Daten"
     },
     "profile": {
       "title": "Profile",
@@ -691,6 +692,66 @@
       "signOutOf": "Von {email} abmelden",
       "signOutAll": "Von allen Konten abmelden",
       "switchFailed": "Kontowechsel fehlgeschlagen. Versuchen Sie es erneut."
+    },
+    "data": {
+      "exportTitle": "Daten exportieren",
+      "exportDescription": "Laden Sie eine JSON-Datei mit allem herunter, was dieser Dienst über Ihr Konto speichert: Profil, Anmeldemethoden, Passkeys, Sitzungen, verbundene Apps, API-Schlüssel, Organisationen und Aktivitätsverlauf. Passwörter, Tokens, Schlüssel und Geheimnisse der Zwei-Faktor-Authentifizierung sind nie enthalten.",
+      "exportButton": "Meine Daten herunterladen",
+      "exportDone": "Ihre Daten wurden heruntergeladen.",
+      "exportErrors": {
+        "signedOut": "Ihre Sitzung ist abgelaufen. Melden Sie sich erneut an.",
+        "impersonating": "Daten können nicht exportiert werden, während Sie das Konto einer anderen Person ansehen.",
+        "recentSignIn": "Aus Sicherheitsgründen müssen Sie sich erneut anmelden, um Ihre Daten zu exportieren.",
+        "rateLimited": "Sie haben Ihre Daten in der letzten Stunde mehrmals exportiert. Versuchen Sie es später erneut.",
+        "failed": "Ihre Daten konnten nicht exportiert werden. Versuchen Sie es erneut."
+      },
+      "signInAgain": "Erneut anmelden",
+      "deleteTitle": "Konto löschen",
+      "deleteDescription": "Löschen Sie Ihr Konto und alles, was damit verknüpft ist, dauerhaft. Das kann nicht rückgängig gemacht werden.",
+      "deleteButton": "Mein Konto löschen",
+      "loadError": "Es konnte nicht geprüft werden, ob dieses Konto gelöscht werden kann.",
+      "blockers": {
+        "admin": {
+          "title": "Sie sind Administrator",
+          "body": "Bitten Sie zuerst einen anderen Administrator, Ihnen die Admin-Rolle zu entziehen. So bleibt der Dienst nie ohne Administrator, und die Änderung wird protokolliert."
+        },
+        "sole_owner": {
+          "title": "Sie sind der einzige Eigentümer einer Organisation",
+          "body": "Sie sind der einzige Eigentümer von {organizations}. Machen Sie ein anderes Mitglied zum Eigentümer oder bitten Sie einen Administrator, die Organisation zu löschen, und kommen Sie dann zurück."
+        },
+        "scim": {
+          "title": "Ihr Konto wird von Ihrer Organisation verwaltet",
+          "body": "Das Verzeichnis Ihres Unternehmens hat dieses Konto angelegt und würde es erneut anlegen. Bitten Sie stattdessen Ihren IT-Administrator, Sie aus dem Verzeichnis zu entfernen.",
+          "bodyNamed": "Das Verzeichnis von {organizations} hat dieses Konto angelegt und würde es erneut anlegen. Bitten Sie stattdessen Ihren IT-Administrator, Sie aus dem Verzeichnis zu entfernen."
+        }
+      },
+      "confirmTitle": "Konto löschen?",
+      "confirmDescription": "Das kann nicht rückgängig gemacht werden. Sobald Sie über die E-Mail bestätigen, die wir Ihnen senden:",
+      "consequences": {
+        "signIn": "Sie werden überall abgemeldet und können sich mit diesem Konto nicht mehr anmelden.",
+        "apps": "Apps, bei denen Sie sich mit diesem Konto angemeldet haben, verlieren sofort den Zugriff.",
+        "data": "Ihre Passkeys, Einstellungen zur Zwei-Faktor-Authentifizierung, API-Schlüssel und verknüpften Konten werden gelöscht, und Sie verlassen Ihre Organisationen.",
+        "records": "Aus Sicherheitsgründen aufbewahrte Einträge, etwa das Audit-Log, zeigen Ihren Namen und Ihre E-Mail-Adresse nicht mehr an."
+      },
+      "exportFirst": "Möchten Sie vorher eine Kopie? Laden Sie Ihre Daten herunter, bevor Sie fortfahren.",
+      "typeEmail": "Geben Sie zur Bestätigung {email} ein",
+      "password": "Passwort",
+      "noPassword": "Ihr Konto hat kein Passwort: Ihre kürzliche Anmeldung bestätigt, dass Sie es sind.",
+      "signInFirst": "Ihr Konto hat kein Passwort. Melden Sie sich daher zuerst erneut an, um zu bestätigen, dass Sie es sind.",
+      "sendLink": "Bestätigungslink per E-Mail senden",
+      "cancel": "Abbrechen",
+      "sentTitle": "Prüfen Sie Ihren Posteingang",
+      "sentBody": "Wir haben einen Link an {email} gesendet. Öffnen Sie ihn innerhalb von {minutes} Minuten in einem Browser, in dem Sie bei diesem Konto angemeldet sind, und bestätigen Sie die Löschung.",
+      "done": "Fertig",
+      "deleteErrors": {
+        "mismatch": "Die E-Mail-Adresse stimmt nicht mit diesem Konto überein.",
+        "password": "Geben Sie Ihr Passwort ein.",
+        "wrongPassword": "Das Passwort ist falsch.",
+        "recentSignIn": "Aus Sicherheitsgründen müssen Sie sich erneut anmelden, bevor Sie Ihr Konto löschen.",
+        "blocked": "Dieses Konto kann noch nicht gelöscht werden. Schließen Sie dieses Fenster, um den Grund zu sehen.",
+        "impersonating": "Ein Konto kann nicht gelöscht werden, während ein Administrator es ansieht.",
+        "failed": "Die Löschung konnte nicht gestartet werden. Versuchen Sie es erneut."
+      }
     }
   },
   "acceptInvitation": {
@@ -870,6 +931,25 @@
       "failed": "Etwas ist schiefgelaufen. Versuche es erneut."
     }
   },
+  "deleteAccount": {
+    "title": "Konto löschen",
+    "description": "Sie haben die Löschung des Kontos {email} angefordert. Nach Ihrer Bestätigung ist es endgültig gelöscht.",
+    "signedOut": "Melden Sie sich bei dem Konto an, das Sie löschen möchten, und öffnen Sie den Link dann erneut.",
+    "consequenceApps": "Apps, bei denen Sie sich damit angemeldet haben, verlieren sofort den Zugriff.",
+    "consequenceSignIn": "Sie werden überall abgemeldet und können sich damit nicht mehr anmelden.",
+    "consequenceUndo": "Das kann nicht rückgängig gemacht werden.",
+    "confirm": "Mein Konto endgültig löschen",
+    "keep": "Konto behalten",
+    "deletedTitle": "Ihr Konto wurde gelöscht",
+    "deletedBody": "Alles, was damit verknüpft war, wurde entfernt. Danke, dass Sie {brand} genutzt haben.",
+    "toSignIn": "Zur Anmeldung",
+    "errors": {
+      "missing": "Dieser Link ist unvollständig. Öffnen Sie den Link aus der E-Mail erneut oder beginnen Sie auf Ihrer Kontoseite von vorn.",
+      "invalid": "Dieser Link ist abgelaufen, wurde bereits verwendet oder wurde für ein anderes Konto gesendet. Prüfen Sie, ob Sie bei dem Konto angemeldet sind, das Sie löschen möchten, oder beginnen Sie auf Ihrer Kontoseite von vorn.",
+      "blocked": "Dieses Konto kann noch nicht gelöscht werden. Öffnen Sie Ihre Kontoseite, um zu sehen, was Sie zuerst tun müssen.",
+      "failed": "Das Konto konnte nicht gelöscht werden. Versuchen Sie es erneut."
+    }
+  },
   "captcha": {
     "label": "Sicherheitsprüfung",
     "required": "Schließen Sie zuerst die Sicherheitsprüfung ab.",
@@ -884,6 +964,16 @@
       "body": "Geben Sie diesen Code auf der {brand}-Anmeldeseite ein, um die Anmeldung abzuschließen.",
       "note": "Der Code läuft in {minutes} Minuten ab und funktioniert nur einmal.",
       "footnote": "Sie haben keinen Code angefordert? Ignorieren Sie diese E-Mail: Ohne den Code kann sich niemand anmelden. Geben Sie ihn niemals weiter."
+    },
+    "deleteAccount": {
+      "subject": "Bestätigen Sie die Löschung Ihres {brand}-Kontos",
+      "preheader": "Jemand hat die Löschung Ihres {brand}-Kontos angefordert. Ohne Ihre Bestätigung passiert nichts.",
+      "heading": "Konto löschen?",
+      "body": "Es wurde angefordert, das {brand}-Konto {email} dauerhaft zu löschen. Um fortzufahren, öffnen Sie den Link unten in einem Browser, in dem Sie bei diesem Konto angemeldet sind, und bestätigen Sie.",
+      "consequences": "Apps, bei denen Sie sich mit diesem Konto anmelden, verlieren den Zugriff, und das Konto kann nicht wiederhergestellt werden.",
+      "button": "Prüfen und löschen",
+      "note": "Der Link läuft in {minutes} Minuten ab und funktioniert nur einmal.",
+      "footnote": "Wenn Sie das nicht angefordert haben, ignorieren Sie diese E-Mail: Ihr Konto bleibt unverändert. Ändern Sie am besten Ihr Passwort, da die Anfrage aus einer angemeldeten Sitzung kam."
     }
   }
 }

@@ -396,7 +396,8 @@
       "apiKeys": "API-avaimet",
       "admin": "Admin",
       "marketingHome": "About",
-      "signOut": "Sign out"
+      "signOut": "Sign out",
+      "data": "Tietosi"
     },
     "profile": {
       "title": "Profile",
@@ -691,6 +692,66 @@
       "signOutOf": "Kirjaudu ulos tililtä {email}",
       "signOutAll": "Kirjaudu ulos kaikilta tileiltä",
       "switchFailed": "Tilin vaihto epäonnistui. Yritä uudelleen."
+    },
+    "data": {
+      "exportTitle": "Vie tietosi",
+      "exportDescription": "Lataa JSON-tiedosto, jossa on kaikki, mitä tämä palvelu tallentaa tilistäsi: profiili, kirjautumistavat, pääsyavaimet, istunnot, yhdistetyt sovellukset, API-avaimet, organisaatiot ja toimintahistoria. Salasanoja, tokeneita, avaimia tai kaksivaiheisen tunnistautumisen salaisuuksia ei koskaan sisällytetä.",
+      "exportButton": "Lataa tietoni",
+      "exportDone": "Tietosi on ladattu.",
+      "exportErrors": {
+        "signedOut": "Istuntosi on päättynyt. Kirjaudu uudelleen.",
+        "impersonating": "Tietoja ei voi viedä, kun tarkastelet jonkun toisen tiliä.",
+        "recentSignIn": "Turvallisuussyistä kirjaudu uudelleen, jotta voit viedä tietosi.",
+        "rateLimited": "Olet vienyt tietosi useita kertoja viimeisen tunnin aikana. Yritä myöhemmin uudelleen.",
+        "failed": "Tietojesi vienti epäonnistui. Yritä uudelleen."
+      },
+      "signInAgain": "Kirjaudu uudelleen",
+      "deleteTitle": "Poista tili",
+      "deleteDescription": "Poista tilisi ja kaikki siihen liittyvä pysyvästi. Tätä ei voi kumota.",
+      "deleteButton": "Poista tilini",
+      "loadError": "Ei voitu tarkistaa, voiko tämän tilin poistaa.",
+      "blockers": {
+        "admin": {
+          "title": "Olet ylläpitäjä",
+          "body": "Pyydä ensin toista ylläpitäjää poistamaan ylläpitäjän roolisi. Näin palvelu ei koskaan jää ilman ylläpitäjää, ja muutoksesta jää merkintä."
+        },
+        "sole_owner": {
+          "title": "Olet organisaation ainoa omistaja",
+          "body": "Olet ainoa omistaja organisaatiossa {organizations}. Tee toisesta jäsenestä omistaja tai pyydä ylläpitäjää poistamaan organisaatio, ja palaa sitten tänne."
+        },
+        "scim": {
+          "title": "Tiliäsi hallinnoi organisaatiosi",
+          "body": "Yrityksesi käyttäjähakemisto loi tämän tilin ja loisi sen uudelleen. Pyydä sen sijaan IT-ylläpitäjääsi poistamaan sinut hakemistosta.",
+          "bodyNamed": "Organisaation {organizations} käyttäjähakemisto loi tämän tilin ja loisi sen uudelleen. Pyydä sen sijaan IT-ylläpitäjääsi poistamaan sinut hakemistosta."
+        }
+      },
+      "confirmTitle": "Poistetaanko tilisi?",
+      "confirmDescription": "Tätä ei voi kumota. Kun vahvistat poiston lähettämämme sähköpostin kautta:",
+      "consequences": {
+        "signIn": "Sinut kirjataan ulos kaikkialta, etkä voi enää kirjautua tällä tilillä.",
+        "apps": "Sovellukset, joihin olet kirjautunut tällä tilillä, menettävät pääsyn heti.",
+        "data": "Pääsyavaimesi, kaksivaiheisen tunnistautumisen asetukset, API-avaimet ja linkitetyt tilit poistetaan, ja poistut organisaatioistasi.",
+        "records": "Turvallisuussyistä säilytettävissä tiedoissa, kuten tarkastuslokissa, ei enää näy nimeäsi tai sähköpostiosoitettasi."
+      },
+      "exportFirst": "Haluatko ensin kopion? Lataa tietosi ennen kuin jatkat.",
+      "typeEmail": "Vahvista kirjoittamalla {email}",
+      "password": "Salasana",
+      "noPassword": "Tililläsi ei ole salasanaa: tuore kirjautumisesi vahvistaa, että kyse on sinusta.",
+      "signInFirst": "Tililläsi ei ole salasanaa, joten kirjaudu ensin uudelleen vahvistaaksesi, että kyse on sinusta.",
+      "sendLink": "Lähetä vahvistuslinkki sähköpostiini",
+      "cancel": "Peruuta",
+      "sentTitle": "Tarkista sähköpostisi",
+      "sentBody": "Lähetimme linkin osoitteeseen {email}. Avaa se {minutes} minuutin kuluessa selaimessa, jossa olet kirjautunut tälle tilille, ja vahvista poisto.",
+      "done": "Valmis",
+      "deleteErrors": {
+        "mismatch": "Sähköpostiosoite ei vastaa tätä tiliä.",
+        "password": "Anna salasanasi.",
+        "wrongPassword": "Salasana on väärä.",
+        "recentSignIn": "Turvallisuussyistä kirjaudu uudelleen ennen kuin poistat tilisi.",
+        "blocked": "Tätä tiliä ei voi vielä poistaa. Sulje tämä ikkuna nähdäksesi syyn.",
+        "impersonating": "Tiliä ei voi poistaa, kun ylläpitäjä tarkastelee sitä.",
+        "failed": "Poistoa ei voitu aloittaa. Yritä uudelleen."
+      }
     }
   },
   "acceptInvitation": {
@@ -870,6 +931,25 @@
       "failed": "Jokin meni vikaan. Yritä uudelleen."
     }
   },
+  "deleteAccount": {
+    "title": "Poista tilisi",
+    "description": "Pyysit tilin {email} poistamista. Kun vahvistat, se poistuu lopullisesti.",
+    "signedOut": "Kirjaudu tilille, jonka haluat poistaa, ja avaa linkki sitten uudelleen.",
+    "consequenceApps": "Sovellukset, joihin olet kirjautunut sillä, menettävät pääsyn heti.",
+    "consequenceSignIn": "Sinut kirjataan ulos kaikkialta, etkä voi enää kirjautua sillä.",
+    "consequenceUndo": "Tätä ei voi kumota.",
+    "confirm": "Poista tilini pysyvästi",
+    "keep": "Säilytä tilini",
+    "deletedTitle": "Tilisi on poistettu",
+    "deletedBody": "Kaikki siihen liittyvä on poistettu. Kiitos, että käytit palvelua {brand}.",
+    "toSignIn": "Siirry kirjautumiseen",
+    "errors": {
+      "missing": "Tämä linkki on puutteellinen. Avaa sähköpostissa oleva linkki uudelleen tai aloita alusta tilisivultasi.",
+      "invalid": "Tämä linkki on vanhentunut, jo käytetty tai lähetetty toiselle tilille. Tarkista, että olet kirjautunut tilille, jonka haluat poistaa, tai aloita alusta tilisivultasi.",
+      "blocked": "Tätä tiliä ei voi vielä poistaa. Avaa tilisivusi nähdäksesi, mitä sinun pitää tehdä ensin.",
+      "failed": "Tilin poistaminen epäonnistui. Yritä uudelleen."
+    }
+  },
   "captcha": {
     "label": "Turvatarkistus",
     "required": "Suorita ensin turvatarkistus.",
@@ -884,6 +964,16 @@
       "body": "Viimeistele kirjautuminen syöttämällä tämä koodi {brand}-kirjautumissivulle.",
       "note": "Koodi vanhenee {minutes} minuutissa ja toimii vain kerran.",
       "footnote": "Etkö pyytänyt koodia? Voit ohittaa tämän viestin: kukaan ei voi kirjautua ilman koodia. Älä koskaan kerro sitä kenellekään."
+    },
+    "deleteAccount": {
+      "subject": "Vahvista {brand}-tilisi poistaminen",
+      "preheader": "Joku pyysi {brand}-tilisi poistamista. Mitään ei tapahdu ennen kuin vahvistat.",
+      "heading": "Poistetaanko tilisi?",
+      "body": "{brand}-tilin {email} pysyvää poistamista on pyydetty. Jos haluat jatkaa, avaa alla oleva linkki selaimessa, jossa olet kirjautunut tälle tilille, ja vahvista.",
+      "consequences": "Sovellukset, joihin kirjaudut tällä tilillä, menettävät pääsyn, eikä tiliä voi palauttaa.",
+      "button": "Tarkista ja poista",
+      "note": "Linkki vanhenee {minutes} minuutissa ja toimii vain kerran.",
+      "footnote": "Etkö pyytänyt tätä? Voit ohittaa tämän viestin: tilisi pysyy ennallaan. Harkitse salasanasi vaihtamista, sillä pyyntö tuli kirjautuneesta istunnosta."
     }
   }
 }

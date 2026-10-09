@@ -18,6 +18,7 @@ overrides:
 
 catalog:
   "@better-auth/api-key": "1.7.7"
+  "@electric-sql/pglite": "0.3.15"
   "@better-auth/cimd": "1.7.7"
   "@better-auth/core": "1.7.7"
   "@better-auth/drizzle-adapter": "1.7.7"

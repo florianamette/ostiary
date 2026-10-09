@@ -4,6 +4,7 @@ import { getTranslations } from "next-intl/server";
 import { DashboardAccountSummary } from "@/components/dashboard/dashboard-account-summary";
 import { DashboardApiKeysSection } from "@/components/dashboard/dashboard-api-keys-section";
 import { DashboardAppsSection } from "@/components/dashboard/dashboard-apps-section";
+import { DashboardDataSection } from "@/components/dashboard/dashboard-data-section";
 import { DashboardOrganizationsSection } from "@/components/dashboard/dashboard-organizations-section";
 import { DashboardProfileSection } from "@/components/dashboard/dashboard-profile-section";
 import { DashboardSecuritySection } from "@/components/dashboard/dashboard-security-section";
@@ -56,6 +57,7 @@ export default async function DashboardPage({
         />
         <DashboardAppsSection />
         {showApiKeys ? <DashboardApiKeysSection /> : null}
+        <DashboardDataSection />
       </div>
     </div>
   );
