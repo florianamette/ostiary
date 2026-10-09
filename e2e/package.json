@@ -1,0 +1,21 @@
+{
+  "name": "@ostiary/e2e",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "db:setup": "node scripts/with-env.mjs pnpm --dir .. db:migrate",
+    "build:apps": "node scripts/with-env.mjs pnpm --dir .. --filter @ostiary/auth --filter @ostiary/admin build",
+    "test:e2e": "playwright test",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0",
+    "@types/node": "catalog:",
+    "@types/pg": "catalog:",
+    "dotenv": "catalog:",
+    "jose": "6.2.12",
+    "pg": "catalog:",
+    "typescript": "catalog:"
+  }
+}

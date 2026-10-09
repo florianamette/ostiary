@@ -47,6 +47,7 @@ import { brand } from "@ostiary/core/lib/brand";
 import { PUBLIC_ORGANIZATION_ID } from "@ostiary/core/lib/organization-public";
 import { getPasskeyWebAuthnOptions } from "@ostiary/core/lib/passkey-options";
 import { env } from "@ostiary/core/lib/env";
+import { e2eTestMode } from "@ostiary/core/lib/e2e-test-mode";
 import { ipAddressOptions, rateLimitOptions } from "@ostiary/core/lib/rate-limit";
 import { ENV_API_SCOPES, OIDC_SCOPES, syncProviderScopes } from "@ostiary/core/lib/oauth-scopes";
 import { syncSigningKeys } from "@ostiary/core/lib/signing-keys";
@@ -699,7 +700,8 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
                 },
             }),
             username(),
-            haveIBeenPwned(),
+            // Skipped in end-to-end tests only (an external HTTP call), see lib/e2e-test-mode.ts.
+            haveIBeenPwned({ enabled: !e2eTestMode() }),
             // Authenticator app (TOTP) and backup codes. The second step applies to password
             // sign-ins (email or username) and emailed sign-in codes. Passkeys are already two factors; social and SSO
             // sign-ins rely on the identity provider's own checks. Must come before the OAuth
