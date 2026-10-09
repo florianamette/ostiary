@@ -31,6 +31,7 @@ import {
   member,
   organization,
   passkey,
+  scimUser,
   session,
   user,
 } from "@ostiary/core/db/schema";
@@ -92,7 +93,7 @@ export default async function AdminUserPage({
   const [u] = await db.select().from(user).where(eq(user.id, id));
   if (!u) notFound();
 
-  const [sessions, accounts, passkeys, memberships, events, audits, apiKeys] = await Promise.all([
+  const [sessions, accounts, passkeys, memberships, events, audits, apiKeys, directories] = await Promise.all([
     db.select().from(session).where(and(eq(session.userId, id), gt(session.expiresAt, new Date()))).orderBy(desc(session.updatedAt)),
     db.select({ id: account.id, providerId: account.providerId, createdAt: account.createdAt }).from(account).where(eq(account.userId, id)),
     db.select({ id: passkey.id, name: passkey.name, deviceType: passkey.deviceType, createdAt: passkey.createdAt }).from(passkey).where(eq(passkey.userId, id)),
@@ -109,6 +110,11 @@ export default async function AdminUserPage({
       .limit(15),
     db.select().from(auditLog).where(and(eq(auditLog.targetType, "user"), eq(auditLog.targetId, id))).orderBy(desc(auditLog.createdAt)).limit(15),
     listUserApiKeys(id),
+    db
+      .select({ orgId: organization.id, orgName: organization.name, active: scimUser.active })
+      .from(scimUser)
+      .innerJoin(organization, eq(organization.id, scimUser.provisioningDomainId))
+      .where(eq(scimUser.userId, id)),
   ]);
 
   const roles = (u.role ?? "user").split(",").map((r) => r.trim()).filter(Boolean);
@@ -137,6 +143,17 @@ export default async function AdminUserPage({
           />
         }
       />
+
+      {directories.length ? (
+        <div className="rounded-lg border border-amber-500/40 bg-amber-500/10 p-4 text-sm" role="note">
+          <p className="font-medium">Provisioned by SCIM: {directories.map((d) => d.orgName).join(", ")}</p>
+          <p className="mt-1 text-muted-foreground">
+            The identity provider manages this account. Remove the user there: deleting the account here
+            does not stop the directory from creating it again on its next sync. The user cannot delete
+            the account from their dashboard.
+          </p>
+        </div>
+      ) : null}
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {[

@@ -28,6 +28,8 @@ export const RATE_LIMIT_RULES = {
     // Each sends an email to any address: limit what one IP can send to someone's inbox.
     "/request-password-reset": { window: 600, max: 5 },
     "/send-verification-email": { window: 600, max: 5 },
+    // Account deletion: checks a password, then emails a confirmation link.
+    "/delete-user": { window: 600, max: 5 },
     // Second step of a sign-in. Six-digit codes and backup codes; the account itself also
     // locks after repeated wrong codes (two-factor plugin).
     "/two-factor/verify-totp": { window: 60, max: 5 },

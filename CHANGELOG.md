@@ -8,6 +8,25 @@ All notable changes are documented here. The format follows
 
 ### Added
 
+- **Your data: export and account deletion** (GDPR access, portability and erasure). A new
+  **Your data** section on the dashboard. **Download my data** returns one JSON file with the
+  profile, sign-in methods, passkeys, two-factor status, sessions, connected apps with consents
+  and token history, API keys, organizations, invitations, SSO and SCIM records, audit log
+  entries and sign-in events, and never a secret (no password hash, token, provider token,
+  two-factor secret, backup code, passkey key or API key); it needs a recent sign-in, is
+  limited to 3 an hour and is audited. Admins get **Export data** on the user's page.
+  **Delete my account** asks for the email address and the password (or a recent sign-in),
+  then emails a link (in the user's language) to a confirmation page; Better Auth's GET
+  callback is closed. Refused for admins (another admin demotes them first), the only owner of
+  an organization, accounts provisioned by SCIM, and during impersonation. Every deletion,
+  self-service or by an admin, also erases what foreign keys leave: audit log entries are kept
+  with the person's email, name and IPs replaced, sign-in events lose IP and identifier,
+  pending codes, invitations to the address and impersonation sessions are deleted, sent
+  webhook payloads are redacted, and console-registered apps and SSO providers are detached
+  instead of being deleted with their admin. `organization.member.removed` webhooks are sent
+  for the memberships that go with the account. Mapping of every table in the README. No
+  migration.
+
 - **Sign-in branding per application.** When people arrive from an app, the login, sign-up,
   two-factor, email-code, password reset, consent, select-account and device screens say
   "Sign in to continue to <app>" with its logo, tagline and accent color, and the side panel

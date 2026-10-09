@@ -396,7 +396,8 @@
       "apiKeys": "Claves de API",
       "admin": "Admin",
       "marketingHome": "About",
-      "signOut": "Sign out"
+      "signOut": "Sign out",
+      "data": "Tus datos"
     },
     "profile": {
       "title": "Profile",
@@ -691,6 +692,66 @@
       "signOutOf": "Cerrar sesión de {email}",
       "signOutAll": "Cerrar sesión en todas las cuentas",
       "switchFailed": "No se pudo cambiar de cuenta. Inténtalo de nuevo."
+    },
+    "data": {
+      "exportTitle": "Exportar tus datos",
+      "exportDescription": "Descarga un archivo JSON con todo lo que este servicio guarda sobre tu cuenta: perfil, métodos de inicio de sesión, llaves de acceso, sesiones, aplicaciones conectadas, claves de API, organizaciones e historial de actividad. Nunca se incluyen contraseñas, tokens, claves ni secretos de la autenticación en dos pasos.",
+      "exportButton": "Descargar mis datos",
+      "exportDone": "Tus datos se han descargado.",
+      "exportErrors": {
+        "signedOut": "Tu sesión ha terminado. Vuelve a iniciar sesión.",
+        "impersonating": "No se pueden exportar datos mientras ves la cuenta de otra persona.",
+        "recentSignIn": "Por seguridad, vuelve a iniciar sesión para exportar tus datos.",
+        "rateLimited": "Has exportado tus datos varias veces en la última hora. Inténtalo más tarde.",
+        "failed": "No se han podido exportar tus datos. Inténtalo de nuevo."
+      },
+      "signInAgain": "Volver a iniciar sesión",
+      "deleteTitle": "Eliminar cuenta",
+      "deleteDescription": "Elimina de forma permanente tu cuenta y todo lo vinculado a ella. No se puede deshacer.",
+      "deleteButton": "Eliminar mi cuenta",
+      "loadError": "No se ha podido comprobar si esta cuenta se puede eliminar.",
+      "blockers": {
+        "admin": {
+          "title": "Eres administrador",
+          "body": "Primero pide a otro administrador que te quite el rol de administrador. Así el servicio nunca se queda sin administrador y el cambio queda registrado."
+        },
+        "sole_owner": {
+          "title": "Eres el único propietario de una organización",
+          "body": "Eres el único propietario de {organizations}. Haz propietario a otro miembro o pide a un administrador que elimine la organización, y luego vuelve."
+        },
+        "scim": {
+          "title": "Tu organización gestiona tu cuenta",
+          "body": "El directorio de tu empresa creó esta cuenta y la volvería a crear. Pide a tu administrador de TI que te quite del directorio.",
+          "bodyNamed": "El directorio de {organizations} creó esta cuenta y la volvería a crear. Pide a tu administrador de TI que te quite del directorio."
+        }
+      },
+      "confirmTitle": "¿Eliminar tu cuenta?",
+      "confirmDescription": "No se puede deshacer. Cuando lo confirmes desde el correo que te enviaremos:",
+      "consequences": {
+        "signIn": "Se cerrará tu sesión en todas partes y ya no podrás iniciar sesión con esta cuenta.",
+        "apps": "Las aplicaciones en las que iniciaste sesión con esta cuenta pierden el acceso de inmediato.",
+        "data": "Se eliminan tus llaves de acceso, la configuración de la autenticación en dos pasos, tus claves de API y tus cuentas vinculadas, y sales de tus organizaciones.",
+        "records": "Los registros que se conservan por seguridad, como el registro de auditoría, ya no muestran tu nombre ni tu dirección de correo."
+      },
+      "exportFirst": "¿Quieres una copia antes? Descarga tus datos antes de continuar.",
+      "typeEmail": "Escribe {email} para confirmar",
+      "password": "Contraseña",
+      "noPassword": "Tu cuenta no tiene contraseña: tu inicio de sesión reciente confirma que eres tú.",
+      "signInFirst": "Tu cuenta no tiene contraseña, así que primero vuelve a iniciar sesión para confirmar que eres tú.",
+      "sendLink": "Enviarme el enlace de confirmación",
+      "cancel": "Cancelar",
+      "sentTitle": "Revisa tu correo",
+      "sentBody": "Hemos enviado un enlace a {email}. Ábrelo en los próximos {minutes} minutos, en un navegador donde hayas iniciado sesión con esta cuenta, y confirma para eliminarla.",
+      "done": "Listo",
+      "deleteErrors": {
+        "mismatch": "La dirección de correo no coincide con esta cuenta.",
+        "password": "Introduce tu contraseña.",
+        "wrongPassword": "La contraseña no es correcta.",
+        "recentSignIn": "Por seguridad, vuelve a iniciar sesión antes de eliminar tu cuenta.",
+        "blocked": "Esta cuenta aún no se puede eliminar. Cierra esta ventana para ver el motivo.",
+        "impersonating": "No se puede eliminar una cuenta mientras un administrador la está viendo.",
+        "failed": "No se ha podido iniciar la eliminación. Inténtalo de nuevo."
+      }
     }
   },
   "acceptInvitation": {
@@ -870,6 +931,25 @@
       "failed": "Algo salió mal. Inténtalo de nuevo."
     }
   },
+  "deleteAccount": {
+    "title": "Eliminar tu cuenta",
+    "description": "Has pedido eliminar la cuenta {email}. Cuando lo confirmes, se eliminará para siempre.",
+    "signedOut": "Inicia sesión con la cuenta que quieres eliminar y vuelve a abrir el enlace.",
+    "consequenceApps": "Las aplicaciones en las que iniciaste sesión con ella pierden el acceso de inmediato.",
+    "consequenceSignIn": "Se cerrará tu sesión en todas partes y no podrás volver a iniciar sesión con ella.",
+    "consequenceUndo": "No se puede deshacer.",
+    "confirm": "Eliminar mi cuenta para siempre",
+    "keep": "Conservar mi cuenta",
+    "deletedTitle": "Tu cuenta se ha eliminado",
+    "deletedBody": "Se ha eliminado todo lo vinculado a ella. Gracias por usar {brand}.",
+    "toSignIn": "Ir al inicio de sesión",
+    "errors": {
+      "missing": "Este enlace está incompleto. Vuelve a abrir el enlace del correo o empieza de nuevo desde la página de tu cuenta.",
+      "invalid": "Este enlace ha caducado, ya se ha usado o se envió a otra cuenta. Comprueba que has iniciado sesión con la cuenta que quieres eliminar o empieza de nuevo desde la página de tu cuenta.",
+      "blocked": "Esta cuenta aún no se puede eliminar. Abre la página de tu cuenta para ver qué hacer primero.",
+      "failed": "No se ha podido eliminar la cuenta. Inténtalo de nuevo."
+    }
+  },
   "captcha": {
     "label": "Verificación de seguridad",
     "required": "Completa primero la verificación de seguridad.",
@@ -884,6 +964,16 @@
       "body": "Introduce este código en la página de inicio de sesión de {brand} para terminar de iniciar sesión.",
       "note": "El código caduca en {minutes} minutos y solo funciona una vez.",
       "footnote": "¿No has pedido un código? Ignora este correo: nadie puede iniciar sesión sin él. No lo compartas nunca con nadie."
+    },
+    "deleteAccount": {
+      "subject": "Confirma la eliminación de tu cuenta de {brand}",
+      "preheader": "Alguien ha pedido eliminar tu cuenta de {brand}. No pasará nada hasta que lo confirmes.",
+      "heading": "¿Eliminar tu cuenta?",
+      "body": "Se ha solicitado eliminar de forma permanente la cuenta de {brand} {email}. Para continuar, abre el enlace de abajo en un navegador donde hayas iniciado sesión con esta cuenta y confirma.",
+      "consequences": "Las aplicaciones en las que inicias sesión con esta cuenta perderán el acceso y la cuenta no se podrá recuperar.",
+      "button": "Revisar y eliminar",
+      "note": "El enlace caduca en {minutes} minutos y solo funciona una vez.",
+      "footnote": "Si no lo has pedido tú, ignora este correo: tu cuenta se queda como está. Te recomendamos cambiar tu contraseña, ya que la solicitud vino de una sesión iniciada."
     }
   }
 }

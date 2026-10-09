@@ -32,6 +32,8 @@ export const AUDIT_ACTION_LABELS: Record<string, string> = {
   "user.revoke_all_sessions": "Signed user out everywhere",
   "user.impersonate": "Impersonated user",
   "user.reset_two_factor": "Reset two-factor authentication",
+  "user.export_data": "Exported account data",
+  "user.self_delete": "Deleted their own account",
   "oauth_client.create": "Registered OAuth client",
   "oauth_client.update": "Updated OAuth client",
   "oauth_client.delete": "Deleted OAuth client",

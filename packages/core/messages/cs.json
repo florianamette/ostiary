@@ -396,7 +396,8 @@
       "apiKeys": "API klíče",
       "admin": "Admin",
       "marketingHome": "About",
-      "signOut": "Sign out"
+      "signOut": "Sign out",
+      "data": "Vaše data"
     },
     "profile": {
       "title": "Profile",
@@ -691,6 +692,66 @@
       "signOutOf": "Odhlásit {email}",
       "signOutAll": "Odhlásit všechny účty",
       "switchFailed": "Účet se nepodařilo přepnout. Zkuste to znovu."
+    },
+    "data": {
+      "exportTitle": "Export vašich dat",
+      "exportDescription": "Stáhněte si soubor JSON se vším, co tato služba o vašem účtu uchovává: profil, způsoby přihlášení, přístupové klíče, relace, připojené aplikace, API klíče, organizace a historii aktivit. Hesla, tokeny, klíče a tajné klíče dvoufázového ověření nejsou nikdy zahrnuty.",
+      "exportButton": "Stáhnout moje data",
+      "exportDone": "Vaše data byla stažena.",
+      "exportErrors": {
+        "signedOut": "Vaše relace skončila. Přihlaste se znovu.",
+        "impersonating": "Při prohlížení cizího účtu nelze data exportovat.",
+        "recentSignIn": "Z bezpečnostních důvodů se před exportem dat přihlaste znovu.",
+        "rateLimited": "Za poslední hodinu jste svá data exportovali už několikrát. Zkuste to později.",
+        "failed": "Data se nepodařilo exportovat. Zkuste to znovu."
+      },
+      "signInAgain": "Přihlásit se znovu",
+      "deleteTitle": "Smazat účet",
+      "deleteDescription": "Trvale smažte svůj účet a vše, co je s ním propojené. Tuto akci nelze vrátit zpět.",
+      "deleteButton": "Smazat můj účet",
+      "loadError": "Nepodařilo se ověřit, zda lze tento účet smazat.",
+      "blockers": {
+        "admin": {
+          "title": "Jste správce",
+          "body": "Nejprve požádejte jiného správce, aby vám odebral roli správce. Služba tak nikdy nezůstane bez správce a změna bude zaznamenána."
+        },
+        "sole_owner": {
+          "title": "Jste jediným vlastníkem organizace",
+          "body": "Jste jediným vlastníkem: {organizations}. Udělejte vlastníkem jiného člena nebo požádejte správce o smazání organizace a pak se sem vraťte."
+        },
+        "scim": {
+          "title": "Váš účet spravuje vaše organizace",
+          "body": "Tento účet vytvořil firemní adresář a vytvořil by ho znovu. Požádejte raději svého IT správce, aby vás z adresáře odebral.",
+          "bodyNamed": "Tento účet vytvořil adresář organizace {organizations} a vytvořil by ho znovu. Požádejte raději svého IT správce, aby vás z adresáře odebral."
+        }
+      },
+      "confirmTitle": "Smazat váš účet?",
+      "confirmDescription": "Tuto akci nelze vrátit zpět. Jakmile ji potvrdíte v e-mailu, který vám pošleme:",
+      "consequences": {
+        "signIn": "Budete všude odhlášeni a k tomuto účtu se už nepřihlásíte.",
+        "apps": "Aplikace, do kterých se tímto účtem přihlašujete, okamžitě ztratí přístup.",
+        "data": "Vaše přístupové klíče, nastavení dvoufázového ověření, API klíče a propojené účty budou smazány a opustíte své organizace.",
+        "records": "Záznamy uchovávané kvůli zabezpečení, například protokol auditu, už nebudou zobrazovat vaše jméno ani e-mailovou adresu."
+      },
+      "exportFirst": "Chcete si nejdřív uložit kopii? Před pokračováním si stáhněte svá data.",
+      "typeEmail": "Pro potvrzení zadejte {email}",
+      "password": "Heslo",
+      "noPassword": "Váš účet nemá heslo: vaše nedávné přihlášení potvrzuje, že jste to vy.",
+      "signInFirst": "Váš účet nemá heslo, proto se nejprve znovu přihlaste a potvrďte, že jste to vy.",
+      "sendLink": "Poslat potvrzovací odkaz e-mailem",
+      "cancel": "Zrušit",
+      "sentTitle": "Zkontrolujte svou schránku",
+      "sentBody": "Poslali jsme odkaz na {email}. Otevřete ho do {minutes} minut v prohlížeči, ve kterém jste k tomuto účtu přihlášeni, a smazání potvrďte.",
+      "done": "Hotovo",
+      "deleteErrors": {
+        "mismatch": "E-mailová adresa neodpovídá tomuto účtu.",
+        "password": "Zadejte heslo.",
+        "wrongPassword": "Heslo není správné.",
+        "recentSignIn": "Z bezpečnostních důvodů se před smazáním účtu přihlaste znovu.",
+        "blocked": "Tento účet zatím nelze smazat. Zavřete toto okno a uvidíte proč.",
+        "impersonating": "Účet nelze smazat, když si ho prohlíží správce.",
+        "failed": "Mazání se nepodařilo zahájit. Zkuste to znovu."
+      }
     }
   },
   "acceptInvitation": {
@@ -870,6 +931,25 @@
       "failed": "Něco se pokazilo. Zkuste to znovu."
     }
   },
+  "deleteAccount": {
+    "title": "Smazat váš účet",
+    "description": "Požádali jste o smazání účtu {email}. Po potvrzení bude nenávratně pryč.",
+    "signedOut": "Přihlaste se k účtu, který chcete smazat, a pak odkaz otevřete znovu.",
+    "consequenceApps": "Aplikace, do kterých se tímto účtem přihlašujete, okamžitě ztratí přístup.",
+    "consequenceSignIn": "Budete všude odhlášeni a už se k němu nepřihlásíte.",
+    "consequenceUndo": "Tuto akci nelze vrátit zpět.",
+    "confirm": "Trvale smazat můj účet",
+    "keep": "Ponechat můj účet",
+    "deletedTitle": "Váš účet byl smazán",
+    "deletedBody": "Vše, co s ním bylo propojené, bylo odstraněno. Děkujeme, že jste používali {brand}.",
+    "toSignIn": "Přejít na přihlášení",
+    "errors": {
+      "missing": "Tento odkaz je neúplný. Otevřete znovu odkaz z e-mailu nebo začněte znovu na stránce svého účtu.",
+      "invalid": "Platnost tohoto odkazu vypršela, odkaz už byl použit nebo byl poslán k jinému účtu. Zkontrolujte, že jste přihlášeni k účtu, který chcete smazat, nebo začněte znovu na stránce svého účtu.",
+      "blocked": "Tento účet zatím nelze smazat. Na stránce svého účtu zjistíte, co je potřeba udělat nejdřív.",
+      "failed": "Účet se nepodařilo smazat. Zkuste to znovu."
+    }
+  },
   "captcha": {
     "label": "Bezpečnostní kontrola",
     "required": "Nejprve dokončete bezpečnostní kontrolu.",
@@ -884,6 +964,16 @@
       "body": "Zadejte tento kód na přihlašovací stránce {brand} a dokončete přihlášení.",
       "note": "Platnost kódu vyprší za {minutes} minut a lze ho použít jen jednou.",
       "footnote": "Nežádali jste o kód? Tento e-mail ignorujte: bez kódu se nikdo nepřihlásí. Nikdy ho nikomu nesdělujte."
+    },
+    "deleteAccount": {
+      "subject": "Potvrďte smazání svého účtu {brand}",
+      "preheader": "Někdo požádal o smazání vašeho účtu {brand}. Dokud to nepotvrdíte, nic se nestane.",
+      "heading": "Smazat váš účet?",
+      "body": "Byla podána žádost o trvalé smazání účtu {brand} {email}. Chcete-li pokračovat, otevřete níže uvedený odkaz v prohlížeči, ve kterém jste k tomuto účtu přihlášeni, a potvrďte to.",
+      "consequences": "Aplikace, do kterých se tímto účtem přihlašujete, ztratí přístup a účet nebude možné obnovit.",
+      "button": "Zkontrolovat a smazat",
+      "note": "Platnost odkazu vyprší za {minutes} minut a lze ho použít jen jednou.",
+      "footnote": "Pokud jste o to nežádali, tento e-mail ignorujte: váš účet zůstane beze změny. Zvažte změnu hesla, protože žádost přišla z přihlášené relace."
     }
   }
 }

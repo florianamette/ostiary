@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Loader2, LogOutIcon, UserRoundSearch } from "lucide-react";
+import { DownloadIcon, Loader2, LogOutIcon, UserRoundSearch } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
 import { toast } from "sonner";
@@ -18,6 +18,7 @@ import {
 } from "@ostiary/core/components/ui/dialog";
 import { authClient } from "@/lib/auth-client";
 import {
+  exportUserData,
   resetUserTwoFactor,
   revokeAllUserSessions,
   revokeUserSession,
@@ -79,8 +80,34 @@ export function AdminUserDetailActions({
     }
   }
 
+  async function exportData() {
+    setBusy(true);
+    try {
+      const result = await exportUserData(user.id).catch(() => ({ ok: false as const }));
+      if (!result.ok) {
+        toast.error("Could not export this user's data.");
+        return;
+      }
+      const url = URL.createObjectURL(new Blob([result.json], { type: "application/json" }));
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = result.fileName;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 10_000);
+      toast.success("Data exported. The export is recorded in the audit log.");
+    } finally {
+      setBusy(false);
+    }
+  }
+
   return (
     <>
+      <Button type="button" variant="outline" size="sm" disabled={busy} onClick={() => void exportData()}>
+        <DownloadIcon className="size-4" aria-hidden />
+        Export data
+      </Button>
       {isSelf ? null : (
         <>
           <Button type="button" variant="outline" size="sm" onClick={() => setConfirm("impersonate")} disabled={Boolean(user.banned)}>
