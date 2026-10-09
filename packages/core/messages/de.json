@@ -177,7 +177,8 @@
       "otherProviders": "Weitere Anmeldemöglichkeiten",
       "error": "Could not sign in with that account. Try again or use another method.",
       "notLinked": "That account isn't connected to a {name} account yet. Sign in another way, then connect it from your security settings.",
-      "noEmail": "Dieses Konto hat keine E-Mail-Adresse übermittelt. Versuche es später erneut oder melde dich anders an."
+      "noEmail": "Dieses Konto hat keine E-Mail-Adresse übermittelt. Versuche es später erneut oder melde dich anders an.",
+      "signUpDisabled": "Für diese Adresse gibt es noch kein Konto, und mit dieser Anmeldemethode kann keines erstellt werden. Melde dich auf andere Weise an."
     }
   },
   "consent": {

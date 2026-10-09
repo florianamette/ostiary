@@ -71,6 +71,13 @@
       "when": 1791551458818,
       "tag": "0009_app_icons",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1791555498111,
+      "tag": "0010_google_one_tap",
+      "breakpoints": true
     }
   ]
 }

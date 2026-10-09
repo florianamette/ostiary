@@ -177,7 +177,8 @@
       "otherProviders": "다른 로그인 방법",
       "error": "Could not sign in with that account. Try again or use another method.",
       "notLinked": "That account isn't connected to a {name} account yet. Sign in another way, then connect it from your security settings.",
-      "noEmail": "이 계정에서 이메일 주소를 공유하지 않았습니다. 나중에 다시 시도하거나 다른 방법으로 로그인하세요."
+      "noEmail": "이 계정에서 이메일 주소를 공유하지 않았습니다. 나중에 다시 시도하거나 다른 방법으로 로그인하세요.",
+      "signUpDisabled": "이 주소로 된 계정이 아직 없으며 이 로그인 방법으로는 계정을 만들 수 없습니다. 다른 방법으로 로그인하세요."
     }
   },
   "consent": {

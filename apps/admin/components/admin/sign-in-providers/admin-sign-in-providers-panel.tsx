@@ -36,6 +36,8 @@ export type SignInProviderRow = {
   enabled: boolean;
   position: number;
   allowSignUp: boolean;
+  /** Google only: Google One Tap on the sign-in and sign-up pages. */
+  oneTap: boolean;
   config: Record<string, string>;
   secretsSet: string[];
   secretsUnreadable: boolean;
@@ -102,6 +104,15 @@ function CopyField({ id, value }: { id: string; value: string }) {
       </Button>
     </div>
   );
+}
+
+/** The auth app's origin, as Google's "Authorized JavaScript origins" wants it. */
+function authAppOrigin(authAppUrl: string): string {
+  try {
+    return new URL(authAppUrl).origin;
+  } catch {
+    return "the sign-in app's address";
+  }
 }
 
 function StatusBadge({ row }: { row: SignInProviderRow }) {
@@ -184,6 +195,7 @@ export function AdminSignInProvidersPanel({
                       {row.source === "environment" ? "Set by environment variables" : null}
                       {row.source !== "environment" && !row.allowSignUp ? "Existing accounts only" : null}
                       {row.source !== "environment" && row.allowSignUp ? `${row.linkedAccounts} connected account${row.linkedAccounts === 1 ? "" : "s"}` : null}
+                      {row.oneTap ? " · One Tap" : null}
                     </p>
                   </div>
                   <div className="flex shrink-0 items-center gap-1">
@@ -294,6 +306,7 @@ function ProviderDialog({
   const [secrets, setSecrets] = React.useState<Record<string, string | null>>({});
   const [enabled, setEnabled] = React.useState(row ? row.enabled || row.source === null : false);
   const [allowSignUp, setAllowSignUp] = React.useState(row?.allowSignUp ?? true);
+  const [oneTap, setOneTap] = React.useState(row?.oneTap ?? false);
   const [saving, setSaving] = React.useState(false);
   const [confirmRemove, setConfirmRemove] = React.useState(false);
 
@@ -306,7 +319,7 @@ function ProviderDialog({
     if (!row) return;
     setSaving(true);
     try {
-      const res = await saveProvider(row.id, { enabled, allowSignUp, config, secrets });
+      const res = await saveProvider(row.id, { enabled, allowSignUp, oneTap, config, secrets });
       if (!res.ok) {
         toast.error(res.error);
         return;
@@ -515,6 +528,18 @@ function ProviderDialog({
                     hint="Off: only people who already have an account can sign in with it (connected from their dashboard, or with the same verified email)."
                   />
                 </Field>
+                {row.id === "google" ? (
+                  <Field>
+                    <CheckboxField
+                      id={fieldId("oneTap")}
+                      checked={oneTap}
+                      onChange={setOneTap}
+                      disabled={saving}
+                      label="Show Google One Tap"
+                      hint={`Google's own sign-in prompt, at the top of the sign-in and sign-up pages, for people already signed in to Google in their browser. Uses this client ID: add ${authAppOrigin(authAppUrl)} to its Authorized JavaScript origins in the Google Cloud console. Only while Google is on.`}
+                    />
+                  </Field>
+                ) : null}
                 <Field>
                   <CheckboxField
                     id={fieldId("enabled")}

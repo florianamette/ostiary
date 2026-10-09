@@ -39,7 +39,13 @@ export async function saveProvider(id: string, input: SocialProviderInput): Prom
   );
   const result = await saveSocialProvider(
     id,
-    { enabled: Boolean(input.enabled), allowSignUp: input.allowSignUp !== false, config: strings(input.config), secrets },
+    {
+      enabled: Boolean(input.enabled),
+      allowSignUp: input.allowSignUp !== false,
+      oneTap: input.oneTap === true,
+      config: strings(input.config),
+      secrets,
+    },
     session.user.id,
   );
   if (!result.ok) return result;
