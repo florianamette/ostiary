@@ -3,6 +3,7 @@
 import * as React from "react";
 import { ArrowDown, ArrowUp, Check, Copy, ExternalLink, Loader2, Search, Settings2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 
 import { SocialProviderIcon } from "@ostiary/core/components/brand/social-provider-icon";
@@ -84,6 +85,7 @@ function CheckboxField({
 }
 
 function CopyField({ id, value }: { id: string; value: string }) {
+  const t = useTranslations("admin.pages.signInProviders.panel");
   const [copied, setCopied] = React.useState(false);
   return (
     <div className="flex gap-2">
@@ -92,7 +94,7 @@ function CopyField({ id, value }: { id: string; value: string }) {
         type="button"
         variant="outline"
         size="icon"
-        aria-label="Copy the callback URL"
+        aria-label={t("copyCallback")}
         onClick={() => {
           void navigator.clipboard.writeText(value).then(() => {
             setCopied(true);
@@ -106,19 +108,33 @@ function CopyField({ id, value }: { id: string; value: string }) {
   );
 }
 
-/** The auth app's origin, as Google's "Authorized JavaScript origins" wants it. */
-function authAppOrigin(authAppUrl: string): string {
+/** The auth app's origin, as Google's "Authorized JavaScript origins" wants it (null if unknown). */
+function authAppOrigin(authAppUrl: string): string | null {
   try {
     return new URL(authAppUrl).origin;
   } catch {
-    return "the sign-in app's address";
+    return null;
   }
 }
 
+/**
+ * A provider's text from SOCIAL_PROVIDER_META (field labels and hints, notes), translated
+ * under admin.pages.signInProviders.providers, else the English from the meta.
+ */
+function useProviderText() {
+  const t = useTranslations("admin.pages.signInProviders.providers");
+  return React.useCallback(
+    (key: string, fallback: string) => (t.has(key) ? t(key) : fallback),
+    [t],
+  );
+}
+
 function StatusBadge({ row }: { row: SignInProviderRow }) {
-  if (row.source === "environment") return <Badge variant="secondary">Environment</Badge>;
-  if (row.enabled) return <Badge>On</Badge>;
-  if (row.source === "database") return <Badge variant="outline" className="font-normal">Off</Badge>;
+  const t = useTranslations("admin.pages.signInProviders.panel");
+  const tc = useTranslations("admin.common");
+  if (row.source === "environment") return <Badge variant="secondary">{t("environment")}</Badge>;
+  if (row.enabled) return <Badge>{tc("on")}</Badge>;
+  if (row.source === "database") return <Badge variant="outline" className="font-normal">{tc("off")}</Badge>;
   return null;
 }
 
@@ -130,6 +146,7 @@ export function AdminSignInProvidersPanel({
   providers: SignInProviderRow[];
   authAppUrl: string;
 }) {
+  const t = useTranslations("admin.pages.signInProviders.panel");
   const router = useRouter();
   const [query, setQuery] = React.useState("");
   const [editing, setEditing] = React.useState<SocialProvider | null>(null);
@@ -171,16 +188,13 @@ export function AdminSignInProvidersPanel({
     <div className="grid gap-6 xl:grid-cols-[2fr_3fr]">
       <Card className="h-fit border-border/80 shadow-sm">
         <CardHeader>
-          <CardTitle>On the sign-in page</CardTitle>
-          <CardDescription>
-            In this order on the sign-in and sign-up pages, and under Connected accounts in each user&apos;s dashboard.
-            Changes reach the sign-in page within 30 seconds.
-          </CardDescription>
+          <CardTitle>{t("activeTitle")}</CardTitle>
+          <CardDescription>{t("activeDescription")}</CardDescription>
         </CardHeader>
         <CardContent>
           {active.length === 0 ? (
             <p className="rounded-md border border-dashed border-border p-4 text-sm text-muted-foreground">
-              No provider is on. Pick one in the list to set it up.
+              {t("noneActive")}
             </p>
           ) : (
             <ol className="divide-y divide-border rounded-md border border-border">
@@ -192,9 +206,9 @@ export function AdminSignInProvidersPanel({
                       {row.config.buttonName || SOCIAL_PROVIDER_META[row.id].name}
                     </p>
                     <p className="text-xs text-muted-foreground">
-                      {row.source === "environment" ? "Set by environment variables" : null}
-                      {row.source !== "environment" && !row.allowSignUp ? "Existing accounts only" : null}
-                      {row.source !== "environment" && row.allowSignUp ? `${row.linkedAccounts} connected account${row.linkedAccounts === 1 ? "" : "s"}` : null}
+                      {row.source === "environment" ? t("setByEnvironment") : null}
+                      {row.source !== "environment" && !row.allowSignUp ? t("existingAccountsOnly") : null}
+                      {row.source !== "environment" && row.allowSignUp ? t("connectedAccounts", { count: row.linkedAccounts }) : null}
                       {row.oneTap ? " · One Tap" : null}
                     </p>
                   </div>
@@ -204,7 +218,7 @@ export function AdminSignInProvidersPanel({
                       size="icon"
                       className="size-8"
                       disabled={busy || index === 0}
-                      aria-label={`Move ${SOCIAL_PROVIDER_META[row.id].name} up`}
+                      aria-label={t("moveUp", { name: SOCIAL_PROVIDER_META[row.id].name })}
                       onClick={() => move(index, -1)}
                     >
                       <ArrowUp />
@@ -214,7 +228,7 @@ export function AdminSignInProvidersPanel({
                       size="icon"
                       className="size-8"
                       disabled={busy || index === active.length - 1}
-                      aria-label={`Move ${SOCIAL_PROVIDER_META[row.id].name} down`}
+                      aria-label={t("moveDown", { name: SOCIAL_PROVIDER_META[row.id].name })}
                       onClick={() => move(index, 1)}
                     >
                       <ArrowDown />
@@ -223,7 +237,7 @@ export function AdminSignInProvidersPanel({
                       variant="ghost"
                       size="icon"
                       className="size-8"
-                      aria-label={`Edit ${SOCIAL_PROVIDER_META[row.id].name}`}
+                      aria-label={t("edit", { name: SOCIAL_PROVIDER_META[row.id].name })}
                       onClick={() => setEditing(row.id)}
                     >
                       <Settings2 />
@@ -238,11 +252,8 @@ export function AdminSignInProvidersPanel({
 
       <Card className="border-border/80 shadow-sm">
         <CardHeader>
-          <CardTitle>Providers</CardTitle>
-          <CardDescription>
-            Every provider Better Auth supports. Create an OAuth app with the provider, register the callback URL shown
-            in its settings, then paste the credentials. Secrets are stored encrypted and never shown again.
-          </CardDescription>
+          <CardTitle>{t("providersTitle")}</CardTitle>
+          <CardDescription>{t("providersDescription")}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="relative">
@@ -250,8 +261,8 @@ export function AdminSignInProvidersPanel({
             <Input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search providers"
-              aria-label="Search providers"
+              placeholder={t("search")}
+              aria-label={t("search")}
               className="pl-8"
             />
           </div>
@@ -270,7 +281,7 @@ export function AdminSignInProvidersPanel({
               </li>
             ))}
           </ul>
-          {listed.length === 0 ? <p className="text-sm text-muted-foreground">No provider matches.</p> : null}
+          {listed.length === 0 ? <p className="text-sm text-muted-foreground">{t("noMatch")}</p> : null}
         </CardContent>
       </Card>
 
@@ -299,6 +310,9 @@ function ProviderDialog({
   onClose: () => void;
   onSaved: () => void;
 }) {
+  const t = useTranslations("admin.pages.signInProviders.panel");
+  const tc = useTranslations("admin.common");
+  const providerText = useProviderText();
   const meta = row ? SOCIAL_PROVIDER_META[row.id] : null;
   const readOnly = row?.source === "environment";
   const [config, setConfig] = React.useState<Record<string, string>>(row?.config ?? {});
@@ -324,7 +338,7 @@ function ProviderDialog({
         toast.error(res.error);
         return;
       }
-      toast.success(enabled ? `${meta!.name} is on` : `${meta!.name} saved`);
+      toast.success(enabled ? t("savedOn", { name: meta!.name }) : t("saved", { name: meta!.name }));
       onSaved();
     } finally {
       setSaving(false);
@@ -340,7 +354,7 @@ function ProviderDialog({
         toast.error(res.error);
         return;
       }
-      toast.success(`${meta!.name} settings removed`);
+      toast.success(t("removed", { name: meta!.name }));
       onSaved();
     } finally {
       setSaving(false);
@@ -351,11 +365,13 @@ function ProviderDialog({
     const id = fieldId(field.key);
     const label = (
       <FieldLabel htmlFor={id}>
-        {field.label}
-        {field.optional ? <span className="font-normal text-muted-foreground">(optional)</span> : null}
+        {providerText(`${row!.id}.fields.${field.key}.label`, field.label)}
+        {field.optional ? <span className="font-normal text-muted-foreground">{t("optional")}</span> : null}
       </FieldLabel>
     );
-    const hint = field.hint ? <FieldDescription>{field.hint}</FieldDescription> : null;
+    const hint = field.hint ? (
+      <FieldDescription>{providerText(`${row!.id}.fields.${field.key}.hint`, field.hint)}</FieldDescription>
+    ) : null;
     if (field.secret) {
       const isSet = row!.secretsSet.includes(field.key);
       const replacing = field.key in secrets;
@@ -367,15 +383,15 @@ function ProviderDialog({
               <span id={id} className="rounded-md border border-border/80 bg-muted/40 px-3 py-1.5 font-mono text-sm tracking-widest">
                 ••••••••
               </span>
-              <span className="text-xs text-muted-foreground">Set</span>
+              <span className="text-xs text-muted-foreground">{t("secretSet")}</span>
               {readOnly ? null : (
                 <>
                   <Button type="button" variant="outline" size="sm" onClick={() => setSecrets((s) => ({ ...s, [field.key]: "" }))}>
-                    Replace
+                    {t("replace")}
                   </Button>
                   {field.optional ? (
                     <Button type="button" variant="ghost" size="sm" onClick={() => setSecrets((s) => ({ ...s, [field.key]: null }))}>
-                      Remove
+                      {tc("remove")}
                     </Button>
                   ) : null}
                 </>
@@ -392,11 +408,11 @@ function ProviderDialog({
           {label}
           {secrets[field.key] === null ? (
             <p className="text-sm text-muted-foreground">
-              Removed when you save.{" "}
+              {t("removedOnSave")}{" "}
               <button type="button" className="underline underline-offset-4" onClick={() =>
                   setSecrets((current) => Object.fromEntries(Object.entries(current).filter(([key]) => key !== field.key)))
                 }>
-                Undo
+                {t("undo")}
               </button>
             </p>
           ) : field.multiline ? (
@@ -416,7 +432,7 @@ function ProviderDialog({
               type="password"
               value={value}
               onChange={(e) => onChange(e.target.value)}
-              placeholder={isSet ? "New value" : field.placeholder}
+              placeholder={isSet ? t("newValue") : field.placeholder}
               autoComplete="new-password"
               spellCheck={false}
             />
@@ -477,29 +493,31 @@ function ProviderDialog({
           </DialogTitle>
           <DialogDescription>
             {readOnly
-              ? "Set by environment variables (GITHUB_CLIENT_ID and GITHUB_CLIENT_SECRET): change them there, or remove them to manage this provider here."
-              : meta.note ?? `Create an OAuth app with ${meta.name}, register the callback URL below, then paste its credentials.`}
+              ? t("environmentDescription", { clientIdVar: "GITHUB_CLIENT_ID", clientSecretVar: "GITHUB_CLIENT_SECRET" })
+              : meta.note
+                ? providerText(`${row.id}.note`, meta.note)
+                : t("defaultNote", { name: meta.name })}
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={save}>
           <FieldGroup>
             <Field>
-              <FieldLabel htmlFor={fieldId("callback")}>Callback URL</FieldLabel>
+              <FieldLabel htmlFor={fieldId("callback")}>{t("callbackUrl")}</FieldLabel>
               <CopyField id={fieldId("callback")} value={callbackUrl} />
               <FieldDescription>
-                Also called redirect URI or return URL.{" "}
+                {t("callbackHint")}{" "}
                 <a href={meta.consoleUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 underline underline-offset-4">
-                  Create the app <ExternalLink className="size-3" aria-hidden />
+                  {t("createApp")} <ExternalLink className="size-3" aria-hidden />
                 </a>
                 {" · "}
                 <a href={meta.docsUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 underline underline-offset-4">
-                  Setup guide <ExternalLink className="size-3" aria-hidden />
+                  {t("setupGuide")} <ExternalLink className="size-3" aria-hidden />
                 </a>
               </FieldDescription>
             </Field>
             {row.secretsUnreadable ? (
               <p role="alert" className="rounded-md border border-destructive/40 bg-destructive/5 p-3 text-sm text-destructive">
-                The stored secrets cannot be decrypted (BETTER_AUTH_SECRET has changed). Enter them again.
+                {t("secretsUnreadable", { envVar: "BETTER_AUTH_SECRET" })}
               </p>
             ) : null}
             {meta.fields.map(renderField)}
@@ -507,7 +525,7 @@ function ProviderDialog({
               <>
                 <Field>
                   <FieldLabel htmlFor={fieldId("buttonName")}>
-                    Button name <span className="font-normal text-muted-foreground">(optional)</span>
+                    {t("buttonName")} <span className="font-normal text-muted-foreground">{t("optional")}</span>
                   </FieldLabel>
                   <Input
                     id={fieldId("buttonName")}
@@ -516,7 +534,7 @@ function ProviderDialog({
                     placeholder={meta.name}
                     maxLength={40}
                   />
-                  <FieldDescription>Shown as &quot;Continue with …&quot; on the sign-in page.</FieldDescription>
+                  <FieldDescription>{t("buttonNameHint")}</FieldDescription>
                 </Field>
                 <Field>
                   <CheckboxField
@@ -524,8 +542,8 @@ function ProviderDialog({
                     checked={allowSignUp}
                     onChange={setAllowSignUp}
                     disabled={saving}
-                    label="Create accounts for new users"
-                    hint="Off: only people who already have an account can sign in with it (connected from their dashboard, or with the same verified email)."
+                    label={t("allowSignUp")}
+                    hint={t("allowSignUpHint")}
                   />
                 </Field>
                 {row.id === "google" ? (
@@ -535,8 +553,8 @@ function ProviderDialog({
                       checked={oneTap}
                       onChange={setOneTap}
                       disabled={saving}
-                      label="Show Google One Tap"
-                      hint={`Google's own sign-in prompt, at the top of the sign-in and sign-up pages, for people already signed in to Google in their browser. Uses this client ID: add ${authAppOrigin(authAppUrl)} to its Authorized JavaScript origins in the Google Cloud console. Only while Google is on.`}
+                      label={t("oneTap")}
+                      hint={t("oneTapHint", { origin: authAppOrigin(authAppUrl) ?? t("authAppFallback") })}
                     />
                   </Field>
                 ) : null}
@@ -546,8 +564,8 @@ function ProviderDialog({
                     checked={enabled}
                     onChange={setEnabled}
                     disabled={saving}
-                    label="Show on the sign-in page"
-                    hint="Off: the button disappears and sign-ins with this provider are refused. Settings are kept."
+                    label={t("enabled")}
+                    hint={t("enabledHint")}
                   />
                 </Field>
               </>
@@ -557,11 +575,11 @@ function ProviderDialog({
             {row.source === "database" && !readOnly ? (
               confirmRemove ? (
                 <Button type="button" variant="destructive" disabled={saving} onClick={() => void remove()}>
-                  Remove settings and secrets?
+                  {t("removeConfirm")}
                 </Button>
               ) : (
                 <Button type="button" variant="ghost" className="text-destructive" disabled={saving} onClick={() => setConfirmRemove(true)}>
-                  Remove settings
+                  {t("removeSettings")}
                 </Button>
               )
             ) : (
@@ -569,12 +587,12 @@ function ProviderDialog({
             )}
             <div className="flex flex-col-reverse gap-2 sm:flex-row">
               <Button type="button" variant="outline" disabled={saving} onClick={onClose}>
-                {readOnly ? "Close" : "Cancel"}
+                {readOnly ? tc("close") : tc("cancel")}
               </Button>
               {readOnly ? null : (
                 <Button type="submit" disabled={saving}>
                   {saving ? <Loader2 className="animate-spin" aria-hidden /> : null}
-                  Save
+                  {tc("save")}
                 </Button>
               )}
             </div>

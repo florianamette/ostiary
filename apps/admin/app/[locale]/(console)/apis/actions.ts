@@ -2,6 +2,7 @@
 
 import { eq } from "drizzle-orm";
 import { headers } from "next/headers";
+import { getTranslations } from "next-intl/server";
 
 import { db } from "@ostiary/core/db/index";
 import { oauthClientResource } from "@ostiary/core/db/schema";
@@ -32,6 +33,10 @@ import { auth } from "@/lib/auth";
 
 type Result = { ok: true } | { ok: false; error: string };
 
+type Translator = Awaited<ReturnType<typeof getTranslations>>;
+
+const errorsT = () => getTranslations("admin.pages.apis.errors");
+
 /** RFC 6749 scope-token: printable ASCII except space, `"` and `\`. */
 const SCOPE_TOKEN = /^[\x21\x23-\x5B\x5D-\x7E]+$/;
 
@@ -40,12 +45,12 @@ function configuredIdentifiers() {
   return new Set(oauthResourceIdentifiers(env.AUTH_APP_URL ?? ""));
 }
 
-function parseScopes(raw: string): { ok: true; scopes: string[] } | { ok: false; error: string } {
+function parseScopes(raw: string, t: Translator): { ok: true; scopes: string[] } | { ok: false; error: string } {
   const scopes = [...new Set(raw.split(/[\s,]+/).filter(Boolean))];
   const invalid = scopes.find((scope) => !SCOPE_TOKEN.test(scope));
-  if (invalid) return { ok: false, error: `"${invalid}" is not a valid scope.` };
+  if (invalid) return { ok: false, error: t("invalidScope", { scope: invalid }) };
   const reserved = scopes.find((scope) => (OIDC_SCOPES as readonly string[]).includes(scope));
-  if (reserved) return { ok: false, error: `"${reserved}" is an OpenID Connect scope, available to every client already.` };
+  if (reserved) return { ok: false, error: t("reservedScope", { scope: reserved }) };
   return { ok: true, scopes };
 }
 
@@ -77,9 +82,10 @@ function errorMessage(error: unknown, fallback: string): string {
 
 export async function createApi(input: { identifier: string; name: string; scopes: string; restrict: boolean }): Promise<Result> {
   const { audit } = await adminActor();
+  const t = await errorsT();
   const identifier = parseIdentifier(input.identifier);
-  if (!identifier) return { ok: false, error: "The identifier must be an absolute URL without a fragment, e.g. https://api.example.com." };
-  const parsed = parseScopes(input.scopes);
+  if (!identifier) return { ok: false, error: t("invalidIdentifier", { example: "https://api.example.com" }) };
+  const parsed = parseScopes(input.scopes, t);
   if (!parsed.ok) return parsed;
   const name = input.name.trim() || identifier;
   try {
@@ -93,7 +99,7 @@ export async function createApi(input: { identifier: string; name: string; scope
       },
     });
   } catch (error) {
-    return { ok: false, error: errorMessage(error, "Could not register the API.") };
+    return { ok: false, error: errorMessage(error, t("registerFailed")) };
   }
   invalidateApiScopes();
   await audit({
@@ -109,10 +115,11 @@ export async function updateApi(
   input: { name: string; scopes: string; restrict: boolean; disabled: boolean },
 ): Promise<Result> {
   const { audit } = await adminActor();
-  const parsed = parseScopes(input.scopes);
+  const t = await errorsT();
+  const parsed = parseScopes(input.scopes, t);
   if (!parsed.ok) return parsed;
   if (input.disabled && identifier === env.AUTH_APP_URL) {
-    return { ok: false, error: "The auth server itself cannot be disabled." };
+    return { ok: false, error: t("authServerCannotBeDisabled") };
   }
   const name = input.name.trim() || identifier;
   try {
@@ -128,7 +135,7 @@ export async function updateApi(
       },
     });
   } catch (error) {
-    return { ok: false, error: errorMessage(error, "Could not update the API.") };
+    return { ok: false, error: errorMessage(error, t("updateFailed")) };
   }
   invalidateApiScopes();
   await audit({
@@ -141,13 +148,14 @@ export async function updateApi(
 
 export async function deleteApi(identifier: string): Promise<Result> {
   const { audit } = await adminActor();
+  const t = await errorsT();
   if (configuredIdentifiers().has(identifier)) {
-    return { ok: false, error: "This API is set in OAUTH_API_AUDIENCES and would come back on the next deploy. Disable it instead." };
+    return { ok: false, error: t("deleteFromEnv", { variable: "OAUTH_API_AUDIENCES" }) };
   }
   try {
     await auth.api.adminDeleteOAuthResource({ headers: await headers(), params: { identifier } });
   } catch (error) {
-    return { ok: false, error: errorMessage(error, "Could not delete the API.") };
+    return { ok: false, error: errorMessage(error, t("deleteFailed")) };
   }
   invalidateApiScopes();
   await audit({ action: "oauth_resource.delete", target: { type: "oauth_resource", id: identifier, label: identifier } });
@@ -161,8 +169,9 @@ export async function deleteApi(identifier: string): Promise<Result> {
  */
 export async function setApiAccess(identifier: string, input: { access: ApiAccess; clientIds: string[] }): Promise<Result> {
   const { audit } = await adminActor();
+  const t = await errorsT();
   if (input.access === "linked" && identifier === env.AUTH_APP_URL) {
-    return { ok: false, error: "The auth server stays open to every application: signing in depends on it." };
+    return { ok: false, error: t("authServerStaysOpen") };
   }
   const wanted = new Set(input.clientIds);
   const current = new Set(
@@ -200,7 +209,7 @@ export async function setApiAccess(identifier: string, input: { access: ApiAcces
       done.unlinked.push(clientId);
     }
   } catch (caught) {
-    error = errorMessage(caught, "Could not change which applications can use the API.");
+    error = errorMessage(caught, t("accessFailed"));
   }
   if (done.linked.length || done.unlinked.length || done.access) {
     await audit({
@@ -215,14 +224,15 @@ export async function setApiAccess(identifier: string, input: { access: ApiAcces
 /** Saves the API's token settings: lifetimes, custom claims, DPoP. */
 export async function updateApiTokens(identifier: string, input: TokenSettingsInput): Promise<Result> {
   const { audit } = await adminActor();
+  const t = await errorsT();
   const parsed = parseTokenSettings(input);
-  if (!parsed.ok) return parsed;
+  if (!parsed.ok) return { ok: false, error: t(`tokenSettings.${parsed.issue.code}`, parsed.issue.values) };
   let name = identifier;
   try {
     const row = await auth.api.adminUpdateOAuthResource({ headers: await headers(), params: { identifier }, body: parsed.value });
     name = (row as { name?: string }).name ?? identifier;
   } catch (error) {
-    return { ok: false, error: errorMessage(error, "Could not save the token settings.") };
+    return { ok: false, error: errorMessage(error, t("tokensFailed")) };
   }
   const { customClaims, ...settings } = parsed.value;
   await audit({

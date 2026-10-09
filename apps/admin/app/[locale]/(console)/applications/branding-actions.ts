@@ -1,6 +1,7 @@
 "use server";
 
 import { eq } from "drizzle-orm";
+import { getTranslations } from "next-intl/server";
 
 import { db } from "@ostiary/core/db/index";
 import { oauthClient } from "@ostiary/core/db/schema";
@@ -16,6 +17,7 @@ import {
   validateLogoUpload,
   validatePanelImageUpload,
   type BrandingValues,
+  type ValidationFailure,
 } from "@ostiary/core/lib/app-branding/validation";
 import { accentPalette } from "@ostiary/core/lib/app-branding/color";
 import { getIconForSource } from "@ostiary/core/lib/app-icons/store";
@@ -36,10 +38,17 @@ export type BrandingDialogData = {
 
 type Failure = { ok: false; error: string };
 
+/** A refused branding input, in the admin's language (lib/app-branding gives a code). */
+async function brandingFailure(failure: ValidationFailure): Promise<Failure> {
+  const t = await getTranslations("admin.pages.applications.brandingErrors");
+  return { ok: false, error: t(failure.code, failure.values) };
+}
+
 async function adminClient(clientId: string) {
+  const t = await getTranslations("admin.pages.applications.actions.branding");
   const branding = await getAppBranding(clientId);
-  if (!branding) return { ok: false as const, error: "This application no longer exists." };
-  if (!branding.admin) return { ok: false as const, error: "Self-registered clients cannot be branded." };
+  if (!branding) return { ok: false as const, error: t("clientGone") };
+  if (!branding.admin) return { ok: false as const, error: t("selfRegistered") };
   const [row] = await db.select({ name: oauthClient.name }).from(oauthClient).where(eq(oauthClient.clientId, clientId)).limit(1);
   return { ok: true as const, settings: branding.settings, name: row?.name ?? clientId };
 }
@@ -83,6 +92,7 @@ export async function saveAppBrandingAction(
   form: FormData,
 ): Promise<{ ok: true; settings: AppBrandingSettings; warnings: string[] } | Failure> {
   const { session, audit } = await adminActor();
+  const t = await getTranslations("admin.pages.applications.actions.branding");
   const client = await adminClient(clientId);
   if (!client.ok) return client;
 
@@ -100,25 +110,25 @@ export async function saveAppBrandingAction(
     },
     providers,
   );
-  if (!parsed.ok) return parsed;
+  if (!parsed.ok) return brandingFailure(parsed);
   const values = parsed.value;
 
   const images: BrandingImages = {};
   const logoBytes = await upload(form, "logo");
   if (logoBytes) {
     const logo = validateLogoUpload(logoBytes);
-    if (!logo.ok) return logo;
+    if (!logo.ok) return brandingFailure(logo);
     images.logo = logo.value;
   } else if (text(form, "removeLogo") === "1" || values.logoSource !== "upload") {
     if (client.settings.hasLogoUpload) images.logo = "remove";
   }
   if (values.logoSource === "upload" && !logoBytes && !client.settings.hasLogoUpload) {
-    return { ok: false, error: "Choose a logo file to upload." };
+    return { ok: false, error: t("logoMissing") };
   }
   const panelBytes = await upload(form, "panelImage");
   if (panelBytes) {
     const panel = validatePanelImageUpload(panelBytes);
-    if (!panel.ok) return panel;
+    if (!panel.ok) return brandingFailure(panel);
     images.panelImage = panel.value;
   } else if (text(form, "removePanelImage") === "1" && client.settings.hasPanelImage) {
     images.panelImage = "remove";
@@ -128,19 +138,19 @@ export async function saveAppBrandingAction(
   if (values.logoSource === "url" && values.logoUrl && values.logoUrl !== client.settings.logoUrl) {
     // Fetched now by the server (SSRF guard, sniffed type) and cached, as the sign-in page will.
     const fetched = await getIconForSource({ kind: "logo", url: values.logoUrl }).catch(() => null);
-    if (!fetched) return { ok: false, error: "Could not fetch an image at the logo URL. Check that it is public and is an image." };
+    if (!fetched) return { ok: false, error: t("logoFetchFailed") };
   }
   if (values.accentColor) {
     const palette = accentPalette(values.accentColor);
-    if (palette.warnings.includes("light_ui")) warnings.push("The accent is faint on the light card: buttons will barely stand out.");
-    if (palette.warnings.includes("dark_ui")) warnings.push("The accent is faint on the dark card: buttons will barely stand out.");
+    if (palette.warnings.includes("light_ui")) warnings.push(t("faintOnLight"));
+    if (palette.warnings.includes("dark_ui")) warnings.push(t("faintOnDark"));
   }
 
   try {
     await saveAppBranding(clientId, values, images, session.user.id);
   } catch (error) {
     console.error("Could not save app branding", error);
-    return { ok: false, error: "Could not save the branding." };
+    return { ok: false, error: t("saveFailed") };
   }
   await audit({
     action: "oauth_client.branding_update",

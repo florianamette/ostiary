@@ -1,5 +1,7 @@
 "use server";
 
+import { getTranslations } from "next-intl/server";
+
 import { MAX_LIFETIME_DAYS_LIMIT } from "@ostiary/core/lib/api-key-policy";
 import { apiKeyAuditMetadata, apiKeyAuditTarget, deleteApiKey, saveApiKeySettings } from "@ostiary/core/lib/api-keys";
 import { adminActor } from "@/lib/admin-audit";
@@ -9,17 +11,18 @@ type Result = { ok: true } | { ok: false; error: string };
 /** Turns API keys on or off for everyone and sets the longest lifetime of a new key. */
 export async function updateApiKeySettings(input: { enabled: boolean; maxLifetimeDays: number }): Promise<Result> {
   const { session, audit } = await adminActor();
+  const t = await getTranslations("admin.pages.apiKeys.errors");
   const days = input.maxLifetimeDays;
-  if (typeof input.enabled !== "boolean") return { ok: false, error: "Choose whether API keys are on." };
+  if (typeof input.enabled !== "boolean") return { ok: false, error: t("chooseEnabled") };
   if (!Number.isInteger(days) || days < 1 || days > MAX_LIFETIME_DAYS_LIMIT) {
-    return { ok: false, error: `The maximum lifetime must be a whole number of days from 1 to ${MAX_LIFETIME_DAYS_LIMIT}.` };
+    return { ok: false, error: t("maxLifetimeRange", { max: String(MAX_LIFETIME_DAYS_LIMIT) }) };
   }
   const settings = { enabled: input.enabled, maxLifetimeDays: days };
   try {
     await saveApiKeySettings(settings, session.user.id);
   } catch (error) {
     console.error("Could not save the API key settings", error);
-    return { ok: false, error: "Could not save the settings." };
+    return { ok: false, error: t("saveFailed") };
   }
   await audit({ action: "api_key.settings", metadata: settings });
   return { ok: true };
@@ -28,9 +31,10 @@ export async function updateApiKeySettings(input: { enabled: boolean; maxLifetim
 /** Revokes (deletes) any key, a user's or an organization's. */
 export async function adminRevokeApiKey(id: string): Promise<Result> {
   const { audit } = await adminActor();
-  if (typeof id !== "string" || !id) return { ok: false, error: "No key given." };
+  const t = await getTranslations("admin.pages.apiKeys.errors");
+  if (typeof id !== "string" || !id) return { ok: false, error: t("noKey") };
   const deleted = await deleteApiKey(id);
-  if (!deleted) return { ok: false, error: "This key no longer exists." };
+  if (!deleted) return { ok: false, error: t("keyGone") };
   await audit({
     action: "api_key.revoke",
     target: apiKeyAuditTarget(deleted.owner),

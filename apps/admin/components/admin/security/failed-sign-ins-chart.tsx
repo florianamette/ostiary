@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 import {
   ChartContainer,
@@ -13,12 +13,12 @@ import {
 import type { FailedDay } from "@/lib/security-stats";
 
 // One series: categorical slot 1, stepped per mode. The card title names it, so no legend.
-const config = {
-  failed: { label: "Failed sign-ins", theme: { light: "#2a78d6", dark: "#3987e5" } },
-} satisfies ChartConfig;
+const THEME = { light: "#2a78d6", dark: "#3987e5" };
 
 export function FailedSignInsChart({ data }: { data: FailedDay[] }) {
+  const t = useTranslations("admin.pages.security.chart");
   const locale = useLocale();
+  const config = React.useMemo(() => ({ failed: { label: t("failed"), theme: THEME } }) satisfies ChartConfig, [t]);
   const formatDay = React.useCallback(
     (iso: string) =>
       new Date(`${iso}T00:00:00Z`).toLocaleDateString(locale, { month: "short", day: "numeric", timeZone: "UTC" }),

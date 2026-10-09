@@ -26,34 +26,70 @@ export function missingProviderFields(id: SocialProvider, values: ProviderValues
     .map((field) => field.key);
 }
 
+/** What is wrong with a field's value: `code` (and `field`, `options`) for translated messages. */
+export type ProviderFieldIssueCode =
+  | "invalidOption"
+  | "appleKeyNotEc"
+  | "appleKeyInvalid"
+  | "issuerNotHttps"
+  | "salesforceDomain"
+  | "cognitoRegion"
+  | "googleHd";
+
+export type ProviderFieldIssue = {
+  code: ProviderFieldIssueCode;
+  /** The English message (logs, tests). */
+  message: string;
+  /** The field's key, for `invalidOption`. */
+  field?: string;
+  options?: readonly string[];
+};
+
 /** A problem with a field's value, or null. Checked when an admin saves. */
-export function invalidProviderField(id: SocialProvider, values: ProviderValues): string | null {
+export function providerFieldIssue(id: SocialProvider, values: ProviderValues): ProviderFieldIssue | null {
   for (const field of SOCIAL_PROVIDER_META[id].fields) {
     const value = values[field.key]?.trim();
     if (!value) continue;
-    if (field.options && !field.options.includes(value)) return `${field.label}: choose ${field.options.join(" or ")}.`;
+    if (field.options && !field.options.includes(value)) {
+      return {
+        code: "invalidOption",
+        message: `${field.label}: choose ${field.options.join(" or ")}.`,
+        field: field.key,
+        options: field.options,
+      };
+    }
   }
   if (id === "apple" && values.privateKey?.trim()) {
     try {
       const key = createPrivateKey(values.privateKey.trim());
-      if (key.asymmetricKeyType !== "ec") return "Private key: expected the EC (P-256) key downloaded from Apple (.p8).";
+      if (key.asymmetricKeyType !== "ec") {
+        return { code: "appleKeyNotEc", message: "Private key: expected the EC (P-256) key downloaded from Apple (.p8)." };
+      }
     } catch {
-      return "Private key: not a valid PEM private key. Paste the whole .p8 file, BEGIN and END lines included.";
+      return {
+        code: "appleKeyInvalid",
+        message: "Private key: not a valid PEM private key. Paste the whole .p8 file, BEGIN and END lines included.",
+      };
     }
   }
   if ((id === "gitlab" || id === "paybin") && values.issuer?.trim()) {
-    if (!isHttpsUrl(values.issuer.trim())) return "The URL must start with https://.";
+    if (!isHttpsUrl(values.issuer.trim())) return { code: "issuerNotHttps", message: "The URL must start with https://." };
   }
   if (id === "salesforce" && values.loginUrl?.trim() && !/^[a-z0-9.-]+$/i.test(stripScheme(values.loginUrl.trim()))) {
-    return "My Domain: a host name such as example.my.salesforce.com.";
+    return { code: "salesforceDomain", message: "My Domain: a host name such as example.my.salesforce.com." };
   }
   if (id === "cognito" && values.region?.trim() && !/^[a-z]{2}(-[a-z]+)+-\d$/.test(values.region.trim())) {
-    return "Region: an AWS region such as eu-west-1.";
+    return { code: "cognitoRegion", message: "Region: an AWS region such as eu-west-1." };
   }
   if (id === "google" && values.hd?.trim() && !/^[a-z0-9.-]+\.[a-z]{2,}$/i.test(values.hd.trim())) {
-    return "Workspace domain: a domain such as example.com.";
+    return { code: "googleHd", message: "Workspace domain: a domain such as example.com." };
   }
   return null;
+}
+
+/** The English message of providerFieldIssue, or null. */
+export function invalidProviderField(id: SocialProvider, values: ProviderValues): string | null {
+  return providerFieldIssue(id, values)?.message ?? null;
 }
 
 function isHttpsUrl(value: string): boolean {

@@ -9,7 +9,7 @@ import {
   resourceAccess,
 } from "@ostiary/core/lib/oauth-resource-policy";
 
-const minutes = { unit: "minutes", unitSeconds: 60, max: 3600, label: "The access token lifetime" };
+const minutes = { field: "access" as const, unit: "minutes", unitSeconds: 60, max: 3600, label: "The access token lifetime" };
 
 describe("resourceAccess", () => {
   it("is open to every application unless the metadata says linked", () => {
@@ -40,12 +40,12 @@ describe("parseLifetime", () => {
 
   it("refuses less than a minute", () => {
     const result = parseLifetime("0.5", minutes);
-    expect(result).toEqual({ ok: false, error: "The access token lifetime must be at least one minute." });
+    expect(result).toMatchObject({ ok: false, error: "The access token lifetime must be at least one minute." });
   });
 
   it("refuses more than the server default, which Better Auth would ignore", () => {
     const result = parseLifetime("61", minutes);
-    expect(result).toEqual({ ok: false, error: "The access token lifetime can be at most 60 minutes, the server default." });
+    expect(result).toMatchObject({ ok: false, error: "The access token lifetime can be at most 60 minutes, the server default." });
     expect(parseLifetime("60", minutes)).toEqual({ ok: true, value: 3600 });
   });
 });
@@ -112,7 +112,7 @@ describe("parseTokenSettings", () => {
 
   it("refuses a refresh token lifetime over 30 days", () => {
     const result = parseTokenSettings({ accessTokenMinutes: "", refreshTokenDays: "31", customClaims: "", dpopRequired: false });
-    expect(result).toEqual({ ok: false, error: "The refresh token lifetime can be at most 30 days, the server default." });
+    expect(result).toMatchObject({ ok: false, error: "The refresh token lifetime can be at most 30 days, the server default." });
   });
 });
 

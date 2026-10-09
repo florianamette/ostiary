@@ -1,3 +1,5 @@
+import { useTranslations } from "next-intl";
+
 import { formatDateTime } from "@/components/admin/common/page-header";
 import { Link } from "@/i18n/navigation";
 import { adminAppIconUrl } from "@/lib/app-icon-url";
@@ -27,29 +29,29 @@ export function countUnusedClients(usage: OAuthClientUsage[]): number {
 
 /** Which clients are used, and which haven't issued a token in 30 days. */
 export function OAuthUsageCard({ usage, locale }: { usage: OAuthClientUsage[]; locale: string }) {
+  const t = useTranslations("admin.pages.usage.card");
+  const tc = useTranslations("admin.common");
   const unused = countUnusedClients(usage);
   return (
     <Card className="border-border/80 shadow-sm">
       <CardHeader>
-        <CardTitle className="text-base">Access tokens per application, last 30 days</CardTitle>
+        <CardTitle className="text-base">{t("title")}</CardTitle>
         <CardDescription>
-          {unused > 0
-            ? `${unused} active ${unused === 1 ? "application has" : "applications have"} not issued a token in 30 days: consider disabling or deleting ${unused === 1 ? "it" : "them"}.`
-            : "Every active application issued tokens in the last 30 days."}
+          {unused > 0 ? t("unused", { count: unused }) : t("allUsed")}
         </CardDescription>
       </CardHeader>
       <CardContent>
         {usage.length === 0 ? (
-          <p className="text-sm text-muted-foreground">No OAuth clients registered.</p>
+          <p className="text-sm text-muted-foreground">{t("empty")}</p>
         ) : (
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Application</TableHead>
-                <TableHead className="text-right">Tokens</TableHead>
-                <TableHead className="hidden text-right sm:table-cell">Users</TableHead>
-                <TableHead className="hidden text-right md:table-cell">Consents</TableHead>
-                <TableHead className="hidden text-right sm:table-cell">Last token</TableHead>
+                <TableHead>{t("application")}</TableHead>
+                <TableHead className="text-right">{t("tokens")}</TableHead>
+                <TableHead className="hidden text-right sm:table-cell">{t("users")}</TableHead>
+                <TableHead className="hidden text-right md:table-cell">{t("consents")}</TableHead>
+                <TableHead className="hidden text-right sm:table-cell">{t("lastToken")}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -65,20 +67,20 @@ export function OAuthUsageCard({ usage, locale }: { usage: OAuthClientUsage[]; l
                             <Link
                               href={`/applications?q=${encodeURIComponent(u.clientId)}`}
                               className="truncate text-sm font-medium underline-offset-4 hover:underline"
-                              title="Show in Applications"
+                              title={t("showInApplications")}
                             >
                               {name}
                             </Link>
-                            {u.disabled ? <Badge variant="outline">Disabled</Badge> : null}
+                            {u.disabled ? <Badge variant="outline">{tc("disabled")}</Badge> : null}
                             {!u.disabled && u.tokens30d === 0 ? (
                               <Badge variant="outline" className="border-amber-500/40 text-amber-700 dark:text-amber-300">
-                                Unused
+                                {t("unusedBadge")}
                               </Badge>
                             ) : null}
                           </div>
                           <span className="block truncate font-mono text-xs text-muted-foreground">{u.clientId}</span>
                           <span className="block text-xs text-muted-foreground sm:hidden">
-                            Last token: {u.lastTokenAt ? formatDateTime(u.lastTokenAt, locale) : "Never"}
+                            {t("lastTokenValue", { date: u.lastTokenAt ? formatDateTime(u.lastTokenAt, locale) : tc("never") })}
                           </span>
                         </div>
                       </div>
@@ -87,7 +89,7 @@ export function OAuthUsageCard({ usage, locale }: { usage: OAuthClientUsage[]; l
                     <TableCell className="hidden text-right tabular-nums sm:table-cell">{u.users30d.toLocaleString(locale)}</TableCell>
                     <TableCell className="hidden text-right tabular-nums md:table-cell">{u.consents.toLocaleString(locale)}</TableCell>
                     <TableCell className="hidden text-right text-xs text-muted-foreground sm:table-cell">
-                      {u.lastTokenAt ? formatDateTime(u.lastTokenAt, locale) : "Never"}
+                      {u.lastTokenAt ? formatDateTime(u.lastTokenAt, locale) : tc("never")}
                     </TableCell>
                   </TableRow>
                 );

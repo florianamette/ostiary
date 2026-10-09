@@ -2,6 +2,7 @@
 
 import { randomUUID } from "node:crypto";
 import { eq } from "drizzle-orm";
+import { getTranslations } from "next-intl/server";
 
 import { db } from "@ostiary/core/db/index";
 import { organization } from "@ostiary/core/db/schema";
@@ -17,9 +18,11 @@ import { auth } from "@/lib/auth";
 
 type Result<T = object> = ({ ok: true } & T) | { ok: false; error: string };
 
-function message(error: unknown): string {
+const errors = () => getTranslations("admin.pages.organizations.errors");
+
+async function message(error: unknown): Promise<string> {
   const body = (error as { body?: { message?: unknown } })?.body;
-  return typeof body?.message === "string" ? body.message : "Request failed.";
+  return typeof body?.message === "string" ? body.message : (await errors())("requestFailed");
 }
 
 async function scimOrganization(orgId: string) {
@@ -42,7 +45,7 @@ async function activeConnection(orgId: string) {
 export async function generateScimToken(orgId: string): Promise<Result<{ token: string; expiresAt: string }>> {
   const { audit, session } = await adminActor();
   const org = await scimOrganization(orgId);
-  if (!org) return { ok: false, error: "This organization can't use SCIM provisioning." };
+  if (!org) return { ok: false, error: (await errors())("scimUnavailable") };
   const policy = { scopes: SCIM_TOKEN_SCOPES, expiresAt: new Date(Date.now() + SCIM_TOKEN_LIFETIME_MS), actorId: session.user.id };
   try {
     const existing = await activeConnection(orgId);
@@ -76,7 +79,7 @@ export async function generateScimToken(orgId: string): Promise<Result<{ token: 
     });
     return { ok: true, token: rotated.token, expiresAt: policy.expiresAt.toISOString() };
   } catch (error) {
-    return { ok: false, error: message(error) };
+    return { ok: false, error: await message(error) };
   }
 }
 
@@ -84,10 +87,10 @@ export async function generateScimToken(orgId: string): Promise<Result<{ token: 
 export async function revokeScimTokens(orgId: string): Promise<Result> {
   const { audit, session } = await adminActor();
   const org = await scimOrganization(orgId);
-  if (!org) return { ok: false, error: "This organization can't use SCIM provisioning." };
+  if (!org) return { ok: false, error: (await errors())("scimUnavailable") };
   try {
     const existing = await activeConnection(orgId);
-    if (!existing?.credentials.length) return { ok: false, error: "There is no active token." };
+    if (!existing?.credentials.length) return { ok: false, error: (await errors())("noActiveToken") };
     for (const credential of existing.credentials) {
       await auth.api.revokeSCIMManagedCredential({
         body: { connectionId: existing.connectionId, provisioningDomainId: orgId, credentialId: credential.credentialId, actorId: session.user.id },
@@ -100,6 +103,6 @@ export async function revokeScimTokens(orgId: string): Promise<Result> {
     });
     return { ok: true };
   } catch (error) {
-    return { ok: false, error: message(error) };
+    return { ok: false, error: await message(error) };
   }
 }
