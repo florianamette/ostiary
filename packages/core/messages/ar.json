@@ -1669,6 +1669,9 @@
             "revoke_all": "إبطال كل مفاتيح API",
             "settings": "تغيير إعدادات مفاتيح API"
           },
+          "oauth_token": {
+            "revoke_all": "إلغاء جميع رموز التطبيقات"
+          },
           "oauth_consent": {
             "update": "تحديث الموافقة",
             "delete": "إبطال الموافقة"

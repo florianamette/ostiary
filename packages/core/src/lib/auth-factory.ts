@@ -1,12 +1,12 @@
 import { randomUUID } from "node:crypto";
 import { betterAuth, type BetterAuthPlugin } from "better-auth";
-import { APIError, createAuthMiddleware, getSessionFromCtx } from "better-auth/api";
+import { APIError, createAuthMiddleware, getOAuthState, getSessionFromCtx } from "better-auth/api";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { apiKey } from "@better-auth/api-key";
 import { createCimdClientDiscovery } from "@better-auth/cimd";
 import { fetchClientMetadataResource } from "@better-auth/cimd/node";
 import { oauthDeviceAuthorization, oauthProvider } from "@better-auth/oauth-provider";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { passkey } from "@better-auth/passkey";
 import { scim } from "@better-auth/scim";
 import { sso } from "@better-auth/sso";
@@ -25,6 +25,7 @@ import {
 } from "better-auth/plugins";
 import { twoFactor } from "better-auth/plugins/two-factor";
 import { createAccessControl } from "better-auth/plugins/access";
+import { defaultRoles as platformRoles } from "better-auth/plugins/admin/access";
 import { adminAc, defaultStatements, memberAc, ownerAc } from "better-auth/plugins/organization/access";
 
 import { db } from "@ostiary/core/db/index";
@@ -43,6 +44,12 @@ import { clientIp, recordAuthEvent } from "@ostiary/core/lib/auth-events";
 import { adminNeedsTwoFactor } from "@ostiary/core/lib/admin/admin-two-factor";
 import { MAX_DEVICE_SESSIONS } from "@ostiary/core/lib/device-accounts";
 import { userHasAdminRole } from "@ostiary/core/lib/admin/user-has-admin-role";
+import { adminOnSignUp, adminOnVerification, parseAdminEmails } from "@ostiary/core/lib/admin/admin-emails";
+import { implicitLinkRefusal } from "@ostiary/core/lib/security/account-linking-policy";
+import { isExternalSignInPath, twoFactorStepURL } from "@ostiary/core/lib/security/external-sign-in";
+import { revokeUserOAuthTokens } from "@ostiary/core/lib/security/oauth-token-revocation";
+import { publicOrganizationRequestRefused } from "@ostiary/core/lib/security/public-organization-guard";
+import { isStrictSsoDomain, parseSsoDomain } from "@ostiary/core/lib/security/sso-domain";
 import { brand } from "@ostiary/core/lib/brand";
 import { PUBLIC_ORGANIZATION_ID } from "@ostiary/core/lib/organization-public";
 import { getPasskeyWebAuthnOptions } from "@ostiary/core/lib/passkey-options";
@@ -137,11 +144,56 @@ const RECENT_SIGN_IN_PATHS = new Set([
 ]);
 export const RECENT_SIGN_IN_SECONDS = 10 * 60;
 
+/**
+ * SSO provider management over HTTP. The admin console manages providers with its own server
+ * actions (apps/admin .../sso/actions.ts) after a platform admin check; the plugin's endpoints
+ * only check the organization role, so an organization owner could change or delete a provider
+ * (or verify its domain) behind the platform admins' back. Only /sso/register stays, guarded
+ * by providersLimit (platform admins) and the domain check in the before hook. The shared
+ * /sso/callback (no provider in the path) is for the plugin's redirectURI option, not used.
+ */
+const SSO_MANAGEMENT_PATHS = [
+    "/sso/providers",
+    "/sso/get-provider",
+    "/sso/update-provider",
+    "/sso/delete-provider",
+    "/sso/request-domain-verification",
+    "/sso/verify-domain",
+    "/sso/callback",
+];
+
 /** Password sign-in endpoints whose failures are counted for the security page. */
 const PASSWORD_SIGN_IN_PATHS = new Set(["/sign-in/email", "/sign-in/username"]);
 
 /** Sign-ins that may stop for two-factor authentication: passwords and emailed codes. */
 const TWO_STEP_SIGN_IN_PATHS = new Set([...PASSWORD_SIGN_IN_PATHS, "/sign-in/email-otp"]);
+
+type HookContext = {
+    path?: string;
+    headers?: Headers;
+    context: {
+        newSession?: { session: { token: string }; user: { id: string } } | null;
+        authCookies: { sessionToken: { name: string } };
+    };
+};
+
+/**
+ * Whether this request just started a session it did not already have: an external sign-in
+ * (social, SSO, One Tap, verification link). Signing in again re-sets the cookie of the
+ * session the browser already had (verify-email while signed in), which is not a new sign-in.
+ */
+function startedNewSession(ctx: HookContext): boolean {
+    const created = ctx.context.newSession;
+    if (!created) return false;
+    const name = ctx.context.authCookies.sessionToken.name;
+    for (const part of (ctx.headers?.get("cookie") ?? "").split(";")) {
+        const index = part.indexOf("=");
+        if (index < 0 || part.slice(0, index).trim() !== name) continue;
+        const value = decodeURIComponent(part.slice(index + 1).trim());
+        if (value.split(".")[0] === created.session.token) return false;
+    }
+    return true;
+}
 
 /** Admin-only endpoints. An admin who must turn on two-factor authentication first cannot call them. */
 function isAdminPath(path: string): boolean {
@@ -160,7 +212,8 @@ const passwordSignInEvents = {
     hooks: {
         after: [
             {
-                matcher: (ctx) => TWO_STEP_SIGN_IN_PATHS.has(ctx.path ?? ""),
+                // External sign-ins too: they may stop for two-factor authentication as well.
+                matcher: (ctx) => TWO_STEP_SIGN_IN_PATHS.has(ctx.path ?? "") || (isExternalSignInPath(ctx.path) && startedNewSession(ctx)),
                 handler: createAuthMiddleware(async (ctx) => {
                     const created = ctx.context.newSession;
                     if (created) await recordAuthEvent("sign_in", created.user.id);
@@ -257,13 +310,47 @@ async function assertAccountDeletable(userId: string) {
 /** Prefix of new API keys. */
 const API_KEY_PREFIX = env.API_KEY_PREFIX ?? "ost_";
 
-/** First-run setup: these addresses get the admin role when their account is created. */
-const adminEmails = new Set(
-    (env.ADMIN_EMAILS ?? "")
-        .split(",")
-        .map((email) => email.trim().toLowerCase())
-        .filter(Boolean),
-);
+/** First-run setup: these addresses get the admin role once proven, see admin/admin-emails.ts. */
+const adminEmails = parseAdminEmails(env.ADMIN_EMAILS);
+
+/** Gives the admin role to an ADMIN_EMAILS account that has just proven its address. */
+async function promoteVerifiedAdmin(user: { id: string; email: string }, ipAddress: string | null) {
+    const promoted = await db
+        .update(schema.user)
+        .set({ role: "admin", updatedAt: new Date() })
+        .where(and(eq(schema.user.id, user.id), eq(schema.user.emailVerified, true)))
+        .returning({ id: schema.user.id });
+    if (promoted.length === 0) return;
+    await recordAudit({
+        actor: null,
+        action: "user.set_role",
+        target: { type: "user", id: user.id, label: user.email },
+        metadata: { role: "admin", reason: "ADMIN_EMAILS, address verified" },
+        ipAddress,
+    });
+}
+
+/**
+ * Ends what apps hold for an account: OAuth access and refresh tokens (and API keys on a ban).
+ * Sessions are deleted by Better Auth itself (ban, password reset).
+ */
+async function revokeAppAccess(
+    user: { id: string; email: string },
+    reason: "banned" | "password_reset",
+    actor: { id: string; email: string } | null,
+    ipAddress: string | null,
+) {
+    const tokens = await revokeUserOAuthTokens(db, user.id);
+    if (tokens.accessTokens + tokens.refreshTokens > 0) {
+        await recordAudit({
+            actor,
+            action: "oauth_token.revoke_all",
+            target: { type: "user", id: user.id, label: user.email },
+            metadata: { reason, ...tokens },
+            ipAddress,
+        });
+    }
+}
 
 /**
  * Records that a client came from /oauth2/register (`oauth_client.metadata`), which is how
@@ -320,7 +407,7 @@ export type AuthFactoryOptions = {
  */
 export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactoryOptions) {
     const passkeyWebAuthn = getPasskeyWebAuthnOptions(baseURL);
-    const captchaOptions = captchaPluginOptions();
+    const captchaOptions = captchaPluginOptions(baseURL);
     const twoFactorPlugin = twoFactor({
         issuer: brand.name,
         // Users without a password (passkey or GitHub only) can turn it on too, so an
@@ -340,6 +427,44 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
                 ...hook,
                 matcher: (ctx: { path?: string }) => ctx.path === "/sign-in/email-otp",
             })),
+        },
+    } satisfies BetterAuthPlugin;
+    /**
+     * The same second step after sign-ins that skip the password: social providers (redirect,
+     * ID token, One Tap), SSO and the verification link. An account with two-factor
+     * authentication keeps it whatever the way in, so REQUIRE_ADMIN_2FA holds for every admin
+     * session. The two-factor plugin's own check runs first (trusted device, else the session is
+     * deleted and the short-lived two-factor cookie set); a browser redirect then goes to the
+     * two-factor page instead of the sign-in's destination, which it continues to afterwards
+     * (the app's authorization request, when one is pending). JSON sign-ins (One Tap, ID token)
+     * answer `twoFactorRedirect` like a password sign-in.
+     */
+    const isTwoFactorChallenge = (value: unknown) =>
+        Boolean(value && typeof value === "object" && !(value instanceof Error) && (value as Bag).twoFactorRedirect === true);
+    const externalSignInTwoFactor = {
+        id: "ostiary-external-sign-in-two-factor",
+        hooks: {
+            after: [
+                ...twoFactorPlugin.hooks.after.map((hook) => ({
+                    ...hook,
+                    matcher: (ctx: HookContext) => isExternalSignInPath(ctx.path) && startedNewSession(ctx),
+                })),
+                {
+                    matcher: (ctx: HookContext & { context: { returned?: unknown; responseHeaders?: Headers } }) =>
+                        isExternalSignInPath(ctx.path) &&
+                        isTwoFactorChallenge(ctx.context.returned) &&
+                        Boolean(ctx.context.responseHeaders?.get("location")),
+                    handler: createAuthMiddleware(async (ctx) => {
+                        const serverContext = (await getOAuthState())?.serverContext as Bag | undefined;
+                        throw ctx.redirect(
+                            twoFactorStepURL(baseURL, {
+                                location: ctx.context.responseHeaders?.get("location"),
+                                oauthQuery: str(serverContext?.query),
+                            }),
+                        );
+                    }),
+                },
+            ],
         },
     } satisfies BetterAuthPlugin;
     // Client ID Metadata Documents (the client_id is an HTTPS URL to the client's JSON
@@ -449,7 +574,7 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
         baseURL,
         // Sign in with Apple returns with a form POST from Apple's origin.
         trustedOrigins: [...trustedOrigins, "https://appleid.apple.com"],
-        disabledPaths: [...UNUSED_EMAIL_OTP_PATHS, ...API_KEY_PLUGIN_PATHS, DELETE_USER_LINK_PATH],
+        disabledPaths: [...UNUSED_EMAIL_OTP_PATHS, ...API_KEY_PLUGIN_PATHS, DELETE_USER_LINK_PATH, ...SSO_MANAGEMENT_PATHS],
         // Per-IP limits counted in the database, shared by every serverless instance. Rules in
         // lib/rate-limit.ts; off in development unless RATE_LIMIT_ENABLED=true.
         rateLimit: rateLimitOptions(env),
@@ -464,9 +589,9 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
             user: {
                 create: {
                     before: async (newUser, context) => {
-                        if (!adminEmails.has(newUser.email.toLowerCase())) return;
-                        // An identity provider pushing users must not be able to claim an admin address.
-                        if (context?.path?.startsWith("/scim/")) return;
+                        // Only with an address the provider verified, never through SSO or SCIM. A
+                        // password sign-up is promoted when its address is verified (update hook).
+                        if (!adminOnSignUp(newUser, context?.path, adminEmails)) return;
                         return { data: { ...newUser, role: "admin" } };
                     },
                     after: async (createdUser) => {
@@ -493,16 +618,23 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
                     // as SCIM deactivation, is also refused at verification). Deleting an account
                     // deletes its keys with it (foreign key).
                     after: async (updatedUser, context) => {
+                        const ipAddress = context ? clientIp(context.headers) : null;
+                        const role = (updatedUser as { role?: string | null }).role;
+                        if (adminOnVerification({ ...updatedUser, role }, context?.path, adminEmails)) {
+                            await promoteVerifiedAdmin(updatedUser, ipAddress);
+                        }
                         if (!updatedUser.banned) return;
+                        const actor = context?.context.session?.user;
+                        // Apps lose access too: refresh tokens stop working, as with SCIM deactivation.
+                        await revokeAppAccess(updatedUser, "banned", actor ? { id: actor.id, email: actor.email } : null, ipAddress);
                         const revoked = await deleteUserApiKeys(updatedUser.id);
                         if (revoked === 0) return;
-                        const actor = context?.context.session?.user;
                         await recordAudit({
                             actor: actor ? { id: actor.id, email: actor.email } : null,
                             action: "api_key.revoke_all",
                             target: { type: "user", id: updatedUser.id, label: updatedUser.email },
                             metadata: { reason: "banned", keys: revoked },
-                            ipAddress: context ? clientIp(context.headers) : null,
+                            ipAddress,
                         });
                     },
                 },
@@ -537,8 +669,8 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
                     },
                     // Every new session is a sign-in, whatever the method (password, passkey, SSO, OAuth).
                     after: async (createdSession, ctx) => {
-                        // Password and code sign-ins are counted by passwordSignInEvents, after the 2FA check.
-                        if (ctx && TWO_STEP_SIGN_IN_PATHS.has(ctx.path)) return;
+                        // Password, code and external sign-ins are counted by passwordSignInEvents, after the 2FA check.
+                        if (ctx && (TWO_STEP_SIGN_IN_PATHS.has(ctx.path) || isExternalSignInPath(ctx.path))) return;
                         // Turning 2FA on or off replaces the current session: not a new sign-in.
                         if (ctx?.path.startsWith("/two-factor/") && ctx.context.session) return;
                         await recordAuthEvent("sign_in", createdSession.userId);
@@ -597,8 +729,45 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
                     }
                     return;
                 }
+                if (ctx.path === "/sso/register") {
+                    // One parser for the domain everywhere (sso-domain.ts): a value that the plugin
+                    // (tldts) and the DNS verification (URL) could read differently is refused.
+                    const domain = (ctx.body as Bag | undefined)?.domain;
+                    if (typeof domain !== "string" || parseSsoDomain(domain) !== domain) {
+                        throw new APIError("BAD_REQUEST", {
+                            message: "Enter one email domain in lowercase, e.g. acme.com.",
+                            code: "INVALID_SSO_DOMAIN",
+                        });
+                    }
+                    return;
+                }
+                if (ctx.path.startsWith("/organization/")) {
+                    // The Public organization holds every account: its members are not listed to them.
+                    const current = await getSessionFromCtx(ctx);
+                    if (!current) return; // The endpoint answers 401.
+                    const input = { ...((ctx.query ?? {}) as Bag), ...((ctx.body ?? {}) as Bag) };
+                    const refused = publicOrganizationRequestRefused(ctx.path, input, {
+                        isPlatformAdmin: userHasAdminRole(current.user.role as string | null | undefined, ["admin"]),
+                        activeOrganizationId: (current.session as { activeOrganizationId?: string | null }).activeOrganizationId,
+                    });
+                    if (refused) {
+                        throw new APIError("FORBIDDEN", {
+                            message: "The Public organization's members are managed by platform admins only.",
+                            code: "PUBLIC_ORGANIZATION_RESTRICTED",
+                        });
+                    }
+                    return;
+                }
                 if (RECENT_SIGN_IN_PATHS.has(ctx.path)) {
                     const current = await getSessionFromCtx(ctx);
+                    // An impersonation session is fresh too, but an admin viewing an account must
+                    // not add their own way into it.
+                    if (current?.session.impersonatedBy) {
+                        throw new APIError("FORBIDDEN", {
+                            message: "A sign-in method cannot be added while an administrator is viewing the account.",
+                            code: "IMPERSONATING",
+                        });
+                    }
                     const signedInAt = current ? new Date(current.session.createdAt).getTime() : 0;
                     if (current && Date.now() - signedInAt > RECENT_SIGN_IN_SECONDS * 1000) {
                         throw new APIError("FORBIDDEN", {
@@ -724,8 +893,10 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
             accountLinking: {
                 enabled: true,
                 // Explicit "Connect GitHub" from the dashboard may use a different email: the user is
-                // signed in and, per the hooks below, signed in recently. Sign-in with GitHub only joins
-                // an existing account when GitHub reports that email as verified (Better Auth default).
+                // signed in and, per the hooks below, signed in recently (and not impersonated). Sign-in
+                // with GitHub only joins an existing account when GitHub reports that email as verified
+                // and the account's own email is verified (Better Auth defaults), and never an account
+                // with two-factor authentication or an admin (validateUserInfo below).
                 allowDifferentEmails: true,
             },
         },
@@ -738,6 +909,27 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
             storeSessionInDatabase: true,
         },
         user: {
+            // Runs before an identity provider creates, links or signs in an account.
+            validateUserInfo: async ({ user, source }, ctx) => {
+                // SSO providers whose stored domain is not one plain hostname (older rows, or
+                // written before the check): their domain could be read two ways, see sso-domain.ts.
+                if ((source.method === "sso-oidc" || source.method === "sso-saml") && source.sso?.providerId) {
+                    const [provider] = await db
+                        .select({ domain: schema.ssoProvider.domain })
+                        .from(schema.ssoProvider)
+                        .where(eq(schema.ssoProvider.providerId, source.sso.providerId));
+                    if (!provider || !isStrictSsoDomain(provider.domain)) {
+                        return { error: "invalid_provider_domain", errorDescription: "This SSO provider's domain must be set again by an administrator." };
+                    }
+                }
+                if (source.action !== "link-account") return;
+                // Connecting a provider from the dashboard (signed in) is an explicit link.
+                const explicit = ctx.path === "/link-social" || Boolean((await getOAuthState())?.link);
+                if (explicit || typeof user.id !== "string") return;
+                const existing = await ctx.context.internalAdapter.findUserById(user.id);
+                const refusal = existing ? implicitLinkRefusal(existing as { role?: string | null; twoFactorEnabled?: boolean | null }) : null;
+                if (refusal) return { error: "account_not_linked", errorDescription: refusal };
+            },
             // "Delete my account" on the dashboard: password or recent sign-in (hook above), then
             // an emailed link to a confirmation page. Blockers in account-data/blockers.ts.
             deleteUser: {
@@ -782,6 +974,10 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
             autoSignIn: false,
             requireEmailVerification: true,
             revokeSessionsOnPasswordReset: true,
+            // Whoever had the old password may also hold apps' refresh tokens: revoke those too.
+            onPasswordReset: async ({ user }, request) => {
+                await revokeAppAccess(user, "password_reset", null, request ? clientIp(request.headers) : null);
+            },
             sendResetPassword: async ({ user, url }) => {
                 queuePasswordResetEmail({ to: user.email, url });
             },
@@ -789,6 +985,10 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
         plugins: [
             jwt(jwtOptions),
             admin({
+                // Only Better Auth's two roles ("admin", "user"): set-role and create-user refuse
+                // anything else, such as "user, admin", which Ostiary and Better Auth would read
+                // differently.
+                roles: platformRoles,
                 bannedUserMessage: (user: { banReason?: string | null }) =>
                     user.banReason === SCIM_DEACTIVATED_REASON
                         ? SCIM_DEACTIVATED_MESSAGE
@@ -805,12 +1005,13 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
             username(),
             // Skipped in end-to-end tests only (an external HTTP call), see lib/e2e-test-mode.ts.
             haveIBeenPwned({ enabled: !e2eTestMode() }),
-            // Authenticator app (TOTP) and backup codes. The second step applies to password
-            // sign-ins (email or username) and emailed sign-in codes. Passkeys are already two factors; social and SSO
-            // sign-ins rely on the identity provider's own checks. Must come before the OAuth
-            // provider: its hook replaces the sign-in response before an authorization resumes.
+            // Authenticator app (TOTP) and backup codes. The second step applies to every sign-in
+            // except passkeys (already two factors): passwords, emailed codes (emailCodeTwoFactor),
+            // social, One Tap, SSO and verification links (externalSignInTwoFactor). Must come before
+            // the OAuth provider: its hook replaces the sign-in response before an authorization resumes.
             twoFactorPlugin,
             emailCodeTwoFactor,
+            externalSignInTwoFactor,
             passwordSignInEvents,
             // "Email me a sign-in code": a 6-digit code, typed on the sign-in page that asked for
             // it, so an OAuth sign-in carries on in that tab even when the email is read on a phone.
@@ -843,8 +1044,9 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
             // client ID, `hd` and sign-up setting from `socialProviders.google` on each request,
             // which syncSocialProviders keeps equal to the admin console's settings. It checks the
             // ID token's signature (Google's keys), issuer, audience and age, then signs in like
-            // "Continue with Google": same account linking, no second factor, and a pending OAuth
-            // authorization resumes (the client sends the signed `oauth_query`).
+            // "Continue with Google": same account linking, the two-factor step for accounts that
+            // have it, and a pending OAuth authorization resumes (the client sends the signed
+            // `oauth_query`).
             oneTap(),
             passkey({
                 rpID: passkeyWebAuthn.rpID,

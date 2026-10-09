@@ -1669,6 +1669,9 @@
             "revoke_all": "Alle API-sleutels ingetrokken",
             "settings": "Instellingen voor API-sleutels gewijzigd"
           },
+          "oauth_token": {
+            "revoke_all": "Alle app-tokens ingetrokken"
+          },
           "oauth_consent": {
             "update": "Toestemming bijgewerkt",
             "delete": "Toestemming ingetrokken"

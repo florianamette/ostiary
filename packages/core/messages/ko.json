@@ -1669,6 +1669,9 @@
             "revoke_all": "모든 API 키 폐기",
             "settings": "API 키 설정 변경"
           },
+          "oauth_token": {
+            "revoke_all": "모든 앱 토큰 취소"
+          },
           "oauth_consent": {
             "update": "동의 업데이트",
             "delete": "동의 폐기"

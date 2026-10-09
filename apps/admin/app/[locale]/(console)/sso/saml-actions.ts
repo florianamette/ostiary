@@ -15,6 +15,7 @@ import {
   type SamlMapping,
 } from "@ostiary/core/lib/saml";
 import { fetchSamlMetadata } from "@ostiary/core/lib/saml-metadata-fetch";
+import { parseSsoDomain } from "@ostiary/core/lib/security/sso-domain";
 import { adminActor } from "@/lib/admin-audit";
 import { auth } from "@/lib/auth";
 
@@ -42,13 +43,6 @@ export type SamlProviderInput = {
 
 const verificationIdentifier = (providerId: string) => `_ostiary-${providerId}`;
 
-function hostnameOf(domain: string): string | null {
-  try {
-    return new URL(domain.includes("://") ? domain : `https://${domain}`).hostname || null;
-  } catch {
-    return null;
-  }
-}
 
 function metadataAllowLocalhost(): boolean {
   return env.WEBHOOKS_ALLOW_LOCALHOST === "true" && env.NODE_ENV !== "production";
@@ -99,8 +93,8 @@ export async function registerSamlProvider(
   if (!SAML_PROVIDER_ID_PATTERN.test(providerId)) {
     return { ok: false, error: (await errors())("invalidProviderId") };
   }
-  const domain = input.domain.trim().toLowerCase();
-  if (!hostnameOf(domain) || domain.includes("/")) return { ok: false, error: (await errors())("invalidDomain") };
+  const domain = parseSsoDomain(input.domain);
+  if (!domain) return { ok: false, error: (await errors())("invalidDomain") };
   if (input.organizationId) {
     const [org] = await db.select({ id: organization.id }).from(organization).where(eq(organization.id, input.organizationId));
     if (!org) return { ok: false, error: (await errors())("organizationNotFound") };
@@ -147,8 +141,8 @@ export async function updateSamlProvider(
   } catch {
     return { ok: false, error: (await errors())("unreadableSamlConfig") };
   }
-  const domain = input.domain.trim().toLowerCase();
-  if (!hostnameOf(domain) || domain.includes("/")) return { ok: false, error: (await errors())("invalidDomain") };
+  const domain = parseSsoDomain(input.domain);
+  if (!domain) return { ok: false, error: (await errors())("invalidDomain") };
   if (input.organizationId) {
     const [org] = await db.select({ id: organization.id }).from(organization).where(eq(organization.id, input.organizationId));
     if (!org) return { ok: false, error: (await errors())("organizationNotFound") };
