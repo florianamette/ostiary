@@ -1,46 +1,46 @@
 {
   "layout": {
-    "title": "Sign in",
-    "description": "Log in to your work tools and profile."
+    "title": "تسجيل الدخول",
+    "description": "سجّل الدخول إلى أدوات عملك وملفك الشخصي."
   },
   "auth": {
     "login": {
-      "title": "Login to your account",
-      "description": "Sign in with your email or username and password.",
-      "identifierLabel": "Email or username",
-      "identifierPlaceholder": "you@example.com or your_username",
-      "emailLabel": "Email",
+      "title": "سجّل الدخول إلى حسابك",
+      "description": "سجّل الدخول باستخدام بريدك الإلكتروني أو اسم المستخدم وكلمة المرور.",
+      "identifierLabel": "البريد الإلكتروني أو اسم المستخدم",
+      "identifierPlaceholder": "you@example.com أو your_username",
+      "emailLabel": "البريد الإلكتروني",
       "emailPlaceholder": "m@example.com",
-      "passwordLabel": "Password",
-      "forgotPasswordLink": "Forgot password?",
-      "submit": "Login",
-      "submitting": "Signing in…",
-      "noAccount": "Don't have an account?",
-      "signUpLink": "Sign up",
-      "verifyEmailAfterSignup": "Check your inbox for a verification link. You must verify your email before signing in.",
-      "passkey": "Sign in with passkey",
-      "passkeySubmitting": "Waiting for passkey…",
+      "passwordLabel": "كلمة المرور",
+      "forgotPasswordLink": "هل نسيت كلمة المرور؟",
+      "submit": "تسجيل الدخول",
+      "submitting": "جارٍ تسجيل الدخول…",
+      "noAccount": "ليس لديك حساب؟",
+      "signUpLink": "إنشاء حساب",
+      "verifyEmailAfterSignup": "تحقق من بريدك الوارد للعثور على رابط التحقق. يجب عليك تأكيد بريدك الإلكتروني قبل تسجيل الدخول.",
+      "passkey": "تسجيل الدخول باستخدام مفتاح المرور",
+      "passkeySubmitting": "في انتظار مفتاح المرور…",
       "emailCode": "أرسل لي رمز تسجيل الدخول بالبريد الإلكتروني",
-      "lastUsedBadge": "Last used",
-      "lastUsedHintEmail": "You last signed in with email and password.",
-      "lastUsedHintUsername": "You last signed in with username and password.",
-      "lastUsedHintPasskey": "You last signed in with a passkey.",
+      "lastUsedBadge": "آخر طريقة مستخدمة",
+      "lastUsedHintEmail": "سجّلت الدخول آخر مرة باستخدام البريد الإلكتروني وكلمة المرور.",
+      "lastUsedHintUsername": "سجّلت الدخول آخر مرة باستخدام اسم المستخدم وكلمة المرور.",
+      "lastUsedHintPasskey": "سجّلت الدخول آخر مرة باستخدام مفتاح مرور.",
       "lastUsedHintEmailCode": "سجّلت الدخول آخر مرة باستخدام رمز أُرسل بالبريد الإلكتروني.",
-      "lastUsedHintOther": "You last signed in with {method}.",
+      "lastUsedHintOther": "سجّلت الدخول آخر مرة باستخدام {method}.",
       "errors": {
         "emailNotVerified": "Please verify your email first. We sent you a new verification link, check your inbox.",
-        "signInFailed": "Could not sign in. Check your details and try again.",
-        "passkeyFailed": "Passkey sign-in failed. Try again or use your password."
+        "signInFailed": "تعذّر تسجيل الدخول. تحقق من بياناتك وحاول مرة أخرى.",
+        "passkeyFailed": "فشل تسجيل الدخول بمفتاح المرور. حاول مرة أخرى أو استخدم كلمة المرور."
       },
       "resend": {
-        "title": "Didn't get the email?",
-        "description": "Enter your email and we'll send you a new verification link.",
+        "title": "لم تصلك الرسالة؟",
+        "description": "أدخل بريدك الإلكتروني وسنرسل إليك رابط تحقق جديدًا.",
         "emailPlaceholder": "you@example.com",
-        "send": "Send a new link",
-        "sendAgain": "Send again",
-        "sent": "If an unverified account uses this address, a new link is on its way. Check your inbox and spam folder.",
-        "invalidEmail": "Enter a valid email address.",
-        "error": "Could not send the email. Try again in a minute."
+        "send": "إرسال رابط جديد",
+        "sendAgain": "إعادة الإرسال",
+        "sent": "إذا كان هناك حساب غير مؤكَّد يستخدم هذا العنوان، فإن رابطًا جديدًا في طريقه إليك. تحقق من بريدك الوارد ومجلد الرسائل غير المرغوب فيها.",
+        "invalidEmail": "أدخل عنوان بريد إلكتروني صالحًا.",
+        "error": "تعذّر إرسال الرسالة. حاول مرة أخرى بعد دقيقة."
       },
       "addAccountDescription": "تبقى الحسابات المسجّل دخولها في هذا المتصفح مسجّلة."
     },
@@ -93,81 +93,81 @@
       }
     },
     "forgotPassword": {
-      "metaTitle": "Forgot password",
-      "title": "Reset your password",
-      "description": "Enter the email on your account. If it exists, we will send you a link to choose a new password.",
-      "emailLabel": "Email",
+      "metaTitle": "نسيت كلمة المرور",
+      "title": "إعادة تعيين كلمة المرور",
+      "description": "أدخل البريد الإلكتروني المرتبط بحسابك. إذا كان موجودًا، فسنرسل إليك رابطًا لاختيار كلمة مرور جديدة.",
+      "emailLabel": "البريد الإلكتروني",
       "emailPlaceholder": "m@example.com",
-      "emailHint": "Use the same email you registered with. If you usually sign in with a username, recovery still uses your account email.",
-      "submit": "Send reset link",
-      "submitting": "Sending…",
-      "backToLogin": "Back to login",
-      "emailSent": "If an account exists for that email, you will receive a reset link shortly.",
+      "emailHint": "استخدم البريد الإلكتروني نفسه الذي سجّلت به. إذا كنت تسجّل الدخول عادةً باسم المستخدم، فإن الاسترداد يستخدم مع ذلك البريد الإلكتروني لحسابك.",
+      "submit": "إرسال رابط إعادة التعيين",
+      "submitting": "جارٍ الإرسال…",
+      "backToLogin": "العودة إلى تسجيل الدخول",
+      "emailSent": "إذا كان هناك حساب لهذا البريد الإلكتروني، فستتلقى رابط إعادة التعيين قريبًا.",
       "errors": {
-        "emailRequired": "Please enter your email address.",
-        "requestFailed": "Could not send the reset email. Try again."
+        "emailRequired": "يرجى إدخال عنوان بريدك الإلكتروني.",
+        "requestFailed": "تعذّر إرسال رسالة إعادة التعيين. حاول مرة أخرى."
       }
     },
     "resetPassword": {
-      "metaTitle": "Set new password",
-      "title": "Choose a new password",
-      "description": "Enter and confirm your new password below.",
-      "invalidTokenTitle": "Link expired or invalid",
-      "invalidTokenDescription": "This reset link is no longer valid. Request a new one to continue.",
-      "missingTokenTitle": "No reset link",
-      "missingTokenDescription": "Open the link from your email, or request a new password reset.",
-      "requestNewLink": "Request new link",
-      "backToLogin": "Back to login",
-      "newPasswordLabel": "New password",
-      "confirmPasswordLabel": "Confirm password",
-      "passwordHint": "Must be at least 8 characters long.",
-      "passwordMismatch": "Passwords do not match",
-      "submit": "Update password",
-      "submitting": "Updating…",
-      "success": "Your password was updated. You can sign in now.",
+      "metaTitle": "تعيين كلمة مرور جديدة",
+      "title": "اختر كلمة مرور جديدة",
+      "description": "أدخل كلمة المرور الجديدة وأكّدها أدناه.",
+      "invalidTokenTitle": "الرابط منتهي الصلاحية أو غير صالح",
+      "invalidTokenDescription": "لم يعد رابط إعادة التعيين هذا صالحًا. اطلب رابطًا جديدًا للمتابعة.",
+      "missingTokenTitle": "لا يوجد رابط إعادة تعيين",
+      "missingTokenDescription": "افتح الرابط من بريدك الإلكتروني، أو اطلب إعادة تعيين كلمة المرور من جديد.",
+      "requestNewLink": "طلب رابط جديد",
+      "backToLogin": "العودة إلى تسجيل الدخول",
+      "newPasswordLabel": "كلمة المرور الجديدة",
+      "confirmPasswordLabel": "تأكيد كلمة المرور",
+      "passwordHint": "يجب ألا تقل عن 8 أحرف.",
+      "passwordMismatch": "كلمتا المرور غير متطابقتين",
+      "submit": "تحديث كلمة المرور",
+      "submitting": "جارٍ التحديث…",
+      "success": "تم تحديث كلمة المرور. يمكنك تسجيل الدخول الآن.",
       "errors": {
-        "resetFailed": "Could not reset your password. Try again or request a new link."
+        "resetFailed": "تعذّرت إعادة تعيين كلمة المرور. حاول مرة أخرى أو اطلب رابطًا جديدًا."
       }
     },
     "signup": {
-      "title": "Create an account",
-      "description": "Enter your information below to create your account",
-      "usernameLabel": "Username",
+      "title": "إنشاء حساب",
+      "description": "أدخل معلوماتك أدناه لإنشاء حسابك",
+      "usernameLabel": "اسم المستخدم",
       "usernamePlaceholder": "your_username",
-      "usernameHint": "3-30 characters: letters, numbers, dots, and underscores only.",
-      "usernameChecking": "Checking availability…",
-      "usernameAvailable": "This username is available.",
-      "usernameTaken": "This username is already taken.",
-      "usernameInvalidHint": "Use only letters, numbers, dots, and underscores.",
-      "fullNameLabel": "Full Name",
-      "namePlaceholder": "John Doe",
-      "emailLabel": "Email",
+      "usernameHint": "من 3 إلى 30 حرفًا: أحرف وأرقام ونقاط وشرطات سفلية فقط.",
+      "usernameChecking": "جارٍ التحقق من التوفر…",
+      "usernameAvailable": "اسم المستخدم هذا متاح.",
+      "usernameTaken": "اسم المستخدم هذا مستخدم بالفعل.",
+      "usernameInvalidHint": "استخدم الأحرف والأرقام والنقاط والشرطات السفلية فقط.",
+      "fullNameLabel": "الاسم الكامل",
+      "namePlaceholder": "محمد أحمد",
+      "emailLabel": "البريد الإلكتروني",
       "emailPlaceholder": "m@example.com",
-      "emailDescription": "We'll use this to contact you. We will not share your email with anyone else.",
-      "passwordLabel": "Password",
-      "confirmPasswordLabel": "Confirm Password",
-      "passwordHint": "Must be at least 8 characters long.",
-      "confirmPasswordHint": "Please confirm your password.",
-      "passwordMismatch": "Passwords do not match",
-      "submit": "Create Account",
-      "submitting": "Creating account…",
-      "hasAccount": "Already have an account?",
-      "signInLink": "Sign in",
-      "loginLink": "Login",
-      "afterRegisterRedirect": "Account created. Check your email to verify before signing in.",
+      "emailDescription": "سنستخدمه للتواصل معك. لن نشارك بريدك الإلكتروني مع أي شخص آخر.",
+      "passwordLabel": "كلمة المرور",
+      "confirmPasswordLabel": "تأكيد كلمة المرور",
+      "passwordHint": "يجب ألا تقل عن 8 أحرف.",
+      "confirmPasswordHint": "يرجى تأكيد كلمة المرور.",
+      "passwordMismatch": "كلمتا المرور غير متطابقتين",
+      "submit": "إنشاء حساب",
+      "submitting": "جارٍ إنشاء الحساب…",
+      "hasAccount": "لديك حساب بالفعل؟",
+      "signInLink": "تسجيل الدخول",
+      "loginLink": "تسجيل الدخول",
+      "afterRegisterRedirect": "تم إنشاء الحساب. تحقق من بريدك الإلكتروني لتأكيده قبل تسجيل الدخول.",
       "errors": {
-        "signUpFailed": "Could not create your account. Try again.",
-        "compromisedPassword": "This password appears in known data breaches. Choose a different one.",
-        "usernameTooShort": "Username must be at least 3 characters.",
-        "usernameInvalid": "That username is not valid.",
-        "usernameTaken": "That username is already taken. Try another."
+        "signUpFailed": "تعذّر إنشاء حسابك. حاول مرة أخرى.",
+        "compromisedPassword": "تظهر كلمة المرور هذه في تسريبات بيانات معروفة. اختر كلمة مرور مختلفة.",
+        "usernameTooShort": "يجب ألا يقل اسم المستخدم عن 3 أحرف.",
+        "usernameInvalid": "اسم المستخدم هذا غير صالح.",
+        "usernameTaken": "اسم المستخدم هذا مستخدم بالفعل. جرّب اسمًا آخر."
       }
     },
     "screen": {
-      "headline": "One account for all your apps.",
-      "subhead": "Sign in once and reach every app connected to {name}. Your profile and security settings follow you everywhere.",
-      "footer": "Secured by {name}.",
-      "ecosystem": "Works with"
+      "headline": "حساب واحد <accent>لكل تطبيقاتك</accent>.",
+      "subhead": "سجّل الدخول مرة واحدة واصل إلى كل تطبيق متصل بـ {name}. يرافقك ملفك الشخصي وإعدادات الأمان أينما ذهبت.",
+      "footer": "محمي بواسطة {name}.",
+      "ecosystem": "يعمل مع"
     },
     "social": {
       "or": "أو",
@@ -175,8 +175,8 @@
       "signInWith": "تسجيل الدخول باستخدام {provider}",
       "lastUsed": "آخر استخدام",
       "otherProviders": "طرق أخرى لتسجيل الدخول",
-      "error": "Could not sign in with that account. Try again or use another method.",
-      "notLinked": "That account isn't connected to a {name} account yet. Sign in another way, then connect it from your security settings.",
+      "error": "تعذّر تسجيل الدخول بهذا الحساب. حاول مرة أخرى أو استخدم طريقة أخرى.",
+      "notLinked": "هذا الحساب غير مرتبط بحساب {name} بعد. سجّل الدخول بطريقة أخرى، ثم اربطه من إعدادات الأمان.",
       "noEmail": "لم يشارك هذا الحساب عنوان بريد إلكتروني. حاول لاحقًا أو سجّل الدخول بطريقة أخرى.",
       "signUpDisabled": "لا يوجد حساب لهذا العنوان بعد، ولا يمكن لطريقة تسجيل الدخول هذه إنشاء حساب. سجّل الدخول بطريقة أخرى."
     },
@@ -189,23 +189,23 @@
     }
   },
   "consent": {
-    "emptyTitle": "Authorization",
-    "emptyDescription": "There is no pending OAuth request. Start the flow from the application you want to connect.",
-    "connectTitle": "Connect {name}",
-    "intro": "This application is requesting access to your account. Review the permissions below before continuing.",
+    "emptyTitle": "التفويض",
+    "emptyDescription": "لا يوجد طلب OAuth معلّق. ابدأ العملية من التطبيق الذي تريد ربطه.",
+    "connectTitle": "ربط {name}",
+    "intro": "يطلب هذا التطبيق الوصول إلى حسابك. راجع الأذونات أدناه قبل المتابعة.",
     "errors": {
-      "needSignIn": "You need to sign in before you can approve this request.",
-      "loadFailed": "Could not load application details.",
-      "actionFailed": "Something went wrong."
+      "needSignIn": "يجب عليك تسجيل الدخول قبل أن تتمكن من الموافقة على هذا الطلب.",
+      "loadFailed": "تعذّر تحميل تفاصيل التطبيق.",
+      "actionFailed": "حدث خطأ ما."
     },
-    "signIn": "Sign in",
-    "visitWebsite": "Visit application website",
-    "requestedAccess": "Requested access",
-    "defaultScopes": "Default permissions for this client (no explicit scopes in the request).",
-    "terms": "Terms of service",
-    "privacy": "Privacy policy",
-    "deny": "Deny",
-    "allow": "Allow",
+    "signIn": "تسجيل الدخول",
+    "visitWebsite": "زيارة موقع التطبيق",
+    "requestedAccess": "الوصول المطلوب",
+    "defaultScopes": "الأذونات الافتراضية لهذا العميل (لا توجد نطاقات صريحة في الطلب).",
+    "terms": "شروط الخدمة",
+    "privacy": "سياسة الخصوصية",
+    "deny": "رفض",
+    "allow": "سماح",
     "scopes": {
       "openid": "التحقق من هويتك (OpenID Connect)",
       "profile": "الاسم ومعلومات الملف الشخصي",
@@ -221,108 +221,1540 @@
   },
   "admin": {
     "themeToggle": {
-      "light": "Light",
-      "dark": "Dark",
-      "system": "System",
-      "srOnly": "Toggle theme",
-      "label": "Theme"
+      "light": "فاتح",
+      "dark": "داكن",
+      "system": "النظام",
+      "srOnly": "تبديل المظهر",
+      "label": "المظهر"
     },
     "nav": {
-      "groupAdmin": "Admin",
+      "groupAdmin": "الإدارة",
       "groupOAuth": "OAuth",
-      "overview": "Overview",
-      "users": "Users",
-      "applications": "Applications",
+      "overview": "نظرة عامة",
+      "users": "المستخدمون",
+      "applications": "التطبيقات",
       "apis": "واجهات API",
       "apiKeys": "مفاتيح API",
-      "consent": "Consent",
-      "organizations": "Organizations",
+      "consent": "الموافقات",
+      "organizations": "المؤسسات",
       "sso": "SSO",
       "signInProviders": "مزودو تسجيل الدخول",
       "webhooks": "خطافات الويب",
-      "security": "Security",
+      "security": "الأمان",
       "usage": "استخدام التطبيقات",
-      "audit": "Audit log",
+      "audit": "سجل التدقيق",
       "signingKeys": "مفاتيح التوقيع"
     },
     "header": {
-      "crumb": "Admin",
-      "fallback": "Admin",
-      "overview": "Overview",
-      "users": "Users",
-      "applications": "Applications",
+      "crumb": "الإدارة",
+      "fallback": "الإدارة",
+      "overview": "نظرة عامة",
+      "users": "المستخدمون",
+      "applications": "التطبيقات",
       "apis": "واجهات API",
       "apiKeys": "مفاتيح API",
-      "consent": "Consent",
-      "organizations": "Organizations",
+      "consent": "الموافقات",
+      "organizations": "المؤسسات",
       "sso": "SSO",
       "signInProviders": "مزودو تسجيل الدخول",
       "webhooks": "خطافات الويب",
-      "security": "Security",
+      "security": "الأمان",
       "usage": "استخدام التطبيقات",
-      "audit": "Audit log",
+      "audit": "سجل التدقيق",
       "signingKeys": "مفاتيح التوقيع"
     },
     "pages": {
       "overview": {
-        "title": "Overview",
+        "title": "نظرة عامة",
         "activity": {
-          "title": "Sign-in activity",
-          "description": "Sign-ins, new accounts and sign-outs per day, last 30 days.",
-          "signIns": "Sign-ins",
-          "signUps": "Sign-ups",
-          "signOuts": "Sign-outs",
-          "showTable": "View as table",
-          "showChart": "View as chart",
-          "legend": "Totals for the last 30 days",
-          "day": "Day",
-          "note": "Sign-outs are tracked from October 6, 2026. Earlier sign-ins only include sessions that were still active then."
+          "title": "نشاط تسجيل الدخول",
+          "description": "عمليات تسجيل الدخول والحسابات الجديدة وعمليات تسجيل الخروج يوميًا، خلال آخر 30 يومًا.",
+          "signIns": "عمليات تسجيل الدخول",
+          "signUps": "الحسابات الجديدة",
+          "signOuts": "عمليات تسجيل الخروج",
+          "showTable": "عرض كجدول",
+          "showChart": "عرض كرسم بياني",
+          "legend": "الإجماليات خلال آخر 30 يومًا",
+          "day": "اليوم",
+          "note": "يُتتبَّع تسجيل الخروج منذ 6 أكتوبر 2026. لا تشمل عمليات تسجيل الدخول السابقة إلا الجلسات التي كانت لا تزال نشطة حينها."
         },
-        "description": "Accounts, sign-in activity and the newest members of the platform."
+        "description": "الحسابات ونشاط تسجيل الدخول وأحدث أعضاء المنصة.",
+        "recentUsers": {
+          "title": "انضموا مؤخرًا",
+          "description": "أحدث الحسابات. افتح أيًّا منها لعرض جلساته ونشاطه.",
+          "loading": "جارٍ التحميل…",
+          "empty": "لا يوجد مستخدمون بعد."
+        },
+        "stats": {
+          "error": "تعذّر تحميل مقياس واحد أو أكثر. تأكد من أنك سجّلت الدخول بصفتك مسؤولًا.",
+          "errorTitle": "المقاييس غير متاحة",
+          "loadingTitle": "جارٍ التحميل",
+          "loadingHint": "جارٍ التحميل…",
+          "totalUsers": {
+            "title": "إجمالي المستخدمين",
+            "hint": "كل الحسابات على المنصة."
+          },
+          "admins": {
+            "title": "المسؤولون",
+            "hint": "الحسابات التي يمكنها الوصول إلى لوحة التحكم هذه."
+          },
+          "banned": {
+            "title": "المحظورون",
+            "hint": "الحسابات التي لا يمكنها تسجيل الدخول حاليًا."
+          },
+          "verified": {
+            "title": "بريد إلكتروني موثّق",
+            "hint": "الحسابات التي أكّدت عنوان بريدها الإلكتروني."
+          },
+          "recent": {
+            "title": "جديدة (7 أيام)",
+            "hint": "الحسابات التي أُنشئت خلال آخر 7 أيام."
+          }
+        }
       },
       "applications": {
-        "title": "Applications",
+        "title": "التطبيقات",
         "description": "عملاء OAuth الذين يمكنهم تسجيل دخول المستخدمين عبر {name}: عناوين إعادة التوجيه وأنواع المنح وإعدادات الموافقة.",
         "unusedHint": "{count, plural, zero {لا توجد تطبيقات غير مستخدمة} one {تطبيق واحد لم يُستخدم} two {تطبيقان لم يُستخدما} few {# تطبيقات لم تُستخدم} many {# تطبيقًا لم يُستخدم} other {# تطبيق لم يُستخدم}} خلال آخر 30 يومًا.",
-        "viewUsage": "عرض الاستخدام"
+        "viewUsage": "عرض الاستخدام",
+        "panel": {
+          "selfRegisteredHint": "سجّل نفسه: لم يراجعه أي مسؤول",
+          "selfRegisteredBadge": "مسجّل ذاتيًا",
+          "registration": {
+            "all": "أي طريقة تسجيل",
+            "admin": "المسؤول",
+            "dynamic": "التسجيل الديناميكي",
+            "metadata_document": "مستند البيانات الوصفية"
+          },
+          "authMethod": {
+            "none": "المصادقة: بلا",
+            "client_secret_basic": "المصادقة: سر (basic)",
+            "client_secret_post": "المصادقة: سر (post)",
+            "private_key_jwt": "المصادقة: JWT بمفتاح خاص"
+          },
+          "loadFailed": "تعذّر تحميل عملاء OAuth",
+          "loadErrorTitle": "تعذّر تحميل التطبيقات",
+          "searchPlaceholder": "ابحث بالاسم أو معرّف العميل أو عنوان إعادة التوجيه أو نوع المنح…",
+          "searchLabel": "البحث في التطبيقات",
+          "clientType": "نوع العميل",
+          "registeredBy": "سجّله",
+          "kind": {
+            "all": "كل العملاء",
+            "public": "عام",
+            "confidential": "سرّي",
+            "trusted": "موثوق (تخطي الموافقة)",
+            "device": "تسجيل الدخول من جهاز"
+          },
+          "columns": {
+            "application": "التطبيق",
+            "redirects": "عناوين إعادة التوجيه",
+            "grants": "أنواع المنح",
+            "consent": "الموافقة"
+          },
+          "badges": {
+            "device": "جهاز",
+            "trusted": "موثوق",
+            "consent": "الموافقة",
+            "active": "نشط",
+            "skipped": "متخطّاة",
+            "required": "مطلوبة"
+          },
+          "loadingRows": "جارٍ تحميل التطبيقات…",
+          "empty": "لا يوجد عملاء OAuth لهذا الحساب بعد.",
+          "noMatch": "لا توجد تطبيقات تطابق عوامل التصفية.",
+          "linkedApis": "واجهات API المرتبطة: {apis}",
+          "noApplications": "0 تطبيقات",
+          "showing": "عرض {from}-{to} من {total}",
+          "rowsPerPage": "عدد الصفوف في الصفحة",
+          "previous": "السابق",
+          "next": "التالي",
+          "page": "الصفحة {page} / {total}",
+          "footnote": "البيانات من <code>{getClients}</code>. يستدعي التسجيل والتعديل (بما في ذلك <code>{skipConsent}</code>) كلًّا من <code>{create}</code> و<code>{update}</code>؛ وتستخدم التغييرات الأخرى <code>{deleteClient}</code> و<code>{rotateSecret}</code>. راجع وثائق <docs>OAuth provider</docs>. يقتصر العملاء على المستخدم المسجّل دخوله (أو <code>{clientReference}</code> عند إعداده). العملاء المسجّلون ذاتيًا بلا مالك ويُعرضون جميعًا؛ يمكن تعطيلهم أو حذفهم، لا تعديلهم."
+        },
+        "registration": {
+          "title": "التسجيل الذاتي",
+          "description": "يتيح لعملاء MCP ووكلاء الذكاء الاصطناعي تسجيل أنفسهم بدلًا من إضافتهم هنا. لا يحصلون إلا على النطاقات أدناه، وتظهر لهم شاشة الموافقة دائمًا مع وسم «غير موثّق»، ولا يحصلون أبدًا على وصول آلي (client credentials).",
+          "dynamicRegistration": "التسجيل الديناميكي",
+          "dynamic": {
+            "off": {
+              "label": "متوقف",
+              "hint": "يُرفض POST /oauth2/register."
+            },
+            "signed_in": {
+              "label": "المستخدمون المسجّلون دخولهم فقط",
+              "hint": "لا يمكن التسجيل إلا للطلبات التي تحمل جلسة مستخدم. معظم عملاء MCP لا يستطيعون ذلك."
+            },
+            "open": {
+              "label": "أي أحد (تسجيل مفتوح)",
+              "hint": "ما يتوقعه عملاء MCP: يمكن لأي تطبيق التسجيل، ثم يوافق عليه كل مستخدم في شاشة الموافقة."
+            }
+          },
+          "metadataDocuments": "مستندات البيانات الوصفية (client_id بصيغة URL)",
+          "metadataOnFrom": "مفعّل، من {hosts}",
+          "metadataOnAnyHost": "مفعّل، أي مضيف HTTPS",
+          "scopes": "النطاقات التي يمكنهم طلبها",
+          "missingScope": "لم يعد نطاقًا لهذا الخادم: يتم تجاهله",
+          "perHour": "العملاء الجدد في الساعة",
+          "endpoint": "نقطة نهاية التسجيل: <code>{url}</code> (مُعلنة في مستند الاكتشاف).",
+          "saved": "تم حفظ الإعدادات. يطبّقها خادم المصادقة خلال دقيقة.",
+          "dialogDescription": "لا تتم مراجعة العملاء الذين يسجّلون أنفسهم. يراهم الأشخاص كتطبيقات غير موثّقة ويوافقون على كل منها في شاشة الموافقة.",
+          "dynamicLabel": "التسجيل الديناميكي للعملاء (RFC 7591)",
+          "cimdLabel": "مستندات البيانات الوصفية لمعرّف العميل (Client ID Metadata Documents)",
+          "cimdHint": "يكون client_id عنوان URL بصيغة HTTPS يشير إلى بيانات التطبيق الوصفية بصيغة JSON، كما تفعل عملاء MCP الأحدث. لا تُجلب إلا المضيفات العامة، دون إعادة توجيه، و5 KB كحد أقصى.",
+          "hostsLabel": "المضيفات المسموح بها",
+          "hostsHint": "واحد في كل سطر. فارغ: أي مضيف HTTPS عام.",
+          "scopesLabel": "النطاقات التي يمكن للعملاء المسجّلين ذاتيًا طلبها",
+          "scopesHint": "يظل كل مستخدم يوافق على النطاقات التي يطلبها التطبيق. تؤدي إزالة نطاق إلى إزالته أيضًا من العملاء المسجّلين بالفعل؛ وتحتفظ به الرموز الصادرة بالفعل حتى انتهاء صلاحيتها.",
+          "perHourHint": "عبر كل النسخ، ولكلتا الطريقتين. كما يُحدّ كل عنوان بخمسة تسجيلات في الدقيقة."
+        },
+        "branding": {
+          "title": "هوية صفحات تسجيل الدخول",
+          "description": "مظهر شاشات تسجيل الدخول عندما يصل الأشخاص من <app>{client}</app>: تسجيل الدخول، وإنشاء الحساب، والمصادقة الثنائية، وإعادة تعيين كلمة المرور، والموافقة. تبقى علامة {brand} ظاهرة في كل شاشة.",
+          "logoFetchedOnSave": "يجلب الخادم الشعار عند الحفظ؛ وتعرضه المعاينة بعد ذلك.",
+          "accentInvalid": "أدخل لون التمييز كلون سداسي عشري مثل {example}.",
+          "hexInvalid": "أدخل لونًا سداسيًا عشريًا مثل {example}.",
+          "saved": "تم حفظ هوية تسجيل الدخول",
+          "resetDone": "تمت إعادة تعيين هوية تسجيل الدخول",
+          "displayName": "اسم العرض",
+          "displayNameHint": "يُعرض بصيغة “سجّل الدخول للمتابعة إلى …”. إذا تُرك فارغًا يُستخدم اسم التطبيق.",
+          "tagline": "الشعار النصي (اختياري)",
+          "taglinePlaceholder": "قائمة قراءتك، في كل مكان.",
+          "accent": "لون التمييز",
+          "accentPick": "اختر لون التمييز",
+          "accentHex": "لون التمييز (سداسي عشري)",
+          "accentOff": "متوقف: تحتفظ الشاشات بألوان السمة.",
+          "contrast": {
+            "label": "فحوصات التباين",
+            "ratio": "{label}: <value>{ratio}:1</value>",
+            "passes": "(يجتاز {min}:1)",
+            "below": "(أقل من {min}:1)",
+            "buttonLabel": "نص الزر ({color, select, black {أسود} other {أبيض}})",
+            "lightCard": "الأزرار على البطاقة الفاتحة",
+            "darkCard": "الأزرار على البطاقة الداكنة",
+            "textAdjusted": "يستخدم النص على لون التمييز اللون {color} لبلوغ {min}:1."
+          },
+          "logo": "الشعار",
+          "logoSourceLabel": "مصدر الشعار",
+          "logoSource": {
+            "app_icon": "أيقونة التطبيق",
+            "url": "من عنوان URL",
+            "upload": "رفع"
+          },
+          "logoAppIconHint": "الأيقونة التي عُثر عليها للتطبيق (الحقل {field} أو موقعه)، كما في شاشة الموافقة.",
+          "logoUrl": "عنوان URL للشعار",
+          "logoUrlHint": "https على مضيف عام. يجلبه {name} ويخزّنه مؤقتًا؛ ولا تحمّله المتصفحات من هناك أبدًا.",
+          "logoFile": "ملف الشعار",
+          "logoFileHint": "PNG أو JPEG أو WebP أو AVIF أو GIF أو ICO أو SVG، حتى 256 KB. الشكل المربع هو الأفضل.",
+          "panel": "اللوحة الجانبية (الشاشات العريضة، اختياري)",
+          "panelImage": "صورة اللوحة الجانبية",
+          "removeImage": "إزالة الصورة",
+          "panelHint": "العنوان الرئيسي وصورة الخلفية للوحة الداكنة. PNG أو JPEG أو WebP أو AVIF، حتى 1 MB.",
+          "social": "تسجيل الدخول عبر الشبكات الاجتماعية في شاشات هذا التطبيق",
+          "socialNone": "لا يوجد مزوّد اجتماعي مفعّل.",
+          "socialShown": "المزوّدون الاجتماعيون المعروضون",
+          "socialAll": "كل المفعّلين",
+          "socialSome": "هؤلاء فقط",
+          "socialHint": "يخفي الأزرار في شاشات هذا التطبيق فقط؛ ولا يمنع أحدًا من تسجيل الدخول بطريقة أخرى.",
+          "previewTitle": "معاينة",
+          "previewScheme": "نظام ألوان المعاينة",
+          "light": "فاتح",
+          "dark": "داكن",
+          "faintOnLight": "بالكاد تبرز الأزرار بهذا اللون على البطاقة الفاتحة (تشترط WCAG نسبة 3:1 لعناصر التحكم). تبقى النصوص مقروءة؛ فكّر في درجة أغمق.",
+          "faintOnDark": "بالكاد تبرز الأزرار بهذا اللون على البطاقة الداكنة (تشترط WCAG نسبة 3:1 لعناصر التحكم). تبقى النصوص مقروءة؛ فكّر في درجة أفتح.",
+          "resetting": "جارٍ إعادة التعيين…",
+          "reset": "إعادة التعيين إلى الافتراضي",
+          "save": "حفظ الهوية",
+          "preview": {
+            "label": "معاينة صفحة تسجيل الدخول",
+            "appFallback": "التطبيق",
+            "title": "تسجيل الدخول",
+            "submit": "تسجيل الدخول",
+            "noAccount": "ليس لديك حساب؟ <link>أنشئ حسابًا</link>"
+          }
+        },
+        "actions": {
+          "registration": {
+            "chooseMode": "اختر من يمكنه تسجيل العملاء.",
+            "unknownScope": "“{scope}” ليس نطاقًا لهذا الخادم.",
+            "noScopes": "اسمح بنطاق واحد على الأقل.",
+            "invalidHost": "“{raw}” ليس اسم مضيف، مثل {example}.",
+            "invalidLimit": "يجب أن يكون الحد في الساعة عددًا صحيحًا من 0 إلى {max}.",
+            "saveFailed": "تعذّر حفظ الإعدادات.",
+            "clientGone": "هذا العميل لم يعد موجودًا.",
+            "notSelfRegistered": "لا يمكن تغيير إلا العملاء المسجّلين ذاتيًا هنا."
+          },
+          "branding": {
+            "clientGone": "هذا التطبيق لم يعد موجودًا.",
+            "selfRegistered": "لا يمكن تخصيص هوية العملاء المسجّلين ذاتيًا.",
+            "logoMissing": "اختر ملف شعار لرفعه.",
+            "logoFetchFailed": "تعذّر جلب صورة من عنوان URL للشعار. تحقق من أنه عام وأنه صورة.",
+            "faintOnLight": "لون التمييز باهت على البطاقة الفاتحة: بالكاد ستبرز الأزرار.",
+            "faintOnDark": "لون التمييز باهت على البطاقة الداكنة: بالكاد ستبرز الأزرار.",
+            "saveFailed": "تعذّر حفظ الهوية."
+          }
+        },
+        "register": {
+          "trigger": "تسجيل تطبيق",
+          "title": "تسجيل تطبيق OAuth",
+          "description": "ينشئ عميلًا مرتبطًا بحسابك عبر <code>{endpoint}</code> (يمكن للتطبيقات الموثوقة تعيين <code>{field}</code>). راجع <link>Better Auth، إنشاء عميل</link>.",
+          "nameLabel": "اسم التطبيق",
+          "namePlaceholder": "تطبيقي",
+          "redirectUrisLabel": "عناوين إعادة التوجيه",
+          "redirectUrisHintPublic": "واحد في كل سطر أو مفصولة بفواصل. HTTPS، أو http على localhost أو 127.0.0.1 أو [::1].",
+          "redirectUrisHintConfidential": "واحد في كل سطر أو مفصولة بفواصل. HTTPS فقط، بما في ذلك localhost. للتطوير المحلي، سجّل عميلًا عامًا منفصلًا.",
+          "redirectUrisRequired": "أدخل عنوان إعادة توجيه واحدًا على الأقل (واحد في كل سطر أو مفصولة بفواصل).",
+          "clientTypeLabel": "نوع العميل",
+          "clientTypeConfidential": "سرّي (سر العميل)",
+          "clientTypePublic": "عام (PKCE، بلا سر)",
+          "deviceCodeLabel": "تسجيل الدخول من جهاز (CLI، أجهزة التلفاز)",
+          "deviceCodeHint": "يضيف منح رمز الجهاز (RFC 8628): يعرض التطبيق رمزًا ويوافق عليه المستخدم في <code>{path}</code> على شاشة أخرى. عادةً ما يكون عميلًا عامًا.",
+          "skipConsentLabel": "تخطي الموافقة (عميل موثوق)",
+          "skipConsentHint": "لن يرى المستخدمون شاشة الموافقة لهذا التطبيق. استخدمه فقط لتكاملاتك الخاصة أو الموثوقة تمامًا.",
+          "registerFailed": "تعذّر تسجيل التطبيق",
+          "missingClientId": "لم يُرجع الخادم {field}.",
+          "registered": "تم تسجيل تطبيق OAuth",
+          "creating": "جارٍ الإنشاء…",
+          "create": "إنشاء التطبيق",
+          "successTitle": "تم إنشاء التطبيق",
+          "successWithSecret": "انسخ سر العميل الآن، فقد لا يُعرض إلا مرة واحدة.",
+          "successPublic": "عميل عام، لا يُصدر أي سر. استخدم PKCE عند نقطة نهاية الرمز.",
+          "clientId": "معرّف العميل",
+          "clientSecret": "سر العميل",
+          "copyClientId": "نسخ معرّف العميل",
+          "copyClientSecret": "نسخ سر العميل"
+        },
+        "rowActions": {
+          "menuLabel": "إجراءات {name}",
+          "copyClientId": "نسخ معرّف العميل",
+          "clientIdCopied": "تم نسخ معرّف العميل",
+          "edit": "تعديل التطبيق",
+          "editHint": "الاسم وعناوين إعادة التوجيه وتسجيل الدخول من جهاز وتخطي الموافقة",
+          "branding": "هوية صفحات تسجيل الدخول",
+          "brandingHint": "الشعار ولون التمييز وصياغة شاشات تسجيل الدخول لهذا التطبيق",
+          "rotateSecret": "تدوير السر",
+          "rotateHintPublic": "العملاء العامون ليس لديهم سر",
+          "rotateHintDisabled": "فعّل العميل أولًا",
+          "rotateHint": "يدوّر سر العميل السرّي",
+          "delete": "حذف التطبيق",
+          "editDialog": {
+            "title": "تعديل التطبيق",
+            "description": "يحدّث <id>{clientId}</id> عبر <code>{endpoint}</code> (الحقول المقيّدة مثل <code>{field}</code>). راجع <link>Better Auth، تحديث العميل</link>.",
+            "nameLabel": "اسم التطبيق",
+            "namePlaceholder": "تطبيقي",
+            "redirectUrisLabel": "عناوين إعادة التوجيه",
+            "redirectUrisHint": "واحد في كل سطر أو مفصولة بفواصل. HTTPS مطلوب. لا يمكن إلا للعملاء العامين استخدام http على localhost.",
+            "redirectUrisRequired": "أدخل عنوان إعادة توجيه واحدًا على الأقل (واحد في كل سطر أو مفصولة بفواصل).",
+            "deviceCodeLabel": "تسجيل الدخول من جهاز (CLI، أجهزة التلفاز)",
+            "deviceCodeHint": "يسمح بمنح رمز الجهاز. إيقافه يمنع عمليات تسجيل الدخول الجديدة من الأجهزة؛ وتظل الرموز الصادرة بالفعل تعمل.",
+            "skipConsentLabel": "تخطي الموافقة (عميل موثوق)",
+            "skipConsentHint": "عند التفعيل، لا يُطلب من المستخدمين الموافقة على النطاقات لهذا التطبيق.",
+            "updateFailed": "تعذّر تحديث التطبيق",
+            "updated": "تم تحديث التطبيق"
+          },
+          "deleteDialog": {
+            "title": "حذف التطبيق؟",
+            "description": "يزيل <strong>{name}</strong> (<code>{clientId}</code>) نهائيًا. قد تتأثر رموز OAuth والموافقات الخاصة بهذا العميل.",
+            "deleteFailed": "تعذّر حذف العميل",
+            "deleted": "تمت إزالة التطبيق"
+          },
+          "rotateDialog": {
+            "title": "تدوير سر العميل؟",
+            "description": "يتوقف السر السابق عن العمل فورًا. احفظ السر الجديد في مكان آمن، فقد لا يُعرض إلا مرة واحدة.",
+            "newSecretLabel": "سر العميل الجديد",
+            "copySecret": "نسخ السر",
+            "secretCopied": "تم نسخ السر",
+            "rotating": "جارٍ التدوير…",
+            "rotateFailed": "تعذّر تدوير السر",
+            "newSecretIssued": "تم إصدار سر عميل جديد، انسخه الآن",
+            "rotated": "تم تدوير السر"
+          }
+        },
+        "selfRegistered": {
+          "menuLabel": "إجراءات {name}",
+          "enabled": "تم تفعيل العميل",
+          "disabled": "تم تعطيل العميل",
+          "deleted": "تم حذف العميل",
+          "disableTitle": "تعطيل {name}؟",
+          "disableDescription": "لن يتمكن بعد الآن من تسجيل دخول أي أحد أو تحديث رموزه. تعمل رموز الوصول الصادرة بالفعل حتى انتهاء صلاحيتها (ساعة واحدة كحد أقصى).",
+          "deleteTitle": "حذف {name}؟",
+          "deleteDescriptionMetadataDocument": "تُحذف أيضًا رموزه والموافقات التي منحها له الأشخاص. يُنشأ عميل مستند البيانات الوصفية من جديد في المرة التالية التي يسجّل فيها دخول أحد. لحظره، عطّله بدلًا من ذلك.",
+          "deleteDescriptionDynamic": "تُحذف أيضًا رموزه والموافقات التي منحها له الأشخاص. يمكن للتطبيق التسجيل مجددًا ما دام التسجيل الديناميكي مفعّلًا."
+        },
+        "brandingErrors": {
+          "textTooLong": "اجعله أقل من {max} حرف.",
+          "displayNameTooLong": "اسم العرض: اجعله أقل من {max} حرف.",
+          "taglineTooLong": "الشعار النصي: اجعله أقل من {max} حرف.",
+          "panelTextTooLong": "نص اللوحة الجانبية: اجعله أقل من {max} حرف.",
+          "accentColor": "لون التمييز: أدخل لونًا سداسيًا عشريًا مثل {example}.",
+          "logoSource": "اختر مصدر الشعار.",
+          "logoUrl": "عنوان URL للشعار: أدخل عنوان https على مضيف عام (المنفذ الافتراضي).",
+          "logoEmpty": "ملف الشعار فارغ.",
+          "logoTooLarge": "يجب ألا يتجاوز حجم الشعار 256 KB.",
+          "logoType": "يجب أن يكون الشعار صورة PNG أو JPEG أو GIF أو WebP أو AVIF أو ICO أو SVG.",
+          "panelImageEmpty": "صورة اللوحة الجانبية فارغة.",
+          "panelImageTooLarge": "يجب ألا يتجاوز حجم صورة اللوحة الجانبية 1 MB.",
+          "panelImageType": "يجب أن تكون صورة اللوحة الجانبية بصيغة PNG أو JPEG أو WebP أو AVIF."
+        }
       },
       "apis": {
         "title": "واجهات API",
-        "description": "واجهات API الخاصة بك (الموارد المحمية) التي تقبل رموز الوصول من {name}: النطاقات (scopes) التي يمكن للعملاء طلبها، والتطبيقات التي يمكنها استخدامها، وإعدادات رموزها."
+        "description": "واجهات API الخاصة بك (الموارد المحمية) التي تقبل رموز الوصول من {name}: النطاقات (scopes) التي يمكن للعملاء طلبها، والتطبيقات التي يمكنها استخدامها، وإعدادات رموزها.",
+        "errors": {
+          "tokenSettings": {
+            "lifetimePositive": "{field, select, access {يجب أن تكون مدة صلاحية رمز الوصول عددًا موجبًا من الدقائق.} other {يجب أن تكون مدة صلاحية رمز التحديث عددًا موجبًا من الأيام.}}",
+            "lifetimeMinimum": "يجب ألا تقل {field, select, access {مدة صلاحية رمز الوصول} other {مدة صلاحية رمز التحديث}} عن دقيقة واحدة.",
+            "lifetimeMaximum": "{field, select, access {لا يمكن أن تتجاوز مدة صلاحية رمز الوصول {max} دقيقة، وهي القيمة الافتراضية للخادم.} other {لا يمكن أن تتجاوز مدة صلاحية رمز التحديث {max} يوم، وهي القيمة الافتراضية للخادم.}}",
+            "claimsInvalidJson": "يجب أن تكون المطالبات المخصّصة JSON صالحًا، مثل {example}.",
+            "claimsNotObject": "يجب أن تكون المطالبات المخصّصة كائن JSON، مثل {example}.",
+            "claimsEmptyName": "لا يمكن أن يكون اسم المطالبة المخصّصة فارغًا.",
+            "claimsReserved": "{count, plural, zero {{claims} مطالبات محجوزة: يعيّنها الخادم.} one {{claims} مطالبة محجوزة: يعيّنها الخادم.} two {{claims} مطالبتان محجوزتان: يعيّنهما الخادم.} few {{claims} مطالبات محجوزة: يعيّنها الخادم.} many {{claims} مطالبات محجوزة: يعيّنها الخادم.} other {{claims} مطالبات محجوزة: يعيّنها الخادم.}} المحجوزة: {reserved}.",
+            "claimsTooLarge": "المطالبات المخصّصة كبيرة جدًا ({kilobytes} KB كحد أقصى): فهي تُضاف إلى كل رمز."
+          },
+          "invalidScope": "“{scope}” ليس نطاقًا صالحًا.",
+          "reservedScope": "“{scope}” نطاق OpenID Connect، متاح بالفعل لكل العملاء.",
+          "invalidIdentifier": "يجب أن يكون المعرّف عنوان URL مطلقًا بلا جزء (fragment)، مثل {example}.",
+          "registerFailed": "تعذّر تسجيل واجهة API.",
+          "authServerCannotBeDisabled": "لا يمكن تعطيل خادم المصادقة نفسه.",
+          "updateFailed": "تعذّر تحديث واجهة API.",
+          "deleteFromEnv": "واجهة API هذه معيّنة في {variable} وستعود في النشر التالي. عطّلها بدلًا من ذلك.",
+          "deleteFailed": "تعذّر حذف واجهة API.",
+          "authServerStaysOpen": "يبقى خادم المصادقة متاحًا لكل التطبيقات: فتسجيل الدخول يعتمد عليه.",
+          "accessFailed": "تعذّر تغيير التطبيقات التي يمكنها استخدام واجهة API.",
+          "tokensFailed": "تعذّر حفظ إعدادات الرموز."
+        },
+        "duration": {
+          "days": "{count, plural, zero {# يوم} one {يوم واحد} two {يومان} few {# أيام} many {# يومًا} other {# يوم}}",
+          "hours": "{count} س",
+          "minutes": "{count} د"
+        },
+        "tokenSummary": {
+          "accessToken": "رمز الوصول {duration}",
+          "refreshToken": "رمز التحديث {duration}",
+          "dpopRequired": "DPoP مطلوب",
+          "claims": "المطالبات: {claims}"
+        },
+        "restrictLabel": "إصدار هذه النطاقات فقط لواجهة API هذه",
+        "restrictHint": "لا تحمل رموز واجهة API هذه إلا هذه النطاقات (ونطاقات OpenID Connect). عند الإيقاف: تحمل كل نطاق مُنح للعميل.",
+        "register": {
+          "title": "تسجيل واجهة API",
+          "description": "يطلب العملاء رمزًا لها باستخدام المعامل <code>{param}</code>. جمهور (audience) الرمز هو المعرّف، وتتحقق واجهة API منه مقابل JWKS.",
+          "identifier": "المعرّف",
+          "identifierHint": "عادةً عنوان URL الأساسي لواجهة API. لا يمكن تغييره لاحقًا.",
+          "namePlaceholder": "واجهة API للطلبات",
+          "scopes": "النطاقات",
+          "scopesHint": "مفصولة بمسافات أو فواصل. يجب أن تقتصر العملاء الآلية ({grant}) على بعضها.",
+          "submit": "تسجيل واجهة API",
+          "submitting": "جارٍ التسجيل…",
+          "registered": "تم تسجيل واجهة API"
+        },
+        "list": {
+          "description": "تصل النطاقات الجديدة والمعدّلة إلى خادم المصادقة خلال دقيقة. تنطبق إعدادات الوصول والرموز على الرمز التالي.",
+          "empty": "لا توجد واجهة API بعد.",
+          "envScopesTitle": "النطاقات من {variable}",
+          "envScopesText": "متاحة لكل العملاء، أيًّا كانت واجهة API التي يستدعونها: <mono>{scopes}</mono>. لإدارتها هنا، أضفها إلى واجهة API التي تنتمي إليها، ثم أزل المتغير."
+        },
+        "item": {
+          "authServer": "خادم المصادقة",
+          "restricted": "مقيّدة",
+          "linkedOnly": "التطبيقات المرتبطة فقط",
+          "noResourceParam": "رموز صادرة دون معامل resource.",
+          "noScopes": "لا توجد نطاقات.",
+          "editAria": "تعديل {name}",
+          "deleteAria": "حذف {name}",
+          "applications": "التطبيقات",
+          "everyApplication": "كل التطبيقات",
+          "onlyLinked": "{names} فقط",
+          "noneLinked": "لا يوجد تطبيق مرتبط: لا يمكن لأي تطبيق الحصول على رموز",
+          "change": "تغيير",
+          "changeAccessAria": "تغيير التطبيقات التي يمكنها استخدام {name}",
+          "tokens": "الرموز",
+          "defaultSettings": "الإعدادات الافتراضية",
+          "changeTokensAria": "تغيير إعدادات الرموز لـ {name}"
+        },
+        "edit": {
+          "title": "تعديل {name}",
+          "scopesHint": "لا تغيّر إزالة نطاق العملاءَ الذين يملكونه بالفعل، لكن لن يحمله أي رمز جديد.",
+          "disabledHint": "لا رموز جديدة لواجهة API هذه. تعمل الرموز الصادرة بالفعل حتى انتهاء صلاحيتها.",
+          "updated": "تم تحديث واجهة API"
+        },
+        "access": {
+          "title": "التطبيقات التي يمكنها استخدام {name}",
+          "allHint": "يمكن لأي تطبيق الحصول على رموز لواجهة API هذه، ضمن نطاقاته.",
+          "linkedLabel": "التطبيقات المرتبطة فقط",
+          "linkedHint": "تُرفض التطبيقات الأخرى ({error})، بما في ذلك عند تحديث رمز.",
+          "linkedTitle": "التطبيقات المرتبطة",
+          "filterAria": "تصفية التطبيقات",
+          "filterPlaceholder": "التصفية بالاسم أو معرّف العميل",
+          "noApplications": "لا يوجد تطبيق بعد.",
+          "noMatch": "لا يوجد تطبيق مطابق.",
+          "linksHintAll": "لا تكون للروابط أهمية إلا عندما تقتصر واجهة API على التطبيقات المرتبطة. يمكن للتطبيق المرتبط أيضًا فحص (introspect) رموز واجهة API هذه.",
+          "linksHintLinked": "يمكن للتطبيق المرتبط أيضًا فحص (introspect) رموز واجهة API هذه.",
+          "noneLinkedWarning": "لا يوجد تطبيق مرتبط: لا يمكن لأي تطبيق الحصول على رموز لواجهة API هذه.",
+          "updated": "تم تحديث الوصول"
+        },
+        "tokens": {
+          "title": "إعدادات الرموز لـ {name}",
+          "description": "تُطبَّق على كل رمز وصول يصدر لواجهة API هذه. تحتفظ الرموز الصادرة بالفعل بإعداداتها.",
+          "accessTtl": "مدة صلاحية رمز الوصول (بالدقائق)",
+          "accessTtlHint": "الافتراضي: {minutes, plural, zero {# دقيقة} one {دقيقة واحدة} two {دقيقتان} few {# دقائق} many {# دقيقة} other {# دقيقة}}. يمكن تقصيرها فقط.",
+          "refreshTtl": "مدة صلاحية رمز التحديث (بالأيام)",
+          "refreshTtlHint": "الافتراضي: {days, plural, zero {# يوم} one {يوم واحد} two {يومان} few {# أيام} many {# يومًا} other {# يوم}}. يمكن تقصيرها فقط.",
+          "claims": "المطالبات المخصّصة",
+          "claimsHint": "كائن JSON يُضاف إلى كل رمز وصول لواجهة API هذه. المحجوزة: <mono>{claims}</mono>.",
+          "dpopLabel": "اشتراط رموز مرتبطة بـ DPoP",
+          "dpopHint": "يجب على العملاء إرسال إثبات DPoP للحصول على رمز لواجهة API هذه، ويرتبط الرمز بمفتاحهم. يجب على واجهة API التحقق من الإثبات في كل طلب.",
+          "saved": "تم حفظ إعدادات الرموز"
+        },
+        "delete": {
+          "title": "حذف {name}؟",
+          "description": "لن يتمكن العملاء بعد الآن من الحصول على رموز لها، وتتوقف الرموز الصادرة لها بالفعل عن العمل فورًا. لإيقاف الرموز الجديدة فقط، عطّلها بدلًا من ذلك.",
+          "deleted": "تم حذف واجهة API"
+        }
       },
       "signInProviders": {
         "title": "مزودو تسجيل الدخول",
-        "description": "اسمح للأشخاص بتسجيل الدخول إلى {name} باستخدام Google وApple وMicrosoft وأكثر من 30 حسابًا آخر."
+        "description": "اسمح للأشخاص بتسجيل الدخول إلى {name} باستخدام Google وApple وMicrosoft وأكثر من 30 حسابًا آخر.",
+        "panel": {
+          "copyCallback": "نسخ عنوان URL لرد الاتصال",
+          "authAppFallback": "عنوان تطبيق تسجيل الدخول",
+          "environment": "البيئة",
+          "activeTitle": "في صفحة تسجيل الدخول",
+          "activeDescription": "بهذا الترتيب في صفحتي تسجيل الدخول وإنشاء الحساب، وتحت «الحسابات المرتبطة» في لوحة كل مستخدم. تصل التغييرات إلى صفحة تسجيل الدخول خلال 30 ثانية.",
+          "noneActive": "لا يوجد مزوّد مفعّل. اختر واحدًا من القائمة لإعداده.",
+          "setByEnvironment": "مُعيَّن بمتغيرات البيئة",
+          "existingAccountsOnly": "الحسابات الموجودة فقط",
+          "connectedAccounts": "{count, plural, zero {لا حسابات مرتبطة} one {حساب مرتبط واحد} two {حسابان مرتبطان} few {# حسابات مرتبطة} many {# حسابًا مرتبطًا} other {# حساب مرتبط}}",
+          "moveUp": "نقل {name} لأعلى",
+          "moveDown": "نقل {name} لأسفل",
+          "edit": "تعديل {name}",
+          "providersTitle": "المزوّدون",
+          "providersDescription": "كل المزوّدين الذين يدعمهم Better Auth. أنشئ تطبيق OAuth لدى المزوّد، وسجّل عنوان URL لرد الاتصال الظاهر في إعداداته، ثم الصق بيانات الاعتماد. تُخزَّن الأسرار مشفّرة ولا تُعرض مرة أخرى أبدًا.",
+          "search": "البحث في المزوّدين",
+          "noMatch": "لا يوجد مزوّد مطابق.",
+          "savedOn": "تم تفعيل {name}",
+          "saved": "تم حفظ {name}",
+          "removed": "تمت إزالة إعدادات {name}",
+          "optional": "(اختياري)",
+          "secretSet": "مُعيَّن",
+          "replace": "استبدال",
+          "removedOnSave": "ستُزال عند الحفظ.",
+          "undo": "تراجع",
+          "newValue": "قيمة جديدة",
+          "environmentDescription": "مُعيَّن بمتغيرات البيئة ({clientIdVar} و{clientSecretVar}): غيّرها هناك، أو أزلها لإدارة هذا المزوّد من هنا.",
+          "defaultNote": "أنشئ تطبيق OAuth لدى {name}، وسجّل عنوان URL لرد الاتصال أدناه، ثم الصق بيانات اعتماده.",
+          "callbackUrl": "عنوان URL لرد الاتصال",
+          "callbackHint": "يُسمّى أيضًا redirect URI أو return URL.",
+          "createApp": "إنشاء التطبيق",
+          "setupGuide": "دليل الإعداد",
+          "secretsUnreadable": "لا يمكن فك تشفير الأسرار المخزّنة (تغيّر {envVar}). أدخلها مرة أخرى.",
+          "buttonName": "اسم الزر",
+          "buttonNameHint": "يُعرض بصيغة “المتابعة باستخدام …” في صفحة تسجيل الدخول.",
+          "allowSignUp": "إنشاء حسابات للمستخدمين الجدد",
+          "allowSignUpHint": "عند الإيقاف: لا يمكن تسجيل الدخول به إلا لمن لديهم حساب بالفعل (مرتبط من لوحتهم، أو بنفس البريد الإلكتروني الموثّق).",
+          "oneTap": "عرض Google One Tap",
+          "oneTapHint": "نافذة تسجيل الدخول الخاصة بـ Google، أعلى صفحتي تسجيل الدخول وإنشاء الحساب، للأشخاص الذين سجّلوا الدخول إلى Google في متصفحهم. تستخدم معرّف العميل هذا: أضف {origin} إلى Authorized JavaScript origins الخاصة به في Google Cloud console. فقط عندما يكون Google مفعّلًا.",
+          "enabled": "العرض في صفحة تسجيل الدخول",
+          "enabledHint": "عند الإيقاف: يختفي الزر وتُرفض عمليات تسجيل الدخول بهذا المزوّد. تُحفظ الإعدادات.",
+          "removeConfirm": "إزالة الإعدادات والأسرار؟",
+          "removeSettings": "إزالة الإعدادات"
+        },
+        "errors": {
+          "unknownProvider": "مزوّد غير معروف.",
+          "envManaged": "هذا المزوّد مُعيَّن بمتغيرات البيئة. غيّرها، أو أزلها لإدارته من هنا.",
+          "invalidOption": "{field}: اختر {options}.",
+          "appleKeyNotEc": "المفتاح الخاص: المتوقع مفتاح EC (P-256) المنزَّل من Apple (.p8).",
+          "appleKeyInvalid": "المفتاح الخاص: ليس مفتاحًا خاصًا صالحًا بصيغة PEM. الصق ملف .p8 كاملًا، بما في ذلك سطرا BEGIN وEND.",
+          "issuerNotHttps": "يجب أن يبدأ عنوان URL بـ https://.",
+          "salesforceDomain": "My Domain: اسم مضيف مثل example.my.salesforce.com.",
+          "cognitoRegion": "المنطقة: منطقة AWS مثل eu-west-1.",
+          "googleHd": "نطاق Workspace: نطاق مثل example.com.",
+          "missingFields": "املأ {fields} قبل التفعيل.",
+          "unusable": "لا يمكن استخدام هذه الإعدادات."
+        },
+        "providers": {
+          "apple": {
+            "note": "تحتاج Apple إلى عنوان إرجاع HTTPS على نطاق حقيقي (ليس localhost) وتعيد المستخدم بطلب POST.",
+            "fields": {
+              "clientId": {
+                "label": "معرّف الخدمات (Services ID)",
+                "hint": "معرّف Services ID مفعّل فيه Sign in with Apple، مثل com.example.signin."
+              },
+              "teamId": {
+                "label": "معرّف الفريق (Team ID)"
+              },
+              "keyId": {
+                "label": "معرّف المفتاح (Key ID)",
+                "hint": "مفتاح مفعّل فيه Sign in with Apple."
+              },
+              "privateKey": {
+                "label": "المفتاح الخاص (.p8)",
+                "hint": "سر العميل هو JWT موقّع بهذا المفتاح؛ ويُنشأ ويُجدَّد تلقائيًا."
+              },
+              "appBundleIdentifier": {
+                "label": "معرّف حزمة التطبيق (Bundle ID)",
+                "hint": "فقط لتسجيل الدخول الأصلي على iOS (رموز ID تصدر لتطبيقك بدلًا من Services ID)."
+              }
+            }
+          },
+          "atlassian": {
+            "fields": {
+              "clientId": {
+                "label": "معرّف العميل"
+              },
+              "clientSecret": {
+                "label": "سر العميل"
+              }
+            }
+          },
+          "cloudflare": {
+            "fields": {
+              "clientId": {
+                "label": "معرّف العميل"
+              },
+              "clientSecret": {
+                "label": "سر العميل",
+                "hint": "اتركه فارغًا لعميل عام (PKCE فقط)."
+              }
+            }
+          },
+          "cognito": {
+            "fields": {
+              "clientId": {
+                "label": "معرّف عميل التطبيق"
+              },
+              "clientSecret": {
+                "label": "سر عميل التطبيق",
+                "hint": "فقط إذا كان لعميل التطبيق سر."
+              },
+              "domain": {
+                "label": "نطاق Cognito"
+              },
+              "region": {
+                "label": "المنطقة"
+              },
+              "userPoolId": {
+                "label": "معرّف مجمّع المستخدمين (User pool ID)"
+              }
+            }
+          },
+          "discord": {
+            "fields": {
+              "clientId": {
+                "label": "معرّف العميل"
+              },
+              "clientSecret": {
+                "label": "سر العميل"
+              }
+            }
+          },
+          "dropbox": {
+            "fields": {
+              "clientId": {
+                "label": "مفتاح التطبيق (App key)"
+              },
+              "clientSecret": {
+                "label": "سر التطبيق (App secret)"
+              }
+            }
+          },
+          "facebook": {
+            "fields": {
+              "clientId": {
+                "label": "معرّف التطبيق (App ID)"
+              },
+              "clientSecret": {
+                "label": "سر التطبيق (App secret)"
+              }
+            }
+          },
+          "figma": {
+            "fields": {
+              "clientId": {
+                "label": "معرّف العميل"
+              },
+              "clientSecret": {
+                "label": "سر العميل"
+              }
+            }
+          },
+          "github": {
+            "note": "يعمل OAuth App كما هو. أما GitHub App فيحتاج أيضًا إلى ضبط إذن الحساب Email addresses على Read-only، وإلا يفشل تسجيل الدخول لغياب البريد الإلكتروني.",
+            "fields": {
+              "clientId": {
+                "label": "معرّف العميل"
+              },
+              "clientSecret": {
+                "label": "سر العميل"
+              }
+            }
+          },
+          "gitlab": {
+            "fields": {
+              "clientId": {
+                "label": "معرّف التطبيق (Application ID)"
+              },
+              "clientSecret": {
+                "label": "سر العميل"
+              },
+              "issuer": {
+                "label": "عنوان URL لـ GitLab",
+                "hint": "لنسخة GitLab مُدارة ذاتيًا."
+              }
+            }
+          },
+          "google": {
+            "fields": {
+              "clientId": {
+                "label": "معرّف العميل"
+              },
+              "clientSecret": {
+                "label": "سر العميل"
+              },
+              "hd": {
+                "label": "نطاق Workspace",
+                "hint": "قبول حسابات نطاق Google Workspace هذا فقط."
+              }
+            }
+          },
+          "huggingface": {
+            "fields": {
+              "clientId": {
+                "label": "معرّف العميل"
+              },
+              "clientSecret": {
+                "label": "سر العميل"
+              }
+            }
+          },
+          "kakao": {
+            "fields": {
+              "clientId": {
+                "label": "مفتاح REST API"
+              },
+              "clientSecret": {
+                "label": "سر العميل",
+                "hint": "فقط إذا كان سر العميل مفعّلًا للتطبيق."
+              }
+            }
+          },
+          "kick": {
+            "fields": {
+              "clientId": {
+                "label": "معرّف العميل"
+              },
+              "clientSecret": {
+                "label": "سر العميل"
+              }
+            }
+          },
+          "line": {
+            "fields": {
+              "clientId": {
+                "label": "معرّف القناة (Channel ID)"
+              },
+              "clientSecret": {
+                "label": "سر القناة (Channel secret)"
+              }
+            }
+          },
+          "linear": {
+            "fields": {
+              "clientId": {
+                "label": "معرّف العميل"
+              },
+              "clientSecret": {
+                "label": "سر العميل"
+              }
+            }
+          },
+          "linkedin": {
+            "fields": {
+              "clientId": {
+                "label": "معرّف العميل"
+              },
+              "clientSecret": {
+                "label": "سر العميل"
+              }
+            }
+          },
+          "microsoft": {
+            "fields": {
+              "clientId": {
+                "label": "معرّف التطبيق (العميل)"
+              },
+              "clientSecret": {
+                "label": "قيمة سر العميل"
+              },
+              "tenantId": {
+                "label": "المستأجر (Tenant)",
+                "hint": "common (أي حساب)، أو organizations، أو consumers، أو معرّف الدليل (المستأجر) للسماح لمؤسستك فقط."
+              }
+            }
+          },
+          "naver": {
+            "fields": {
+              "clientId": {
+                "label": "معرّف العميل"
+              },
+              "clientSecret": {
+                "label": "سر العميل"
+              }
+            }
+          },
+          "notion": {
+            "fields": {
+              "clientId": {
+                "label": "معرّف عميل OAuth"
+              },
+              "clientSecret": {
+                "label": "سر عميل OAuth"
+              }
+            }
+          },
+          "paybin": {
+            "fields": {
+              "clientId": {
+                "label": "معرّف العميل"
+              },
+              "clientSecret": {
+                "label": "سر العميل"
+              },
+              "issuer": {
+                "label": "الجهة المُصدِرة"
+              }
+            }
+          },
+          "paypal": {
+            "note": "فعّل “Log in with PayPal” للتطبيق واطلب عنوان البريد الإلكتروني.",
+            "fields": {
+              "clientId": {
+                "label": "معرّف العميل"
+              },
+              "clientSecret": {
+                "label": "سر العميل"
+              },
+              "environment": {
+                "label": "البيئة"
+              }
+            }
+          },
+          "polar": {
+            "fields": {
+              "clientId": {
+                "label": "معرّف العميل"
+              },
+              "clientSecret": {
+                "label": "سر العميل"
+              }
+            }
+          },
+          "railway": {
+            "fields": {
+              "clientId": {
+                "label": "معرّف العميل"
+              },
+              "clientSecret": {
+                "label": "سر العميل"
+              }
+            }
+          },
+          "reddit": {
+            "fields": {
+              "clientId": {
+                "label": "معرّف العميل"
+              },
+              "clientSecret": {
+                "label": "سر العميل"
+              }
+            }
+          },
+          "roblox": {
+            "fields": {
+              "clientId": {
+                "label": "معرّف العميل"
+              },
+              "clientSecret": {
+                "label": "سر العميل"
+              }
+            }
+          },
+          "salesforce": {
+            "fields": {
+              "clientId": {
+                "label": "مفتاح المستهلك (Consumer key)"
+              },
+              "clientSecret": {
+                "label": "سر المستهلك (Consumer secret)"
+              },
+              "environment": {
+                "label": "البيئة"
+              },
+              "loginUrl": {
+                "label": "My Domain",
+                "hint": "اسم المضيف فقط. يحل محل login.salesforce.com أو test.salesforce.com."
+              }
+            }
+          },
+          "slack": {
+            "fields": {
+              "clientId": {
+                "label": "معرّف العميل"
+              },
+              "clientSecret": {
+                "label": "سر العميل"
+              }
+            }
+          },
+          "spotify": {
+            "fields": {
+              "clientId": {
+                "label": "معرّف العميل"
+              },
+              "clientSecret": {
+                "label": "سر العميل"
+              }
+            }
+          },
+          "tiktok": {
+            "fields": {
+              "clientKey": {
+                "label": "مفتاح العميل (Client key)"
+              },
+              "clientSecret": {
+                "label": "سر العميل"
+              }
+            }
+          },
+          "twitch": {
+            "fields": {
+              "clientId": {
+                "label": "معرّف العميل"
+              },
+              "clientSecret": {
+                "label": "سر العميل"
+              }
+            }
+          },
+          "twitter": {
+            "note": "استخدم بيانات اعتماد OAuth 2.0 (وليس مفتاح API) واطلب الوصول إلى البريد الإلكتروني في إعدادات التطبيق.",
+            "fields": {
+              "clientId": {
+                "label": "معرّف عميل OAuth 2.0"
+              },
+              "clientSecret": {
+                "label": "سر عميل OAuth 2.0"
+              }
+            }
+          },
+          "vercel": {
+            "fields": {
+              "clientId": {
+                "label": "معرّف العميل"
+              },
+              "clientSecret": {
+                "label": "سر العميل"
+              }
+            }
+          },
+          "vk": {
+            "fields": {
+              "clientId": {
+                "label": "معرّف التطبيق (App ID)"
+              },
+              "clientSecret": {
+                "label": "المفتاح المحمي (Protected key)"
+              }
+            }
+          },
+          "wechat": {
+            "note": "تطبيق موقع ويب (تسجيل الدخول برمز QR). لا يُرجع WeChat أي عنوان بريد إلكتروني.",
+            "fields": {
+              "clientId": {
+                "label": "AppID"
+              },
+              "clientSecret": {
+                "label": "AppSecret"
+              }
+            }
+          },
+          "zoom": {
+            "fields": {
+              "clientId": {
+                "label": "معرّف العميل"
+              },
+              "clientSecret": {
+                "label": "سر العميل"
+              }
+            }
+          }
+        }
       },
       "apiKeys": {
         "title": "مفاتيح API",
-        "description": "مفاتيح ينشئها المستخدمون لتستدعي برامجهم النصية واجهات API الخاصة بك: فعّلها أو عطّلها، وحدّد أقصى مدة لصلاحيتها، وأبطل أي مفتاح."
+        "description": "مفاتيح ينشئها المستخدمون لتستدعي برامجهم النصية واجهات API الخاصة بك: فعّلها أو عطّلها، وحدّد أقصى مدة لصلاحيتها، وأبطل أي مفتاح.",
+        "allKeys": {
+          "title": "كل المفاتيح",
+          "description": "الأحدث أولًا{truncated, select, true {، أحدث {limit}} other {}}. تُحذف المفاتيح المنتهية الصلاحية في المرة التالية التي تُستخدم فيها المفاتيح أو تُنشأ. يؤدي حظر حساب أو حذفه إلى إبطال مفاتيحه؛ ويؤدي حذف مؤسسة إلى حذف مفاتيحها (تبقى المفاتيح التي تملكها مؤسسة عندما يغادر العضو الذي أنشأها)."
+        },
+        "settings": {
+          "description": "ينشئ الأشخاص مفاتيح من صفحة حسابهم لإحدى واجهات API الخاصة بك وبعض نطاقاتها. تتحقق واجهة API من كل مفتاح لدى هذا الخادم. لا يُسجّل المفتاح دخول أحد أبدًا إلى هذا الخادم أو إلى لوحة الإدارة.",
+          "statusOn": "مفعّل: يمكن للأشخاص إنشاء مفاتيح",
+          "statusOff": "متوقف: لا مفاتيح جديدة، ويُرفض كل مفتاح",
+          "maxLifetime": "أقصى مدة صلاحية",
+          "maxLifetimeValue": "{count, plural, zero {# يوم} one {يوم واحد} two {يومان} few {# أيام} many {# يومًا} other {# يوم}}",
+          "apisAccepting": "واجهات API التي تقبل المفاتيح",
+          "apisNone": "لا شيء: سجّل واجهة API ذات نطاقات، متاحة لكل التطبيقات",
+          "verifyEndpoint": "نقطة نهاية التحقق: <code>{endpoint}</code>. تُصادق واجهة API بصفتها تطبيقًا مسجّلًا هنا ومرتبطًا بتلك الواجهة (صفحة واجهات API، الوصول). لا تقبل واجهات API المقتصرة على التطبيقات المرتبطة أي مفاتيح."
+        },
+        "dialog": {
+          "description": "المفاتيح طويلة الأمد: فضّل مدد صلاحية قصيرة. لا ينطبق تخفيض الحد الأقصى إلا على المفاتيح الجديدة.",
+          "allowLabel": "السماح بمفاتيح API",
+          "allowHint": "عند الإيقاف: لا يمكن لأحد إنشاء مفتاح ويُرفض كل مفتاح موجود عند التحقق. تُحفظ المفاتيح، وتعمل مجددًا عند إعادة التفعيل.",
+          "maxLifetimeLabel": "أقصى مدة صلاحية (بالأيام)",
+          "maxLifetimeHint": "من 1 إلى {max}. تنتهي صلاحية كل مفتاح.",
+          "saved": "تم حفظ الإعدادات. يطبّقها خادم المصادقة خلال دقيقة."
+        },
+        "table": {
+          "empty": "لا توجد مفاتيح API.",
+          "key": "المفتاح",
+          "owner": "المالك",
+          "api": "واجهة API",
+          "scopes": "النطاقات",
+          "lastUsed": "آخر استخدام",
+          "expires": "تنتهي صلاحيته",
+          "createdBy": "بواسطة {email}",
+          "org": "المؤسسة",
+          "removedApi": "واجهة API محذوفة",
+          "expired": "منتهي الصلاحية",
+          "revoke": "إبطال",
+          "revoked": "تم إبطال مفتاح API",
+          "revokeTitle": "إبطال {name}؟",
+          "revokeOrgDescription": "يتوقف مفتاح المؤسسة {owner} هذا عن العمل فورًا. يمكن لمالكيها ومسؤوليها إنشاء مفتاح جديد إذا كانت مفاتيح API مفعّلة.",
+          "revokeUserDescription": "يتوقف مفتاح {owner} عن العمل فورًا. يمكنه إنشاء مفتاح جديد إذا كانت مفاتيح API مفعّلة."
+        },
+        "errors": {
+          "chooseEnabled": "اختر ما إذا كانت مفاتيح API مفعّلة.",
+          "maxLifetimeRange": "يجب أن تكون أقصى مدة صلاحية عددًا صحيحًا من الأيام من 1 إلى {max}.",
+          "saveFailed": "تعذّر حفظ الإعدادات.",
+          "noKey": "لم يُحدَّد أي مفتاح.",
+          "keyGone": "هذا المفتاح لم يعد موجودًا."
+        }
       },
       "webhooks": {
         "title": "خطافات الويب",
         "description": "إشعارات HTTPS موقّعة تُعلم تطبيقاتك عند تغيّر مستخدمي {name} وأدوارهم وعضويات المؤسسات.",
-        "deliveries": "سجل التسليم"
+        "deliveries": "سجل التسليم",
+        "eventDescriptions": {
+          "user_created": "يُنشأ حساب (إنشاء حساب، أو مسؤول، أو SSO، أو SCIM).",
+          "user_updated": "يتغيّر الاسم أو البريد الإلكتروني أو توثيق البريد الإلكتروني أو اسم المستخدم أو الصورة.",
+          "user_deleted": "يُحذف حساب.",
+          "user_banned": "يُحظر حساب، أو يُلغي SCIM تنشيطه.",
+          "user_unbanned": "يُرفع حظر، أو يعيد SCIM تنشيط الحساب.",
+          "user_role_changed": "يتغيّر دور الحساب على المنصة.",
+          "organization_member_added": "ينضم شخص إلى مؤسسة.",
+          "organization_member_removed": "يغادر شخص مؤسسة أو يُزال منها.",
+          "organization_member_role_changed": "يتغيّر دور عضو في مؤسسة."
+        },
+        "panel": {
+          "events": "الأحداث",
+          "clear": "مسح",
+          "selectAll": "تحديد الكل",
+          "signingSecret": "سر التوقيع",
+          "secretCopied": "تم نسخ السر",
+          "copySecret": "نسخ السر",
+          "url": "عنوان URL",
+          "add": {
+            "title": "إضافة نقطة نهاية",
+            "description": "يرسل Ostiary حدث JSON موقّعًا بطلب POST إلى عنوان URL هذا عند وقوع أحد الأحداث المختارة، ويعيد المحاولة لمدة يوم تقريبًا إذا فشل.",
+            "urlHint": "HTTPS، على عنوان عام.",
+            "urlHintLocalhost": "HTTPS، على عنوان عام. يُقبل {url} ({envVar}، للتطوير فقط).",
+            "descriptionPlaceholder": "تطبيق الفوترة: مزامنة المستخدمين",
+            "adding": "جارٍ الإضافة…",
+            "submit": "إضافة نقطة النهاية"
+          },
+          "list": {
+            "title": "نقاط النهاية",
+            "description": "يحمل كل طلب الترويسات <code>{id}</code> و<code>{timestamp}</code> و<code>{signature}</code> (Standard Webhooks). تُعطَّل نقطة النهاية التي تفشل {count, plural, zero {# مرة} one {مرة واحدة} two {مرتين} few {# مرات} many {# مرة} other {# مرة}} متتالية.",
+            "empty": "لا توجد نقطة نهاية بعد."
+          },
+          "created": {
+            "title": "تمت إضافة نقطة النهاية",
+            "description": "انسخ سر التوقيع إلى التطبيق على {url}: فهو يتحقق به من كل تسليم. لن يُعرض مرة أخرى."
+          },
+          "test": {
+            "delivered": "تم تسليم حدث الاختبار (HTTP {status})",
+            "failed": "فشل حدث الاختبار: {reason}"
+          },
+          "item": {
+            "disabledFailures": "معطّلة بعد إخفاقات متكررة",
+            "rotating": "السر قيد التدوير",
+            "editLabel": "تعديل {label}",
+            "deleteLabel": "حذف {label}",
+            "disabledNotice": "عُطّلت بعد {count, plural, zero {# محاولة فاشلة} one {محاولة فاشلة واحدة} two {محاولتين فاشلتين} few {# محاولات فاشلة} many {# محاولة فاشلة} other {# محاولة فاشلة}} متتالية. أصلح المستقبِل، ثم أعد تفعيلها: ستُرسل الأحداث المعلّقة مجددًا.",
+            "disabledNoticeOn": "عُطّلت في {date} بعد {count, plural, zero {# محاولة فاشلة} one {محاولة فاشلة واحدة} two {محاولتين فاشلتين} few {# محاولات فاشلة} many {# محاولة فاشلة} other {# محاولة فاشلة}} متتالية. أصلح المستقبِل، ثم أعد تفعيلها: ستُرسل الأحداث المعلّقة مجددًا.",
+            "lastSuccess": "آخر نجاح",
+            "lastFailure": "آخر إخفاق",
+            "inARow": "({count} متتالية)",
+            "deliveries": "عمليات التسليم",
+            "deliveriesValue": "{pending} قيد الانتظار أو إعادة المحاولة · {failed} فاشلة",
+            "sendTest": "إرسال حدث اختبار",
+            "deliveryLog": "سجل التسليم",
+            "regenerateSecret": "إعادة إنشاء السر"
+          },
+          "edit": {
+            "title": "تعديل نقطة النهاية",
+            "enabledHint": "أثناء التعطيل، لا تُسجَّل أحداث جديدة لنقطة النهاية هذه وتنتظر إعادة المحاولات.",
+            "updated": "تم تحديث نقطة النهاية"
+          },
+          "rotate": {
+            "title": "إعادة إنشاء سر التوقيع؟",
+            "description": "تُوقَّع عمليات التسليم بالسر القديم والجديد معًا لمدة 24 ساعة، فيتمكن التطبيق من التبديل دون تفويت أي حدث.",
+            "newTitle": "سر التوقيع الجديد",
+            "newDescription": "انسخه إلى التطبيق الآن: لن يُعرض مرة أخرى. خلال الساعات الـ24 القادمة، تحمل عمليات التسليم توقيعًا بالسر القديم أيضًا.",
+            "confirm": "إعادة الإنشاء"
+          },
+          "delete": {
+            "title": "حذف نقطة النهاية هذه؟",
+            "description": "يتوقف {url} عن تلقي الأحداث، ويُحذف سجل التسليم الخاص به وإعادات المحاولة المعلّقة. لإيقافه مؤقتًا، عطّله بدلًا من ذلك.",
+            "deleted": "تم حذف نقطة النهاية"
+          }
+        },
+        "redeliver": {
+          "button": "إعادة التسليم",
+          "delivered": "تم التسليم (HTTP {status})",
+          "failed": "فشل: {reason}"
+        },
+        "log": {
+          "status": {
+            "succeeded": "تم التسليم",
+            "failed": "فشل",
+            "pending": "معلّق"
+          },
+          "disabled": "معطّلة: تنتظر إعادة المحاولات حتى يُعاد تفعيلها.",
+          "empty": "لا توجد عمليات تسليم بعد. استخدم “إرسال حدث اختبار” في صفحة خطافات الويب لتجربة نقطة النهاية.",
+          "event": "الحدث",
+          "response": "الاستجابة",
+          "attempts": "المحاولات",
+          "nextRetry": "إعادة المحاولة التالية",
+          "answer": "الرد",
+          "error": "خطأ",
+          "footer": "أحدث {shown} عملية تسليم. تُحفظ عمليات التسليم {days, plural, zero {# يوم} one {يومًا واحدًا} two {يومين} few {# أيام} many {# يومًا} other {# يوم}}. يُعاد إرسال التسليم الفاشل {retries, plural, zero {# مرة} one {مرة واحدة} two {مرتين} few {# مرات} many {# مرة} other {# مرة}} على مدى يوم تقريبًا؛ ويرسل “إعادة التسليم” الحدث نفسه (بنفس {header}) مجددًا الآن."
+        },
+        "errors": {
+          "noEvents": "اختر حدثًا واحدًا على الأقل.",
+          "tooMany": "{max} نقطة نهاية كحد أقصى.",
+          "endpointNotFound": "لم يتم العثور على نقطة النهاية.",
+          "disabledTest": "نقطة النهاية معطّلة: فعّلها لإرسال حدث اختبار.",
+          "testNotSent": "تعذّر إرسال حدث الاختبار.",
+          "deliveryNotFound": "لم يتم العثور على التسليم.",
+          "disabledRedeliver": "نقطة النهاية معطّلة: فعّلها لإعادة التسليم.",
+          "eventNotSent": "تعذّر إرسال الحدث."
+        }
       },
       "users": {
-        "title": "Users",
-        "description": "Find accounts, change roles, ban or remove them, and open an account to see its sessions and activity."
+        "title": "المستخدمون",
+        "description": "ابحث عن الحسابات، وغيّر أدوارها، واحظرها أو احذفها، وافتح أي حساب لعرض جلساته ونشاطه.",
+        "list": {
+          "searchPlaceholder": "ابحث بالاسم أو البريد الإلكتروني…",
+          "searchLabel": "البحث في المستخدمين",
+          "rolePlaceholder": "الدور",
+          "roleAll": "كل الأدوار",
+          "roleAdmin": "مسؤول",
+          "roleUser": "مستخدم",
+          "loadErrorTitle": "تعذّر تحميل المستخدمين",
+          "loadErrorFallback": "تعذّر تحميل المستخدمين",
+          "columns": {
+            "user": "المستخدم",
+            "role": "الدور",
+            "status": "الحالة",
+            "verified": "موثّق",
+            "joined": "تاريخ الانضمام"
+          },
+          "loading": "جارٍ تحميل المستخدمين…",
+          "empty": "لا يوجد مستخدمون يطابقون عوامل التصفية.",
+          "noUsers": "0 مستخدمين",
+          "showing": "عرض {from}-{to} من {total}",
+          "rowsPerPage": "عدد الصفوف في الصفحة",
+          "previous": "السابق",
+          "next": "التالي",
+          "pageOf": "الصفحة {page} / {pages}",
+          "poweredBy": "يعتمد على <code>listUsers</code> و<code>createUser</code> و<code>setRole</code> و<code>updateUser</code> و<code>setUserPassword</code> والدوال المرتبطة بها من <link>إضافة الإدارة في Better Auth</link>. يجب أن تكون مسجّل الدخول بصفتك مسؤولًا."
+        },
+        "status": {
+          "banned": "محظور",
+          "active": "نشط"
+        },
+        "create": {
+          "trigger": "إضافة مستخدم",
+          "title": "إضافة مستخدم",
+          "description": "ينشئ حسابًا عبر <code>createUser</code>.",
+          "email": "البريد الإلكتروني",
+          "password": "كلمة المرور",
+          "name": "الاسم",
+          "role": "الدور",
+          "error": "تعذّر إنشاء المستخدم",
+          "created": "تم إنشاء المستخدم",
+          "submit": "إنشاء المستخدم",
+          "creating": "جارٍ الإنشاء…"
+        },
+        "rowActions": {
+          "menuLabel": "إجراءات {name}",
+          "copyId": "نسخ معرّف المستخدم",
+          "idCopied": "تم نسخ معرّف المستخدم",
+          "edit": "تعديل المستخدم",
+          "setPassword": "تعيين كلمة المرور",
+          "makeAdmin": "جعله مسؤولًا",
+          "makeUser": "جعله مستخدمًا",
+          "ban": "حظر المستخدم",
+          "unban": "إلغاء حظر المستخدم",
+          "remove": "إزالة المستخدم",
+          "roleError": "تعذّر تحديث الدور",
+          "roleSet": "تم تعيين الدور إلى {role}",
+          "unbanError": "تعذّر إلغاء حظر المستخدم",
+          "unbanned": "تم إلغاء حظر المستخدم",
+          "banError": "تعذّر حظر المستخدم",
+          "banned": "تم حظر المستخدم",
+          "removeError": "تعذّرت إزالة المستخدم",
+          "removed": "تمت إزالة المستخدم",
+          "emailRequired": "البريد الإلكتروني مطلوب",
+          "noChanges": "لا توجد تغييرات لحفظها",
+          "updateError": "تعذّر تحديث المستخدم",
+          "updated": "تم تحديث المستخدم",
+          "passwordRequired": "أدخل كلمة مرور جديدة.",
+          "passwordMismatch": "كلمتا المرور غير متطابقتين.",
+          "passwordError": "تعذّر تعيين كلمة المرور",
+          "passwordUpdated": "تم تحديث كلمة المرور",
+          "editTitle": "تعديل المستخدم",
+          "editDescription": "غيّر الاسم أو عنوان البريد الإلكتروني. يجب أن يوثّق المستخدم عنوان البريد الإلكتروني الجديد قبل أن يتمكن من تسجيل الدخول مجددًا.",
+          "name": "الاسم",
+          "email": "البريد الإلكتروني",
+          "passwordTitle": "تعيين كلمة المرور",
+          "passwordDescription": "يعيّن كلمة مرور جديدة لـ <strong>{email}</strong> باستخدام <code>setUserPassword</code>.",
+          "newPassword": "كلمة المرور الجديدة",
+          "confirmPassword": "تأكيد كلمة المرور",
+          "updatePassword": "تحديث كلمة المرور",
+          "removeTitle": "إزالة المستخدم؟",
+          "removeDescription": "يحذف هذا <strong>{name}</strong> ({email}) نهائيًا مع كل ما يرتبط بالحساب. تُحفظ إدخالات سجل التدقيق دون الاسم أو البريد الإلكتروني. لا يمكن التراجع عن ذلك.",
+          "removeConfirm": "إزالة",
+          "removing": "جارٍ الإزالة…"
+        },
+        "detailActions": {
+          "impersonateError": "تعذّر انتحال هوية هذا المستخدم.",
+          "signOutError": "تعذّر تسجيل خروج هذا المستخدم.",
+          "signedOut": "تم تسجيل الخروج من {count, plural, zero {# جلسة} one {جلسة واحدة} two {جلستين} few {# جلسات} many {# جلسة} other {# جلسة}}",
+          "exportError": "تعذّر تصدير بيانات هذا المستخدم.",
+          "exported": "تم تصدير البيانات. التصدير مُسجَّل في سجل التدقيق.",
+          "exportData": "تصدير البيانات",
+          "impersonate": "انتحال الهوية",
+          "signOutEverywhere": "تسجيل الخروج من كل مكان",
+          "impersonateTitle": "تسجيل الدخول بصفة {email}؟",
+          "signOutTitle": "تسجيل خروج {email} من كل مكان؟",
+          "impersonateDescription": "سترى لوحة الحساب تمامًا كما يراها هذا المستخدم، لمدة تصل إلى ساعة. يتيح لك شريط هناك الإيقاف والعودة. يُسجَّل هذا في سجل التدقيق.",
+          "signOutDescription": "تنتهي كل جلسات هذا المستخدم الآن، على كل الأجهزة. سيحتاج إلى تسجيل الدخول مرة أخرى.",
+          "sessionRevoked": "تم إبطال الجلسة",
+          "revokeError": "تعذّر إبطال هذه الجلسة.",
+          "revoke": "إبطال",
+          "resetTwoFactorError": "تعذّرت إعادة تعيين المصادقة الثنائية.",
+          "twoFactorReset": "تم إيقاف المصادقة الثنائية",
+          "reset": "إعادة تعيين",
+          "resetTwoFactorTitle": "إعادة تعيين المصادقة الثنائية لـ {email}؟",
+          "resetTwoFactorDescription": "يتوقف تطبيق المصادقة والرموز الاحتياطية والأجهزة الموثوقة الخاصة به عن العمل، ويسجّل الدخول بكلمة المرور وحدها حتى يعيد إعدادها. لا تفعل ذلك إلا بعد التأكد من هوية مقدّم الطلب. يُسجَّل هذا في سجل التدقيق."
+        },
+        "detail": {
+          "emailVerified": "البريد الإلكتروني موثّق",
+          "emailNotVerified": "البريد الإلكتروني غير موثّق",
+          "banned": "محظور",
+          "bannedWithReason": "محظور: {reason}",
+          "scimTitle": "مُوفَّر عبر SCIM: {organizations}",
+          "scimDescription": "يدير مزوّد الهوية هذا الحساب. أزل المستخدم هناك: حذف الحساب هنا لا يمنع الدليل من إنشائه مجددًا في المزامنة التالية. لا يمكن للمستخدم حذف الحساب من لوحته.",
+          "tiles": {
+            "joined": "تاريخ الانضمام",
+            "activeSessions": "الجلسات النشطة",
+            "passkeys": "مفاتيح المرور",
+            "twoFactor": "المصادقة الثنائية"
+          },
+          "device": {
+            "unknown": "جهاز غير معروف",
+            "browser": "متصفح",
+            "browserOnOs": "{browser} على {os}"
+          },
+          "sessions": {
+            "title": "الجلسات النشطة",
+            "description": "الأجهزة التي سُجّل الدخول فيها إلى هذا الحساب.",
+            "empty": "لا توجد جلسات نشطة.",
+            "device": "الجهاز",
+            "ipAddress": "عنوان IP",
+            "lastActive": "آخر نشاط",
+            "impersonated": "بانتحال الهوية"
+          },
+          "apiKeys": {
+            "title": "مفاتيح API",
+            "description": "المفاتيح التي أنشأها هذا الحساب للبرامج النصية. يؤدي حظر الحساب أو حذفه إلى إبطالها."
+          },
+          "signInMethods": {
+            "title": "طرق تسجيل الدخول",
+            "credential": "البريد الإلكتروني وكلمة المرور",
+            "sso": "SSO: {provider}",
+            "passkey": "مفتاح مرور: {name} <muted>({deviceType})</muted>",
+            "unnamed": "بلا اسم",
+            "empty": "لا توجد طرق تسجيل دخول.",
+            "twoFactor": "المصادقة الثنائية <muted>(تطبيق المصادقة)</muted>",
+            "managedByYou": "تُدار من حسابك"
+          },
+          "organizations": {
+            "title": "المؤسسات",
+            "empty": "ليس عضوًا في أي مؤسسة."
+          },
+          "activity": {
+            "title": "نشاط تسجيل الدخول الأخير",
+            "empty": "لم يُسجَّل أي نشاط بعد.",
+            "events": {
+              "sign_in": "تسجيل الدخول",
+              "sign_up": "إنشاء الحساب",
+              "sign_out": "تسجيل الخروج",
+              "sign_in_failed": "تسجيل دخول فاشل"
+            }
+          },
+          "audit": {
+            "title": "إجراءات المسؤولين على هذا الحساب",
+            "empty": "لا توجد إجراءات للمسؤولين بعد.",
+            "by": "بواسطة {actor}",
+            "system": "النظام"
+          }
+        }
       },
       "consent": {
-        "title": "Consent",
-        "description": "Permissions people have granted to OAuth clients, with the scopes and when they were given."
+        "title": "الموافقات",
+        "description": "الأذونات التي منحها الأشخاص لعملاء OAuth، مع النطاقات وتاريخ منحها.",
+        "panel": {
+          "signedInUser": "المستخدم المسجّل دخوله",
+          "loadConsentsFailed": "تعذّر تحميل الموافقات",
+          "loadClientsFailed": "تعذّر تحميل عملاء OAuth",
+          "loadErrorTitle": "تعذّر تحميل الموافقات",
+          "searchPlaceholder": "ابحث بالمستخدم أو العميل أو معرّف الموافقة أو المرجع أو النطاق…",
+          "searchLabel": "البحث في الموافقات",
+          "filter": {
+            "placeholder": "تصفية النطاق",
+            "all": "كل الموافقات",
+            "hasScope": "تتضمن {scope}"
+          },
+          "columns": {
+            "user": "المستخدم",
+            "application": "التطبيق",
+            "scopes": "النطاقات",
+            "reference": "المرجع",
+            "granted": "تاريخ المنح",
+            "updated": "تاريخ التحديث"
+          },
+          "loading": "جارٍ تحميل الموافقات…",
+          "emptyNone": "لم تُسجَّل أي موافقات لهذا الحساب بعد.",
+          "emptyFiltered": "لا توجد موافقات تطابق عوامل التصفية.",
+          "noResults": "0 موافقات",
+          "showing": "عرض {from}-{to} من {total}",
+          "rowsPerPage": "عدد الصفوف في الصفحة",
+          "previous": "السابق",
+          "next": "التالي",
+          "pageOf": "الصفحة {page} / {total}",
+          "footnote": "البيانات من <code>{getConsents}</code>؛ وتُستخرج أسماء العملاء عبر <code>{getClients}</code>. يستخدم الإبطال <code>{deleteConsent}</code>. راجع <consentLink>OAuth consent</consentLink> في وثائق <providerLink>OAuth provider</providerLink>. واجهة التفويض التفاعلية على <code>{path}</code>."
+        },
+        "rowActions": {
+          "menuLabel": "إجراءات الموافقة {id}…",
+          "copyConsentId": "نسخ معرّف الموافقة",
+          "consentIdCopied": "تم نسخ معرّف الموافقة",
+          "copyClientId": "نسخ معرّف العميل",
+          "clientIdCopied": "تم نسخ معرّف العميل",
+          "viewDetails": "عرض التفاصيل",
+          "updateScopes": "تحديث النطاقات",
+          "wireTo": "الربط بـ {method}",
+          "revoke": "إبطال الموافقة",
+          "revokeFailed": "تعذّر إبطال الموافقة",
+          "revoked": "تم إبطال الموافقة",
+          "dialogTitle": "إبطال الموافقة؟",
+          "dialogDescription": "يزيل منح هذا المستخدم لـ <strong>{client}</strong> (<code>{clientId}</code>). قد يحتاج العميل إلى طلب التفويض مرة أخرى.",
+          "revoking": "جارٍ الإبطال…",
+          "revokeButton": "إبطال"
+        }
       },
       "usage": {
         "title": "استخدام التطبيقات",
-        "description": "التطبيقات المستخدمة: رموز الوصول والمستخدمون والموافقات لكل تطبيق خلال آخر 30 يومًا."
+        "description": "التطبيقات المستخدمة: رموز الوصول والمستخدمون والموافقات لكل تطبيق خلال آخر 30 يومًا.",
+        "tiles": {
+          "tokens": "الرموز الصادرة، 30 يومًا",
+          "active": "التطبيقات المستخدمة",
+          "unused": "التطبيقات غير المستخدمة"
+        },
+        "card": {
+          "title": "رموز الوصول لكل تطبيق، آخر 30 يومًا",
+          "unused": "{count, plural, zero {لا توجد تطبيقات نشطة لم تُصدر رمزًا خلال 30 يومًا.} one {تطبيق نشط واحد لم يُصدر أي رمز خلال 30 يومًا: فكّر في تعطيله أو حذفه.} two {تطبيقان نشطان لم يُصدرا أي رمز خلال 30 يومًا: فكّر في تعطيلهما أو حذفهما.} few {# تطبيقات نشطة لم تُصدر أي رمز خلال 30 يومًا: فكّر في تعطيلها أو حذفها.} many {# تطبيقًا نشطًا لم يُصدر أي رمز خلال 30 يومًا: فكّر في تعطيلها أو حذفها.} other {# تطبيق نشط لم يُصدر أي رمز خلال 30 يومًا: فكّر في تعطيلها أو حذفها.}}",
+          "allUsed": "أصدر كل تطبيق نشط رموزًا خلال آخر 30 يومًا.",
+          "empty": "لا يوجد عملاء OAuth مسجّلون.",
+          "application": "التطبيق",
+          "tokens": "الرموز",
+          "users": "المستخدمون",
+          "consents": "الموافقات",
+          "lastToken": "آخر رمز",
+          "lastTokenValue": "آخر رمز: {date}",
+          "showInApplications": "العرض في التطبيقات",
+          "unusedBadge": "غير مستخدم"
+        }
       },
       "audit": {
-        "title": "Audit log",
-        "description": "Every change made from this console or the admin API: who did it, to what, and when.",
-        "footnote": "Showing the latest 200 entries. Passwords and secrets are never recorded."
+        "title": "سجل التدقيق",
+        "description": "كل تغيير أُجري من لوحة التحكم هذه أو من واجهة API الإدارية: من أجراه، وعلى ماذا، ومتى.",
+        "footnote": "يتم عرض أحدث 200 إدخال. لا تُسجَّل كلمات المرور والأسرار أبدًا.",
+        "filterLabel": "التصفية حسب المجال",
+        "filters": {
+          "all": "الكل",
+          "user": "المستخدمون",
+          "organization": "المؤسسات",
+          "oauth_client": "عملاء OAuth",
+          "oauth_consent": "الموافقات",
+          "oauth_resource": "واجهات API",
+          "api_key": "مفاتيح API",
+          "sso_provider": "SSO",
+          "signing_key": "مفاتيح التوقيع",
+          "webhook": "خطافات الويب",
+          "social_provider": "مزوّدو تسجيل الدخول"
+        },
+        "empty": "لم تُسجَّل أي إجراءات للمسؤولين بعد.",
+        "columns": {
+          "when": "متى",
+          "who": "من",
+          "action": "الإجراء",
+          "target": "الهدف",
+          "details": "التفاصيل",
+          "ip": "IP"
+        },
+        "system": "النظام",
+        "actions": {
+          "user": {
+            "create": "إنشاء مستخدم",
+            "update": "تحديث مستخدم",
+            "set_role": "تغيير الدور",
+            "set_password": "تعيين كلمة المرور",
+            "ban": "حظر مستخدم",
+            "unban": "إلغاء حظر مستخدم",
+            "delete": "حذف مستخدم",
+            "revoke_session": "إبطال جلسة",
+            "revoke_all_sessions": "تسجيل خروج المستخدم من كل مكان",
+            "impersonate": "انتحال هوية مستخدم",
+            "reset_two_factor": "إعادة تعيين المصادقة الثنائية",
+            "export_data": "تصدير بيانات الحساب",
+            "self_delete": "حذف المستخدم حسابه بنفسه"
+          },
+          "oauth_client": {
+            "create": "تسجيل عميل OAuth",
+            "update": "تحديث عميل OAuth",
+            "delete": "حذف عميل OAuth",
+            "rotate_secret": "تدوير سر العميل",
+            "self_register": "سجّل العميل نفسه",
+            "disable": "تعطيل عميل OAuth",
+            "enable": "تفعيل عميل OAuth",
+            "branding_update": "تغيير هوية تسجيل الدخول",
+            "branding_reset": "إعادة تعيين هوية تسجيل الدخول"
+          },
+          "client_registration": {
+            "update": "تغيير التسجيل الذاتي للعملاء"
+          },
+          "oauth_resource": {
+            "create": "تسجيل واجهة API",
+            "update": "تحديث واجهة API",
+            "delete": "حذف واجهة API",
+            "access": "تغيير الوصول إلى واجهة API",
+            "tokens": "تغيير إعدادات رموز واجهة API"
+          },
+          "api_key": {
+            "create": "إنشاء مفتاح API",
+            "revoke": "إبطال مفتاح API",
+            "revoke_all": "إبطال كل مفاتيح API",
+            "settings": "تغيير إعدادات مفاتيح API"
+          },
+          "oauth_consent": {
+            "update": "تحديث الموافقة",
+            "delete": "إبطال الموافقة"
+          },
+          "oauth_device": {
+            "approve": "الموافقة على تسجيل دخول من جهاز",
+            "deny": "رفض تسجيل دخول من جهاز"
+          },
+          "organization": {
+            "create": "إنشاء مؤسسة",
+            "update": "إعادة تسمية مؤسسة",
+            "delete": "حذف مؤسسة",
+            "invite": "دعوة عضو",
+            "cancel_invitation": "إلغاء دعوة",
+            "update_member_role": "تغيير دور عضو",
+            "remove_member": "إزالة عضو"
+          },
+          "sso_provider": {
+            "create": "تسجيل مزوّد SSO",
+            "update": "تحديث مزوّد SSO",
+            "delete": "حذف مزوّد SSO",
+            "verify_domain": "التحقق من نطاق SSO"
+          },
+          "social_provider": {
+            "create": "إعداد مزوّد تسجيل دخول",
+            "update": "تحديث مزوّد تسجيل دخول",
+            "delete": "إزالة مزوّد تسجيل دخول",
+            "reorder": "إعادة ترتيب مزوّدي تسجيل الدخول"
+          },
+          "scim": {
+            "token_create": "إنشاء رمز SCIM",
+            "token_rotate": "استبدال رمز SCIM",
+            "token_revoke": "إبطال رمز SCIM"
+          },
+          "signing_key": {
+            "rotate": "تدوير مفتاح التوقيع",
+            "update_settings": "تغيير تدوير مفتاح التوقيع"
+          },
+          "webhook": {
+            "create": "إضافة نقطة نهاية لخطاف ويب",
+            "update": "تحديث نقطة نهاية لخطاف ويب",
+            "enable": "تفعيل نقطة نهاية لخطاف ويب",
+            "disable": "تعطيل نقطة نهاية لخطاف ويب",
+            "delete": "حذف نقطة نهاية لخطاف ويب",
+            "rotate_secret": "إعادة إنشاء سر خطاف الويب",
+            "test": "إرسال حدث اختبار لخطاف الويب",
+            "redeliver": "إعادة تسليم حدث خطاف الويب"
+          }
+        }
       },
       "security": {
-        "title": "Security",
-        "description": "Failed sign-in attempts, the accounts and addresses behind them, and banned accounts."
+        "title": "الأمان",
+        "description": "محاولات تسجيل الدخول الفاشلة، والحسابات والعناوين المرتبطة بها، والحسابات المحظورة.",
+        "tiles": {
+          "failed24h": "عمليات تسجيل الدخول الفاشلة، 24 ساعة",
+          "failed7d": "عمليات تسجيل الدخول الفاشلة، 7 أيام",
+          "banned": "الحسابات المحظورة"
+        },
+        "chart": {
+          "failed": "عمليات تسجيل الدخول الفاشلة"
+        },
+        "perDay": {
+          "title": "عمليات تسجيل الدخول الفاشلة يوميًا",
+          "description": "كلمة مرور خاطئة أو حساب غير معروف، آخر 30 يومًا ({total, number} إجمالًا). يُتتبَّع منذ 6 أكتوبر 2026."
+        },
+        "noFailures": "لا توجد عمليات تسجيل دخول فاشلة خلال آخر 7 أيام.",
+        "attempts": "المحاولات",
+        "topAccounts": {
+          "title": "الحسابات الأكثر استهدافًا، 7 أيام",
+          "description": "البريد الإلكتروني أو اسم المستخدم المُجرَّب، سواء كان الحساب موجودًا أم لا.",
+          "identifier": "البريد الإلكتروني أو اسم المستخدم",
+          "last": "الأخيرة"
+        },
+        "topIps": {
+          "title": "عناوين IP الأكثر نشاطًا، 7 أيام",
+          "description": "عنوان واحد يجرّب حسابات كثيرة يعني عادةً هجوم حشو بيانات الاعتماد (credential stuffing).",
+          "ip": "عنوان IP",
+          "accounts": "الحسابات المُجرَّبة"
+        },
+        "banned": {
+          "title": "الحسابات المحظورة",
+          "empty": "لا توجد حسابات محظورة.",
+          "noReason": "لم يُذكر سبب",
+          "until": "حتى {date}",
+          "permanent": "دائم"
+        }
       },
       "signingKeys": {
         "title": "مفاتيح التوقيع",
@@ -380,88 +1812,236 @@
           "save": "تعذّر حفظ الإعدادات.",
           "rotate": "تعذّر تدوير المفتاح."
         }
+      },
+      "organizations": {
+        "controls": {
+          "unexpectedError": "حدث خطأ ما.",
+          "organizationUpdated": "تم تحديث المؤسسة",
+          "slug": "المعرّف (slug)",
+          "role": "الدور",
+          "roleUpdated": "تم تحديث الدور",
+          "roles": {
+            "owner": "مالك",
+            "admin": "مسؤول",
+            "member": "عضو"
+          },
+          "removeMemberLabel": "إزالة {email}",
+          "removeMemberTitle": "إزالة {email}؟",
+          "removeMemberBody": "سيفقد الوصول إلى هذه المؤسسة. يبقى حسابه.",
+          "memberRemoved": "تمت إزالة العضو",
+          "cancelInvitationLabel": "إلغاء دعوة {email}",
+          "cancelInvitationTitle": "إلغاء دعوة {email}؟",
+          "cancelInvitationBody": "سيتوقف الرابط الموجود في البريد الإلكتروني عن العمل.",
+          "cancelInvitation": "إلغاء الدعوة",
+          "invitationCancelled": "تم إلغاء الدعوة",
+          "invitationSent": "تم إرسال الدعوة",
+          "inviteByEmail": "الدعوة عبر البريد الإلكتروني",
+          "sendInvitation": "إرسال الدعوة"
+        },
+        "scim": {
+          "unexpectedError": "حدث خطأ ما.",
+          "tokenRevoked": "تم إبطال الرمز",
+          "baseUrl": "عنوان URL الأساسي",
+          "copyBaseUrl": "نسخ عنوان URL الأساسي",
+          "token": "الرمز",
+          "copyToken": "نسخ الرمز",
+          "active": "نشط",
+          "expires": "تنتهي صلاحيته",
+          "lastUsed": "آخر استخدام",
+          "noToken": "لا يوجد رمز نشط. لا يمكن لمزوّد الهوية التوفير حتى تنشئ رمزًا.",
+          "newToken": "رمز جديد",
+          "revoke": "إبطال",
+          "generateToken": "إنشاء رمز",
+          "rotateTitle": "استبدال رمز SCIM؟",
+          "revokeTitle": "إبطال رمز SCIM؟",
+          "rotateBody": "يتوقف الرمز الحالي عن العمل الآن. الصق الرمز الجديد في مزوّد الهوية لمواصلة التوفير.",
+          "revokeBody": "لن يتمكن مزوّد الهوية بعد الآن من إنشاء الحسابات أو تحديثها أو إلغاء تنشيطها. لا تتغير الحسابات الموجودة.",
+          "replaceToken": "استبدال الرمز",
+          "revokeToken": "إبطال الرمز",
+          "issuedTitle": "رمز SCIM",
+          "issuedDescription": "انسخه الآن: لن يُعرض مرة أخرى. تنتهي صلاحيته بعد سنة واحدة.",
+          "tokenHint": "الصقه كرمز حامل (bearer token) (في Okta: API token، وفي Entra ID: secret token)."
+        },
+        "detail": {
+          "back": "المؤسسات",
+          "defaultWorkspace": "مساحة العمل الافتراضية",
+          "createdAt": "أُنشئت في {date}",
+          "members": "الأعضاء",
+          "publicMembers": "ينتمي كل حساب إلى مساحة العمل العامة (Public)، لذا لا يمكن إزالة الأعضاء هنا. يُعرض أول 50.",
+          "memberCount": "{count, plural, zero {لا أعضاء} one {عضو واحد} two {عضوان} few {# أعضاء} many {# عضوًا} other {# عضو}}.",
+          "noMembers": "لا يوجد أعضاء بعد.",
+          "member": "العضو",
+          "joined": "تاريخ الانضمام",
+          "role": "الدور",
+          "deactivated": "غير مُفعَّل",
+          "banned": "محظور",
+          "invitationExpires": "تنتهي صلاحيتها في {date}",
+          "noInvitations": "لا توجد دعوات معلّقة.",
+          "apiKeys": "مفاتيح API",
+          "apiKeysDescription": "المفاتيح التي تملكها هذه المؤسسة، أنشأها مالكوها ومسؤولوها من لوحة حساباتهم. تظل تعمل عندما يغادر العضو الذي أنشأها، وتُحذف مع المؤسسة.",
+          "details": "التفاصيل",
+          "sso": "تسجيل الدخول الموحّد",
+          "ssoDescription": "مزوّدو الهوية المرتبطون بهذه المؤسسة.",
+          "ssoNone": "لا يوجد. <link>أعدّ واحدًا</link>.",
+          "verified": "موثّق",
+          "unverified": "غير موثّق",
+          "scim": "التوفير عبر SCIM",
+          "scimDescription": "ينشئ مزوّد الهوية الخاص بك (Okta وEntra ID وغيرهما) حسابات هذه المؤسسة ويلغي تنشيطها عندما يغادر الأشخاص.",
+          "scimCounts": "{active} مُوفَّر، {inactive} غير مُفعَّل.",
+          "recentActions": "أحدث إجراءات المسؤولين",
+          "noActions": "لا شيء بعد.",
+          "system": "النظام"
+        },
+        "errors": {
+          "invalidNameSlug": "أدخل اسمًا ومعرّفًا (slug) مكوّنًا من أحرف وأرقام وشرطات.",
+          "publicSlug": "تحتفظ مساحة العمل العامة بالمعرّف “public”.",
+          "slugTaken": "هذا المعرّف مستخدم بالفعل من قِبل مؤسسة أخرى.",
+          "unknownRole": "دور غير معروف.",
+          "memberNotFound": "لم يتم العثور على العضو.",
+          "publicMembers": "ينتمي كل حساب إلى مساحة العمل العامة.",
+          "invalidEmail": "أدخل عنوان بريد إلكتروني صالحًا.",
+          "noInvitations": "لا تقبل هذه المؤسسة الدعوات.",
+          "alreadyMember": "هذا الشخص عضو بالفعل.",
+          "invitationNotFound": "لم يتم العثور على الدعوة.",
+          "requestFailed": "فشل الطلب.",
+          "scimUnavailable": "لا يمكن لهذه المؤسسة استخدام التوفير عبر SCIM.",
+          "noActiveToken": "لا يوجد رمز نشط."
+        }
+      }
+    },
+    "common": {
+      "cancel": "إلغاء",
+      "save": "حفظ",
+      "saving": "جارٍ الحفظ…",
+      "saveChanges": "حفظ التغييرات",
+      "delete": "حذف",
+      "deleting": "جارٍ الحذف…",
+      "edit": "تعديل",
+      "remove": "إزالة",
+      "close": "إغلاق",
+      "copied": "تم النسخ",
+      "enabled": "مفعّل",
+      "disabled": "معطّل",
+      "enable": "تفعيل",
+      "disable": "تعطيل",
+      "on": "مفعّل",
+      "off": "متوقف",
+      "yes": "نعم",
+      "no": "لا",
+      "never": "أبدًا",
+      "none": "لا شيء",
+      "actions": "الإجراءات",
+      "created": "تاريخ الإنشاء",
+      "name": "الاسم",
+      "description": "الوصف",
+      "status": "الحالة",
+      "back": "رجوع",
+      "done": "تم",
+      "loading": "جارٍ التحميل…",
+      "refresh": "تحديث",
+      "search": "بحث",
+      "optional": "اختياري",
+      "unexpectedError": "حدث خطأ ما. حاول مرة أخرى."
+    },
+    "urlCheck": {
+      "tooLong": "عنوان URL طويل جدًا.",
+      "notAbsolute": "أدخل عنوان URL مطلقًا، مثل https://app.example.com/webhooks.",
+      "credentials": "يجب ألا يحتوي عنوان URL على اسم مستخدم أو كلمة مرور.",
+      "fragment": "يجب ألا يحتوي عنوان URL على جزء (#).",
+      "notHttps": "يجب أن يستخدم عنوان URL https://.",
+      "localhost": "يشير عنوان URL إلى هذا الجهاز (localhost).",
+      "nonPublic": "يشير عنوان URL إلى عنوان {kind, select, loopback {استرجاع (loopback)} private {خاص} linkLocal {محلي الارتباط (link-local)} cloudMetadata {بيانات وصفية سحابية} sharedAddressSpace {مشترك (carrier-grade NAT)} other {غير عام}}.",
+      "unresolved": "تعذّر تحليل المضيف {host}.",
+      "noAddress": "المضيف {host} ليس له عنوان.",
+      "resolvesNonPublic": "يُحلَّل المضيف {host} إلى عنوان {kind, select, loopback {استرجاع (loopback)} private {خاص} linkLocal {محلي الارتباط (link-local)} cloudMetadata {بيانات وصفية سحابية} sharedAddressSpace {مشترك (carrier-grade NAT)} other {غير عام}} ({address})."
+    },
+    "shell": {
+      "userFallbackName": "المسؤول",
+      "userMenu": {
+        "home": "الرئيسية",
+        "logOut": "تسجيل الخروج"
       }
     }
   },
   "dashboard": {
-    "title": "Account",
-    "description": "Manage your profile, organizations, passkeys, sessions, and connected applications.",
-    "navAria": "Account navigation",
+    "title": "الحساب",
+    "description": "أدِر ملفك الشخصي ومؤسساتك ومفاتيح المرور والجلسات والتطبيقات المتصلة.",
+    "navAria": "التنقل في الحساب",
     "nav": {
-      "overview": "Overview",
-      "profile": "Profile",
-      "organizations": "Organizations",
-      "security": "Security",
-      "apps": "Connected apps",
+      "overview": "نظرة عامة",
+      "profile": "الملف الشخصي",
+      "organizations": "المؤسسات",
+      "security": "الأمان",
+      "apps": "التطبيقات المتصلة",
       "apiKeys": "مفاتيح API",
-      "admin": "Admin",
-      "marketingHome": "About",
-      "signOut": "Sign out",
+      "admin": "الإدارة",
+      "marketingHome": "حول",
+      "signOut": "تسجيل الخروج",
       "data": "بياناتك"
     },
     "profile": {
-      "title": "Profile",
-      "description": "Your display name, username, and email status for this account.",
-      "nameLabel": "Display name",
-      "usernameLabel": "Username",
-      "usernameHint": "3-30 characters: letters, numbers, dots, and underscores. Used to sign in instead of email.",
-      "usernameChecking": "Checking availability…",
-      "usernameAvailable": "This username is available.",
-      "usernameTaken": "This username is already taken.",
-      "usernameInvalidHint": "Use only letters, numbers, dots, and underscores.",
-      "usernameTooShort": "Username must be at least 3 characters.",
-      "usernameInvalid": "That username is not valid.",
-      "save": "Save",
-      "saving": "Saving…",
-      "saved": "Profile updated",
-      "saveError": "Could not update profile.",
-      "emailLabel": "Email",
-      "verified": "Verified",
-      "unverified": "Not verified",
-      "unverifiedHint": "Verify your email to protect your account and meet sign-in requirements.",
-      "resendVerification": "Resend verification email",
-      "verificationSent": "Check your inbox for the verification link.",
-      "verificationError": "Could not send verification email.",
-      "changeEmail": "Change",
-      "newEmailLabel": "New email address",
-      "changeEmailHintVerified": "We'll email your current address to approve the change, then send a verification link to the new one. Your email stays the same until both are done.",
-      "changeEmailSubmit": "Send confirmation",
-      "changingEmail": "Sending…",
-      "cancel": "Cancel",
-      "changeEmailSame": "Enter a different email address.",
-      "changeEmailError": "Could not start the email change.",
-      "changeEmailSentToCurrent": "Check {current} to approve the change to {next}. After that, verify {next} from the link we send there.",
-      "changeEmailNeedsVerified": "You can change it once it is verified."
+      "title": "الملف الشخصي",
+      "description": "اسم العرض واسم المستخدم وحالة البريد الإلكتروني لهذا الحساب.",
+      "nameLabel": "اسم العرض",
+      "usernameLabel": "اسم المستخدم",
+      "usernameHint": "من 3 إلى 30 حرفًا: أحرف وأرقام ونقاط وشرطات سفلية. يُستخدم لتسجيل الدخول بدلًا من البريد الإلكتروني.",
+      "usernameChecking": "جارٍ التحقق من التوفر…",
+      "usernameAvailable": "اسم المستخدم هذا متاح.",
+      "usernameTaken": "اسم المستخدم هذا مستخدم بالفعل.",
+      "usernameInvalidHint": "استخدم الأحرف والأرقام والنقاط والشرطات السفلية فقط.",
+      "usernameTooShort": "يجب ألا يقل اسم المستخدم عن 3 أحرف.",
+      "usernameInvalid": "اسم المستخدم هذا غير صالح.",
+      "save": "حفظ",
+      "saving": "جارٍ الحفظ…",
+      "saved": "تم تحديث الملف الشخصي",
+      "saveError": "تعذّر تحديث الملف الشخصي.",
+      "emailLabel": "البريد الإلكتروني",
+      "verified": "مؤكَّد",
+      "unverified": "غير مؤكَّد",
+      "unverifiedHint": "أكّد بريدك الإلكتروني لحماية حسابك واستيفاء متطلبات تسجيل الدخول.",
+      "resendVerification": "إعادة إرسال رسالة التحقق",
+      "verificationSent": "تحقق من بريدك الوارد للعثور على رابط التحقق.",
+      "verificationError": "تعذّر إرسال رسالة التحقق.",
+      "changeEmail": "تغيير",
+      "newEmailLabel": "عنوان البريد الإلكتروني الجديد",
+      "changeEmailHintVerified": "سنرسل رسالة إلى عنوانك الحالي للموافقة على التغيير، ثم نرسل رابط تحقق إلى العنوان الجديد. يبقى بريدك الإلكتروني كما هو حتى تكتمل الخطوتان.",
+      "changeEmailSubmit": "إرسال التأكيد",
+      "changingEmail": "جارٍ الإرسال…",
+      "cancel": "إلغاء",
+      "changeEmailSame": "أدخل عنوان بريد إلكتروني مختلفًا.",
+      "changeEmailError": "تعذّر بدء تغيير البريد الإلكتروني.",
+      "changeEmailSentToCurrent": "تحقق من {current} للموافقة على التغيير إلى {next}. بعد ذلك، أكّد {next} عبر الرابط الذي سنرسله إليه.",
+      "changeEmailNeedsVerified": "يمكنك تغييره بعد تأكيده."
     },
     "passkeys": {
-      "title": "Passkeys",
-      "hint": "Use a passkey for phishing-resistant sign-in. Add one on this device or with a security key.",
-      "addThisDevice": "Add passkey (this device)",
-      "addSecurityKey": "Add passkey (security key)",
-      "defaultName": "My passkey",
-      "empty": "No passkeys yet. Add one to sign in without typing your password.",
-      "name": "Name",
-      "unnamed": "Unnamed passkey",
-      "deviceType": "Device type",
-      "created": "Added",
-      "actions": "Actions",
-      "rename": "Rename",
-      "delete": "Remove",
-      "save": "Save",
-      "cancel": "Cancel",
-      "loadError": "Could not load passkeys.",
-      "addError": "Could not add passkey.",
-      "deleteError": "Could not remove passkey.",
-      "updateError": "Could not update passkey.",
-      "added": "Passkey added",
-      "deleted": "Passkey removed",
-      "updated": "Passkey updated",
-      "nameRequired": "Enter a name for this passkey.",
-      "none": "None",
-      "confirmRemoveTitle": "Remove this passkey?",
-      "confirmRemoveBody": "You won’t be able to sign in with this passkey anymore. You can add a new one at any time.",
-      "signInAgainToAdd": "For your security, adding a passkey needs a recent sign-in. Sign in again, then add it.",
-      "signInAgain": "Sign in again"
+      "title": "مفاتيح المرور",
+      "hint": "استخدم مفتاح مرور لتسجيل دخول مقاوم للتصيد الاحتيالي. أضف مفتاحًا على هذا الجهاز أو باستخدام مفتاح أمان.",
+      "addThisDevice": "إضافة مفتاح مرور (هذا الجهاز)",
+      "addSecurityKey": "إضافة مفتاح مرور (مفتاح أمان)",
+      "defaultName": "مفتاح المرور الخاص بي",
+      "empty": "لا توجد مفاتيح مرور بعد. أضف واحدًا لتسجيل الدخول دون كتابة كلمة المرور.",
+      "name": "الاسم",
+      "unnamed": "مفتاح مرور بلا اسم",
+      "deviceType": "نوع الجهاز",
+      "created": "تاريخ الإضافة",
+      "actions": "الإجراءات",
+      "rename": "إعادة التسمية",
+      "delete": "إزالة",
+      "save": "حفظ",
+      "cancel": "إلغاء",
+      "loadError": "تعذّر تحميل مفاتيح المرور.",
+      "addError": "تعذّرت إضافة مفتاح المرور.",
+      "deleteError": "تعذّرت إزالة مفتاح المرور.",
+      "updateError": "تعذّر تحديث مفتاح المرور.",
+      "added": "تمت إضافة مفتاح المرور",
+      "deleted": "تمت إزالة مفتاح المرور",
+      "updated": "تم تحديث مفتاح المرور",
+      "nameRequired": "أدخل اسمًا لمفتاح المرور هذا.",
+      "none": "لا شيء",
+      "confirmRemoveTitle": "إزالة مفتاح المرور هذا؟",
+      "confirmRemoveBody": "لن تتمكن من تسجيل الدخول بمفتاح المرور هذا بعد الآن. يمكنك إضافة مفتاح جديد في أي وقت.",
+      "signInAgainToAdd": "لأمانك، تتطلب إضافة مفتاح مرور تسجيل دخول حديثًا. سجّل الدخول مرة أخرى، ثم أضفه.",
+      "signInAgain": "سجّل الدخول مرة أخرى"
     },
     "twoFactor": {
       "title": "المصادقة الثنائية",
@@ -509,45 +2089,45 @@
       }
     },
     "organizations": {
-      "title": "Organizations",
-      "description": "Teams and partner organizations you belong to. Switch between them and invite members. Platform administrators create new organizations.",
-      "yourOrganizations": "Your organizations",
-      "empty": "No organizations loaded.",
-      "active": "Active",
-      "switchTo": "Set active",
-      "setActiveError": "Could not switch organization.",
-      "setActiveSuccess": "Active organization updated.",
-      "createTitle": "Create an organization",
-      "createHint": "Use a unique URL slug (e.g. acme-corp). The reserved slug “public” is not available.",
-      "orgName": "Organization name",
-      "orgSlug": "Slug",
-      "create": "Create organization",
-      "creating": "Creating…",
-      "createSuccess": "Organization created",
-      "createError": "Could not create organization.",
-      "createValidation": "Enter a name and slug.",
-      "reservedSlug": "This slug is reserved.",
-      "slugTaken": "That slug is already in use.",
-      "loadError": "Could not load organizations.",
-      "inviteTitle": "Invite a member",
-      "inviteHint": "Sends an email with a link to accept the invitation. Available when your role in the active organization is owner or admin.",
-      "inviteEmail": "Email",
-      "inviteRole": "Role",
-      "roleMember": "Member",
-      "roleAdmin": "Admin",
-      "inviteSend": "Send invitation",
-      "inviting": "Sending…",
-      "inviteSuccess": "Invitation sent",
-      "inviteError": "Could not send invitation.",
-      "inviteValidation": "Enter an email address.",
-      "allOrganizations": "All organizations",
-      "memberCount": "{count, plural, one {# member} other {# members}}",
-      "delete": "Delete",
-      "cancel": "Cancel",
-      "deleted": "Organization deleted",
-      "deleteError": "Could not delete the organization.",
-      "confirmDeleteTitle": "Delete {name}?",
-      "confirmDeleteBody": "This removes the organization, its {count, plural, one {# membership} other {# memberships}} and pending invitations. Member accounts stay. This cannot be undone.",
+      "title": "المؤسسات",
+      "description": "الفرق والمؤسسات الشريكة التي تنتمي إليها. بدّل بينها وادعُ الأعضاء. ينشئ مسؤولو المنصة المؤسسات الجديدة.",
+      "yourOrganizations": "مؤسساتك",
+      "empty": "لم يتم تحميل أي مؤسسات.",
+      "active": "نشطة",
+      "switchTo": "تعيين كنشطة",
+      "setActiveError": "تعذّر تبديل المؤسسة.",
+      "setActiveSuccess": "تم تحديث المؤسسة النشطة.",
+      "createTitle": "إنشاء مؤسسة",
+      "createHint": "استخدم معرّفًا فريدًا للعنوان (slug)، مثل acme-corp. المعرّف المحجوز “public” غير متاح.",
+      "orgName": "اسم المؤسسة",
+      "orgSlug": "المعرّف (slug)",
+      "create": "إنشاء مؤسسة",
+      "creating": "جارٍ الإنشاء…",
+      "createSuccess": "تم إنشاء المؤسسة",
+      "createError": "تعذّر إنشاء المؤسسة.",
+      "createValidation": "أدخل اسمًا ومعرّفًا (slug).",
+      "reservedSlug": "هذا المعرّف محجوز.",
+      "slugTaken": "هذا المعرّف مستخدم بالفعل.",
+      "loadError": "تعذّر تحميل المؤسسات.",
+      "inviteTitle": "دعوة عضو",
+      "inviteHint": "يرسل رسالة بريد إلكتروني تتضمن رابطًا لقبول الدعوة. متاح عندما يكون دورك في المؤسسة النشطة مالكًا أو مسؤولًا.",
+      "inviteEmail": "البريد الإلكتروني",
+      "inviteRole": "الدور",
+      "roleMember": "عضو",
+      "roleAdmin": "مسؤول",
+      "inviteSend": "إرسال الدعوة",
+      "inviting": "جارٍ الإرسال…",
+      "inviteSuccess": "تم إرسال الدعوة",
+      "inviteError": "تعذّر إرسال الدعوة.",
+      "inviteValidation": "أدخل عنوان بريد إلكتروني.",
+      "allOrganizations": "كل المؤسسات",
+      "memberCount": "{count, plural, zero {لا أعضاء} one {عضو واحد} two {عضوان} few {# أعضاء} many {# عضوًا} other {# عضو}}",
+      "delete": "حذف",
+      "cancel": "إلغاء",
+      "deleted": "تم حذف المؤسسة",
+      "deleteError": "تعذّر حذف المؤسسة.",
+      "confirmDeleteTitle": "حذف {name}؟",
+      "confirmDeleteBody": "سيؤدي هذا إلى حذف المؤسسة و{count, plural, zero {عضوياتها} one {عضويتها الوحيدة} two {عضويتيها} few {عضوياتها الـ #} many {عضوياتها الـ #} other {عضوياتها الـ #}} والدعوات المعلّقة. تبقى حسابات الأعضاء. لا يمكن التراجع عن ذلك.",
       "apiKeys": {
         "show": "مفاتيح API",
         "hide": "إخفاء مفاتيح API",
@@ -559,41 +2139,43 @@
       }
     },
     "security": {
-      "title": "Security",
-      "description": "Update your password, manage passkeys, and review where you are signed in.",
-      "passwordHeading": "Password",
-      "passwordHint": "Use at least {min} characters. Choose a password you don’t use elsewhere.",
-      "currentPassword": "Current password",
-      "newPassword": "New password",
-      "confirmNewPassword": "Confirm new password",
-      "changePassword": "Update password",
-      "changing": "Updating…",
-      "passwordChanged": "Password updated",
-      "passwordError": "Could not change password.",
-      "passwordTooShort": "The new password must be at least {min} characters.",
-      "passwordMismatch": "New passwords do not match.",
-      "sameAsCurrent": "Choose a different password from your current one.",
-      "invalidCurrentPassword": "Current password is incorrect.",
-      "compromisedPassword": "This new password appears in known data breaches. Choose a different one.",
-      "revokeOthersAfterChange": "Sign out my other devices when the password changes",
-      "revokeOthersAfterChangeHint": "Recommended if you think someone else may know your old password.",
-      "sessionsTitle": "Active sessions",
-      "sessionsHint": "Revoke sessions you do not recognize. Revoking this device will sign you out.",
-      "sessionsLoadError": "Could not load sessions.",
-      "revoke": "Revoke",
-      "revokeOthers": "Sign out other sessions",
-      "revokeError": "Something went wrong.",
-      "sessionRevoked": "Session revoked",
-      "othersRevoked": "Other sessions signed out",
-      "currentSession": "This device",
-      "unknownDevice": "Unknown device",
-      "noSessions": "No sessions found.",
-      "device": "Device",
-      "network": "IP address",
-      "actions": "Actions",
-      "started": "Started",
-      "expires": "Expires",
-      "none": "None"
+      "title": "الأمان",
+      "description": "حدّث كلمة المرور، وأدِر مفاتيح المرور، وراجع الأماكن التي سجّلت الدخول منها.",
+      "passwordHeading": "كلمة المرور",
+      "passwordHint": "استخدم {min} أحرف على الأقل. اختر كلمة مرور لا تستخدمها في مكان آخر.",
+      "currentPassword": "كلمة المرور الحالية",
+      "newPassword": "كلمة المرور الجديدة",
+      "confirmNewPassword": "تأكيد كلمة المرور الجديدة",
+      "changePassword": "تحديث كلمة المرور",
+      "changing": "جارٍ التحديث…",
+      "passwordChanged": "تم تحديث كلمة المرور",
+      "passwordError": "تعذّر تغيير كلمة المرور.",
+      "passwordTooShort": "يجب ألا تقل كلمة المرور الجديدة عن {min} أحرف.",
+      "passwordMismatch": "كلمتا المرور الجديدتان غير متطابقتين.",
+      "sameAsCurrent": "اختر كلمة مرور مختلفة عن كلمة مرورك الحالية.",
+      "invalidCurrentPassword": "كلمة المرور الحالية غير صحيحة.",
+      "compromisedPassword": "تظهر كلمة المرور الجديدة هذه في تسريبات بيانات معروفة. اختر كلمة مرور مختلفة.",
+      "revokeOthersAfterChange": "تسجيل الخروج من أجهزتي الأخرى عند تغيير كلمة المرور",
+      "revokeOthersAfterChangeHint": "يُنصح به إذا كنت تعتقد أن شخصًا آخر قد يعرف كلمة مرورك القديمة.",
+      "sessionsTitle": "الجلسات النشطة",
+      "sessionsHint": "أبطل الجلسات التي لا تتعرّف عليها. سيؤدي إبطال جلسة هذا الجهاز إلى تسجيل خروجك.",
+      "sessionsLoadError": "تعذّر تحميل الجلسات.",
+      "revoke": "إبطال",
+      "revokeOthers": "تسجيل الخروج من الجلسات الأخرى",
+      "revokeError": "حدث خطأ ما.",
+      "sessionRevoked": "تم إبطال الجلسة",
+      "othersRevoked": "تم تسجيل الخروج من الجلسات الأخرى",
+      "currentSession": "هذا الجهاز",
+      "unknownDevice": "جهاز غير معروف",
+      "noSessions": "لم يتم العثور على جلسات.",
+      "device": "الجهاز",
+      "network": "عنوان IP",
+      "actions": "الإجراءات",
+      "started": "تاريخ البدء",
+      "expires": "تاريخ الانتهاء",
+      "none": "لا شيء",
+      "startedAt": "البدء: {date}",
+      "expiresAt": "الانتهاء: {date}"
     },
     "apps": {
       "title": "التطبيقات المتصلة",
@@ -669,22 +2251,22 @@
       "createdBy": "أنشأه {name}",
       "createdByDeleted": "حُذف حساب المنشئ"
     },
-    "accountMenu": "Account menu",
+    "accountMenu": "قائمة الحساب",
     "connectedAccounts": {
-      "title": "Connected accounts",
-      "hint": "Sign in with these accounts as well as your password or passkeys.",
-      "connected": "Connected",
-      "notConnected": "Not connected",
-      "connect": "Connect",
-      "disconnect": "Disconnect",
-      "disconnected": "{provider} disconnected",
-      "cancel": "Cancel",
-      "confirmTitle": "Disconnect {provider}?",
-      "confirmBody": "You won't be able to sign in with this account anymore. You can connect it again later.",
-      "lastMethod": "This is your only way to sign in. Add a password or passkey first.",
-      "error": "Something went wrong. Try again.",
-      "signInAgainToChange": "For your security, connecting an account needs a recent sign-in. Sign in again, then connect it.",
-      "signInAgain": "Sign in again"
+      "title": "الحسابات المرتبطة",
+      "hint": "سجّل الدخول بهذه الحسابات إلى جانب كلمة المرور أو مفاتيح المرور.",
+      "connected": "مرتبط",
+      "notConnected": "غير مرتبط",
+      "connect": "ربط",
+      "disconnect": "إلغاء الربط",
+      "disconnected": "تم إلغاء ربط {provider}",
+      "cancel": "إلغاء",
+      "confirmTitle": "إلغاء ربط {provider}؟",
+      "confirmBody": "لن تتمكن من تسجيل الدخول بهذا الحساب بعد الآن. يمكنك ربطه مرة أخرى لاحقًا.",
+      "lastMethod": "هذه هي طريقتك الوحيدة لتسجيل الدخول. أضف كلمة مرور أو مفتاح مرور أولًا.",
+      "error": "حدث خطأ ما. حاول مرة أخرى.",
+      "signInAgainToChange": "لأمانك، يتطلب ربط حساب تسجيل دخول حديثًا. سجّل الدخول مرة أخرى، ثم اربطه.",
+      "signInAgain": "سجّل الدخول مرة أخرى"
     },
     "accounts": {
       "switchTo": "التبديل إلى",
@@ -752,26 +2334,30 @@
         "impersonating": "لا يمكن حذف حساب أثناء عرض مسؤول له.",
         "failed": "تعذّر بدء الحذف. حاول مرة أخرى."
       }
+    },
+    "impersonation": {
+      "viewingAs": "أنت تعرض هذا الحساب بصفة <strong>{email}</strong>.",
+      "stop": "إيقاف انتحال الهوية"
     }
   },
   "acceptInvitation": {
-    "loading": "Checking session…",
-    "needSignInTitle": "Sign in to continue",
-    "needSignInDescription": "You need to be signed in with the invited email address before accepting this invitation.",
-    "signIn": "Sign in",
-    "title": "Accept invitation",
-    "description": "Join the organization that invited you.",
-    "signedInAs": "Signed in as {email}.",
-    "accept": "Accept invitation",
-    "accepting": "Accepting…",
-    "success": "You have joined the organization.",
-    "successTitle": "Welcome",
-    "successDescription": "Redirecting to your dashboard…",
-    "error": "Could not accept the invitation."
+    "loading": "جارٍ التحقق من الجلسة…",
+    "needSignInTitle": "سجّل الدخول للمتابعة",
+    "needSignInDescription": "يجب أن تكون مسجّل الدخول بعنوان البريد الإلكتروني المدعو قبل قبول هذه الدعوة.",
+    "signIn": "تسجيل الدخول",
+    "title": "قبول الدعوة",
+    "description": "انضم إلى المؤسسة التي دعتك.",
+    "signedInAs": "مسجّل الدخول باسم {email}.",
+    "accept": "قبول الدعوة",
+    "accepting": "جارٍ القبول…",
+    "success": "لقد انضممت إلى المؤسسة.",
+    "successTitle": "مرحبًا بك",
+    "successDescription": "جارٍ إعادة التوجيه إلى لوحة التحكم…",
+    "error": "تعذّر قبول الدعوة."
   },
   "common": {
-    "loading": "Loading…",
-    "language": "Language",
+    "loading": "جارٍ التحميل…",
+    "language": "اللغة",
     "localeNames": {
       "en": "الإنجليزية",
       "fr": "الفرنسية",
@@ -793,12 +2379,20 @@
       "no": "النرويجية",
       "fi": "الفنلندية",
       "cs": "التشيكية"
+    },
+    "ui": {
+      "close": "إغلاق",
+      "sidebar": "الشريط الجانبي",
+      "sidebarDescription": "يعرض الشريط الجانبي للجوال.",
+      "toggleSidebar": "إظهار/إخفاء الشريط الجانبي",
+      "breadcrumb": "مسار التنقل",
+      "more": "المزيد"
     }
   },
   "errors": {
-    "boundaryTitle": "Something went wrong",
-    "boundaryDescription": "An error occurred while loading this page.",
-    "retry": "Try again"
+    "boundaryTitle": "حدث خطأ ما",
+    "boundaryDescription": "حدث خطأ أثناء تحميل هذه الصفحة.",
+    "retry": "حاول مرة أخرى"
   },
   "rateLimit": {
     "seconds": "محاولات كثيرة جدًا. حاول مرة أخرى بعد {seconds, plural, zero {# ثانية} one {ثانية واحدة} two {ثانيتين} few {# ثوانٍ} many {# ثانية} other {# ثانية}}.",
@@ -806,94 +2400,156 @@
     "later": "محاولات كثيرة جدًا. انتظر بضع دقائق وحاول مرة أخرى."
   },
   "sso": {
-    "title": "Single sign-on",
-    "description": "Connect your organization's identity provider (OIDC or SAML 2.0) so members can sign in with their work account.",
-    "registerTitle": "Register a provider",
-    "registerDescription": "Your identity provider must redirect back to the callback URL shown below.",
-    "providerId": "Provider ID",
-    "providerIdHint": "A short identifier, e.g. acme-okta.",
-    "issuer": "Issuer URL",
-    "domain": "Email domain",
-    "domainHint": "Users with this email domain are sent to this provider.",
-    "clientId": "Client ID",
-    "clientSecret": "Client secret",
-    "organization": "Organization (optional)",
-    "register": "Register provider",
-    "registering": "Registering…",
-    "registered": "SSO provider registered",
-    "registerError": "Could not register the provider.",
-    "callbackTitle": "Callback URL to configure in your identity provider",
-    "providersTitle": "Configured providers",
-    "providersEmpty": "No SSO provider configured yet.",
-    "loadError": "Could not load SSO providers.",
-    "signInTitle": "Sign in with SSO",
-    "signInDescription": "Enter your work email. We'll redirect you to your organization's identity provider.",
-    "signInEmail": "Work email",
-    "signInSubmit": "Continue",
-    "signInError": "Could not start single sign-on for this address.",
-    "signInLink": "Sign in with SSO",
-    "signInFailed": "Single sign-on did not complete. Try again, or ask your administrator to check the identity provider settings.",
+    "title": "تسجيل الدخول الموحّد",
+    "description": "اربط مزوّد الهوية الخاص بمؤسستك (OIDC أو SAML 2.0) ليتمكن الأعضاء من تسجيل الدخول بحساب العمل.",
+    "registerTitle": "تسجيل مزوّد",
+    "registerDescription": "يجب أن يعيد مزوّد الهوية التوجيه إلى عنوان URL لرد الاتصال الظاهر أدناه.",
+    "providerId": "معرّف المزوّد",
+    "providerIdHint": "معرّف قصير، مثل acme-okta.",
+    "issuer": "عنوان URL للجهة المُصدِرة",
+    "domain": "نطاق البريد الإلكتروني",
+    "domainHint": "يُوجَّه المستخدمون الذين يملكون نطاق البريد الإلكتروني هذا إلى هذا المزوّد.",
+    "clientId": "معرّف العميل",
+    "clientSecret": "سر العميل",
+    "organization": "المؤسسة (اختياري)",
+    "register": "تسجيل المزوّد",
+    "registering": "جارٍ التسجيل…",
+    "registered": "تم تسجيل مزوّد SSO",
+    "registerError": "تعذّر تسجيل المزوّد.",
+    "callbackTitle": "عنوان URL لرد الاتصال المطلوب إعداده في مزوّد الهوية",
+    "providersTitle": "المزوّدون المُعدّون",
+    "providersEmpty": "لم يتم إعداد أي مزوّد SSO بعد.",
+    "loadError": "تعذّر تحميل مزوّدي SSO.",
+    "signInTitle": "تسجيل الدخول باستخدام SSO",
+    "signInDescription": "أدخل بريد العمل الإلكتروني. سنعيد توجيهك إلى مزوّد الهوية الخاص بمؤسستك.",
+    "signInEmail": "بريد العمل الإلكتروني",
+    "signInSubmit": "متابعة",
+    "signInError": "تعذّر بدء تسجيل الدخول الموحّد لهذا العنوان.",
+    "signInLink": "تسجيل الدخول باستخدام SSO",
+    "signInFailed": "لم يكتمل تسجيل الدخول الموحّد. حاول مرة أخرى، أو اطلب من المسؤول التحقق من إعدادات مزوّد الهوية.",
     "saml": {
-      "protocol": "Protocol",
-      "registerDescription": "The identity provider posts signed SAML assertions to the ACS URL below. Sign-in starts from Ostiary (SP-initiated).",
-      "idpSource": "Identity provider configuration",
-      "sourceUrl": "Metadata URL",
-      "sourceXml": "Paste metadata XML",
-      "sourceManual": "Enter manually",
-      "metadataUrl": "IdP metadata URL",
-      "metadataUrlHint": "The server fetches it once when you save. After a certificate rotation, fetch it again from Edit.",
-      "metadataXml": "IdP metadata XML",
-      "metadataXmlHint": "The EntityDescriptor your identity provider exports.",
-      "idpEntityId": "IdP entity ID (issuer)",
-      "ssoUrl": "IdP single sign-on URL",
-      "ssoUrlHint": "The URL for the HTTP-Redirect binding.",
-      "certificate": "IdP signing certificate",
-      "certificateHint": "PEM (-----BEGIN CERTIFICATE-----) or its base64 body.",
-      "mappingTitle": "Attribute mapping",
-      "mappingPreset": "Preset",
+      "protocol": "البروتوكول",
+      "registerDescription": "يرسل مزوّد الهوية تأكيدات SAML موقّعة إلى عنوان ACS URL أدناه. يبدأ تسجيل الدخول من Ostiary (بمبادرة من SP).",
+      "idpSource": "إعدادات مزوّد الهوية",
+      "sourceUrl": "عنوان URL للبيانات الوصفية",
+      "sourceXml": "لصق XML البيانات الوصفية",
+      "sourceManual": "إدخال يدوي",
+      "metadataUrl": "عنوان URL لبيانات IdP الوصفية",
+      "metadataUrlHint": "يجلبه الخادم مرة واحدة عند الحفظ. بعد تدوير الشهادة، اجلبه مرة أخرى من خلال التعديل.",
+      "metadataXml": "XML لبيانات IdP الوصفية",
+      "metadataXmlHint": "عنصر EntityDescriptor الذي يصدّره مزوّد الهوية.",
+      "idpEntityId": "معرّف كيان IdP (الجهة المُصدِرة)",
+      "ssoUrl": "عنوان URL لتسجيل الدخول الموحّد في IdP",
+      "ssoUrlHint": "عنوان URL لربط HTTP-Redirect.",
+      "certificate": "شهادة التوقيع لـ IdP",
+      "certificateHint": "PEM (-----BEGIN CERTIFICATE-----) أو محتواه بترميز base64.",
+      "mappingTitle": "ربط السمات",
+      "mappingPreset": "إعداد مسبق",
       "preset_okta": "Okta",
       "preset_entra": "Microsoft Entra ID",
       "preset_google": "Google Workspace",
       "preset_jumpcloud": "JumpCloud",
-      "preset_custom": "Custom",
-      "attrEmail": "Email attribute",
-      "attrName": "Display name attribute",
-      "attrFirstName": "First name attribute",
-      "attrLastName": "Last name attribute",
-      "mappingHint": "First and last name are used when the identity provider sends them, otherwise the display name. The user ID is the assertion's NameID: configure a persistent identifier.",
-      "wantAssertionsSigned": "Require signed assertions",
-      "wantAssertionsSignedHint": "Recommended. When off, the whole response must still be signed: unsigned responses are always refused.",
-      "requestSigningNote": "Ostiary does not sign authentication requests: leave request signing off in the identity provider.",
-      "spTitle": "Values to enter in your identity provider",
-      "acsUrl": "ACS URL (single sign-on URL, reply URL)",
-      "spEntityId": "SP entity ID (audience URI, identifier)",
-      "spMetadataUrl": "SP metadata URL",
-      "copy": "Copy",
-      "copied": "Copied",
-      "setupTitle": "Setup notes",
-      "oktaStep1": "In the Okta admin console: Applications, Create App Integration, SAML 2.0.",
-      "oktaStep2": "Single sign-on URL: the ACS URL. Audience URI (SP Entity ID): the SP entity ID. Name ID format: Persistent. Application username: Email.",
-      "oktaStep3": "Attribute statements: email = user.email, firstName = user.firstName, lastName = user.lastName (the Okta preset).",
-      "oktaStep4": "Assign people, then copy the metadata URL from the Sign On tab into Ostiary.",
-      "entraStep1": "In Microsoft Entra ID: Enterprise applications, New application, Create your own application (non-gallery), then Single sign-on, SAML.",
-      "entraStep2": "Basic SAML configuration: Identifier (Entity ID) = the SP entity ID, Reply URL = the ACS URL.",
-      "entraStep3": "Keep the default claims (the Entra ID preset). The default signing option, Sign SAML assertion, works.",
-      "entraStep4": "Assign users and groups, then copy the App Federation Metadata URL into Ostiary.",
-      "spInitiatedNote": "Only sign-in started from Ostiary is supported. Point app tiles in the identity provider's portal to {url}.",
-      "spDetails": "SP details",
-      "detailsTitle": "{id}: SAML settings",
-      "detailsDescription": "Enter these values in the identity provider.",
-      "assertionsSignedOn": "Signed assertions are required.",
-      "assertionsSignedOff": "Signed responses are required (assertions may be unsigned).",
-      "certExpires": "Signing certificate valid until {date}",
-      "certExpired": "The signing certificate has expired: sign-ins will fail until the IdP metadata is updated.",
-      "editTitle": "Edit {id}",
-      "editDescription": "Changing the domain means it must be verified again. The SP entity ID and ACS URL stay the same.",
-      "replaceIdp": "Replace the identity provider configuration (new metadata or certificate)",
-      "updated": "Provider updated",
-      "save": "Save",
-      "cancel": "Cancel",
-      "close": "Close"
+      "preset_custom": "مخصّص",
+      "attrEmail": "سمة البريد الإلكتروني",
+      "attrName": "سمة اسم العرض",
+      "attrFirstName": "سمة الاسم الأول",
+      "attrLastName": "سمة اسم العائلة",
+      "mappingHint": "يُستخدم الاسم الأول واسم العائلة عندما يرسلهما مزوّد الهوية، وإلا فيُستخدم اسم العرض. معرّف المستخدم هو NameID في التأكيد: اضبط معرّفًا دائمًا (persistent).",
+      "wantAssertionsSigned": "اشتراط توقيع التأكيدات",
+      "wantAssertionsSignedHint": "موصى به. عند إيقافه، يجب أن تظل الاستجابة بأكملها موقّعة: تُرفض الاستجابات غير الموقّعة دائمًا.",
+      "requestSigningNote": "لا يوقّع Ostiary طلبات المصادقة: اترك توقيع الطلبات متوقفًا في مزوّد الهوية.",
+      "spTitle": "القيم المطلوب إدخالها في مزوّد الهوية",
+      "acsUrl": "ACS URL (عنوان URL لتسجيل الدخول الموحّد، Reply URL)",
+      "spEntityId": "معرّف كيان SP (Audience URI، Identifier)",
+      "spMetadataUrl": "عنوان URL لبيانات SP الوصفية",
+      "copy": "نسخ",
+      "copied": "تم النسخ",
+      "setupTitle": "ملاحظات الإعداد",
+      "oktaStep1": "في لوحة إدارة Okta: Applications، ثم Create App Integration، ثم SAML 2.0.",
+      "oktaStep2": "Single sign-on URL: عنوان ACS URL. Audience URI (SP Entity ID): معرّف كيان SP. Name ID format: Persistent. Application username: Email.",
+      "oktaStep3": "Attribute statements: email = user.email، firstName = user.firstName، lastName = user.lastName (الإعداد المسبق لـ Okta).",
+      "oktaStep4": "عيّن الأشخاص، ثم انسخ عنوان URL للبيانات الوصفية من علامة التبويب Sign On إلى Ostiary.",
+      "entraStep1": "في Microsoft Entra ID: Enterprise applications، ثم New application، ثم Create your own application (non-gallery)، ثم Single sign-on، ثم SAML.",
+      "entraStep2": "Basic SAML configuration: Identifier (Entity ID) = معرّف كيان SP، Reply URL = عنوان ACS URL.",
+      "entraStep3": "احتفظ بالمطالبات الافتراضية (الإعداد المسبق لـ Entra ID). خيار التوقيع الافتراضي Sign SAML assertion يعمل.",
+      "entraStep4": "عيّن المستخدمين والمجموعات، ثم انسخ App Federation Metadata URL إلى Ostiary.",
+      "spInitiatedNote": "لا يُدعم إلا تسجيل الدخول الذي يبدأ من Ostiary. وجّه مربعات التطبيقات في بوابة مزوّد الهوية إلى {url}.",
+      "spDetails": "تفاصيل SP",
+      "detailsTitle": "{id}: إعدادات SAML",
+      "detailsDescription": "أدخل هذه القيم في مزوّد الهوية.",
+      "assertionsSignedOn": "التأكيدات الموقّعة مطلوبة.",
+      "assertionsSignedOff": "الاستجابات الموقّعة مطلوبة (قد تكون التأكيدات غير موقّعة).",
+      "certExpires": "شهادة التوقيع صالحة حتى {date}",
+      "certExpired": "انتهت صلاحية شهادة التوقيع: ستفشل عمليات تسجيل الدخول حتى يتم تحديث البيانات الوصفية لـ IdP.",
+      "editTitle": "تعديل {id}",
+      "editDescription": "يعني تغيير النطاق أنه يجب التحقق منه مرة أخرى. يبقى معرّف كيان SP وعنوان ACS URL كما هما.",
+      "replaceIdp": "استبدال إعدادات مزوّد الهوية (بيانات وصفية أو شهادة جديدة)",
+      "updated": "تم تحديث المزوّد",
+      "save": "حفظ",
+      "cancel": "إلغاء",
+      "close": "إغلاق",
+      "copyLabel": "نسخ: {label}",
+      "errors": {
+        "metadataEmpty": "البيانات الوصفية فارغة.",
+        "metadataTooLarge": "البيانات الوصفية أكبر من 100 KB.",
+        "metadataDoctype": "يجب ألا تحتوي البيانات الوصفية على DOCTYPE.",
+        "metadataNotXml": "البيانات الوصفية ليست XML سليم البنية.",
+        "notSamlMetadata": "هذه ليست بيانات وصفية لـ SAML.",
+        "multipleEntities": "يجب أن تصف البيانات الوصفية مزوّد هوية واحدًا بالضبط.",
+        "noEntityId": "لا تحتوي البيانات الوصفية على entityID.",
+        "noIdpDescriptor": "لا تحتوي البيانات الوصفية على مزوّد هوية (IDPSSODescriptor).",
+        "noSaml2": "لا يدعم مزوّد الهوية SAML 2.0.",
+        "signedRequestsRequired": "يشترط مزوّد الهوية طلبات موقّعة، ولا يرسلها Ostiary. أوقف توقيع الطلبات في مزوّد الهوية.",
+        "noRedirectBinding": "لا تحتوي البيانات الوصفية على SingleSignOnService بربط HTTP-Redirect.",
+        "metadataSsoUrlNotHttps": "يجب أن يستخدم عنوان SSO URL لمزوّد الهوية https://.",
+        "unreadableCertificate": "تعذّرت قراءة شهادة توقيع في البيانات الوصفية.",
+        "noSigningCertificate": "لا تحتوي البيانات الوصفية على شهادة توقيع.",
+        "invalidMapping": "أدخل أسماء السمات للبريد الإلكتروني والاسم (بلا مسافات أو علامات اقتباس).",
+        "allCertificatesExpired": "انتهت صلاحية كل شهادات التوقيع في البيانات الوصفية.",
+        "missingEntityId": "أدخل معرّف كيان مزوّد الهوية (الجهة المُصدِرة).",
+        "ssoUrlNotHttps": "يجب أن يكون عنوان SSO URL عنوانًا يبدأ بـ https://.",
+        "invalidCertificate": "شهادة التوقيع ليست شهادة X.509 صالحة (PEM).",
+        "certificateExpired": "انتهت صلاحية شهادة التوقيع.",
+        "fetchFailed": "تعذّر جلب البيانات الوصفية: {reason}",
+        "invalidRedirect": "يعيد عنوان URL للبيانات الوصفية التوجيه إلى عنوان غير صالح.",
+        "httpStatus": "أجاب عنوان URL للبيانات الوصفية بالحالة {status}.",
+        "tooManyRedirects": "يعيد عنوان URL للبيانات الوصفية التوجيه مرات كثيرة جدًا."
+      }
+    },
+    "panel": {
+      "noOrganization": "بلا مؤسسة",
+      "providersDescription": "لا يقبل المزوّد عمليات تسجيل الدخول إلا بعد التحقق من نطاق بريده الإلكتروني بسجل DNS.",
+      "verified": "موثّق",
+      "domainNotVerified": "النطاق غير موثّق",
+      "verifyDomain": "التحقق من النطاق",
+      "editLabel": "تعديل {id}",
+      "deleteLabel": "حذف {id}",
+      "verifyTitle": "التحقق من {domain}",
+      "verifyDescription": "اطلب من مالك النطاق إضافة سجل TXT هذا في DNS الخاص به، ثم تحقق منه هنا. تبدأ عمليات تسجيل الدخول عبر هذا المزوّد بالعمل بعد التحقق منه.",
+      "recordName": "الاسم",
+      "recordValue": "القيمة",
+      "copyRecordName": "نسخ الاسم",
+      "copyRecordValue": "نسخ القيمة",
+      "recordValidity": "تبقى القيمة صالحة لمدة 7 أيام.",
+      "domainVerified": "تم التحقق من النطاق",
+      "checkDns": "فحص DNS",
+      "editDescription": "يعني تغيير النطاق أنه يجب التحقق منه مرة أخرى. لتغيير بيانات اعتماد العميل، احذف المزوّد وسجّله مرة أخرى.",
+      "organization": "المؤسسة",
+      "deleteTitle": "حذف {id}؟",
+      "deleteDescription": "لن يتمكن أصحاب عناوين {domain} بعد الآن من تسجيل الدخول عبر هذا المزوّد. تبقى حساباتهم، ويمكنهم مواصلة استخدام كلمة مرور أو مفتاح مرور.",
+      "providerDeleted": "تم حذف المزوّد"
+    },
+    "errors": {
+      "providerNotFound": "لم يتم العثور على المزوّد.",
+      "issuerNotUrl": "يجب أن تكون الجهة المُصدِرة عنوان URL.",
+      "invalidDomain": "أدخل نطاق بريد إلكتروني، مثل acme.com.",
+      "organizationNotFound": "لم يتم العثور على المؤسسة.",
+      "samlIssuerLocked": "لا يمكن تغيير معرّف كيان SP لمزوّد SAML.",
+      "invalidProviderDomain": "نطاق المزوّد غير صالح.",
+      "txtRecordNotFound": "لم يتم العثور على سجل TXT بعد. قد يستغرق ظهور تغييرات DNS بضع دقائق.",
+      "envNotSet": "{name} غير مُعيَّن.",
+      "invalidProviderId": "يجب أن يتكون معرّف المزوّد من 2 إلى 63 حرفًا من الأحرف الصغيرة أو الأرقام أو - أو _.",
+      "unreadableSamlConfig": "إعدادات SAML المخزّنة غير قابلة للقراءة؛ احذف المزوّد وسجّله مرة أخرى."
     }
   },
   "selectAccount": {

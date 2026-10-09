@@ -46,12 +46,16 @@ function useActiveSection(ids: string[]) {
 }
 
 function ImpersonationBanner({ email, returnUrl }: { email: string; returnUrl: string }) {
+  const t = useTranslations("dashboard.impersonation");
   const [busy, setBusy] = React.useState(false);
   return (
     <div className="border-b border-amber-500/40 bg-amber-500/10 text-sm" role="status">
       <div className="mx-auto flex max-w-4xl flex-wrap items-center justify-between gap-2 px-4 py-2 md:px-6">
         <span>
-          You are viewing this account as <span className="font-medium">{email}</span>.
+          {t.rich("viewingAs", {
+            email,
+            strong: (chunks) => <span className="font-medium">{chunks}</span>,
+          })}
         </span>
         <Button
           type="button"
@@ -68,7 +72,7 @@ function ImpersonationBanner({ email, returnUrl }: { email: string; returnUrl: s
             window.location.href = returnUrl;
           }}
         >
-          Stop impersonating
+          {t("stop")}
         </Button>
       </div>
     </div>

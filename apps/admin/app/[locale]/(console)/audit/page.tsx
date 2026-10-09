@@ -16,24 +16,24 @@ import {
 import { db } from "@ostiary/core/db/index";
 import { auditLog, organization, user } from "@ostiary/core/db/schema";
 import { Link } from "@/i18n/navigation";
-import { AUDIT_ACTION_LABELS } from "@/lib/admin-audit";
+import { getAuditActionLabel } from "@/lib/admin-audit";
 import { requireAdminSession } from "@/lib/require-admin-session";
 import { cn } from "@ostiary/core/lib/utils";
 
 export const dynamic = "force-dynamic";
 
 const FILTERS = [
-  { key: "all", label: "All" },
-  { key: "user", label: "Users" },
-  { key: "organization", label: "Organizations" },
-  { key: "oauth_client", label: "OAuth clients" },
-  { key: "oauth_consent", label: "Consents" },
-  { key: "oauth_resource", label: "APIs" },
-  { key: "api_key", label: "API keys" },
-  { key: "sso_provider", label: "SSO" },
-  { key: "signing_key", label: "Signing keys" },
-  { key: "webhook", label: "Webhooks" },
-  { key: "social_provider", label: "Sign-in providers" },
+  "all",
+  "user",
+  "organization",
+  "oauth_client",
+  "oauth_consent",
+  "oauth_resource",
+  "api_key",
+  "sso_provider",
+  "signing_key",
+  "webhook",
+  "social_provider",
 ] as const;
 
 export async function generateMetadata({
@@ -74,7 +74,8 @@ export default async function AuditLogPage({
   const { locale } = await params;
   const { type = "all" } = await searchParams;
   const t = await getTranslations({ locale, namespace: "admin.pages.audit" });
-  const filter = FILTERS.some((f) => f.key === type) ? type : "all";
+  const actionLabel = await getAuditActionLabel(locale);
+  const filter = FILTERS.some((f) => f === type) ? type : "all";
 
   const rows = await db
     .select()
@@ -99,20 +100,20 @@ export default async function AuditLogPage({
     <div className="space-y-6">
       <PageHeader title={t("title")} description={t("description")} />
 
-      <nav className="flex flex-wrap gap-2" aria-label="Filter by area">
+      <nav className="flex flex-wrap gap-2" aria-label={t("filterLabel")}>
         {FILTERS.map((f) => (
           <Link
-            key={f.key}
-            href={f.key === "all" ? "/audit" : `/audit?type=${f.key}`}
-            aria-current={filter === f.key ? "page" : undefined}
+            key={f}
+            href={f === "all" ? "/audit" : `/audit?type=${f}`}
+            aria-current={filter === f ? "page" : undefined}
             className={cn(
               "rounded-full border px-3 py-1 text-sm transition-colors",
-              filter === f.key
+              filter === f
                 ? "border-foreground bg-foreground text-background"
                 : "border-border text-muted-foreground hover:text-foreground",
             )}
           >
-            {f.label}
+            {t(`filters.${f}`)}
           </Link>
         ))}
       </nav>
@@ -120,17 +121,17 @@ export default async function AuditLogPage({
       <Card className="border-border/80 shadow-sm">
         <CardContent className="p-0">
           {rows.length === 0 ? (
-            <p className="p-6 text-sm text-muted-foreground">No admin actions recorded yet.</p>
+            <p className="p-6 text-sm text-muted-foreground">{t("empty")}</p>
           ) : (
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead className="pl-6">When</TableHead>
-                  <TableHead>Who</TableHead>
-                  <TableHead>Action</TableHead>
-                  <TableHead>Target</TableHead>
-                  <TableHead className="hidden lg:table-cell">Details</TableHead>
-                  <TableHead className="hidden pr-6 md:table-cell">IP</TableHead>
+                  <TableHead className="pl-6">{t("columns.when")}</TableHead>
+                  <TableHead>{t("columns.who")}</TableHead>
+                  <TableHead>{t("columns.action")}</TableHead>
+                  <TableHead>{t("columns.target")}</TableHead>
+                  <TableHead className="hidden lg:table-cell">{t("columns.details")}</TableHead>
+                  <TableHead className="hidden pr-6 md:table-cell">{t("columns.ip")}</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -143,11 +144,11 @@ export default async function AuditLogPage({
                         {formatDateTime(row.createdAt, locale)}
                       </TableCell>
                       <TableCell className="max-w-[14rem] truncate text-sm">
-                        {row.actorEmail ?? "System"}
+                        {row.actorEmail ?? t("system")}
                       </TableCell>
                       <TableCell>
                         <Badge variant="secondary" className="font-normal">
-                          {AUDIT_ACTION_LABELS[row.action] ?? row.action}
+                          {actionLabel(row.action)}
                         </Badge>
                       </TableCell>
                       <TableCell className="max-w-[16rem] truncate text-sm">

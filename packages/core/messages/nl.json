@@ -1,46 +1,46 @@
 {
   "layout": {
-    "title": "Sign in",
-    "description": "Log in to your work tools and profile."
+    "title": "Inloggen",
+    "description": "Log in bij je werktools en je profiel."
   },
   "auth": {
     "login": {
-      "title": "Login to your account",
-      "description": "Sign in with your email or username and password.",
-      "identifierLabel": "Email or username",
-      "identifierPlaceholder": "you@example.com or your_username",
-      "emailLabel": "Email",
+      "title": "Log in bij je account",
+      "description": "Log in met je e-mailadres of gebruikersnaam en wachtwoord.",
+      "identifierLabel": "E-mail of gebruikersnaam",
+      "identifierPlaceholder": "jij@voorbeeld.nl of your_username",
+      "emailLabel": "E-mail",
       "emailPlaceholder": "m@example.com",
-      "passwordLabel": "Password",
-      "forgotPasswordLink": "Forgot password?",
-      "submit": "Login",
-      "submitting": "Signing in…",
-      "noAccount": "Don't have an account?",
-      "signUpLink": "Sign up",
-      "verifyEmailAfterSignup": "Check your inbox for a verification link. You must verify your email before signing in.",
-      "passkey": "Sign in with passkey",
-      "passkeySubmitting": "Waiting for passkey…",
+      "passwordLabel": "Wachtwoord",
+      "forgotPasswordLink": "Wachtwoord vergeten?",
+      "submit": "Inloggen",
+      "submitting": "Inloggen…",
+      "noAccount": "Nog geen account?",
+      "signUpLink": "Registreren",
+      "verifyEmailAfterSignup": "Controleer je inbox voor een verificatielink. Je moet je e-mailadres verifiëren voordat je kunt inloggen.",
+      "passkey": "Inloggen met passkey",
+      "passkeySubmitting": "Wachten op passkey…",
       "emailCode": "Stuur mij een inlogcode per e-mail",
-      "lastUsedBadge": "Last used",
-      "lastUsedHintEmail": "You last signed in with email and password.",
-      "lastUsedHintUsername": "You last signed in with username and password.",
-      "lastUsedHintPasskey": "You last signed in with a passkey.",
+      "lastUsedBadge": "Laatst gebruikt",
+      "lastUsedHintEmail": "Je hebt de vorige keer ingelogd met e-mail en wachtwoord.",
+      "lastUsedHintUsername": "Je hebt de vorige keer ingelogd met gebruikersnaam en wachtwoord.",
+      "lastUsedHintPasskey": "Je hebt de vorige keer ingelogd met een passkey.",
       "lastUsedHintEmailCode": "Je hebt de vorige keer ingelogd met een code per e-mail.",
-      "lastUsedHintOther": "You last signed in with {method}.",
+      "lastUsedHintOther": "Je hebt de vorige keer ingelogd met {method}.",
       "errors": {
         "emailNotVerified": "Please verify your email first. We sent you a new verification link, check your inbox.",
-        "signInFailed": "Could not sign in. Check your details and try again.",
-        "passkeyFailed": "Passkey sign-in failed. Try again or use your password."
+        "signInFailed": "Inloggen is mislukt. Controleer je gegevens en probeer het opnieuw.",
+        "passkeyFailed": "Inloggen met passkey is mislukt. Probeer het opnieuw of gebruik je wachtwoord."
       },
       "resend": {
-        "title": "Didn't get the email?",
-        "description": "Enter your email and we'll send you a new verification link.",
-        "emailPlaceholder": "you@example.com",
-        "send": "Send a new link",
-        "sendAgain": "Send again",
-        "sent": "If an unverified account uses this address, a new link is on its way. Check your inbox and spam folder.",
-        "invalidEmail": "Enter a valid email address.",
-        "error": "Could not send the email. Try again in a minute."
+        "title": "Geen e-mail ontvangen?",
+        "description": "Voer je e-mailadres in en we sturen je een nieuwe verificatielink.",
+        "emailPlaceholder": "jij@voorbeeld.nl",
+        "send": "Nieuwe link versturen",
+        "sendAgain": "Opnieuw versturen",
+        "sent": "Als een niet-geverifieerd account dit adres gebruikt, is er een nieuwe link onderweg. Controleer je inbox en je spammap.",
+        "invalidEmail": "Voer een geldig e-mailadres in.",
+        "error": "De e-mail kon niet worden verstuurd. Probeer het over een minuut opnieuw."
       },
       "addAccountDescription": "Accounts die al zijn aangemeld in deze browser blijven aangemeld."
     },
@@ -93,81 +93,81 @@
       }
     },
     "forgotPassword": {
-      "metaTitle": "Forgot password",
-      "title": "Reset your password",
-      "description": "Enter the email on your account. If it exists, we will send you a link to choose a new password.",
-      "emailLabel": "Email",
+      "metaTitle": "Wachtwoord vergeten",
+      "title": "Je wachtwoord opnieuw instellen",
+      "description": "Voer het e-mailadres van je account in. Als het bestaat, sturen we je een link om een nieuw wachtwoord te kiezen.",
+      "emailLabel": "E-mail",
       "emailPlaceholder": "m@example.com",
-      "emailHint": "Use the same email you registered with. If you usually sign in with a username, recovery still uses your account email.",
-      "submit": "Send reset link",
-      "submitting": "Sending…",
-      "backToLogin": "Back to login",
-      "emailSent": "If an account exists for that email, you will receive a reset link shortly.",
+      "emailHint": "Gebruik hetzelfde e-mailadres waarmee je je hebt geregistreerd. Ook als je meestal met een gebruikersnaam inlogt, verloopt herstel via het e-mailadres van je account.",
+      "submit": "Resetlink versturen",
+      "submitting": "Versturen…",
+      "backToLogin": "Terug naar inloggen",
+      "emailSent": "Als er een account bestaat voor dat e-mailadres, ontvang je binnenkort een resetlink.",
       "errors": {
-        "emailRequired": "Please enter your email address.",
-        "requestFailed": "Could not send the reset email. Try again."
+        "emailRequired": "Voer je e-mailadres in.",
+        "requestFailed": "De reset-e-mail kon niet worden verstuurd. Probeer het opnieuw."
       }
     },
     "resetPassword": {
-      "metaTitle": "Set new password",
-      "title": "Choose a new password",
-      "description": "Enter and confirm your new password below.",
-      "invalidTokenTitle": "Link expired or invalid",
-      "invalidTokenDescription": "This reset link is no longer valid. Request a new one to continue.",
-      "missingTokenTitle": "No reset link",
-      "missingTokenDescription": "Open the link from your email, or request a new password reset.",
-      "requestNewLink": "Request new link",
-      "backToLogin": "Back to login",
-      "newPasswordLabel": "New password",
-      "confirmPasswordLabel": "Confirm password",
-      "passwordHint": "Must be at least 8 characters long.",
-      "passwordMismatch": "Passwords do not match",
-      "submit": "Update password",
-      "submitting": "Updating…",
-      "success": "Your password was updated. You can sign in now.",
+      "metaTitle": "Nieuw wachtwoord instellen",
+      "title": "Kies een nieuw wachtwoord",
+      "description": "Voer hieronder je nieuwe wachtwoord in en bevestig het.",
+      "invalidTokenTitle": "Link verlopen of ongeldig",
+      "invalidTokenDescription": "Deze resetlink is niet meer geldig. Vraag een nieuwe aan om door te gaan.",
+      "missingTokenTitle": "Geen resetlink",
+      "missingTokenDescription": "Open de link uit je e-mail, of vraag opnieuw een wachtwoordreset aan.",
+      "requestNewLink": "Nieuwe link aanvragen",
+      "backToLogin": "Terug naar inloggen",
+      "newPasswordLabel": "Nieuw wachtwoord",
+      "confirmPasswordLabel": "Wachtwoord bevestigen",
+      "passwordHint": "Moet minimaal 8 tekens lang zijn.",
+      "passwordMismatch": "Wachtwoorden komen niet overeen",
+      "submit": "Wachtwoord bijwerken",
+      "submitting": "Bijwerken…",
+      "success": "Je wachtwoord is bijgewerkt. Je kunt nu inloggen.",
       "errors": {
-        "resetFailed": "Could not reset your password. Try again or request a new link."
+        "resetFailed": "Je wachtwoord kon niet opnieuw worden ingesteld. Probeer het opnieuw of vraag een nieuwe link aan."
       }
     },
     "signup": {
-      "title": "Create an account",
-      "description": "Enter your information below to create your account",
-      "usernameLabel": "Username",
+      "title": "Account aanmaken",
+      "description": "Vul hieronder je gegevens in om je account aan te maken",
+      "usernameLabel": "Gebruikersnaam",
       "usernamePlaceholder": "your_username",
-      "usernameHint": "3-30 characters: letters, numbers, dots, and underscores only.",
-      "usernameChecking": "Checking availability…",
-      "usernameAvailable": "This username is available.",
-      "usernameTaken": "This username is already taken.",
-      "usernameInvalidHint": "Use only letters, numbers, dots, and underscores.",
-      "fullNameLabel": "Full Name",
-      "namePlaceholder": "John Doe",
-      "emailLabel": "Email",
+      "usernameHint": "3-30 tekens: alleen letters, cijfers, punten en underscores.",
+      "usernameChecking": "Beschikbaarheid controleren…",
+      "usernameAvailable": "Deze gebruikersnaam is beschikbaar.",
+      "usernameTaken": "Deze gebruikersnaam is al in gebruik.",
+      "usernameInvalidHint": "Gebruik alleen letters, cijfers, punten en underscores.",
+      "fullNameLabel": "Volledige naam",
+      "namePlaceholder": "Jan Jansen",
+      "emailLabel": "E-mail",
       "emailPlaceholder": "m@example.com",
-      "emailDescription": "We'll use this to contact you. We will not share your email with anyone else.",
-      "passwordLabel": "Password",
-      "confirmPasswordLabel": "Confirm Password",
-      "passwordHint": "Must be at least 8 characters long.",
-      "confirmPasswordHint": "Please confirm your password.",
-      "passwordMismatch": "Passwords do not match",
-      "submit": "Create Account",
-      "submitting": "Creating account…",
-      "hasAccount": "Already have an account?",
-      "signInLink": "Sign in",
-      "loginLink": "Login",
-      "afterRegisterRedirect": "Account created. Check your email to verify before signing in.",
+      "emailDescription": "We gebruiken dit om contact met je op te nemen. We delen je e-mailadres met niemand anders.",
+      "passwordLabel": "Wachtwoord",
+      "confirmPasswordLabel": "Wachtwoord bevestigen",
+      "passwordHint": "Moet minimaal 8 tekens lang zijn.",
+      "confirmPasswordHint": "Bevestig je wachtwoord.",
+      "passwordMismatch": "Wachtwoorden komen niet overeen",
+      "submit": "Account aanmaken",
+      "submitting": "Account aanmaken…",
+      "hasAccount": "Heb je al een account?",
+      "signInLink": "Inloggen",
+      "loginLink": "Inloggen",
+      "afterRegisterRedirect": "Account aangemaakt. Controleer je e-mail om je account te verifiëren voordat je inlogt.",
       "errors": {
-        "signUpFailed": "Could not create your account. Try again.",
-        "compromisedPassword": "This password appears in known data breaches. Choose a different one.",
-        "usernameTooShort": "Username must be at least 3 characters.",
-        "usernameInvalid": "That username is not valid.",
-        "usernameTaken": "That username is already taken. Try another."
+        "signUpFailed": "Je account kon niet worden aangemaakt. Probeer het opnieuw.",
+        "compromisedPassword": "Dit wachtwoord komt voor in bekende datalekken. Kies een ander wachtwoord.",
+        "usernameTooShort": "Gebruikersnaam moet minimaal 3 tekens lang zijn.",
+        "usernameInvalid": "Die gebruikersnaam is niet geldig.",
+        "usernameTaken": "Die gebruikersnaam is al in gebruik. Probeer een andere."
       }
     },
     "screen": {
-      "headline": "One account for all your apps.",
-      "subhead": "Sign in once and reach every app connected to {name}. Your profile and security settings follow you everywhere.",
-      "footer": "Secured by {name}.",
-      "ecosystem": "Works with"
+      "headline": "Eén account voor <accent>al je apps</accent>.",
+      "subhead": "Log één keer in en bereik elke app die met {name} is verbonden. Je profiel en beveiligingsinstellingen gaan overal met je mee.",
+      "footer": "Beveiligd door {name}.",
+      "ecosystem": "Werkt met"
     },
     "social": {
       "or": "of",
@@ -175,8 +175,8 @@
       "signInWith": "Inloggen met {provider}",
       "lastUsed": "Laatst gebruikt",
       "otherProviders": "Meer manieren om in te loggen",
-      "error": "Could not sign in with that account. Try again or use another method.",
-      "notLinked": "That account isn't connected to a {name} account yet. Sign in another way, then connect it from your security settings.",
+      "error": "Inloggen met dat account is mislukt. Probeer het opnieuw of gebruik een andere methode.",
+      "notLinked": "Dat account is nog niet gekoppeld aan een {name}-account. Log op een andere manier in en koppel het daarna via je beveiligingsinstellingen.",
       "noEmail": "Dat account heeft geen e-mailadres gedeeld. Probeer het later opnieuw of meld je op een andere manier aan.",
       "signUpDisabled": "Er is nog geen account voor dat adres en met deze aanmeldmethode kan er geen worden aangemaakt. Meld je op een andere manier aan."
     },
@@ -189,23 +189,23 @@
     }
   },
   "consent": {
-    "emptyTitle": "Authorization",
-    "emptyDescription": "There is no pending OAuth request. Start the flow from the application you want to connect.",
-    "connectTitle": "Connect {name}",
-    "intro": "This application is requesting access to your account. Review the permissions below before continuing.",
+    "emptyTitle": "Autorisatie",
+    "emptyDescription": "Er is geen openstaand OAuth-verzoek. Start de procedure vanuit de applicatie die je wilt verbinden.",
+    "connectTitle": "{name} verbinden",
+    "intro": "Deze applicatie vraagt toegang tot je account. Bekijk de machtigingen hieronder voordat je doorgaat.",
     "errors": {
-      "needSignIn": "You need to sign in before you can approve this request.",
-      "loadFailed": "Could not load application details.",
-      "actionFailed": "Something went wrong."
+      "needSignIn": "Je moet inloggen voordat je dit verzoek kunt goedkeuren.",
+      "loadFailed": "De gegevens van de applicatie konden niet worden geladen.",
+      "actionFailed": "Er is iets misgegaan."
     },
-    "signIn": "Sign in",
-    "visitWebsite": "Visit application website",
-    "requestedAccess": "Requested access",
-    "defaultScopes": "Default permissions for this client (no explicit scopes in the request).",
-    "terms": "Terms of service",
-    "privacy": "Privacy policy",
-    "deny": "Deny",
-    "allow": "Allow",
+    "signIn": "Inloggen",
+    "visitWebsite": "Website van de applicatie bezoeken",
+    "requestedAccess": "Gevraagde toegang",
+    "defaultScopes": "Standaardmachtigingen voor deze client (geen expliciete scopes in het verzoek).",
+    "terms": "Servicevoorwaarden",
+    "privacy": "Privacybeleid",
+    "deny": "Weigeren",
+    "allow": "Toestaan",
     "scopes": {
       "openid": "Bevestigen wie je bent (OpenID Connect)",
       "profile": "Naam en profielgegevens",
@@ -221,108 +221,1540 @@
   },
   "admin": {
     "themeToggle": {
-      "light": "Light",
-      "dark": "Dark",
-      "system": "System",
-      "srOnly": "Toggle theme",
-      "label": "Theme"
+      "light": "Licht",
+      "dark": "Donker",
+      "system": "Systeem",
+      "srOnly": "Thema wisselen",
+      "label": "Thema"
     },
     "nav": {
-      "groupAdmin": "Admin",
+      "groupAdmin": "Beheer",
       "groupOAuth": "OAuth",
-      "overview": "Overview",
-      "users": "Users",
-      "applications": "Applications",
+      "overview": "Overzicht",
+      "users": "Gebruikers",
+      "applications": "Applicaties",
       "apis": "API's",
       "apiKeys": "API-sleutels",
-      "consent": "Consent",
-      "organizations": "Organizations",
+      "consent": "Toestemming",
+      "organizations": "Organisaties",
       "sso": "SSO",
       "signInProviders": "Inlogproviders",
       "webhooks": "Webhooks",
-      "security": "Security",
+      "security": "Beveiliging",
       "usage": "App-gebruik",
-      "audit": "Audit log",
+      "audit": "Auditlogboek",
       "signingKeys": "Ondertekeningssleutels"
     },
     "header": {
-      "crumb": "Admin",
-      "fallback": "Admin",
-      "overview": "Overview",
-      "users": "Users",
-      "applications": "Applications",
+      "crumb": "Beheer",
+      "fallback": "Beheer",
+      "overview": "Overzicht",
+      "users": "Gebruikers",
+      "applications": "Applicaties",
       "apis": "API's",
       "apiKeys": "API-sleutels",
-      "consent": "Consent",
-      "organizations": "Organizations",
+      "consent": "Toestemming",
+      "organizations": "Organisaties",
       "sso": "SSO",
       "signInProviders": "Inlogproviders",
       "webhooks": "Webhooks",
-      "security": "Security",
+      "security": "Beveiliging",
       "usage": "App-gebruik",
-      "audit": "Audit log",
+      "audit": "Auditlogboek",
       "signingKeys": "Ondertekeningssleutels"
     },
     "pages": {
       "overview": {
-        "title": "Overview",
+        "title": "Overzicht",
         "activity": {
-          "title": "Sign-in activity",
-          "description": "Sign-ins, new accounts and sign-outs per day, last 30 days.",
-          "signIns": "Sign-ins",
-          "signUps": "Sign-ups",
-          "signOuts": "Sign-outs",
-          "showTable": "View as table",
-          "showChart": "View as chart",
-          "legend": "Totals for the last 30 days",
-          "day": "Day",
-          "note": "Sign-outs are tracked from October 6, 2026. Earlier sign-ins only include sessions that were still active then."
+          "title": "Inlogactiviteit",
+          "description": "Inlogs, nieuwe accounts en uitlogs per dag, afgelopen 30 dagen.",
+          "signIns": "Inlogs",
+          "signUps": "Registraties",
+          "signOuts": "Uitlogs",
+          "showTable": "Als tabel bekijken",
+          "showChart": "Als grafiek bekijken",
+          "legend": "Totalen van de afgelopen 30 dagen",
+          "day": "Dag",
+          "note": "Uitlogs worden bijgehouden vanaf 6 oktober 2026. Eerdere inlogs omvatten alleen sessies die toen nog actief waren."
         },
-        "description": "Accounts, sign-in activity and the newest members of the platform."
+        "description": "Accounts, inlogactiviteit en de nieuwste leden van het platform.",
+        "recentUsers": {
+          "title": "Recent aangemeld",
+          "description": "De nieuwste accounts. Open er een om de sessies en activiteit te zien.",
+          "loading": "Laden…",
+          "empty": "Nog geen gebruikers."
+        },
+        "stats": {
+          "error": "Een of meer statistieken konden niet worden geladen. Controleer of je bent ingelogd als beheerder.",
+          "errorTitle": "Statistieken niet beschikbaar",
+          "loadingTitle": "Laden",
+          "loadingHint": "Laden…",
+          "totalUsers": {
+            "title": "Totaal aantal gebruikers",
+            "hint": "Alle accounts op het platform."
+          },
+          "admins": {
+            "title": "Beheerders",
+            "hint": "Accounts met toegang tot deze console."
+          },
+          "banned": {
+            "title": "Geblokkeerd",
+            "hint": "Accounts die nu niet kunnen inloggen."
+          },
+          "verified": {
+            "title": "Geverifieerd e-mailadres",
+            "hint": "Accounts die hun e-mailadres hebben bevestigd."
+          },
+          "recent": {
+            "title": "Nieuw (7 dagen)",
+            "hint": "Accounts die de afgelopen 7 dagen zijn aangemaakt."
+          }
+        }
       },
       "applications": {
-        "title": "Applications",
+        "title": "Applicaties",
         "description": "OAuth-clients die mensen kunnen laten inloggen met {name}: hun redirect-URL’s, grant-types en toestemmingsinstellingen.",
         "unusedHint": "{count, plural, one {# applicatie is} other {# applicaties zijn}} de afgelopen 30 dagen niet gebruikt.",
-        "viewUsage": "Gebruik bekijken"
+        "viewUsage": "Gebruik bekijken",
+        "panel": {
+          "selfRegisteredHint": "Heeft zichzelf geregistreerd: niet gecontroleerd door een beheerder",
+          "selfRegisteredBadge": "Zelf geregistreerd",
+          "registration": {
+            "all": "Elke registratie",
+            "admin": "Beheerder",
+            "dynamic": "Dynamische registratie",
+            "metadata_document": "Metadatadocument"
+          },
+          "authMethod": {
+            "none": "auth: geen",
+            "client_secret_basic": "auth: geheim (basic)",
+            "client_secret_post": "auth: geheim (post)",
+            "private_key_jwt": "auth: private key JWT"
+          },
+          "loadFailed": "Kan OAuth-clients niet laden",
+          "loadErrorTitle": "De applicaties konden niet worden geladen",
+          "searchPlaceholder": "Zoeken op naam, client-ID, redirect-URI of grant…",
+          "searchLabel": "Applicaties zoeken",
+          "clientType": "Clienttype",
+          "registeredBy": "Geregistreerd door",
+          "kind": {
+            "all": "Alle clients",
+            "public": "Openbaar",
+            "confidential": "Vertrouwelijk",
+            "trusted": "Vertrouwd (toestemming overslaan)",
+            "device": "Inloggen op apparaat"
+          },
+          "columns": {
+            "application": "Applicatie",
+            "redirects": "Redirects",
+            "grants": "Grants",
+            "consent": "Toestemming"
+          },
+          "badges": {
+            "device": "Apparaat",
+            "trusted": "Vertrouwd",
+            "consent": "Toestemming",
+            "active": "Actief",
+            "skipped": "Overgeslagen",
+            "required": "Vereist"
+          },
+          "loadingRows": "Applicaties laden…",
+          "empty": "Nog geen OAuth-clients voor dit account.",
+          "noMatch": "Geen applicaties komen overeen met je filters.",
+          "linkedApis": "Gekoppelde API's: {apis}",
+          "noApplications": "0 applicaties",
+          "showing": "{from}-{to} van {total} weergegeven",
+          "rowsPerPage": "Rijen per pagina",
+          "previous": "Vorige",
+          "next": "Volgende",
+          "page": "Pagina {page} / {total}",
+          "footnote": "Gegevens uit <code>{getClients}</code>. Registreren en bewerken (inclusief <code>{skipConsent}</code>) roepen <code>{create}</code> en <code>{update}</code> aan; andere wijzigingen gebruiken <code>{deleteClient}</code> en <code>{rotateSecret}</code>. Zie de documentatie van de <docs>OAuth provider</docs>. Clients zijn beperkt tot de ingelogde gebruiker (of <code>{clientReference}</code> als dat is ingesteld). Zelf geregistreerde clients hebben geen eigenaar en worden allemaal getoond; ze kunnen worden uitgeschakeld of verwijderd, niet bewerkt."
+        },
+        "registration": {
+          "title": "Zelfregistratie",
+          "description": "Laat MCP-clients en AI-agents zichzelf registreren in plaats van hier te worden toegevoegd. Ze krijgen alleen de scopes hieronder, tonen altijd het toestemmingsscherm met de markering niet geverifieerd en krijgen nooit machinetoegang (client credentials).",
+          "dynamicRegistration": "Dynamische registratie",
+          "dynamic": {
+            "off": {
+              "label": "Uit",
+              "hint": "POST /oauth2/register wordt geweigerd."
+            },
+            "signed_in": {
+              "label": "Alleen ingelogde gebruikers",
+              "hint": "Alleen verzoeken met een gebruikerssessie mogen registreren. De meeste MCP-clients kunnen dat niet."
+            },
+            "open": {
+              "label": "Iedereen (open registratie)",
+              "hint": "Wat MCP-clients verwachten: elke app mag registreren, daarna keurt elke gebruiker hem goed op het toestemmingsscherm."
+            }
+          },
+          "metadataDocuments": "Metadatadocumenten (client_id-URL)",
+          "metadataOnFrom": "Aan, vanaf {hosts}",
+          "metadataOnAnyHost": "Aan, elke HTTPS-host",
+          "scopes": "Scopes die ze mogen aanvragen",
+          "missingScope": "Niet langer een scope van deze server: genegeerd",
+          "perHour": "Nieuwe clients per uur",
+          "endpoint": "Registratie-endpoint: <code>{url}</code> (vermeld in het discovery-document).",
+          "saved": "Instellingen opgeslagen. De authenticatieserver past ze binnen een minuut toe.",
+          "dialogDescription": "Clients die zichzelf registreren worden niet gecontroleerd. Mensen zien ze als niet-geverifieerde apps en keuren elke app goed op het toestemmingsscherm.",
+          "dynamicLabel": "Dynamic Client Registration (RFC 7591)",
+          "cimdLabel": "Client ID Metadata Documents",
+          "cimdHint": "De client_id is een HTTPS-URL naar de JSON-metadata van de app, zoals nieuwere MCP-clients gebruiken. Alleen openbare hosts worden opgehaald, zonder redirects, maximaal 5 KB.",
+          "hostsLabel": "Toegestane hosts",
+          "hostsHint": "Eén per regel. Leeg: elke openbare HTTPS-host.",
+          "scopesLabel": "Scopes die zelf geregistreerde clients mogen aanvragen",
+          "scopesHint": "Elke gebruiker keurt nog steeds de scopes goed die een app vraagt. Een scope verwijderen haalt hem ook weg bij al geregistreerde clients; al uitgegeven tokens behouden hem tot ze verlopen.",
+          "perHourHint": "Over alle instanties, voor beide methoden. Elk adres is ook beperkt tot 5 registraties per minuut."
+        },
+        "branding": {
+          "title": "Huisstijl van het inloggen",
+          "description": "Hoe de inlogschermen eruitzien als mensen komen vanaf <app>{client}</app>: inloggen, registreren, tweestapsverificatie, wachtwoordherstel en toestemming. Het {brand}-logo blijft op elk scherm zichtbaar.",
+          "logoFetchedOnSave": "De server haalt het logo op wanneer je opslaat; de voorbeeldweergave toont het dan.",
+          "accentInvalid": "Voer de accentkleur in als hexkleur, zoals {example}.",
+          "hexInvalid": "Voer een hexkleur in, zoals {example}.",
+          "saved": "Huisstijl van het inloggen opgeslagen",
+          "resetDone": "Huisstijl van het inloggen teruggezet",
+          "displayName": "Weergavenaam",
+          "displayNameHint": "Getoond als “Log in om door te gaan naar …”. Leeg gebruikt de naam van de applicatie.",
+          "tagline": "Slogan (optioneel)",
+          "taglinePlaceholder": "Je leeslijst, overal.",
+          "accent": "Accentkleur",
+          "accentPick": "Kies de accentkleur",
+          "accentHex": "Accentkleur (hex)",
+          "accentOff": "Uit: de schermen behouden de kleuren van het thema.",
+          "contrast": {
+            "label": "Contrastcontroles",
+            "ratio": "{label}: <value>{ratio}:1</value>",
+            "passes": "(voldoet aan {min}:1)",
+            "below": "(onder {min}:1)",
+            "buttonLabel": "Knoplabel ({color, select, black {zwart} other {wit}})",
+            "lightCard": "Knoppen op de lichte kaart",
+            "darkCard": "Knoppen op de donkere kaart",
+            "textAdjusted": "Tekst in de accentkleur gebruikt {color} om {min}:1 te halen."
+          },
+          "logo": "Logo",
+          "logoSourceLabel": "Logobron",
+          "logoSource": {
+            "app_icon": "App-pictogram",
+            "url": "Via een URL",
+            "upload": "Uploaden"
+          },
+          "logoAppIconHint": "Het pictogram dat voor de app is gevonden (het {field} of de site), zoals op het toestemmingsscherm.",
+          "logoUrl": "Logo-URL",
+          "logoUrlHint": "https op een openbare host. {name} haalt het op en slaat het in de cache op; browsers laden het nooit vanaf daar.",
+          "logoFile": "Logobestand",
+          "logoFileHint": "PNG, JPEG, WebP, AVIF, GIF, ICO of SVG, maximaal 256 KB. Vierkant werkt het best.",
+          "panel": "Zijpaneel (brede schermen, optioneel)",
+          "panelImage": "Afbeelding zijpaneel",
+          "removeImage": "Afbeelding verwijderen",
+          "panelHint": "Kop en achtergrondafbeelding van het donkere paneel. PNG, JPEG, WebP of AVIF, maximaal 1 MB.",
+          "social": "Social login op de schermen van deze app",
+          "socialNone": "Er zijn geen sociale providers ingeschakeld.",
+          "socialShown": "Getoonde sociale providers",
+          "socialAll": "Alle ingeschakelde",
+          "socialSome": "Alleen deze",
+          "socialHint": "Verbergt knoppen alleen op de schermen van deze app; het houdt niemand tegen om op een andere manier in te loggen.",
+          "previewTitle": "Voorbeeld",
+          "previewScheme": "Kleurenschema voorbeeld",
+          "light": "Licht",
+          "dark": "Donker",
+          "faintOnLight": "Knoppen in deze kleur vallen nauwelijks op tegen de lichte kaart (WCAG vraagt 3:1 voor bedieningselementen). Labels blijven leesbaar; overweeg een donkerdere tint.",
+          "faintOnDark": "Knoppen in deze kleur vallen nauwelijks op tegen de donkere kaart (WCAG vraagt 3:1 voor bedieningselementen). Labels blijven leesbaar; overweeg een lichtere tint.",
+          "resetting": "Terugzetten…",
+          "reset": "Standaard herstellen",
+          "save": "Huisstijl opslaan",
+          "preview": {
+            "label": "Voorbeeld inlogpagina",
+            "appFallback": "App",
+            "title": "Inloggen",
+            "submit": "Inloggen",
+            "noAccount": "Geen account? <link>Maak er een aan</link>"
+          }
+        },
+        "actions": {
+          "registration": {
+            "chooseMode": "Kies wie clients mag registreren.",
+            "unknownScope": "\"{scope}\" is geen scope van deze server.",
+            "noScopes": "Sta minstens één scope toe.",
+            "invalidHost": "\"{raw}\" is geen hostnaam, bijv. {example}.",
+            "invalidLimit": "De limiet per uur moet een geheel getal van 0 tot {max} zijn.",
+            "saveFailed": "Kan de instellingen niet opslaan.",
+            "clientGone": "Deze client bestaat niet meer.",
+            "notSelfRegistered": "Alleen zelf geregistreerde clients kunnen hier worden gewijzigd."
+          },
+          "branding": {
+            "clientGone": "Deze applicatie bestaat niet meer.",
+            "selfRegistered": "Zelf geregistreerde clients kunnen geen eigen huisstijl krijgen.",
+            "logoMissing": "Kies een logobestand om te uploaden.",
+            "logoFetchFailed": "Er kon geen afbeelding worden opgehaald via de logo-URL. Controleer of die openbaar is en naar een afbeelding verwijst.",
+            "faintOnLight": "De accentkleur is zwak op de lichte kaart: knoppen vallen nauwelijks op.",
+            "faintOnDark": "De accentkleur is zwak op de donkere kaart: knoppen vallen nauwelijks op.",
+            "saveFailed": "Kan de huisstijl niet opslaan."
+          }
+        },
+        "register": {
+          "trigger": "Applicatie registreren",
+          "title": "OAuth-applicatie registreren",
+          "description": "Maakt een client aan die aan je account is gekoppeld via <code>{endpoint}</code> (vertrouwde apps kunnen <code>{field}</code> instellen). Zie <link>Better Auth, Create client</link>.",
+          "nameLabel": "Naam van de applicatie",
+          "namePlaceholder": "Mijn app",
+          "redirectUrisLabel": "Redirect-URI's",
+          "redirectUrisHintPublic": "Eén per regel of gescheiden door komma's. HTTPS, of http op localhost, 127.0.0.1 of [::1].",
+          "redirectUrisHintConfidential": "Eén per regel of gescheiden door komma's. Alleen HTTPS, ook voor localhost. Registreer voor lokale ontwikkeling een aparte openbare client.",
+          "redirectUrisRequired": "Voer minstens één redirect-URI in (één per regel of gescheiden door komma's).",
+          "clientTypeLabel": "Clienttype",
+          "clientTypeConfidential": "Vertrouwelijk (clientgeheim)",
+          "clientTypePublic": "Openbaar (PKCE, geen geheim)",
+          "deviceCodeLabel": "Inloggen op apparaat (CLI's, tv's)",
+          "deviceCodeHint": "Voegt de device code grant toe (RFC 8628): de app toont een code en de gebruiker keurt die goed op <code>{path}</code> op een ander scherm. Meestal een openbare client.",
+          "skipConsentLabel": "Toestemming overslaan (vertrouwde client)",
+          "skipConsentHint": "Gebruikers zien het toestemmingsscherm voor deze applicatie niet. Gebruik dit alleen voor eigen of volledig vertrouwde integraties.",
+          "registerFailed": "Kan de applicatie niet registreren",
+          "missingClientId": "De server heeft geen {field} teruggegeven.",
+          "registered": "OAuth-applicatie geregistreerd",
+          "creating": "Aanmaken…",
+          "create": "Applicatie aanmaken",
+          "successTitle": "Applicatie aangemaakt",
+          "successWithSecret": "Kopieer het clientgeheim nu, het wordt mogelijk maar één keer getoond.",
+          "successPublic": "Openbare client, er wordt geen geheim uitgegeven. Gebruik PKCE bij het token-endpoint.",
+          "clientId": "Client-ID",
+          "clientSecret": "Clientgeheim",
+          "copyClientId": "Client-ID kopiëren",
+          "copyClientSecret": "Clientgeheim kopiëren"
+        },
+        "rowActions": {
+          "menuLabel": "Acties voor {name}",
+          "copyClientId": "Client-ID kopiëren",
+          "clientIdCopied": "Client-ID gekopieerd",
+          "edit": "Applicatie bewerken",
+          "editHint": "Naam, redirect-URI's, inloggen op apparaat en toestemming overslaan",
+          "branding": "Huisstijl van het inloggen",
+          "brandingHint": "Logo, accentkleur en teksten van de inlogschermen voor deze app",
+          "rotateSecret": "Geheim roteren",
+          "rotateHintPublic": "Openbare clients hebben geen geheim",
+          "rotateHintDisabled": "Schakel eerst de client in",
+          "rotateHint": "Roteert het geheim van de vertrouwelijke client",
+          "delete": "Applicatie verwijderen",
+          "editDialog": {
+            "title": "Applicatie bewerken",
+            "description": "Werkt <id>{clientId}</id> bij via <code>{endpoint}</code> (beperkte velden zoals <code>{field}</code>). Zie <link>Better Auth, Update client</link>.",
+            "nameLabel": "Naam van de applicatie",
+            "namePlaceholder": "Mijn app",
+            "redirectUrisLabel": "Redirect-URI's",
+            "redirectUrisHint": "Eén per regel of gescheiden door komma's. HTTPS vereist. Alleen openbare clients mogen http op localhost gebruiken.",
+            "redirectUrisRequired": "Voer minstens één redirect-URI in (één per regel of gescheiden door komma's).",
+            "deviceCodeLabel": "Inloggen op apparaat (CLI's, tv's)",
+            "deviceCodeHint": "Staat de device code grant toe. Uitschakelen stopt nieuwe inlogpogingen op apparaten; al uitgegeven tokens blijven werken.",
+            "skipConsentLabel": "Toestemming overslaan (vertrouwde client)",
+            "skipConsentHint": "Als dit is ingeschakeld, wordt gebruikers niet gevraagd scopes voor deze applicatie goed te keuren.",
+            "updateFailed": "Kan de applicatie niet bijwerken",
+            "updated": "Applicatie bijgewerkt"
+          },
+          "deleteDialog": {
+            "title": "Applicatie verwijderen?",
+            "description": "Verwijdert <strong>{name}</strong> (<code>{clientId}</code>) definitief. OAuth-tokens en toestemmingen voor deze client kunnen worden beïnvloed.",
+            "deleteFailed": "Kan de client niet verwijderen",
+            "deleted": "Applicatie verwijderd"
+          },
+          "rotateDialog": {
+            "title": "Clientgeheim roteren?",
+            "description": "Het vorige geheim werkt meteen niet meer. Bewaar het nieuwe geheim op een veilige plek, het wordt mogelijk maar één keer getoond.",
+            "newSecretLabel": "Nieuw clientgeheim",
+            "copySecret": "Geheim kopiëren",
+            "secretCopied": "Geheim gekopieerd",
+            "rotating": "Roteren…",
+            "rotateFailed": "Kan het geheim niet roteren",
+            "newSecretIssued": "Nieuw clientgeheim uitgegeven, kopieer het nu",
+            "rotated": "Geheim geroteerd"
+          }
+        },
+        "selfRegistered": {
+          "menuLabel": "Acties voor {name}",
+          "enabled": "Client ingeschakeld",
+          "disabled": "Client uitgeschakeld",
+          "deleted": "Client verwijderd",
+          "disableTitle": "{name} uitschakelen?",
+          "disableDescription": "De client kan dan niemand meer laten inloggen en zijn tokens niet meer vernieuwen. Al uitgegeven toegangstokens werken tot ze verlopen (maximaal een uur).",
+          "deleteTitle": "{name} verwijderen?",
+          "deleteDescriptionMetadataDocument": "De tokens en de toestemmingen die mensen eraan hebben gegeven worden ook verwijderd. Een client met metadatadocument wordt opnieuw aangemaakt zodra hij weer iemand laat inloggen. Schakel hem uit om hem te blokkeren.",
+          "deleteDescriptionDynamic": "De tokens en de toestemmingen die mensen eraan hebben gegeven worden ook verwijderd. De app kan zich opnieuw registreren zolang dynamische registratie aan staat."
+        },
+        "brandingErrors": {
+          "textTooLong": "Gebruik minder dan {max} tekens.",
+          "displayNameTooLong": "Weergavenaam: gebruik minder dan {max} tekens.",
+          "taglineTooLong": "Slogan: gebruik minder dan {max} tekens.",
+          "panelTextTooLong": "Tekst zijpaneel: gebruik minder dan {max} tekens.",
+          "accentColor": "Accentkleur: voer een hexkleur in, zoals {example}.",
+          "logoSource": "Kies waar het logo vandaan komt.",
+          "logoUrl": "Logo-URL: voer een https-URL in op een openbare host (standaardpoort).",
+          "logoEmpty": "Het logobestand is leeg.",
+          "logoTooLarge": "Het logo mag maximaal 256 KB zijn.",
+          "logoType": "Het logo moet een PNG-, JPEG-, GIF-, WebP-, AVIF-, ICO- of SVG-afbeelding zijn.",
+          "panelImageEmpty": "De afbeelding van het zijpaneel is leeg.",
+          "panelImageTooLarge": "De afbeelding van het zijpaneel mag maximaal 1 MB zijn.",
+          "panelImageType": "De afbeelding van het zijpaneel moet een PNG-, JPEG-, WebP- of AVIF-afbeelding zijn."
+        }
       },
       "apis": {
         "title": "API's",
-        "description": "Je API's (beschermde resources) die toegangstokens van {name} accepteren: de scopes die clients kunnen aanvragen, welke applicaties ze mogen gebruiken en hun tokeninstellingen."
+        "description": "Je API's (beschermde resources) die toegangstokens van {name} accepteren: de scopes die clients kunnen aanvragen, welke applicaties ze mogen gebruiken en hun tokeninstellingen.",
+        "errors": {
+          "tokenSettings": {
+            "lifetimePositive": "{field, select, access {De levensduur van het toegangstoken moet een positief aantal minuten zijn.} other {De levensduur van het vernieuwingstoken moet een positief aantal dagen zijn.}}",
+            "lifetimeMinimum": "{field, select, access {De levensduur van het toegangstoken} other {De levensduur van het vernieuwingstoken}} moet minstens één minuut zijn.",
+            "lifetimeMaximum": "{field, select, access {De levensduur van het toegangstoken mag maximaal {max} minuten zijn, de standaard van de server.} other {De levensduur van het vernieuwingstoken mag maximaal {max} dagen zijn, de standaard van de server.}}",
+            "claimsInvalidJson": "Aangepaste claims moeten geldige JSON zijn, bijv. {example}.",
+            "claimsNotObject": "Aangepaste claims moeten een JSON-object zijn, bijv. {example}.",
+            "claimsEmptyName": "De naam van een aangepaste claim mag niet leeg zijn.",
+            "claimsReserved": "{count, plural, one {{claims} is een gereserveerde claim: de server stelt die in.} other {{claims} zijn gereserveerde claims: de server stelt die in.}} Gereserveerd: {reserved}.",
+            "claimsTooLarge": "Aangepaste claims zijn te groot (maximaal {kilobytes} KB): ze worden aan elk token toegevoegd."
+          },
+          "invalidScope": "\"{scope}\" is geen geldige scope.",
+          "reservedScope": "\"{scope}\" is een OpenID Connect-scope en is al beschikbaar voor elke client.",
+          "invalidIdentifier": "De identifier moet een absolute URL zonder fragment zijn, bijv. {example}.",
+          "registerFailed": "Kan de API niet registreren.",
+          "authServerCannotBeDisabled": "De authenticatieserver zelf kan niet worden uitgeschakeld.",
+          "updateFailed": "Kan de API niet bijwerken.",
+          "deleteFromEnv": "Deze API is ingesteld in {variable} en zou bij de volgende deploy terugkomen. Schakel hem in plaats daarvan uit.",
+          "deleteFailed": "Kan de API niet verwijderen.",
+          "authServerStaysOpen": "De authenticatieserver blijft open voor elke applicatie: inloggen hangt ervan af.",
+          "accessFailed": "Kan niet wijzigen welke applicaties de API mogen gebruiken.",
+          "tokensFailed": "Kan de tokeninstellingen niet opslaan."
+        },
+        "duration": {
+          "days": "{count, plural, one {# dag} other {# dagen}}",
+          "hours": "{count} u",
+          "minutes": "{count} min"
+        },
+        "tokenSummary": {
+          "accessToken": "Toegangstoken {duration}",
+          "refreshToken": "Vernieuwingstoken {duration}",
+          "dpopRequired": "DPoP vereist",
+          "claims": "Claims: {claims}"
+        },
+        "restrictLabel": "Alleen deze scopes uitgeven voor deze API",
+        "restrictHint": "Tokens voor deze API bevatten alleen deze scopes (en die van OpenID Connect). Uit: ze bevatten elke scope die aan de client is verleend.",
+        "register": {
+          "title": "Een API registreren",
+          "description": "Clients vragen er een token voor aan met de parameter <code>{param}</code>. De audience van het token is de identifier, en de API verifieert die tegen de JWKS.",
+          "identifier": "Identifier",
+          "identifierHint": "Meestal de basis-URL van de API. Dit kan later niet worden gewijzigd.",
+          "namePlaceholder": "Orders-API",
+          "scopes": "Scopes",
+          "scopesHint": "Gescheiden door spaties of komma's. Machineclients ({grant}) moeten tot een deel ervan worden beperkt.",
+          "submit": "API registreren",
+          "submitting": "Registreren…",
+          "registered": "API geregistreerd"
+        },
+        "list": {
+          "description": "Nieuwe en gewijzigde scopes bereiken de authenticatieserver binnen een minuut. Toegangs- en tokeninstellingen gelden vanaf het volgende token.",
+          "empty": "Nog geen API.",
+          "envScopesTitle": "Scopes uit {variable}",
+          "envScopesText": "Beschikbaar voor elke client, welke API die ook aanroept: <mono>{scopes}</mono>. Voeg ze toe aan de API waar ze bij horen en verwijder daarna de variabele om ze hier te beheren."
+        },
+        "item": {
+          "authServer": "Authenticatieserver",
+          "restricted": "Beperkt",
+          "linkedOnly": "Alleen gekoppelde apps",
+          "noResourceParam": "Tokens uitgegeven zonder resource-parameter.",
+          "noScopes": "Geen scopes.",
+          "editAria": "{name} bewerken",
+          "deleteAria": "{name} verwijderen",
+          "applications": "Applicaties",
+          "everyApplication": "Elke applicatie",
+          "onlyLinked": "Alleen {names}",
+          "noneLinked": "Geen gekoppeld: geen enkele applicatie kan tokens krijgen",
+          "change": "Wijzigen",
+          "changeAccessAria": "Wijzigen welke applicaties {name} mogen gebruiken",
+          "tokens": "Tokens",
+          "defaultSettings": "Standaardinstellingen",
+          "changeTokensAria": "De tokeninstellingen van {name} wijzigen"
+        },
+        "edit": {
+          "title": "{name} bewerken",
+          "scopesHint": "Een scope verwijderen verandert niets aan clients die hem al hebben, maar geen enkel nieuw token bevat hem nog.",
+          "disabledHint": "Geen nieuwe tokens voor deze API. Al uitgegeven tokens werken tot ze verlopen.",
+          "updated": "API bijgewerkt"
+        },
+        "access": {
+          "title": "Applicaties die {name} mogen gebruiken",
+          "allHint": "Elke applicatie kan tokens voor deze API krijgen, binnen haar scopes.",
+          "linkedLabel": "Alleen gekoppelde applicaties",
+          "linkedHint": "Andere applicaties worden geweigerd ({error}), ook als ze een token vernieuwen.",
+          "linkedTitle": "Gekoppelde applicaties",
+          "filterAria": "Applicaties filteren",
+          "filterPlaceholder": "Filteren op naam of client-ID",
+          "noApplications": "Nog geen applicatie.",
+          "noMatch": "Geen applicatie komt overeen.",
+          "linksHintAll": "Koppelingen tellen pas als de API beperkt is tot gekoppelde applicaties. Een gekoppelde applicatie kan ook de tokens van deze API introspecteren.",
+          "linksHintLinked": "Een gekoppelde applicatie kan ook de tokens van deze API introspecteren.",
+          "noneLinkedWarning": "Er is geen applicatie gekoppeld: geen enkele kan tokens voor deze API krijgen.",
+          "updated": "Toegang bijgewerkt"
+        },
+        "tokens": {
+          "title": "Tokeninstellingen voor {name}",
+          "description": "Toegepast op elk toegangstoken dat voor deze API wordt uitgegeven. Al uitgegeven tokens behouden hun instellingen.",
+          "accessTtl": "Levensduur toegangstoken (minuten)",
+          "accessTtlHint": "Standaard: {minutes, plural, one {# minuut} other {# minuten}}. Kan alleen korter.",
+          "refreshTtl": "Levensduur vernieuwingstoken (dagen)",
+          "refreshTtlHint": "Standaard: {days, plural, one {# dag} other {# dagen}}. Kan alleen korter.",
+          "claims": "Aangepaste claims",
+          "claimsHint": "Een JSON-object dat aan elk toegangstoken voor deze API wordt toegevoegd. Gereserveerd: <mono>{claims}</mono>.",
+          "dpopLabel": "DPoP-gebonden tokens vereisen",
+          "dpopHint": "Clients moeten een DPoP-bewijs sturen om een token voor deze API te krijgen, en het token wordt aan hun sleutel gebonden. De API moet het bewijs bij elk verzoek controleren.",
+          "saved": "Tokeninstellingen opgeslagen"
+        },
+        "delete": {
+          "title": "{name} verwijderen?",
+          "description": "Clients kunnen er geen tokens meer voor krijgen, en de al uitgegeven tokens werken meteen niet meer. Schakel de API uit als je alleen nieuwe tokens wilt stoppen.",
+          "deleted": "API verwijderd"
+        }
       },
       "signInProviders": {
         "title": "Inlogproviders",
-        "description": "Laat mensen inloggen bij {name} met Google, Apple, Microsoft en meer dan 30 andere accounts."
+        "description": "Laat mensen inloggen bij {name} met Google, Apple, Microsoft en meer dan 30 andere accounts.",
+        "panel": {
+          "copyCallback": "De callback-URL kopiëren",
+          "authAppFallback": "het adres van de inlogapp",
+          "environment": "Omgeving",
+          "activeTitle": "Op de inlogpagina",
+          "activeDescription": "In deze volgorde op de inlog- en registratiepagina's, en onder Verbonden accounts in het dashboard van elke gebruiker. Wijzigingen bereiken de inlogpagina binnen 30 seconden.",
+          "noneActive": "Er staat geen provider aan. Kies er een in de lijst om hem in te stellen.",
+          "setByEnvironment": "Ingesteld via omgevingsvariabelen",
+          "existingAccountsOnly": "Alleen bestaande accounts",
+          "connectedAccounts": "{count, plural, one {# verbonden account} other {# verbonden accounts}}",
+          "moveUp": "{name} omhoog verplaatsen",
+          "moveDown": "{name} omlaag verplaatsen",
+          "edit": "{name} bewerken",
+          "providersTitle": "Providers",
+          "providersDescription": "Elke provider die Better Auth ondersteunt. Maak een OAuth-app aan bij de provider, registreer de callback-URL die in de instellingen wordt getoond en plak daarna de inloggegevens. Geheimen worden versleuteld opgeslagen en nooit meer getoond.",
+          "search": "Providers zoeken",
+          "noMatch": "Geen provider komt overeen.",
+          "savedOn": "{name} staat aan",
+          "saved": "{name} opgeslagen",
+          "removed": "Instellingen van {name} verwijderd",
+          "optional": "(optioneel)",
+          "secretSet": "Ingesteld",
+          "replace": "Vervangen",
+          "removedOnSave": "Wordt verwijderd als je opslaat.",
+          "undo": "Ongedaan maken",
+          "newValue": "Nieuwe waarde",
+          "environmentDescription": "Ingesteld via omgevingsvariabelen ({clientIdVar} en {clientSecretVar}): wijzig ze daar, of verwijder ze om deze provider hier te beheren.",
+          "defaultNote": "Maak een OAuth-app aan bij {name}, registreer de callback-URL hieronder en plak daarna de inloggegevens.",
+          "callbackUrl": "Callback-URL",
+          "callbackHint": "Ook wel redirect-URI of return-URL genoemd.",
+          "createApp": "De app aanmaken",
+          "setupGuide": "Installatiehandleiding",
+          "secretsUnreadable": "De opgeslagen geheimen kunnen niet worden ontsleuteld ({envVar} is gewijzigd). Voer ze opnieuw in.",
+          "buttonName": "Knopnaam",
+          "buttonNameHint": "Getoond als \"Doorgaan met …\" op de inlogpagina.",
+          "allowSignUp": "Accounts aanmaken voor nieuwe gebruikers",
+          "allowSignUpHint": "Uit: alleen mensen die al een account hebben kunnen ermee inloggen (gekoppeld via hun dashboard, of met hetzelfde geverifieerde e-mailadres).",
+          "oneTap": "Google One Tap tonen",
+          "oneTapHint": "De eigen inlogprompt van Google, bovenaan de inlog- en registratiepagina's, voor mensen die in hun browser al bij Google zijn ingelogd. Gebruikt deze client-ID: voeg {origin} toe aan de Authorized JavaScript origins in de Google Cloud-console. Alleen zolang Google aan staat.",
+          "enabled": "Tonen op de inlogpagina",
+          "enabledHint": "Uit: de knop verdwijnt en inlogpogingen met deze provider worden geweigerd. De instellingen blijven bewaard.",
+          "removeConfirm": "Instellingen en geheimen verwijderen?",
+          "removeSettings": "Instellingen verwijderen"
+        },
+        "errors": {
+          "unknownProvider": "Onbekende provider.",
+          "envManaged": "Deze provider is ingesteld via omgevingsvariabelen. Wijzig ze, of verwijder ze om hem hier te beheren.",
+          "invalidOption": "{field}: kies {options}.",
+          "appleKeyNotEc": "Privésleutel: verwacht werd de EC-sleutel (P-256) die je van Apple hebt gedownload (.p8).",
+          "appleKeyInvalid": "Privésleutel: geen geldige PEM-privésleutel. Plak het hele .p8-bestand, inclusief de BEGIN- en END-regels.",
+          "issuerNotHttps": "De URL moet beginnen met https://.",
+          "salesforceDomain": "My Domain: een hostnaam zoals example.my.salesforce.com.",
+          "cognitoRegion": "Regio: een AWS-regio zoals eu-west-1.",
+          "googleHd": "Workspace-domein: een domein zoals example.com.",
+          "missingFields": "Vul {fields} in voordat je hem inschakelt.",
+          "unusable": "Deze instellingen kunnen niet worden gebruikt."
+        },
+        "providers": {
+          "apple": {
+            "note": "Apple heeft een HTTPS-return-URL op een echt domein nodig (geen localhost) en stuurt de gebruiker terug met een POST.",
+            "fields": {
+              "clientId": {
+                "label": "Services ID",
+                "hint": "De identifier van een Services ID waarvoor Sign in with Apple is ingeschakeld, bijv. com.example.signin."
+              },
+              "teamId": {
+                "label": "Team ID"
+              },
+              "keyId": {
+                "label": "Key ID",
+                "hint": "Een sleutel waarvoor Sign in with Apple is ingeschakeld."
+              },
+              "privateKey": {
+                "label": "Privésleutel (.p8)",
+                "hint": "Het clientgeheim is een JWT die met deze sleutel is ondertekend; het wordt automatisch aangemaakt en vernieuwd."
+              },
+              "appBundleIdentifier": {
+                "label": "App-bundel-ID",
+                "hint": "Alleen voor native inloggen op iOS (ID-tokens uitgegeven aan je app in plaats van aan de Services ID)."
+              }
+            }
+          },
+          "atlassian": {
+            "fields": {
+              "clientId": {
+                "label": "Client-ID"
+              },
+              "clientSecret": {
+                "label": "Clientgeheim"
+              }
+            }
+          },
+          "cloudflare": {
+            "fields": {
+              "clientId": {
+                "label": "Client-ID"
+              },
+              "clientSecret": {
+                "label": "Clientgeheim",
+                "hint": "Laat leeg voor een openbare client (alleen PKCE)."
+              }
+            }
+          },
+          "cognito": {
+            "fields": {
+              "clientId": {
+                "label": "App-client-ID"
+              },
+              "clientSecret": {
+                "label": "App-clientgeheim",
+                "hint": "Alleen als de app-client een geheim heeft."
+              },
+              "domain": {
+                "label": "Cognito-domein"
+              },
+              "region": {
+                "label": "Regio"
+              },
+              "userPoolId": {
+                "label": "User pool-ID"
+              }
+            }
+          },
+          "discord": {
+            "fields": {
+              "clientId": {
+                "label": "Client-ID"
+              },
+              "clientSecret": {
+                "label": "Clientgeheim"
+              }
+            }
+          },
+          "dropbox": {
+            "fields": {
+              "clientId": {
+                "label": "App key"
+              },
+              "clientSecret": {
+                "label": "App secret"
+              }
+            }
+          },
+          "facebook": {
+            "fields": {
+              "clientId": {
+                "label": "App-ID"
+              },
+              "clientSecret": {
+                "label": "App-geheim"
+              }
+            }
+          },
+          "figma": {
+            "fields": {
+              "clientId": {
+                "label": "Client-ID"
+              },
+              "clientSecret": {
+                "label": "Clientgeheim"
+              }
+            }
+          },
+          "github": {
+            "note": "Een OAuth App werkt zoals hij is. Een GitHub App heeft ook de accountmachtiging Email addresses op Read-only nodig, anders mislukt het inloggen zonder e-mailadres.",
+            "fields": {
+              "clientId": {
+                "label": "Client-ID"
+              },
+              "clientSecret": {
+                "label": "Clientgeheim"
+              }
+            }
+          },
+          "gitlab": {
+            "fields": {
+              "clientId": {
+                "label": "Applicatie-ID"
+              },
+              "clientSecret": {
+                "label": "Clientgeheim"
+              },
+              "issuer": {
+                "label": "GitLab-URL",
+                "hint": "Voor een zelfbeheerde GitLab."
+              }
+            }
+          },
+          "google": {
+            "fields": {
+              "clientId": {
+                "label": "Client-ID"
+              },
+              "clientSecret": {
+                "label": "Clientgeheim"
+              },
+              "hd": {
+                "label": "Workspace-domein",
+                "hint": "Alleen accounts van dit Google Workspace-domein accepteren."
+              }
+            }
+          },
+          "huggingface": {
+            "fields": {
+              "clientId": {
+                "label": "Client-ID"
+              },
+              "clientSecret": {
+                "label": "Clientgeheim"
+              }
+            }
+          },
+          "kakao": {
+            "fields": {
+              "clientId": {
+                "label": "REST API-sleutel"
+              },
+              "clientSecret": {
+                "label": "Clientgeheim",
+                "hint": "Alleen als het clientgeheim voor de app is ingeschakeld."
+              }
+            }
+          },
+          "kick": {
+            "fields": {
+              "clientId": {
+                "label": "Client-ID"
+              },
+              "clientSecret": {
+                "label": "Clientgeheim"
+              }
+            }
+          },
+          "line": {
+            "fields": {
+              "clientId": {
+                "label": "Channel-ID"
+              },
+              "clientSecret": {
+                "label": "Channel secret"
+              }
+            }
+          },
+          "linear": {
+            "fields": {
+              "clientId": {
+                "label": "Client-ID"
+              },
+              "clientSecret": {
+                "label": "Clientgeheim"
+              }
+            }
+          },
+          "linkedin": {
+            "fields": {
+              "clientId": {
+                "label": "Client-ID"
+              },
+              "clientSecret": {
+                "label": "Clientgeheim"
+              }
+            }
+          },
+          "microsoft": {
+            "fields": {
+              "clientId": {
+                "label": "Applicatie-ID (client)"
+              },
+              "clientSecret": {
+                "label": "Waarde van het clientgeheim"
+              },
+              "tenantId": {
+                "label": "Tenant",
+                "hint": "common (elk account), organizations, consumers, of je directory-ID (tenant-ID) om alleen je organisatie toe te staan."
+              }
+            }
+          },
+          "naver": {
+            "fields": {
+              "clientId": {
+                "label": "Client-ID"
+              },
+              "clientSecret": {
+                "label": "Clientgeheim"
+              }
+            }
+          },
+          "notion": {
+            "fields": {
+              "clientId": {
+                "label": "OAuth-client-ID"
+              },
+              "clientSecret": {
+                "label": "OAuth-clientgeheim"
+              }
+            }
+          },
+          "paybin": {
+            "fields": {
+              "clientId": {
+                "label": "Client-ID"
+              },
+              "clientSecret": {
+                "label": "Clientgeheim"
+              },
+              "issuer": {
+                "label": "Issuer"
+              }
+            }
+          },
+          "paypal": {
+            "note": "Schakel \"Log in with PayPal\" in voor de app en vraag om het e-mailadres.",
+            "fields": {
+              "clientId": {
+                "label": "Client-ID"
+              },
+              "clientSecret": {
+                "label": "Clientgeheim"
+              },
+              "environment": {
+                "label": "Omgeving"
+              }
+            }
+          },
+          "polar": {
+            "fields": {
+              "clientId": {
+                "label": "Client-ID"
+              },
+              "clientSecret": {
+                "label": "Clientgeheim"
+              }
+            }
+          },
+          "railway": {
+            "fields": {
+              "clientId": {
+                "label": "Client-ID"
+              },
+              "clientSecret": {
+                "label": "Clientgeheim"
+              }
+            }
+          },
+          "reddit": {
+            "fields": {
+              "clientId": {
+                "label": "Client-ID"
+              },
+              "clientSecret": {
+                "label": "Clientgeheim"
+              }
+            }
+          },
+          "roblox": {
+            "fields": {
+              "clientId": {
+                "label": "Client-ID"
+              },
+              "clientSecret": {
+                "label": "Clientgeheim"
+              }
+            }
+          },
+          "salesforce": {
+            "fields": {
+              "clientId": {
+                "label": "Consumer key"
+              },
+              "clientSecret": {
+                "label": "Consumer secret"
+              },
+              "environment": {
+                "label": "Omgeving"
+              },
+              "loginUrl": {
+                "label": "My Domain",
+                "hint": "Alleen de hostnaam. Vervangt login.salesforce.com of test.salesforce.com."
+              }
+            }
+          },
+          "slack": {
+            "fields": {
+              "clientId": {
+                "label": "Client-ID"
+              },
+              "clientSecret": {
+                "label": "Clientgeheim"
+              }
+            }
+          },
+          "spotify": {
+            "fields": {
+              "clientId": {
+                "label": "Client-ID"
+              },
+              "clientSecret": {
+                "label": "Clientgeheim"
+              }
+            }
+          },
+          "tiktok": {
+            "fields": {
+              "clientKey": {
+                "label": "Client key"
+              },
+              "clientSecret": {
+                "label": "Clientgeheim"
+              }
+            }
+          },
+          "twitch": {
+            "fields": {
+              "clientId": {
+                "label": "Client-ID"
+              },
+              "clientSecret": {
+                "label": "Clientgeheim"
+              }
+            }
+          },
+          "twitter": {
+            "note": "Gebruik de OAuth 2.0-inloggegevens (niet de API-sleutel) en vraag om e-mailtoegang in de instellingen van de app.",
+            "fields": {
+              "clientId": {
+                "label": "OAuth 2.0-client-ID"
+              },
+              "clientSecret": {
+                "label": "OAuth 2.0-clientgeheim"
+              }
+            }
+          },
+          "vercel": {
+            "fields": {
+              "clientId": {
+                "label": "Client-ID"
+              },
+              "clientSecret": {
+                "label": "Clientgeheim"
+              }
+            }
+          },
+          "vk": {
+            "fields": {
+              "clientId": {
+                "label": "App-ID"
+              },
+              "clientSecret": {
+                "label": "Beschermde sleutel"
+              }
+            }
+          },
+          "wechat": {
+            "note": "Websiteapplicatie (inloggen met QR-code). WeChat geeft geen e-mailadres terug.",
+            "fields": {
+              "clientId": {
+                "label": "AppID"
+              },
+              "clientSecret": {
+                "label": "AppSecret"
+              }
+            }
+          },
+          "zoom": {
+            "fields": {
+              "clientId": {
+                "label": "Client-ID"
+              },
+              "clientSecret": {
+                "label": "Clientgeheim"
+              }
+            }
+          }
+        }
       },
       "apiKeys": {
         "title": "API-sleutels",
-        "description": "Sleutels die gebruikers maken zodat hun scripts je API's kunnen aanroepen: zet ze aan of uit, stel hun maximale geldigheid in en trek elke sleutel in."
+        "description": "Sleutels die gebruikers maken zodat hun scripts je API's kunnen aanroepen: zet ze aan of uit, stel hun maximale geldigheid in en trek elke sleutel in.",
+        "allKeys": {
+          "title": "Alle sleutels",
+          "description": "Nieuwste eerst{truncated, select, true {, de laatste {limit}} other {}}. Verlopen sleutels worden verwijderd de volgende keer dat sleutels worden gebruikt of aangemaakt. Een account blokkeren of verwijderen trekt de sleutels ervan in; een organisatie verwijderen verwijdert haar sleutels (sleutels van een organisatie blijven als het lid dat ze heeft gemaakt vertrekt)."
+        },
+        "settings": {
+          "description": "Mensen maken via hun accountpagina sleutels aan voor een van je API's en een deel van de scopes ervan. De API controleert elke sleutel bij deze server. Een sleutel laat nooit iemand inloggen bij deze server of de beheerconsole.",
+          "statusOn": "Aan: mensen kunnen sleutels aanmaken",
+          "statusOff": "Uit: geen nieuwe sleutels, en elke sleutel wordt geweigerd",
+          "maxLifetime": "Maximale levensduur",
+          "maxLifetimeValue": "{count, plural, one {# dag} other {# dagen}}",
+          "apisAccepting": "API's die sleutels accepteren",
+          "apisNone": "Geen: registreer een API met scopes, open voor elke applicatie",
+          "verifyEndpoint": "Verificatie-endpoint: <code>{endpoint}</code>. De API authenticeert zich als een hier geregistreerde applicatie die aan die API is gekoppeld (pagina API's, Toegang). API's die beperkt zijn tot gekoppelde applicaties accepteren geen sleutels."
+        },
+        "dialog": {
+          "description": "Sleutels zijn langdurig: kies bij voorkeur een korte levensduur. Een lager maximum geldt alleen voor nieuwe sleutels.",
+          "allowLabel": "API-sleutels toestaan",
+          "allowHint": "Uit: niemand kan een sleutel aanmaken en elke bestaande sleutel wordt bij verificatie geweigerd. Sleutels blijven bewaard en werken weer als je dit opnieuw inschakelt.",
+          "maxLifetimeLabel": "Maximale levensduur (dagen)",
+          "maxLifetimeHint": "Van 1 tot {max}. Elke sleutel verloopt.",
+          "saved": "Instellingen opgeslagen. De authenticatieserver past ze binnen een minuut toe."
+        },
+        "table": {
+          "empty": "Geen API-sleutels.",
+          "key": "Sleutel",
+          "owner": "Eigenaar",
+          "api": "API",
+          "scopes": "Scopes",
+          "lastUsed": "Laatst gebruikt",
+          "expires": "Verloopt",
+          "createdBy": "door {email}",
+          "org": "Org.",
+          "removedApi": "Verwijderde API",
+          "expired": "Verlopen",
+          "revoke": "Intrekken",
+          "revoked": "API-sleutel ingetrokken",
+          "revokeTitle": "{name} intrekken?",
+          "revokeOrgDescription": "Deze sleutel van de organisatie {owner} werkt meteen niet meer. De eigenaren en beheerders kunnen een nieuwe aanmaken als API-sleutels aan staan.",
+          "revokeUserDescription": "De sleutel van {owner} werkt meteen niet meer. Diegene kan een nieuwe aanmaken als API-sleutels aan staan."
+        },
+        "errors": {
+          "chooseEnabled": "Kies of API-sleutels aan staan.",
+          "maxLifetimeRange": "De maximale levensduur moet een geheel aantal dagen van 1 tot {max} zijn.",
+          "saveFailed": "Kan de instellingen niet opslaan.",
+          "noKey": "Geen sleutel opgegeven.",
+          "keyGone": "Deze sleutel bestaat niet meer."
+        }
       },
       "webhooks": {
         "title": "Webhooks",
         "description": "Ondertekende HTTPS-meldingen die je apps laten weten wanneer gebruikers, rollen of organisatielidmaatschappen in {name} veranderen.",
-        "deliveries": "Bezorglogboek"
+        "deliveries": "Bezorglogboek",
+        "eventDescriptions": {
+          "user_created": "Er wordt een account aangemaakt (registratie, beheerder, SSO, SCIM).",
+          "user_updated": "Naam, e-mailadres, e-mailverificatie, gebruikersnaam of afbeelding wijzigt.",
+          "user_deleted": "Er wordt een account verwijderd.",
+          "user_banned": "Een account wordt geblokkeerd of door SCIM gedeactiveerd.",
+          "user_unbanned": "Een blokkering wordt opgeheven, of SCIM activeert het account opnieuw.",
+          "user_role_changed": "De platformrol van een account wijzigt.",
+          "organization_member_added": "Iemand wordt lid van een organisatie.",
+          "organization_member_removed": "Iemand verlaat een organisatie of wordt eruit verwijderd.",
+          "organization_member_role_changed": "De rol van een lid in een organisatie wijzigt."
+        },
+        "panel": {
+          "events": "Gebeurtenissen",
+          "clear": "Wissen",
+          "selectAll": "Alles selecteren",
+          "signingSecret": "Ondertekeningsgeheim",
+          "secretCopied": "Geheim gekopieerd",
+          "copySecret": "Geheim kopiëren",
+          "url": "URL",
+          "add": {
+            "title": "Een endpoint toevoegen",
+            "description": "Ostiary stuurt met POST een ondertekende JSON-gebeurtenis naar deze URL wanneer een van de gekozen gebeurtenissen plaatsvindt, en probeert het ongeveer een dag opnieuw als dat mislukt.",
+            "urlHint": "HTTPS, op een openbaar adres.",
+            "urlHintLocalhost": "HTTPS, op een openbaar adres. {url} wordt geaccepteerd ({envVar}, alleen voor ontwikkeling).",
+            "descriptionPlaceholder": "Facturatie-app: gebruikerssynchronisatie",
+            "adding": "Toevoegen…",
+            "submit": "Endpoint toevoegen"
+          },
+          "list": {
+            "title": "Endpoints",
+            "description": "Elk verzoek bevat de headers <code>{id}</code>, <code>{timestamp}</code> en <code>{signature}</code> (Standard Webhooks). Een endpoint dat {count, plural, one {# keer} other {# keer}} achter elkaar mislukt, wordt uitgeschakeld.",
+            "empty": "Nog geen endpoint."
+          },
+          "created": {
+            "title": "Endpoint toegevoegd",
+            "description": "Kopieer het ondertekeningsgeheim naar de app op {url}: die verifieert er elke levering mee. Het wordt niet opnieuw getoond."
+          },
+          "test": {
+            "delivered": "Testgebeurtenis afgeleverd (HTTP {status})",
+            "failed": "Testgebeurtenis mislukt: {reason}"
+          },
+          "item": {
+            "disabledFailures": "Uitgeschakeld na herhaalde fouten",
+            "rotating": "Geheim wordt geroteerd",
+            "editLabel": "{label} bewerken",
+            "deleteLabel": "{label} verwijderen",
+            "disabledNotice": "Uitgeschakeld na {count, plural, one {# mislukte poging} other {# mislukte pogingen}} achter elkaar. Herstel de ontvanger en schakel het endpoint weer in: wachtende gebeurtenissen worden opnieuw verstuurd.",
+            "disabledNoticeOn": "Uitgeschakeld op {date} na {count, plural, one {# mislukte poging} other {# mislukte pogingen}} achter elkaar. Herstel de ontvanger en schakel het endpoint weer in: wachtende gebeurtenissen worden opnieuw verstuurd.",
+            "lastSuccess": "Laatste succes",
+            "lastFailure": "Laatste fout",
+            "inARow": "({count} achter elkaar)",
+            "deliveries": "Leveringen",
+            "deliveriesValue": "{pending} wachtend of opnieuw proberen · {failed} mislukt",
+            "sendTest": "Testgebeurtenis versturen",
+            "deliveryLog": "Leveringslogboek",
+            "regenerateSecret": "Geheim opnieuw genereren"
+          },
+          "edit": {
+            "title": "Endpoint bewerken",
+            "enabledHint": "Zolang het is uitgeschakeld, worden nieuwe gebeurtenissen voor dit endpoint niet vastgelegd en wachten nieuwe pogingen.",
+            "updated": "Endpoint bijgewerkt"
+          },
+          "rotate": {
+            "title": "Het ondertekeningsgeheim opnieuw genereren?",
+            "description": "Leveringen worden 24 uur lang ondertekend met zowel het oude als het nieuwe geheim, zodat de app kan overstappen zonder gebeurtenissen te missen.",
+            "newTitle": "Nieuw ondertekeningsgeheim",
+            "newDescription": "Kopieer het nu naar de app: het wordt niet opnieuw getoond. De komende 24 uur bevatten leveringen ook een handtekening met het oude geheim.",
+            "confirm": "Opnieuw genereren"
+          },
+          "delete": {
+            "title": "Dit endpoint verwijderen?",
+            "description": "{url} ontvangt geen gebeurtenissen meer, en het leveringslogboek en de wachtende nieuwe pogingen worden verwijderd. Schakel het uit als je het wilt pauzeren.",
+            "deleted": "Endpoint verwijderd"
+          }
+        },
+        "redeliver": {
+          "button": "Opnieuw leveren",
+          "delivered": "Afgeleverd (HTTP {status})",
+          "failed": "Mislukt: {reason}"
+        },
+        "log": {
+          "status": {
+            "succeeded": "Afgeleverd",
+            "failed": "Mislukt",
+            "pending": "In behandeling"
+          },
+          "disabled": "Uitgeschakeld: nieuwe pogingen wachten tot het weer is ingeschakeld.",
+          "empty": "Nog geen levering. Gebruik “Testgebeurtenis versturen” op de pagina Webhooks om het endpoint te testen.",
+          "event": "Gebeurtenis",
+          "response": "Respons",
+          "attempts": "Pogingen",
+          "nextRetry": "Volgende poging",
+          "answer": "Antwoord",
+          "error": "fout",
+          "footer": "De laatste {shown} leveringen. Leveringen worden {days, plural, one {# dag} other {# dagen}} bewaard. Een mislukte levering wordt {retries, plural, one {# keer} other {# keer}} opnieuw geprobeerd gedurende ongeveer een dag; “Opnieuw leveren” verstuurt dezelfde gebeurtenis (dezelfde {header}) nu nogmaals."
+        },
+        "errors": {
+          "noEvents": "Kies minstens één gebeurtenis.",
+          "tooMany": "Maximaal {max} endpoints.",
+          "endpointNotFound": "Endpoint niet gevonden.",
+          "disabledTest": "Het endpoint is uitgeschakeld: schakel het in om een testgebeurtenis te versturen.",
+          "testNotSent": "De testgebeurtenis kon niet worden verstuurd.",
+          "deliveryNotFound": "Levering niet gevonden.",
+          "disabledRedeliver": "Het endpoint is uitgeschakeld: schakel het in om opnieuw te leveren.",
+          "eventNotSent": "De gebeurtenis kon niet worden verstuurd."
+        }
       },
       "users": {
-        "title": "Users",
-        "description": "Find accounts, change roles, ban or remove them, and open an account to see its sessions and activity."
+        "title": "Gebruikers",
+        "description": "Zoek accounts, wijzig rollen, blokkeer of verwijder ze, en open een account om de sessies en activiteit te bekijken.",
+        "list": {
+          "searchPlaceholder": "Zoeken op naam of e-mailadres…",
+          "searchLabel": "Gebruikers zoeken",
+          "rolePlaceholder": "Rol",
+          "roleAll": "Alle rollen",
+          "roleAdmin": "Beheerder",
+          "roleUser": "Gebruiker",
+          "loadErrorTitle": "De gebruikers konden niet worden geladen",
+          "loadErrorFallback": "Kan gebruikers niet laden",
+          "columns": {
+            "user": "Gebruiker",
+            "role": "Rol",
+            "status": "Status",
+            "verified": "Geverifieerd",
+            "joined": "Lid sinds"
+          },
+          "loading": "Gebruikers laden…",
+          "empty": "Geen gebruikers komen overeen met je filters.",
+          "noUsers": "0 gebruikers",
+          "showing": "{from}-{to} van {total} weergegeven",
+          "rowsPerPage": "Rijen per pagina",
+          "previous": "Vorige",
+          "next": "Volgende",
+          "pageOf": "Pagina {page} / {pages}",
+          "poweredBy": "Werkt met <code>listUsers</code>, <code>createUser</code>, <code>setRole</code>, <code>updateUser</code>, <code>setUserPassword</code> en verwante methoden uit de <link>Better Auth admin-plug-in</link>. Je moet ingelogd zijn als beheerder."
+        },
+        "status": {
+          "banned": "Geblokkeerd",
+          "active": "Actief"
+        },
+        "create": {
+          "trigger": "Gebruiker toevoegen",
+          "title": "Gebruiker toevoegen",
+          "description": "Maakt een account aan via <code>createUser</code>.",
+          "email": "E-mailadres",
+          "password": "Wachtwoord",
+          "name": "Naam",
+          "role": "Rol",
+          "error": "Kan de gebruiker niet aanmaken",
+          "created": "Gebruiker aangemaakt",
+          "submit": "Gebruiker aanmaken",
+          "creating": "Aanmaken…"
+        },
+        "rowActions": {
+          "menuLabel": "Acties voor {name}",
+          "copyId": "Gebruikers-ID kopiëren",
+          "idCopied": "Gebruikers-ID gekopieerd",
+          "edit": "Gebruiker bewerken",
+          "setPassword": "Wachtwoord instellen",
+          "makeAdmin": "Beheerder maken",
+          "makeUser": "Gewone gebruiker maken",
+          "ban": "Gebruiker blokkeren",
+          "unban": "Gebruiker deblokkeren",
+          "remove": "Gebruiker verwijderen",
+          "roleError": "Kan de rol niet bijwerken",
+          "roleSet": "Rol ingesteld op {role}",
+          "unbanError": "Kan de gebruiker niet deblokkeren",
+          "unbanned": "Gebruiker gedeblokkeerd",
+          "banError": "Kan de gebruiker niet blokkeren",
+          "banned": "Gebruiker geblokkeerd",
+          "removeError": "Kan de gebruiker niet verwijderen",
+          "removed": "Gebruiker verwijderd",
+          "emailRequired": "E-mailadres is verplicht",
+          "noChanges": "Geen wijzigingen om op te slaan",
+          "updateError": "Kan de gebruiker niet bijwerken",
+          "updated": "Gebruiker bijgewerkt",
+          "passwordRequired": "Voer een nieuw wachtwoord in.",
+          "passwordMismatch": "De wachtwoorden komen niet overeen.",
+          "passwordError": "Kan het wachtwoord niet instellen",
+          "passwordUpdated": "Wachtwoord bijgewerkt",
+          "editTitle": "Gebruiker bewerken",
+          "editDescription": "Wijzig de naam of het e-mailadres. Een nieuw e-mailadres moet door de gebruiker worden geverifieerd voordat die opnieuw kan inloggen.",
+          "name": "Naam",
+          "email": "E-mailadres",
+          "passwordTitle": "Wachtwoord instellen",
+          "passwordDescription": "Stelt een nieuw wachtwoord in voor <strong>{email}</strong> met <code>setUserPassword</code>.",
+          "newPassword": "Nieuw wachtwoord",
+          "confirmPassword": "Wachtwoord bevestigen",
+          "updatePassword": "Wachtwoord bijwerken",
+          "removeTitle": "Gebruiker verwijderen?",
+          "removeDescription": "Hiermee worden <strong>{name}</strong> ({email}) en alles wat aan het account is gekoppeld definitief verwijderd. Items in het auditlogboek blijven bewaard zonder naam of e-mailadres. Dit kan niet ongedaan worden gemaakt.",
+          "removeConfirm": "Verwijderen",
+          "removing": "Verwijderen…"
+        },
+        "detailActions": {
+          "impersonateError": "Kan niet inloggen als deze gebruiker.",
+          "signOutError": "Kan deze gebruiker niet uitloggen.",
+          "signedOut": "Uitgelogd uit {count, plural, one {# sessie} other {# sessies}}",
+          "exportError": "Kan de gegevens van deze gebruiker niet exporteren.",
+          "exported": "Gegevens geëxporteerd. De export is vastgelegd in het auditlogboek.",
+          "exportData": "Gegevens exporteren",
+          "impersonate": "Inloggen als gebruiker",
+          "signOutEverywhere": "Overal uitloggen",
+          "impersonateTitle": "Inloggen als {email}?",
+          "signOutTitle": "{email} overal uitloggen?",
+          "impersonateDescription": "Je ziet het accountdashboard precies zoals deze gebruiker het ziet, maximaal een uur lang. Via een banner daar kun je stoppen en teruggaan. Dit wordt vastgelegd in het auditlogboek.",
+          "signOutDescription": "Elke sessie van deze gebruiker eindigt nu, op elk apparaat. Diegene moet opnieuw inloggen.",
+          "sessionRevoked": "Sessie ingetrokken",
+          "revokeError": "Kan deze sessie niet intrekken.",
+          "revoke": "Intrekken",
+          "resetTwoFactorError": "Kan tweestapsverificatie niet resetten.",
+          "twoFactorReset": "Tweestapsverificatie uitgeschakeld",
+          "reset": "Resetten",
+          "resetTwoFactorTitle": "Tweestapsverificatie resetten voor {email}?",
+          "resetTwoFactorDescription": "De authenticator-app, back-upcodes en vertrouwde apparaten van deze gebruiker werken niet meer, en diegene logt alleen met een wachtwoord in tot het opnieuw is ingesteld. Doe dit pas als je hebt bevestigd wie het vraagt. Dit wordt vastgelegd in het auditlogboek."
+        },
+        "detail": {
+          "emailVerified": "E-mailadres geverifieerd",
+          "emailNotVerified": "E-mailadres niet geverifieerd",
+          "banned": "Geblokkeerd",
+          "bannedWithReason": "Geblokkeerd: {reason}",
+          "scimTitle": "Ingericht door SCIM: {organizations}",
+          "scimDescription": "De identiteitsprovider beheert dit account. Verwijder de gebruiker daar: als je het account hier verwijdert, maakt de directory het bij de volgende synchronisatie gewoon opnieuw aan. De gebruiker kan het account niet vanuit het dashboard verwijderen.",
+          "tiles": {
+            "joined": "Lid sinds",
+            "activeSessions": "Actieve sessies",
+            "passkeys": "Passkeys",
+            "twoFactor": "Tweestapsverificatie"
+          },
+          "device": {
+            "unknown": "Onbekend apparaat",
+            "browser": "Browser",
+            "browserOnOs": "{browser} op {os}"
+          },
+          "sessions": {
+            "title": "Actieve sessies",
+            "description": "Apparaten waarop dit account is ingelogd.",
+            "empty": "Geen actieve sessies.",
+            "device": "Apparaat",
+            "ipAddress": "IP-adres",
+            "lastActive": "Laatst actief",
+            "impersonated": "Door beheerder overgenomen"
+          },
+          "apiKeys": {
+            "title": "API-sleutels",
+            "description": "Sleutels die dit account voor scripts heeft aangemaakt. Het account blokkeren of verwijderen trekt ze in."
+          },
+          "signInMethods": {
+            "title": "Inlogmethoden",
+            "credential": "E-mailadres en wachtwoord",
+            "sso": "SSO: {provider}",
+            "passkey": "Passkey: {name} <muted>({deviceType})</muted>",
+            "unnamed": "Naamloos",
+            "empty": "Geen inlogmethoden.",
+            "twoFactor": "Tweestapsverificatie <muted>(authenticator-app)</muted>",
+            "managedByYou": "Beheerd vanuit je account"
+          },
+          "organizations": {
+            "title": "Organisaties",
+            "empty": "Geen lid van een organisatie."
+          },
+          "activity": {
+            "title": "Recente inlogactiviteit",
+            "empty": "Nog geen activiteit vastgelegd.",
+            "events": {
+              "sign_in": "Ingelogd",
+              "sign_up": "Account aangemaakt",
+              "sign_out": "Uitgelogd",
+              "sign_in_failed": "Mislukte inlogpoging"
+            }
+          },
+          "audit": {
+            "title": "Beheeracties op dit account",
+            "empty": "Nog geen beheeracties.",
+            "by": "door {actor}",
+            "system": "systeem"
+          }
+        }
       },
       "consent": {
-        "title": "Consent",
-        "description": "Permissions people have granted to OAuth clients, with the scopes and when they were given."
+        "title": "Toestemming",
+        "description": "Machtigingen die mensen aan OAuth-clients hebben gegeven, met de scopes en wanneer ze zijn verleend.",
+        "panel": {
+          "signedInUser": "Ingelogde gebruiker",
+          "loadConsentsFailed": "Kan toestemmingen niet laden",
+          "loadClientsFailed": "Kan OAuth-clients niet laden",
+          "loadErrorTitle": "De toestemmingen konden niet worden geladen",
+          "searchPlaceholder": "Zoeken op gebruiker, client, toestemmings-ID, referentie of scope…",
+          "searchLabel": "Toestemmingen zoeken",
+          "filter": {
+            "placeholder": "Scopefilter",
+            "all": "Alle toestemmingen",
+            "hasScope": "Heeft {scope}"
+          },
+          "columns": {
+            "user": "Gebruiker",
+            "application": "Applicatie",
+            "scopes": "Scopes",
+            "reference": "Referentie",
+            "granted": "Verleend",
+            "updated": "Bijgewerkt"
+          },
+          "loading": "Toestemmingen laden…",
+          "emptyNone": "Nog geen toestemmingen vastgelegd voor dit account.",
+          "emptyFiltered": "Geen toestemmingen komen overeen met je filters.",
+          "noResults": "0 toestemmingen",
+          "showing": "{from}-{to} van {total} weergegeven",
+          "rowsPerPage": "Rijen per pagina",
+          "previous": "Vorige",
+          "next": "Volgende",
+          "pageOf": "Pagina {page} / {total}",
+          "footnote": "Gegevens uit <code>{getConsents}</code>; clientnamen opgehaald via <code>{getClients}</code>. Intrekken gebruikt <code>{deleteConsent}</code>. Zie <consentLink>OAuth consent</consentLink> in de documentatie van de <providerLink>OAuth provider</providerLink>. De interactieve autorisatie-UI staat op <code>{path}</code>."
+        },
+        "rowActions": {
+          "menuLabel": "Acties voor toestemming {id}…",
+          "copyConsentId": "Toestemmings-ID kopiëren",
+          "consentIdCopied": "Toestemmings-ID gekopieerd",
+          "copyClientId": "Client-ID kopiëren",
+          "clientIdCopied": "Client-ID gekopieerd",
+          "viewDetails": "Details bekijken",
+          "updateScopes": "Scopes bijwerken",
+          "wireTo": "Koppelen aan {method}",
+          "revoke": "Toestemming intrekken",
+          "revokeFailed": "Kan de toestemming niet intrekken",
+          "revoked": "Toestemming ingetrokken",
+          "dialogTitle": "Toestemming intrekken?",
+          "dialogDescription": "Verwijdert de toestemming van deze gebruiker voor <strong>{client}</strong> (<code>{clientId}</code>). De client moet mogelijk opnieuw om autorisatie vragen.",
+          "revoking": "Intrekken…",
+          "revokeButton": "Intrekken"
+        }
       },
       "usage": {
         "title": "App-gebruik",
-        "description": "Welke applicaties worden gebruikt: toegangstokens, gebruikers en toestemmingen per applicatie in de afgelopen 30 dagen."
+        "description": "Welke applicaties worden gebruikt: toegangstokens, gebruikers en toestemmingen per applicatie in de afgelopen 30 dagen.",
+        "tiles": {
+          "tokens": "Uitgegeven tokens, 30 dagen",
+          "active": "Applicaties in gebruik",
+          "unused": "Ongebruikte applicaties"
+        },
+        "card": {
+          "title": "Toegangstokens per applicatie, afgelopen 30 dagen",
+          "unused": "{count, plural, one {# actieve applicatie heeft in 30 dagen geen token uitgegeven: overweeg die uit te schakelen of te verwijderen.} other {# actieve applicaties hebben in 30 dagen geen token uitgegeven: overweeg ze uit te schakelen of te verwijderen.}}",
+          "allUsed": "Elke actieve applicatie heeft de afgelopen 30 dagen tokens uitgegeven.",
+          "empty": "Geen OAuth-clients geregistreerd.",
+          "application": "Applicatie",
+          "tokens": "Tokens",
+          "users": "Gebruikers",
+          "consents": "Toestemmingen",
+          "lastToken": "Laatste token",
+          "lastTokenValue": "Laatste token: {date}",
+          "showInApplications": "Tonen in Applicaties",
+          "unusedBadge": "Ongebruikt"
+        }
       },
       "audit": {
-        "title": "Audit log",
-        "description": "Every change made from this console or the admin API: who did it, to what, and when.",
-        "footnote": "Showing the latest 200 entries. Passwords and secrets are never recorded."
+        "title": "Auditlogboek",
+        "description": "Elke wijziging via deze console of de beheer-API: wie het deed, waaraan en wanneer.",
+        "footnote": "De laatste 200 items worden getoond. Wachtwoorden en geheimen worden nooit vastgelegd.",
+        "filterLabel": "Filteren op onderdeel",
+        "filters": {
+          "all": "Alle",
+          "user": "Gebruikers",
+          "organization": "Organisaties",
+          "oauth_client": "OAuth-clients",
+          "oauth_consent": "Toestemmingen",
+          "oauth_resource": "API's",
+          "api_key": "API-sleutels",
+          "sso_provider": "SSO",
+          "signing_key": "Ondertekeningssleutels",
+          "webhook": "Webhooks",
+          "social_provider": "Inlogproviders"
+        },
+        "empty": "Nog geen beheeracties vastgelegd.",
+        "columns": {
+          "when": "Wanneer",
+          "who": "Wie",
+          "action": "Actie",
+          "target": "Doel",
+          "details": "Details",
+          "ip": "IP"
+        },
+        "system": "Systeem",
+        "actions": {
+          "user": {
+            "create": "Gebruiker aangemaakt",
+            "update": "Gebruiker bijgewerkt",
+            "set_role": "Rol gewijzigd",
+            "set_password": "Wachtwoord ingesteld",
+            "ban": "Gebruiker geblokkeerd",
+            "unban": "Gebruiker gedeblokkeerd",
+            "delete": "Gebruiker verwijderd",
+            "revoke_session": "Sessie ingetrokken",
+            "revoke_all_sessions": "Gebruiker overal uitgelogd",
+            "impersonate": "Ingelogd als gebruiker",
+            "reset_two_factor": "Tweestapsverificatie gereset",
+            "export_data": "Accountgegevens geëxporteerd",
+            "self_delete": "Eigen account verwijderd"
+          },
+          "oauth_client": {
+            "create": "OAuth-client geregistreerd",
+            "update": "OAuth-client bijgewerkt",
+            "delete": "OAuth-client verwijderd",
+            "rotate_secret": "Clientgeheim geroteerd",
+            "self_register": "Client heeft zichzelf geregistreerd",
+            "disable": "OAuth-client uitgeschakeld",
+            "enable": "OAuth-client ingeschakeld",
+            "branding_update": "Huisstijl van het inloggen gewijzigd",
+            "branding_reset": "Huisstijl van het inloggen teruggezet"
+          },
+          "client_registration": {
+            "update": "Zelfregistratie van clients gewijzigd"
+          },
+          "oauth_resource": {
+            "create": "API geregistreerd",
+            "update": "API bijgewerkt",
+            "delete": "API verwijderd",
+            "access": "API-toegang gewijzigd",
+            "tokens": "Tokeninstellingen van API gewijzigd"
+          },
+          "api_key": {
+            "create": "API-sleutel aangemaakt",
+            "revoke": "API-sleutel ingetrokken",
+            "revoke_all": "Alle API-sleutels ingetrokken",
+            "settings": "Instellingen voor API-sleutels gewijzigd"
+          },
+          "oauth_consent": {
+            "update": "Toestemming bijgewerkt",
+            "delete": "Toestemming ingetrokken"
+          },
+          "oauth_device": {
+            "approve": "Inloggen op apparaat goedgekeurd",
+            "deny": "Inloggen op apparaat geweigerd"
+          },
+          "organization": {
+            "create": "Organisatie aangemaakt",
+            "update": "Organisatie hernoemd",
+            "delete": "Organisatie verwijderd",
+            "invite": "Lid uitgenodigd",
+            "cancel_invitation": "Uitnodiging geannuleerd",
+            "update_member_role": "Rol van lid gewijzigd",
+            "remove_member": "Lid verwijderd"
+          },
+          "sso_provider": {
+            "create": "SSO-provider geregistreerd",
+            "update": "SSO-provider bijgewerkt",
+            "delete": "SSO-provider verwijderd",
+            "verify_domain": "SSO-domein geverifieerd"
+          },
+          "social_provider": {
+            "create": "Inlogprovider ingesteld",
+            "update": "Inlogprovider bijgewerkt",
+            "delete": "Inlogprovider verwijderd",
+            "reorder": "Volgorde van inlogproviders gewijzigd"
+          },
+          "scim": {
+            "token_create": "SCIM-token gegenereerd",
+            "token_rotate": "SCIM-token vervangen",
+            "token_revoke": "SCIM-token ingetrokken"
+          },
+          "signing_key": {
+            "rotate": "Ondertekeningssleutel geroteerd",
+            "update_settings": "Rotatie van ondertekeningssleutel gewijzigd"
+          },
+          "webhook": {
+            "create": "Webhook-endpoint toegevoegd",
+            "update": "Webhook-endpoint bijgewerkt",
+            "enable": "Webhook-endpoint ingeschakeld",
+            "disable": "Webhook-endpoint uitgeschakeld",
+            "delete": "Webhook-endpoint verwijderd",
+            "rotate_secret": "Webhookgeheim opnieuw gegenereerd",
+            "test": "Webhook-testgebeurtenis verstuurd",
+            "redeliver": "Webhookgebeurtenis opnieuw geleverd"
+          }
+        }
       },
       "security": {
-        "title": "Security",
-        "description": "Failed sign-in attempts, the accounts and addresses behind them, and banned accounts."
+        "title": "Beveiliging",
+        "description": "Mislukte inlogpogingen, de accounts en adressen erachter, en geblokkeerde accounts.",
+        "tiles": {
+          "failed24h": "Mislukte inlogpogingen, 24 uur",
+          "failed7d": "Mislukte inlogpogingen, 7 dagen",
+          "banned": "Geblokkeerde accounts"
+        },
+        "chart": {
+          "failed": "Mislukte inlogpogingen"
+        },
+        "perDay": {
+          "title": "Mislukte inlogpogingen per dag",
+          "description": "Verkeerd wachtwoord of onbekend account, afgelopen 30 dagen ({total, number} in totaal). Bijgehouden vanaf 6 oktober 2026."
+        },
+        "noFailures": "Geen mislukte inlogpogingen in de afgelopen 7 dagen.",
+        "attempts": "Pogingen",
+        "topAccounts": {
+          "title": "Meest aangevallen accounts, 7 dagen",
+          "description": "Het geprobeerde e-mailadres of de gebruikersnaam, ongeacht of het account bestaat.",
+          "identifier": "E-mailadres of gebruikersnaam",
+          "last": "Laatste"
+        },
+        "topIps": {
+          "title": "Actiefste IP-adressen, 7 dagen",
+          "description": "Eén adres dat veel accounts probeert, wijst meestal op credential stuffing.",
+          "ip": "IP-adres",
+          "accounts": "Geprobeerde accounts"
+        },
+        "banned": {
+          "title": "Geblokkeerde accounts",
+          "empty": "Geen geblokkeerde accounts.",
+          "noReason": "Geen reden opgegeven",
+          "until": "tot {date}",
+          "permanent": "permanent"
+        }
       },
       "signingKeys": {
         "title": "Ondertekeningssleutels",
@@ -380,88 +1812,236 @@
           "save": "Kan de instellingen niet opslaan.",
           "rotate": "Kan de sleutel niet roteren."
         }
+      },
+      "organizations": {
+        "controls": {
+          "unexpectedError": "Er is iets misgegaan.",
+          "organizationUpdated": "Organisatie bijgewerkt",
+          "slug": "Slug",
+          "role": "Rol",
+          "roleUpdated": "Rol bijgewerkt",
+          "roles": {
+            "owner": "eigenaar",
+            "admin": "beheerder",
+            "member": "lid"
+          },
+          "removeMemberLabel": "{email} verwijderen",
+          "removeMemberTitle": "{email} verwijderen?",
+          "removeMemberBody": "Diegene verliest de toegang tot deze organisatie. Het account blijft bestaan.",
+          "memberRemoved": "Lid verwijderd",
+          "cancelInvitationLabel": "Uitnodiging voor {email} annuleren",
+          "cancelInvitationTitle": "De uitnodiging voor {email} annuleren?",
+          "cancelInvitationBody": "De link in de e-mail werkt niet meer.",
+          "cancelInvitation": "Uitnodiging annuleren",
+          "invitationCancelled": "Uitnodiging geannuleerd",
+          "invitationSent": "Uitnodiging verstuurd",
+          "inviteByEmail": "Uitnodigen via e-mail",
+          "sendInvitation": "Uitnodiging versturen"
+        },
+        "scim": {
+          "unexpectedError": "Er is iets misgegaan.",
+          "tokenRevoked": "Token ingetrokken",
+          "baseUrl": "Basis-URL",
+          "copyBaseUrl": "Basis-URL kopiëren",
+          "token": "Token",
+          "copyToken": "Token kopiëren",
+          "active": "Actief",
+          "expires": "Verloopt",
+          "lastUsed": "Laatst gebruikt",
+          "noToken": "Geen actief token. De identiteitsprovider kan pas accounts inrichten als je er een genereert.",
+          "newToken": "Nieuw token",
+          "revoke": "Intrekken",
+          "generateToken": "Token genereren",
+          "rotateTitle": "Het SCIM-token vervangen?",
+          "revokeTitle": "Het SCIM-token intrekken?",
+          "rotateBody": "Het huidige token werkt vanaf nu niet meer. Plak het nieuwe in je identiteitsprovider om accounts te blijven inrichten.",
+          "revokeBody": "Je identiteitsprovider kan geen accounts meer aanmaken, bijwerken of deactiveren. Bestaande accounts worden niet gewijzigd.",
+          "replaceToken": "Token vervangen",
+          "revokeToken": "Token intrekken",
+          "issuedTitle": "SCIM-token",
+          "issuedDescription": "Kopieer het nu: het wordt niet opnieuw getoond. Het verloopt over een jaar.",
+          "tokenHint": "Plak het als bearer-token (Okta: API token, Entra ID: secret token)."
+        },
+        "detail": {
+          "back": "Organisaties",
+          "defaultWorkspace": "Standaardwerkruimte",
+          "createdAt": "Aangemaakt op {date}",
+          "members": "Leden",
+          "publicMembers": "Elk account hoort bij de werkruimte Public, dus leden kunnen hier niet worden verwijderd. De eerste 50 worden getoond.",
+          "memberCount": "{count, plural, one {# lid} other {# leden}}.",
+          "noMembers": "Nog geen leden.",
+          "member": "Lid",
+          "joined": "Lid sinds",
+          "role": "Rol",
+          "deactivated": "Gedeactiveerd",
+          "banned": "Geblokkeerd",
+          "invitationExpires": "verloopt op {date}",
+          "noInvitations": "Geen openstaande uitnodigingen.",
+          "apiKeys": "API-sleutels",
+          "apiKeysDescription": "Sleutels van deze organisatie, aangemaakt door haar eigenaren en beheerders in hun accountdashboard. Ze blijven werken als het lid dat ze heeft gemaakt vertrekt, en worden samen met de organisatie verwijderd.",
+          "details": "Details",
+          "sso": "Single sign-on",
+          "ssoDescription": "Identiteitsproviders die aan deze organisatie zijn gekoppeld.",
+          "ssoNone": "Geen. <link>Stel er een in</link>.",
+          "verified": "Geverifieerd",
+          "unverified": "Niet geverifieerd",
+          "scim": "SCIM-inrichting",
+          "scimDescription": "Je identiteitsprovider (Okta, Entra ID en andere) maakt de accounts van deze organisatie aan en deactiveert ze wanneer mensen vertrekken.",
+          "scimCounts": "{active} ingericht, {inactive} gedeactiveerd.",
+          "recentActions": "Recente beheeracties",
+          "noActions": "Nog geen.",
+          "system": "systeem"
+        },
+        "errors": {
+          "invalidNameSlug": "Voer een naam in en een slug van letters, cijfers en streepjes.",
+          "publicSlug": "De werkruimte Public houdt de slug \"public\".",
+          "slugTaken": "Die slug wordt al door een andere organisatie gebruikt.",
+          "unknownRole": "Onbekende rol.",
+          "memberNotFound": "Lid niet gevonden.",
+          "publicMembers": "Elk account hoort bij de werkruimte Public.",
+          "invalidEmail": "Voer een geldig e-mailadres in.",
+          "noInvitations": "Deze organisatie accepteert geen uitnodigingen.",
+          "alreadyMember": "Deze persoon is al lid.",
+          "invitationNotFound": "Uitnodiging niet gevonden.",
+          "requestFailed": "Verzoek mislukt.",
+          "scimUnavailable": "Deze organisatie kan geen SCIM-inrichting gebruiken.",
+          "noActiveToken": "Er is geen actief token."
+        }
+      }
+    },
+    "common": {
+      "cancel": "Annuleren",
+      "save": "Opslaan",
+      "saving": "Opslaan…",
+      "saveChanges": "Wijzigingen opslaan",
+      "delete": "Verwijderen",
+      "deleting": "Verwijderen…",
+      "edit": "Bewerken",
+      "remove": "Verwijderen",
+      "close": "Sluiten",
+      "copied": "Gekopieerd",
+      "enabled": "Ingeschakeld",
+      "disabled": "Uitgeschakeld",
+      "enable": "Inschakelen",
+      "disable": "Uitschakelen",
+      "on": "Aan",
+      "off": "Uit",
+      "yes": "Ja",
+      "no": "Nee",
+      "never": "Nooit",
+      "none": "Geen",
+      "actions": "Acties",
+      "created": "Aangemaakt",
+      "name": "Naam",
+      "description": "Beschrijving",
+      "status": "Status",
+      "back": "Terug",
+      "done": "Klaar",
+      "loading": "Laden…",
+      "refresh": "Vernieuwen",
+      "search": "Zoeken",
+      "optional": "Optioneel",
+      "unexpectedError": "Er is iets misgegaan. Probeer het opnieuw."
+    },
+    "urlCheck": {
+      "tooLong": "De URL is te lang.",
+      "notAbsolute": "Voer een absolute URL in, bijv. https://app.example.com/webhooks.",
+      "credentials": "De URL mag geen gebruikersnaam of wachtwoord bevatten.",
+      "fragment": "De URL mag geen fragment (#) bevatten.",
+      "notHttps": "De URL moet https:// gebruiken.",
+      "localhost": "De URL verwijst naar deze machine (localhost).",
+      "nonPublic": "De URL verwijst naar {kind, select, loopback {een loopback-adres} private {een privéadres} linkLocal {een link-local adres} cloudMetadata {een cloudmetadata-adres} sharedAddressSpace {een gedeeld adres (carrier-grade NAT)} other {een niet-openbaar adres}}.",
+      "unresolved": "De host {host} kon niet worden omgezet.",
+      "noAddress": "De host {host} heeft geen adres.",
+      "resolvesNonPublic": "De host {host} wordt omgezet naar {kind, select, loopback {een loopback-adres} private {een privéadres} linkLocal {een link-local adres} cloudMetadata {een cloudmetadata-adres} sharedAddressSpace {een gedeeld adres (carrier-grade NAT)} other {een niet-openbaar adres}} ({address})."
+    },
+    "shell": {
+      "userFallbackName": "Beheerder",
+      "userMenu": {
+        "home": "Start",
+        "logOut": "Uitloggen"
       }
     }
   },
   "dashboard": {
     "title": "Account",
-    "description": "Manage your profile, organizations, passkeys, sessions, and connected applications.",
-    "navAria": "Account navigation",
+    "description": "Beheer je profiel, organisaties, passkeys, sessies en verbonden applicaties.",
+    "navAria": "Accountnavigatie",
     "nav": {
-      "overview": "Overview",
-      "profile": "Profile",
-      "organizations": "Organizations",
-      "security": "Security",
-      "apps": "Connected apps",
+      "overview": "Overzicht",
+      "profile": "Profiel",
+      "organizations": "Organisaties",
+      "security": "Beveiliging",
+      "apps": "Verbonden apps",
       "apiKeys": "API-sleutels",
-      "admin": "Admin",
-      "marketingHome": "About",
-      "signOut": "Sign out",
+      "admin": "Beheer",
+      "marketingHome": "Over",
+      "signOut": "Uitloggen",
       "data": "Je gegevens"
     },
     "profile": {
-      "title": "Profile",
-      "description": "Your display name, username, and email status for this account.",
-      "nameLabel": "Display name",
-      "usernameLabel": "Username",
-      "usernameHint": "3-30 characters: letters, numbers, dots, and underscores. Used to sign in instead of email.",
-      "usernameChecking": "Checking availability…",
-      "usernameAvailable": "This username is available.",
-      "usernameTaken": "This username is already taken.",
-      "usernameInvalidHint": "Use only letters, numbers, dots, and underscores.",
-      "usernameTooShort": "Username must be at least 3 characters.",
-      "usernameInvalid": "That username is not valid.",
-      "save": "Save",
-      "saving": "Saving…",
-      "saved": "Profile updated",
-      "saveError": "Could not update profile.",
-      "emailLabel": "Email",
-      "verified": "Verified",
-      "unverified": "Not verified",
-      "unverifiedHint": "Verify your email to protect your account and meet sign-in requirements.",
-      "resendVerification": "Resend verification email",
-      "verificationSent": "Check your inbox for the verification link.",
-      "verificationError": "Could not send verification email.",
-      "changeEmail": "Change",
-      "newEmailLabel": "New email address",
-      "changeEmailHintVerified": "We'll email your current address to approve the change, then send a verification link to the new one. Your email stays the same until both are done.",
-      "changeEmailSubmit": "Send confirmation",
-      "changingEmail": "Sending…",
-      "cancel": "Cancel",
-      "changeEmailSame": "Enter a different email address.",
-      "changeEmailError": "Could not start the email change.",
-      "changeEmailSentToCurrent": "Check {current} to approve the change to {next}. After that, verify {next} from the link we send there.",
-      "changeEmailNeedsVerified": "You can change it once it is verified."
+      "title": "Profiel",
+      "description": "Je weergavenaam, gebruikersnaam en de status van je e-mailadres voor dit account.",
+      "nameLabel": "Weergavenaam",
+      "usernameLabel": "Gebruikersnaam",
+      "usernameHint": "3-30 tekens: letters, cijfers, punten en underscores. Hiermee kun je inloggen in plaats van met je e-mailadres.",
+      "usernameChecking": "Beschikbaarheid controleren…",
+      "usernameAvailable": "Deze gebruikersnaam is beschikbaar.",
+      "usernameTaken": "Deze gebruikersnaam is al in gebruik.",
+      "usernameInvalidHint": "Gebruik alleen letters, cijfers, punten en underscores.",
+      "usernameTooShort": "Gebruikersnaam moet minimaal 3 tekens lang zijn.",
+      "usernameInvalid": "Die gebruikersnaam is niet geldig.",
+      "save": "Opslaan",
+      "saving": "Opslaan…",
+      "saved": "Profiel bijgewerkt",
+      "saveError": "Het profiel kon niet worden bijgewerkt.",
+      "emailLabel": "E-mail",
+      "verified": "Geverifieerd",
+      "unverified": "Niet geverifieerd",
+      "unverifiedHint": "Verifieer je e-mailadres om je account te beschermen en aan de inlogvereisten te voldoen.",
+      "resendVerification": "Verificatie-e-mail opnieuw versturen",
+      "verificationSent": "Controleer je inbox voor de verificatielink.",
+      "verificationError": "De verificatie-e-mail kon niet worden verstuurd.",
+      "changeEmail": "Wijzigen",
+      "newEmailLabel": "Nieuw e-mailadres",
+      "changeEmailHintVerified": "We sturen een e-mail naar je huidige adres om de wijziging goed te keuren en daarna een verificatielink naar het nieuwe adres. Je e-mailadres blijft hetzelfde totdat beide stappen zijn voltooid.",
+      "changeEmailSubmit": "Bevestiging versturen",
+      "changingEmail": "Versturen…",
+      "cancel": "Annuleren",
+      "changeEmailSame": "Voer een ander e-mailadres in.",
+      "changeEmailError": "De wijziging van je e-mailadres kon niet worden gestart.",
+      "changeEmailSentToCurrent": "Controleer {current} om de wijziging naar {next} goed te keuren. Verifieer daarna {next} via de link die we daarheen sturen.",
+      "changeEmailNeedsVerified": "Je kunt het wijzigen zodra het is geverifieerd."
     },
     "passkeys": {
       "title": "Passkeys",
-      "hint": "Use a passkey for phishing-resistant sign-in. Add one on this device or with a security key.",
-      "addThisDevice": "Add passkey (this device)",
-      "addSecurityKey": "Add passkey (security key)",
-      "defaultName": "My passkey",
-      "empty": "No passkeys yet. Add one to sign in without typing your password.",
-      "name": "Name",
-      "unnamed": "Unnamed passkey",
-      "deviceType": "Device type",
-      "created": "Added",
-      "actions": "Actions",
-      "rename": "Rename",
-      "delete": "Remove",
-      "save": "Save",
-      "cancel": "Cancel",
-      "loadError": "Could not load passkeys.",
-      "addError": "Could not add passkey.",
-      "deleteError": "Could not remove passkey.",
-      "updateError": "Could not update passkey.",
-      "added": "Passkey added",
-      "deleted": "Passkey removed",
-      "updated": "Passkey updated",
-      "nameRequired": "Enter a name for this passkey.",
-      "none": "None",
-      "confirmRemoveTitle": "Remove this passkey?",
-      "confirmRemoveBody": "You won’t be able to sign in with this passkey anymore. You can add a new one at any time.",
-      "signInAgainToAdd": "For your security, adding a passkey needs a recent sign-in. Sign in again, then add it.",
-      "signInAgain": "Sign in again"
+      "hint": "Gebruik een passkey om phishingbestendig in te loggen. Voeg er een toe op dit apparaat of met een beveiligingssleutel.",
+      "addThisDevice": "Passkey toevoegen (dit apparaat)",
+      "addSecurityKey": "Passkey toevoegen (beveiligingssleutel)",
+      "defaultName": "Mijn passkey",
+      "empty": "Nog geen passkeys. Voeg er een toe om in te loggen zonder je wachtwoord te typen.",
+      "name": "Naam",
+      "unnamed": "Naamloze passkey",
+      "deviceType": "Apparaattype",
+      "created": "Toegevoegd",
+      "actions": "Acties",
+      "rename": "Naam wijzigen",
+      "delete": "Verwijderen",
+      "save": "Opslaan",
+      "cancel": "Annuleren",
+      "loadError": "De passkeys konden niet worden geladen.",
+      "addError": "De passkey kon niet worden toegevoegd.",
+      "deleteError": "De passkey kon niet worden verwijderd.",
+      "updateError": "De passkey kon niet worden bijgewerkt.",
+      "added": "Passkey toegevoegd",
+      "deleted": "Passkey verwijderd",
+      "updated": "Passkey bijgewerkt",
+      "nameRequired": "Voer een naam in voor deze passkey.",
+      "none": "Geen",
+      "confirmRemoveTitle": "Deze passkey verwijderen?",
+      "confirmRemoveBody": "Je kunt dan niet meer inloggen met deze passkey. Je kunt op elk moment een nieuwe toevoegen.",
+      "signInAgainToAdd": "Voor je veiligheid is voor het toevoegen van een passkey een recente aanmelding nodig. Log opnieuw in en voeg hem daarna toe.",
+      "signInAgain": "Opnieuw inloggen"
     },
     "twoFactor": {
       "title": "Tweestapsverificatie",
@@ -509,45 +2089,45 @@
       }
     },
     "organizations": {
-      "title": "Organizations",
-      "description": "Teams and partner organizations you belong to. Switch between them and invite members. Platform administrators create new organizations.",
-      "yourOrganizations": "Your organizations",
-      "empty": "No organizations loaded.",
-      "active": "Active",
-      "switchTo": "Set active",
-      "setActiveError": "Could not switch organization.",
-      "setActiveSuccess": "Active organization updated.",
-      "createTitle": "Create an organization",
-      "createHint": "Use a unique URL slug (e.g. acme-corp). The reserved slug “public” is not available.",
-      "orgName": "Organization name",
+      "title": "Organisaties",
+      "description": "Teams en partnerorganisaties waar je lid van bent. Wissel tussen ze en nodig leden uit. Platformbeheerders maken nieuwe organisaties aan.",
+      "yourOrganizations": "Je organisaties",
+      "empty": "Geen organisaties geladen.",
+      "active": "Actief",
+      "switchTo": "Actief maken",
+      "setActiveError": "Wisselen van organisatie is mislukt.",
+      "setActiveSuccess": "Actieve organisatie bijgewerkt.",
+      "createTitle": "Een organisatie aanmaken",
+      "createHint": "Gebruik een unieke URL-slug (bijv. acme-corp). De gereserveerde slug “public” is niet beschikbaar.",
+      "orgName": "Naam van de organisatie",
       "orgSlug": "Slug",
-      "create": "Create organization",
-      "creating": "Creating…",
-      "createSuccess": "Organization created",
-      "createError": "Could not create organization.",
-      "createValidation": "Enter a name and slug.",
-      "reservedSlug": "This slug is reserved.",
-      "slugTaken": "That slug is already in use.",
-      "loadError": "Could not load organizations.",
-      "inviteTitle": "Invite a member",
-      "inviteHint": "Sends an email with a link to accept the invitation. Available when your role in the active organization is owner or admin.",
-      "inviteEmail": "Email",
-      "inviteRole": "Role",
-      "roleMember": "Member",
-      "roleAdmin": "Admin",
-      "inviteSend": "Send invitation",
-      "inviting": "Sending…",
-      "inviteSuccess": "Invitation sent",
-      "inviteError": "Could not send invitation.",
-      "inviteValidation": "Enter an email address.",
-      "allOrganizations": "All organizations",
-      "memberCount": "{count, plural, one {# member} other {# members}}",
-      "delete": "Delete",
-      "cancel": "Cancel",
-      "deleted": "Organization deleted",
-      "deleteError": "Could not delete the organization.",
-      "confirmDeleteTitle": "Delete {name}?",
-      "confirmDeleteBody": "This removes the organization, its {count, plural, one {# membership} other {# memberships}} and pending invitations. Member accounts stay. This cannot be undone.",
+      "create": "Organisatie aanmaken",
+      "creating": "Aanmaken…",
+      "createSuccess": "Organisatie aangemaakt",
+      "createError": "De organisatie kon niet worden aangemaakt.",
+      "createValidation": "Voer een naam en een slug in.",
+      "reservedSlug": "Deze slug is gereserveerd.",
+      "slugTaken": "Die slug is al in gebruik.",
+      "loadError": "De organisaties konden niet worden geladen.",
+      "inviteTitle": "Een lid uitnodigen",
+      "inviteHint": "Stuurt een e-mail met een link om de uitnodiging te accepteren. Beschikbaar als je in de actieve organisatie eigenaar of beheerder bent.",
+      "inviteEmail": "E-mail",
+      "inviteRole": "Rol",
+      "roleMember": "Lid",
+      "roleAdmin": "Beheerder",
+      "inviteSend": "Uitnodiging versturen",
+      "inviting": "Versturen…",
+      "inviteSuccess": "Uitnodiging verstuurd",
+      "inviteError": "De uitnodiging kon niet worden verstuurd.",
+      "inviteValidation": "Voer een e-mailadres in.",
+      "allOrganizations": "Alle organisaties",
+      "memberCount": "{count, plural, one {# lid} other {# leden}}",
+      "delete": "Verwijderen",
+      "cancel": "Annuleren",
+      "deleted": "Organisatie verwijderd",
+      "deleteError": "De organisatie kon niet worden verwijderd.",
+      "confirmDeleteTitle": "{name} verwijderen?",
+      "confirmDeleteBody": "Hiermee worden de organisatie, {count, plural, one {# lidmaatschap} other {# lidmaatschappen}} en openstaande uitnodigingen verwijderd. De accounts van de leden blijven bestaan. Dit kan niet ongedaan worden gemaakt.",
       "apiKeys": {
         "show": "API-sleutels",
         "hide": "API-sleutels verbergen",
@@ -559,41 +2139,43 @@
       }
     },
     "security": {
-      "title": "Security",
-      "description": "Update your password, manage passkeys, and review where you are signed in.",
-      "passwordHeading": "Password",
-      "passwordHint": "Use at least {min} characters. Choose a password you don’t use elsewhere.",
-      "currentPassword": "Current password",
-      "newPassword": "New password",
-      "confirmNewPassword": "Confirm new password",
-      "changePassword": "Update password",
-      "changing": "Updating…",
-      "passwordChanged": "Password updated",
-      "passwordError": "Could not change password.",
-      "passwordTooShort": "The new password must be at least {min} characters.",
-      "passwordMismatch": "New passwords do not match.",
-      "sameAsCurrent": "Choose a different password from your current one.",
-      "invalidCurrentPassword": "Current password is incorrect.",
-      "compromisedPassword": "This new password appears in known data breaches. Choose a different one.",
-      "revokeOthersAfterChange": "Sign out my other devices when the password changes",
-      "revokeOthersAfterChangeHint": "Recommended if you think someone else may know your old password.",
-      "sessionsTitle": "Active sessions",
-      "sessionsHint": "Revoke sessions you do not recognize. Revoking this device will sign you out.",
-      "sessionsLoadError": "Could not load sessions.",
-      "revoke": "Revoke",
-      "revokeOthers": "Sign out other sessions",
-      "revokeError": "Something went wrong.",
-      "sessionRevoked": "Session revoked",
-      "othersRevoked": "Other sessions signed out",
-      "currentSession": "This device",
-      "unknownDevice": "Unknown device",
-      "noSessions": "No sessions found.",
-      "device": "Device",
-      "network": "IP address",
-      "actions": "Actions",
-      "started": "Started",
-      "expires": "Expires",
-      "none": "None"
+      "title": "Beveiliging",
+      "description": "Wijzig je wachtwoord, beheer passkeys en bekijk waar je bent ingelogd.",
+      "passwordHeading": "Wachtwoord",
+      "passwordHint": "Gebruik minimaal {min} tekens. Kies een wachtwoord dat je nergens anders gebruikt.",
+      "currentPassword": "Huidig wachtwoord",
+      "newPassword": "Nieuw wachtwoord",
+      "confirmNewPassword": "Nieuw wachtwoord bevestigen",
+      "changePassword": "Wachtwoord bijwerken",
+      "changing": "Bijwerken…",
+      "passwordChanged": "Wachtwoord bijgewerkt",
+      "passwordError": "Het wachtwoord kon niet worden gewijzigd.",
+      "passwordTooShort": "Het nieuwe wachtwoord moet minimaal {min} tekens lang zijn.",
+      "passwordMismatch": "De nieuwe wachtwoorden komen niet overeen.",
+      "sameAsCurrent": "Kies een ander wachtwoord dan je huidige.",
+      "invalidCurrentPassword": "Het huidige wachtwoord is onjuist.",
+      "compromisedPassword": "Dit nieuwe wachtwoord komt voor in bekende datalekken. Kies een ander wachtwoord.",
+      "revokeOthersAfterChange": "Mijn andere apparaten uitloggen wanneer het wachtwoord wijzigt",
+      "revokeOthersAfterChangeHint": "Aanbevolen als je denkt dat iemand anders je oude wachtwoord kent.",
+      "sessionsTitle": "Actieve sessies",
+      "sessionsHint": "Trek sessies in die je niet herkent. Als je dit apparaat intrekt, word je uitgelogd.",
+      "sessionsLoadError": "De sessies konden niet worden geladen.",
+      "revoke": "Intrekken",
+      "revokeOthers": "Andere sessies uitloggen",
+      "revokeError": "Er is iets misgegaan.",
+      "sessionRevoked": "Sessie ingetrokken",
+      "othersRevoked": "Andere sessies uitgelogd",
+      "currentSession": "Dit apparaat",
+      "unknownDevice": "Onbekend apparaat",
+      "noSessions": "Geen sessies gevonden.",
+      "device": "Apparaat",
+      "network": "IP-adres",
+      "actions": "Acties",
+      "started": "Gestart",
+      "expires": "Verloopt",
+      "none": "Geen",
+      "startedAt": "Gestart: {date}",
+      "expiresAt": "Verloopt: {date}"
     },
     "apps": {
       "title": "Verbonden applicaties",
@@ -669,22 +2251,22 @@
       "createdBy": "gemaakt door {name}",
       "createdByDeleted": "account van maker verwijderd"
     },
-    "accountMenu": "Account menu",
+    "accountMenu": "Accountmenu",
     "connectedAccounts": {
-      "title": "Connected accounts",
-      "hint": "Sign in with these accounts as well as your password or passkeys.",
-      "connected": "Connected",
-      "notConnected": "Not connected",
-      "connect": "Connect",
-      "disconnect": "Disconnect",
-      "disconnected": "{provider} disconnected",
-      "cancel": "Cancel",
-      "confirmTitle": "Disconnect {provider}?",
-      "confirmBody": "You won't be able to sign in with this account anymore. You can connect it again later.",
-      "lastMethod": "This is your only way to sign in. Add a password or passkey first.",
-      "error": "Something went wrong. Try again.",
-      "signInAgainToChange": "For your security, connecting an account needs a recent sign-in. Sign in again, then connect it.",
-      "signInAgain": "Sign in again"
+      "title": "Gekoppelde accounts",
+      "hint": "Log in met deze accounts, naast je wachtwoord of passkeys.",
+      "connected": "Gekoppeld",
+      "notConnected": "Niet gekoppeld",
+      "connect": "Koppelen",
+      "disconnect": "Ontkoppelen",
+      "disconnected": "{provider} ontkoppeld",
+      "cancel": "Annuleren",
+      "confirmTitle": "{provider} ontkoppelen?",
+      "confirmBody": "Je kunt dan niet meer inloggen met dit account. Je kunt het later opnieuw koppelen.",
+      "lastMethod": "Dit is je enige manier om in te loggen. Voeg eerst een wachtwoord of passkey toe.",
+      "error": "Er is iets misgegaan. Probeer het opnieuw.",
+      "signInAgainToChange": "Voor je veiligheid is voor het koppelen van een account een recente aanmelding nodig. Log opnieuw in en koppel het daarna.",
+      "signInAgain": "Opnieuw inloggen"
     },
     "accounts": {
       "switchTo": "Overschakelen naar",
@@ -752,26 +2334,30 @@
         "impersonating": "Een account kan niet worden verwijderd terwijl een beheerder het bekijkt.",
         "failed": "Het verwijderen kon niet worden gestart. Probeer het opnieuw."
       }
+    },
+    "impersonation": {
+      "viewingAs": "Je bekijkt dit account als <strong>{email}</strong>.",
+      "stop": "Stoppen met meekijken"
     }
   },
   "acceptInvitation": {
-    "loading": "Checking session…",
-    "needSignInTitle": "Sign in to continue",
-    "needSignInDescription": "You need to be signed in with the invited email address before accepting this invitation.",
-    "signIn": "Sign in",
-    "title": "Accept invitation",
-    "description": "Join the organization that invited you.",
-    "signedInAs": "Signed in as {email}.",
-    "accept": "Accept invitation",
-    "accepting": "Accepting…",
-    "success": "You have joined the organization.",
-    "successTitle": "Welcome",
-    "successDescription": "Redirecting to your dashboard…",
-    "error": "Could not accept the invitation."
+    "loading": "Sessie controleren…",
+    "needSignInTitle": "Log in om door te gaan",
+    "needSignInDescription": "Je moet zijn ingelogd met het uitgenodigde e-mailadres voordat je deze uitnodiging kunt accepteren.",
+    "signIn": "Inloggen",
+    "title": "Uitnodiging accepteren",
+    "description": "Word lid van de organisatie die je heeft uitgenodigd.",
+    "signedInAs": "Ingelogd als {email}.",
+    "accept": "Uitnodiging accepteren",
+    "accepting": "Accepteren…",
+    "success": "Je bent lid geworden van de organisatie.",
+    "successTitle": "Welkom",
+    "successDescription": "Je wordt doorgestuurd naar je dashboard…",
+    "error": "De uitnodiging kon niet worden geaccepteerd."
   },
   "common": {
-    "loading": "Loading…",
-    "language": "Language",
+    "loading": "Laden…",
+    "language": "Taal",
     "localeNames": {
       "en": "Engels",
       "fr": "Frans",
@@ -793,12 +2379,20 @@
       "no": "Noors",
       "fi": "Fins",
       "cs": "Tsjechisch"
+    },
+    "ui": {
+      "close": "Sluiten",
+      "sidebar": "Zijbalk",
+      "sidebarDescription": "Toont de mobiele zijbalk.",
+      "toggleSidebar": "Zijbalk tonen/verbergen",
+      "breadcrumb": "kruimelpad",
+      "more": "Meer"
     }
   },
   "errors": {
-    "boundaryTitle": "Something went wrong",
-    "boundaryDescription": "An error occurred while loading this page.",
-    "retry": "Try again"
+    "boundaryTitle": "Er is iets misgegaan",
+    "boundaryDescription": "Er is een fout opgetreden bij het laden van deze pagina.",
+    "retry": "Opnieuw proberen"
   },
   "rateLimit": {
     "seconds": "Te veel pogingen. Probeer het over {seconds, plural, one {# seconde} other {# seconden}} opnieuw.",
@@ -807,93 +2401,155 @@
   },
   "sso": {
     "title": "Single sign-on",
-    "description": "Connect your organization's identity provider (OIDC or SAML 2.0) so members can sign in with their work account.",
-    "registerTitle": "Register a provider",
-    "registerDescription": "Your identity provider must redirect back to the callback URL shown below.",
-    "providerId": "Provider ID",
-    "providerIdHint": "A short identifier, e.g. acme-okta.",
-    "issuer": "Issuer URL",
-    "domain": "Email domain",
-    "domainHint": "Users with this email domain are sent to this provider.",
-    "clientId": "Client ID",
-    "clientSecret": "Client secret",
-    "organization": "Organization (optional)",
-    "register": "Register provider",
-    "registering": "Registering…",
-    "registered": "SSO provider registered",
-    "registerError": "Could not register the provider.",
-    "callbackTitle": "Callback URL to configure in your identity provider",
-    "providersTitle": "Configured providers",
-    "providersEmpty": "No SSO provider configured yet.",
-    "loadError": "Could not load SSO providers.",
-    "signInTitle": "Sign in with SSO",
-    "signInDescription": "Enter your work email. We'll redirect you to your organization's identity provider.",
-    "signInEmail": "Work email",
-    "signInSubmit": "Continue",
-    "signInError": "Could not start single sign-on for this address.",
-    "signInLink": "Sign in with SSO",
-    "signInFailed": "Single sign-on did not complete. Try again, or ask your administrator to check the identity provider settings.",
+    "description": "Verbind de identiteitsprovider van je organisatie (OIDC of SAML 2.0) zodat leden kunnen inloggen met hun werkaccount.",
+    "registerTitle": "Een provider registreren",
+    "registerDescription": "Je identiteitsprovider moet terugverwijzen naar de callback-URL hieronder.",
+    "providerId": "Provider-ID",
+    "providerIdHint": "Een korte identificatie, bijv. acme-okta.",
+    "issuer": "Issuer-URL",
+    "domain": "E-maildomein",
+    "domainHint": "Gebruikers met dit e-maildomein worden naar deze provider gestuurd.",
+    "clientId": "Client-ID",
+    "clientSecret": "Clientgeheim",
+    "organization": "Organisatie (optioneel)",
+    "register": "Provider registreren",
+    "registering": "Registreren…",
+    "registered": "SSO-provider geregistreerd",
+    "registerError": "De provider kon niet worden geregistreerd.",
+    "callbackTitle": "Callback-URL om in je identiteitsprovider in te stellen",
+    "providersTitle": "Ingestelde providers",
+    "providersEmpty": "Nog geen SSO-provider ingesteld.",
+    "loadError": "De SSO-providers konden niet worden geladen.",
+    "signInTitle": "Inloggen met SSO",
+    "signInDescription": "Voer je werk-e-mailadres in. We sturen je door naar de identiteitsprovider van je organisatie.",
+    "signInEmail": "Werk-e-mailadres",
+    "signInSubmit": "Doorgaan",
+    "signInError": "Single sign-on kon niet worden gestart voor dit adres.",
+    "signInLink": "Inloggen met SSO",
+    "signInFailed": "Single sign-on is niet voltooid. Probeer het opnieuw of vraag je beheerder de instellingen van de identiteitsprovider te controleren.",
     "saml": {
       "protocol": "Protocol",
-      "registerDescription": "The identity provider posts signed SAML assertions to the ACS URL below. Sign-in starts from Ostiary (SP-initiated).",
-      "idpSource": "Identity provider configuration",
-      "sourceUrl": "Metadata URL",
-      "sourceXml": "Paste metadata XML",
-      "sourceManual": "Enter manually",
-      "metadataUrl": "IdP metadata URL",
-      "metadataUrlHint": "The server fetches it once when you save. After a certificate rotation, fetch it again from Edit.",
-      "metadataXml": "IdP metadata XML",
-      "metadataXmlHint": "The EntityDescriptor your identity provider exports.",
-      "idpEntityId": "IdP entity ID (issuer)",
-      "ssoUrl": "IdP single sign-on URL",
-      "ssoUrlHint": "The URL for the HTTP-Redirect binding.",
-      "certificate": "IdP signing certificate",
-      "certificateHint": "PEM (-----BEGIN CERTIFICATE-----) or its base64 body.",
-      "mappingTitle": "Attribute mapping",
-      "mappingPreset": "Preset",
+      "registerDescription": "De identiteitsprovider post ondertekende SAML-assertions naar de ACS-URL hieronder. Het inloggen start vanuit Ostiary (SP-initiated).",
+      "idpSource": "Configuratie van de identiteitsprovider",
+      "sourceUrl": "Metadata-URL",
+      "sourceXml": "Metadata-XML plakken",
+      "sourceManual": "Handmatig invoeren",
+      "metadataUrl": "Metadata-URL van de IdP",
+      "metadataUrlHint": "De server haalt deze één keer op wanneer je opslaat. Haal hem na een certificaatrotatie opnieuw op via Bewerken.",
+      "metadataXml": "Metadata-XML van de IdP",
+      "metadataXmlHint": "De EntityDescriptor die je identiteitsprovider exporteert.",
+      "idpEntityId": "Entity-ID van de IdP (issuer)",
+      "ssoUrl": "Single sign-on-URL van de IdP",
+      "ssoUrlHint": "De URL voor de HTTP-Redirect-binding.",
+      "certificate": "Ondertekeningscertificaat van de IdP",
+      "certificateHint": "PEM (-----BEGIN CERTIFICATE-----) of de base64-inhoud ervan.",
+      "mappingTitle": "Attribuuttoewijzing",
+      "mappingPreset": "Voorinstelling",
       "preset_okta": "Okta",
       "preset_entra": "Microsoft Entra ID",
       "preset_google": "Google Workspace",
       "preset_jumpcloud": "JumpCloud",
-      "preset_custom": "Custom",
-      "attrEmail": "Email attribute",
-      "attrName": "Display name attribute",
-      "attrFirstName": "First name attribute",
-      "attrLastName": "Last name attribute",
-      "mappingHint": "First and last name are used when the identity provider sends them, otherwise the display name. The user ID is the assertion's NameID: configure a persistent identifier.",
-      "wantAssertionsSigned": "Require signed assertions",
-      "wantAssertionsSignedHint": "Recommended. When off, the whole response must still be signed: unsigned responses are always refused.",
-      "requestSigningNote": "Ostiary does not sign authentication requests: leave request signing off in the identity provider.",
-      "spTitle": "Values to enter in your identity provider",
-      "acsUrl": "ACS URL (single sign-on URL, reply URL)",
-      "spEntityId": "SP entity ID (audience URI, identifier)",
-      "spMetadataUrl": "SP metadata URL",
-      "copy": "Copy",
-      "copied": "Copied",
-      "setupTitle": "Setup notes",
-      "oktaStep1": "In the Okta admin console: Applications, Create App Integration, SAML 2.0.",
-      "oktaStep2": "Single sign-on URL: the ACS URL. Audience URI (SP Entity ID): the SP entity ID. Name ID format: Persistent. Application username: Email.",
-      "oktaStep3": "Attribute statements: email = user.email, firstName = user.firstName, lastName = user.lastName (the Okta preset).",
-      "oktaStep4": "Assign people, then copy the metadata URL from the Sign On tab into Ostiary.",
-      "entraStep1": "In Microsoft Entra ID: Enterprise applications, New application, Create your own application (non-gallery), then Single sign-on, SAML.",
-      "entraStep2": "Basic SAML configuration: Identifier (Entity ID) = the SP entity ID, Reply URL = the ACS URL.",
-      "entraStep3": "Keep the default claims (the Entra ID preset). The default signing option, Sign SAML assertion, works.",
-      "entraStep4": "Assign users and groups, then copy the App Federation Metadata URL into Ostiary.",
-      "spInitiatedNote": "Only sign-in started from Ostiary is supported. Point app tiles in the identity provider's portal to {url}.",
-      "spDetails": "SP details",
-      "detailsTitle": "{id}: SAML settings",
-      "detailsDescription": "Enter these values in the identity provider.",
-      "assertionsSignedOn": "Signed assertions are required.",
-      "assertionsSignedOff": "Signed responses are required (assertions may be unsigned).",
-      "certExpires": "Signing certificate valid until {date}",
-      "certExpired": "The signing certificate has expired: sign-ins will fail until the IdP metadata is updated.",
-      "editTitle": "Edit {id}",
-      "editDescription": "Changing the domain means it must be verified again. The SP entity ID and ACS URL stay the same.",
-      "replaceIdp": "Replace the identity provider configuration (new metadata or certificate)",
-      "updated": "Provider updated",
-      "save": "Save",
-      "cancel": "Cancel",
-      "close": "Close"
+      "preset_custom": "Aangepast",
+      "attrEmail": "E-mailattribuut",
+      "attrName": "Attribuut voor weergavenaam",
+      "attrFirstName": "Attribuut voor voornaam",
+      "attrLastName": "Attribuut voor achternaam",
+      "mappingHint": "Voor- en achternaam worden gebruikt als de identiteitsprovider ze meestuurt, anders de weergavenaam. De gebruikers-ID is de NameID van de assertion: stel een persistente identificatie in.",
+      "wantAssertionsSigned": "Ondertekende assertions vereisen",
+      "wantAssertionsSignedHint": "Aanbevolen. Als dit uit staat, moet de hele response nog steeds ondertekend zijn: niet-ondertekende responses worden altijd geweigerd.",
+      "requestSigningNote": "Ostiary ondertekent geen authenticatieverzoeken: laat het ondertekenen van verzoeken in de identiteitsprovider uitgeschakeld.",
+      "spTitle": "Waarden om in je identiteitsprovider in te voeren",
+      "acsUrl": "ACS-URL (single sign-on-URL, reply-URL)",
+      "spEntityId": "Entity-ID van de SP (audience-URI, identifier)",
+      "spMetadataUrl": "Metadata-URL van de SP",
+      "copy": "Kopiëren",
+      "copied": "Gekopieerd",
+      "setupTitle": "Instructies voor de configuratie",
+      "oktaStep1": "In de Okta-beheerconsole: Applications, Create App Integration, SAML 2.0.",
+      "oktaStep2": "Single sign-on URL: de ACS-URL. Audience URI (SP Entity ID): de entity-ID van de SP. Name ID format: Persistent. Application username: Email.",
+      "oktaStep3": "Attribute statements: email = user.email, firstName = user.firstName, lastName = user.lastName (de Okta-voorinstelling).",
+      "oktaStep4": "Wijs mensen toe en kopieer daarna de metadata-URL van het tabblad Sign On naar Ostiary.",
+      "entraStep1": "In Microsoft Entra ID: Enterprise applications, New application, Create your own application (non-gallery), daarna Single sign-on, SAML.",
+      "entraStep2": "Basic SAML configuration: Identifier (Entity ID) = de entity-ID van de SP, Reply URL = de ACS-URL.",
+      "entraStep3": "Behoud de standaard-claims (de Entra ID-voorinstelling). De standaardoptie voor ondertekening, Sign SAML assertion, werkt.",
+      "entraStep4": "Wijs gebruikers en groepen toe en kopieer daarna de App Federation Metadata URL naar Ostiary.",
+      "spInitiatedNote": "Alleen inloggen dat vanuit Ostiary start wordt ondersteund. Laat app-tegels in het portaal van de identiteitsprovider verwijzen naar {url}.",
+      "spDetails": "SP-gegevens",
+      "detailsTitle": "{id}: SAML-instellingen",
+      "detailsDescription": "Voer deze waarden in bij de identiteitsprovider.",
+      "assertionsSignedOn": "Ondertekende assertions zijn vereist.",
+      "assertionsSignedOff": "Ondertekende responses zijn vereist (assertions mogen niet-ondertekend zijn).",
+      "certExpires": "Ondertekeningscertificaat geldig tot {date}",
+      "certExpired": "Het ondertekeningscertificaat is verlopen: inloggen mislukt totdat de metadata van de IdP is bijgewerkt.",
+      "editTitle": "{id} bewerken",
+      "editDescription": "Als je het domein wijzigt, moet het opnieuw worden geverifieerd. De entity-ID van de SP en de ACS-URL blijven hetzelfde.",
+      "replaceIdp": "De configuratie van de identiteitsprovider vervangen (nieuwe metadata of nieuw certificaat)",
+      "updated": "Provider bijgewerkt",
+      "save": "Opslaan",
+      "cancel": "Annuleren",
+      "close": "Sluiten",
+      "copyLabel": "Kopiëren: {label}",
+      "errors": {
+        "metadataEmpty": "De metadata is leeg.",
+        "metadataTooLarge": "De metadata is groter dan 100 KB.",
+        "metadataDoctype": "De metadata mag geen DOCTYPE bevatten.",
+        "metadataNotXml": "De metadata is geen goedgevormde XML.",
+        "notSamlMetadata": "Dit is geen SAML-metadata.",
+        "multipleEntities": "De metadata moet precies één identiteitsprovider beschrijven.",
+        "noEntityId": "De metadata heeft geen entityID.",
+        "noIdpDescriptor": "De metadata heeft geen identiteitsprovider (IDPSSODescriptor).",
+        "noSaml2": "De identiteitsprovider ondersteunt geen SAML 2.0.",
+        "signedRequestsRequired": "De identiteitsprovider vereist ondertekende verzoeken, die Ostiary niet verstuurt. Schakel het ondertekenen van verzoeken uit in de identiteitsprovider.",
+        "noRedirectBinding": "De metadata heeft geen SingleSignOnService met de HTTP-Redirect-binding.",
+        "metadataSsoUrlNotHttps": "De SSO-URL van de identiteitsprovider moet https:// gebruiken.",
+        "unreadableCertificate": "Een ondertekeningscertificaat in de metadata kon niet worden gelezen.",
+        "noSigningCertificate": "De metadata heeft geen ondertekeningscertificaat.",
+        "invalidMapping": "Voer de attribuutnamen voor e-mailadres en naam in (zonder spaties of aanhalingstekens).",
+        "allCertificatesExpired": "Alle ondertekeningscertificaten in de metadata zijn verlopen.",
+        "missingEntityId": "Voer de entity-ID (issuer) van de identiteitsprovider in.",
+        "ssoUrlNotHttps": "De SSO-URL moet een https://-URL zijn.",
+        "invalidCertificate": "Het ondertekeningscertificaat is geen geldig X.509-certificaat (PEM).",
+        "certificateExpired": "Het ondertekeningscertificaat is verlopen.",
+        "fetchFailed": "Kan de metadata niet ophalen: {reason}",
+        "invalidRedirect": "De metadata-URL verwijst door naar een ongeldig adres.",
+        "httpStatus": "De metadata-URL antwoordde met {status}.",
+        "tooManyRedirects": "De metadata-URL verwijst te vaak door."
+      }
+    },
+    "panel": {
+      "noOrganization": "Geen organisatie",
+      "providersDescription": "Een provider accepteert pas inlogpogingen nadat het e-maildomein ervan met een DNS-record is geverifieerd.",
+      "verified": "Geverifieerd",
+      "domainNotVerified": "Domein niet geverifieerd",
+      "verifyDomain": "Domein verifiëren",
+      "editLabel": "{id} bewerken",
+      "deleteLabel": "{id} verwijderen",
+      "verifyTitle": "{domain} verifiëren",
+      "verifyDescription": "Vraag de eigenaar van het domein om dit TXT-record aan de DNS toe te voegen en controleer het daarna hier. Inloggen via deze provider werkt zodra het domein is geverifieerd.",
+      "recordName": "Naam",
+      "recordValue": "Waarde",
+      "copyRecordName": "Naam kopiëren",
+      "copyRecordValue": "Waarde kopiëren",
+      "recordValidity": "De waarde blijft 7 dagen geldig.",
+      "domainVerified": "Domein geverifieerd",
+      "checkDns": "DNS controleren",
+      "editDescription": "Als je het domein wijzigt, moet het opnieuw worden geverifieerd. Verwijder de provider en registreer hem opnieuw om de clientgegevens te wijzigen.",
+      "organization": "Organisatie",
+      "deleteTitle": "{id} verwijderen?",
+      "deleteDescription": "Mensen met een {domain}-adres kunnen niet meer inloggen via deze provider. Hun accounts blijven bestaan en ze kunnen nog steeds een wachtwoord of passkey gebruiken.",
+      "providerDeleted": "Provider verwijderd"
+    },
+    "errors": {
+      "providerNotFound": "Provider niet gevonden.",
+      "issuerNotUrl": "De issuer moet een URL zijn.",
+      "invalidDomain": "Voer een e-maildomein in, bijv. acme.com.",
+      "organizationNotFound": "Organisatie niet gevonden.",
+      "samlIssuerLocked": "De entity-ID van de SP van een SAML-provider kan niet worden gewijzigd.",
+      "invalidProviderDomain": "Het domein van de provider is niet geldig.",
+      "txtRecordNotFound": "Het TXT-record is nog niet gevonden. Het kan een paar minuten duren voordat DNS-wijzigingen zichtbaar zijn.",
+      "envNotSet": "{name} is niet ingesteld.",
+      "invalidProviderId": "De provider-ID moet bestaan uit 2 tot 63 kleine letters, cijfers, - of _.",
+      "unreadableSamlConfig": "De opgeslagen SAML-configuratie is onleesbaar; verwijder de provider en registreer hem opnieuw."
     }
   },
   "selectAccount": {

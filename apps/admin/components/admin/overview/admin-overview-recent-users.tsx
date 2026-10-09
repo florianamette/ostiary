@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useFormatter, useTranslations } from "next-intl";
 
 import { Alert, AlertDescription, AlertTitle } from "@ostiary/core/components/ui/alert";
 import { Badge } from "@ostiary/core/components/ui/badge";
@@ -31,19 +32,14 @@ type Row = {
   createdAt?: Date | string | null;
 };
 
-function formatJoined(value: Date | string | undefined | null) {
+function formatJoined(
+  value: Date | string | undefined | null,
+  format: ReturnType<typeof useFormatter>
+) {
   if (value == null) return "-";
-  try {
-    const d = value instanceof Date ? value : new Date(value);
-    if (Number.isNaN(d.getTime())) return "-";
-    return d.toLocaleDateString(undefined, {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    });
-  } catch {
-    return "-";
-  }
+  const d = value instanceof Date ? value : new Date(value);
+  if (Number.isNaN(d.getTime())) return "-";
+  return format.dateTime(d, { year: "numeric", month: "short", day: "numeric" });
 }
 
 export function AdminOverviewRecentUsers({
@@ -51,6 +47,10 @@ export function AdminOverviewRecentUsers({
 }: {
   refreshKey: number;
 }) {
+  const t = useTranslations("admin.pages.overview.recentUsers");
+  const tu = useTranslations("admin.pages.users");
+  const tc = useTranslations("admin.common");
+  const format = useFormatter();
   const [rows, setRows] = React.useState<Row[]>([]);
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState<string | null>(null);
@@ -70,7 +70,7 @@ export function AdminOverviewRecentUsers({
       });
       if (cancelled) return;
       if (res.error) {
-        setError(res.error.message ?? "Failed to load users");
+        setError(res.error.message ?? tu("list.loadErrorFallback"));
         setRows([]);
         setLoading(false);
         return;
@@ -83,38 +83,38 @@ export function AdminOverviewRecentUsers({
     return () => {
       cancelled = true;
     };
-  }, [refreshKey]);
+  }, [refreshKey, tu]);
 
   return (
     <Card>
       <CardHeader className="border-b pb-4">
-        <CardTitle className="text-base">Recently joined</CardTitle>
+        <CardTitle className="text-base">{t("title")}</CardTitle>
         <CardDescription>
-          The newest accounts. Open one to see its sessions and activity.
+          {t("description")}
         </CardDescription>
       </CardHeader>
       <CardContent className="pt-4">
         {error ? (
           <Alert variant="destructive">
-            <AlertTitle>Could not load users</AlertTitle>
+            <AlertTitle>{tu("list.loadErrorTitle")}</AlertTitle>
             <AlertDescription>{error}</AlertDescription>
           </Alert>
         ) : loading ? (
           <p className="text-muted-foreground py-8 text-center text-sm">
-            Loading…
+            {t("loading")}
           </p>
         ) : rows.length === 0 ? (
           <p className="text-muted-foreground py-8 text-center text-sm">
-            No users yet.
+            {t("empty")}
           </p>
         ) : (
           <Table>
             <TableHeader>
               <TableRow className="hover:bg-transparent">
-                <TableHead>User</TableHead>
-                <TableHead className="hidden sm:table-cell">Role</TableHead>
-                <TableHead className="hidden md:table-cell">Status</TableHead>
-                <TableHead className="text-right">Joined</TableHead>
+                <TableHead>{tu("list.columns.user")}</TableHead>
+                <TableHead className="hidden sm:table-cell">{tu("list.columns.role")}</TableHead>
+                <TableHead className="hidden md:table-cell">{tc("status")}</TableHead>
+                <TableHead className="text-right">{tu("list.columns.joined")}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -142,15 +142,15 @@ export function AdminOverviewRecentUsers({
                   </TableCell>
                   <TableCell className="hidden md:table-cell">
                     {u.banned ? (
-                      <Badge variant="destructive">Banned</Badge>
+                      <Badge variant="destructive">{tu("status.banned")}</Badge>
                     ) : (
                       <Badge variant="outline" className="font-normal">
-                        Active
+                        {tu("status.active")}
                       </Badge>
                     )}
                   </TableCell>
                   <TableCell className="text-muted-foreground text-right text-sm">
-                    {formatJoined(u.createdAt)}
+                    {formatJoined(u.createdAt, format)}
                   </TableCell>
                 </TableRow>
               ))}

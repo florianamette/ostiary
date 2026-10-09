@@ -1,5 +1,7 @@
 "use client";
 
+import { useTranslations } from "next-intl";
+
 import { Link } from "@/i18n/navigation";
 import {
   Avatar,
@@ -58,6 +60,7 @@ function SidebarUserAvatar({ user }: { user: UserMenuIdentityUser }) {
 
 export function AdminNavUser({ user }: { user: UserMenuIdentityUser }) {
   const { isMobile } = useSidebar();
+  const t = useTranslations("admin.shell.userMenu");
 
   return (
     <SidebarMenu>
@@ -90,7 +93,7 @@ export function AdminNavUser({ user }: { user: UserMenuIdentityUser }) {
               <DropdownMenuItem asChild>
                 <Link href="/">
                   <BadgeCheckIcon />
-                  Home
+                  {t("home")}
                 </Link>
               </DropdownMenuItem>
             </DropdownMenuGroup>
@@ -99,7 +102,7 @@ export function AdminNavUser({ user }: { user: UserMenuIdentityUser }) {
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={signOutAndRedirectToLogin}>
               <LogOutIcon />
-              Log out
+              {t("logOut")}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

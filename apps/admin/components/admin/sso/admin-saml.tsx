@@ -56,7 +56,7 @@ export function CopyValue({ label, value }: { label: string; value: string }) {
           type="button"
           size="icon-sm"
           variant="ghost"
-          aria-label={`${t("copy")}: ${label}`}
+          aria-label={t("copyLabel", { label })}
           onClick={() => void navigator.clipboard.writeText(value).then(() => toast.success(t("copied")))}
         >
           <Copy className="size-4" aria-hidden />

@@ -16,36 +16,55 @@ import { classifyHost, isLoopbackHost } from "@better-auth/core/utils/host";
 export type ResolvedAddress = { address: string; family: number };
 export type Lookup = (hostname: string) => Promise<ResolvedAddress[]>;
 
-export type UrlCheck =
-  | { ok: true; url: URL; addresses: ResolvedAddress[] }
-  | { ok: false; error: string };
+/**
+ * Why a URL was refused: `error` in English (logs, tests) and `code` with its `values`, for
+ * the admin console to show in the admin's language.
+ */
+export type UrlRefusal = {
+  ok: false;
+  error: string;
+  code:
+    | "tooLong"
+    | "notAbsolute"
+    | "credentials"
+    | "fragment"
+    | "notHttps"
+    | "localhost"
+    | "nonPublic"
+    | "unresolved"
+    | "noAddress"
+    | "resolvesNonPublic";
+  values?: Record<string, string>;
+};
+
+export type UrlCheck = { ok: true; url: URL; addresses: ResolvedAddress[] } | UrlRefusal;
 
 export const MAX_WEBHOOK_URL_LENGTH = 2048;
 
 const defaultLookup: Lookup = (hostname) => dnsLookup(hostname, { all: true, verbatim: true });
 
 /** Checks the URL's form only (no DNS): what the admin form can tell at once. */
-export function parseWebhookUrl(raw: string, allowLocalhost: boolean): { ok: true; url: URL } | { ok: false; error: string } {
+export function parseWebhookUrl(raw: string, allowLocalhost: boolean): { ok: true; url: URL } | UrlRefusal {
   const trimmed = raw.trim();
-  if (trimmed.length > MAX_WEBHOOK_URL_LENGTH) return { ok: false, error: "The URL is too long." };
+  if (trimmed.length > MAX_WEBHOOK_URL_LENGTH) return { ok: false, error: "The URL is too long.", code: "tooLong" };
   let url: URL;
   try {
     url = new URL(trimmed);
   } catch {
-    return { ok: false, error: "Enter an absolute URL, e.g. https://app.example.com/webhooks." };
+    return { ok: false, error: "Enter an absolute URL, e.g. https://app.example.com/webhooks.", code: "notAbsolute" };
   }
-  if (url.username || url.password) return { ok: false, error: "The URL must not contain a user name or password." };
-  if (url.hash) return { ok: false, error: "The URL must not contain a fragment (#)." };
+  if (url.username || url.password) return { ok: false, error: "The URL must not contain a user name or password.", code: "credentials" };
+  if (url.hash) return { ok: false, error: "The URL must not contain a fragment (#).", code: "fragment" };
   const loopback = isLoopbackHost(url.hostname);
   if (url.protocol === "http:") {
-    if (!(allowLocalhost && loopback)) return { ok: false, error: "The URL must use https://." };
+    if (!(allowLocalhost && loopback)) return { ok: false, error: "The URL must use https://.", code: "notHttps" };
   } else if (url.protocol !== "https:") {
-    return { ok: false, error: "The URL must use https://." };
+    return { ok: false, error: "The URL must use https://.", code: "notHttps" };
   }
-  if (loopback && !allowLocalhost) return { ok: false, error: "The URL points to this machine (localhost)." };
+  if (loopback && !allowLocalhost) return { ok: false, error: "The URL points to this machine (localhost).", code: "localhost" };
   const kind = classifyHost(url.hostname).kind;
   if (kind !== "public" && !(allowLocalhost && loopback)) {
-    return { ok: false, error: `The URL points to a ${describeKind(kind)} address.` };
+    return { ok: false, error: `The URL points to a ${describeKind(kind)} address.`, code: "nonPublic", values: { kind: kindCode(kind) } };
   }
   return { ok: true, url };
 }
@@ -68,17 +87,32 @@ export async function checkWebhookUrl(raw: string, allowLocalhost: boolean, look
   try {
     addresses = await lookup(hostname);
   } catch {
-    return { ok: false, error: `The host ${parsed.url.hostname} could not be resolved.` };
+    return {
+      ok: false,
+      error: `The host ${parsed.url.hostname} could not be resolved.`,
+      code: "unresolved",
+      values: { host: parsed.url.hostname },
+    };
   }
-  if (addresses.length === 0) return { ok: false, error: `The host ${parsed.url.hostname} has no address.` };
+  if (addresses.length === 0) {
+    return { ok: false, error: `The host ${parsed.url.hostname} has no address.`, code: "noAddress", values: { host: parsed.url.hostname } };
+  }
   const refused = addresses.find((a) => !addressAllowed(a.address, allowLocalhost));
   if (refused) {
     return {
       ok: false,
       error: `The host ${parsed.url.hostname} resolves to a ${describeKind(classifyHost(refused.address).kind)} address (${refused.address}).`,
+      code: "resolvesNonPublic",
+      values: { host: parsed.url.hostname, kind: kindCode(classifyHost(refused.address).kind), address: refused.address },
     };
   }
   return { ok: true, url: parsed.url, addresses };
+}
+
+/** The address kind as a stable code for translated messages. */
+function kindCode(kind: string): string {
+  if (kind === "localhost") return "loopback";
+  return ["loopback", "private", "linkLocal", "cloudMetadata", "sharedAddressSpace"].includes(kind) ? kind : "other";
 }
 
 function describeKind(kind: string): string {

@@ -1,46 +1,46 @@
 {
   "layout": {
-    "title": "Sign in",
-    "description": "Log in to your work tools and profile."
+    "title": "Logg inn",
+    "description": "Logg inn på arbeidsverktøyene og profilen din."
   },
   "auth": {
     "login": {
-      "title": "Login to your account",
-      "description": "Sign in with your email or username and password.",
-      "identifierLabel": "Email or username",
-      "identifierPlaceholder": "you@example.com or your_username",
-      "emailLabel": "Email",
+      "title": "Logg inn på kontoen din",
+      "description": "Logg inn med e-post eller brukernavn og passord.",
+      "identifierLabel": "E-post eller brukernavn",
+      "identifierPlaceholder": "you@example.com eller your_username",
+      "emailLabel": "E-post",
       "emailPlaceholder": "m@example.com",
-      "passwordLabel": "Password",
-      "forgotPasswordLink": "Forgot password?",
-      "submit": "Login",
-      "submitting": "Signing in…",
-      "noAccount": "Don't have an account?",
-      "signUpLink": "Sign up",
-      "verifyEmailAfterSignup": "Check your inbox for a verification link. You must verify your email before signing in.",
-      "passkey": "Sign in with passkey",
-      "passkeySubmitting": "Waiting for passkey…",
+      "passwordLabel": "Passord",
+      "forgotPasswordLink": "Glemt passordet?",
+      "submit": "Logg inn",
+      "submitting": "Logger inn…",
+      "noAccount": "Har du ikke en konto?",
+      "signUpLink": "Registrer deg",
+      "verifyEmailAfterSignup": "Sjekk innboksen din for en bekreftelseslenke. Du må bekrefte e-postadressen din før du kan logge inn.",
+      "passkey": "Logg inn med passkey",
+      "passkeySubmitting": "Venter på passkey…",
       "emailCode": "Send meg en innloggingskode på e-post",
-      "lastUsedBadge": "Last used",
-      "lastUsedHintEmail": "You last signed in with email and password.",
-      "lastUsedHintUsername": "You last signed in with username and password.",
-      "lastUsedHintPasskey": "You last signed in with a passkey.",
+      "lastUsedBadge": "Sist brukt",
+      "lastUsedHintEmail": "Du logget sist inn med e-post og passord.",
+      "lastUsedHintUsername": "Du logget sist inn med brukernavn og passord.",
+      "lastUsedHintPasskey": "Du logget sist inn med en passkey.",
       "lastUsedHintEmailCode": "Du logget sist inn med en kode sendt på e-post.",
-      "lastUsedHintOther": "You last signed in with {method}.",
+      "lastUsedHintOther": "Du logget sist inn med {method}.",
       "errors": {
         "emailNotVerified": "Please verify your email first. We sent you a new verification link, check your inbox.",
-        "signInFailed": "Could not sign in. Check your details and try again.",
-        "passkeyFailed": "Passkey sign-in failed. Try again or use your password."
+        "signInFailed": "Kunne ikke logge inn. Sjekk opplysningene dine og prøv igjen.",
+        "passkeyFailed": "Innlogging med passkey mislyktes. Prøv igjen eller bruk passordet ditt."
       },
       "resend": {
-        "title": "Didn't get the email?",
-        "description": "Enter your email and we'll send you a new verification link.",
+        "title": "Fikk du ikke e-posten?",
+        "description": "Skriv inn e-postadressen din, så sender vi deg en ny bekreftelseslenke.",
         "emailPlaceholder": "you@example.com",
-        "send": "Send a new link",
-        "sendAgain": "Send again",
-        "sent": "If an unverified account uses this address, a new link is on its way. Check your inbox and spam folder.",
-        "invalidEmail": "Enter a valid email address.",
-        "error": "Could not send the email. Try again in a minute."
+        "send": "Send en ny lenke",
+        "sendAgain": "Send på nytt",
+        "sent": "Hvis en ubekreftet konto bruker denne adressen, er en ny lenke på vei. Sjekk innboksen og søppelpostmappen din.",
+        "invalidEmail": "Skriv inn en gyldig e-postadresse.",
+        "error": "Kunne ikke sende e-posten. Prøv igjen om ett minutt."
       },
       "addAccountDescription": "Kontoer som allerede er logget inn i denne nettleseren, forblir logget inn."
     },
@@ -93,81 +93,81 @@
       }
     },
     "forgotPassword": {
-      "metaTitle": "Forgot password",
-      "title": "Reset your password",
-      "description": "Enter the email on your account. If it exists, we will send you a link to choose a new password.",
-      "emailLabel": "Email",
+      "metaTitle": "Glemt passord",
+      "title": "Tilbakestill passordet ditt",
+      "description": "Skriv inn e-postadressen på kontoen din. Hvis den finnes, sender vi deg en lenke for å velge et nytt passord.",
+      "emailLabel": "E-post",
       "emailPlaceholder": "m@example.com",
-      "emailHint": "Use the same email you registered with. If you usually sign in with a username, recovery still uses your account email.",
-      "submit": "Send reset link",
-      "submitting": "Sending…",
-      "backToLogin": "Back to login",
-      "emailSent": "If an account exists for that email, you will receive a reset link shortly.",
+      "emailHint": "Bruk den samme e-postadressen som du registrerte deg med. Selv om du vanligvis logger inn med brukernavn, bruker gjenopprettingen e-postadressen på kontoen.",
+      "submit": "Send lenke for tilbakestilling",
+      "submitting": "Sender…",
+      "backToLogin": "Tilbake til innlogging",
+      "emailSent": "Hvis det finnes en konto for denne e-postadressen, får du snart en lenke for tilbakestilling.",
       "errors": {
-        "emailRequired": "Please enter your email address.",
-        "requestFailed": "Could not send the reset email. Try again."
+        "emailRequired": "Skriv inn e-postadressen din.",
+        "requestFailed": "Kunne ikke sende e-posten for tilbakestilling. Prøv igjen."
       }
     },
     "resetPassword": {
-      "metaTitle": "Set new password",
-      "title": "Choose a new password",
-      "description": "Enter and confirm your new password below.",
-      "invalidTokenTitle": "Link expired or invalid",
-      "invalidTokenDescription": "This reset link is no longer valid. Request a new one to continue.",
-      "missingTokenTitle": "No reset link",
-      "missingTokenDescription": "Open the link from your email, or request a new password reset.",
-      "requestNewLink": "Request new link",
-      "backToLogin": "Back to login",
-      "newPasswordLabel": "New password",
-      "confirmPasswordLabel": "Confirm password",
-      "passwordHint": "Must be at least 8 characters long.",
-      "passwordMismatch": "Passwords do not match",
-      "submit": "Update password",
-      "submitting": "Updating…",
-      "success": "Your password was updated. You can sign in now.",
+      "metaTitle": "Angi nytt passord",
+      "title": "Velg et nytt passord",
+      "description": "Skriv inn og bekreft det nye passordet ditt nedenfor.",
+      "invalidTokenTitle": "Lenken er utløpt eller ugyldig",
+      "invalidTokenDescription": "Denne lenken for tilbakestilling er ikke lenger gyldig. Be om en ny for å fortsette.",
+      "missingTokenTitle": "Ingen lenke for tilbakestilling",
+      "missingTokenDescription": "Åpne lenken fra e-posten din, eller be om en ny tilbakestilling av passordet.",
+      "requestNewLink": "Be om ny lenke",
+      "backToLogin": "Tilbake til innlogging",
+      "newPasswordLabel": "Nytt passord",
+      "confirmPasswordLabel": "Bekreft passord",
+      "passwordHint": "Må være minst 8 tegn langt.",
+      "passwordMismatch": "Passordene samsvarer ikke",
+      "submit": "Oppdater passord",
+      "submitting": "Oppdaterer…",
+      "success": "Passordet ditt er oppdatert. Du kan logge inn nå.",
       "errors": {
-        "resetFailed": "Could not reset your password. Try again or request a new link."
+        "resetFailed": "Kunne ikke tilbakestille passordet ditt. Prøv igjen eller be om en ny lenke."
       }
     },
     "signup": {
-      "title": "Create an account",
-      "description": "Enter your information below to create your account",
-      "usernameLabel": "Username",
+      "title": "Opprett en konto",
+      "description": "Fyll inn opplysningene dine nedenfor for å opprette kontoen din",
+      "usernameLabel": "Brukernavn",
       "usernamePlaceholder": "your_username",
-      "usernameHint": "3-30 characters: letters, numbers, dots, and underscores only.",
-      "usernameChecking": "Checking availability…",
-      "usernameAvailable": "This username is available.",
-      "usernameTaken": "This username is already taken.",
-      "usernameInvalidHint": "Use only letters, numbers, dots, and underscores.",
-      "fullNameLabel": "Full Name",
-      "namePlaceholder": "John Doe",
-      "emailLabel": "Email",
+      "usernameHint": "3–30 tegn: bare bokstaver, tall, punktum og understreker.",
+      "usernameChecking": "Sjekker tilgjengelighet…",
+      "usernameAvailable": "Dette brukernavnet er ledig.",
+      "usernameTaken": "Dette brukernavnet er allerede tatt.",
+      "usernameInvalidHint": "Bruk bare bokstaver, tall, punktum og understreker.",
+      "fullNameLabel": "Fullt navn",
+      "namePlaceholder": "Ola Nordmann",
+      "emailLabel": "E-post",
       "emailPlaceholder": "m@example.com",
-      "emailDescription": "We'll use this to contact you. We will not share your email with anyone else.",
-      "passwordLabel": "Password",
-      "confirmPasswordLabel": "Confirm Password",
-      "passwordHint": "Must be at least 8 characters long.",
-      "confirmPasswordHint": "Please confirm your password.",
-      "passwordMismatch": "Passwords do not match",
-      "submit": "Create Account",
-      "submitting": "Creating account…",
-      "hasAccount": "Already have an account?",
-      "signInLink": "Sign in",
-      "loginLink": "Login",
-      "afterRegisterRedirect": "Account created. Check your email to verify before signing in.",
+      "emailDescription": "Vi bruker denne for å kontakte deg. Vi deler ikke e-postadressen din med andre.",
+      "passwordLabel": "Passord",
+      "confirmPasswordLabel": "Bekreft passord",
+      "passwordHint": "Må være minst 8 tegn langt.",
+      "confirmPasswordHint": "Bekreft passordet ditt.",
+      "passwordMismatch": "Passordene samsvarer ikke",
+      "submit": "Opprett konto",
+      "submitting": "Oppretter konto…",
+      "hasAccount": "Har du allerede en konto?",
+      "signInLink": "Logg inn",
+      "loginLink": "Logg inn",
+      "afterRegisterRedirect": "Kontoen er opprettet. Sjekk e-posten din og bekreft adressen før du logger inn.",
       "errors": {
-        "signUpFailed": "Could not create your account. Try again.",
-        "compromisedPassword": "This password appears in known data breaches. Choose a different one.",
-        "usernameTooShort": "Username must be at least 3 characters.",
-        "usernameInvalid": "That username is not valid.",
-        "usernameTaken": "That username is already taken. Try another."
+        "signUpFailed": "Kunne ikke opprette kontoen din. Prøv igjen.",
+        "compromisedPassword": "Dette passordet finnes i kjente datalekkasjer. Velg et annet.",
+        "usernameTooShort": "Brukernavnet må ha minst 3 tegn.",
+        "usernameInvalid": "Det brukernavnet er ikke gyldig.",
+        "usernameTaken": "Det brukernavnet er allerede tatt. Prøv et annet."
       }
     },
     "screen": {
-      "headline": "One account for all your apps.",
-      "subhead": "Sign in once and reach every app connected to {name}. Your profile and security settings follow you everywhere.",
-      "footer": "Secured by {name}.",
-      "ecosystem": "Works with"
+      "headline": "Én konto for <accent>alle appene dine</accent>.",
+      "subhead": "Logg inn én gang og nå alle appene som er koblet til {name}. Profilen og sikkerhetsinnstillingene dine følger deg overalt.",
+      "footer": "Sikret av {name}.",
+      "ecosystem": "Fungerer med"
     },
     "social": {
       "or": "eller",
@@ -175,8 +175,8 @@
       "signInWith": "Logg på med {provider}",
       "lastUsed": "Sist brukt",
       "otherProviders": "Flere måter å logge på",
-      "error": "Could not sign in with that account. Try again or use another method.",
-      "notLinked": "That account isn't connected to a {name} account yet. Sign in another way, then connect it from your security settings.",
+      "error": "Kunne ikke logge inn med den kontoen. Prøv igjen eller bruk en annen metode.",
+      "notLinked": "Den kontoen er ikke koblet til en {name}-konto ennå. Logg inn på en annen måte, og koble den til fra sikkerhetsinnstillingene dine.",
       "noEmail": "Kontoen delte ingen e-postadresse. Prøv igjen senere, eller logg inn på en annen måte.",
       "signUpDisabled": "Det finnes ingen konto for den adressen ennå, og denne innloggingsmetoden kan ikke opprette en. Logg inn på en annen måte."
     },
@@ -189,23 +189,23 @@
     }
   },
   "consent": {
-    "emptyTitle": "Authorization",
-    "emptyDescription": "There is no pending OAuth request. Start the flow from the application you want to connect.",
-    "connectTitle": "Connect {name}",
-    "intro": "This application is requesting access to your account. Review the permissions below before continuing.",
+    "emptyTitle": "Autorisasjon",
+    "emptyDescription": "Det finnes ingen ventende OAuth-forespørsel. Start flyten fra applikasjonen du vil koble til.",
+    "connectTitle": "Koble til {name}",
+    "intro": "Denne applikasjonen ber om tilgang til kontoen din. Se gjennom tillatelsene nedenfor før du fortsetter.",
     "errors": {
-      "needSignIn": "You need to sign in before you can approve this request.",
-      "loadFailed": "Could not load application details.",
-      "actionFailed": "Something went wrong."
+      "needSignIn": "Du må logge inn før du kan godkjenne denne forespørselen.",
+      "loadFailed": "Kunne ikke laste inn applikasjonsdetaljer.",
+      "actionFailed": "Noe gikk galt."
     },
-    "signIn": "Sign in",
-    "visitWebsite": "Visit application website",
-    "requestedAccess": "Requested access",
-    "defaultScopes": "Default permissions for this client (no explicit scopes in the request).",
-    "terms": "Terms of service",
-    "privacy": "Privacy policy",
-    "deny": "Deny",
-    "allow": "Allow",
+    "signIn": "Logg inn",
+    "visitWebsite": "Besøk applikasjonens nettsted",
+    "requestedAccess": "Forespurt tilgang",
+    "defaultScopes": "Standardtillatelser for denne klienten (ingen eksplisitte scopes i forespørselen).",
+    "terms": "Vilkår for bruk",
+    "privacy": "Personvernerklæring",
+    "deny": "Avslå",
+    "allow": "Tillat",
     "scopes": {
       "openid": "Bekrefte hvem du er (OpenID Connect)",
       "profile": "Navn og profilinformasjon",
@@ -221,108 +221,1540 @@
   },
   "admin": {
     "themeToggle": {
-      "light": "Light",
-      "dark": "Dark",
+      "light": "Lyst",
+      "dark": "Mørkt",
       "system": "System",
-      "srOnly": "Toggle theme",
-      "label": "Theme"
+      "srOnly": "Bytt tema",
+      "label": "Tema"
     },
     "nav": {
-      "groupAdmin": "Admin",
+      "groupAdmin": "Administrasjon",
       "groupOAuth": "OAuth",
-      "overview": "Overview",
-      "users": "Users",
-      "applications": "Applications",
+      "overview": "Oversikt",
+      "users": "Brukere",
+      "applications": "Applikasjoner",
       "apis": "API-er",
       "apiKeys": "API-nøkler",
-      "consent": "Consent",
-      "organizations": "Organizations",
+      "consent": "Samtykke",
+      "organizations": "Organisasjoner",
       "sso": "SSO",
       "signInProviders": "Påloggingsleverandører",
       "webhooks": "Webhooks",
-      "security": "Security",
+      "security": "Sikkerhet",
       "usage": "Appbruk",
-      "audit": "Audit log",
+      "audit": "Revisjonslogg",
       "signingKeys": "Signeringsnøkler"
     },
     "header": {
-      "crumb": "Admin",
-      "fallback": "Admin",
-      "overview": "Overview",
-      "users": "Users",
-      "applications": "Applications",
+      "crumb": "Administrasjon",
+      "fallback": "Administrasjon",
+      "overview": "Oversikt",
+      "users": "Brukere",
+      "applications": "Applikasjoner",
       "apis": "API-er",
       "apiKeys": "API-nøkler",
-      "consent": "Consent",
-      "organizations": "Organizations",
+      "consent": "Samtykke",
+      "organizations": "Organisasjoner",
       "sso": "SSO",
       "signInProviders": "Påloggingsleverandører",
       "webhooks": "Webhooks",
-      "security": "Security",
+      "security": "Sikkerhet",
       "usage": "Appbruk",
-      "audit": "Audit log",
+      "audit": "Revisjonslogg",
       "signingKeys": "Signeringsnøkler"
     },
     "pages": {
       "overview": {
-        "title": "Overview",
+        "title": "Oversikt",
         "activity": {
-          "title": "Sign-in activity",
-          "description": "Sign-ins, new accounts and sign-outs per day, last 30 days.",
-          "signIns": "Sign-ins",
-          "signUps": "Sign-ups",
-          "signOuts": "Sign-outs",
-          "showTable": "View as table",
-          "showChart": "View as chart",
-          "legend": "Totals for the last 30 days",
-          "day": "Day",
-          "note": "Sign-outs are tracked from October 6, 2026. Earlier sign-ins only include sessions that were still active then."
+          "title": "Innloggingsaktivitet",
+          "description": "Innlogginger, nye kontoer og utlogginger per dag de siste 30 dagene.",
+          "signIns": "Innlogginger",
+          "signUps": "Registreringer",
+          "signOuts": "Utlogginger",
+          "showTable": "Vis som tabell",
+          "showChart": "Vis som diagram",
+          "legend": "Totalt for de siste 30 dagene",
+          "day": "Dag",
+          "note": "Utlogginger registreres fra 6. oktober 2026. Tidligere innlogginger omfatter bare økter som fortsatt var aktive da."
         },
-        "description": "Accounts, sign-in activity and the newest members of the platform."
+        "description": "Kontoer, innloggingsaktivitet og de nyeste medlemmene på plattformen.",
+        "recentUsers": {
+          "title": "Nylig registrert",
+          "description": "De nyeste kontoene. Åpne en for å se øktene og aktiviteten.",
+          "loading": "Laster inn…",
+          "empty": "Ingen brukere ennå."
+        },
+        "stats": {
+          "error": "Kunne ikke laste inn én eller flere målinger. Kontroller at du er logget inn som administrator.",
+          "errorTitle": "Målinger er ikke tilgjengelige",
+          "loadingTitle": "Laster inn",
+          "loadingHint": "Laster inn…",
+          "totalUsers": {
+            "title": "Brukere totalt",
+            "hint": "Alle kontoer på plattformen."
+          },
+          "admins": {
+            "title": "Administratorer",
+            "hint": "Kontoer med tilgang til denne konsollen."
+          },
+          "banned": {
+            "title": "Utestengt",
+            "hint": "Kontoer som ikke kan logge inn akkurat nå."
+          },
+          "verified": {
+            "title": "Bekreftet e-post",
+            "hint": "Kontoer som har bekreftet e-postadressen sin."
+          },
+          "recent": {
+            "title": "Nye (7 dager)",
+            "hint": "Kontoer opprettet de siste 7 dagene."
+          }
+        }
       },
       "applications": {
-        "title": "Applications",
+        "title": "Applikasjoner",
         "description": "OAuth-klienter som kan logge inn personer med {name}: omdirigerings-URL-er, grant-typer og samtykkeinnstillinger.",
         "unusedHint": "{count, plural, one {# app har} other {# apper har}} ikke blitt brukt de siste 30 dagene.",
-        "viewUsage": "Se bruk"
+        "viewUsage": "Se bruk",
+        "panel": {
+          "selfRegisteredHint": "Registrerte seg selv: ikke gjennomgått av en administrator",
+          "selfRegisteredBadge": "Selvregistrert",
+          "registration": {
+            "all": "All registrering",
+            "admin": "Administrator",
+            "dynamic": "Dynamisk registrering",
+            "metadata_document": "Metadatadokument"
+          },
+          "authMethod": {
+            "none": "auth: ingen",
+            "client_secret_basic": "auth: hemmelighet (basic)",
+            "client_secret_post": "auth: hemmelighet (post)",
+            "private_key_jwt": "auth: privat nøkkel-JWT"
+          },
+          "loadFailed": "Kunne ikke laste inn OAuth-klienter",
+          "loadErrorTitle": "Kunne ikke laste inn applikasjoner",
+          "searchPlaceholder": "Søk etter navn, klient-ID, omdirigerings-URI eller grant…",
+          "searchLabel": "Søk i applikasjoner",
+          "clientType": "Klienttype",
+          "registeredBy": "Registrert av",
+          "kind": {
+            "all": "Alle klienter",
+            "public": "Offentlig",
+            "confidential": "Konfidensiell",
+            "trusted": "Klarert (hopp over samtykke)",
+            "device": "Enhetsinnlogging"
+          },
+          "columns": {
+            "application": "Applikasjon",
+            "redirects": "Omdirigeringer",
+            "grants": "Grant-typer",
+            "consent": "Samtykke"
+          },
+          "badges": {
+            "device": "Enhet",
+            "trusted": "Klarert",
+            "consent": "Samtykke",
+            "active": "Aktiv",
+            "skipped": "Hoppes over",
+            "required": "Påkrevd"
+          },
+          "loadingRows": "Laster inn applikasjoner…",
+          "empty": "Ingen OAuth-klienter for denne kontoen ennå.",
+          "noMatch": "Ingen applikasjoner samsvarer med filtrene.",
+          "linkedApis": "Koblede API-er: {apis}",
+          "noApplications": "0 applikasjoner",
+          "showing": "Viser {from}–{to} av {total}",
+          "rowsPerPage": "Rader per side",
+          "previous": "Forrige",
+          "next": "Neste",
+          "page": "Side {page} / {total}",
+          "footnote": "Data fra <code>{getClients}</code>. Registrering og redigering (inkludert <code>{skipConsent}</code>) kaller <code>{create}</code> og <code>{update}</code>; andre endringer bruker <code>{deleteClient}</code> og <code>{rotateSecret}</code>. Se dokumentasjonen for <docs>OAuth-leverandøren</docs>. Klienter er knyttet til den innloggede brukeren (eller <code>{clientReference}</code> når den er konfigurert). Selvregistrerte klienter har ingen eier og vises alle; de kan deaktiveres eller slettes, men ikke redigeres."
+        },
+        "registration": {
+          "title": "Selvregistrering",
+          "description": "Lar MCP-klienter og AI-agenter registrere seg selv i stedet for å bli lagt til her. De får bare scopene nedenfor, viser alltid samtykkeskjermen merket som ubekreftet, og får aldri maskintilgang (client credentials).",
+          "dynamicRegistration": "Dynamisk registrering",
+          "dynamic": {
+            "off": {
+              "label": "Av",
+              "hint": "POST /oauth2/register avvises."
+            },
+            "signed_in": {
+              "label": "Bare innloggede brukere",
+              "hint": "Bare forespørsler med en brukers økt kan registrere. De fleste MCP-klienter kan ikke det."
+            },
+            "open": {
+              "label": "Alle (åpen registrering)",
+              "hint": "Det MCP-klienter forventer: Alle apper kan registrere seg, og deretter godkjenner hver bruker den på samtykkeskjermen."
+            }
+          },
+          "metadataDocuments": "Metadatadokumenter (client_id-URL)",
+          "metadataOnFrom": "På, fra {hosts}",
+          "metadataOnAnyHost": "På, alle HTTPS-verter",
+          "scopes": "Scopes de kan be om",
+          "missingScope": "Ikke lenger et scope på denne serveren: ignoreres",
+          "perHour": "Nye klienter per time",
+          "endpoint": "Registreringsendepunkt: <code>{url}</code> (oppgitt i discovery-dokumentet).",
+          "saved": "Innstillingene er lagret. Autentiseringsserveren tar dem i bruk innen ett minutt.",
+          "dialogDescription": "Klienter som registrerer seg selv, blir ikke gjennomgått. Folk ser dem som ubekreftede apper og godkjenner hver enkelt på samtykkeskjermen.",
+          "dynamicLabel": "Dynamic Client Registration (RFC 7591)",
+          "cimdLabel": "Client ID Metadata Documents",
+          "cimdHint": "client_id er en HTTPS-URL til appens JSON-metadata, slik nyere MCP-klienter bruker. Bare offentlige verter hentes, uten omdirigeringer, maks 5 KB.",
+          "hostsLabel": "Tillatte verter",
+          "hostsHint": "Én per linje. Tom: alle offentlige HTTPS-verter.",
+          "scopesLabel": "Scopes selvregistrerte klienter kan be om",
+          "scopesHint": "Hver bruker godkjenner fortsatt scopene en app ber om. Når du fjerner et scope, fjernes det også fra klienter som allerede er registrert; tokens som allerede er utstedt, beholder det til de utløper.",
+          "perHourHint": "På tvers av alle instanser, for begge metodene. Hver adresse er i tillegg begrenset til 5 registreringer i minuttet."
+        },
+        "branding": {
+          "title": "Innloggingsdesign",
+          "description": "Hvordan innloggingsskjermene ser ut når folk kommer fra <app>{client}</app>: innlogging, registrering, tofaktor, tilbakestilling av passord og samtykke. {brand}-merket forblir synlig på alle skjermer.",
+          "logoFetchedOnSave": "Serveren henter logoen når du lagrer; forhåndsvisningen viser den da.",
+          "accentInvalid": "Angi aksentfargen som en hex-farge, for eksempel {example}.",
+          "hexInvalid": "Angi en hex-farge, for eksempel {example}.",
+          "saved": "Innloggingsdesignet er lagret",
+          "resetDone": "Innloggingsdesignet er tilbakestilt",
+          "displayName": "Visningsnavn",
+          "displayNameHint": "Vises som «Logg inn for å fortsette til …». Tomt bruker applikasjonsnavnet.",
+          "tagline": "Slagord (valgfritt)",
+          "taglinePlaceholder": "Leselisten din, overalt.",
+          "accent": "Aksentfarge",
+          "accentPick": "Velg aksentfargen",
+          "accentHex": "Aksentfarge (hex)",
+          "accentOff": "Av: skjermene beholder temaets farger.",
+          "contrast": {
+            "label": "Kontrastsjekker",
+            "ratio": "{label}: <value>{ratio}:1</value>",
+            "passes": "(oppfyller {min}:1)",
+            "below": "(under {min}:1)",
+            "buttonLabel": "Knappetekst ({color, select, black {svart} other {hvit}})",
+            "lightCard": "Knapper på det lyse kortet",
+            "darkCard": "Knapper på det mørke kortet",
+            "textAdjusted": "Tekst i aksentfargen bruker {color} for å nå {min}:1."
+          },
+          "logo": "Logo",
+          "logoSourceLabel": "Logokilde",
+          "logoSource": {
+            "app_icon": "Appikon",
+            "url": "Fra en URL",
+            "upload": "Last opp"
+          },
+          "logoAppIconHint": "Ikonet som ble funnet for appen ({field} eller nettstedet), som på samtykkeskjermen.",
+          "logoUrl": "Logo-URL",
+          "logoUrlHint": "https på en offentlig vert. {name} henter og mellomlagrer den; nettlesere laster den aldri derfra.",
+          "logoFile": "Logofil",
+          "logoFileHint": "PNG, JPEG, WebP, AVIF, GIF, ICO eller SVG, opptil 256 KB. Kvadratisk fungerer best.",
+          "panel": "Sidepanel (brede skjermer, valgfritt)",
+          "panelImage": "Sidepanelbilde",
+          "removeImage": "Fjern bilde",
+          "panelHint": "Overskrift og bakgrunnsbilde for det mørke panelet. PNG, JPEG, WebP eller AVIF, opptil 1 MB.",
+          "social": "Sosial innlogging på denne appens skjermer",
+          "socialNone": "Ingen sosiale leverandører er aktivert.",
+          "socialShown": "Sosiale leverandører som vises",
+          "socialAll": "Alle aktiverte",
+          "socialSome": "Bare disse",
+          "socialHint": "Skjuler knapper bare på denne appens skjermer; det hindrer ingen i å logge inn på en annen måte.",
+          "previewTitle": "Forhåndsvisning",
+          "previewScheme": "Fargeskjema for forhåndsvisning",
+          "light": "Lyst",
+          "dark": "Mørkt",
+          "faintOnLight": "Knapper i denne fargen skiller seg knapt ut fra det lyse kortet (WCAG krever 3:1 for kontroller). Tekstene forblir lesbare; vurder en mørkere nyanse.",
+          "faintOnDark": "Knapper i denne fargen skiller seg knapt ut fra det mørke kortet (WCAG krever 3:1 for kontroller). Tekstene forblir lesbare; vurder en lysere nyanse.",
+          "resetting": "Tilbakestiller…",
+          "reset": "Tilbakestill til standard",
+          "save": "Lagre design",
+          "preview": {
+            "label": "Forhåndsvisning av innloggingssiden",
+            "appFallback": "App",
+            "title": "Logg inn",
+            "submit": "Logg inn",
+            "noAccount": "Har du ingen konto? <link>Opprett en</link>"
+          }
+        },
+        "actions": {
+          "registration": {
+            "chooseMode": "Velg hvem som kan registrere klienter.",
+            "unknownScope": "«{scope}» er ikke et scope på denne serveren.",
+            "noScopes": "Tillat minst ett scope.",
+            "invalidHost": "«{raw}» er ikke et vertsnavn, f.eks. {example}.",
+            "invalidLimit": "Timegrensen må være et heltall fra 0 til {max}.",
+            "saveFailed": "Kunne ikke lagre innstillingene.",
+            "clientGone": "Denne klienten finnes ikke lenger.",
+            "notSelfRegistered": "Bare selvregistrerte klienter kan endres her."
+          },
+          "branding": {
+            "clientGone": "Denne applikasjonen finnes ikke lenger.",
+            "selfRegistered": "Selvregistrerte klienter kan ikke få eget design.",
+            "logoMissing": "Velg en logofil som skal lastes opp.",
+            "logoFetchFailed": "Kunne ikke hente et bilde fra logo-URL-en. Kontroller at den er offentlig og er et bilde.",
+            "faintOnLight": "Aksentfargen er svak på det lyse kortet: knappene vil knapt skille seg ut.",
+            "faintOnDark": "Aksentfargen er svak på det mørke kortet: knappene vil knapt skille seg ut.",
+            "saveFailed": "Kunne ikke lagre designet."
+          }
+        },
+        "register": {
+          "trigger": "Registrer applikasjon",
+          "title": "Registrer OAuth-applikasjon",
+          "description": "Oppretter en klient knyttet til kontoen din via <code>{endpoint}</code> (klarerte apper kan angi <code>{field}</code>). Se <link>Better Auth, Create client</link>.",
+          "nameLabel": "Applikasjonsnavn",
+          "namePlaceholder": "Min app",
+          "redirectUrisLabel": "Omdirigerings-URI-er",
+          "redirectUrisHintPublic": "Én per linje eller kommaseparert. HTTPS, eller http på localhost, 127.0.0.1 eller [::1].",
+          "redirectUrisHintConfidential": "Én per linje eller kommaseparert. Bare HTTPS, også for localhost. For lokal utvikling registrerer du en egen offentlig klient.",
+          "redirectUrisRequired": "Angi minst én omdirigerings-URI (én per linje eller kommaseparert).",
+          "clientTypeLabel": "Klienttype",
+          "clientTypeConfidential": "Konfidensiell (klienthemmelighet)",
+          "clientTypePublic": "Offentlig (PKCE, ingen hemmelighet)",
+          "deviceCodeLabel": "Enhetsinnlogging (CLI-er, TV-er)",
+          "deviceCodeHint": "Legger til device code-granten (RFC 8628): appen viser en kode, og brukeren godkjenner den på <code>{path}</code> på en annen skjerm. Vanligvis en offentlig klient.",
+          "skipConsentLabel": "Hopp over samtykke (klarert klient)",
+          "skipConsentHint": "Brukere ser ikke samtykkeskjermen for denne applikasjonen. Bruk bare for egne eller fullt klarerte integrasjoner.",
+          "registerFailed": "Kunne ikke registrere applikasjonen",
+          "missingClientId": "Serveren returnerte ikke {field}.",
+          "registered": "OAuth-applikasjonen er registrert",
+          "creating": "Oppretter…",
+          "create": "Opprett applikasjon",
+          "successTitle": "Applikasjonen er opprettet",
+          "successWithSecret": "Kopier klienthemmeligheten nå, den vises kanskje bare én gang.",
+          "successPublic": "Offentlig klient, ingen hemmelighet utstedes. Bruk PKCE ved token-endepunktet.",
+          "clientId": "Klient-ID",
+          "clientSecret": "Klienthemmelighet",
+          "copyClientId": "Kopier klient-ID",
+          "copyClientSecret": "Kopier klienthemmelighet"
+        },
+        "rowActions": {
+          "menuLabel": "Handlinger for {name}",
+          "copyClientId": "Kopier klient-ID",
+          "clientIdCopied": "Klient-ID-en er kopiert",
+          "edit": "Rediger applikasjon",
+          "editHint": "Navn, omdirigerings-URI-er, enhetsinnlogging og hopp over samtykke",
+          "branding": "Innloggingsdesign",
+          "brandingHint": "Logo, aksentfarge og tekster på innloggingsskjermene for denne appen",
+          "rotateSecret": "Roter hemmelighet",
+          "rotateHintPublic": "Offentlige klienter har ingen hemmelighet",
+          "rotateHintDisabled": "Aktiver klienten først",
+          "rotateHint": "Roterer den konfidensielle klienthemmeligheten",
+          "delete": "Slett applikasjon",
+          "editDialog": {
+            "title": "Rediger applikasjon",
+            "description": "Oppdaterer <id>{clientId}</id> via <code>{endpoint}</code> (begrensede felt som <code>{field}</code>). Se <link>Better Auth, Update client</link>.",
+            "nameLabel": "Applikasjonsnavn",
+            "namePlaceholder": "Min app",
+            "redirectUrisLabel": "Omdirigerings-URI-er",
+            "redirectUrisHint": "Én per linje eller kommaseparert. HTTPS kreves. Bare offentlige klienter kan bruke http på localhost.",
+            "redirectUrisRequired": "Angi minst én omdirigerings-URI (én per linje eller kommaseparert).",
+            "deviceCodeLabel": "Enhetsinnlogging (CLI-er, TV-er)",
+            "deviceCodeHint": "Tillater device code-granten. Hvis du slår den av, stoppes nye enhetsinnlogginger; tokens som allerede er utstedt, fortsetter å virke.",
+            "skipConsentLabel": "Hopp over samtykke (klarert klient)",
+            "skipConsentHint": "Når dette er på, blir brukere ikke bedt om å godkjenne scopes for denne applikasjonen.",
+            "updateFailed": "Kunne ikke oppdatere applikasjonen",
+            "updated": "Applikasjonen er oppdatert"
+          },
+          "deleteDialog": {
+            "title": "Slette applikasjonen?",
+            "description": "Fjerner <strong>{name}</strong> (<code>{clientId}</code>) permanent. OAuth-tokens og samtykker for denne klienten kan bli påvirket.",
+            "deleteFailed": "Kunne ikke slette klienten",
+            "deleted": "Applikasjonen er fjernet"
+          },
+          "rotateDialog": {
+            "title": "Rotere klienthemmeligheten?",
+            "description": "Den forrige hemmeligheten slutter å virke umiddelbart. Lagre den nye hemmeligheten på et trygt sted, den vises kanskje bare én gang.",
+            "newSecretLabel": "Ny klienthemmelighet",
+            "copySecret": "Kopier hemmelighet",
+            "secretCopied": "Hemmeligheten er kopiert",
+            "rotating": "Roterer…",
+            "rotateFailed": "Kunne ikke rotere hemmeligheten",
+            "newSecretIssued": "Ny klienthemmelighet er utstedt, kopier den nå",
+            "rotated": "Hemmeligheten er rotert"
+          }
+        },
+        "selfRegistered": {
+          "menuLabel": "Handlinger for {name}",
+          "enabled": "Klienten er aktivert",
+          "disabled": "Klienten er deaktivert",
+          "deleted": "Klienten er slettet",
+          "disableTitle": "Deaktivere {name}?",
+          "disableDescription": "Den kan ikke lenger logge inn noen eller fornye tokenene sine. Tilgangstokens som allerede er utstedt, virker til de utløper (maks én time).",
+          "deleteTitle": "Slette {name}?",
+          "deleteDescriptionMetadataDocument": "Tokenene og samtykkene folk har gitt den, slettes også. En metadatadokument-klient opprettes på nytt neste gang den logger inn noen. Deaktiver den i stedet for å blokkere den.",
+          "deleteDescriptionDynamic": "Tokenene og samtykkene folk har gitt den, slettes også. Appen kan registrere seg på nytt så lenge dynamisk registrering er på."
+        },
+        "brandingErrors": {
+          "textTooLong": "Hold det under {max} tegn.",
+          "displayNameTooLong": "Visningsnavn: Hold det under {max} tegn.",
+          "taglineTooLong": "Slagord: Hold det under {max} tegn.",
+          "panelTextTooLong": "Sidepaneltekst: Hold den under {max} tegn.",
+          "accentColor": "Aksentfarge: angi en hex-farge, for eksempel {example}.",
+          "logoSource": "Velg hvor logoen kommer fra.",
+          "logoUrl": "Logo-URL: angi en https-URL på en offentlig vert (standardport).",
+          "logoEmpty": "Logofilen er tom.",
+          "logoTooLarge": "Logoen må være 256 KB eller mindre.",
+          "logoType": "Logoen må være et PNG-, JPEG-, GIF-, WebP-, AVIF-, ICO- eller SVG-bilde.",
+          "panelImageEmpty": "Sidepanelbildet er tomt.",
+          "panelImageTooLarge": "Sidepanelbildet må være 1 MB eller mindre.",
+          "panelImageType": "Sidepanelbildet må være et PNG-, JPEG-, WebP- eller AVIF-bilde."
+        }
       },
       "apis": {
         "title": "API-er",
-        "description": "API-ene dine (beskyttede ressurser) som godtar tilgangstokener fra {name}: scopene klienter kan be om, hvilke applikasjoner som kan bruke dem, og tokeninnstillingene deres."
+        "description": "API-ene dine (beskyttede ressurser) som godtar tilgangstokener fra {name}: scopene klienter kan be om, hvilke applikasjoner som kan bruke dem, og tokeninnstillingene deres.",
+        "errors": {
+          "tokenSettings": {
+            "lifetimePositive": "{field, select, access {Levetiden for tilgangstokens må være et positivt antall minutter.} other {Levetiden for oppdateringstokens må være et positivt antall dager.}}",
+            "lifetimeMinimum": "{field, select, access {Levetiden for tilgangstokens} other {Levetiden for oppdateringstokens}} må være minst ett minutt.",
+            "lifetimeMaximum": "{field, select, access {Levetiden for tilgangstokens kan være maks {max} minutter, serverens standard.} other {Levetiden for oppdateringstokens kan være maks {max} dager, serverens standard.}}",
+            "claimsInvalidJson": "Egendefinerte claims må være gyldig JSON, f.eks. {example}.",
+            "claimsNotObject": "Egendefinerte claims må være et JSON-objekt, f.eks. {example}.",
+            "claimsEmptyName": "Navnet på et egendefinert claim kan ikke være tomt.",
+            "claimsReserved": "{count, plural, one {{claims} er et reservert claim: serveren angir det.} other {{claims} er reserverte claims: serveren angir dem.}} Reservert: {reserved}.",
+            "claimsTooLarge": "Egendefinerte claims er for store (maks {kilobytes} KB): de legges til i hvert token."
+          },
+          "invalidScope": "«{scope}» er ikke et gyldig scope.",
+          "reservedScope": "«{scope}» er et OpenID Connect-scope, som allerede er tilgjengelig for alle klienter.",
+          "invalidIdentifier": "Identifikatoren må være en absolutt URL uten fragment, f.eks. {example}.",
+          "registerFailed": "Kunne ikke registrere API-et.",
+          "authServerCannotBeDisabled": "Selve autentiseringsserveren kan ikke deaktiveres.",
+          "updateFailed": "Kunne ikke oppdatere API-et.",
+          "deleteFromEnv": "Dette API-et er angitt i {variable} og ville kommet tilbake ved neste utrulling. Deaktiver det i stedet.",
+          "deleteFailed": "Kunne ikke slette API-et.",
+          "authServerStaysOpen": "Autentiseringsserveren forblir åpen for alle applikasjoner: innlogging avhenger av den.",
+          "accessFailed": "Kunne ikke endre hvilke applikasjoner som kan bruke API-et.",
+          "tokensFailed": "Kunne ikke lagre tokeninnstillingene."
+        },
+        "duration": {
+          "days": "{count, plural, one {# dag} other {# dager}}",
+          "hours": "{count} t",
+          "minutes": "{count} min"
+        },
+        "tokenSummary": {
+          "accessToken": "Tilgangstoken {duration}",
+          "refreshToken": "Oppdateringstoken {duration}",
+          "dpopRequired": "DPoP kreves",
+          "claims": "Claims: {claims}"
+        },
+        "restrictLabel": "Utsted bare disse scopene for dette API-et",
+        "restrictHint": "Tokens for dette API-et inneholder bare disse scopene (og OpenID Connect-scopene). Av: de inneholder alle scopes klienten har fått.",
+        "register": {
+          "title": "Registrer et API",
+          "description": "Klienter ber om et token for det med parameteren <code>{param}</code>. Tokenets målgruppe er identifikatoren, og API-et verifiserer den mot JWKS-en.",
+          "identifier": "Identifikator",
+          "identifierHint": "Vanligvis API-ets basis-URL. Den kan ikke endres senere.",
+          "namePlaceholder": "Ordre-API",
+          "scopes": "Scopes",
+          "scopesHint": "Skilt med mellomrom eller komma. Maskinklienter ({grant}) må begrenses til noen av dem.",
+          "submit": "Registrer API",
+          "submitting": "Registrerer…",
+          "registered": "API-et er registrert"
+        },
+        "list": {
+          "description": "Nye og endrede scopes når autentiseringsserveren innen ett minutt. Tilgangs- og tokeninnstillinger gjelder fra neste token.",
+          "empty": "Ingen API-er ennå.",
+          "envScopesTitle": "Scopes fra {variable}",
+          "envScopesText": "Tilgjengelig for alle klienter, uansett hvilket API de kaller: <mono>{scopes}</mono>. For å administrere dem her legger du dem til i API-et de hører til, og fjerner deretter variabelen."
+        },
+        "item": {
+          "authServer": "Autentiseringsserver",
+          "restricted": "Begrenset",
+          "linkedOnly": "Bare koblede apper",
+          "noResourceParam": "Tokens utstedt uten resource-parameter.",
+          "noScopes": "Ingen scopes.",
+          "editAria": "Rediger {name}",
+          "deleteAria": "Slett {name}",
+          "applications": "Applikasjoner",
+          "everyApplication": "Alle applikasjoner",
+          "onlyLinked": "Bare {names}",
+          "noneLinked": "Ingen koblet: ingen applikasjon kan få tokens",
+          "change": "Endre",
+          "changeAccessAria": "Endre hvilke applikasjoner som kan bruke {name}",
+          "tokens": "Tokens",
+          "defaultSettings": "Standardinnstillinger",
+          "changeTokensAria": "Endre tokeninnstillingene for {name}"
+        },
+        "edit": {
+          "title": "Rediger {name}",
+          "scopesHint": "Å fjerne et scope endrer ikke klienter som allerede har det, men ingen nye tokens inneholder det.",
+          "disabledHint": "Ingen nye tokens for dette API-et. Tokens som allerede er utstedt, virker til de utløper.",
+          "updated": "API-et er oppdatert"
+        },
+        "access": {
+          "title": "Applikasjoner som kan bruke {name}",
+          "allHint": "Alle applikasjoner kan få tokens for dette API-et, innenfor sine scopes.",
+          "linkedLabel": "Bare koblede applikasjoner",
+          "linkedHint": "Andre applikasjoner avvises ({error}), også når de fornyer et token.",
+          "linkedTitle": "Koblede applikasjoner",
+          "filterAria": "Filtrer applikasjoner",
+          "filterPlaceholder": "Filtrer etter navn eller klient-ID",
+          "noApplications": "Ingen applikasjoner ennå.",
+          "noMatch": "Ingen applikasjoner samsvarer.",
+          "linksHintAll": "Koblinger har bare betydning når API-et er begrenset til koblede applikasjoner. En koblet applikasjon kan også introspektere tokens for dette API-et.",
+          "linksHintLinked": "En koblet applikasjon kan også introspektere tokens for dette API-et.",
+          "noneLinkedWarning": "Ingen applikasjon er koblet: ingen kan få tokens for dette API-et.",
+          "updated": "Tilgangen er oppdatert"
+        },
+        "tokens": {
+          "title": "Tokeninnstillinger for {name}",
+          "description": "Gjelder alle tilgangstokens som utstedes for dette API-et. Tokens som allerede er utstedt, beholder innstillingene sine.",
+          "accessTtl": "Levetid for tilgangstokens (minutter)",
+          "accessTtlHint": "Standard: {minutes, plural, one {# minutt} other {# minutter}}. Kan bare være kortere.",
+          "refreshTtl": "Levetid for oppdateringstokens (dager)",
+          "refreshTtlHint": "Standard: {days, plural, one {# dag} other {# dager}}. Kan bare være kortere.",
+          "claims": "Egendefinerte claims",
+          "claimsHint": "Et JSON-objekt som legges til i hvert tilgangstoken for dette API-et. Reservert: <mono>{claims}</mono>.",
+          "dpopLabel": "Krev DPoP-bundne tokens",
+          "dpopHint": "Klienter må sende et DPoP-bevis for å få et token for dette API-et, og tokenet bindes til nøkkelen deres. API-et må sjekke beviset ved hver forespørsel.",
+          "saved": "Tokeninnstillingene er lagret"
+        },
+        "delete": {
+          "title": "Slette {name}?",
+          "description": "Klienter kan ikke lenger få tokens for det, og tokens som allerede er utstedt for det, slutter å virke med en gang. Deaktiver det i stedet hvis du bare vil stoppe nye tokens.",
+          "deleted": "API-et er slettet"
+        }
       },
       "signInProviders": {
         "title": "Påloggingsleverandører",
-        "description": "La folk logge på {name} med Google, Apple, Microsoft og over 30 andre kontoer."
+        "description": "La folk logge på {name} med Google, Apple, Microsoft og over 30 andre kontoer.",
+        "panel": {
+          "copyCallback": "Kopier callback-URL-en",
+          "authAppFallback": "innloggingsappens adresse",
+          "environment": "Miljø",
+          "activeTitle": "På innloggingssiden",
+          "activeDescription": "I denne rekkefølgen på innloggings- og registreringssidene, og under Tilkoblede kontoer i hver brukers oversikt. Endringer når innloggingssiden innen 30 sekunder.",
+          "noneActive": "Ingen leverandør er på. Velg en i listen for å sette den opp.",
+          "setByEnvironment": "Angitt av miljøvariabler",
+          "existingAccountsOnly": "Bare eksisterende kontoer",
+          "connectedAccounts": "{count, plural, one {# tilkoblet konto} other {# tilkoblede kontoer}}",
+          "moveUp": "Flytt {name} opp",
+          "moveDown": "Flytt {name} ned",
+          "edit": "Rediger {name}",
+          "providersTitle": "Leverandører",
+          "providersDescription": "Alle leverandører Better Auth støtter. Opprett en OAuth-app hos leverandøren, registrer callback-URL-en som vises i innstillingene, og lim deretter inn legitimasjonen. Hemmeligheter lagres kryptert og vises aldri igjen.",
+          "search": "Søk i leverandører",
+          "noMatch": "Ingen leverandører samsvarer.",
+          "savedOn": "{name} er på",
+          "saved": "{name} er lagret",
+          "removed": "Innstillingene for {name} er fjernet",
+          "optional": "(valgfritt)",
+          "secretSet": "Angitt",
+          "replace": "Erstatt",
+          "removedOnSave": "Fjernes når du lagrer.",
+          "undo": "Angre",
+          "newValue": "Ny verdi",
+          "environmentDescription": "Angitt av miljøvariabler ({clientIdVar} og {clientSecretVar}): endre dem der, eller fjern dem for å administrere denne leverandøren her.",
+          "defaultNote": "Opprett en OAuth-app hos {name}, registrer callback-URL-en nedenfor, og lim deretter inn legitimasjonen.",
+          "callbackUrl": "Callback-URL",
+          "callbackHint": "Kalles også omdirigerings-URI eller retur-URL.",
+          "createApp": "Opprett appen",
+          "setupGuide": "Oppsettsveiledning",
+          "secretsUnreadable": "De lagrede hemmelighetene kan ikke dekrypteres ({envVar} er endret). Skriv dem inn på nytt.",
+          "buttonName": "Knappenavn",
+          "buttonNameHint": "Vises som «Fortsett med …» på innloggingssiden.",
+          "allowSignUp": "Opprett kontoer for nye brukere",
+          "allowSignUpHint": "Av: bare personer som allerede har en konto, kan logge inn med den (koblet til fra oversikten deres, eller med samme bekreftede e-post).",
+          "oneTap": "Vis Google One Tap",
+          "oneTapHint": "Googles egen innloggingsforespørsel, øverst på innloggings- og registreringssidene, for personer som allerede er logget inn på Google i nettleseren. Bruker denne klient-ID-en: legg til {origin} under Authorized JavaScript origins i Google Cloud-konsollen. Bare mens Google er på.",
+          "enabled": "Vis på innloggingssiden",
+          "enabledHint": "Av: knappen forsvinner, og innlogginger med denne leverandøren avvises. Innstillingene beholdes.",
+          "removeConfirm": "Fjerne innstillinger og hemmeligheter?",
+          "removeSettings": "Fjern innstillinger"
+        },
+        "errors": {
+          "unknownProvider": "Ukjent leverandør.",
+          "envManaged": "Denne leverandøren er angitt av miljøvariabler. Endre dem, eller fjern dem for å administrere den her.",
+          "invalidOption": "{field}: velg {options}.",
+          "appleKeyNotEc": "Privat nøkkel: forventet EC-nøkkelen (P-256) lastet ned fra Apple (.p8).",
+          "appleKeyInvalid": "Privat nøkkel: ikke en gyldig privat PEM-nøkkel. Lim inn hele .p8-filen, inkludert BEGIN- og END-linjene.",
+          "issuerNotHttps": "URL-en må starte med https://.",
+          "salesforceDomain": "My Domain: et vertsnavn som example.my.salesforce.com.",
+          "cognitoRegion": "Region: en AWS-region som eu-west-1.",
+          "googleHd": "Workspace-domene: et domene som example.com.",
+          "missingFields": "Fyll ut {fields} før du slår den på.",
+          "unusable": "Disse innstillingene kan ikke brukes."
+        },
+        "providers": {
+          "apple": {
+            "note": "Apple krever en HTTPS-retur-URL på et ekte domene (ikke localhost) og sender brukeren tilbake med en POST.",
+            "fields": {
+              "clientId": {
+                "label": "Services ID",
+                "hint": "Identifikatoren til en Services ID med Sign in with Apple slått på, f.eks. com.example.signin."
+              },
+              "teamId": {
+                "label": "Team ID"
+              },
+              "keyId": {
+                "label": "Nøkkel-ID",
+                "hint": "En nøkkel med Sign in with Apple aktivert."
+              },
+              "privateKey": {
+                "label": "Privat nøkkel (.p8)",
+                "hint": "Klienthemmeligheten er en JWT signert med denne nøkkelen; den genereres og fornyes automatisk."
+              },
+              "appBundleIdentifier": {
+                "label": "App bundle ID",
+                "hint": "Bare for innebygd iOS-innlogging (ID-tokens utstedt til appen din i stedet for Services ID-en)."
+              }
+            }
+          },
+          "atlassian": {
+            "fields": {
+              "clientId": {
+                "label": "Klient-ID"
+              },
+              "clientSecret": {
+                "label": "Klienthemmelighet"
+              }
+            }
+          },
+          "cloudflare": {
+            "fields": {
+              "clientId": {
+                "label": "Klient-ID"
+              },
+              "clientSecret": {
+                "label": "Klienthemmelighet",
+                "hint": "La stå tomt for en offentlig klient (bare PKCE)."
+              }
+            }
+          },
+          "cognito": {
+            "fields": {
+              "clientId": {
+                "label": "Appklient-ID"
+              },
+              "clientSecret": {
+                "label": "Appklienthemmelighet",
+                "hint": "Bare hvis appklienten har en hemmelighet."
+              },
+              "domain": {
+                "label": "Cognito-domene"
+              },
+              "region": {
+                "label": "Region"
+              },
+              "userPoolId": {
+                "label": "Brukerpool-ID"
+              }
+            }
+          },
+          "discord": {
+            "fields": {
+              "clientId": {
+                "label": "Klient-ID"
+              },
+              "clientSecret": {
+                "label": "Klienthemmelighet"
+              }
+            }
+          },
+          "dropbox": {
+            "fields": {
+              "clientId": {
+                "label": "Appnøkkel"
+              },
+              "clientSecret": {
+                "label": "Apphemmelighet"
+              }
+            }
+          },
+          "facebook": {
+            "fields": {
+              "clientId": {
+                "label": "App-ID"
+              },
+              "clientSecret": {
+                "label": "Apphemmelighet"
+              }
+            }
+          },
+          "figma": {
+            "fields": {
+              "clientId": {
+                "label": "Klient-ID"
+              },
+              "clientSecret": {
+                "label": "Klienthemmelighet"
+              }
+            }
+          },
+          "github": {
+            "note": "En OAuth App fungerer som den er. En GitHub App trenger også kontotillatelsen Email addresses satt til Read-only, ellers mislykkes innloggingen uten e-post.",
+            "fields": {
+              "clientId": {
+                "label": "Klient-ID"
+              },
+              "clientSecret": {
+                "label": "Klienthemmelighet"
+              }
+            }
+          },
+          "gitlab": {
+            "fields": {
+              "clientId": {
+                "label": "Applikasjons-ID"
+              },
+              "clientSecret": {
+                "label": "Klienthemmelighet"
+              },
+              "issuer": {
+                "label": "GitLab-URL",
+                "hint": "For en selvdriftet GitLab."
+              }
+            }
+          },
+          "google": {
+            "fields": {
+              "clientId": {
+                "label": "Klient-ID"
+              },
+              "clientSecret": {
+                "label": "Klienthemmelighet"
+              },
+              "hd": {
+                "label": "Workspace-domene",
+                "hint": "Godta bare kontoer fra dette Google Workspace-domenet."
+              }
+            }
+          },
+          "huggingface": {
+            "fields": {
+              "clientId": {
+                "label": "Klient-ID"
+              },
+              "clientSecret": {
+                "label": "Klienthemmelighet"
+              }
+            }
+          },
+          "kakao": {
+            "fields": {
+              "clientId": {
+                "label": "REST API-nøkkel"
+              },
+              "clientSecret": {
+                "label": "Klienthemmelighet",
+                "hint": "Bare hvis klienthemmelighet er slått på for appen."
+              }
+            }
+          },
+          "kick": {
+            "fields": {
+              "clientId": {
+                "label": "Klient-ID"
+              },
+              "clientSecret": {
+                "label": "Klienthemmelighet"
+              }
+            }
+          },
+          "line": {
+            "fields": {
+              "clientId": {
+                "label": "Kanal-ID"
+              },
+              "clientSecret": {
+                "label": "Kanalhemmelighet"
+              }
+            }
+          },
+          "linear": {
+            "fields": {
+              "clientId": {
+                "label": "Klient-ID"
+              },
+              "clientSecret": {
+                "label": "Klienthemmelighet"
+              }
+            }
+          },
+          "linkedin": {
+            "fields": {
+              "clientId": {
+                "label": "Klient-ID"
+              },
+              "clientSecret": {
+                "label": "Klienthemmelighet"
+              }
+            }
+          },
+          "microsoft": {
+            "fields": {
+              "clientId": {
+                "label": "Applikasjons-ID (klient-ID)"
+              },
+              "clientSecret": {
+                "label": "Verdi for klienthemmelighet"
+              },
+              "tenantId": {
+                "label": "Tenant",
+                "hint": "common (alle kontoer), organizations, consumers eller katalog-ID-en (tenant-ID-en) din for å tillate bare organisasjonen din."
+              }
+            }
+          },
+          "naver": {
+            "fields": {
+              "clientId": {
+                "label": "Klient-ID"
+              },
+              "clientSecret": {
+                "label": "Klienthemmelighet"
+              }
+            }
+          },
+          "notion": {
+            "fields": {
+              "clientId": {
+                "label": "OAuth-klient-ID"
+              },
+              "clientSecret": {
+                "label": "OAuth-klienthemmelighet"
+              }
+            }
+          },
+          "paybin": {
+            "fields": {
+              "clientId": {
+                "label": "Klient-ID"
+              },
+              "clientSecret": {
+                "label": "Klienthemmelighet"
+              },
+              "issuer": {
+                "label": "Utsteder"
+              }
+            }
+          },
+          "paypal": {
+            "note": "Slå på «Log in with PayPal» for appen og be om e-postadressen.",
+            "fields": {
+              "clientId": {
+                "label": "Klient-ID"
+              },
+              "clientSecret": {
+                "label": "Klienthemmelighet"
+              },
+              "environment": {
+                "label": "Miljø"
+              }
+            }
+          },
+          "polar": {
+            "fields": {
+              "clientId": {
+                "label": "Klient-ID"
+              },
+              "clientSecret": {
+                "label": "Klienthemmelighet"
+              }
+            }
+          },
+          "railway": {
+            "fields": {
+              "clientId": {
+                "label": "Klient-ID"
+              },
+              "clientSecret": {
+                "label": "Klienthemmelighet"
+              }
+            }
+          },
+          "reddit": {
+            "fields": {
+              "clientId": {
+                "label": "Klient-ID"
+              },
+              "clientSecret": {
+                "label": "Klienthemmelighet"
+              }
+            }
+          },
+          "roblox": {
+            "fields": {
+              "clientId": {
+                "label": "Klient-ID"
+              },
+              "clientSecret": {
+                "label": "Klienthemmelighet"
+              }
+            }
+          },
+          "salesforce": {
+            "fields": {
+              "clientId": {
+                "label": "Consumer key"
+              },
+              "clientSecret": {
+                "label": "Consumer secret"
+              },
+              "environment": {
+                "label": "Miljø"
+              },
+              "loginUrl": {
+                "label": "My Domain",
+                "hint": "Bare vertsnavn. Erstatter login.salesforce.com eller test.salesforce.com."
+              }
+            }
+          },
+          "slack": {
+            "fields": {
+              "clientId": {
+                "label": "Klient-ID"
+              },
+              "clientSecret": {
+                "label": "Klienthemmelighet"
+              }
+            }
+          },
+          "spotify": {
+            "fields": {
+              "clientId": {
+                "label": "Klient-ID"
+              },
+              "clientSecret": {
+                "label": "Klienthemmelighet"
+              }
+            }
+          },
+          "tiktok": {
+            "fields": {
+              "clientKey": {
+                "label": "Klientnøkkel"
+              },
+              "clientSecret": {
+                "label": "Klienthemmelighet"
+              }
+            }
+          },
+          "twitch": {
+            "fields": {
+              "clientId": {
+                "label": "Klient-ID"
+              },
+              "clientSecret": {
+                "label": "Klienthemmelighet"
+              }
+            }
+          },
+          "twitter": {
+            "note": "Bruk OAuth 2.0-legitimasjonen (ikke API-nøkkelen), og be om e-posttilgang i appens innstillinger.",
+            "fields": {
+              "clientId": {
+                "label": "OAuth 2.0-klient-ID"
+              },
+              "clientSecret": {
+                "label": "OAuth 2.0-klienthemmelighet"
+              }
+            }
+          },
+          "vercel": {
+            "fields": {
+              "clientId": {
+                "label": "Klient-ID"
+              },
+              "clientSecret": {
+                "label": "Klienthemmelighet"
+              }
+            }
+          },
+          "vk": {
+            "fields": {
+              "clientId": {
+                "label": "App-ID"
+              },
+              "clientSecret": {
+                "label": "Beskyttet nøkkel"
+              }
+            }
+          },
+          "wechat": {
+            "note": "Nettstedsapplikasjon (innlogging med QR-kode). WeChat returnerer ingen e-postadresse.",
+            "fields": {
+              "clientId": {
+                "label": "AppID"
+              },
+              "clientSecret": {
+                "label": "AppSecret"
+              }
+            }
+          },
+          "zoom": {
+            "fields": {
+              "clientId": {
+                "label": "Klient-ID"
+              },
+              "clientSecret": {
+                "label": "Klienthemmelighet"
+              }
+            }
+          }
+        }
       },
       "apiKeys": {
         "title": "API-nøkler",
-        "description": "Nøkler som brukere oppretter slik at skriptene deres kan kalle API-ene dine: slå dem av eller på, angi maksimal levetid og trekk tilbake hvilken som helst nøkkel."
+        "description": "Nøkler som brukere oppretter slik at skriptene deres kan kalle API-ene dine: slå dem av eller på, angi maksimal levetid og trekk tilbake hvilken som helst nøkkel.",
+        "allKeys": {
+          "title": "Alle nøkler",
+          "description": "Nyeste først{truncated, select, true {, de siste {limit}} other {}}. Utløpte nøkler slettes neste gang nøkler brukes eller opprettes. Å utestenge eller slette en konto trekker tilbake nøklene dens; å slette en organisasjon sletter nøklene dens (nøkler som eies av en organisasjon, blir værende når medlemmet som opprettet dem, forlater den)."
+        },
+        "settings": {
+          "description": "Folk oppretter nøkler fra kontosiden sin for ett av API-ene dine og noen av scopene dets. API-et sjekker hver nøkkel mot denne serveren. En nøkkel logger aldri noen inn på denne serveren eller administrasjonskonsollen.",
+          "statusOn": "På: folk kan opprette nøkler",
+          "statusOff": "Av: ingen nye nøkler, og alle nøkler avvises",
+          "maxLifetime": "Maksimal levetid",
+          "maxLifetimeValue": "{count, plural, one {# dag} other {# dager}}",
+          "apisAccepting": "API-er som godtar nøkler",
+          "apisNone": "Ingen: registrer et API med scopes, åpent for alle applikasjoner",
+          "verifyEndpoint": "Verifiseringsendepunkt: <code>{endpoint}</code>. API-et autentiserer seg som en applikasjon registrert her, koblet til det API-et (siden API-er, Tilgang). API-er som er begrenset til koblede applikasjoner, godtar ikke nøkler."
+        },
+        "dialog": {
+          "description": "Nøkler er langvarige: foretrekk korte levetider. Å senke maksimum gjelder bare nye nøkler.",
+          "allowLabel": "Tillat API-nøkler",
+          "allowHint": "Av: ingen kan opprette en nøkkel, og alle eksisterende nøkler avvises ved verifisering. Nøklene beholdes og virker igjen når du slår dette på igjen.",
+          "maxLifetimeLabel": "Maksimal levetid (dager)",
+          "maxLifetimeHint": "Fra 1 til {max}. Alle nøkler utløper.",
+          "saved": "Innstillingene er lagret. Autentiseringsserveren tar dem i bruk innen ett minutt."
+        },
+        "table": {
+          "empty": "Ingen API-nøkler.",
+          "key": "Nøkkel",
+          "owner": "Eier",
+          "api": "API",
+          "scopes": "Scopes",
+          "lastUsed": "Sist brukt",
+          "expires": "Utløper",
+          "createdBy": "av {email}",
+          "org": "Org.",
+          "removedApi": "Fjernet API",
+          "expired": "Utløpt",
+          "revoke": "Trekk tilbake",
+          "revoked": "API-nøkkelen er trukket tilbake",
+          "revokeTitle": "Trekke tilbake {name}?",
+          "revokeOrgDescription": "Denne nøkkelen til organisasjonen {owner} slutter å virke med en gang. Eierne og administratorene kan opprette en ny hvis API-nøkler er på.",
+          "revokeUserDescription": "Nøkkelen til {owner} slutter å virke med en gang. Vedkommende kan opprette en ny hvis API-nøkler er på."
+        },
+        "errors": {
+          "chooseEnabled": "Velg om API-nøkler skal være på.",
+          "maxLifetimeRange": "Maksimal levetid må være et helt antall dager fra 1 til {max}.",
+          "saveFailed": "Kunne ikke lagre innstillingene.",
+          "noKey": "Ingen nøkkel oppgitt.",
+          "keyGone": "Denne nøkkelen finnes ikke lenger."
+        }
       },
       "webhooks": {
         "title": "Webhooks",
         "description": "Signerte HTTPS-varsler som forteller appene dine når brukere, roller og organisasjonsmedlemskap i {name} endres.",
-        "deliveries": "Leveringslogg"
+        "deliveries": "Leveringslogg",
+        "eventDescriptions": {
+          "user_created": "En konto opprettes (registrering, administrator, SSO, SCIM).",
+          "user_updated": "Navn, e-post, e-postbekreftelse, brukernavn eller bilde endres.",
+          "user_deleted": "En konto slettes.",
+          "user_banned": "En konto utestenges, eller deaktiveres av SCIM.",
+          "user_unbanned": "En utestengelse oppheves, eller SCIM aktiverer kontoen igjen.",
+          "user_role_changed": "En kontos plattformrolle endres.",
+          "organization_member_added": "Noen blir med i en organisasjon.",
+          "organization_member_removed": "Noen forlater eller fjernes fra en organisasjon.",
+          "organization_member_role_changed": "Et medlems rolle i en organisasjon endres."
+        },
+        "panel": {
+          "events": "Hendelser",
+          "clear": "Fjern alle",
+          "selectAll": "Velg alle",
+          "signingSecret": "Signeringshemmelighet",
+          "secretCopied": "Hemmeligheten er kopiert",
+          "copySecret": "Kopier hemmelighet",
+          "url": "URL",
+          "add": {
+            "title": "Legg til et endepunkt",
+            "description": "Ostiary sender en signert JSON-hendelse med POST til denne URL-en når en av de valgte hendelsene skjer, og prøver på nytt i omtrent ett døgn hvis det mislykkes.",
+            "urlHint": "HTTPS, på en offentlig adresse.",
+            "urlHintLocalhost": "HTTPS, på en offentlig adresse. {url} godtas ({envVar}, bare for utvikling).",
+            "descriptionPlaceholder": "Faktureringsapp: brukersynkronisering",
+            "adding": "Legger til…",
+            "submit": "Legg til endepunkt"
+          },
+          "list": {
+            "title": "Endepunkter",
+            "description": "Hver forespørsel har overskriftene <code>{id}</code>, <code>{timestamp}</code> og <code>{signature}</code> (Standard Webhooks). Et endepunkt som mislykkes {count, plural, one {# gang} other {# ganger}} på rad, deaktiveres.",
+            "empty": "Ingen endepunkter ennå."
+          },
+          "created": {
+            "title": "Endepunktet er lagt til",
+            "description": "Kopier signeringshemmeligheten inn i appen på {url}: den verifiserer hver levering med den. Den vises ikke igjen."
+          },
+          "test": {
+            "delivered": "Testhendelsen er levert (HTTP {status})",
+            "failed": "Testhendelsen mislyktes: {reason}"
+          },
+          "item": {
+            "disabledFailures": "Deaktivert etter gjentatte feil",
+            "rotating": "Hemmeligheten roteres",
+            "editLabel": "Rediger {label}",
+            "deleteLabel": "Slett {label}",
+            "disabledNotice": "Deaktivert etter {count, plural, one {# mislykket forsøk} other {# mislykkede forsøk}} på rad. Rett feilen hos mottakeren, og slå det på igjen: ventende hendelser sendes på nytt.",
+            "disabledNoticeOn": "Deaktivert {date} etter {count, plural, one {# mislykket forsøk} other {# mislykkede forsøk}} på rad. Rett feilen hos mottakeren, og slå det på igjen: ventende hendelser sendes på nytt.",
+            "lastSuccess": "Siste vellykkede",
+            "lastFailure": "Siste feil",
+            "inARow": "({count} på rad)",
+            "deliveries": "Leveringer",
+            "deliveriesValue": "{pending} venter eller prøves på nytt · {failed} mislyktes",
+            "sendTest": "Send testhendelse",
+            "deliveryLog": "Leveringslogg",
+            "regenerateSecret": "Generer ny hemmelighet"
+          },
+          "edit": {
+            "title": "Rediger endepunkt",
+            "enabledHint": "Mens det er deaktivert, registreres ingen nye hendelser for dette endepunktet, og nye forsøk venter.",
+            "updated": "Endepunktet er oppdatert"
+          },
+          "rotate": {
+            "title": "Generere ny signeringshemmelighet?",
+            "description": "Leveringer signeres med både den gamle og den nye hemmeligheten i 24 timer, slik at appen kan bytte uten å gå glipp av hendelser.",
+            "newTitle": "Ny signeringshemmelighet",
+            "newDescription": "Kopier den inn i appen nå: den vises ikke igjen. De neste 24 timene har leveringer også en signatur med den gamle hemmeligheten.",
+            "confirm": "Generer på nytt"
+          },
+          "delete": {
+            "title": "Slette dette endepunktet?",
+            "description": "{url} slutter å motta hendelser, og leveringsloggen og ventende nye forsøk slettes. Deaktiver det i stedet hvis du vil sette det på pause.",
+            "deleted": "Endepunktet er slettet"
+          }
+        },
+        "redeliver": {
+          "button": "Lever på nytt",
+          "delivered": "Levert (HTTP {status})",
+          "failed": "Mislyktes: {reason}"
+        },
+        "log": {
+          "status": {
+            "succeeded": "Levert",
+            "failed": "Mislyktes",
+            "pending": "Venter"
+          },
+          "disabled": "Deaktivert: nye forsøk venter til det slås på igjen.",
+          "empty": "Ingen leveringer ennå. Bruk «Send testhendelse» på Webhooks-siden for å prøve endepunktet.",
+          "event": "Hendelse",
+          "response": "Respons",
+          "attempts": "Forsøk",
+          "nextRetry": "Neste forsøk",
+          "answer": "Svar",
+          "error": "feil",
+          "footer": "De siste {shown} leveringene. Leveringer beholdes i {days, plural, one {# dag} other {# dager}}. En mislykket levering prøves på nytt {retries, plural, one {# gang} other {# ganger}} i løpet av omtrent ett døgn; «Lever på nytt» sender den samme hendelsen (samme {header}) igjen nå."
+        },
+        "errors": {
+          "noEvents": "Velg minst én hendelse.",
+          "tooMany": "Maks {max} endepunkter.",
+          "endpointNotFound": "Fant ikke endepunktet.",
+          "disabledTest": "Endepunktet er deaktivert: slå det på for å sende en testhendelse.",
+          "testNotSent": "Testhendelsen kunne ikke sendes.",
+          "deliveryNotFound": "Fant ikke leveringen.",
+          "disabledRedeliver": "Endepunktet er deaktivert: slå det på for å levere på nytt.",
+          "eventNotSent": "Hendelsen kunne ikke sendes."
+        }
       },
       "users": {
-        "title": "Users",
-        "description": "Find accounts, change roles, ban or remove them, and open an account to see its sessions and activity."
+        "title": "Brukere",
+        "description": "Finn kontoer, endre roller, utesteng eller fjern dem, og åpne en konto for å se øktene og aktiviteten.",
+        "list": {
+          "searchPlaceholder": "Søk etter navn eller e-post…",
+          "searchLabel": "Søk i brukere",
+          "rolePlaceholder": "Rolle",
+          "roleAll": "Alle roller",
+          "roleAdmin": "Administrator",
+          "roleUser": "Bruker",
+          "loadErrorTitle": "Kunne ikke laste inn brukere",
+          "loadErrorFallback": "Kunne ikke laste inn brukere",
+          "columns": {
+            "user": "Bruker",
+            "role": "Rolle",
+            "status": "Status",
+            "verified": "Bekreftet",
+            "joined": "Registrert"
+          },
+          "loading": "Laster inn brukere…",
+          "empty": "Ingen brukere samsvarer med filtrene.",
+          "noUsers": "0 brukere",
+          "showing": "Viser {from}–{to} av {total}",
+          "rowsPerPage": "Rader per side",
+          "previous": "Forrige",
+          "next": "Neste",
+          "pageOf": "Side {page} / {pages}",
+          "poweredBy": "Drevet av <code>listUsers</code>, <code>createUser</code>, <code>setRole</code>, <code>updateUser</code>, <code>setUserPassword</code> og tilhørende metoder fra <link>Better Auth admin-pluginen</link>. Du må være logget inn som administrator."
+        },
+        "status": {
+          "banned": "Utestengt",
+          "active": "Aktiv"
+        },
+        "create": {
+          "trigger": "Legg til bruker",
+          "title": "Legg til bruker",
+          "description": "Oppretter en konto via <code>createUser</code>.",
+          "email": "E-post",
+          "password": "Passord",
+          "name": "Navn",
+          "role": "Rolle",
+          "error": "Kunne ikke opprette brukeren",
+          "created": "Brukeren er opprettet",
+          "submit": "Opprett bruker",
+          "creating": "Oppretter…"
+        },
+        "rowActions": {
+          "menuLabel": "Handlinger for {name}",
+          "copyId": "Kopier bruker-ID",
+          "idCopied": "Bruker-ID-en er kopiert",
+          "edit": "Rediger bruker",
+          "setPassword": "Angi passord",
+          "makeAdmin": "Gjør til administrator",
+          "makeUser": "Gjør til bruker",
+          "ban": "Utesteng bruker",
+          "unban": "Opphev utestengelse",
+          "remove": "Fjern bruker",
+          "roleError": "Kunne ikke oppdatere rollen",
+          "roleSet": "Rollen er satt til {role}",
+          "unbanError": "Kunne ikke oppheve utestengelsen",
+          "unbanned": "Utestengelsen er opphevet",
+          "banError": "Kunne ikke utestenge brukeren",
+          "banned": "Brukeren er utestengt",
+          "removeError": "Kunne ikke fjerne brukeren",
+          "removed": "Brukeren er fjernet",
+          "emailRequired": "E-post er påkrevd",
+          "noChanges": "Ingen endringer å lagre",
+          "updateError": "Kunne ikke oppdatere brukeren",
+          "updated": "Brukeren er oppdatert",
+          "passwordRequired": "Skriv inn et nytt passord.",
+          "passwordMismatch": "Passordene samsvarer ikke.",
+          "passwordError": "Kunne ikke angi passordet",
+          "passwordUpdated": "Passordet er oppdatert",
+          "editTitle": "Rediger bruker",
+          "editDescription": "Endre navnet eller e-postadressen. En ny e-postadresse må bekreftes av brukeren før vedkommende kan logge inn igjen.",
+          "name": "Navn",
+          "email": "E-post",
+          "passwordTitle": "Angi passord",
+          "passwordDescription": "Angir et nytt passord for <strong>{email}</strong> med <code>setUserPassword</code>.",
+          "newPassword": "Nytt passord",
+          "confirmPassword": "Bekreft passord",
+          "updatePassword": "Oppdater passord",
+          "removeTitle": "Fjerne brukeren?",
+          "removeDescription": "Dette sletter <strong>{name}</strong> ({email}) og alt som er knyttet til kontoen, permanent. Oppføringer i revisjonsloggen beholdes uten navn eller e-post. Dette kan ikke angres.",
+          "removeConfirm": "Fjern",
+          "removing": "Fjerner…"
+        },
+        "detailActions": {
+          "impersonateError": "Kunne ikke opptre som denne brukeren.",
+          "signOutError": "Kunne ikke logge ut denne brukeren.",
+          "signedOut": "Logget ut av {count, plural, one {# økt} other {# økter}}",
+          "exportError": "Kunne ikke eksportere dataene til denne brukeren.",
+          "exported": "Dataene er eksportert. Eksporten er registrert i revisjonsloggen.",
+          "exportData": "Eksporter data",
+          "impersonate": "Opptre som bruker",
+          "signOutEverywhere": "Logg ut overalt",
+          "impersonateTitle": "Logge inn som {email}?",
+          "signOutTitle": "Logge ut {email} overalt?",
+          "impersonateDescription": "Du ser kontooversikten nøyaktig slik denne brukeren gjør, i opptil én time. Et banner der lar deg avslutte og gå tilbake. Dette registreres i revisjonsloggen.",
+          "signOutDescription": "Alle økter for denne brukeren avsluttes nå, på alle enheter. Vedkommende må logge inn på nytt.",
+          "sessionRevoked": "Økten er trukket tilbake",
+          "revokeError": "Kunne ikke trekke tilbake denne økten.",
+          "revoke": "Trekk tilbake",
+          "resetTwoFactorError": "Kunne ikke tilbakestille tofaktorautentiseringen.",
+          "twoFactorReset": "Tofaktorautentisering er slått av",
+          "reset": "Tilbakestill",
+          "resetTwoFactorTitle": "Tilbakestille tofaktorautentisering for {email}?",
+          "resetTwoFactorDescription": "Autentiseringsappen, reservekodene og de klarerte enhetene slutter å virke, og vedkommende logger inn med bare passordet til tofaktor er satt opp igjen. Gjør dette bare når du har bekreftet hvem som spør. Dette registreres i revisjonsloggen."
+        },
+        "detail": {
+          "emailVerified": "E-post bekreftet",
+          "emailNotVerified": "E-post ikke bekreftet",
+          "banned": "Utestengt",
+          "bannedWithReason": "Utestengt: {reason}",
+          "scimTitle": "Klargjort av SCIM: {organizations}",
+          "scimDescription": "Identitetsleverandøren administrerer denne kontoen. Fjern brukeren der: å slette kontoen her hindrer ikke katalogen i å opprette den på nytt ved neste synkronisering. Brukeren kan ikke slette kontoen fra oversikten sin.",
+          "tiles": {
+            "joined": "Registrert",
+            "activeSessions": "Aktive økter",
+            "passkeys": "Passkeys",
+            "twoFactor": "Tofaktor"
+          },
+          "device": {
+            "unknown": "Ukjent enhet",
+            "browser": "Nettleser",
+            "browserOnOs": "{browser} på {os}"
+          },
+          "sessions": {
+            "title": "Aktive økter",
+            "description": "Enheter der denne kontoen er logget inn.",
+            "empty": "Ingen aktive økter.",
+            "device": "Enhet",
+            "ipAddress": "IP-adresse",
+            "lastActive": "Sist aktiv",
+            "impersonated": "Opptrådt som"
+          },
+          "apiKeys": {
+            "title": "API-nøkler",
+            "description": "Nøkler denne kontoen har opprettet for skript. Å utestenge eller slette kontoen trekker dem tilbake."
+          },
+          "signInMethods": {
+            "title": "Innloggingsmetoder",
+            "credential": "E-post og passord",
+            "sso": "SSO: {provider}",
+            "passkey": "Passkey: {name} <muted>({deviceType})</muted>",
+            "unnamed": "Uten navn",
+            "empty": "Ingen innloggingsmetoder.",
+            "twoFactor": "Tofaktorautentisering <muted>(autentiseringsapp)</muted>",
+            "managedByYou": "Administreres fra kontoen din"
+          },
+          "organizations": {
+            "title": "Organisasjoner",
+            "empty": "Ikke medlem av noen organisasjon."
+          },
+          "activity": {
+            "title": "Nylig innloggingsaktivitet",
+            "empty": "Ingen aktivitet registrert ennå.",
+            "events": {
+              "sign_in": "Logget inn",
+              "sign_up": "Opprettet konto",
+              "sign_out": "Logget ut",
+              "sign_in_failed": "Mislykket innlogging"
+            }
+          },
+          "audit": {
+            "title": "Administratorhandlinger på denne kontoen",
+            "empty": "Ingen administratorhandlinger ennå.",
+            "by": "av {actor}",
+            "system": "systemet"
+          }
+        }
       },
       "consent": {
-        "title": "Consent",
-        "description": "Permissions people have granted to OAuth clients, with the scopes and when they were given."
+        "title": "Samtykke",
+        "description": "Tillatelser som personer har gitt til OAuth-klienter, med scopes og når de ble gitt.",
+        "panel": {
+          "signedInUser": "Innlogget bruker",
+          "loadConsentsFailed": "Kunne ikke laste inn samtykker",
+          "loadClientsFailed": "Kunne ikke laste inn OAuth-klienter",
+          "loadErrorTitle": "Kunne ikke laste inn samtykker",
+          "searchPlaceholder": "Søk etter bruker, klient, samtykke-ID, referanse eller scope…",
+          "searchLabel": "Søk i samtykker",
+          "filter": {
+            "placeholder": "Scope-filter",
+            "all": "Alle samtykker",
+            "hasScope": "Har {scope}"
+          },
+          "columns": {
+            "user": "Bruker",
+            "application": "Applikasjon",
+            "scopes": "Scopes",
+            "reference": "Referanse",
+            "granted": "Gitt",
+            "updated": "Oppdatert"
+          },
+          "loading": "Laster inn samtykker…",
+          "emptyNone": "Ingen samtykker registrert for denne kontoen ennå.",
+          "emptyFiltered": "Ingen samtykker samsvarer med filtrene.",
+          "noResults": "0 samtykker",
+          "showing": "Viser {from}–{to} av {total}",
+          "rowsPerPage": "Rader per side",
+          "previous": "Forrige",
+          "next": "Neste",
+          "pageOf": "Side {page} / {total}",
+          "footnote": "Data fra <code>{getConsents}</code>; klientnavn hentes via <code>{getClients}</code>. Tilbaketrekking bruker <code>{deleteConsent}</code>. Se <consentLink>OAuth-samtykke</consentLink> i dokumentasjonen for <providerLink>OAuth-leverandøren</providerLink>. Det interaktive autorisasjonsgrensesnittet ligger på <code>{path}</code>."
+        },
+        "rowActions": {
+          "menuLabel": "Handlinger for samtykke {id}…",
+          "copyConsentId": "Kopier samtykke-ID",
+          "consentIdCopied": "Samtykke-ID-en er kopiert",
+          "copyClientId": "Kopier klient-ID",
+          "clientIdCopied": "Klient-ID-en er kopiert",
+          "viewDetails": "Vis detaljer",
+          "updateScopes": "Oppdater scopes",
+          "wireTo": "Koble til {method}",
+          "revoke": "Trekk tilbake samtykke",
+          "revokeFailed": "Kunne ikke trekke tilbake samtykket",
+          "revoked": "Samtykket er trukket tilbake",
+          "dialogTitle": "Trekke tilbake samtykket?",
+          "dialogDescription": "Fjerner denne brukerens tillatelse for <strong>{client}</strong> (<code>{clientId}</code>). Klienten må kanskje be om autorisasjon på nytt.",
+          "revoking": "Trekker tilbake…",
+          "revokeButton": "Trekk tilbake"
+        }
       },
       "usage": {
         "title": "Appbruk",
-        "description": "Hvilke apper som brukes: tilgangstokener, brukere og samtykker per app de siste 30 dagene."
+        "description": "Hvilke apper som brukes: tilgangstokener, brukere og samtykker per app de siste 30 dagene.",
+        "tiles": {
+          "tokens": "Tokens utstedt, 30 dager",
+          "active": "Applikasjoner i bruk",
+          "unused": "Ubrukte applikasjoner"
+        },
+        "card": {
+          "title": "Tilgangstokens per applikasjon, siste 30 dager",
+          "unused": "{count, plural, one {# aktiv applikasjon har ikke utstedt et token på 30 dager: vurder å deaktivere eller slette den.} other {# aktive applikasjoner har ikke utstedt et token på 30 dager: vurder å deaktivere eller slette dem.}}",
+          "allUsed": "Alle aktive applikasjoner har utstedt tokens de siste 30 dagene.",
+          "empty": "Ingen OAuth-klienter er registrert.",
+          "application": "Applikasjon",
+          "tokens": "Tokens",
+          "users": "Brukere",
+          "consents": "Samtykker",
+          "lastToken": "Siste token",
+          "lastTokenValue": "Siste token: {date}",
+          "showInApplications": "Vis i Applikasjoner",
+          "unusedBadge": "Ubrukt"
+        }
       },
       "audit": {
-        "title": "Audit log",
-        "description": "Every change made from this console or the admin API: who did it, to what, and when.",
-        "footnote": "Showing the latest 200 entries. Passwords and secrets are never recorded."
+        "title": "Revisjonslogg",
+        "description": "Alle endringer gjort fra denne konsollen eller administrasjons-API-et: hvem som gjorde dem, på hva og når.",
+        "footnote": "Viser de siste 200 oppføringene. Passord og hemmeligheter blir aldri registrert.",
+        "filterLabel": "Filtrer etter område",
+        "filters": {
+          "all": "Alle",
+          "user": "Brukere",
+          "organization": "Organisasjoner",
+          "oauth_client": "OAuth-klienter",
+          "oauth_consent": "Samtykker",
+          "oauth_resource": "API-er",
+          "api_key": "API-nøkler",
+          "sso_provider": "SSO",
+          "signing_key": "Signeringsnøkler",
+          "webhook": "Webhooks",
+          "social_provider": "Påloggingsleverandører"
+        },
+        "empty": "Ingen administratorhandlinger registrert ennå.",
+        "columns": {
+          "when": "Når",
+          "who": "Hvem",
+          "action": "Handling",
+          "target": "Mål",
+          "details": "Detaljer",
+          "ip": "IP"
+        },
+        "system": "System",
+        "actions": {
+          "user": {
+            "create": "Opprettet bruker",
+            "update": "Oppdaterte bruker",
+            "set_role": "Endret rolle",
+            "set_password": "Angav passord",
+            "ban": "Utestengte bruker",
+            "unban": "Opphevet utestengelse",
+            "delete": "Slettet bruker",
+            "revoke_session": "Trakk tilbake en økt",
+            "revoke_all_sessions": "Logget brukeren ut overalt",
+            "impersonate": "Opptrådte som bruker",
+            "reset_two_factor": "Tilbakestilte tofaktorautentisering",
+            "export_data": "Eksporterte kontodata",
+            "self_delete": "Slettet sin egen konto"
+          },
+          "oauth_client": {
+            "create": "Registrerte OAuth-klient",
+            "update": "Oppdaterte OAuth-klient",
+            "delete": "Slettet OAuth-klient",
+            "rotate_secret": "Roterte klienthemmelighet",
+            "self_register": "Klienten registrerte seg selv",
+            "disable": "Deaktiverte OAuth-klient",
+            "enable": "Aktiverte OAuth-klient",
+            "branding_update": "Endret innloggingsdesign",
+            "branding_reset": "Tilbakestilte innloggingsdesign"
+          },
+          "client_registration": {
+            "update": "Endret selvregistrering av klienter"
+          },
+          "oauth_resource": {
+            "create": "Registrerte API",
+            "update": "Oppdaterte API",
+            "delete": "Slettet API",
+            "access": "Endret API-tilgang",
+            "tokens": "Endret tokeninnstillinger for API"
+          },
+          "api_key": {
+            "create": "Opprettet API-nøkkel",
+            "revoke": "Trakk tilbake API-nøkkel",
+            "revoke_all": "Trakk tilbake alle API-nøkler",
+            "settings": "Endret innstillinger for API-nøkler"
+          },
+          "oauth_consent": {
+            "update": "Oppdaterte samtykke",
+            "delete": "Trakk tilbake samtykke"
+          },
+          "oauth_device": {
+            "approve": "Godkjente en enhetsinnlogging",
+            "deny": "Avviste en enhetsinnlogging"
+          },
+          "organization": {
+            "create": "Opprettet organisasjon",
+            "update": "Ga organisasjon nytt navn",
+            "delete": "Slettet organisasjon",
+            "invite": "Inviterte medlem",
+            "cancel_invitation": "Avbrøt invitasjon",
+            "update_member_role": "Endret medlemsrolle",
+            "remove_member": "Fjernet medlem"
+          },
+          "sso_provider": {
+            "create": "Registrerte SSO-leverandør",
+            "update": "Oppdaterte SSO-leverandør",
+            "delete": "Slettet SSO-leverandør",
+            "verify_domain": "Bekreftet SSO-domene"
+          },
+          "social_provider": {
+            "create": "Satte opp påloggingsleverandør",
+            "update": "Oppdaterte påloggingsleverandør",
+            "delete": "Fjernet påloggingsleverandør",
+            "reorder": "Endret rekkefølgen på påloggingsleverandører"
+          },
+          "scim": {
+            "token_create": "Genererte SCIM-token",
+            "token_rotate": "Erstattet SCIM-token",
+            "token_revoke": "Trakk tilbake SCIM-token"
+          },
+          "signing_key": {
+            "rotate": "Roterte signeringsnøkkel",
+            "update_settings": "Endret rotasjon av signeringsnøkler"
+          },
+          "webhook": {
+            "create": "La til webhook-endepunkt",
+            "update": "Oppdaterte webhook-endepunkt",
+            "enable": "Aktiverte webhook-endepunkt",
+            "disable": "Deaktiverte webhook-endepunkt",
+            "delete": "Slettet webhook-endepunkt",
+            "rotate_secret": "Genererte ny webhook-hemmelighet",
+            "test": "Sendte testhendelse for webhook",
+            "redeliver": "Leverte webhook-hendelse på nytt"
+          }
+        }
       },
       "security": {
-        "title": "Security",
-        "description": "Failed sign-in attempts, the accounts and addresses behind them, and banned accounts."
+        "title": "Sikkerhet",
+        "description": "Mislykkede innloggingsforsøk, kontoene og adressene bak dem, og utestengte kontoer.",
+        "tiles": {
+          "failed24h": "Mislykkede innlogginger, 24 timer",
+          "failed7d": "Mislykkede innlogginger, 7 dager",
+          "banned": "Utestengte kontoer"
+        },
+        "chart": {
+          "failed": "Mislykkede innlogginger"
+        },
+        "perDay": {
+          "title": "Mislykkede innlogginger per dag",
+          "description": "Feil passord eller ukjent konto, siste 30 dager ({total, number} totalt). Registrert siden 6. oktober 2026."
+        },
+        "noFailures": "Ingen mislykkede innlogginger de siste 7 dagene.",
+        "attempts": "Forsøk",
+        "topAccounts": {
+          "title": "Mest angrepne kontoer, 7 dager",
+          "description": "E-posten eller brukernavnet som ble prøvd, uansett om kontoen finnes eller ikke.",
+          "identifier": "E-post eller brukernavn",
+          "last": "Sist"
+        },
+        "topIps": {
+          "title": "Mest aktive IP-adresser, 7 dager",
+          "description": "Én adresse som prøver mange kontoer, betyr vanligvis credential stuffing.",
+          "ip": "IP-adresse",
+          "accounts": "Kontoer prøvd"
+        },
+        "banned": {
+          "title": "Utestengte kontoer",
+          "empty": "Ingen utestengte kontoer.",
+          "noReason": "Ingen grunn oppgitt",
+          "until": "til {date}",
+          "permanent": "permanent"
+        }
       },
       "signingKeys": {
         "title": "Signeringsnøkler",
@@ -380,88 +1812,236 @@
           "save": "Kunne ikke lagre innstillingene.",
           "rotate": "Kunne ikke rotere nøkkelen."
         }
+      },
+      "organizations": {
+        "controls": {
+          "unexpectedError": "Noe gikk galt.",
+          "organizationUpdated": "Organisasjonen er oppdatert",
+          "slug": "Slug",
+          "role": "Rolle",
+          "roleUpdated": "Rollen er oppdatert",
+          "roles": {
+            "owner": "eier",
+            "admin": "administrator",
+            "member": "medlem"
+          },
+          "removeMemberLabel": "Fjern {email}",
+          "removeMemberTitle": "Fjerne {email}?",
+          "removeMemberBody": "Vedkommende mister tilgangen til denne organisasjonen. Kontoen blir værende.",
+          "memberRemoved": "Medlemmet er fjernet",
+          "cancelInvitationLabel": "Avbryt invitasjonen til {email}",
+          "cancelInvitationTitle": "Avbryte invitasjonen til {email}?",
+          "cancelInvitationBody": "Lenken i e-posten slutter å virke.",
+          "cancelInvitation": "Avbryt invitasjon",
+          "invitationCancelled": "Invitasjonen er avbrutt",
+          "invitationSent": "Invitasjonen er sendt",
+          "inviteByEmail": "Inviter via e-post",
+          "sendInvitation": "Send invitasjon"
+        },
+        "scim": {
+          "unexpectedError": "Noe gikk galt.",
+          "tokenRevoked": "Tokenet er trukket tilbake",
+          "baseUrl": "Basis-URL",
+          "copyBaseUrl": "Kopier basis-URL",
+          "token": "Token",
+          "copyToken": "Kopier token",
+          "active": "Aktiv",
+          "expires": "Utløper",
+          "lastUsed": "Sist brukt",
+          "noToken": "Ingen aktive tokens. Identitetsleverandøren kan ikke klargjøre kontoer før du genererer et.",
+          "newToken": "Nytt token",
+          "revoke": "Trekk tilbake",
+          "generateToken": "Generer token",
+          "rotateTitle": "Erstatte SCIM-tokenet?",
+          "revokeTitle": "Trekke tilbake SCIM-tokenet?",
+          "rotateBody": "Det nåværende tokenet slutter å virke nå. Lim inn det nye i identitetsleverandøren for å fortsette klargjøringen.",
+          "revokeBody": "Identitetsleverandøren kan ikke lenger opprette, oppdatere eller deaktivere kontoer. Eksisterende kontoer endres ikke.",
+          "replaceToken": "Erstatt token",
+          "revokeToken": "Trekk tilbake token",
+          "issuedTitle": "SCIM-token",
+          "issuedDescription": "Kopier det nå: det vises ikke igjen. Det utløper om ett år.",
+          "tokenHint": "Lim det inn som bearer-token (Okta: API token, Entra ID: secret token)."
+        },
+        "detail": {
+          "back": "Organisasjoner",
+          "defaultWorkspace": "Standard arbeidsområde",
+          "createdAt": "Opprettet {date}",
+          "members": "Medlemmer",
+          "publicMembers": "Alle kontoer tilhører det offentlige arbeidsområdet, så medlemmer kan ikke fjernes her. Viser de første 50.",
+          "memberCount": "{count, plural, one {# medlem} other {# medlemmer}}.",
+          "noMembers": "Ingen medlemmer ennå.",
+          "member": "Medlem",
+          "joined": "Ble med",
+          "role": "Rolle",
+          "deactivated": "Deaktivert",
+          "banned": "Utestengt",
+          "invitationExpires": "utløper {date}",
+          "noInvitations": "Ingen ventende invitasjoner.",
+          "apiKeys": "API-nøkler",
+          "apiKeysDescription": "Nøkler som eies av denne organisasjonen, opprettet av eierne og administratorene i kontooversikten deres. De fortsetter å virke når medlemmet som opprettet dem, forlater organisasjonen, og slettes sammen med organisasjonen.",
+          "details": "Detaljer",
+          "sso": "Enkel pålogging",
+          "ssoDescription": "Identitetsleverandører knyttet til denne organisasjonen.",
+          "ssoNone": "Ingen. <link>Sett opp en</link>.",
+          "verified": "Bekreftet",
+          "unverified": "Ikke bekreftet",
+          "scim": "SCIM-klargjøring",
+          "scimDescription": "Identitetsleverandøren din (Okta, Entra ID og andre) oppretter kontoene til denne organisasjonen og deaktiverer dem når folk slutter.",
+          "scimCounts": "{active} klargjort, {inactive} deaktivert.",
+          "recentActions": "Nylige administratorhandlinger",
+          "noActions": "Ingen ennå.",
+          "system": "systemet"
+        },
+        "errors": {
+          "invalidNameSlug": "Skriv inn et navn og en slug med bokstaver, tall og bindestreker.",
+          "publicSlug": "Det offentlige arbeidsområdet beholder slugen «public».",
+          "slugTaken": "Den slugen brukes allerede av en annen organisasjon.",
+          "unknownRole": "Ukjent rolle.",
+          "memberNotFound": "Fant ikke medlemmet.",
+          "publicMembers": "Alle kontoer tilhører det offentlige arbeidsområdet.",
+          "invalidEmail": "Skriv inn en gyldig e-postadresse.",
+          "noInvitations": "Denne organisasjonen tar ikke imot invitasjoner.",
+          "alreadyMember": "Denne personen er allerede medlem.",
+          "invitationNotFound": "Fant ikke invitasjonen.",
+          "requestFailed": "Forespørselen mislyktes.",
+          "scimUnavailable": "Denne organisasjonen kan ikke bruke SCIM-klargjøring.",
+          "noActiveToken": "Det finnes ikke noe aktivt token."
+        }
+      }
+    },
+    "common": {
+      "cancel": "Avbryt",
+      "save": "Lagre",
+      "saving": "Lagrer…",
+      "saveChanges": "Lagre endringer",
+      "delete": "Slett",
+      "deleting": "Sletter…",
+      "edit": "Rediger",
+      "remove": "Fjern",
+      "close": "Lukk",
+      "copied": "Kopiert",
+      "enabled": "Aktivert",
+      "disabled": "Deaktivert",
+      "enable": "Aktiver",
+      "disable": "Deaktiver",
+      "on": "På",
+      "off": "Av",
+      "yes": "Ja",
+      "no": "Nei",
+      "never": "Aldri",
+      "none": "Ingen",
+      "actions": "Handlinger",
+      "created": "Opprettet",
+      "name": "Navn",
+      "description": "Beskrivelse",
+      "status": "Status",
+      "back": "Tilbake",
+      "done": "Ferdig",
+      "loading": "Laster inn…",
+      "refresh": "Oppdater",
+      "search": "Søk",
+      "optional": "Valgfritt",
+      "unexpectedError": "Noe gikk galt. Prøv igjen."
+    },
+    "urlCheck": {
+      "tooLong": "URL-en er for lang.",
+      "notAbsolute": "Skriv inn en absolutt URL, f.eks. https://app.example.com/webhooks.",
+      "credentials": "URL-en kan ikke inneholde brukernavn eller passord.",
+      "fragment": "URL-en kan ikke inneholde et fragment (#).",
+      "notHttps": "URL-en må bruke https://.",
+      "localhost": "URL-en peker til denne maskinen (localhost).",
+      "nonPublic": "URL-en peker til en {kind, select, loopback {loopback-adresse} private {privat adresse} linkLocal {link-local-adresse} cloudMetadata {skymetadata-adresse} sharedAddressSpace {delt adresse (carrier-grade NAT)} other {ikke-offentlig adresse}}.",
+      "unresolved": "Verten {host} kunne ikke slås opp.",
+      "noAddress": "Verten {host} har ingen adresse.",
+      "resolvesNonPublic": "Verten {host} slås opp til en {kind, select, loopback {loopback-adresse} private {privat adresse} linkLocal {link-local-adresse} cloudMetadata {skymetadata-adresse} sharedAddressSpace {delt adresse (carrier-grade NAT)} other {ikke-offentlig adresse}} ({address})."
+    },
+    "shell": {
+      "userFallbackName": "Administrator",
+      "userMenu": {
+        "home": "Hjem",
+        "logOut": "Logg ut"
       }
     }
   },
   "dashboard": {
-    "title": "Account",
-    "description": "Manage your profile, organizations, passkeys, sessions, and connected applications.",
-    "navAria": "Account navigation",
+    "title": "Konto",
+    "description": "Administrer profilen, organisasjonene, passkeys, økter og tilkoblede applikasjoner.",
+    "navAria": "Kontonavigasjon",
     "nav": {
-      "overview": "Overview",
-      "profile": "Profile",
-      "organizations": "Organizations",
-      "security": "Security",
-      "apps": "Connected apps",
+      "overview": "Oversikt",
+      "profile": "Profil",
+      "organizations": "Organisasjoner",
+      "security": "Sikkerhet",
+      "apps": "Tilkoblede apper",
       "apiKeys": "API-nøkler",
-      "admin": "Admin",
-      "marketingHome": "About",
-      "signOut": "Sign out",
+      "admin": "Administrasjon",
+      "marketingHome": "Om",
+      "signOut": "Logg ut",
       "data": "Dataene dine"
     },
     "profile": {
-      "title": "Profile",
-      "description": "Your display name, username, and email status for this account.",
-      "nameLabel": "Display name",
-      "usernameLabel": "Username",
-      "usernameHint": "3-30 characters: letters, numbers, dots, and underscores. Used to sign in instead of email.",
-      "usernameChecking": "Checking availability…",
-      "usernameAvailable": "This username is available.",
-      "usernameTaken": "This username is already taken.",
-      "usernameInvalidHint": "Use only letters, numbers, dots, and underscores.",
-      "usernameTooShort": "Username must be at least 3 characters.",
-      "usernameInvalid": "That username is not valid.",
-      "save": "Save",
-      "saving": "Saving…",
-      "saved": "Profile updated",
-      "saveError": "Could not update profile.",
-      "emailLabel": "Email",
-      "verified": "Verified",
-      "unverified": "Not verified",
-      "unverifiedHint": "Verify your email to protect your account and meet sign-in requirements.",
-      "resendVerification": "Resend verification email",
-      "verificationSent": "Check your inbox for the verification link.",
-      "verificationError": "Could not send verification email.",
-      "changeEmail": "Change",
-      "newEmailLabel": "New email address",
-      "changeEmailHintVerified": "We'll email your current address to approve the change, then send a verification link to the new one. Your email stays the same until both are done.",
-      "changeEmailSubmit": "Send confirmation",
-      "changingEmail": "Sending…",
-      "cancel": "Cancel",
-      "changeEmailSame": "Enter a different email address.",
-      "changeEmailError": "Could not start the email change.",
-      "changeEmailSentToCurrent": "Check {current} to approve the change to {next}. After that, verify {next} from the link we send there.",
-      "changeEmailNeedsVerified": "You can change it once it is verified."
+      "title": "Profil",
+      "description": "Visningsnavn, brukernavn og e-poststatus for denne kontoen.",
+      "nameLabel": "Visningsnavn",
+      "usernameLabel": "Brukernavn",
+      "usernameHint": "3–30 tegn: bokstaver, tall, punktum og understreker. Brukes til å logge inn i stedet for e-post.",
+      "usernameChecking": "Sjekker tilgjengelighet…",
+      "usernameAvailable": "Dette brukernavnet er ledig.",
+      "usernameTaken": "Dette brukernavnet er allerede tatt.",
+      "usernameInvalidHint": "Bruk bare bokstaver, tall, punktum og understreker.",
+      "usernameTooShort": "Brukernavnet må ha minst 3 tegn.",
+      "usernameInvalid": "Det brukernavnet er ikke gyldig.",
+      "save": "Lagre",
+      "saving": "Lagrer…",
+      "saved": "Profilen er oppdatert",
+      "saveError": "Kunne ikke oppdatere profilen.",
+      "emailLabel": "E-post",
+      "verified": "Bekreftet",
+      "unverified": "Ikke bekreftet",
+      "unverifiedHint": "Bekreft e-postadressen din for å beskytte kontoen og oppfylle kravene for innlogging.",
+      "resendVerification": "Send bekreftelses-e-post på nytt",
+      "verificationSent": "Sjekk innboksen din for bekreftelseslenken.",
+      "verificationError": "Kunne ikke sende bekreftelses-e-post.",
+      "changeEmail": "Endre",
+      "newEmailLabel": "Ny e-postadresse",
+      "changeEmailHintVerified": "Vi sender en e-post til den nåværende adressen din for å godkjenne endringen, og deretter en bekreftelseslenke til den nye. E-postadressen din forblir den samme til begge deler er fullført.",
+      "changeEmailSubmit": "Send bekreftelse",
+      "changingEmail": "Sender…",
+      "cancel": "Avbryt",
+      "changeEmailSame": "Skriv inn en annen e-postadresse.",
+      "changeEmailError": "Kunne ikke starte endringen av e-postadresse.",
+      "changeEmailSentToCurrent": "Sjekk {current} for å godkjenne endringen til {next}. Bekreft deretter {next} via lenken vi sender dit.",
+      "changeEmailNeedsVerified": "Du kan endre den når den er bekreftet."
     },
     "passkeys": {
       "title": "Passkeys",
-      "hint": "Use a passkey for phishing-resistant sign-in. Add one on this device or with a security key.",
-      "addThisDevice": "Add passkey (this device)",
-      "addSecurityKey": "Add passkey (security key)",
-      "defaultName": "My passkey",
-      "empty": "No passkeys yet. Add one to sign in without typing your password.",
-      "name": "Name",
-      "unnamed": "Unnamed passkey",
-      "deviceType": "Device type",
-      "created": "Added",
-      "actions": "Actions",
-      "rename": "Rename",
-      "delete": "Remove",
-      "save": "Save",
-      "cancel": "Cancel",
-      "loadError": "Could not load passkeys.",
-      "addError": "Could not add passkey.",
-      "deleteError": "Could not remove passkey.",
-      "updateError": "Could not update passkey.",
-      "added": "Passkey added",
-      "deleted": "Passkey removed",
-      "updated": "Passkey updated",
-      "nameRequired": "Enter a name for this passkey.",
-      "none": "None",
-      "confirmRemoveTitle": "Remove this passkey?",
-      "confirmRemoveBody": "You won’t be able to sign in with this passkey anymore. You can add a new one at any time.",
-      "signInAgainToAdd": "For your security, adding a passkey needs a recent sign-in. Sign in again, then add it.",
-      "signInAgain": "Sign in again"
+      "hint": "Bruk en passkey for phishing-sikker innlogging. Legg til en på denne enheten eller med en sikkerhetsnøkkel.",
+      "addThisDevice": "Legg til passkey (denne enheten)",
+      "addSecurityKey": "Legg til passkey (sikkerhetsnøkkel)",
+      "defaultName": "Min passkey",
+      "empty": "Ingen passkeys ennå. Legg til en for å logge inn uten å skrive passordet.",
+      "name": "Navn",
+      "unnamed": "Passkey uten navn",
+      "deviceType": "Enhetstype",
+      "created": "Lagt til",
+      "actions": "Handlinger",
+      "rename": "Gi nytt navn",
+      "delete": "Fjern",
+      "save": "Lagre",
+      "cancel": "Avbryt",
+      "loadError": "Kunne ikke laste inn passkeys.",
+      "addError": "Kunne ikke legge til passkey.",
+      "deleteError": "Kunne ikke fjerne passkey.",
+      "updateError": "Kunne ikke oppdatere passkey.",
+      "added": "Passkey lagt til",
+      "deleted": "Passkey fjernet",
+      "updated": "Passkey oppdatert",
+      "nameRequired": "Skriv inn et navn på denne passkeyen.",
+      "none": "Ingen",
+      "confirmRemoveTitle": "Fjerne denne passkeyen?",
+      "confirmRemoveBody": "Du kan ikke lenger logge inn med denne passkeyen. Du kan når som helst legge til en ny.",
+      "signInAgainToAdd": "Av sikkerhetshensyn krever det en nylig innlogging å legge til en passkey. Logg inn på nytt, og legg den deretter til.",
+      "signInAgain": "Logg inn på nytt"
     },
     "twoFactor": {
       "title": "Tofaktorautentisering",
@@ -509,45 +2089,45 @@
       }
     },
     "organizations": {
-      "title": "Organizations",
-      "description": "Teams and partner organizations you belong to. Switch between them and invite members. Platform administrators create new organizations.",
-      "yourOrganizations": "Your organizations",
-      "empty": "No organizations loaded.",
-      "active": "Active",
-      "switchTo": "Set active",
-      "setActiveError": "Could not switch organization.",
-      "setActiveSuccess": "Active organization updated.",
-      "createTitle": "Create an organization",
-      "createHint": "Use a unique URL slug (e.g. acme-corp). The reserved slug “public” is not available.",
-      "orgName": "Organization name",
+      "title": "Organisasjoner",
+      "description": "Team og partnerorganisasjoner du tilhører. Bytt mellom dem og inviter medlemmer. Plattformadministratorer oppretter nye organisasjoner.",
+      "yourOrganizations": "Organisasjonene dine",
+      "empty": "Ingen organisasjoner lastet inn.",
+      "active": "Aktiv",
+      "switchTo": "Gjør aktiv",
+      "setActiveError": "Kunne ikke bytte organisasjon.",
+      "setActiveSuccess": "Aktiv organisasjon er oppdatert.",
+      "createTitle": "Opprett en organisasjon",
+      "createHint": "Bruk en unik URL-slug (f.eks. acme-corp). Den reserverte slugen «public» er ikke tilgjengelig.",
+      "orgName": "Organisasjonsnavn",
       "orgSlug": "Slug",
-      "create": "Create organization",
-      "creating": "Creating…",
-      "createSuccess": "Organization created",
-      "createError": "Could not create organization.",
-      "createValidation": "Enter a name and slug.",
-      "reservedSlug": "This slug is reserved.",
-      "slugTaken": "That slug is already in use.",
-      "loadError": "Could not load organizations.",
-      "inviteTitle": "Invite a member",
-      "inviteHint": "Sends an email with a link to accept the invitation. Available when your role in the active organization is owner or admin.",
-      "inviteEmail": "Email",
-      "inviteRole": "Role",
-      "roleMember": "Member",
-      "roleAdmin": "Admin",
-      "inviteSend": "Send invitation",
-      "inviting": "Sending…",
-      "inviteSuccess": "Invitation sent",
-      "inviteError": "Could not send invitation.",
-      "inviteValidation": "Enter an email address.",
-      "allOrganizations": "All organizations",
-      "memberCount": "{count, plural, one {# member} other {# members}}",
-      "delete": "Delete",
-      "cancel": "Cancel",
-      "deleted": "Organization deleted",
-      "deleteError": "Could not delete the organization.",
-      "confirmDeleteTitle": "Delete {name}?",
-      "confirmDeleteBody": "This removes the organization, its {count, plural, one {# membership} other {# memberships}} and pending invitations. Member accounts stay. This cannot be undone.",
+      "create": "Opprett organisasjon",
+      "creating": "Oppretter…",
+      "createSuccess": "Organisasjonen er opprettet",
+      "createError": "Kunne ikke opprette organisasjonen.",
+      "createValidation": "Skriv inn et navn og en slug.",
+      "reservedSlug": "Denne slugen er reservert.",
+      "slugTaken": "Den slugen er allerede i bruk.",
+      "loadError": "Kunne ikke laste inn organisasjoner.",
+      "inviteTitle": "Inviter et medlem",
+      "inviteHint": "Sender en e-post med en lenke for å godta invitasjonen. Tilgjengelig når rollen din i den aktive organisasjonen er eier eller administrator.",
+      "inviteEmail": "E-post",
+      "inviteRole": "Rolle",
+      "roleMember": "Medlem",
+      "roleAdmin": "Administrator",
+      "inviteSend": "Send invitasjon",
+      "inviting": "Sender…",
+      "inviteSuccess": "Invitasjonen er sendt",
+      "inviteError": "Kunne ikke sende invitasjonen.",
+      "inviteValidation": "Skriv inn en e-postadresse.",
+      "allOrganizations": "Alle organisasjoner",
+      "memberCount": "{count, plural, one {# medlem} other {# medlemmer}}",
+      "delete": "Slett",
+      "cancel": "Avbryt",
+      "deleted": "Organisasjonen er slettet",
+      "deleteError": "Kunne ikke slette organisasjonen.",
+      "confirmDeleteTitle": "Slette {name}?",
+      "confirmDeleteBody": "Dette fjerner organisasjonen, {count, plural, one {# medlemskap} other {# medlemskap}} og ventende invitasjoner. Medlemmenes kontoer blir værende. Dette kan ikke angres.",
       "apiKeys": {
         "show": "API-nøkler",
         "hide": "Skjul API-nøkler",
@@ -559,41 +2139,43 @@
       }
     },
     "security": {
-      "title": "Security",
-      "description": "Update your password, manage passkeys, and review where you are signed in.",
-      "passwordHeading": "Password",
-      "passwordHint": "Use at least {min} characters. Choose a password you don’t use elsewhere.",
-      "currentPassword": "Current password",
-      "newPassword": "New password",
-      "confirmNewPassword": "Confirm new password",
-      "changePassword": "Update password",
-      "changing": "Updating…",
-      "passwordChanged": "Password updated",
-      "passwordError": "Could not change password.",
-      "passwordTooShort": "The new password must be at least {min} characters.",
-      "passwordMismatch": "New passwords do not match.",
-      "sameAsCurrent": "Choose a different password from your current one.",
-      "invalidCurrentPassword": "Current password is incorrect.",
-      "compromisedPassword": "This new password appears in known data breaches. Choose a different one.",
-      "revokeOthersAfterChange": "Sign out my other devices when the password changes",
-      "revokeOthersAfterChangeHint": "Recommended if you think someone else may know your old password.",
-      "sessionsTitle": "Active sessions",
-      "sessionsHint": "Revoke sessions you do not recognize. Revoking this device will sign you out.",
-      "sessionsLoadError": "Could not load sessions.",
-      "revoke": "Revoke",
-      "revokeOthers": "Sign out other sessions",
-      "revokeError": "Something went wrong.",
-      "sessionRevoked": "Session revoked",
-      "othersRevoked": "Other sessions signed out",
-      "currentSession": "This device",
-      "unknownDevice": "Unknown device",
-      "noSessions": "No sessions found.",
-      "device": "Device",
-      "network": "IP address",
-      "actions": "Actions",
-      "started": "Started",
-      "expires": "Expires",
-      "none": "None"
+      "title": "Sikkerhet",
+      "description": "Oppdater passordet ditt, administrer passkeys og se hvor du er logget inn.",
+      "passwordHeading": "Passord",
+      "passwordHint": "Bruk minst {min} tegn. Velg et passord du ikke bruker andre steder.",
+      "currentPassword": "Nåværende passord",
+      "newPassword": "Nytt passord",
+      "confirmNewPassword": "Bekreft nytt passord",
+      "changePassword": "Oppdater passord",
+      "changing": "Oppdaterer…",
+      "passwordChanged": "Passordet er oppdatert",
+      "passwordError": "Kunne ikke endre passordet.",
+      "passwordTooShort": "Det nye passordet må ha minst {min} tegn.",
+      "passwordMismatch": "De nye passordene samsvarer ikke.",
+      "sameAsCurrent": "Velg et annet passord enn det nåværende.",
+      "invalidCurrentPassword": "Det nåværende passordet er feil.",
+      "compromisedPassword": "Dette nye passordet finnes i kjente datalekkasjer. Velg et annet.",
+      "revokeOthersAfterChange": "Logg ut de andre enhetene mine når passordet endres",
+      "revokeOthersAfterChangeHint": "Anbefales hvis du tror noen andre kan kjenne det gamle passordet ditt.",
+      "sessionsTitle": "Aktive økter",
+      "sessionsHint": "Tilbakekall økter du ikke kjenner igjen. Hvis du tilbakekaller denne enheten, blir du logget ut.",
+      "sessionsLoadError": "Kunne ikke laste inn økter.",
+      "revoke": "Tilbakekall",
+      "revokeOthers": "Logg ut andre økter",
+      "revokeError": "Noe gikk galt.",
+      "sessionRevoked": "Økten er tilbakekalt",
+      "othersRevoked": "Andre økter er logget ut",
+      "currentSession": "Denne enheten",
+      "unknownDevice": "Ukjent enhet",
+      "noSessions": "Fant ingen økter.",
+      "device": "Enhet",
+      "network": "IP-adresse",
+      "actions": "Handlinger",
+      "started": "Startet",
+      "expires": "Utløper",
+      "none": "Ingen",
+      "startedAt": "Startet: {date}",
+      "expiresAt": "Utløper: {date}"
     },
     "apps": {
       "title": "Tilkoblede apper",
@@ -669,22 +2251,22 @@
       "createdBy": "opprettet av {name}",
       "createdByDeleted": "oppretterens konto slettet"
     },
-    "accountMenu": "Account menu",
+    "accountMenu": "Kontomeny",
     "connectedAccounts": {
-      "title": "Connected accounts",
-      "hint": "Sign in with these accounts as well as your password or passkeys.",
-      "connected": "Connected",
-      "notConnected": "Not connected",
-      "connect": "Connect",
-      "disconnect": "Disconnect",
-      "disconnected": "{provider} disconnected",
-      "cancel": "Cancel",
-      "confirmTitle": "Disconnect {provider}?",
-      "confirmBody": "You won't be able to sign in with this account anymore. You can connect it again later.",
-      "lastMethod": "This is your only way to sign in. Add a password or passkey first.",
-      "error": "Something went wrong. Try again.",
-      "signInAgainToChange": "For your security, connecting an account needs a recent sign-in. Sign in again, then connect it.",
-      "signInAgain": "Sign in again"
+      "title": "Tilknyttede kontoer",
+      "hint": "Logg inn med disse kontoene i tillegg til passordet eller passkeys.",
+      "connected": "Tilkoblet",
+      "notConnected": "Ikke tilkoblet",
+      "connect": "Koble til",
+      "disconnect": "Koble fra",
+      "disconnected": "{provider} er koblet fra",
+      "cancel": "Avbryt",
+      "confirmTitle": "Koble fra {provider}?",
+      "confirmBody": "Du kan ikke lenger logge inn med denne kontoen. Du kan koble den til igjen senere.",
+      "lastMethod": "Dette er den eneste måten du kan logge inn på. Legg til et passord eller en passkey først.",
+      "error": "Noe gikk galt. Prøv igjen.",
+      "signInAgainToChange": "Av sikkerhetshensyn krever det en nylig innlogging å koble til en konto. Logg inn på nytt, og koble den deretter til.",
+      "signInAgain": "Logg inn på nytt"
     },
     "accounts": {
       "switchTo": "Bytt til",
@@ -752,26 +2334,30 @@
         "impersonating": "En konto kan ikke slettes mens en administrator ser på den.",
         "failed": "Kunne ikke starte slettingen. Prøv igjen."
       }
+    },
+    "impersonation": {
+      "viewingAs": "Du ser denne kontoen som <strong>{email}</strong>.",
+      "stop": "Slutt å opptre som bruker"
     }
   },
   "acceptInvitation": {
-    "loading": "Checking session…",
-    "needSignInTitle": "Sign in to continue",
-    "needSignInDescription": "You need to be signed in with the invited email address before accepting this invitation.",
-    "signIn": "Sign in",
-    "title": "Accept invitation",
-    "description": "Join the organization that invited you.",
-    "signedInAs": "Signed in as {email}.",
-    "accept": "Accept invitation",
-    "accepting": "Accepting…",
-    "success": "You have joined the organization.",
-    "successTitle": "Welcome",
-    "successDescription": "Redirecting to your dashboard…",
-    "error": "Could not accept the invitation."
+    "loading": "Sjekker økten…",
+    "needSignInTitle": "Logg inn for å fortsette",
+    "needSignInDescription": "Du må være logget inn med den inviterte e-postadressen før du kan godta denne invitasjonen.",
+    "signIn": "Logg inn",
+    "title": "Godta invitasjon",
+    "description": "Bli med i organisasjonen som inviterte deg.",
+    "signedInAs": "Logget inn som {email}.",
+    "accept": "Godta invitasjon",
+    "accepting": "Godtar…",
+    "success": "Du er nå med i organisasjonen.",
+    "successTitle": "Velkommen",
+    "successDescription": "Sender deg videre til oversikten din…",
+    "error": "Kunne ikke godta invitasjonen."
   },
   "common": {
-    "loading": "Loading…",
-    "language": "Language",
+    "loading": "Laster inn…",
+    "language": "Språk",
     "localeNames": {
       "en": "Engelsk",
       "fr": "Fransk",
@@ -793,12 +2379,20 @@
       "no": "Norsk",
       "fi": "Finsk",
       "cs": "Tsjekkisk"
+    },
+    "ui": {
+      "close": "Lukk",
+      "sidebar": "Sidepanel",
+      "sidebarDescription": "Viser sidepanelet på mobil.",
+      "toggleSidebar": "Vis/skjul sidepanel",
+      "breadcrumb": "brødsmulesti",
+      "more": "Mer"
     }
   },
   "errors": {
-    "boundaryTitle": "Something went wrong",
-    "boundaryDescription": "An error occurred while loading this page.",
-    "retry": "Try again"
+    "boundaryTitle": "Noe gikk galt",
+    "boundaryDescription": "Det oppstod en feil under innlasting av denne siden.",
+    "retry": "Prøv igjen"
   },
   "rateLimit": {
     "seconds": "For mange forsøk. Prøv igjen om {seconds, plural, one {# sekund} other {# sekunder}}.",
@@ -806,94 +2400,156 @@
     "later": "For mange forsøk. Vent noen minutter og prøv igjen."
   },
   "sso": {
-    "title": "Single sign-on",
-    "description": "Connect your organization's identity provider (OIDC or SAML 2.0) so members can sign in with their work account.",
-    "registerTitle": "Register a provider",
-    "registerDescription": "Your identity provider must redirect back to the callback URL shown below.",
-    "providerId": "Provider ID",
-    "providerIdHint": "A short identifier, e.g. acme-okta.",
-    "issuer": "Issuer URL",
-    "domain": "Email domain",
-    "domainHint": "Users with this email domain are sent to this provider.",
-    "clientId": "Client ID",
-    "clientSecret": "Client secret",
-    "organization": "Organization (optional)",
-    "register": "Register provider",
-    "registering": "Registering…",
-    "registered": "SSO provider registered",
-    "registerError": "Could not register the provider.",
-    "callbackTitle": "Callback URL to configure in your identity provider",
-    "providersTitle": "Configured providers",
-    "providersEmpty": "No SSO provider configured yet.",
-    "loadError": "Could not load SSO providers.",
-    "signInTitle": "Sign in with SSO",
-    "signInDescription": "Enter your work email. We'll redirect you to your organization's identity provider.",
-    "signInEmail": "Work email",
-    "signInSubmit": "Continue",
-    "signInError": "Could not start single sign-on for this address.",
-    "signInLink": "Sign in with SSO",
-    "signInFailed": "Single sign-on did not complete. Try again, or ask your administrator to check the identity provider settings.",
+    "title": "Enkel pålogging",
+    "description": "Koble til organisasjonens identitetsleverandør (OIDC eller SAML 2.0) slik at medlemmene kan logge inn med jobbkontoen sin.",
+    "registerTitle": "Registrer en leverandør",
+    "registerDescription": "Identitetsleverandøren må sende tilbake til callback-URL-en som vises nedenfor.",
+    "providerId": "Leverandør-ID",
+    "providerIdHint": "En kort identifikator, f.eks. acme-okta.",
+    "issuer": "Utsteder-URL",
+    "domain": "E-postdomene",
+    "domainHint": "Brukere med dette e-postdomenet sendes til denne leverandøren.",
+    "clientId": "Klient-ID",
+    "clientSecret": "Klienthemmelighet",
+    "organization": "Organisasjon (valgfritt)",
+    "register": "Registrer leverandør",
+    "registering": "Registrerer…",
+    "registered": "SSO-leverandøren er registrert",
+    "registerError": "Kunne ikke registrere leverandøren.",
+    "callbackTitle": "Callback-URL som skal konfigureres i identitetsleverandøren",
+    "providersTitle": "Konfigurerte leverandører",
+    "providersEmpty": "Ingen SSO-leverandør er konfigurert ennå.",
+    "loadError": "Kunne ikke laste inn SSO-leverandører.",
+    "signInTitle": "Logg inn med SSO",
+    "signInDescription": "Skriv inn jobb-e-posten din. Vi sender deg videre til organisasjonens identitetsleverandør.",
+    "signInEmail": "Jobb-e-post",
+    "signInSubmit": "Fortsett",
+    "signInError": "Kunne ikke starte enkel pålogging for denne adressen.",
+    "signInLink": "Logg inn med SSO",
+    "signInFailed": "Enkel pålogging ble ikke fullført. Prøv igjen, eller be administratoren din om å sjekke innstillingene for identitetsleverandøren.",
     "saml": {
-      "protocol": "Protocol",
-      "registerDescription": "The identity provider posts signed SAML assertions to the ACS URL below. Sign-in starts from Ostiary (SP-initiated).",
-      "idpSource": "Identity provider configuration",
-      "sourceUrl": "Metadata URL",
-      "sourceXml": "Paste metadata XML",
-      "sourceManual": "Enter manually",
-      "metadataUrl": "IdP metadata URL",
-      "metadataUrlHint": "The server fetches it once when you save. After a certificate rotation, fetch it again from Edit.",
-      "metadataXml": "IdP metadata XML",
-      "metadataXmlHint": "The EntityDescriptor your identity provider exports.",
-      "idpEntityId": "IdP entity ID (issuer)",
-      "ssoUrl": "IdP single sign-on URL",
-      "ssoUrlHint": "The URL for the HTTP-Redirect binding.",
-      "certificate": "IdP signing certificate",
-      "certificateHint": "PEM (-----BEGIN CERTIFICATE-----) or its base64 body.",
-      "mappingTitle": "Attribute mapping",
-      "mappingPreset": "Preset",
+      "protocol": "Protokoll",
+      "registerDescription": "Identitetsleverandøren sender signerte SAML-påstander til ACS-URL-en nedenfor. Innloggingen starter fra Ostiary (SP-initiert).",
+      "idpSource": "Konfigurasjon av identitetsleverandør",
+      "sourceUrl": "Metadata-URL",
+      "sourceXml": "Lim inn metadata-XML",
+      "sourceManual": "Angi manuelt",
+      "metadataUrl": "IdP-metadata-URL",
+      "metadataUrlHint": "Serveren henter den én gang når du lagrer. Etter en sertifikatrotasjon henter du den på nytt fra Rediger.",
+      "metadataXml": "IdP-metadata-XML",
+      "metadataXmlHint": "EntityDescriptor-en som identitetsleverandøren eksporterer.",
+      "idpEntityId": "IdP-enhets-ID (utsteder)",
+      "ssoUrl": "IdP-URL for enkel pålogging",
+      "ssoUrlHint": "URL-en for HTTP-Redirect-bindingen.",
+      "certificate": "IdP-signeringssertifikat",
+      "certificateHint": "PEM (-----BEGIN CERTIFICATE-----) eller base64-innholdet.",
+      "mappingTitle": "Attributtilordning",
+      "mappingPreset": "Forhåndsinnstilling",
       "preset_okta": "Okta",
       "preset_entra": "Microsoft Entra ID",
       "preset_google": "Google Workspace",
       "preset_jumpcloud": "JumpCloud",
-      "preset_custom": "Custom",
-      "attrEmail": "Email attribute",
-      "attrName": "Display name attribute",
-      "attrFirstName": "First name attribute",
-      "attrLastName": "Last name attribute",
-      "mappingHint": "First and last name are used when the identity provider sends them, otherwise the display name. The user ID is the assertion's NameID: configure a persistent identifier.",
-      "wantAssertionsSigned": "Require signed assertions",
-      "wantAssertionsSignedHint": "Recommended. When off, the whole response must still be signed: unsigned responses are always refused.",
-      "requestSigningNote": "Ostiary does not sign authentication requests: leave request signing off in the identity provider.",
-      "spTitle": "Values to enter in your identity provider",
-      "acsUrl": "ACS URL (single sign-on URL, reply URL)",
-      "spEntityId": "SP entity ID (audience URI, identifier)",
-      "spMetadataUrl": "SP metadata URL",
-      "copy": "Copy",
-      "copied": "Copied",
-      "setupTitle": "Setup notes",
-      "oktaStep1": "In the Okta admin console: Applications, Create App Integration, SAML 2.0.",
-      "oktaStep2": "Single sign-on URL: the ACS URL. Audience URI (SP Entity ID): the SP entity ID. Name ID format: Persistent. Application username: Email.",
-      "oktaStep3": "Attribute statements: email = user.email, firstName = user.firstName, lastName = user.lastName (the Okta preset).",
-      "oktaStep4": "Assign people, then copy the metadata URL from the Sign On tab into Ostiary.",
-      "entraStep1": "In Microsoft Entra ID: Enterprise applications, New application, Create your own application (non-gallery), then Single sign-on, SAML.",
-      "entraStep2": "Basic SAML configuration: Identifier (Entity ID) = the SP entity ID, Reply URL = the ACS URL.",
-      "entraStep3": "Keep the default claims (the Entra ID preset). The default signing option, Sign SAML assertion, works.",
-      "entraStep4": "Assign users and groups, then copy the App Federation Metadata URL into Ostiary.",
-      "spInitiatedNote": "Only sign-in started from Ostiary is supported. Point app tiles in the identity provider's portal to {url}.",
-      "spDetails": "SP details",
-      "detailsTitle": "{id}: SAML settings",
-      "detailsDescription": "Enter these values in the identity provider.",
-      "assertionsSignedOn": "Signed assertions are required.",
-      "assertionsSignedOff": "Signed responses are required (assertions may be unsigned).",
-      "certExpires": "Signing certificate valid until {date}",
-      "certExpired": "The signing certificate has expired: sign-ins will fail until the IdP metadata is updated.",
-      "editTitle": "Edit {id}",
-      "editDescription": "Changing the domain means it must be verified again. The SP entity ID and ACS URL stay the same.",
-      "replaceIdp": "Replace the identity provider configuration (new metadata or certificate)",
-      "updated": "Provider updated",
-      "save": "Save",
-      "cancel": "Cancel",
-      "close": "Close"
+      "preset_custom": "Egendefinert",
+      "attrEmail": "E-postattributt",
+      "attrName": "Attributt for visningsnavn",
+      "attrFirstName": "Attributt for fornavn",
+      "attrLastName": "Attributt for etternavn",
+      "mappingHint": "Fornavn og etternavn brukes når identitetsleverandøren sender dem, ellers visningsnavnet. Bruker-ID-en er påstandens NameID: konfigurer en vedvarende identifikator.",
+      "wantAssertionsSigned": "Krev signerte påstander",
+      "wantAssertionsSignedHint": "Anbefales. Når dette er av, må hele svaret likevel være signert: usignerte svar avvises alltid.",
+      "requestSigningNote": "Ostiary signerer ikke autentiseringsforespørsler: la signering av forespørsler være av i identitetsleverandøren.",
+      "spTitle": "Verdier som skal angis i identitetsleverandøren",
+      "acsUrl": "ACS-URL (URL for enkel pålogging, svar-URL)",
+      "spEntityId": "SP-enhets-ID (målgruppe-URI, identifikator)",
+      "spMetadataUrl": "SP-metadata-URL",
+      "copy": "Kopier",
+      "copied": "Kopiert",
+      "setupTitle": "Oppsettnotater",
+      "oktaStep1": "I Okta-administrasjonskonsollen: Applications, Create App Integration, SAML 2.0.",
+      "oktaStep2": "Single sign-on URL: ACS-URL-en. Audience URI (SP Entity ID): SP-enhets-ID-en. Name ID format: Persistent. Application username: Email.",
+      "oktaStep3": "Attribute statements: email = user.email, firstName = user.firstName, lastName = user.lastName (Okta-forhåndsinnstillingen).",
+      "oktaStep4": "Tildel personer, og kopier deretter metadata-URL-en fra fanen Sign On inn i Ostiary.",
+      "entraStep1": "I Microsoft Entra ID: Enterprise applications, New application, Create your own application (non-gallery), deretter Single sign-on, SAML.",
+      "entraStep2": "Basic SAML configuration: Identifier (Entity ID) = SP-enhets-ID-en, Reply URL = ACS-URL-en.",
+      "entraStep3": "Behold standardkravene (Entra ID-forhåndsinnstillingen). Standard signeringsalternativ, Sign SAML assertion, fungerer.",
+      "entraStep4": "Tildel brukere og grupper, og kopier deretter App Federation Metadata URL inn i Ostiary.",
+      "spInitiatedNote": "Bare innlogging som starter fra Ostiary, støttes. La appflisene i identitetsleverandørens portal peke til {url}.",
+      "spDetails": "SP-detaljer",
+      "detailsTitle": "{id}: SAML-innstillinger",
+      "detailsDescription": "Angi disse verdiene i identitetsleverandøren.",
+      "assertionsSignedOn": "Signerte påstander kreves.",
+      "assertionsSignedOff": "Signerte svar kreves (påstander kan være usignerte).",
+      "certExpires": "Signeringssertifikatet er gyldig til {date}",
+      "certExpired": "Signeringssertifikatet har utløpt: innlogginger vil mislykkes til IdP-metadataene er oppdatert.",
+      "editTitle": "Rediger {id}",
+      "editDescription": "Hvis du endrer domenet, må det bekreftes på nytt. SP-enhets-ID-en og ACS-URL-en forblir de samme.",
+      "replaceIdp": "Erstatt konfigurasjonen av identitetsleverandøren (nye metadata eller nytt sertifikat)",
+      "updated": "Leverandøren er oppdatert",
+      "save": "Lagre",
+      "cancel": "Avbryt",
+      "close": "Lukk",
+      "copyLabel": "Kopier: {label}",
+      "errors": {
+        "metadataEmpty": "Metadataene er tomme.",
+        "metadataTooLarge": "Metadataene er større enn 100 KB.",
+        "metadataDoctype": "Metadataene kan ikke inneholde DOCTYPE.",
+        "metadataNotXml": "Metadataene er ikke velformet XML.",
+        "notSamlMetadata": "Dette er ikke SAML-metadata.",
+        "multipleEntities": "Metadataene må beskrive nøyaktig én identitetsleverandør.",
+        "noEntityId": "Metadataene har ingen entityID.",
+        "noIdpDescriptor": "Metadataene har ingen identitetsleverandør (IDPSSODescriptor).",
+        "noSaml2": "Identitetsleverandøren støtter ikke SAML 2.0.",
+        "signedRequestsRequired": "Identitetsleverandøren krever signerte forespørsler, som Ostiary ikke sender. Slå av signering av forespørsler i identitetsleverandøren.",
+        "noRedirectBinding": "Metadataene har ingen SingleSignOnService med HTTP-Redirect-bindingen.",
+        "metadataSsoUrlNotHttps": "Identitetsleverandørens SSO-URL må bruke https://.",
+        "unreadableCertificate": "Et signeringssertifikat i metadataene kunne ikke leses.",
+        "noSigningCertificate": "Metadataene har ikke noe signeringssertifikat.",
+        "invalidMapping": "Skriv inn attributtnavnene for e-post og navn (uten mellomrom eller anførselstegn).",
+        "allCertificatesExpired": "Alle signeringssertifikatene i metadataene har utløpt.",
+        "missingEntityId": "Skriv inn identitetsleverandørens enhets-ID (utsteder).",
+        "ssoUrlNotHttps": "SSO-URL-en må være en https://-URL.",
+        "invalidCertificate": "Signeringssertifikatet er ikke et gyldig X.509-sertifikat (PEM).",
+        "certificateExpired": "Signeringssertifikatet har utløpt.",
+        "fetchFailed": "Kunne ikke hente metadataene: {reason}",
+        "invalidRedirect": "Metadata-URL-en omdirigerer til en ugyldig adresse.",
+        "httpStatus": "Metadata-URL-en svarte {status}.",
+        "tooManyRedirects": "Metadata-URL-en omdirigerer for mange ganger."
+      }
+    },
+    "panel": {
+      "noOrganization": "Ingen organisasjon",
+      "providersDescription": "En leverandør godtar bare innlogginger etter at e-postdomenet er bekreftet med en DNS-post.",
+      "verified": "Bekreftet",
+      "domainNotVerified": "Domenet er ikke bekreftet",
+      "verifyDomain": "Bekreft domene",
+      "editLabel": "Rediger {id}",
+      "deleteLabel": "Slett {id}",
+      "verifyTitle": "Bekreft {domain}",
+      "verifyDescription": "Be domeneeieren legge til denne TXT-posten i DNS, og sjekk den deretter her. Innlogginger via denne leverandøren begynner å virke når domenet er bekreftet.",
+      "recordName": "Navn",
+      "recordValue": "Verdi",
+      "copyRecordName": "Kopier navn",
+      "copyRecordValue": "Kopier verdi",
+      "recordValidity": "Verdien er gyldig i 7 dager.",
+      "domainVerified": "Domenet er bekreftet",
+      "checkDns": "Sjekk DNS",
+      "editDescription": "Hvis du endrer domenet, må det bekreftes på nytt. For å endre klientlegitimasjonen må du slette leverandøren og registrere den på nytt.",
+      "organization": "Organisasjon",
+      "deleteTitle": "Slette {id}?",
+      "deleteDescription": "Personer med en {domain}-adresse kan ikke lenger logge inn via denne leverandøren. Kontoene deres blir værende, og de kan fortsatt bruke passord eller passkey.",
+      "providerDeleted": "Leverandøren er slettet"
+    },
+    "errors": {
+      "providerNotFound": "Fant ikke leverandøren.",
+      "issuerNotUrl": "Utstederen må være en URL.",
+      "invalidDomain": "Skriv inn et e-postdomene, f.eks. acme.com.",
+      "organizationNotFound": "Fant ikke organisasjonen.",
+      "samlIssuerLocked": "SP-enhets-ID-en til en SAML-leverandør kan ikke endres.",
+      "invalidProviderDomain": "Leverandørens domene er ikke gyldig.",
+      "txtRecordNotFound": "Fant ikke TXT-posten ennå. Det kan ta noen minutter før DNS-endringer blir synlige.",
+      "envNotSet": "{name} er ikke angitt.",
+      "invalidProviderId": "Leverandør-ID-en må være 2 til 63 små bokstaver, sifre, - eller _.",
+      "unreadableSamlConfig": "Den lagrede SAML-konfigurasjonen kan ikke leses; slett leverandøren og registrer den på nytt."
     }
   },
   "selectAccount": {

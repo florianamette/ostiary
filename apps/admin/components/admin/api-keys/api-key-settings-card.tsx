@@ -3,6 +3,7 @@
 import * as React from "react";
 import { Loader2, Settings2Icon } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 
 import { Badge } from "@ostiary/core/components/ui/badge";
@@ -46,55 +47,56 @@ export function ApiKeySettingsCard({
   verifyUrl: string;
   maxLifetimeLimit: number;
 }) {
+  const t = useTranslations("admin.pages.apiKeys");
+  const tc = useTranslations("admin.common");
   const [open, setOpen] = React.useState(false);
   return (
     <Card className="border-border/80 shadow-sm">
       <CardHeader>
         <CardTitle className="flex flex-wrap items-center gap-2">
-          API keys
+          {t("title")}
           {settings.enabled ? (
-            <Badge variant="secondary">On</Badge>
+            <Badge variant="secondary">{tc("on")}</Badge>
           ) : (
             <Badge variant="outline" className="font-normal">
-              Off
+              {tc("off")}
             </Badge>
           )}
         </CardTitle>
         <CardDescription className="max-w-3xl">
-          People create keys from their account page for one of your APIs and some of its scopes. The API checks
-          each key with this server. A key never signs anyone in to this server or the admin console.
+          {t("settings.description")}
         </CardDescription>
         <CardAction>
           <Button size="sm" variant="outline" onClick={() => setOpen(true)}>
             <Settings2Icon />
-            Edit
+            {tc("edit")}
           </Button>
         </CardAction>
       </CardHeader>
       <CardContent className="space-y-4">
         <dl className="grid gap-4 text-sm sm:grid-cols-3">
           <div className="space-y-1">
-            <dt className="text-muted-foreground text-xs">Status</dt>
+            <dt className="text-muted-foreground text-xs">{tc("status")}</dt>
             <dd className="font-medium">
-              {settings.enabled ? "On: people can create keys" : "Off: no new keys, and every key is refused"}
+              {settings.enabled ? t("settings.statusOn") : t("settings.statusOff")}
             </dd>
           </div>
           <div className="space-y-1">
-            <dt className="text-muted-foreground text-xs">Maximum lifetime</dt>
-            <dd className="font-medium tabular-nums">{settings.maxLifetimeDays} days</dd>
+            <dt className="text-muted-foreground text-xs">{t("settings.maxLifetime")}</dt>
+            <dd className="font-medium tabular-nums">{t("settings.maxLifetimeValue", { count: settings.maxLifetimeDays })}</dd>
           </div>
           <div className="space-y-1">
-            <dt className="text-muted-foreground text-xs">APIs accepting keys</dt>
+            <dt className="text-muted-foreground text-xs">{t("settings.apisAccepting")}</dt>
             <dd className="font-medium">
-              {apiNames.length ? apiNames.join(", ") : "None: register an API with scopes, open to every application"}
+              {apiNames.length ? apiNames.join(", ") : t("settings.apisNone")}
             </dd>
           </div>
         </dl>
         <p className="text-muted-foreground text-xs">
-          Verification endpoint:{" "}
-          <code className="rounded bg-muted px-1 py-0.5 font-mono break-all">POST {verifyUrl}</code>. The API authenticates as an
-          application registered here, linked to that API (APIs page, Access). APIs limited to linked applications do
-          not accept keys.
+          {t.rich("settings.verifyEndpoint", {
+            endpoint: `POST ${verifyUrl}`,
+            code: (chunks) => <code className="rounded bg-muted px-1 py-0.5 font-mono break-all">{chunks}</code>,
+          })}
         </p>
       </CardContent>
       {open ? (
@@ -113,6 +115,8 @@ function ApiKeySettingsDialog({
   maxLifetimeLimit: number;
   onClose: () => void;
 }) {
+  const t = useTranslations("admin.pages.apiKeys");
+  const tc = useTranslations("admin.common");
   const router = useRouter();
   const [busy, setBusy] = React.useState(false);
   const [enabled, setEnabled] = React.useState(settings.enabled);
@@ -127,7 +131,7 @@ function ApiKeySettingsDialog({
         toast.error(res.error);
         return;
       }
-      toast.success("Settings saved. The auth server applies them within a minute.");
+      toast.success(t("dialog.saved"));
       onClose();
       router.refresh();
     } finally {
@@ -140,9 +144,9 @@ function ApiKeySettingsDialog({
       <DialogContent className="sm:max-w-lg">
         <form onSubmit={save} className="grid gap-6">
           <DialogHeader>
-            <DialogTitle>API keys</DialogTitle>
+            <DialogTitle>{t("title")}</DialogTitle>
             <DialogDescription>
-              Keys are long-lived: prefer short lifetimes. Lowering the maximum applies to new keys only.
+              {t("dialog.description")}
             </DialogDescription>
           </DialogHeader>
           <FieldGroup>
@@ -158,17 +162,16 @@ function ApiKeySettingsDialog({
                 />
                 <div className="grid gap-1">
                   <Label htmlFor="api-keys-enabled" className="cursor-pointer font-medium leading-none">
-                    Allow API keys
+                    {t("dialog.allowLabel")}
                   </Label>
                   <p className="text-muted-foreground text-xs leading-snug">
-                    Off: nobody can create a key and every existing key is refused at verification. Keys are kept,
-                    and work again when you turn this back on.
+                    {t("dialog.allowHint")}
                   </p>
                 </div>
               </div>
             </Field>
             <Field>
-              <FieldLabel htmlFor="api-keys-max">Maximum lifetime (days)</FieldLabel>
+              <FieldLabel htmlFor="api-keys-max">{t("dialog.maxLifetimeLabel")}</FieldLabel>
               <Input
                 id="api-keys-max"
                 type="number"
@@ -181,16 +184,16 @@ function ApiKeySettingsDialog({
                 disabled={busy}
                 className="w-32"
               />
-              <FieldDescription>From 1 to {maxLifetimeLimit}. Every key expires.</FieldDescription>
+              <FieldDescription>{t("dialog.maxLifetimeHint", { max: String(maxLifetimeLimit) })}</FieldDescription>
             </Field>
           </FieldGroup>
           <DialogFooter>
             <Button type="button" variant="outline" disabled={busy} onClick={onClose}>
-              Cancel
+              {tc("cancel")}
             </Button>
             <Button type="submit" disabled={busy}>
               {busy ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
-              Save
+              {tc("save")}
             </Button>
           </DialogFooter>
         </form>

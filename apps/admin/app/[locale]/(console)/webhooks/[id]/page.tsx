@@ -34,10 +34,10 @@ export async function generateMetadata({
   return { title: t("deliveries") };
 }
 
-function StatusBadge({ status }: { status: string }) {
-  if (status === "succeeded") return <Badge variant="secondary">Delivered</Badge>;
-  if (status === "failed") return <Badge variant="destructive">Failed</Badge>;
-  return <Badge variant="outline">Pending</Badge>;
+function StatusBadge({ status, labels }: { status: string; labels: { succeeded: string; failed: string; pending: string } }) {
+  if (status === "succeeded") return <Badge variant="secondary">{labels.succeeded}</Badge>;
+  if (status === "failed") return <Badge variant="destructive">{labels.failed}</Badge>;
+  return <Badge variant="outline">{labels.pending}</Badge>;
 }
 
 /** The delivery log of one endpoint: the latest deliveries, their answers and retries. */
@@ -45,6 +45,8 @@ export default async function AdminWebhookDeliveriesPage({ params }: { params: P
   await requireAdminSession();
   const { locale, id } = await params;
   const t = await getTranslations({ locale, namespace: "admin.pages.webhooks" });
+  const tc = await getTranslations({ locale, namespace: "admin.common" });
+  const statusLabels = { succeeded: t("log.status.succeeded"), failed: t("log.status.failed"), pending: t("log.status.pending") };
   const [endpoint] = await db
     .select({ url: webhookEndpoint.url, description: webhookEndpoint.description, enabled: webhookEndpoint.enabled })
     .from(webhookEndpoint)
@@ -66,25 +68,25 @@ export default async function AdminWebhookDeliveriesPage({ params }: { params: P
           <>
             <span className="break-all font-mono text-xs">{endpoint.url}</span>
             {endpoint.description ? ` · ${endpoint.description}` : null}
-            {endpoint.enabled ? null : " · Disabled: retries wait until it is turned back on."}
+            {endpoint.enabled ? null : ` · ${t("log.disabled")}`}
           </>
         }
       />
       <Card className="border-border/80 shadow-sm">
         <CardContent className="p-0">
           {rows.length === 0 ? (
-            <p className="p-6 text-sm text-muted-foreground">No delivery yet. Use “Send test event” on the Webhooks page to try the endpoint.</p>
+            <p className="p-6 text-sm text-muted-foreground">{t("log.empty")}</p>
           ) : (
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead className="pl-6">Created</TableHead>
-                  <TableHead>Event</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Response</TableHead>
-                  <TableHead>Attempts</TableHead>
-                  <TableHead className="hidden md:table-cell">Next retry</TableHead>
-                  <TableHead className="hidden lg:table-cell">Answer</TableHead>
+                  <TableHead className="pl-6">{tc("created")}</TableHead>
+                  <TableHead>{t("log.event")}</TableHead>
+                  <TableHead>{tc("status")}</TableHead>
+                  <TableHead>{t("log.response")}</TableHead>
+                  <TableHead>{t("log.attempts")}</TableHead>
+                  <TableHead className="hidden md:table-cell">{t("log.nextRetry")}</TableHead>
+                  <TableHead className="hidden lg:table-cell">{t("log.answer")}</TableHead>
                   <TableHead className="pr-6" />
                 </TableRow>
               </TableHeader>
@@ -99,9 +101,9 @@ export default async function AdminWebhookDeliveriesPage({ params }: { params: P
                       <p className="font-mono text-[11px] text-muted-foreground">{row.eventId}</p>
                     </TableCell>
                     <TableCell>
-                      <StatusBadge status={row.status} />
+                      <StatusBadge status={row.status} labels={statusLabels} />
                     </TableCell>
-                    <TableCell className="font-mono text-xs">{row.responseStatus ?? (row.attempts > 0 ? "error" : "-")}</TableCell>
+                    <TableCell className="font-mono text-xs">{row.responseStatus ?? (row.attempts > 0 ? t("log.error") : "-")}</TableCell>
                     <TableCell className="text-sm">
                       {row.attempts}/{MAX_ATTEMPTS}
                     </TableCell>
@@ -122,7 +124,7 @@ export default async function AdminWebhookDeliveriesPage({ params }: { params: P
         </CardContent>
       </Card>
       <p className="text-xs text-muted-foreground">
-        The latest {SHOWN} deliveries. Deliveries are kept {DELIVERY_RETENTION_DAYS} days. A failed delivery is retried {MAX_ATTEMPTS - 1} times over about a day; “Redeliver” sends the same event (same webhook-id) again now.
+        {t("log.footer", { shown: SHOWN, days: DELIVERY_RETENTION_DAYS, retries: MAX_ATTEMPTS - 1, header: "webhook-id" })}
       </p>
     </div>
   );

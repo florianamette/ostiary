@@ -29,9 +29,9 @@ export default async function UsagePage({ params }: { params: Promise<{ locale: 
 
       <div className="grid gap-4 sm:grid-cols-3">
         {[
-          { label: "Tokens issued, 30 days", value: tokens },
-          { label: "Applications in use", value: active },
-          { label: "Unused applications", value: countUnusedClients(usage) },
+          { label: t("tiles.tokens"), value: tokens },
+          { label: t("tiles.active"), value: active },
+          { label: t("tiles.unused"), value: countUnusedClients(usage) },
         ].map((tile) => (
           <div key={tile.label} className="rounded-lg border border-border/80 bg-card p-4 shadow-sm">
             <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">{tile.label}</p>

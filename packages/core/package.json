@@ -44,6 +44,7 @@
   },
   "devDependencies": {
     "@electric-sql/pglite": "catalog:",
+    "@formatjs/icu-messageformat-parser": "catalog:",
     "@types/node": "catalog:",
     "@types/pg": "catalog:",
     "@types/react": "catalog:",

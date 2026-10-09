@@ -1,46 +1,46 @@
 {
   "layout": {
-    "title": "Sign in",
-    "description": "Log in to your work tools and profile."
+    "title": "Logga in",
+    "description": "Logga in på dina arbetsverktyg och din profil."
   },
   "auth": {
     "login": {
-      "title": "Login to your account",
-      "description": "Sign in with your email or username and password.",
-      "identifierLabel": "Email or username",
-      "identifierPlaceholder": "you@example.com or your_username",
-      "emailLabel": "Email",
+      "title": "Logga in på ditt konto",
+      "description": "Logga in med din e-postadress eller ditt användarnamn och lösenord.",
+      "identifierLabel": "E-post eller användarnamn",
+      "identifierPlaceholder": "you@example.com eller your_username",
+      "emailLabel": "E-post",
       "emailPlaceholder": "m@example.com",
-      "passwordLabel": "Password",
-      "forgotPasswordLink": "Forgot password?",
-      "submit": "Login",
-      "submitting": "Signing in…",
-      "noAccount": "Don't have an account?",
-      "signUpLink": "Sign up",
-      "verifyEmailAfterSignup": "Check your inbox for a verification link. You must verify your email before signing in.",
-      "passkey": "Sign in with passkey",
-      "passkeySubmitting": "Waiting for passkey…",
+      "passwordLabel": "Lösenord",
+      "forgotPasswordLink": "Glömt lösenordet?",
+      "submit": "Logga in",
+      "submitting": "Loggar in…",
+      "noAccount": "Har du inget konto?",
+      "signUpLink": "Registrera dig",
+      "verifyEmailAfterSignup": "Leta efter en verifieringslänk i din inkorg. Du måste verifiera din e-postadress innan du kan logga in.",
+      "passkey": "Logga in med passkey",
+      "passkeySubmitting": "Väntar på passkey…",
       "emailCode": "Mejla mig en inloggningskod",
-      "lastUsedBadge": "Last used",
-      "lastUsedHintEmail": "You last signed in with email and password.",
-      "lastUsedHintUsername": "You last signed in with username and password.",
-      "lastUsedHintPasskey": "You last signed in with a passkey.",
+      "lastUsedBadge": "Senast använd",
+      "lastUsedHintEmail": "Du loggade senast in med e-post och lösenord.",
+      "lastUsedHintUsername": "Du loggade senast in med användarnamn och lösenord.",
+      "lastUsedHintPasskey": "Du loggade senast in med en passkey.",
       "lastUsedHintEmailCode": "Du loggade senast in med en kod som skickades via e-post.",
-      "lastUsedHintOther": "You last signed in with {method}.",
+      "lastUsedHintOther": "Du loggade senast in med {method}.",
       "errors": {
         "emailNotVerified": "Please verify your email first. We sent you a new verification link, check your inbox.",
-        "signInFailed": "Could not sign in. Check your details and try again.",
-        "passkeyFailed": "Passkey sign-in failed. Try again or use your password."
+        "signInFailed": "Det gick inte att logga in. Kontrollera dina uppgifter och försök igen.",
+        "passkeyFailed": "Inloggningen med passkey misslyckades. Försök igen eller använd ditt lösenord."
       },
       "resend": {
-        "title": "Didn't get the email?",
-        "description": "Enter your email and we'll send you a new verification link.",
+        "title": "Fick du inget mejl?",
+        "description": "Ange din e-postadress så skickar vi en ny verifieringslänk.",
         "emailPlaceholder": "you@example.com",
-        "send": "Send a new link",
-        "sendAgain": "Send again",
-        "sent": "If an unverified account uses this address, a new link is on its way. Check your inbox and spam folder.",
-        "invalidEmail": "Enter a valid email address.",
-        "error": "Could not send the email. Try again in a minute."
+        "send": "Skicka en ny länk",
+        "sendAgain": "Skicka igen",
+        "sent": "Om ett overifierat konto använder den här adressen är en ny länk på väg. Kontrollera inkorgen och skräpposten.",
+        "invalidEmail": "Ange en giltig e-postadress.",
+        "error": "Det gick inte att skicka mejlet. Försök igen om en minut."
       },
       "addAccountDescription": "Konton som redan är inloggade i den här webbläsaren förblir inloggade."
     },
@@ -93,81 +93,81 @@
       }
     },
     "forgotPassword": {
-      "metaTitle": "Forgot password",
-      "title": "Reset your password",
-      "description": "Enter the email on your account. If it exists, we will send you a link to choose a new password.",
-      "emailLabel": "Email",
+      "metaTitle": "Glömt lösenord",
+      "title": "Återställ ditt lösenord",
+      "description": "Ange e-postadressen för ditt konto. Om kontot finns skickar vi en länk där du kan välja ett nytt lösenord.",
+      "emailLabel": "E-post",
       "emailPlaceholder": "m@example.com",
-      "emailHint": "Use the same email you registered with. If you usually sign in with a username, recovery still uses your account email.",
-      "submit": "Send reset link",
-      "submitting": "Sending…",
-      "backToLogin": "Back to login",
-      "emailSent": "If an account exists for that email, you will receive a reset link shortly.",
+      "emailHint": "Använd samma e-postadress som du registrerade dig med. Även om du brukar logga in med användarnamn används kontots e-postadress för återställningen.",
+      "submit": "Skicka återställningslänk",
+      "submitting": "Skickar…",
+      "backToLogin": "Tillbaka till inloggningen",
+      "emailSent": "Om det finns ett konto för den e-postadressen får du snart en återställningslänk.",
       "errors": {
-        "emailRequired": "Please enter your email address.",
-        "requestFailed": "Could not send the reset email. Try again."
+        "emailRequired": "Ange din e-postadress.",
+        "requestFailed": "Det gick inte att skicka återställningsmejlet. Försök igen."
       }
     },
     "resetPassword": {
-      "metaTitle": "Set new password",
-      "title": "Choose a new password",
-      "description": "Enter and confirm your new password below.",
-      "invalidTokenTitle": "Link expired or invalid",
-      "invalidTokenDescription": "This reset link is no longer valid. Request a new one to continue.",
-      "missingTokenTitle": "No reset link",
-      "missingTokenDescription": "Open the link from your email, or request a new password reset.",
-      "requestNewLink": "Request new link",
-      "backToLogin": "Back to login",
-      "newPasswordLabel": "New password",
-      "confirmPasswordLabel": "Confirm password",
-      "passwordHint": "Must be at least 8 characters long.",
-      "passwordMismatch": "Passwords do not match",
-      "submit": "Update password",
-      "submitting": "Updating…",
-      "success": "Your password was updated. You can sign in now.",
+      "metaTitle": "Ange nytt lösenord",
+      "title": "Välj ett nytt lösenord",
+      "description": "Ange och bekräfta ditt nya lösenord nedan.",
+      "invalidTokenTitle": "Länken har gått ut eller är ogiltig",
+      "invalidTokenDescription": "Den här återställningslänken gäller inte längre. Begär en ny för att fortsätta.",
+      "missingTokenTitle": "Ingen återställningslänk",
+      "missingTokenDescription": "Öppna länken i ditt mejl eller begär en ny lösenordsåterställning.",
+      "requestNewLink": "Begär ny länk",
+      "backToLogin": "Tillbaka till inloggningen",
+      "newPasswordLabel": "Nytt lösenord",
+      "confirmPasswordLabel": "Bekräfta lösenord",
+      "passwordHint": "Måste vara minst 8 tecken långt.",
+      "passwordMismatch": "Lösenorden matchar inte",
+      "submit": "Uppdatera lösenord",
+      "submitting": "Uppdaterar…",
+      "success": "Ditt lösenord har uppdaterats. Du kan logga in nu.",
       "errors": {
-        "resetFailed": "Could not reset your password. Try again or request a new link."
+        "resetFailed": "Det gick inte att återställa ditt lösenord. Försök igen eller begär en ny länk."
       }
     },
     "signup": {
-      "title": "Create an account",
-      "description": "Enter your information below to create your account",
-      "usernameLabel": "Username",
+      "title": "Skapa ett konto",
+      "description": "Fyll i dina uppgifter nedan för att skapa ditt konto",
+      "usernameLabel": "Användarnamn",
       "usernamePlaceholder": "your_username",
-      "usernameHint": "3-30 characters: letters, numbers, dots, and underscores only.",
-      "usernameChecking": "Checking availability…",
-      "usernameAvailable": "This username is available.",
-      "usernameTaken": "This username is already taken.",
-      "usernameInvalidHint": "Use only letters, numbers, dots, and underscores.",
-      "fullNameLabel": "Full Name",
-      "namePlaceholder": "John Doe",
-      "emailLabel": "Email",
+      "usernameHint": "3–30 tecken: endast bokstäver, siffror, punkter och understreck.",
+      "usernameChecking": "Kontrollerar tillgänglighet…",
+      "usernameAvailable": "Användarnamnet är ledigt.",
+      "usernameTaken": "Användarnamnet är redan upptaget.",
+      "usernameInvalidHint": "Använd endast bokstäver, siffror, punkter och understreck.",
+      "fullNameLabel": "Fullständigt namn",
+      "namePlaceholder": "Anna Andersson",
+      "emailLabel": "E-post",
       "emailPlaceholder": "m@example.com",
-      "emailDescription": "We'll use this to contact you. We will not share your email with anyone else.",
-      "passwordLabel": "Password",
-      "confirmPasswordLabel": "Confirm Password",
-      "passwordHint": "Must be at least 8 characters long.",
-      "confirmPasswordHint": "Please confirm your password.",
-      "passwordMismatch": "Passwords do not match",
-      "submit": "Create Account",
-      "submitting": "Creating account…",
-      "hasAccount": "Already have an account?",
-      "signInLink": "Sign in",
-      "loginLink": "Login",
-      "afterRegisterRedirect": "Account created. Check your email to verify before signing in.",
+      "emailDescription": "Vi använder den för att kontakta dig. Vi delar inte din e-postadress med någon annan.",
+      "passwordLabel": "Lösenord",
+      "confirmPasswordLabel": "Bekräfta lösenord",
+      "passwordHint": "Måste vara minst 8 tecken långt.",
+      "confirmPasswordHint": "Bekräfta ditt lösenord.",
+      "passwordMismatch": "Lösenorden matchar inte",
+      "submit": "Skapa konto",
+      "submitting": "Skapar konto…",
+      "hasAccount": "Har du redan ett konto?",
+      "signInLink": "Logga in",
+      "loginLink": "Logga in",
+      "afterRegisterRedirect": "Kontot har skapats. Kontrollera din e-post och verifiera adressen innan du loggar in.",
       "errors": {
-        "signUpFailed": "Could not create your account. Try again.",
-        "compromisedPassword": "This password appears in known data breaches. Choose a different one.",
-        "usernameTooShort": "Username must be at least 3 characters.",
-        "usernameInvalid": "That username is not valid.",
-        "usernameTaken": "That username is already taken. Try another."
+        "signUpFailed": "Det gick inte att skapa ditt konto. Försök igen.",
+        "compromisedPassword": "Lösenordet förekommer i kända dataläckor. Välj ett annat.",
+        "usernameTooShort": "Användarnamnet måste vara minst 3 tecken.",
+        "usernameInvalid": "Användarnamnet är inte giltigt.",
+        "usernameTaken": "Användarnamnet är redan upptaget. Prova ett annat."
       }
     },
     "screen": {
-      "headline": "One account for all your apps.",
-      "subhead": "Sign in once and reach every app connected to {name}. Your profile and security settings follow you everywhere.",
-      "footer": "Secured by {name}.",
-      "ecosystem": "Works with"
+      "headline": "Ett konto för <accent>alla dina appar</accent>.",
+      "subhead": "Logga in en gång och nå alla appar som är anslutna till {name}. Din profil och dina säkerhetsinställningar följer med dig överallt.",
+      "footer": "Skyddas av {name}.",
+      "ecosystem": "Fungerar med"
     },
     "social": {
       "or": "eller",
@@ -175,8 +175,8 @@
       "signInWith": "Logga in med {provider}",
       "lastUsed": "Senast använd",
       "otherProviders": "Fler sätt att logga in",
-      "error": "Could not sign in with that account. Try again or use another method.",
-      "notLinked": "That account isn't connected to a {name} account yet. Sign in another way, then connect it from your security settings.",
+      "error": "Det gick inte att logga in med det kontot. Försök igen eller använd en annan metod.",
+      "notLinked": "Det kontot är inte anslutet till något {name}-konto än. Logga in på ett annat sätt och anslut det sedan från dina säkerhetsinställningar.",
       "noEmail": "Kontot delade ingen e-postadress. Försök igen senare eller logga in på ett annat sätt.",
       "signUpDisabled": "Det finns inget konto för den adressen än, och den här inloggningsmetoden kan inte skapa ett. Logga in på ett annat sätt."
     },
@@ -189,23 +189,23 @@
     }
   },
   "consent": {
-    "emptyTitle": "Authorization",
-    "emptyDescription": "There is no pending OAuth request. Start the flow from the application you want to connect.",
-    "connectTitle": "Connect {name}",
-    "intro": "This application is requesting access to your account. Review the permissions below before continuing.",
+    "emptyTitle": "Auktorisering",
+    "emptyDescription": "Det finns ingen väntande OAuth-begäran. Starta flödet från applikationen du vill ansluta.",
+    "connectTitle": "Anslut {name}",
+    "intro": "Den här applikationen begär åtkomst till ditt konto. Granska behörigheterna nedan innan du fortsätter.",
     "errors": {
-      "needSignIn": "You need to sign in before you can approve this request.",
-      "loadFailed": "Could not load application details.",
-      "actionFailed": "Something went wrong."
+      "needSignIn": "Du måste logga in innan du kan godkänna den här begäran.",
+      "loadFailed": "Det gick inte att läsa in applikationens uppgifter.",
+      "actionFailed": "Något gick fel."
     },
-    "signIn": "Sign in",
-    "visitWebsite": "Visit application website",
-    "requestedAccess": "Requested access",
-    "defaultScopes": "Default permissions for this client (no explicit scopes in the request).",
-    "terms": "Terms of service",
-    "privacy": "Privacy policy",
-    "deny": "Deny",
-    "allow": "Allow",
+    "signIn": "Logga in",
+    "visitWebsite": "Besök applikationens webbplats",
+    "requestedAccess": "Begärd åtkomst",
+    "defaultScopes": "Standardbehörigheter för den här klienten (inga uttryckliga scopes i begäran).",
+    "terms": "Användarvillkor",
+    "privacy": "Integritetspolicy",
+    "deny": "Neka",
+    "allow": "Tillåt",
     "scopes": {
       "openid": "Bekräfta vem du är (OpenID Connect)",
       "profile": "Namn och profilinformation",
@@ -221,108 +221,1540 @@
   },
   "admin": {
     "themeToggle": {
-      "light": "Light",
-      "dark": "Dark",
+      "light": "Ljust",
+      "dark": "Mörkt",
       "system": "System",
-      "srOnly": "Toggle theme",
-      "label": "Theme"
+      "srOnly": "Växla tema",
+      "label": "Tema"
     },
     "nav": {
-      "groupAdmin": "Admin",
+      "groupAdmin": "Administration",
       "groupOAuth": "OAuth",
-      "overview": "Overview",
-      "users": "Users",
-      "applications": "Applications",
+      "overview": "Översikt",
+      "users": "Användare",
+      "applications": "Applikationer",
       "apis": "API:er",
       "apiKeys": "API-nycklar",
-      "consent": "Consent",
-      "organizations": "Organizations",
+      "consent": "Samtycken",
+      "organizations": "Organisationer",
       "sso": "SSO",
       "signInProviders": "Inloggningsleverantörer",
       "webhooks": "Webhooks",
-      "security": "Security",
+      "security": "Säkerhet",
       "usage": "Appanvändning",
-      "audit": "Audit log",
+      "audit": "Granskningslogg",
       "signingKeys": "Signeringsnycklar"
     },
     "header": {
-      "crumb": "Admin",
-      "fallback": "Admin",
-      "overview": "Overview",
-      "users": "Users",
-      "applications": "Applications",
+      "crumb": "Administration",
+      "fallback": "Administration",
+      "overview": "Översikt",
+      "users": "Användare",
+      "applications": "Applikationer",
       "apis": "API:er",
       "apiKeys": "API-nycklar",
-      "consent": "Consent",
-      "organizations": "Organizations",
+      "consent": "Samtycken",
+      "organizations": "Organisationer",
       "sso": "SSO",
       "signInProviders": "Inloggningsleverantörer",
       "webhooks": "Webhooks",
-      "security": "Security",
+      "security": "Säkerhet",
       "usage": "Appanvändning",
-      "audit": "Audit log",
+      "audit": "Granskningslogg",
       "signingKeys": "Signeringsnycklar"
     },
     "pages": {
       "overview": {
-        "title": "Overview",
+        "title": "Översikt",
         "activity": {
-          "title": "Sign-in activity",
-          "description": "Sign-ins, new accounts and sign-outs per day, last 30 days.",
-          "signIns": "Sign-ins",
-          "signUps": "Sign-ups",
-          "signOuts": "Sign-outs",
-          "showTable": "View as table",
-          "showChart": "View as chart",
-          "legend": "Totals for the last 30 days",
-          "day": "Day",
-          "note": "Sign-outs are tracked from October 6, 2026. Earlier sign-ins only include sessions that were still active then."
+          "title": "Inloggningsaktivitet",
+          "description": "Inloggningar, nya konton och utloggningar per dag under de senaste 30 dagarna.",
+          "signIns": "Inloggningar",
+          "signUps": "Registreringar",
+          "signOuts": "Utloggningar",
+          "showTable": "Visa som tabell",
+          "showChart": "Visa som diagram",
+          "legend": "Totalt för de senaste 30 dagarna",
+          "day": "Dag",
+          "note": "Utloggningar registreras från och med den 6 oktober 2026. Tidigare inloggningar omfattar bara sessioner som fortfarande var aktiva då."
         },
-        "description": "Accounts, sign-in activity and the newest members of the platform."
+        "description": "Konton, inloggningsaktivitet och plattformens nyaste medlemmar.",
+        "recentUsers": {
+          "title": "Nyligen registrerade",
+          "description": "De senaste kontona. Öppna ett för att se dess sessioner och aktivitet.",
+          "loading": "Läser in…",
+          "empty": "Inga användare än."
+        },
+        "stats": {
+          "error": "Det gick inte att läsa in ett eller flera mätvärden. Kontrollera att du är inloggad som administratör.",
+          "errorTitle": "Mätvärden är inte tillgängliga",
+          "loadingTitle": "Läser in",
+          "loadingHint": "Läser in…",
+          "totalUsers": {
+            "title": "Användare totalt",
+            "hint": "Alla konton på plattformen."
+          },
+          "admins": {
+            "title": "Administratörer",
+            "hint": "Konton med åtkomst till den här konsolen."
+          },
+          "banned": {
+            "title": "Spärrade",
+            "hint": "Konton som inte kan logga in just nu."
+          },
+          "verified": {
+            "title": "Verifierad e-post",
+            "hint": "Konton som har bekräftat sin e-postadress."
+          },
+          "recent": {
+            "title": "Nya (7 dagar)",
+            "hint": "Konton som skapats de senaste 7 dagarna."
+          }
+        }
       },
       "applications": {
-        "title": "Applications",
+        "title": "Applikationer",
         "description": "OAuth-klienter som kan logga in personer med {name}: omdirigerings-URL:er, grant-typer och samtyckesinställningar.",
         "unusedHint": "{count, plural, one {# app har} other {# appar har}} inte använts de senaste 30 dagarna.",
-        "viewUsage": "Visa användning"
+        "viewUsage": "Visa användning",
+        "panel": {
+          "selfRegisteredHint": "Registrerade sig själv: inte granskad av en administratör",
+          "selfRegisteredBadge": "Självregistrerad",
+          "registration": {
+            "all": "All registrering",
+            "admin": "Administratör",
+            "dynamic": "Dynamisk registrering",
+            "metadata_document": "Metadatadokument"
+          },
+          "authMethod": {
+            "none": "autentisering: ingen",
+            "client_secret_basic": "autentisering: hemlighet (basic)",
+            "client_secret_post": "autentisering: hemlighet (post)",
+            "private_key_jwt": "autentisering: privat nyckel-JWT"
+          },
+          "loadFailed": "Det gick inte att läsa in OAuth-klienter",
+          "loadErrorTitle": "Det gick inte att läsa in applikationer",
+          "searchPlaceholder": "Sök på namn, klient-id, omdirigerings-URI eller grant…",
+          "searchLabel": "Sök applikationer",
+          "clientType": "Klienttyp",
+          "registeredBy": "Registrerad av",
+          "kind": {
+            "all": "Alla klienter",
+            "public": "Publik",
+            "confidential": "Konfidentiell",
+            "trusted": "Betrodd (hoppa över samtycke)",
+            "device": "Enhetsinloggning"
+          },
+          "columns": {
+            "application": "Applikation",
+            "redirects": "Omdirigeringar",
+            "grants": "Grants",
+            "consent": "Samtycke"
+          },
+          "badges": {
+            "device": "Enhet",
+            "trusted": "Betrodd",
+            "consent": "Samtycke",
+            "active": "Aktiv",
+            "skipped": "Hoppas över",
+            "required": "Krävs"
+          },
+          "loadingRows": "Läser in applikationer…",
+          "empty": "Inga OAuth-klienter för det här kontot än.",
+          "noMatch": "Inga applikationer matchar dina filter.",
+          "linkedApis": "Länkade API:er: {apis}",
+          "noApplications": "0 applikationer",
+          "showing": "Visar {from}–{to} av {total}",
+          "rowsPerPage": "Rader per sida",
+          "previous": "Föregående",
+          "next": "Nästa",
+          "page": "Sida {page} / {total}",
+          "footnote": "Data från <code>{getClients}</code>. Registrering och redigering (inklusive <code>{skipConsent}</code>) anropar <code>{create}</code> och <code>{update}</code>; övriga ändringar använder <code>{deleteClient}</code> och <code>{rotateSecret}</code>. Se dokumentationen för <docs>OAuth provider</docs>. Klienter är knutna till den inloggade användaren (eller <code>{clientReference}</code> om det är konfigurerat). Självregistrerade klienter har ingen ägare och visas alla; de kan inaktiveras eller raderas men inte redigeras."
+        },
+        "registration": {
+          "title": "Självregistrering",
+          "description": "Låter MCP-klienter och AI-agenter registrera sig själva i stället för att läggas till här. De får bara scopes nedan, visar alltid samtyckesskärmen markerad som overifierad och får aldrig maskinåtkomst (client credentials).",
+          "dynamicRegistration": "Dynamisk registrering",
+          "dynamic": {
+            "off": {
+              "label": "Av",
+              "hint": "POST /oauth2/register avvisas."
+            },
+            "signed_in": {
+              "label": "Endast inloggade användare",
+              "hint": "Bara begäranden med en användares session får registrera. De flesta MCP-klienter kan inte det."
+            },
+            "open": {
+              "label": "Alla (öppen registrering)",
+              "hint": "Det MCP-klienter förväntar sig: vilken app som helst får registrera sig, och varje användare godkänner den sedan på samtyckesskärmen."
+            }
+          },
+          "metadataDocuments": "Metadatadokument (client_id-URL)",
+          "metadataOnFrom": "På, från {hosts}",
+          "metadataOnAnyHost": "På, valfri HTTPS-värd",
+          "scopes": "Scopes de får begära",
+          "missingScope": "Inte längre ett scope på den här servern: ignoreras",
+          "perHour": "Nya klienter per timme",
+          "endpoint": "Registreringsendpoint: <code>{url}</code> (anges i discovery-dokumentet).",
+          "saved": "Inställningarna sparades. Autentiseringsservern tillämpar dem inom en minut.",
+          "dialogDescription": "Klienter som registrerar sig själva granskas inte. Användare ser dem som overifierade appar och godkänner var och en på samtyckesskärmen.",
+          "dynamicLabel": "Dynamic Client Registration (RFC 7591)",
+          "cimdLabel": "Client ID Metadata Documents",
+          "cimdHint": "client_id är en HTTPS-URL till appens JSON-metadata, som nyare MCP-klienter använder. Endast publika värdar hämtas, utan omdirigeringar och högst 5 KB.",
+          "hostsLabel": "Tillåtna värdar",
+          "hostsHint": "En per rad. Tomt: valfri publik HTTPS-värd.",
+          "scopesLabel": "Scopes som självregistrerade klienter får begära",
+          "scopesHint": "Varje användare godkänner fortfarande de scopes en app ber om. Tar du bort ett scope tas det även bort från redan registrerade klienter; token som redan utfärdats behåller det tills de går ut.",
+          "perHourHint": "Över alla instanser, för båda metoderna. Varje adress är dessutom begränsad till 5 registreringar per minut."
+        },
+        "branding": {
+          "title": "Inloggningsutseende",
+          "description": "Hur inloggningsskärmarna ser ut när användare kommer från <app>{client}</app>: inloggning, registrering, tvåfaktorsautentisering, lösenordsåterställning och samtycke. Märket {brand} syns på alla skärmar.",
+          "logoFetchedOnSave": "Servern hämtar logotypen när du sparar; förhandsvisningen visar den då.",
+          "accentInvalid": "Ange accentfärgen som en hexfärg, till exempel {example}.",
+          "hexInvalid": "Ange en hexfärg, till exempel {example}.",
+          "saved": "Inloggningsutseendet har sparats",
+          "resetDone": "Inloggningsutseendet har återställts",
+          "displayName": "Visningsnamn",
+          "displayNameHint": "Visas som ”Logga in för att fortsätta till …”. Tomt använder applikationens namn.",
+          "tagline": "Slogan (valfritt)",
+          "taglinePlaceholder": "Din läslista, överallt.",
+          "accent": "Accentfärg",
+          "accentPick": "Välj accentfärg",
+          "accentHex": "Accentfärg (hex)",
+          "accentOff": "Av: skärmarna behåller temats färger.",
+          "contrast": {
+            "label": "Kontrastkontroller",
+            "ratio": "{label}: <value>{ratio}:1</value>",
+            "passes": "(klarar {min}:1)",
+            "below": "(under {min}:1)",
+            "buttonLabel": "Knappetikett ({color, select, black {svart} other {vit}})",
+            "lightCard": "Knappar på det ljusa kortet",
+            "darkCard": "Knappar på det mörka kortet",
+            "textAdjusted": "Text i accentfärgen använder {color} för att nå {min}:1."
+          },
+          "logo": "Logotyp",
+          "logoSourceLabel": "Logotypkälla",
+          "logoSource": {
+            "app_icon": "Appikon",
+            "url": "Från en URL",
+            "upload": "Ladda upp"
+          },
+          "logoAppIconHint": "Ikonen som hittats för appen (dess {field} eller dess webbplats), som på samtyckesskärmen.",
+          "logoUrl": "Logotyp-URL",
+          "logoUrlHint": "https på en publik värd. {name} hämtar och cachar den; webbläsare läser aldrig in den därifrån.",
+          "logoFile": "Logotypfil",
+          "logoFileHint": "PNG, JPEG, WebP, AVIF, GIF, ICO eller SVG, upp till 256 KB. Kvadratisk fungerar bäst.",
+          "panel": "Sidopanel (breda skärmar, valfritt)",
+          "panelImage": "Bild för sidopanelen",
+          "removeImage": "Ta bort bild",
+          "panelHint": "Rubrik och bakgrundsbild för den mörka panelen. PNG, JPEG, WebP eller AVIF, upp till 1 MB.",
+          "social": "Social inloggning på den här appens skärmar",
+          "socialNone": "Inga sociala leverantörer är aktiverade.",
+          "socialShown": "Sociala leverantörer som visas",
+          "socialAll": "Alla aktiverade",
+          "socialSome": "Bara dessa",
+          "socialHint": "Döljer knappar endast på den här appens skärmar; det hindrar ingen från att logga in på annat sätt.",
+          "previewTitle": "Förhandsvisning",
+          "previewScheme": "Färgschema för förhandsvisning",
+          "light": "Ljust",
+          "dark": "Mörkt",
+          "faintOnLight": "Knappar i den här färgen syns knappt mot det ljusa kortet (WCAG kräver 3:1 för kontroller). Etiketterna förblir läsbara; överväg en mörkare nyans.",
+          "faintOnDark": "Knappar i den här färgen syns knappt mot det mörka kortet (WCAG kräver 3:1 för kontroller). Etiketterna förblir läsbara; överväg en ljusare nyans.",
+          "resetting": "Återställer…",
+          "reset": "Återställ till standard",
+          "save": "Spara utseende",
+          "preview": {
+            "label": "Förhandsvisning av inloggningssidan",
+            "appFallback": "App",
+            "title": "Logga in",
+            "submit": "Logga in",
+            "noAccount": "Inget konto? <link>Skapa ett</link>"
+          }
+        },
+        "actions": {
+          "registration": {
+            "chooseMode": "Välj vem som får registrera klienter.",
+            "unknownScope": "”{scope}” är inte ett scope på den här servern.",
+            "noScopes": "Tillåt minst ett scope.",
+            "invalidHost": "”{raw}” är inte ett värdnamn, t.ex. {example}.",
+            "invalidLimit": "Gränsen per timme måste vara ett heltal från 0 till {max}.",
+            "saveFailed": "Det gick inte att spara inställningarna.",
+            "clientGone": "Den här klienten finns inte längre.",
+            "notSelfRegistered": "Endast självregistrerade klienter kan ändras här."
+          },
+          "branding": {
+            "clientGone": "Den här applikationen finns inte längre.",
+            "selfRegistered": "Självregistrerade klienter kan inte få eget utseende.",
+            "logoMissing": "Välj en logotypfil att ladda upp.",
+            "logoFetchFailed": "Det gick inte att hämta en bild från logotyp-URL:en. Kontrollera att den är publik och är en bild.",
+            "faintOnLight": "Accentfärgen är svag mot det ljusa kortet: knapparna syns knappt.",
+            "faintOnDark": "Accentfärgen är svag mot det mörka kortet: knapparna syns knappt.",
+            "saveFailed": "Det gick inte att spara utseendet."
+          }
+        },
+        "register": {
+          "trigger": "Registrera applikation",
+          "title": "Registrera OAuth-applikation",
+          "description": "Skapar en klient kopplad till ditt konto via <code>{endpoint}</code> (betrodda appar kan ange <code>{field}</code>). Se <link>Better Auth, Create client</link>.",
+          "nameLabel": "Applikationens namn",
+          "namePlaceholder": "Min app",
+          "redirectUrisLabel": "Omdirigerings-URI:er",
+          "redirectUrisHintPublic": "En per rad eller kommaseparerade. HTTPS, eller http på localhost, 127.0.0.1 eller [::1].",
+          "redirectUrisHintConfidential": "En per rad eller kommaseparerade. Endast HTTPS, även för localhost. För lokal utveckling, registrera en separat publik klient.",
+          "redirectUrisRequired": "Ange minst en omdirigerings-URI (en per rad eller kommaseparerade).",
+          "clientTypeLabel": "Klienttyp",
+          "clientTypeConfidential": "Konfidentiell (klienthemlighet)",
+          "clientTypePublic": "Publik (PKCE, ingen hemlighet)",
+          "deviceCodeLabel": "Enhetsinloggning (CLI:er, tv-apparater)",
+          "deviceCodeHint": "Lägger till device code-grant (RFC 8628): appen visar en kod och användaren godkänner den på <code>{path}</code> på en annan skärm. Oftast en publik klient.",
+          "skipConsentLabel": "Hoppa över samtycke (betrodd klient)",
+          "skipConsentHint": "Användarna ser inte samtyckesskärmen för den här applikationen. Använd bara för egna eller helt betrodda integrationer.",
+          "registerFailed": "Det gick inte att registrera applikationen",
+          "missingClientId": "Servern returnerade inget {field}.",
+          "registered": "OAuth-applikationen har registrerats",
+          "creating": "Skapar…",
+          "create": "Skapa applikation",
+          "successTitle": "Applikationen har skapats",
+          "successWithSecret": "Kopiera klienthemligheten nu, den kanske bara visas en gång.",
+          "successPublic": "Publik klient, ingen hemlighet utfärdas. Använd PKCE mot token-endpointen.",
+          "clientId": "Klient-id",
+          "clientSecret": "Klienthemlighet",
+          "copyClientId": "Kopiera klient-id",
+          "copyClientSecret": "Kopiera klienthemlighet"
+        },
+        "rowActions": {
+          "menuLabel": "Åtgärder för {name}",
+          "copyClientId": "Kopiera klient-id",
+          "clientIdCopied": "Klient-id har kopierats",
+          "edit": "Redigera applikation",
+          "editHint": "Namn, omdirigerings-URI:er, enhetsinloggning och hoppa över samtycke",
+          "branding": "Inloggningsutseende",
+          "brandingHint": "Logotyp, accentfärg och texter på inloggningsskärmarna för den här appen",
+          "rotateSecret": "Rotera hemlighet",
+          "rotateHintPublic": "Publika klienter har ingen hemlighet",
+          "rotateHintDisabled": "Aktivera klienten först",
+          "rotateHint": "Roterar den konfidentiella klientens hemlighet",
+          "delete": "Radera applikation",
+          "editDialog": {
+            "title": "Redigera applikation",
+            "description": "Uppdaterar <id>{clientId}</id> via <code>{endpoint}</code> (begränsade fält som <code>{field}</code>). Se <link>Better Auth, Update client</link>.",
+            "nameLabel": "Applikationens namn",
+            "namePlaceholder": "Min app",
+            "redirectUrisLabel": "Omdirigerings-URI:er",
+            "redirectUrisHint": "En per rad eller kommaseparerade. HTTPS krävs. Endast publika klienter får använda http på localhost.",
+            "redirectUrisRequired": "Ange minst en omdirigerings-URI (en per rad eller kommaseparerade).",
+            "deviceCodeLabel": "Enhetsinloggning (CLI:er, tv-apparater)",
+            "deviceCodeHint": "Tillåter device code-grant. Om du stänger av den stoppas nya enhetsinloggningar; token som redan utfärdats fortsätter att fungera.",
+            "skipConsentLabel": "Hoppa över samtycke (betrodd klient)",
+            "skipConsentHint": "När detta är på ombeds användarna inte godkänna scopes för den här applikationen.",
+            "updateFailed": "Det gick inte att uppdatera applikationen",
+            "updated": "Applikationen har uppdaterats"
+          },
+          "deleteDialog": {
+            "title": "Radera applikationen?",
+            "description": "Tar bort <strong>{name}</strong> (<code>{clientId}</code>) permanent. OAuth-token och samtycken för den här klienten kan påverkas.",
+            "deleteFailed": "Det gick inte att radera klienten",
+            "deleted": "Applikationen har tagits bort"
+          },
+          "rotateDialog": {
+            "title": "Rotera klienthemligheten?",
+            "description": "Den tidigare hemligheten slutar fungera direkt. Spara den nya hemligheten på ett säkert ställe, den kanske bara visas en gång.",
+            "newSecretLabel": "Ny klienthemlighet",
+            "copySecret": "Kopiera hemlighet",
+            "secretCopied": "Hemligheten har kopierats",
+            "rotating": "Roterar…",
+            "rotateFailed": "Det gick inte att rotera hemligheten",
+            "newSecretIssued": "Ny klienthemlighet utfärdad, kopiera den nu",
+            "rotated": "Hemligheten har roterats"
+          }
+        },
+        "selfRegistered": {
+          "menuLabel": "Åtgärder för {name}",
+          "enabled": "Klienten har aktiverats",
+          "disabled": "Klienten har inaktiverats",
+          "deleted": "Klienten har raderats",
+          "disableTitle": "Inaktivera {name}?",
+          "disableDescription": "Den kan inte längre logga in någon eller förnya sina token. Åtkomsttoken som redan utfärdats fungerar tills de går ut (högst en timme).",
+          "deleteTitle": "Radera {name}?",
+          "deleteDescriptionMetadataDocument": "Dess token och de samtycken användare har gett den raderas också. En klient med metadatadokument skapas igen nästa gång den loggar in någon. Inaktivera den i stället om du vill blockera den.",
+          "deleteDescriptionDynamic": "Dess token och de samtycken användare har gett den raderas också. Appen kan registrera sig igen så länge dynamisk registrering är på."
+        },
+        "brandingErrors": {
+          "textTooLong": "Håll det under {max} tecken.",
+          "displayNameTooLong": "Visningsnamn: håll det under {max} tecken.",
+          "taglineTooLong": "Slogan: håll den under {max} tecken.",
+          "panelTextTooLong": "Text i sidopanelen: håll den under {max} tecken.",
+          "accentColor": "Accentfärg: ange en hexfärg, till exempel {example}.",
+          "logoSource": "Välj var logotypen kommer ifrån.",
+          "logoUrl": "Logotyp-URL: ange en https-URL på en publik värd (standardport).",
+          "logoEmpty": "Logotypfilen är tom.",
+          "logoTooLarge": "Logotypen får vara högst 256 KB.",
+          "logoType": "Logotypen måste vara en PNG-, JPEG-, GIF-, WebP-, AVIF-, ICO- eller SVG-bild.",
+          "panelImageEmpty": "Bilden för sidopanelen är tom.",
+          "panelImageTooLarge": "Bilden för sidopanelen får vara högst 1 MB.",
+          "panelImageType": "Bilden för sidopanelen måste vara en PNG-, JPEG-, WebP- eller AVIF-bild."
+        }
       },
       "apis": {
         "title": "API:er",
-        "description": "Dina API:er (skyddade resurser) som tar emot åtkomsttoken från {name}: de scopes som klienter kan begära, vilka applikationer som får använda dem och deras tokeninställningar."
+        "description": "Dina API:er (skyddade resurser) som tar emot åtkomsttoken från {name}: de scopes som klienter kan begära, vilka applikationer som får använda dem och deras tokeninställningar.",
+        "errors": {
+          "tokenSettings": {
+            "lifetimePositive": "{field, select, access {Åtkomsttokens livslängd måste vara ett positivt antal minuter.} other {Uppdateringstokens livslängd måste vara ett positivt antal dagar.}}",
+            "lifetimeMinimum": "{field, select, access {Åtkomsttokens livslängd} other {Uppdateringstokens livslängd}} måste vara minst en minut.",
+            "lifetimeMaximum": "{field, select, access {Åtkomsttokens livslängd får vara högst {max} minuter, serverns standardvärde.} other {Uppdateringstokens livslängd får vara högst {max} dagar, serverns standardvärde.}}",
+            "claimsInvalidJson": "Anpassade claims måste vara giltig JSON, t.ex. {example}.",
+            "claimsNotObject": "Anpassade claims måste vara ett JSON-objekt, t.ex. {example}.",
+            "claimsEmptyName": "Namnet på ett anpassat claim får inte vara tomt.",
+            "claimsReserved": "{count, plural, one {{claims} är ett reserverat claim: servern sätter det.} other {{claims} är reserverade claims: servern sätter dem.}} Reserverade: {reserved}.",
+            "claimsTooLarge": "De anpassade claims är för stora (högst {kilobytes} KB): de läggs till i varje token."
+          },
+          "invalidScope": "”{scope}” är inte ett giltigt scope.",
+          "reservedScope": "”{scope}” är ett OpenID Connect-scope som redan är tillgängligt för alla klienter.",
+          "invalidIdentifier": "Identifieraren måste vara en absolut URL utan fragment, t.ex. {example}.",
+          "registerFailed": "Det gick inte att registrera API:et.",
+          "authServerCannotBeDisabled": "Själva autentiseringsservern kan inte inaktiveras.",
+          "updateFailed": "Det gick inte att uppdatera API:et.",
+          "deleteFromEnv": "Det här API:et är angivet i {variable} och skulle komma tillbaka vid nästa driftsättning. Inaktivera det i stället.",
+          "deleteFailed": "Det gick inte att radera API:et.",
+          "authServerStaysOpen": "Autentiseringsservern förblir öppen för alla applikationer: inloggningen är beroende av den.",
+          "accessFailed": "Det gick inte att ändra vilka applikationer som får använda API:et.",
+          "tokensFailed": "Det gick inte att spara tokeninställningarna."
+        },
+        "duration": {
+          "days": "{count, plural, one {# dag} other {# dagar}}",
+          "hours": "{count} h",
+          "minutes": "{count} min"
+        },
+        "tokenSummary": {
+          "accessToken": "Åtkomsttoken {duration}",
+          "refreshToken": "Uppdateringstoken {duration}",
+          "dpopRequired": "DPoP krävs",
+          "claims": "Claims: {claims}"
+        },
+        "restrictLabel": "Utfärda bara dessa scopes för det här API:et",
+        "restrictHint": "Token för det här API:et innehåller bara dessa scopes (och OpenID Connect-scopes). Av: de innehåller alla scopes som klienten har beviljats.",
+        "register": {
+          "title": "Registrera ett API",
+          "description": "Klienter begär en token för det med parametern <code>{param}</code>. Tokens målgrupp (audience) är identifieraren, och API:et verifierar den mot JWKS.",
+          "identifier": "Identifierare",
+          "identifierHint": "Oftast API:ets bas-URL. Den kan inte ändras senare.",
+          "namePlaceholder": "Order-API",
+          "scopes": "Scopes",
+          "scopesHint": "Separerade med blanksteg eller kommatecken. Maskinklienter ({grant}) måste begränsas till några av dem.",
+          "submit": "Registrera API",
+          "submitting": "Registrerar…",
+          "registered": "API:et har registrerats"
+        },
+        "list": {
+          "description": "Nya och ändrade scopes når autentiseringsservern inom en minut. Åtkomst- och tokeninställningar gäller från nästa token.",
+          "empty": "Inget API än.",
+          "envScopesTitle": "Scopes från {variable}",
+          "envScopesText": "Tillgängliga för alla klienter, oavsett vilket API de anropar: <mono>{scopes}</mono>. Om du vill hantera dem här lägger du till dem i det API de hör till och tar sedan bort variabeln."
+        },
+        "item": {
+          "authServer": "Autentiseringsserver",
+          "restricted": "Begränsat",
+          "linkedOnly": "Endast länkade appar",
+          "noResourceParam": "Token utfärdade utan resource-parameter.",
+          "noScopes": "Inga scopes.",
+          "editAria": "Redigera {name}",
+          "deleteAria": "Radera {name}",
+          "applications": "Applikationer",
+          "everyApplication": "Alla applikationer",
+          "onlyLinked": "Endast {names}",
+          "noneLinked": "Inga länkade: ingen applikation kan få token",
+          "change": "Ändra",
+          "changeAccessAria": "Ändra vilka applikationer som får använda {name}",
+          "tokens": "Token",
+          "defaultSettings": "Standardinställningar",
+          "changeTokensAria": "Ändra tokeninställningarna för {name}"
+        },
+        "edit": {
+          "title": "Redigera {name}",
+          "scopesHint": "Att ta bort ett scope ändrar inte klienter som redan har det, men ingen ny token innehåller det.",
+          "disabledHint": "Inga nya token för det här API:et. Token som redan utfärdats fungerar tills de går ut.",
+          "updated": "API:et har uppdaterats"
+        },
+        "access": {
+          "title": "Applikationer som får använda {name}",
+          "allHint": "Alla applikationer kan få token för det här API:et, inom sina scopes.",
+          "linkedLabel": "Endast länkade applikationer",
+          "linkedHint": "Andra applikationer nekas ({error}), även när de förnyar en token.",
+          "linkedTitle": "Länkade applikationer",
+          "filterAria": "Filtrera applikationer",
+          "filterPlaceholder": "Filtrera på namn eller klient-id",
+          "noApplications": "Ingen applikation än.",
+          "noMatch": "Ingen applikation matchar.",
+          "linksHintAll": "Länkar spelar bara roll när API:et är begränsat till länkade applikationer. En länkad applikation kan också introspektera det här API:ets token.",
+          "linksHintLinked": "En länkad applikation kan också introspektera det här API:ets token.",
+          "noneLinkedWarning": "Ingen applikation är länkad: ingen kan få token för det här API:et.",
+          "updated": "Åtkomsten har uppdaterats"
+        },
+        "tokens": {
+          "title": "Tokeninställningar för {name}",
+          "description": "Tillämpas på varje åtkomsttoken som utfärdas för det här API:et. Token som redan utfärdats behåller sina inställningar.",
+          "accessTtl": "Åtkomsttokens livslängd (minuter)",
+          "accessTtlHint": "Standard: {minutes, plural, one {# minut} other {# minuter}}. Kan bara bli kortare.",
+          "refreshTtl": "Uppdateringstokens livslängd (dagar)",
+          "refreshTtlHint": "Standard: {days, plural, one {# dag} other {# dagar}}. Kan bara bli kortare.",
+          "claims": "Anpassade claims",
+          "claimsHint": "Ett JSON-objekt som läggs till i varje åtkomsttoken för det här API:et. Reserverade: <mono>{claims}</mono>.",
+          "dpopLabel": "Kräv DPoP-bundna token",
+          "dpopHint": "Klienter måste skicka ett DPoP-bevis för att få en token för det här API:et, och token binds till deras nyckel. API:et måste kontrollera beviset vid varje anrop.",
+          "saved": "Tokeninställningarna har sparats"
+        },
+        "delete": {
+          "title": "Radera {name}?",
+          "description": "Klienter kan inte längre få token för det, och token som redan utfärdats för det slutar fungera direkt. Inaktivera det i stället om du bara vill stoppa nya token.",
+          "deleted": "API:et har raderats"
+        }
       },
       "signInProviders": {
         "title": "Inloggningsleverantörer",
-        "description": "Låt användare logga in på {name} med Google, Apple, Microsoft och över 30 andra konton."
+        "description": "Låt användare logga in på {name} med Google, Apple, Microsoft och över 30 andra konton.",
+        "panel": {
+          "copyCallback": "Kopiera callback-URL:en",
+          "authAppFallback": "inloggningsappens adress",
+          "environment": "Miljö",
+          "activeTitle": "På inloggningssidan",
+          "activeDescription": "I den här ordningen på inloggnings- och registreringssidorna, och under Anslutna konton på varje användares kontosida. Ändringar når inloggningssidan inom 30 sekunder.",
+          "noneActive": "Ingen leverantör är på. Välj en i listan för att konfigurera den.",
+          "setByEnvironment": "Anges av miljövariabler",
+          "existingAccountsOnly": "Endast befintliga konton",
+          "connectedAccounts": "{count, plural, one {# anslutet konto} other {# anslutna konton}}",
+          "moveUp": "Flytta upp {name}",
+          "moveDown": "Flytta ned {name}",
+          "edit": "Redigera {name}",
+          "providersTitle": "Leverantörer",
+          "providersDescription": "Alla leverantörer som Better Auth stöder. Skapa en OAuth-app hos leverantören, registrera callback-URL:en som visas i dess inställningar och klistra sedan in autentiseringsuppgifterna. Hemligheter lagras krypterade och visas aldrig igen.",
+          "search": "Sök leverantörer",
+          "noMatch": "Ingen leverantör matchar.",
+          "savedOn": "{name} är på",
+          "saved": "{name} har sparats",
+          "removed": "Inställningarna för {name} har tagits bort",
+          "optional": "(valfritt)",
+          "secretSet": "Angiven",
+          "replace": "Ersätt",
+          "removedOnSave": "Tas bort när du sparar.",
+          "undo": "Ångra",
+          "newValue": "Nytt värde",
+          "environmentDescription": "Anges av miljövariabler ({clientIdVar} och {clientSecretVar}): ändra dem där, eller ta bort dem för att hantera den här leverantören här.",
+          "defaultNote": "Skapa en OAuth-app hos {name}, registrera callback-URL:en nedan och klistra sedan in dess autentiseringsuppgifter.",
+          "callbackUrl": "Callback-URL",
+          "callbackHint": "Kallas även omdirigerings-URI eller retur-URL.",
+          "createApp": "Skapa appen",
+          "setupGuide": "Konfigurationsguide",
+          "secretsUnreadable": "De lagrade hemligheterna kan inte dekrypteras ({envVar} har ändrats). Ange dem igen.",
+          "buttonName": "Knappnamn",
+          "buttonNameHint": "Visas som ”Fortsätt med …” på inloggningssidan.",
+          "allowSignUp": "Skapa konton för nya användare",
+          "allowSignUpHint": "Av: bara personer som redan har ett konto kan logga in med den (ansluten från deras kontosida, eller med samma verifierade e-postadress).",
+          "oneTap": "Visa Google One Tap",
+          "oneTapHint": "Googles egen inloggningsruta, högst upp på inloggnings- och registreringssidorna, för personer som redan är inloggade på Google i sin webbläsare. Använder det här klient-id:t: lägg till {origin} under Authorized JavaScript origins i Google Cloud Console. Bara medan Google är på.",
+          "enabled": "Visa på inloggningssidan",
+          "enabledHint": "Av: knappen försvinner och inloggningar med den här leverantören nekas. Inställningarna behålls.",
+          "removeConfirm": "Ta bort inställningar och hemligheter?",
+          "removeSettings": "Ta bort inställningar"
+        },
+        "errors": {
+          "unknownProvider": "Okänd leverantör.",
+          "envManaged": "Den här leverantören anges av miljövariabler. Ändra dem, eller ta bort dem för att hantera den här.",
+          "invalidOption": "{field}: välj {options}.",
+          "appleKeyNotEc": "Privat nyckel: förväntade EC-nyckeln (P-256) som laddats ned från Apple (.p8).",
+          "appleKeyInvalid": "Privat nyckel: inte en giltig privat PEM-nyckel. Klistra in hela .p8-filen, inklusive raderna BEGIN och END.",
+          "issuerNotHttps": "URL:en måste börja med https://.",
+          "salesforceDomain": "My Domain: ett värdnamn som example.my.salesforce.com.",
+          "cognitoRegion": "Region: en AWS-region som eu-west-1.",
+          "googleHd": "Workspace-domän: en domän som example.com.",
+          "missingFields": "Fyll i {fields} innan du slår på den.",
+          "unusable": "De här inställningarna kan inte användas."
+        },
+        "providers": {
+          "apple": {
+            "note": "Apple kräver en HTTPS-retur-URL på en riktig domän (inte localhost) och skickar tillbaka användaren med en POST.",
+            "fields": {
+              "clientId": {
+                "label": "Services ID",
+                "hint": "Identifieraren för ett Services ID med Sign in with Apple påslaget, t.ex. com.example.signin."
+              },
+              "teamId": {
+                "label": "Team ID"
+              },
+              "keyId": {
+                "label": "Key ID",
+                "hint": "En nyckel med Sign in with Apple aktiverat."
+              },
+              "privateKey": {
+                "label": "Privat nyckel (.p8)",
+                "hint": "Klienthemligheten är en JWT som signeras med den här nyckeln; den genereras och förnyas automatiskt."
+              },
+              "appBundleIdentifier": {
+                "label": "Appens bundle-ID",
+                "hint": "Endast för inbyggd iOS-inloggning (ID-token utfärdade till din app i stället för till Services ID)."
+              }
+            }
+          },
+          "atlassian": {
+            "fields": {
+              "clientId": {
+                "label": "Klient-id"
+              },
+              "clientSecret": {
+                "label": "Klienthemlighet"
+              }
+            }
+          },
+          "cloudflare": {
+            "fields": {
+              "clientId": {
+                "label": "Klient-id"
+              },
+              "clientSecret": {
+                "label": "Klienthemlighet",
+                "hint": "Lämna tomt för en publik klient (endast PKCE)."
+              }
+            }
+          },
+          "cognito": {
+            "fields": {
+              "clientId": {
+                "label": "Appklient-id"
+              },
+              "clientSecret": {
+                "label": "Appklienthemlighet",
+                "hint": "Bara om appklienten har en hemlighet."
+              },
+              "domain": {
+                "label": "Cognito-domän"
+              },
+              "region": {
+                "label": "Region"
+              },
+              "userPoolId": {
+                "label": "User pool-ID"
+              }
+            }
+          },
+          "discord": {
+            "fields": {
+              "clientId": {
+                "label": "Klient-id"
+              },
+              "clientSecret": {
+                "label": "Klienthemlighet"
+              }
+            }
+          },
+          "dropbox": {
+            "fields": {
+              "clientId": {
+                "label": "Appnyckel"
+              },
+              "clientSecret": {
+                "label": "Apphemlighet"
+              }
+            }
+          },
+          "facebook": {
+            "fields": {
+              "clientId": {
+                "label": "App-id"
+              },
+              "clientSecret": {
+                "label": "Apphemlighet"
+              }
+            }
+          },
+          "figma": {
+            "fields": {
+              "clientId": {
+                "label": "Klient-id"
+              },
+              "clientSecret": {
+                "label": "Klienthemlighet"
+              }
+            }
+          },
+          "github": {
+            "note": "En OAuth App fungerar som den är. En GitHub App behöver dessutom kontobehörigheten Email addresses inställd på Read-only, annars misslyckas inloggningen utan e-postadress.",
+            "fields": {
+              "clientId": {
+                "label": "Klient-id"
+              },
+              "clientSecret": {
+                "label": "Klienthemlighet"
+              }
+            }
+          },
+          "gitlab": {
+            "fields": {
+              "clientId": {
+                "label": "Applikations-id"
+              },
+              "clientSecret": {
+                "label": "Klienthemlighet"
+              },
+              "issuer": {
+                "label": "GitLab-URL",
+                "hint": "För en egenhanterad GitLab."
+              }
+            }
+          },
+          "google": {
+            "fields": {
+              "clientId": {
+                "label": "Klient-id"
+              },
+              "clientSecret": {
+                "label": "Klienthemlighet"
+              },
+              "hd": {
+                "label": "Workspace-domän",
+                "hint": "Godkänn bara konton från den här Google Workspace-domänen."
+              }
+            }
+          },
+          "huggingface": {
+            "fields": {
+              "clientId": {
+                "label": "Klient-id"
+              },
+              "clientSecret": {
+                "label": "Klienthemlighet"
+              }
+            }
+          },
+          "kakao": {
+            "fields": {
+              "clientId": {
+                "label": "REST API-nyckel"
+              },
+              "clientSecret": {
+                "label": "Klienthemlighet",
+                "hint": "Bara om klienthemlighet är påslaget för appen."
+              }
+            }
+          },
+          "kick": {
+            "fields": {
+              "clientId": {
+                "label": "Klient-id"
+              },
+              "clientSecret": {
+                "label": "Klienthemlighet"
+              }
+            }
+          },
+          "line": {
+            "fields": {
+              "clientId": {
+                "label": "Kanal-id"
+              },
+              "clientSecret": {
+                "label": "Kanalhemlighet"
+              }
+            }
+          },
+          "linear": {
+            "fields": {
+              "clientId": {
+                "label": "Klient-id"
+              },
+              "clientSecret": {
+                "label": "Klienthemlighet"
+              }
+            }
+          },
+          "linkedin": {
+            "fields": {
+              "clientId": {
+                "label": "Klient-id"
+              },
+              "clientSecret": {
+                "label": "Klienthemlighet"
+              }
+            }
+          },
+          "microsoft": {
+            "fields": {
+              "clientId": {
+                "label": "Program-id (klient-id)"
+              },
+              "clientSecret": {
+                "label": "Värde för klienthemlighet"
+              },
+              "tenantId": {
+                "label": "Klientorganisation (tenant)",
+                "hint": "common (alla konton), organizations, consumers eller ditt katalog-id (tenant) för att bara tillåta din organisation."
+              }
+            }
+          },
+          "naver": {
+            "fields": {
+              "clientId": {
+                "label": "Klient-id"
+              },
+              "clientSecret": {
+                "label": "Klienthemlighet"
+              }
+            }
+          },
+          "notion": {
+            "fields": {
+              "clientId": {
+                "label": "OAuth-klient-id"
+              },
+              "clientSecret": {
+                "label": "OAuth-klienthemlighet"
+              }
+            }
+          },
+          "paybin": {
+            "fields": {
+              "clientId": {
+                "label": "Klient-id"
+              },
+              "clientSecret": {
+                "label": "Klienthemlighet"
+              },
+              "issuer": {
+                "label": "Utfärdare (issuer)"
+              }
+            }
+          },
+          "paypal": {
+            "note": "Slå på ”Log in with PayPal” för appen och begär e-postadressen.",
+            "fields": {
+              "clientId": {
+                "label": "Klient-id"
+              },
+              "clientSecret": {
+                "label": "Klienthemlighet"
+              },
+              "environment": {
+                "label": "Miljö"
+              }
+            }
+          },
+          "polar": {
+            "fields": {
+              "clientId": {
+                "label": "Klient-id"
+              },
+              "clientSecret": {
+                "label": "Klienthemlighet"
+              }
+            }
+          },
+          "railway": {
+            "fields": {
+              "clientId": {
+                "label": "Klient-id"
+              },
+              "clientSecret": {
+                "label": "Klienthemlighet"
+              }
+            }
+          },
+          "reddit": {
+            "fields": {
+              "clientId": {
+                "label": "Klient-id"
+              },
+              "clientSecret": {
+                "label": "Klienthemlighet"
+              }
+            }
+          },
+          "roblox": {
+            "fields": {
+              "clientId": {
+                "label": "Klient-id"
+              },
+              "clientSecret": {
+                "label": "Klienthemlighet"
+              }
+            }
+          },
+          "salesforce": {
+            "fields": {
+              "clientId": {
+                "label": "Consumer key"
+              },
+              "clientSecret": {
+                "label": "Consumer secret"
+              },
+              "environment": {
+                "label": "Miljö"
+              },
+              "loginUrl": {
+                "label": "My Domain",
+                "hint": "Bara värdnamnet. Ersätter login.salesforce.com eller test.salesforce.com."
+              }
+            }
+          },
+          "slack": {
+            "fields": {
+              "clientId": {
+                "label": "Klient-id"
+              },
+              "clientSecret": {
+                "label": "Klienthemlighet"
+              }
+            }
+          },
+          "spotify": {
+            "fields": {
+              "clientId": {
+                "label": "Klient-id"
+              },
+              "clientSecret": {
+                "label": "Klienthemlighet"
+              }
+            }
+          },
+          "tiktok": {
+            "fields": {
+              "clientKey": {
+                "label": "Klientnyckel"
+              },
+              "clientSecret": {
+                "label": "Klienthemlighet"
+              }
+            }
+          },
+          "twitch": {
+            "fields": {
+              "clientId": {
+                "label": "Klient-id"
+              },
+              "clientSecret": {
+                "label": "Klienthemlighet"
+              }
+            }
+          },
+          "twitter": {
+            "note": "Använd OAuth 2.0-uppgifterna (inte API-nyckeln) och begär e-poståtkomst i appens inställningar.",
+            "fields": {
+              "clientId": {
+                "label": "OAuth 2.0-klient-id"
+              },
+              "clientSecret": {
+                "label": "OAuth 2.0-klienthemlighet"
+              }
+            }
+          },
+          "vercel": {
+            "fields": {
+              "clientId": {
+                "label": "Klient-id"
+              },
+              "clientSecret": {
+                "label": "Klienthemlighet"
+              }
+            }
+          },
+          "vk": {
+            "fields": {
+              "clientId": {
+                "label": "App-id"
+              },
+              "clientSecret": {
+                "label": "Skyddad nyckel"
+              }
+            }
+          },
+          "wechat": {
+            "note": "Webbplatsapplikation (inloggning med QR-kod). WeChat returnerar ingen e-postadress.",
+            "fields": {
+              "clientId": {
+                "label": "AppID"
+              },
+              "clientSecret": {
+                "label": "AppSecret"
+              }
+            }
+          },
+          "zoom": {
+            "fields": {
+              "clientId": {
+                "label": "Klient-id"
+              },
+              "clientSecret": {
+                "label": "Klienthemlighet"
+              }
+            }
+          }
+        }
       },
       "apiKeys": {
         "title": "API-nycklar",
-        "description": "Nycklar som användare skapar så att deras skript kan anropa dina API:er: slå på eller av dem, ange längsta giltighetstid och återkalla valfri nyckel."
+        "description": "Nycklar som användare skapar så att deras skript kan anropa dina API:er: slå på eller av dem, ange längsta giltighetstid och återkalla valfri nyckel.",
+        "allKeys": {
+          "title": "Alla nycklar",
+          "description": "Nyaste först{truncated, select, true {, de senaste {limit}} other {}}. Utgångna nycklar raderas nästa gång nycklar används eller skapas. Att spärra eller radera ett konto återkallar dess nycklar; att radera en organisation raderar dess nycklar (nycklar som ägs av en organisation finns kvar när medlemmen som skapade dem lämnar)."
+        },
+        "settings": {
+          "description": "Användare skapar nycklar från sin kontosida för ett av dina API:er och några av dess scopes. API:et kontrollerar varje nyckel mot den här servern. En nyckel loggar aldrig in någon på den här servern eller i administrationskonsolen.",
+          "statusOn": "På: användare kan skapa nycklar",
+          "statusOff": "Av: inga nya nycklar, och alla nycklar nekas",
+          "maxLifetime": "Längsta giltighetstid",
+          "maxLifetimeValue": "{count, plural, one {# dag} other {# dagar}}",
+          "apisAccepting": "API:er som tar emot nycklar",
+          "apisNone": "Inga: registrera ett API med scopes som är öppet för alla applikationer",
+          "verifyEndpoint": "Verifieringsendpoint: <code>{endpoint}</code>. API:et autentiserar sig som en applikation som är registrerad här och länkad till det API:et (sidan API:er, Åtkomst). API:er som är begränsade till länkade applikationer tar inte emot nycklar."
+        },
+        "dialog": {
+          "description": "Nycklar är långlivade: föredra korta giltighetstider. Att sänka maxvärdet gäller bara nya nycklar.",
+          "allowLabel": "Tillåt API-nycklar",
+          "allowHint": "Av: ingen kan skapa en nyckel och alla befintliga nycklar nekas vid verifiering. Nycklarna behålls och fungerar igen när du slår på detta.",
+          "maxLifetimeLabel": "Längsta giltighetstid (dagar)",
+          "maxLifetimeHint": "Från 1 till {max}. Alla nycklar går ut.",
+          "saved": "Inställningarna sparades. Autentiseringsservern tillämpar dem inom en minut."
+        },
+        "table": {
+          "empty": "Inga API-nycklar.",
+          "key": "Nyckel",
+          "owner": "Ägare",
+          "api": "API",
+          "scopes": "Scopes",
+          "lastUsed": "Senast använd",
+          "expires": "Går ut",
+          "createdBy": "av {email}",
+          "org": "Org.",
+          "removedApi": "Borttaget API",
+          "expired": "Utgången",
+          "revoke": "Återkalla",
+          "revoked": "API-nyckeln har återkallats",
+          "revokeTitle": "Återkalla {name}?",
+          "revokeOrgDescription": "Den här nyckeln som tillhör organisationen {owner} slutar fungera direkt. Organisationens ägare och administratörer kan skapa en ny om API-nycklar är på.",
+          "revokeUserDescription": "Nyckeln som tillhör {owner} slutar fungera direkt. Användaren kan skapa en ny om API-nycklar är på."
+        },
+        "errors": {
+          "chooseEnabled": "Välj om API-nycklar ska vara på.",
+          "maxLifetimeRange": "Den längsta giltighetstiden måste vara ett heltal dagar från 1 till {max}.",
+          "saveFailed": "Det gick inte att spara inställningarna.",
+          "noKey": "Ingen nyckel angiven.",
+          "keyGone": "Den här nyckeln finns inte längre."
+        }
       },
       "webhooks": {
         "title": "Webhooks",
         "description": "Signerade HTTPS-aviseringar som meddelar dina appar när användare, roller och organisationsmedlemskap i {name} ändras.",
-        "deliveries": "Leveranslogg"
+        "deliveries": "Leveranslogg",
+        "eventDescriptions": {
+          "user_created": "Ett konto skapas (registrering, administratör, SSO, SCIM).",
+          "user_updated": "Namn, e-post, e-postverifiering, användarnamn eller bild ändras.",
+          "user_deleted": "Ett konto raderas.",
+          "user_banned": "Ett konto spärras eller inaktiveras av SCIM.",
+          "user_unbanned": "En spärr hävs, eller SCIM återaktiverar kontot.",
+          "user_role_changed": "Ett kontos plattformsroll ändras.",
+          "organization_member_added": "Någon går med i en organisation.",
+          "organization_member_removed": "Någon lämnar eller tas bort från en organisation.",
+          "organization_member_role_changed": "En medlems roll i en organisation ändras."
+        },
+        "panel": {
+          "events": "Händelser",
+          "clear": "Rensa",
+          "selectAll": "Markera alla",
+          "signingSecret": "Signeringshemlighet",
+          "secretCopied": "Hemligheten har kopierats",
+          "copySecret": "Kopiera hemlighet",
+          "url": "URL",
+          "add": {
+            "title": "Lägg till en endpoint",
+            "description": "Ostiary skickar en signerad JSON-händelse med POST till den här URL:en när någon av de valda händelserna inträffar, och försöker igen i ungefär ett dygn om det misslyckas.",
+            "urlHint": "HTTPS, på en publik adress.",
+            "urlHintLocalhost": "HTTPS, på en publik adress. {url} accepteras ({envVar}, endast för utveckling).",
+            "descriptionPlaceholder": "Faktureringsapp: användarsynk",
+            "adding": "Lägger till…",
+            "submit": "Lägg till endpoint"
+          },
+          "list": {
+            "title": "Endpoints",
+            "description": "Varje begäran har rubrikerna <code>{id}</code>, <code>{timestamp}</code> och <code>{signature}</code> (Standard Webhooks). En endpoint som misslyckas {count, plural, one {# gång} other {# gånger}} i rad inaktiveras.",
+            "empty": "Ingen endpoint än."
+          },
+          "created": {
+            "title": "Endpointen har lagts till",
+            "description": "Kopiera signeringshemligheten till appen på {url}: den verifierar varje leverans med den. Den visas inte igen."
+          },
+          "test": {
+            "delivered": "Testhändelsen levererades (HTTP {status})",
+            "failed": "Testhändelsen misslyckades: {reason}"
+          },
+          "item": {
+            "disabledFailures": "Inaktiverad efter upprepade fel",
+            "rotating": "Hemligheten roteras",
+            "editLabel": "Redigera {label}",
+            "deleteLabel": "Radera {label}",
+            "disabledNotice": "Inaktiverad efter {count, plural, one {# misslyckat försök} other {# misslyckade försök}} i rad. Åtgärda mottagaren och slå sedan på den igen: väntande händelser skickas på nytt.",
+            "disabledNoticeOn": "Inaktiverad {date} efter {count, plural, one {# misslyckat försök} other {# misslyckade försök}} i rad. Åtgärda mottagaren och slå sedan på den igen: väntande händelser skickas på nytt.",
+            "lastSuccess": "Senast lyckad",
+            "lastFailure": "Senast misslyckad",
+            "inARow": "({count} i rad)",
+            "deliveries": "Leveranser",
+            "deliveriesValue": "{pending} väntar eller försöks igen · {failed} misslyckade",
+            "sendTest": "Skicka testhändelse",
+            "deliveryLog": "Leveranslogg",
+            "regenerateSecret": "Generera ny hemlighet"
+          },
+          "edit": {
+            "title": "Redigera endpoint",
+            "enabledHint": "När den är inaktiverad registreras inga nya händelser för den här endpointen och nya försök väntar.",
+            "updated": "Endpointen har uppdaterats"
+          },
+          "rotate": {
+            "title": "Generera en ny signeringshemlighet?",
+            "description": "Leveranser signeras med både den gamla och den nya hemligheten i 24 timmar, så att appen kan byta utan att missa händelser.",
+            "newTitle": "Ny signeringshemlighet",
+            "newDescription": "Kopiera den till appen nu: den visas inte igen. Under de kommande 24 timmarna har leveranser även en signatur med den gamla hemligheten.",
+            "confirm": "Generera ny"
+          },
+          "delete": {
+            "title": "Radera den här endpointen?",
+            "description": "{url} slutar ta emot händelser, och dess leveranslogg och väntande nya försök raderas. Inaktivera den i stället om du vill pausa den.",
+            "deleted": "Endpointen har raderats"
+          }
+        },
+        "redeliver": {
+          "button": "Leverera igen",
+          "delivered": "Levererad (HTTP {status})",
+          "failed": "Misslyckades: {reason}"
+        },
+        "log": {
+          "status": {
+            "succeeded": "Levererad",
+            "failed": "Misslyckad",
+            "pending": "Väntar"
+          },
+          "disabled": "Inaktiverad: nya försök väntar tills den slås på igen.",
+          "empty": "Ingen leverans än. Använd ”Skicka testhändelse” på sidan Webhooks för att testa endpointen.",
+          "event": "Händelse",
+          "response": "Svar",
+          "attempts": "Försök",
+          "nextRetry": "Nästa försök",
+          "answer": "Svar",
+          "error": "fel",
+          "footer": "De senaste {shown} leveranserna. Leveranser sparas i {days, plural, one {# dag} other {# dagar}}. En misslyckad leverans försöks igen {retries, plural, one {# gång} other {# gånger}} under ungefär ett dygn; ”Leverera igen” skickar samma händelse (samma {header}) på nytt direkt."
+        },
+        "errors": {
+          "noEvents": "Välj minst en händelse.",
+          "tooMany": "Högst {max} endpoints.",
+          "endpointNotFound": "Endpointen hittades inte.",
+          "disabledTest": "Endpointen är inaktiverad: slå på den för att skicka en testhändelse.",
+          "testNotSent": "Testhändelsen kunde inte skickas.",
+          "deliveryNotFound": "Leveransen hittades inte.",
+          "disabledRedeliver": "Endpointen är inaktiverad: slå på den för att leverera igen.",
+          "eventNotSent": "Händelsen kunde inte skickas."
+        }
       },
       "users": {
-        "title": "Users",
-        "description": "Find accounts, change roles, ban or remove them, and open an account to see its sessions and activity."
+        "title": "Användare",
+        "description": "Hitta konton, ändra roller, stäng av eller ta bort dem och öppna ett konto för att se dess sessioner och aktivitet.",
+        "list": {
+          "searchPlaceholder": "Sök på namn eller e-post…",
+          "searchLabel": "Sök användare",
+          "rolePlaceholder": "Roll",
+          "roleAll": "Alla roller",
+          "roleAdmin": "Administratör",
+          "roleUser": "Användare",
+          "loadErrorTitle": "Det gick inte att läsa in användare",
+          "loadErrorFallback": "Det gick inte att läsa in användare",
+          "columns": {
+            "user": "Användare",
+            "role": "Roll",
+            "status": "Status",
+            "verified": "Verifierad",
+            "joined": "Gick med"
+          },
+          "loading": "Läser in användare…",
+          "empty": "Inga användare matchar dina filter.",
+          "noUsers": "0 användare",
+          "showing": "Visar {from}–{to} av {total}",
+          "rowsPerPage": "Rader per sida",
+          "previous": "Föregående",
+          "next": "Nästa",
+          "pageOf": "Sida {page} / {pages}",
+          "poweredBy": "Drivs av <code>listUsers</code>, <code>createUser</code>, <code>setRole</code>, <code>updateUser</code>, <code>setUserPassword</code> och relaterade metoder från <link>Better Auth admin plugin</link>. Du måste vara inloggad som administratör."
+        },
+        "status": {
+          "banned": "Spärrad",
+          "active": "Aktiv"
+        },
+        "create": {
+          "trigger": "Lägg till användare",
+          "title": "Lägg till användare",
+          "description": "Skapar ett konto via <code>createUser</code>.",
+          "email": "E-post",
+          "password": "Lösenord",
+          "name": "Namn",
+          "role": "Roll",
+          "error": "Det gick inte att skapa användaren",
+          "created": "Användaren har skapats",
+          "submit": "Skapa användare",
+          "creating": "Skapar…"
+        },
+        "rowActions": {
+          "menuLabel": "Åtgärder för {name}",
+          "copyId": "Kopiera användar-id",
+          "idCopied": "Användar-id har kopierats",
+          "edit": "Redigera användare",
+          "setPassword": "Ange lösenord",
+          "makeAdmin": "Gör till administratör",
+          "makeUser": "Gör till användare",
+          "ban": "Spärra användare",
+          "unban": "Häv spärr",
+          "remove": "Ta bort användare",
+          "roleError": "Det gick inte att uppdatera rollen",
+          "roleSet": "Rollen har satts till {role}",
+          "unbanError": "Det gick inte att häva spärren",
+          "unbanned": "Spärren har hävts",
+          "banError": "Det gick inte att spärra användaren",
+          "banned": "Användaren har spärrats",
+          "removeError": "Det gick inte att ta bort användaren",
+          "removed": "Användaren har tagits bort",
+          "emailRequired": "E-post krävs",
+          "noChanges": "Inga ändringar att spara",
+          "updateError": "Det gick inte att uppdatera användaren",
+          "updated": "Användaren har uppdaterats",
+          "passwordRequired": "Ange ett nytt lösenord.",
+          "passwordMismatch": "Lösenorden matchar inte.",
+          "passwordError": "Det gick inte att ange lösenordet",
+          "passwordUpdated": "Lösenordet har uppdaterats",
+          "editTitle": "Redigera användare",
+          "editDescription": "Ändra namnet eller e-postadressen. En ny e-postadress måste verifieras av användaren innan hen kan logga in igen.",
+          "name": "Namn",
+          "email": "E-post",
+          "passwordTitle": "Ange lösenord",
+          "passwordDescription": "Anger ett nytt lösenord för <strong>{email}</strong> med <code>setUserPassword</code>.",
+          "newPassword": "Nytt lösenord",
+          "confirmPassword": "Bekräfta lösenord",
+          "updatePassword": "Uppdatera lösenord",
+          "removeTitle": "Ta bort användaren?",
+          "removeDescription": "Det här raderar <strong>{name}</strong> ({email}) och allt som är kopplat till kontot permanent. Poster i granskningsloggen behålls utan namn eller e-postadress. Det går inte att ångra.",
+          "removeConfirm": "Ta bort",
+          "removing": "Tar bort…"
+        },
+        "detailActions": {
+          "impersonateError": "Det gick inte att agera som den här användaren.",
+          "signOutError": "Det gick inte att logga ut den här användaren.",
+          "signedOut": "Utloggad från {count, plural, one {# session} other {# sessioner}}",
+          "exportError": "Det gick inte att exportera användarens data.",
+          "exported": "Data har exporterats. Exporten registreras i granskningsloggen.",
+          "exportData": "Exportera data",
+          "impersonate": "Agera som användaren",
+          "signOutEverywhere": "Logga ut överallt",
+          "impersonateTitle": "Logga in som {email}?",
+          "signOutTitle": "Logga ut {email} överallt?",
+          "impersonateDescription": "Du ser kontosidan precis som användaren gör, i upp till en timme. En banderoll där låter dig avsluta och återvända. Detta registreras i granskningsloggen.",
+          "signOutDescription": "Alla användarens sessioner avslutas nu, på alla enheter. Användaren måste logga in igen.",
+          "sessionRevoked": "Sessionen har återkallats",
+          "revokeError": "Det gick inte att återkalla sessionen.",
+          "revoke": "Återkalla",
+          "resetTwoFactorError": "Det gick inte att återställa tvåfaktorsautentiseringen.",
+          "twoFactorReset": "Tvåfaktorsautentisering har stängts av",
+          "reset": "Återställ",
+          "resetTwoFactorTitle": "Återställa tvåfaktorsautentiseringen för {email}?",
+          "resetTwoFactorDescription": "Användarens autentiseringsapp, reservkoder och betrodda enheter slutar fungera, och hen loggar in med bara lösenordet tills tvåfaktorsautentisering konfigureras igen. Gör detta bara när du har bekräftat vem som frågar. Detta registreras i granskningsloggen."
+        },
+        "detail": {
+          "emailVerified": "E-post verifierad",
+          "emailNotVerified": "E-post inte verifierad",
+          "banned": "Spärrad",
+          "bannedWithReason": "Spärrad: {reason}",
+          "scimTitle": "Etablerad via SCIM: {organizations}",
+          "scimDescription": "Identitetsleverantören hanterar det här kontot. Ta bort användaren där: att radera kontot här hindrar inte katalogen från att skapa det igen vid nästa synkronisering. Användaren kan inte radera kontot från sin kontosida.",
+          "tiles": {
+            "joined": "Gick med",
+            "activeSessions": "Aktiva sessioner",
+            "passkeys": "Passkeys",
+            "twoFactor": "Tvåfaktor"
+          },
+          "device": {
+            "unknown": "Okänd enhet",
+            "browser": "Webbläsare",
+            "browserOnOs": "{browser} på {os}"
+          },
+          "sessions": {
+            "title": "Aktiva sessioner",
+            "description": "Enheter där det här kontot är inloggat.",
+            "empty": "Inga aktiva sessioner.",
+            "device": "Enhet",
+            "ipAddress": "IP-adress",
+            "lastActive": "Senast aktiv",
+            "impersonated": "Via administratör"
+          },
+          "apiKeys": {
+            "title": "API-nycklar",
+            "description": "Nycklar som det här kontot har skapat för skript. Att spärra eller radera kontot återkallar dem."
+          },
+          "signInMethods": {
+            "title": "Inloggningsmetoder",
+            "credential": "E-post och lösenord",
+            "sso": "SSO: {provider}",
+            "passkey": "Passkey: {name} <muted>({deviceType})</muted>",
+            "unnamed": "Namnlös",
+            "empty": "Inga inloggningsmetoder.",
+            "twoFactor": "Tvåfaktorsautentisering <muted>(autentiseringsapp)</muted>",
+            "managedByYou": "Hanteras från ditt konto"
+          },
+          "organizations": {
+            "title": "Organisationer",
+            "empty": "Inte medlem i någon organisation."
+          },
+          "activity": {
+            "title": "Senaste inloggningsaktivitet",
+            "empty": "Ingen aktivitet registrerad än.",
+            "events": {
+              "sign_in": "Loggade in",
+              "sign_up": "Skapade konto",
+              "sign_out": "Loggade ut",
+              "sign_in_failed": "Misslyckad inloggning"
+            }
+          },
+          "audit": {
+            "title": "Administratörsåtgärder på det här kontot",
+            "empty": "Inga administratörsåtgärder än.",
+            "by": "av {actor}",
+            "system": "systemet"
+          }
+        }
       },
       "consent": {
-        "title": "Consent",
-        "description": "Permissions people have granted to OAuth clients, with the scopes and when they were given."
+        "title": "Samtycken",
+        "description": "Behörigheter som personer har gett OAuth-klienter, med scopes och när de gavs.",
+        "panel": {
+          "signedInUser": "Inloggad användare",
+          "loadConsentsFailed": "Det gick inte att läsa in samtycken",
+          "loadClientsFailed": "Det gick inte att läsa in OAuth-klienter",
+          "loadErrorTitle": "Det gick inte att läsa in samtycken",
+          "searchPlaceholder": "Sök på användare, klient, samtyckes-id, referens eller scope…",
+          "searchLabel": "Sök samtycken",
+          "filter": {
+            "placeholder": "Scopefilter",
+            "all": "Alla samtycken",
+            "hasScope": "Har {scope}"
+          },
+          "columns": {
+            "user": "Användare",
+            "application": "Applikation",
+            "scopes": "Scopes",
+            "reference": "Referens",
+            "granted": "Beviljat",
+            "updated": "Uppdaterat"
+          },
+          "loading": "Läser in samtycken…",
+          "emptyNone": "Inga samtycken har registrerats för det här kontot än.",
+          "emptyFiltered": "Inga samtycken matchar dina filter.",
+          "noResults": "0 samtycken",
+          "showing": "Visar {from}–{to} av {total}",
+          "rowsPerPage": "Rader per sida",
+          "previous": "Föregående",
+          "next": "Nästa",
+          "pageOf": "Sida {page} / {total}",
+          "footnote": "Data från <code>{getConsents}</code>; klientnamn hämtas via <code>{getClients}</code>. Återkallning använder <code>{deleteConsent}</code>. Se <consentLink>OAuth consent</consentLink> i dokumentationen för <providerLink>OAuth provider</providerLink>. Det interaktiva auktoriseringsgränssnittet finns på <code>{path}</code>."
+        },
+        "rowActions": {
+          "menuLabel": "Åtgärder för samtycke {id}…",
+          "copyConsentId": "Kopiera samtyckes-id",
+          "consentIdCopied": "Samtyckes-id har kopierats",
+          "copyClientId": "Kopiera klient-id",
+          "clientIdCopied": "Klient-id har kopierats",
+          "viewDetails": "Visa detaljer",
+          "updateScopes": "Uppdatera scopes",
+          "wireTo": "Koppla till {method}",
+          "revoke": "Återkalla samtycke",
+          "revokeFailed": "Det gick inte att återkalla samtycket",
+          "revoked": "Samtycket har återkallats",
+          "dialogTitle": "Återkalla samtycket?",
+          "dialogDescription": "Tar bort användarens beviljande för <strong>{client}</strong> (<code>{clientId}</code>). Klienten kan behöva begära auktorisering igen.",
+          "revoking": "Återkallar…",
+          "revokeButton": "Återkalla"
+        }
       },
       "usage": {
         "title": "Appanvändning",
-        "description": "Vilka appar som används: åtkomsttoken, användare och samtycken per app under de senaste 30 dagarna."
+        "description": "Vilka appar som används: åtkomsttoken, användare och samtycken per app under de senaste 30 dagarna.",
+        "tiles": {
+          "tokens": "Utfärdade token, 30 dagar",
+          "active": "Applikationer som används",
+          "unused": "Oanvända applikationer"
+        },
+        "card": {
+          "title": "Åtkomsttoken per applikation, senaste 30 dagarna",
+          "unused": "{count, plural, one {# aktiv applikation har inte utfärdat någon token på 30 dagar: överväg att inaktivera eller radera den.} other {# aktiva applikationer har inte utfärdat någon token på 30 dagar: överväg att inaktivera eller radera dem.}}",
+          "allUsed": "Alla aktiva applikationer har utfärdat token de senaste 30 dagarna.",
+          "empty": "Inga OAuth-klienter registrerade.",
+          "application": "Applikation",
+          "tokens": "Token",
+          "users": "Användare",
+          "consents": "Samtycken",
+          "lastToken": "Senaste token",
+          "lastTokenValue": "Senaste token: {date}",
+          "showInApplications": "Visa i Applikationer",
+          "unusedBadge": "Oanvänd"
+        }
       },
       "audit": {
-        "title": "Audit log",
-        "description": "Every change made from this console or the admin API: who did it, to what, and when.",
-        "footnote": "Showing the latest 200 entries. Passwords and secrets are never recorded."
+        "title": "Granskningslogg",
+        "description": "Varje ändring som gjorts från den här konsolen eller administrations-API:et: vem som gjorde den, på vad och när.",
+        "footnote": "Visar de senaste 200 posterna. Lösenord och hemligheter registreras aldrig.",
+        "filterLabel": "Filtrera på område",
+        "filters": {
+          "all": "Alla",
+          "user": "Användare",
+          "organization": "Organisationer",
+          "oauth_client": "OAuth-klienter",
+          "oauth_consent": "Samtycken",
+          "oauth_resource": "API:er",
+          "api_key": "API-nycklar",
+          "sso_provider": "SSO",
+          "signing_key": "Signeringsnycklar",
+          "webhook": "Webhooks",
+          "social_provider": "Inloggningsleverantörer"
+        },
+        "empty": "Inga administratörsåtgärder registrerade än.",
+        "columns": {
+          "when": "När",
+          "who": "Vem",
+          "action": "Åtgärd",
+          "target": "Mål",
+          "details": "Detaljer",
+          "ip": "IP"
+        },
+        "system": "System",
+        "actions": {
+          "user": {
+            "create": "Skapade användare",
+            "update": "Uppdaterade användare",
+            "set_role": "Ändrade roll",
+            "set_password": "Angav lösenord",
+            "ban": "Spärrade användare",
+            "unban": "Hävde spärr för användare",
+            "delete": "Raderade användare",
+            "revoke_session": "Återkallade en session",
+            "revoke_all_sessions": "Loggade ut användaren överallt",
+            "impersonate": "Agerade som användare",
+            "reset_two_factor": "Återställde tvåfaktorsautentisering",
+            "export_data": "Exporterade kontodata",
+            "self_delete": "Raderade sitt eget konto"
+          },
+          "oauth_client": {
+            "create": "Registrerade OAuth-klient",
+            "update": "Uppdaterade OAuth-klient",
+            "delete": "Raderade OAuth-klient",
+            "rotate_secret": "Roterade klienthemlighet",
+            "self_register": "Klienten registrerade sig själv",
+            "disable": "Inaktiverade OAuth-klient",
+            "enable": "Aktiverade OAuth-klient",
+            "branding_update": "Ändrade inloggningsutseende",
+            "branding_reset": "Återställde inloggningsutseende"
+          },
+          "client_registration": {
+            "update": "Ändrade självregistrering av klienter"
+          },
+          "oauth_resource": {
+            "create": "Registrerade API",
+            "update": "Uppdaterade API",
+            "delete": "Raderade API",
+            "access": "Ändrade API-åtkomst",
+            "tokens": "Ändrade tokeninställningar för API"
+          },
+          "api_key": {
+            "create": "Skapade API-nyckel",
+            "revoke": "Återkallade API-nyckel",
+            "revoke_all": "Återkallade alla API-nycklar",
+            "settings": "Ändrade inställningar för API-nycklar"
+          },
+          "oauth_consent": {
+            "update": "Uppdaterade samtycke",
+            "delete": "Återkallade samtycke"
+          },
+          "oauth_device": {
+            "approve": "Godkände en enhetsinloggning",
+            "deny": "Nekade en enhetsinloggning"
+          },
+          "organization": {
+            "create": "Skapade organisation",
+            "update": "Bytte namn på organisation",
+            "delete": "Raderade organisation",
+            "invite": "Bjöd in medlem",
+            "cancel_invitation": "Avbröt inbjudan",
+            "update_member_role": "Ändrade medlemsroll",
+            "remove_member": "Tog bort medlem"
+          },
+          "sso_provider": {
+            "create": "Registrerade SSO-leverantör",
+            "update": "Uppdaterade SSO-leverantör",
+            "delete": "Raderade SSO-leverantör",
+            "verify_domain": "Verifierade SSO-domän"
+          },
+          "social_provider": {
+            "create": "Konfigurerade inloggningsleverantör",
+            "update": "Uppdaterade inloggningsleverantör",
+            "delete": "Tog bort inloggningsleverantör",
+            "reorder": "Ändrade ordning på inloggningsleverantörer"
+          },
+          "scim": {
+            "token_create": "Genererade SCIM-token",
+            "token_rotate": "Ersatte SCIM-token",
+            "token_revoke": "Återkallade SCIM-token"
+          },
+          "signing_key": {
+            "rotate": "Roterade signeringsnyckel",
+            "update_settings": "Ändrade rotation av signeringsnycklar"
+          },
+          "webhook": {
+            "create": "Lade till webhook-endpoint",
+            "update": "Uppdaterade webhook-endpoint",
+            "enable": "Aktiverade webhook-endpoint",
+            "disable": "Inaktiverade webhook-endpoint",
+            "delete": "Raderade webhook-endpoint",
+            "rotate_secret": "Genererade ny webhook-hemlighet",
+            "test": "Skickade testhändelse för webhook",
+            "redeliver": "Levererade webhook-händelse igen"
+          }
+        }
       },
       "security": {
-        "title": "Security",
-        "description": "Failed sign-in attempts, the accounts and addresses behind them, and banned accounts."
+        "title": "Säkerhet",
+        "description": "Misslyckade inloggningsförsök, konton och adresser bakom dem samt avstängda konton.",
+        "tiles": {
+          "failed24h": "Misslyckade inloggningar, 24 timmar",
+          "failed7d": "Misslyckade inloggningar, 7 dagar",
+          "banned": "Spärrade konton"
+        },
+        "chart": {
+          "failed": "Misslyckade inloggningar"
+        },
+        "perDay": {
+          "title": "Misslyckade inloggningar per dag",
+          "description": "Fel lösenord eller okänt konto, senaste 30 dagarna ({total, number} totalt). Registreras sedan 6 oktober 2026."
+        },
+        "noFailures": "Inga misslyckade inloggningar de senaste 7 dagarna.",
+        "attempts": "Försök",
+        "topAccounts": {
+          "title": "Mest utsatta konton, 7 dagar",
+          "description": "E-postadressen eller användarnamnet som provades, oavsett om kontot finns eller inte.",
+          "identifier": "E-post eller användarnamn",
+          "last": "Senast"
+        },
+        "topIps": {
+          "title": "Mest aktiva IP-adresser, 7 dagar",
+          "description": "En adress som provar många konton innebär oftast credential stuffing.",
+          "ip": "IP-adress",
+          "accounts": "Provade konton"
+        },
+        "banned": {
+          "title": "Spärrade konton",
+          "empty": "Inga spärrade konton.",
+          "noReason": "Ingen anledning angiven",
+          "until": "till {date}",
+          "permanent": "permanent"
+        }
       },
       "signingKeys": {
         "title": "Signeringsnycklar",
@@ -380,88 +1812,236 @@
           "save": "Det gick inte att spara inställningarna.",
           "rotate": "Det gick inte att rotera nyckeln."
         }
+      },
+      "organizations": {
+        "controls": {
+          "unexpectedError": "Något gick fel.",
+          "organizationUpdated": "Organisationen har uppdaterats",
+          "slug": "Slug",
+          "role": "Roll",
+          "roleUpdated": "Rollen har uppdaterats",
+          "roles": {
+            "owner": "ägare",
+            "admin": "administratör",
+            "member": "medlem"
+          },
+          "removeMemberLabel": "Ta bort {email}",
+          "removeMemberTitle": "Ta bort {email}?",
+          "removeMemberBody": "Personen förlorar åtkomsten till den här organisationen. Kontot finns kvar.",
+          "memberRemoved": "Medlemmen har tagits bort",
+          "cancelInvitationLabel": "Avbryt inbjudan till {email}",
+          "cancelInvitationTitle": "Avbryta inbjudan till {email}?",
+          "cancelInvitationBody": "Länken i mejlet slutar fungera.",
+          "cancelInvitation": "Avbryt inbjudan",
+          "invitationCancelled": "Inbjudan har avbrutits",
+          "invitationSent": "Inbjudan har skickats",
+          "inviteByEmail": "Bjud in via e-post",
+          "sendInvitation": "Skicka inbjudan"
+        },
+        "scim": {
+          "unexpectedError": "Något gick fel.",
+          "tokenRevoked": "Token har återkallats",
+          "baseUrl": "Bas-URL",
+          "copyBaseUrl": "Kopiera bas-URL",
+          "token": "Token",
+          "copyToken": "Kopiera token",
+          "active": "Aktiv",
+          "expires": "Går ut",
+          "lastUsed": "Senast använd",
+          "noToken": "Ingen aktiv token. Identitetsleverantören kan inte etablera konton förrän du genererar en.",
+          "newToken": "Ny token",
+          "revoke": "Återkalla",
+          "generateToken": "Generera token",
+          "rotateTitle": "Ersätta SCIM-token?",
+          "revokeTitle": "Återkalla SCIM-token?",
+          "rotateBody": "Den nuvarande token slutar fungera nu. Klistra in den nya i din identitetsleverantör för att fortsätta etableringen.",
+          "revokeBody": "Din identitetsleverantör kan inte längre skapa, uppdatera eller inaktivera konton. Befintliga konton ändras inte.",
+          "replaceToken": "Ersätt token",
+          "revokeToken": "Återkalla token",
+          "issuedTitle": "SCIM-token",
+          "issuedDescription": "Kopiera den nu: den visas inte igen. Den går ut om ett år.",
+          "tokenHint": "Klistra in den som bearer-token (Okta: API token, Entra ID: secret token)."
+        },
+        "detail": {
+          "back": "Organisationer",
+          "defaultWorkspace": "Standardarbetsyta",
+          "createdAt": "Skapad {date}",
+          "members": "Medlemmar",
+          "publicMembers": "Alla konton tillhör den publika arbetsytan, så medlemmar kan inte tas bort här. Visar de första 50.",
+          "memberCount": "{count, plural, one {# medlem} other {# medlemmar}}.",
+          "noMembers": "Inga medlemmar än.",
+          "member": "Medlem",
+          "joined": "Gick med",
+          "role": "Roll",
+          "deactivated": "Inaktiverad",
+          "banned": "Spärrad",
+          "invitationExpires": "går ut {date}",
+          "noInvitations": "Inga väntande inbjudningar.",
+          "apiKeys": "API-nycklar",
+          "apiKeysDescription": "Nycklar som ägs av den här organisationen, skapade av dess ägare och administratörer på deras kontosida. De fortsätter att fungera när medlemmen som skapade dem lämnar, och raderas tillsammans med organisationen.",
+          "details": "Detaljer",
+          "sso": "Enkel inloggning (SSO)",
+          "ssoDescription": "Identitetsleverantörer som är kopplade till den här organisationen.",
+          "ssoNone": "Ingen. <link>Konfigurera en</link>.",
+          "verified": "Verifierad",
+          "unverified": "Overifierad",
+          "scim": "SCIM-etablering",
+          "scimDescription": "Din identitetsleverantör (Okta, Entra ID med flera) skapar organisationens konton och inaktiverar dem när personer slutar.",
+          "scimCounts": "{active} etablerade, {inactive} inaktiverade.",
+          "recentActions": "Senaste administratörsåtgärder",
+          "noActions": "Inga än.",
+          "system": "systemet"
+        },
+        "errors": {
+          "invalidNameSlug": "Ange ett namn och en slug som består av bokstäver, siffror och bindestreck.",
+          "publicSlug": "Den publika arbetsytan behåller slugen ”public”.",
+          "slugTaken": "Den slugen används redan av en annan organisation.",
+          "unknownRole": "Okänd roll.",
+          "memberNotFound": "Medlemmen hittades inte.",
+          "publicMembers": "Alla konton tillhör den publika arbetsytan.",
+          "invalidEmail": "Ange en giltig e-postadress.",
+          "noInvitations": "Den här organisationen tar inte emot inbjudningar.",
+          "alreadyMember": "Den här personen är redan medlem.",
+          "invitationNotFound": "Inbjudan hittades inte.",
+          "requestFailed": "Begäran misslyckades.",
+          "scimUnavailable": "Den här organisationen kan inte använda SCIM-etablering.",
+          "noActiveToken": "Det finns ingen aktiv token."
+        }
+      }
+    },
+    "common": {
+      "cancel": "Avbryt",
+      "save": "Spara",
+      "saving": "Sparar…",
+      "saveChanges": "Spara ändringar",
+      "delete": "Radera",
+      "deleting": "Raderar…",
+      "edit": "Redigera",
+      "remove": "Ta bort",
+      "close": "Stäng",
+      "copied": "Kopierat",
+      "enabled": "Aktiverad",
+      "disabled": "Inaktiverad",
+      "enable": "Aktivera",
+      "disable": "Inaktivera",
+      "on": "På",
+      "off": "Av",
+      "yes": "Ja",
+      "no": "Nej",
+      "never": "Aldrig",
+      "none": "Ingen",
+      "actions": "Åtgärder",
+      "created": "Skapad",
+      "name": "Namn",
+      "description": "Beskrivning",
+      "status": "Status",
+      "back": "Tillbaka",
+      "done": "Klar",
+      "loading": "Läser in…",
+      "refresh": "Uppdatera",
+      "search": "Sök",
+      "optional": "Valfritt",
+      "unexpectedError": "Något gick fel. Försök igen."
+    },
+    "urlCheck": {
+      "tooLong": "URL:en är för lång.",
+      "notAbsolute": "Ange en absolut URL, t.ex. https://app.example.com/webhooks.",
+      "credentials": "URL:en får inte innehålla användarnamn eller lösenord.",
+      "fragment": "URL:en får inte innehålla ett fragment (#).",
+      "notHttps": "URL:en måste använda https://.",
+      "localhost": "URL:en pekar på den här datorn (localhost).",
+      "nonPublic": "URL:en pekar på {kind, select, loopback {en loopback-adress} private {en privat adress} linkLocal {en link-local-adress} cloudMetadata {en adress för molnmetadata} sharedAddressSpace {en delad adress (carrier-grade NAT)} other {en icke-publik adress}}.",
+      "unresolved": "Värden {host} kunde inte slås upp.",
+      "noAddress": "Värden {host} har ingen adress.",
+      "resolvesNonPublic": "Värden {host} pekar på {kind, select, loopback {en loopback-adress} private {en privat adress} linkLocal {en link-local-adress} cloudMetadata {en adress för molnmetadata} sharedAddressSpace {en delad adress (carrier-grade NAT)} other {en icke-publik adress}} ({address})."
+    },
+    "shell": {
+      "userFallbackName": "Administratör",
+      "userMenu": {
+        "home": "Start",
+        "logOut": "Logga ut"
       }
     }
   },
   "dashboard": {
-    "title": "Account",
-    "description": "Manage your profile, organizations, passkeys, sessions, and connected applications.",
-    "navAria": "Account navigation",
+    "title": "Konto",
+    "description": "Hantera din profil, organisationer, passkeys, sessioner och anslutna applikationer.",
+    "navAria": "Kontonavigering",
     "nav": {
-      "overview": "Overview",
-      "profile": "Profile",
-      "organizations": "Organizations",
-      "security": "Security",
-      "apps": "Connected apps",
+      "overview": "Översikt",
+      "profile": "Profil",
+      "organizations": "Organisationer",
+      "security": "Säkerhet",
+      "apps": "Anslutna appar",
       "apiKeys": "API-nycklar",
-      "admin": "Admin",
-      "marketingHome": "About",
-      "signOut": "Sign out",
+      "admin": "Administration",
+      "marketingHome": "Om",
+      "signOut": "Logga ut",
       "data": "Dina data"
     },
     "profile": {
-      "title": "Profile",
-      "description": "Your display name, username, and email status for this account.",
-      "nameLabel": "Display name",
-      "usernameLabel": "Username",
-      "usernameHint": "3-30 characters: letters, numbers, dots, and underscores. Used to sign in instead of email.",
-      "usernameChecking": "Checking availability…",
-      "usernameAvailable": "This username is available.",
-      "usernameTaken": "This username is already taken.",
-      "usernameInvalidHint": "Use only letters, numbers, dots, and underscores.",
-      "usernameTooShort": "Username must be at least 3 characters.",
-      "usernameInvalid": "That username is not valid.",
-      "save": "Save",
-      "saving": "Saving…",
-      "saved": "Profile updated",
-      "saveError": "Could not update profile.",
-      "emailLabel": "Email",
-      "verified": "Verified",
-      "unverified": "Not verified",
-      "unverifiedHint": "Verify your email to protect your account and meet sign-in requirements.",
-      "resendVerification": "Resend verification email",
-      "verificationSent": "Check your inbox for the verification link.",
-      "verificationError": "Could not send verification email.",
-      "changeEmail": "Change",
-      "newEmailLabel": "New email address",
-      "changeEmailHintVerified": "We'll email your current address to approve the change, then send a verification link to the new one. Your email stays the same until both are done.",
-      "changeEmailSubmit": "Send confirmation",
-      "changingEmail": "Sending…",
-      "cancel": "Cancel",
-      "changeEmailSame": "Enter a different email address.",
-      "changeEmailError": "Could not start the email change.",
-      "changeEmailSentToCurrent": "Check {current} to approve the change to {next}. After that, verify {next} from the link we send there.",
-      "changeEmailNeedsVerified": "You can change it once it is verified."
+      "title": "Profil",
+      "description": "Ditt visningsnamn, användarnamn och e-poststatus för det här kontot.",
+      "nameLabel": "Visningsnamn",
+      "usernameLabel": "Användarnamn",
+      "usernameHint": "3–30 tecken: bokstäver, siffror, punkter och understreck. Används för att logga in i stället för e-post.",
+      "usernameChecking": "Kontrollerar tillgänglighet…",
+      "usernameAvailable": "Användarnamnet är ledigt.",
+      "usernameTaken": "Användarnamnet är redan upptaget.",
+      "usernameInvalidHint": "Använd endast bokstäver, siffror, punkter och understreck.",
+      "usernameTooShort": "Användarnamnet måste vara minst 3 tecken.",
+      "usernameInvalid": "Användarnamnet är inte giltigt.",
+      "save": "Spara",
+      "saving": "Sparar…",
+      "saved": "Profilen har uppdaterats",
+      "saveError": "Det gick inte att uppdatera profilen.",
+      "emailLabel": "E-post",
+      "verified": "Verifierad",
+      "unverified": "Inte verifierad",
+      "unverifiedHint": "Verifiera din e-postadress för att skydda ditt konto och uppfylla kraven för inloggning.",
+      "resendVerification": "Skicka verifieringsmejlet igen",
+      "verificationSent": "Leta efter verifieringslänken i din inkorg.",
+      "verificationError": "Det gick inte att skicka verifieringsmejlet.",
+      "changeEmail": "Ändra",
+      "newEmailLabel": "Ny e-postadress",
+      "changeEmailHintVerified": "Vi mejlar din nuvarande adress för att godkänna ändringen och skickar sedan en verifieringslänk till den nya. Din e-postadress förblir densamma tills båda stegen är klara.",
+      "changeEmailSubmit": "Skicka bekräftelse",
+      "changingEmail": "Skickar…",
+      "cancel": "Avbryt",
+      "changeEmailSame": "Ange en annan e-postadress.",
+      "changeEmailError": "Det gick inte att påbörja e-postbytet.",
+      "changeEmailSentToCurrent": "Kontrollera {current} för att godkänna bytet till {next}. Verifiera sedan {next} via länken vi skickar dit.",
+      "changeEmailNeedsVerified": "Du kan ändra den när den har verifierats."
     },
     "passkeys": {
       "title": "Passkeys",
-      "hint": "Use a passkey for phishing-resistant sign-in. Add one on this device or with a security key.",
-      "addThisDevice": "Add passkey (this device)",
-      "addSecurityKey": "Add passkey (security key)",
-      "defaultName": "My passkey",
-      "empty": "No passkeys yet. Add one to sign in without typing your password.",
-      "name": "Name",
-      "unnamed": "Unnamed passkey",
-      "deviceType": "Device type",
-      "created": "Added",
-      "actions": "Actions",
-      "rename": "Rename",
-      "delete": "Remove",
-      "save": "Save",
-      "cancel": "Cancel",
-      "loadError": "Could not load passkeys.",
-      "addError": "Could not add passkey.",
-      "deleteError": "Could not remove passkey.",
-      "updateError": "Could not update passkey.",
-      "added": "Passkey added",
-      "deleted": "Passkey removed",
-      "updated": "Passkey updated",
-      "nameRequired": "Enter a name for this passkey.",
-      "none": "None",
-      "confirmRemoveTitle": "Remove this passkey?",
-      "confirmRemoveBody": "You won’t be able to sign in with this passkey anymore. You can add a new one at any time.",
-      "signInAgainToAdd": "For your security, adding a passkey needs a recent sign-in. Sign in again, then add it.",
-      "signInAgain": "Sign in again"
+      "hint": "Använd en passkey för nätfiskeresistent inloggning. Lägg till en på den här enheten eller med en säkerhetsnyckel.",
+      "addThisDevice": "Lägg till passkey (den här enheten)",
+      "addSecurityKey": "Lägg till passkey (säkerhetsnyckel)",
+      "defaultName": "Min passkey",
+      "empty": "Inga passkeys än. Lägg till en för att logga in utan att skriva ditt lösenord.",
+      "name": "Namn",
+      "unnamed": "Namnlös passkey",
+      "deviceType": "Enhetstyp",
+      "created": "Tillagd",
+      "actions": "Åtgärder",
+      "rename": "Byt namn",
+      "delete": "Ta bort",
+      "save": "Spara",
+      "cancel": "Avbryt",
+      "loadError": "Det gick inte att läsa in passkeys.",
+      "addError": "Det gick inte att lägga till passkey.",
+      "deleteError": "Det gick inte att ta bort passkey.",
+      "updateError": "Det gick inte att uppdatera passkey.",
+      "added": "Passkey har lagts till",
+      "deleted": "Passkey har tagits bort",
+      "updated": "Passkey har uppdaterats",
+      "nameRequired": "Ange ett namn för den här passkey.",
+      "none": "Ingen",
+      "confirmRemoveTitle": "Ta bort den här passkey?",
+      "confirmRemoveBody": "Du kommer inte längre att kunna logga in med den här passkey. Du kan lägga till en ny när som helst.",
+      "signInAgainToAdd": "Av säkerhetsskäl krävs en nylig inloggning för att lägga till en passkey. Logga in igen och lägg sedan till den.",
+      "signInAgain": "Logga in igen"
     },
     "twoFactor": {
       "title": "Tvåfaktorsautentisering",
@@ -509,45 +2089,45 @@
       }
     },
     "organizations": {
-      "title": "Organizations",
-      "description": "Teams and partner organizations you belong to. Switch between them and invite members. Platform administrators create new organizations.",
-      "yourOrganizations": "Your organizations",
-      "empty": "No organizations loaded.",
-      "active": "Active",
-      "switchTo": "Set active",
-      "setActiveError": "Could not switch organization.",
-      "setActiveSuccess": "Active organization updated.",
-      "createTitle": "Create an organization",
-      "createHint": "Use a unique URL slug (e.g. acme-corp). The reserved slug “public” is not available.",
-      "orgName": "Organization name",
+      "title": "Organisationer",
+      "description": "Team och partnerorganisationer som du tillhör. Växla mellan dem och bjud in medlemmar. Plattformsadministratörer skapar nya organisationer.",
+      "yourOrganizations": "Dina organisationer",
+      "empty": "Inga organisationer har lästs in.",
+      "active": "Aktiv",
+      "switchTo": "Gör aktiv",
+      "setActiveError": "Det gick inte att byta organisation.",
+      "setActiveSuccess": "Den aktiva organisationen har uppdaterats.",
+      "createTitle": "Skapa en organisation",
+      "createHint": "Använd en unik slug för URL:en (t.ex. acme-corp). Den reserverade slugen ”public” är inte tillgänglig.",
+      "orgName": "Organisationens namn",
       "orgSlug": "Slug",
-      "create": "Create organization",
-      "creating": "Creating…",
-      "createSuccess": "Organization created",
-      "createError": "Could not create organization.",
-      "createValidation": "Enter a name and slug.",
-      "reservedSlug": "This slug is reserved.",
-      "slugTaken": "That slug is already in use.",
-      "loadError": "Could not load organizations.",
-      "inviteTitle": "Invite a member",
-      "inviteHint": "Sends an email with a link to accept the invitation. Available when your role in the active organization is owner or admin.",
-      "inviteEmail": "Email",
-      "inviteRole": "Role",
-      "roleMember": "Member",
-      "roleAdmin": "Admin",
-      "inviteSend": "Send invitation",
-      "inviting": "Sending…",
-      "inviteSuccess": "Invitation sent",
-      "inviteError": "Could not send invitation.",
-      "inviteValidation": "Enter an email address.",
-      "allOrganizations": "All organizations",
-      "memberCount": "{count, plural, one {# member} other {# members}}",
-      "delete": "Delete",
-      "cancel": "Cancel",
-      "deleted": "Organization deleted",
-      "deleteError": "Could not delete the organization.",
-      "confirmDeleteTitle": "Delete {name}?",
-      "confirmDeleteBody": "This removes the organization, its {count, plural, one {# membership} other {# memberships}} and pending invitations. Member accounts stay. This cannot be undone.",
+      "create": "Skapa organisation",
+      "creating": "Skapar…",
+      "createSuccess": "Organisationen har skapats",
+      "createError": "Det gick inte att skapa organisationen.",
+      "createValidation": "Ange ett namn och en slug.",
+      "reservedSlug": "Den här slugen är reserverad.",
+      "slugTaken": "Den slugen används redan.",
+      "loadError": "Det gick inte att läsa in organisationer.",
+      "inviteTitle": "Bjud in en medlem",
+      "inviteHint": "Skickar ett mejl med en länk för att acceptera inbjudan. Tillgängligt när din roll i den aktiva organisationen är ägare eller administratör.",
+      "inviteEmail": "E-post",
+      "inviteRole": "Roll",
+      "roleMember": "Medlem",
+      "roleAdmin": "Administratör",
+      "inviteSend": "Skicka inbjudan",
+      "inviting": "Skickar…",
+      "inviteSuccess": "Inbjudan har skickats",
+      "inviteError": "Det gick inte att skicka inbjudan.",
+      "inviteValidation": "Ange en e-postadress.",
+      "allOrganizations": "Alla organisationer",
+      "memberCount": "{count, plural, one {# medlem} other {# medlemmar}}",
+      "delete": "Radera",
+      "cancel": "Avbryt",
+      "deleted": "Organisationen har raderats",
+      "deleteError": "Det gick inte att radera organisationen.",
+      "confirmDeleteTitle": "Radera {name}?",
+      "confirmDeleteBody": "Det här tar bort organisationen, dess {count, plural, one {# medlemskap} other {# medlemskap}} och väntande inbjudningar. Medlemmarnas konton finns kvar. Det går inte att ångra.",
       "apiKeys": {
         "show": "API-nycklar",
         "hide": "Dölj API-nycklar",
@@ -559,41 +2139,43 @@
       }
     },
     "security": {
-      "title": "Security",
-      "description": "Update your password, manage passkeys, and review where you are signed in.",
-      "passwordHeading": "Password",
-      "passwordHint": "Use at least {min} characters. Choose a password you don’t use elsewhere.",
-      "currentPassword": "Current password",
-      "newPassword": "New password",
-      "confirmNewPassword": "Confirm new password",
-      "changePassword": "Update password",
-      "changing": "Updating…",
-      "passwordChanged": "Password updated",
-      "passwordError": "Could not change password.",
-      "passwordTooShort": "The new password must be at least {min} characters.",
-      "passwordMismatch": "New passwords do not match.",
-      "sameAsCurrent": "Choose a different password from your current one.",
-      "invalidCurrentPassword": "Current password is incorrect.",
-      "compromisedPassword": "This new password appears in known data breaches. Choose a different one.",
-      "revokeOthersAfterChange": "Sign out my other devices when the password changes",
-      "revokeOthersAfterChangeHint": "Recommended if you think someone else may know your old password.",
-      "sessionsTitle": "Active sessions",
-      "sessionsHint": "Revoke sessions you do not recognize. Revoking this device will sign you out.",
-      "sessionsLoadError": "Could not load sessions.",
-      "revoke": "Revoke",
-      "revokeOthers": "Sign out other sessions",
-      "revokeError": "Something went wrong.",
-      "sessionRevoked": "Session revoked",
-      "othersRevoked": "Other sessions signed out",
-      "currentSession": "This device",
-      "unknownDevice": "Unknown device",
-      "noSessions": "No sessions found.",
-      "device": "Device",
-      "network": "IP address",
-      "actions": "Actions",
-      "started": "Started",
-      "expires": "Expires",
-      "none": "None"
+      "title": "Säkerhet",
+      "description": "Uppdatera ditt lösenord, hantera passkeys och se var du är inloggad.",
+      "passwordHeading": "Lösenord",
+      "passwordHint": "Använd minst {min} tecken. Välj ett lösenord som du inte använder någon annanstans.",
+      "currentPassword": "Nuvarande lösenord",
+      "newPassword": "Nytt lösenord",
+      "confirmNewPassword": "Bekräfta nytt lösenord",
+      "changePassword": "Uppdatera lösenord",
+      "changing": "Uppdaterar…",
+      "passwordChanged": "Lösenordet har uppdaterats",
+      "passwordError": "Det gick inte att byta lösenord.",
+      "passwordTooShort": "Det nya lösenordet måste vara minst {min} tecken.",
+      "passwordMismatch": "De nya lösenorden matchar inte.",
+      "sameAsCurrent": "Välj ett annat lösenord än ditt nuvarande.",
+      "invalidCurrentPassword": "Det nuvarande lösenordet är felaktigt.",
+      "compromisedPassword": "Det nya lösenordet förekommer i kända dataläckor. Välj ett annat.",
+      "revokeOthersAfterChange": "Logga ut mina andra enheter när lösenordet ändras",
+      "revokeOthersAfterChangeHint": "Rekommenderas om du tror att någon annan kan känna till ditt gamla lösenord.",
+      "sessionsTitle": "Aktiva sessioner",
+      "sessionsHint": "Återkalla sessioner som du inte känner igen. Om du återkallar den här enheten loggas du ut.",
+      "sessionsLoadError": "Det gick inte att läsa in sessioner.",
+      "revoke": "Återkalla",
+      "revokeOthers": "Logga ut andra sessioner",
+      "revokeError": "Något gick fel.",
+      "sessionRevoked": "Sessionen har återkallats",
+      "othersRevoked": "Andra sessioner har loggats ut",
+      "currentSession": "Den här enheten",
+      "unknownDevice": "Okänd enhet",
+      "noSessions": "Inga sessioner hittades.",
+      "device": "Enhet",
+      "network": "IP-adress",
+      "actions": "Åtgärder",
+      "started": "Startad",
+      "expires": "Går ut",
+      "none": "Ingen",
+      "startedAt": "Startad: {date}",
+      "expiresAt": "Går ut: {date}"
     },
     "apps": {
       "title": "Anslutna appar",
@@ -669,22 +2251,22 @@
       "createdBy": "skapad av {name}",
       "createdByDeleted": "skaparens konto borttaget"
     },
-    "accountMenu": "Account menu",
+    "accountMenu": "Kontomeny",
     "connectedAccounts": {
-      "title": "Connected accounts",
-      "hint": "Sign in with these accounts as well as your password or passkeys.",
-      "connected": "Connected",
-      "notConnected": "Not connected",
-      "connect": "Connect",
-      "disconnect": "Disconnect",
-      "disconnected": "{provider} disconnected",
-      "cancel": "Cancel",
-      "confirmTitle": "Disconnect {provider}?",
-      "confirmBody": "You won't be able to sign in with this account anymore. You can connect it again later.",
-      "lastMethod": "This is your only way to sign in. Add a password or passkey first.",
-      "error": "Something went wrong. Try again.",
-      "signInAgainToChange": "For your security, connecting an account needs a recent sign-in. Sign in again, then connect it.",
-      "signInAgain": "Sign in again"
+      "title": "Anslutna konton",
+      "hint": "Logga in med de här kontona utöver ditt lösenord eller dina passkeys.",
+      "connected": "Ansluten",
+      "notConnected": "Inte ansluten",
+      "connect": "Anslut",
+      "disconnect": "Koppla från",
+      "disconnected": "{provider} har kopplats från",
+      "cancel": "Avbryt",
+      "confirmTitle": "Koppla från {provider}?",
+      "confirmBody": "Du kommer inte längre att kunna logga in med det här kontot. Du kan ansluta det igen senare.",
+      "lastMethod": "Det här är ditt enda sätt att logga in. Lägg först till ett lösenord eller en passkey.",
+      "error": "Något gick fel. Försök igen.",
+      "signInAgainToChange": "Av säkerhetsskäl krävs en nylig inloggning för att ansluta ett konto. Logga in igen och anslut det sedan.",
+      "signInAgain": "Logga in igen"
     },
     "accounts": {
       "switchTo": "Byt till",
@@ -752,26 +2334,30 @@
         "impersonating": "Ett konto kan inte raderas medan en administratör visar det.",
         "failed": "Det gick inte att starta raderingen. Försök igen."
       }
+    },
+    "impersonation": {
+      "viewingAs": "Du visar det här kontot som <strong>{email}</strong>.",
+      "stop": "Sluta agera som användaren"
     }
   },
   "acceptInvitation": {
-    "loading": "Checking session…",
-    "needSignInTitle": "Sign in to continue",
-    "needSignInDescription": "You need to be signed in with the invited email address before accepting this invitation.",
-    "signIn": "Sign in",
-    "title": "Accept invitation",
-    "description": "Join the organization that invited you.",
-    "signedInAs": "Signed in as {email}.",
-    "accept": "Accept invitation",
-    "accepting": "Accepting…",
-    "success": "You have joined the organization.",
-    "successTitle": "Welcome",
-    "successDescription": "Redirecting to your dashboard…",
-    "error": "Could not accept the invitation."
+    "loading": "Kontrollerar sessionen…",
+    "needSignInTitle": "Logga in för att fortsätta",
+    "needSignInDescription": "Du måste vara inloggad med den inbjudna e-postadressen innan du kan acceptera inbjudan.",
+    "signIn": "Logga in",
+    "title": "Acceptera inbjudan",
+    "description": "Gå med i organisationen som bjöd in dig.",
+    "signedInAs": "Inloggad som {email}.",
+    "accept": "Acceptera inbjudan",
+    "accepting": "Accepterar…",
+    "success": "Du har gått med i organisationen.",
+    "successTitle": "Välkommen",
+    "successDescription": "Omdirigerar till din kontrollpanel…",
+    "error": "Det gick inte att acceptera inbjudan."
   },
   "common": {
-    "loading": "Loading…",
-    "language": "Language",
+    "loading": "Läser in…",
+    "language": "Språk",
     "localeNames": {
       "en": "Engelska",
       "fr": "Franska",
@@ -793,12 +2379,20 @@
       "no": "Norska",
       "fi": "Finska",
       "cs": "Tjeckiska"
+    },
+    "ui": {
+      "close": "Stäng",
+      "sidebar": "Sidofält",
+      "sidebarDescription": "Visar sidofältet för mobil.",
+      "toggleSidebar": "Visa/dölj sidofält",
+      "breadcrumb": "brödsmulor",
+      "more": "Mer"
     }
   },
   "errors": {
-    "boundaryTitle": "Something went wrong",
-    "boundaryDescription": "An error occurred while loading this page.",
-    "retry": "Try again"
+    "boundaryTitle": "Något gick fel",
+    "boundaryDescription": "Ett fel uppstod när sidan lästes in.",
+    "retry": "Försök igen"
   },
   "rateLimit": {
     "seconds": "För många försök. Försök igen om {seconds, plural, one {# sekund} other {# sekunder}}.",
@@ -806,94 +2400,156 @@
     "later": "För många försök. Vänta några minuter och försök igen."
   },
   "sso": {
-    "title": "Single sign-on",
-    "description": "Connect your organization's identity provider (OIDC or SAML 2.0) so members can sign in with their work account.",
-    "registerTitle": "Register a provider",
-    "registerDescription": "Your identity provider must redirect back to the callback URL shown below.",
-    "providerId": "Provider ID",
-    "providerIdHint": "A short identifier, e.g. acme-okta.",
-    "issuer": "Issuer URL",
-    "domain": "Email domain",
-    "domainHint": "Users with this email domain are sent to this provider.",
-    "clientId": "Client ID",
-    "clientSecret": "Client secret",
-    "organization": "Organization (optional)",
-    "register": "Register provider",
-    "registering": "Registering…",
-    "registered": "SSO provider registered",
-    "registerError": "Could not register the provider.",
-    "callbackTitle": "Callback URL to configure in your identity provider",
-    "providersTitle": "Configured providers",
-    "providersEmpty": "No SSO provider configured yet.",
-    "loadError": "Could not load SSO providers.",
-    "signInTitle": "Sign in with SSO",
-    "signInDescription": "Enter your work email. We'll redirect you to your organization's identity provider.",
-    "signInEmail": "Work email",
-    "signInSubmit": "Continue",
-    "signInError": "Could not start single sign-on for this address.",
-    "signInLink": "Sign in with SSO",
-    "signInFailed": "Single sign-on did not complete. Try again, or ask your administrator to check the identity provider settings.",
+    "title": "Enkel inloggning",
+    "description": "Anslut din organisations identitetsleverantör (OIDC eller SAML 2.0) så att medlemmar kan logga in med sitt jobbkonto.",
+    "registerTitle": "Registrera en leverantör",
+    "registerDescription": "Din identitetsleverantör måste omdirigera tillbaka till callback-URL:en som visas nedan.",
+    "providerId": "Leverantörs-id",
+    "providerIdHint": "En kort identifierare, t.ex. acme-okta.",
+    "issuer": "Utfärdar-URL",
+    "domain": "E-postdomän",
+    "domainHint": "Användare med den här e-postdomänen skickas till den här leverantören.",
+    "clientId": "Klient-id",
+    "clientSecret": "Klienthemlighet",
+    "organization": "Organisation (valfritt)",
+    "register": "Registrera leverantör",
+    "registering": "Registrerar…",
+    "registered": "SSO-leverantören har registrerats",
+    "registerError": "Det gick inte att registrera leverantören.",
+    "callbackTitle": "Callback-URL att konfigurera i din identitetsleverantör",
+    "providersTitle": "Konfigurerade leverantörer",
+    "providersEmpty": "Ingen SSO-leverantör har konfigurerats än.",
+    "loadError": "Det gick inte att läsa in SSO-leverantörer.",
+    "signInTitle": "Logga in med SSO",
+    "signInDescription": "Ange din jobbmejladress. Vi omdirigerar dig till din organisations identitetsleverantör.",
+    "signInEmail": "Jobbmejl",
+    "signInSubmit": "Fortsätt",
+    "signInError": "Det gick inte att starta enkel inloggning för den här adressen.",
+    "signInLink": "Logga in med SSO",
+    "signInFailed": "Den enkla inloggningen slutfördes inte. Försök igen eller be din administratör att kontrollera identitetsleverantörens inställningar.",
     "saml": {
-      "protocol": "Protocol",
-      "registerDescription": "The identity provider posts signed SAML assertions to the ACS URL below. Sign-in starts from Ostiary (SP-initiated).",
-      "idpSource": "Identity provider configuration",
-      "sourceUrl": "Metadata URL",
-      "sourceXml": "Paste metadata XML",
-      "sourceManual": "Enter manually",
-      "metadataUrl": "IdP metadata URL",
-      "metadataUrlHint": "The server fetches it once when you save. After a certificate rotation, fetch it again from Edit.",
-      "metadataXml": "IdP metadata XML",
-      "metadataXmlHint": "The EntityDescriptor your identity provider exports.",
-      "idpEntityId": "IdP entity ID (issuer)",
-      "ssoUrl": "IdP single sign-on URL",
-      "ssoUrlHint": "The URL for the HTTP-Redirect binding.",
-      "certificate": "IdP signing certificate",
-      "certificateHint": "PEM (-----BEGIN CERTIFICATE-----) or its base64 body.",
-      "mappingTitle": "Attribute mapping",
-      "mappingPreset": "Preset",
+      "protocol": "Protokoll",
+      "registerDescription": "Identitetsleverantören skickar signerade SAML-assertions till ACS-URL:en nedan. Inloggningen startar från Ostiary (SP-initierad).",
+      "idpSource": "Identitetsleverantörens konfiguration",
+      "sourceUrl": "Metadata-URL",
+      "sourceXml": "Klistra in metadata-XML",
+      "sourceManual": "Ange manuellt",
+      "metadataUrl": "IdP:ns metadata-URL",
+      "metadataUrlHint": "Servern hämtar den en gång när du sparar. Efter ett certifikatbyte hämtar du den igen från Redigera.",
+      "metadataXml": "IdP:ns metadata-XML",
+      "metadataXmlHint": "EntityDescriptor som din identitetsleverantör exporterar.",
+      "idpEntityId": "IdP:ns entitets-id (utfärdare)",
+      "ssoUrl": "IdP:ns URL för enkel inloggning",
+      "ssoUrlHint": "URL:en för bindningen HTTP-Redirect.",
+      "certificate": "IdP:ns signeringscertifikat",
+      "certificateHint": "PEM (-----BEGIN CERTIFICATE-----) eller dess base64-innehåll.",
+      "mappingTitle": "Attributmappning",
+      "mappingPreset": "Förinställning",
       "preset_okta": "Okta",
       "preset_entra": "Microsoft Entra ID",
       "preset_google": "Google Workspace",
       "preset_jumpcloud": "JumpCloud",
-      "preset_custom": "Custom",
-      "attrEmail": "Email attribute",
-      "attrName": "Display name attribute",
-      "attrFirstName": "First name attribute",
-      "attrLastName": "Last name attribute",
-      "mappingHint": "First and last name are used when the identity provider sends them, otherwise the display name. The user ID is the assertion's NameID: configure a persistent identifier.",
-      "wantAssertionsSigned": "Require signed assertions",
-      "wantAssertionsSignedHint": "Recommended. When off, the whole response must still be signed: unsigned responses are always refused.",
-      "requestSigningNote": "Ostiary does not sign authentication requests: leave request signing off in the identity provider.",
-      "spTitle": "Values to enter in your identity provider",
-      "acsUrl": "ACS URL (single sign-on URL, reply URL)",
-      "spEntityId": "SP entity ID (audience URI, identifier)",
-      "spMetadataUrl": "SP metadata URL",
-      "copy": "Copy",
-      "copied": "Copied",
-      "setupTitle": "Setup notes",
-      "oktaStep1": "In the Okta admin console: Applications, Create App Integration, SAML 2.0.",
-      "oktaStep2": "Single sign-on URL: the ACS URL. Audience URI (SP Entity ID): the SP entity ID. Name ID format: Persistent. Application username: Email.",
-      "oktaStep3": "Attribute statements: email = user.email, firstName = user.firstName, lastName = user.lastName (the Okta preset).",
-      "oktaStep4": "Assign people, then copy the metadata URL from the Sign On tab into Ostiary.",
-      "entraStep1": "In Microsoft Entra ID: Enterprise applications, New application, Create your own application (non-gallery), then Single sign-on, SAML.",
-      "entraStep2": "Basic SAML configuration: Identifier (Entity ID) = the SP entity ID, Reply URL = the ACS URL.",
-      "entraStep3": "Keep the default claims (the Entra ID preset). The default signing option, Sign SAML assertion, works.",
-      "entraStep4": "Assign users and groups, then copy the App Federation Metadata URL into Ostiary.",
-      "spInitiatedNote": "Only sign-in started from Ostiary is supported. Point app tiles in the identity provider's portal to {url}.",
-      "spDetails": "SP details",
-      "detailsTitle": "{id}: SAML settings",
-      "detailsDescription": "Enter these values in the identity provider.",
-      "assertionsSignedOn": "Signed assertions are required.",
-      "assertionsSignedOff": "Signed responses are required (assertions may be unsigned).",
-      "certExpires": "Signing certificate valid until {date}",
-      "certExpired": "The signing certificate has expired: sign-ins will fail until the IdP metadata is updated.",
-      "editTitle": "Edit {id}",
-      "editDescription": "Changing the domain means it must be verified again. The SP entity ID and ACS URL stay the same.",
-      "replaceIdp": "Replace the identity provider configuration (new metadata or certificate)",
-      "updated": "Provider updated",
-      "save": "Save",
-      "cancel": "Cancel",
-      "close": "Close"
+      "preset_custom": "Anpassad",
+      "attrEmail": "Attribut för e-post",
+      "attrName": "Attribut för visningsnamn",
+      "attrFirstName": "Attribut för förnamn",
+      "attrLastName": "Attribut för efternamn",
+      "mappingHint": "För- och efternamn används när identitetsleverantören skickar dem, annars visningsnamnet. Användar-id:t är assertionens NameID: konfigurera en beständig identifierare.",
+      "wantAssertionsSigned": "Kräv signerade assertions",
+      "wantAssertionsSignedHint": "Rekommenderas. När det är av måste hela svaret ändå vara signerat: osignerade svar avvisas alltid.",
+      "requestSigningNote": "Ostiary signerar inte autentiseringsbegäranden: låt signering av begäranden vara avstängd i identitetsleverantören.",
+      "spTitle": "Värden att ange i din identitetsleverantör",
+      "acsUrl": "ACS-URL (URL för enkel inloggning, svars-URL)",
+      "spEntityId": "SP:ns entitets-id (målgrupps-URI, identifierare)",
+      "spMetadataUrl": "SP:ns metadata-URL",
+      "copy": "Kopiera",
+      "copied": "Kopierat",
+      "setupTitle": "Konfigurationsanteckningar",
+      "oktaStep1": "I Okta-administrationskonsolen: Applications, Create App Integration, SAML 2.0.",
+      "oktaStep2": "Single sign-on URL: ACS-URL:en. Audience URI (SP Entity ID): SP:ns entitets-id. Name ID format: Persistent. Application username: Email.",
+      "oktaStep3": "Attribute statements: email = user.email, firstName = user.firstName, lastName = user.lastName (Okta-förinställningen).",
+      "oktaStep4": "Tilldela personer och kopiera sedan metadata-URL:en från fliken Sign On till Ostiary.",
+      "entraStep1": "I Microsoft Entra ID: Enterprise applications, New application, Create your own application (non-gallery), sedan Single sign-on, SAML.",
+      "entraStep2": "Basic SAML configuration: Identifier (Entity ID) = SP:ns entitets-id, Reply URL = ACS-URL:en.",
+      "entraStep3": "Behåll standardanspråken (Entra ID-förinställningen). Standardalternativet för signering, Sign SAML assertion, fungerar.",
+      "entraStep4": "Tilldela användare och grupper och kopiera sedan App Federation Metadata URL till Ostiary.",
+      "spInitiatedNote": "Endast inloggning som startas från Ostiary stöds. Låt appikonerna i identitetsleverantörens portal peka mot {url}.",
+      "spDetails": "SP-uppgifter",
+      "detailsTitle": "{id}: SAML-inställningar",
+      "detailsDescription": "Ange de här värdena i identitetsleverantören.",
+      "assertionsSignedOn": "Signerade assertions krävs.",
+      "assertionsSignedOff": "Signerade svar krävs (assertions får vara osignerade).",
+      "certExpires": "Signeringscertifikatet är giltigt till {date}",
+      "certExpired": "Signeringscertifikatet har gått ut: inloggningar misslyckas tills IdP:ns metadata har uppdaterats.",
+      "editTitle": "Redigera {id}",
+      "editDescription": "Om du ändrar domänen måste den verifieras igen. SP:ns entitets-id och ACS-URL:en förblir desamma.",
+      "replaceIdp": "Ersätt identitetsleverantörens konfiguration (ny metadata eller nytt certifikat)",
+      "updated": "Leverantören har uppdaterats",
+      "save": "Spara",
+      "cancel": "Avbryt",
+      "close": "Stäng",
+      "copyLabel": "Kopiera: {label}",
+      "errors": {
+        "metadataEmpty": "Metadata är tomma.",
+        "metadataTooLarge": "Metadata är större än 100 KB.",
+        "metadataDoctype": "Metadata får inte innehålla någon DOCTYPE.",
+        "metadataNotXml": "Metadata är inte välformad XML.",
+        "notSamlMetadata": "Det här är inte SAML-metadata.",
+        "multipleEntities": "Metadata måste beskriva exakt en identitetsleverantör.",
+        "noEntityId": "Metadata saknar entityID.",
+        "noIdpDescriptor": "Metadata saknar identitetsleverantör (IDPSSODescriptor).",
+        "noSaml2": "Identitetsleverantören stöder inte SAML 2.0.",
+        "signedRequestsRequired": "Identitetsleverantören kräver signerade begäranden, vilket Ostiary inte skickar. Stäng av signering av begäranden i identitetsleverantören.",
+        "noRedirectBinding": "Metadata saknar SingleSignOnService med HTTP-Redirect-bindning.",
+        "metadataSsoUrlNotHttps": "Identitetsleverantörens SSO-URL måste använda https://.",
+        "unreadableCertificate": "Ett signeringscertifikat i metadata kunde inte läsas.",
+        "noSigningCertificate": "Metadata saknar signeringscertifikat.",
+        "invalidMapping": "Ange attributnamnen för e-post och namn (inga mellanslag eller citattecken).",
+        "allCertificatesExpired": "Alla signeringscertifikat i metadata har gått ut.",
+        "missingEntityId": "Ange identitetsleverantörens entitets-id (issuer).",
+        "ssoUrlNotHttps": "SSO-URL:en måste vara en https://-URL.",
+        "invalidCertificate": "Signeringscertifikatet är inte ett giltigt X.509-certifikat (PEM).",
+        "certificateExpired": "Signeringscertifikatet har gått ut.",
+        "fetchFailed": "Det gick inte att hämta metadata: {reason}",
+        "invalidRedirect": "Metadata-URL:en omdirigerar till en ogiltig adress.",
+        "httpStatus": "Metadata-URL:en svarade {status}.",
+        "tooManyRedirects": "Metadata-URL:en omdirigerar för många gånger."
+      }
+    },
+    "panel": {
+      "noOrganization": "Ingen organisation",
+      "providersDescription": "En leverantör tar bara emot inloggningar när dess e-postdomän har verifierats med en DNS-post.",
+      "verified": "Verifierad",
+      "domainNotVerified": "Domänen är inte verifierad",
+      "verifyDomain": "Verifiera domän",
+      "editLabel": "Redigera {id}",
+      "deleteLabel": "Radera {id}",
+      "verifyTitle": "Verifiera {domain}",
+      "verifyDescription": "Be domänens ägare att lägga till den här TXT-posten i sin DNS och kontrollera den sedan här. Inloggningar via den här leverantören börjar fungera när domänen har verifierats.",
+      "recordName": "Namn",
+      "recordValue": "Värde",
+      "copyRecordName": "Kopiera namn",
+      "copyRecordValue": "Kopiera värde",
+      "recordValidity": "Värdet är giltigt i 7 dagar.",
+      "domainVerified": "Domänen har verifierats",
+      "checkDns": "Kontrollera DNS",
+      "editDescription": "Om du ändrar domänen måste den verifieras igen. Om du vill ändra klientuppgifterna raderar du leverantören och registrerar den igen.",
+      "organization": "Organisation",
+      "deleteTitle": "Radera {id}?",
+      "deleteDescription": "Personer med en {domain}-adress kan inte längre logga in via den här leverantören. Deras konton finns kvar, och de kan fortfarande använda lösenord eller passkey.",
+      "providerDeleted": "Leverantören har raderats"
+    },
+    "errors": {
+      "providerNotFound": "Leverantören hittades inte.",
+      "issuerNotUrl": "Utfärdaren (issuer) måste vara en URL.",
+      "invalidDomain": "Ange en e-postdomän, t.ex. acme.com.",
+      "organizationNotFound": "Organisationen hittades inte.",
+      "samlIssuerLocked": "SP-entitets-id:t för en SAML-leverantör kan inte ändras.",
+      "invalidProviderDomain": "Leverantörens domän är inte giltig.",
+      "txtRecordNotFound": "TXT-posten har inte hittats än. DNS-ändringar kan ta några minuter att synas.",
+      "envNotSet": "{name} är inte angiven.",
+      "invalidProviderId": "Leverantörs-id:t måste bestå av 2 till 63 gemener, siffror, - eller _.",
+      "unreadableSamlConfig": "Den lagrade SAML-konfigurationen är oläslig; radera leverantören och registrera den igen."
     }
   },
   "selectAccount": {

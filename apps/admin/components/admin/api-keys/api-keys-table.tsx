@@ -3,6 +3,7 @@
 import * as React from "react";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 
 import { Badge } from "@ostiary/core/components/ui/badge";
@@ -53,6 +54,8 @@ export function ApiKeysTable({
   locale: string;
   showOwner?: boolean;
 }) {
+  const t = useTranslations("admin.pages.apiKeys.table");
+  const tc = useTranslations("admin.common");
   const router = useRouter();
   const [pending, setPending] = React.useState<AdminApiKeyRow | null>(null);
   const [busyId, setBusyId] = React.useState<string | null>(null);
@@ -69,14 +72,14 @@ export function ApiKeysTable({
         toast.error(res.error);
         return;
       }
-      toast.success("API key revoked");
+      toast.success(t("revoked"));
       router.refresh();
     } finally {
       setBusyId(null);
     }
   }
 
-  if (rows.length === 0) return <p className="text-sm text-muted-foreground">No API keys.</p>;
+  if (rows.length === 0) return <p className="text-sm text-muted-foreground">{t("empty")}</p>;
 
   return (
     <>
@@ -84,14 +87,14 @@ export function ApiKeysTable({
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Key</TableHead>
-              {showOwner ? <TableHead>Owner</TableHead> : null}
-              <TableHead>API</TableHead>
-              <TableHead className="hidden lg:table-cell">Scopes</TableHead>
-              <TableHead className="hidden md:table-cell">Created</TableHead>
-              <TableHead className="hidden md:table-cell">Last used</TableHead>
-              <TableHead>Expires</TableHead>
-              <TableHead className="text-right">Actions</TableHead>
+              <TableHead>{t("key")}</TableHead>
+              {showOwner ? <TableHead>{t("owner")}</TableHead> : null}
+              <TableHead>{t("api")}</TableHead>
+              <TableHead className="hidden lg:table-cell">{t("scopes")}</TableHead>
+              <TableHead className="hidden md:table-cell">{tc("created")}</TableHead>
+              <TableHead className="hidden md:table-cell">{t("lastUsed")}</TableHead>
+              <TableHead>{t("expires")}</TableHead>
+              <TableHead className="text-right">{tc("actions")}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -103,7 +106,7 @@ export function ApiKeysTable({
                     <span className="block truncate font-medium">{row.name}</span>
                     {row.start ? <code className="font-mono text-xs text-muted-foreground">{row.start}…</code> : null}
                     {!showOwner && row.createdBy ? (
-                      <span className="block truncate text-xs text-muted-foreground">by {row.createdBy.email}</span>
+                      <span className="block truncate text-xs text-muted-foreground">{t("createdBy", { email: row.createdBy.email })}</span>
                     ) : null}
                   </TableCell>
                   {showOwner ? (
@@ -111,7 +114,7 @@ export function ApiKeysTable({
                       <span className="flex min-w-0 items-center gap-1.5">
                         {row.owner.type === "organization" ? (
                           <Badge variant="outline" className="shrink-0">
-                            Org
+                            {t("org")}
                           </Badge>
                         ) : null}
                         <Link
@@ -122,12 +125,12 @@ export function ApiKeysTable({
                         </Link>
                       </span>
                       {row.createdBy ? (
-                        <span className="block truncate text-xs text-muted-foreground">by {row.createdBy.email}</span>
+                        <span className="block truncate text-xs text-muted-foreground">{t("createdBy", { email: row.createdBy.email })}</span>
                       ) : null}
                     </TableCell>
                   ) : null}
                   <TableCell className="max-w-[14rem] text-sm">
-                    <span className="block truncate">{row.apiName ?? "Removed API"}</span>
+                    <span className="block truncate">{row.apiName ?? t("removedApi")}</span>
                     {row.api ? <span className="block truncate font-mono text-xs text-muted-foreground">{row.api}</span> : null}
                   </TableCell>
                   <TableCell className="hidden lg:table-cell">
@@ -143,15 +146,15 @@ export function ApiKeysTable({
                     {formatDateTime(row.createdAt, locale)}
                   </TableCell>
                   <TableCell className="hidden whitespace-nowrap text-sm text-muted-foreground md:table-cell">
-                    {row.lastUsedAt ? formatDateTime(row.lastUsedAt, locale) : "Never"}
+                    {row.lastUsedAt ? formatDateTime(row.lastUsedAt, locale) : tc("never")}
                   </TableCell>
                   <TableCell className="whitespace-nowrap text-sm">
-                    {expired ? <Badge variant="destructive">Expired</Badge> : formatDateTime(row.expiresAt, locale)}
+                    {expired ? <Badge variant="destructive">{t("expired")}</Badge> : formatDateTime(row.expiresAt, locale)}
                   </TableCell>
                   <TableCell className="text-right">
                     <Button type="button" variant="ghost" size="sm" disabled={busyId === row.id} onClick={() => setPending(row)}>
                       {busyId === row.id ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
-                      Revoke
+                      {t("revoke")}
                     </Button>
                   </TableCell>
                 </TableRow>
@@ -163,19 +166,19 @@ export function ApiKeysTable({
       <Dialog open={pending !== null} onOpenChange={(open) => !open && setPending(null)}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Revoke {pending?.name}?</DialogTitle>
+            <DialogTitle>{t("revokeTitle", { name: pending?.name ?? "" })}</DialogTitle>
             <DialogDescription>
               {pending?.owner.type === "organization"
-                ? `This key of the organization ${pending.owner.label} stops working right away. Its owners and admins can create a new one if API keys are on.`
-                : `The key of ${pending?.owner.label} stops working right away. They can create a new one if API keys are on.`}
+                ? t("revokeOrgDescription", { owner: pending.owner.label })
+                : t("revokeUserDescription", { owner: pending?.owner.label ?? "" })}
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
             <Button type="button" variant="outline" onClick={() => setPending(null)}>
-              Cancel
+              {tc("cancel")}
             </Button>
             <Button type="button" variant="destructive" onClick={() => void revoke()}>
-              Revoke
+              {t("revoke")}
             </Button>
           </DialogFooter>
         </DialogContent>

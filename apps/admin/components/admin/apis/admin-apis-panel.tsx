@@ -3,6 +3,7 @@
 import * as React from "react";
 import { Loader2, Pencil, Trash2, TriangleAlert } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 
 import { Badge } from "@ostiary/core/components/ui/badge";
@@ -54,6 +55,8 @@ export type ApiRow = {
 export type ApplicationOption = { clientId: string; name: string; disabled: boolean };
 
 type Result = { ok: true } | { ok: false; error: string };
+
+type Translator = ReturnType<typeof useTranslations<"admin.pages.apis">>;
 
 function CheckboxField({
   id,
@@ -129,25 +132,26 @@ function RadioField({
 }
 
 /** A lifetime in seconds, in the largest unit that divides it. */
-function formatDuration(seconds: number): string {
-  if (seconds % 86_400 === 0) return seconds === 86_400 ? "1 day" : `${seconds / 86_400} days`;
-  if (seconds % 3_600 === 0) return `${seconds / 3_600} h`;
-  return `${Math.round(seconds / 60)} min`;
+function formatDuration(seconds: number, t: Translator): string {
+  if (seconds % 86_400 === 0) return t("duration.days", { count: seconds / 86_400 });
+  if (seconds % 3_600 === 0) return t("duration.hours", { count: String(seconds / 3_600) });
+  return t("duration.minutes", { count: String(Math.round(seconds / 60)) });
 }
 
 /** The token settings that differ from the defaults, for the API list. */
-function tokenSummary(tokens: TokenSettings): string[] {
+function tokenSummary(tokens: TokenSettings, t: Translator): string[] {
   const claims = Object.keys(tokens.customClaims ?? {});
   return [
-    tokens.accessTokenTtl !== null ? `Access token ${formatDuration(tokens.accessTokenTtl)}` : null,
-    tokens.refreshTokenTtl !== null ? `Refresh token ${formatDuration(tokens.refreshTokenTtl)}` : null,
-    tokens.dpopBoundAccessTokensRequired ? "DPoP required" : null,
-    claims.length > 0 ? `Claims: ${claims.join(", ")}` : null,
+    tokens.accessTokenTtl !== null
+      ? t("tokenSummary.accessToken", { duration: formatDuration(tokens.accessTokenTtl, t) })
+      : null,
+    tokens.refreshTokenTtl !== null
+      ? t("tokenSummary.refreshToken", { duration: formatDuration(tokens.refreshTokenTtl, t) })
+      : null,
+    tokens.dpopBoundAccessTokensRequired ? t("tokenSummary.dpopRequired") : null,
+    claims.length > 0 ? t("tokenSummary.claims", { claims: claims.join(", ") }) : null,
   ].filter((part): part is string => part !== null);
 }
-
-const RESTRICT_HINT =
-  "Tokens for this API carry only these scopes (and the OpenID Connect ones). Off: they carry every scope the client was granted.";
 
 /**
  * Registers APIs (OAuth protected resources) and the scopes clients may request for them.
@@ -162,6 +166,8 @@ export function AdminApisPanel({
   applications: ApplicationOption[];
   envScopes: string[];
 }) {
+  const t = useTranslations("admin.pages.apis");
+  const tc = useTranslations("admin.common");
   const router = useRouter();
   const [identifier, setIdentifier] = React.useState("");
   const [name, setName] = React.useState("");
@@ -178,7 +184,7 @@ export function AdminApisPanel({
         toast.error(res.error);
         return;
       }
-      toast.success("API registered");
+      toast.success(t("register.registered"));
       setIdentifier("");
       setName("");
       setScopes("");
@@ -193,16 +199,19 @@ export function AdminApisPanel({
     <div className="grid gap-6 xl:grid-cols-[2fr_3fr]">
       <Card className="h-fit border-border/80 shadow-sm">
         <CardHeader>
-          <CardTitle>Register an API</CardTitle>
+          <CardTitle>{t("register.title")}</CardTitle>
           <CardDescription>
-            Clients ask for a token for it with the <code className="font-mono text-xs">resource</code>{" "}parameter. The token&apos;s audience is the identifier, and the API verifies it against the JWKS.
+            {t.rich("register.description", {
+              param: "resource",
+              code: (chunks) => <code className="font-mono text-xs">{chunks}</code>,
+            })}
           </CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleRegister}>
             <FieldGroup>
               <Field>
-                <FieldLabel htmlFor="api-identifier">Identifier</FieldLabel>
+                <FieldLabel htmlFor="api-identifier">{t("register.identifier")}</FieldLabel>
                 <Input
                   id="api-identifier"
                   type="url"
@@ -212,14 +221,14 @@ export function AdminApisPanel({
                   placeholder="https://api.example.com"
                   required
                 />
-                <FieldDescription>Usually the API&apos;s base URL. It cannot be changed later.</FieldDescription>
+                <FieldDescription>{t("register.identifierHint")}</FieldDescription>
               </Field>
               <Field>
-                <FieldLabel htmlFor="api-name">Name</FieldLabel>
-                <Input id="api-name" value={name} onChange={(e) => setName(e.target.value)} disabled={submitting} placeholder="Orders API" />
+                <FieldLabel htmlFor="api-name">{tc("name")}</FieldLabel>
+                <Input id="api-name" value={name} onChange={(e) => setName(e.target.value)} disabled={submitting} placeholder={t("register.namePlaceholder")} />
               </Field>
               <Field>
-                <FieldLabel htmlFor="api-scopes">Scopes</FieldLabel>
+                <FieldLabel htmlFor="api-scopes">{t("register.scopes")}</FieldLabel>
                 <Input
                   id="api-scopes"
                   value={scopes}
@@ -227,7 +236,7 @@ export function AdminApisPanel({
                   disabled={submitting}
                   placeholder="orders:read orders:write"
                 />
-                <FieldDescription>Separated by spaces or commas. Machine clients (client_credentials) must be limited to some of them.</FieldDescription>
+                <FieldDescription>{t("register.scopesHint", { grant: "client_credentials" })}</FieldDescription>
               </Field>
               <Field>
                 <CheckboxField
@@ -235,14 +244,14 @@ export function AdminApisPanel({
                   checked={restrict}
                   onChange={setRestrict}
                   disabled={submitting}
-                  label="Only issue these scopes for this API"
-                  hint={RESTRICT_HINT}
+                  label={t("restrictLabel")}
+                  hint={t("restrictHint")}
                 />
               </Field>
               <Field>
                 <Button type="submit" disabled={submitting}>
                   {submitting ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
-                  {submitting ? "Registering…" : "Register API"}
+                  {submitting ? t("register.submitting") : t("register.submit")}
                 </Button>
               </Field>
             </FieldGroup>
@@ -252,14 +261,14 @@ export function AdminApisPanel({
 
       <Card className="h-fit border-border/80 shadow-sm">
         <CardHeader>
-          <CardTitle>APIs</CardTitle>
+          <CardTitle>{t("title")}</CardTitle>
           <CardDescription>
-            New and changed scopes reach the auth server within a minute. Access and token settings apply to the next token.
+            {t("list.description")}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           {apis.length === 0 ? (
-            <p className="text-sm text-muted-foreground">No API yet.</p>
+            <p className="text-sm text-muted-foreground">{t("list.empty")}</p>
           ) : (
             <ul className="space-y-3">
               {apis.map((api) => (
@@ -269,10 +278,12 @@ export function AdminApisPanel({
           )}
           {envScopes.length > 0 ? (
             <div className="rounded-md border border-border bg-muted/40 p-3 text-xs">
-              <p className="font-medium text-foreground">Scopes from OAUTH_API_SCOPES</p>
+              <p className="font-medium text-foreground">{t("list.envScopesTitle", { variable: "OAUTH_API_SCOPES" })}</p>
               <p className="mt-1 text-muted-foreground">
-                Available to every client, whichever API it calls:{" "}
-                <span className="font-mono">{envScopes.join(" ")}</span>. To manage them here, add them to the API they belong to, then remove the variable.
+                {t.rich("list.envScopesText", {
+                  scopes: envScopes.join(" "),
+                  mono: (chunks) => <span className="font-mono">{chunks}</span>,
+                })}
               </p>
             </div>
           ) : null}
@@ -285,6 +296,8 @@ export function AdminApisPanel({
 const CLAIMS_PLACEHOLDER = '{\n  "tenant": "acme"\n}';
 
 function ApiItem({ api, applications }: { api: ApiRow; applications: ApplicationOption[] }) {
+  const t = useTranslations("admin.pages.apis");
+  const tc = useTranslations("admin.common");
   const router = useRouter();
   const [dialog, setDialog] = React.useState<"edit" | "access" | "tokens" | "delete" | null>(null);
   const [busy, setBusy] = React.useState(false);
@@ -303,7 +316,7 @@ function ApiItem({ api, applications }: { api: ApiRow; applications: Application
 
   const appNames = new Map(applications.map((app) => [app.clientId, app.name]));
   const linkedNames = api.linkedClientIds.map((clientId) => appNames.get(clientId) ?? clientId);
-  const tokens = tokenSummary(api.tokens);
+  const tokens = tokenSummary(api.tokens, t);
   const filter = appFilter.trim().toLowerCase();
   const shownApplications = filter
     ? applications.filter((app) => app.name.toLowerCase().includes(filter) || app.clientId.toLowerCase().includes(filter))
@@ -363,11 +376,11 @@ function ApiItem({ api, applications }: { api: ApiRow; applications: Application
         <div className="min-w-0 space-y-1">
           <p className="flex flex-wrap items-center gap-2 text-sm font-medium">
             {api.name}
-            {api.authServer ? <Badge variant="secondary">Auth server</Badge> : null}
+            {api.authServer ? <Badge variant="secondary">{t("item.authServer")}</Badge> : null}
             {api.fromEnv && !api.authServer ? <Badge variant="outline">OAUTH_API_AUDIENCES</Badge> : null}
-            {api.disabled ? <Badge variant="destructive">Disabled</Badge> : null}
-            {api.restrict ? <Badge variant="outline">Restricted</Badge> : null}
-            {api.access === "linked" ? <Badge variant="outline">Linked apps only</Badge> : null}
+            {api.disabled ? <Badge variant="destructive">{tc("disabled")}</Badge> : null}
+            {api.restrict ? <Badge variant="outline">{t("item.restricted")}</Badge> : null}
+            {api.access === "linked" ? <Badge variant="outline">{t("item.linkedOnly")}</Badge> : null}
           </p>
           {api.name !== api.identifier ? (
             <p className="break-all font-mono text-xs text-muted-foreground">{api.identifier}</p>
@@ -381,17 +394,17 @@ function ApiItem({ api, applications }: { api: ApiRow; applications: Application
               ))}
             </div>
           ) : api.authServer ? (
-            <p className="text-xs text-muted-foreground">Tokens issued without a resource parameter.</p>
+            <p className="text-xs text-muted-foreground">{t("item.noResourceParam")}</p>
           ) : (
-            <p className="text-xs text-muted-foreground">No scopes.</p>
+            <p className="text-xs text-muted-foreground">{t("item.noScopes")}</p>
           )}
         </div>
         <div className="flex gap-1">
-          <Button type="button" size="icon-sm" variant="ghost" aria-label={`Edit ${api.name}`} onClick={openEdit}>
+          <Button type="button" size="icon-sm" variant="ghost" aria-label={t("item.editAria", { name: api.name })} onClick={openEdit}>
             <Pencil className="size-4" aria-hidden />
           </Button>
           {api.fromEnv ? null : (
-            <Button type="button" size="icon-sm" variant="ghost" aria-label={`Delete ${api.name}`} onClick={() => setDialog("delete")}>
+            <Button type="button" size="icon-sm" variant="ghost" aria-label={t("item.deleteAria", { name: api.name })} onClick={() => setDialog("delete")}>
               <Trash2 className="size-4" aria-hidden />
             </Button>
           )}
@@ -399,16 +412,16 @@ function ApiItem({ api, applications }: { api: ApiRow; applications: Application
       </div>
 
       <dl className="mt-3 grid gap-2 border-t border-border/60 pt-3 text-xs sm:grid-cols-[auto_1fr_auto] sm:items-baseline sm:gap-x-3">
-        <dt className="font-medium text-foreground">Applications</dt>
+        <dt className="font-medium text-foreground">{t("item.applications")}</dt>
         <dd className="min-w-0 text-muted-foreground">
           {api.access === "all" ? (
-            "Every application"
+            t("item.everyApplication")
           ) : linkedNames.length > 0 ? (
-            <span className="break-words">Only {linkedNames.join(", ")}</span>
+            <span className="break-words">{t("item.onlyLinked", { names: linkedNames.join(", ") })}</span>
           ) : (
             <span className="inline-flex items-center gap-1 text-destructive">
               <TriangleAlert className="size-3.5 shrink-0" aria-hidden />
-              None linked: no application can get tokens
+              {t("item.noneLinked")}
             </span>
           )}
         </dd>
@@ -417,22 +430,22 @@ function ApiItem({ api, applications }: { api: ApiRow; applications: Application
           size="xs"
           variant="outline"
           className="justify-self-start"
-          aria-label={`Change which applications can use ${api.name}`}
+          aria-label={t("item.changeAccessAria", { name: api.name })}
           onClick={openAccess}
         >
-          Change
+          {t("item.change")}
         </Button>
-        <dt className="font-medium text-foreground">Tokens</dt>
-        <dd className="min-w-0 break-words text-muted-foreground">{tokens.length > 0 ? tokens.join(" · ") : "Default settings"}</dd>
+        <dt className="font-medium text-foreground">{t("item.tokens")}</dt>
+        <dd className="min-w-0 break-words text-muted-foreground">{tokens.length > 0 ? tokens.join(" · ") : t("item.defaultSettings")}</dd>
         <Button
           type="button"
           size="xs"
           variant="outline"
           className="justify-self-start"
-          aria-label={`Change the token settings of ${api.name}`}
+          aria-label={t("item.changeTokensAria", { name: api.name })}
           onClick={openTokens}
         >
-          Change
+          {t("item.change")}
         </Button>
       </dl>
 
@@ -441,18 +454,18 @@ function ApiItem({ api, applications }: { api: ApiRow; applications: Application
           {dialog === "edit" ? (
             <>
               <DialogHeader>
-                <DialogTitle>Edit {api.name}</DialogTitle>
+                <DialogTitle>{t("edit.title", { name: api.name })}</DialogTitle>
                 <DialogDescription className="break-all">{api.identifier}</DialogDescription>
               </DialogHeader>
               <FieldGroup>
                 <Field>
-                  <FieldLabel htmlFor={`name-${id}`}>Name</FieldLabel>
+                  <FieldLabel htmlFor={`name-${id}`}>{tc("name")}</FieldLabel>
                   <Input id={`name-${id}`} value={name} onChange={(e) => setName(e.target.value)} disabled={busy} />
                 </Field>
                 <Field>
-                  <FieldLabel htmlFor={`scopes-${id}`}>Scopes</FieldLabel>
+                  <FieldLabel htmlFor={`scopes-${id}`}>{t("register.scopes")}</FieldLabel>
                   <Input id={`scopes-${id}`} value={scopes} onChange={(e) => setScopes(e.target.value)} disabled={busy} />
-                  <FieldDescription>Removing a scope does not change clients that already have it, but no new token carries it.</FieldDescription>
+                  <FieldDescription>{t("edit.scopesHint")}</FieldDescription>
                 </Field>
                 <Field>
                   <CheckboxField
@@ -460,8 +473,8 @@ function ApiItem({ api, applications }: { api: ApiRow; applications: Application
                     checked={restrict}
                     onChange={setRestrict}
                     disabled={busy}
-                    label="Only issue these scopes for this API"
-                    hint={RESTRICT_HINT}
+                    label={t("restrictLabel")}
+                    hint={t("restrictHint")}
                   />
                 </Field>
                 {api.authServer ? null : (
@@ -471,30 +484,30 @@ function ApiItem({ api, applications }: { api: ApiRow; applications: Application
                       checked={disabled}
                       onChange={setDisabled}
                       disabled={busy}
-                      label="Disabled"
-                      hint="No new tokens for this API. Tokens already issued work until they expire."
+                      label={tc("disabled")}
+                      hint={t("edit.disabledHint")}
                     />
                   </Field>
                 )}
               </FieldGroup>
               <DialogFooter>
                 <Button type="button" variant="outline" disabled={busy} onClick={() => setDialog(null)}>
-                  Cancel
+                  {tc("cancel")}
                 </Button>
                 <Button
                   type="button"
                   disabled={busy}
-                  onClick={() => void run(() => updateApi(api.identifier, { name, scopes, restrict, disabled }), "API updated")}
+                  onClick={() => void run(() => updateApi(api.identifier, { name, scopes, restrict, disabled }), t("edit.updated"))}
                 >
                   {busy ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
-                  Save
+                  {tc("save")}
                 </Button>
               </DialogFooter>
             </>
           ) : dialog === "access" ? (
             <>
               <DialogHeader>
-                <DialogTitle>Applications that can use {api.name}</DialogTitle>
+                <DialogTitle>{t("access.title", { name: api.name })}</DialogTitle>
                 <DialogDescription className="break-all">{api.identifier}</DialogDescription>
               </DialogHeader>
               <FieldGroup>
@@ -505,8 +518,8 @@ function ApiItem({ api, applications }: { api: ApiRow; applications: Application
                     checked={access === "all"}
                     onChange={() => setAccess("all")}
                     disabled={busy}
-                    label="Every application"
-                    hint="Any application can get tokens for this API, within its scopes."
+                    label={t("item.everyApplication")}
+                    hint={t("access.allHint")}
                   />
                   {api.authServer ? null : (
                     <RadioField
@@ -515,25 +528,25 @@ function ApiItem({ api, applications }: { api: ApiRow; applications: Application
                       checked={access === "linked"}
                       onChange={() => setAccess("linked")}
                       disabled={busy}
-                      label="Only linked applications"
-                      hint="Other applications are refused (invalid_target), including when they refresh a token."
+                      label={t("access.linkedLabel")}
+                      hint={t("access.linkedHint", { error: "invalid_target" })}
                     />
                   )}
                 </Field>
                 <Field>
-                  <FieldTitle>Linked applications</FieldTitle>
+                  <FieldTitle>{t("access.linkedTitle")}</FieldTitle>
                   {applications.length > 6 ? (
                     <Input
                       type="search"
-                      aria-label="Filter applications"
+                      aria-label={t("access.filterAria")}
                       value={appFilter}
                       onChange={(e) => setAppFilter(e.target.value)}
                       disabled={busy}
-                      placeholder="Filter by name or client ID"
+                      placeholder={t("access.filterPlaceholder")}
                     />
                   ) : null}
                   {applications.length === 0 ? (
-                    <p className="text-sm text-muted-foreground">No application yet.</p>
+                    <p className="text-sm text-muted-foreground">{t("access.noApplications")}</p>
                   ) : (
                     <ul className="max-h-56 divide-y divide-border/60 overflow-y-auto rounded-md border border-border/80">
                       {shownApplications.map((app) => {
@@ -551,7 +564,7 @@ function ApiItem({ api, applications }: { api: ApiRow; applications: Application
                             <Label htmlFor={checkboxId} className="min-w-0 flex-1 cursor-pointer flex-col items-start gap-0.5 font-normal">
                               <span className="flex flex-wrap items-center gap-1.5 text-sm">
                                 {app.name}
-                                {app.disabled ? <Badge variant="destructive">Disabled</Badge> : null}
+                                {app.disabled ? <Badge variant="destructive">{tc("disabled")}</Badge> : null}
                               </span>
                               <span className="block max-w-full truncate font-mono text-xs text-muted-foreground">{app.clientId}</span>
                             </Label>
@@ -559,49 +572,49 @@ function ApiItem({ api, applications }: { api: ApiRow; applications: Application
                         );
                       })}
                       {shownApplications.length === 0 ? (
-                        <li className="px-3 py-2 text-sm text-muted-foreground">No application matches.</li>
+                        <li className="px-3 py-2 text-sm text-muted-foreground">{t("access.noMatch")}</li>
                       ) : null}
                     </ul>
                   )}
                   <FieldDescription>
                     {access === "all"
-                      ? "Links only matter once the API is limited to linked applications. A linked application can also introspect this API's tokens."
-                      : "A linked application can also introspect this API's tokens."}
+                      ? t("access.linksHintAll")
+                      : t("access.linksHintLinked")}
                   </FieldDescription>
                   {access === "linked" && linked.size === 0 ? (
                     <p className="flex items-center gap-1.5 text-xs text-destructive">
                       <TriangleAlert className="size-3.5 shrink-0" aria-hidden />
-                      No application is linked: none can get tokens for this API.
+                      {t("access.noneLinkedWarning")}
                     </p>
                   ) : null}
                 </Field>
               </FieldGroup>
               <DialogFooter>
                 <Button type="button" variant="outline" disabled={busy} onClick={() => setDialog(null)}>
-                  Cancel
+                  {tc("cancel")}
                 </Button>
                 <Button
                   type="button"
                   disabled={busy}
-                  onClick={() => void run(() => setApiAccess(api.identifier, { access, clientIds: [...linked] }), "Access updated")}
+                  onClick={() => void run(() => setApiAccess(api.identifier, { access, clientIds: [...linked] }), t("access.updated"))}
                 >
                   {busy ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
-                  Save
+                  {tc("save")}
                 </Button>
               </DialogFooter>
             </>
           ) : dialog === "tokens" ? (
             <>
               <DialogHeader>
-                <DialogTitle>Token settings for {api.name}</DialogTitle>
+                <DialogTitle>{t("tokens.title", { name: api.name })}</DialogTitle>
                 <DialogDescription>
-                  Applied to every access token issued for this API. Tokens already issued keep their settings.
+                  {t("tokens.description")}
                 </DialogDescription>
               </DialogHeader>
               <FieldGroup>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <Field>
-                    <FieldLabel htmlFor={`access-ttl-${id}`}>Access token lifetime (minutes)</FieldLabel>
+                    <FieldLabel htmlFor={`access-ttl-${id}`}>{t("tokens.accessTtl")}</FieldLabel>
                     <Input
                       id={`access-ttl-${id}`}
                       type="number"
@@ -614,10 +627,10 @@ function ApiItem({ api, applications }: { api: ApiRow; applications: Application
                       disabled={busy}
                       placeholder={String(ACCESS_TOKEN_EXPIRES_IN / 60)}
                     />
-                    <FieldDescription>Default: {ACCESS_TOKEN_EXPIRES_IN / 60} minutes. Can only be shorter.</FieldDescription>
+                    <FieldDescription>{t("tokens.accessTtlHint", { minutes: ACCESS_TOKEN_EXPIRES_IN / 60 })}</FieldDescription>
                   </Field>
                   <Field>
-                    <FieldLabel htmlFor={`refresh-ttl-${id}`}>Refresh token lifetime (days)</FieldLabel>
+                    <FieldLabel htmlFor={`refresh-ttl-${id}`}>{t("tokens.refreshTtl")}</FieldLabel>
                     <Input
                       id={`refresh-ttl-${id}`}
                       type="number"
@@ -630,11 +643,11 @@ function ApiItem({ api, applications }: { api: ApiRow; applications: Application
                       disabled={busy}
                       placeholder={String(REFRESH_TOKEN_EXPIRES_IN / 86_400)}
                     />
-                    <FieldDescription>Default: {REFRESH_TOKEN_EXPIRES_IN / 86_400} days. Can only be shorter.</FieldDescription>
+                    <FieldDescription>{t("tokens.refreshTtlHint", { days: REFRESH_TOKEN_EXPIRES_IN / 86_400 })}</FieldDescription>
                   </Field>
                 </div>
                 <Field>
-                  <FieldLabel htmlFor={`claims-${id}`}>Custom claims</FieldLabel>
+                  <FieldLabel htmlFor={`claims-${id}`}>{t("tokens.claims")}</FieldLabel>
                   <Textarea
                     id={`claims-${id}`}
                     className="min-h-24 font-mono text-xs"
@@ -645,8 +658,10 @@ function ApiItem({ api, applications }: { api: ApiRow; applications: Application
                     spellCheck={false}
                   />
                   <FieldDescription>
-                    A JSON object added to every access token for this API. Reserved:{" "}
-                    <span className="font-mono">{RESERVED_CLAIMS.join(", ")}</span>.
+                    {t.rich("tokens.claimsHint", {
+                      claims: RESERVED_CLAIMS.join(", "),
+                      mono: (chunks) => <span className="font-mono">{chunks}</span>,
+                    })}
                   </FieldDescription>
                 </Field>
                 <Field>
@@ -655,14 +670,14 @@ function ApiItem({ api, applications }: { api: ApiRow; applications: Application
                     checked={dpop}
                     onChange={setDpop}
                     disabled={busy}
-                    label="Require DPoP-bound tokens"
-                    hint="Clients must send a DPoP proof to get a token for this API, and the token is bound to their key. The API must check the proof on each request."
+                    label={t("tokens.dpopLabel")}
+                    hint={t("tokens.dpopHint")}
                   />
                 </Field>
               </FieldGroup>
               <DialogFooter>
                 <Button type="button" variant="outline" disabled={busy} onClick={() => setDialog(null)}>
-                  Cancel
+                  {tc("cancel")}
                 </Button>
                 <Button
                   type="button"
@@ -676,30 +691,30 @@ function ApiItem({ api, applications }: { api: ApiRow; applications: Application
                           customClaims: claims,
                           dpopRequired: dpop,
                         }),
-                      "Token settings saved",
+                      t("tokens.saved"),
                     )
                   }
                 >
                   {busy ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
-                  Save
+                  {tc("save")}
                 </Button>
               </DialogFooter>
             </>
           ) : dialog === "delete" ? (
             <>
               <DialogHeader>
-                <DialogTitle>Delete {api.name}?</DialogTitle>
+                <DialogTitle>{t("delete.title", { name: api.name })}</DialogTitle>
                 <DialogDescription>
-                  Clients can no longer get tokens for it, and the tokens already issued for it stop working at once. To stop new tokens only, disable it instead.
+                  {t("delete.description")}
                 </DialogDescription>
               </DialogHeader>
               <DialogFooter>
                 <Button type="button" variant="outline" disabled={busy} onClick={() => setDialog(null)}>
-                  Cancel
+                  {tc("cancel")}
                 </Button>
-                <Button type="button" variant="destructive" disabled={busy} onClick={() => void run(() => deleteApi(api.identifier), "API deleted")}>
+                <Button type="button" variant="destructive" disabled={busy} onClick={() => void run(() => deleteApi(api.identifier), t("delete.deleted"))}>
                   {busy ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
-                  Delete
+                  {tc("delete")}
                 </Button>
               </DialogFooter>
             </>

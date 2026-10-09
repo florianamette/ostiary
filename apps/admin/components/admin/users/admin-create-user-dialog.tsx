@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { UserPlusIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { Button } from "@ostiary/core/components/ui/button";
 import {
@@ -30,6 +31,8 @@ import { authClient } from "@/lib/auth-client";
 import { adminNotify } from "@ostiary/core/lib/admin/admin-notify";
 
 export function AdminCreateUserDialog({ onCreated }: { onCreated: () => void }) {
+  const t = useTranslations("admin.pages.users.create");
+  const tc = useTranslations("admin.common");
   const [open, setOpen] = React.useState(false);
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -59,10 +62,10 @@ export function AdminCreateUserDialog({ onCreated }: { onCreated: () => void }) 
         data: { emailVerified: true },
       });
       if (error) {
-        setFormError(error.message ?? "Could not create user");
+        setFormError(error.message ?? t("error"));
         return;
       }
-      adminNotify("User created");
+      adminNotify(t("created"));
       setOpen(false);
       reset();
       onCreated();
@@ -82,21 +85,22 @@ export function AdminCreateUserDialog({ onCreated }: { onCreated: () => void }) 
       <DialogTrigger asChild>
         <Button size="sm" type="button">
           <UserPlusIcon />
-          Add user
+          {t("trigger")}
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <form onSubmit={handleSubmit}>
           <DialogHeader>
-            <DialogTitle>Add user</DialogTitle>
+            <DialogTitle>{t("title")}</DialogTitle>
             <DialogDescription>
-              Creates an account via{" "}
-              <code className="text-foreground">createUser</code>.
+              {t.rich("description", {
+                code: (chunks) => <code className="text-foreground">{chunks}</code>,
+              })}
             </DialogDescription>
           </DialogHeader>
           <FieldGroup className="py-4">
             <Field>
-              <FieldLabel htmlFor="admin-create-email">Email</FieldLabel>
+              <FieldLabel htmlFor="admin-create-email">{t("email")}</FieldLabel>
               <Input
                 id="admin-create-email"
                 type="email"
@@ -107,7 +111,7 @@ export function AdminCreateUserDialog({ onCreated }: { onCreated: () => void }) 
               />
             </Field>
             <Field>
-              <FieldLabel htmlFor="admin-create-password">Password</FieldLabel>
+              <FieldLabel htmlFor="admin-create-password">{t("password")}</FieldLabel>
               <Input
                 id="admin-create-password"
                 type="password"
@@ -118,7 +122,7 @@ export function AdminCreateUserDialog({ onCreated }: { onCreated: () => void }) 
               />
             </Field>
             <Field>
-              <FieldLabel htmlFor="admin-create-name">Name</FieldLabel>
+              <FieldLabel htmlFor="admin-create-name">{t("name")}</FieldLabel>
               <Input
                 id="admin-create-name"
                 type="text"
@@ -129,7 +133,7 @@ export function AdminCreateUserDialog({ onCreated }: { onCreated: () => void }) 
               />
             </Field>
             <Field>
-              <FieldLabel>Role</FieldLabel>
+              <FieldLabel>{t("role")}</FieldLabel>
               <Select
                 value={role}
                 onValueChange={(v) => setRole(v as "user" | "admin")}
@@ -155,10 +159,10 @@ export function AdminCreateUserDialog({ onCreated }: { onCreated: () => void }) 
               variant="outline"
               onClick={() => setOpen(false)}
             >
-              Cancel
+              {tc("cancel")}
             </Button>
             <Button type="submit" disabled={pending}>
-              {pending ? "Creating…" : "Create user"}
+              {pending ? t("creating") : t("submit")}
             </Button>
           </DialogFooter>
         </form>

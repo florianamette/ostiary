@@ -71,7 +71,21 @@ export type TokenSettingsInput = {
   dpopRequired: boolean;
 };
 
-type Parsed<T> = { ok: true; value: T } | { ok: false; error: string };
+/**
+ * Why a token settings form was refused: `error` in English (logs, tests) and `issue`, a code
+ * with its values, for the console to show in the admin's language.
+ */
+export type TokenSettingsIssue =
+  | { code: "lifetimePositive" | "lifetimeMinimum"; values: { field: LifetimeField } }
+  | { code: "lifetimeMaximum"; values: { field: LifetimeField; max: number } }
+  | { code: "claimsInvalidJson" | "claimsNotObject" | "claimsEmptyName"; values: { example: string } }
+  | { code: "claimsReserved"; values: { count: number; claims: string; reserved: string } }
+  | { code: "claimsTooLarge"; values: { kilobytes: number } };
+
+type LifetimeField = "access" | "refresh";
+type Parsed<T> = { ok: true; value: T } | { ok: false; error: string; issue: TokenSettingsIssue };
+
+const CLAIMS_EXAMPLE = '{"tenant": "acme"}';
 
 /**
  * A lifetime typed in `unit`s, as whole seconds. Empty means "use the default". Better Auth
@@ -80,19 +94,25 @@ type Parsed<T> = { ok: true; value: T } | { ok: false; error: string };
  */
 export function parseLifetime(
   raw: string,
-  { unit, unitSeconds, max, label }: { unit: string; unitSeconds: number; max: number; label: string },
+  { field, unit, unitSeconds, max, label }: { field: LifetimeField; unit: string; unitSeconds: number; max: number; label: string },
 ): Parsed<number | null> {
   const text = raw.trim();
   if (!text) return { ok: true, value: null };
   const amount = Number(text);
   const maxInUnits = max / unitSeconds;
   if (!Number.isFinite(amount) || amount <= 0) {
-    return { ok: false, error: `${label} must be a positive number of ${unit}.` };
+    return { ok: false, error: `${label} must be a positive number of ${unit}.`, issue: { code: "lifetimePositive", values: { field } } };
   }
   const seconds = Math.round(amount * unitSeconds);
-  if (seconds < 60) return { ok: false, error: `${label} must be at least one minute.` };
+  if (seconds < 60) {
+    return { ok: false, error: `${label} must be at least one minute.`, issue: { code: "lifetimeMinimum", values: { field } } };
+  }
   if (seconds > max) {
-    return { ok: false, error: `${label} can be at most ${maxInUnits} ${unit}, the server default.` };
+    return {
+      ok: false,
+      error: `${label} can be at most ${maxInUnits} ${unit}, the server default.`,
+      issue: { code: "lifetimeMaximum", values: { field, max: maxInUnits } },
+    };
   }
   return { ok: true, value: seconds };
 }
@@ -105,24 +125,39 @@ export function parseCustomClaims(raw: string): Parsed<Record<string, unknown> |
   try {
     value = JSON.parse(text);
   } catch {
-    return { ok: false, error: 'Custom claims must be valid JSON, e.g. {"tenant": "acme"}.' };
+    return {
+      ok: false,
+      error: `Custom claims must be valid JSON, e.g. ${CLAIMS_EXAMPLE}.`,
+      issue: { code: "claimsInvalidJson", values: { example: CLAIMS_EXAMPLE } },
+    };
   }
   if (!value || typeof value !== "object" || Array.isArray(value)) {
-    return { ok: false, error: 'Custom claims must be a JSON object, e.g. {"tenant": "acme"}.' };
+    return {
+      ok: false,
+      error: `Custom claims must be a JSON object, e.g. ${CLAIMS_EXAMPLE}.`,
+      issue: { code: "claimsNotObject", values: { example: CLAIMS_EXAMPLE } },
+    };
   }
   const claims = value as Record<string, unknown>;
   const names = Object.keys(claims);
-  if (names.some((name) => !name.trim())) return { ok: false, error: "A custom claim name cannot be empty." };
+  if (names.some((name) => !name.trim())) {
+    return { ok: false, error: "A custom claim name cannot be empty.", issue: { code: "claimsEmptyName", values: { example: CLAIMS_EXAMPLE } } };
+  }
   const reserved = names.filter((name) => (RESERVED_CLAIMS as readonly string[]).includes(name));
   if (reserved.length > 0) {
     const list = reserved.map((name) => `"${name}"`).join(", ");
     return {
       ok: false,
       error: `${list} ${reserved.length === 1 ? "is a reserved claim" : "are reserved claims"}: the server sets ${reserved.length === 1 ? "it" : "them"}. Reserved: ${RESERVED_CLAIMS.join(", ")}.`,
+      issue: { code: "claimsReserved", values: { count: reserved.length, claims: list, reserved: RESERVED_CLAIMS.join(", ") } },
     };
   }
   if (new TextEncoder().encode(JSON.stringify(claims)).length > CUSTOM_CLAIMS_MAX_BYTES) {
-    return { ok: false, error: `Custom claims are too large (${CUSTOM_CLAIMS_MAX_BYTES / 1024} KB at most): they are added to every token.` };
+    return {
+      ok: false,
+      error: `Custom claims are too large (${CUSTOM_CLAIMS_MAX_BYTES / 1024} KB at most): they are added to every token.`,
+      issue: { code: "claimsTooLarge", values: { kilobytes: CUSTOM_CLAIMS_MAX_BYTES / 1024 } },
+    };
   }
   return { ok: true, value: names.length > 0 ? claims : null };
 }
@@ -130,6 +165,7 @@ export function parseCustomClaims(raw: string): Parsed<Record<string, unknown> |
 /** The token settings form, as `oauth_resource` fields for Better Auth's update endpoint. */
 export function parseTokenSettings(input: TokenSettingsInput): Parsed<TokenSettings> {
   const access = parseLifetime(input.accessTokenMinutes, {
+    field: "access",
     unit: "minutes",
     unitSeconds: 60,
     max: ACCESS_TOKEN_EXPIRES_IN,
@@ -137,6 +173,7 @@ export function parseTokenSettings(input: TokenSettingsInput): Parsed<TokenSetti
   });
   if (!access.ok) return access;
   const refresh = parseLifetime(input.refreshTokenDays, {
+    field: "refresh",
     unit: "days",
     unitSeconds: 24 * 60 * 60,
     max: REFRESH_TOKEN_EXPIRES_IN,

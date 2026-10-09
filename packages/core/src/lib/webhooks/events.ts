@@ -26,18 +26,6 @@ export type WebhookEventType = (typeof WEBHOOK_EVENT_TYPES)[number];
 /** Sent by "Send test event" only; endpoints do not subscribe to it. */
 export const TEST_EVENT_TYPE = "webhook.test";
 
-export const WEBHOOK_EVENT_DESCRIPTIONS: Record<WebhookEventType, string> = {
-  "user.created": "An account is created (sign-up, admin, SSO, SCIM).",
-  "user.updated": "Name, email, email verification, username or picture changes.",
-  "user.deleted": "An account is deleted.",
-  "user.banned": "An account is banned, or deactivated by SCIM.",
-  "user.unbanned": "A ban is lifted, or SCIM reactivates the account.",
-  "user.role_changed": "An account's platform role changes.",
-  "organization.member.added": "Someone joins an organization.",
-  "organization.member.removed": "Someone leaves or is removed from an organization.",
-  "organization.member.role_changed": "A member's role in an organization changes.",
-};
-
 export function isWebhookEventType(value: string): value is WebhookEventType {
   return (WEBHOOK_EVENT_TYPES as readonly string[]).includes(value);
 }

@@ -6,6 +6,7 @@ import {
   ChevronRightIcon,
   SearchIcon,
 } from "lucide-react";
+import { useFormatter, useTranslations } from "next-intl";
 
 import {
   AdminApplicationRowActions,
@@ -54,43 +55,19 @@ function grantLabel(grant: string) {
   return grant === DEVICE_CODE_GRANT_TYPE ? "device_code" : grant;
 }
 
-const REGISTRATION_LABELS: Record<RegistrationSource, string> = {
-  admin: "Admin",
-  dynamic: "Dynamic registration",
-  metadata_document: "Metadata document",
-};
-
 /** Badge for a client that registered itself; admin-registered clients get none. */
 function RegistrationBadge({ source }: { source: RegistrationSource }) {
+  const t = useTranslations("admin.pages.applications.panel");
   if (source === "admin") return null;
   return (
     <Badge
       variant="outline"
       className="border-amber-500/40 bg-amber-500/10 font-normal text-amber-800 dark:text-amber-300"
-      title="Registered itself: not reviewed by an admin"
+      title={t("selfRegisteredHint")}
     >
-      {source === "dynamic" ? "Self-registered" : "Metadata document"}
+      {source === "dynamic" ? t("selfRegisteredBadge") : t("registration.metadata_document")}
     </Badge>
   );
-}
-
-const AUTH_METHOD_LABELS: Record<OAuthApplicationRow["tokenEndpointAuthMethod"], string> = {
-  none: "auth: none",
-  client_secret_basic: "auth: secret (basic)",
-  client_secret_post: "auth: secret (post)",
-  private_key_jwt: "auth: private key JWT",
-};
-
-function formatDate(iso: string) {
-  try {
-    return new Date(iso).toLocaleDateString(undefined, {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    });
-  } catch {
-    return "-";
-  }
 }
 
 function summarizeRedirects(uris: string[]) {
@@ -219,6 +196,9 @@ export function AdminApplicationsPanel({
   linkedApis?: Record<string, string[]>;
   selfRegistered: OAuthApplicationRow[];
 }) {
+  const t = useTranslations("admin.pages.applications.panel");
+  const tCommon = useTranslations("admin.common");
+  const format = useFormatter();
   const [searchInput, setSearchInput] = React.useState(initialSearch);
   const [debouncedSearch, setDebouncedSearch] = React.useState(initialSearch);
   const [kindFilter, setKindFilter] =
@@ -234,8 +214,8 @@ export function AdminApplicationsPanel({
   const [refreshKey, setRefreshKey] = React.useState(0);
 
   React.useEffect(() => {
-    const t = window.setTimeout(() => setDebouncedSearch(searchInput), 300);
-    return () => window.clearTimeout(t);
+    const timer = window.setTimeout(() => setDebouncedSearch(searchInput), 300);
+    return () => window.clearTimeout(timer);
   }, [searchInput]);
 
   React.useEffect(() => {
@@ -254,7 +234,7 @@ export function AdminApplicationsPanel({
       const res = await authClient.oauth2.getClients();
       if (cancelled) return;
       if (res.error) {
-        setListError(res.error.message ?? "Failed to load OAuth clients");
+        setListError(res.error.message ?? t("loadFailed"));
         setRows([]);
         setLoading(false);
         return;
@@ -269,7 +249,7 @@ export function AdminApplicationsPanel({
     return () => {
       cancelled = true;
     };
-  }, [refreshKey]);
+  }, [refreshKey, t]);
 
   // Self-registered rows come from the server and win over the same client in `rows`.
   const allRows = React.useMemo(() => {
@@ -294,6 +274,12 @@ export function AdminApplicationsPanel({
     if (page > safePage) setPage(safePage);
   }, [page, safePage]);
 
+  function formatDate(iso: string) {
+    const date = new Date(iso);
+    if (Number.isNaN(date.getTime())) return "-";
+    return format.dateTime(date, { year: "numeric", month: "short", day: "numeric" });
+  }
+
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
@@ -301,11 +287,11 @@ export function AdminApplicationsPanel({
           <SearchIcon className="pointer-events-none absolute top-1/2 left-2.5 size-4 -translate-y-1/2 text-muted-foreground" />
           <Input
             type="search"
-            placeholder="Search by name, client ID, redirect URI, or grant…"
+            placeholder={t("searchPlaceholder")}
             className="pl-9"
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
-            aria-label="Search applications"
+            aria-label={t("searchLabel")}
           />
         </div>
         <div className="flex flex-wrap items-center gap-2">
@@ -314,29 +300,29 @@ export function AdminApplicationsPanel({
             onValueChange={(v) => setKindFilter(v as ClientKindFilter)}
           >
             <SelectTrigger size="sm" className="w-[160px]">
-              <SelectValue placeholder="Client type" />
+              <SelectValue placeholder={t("clientType")} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">All clients</SelectItem>
-              <SelectItem value="public">Public</SelectItem>
-              <SelectItem value="confidential">Confidential</SelectItem>
-              <SelectItem value="trusted">Trusted (skip consent)</SelectItem>
-              <SelectItem value="device">Device sign-in</SelectItem>
+              <SelectItem value="all">{t("kind.all")}</SelectItem>
+              <SelectItem value="public">{t("kind.public")}</SelectItem>
+              <SelectItem value="confidential">{t("kind.confidential")}</SelectItem>
+              <SelectItem value="trusted">{t("kind.trusted")}</SelectItem>
+              <SelectItem value="device">{t("kind.device")}</SelectItem>
             </SelectContent>
           </Select>
           <Select
             value={registrationFilter}
             onValueChange={(v) => setRegistrationFilter(v as RegistrationFilter)}
           >
-            <SelectTrigger size="sm" className="w-[190px]" aria-label="Registered by">
-              <SelectValue placeholder="Registered by" />
+            <SelectTrigger size="sm" className="w-[190px]" aria-label={t("registeredBy")}>
+              <SelectValue placeholder={t("registeredBy")} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">Any registration</SelectItem>
-              <SelectItem value="admin">{REGISTRATION_LABELS.admin}</SelectItem>
-              <SelectItem value="self">Self-registered</SelectItem>
-              <SelectItem value="dynamic">{REGISTRATION_LABELS.dynamic}</SelectItem>
-              <SelectItem value="metadata_document">{REGISTRATION_LABELS.metadata_document}</SelectItem>
+              <SelectItem value="all">{t("registration.all")}</SelectItem>
+              <SelectItem value="admin">{t("registration.admin")}</SelectItem>
+              <SelectItem value="self">{t("selfRegisteredBadge")}</SelectItem>
+              <SelectItem value="dynamic">{t("registration.dynamic")}</SelectItem>
+              <SelectItem value="metadata_document">{t("registration.metadata_document")}</SelectItem>
             </SelectContent>
           </Select>
           <AdminRegisterOAuthClientDialog onCreated={refetch} />
@@ -346,14 +332,14 @@ export function AdminApplicationsPanel({
             disabled={loading}
             onClick={() => refetch()}
           >
-            Refresh
+            {tCommon("refresh")}
           </Button>
         </div>
       </div>
 
       {listError ? (
         <Alert variant="destructive">
-          <AlertTitle>Could not load applications</AlertTitle>
+          <AlertTitle>{t("loadErrorTitle")}</AlertTitle>
           <AlertDescription>{listError}</AlertDescription>
         </Alert>
       ) : null}
@@ -362,14 +348,14 @@ export function AdminApplicationsPanel({
         <Table>
           <TableHeader>
             <TableRow className="hover:bg-transparent">
-              <TableHead className="w-[min(30%,280px)]">Application</TableHead>
-              <TableHead className="hidden sm:table-cell">Client type</TableHead>
-              <TableHead className="hidden md:table-cell">Redirects</TableHead>
-              <TableHead className="hidden lg:table-cell">Grants</TableHead>
-              <TableHead className="hidden lg:table-cell">Consent</TableHead>
-              <TableHead className="hidden md:table-cell">Status</TableHead>
-              <TableHead className="hidden xl:table-cell">Created</TableHead>
-              <TableHead className="w-12 text-right">Actions</TableHead>
+              <TableHead className="w-[min(30%,280px)]">{t("columns.application")}</TableHead>
+              <TableHead className="hidden sm:table-cell">{t("clientType")}</TableHead>
+              <TableHead className="hidden md:table-cell">{t("columns.redirects")}</TableHead>
+              <TableHead className="hidden lg:table-cell">{t("columns.grants")}</TableHead>
+              <TableHead className="hidden lg:table-cell">{t("columns.consent")}</TableHead>
+              <TableHead className="hidden md:table-cell">{tCommon("status")}</TableHead>
+              <TableHead className="hidden xl:table-cell">{tCommon("created")}</TableHead>
+              <TableHead className="w-12 text-right">{tCommon("actions")}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -379,7 +365,7 @@ export function AdminApplicationsPanel({
                   colSpan={8}
                   className="h-24 text-center text-muted-foreground"
                 >
-                  Loading applications…
+                  {t("loadingRows")}
                 </TableCell>
               </TableRow>
             ) : pageRows.length === 0 ? (
@@ -389,8 +375,8 @@ export function AdminApplicationsPanel({
                   className="h-24 text-center text-muted-foreground"
                 >
                   {allRows.length === 0
-                    ? "No OAuth clients for this account yet."
-                    : "No applications match your filters."}
+                    ? t("empty")
+                    : t("noMatch")}
                 </TableCell>
               </TableRow>
             ) : (
@@ -411,28 +397,28 @@ export function AdminApplicationsPanel({
                         </code>
                         {linkedApis[row.clientId]?.length ? (
                           <span className="text-muted-foreground text-xs">
-                            Linked APIs: {linkedApis[row.clientId].join(", ")}
+                            {t("linkedApis", { apis: linkedApis[row.clientId].join(", ") })}
                           </span>
                         ) : null}
                         <div className="mt-1 flex flex-wrap gap-1 sm:hidden">
                           <Badge variant={row.public ? "secondary" : "default"}>
-                            {row.public ? "Public" : "Confidential"}
+                            {row.public ? t("kind.public") : t("kind.confidential")}
                           </Badge>
                           {row.grantTypes.includes(DEVICE_CODE_GRANT_TYPE) ? (
-                            <Badge variant="outline">Device</Badge>
+                            <Badge variant="outline">{t("badges.device")}</Badge>
                           ) : null}
                           {row.skipConsent ? (
-                            <Badge variant="outline">Trusted</Badge>
+                            <Badge variant="outline">{t("badges.trusted")}</Badge>
                           ) : (
                             <Badge variant="outline" className="font-normal">
-                              Consent
+                              {t("badges.consent")}
                             </Badge>
                           )}
                           {row.disabled ? (
-                            <Badge variant="destructive">Disabled</Badge>
+                            <Badge variant="destructive">{tCommon("disabled")}</Badge>
                           ) : (
                             <Badge variant="outline" className="font-normal">
-                              Active
+                              {t("badges.active")}
                             </Badge>
                           )}
                         </div>
@@ -442,10 +428,10 @@ export function AdminApplicationsPanel({
                   <TableCell className="hidden sm:table-cell">
                     <div className="flex flex-col gap-1">
                       <Badge variant={row.public ? "secondary" : "default"}>
-                        {row.public ? "Public" : "Confidential"}
+                        {row.public ? t("kind.public") : t("kind.confidential")}
                       </Badge>
                       <span className="text-muted-foreground text-xs">
-                        {AUTH_METHOD_LABELS[row.tokenEndpointAuthMethod]}
+                        {t(`authMethod.${row.tokenEndpointAuthMethod}`)}
                       </span>
                     </div>
                   </TableCell>
@@ -473,19 +459,19 @@ export function AdminApplicationsPanel({
                   </TableCell>
                   <TableCell className="hidden lg:table-cell">
                     {row.skipConsent ? (
-                      <Badge variant="secondary">Skipped</Badge>
+                      <Badge variant="secondary">{t("badges.skipped")}</Badge>
                     ) : (
                       <Badge variant="outline" className="font-normal">
-                        Required
+                        {t("badges.required")}
                       </Badge>
                     )}
                   </TableCell>
                   <TableCell className="hidden md:table-cell">
                     {row.disabled ? (
-                      <Badge variant="destructive">Disabled</Badge>
+                      <Badge variant="destructive">{tCommon("disabled")}</Badge>
                     ) : (
                       <Badge variant="outline" className="font-normal">
-                        Active
+                        {t("badges.active")}
                       </Badge>
                     )}
                   </TableCell>
@@ -517,13 +503,13 @@ export function AdminApplicationsPanel({
         <div className="flex flex-col gap-3 border-t px-3 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-4">
           <p className="text-muted-foreground text-xs sm:text-sm">
             {filtered.length === 0
-              ? "0 applications"
-              : `Showing ${showingFrom}-${showingTo} of ${filtered.length}`}
+              ? t("noApplications")
+              : t("showing", { from: showingFrom, to: showingTo, total: filtered.length })}
           </p>
           <div className="flex flex-wrap items-center gap-3 sm:gap-4">
             <div className="flex items-center gap-2">
               <span className="text-muted-foreground whitespace-nowrap text-xs">
-                Rows per page
+                {t("rowsPerPage")}
               </span>
               <Select
                 value={String(pageSize)}
@@ -534,7 +520,7 @@ export function AdminApplicationsPanel({
                 <SelectTrigger
                   size="sm"
                   className="w-[88px]"
-                  aria-label="Rows per page"
+                  aria-label={t("rowsPerPage")}
                 >
                   <SelectValue />
                 </SelectTrigger>
@@ -555,10 +541,10 @@ export function AdminApplicationsPanel({
                 onClick={() => setPage((p) => Math.max(0, p - 1))}
               >
                 <ChevronLeftIcon />
-                Previous
+                {t("previous")}
               </Button>
               <span className="text-muted-foreground tabular-nums text-xs sm:text-sm">
-                Page {safePage + 1} / {totalPages}
+                {t("page", { page: safePage + 1, total: totalPages })}
               </span>
               <Button
                 variant="outline"
@@ -568,7 +554,7 @@ export function AdminApplicationsPanel({
                   setPage((p) => Math.min(totalPages - 1, p + 1))
                 }
               >
-                Next
+                {t("next")}
                 <ChevronRightIcon />
               </Button>
             </div>
@@ -577,45 +563,26 @@ export function AdminApplicationsPanel({
       </div>
 
       <p className="text-muted-foreground text-xs">
-        Data from{" "}
-        <code className="rounded bg-muted px-1 py-0.5 font-mono">
-          authClient.oauth2.getClients()
-        </code>
-        . Register and edit (including{" "}
-        <code className="rounded bg-muted px-1 py-0.5 font-mono">
-          skip_consent
-        </code>
-        ) call{" "}
-        <code className="rounded bg-muted px-1 py-0.5 font-mono">
-          POST /api/admin/oauth-clients
-        </code>{" "}
-        and{" "}
-        <code className="rounded bg-muted px-1 py-0.5 font-mono">
-          PATCH /api/admin/oauth-clients/[clientId]
-        </code>
-        ; other mutations use{" "}
-        <code className="rounded bg-muted px-1 py-0.5 font-mono">
-          deleteClient
-        </code>{" "}
-        and{" "}
-        <code className="rounded bg-muted px-1 py-0.5 font-mono">
-          client.rotateSecret
-        </code>
-        . See the{" "}
-        <a
-          href="https://better-auth.com/docs/plugins/oauth-provider#list-clients"
-          className="font-medium text-foreground underline-offset-4 hover:underline"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          OAuth provider
-        </a>{" "}
-        docs. Clients are scoped to the signed-in user (or{" "}
-        <code className="rounded bg-muted px-1 py-0.5 font-mono">
-          clientReference
-        </code>{" "}
-        when configured). Self-registered clients have no owner and are all listed; they can
-        be disabled or deleted, not edited.
+        {t.rich("footnote", {
+          getClients: "authClient.oauth2.getClients()",
+          skipConsent: "skip_consent",
+          create: "POST /api/admin/oauth-clients",
+          update: "PATCH /api/admin/oauth-clients/[clientId]",
+          deleteClient: "deleteClient",
+          rotateSecret: "client.rotateSecret",
+          clientReference: "clientReference",
+          code: (chunks) => <code className="rounded bg-muted px-1 py-0.5 font-mono">{chunks}</code>,
+          docs: (chunks) => (
+            <a
+              href="https://better-auth.com/docs/plugins/oauth-provider#list-clients"
+              className="font-medium text-foreground underline-offset-4 hover:underline"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {chunks}
+            </a>
+          ),
+        })}
       </p>
     </div>
   );

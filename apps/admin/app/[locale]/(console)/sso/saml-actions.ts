@@ -2,6 +2,7 @@
 
 import { eq } from "drizzle-orm";
 import { headers } from "next/headers";
+import { getTranslations } from "next-intl/server";
 
 import { db } from "@ostiary/core/db/index";
 import { organization, ssoProvider, verification } from "@ostiary/core/db/schema";
@@ -10,6 +11,7 @@ import {
   buildSamlConfig,
   SAML_PROVIDER_ID_PATTERN,
   samlServiceProviderUrls,
+  type SamlErrorCode,
   type SamlMapping,
 } from "@ostiary/core/lib/saml";
 import { fetchSamlMetadata } from "@ostiary/core/lib/saml-metadata-fetch";
@@ -65,6 +67,20 @@ async function samlConfigFrom(input: SamlProviderInput) {
   return buildSamlConfig({ idp, mapping: input.mapping, wantAssertionsSigned: input.wantAssertionsSigned });
 }
 
+const errors = () => getTranslations("sso.errors");
+
+/** A refused IdP input, in the admin's language when lib/saml or url-safety gave a code (else as is). */
+async function samlFailure(failure: {
+  error: string;
+  code?: SamlErrorCode;
+  urlCode?: string;
+  values?: Record<string, string | number>;
+}): Promise<Result> {
+  if (failure.code) return { ok: false, error: (await getTranslations("sso.saml.errors"))(failure.code, failure.values) };
+  if (failure.urlCode) return { ok: false, error: (await getTranslations("admin.urlCheck"))(failure.urlCode, failure.values) };
+  return { ok: false, error: failure.error };
+}
+
 function errorMessage(error: unknown, fallback: string): string {
   if (error && typeof error === "object") {
     const body = (error as { body?: { message?: unknown } }).body;
@@ -78,19 +94,19 @@ export async function registerSamlProvider(
   input: SamlProviderInput & { providerId: string; domain: string; organizationId: string | null },
 ): Promise<Result> {
   const { audit } = await adminActor();
-  if (!env.AUTH_APP_URL) return { ok: false, error: "AUTH_APP_URL is not set." };
+  if (!env.AUTH_APP_URL) return { ok: false, error: (await errors())("envNotSet", { name: "AUTH_APP_URL" }) };
   const providerId = input.providerId.trim();
   if (!SAML_PROVIDER_ID_PATTERN.test(providerId)) {
-    return { ok: false, error: "The provider ID must be 2 to 63 lowercase letters, digits, - or _." };
+    return { ok: false, error: (await errors())("invalidProviderId") };
   }
   const domain = input.domain.trim().toLowerCase();
-  if (!hostnameOf(domain) || domain.includes("/")) return { ok: false, error: "Enter an email domain, e.g. acme.com." };
+  if (!hostnameOf(domain) || domain.includes("/")) return { ok: false, error: (await errors())("invalidDomain") };
   if (input.organizationId) {
     const [org] = await db.select({ id: organization.id }).from(organization).where(eq(organization.id, input.organizationId));
-    if (!org) return { ok: false, error: "Organization not found." };
+    if (!org) return { ok: false, error: (await errors())("organizationNotFound") };
   }
   const built = await samlConfigFrom(input);
-  if (!built.ok) return built;
+  if (!built.ok) return samlFailure(built);
   const sp = samlServiceProviderUrls(env.AUTH_APP_URL, providerId);
   try {
     await auth.api.registerSSOProvider({
@@ -98,7 +114,7 @@ export async function registerSamlProvider(
       body: { providerId, issuer: sp.entityId, domain, samlConfig: built.config },
     });
   } catch (error) {
-    return { ok: false, error: errorMessage(error, "Could not register the provider.") };
+    return { ok: false, error: errorMessage(error, (await getTranslations("sso"))("registerError")) };
   }
   // The plugin only lets members attach a provider to an organization; admins attach it here.
   if (input.organizationId) {
@@ -124,18 +140,18 @@ export async function updateSamlProvider(
 ): Promise<Result> {
   const { audit } = await adminActor();
   const [current] = await db.select().from(ssoProvider).where(eq(ssoProvider.providerId, providerId));
-  if (!current?.samlConfig) return { ok: false, error: "Provider not found." };
+  if (!current?.samlConfig) return { ok: false, error: (await errors())("providerNotFound") };
   let stored: Record<string, unknown>;
   try {
     stored = JSON.parse(current.samlConfig) as Record<string, unknown>;
   } catch {
-    return { ok: false, error: "The stored SAML configuration is unreadable; delete and register the provider again." };
+    return { ok: false, error: (await errors())("unreadableSamlConfig") };
   }
   const domain = input.domain.trim().toLowerCase();
-  if (!hostnameOf(domain) || domain.includes("/")) return { ok: false, error: "Enter an email domain, e.g. acme.com." };
+  if (!hostnameOf(domain) || domain.includes("/")) return { ok: false, error: (await errors())("invalidDomain") };
   if (input.organizationId) {
     const [org] = await db.select({ id: organization.id }).from(organization).where(eq(organization.id, input.organizationId));
-    if (!org) return { ok: false, error: "Organization not found." };
+    if (!org) return { ok: false, error: (await errors())("organizationNotFound") };
   }
   // Without new IdP input, re-validate the stored one so mapping and options go through the same checks.
   const storedIdp = stored.idpMetadata as { metadata?: string; entityID?: string; cert?: string } | undefined;
@@ -145,7 +161,7 @@ export async function updateSamlProvider(
       ? { source: "xml", xml: storedIdp.metadata }
       : { source: "manual", entityId: storedIdp?.entityID ?? "", ssoUrl: String(stored.entryPoint ?? ""), certificate: storedIdp?.cert ?? "" });
   const built = await samlConfigFrom({ idp: idpInput, mapping: input.mapping, wantAssertionsSigned: input.wantAssertionsSigned });
-  if (!built.ok) return built;
+  if (!built.ok) return samlFailure(built);
   const samlConfig = JSON.stringify({ ...built.config, issuer: current.issuer });
   const domainChanged = domain !== current.domain;
   await db

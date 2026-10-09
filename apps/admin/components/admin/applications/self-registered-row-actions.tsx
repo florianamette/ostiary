@@ -3,6 +3,7 @@
 import * as React from "react";
 import { BanIcon, CheckCircle2Icon, Loader2, MoreHorizontalIcon, Trash2Icon } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 import { Button } from "@ostiary/core/components/ui/button";
 import {
@@ -34,6 +35,8 @@ import type { OAuthApplicationRow } from "@/components/admin/applications/admin-
  */
 export function SelfRegisteredRowActions({ row }: { row: OAuthApplicationRow }) {
   const router = useRouter();
+  const t = useTranslations("admin.pages.applications.selfRegistered");
+  const tc = useTranslations("admin.common");
   // The dialog's content stays while it animates closed, so only `open` is cleared.
   const [confirm, setConfirmKind] = React.useState<"disable" | "delete">("disable");
   const [open, setOpen] = React.useState(false);
@@ -64,7 +67,7 @@ export function SelfRegisteredRowActions({ row }: { row: OAuthApplicationRow }) 
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" size="icon-sm" aria-label={`Actions for ${row.name}`}>
+          <Button variant="ghost" size="icon-sm" aria-label={t("menuLabel", { name: row.name })}>
             <MoreHorizontalIcon />
           </Button>
         </DropdownMenuTrigger>
@@ -72,21 +75,21 @@ export function SelfRegisteredRowActions({ row }: { row: OAuthApplicationRow }) 
           {row.disabled ? (
             <DropdownMenuItem
               disabled={busy}
-              onSelect={() => void run(() => setSelfRegisteredClientDisabled(row.clientId, false), "Client enabled")}
+              onSelect={() => void run(() => setSelfRegisteredClientDisabled(row.clientId, false), t("enabled"))}
             >
               <CheckCircle2Icon />
-              Enable
+              {tc("enable")}
             </DropdownMenuItem>
           ) : (
             <DropdownMenuItem onSelect={() => setConfirm("disable")}>
               <BanIcon />
-              Disable
+              {tc("disable")}
             </DropdownMenuItem>
           )}
           <DropdownMenuSeparator />
           <DropdownMenuItem variant="destructive" onSelect={() => setConfirm("delete")}>
             <Trash2Icon />
-            Delete
+            {tc("delete")}
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
@@ -96,47 +99,46 @@ export function SelfRegisteredRowActions({ row }: { row: OAuthApplicationRow }) 
           {confirm === "disable" ? (
             <>
               <DialogHeader>
-                <DialogTitle>Disable {row.name}?</DialogTitle>
+                <DialogTitle>{t("disableTitle", { name: row.name })}</DialogTitle>
                 <DialogDescription>
-                  It can no longer sign anyone in or refresh its tokens. Access tokens already issued work until they expire (an hour at most).
+                  {t("disableDescription")}
                 </DialogDescription>
               </DialogHeader>
               <DialogFooter>
                 <Button variant="outline" disabled={busy} onClick={() => setConfirm(null)}>
-                  Cancel
+                  {tc("cancel")}
                 </Button>
                 <Button
                   variant="destructive"
                   disabled={busy}
-                  onClick={() => void run(() => setSelfRegisteredClientDisabled(row.clientId, true), "Client disabled")}
+                  onClick={() => void run(() => setSelfRegisteredClientDisabled(row.clientId, true), t("disabled"))}
                 >
                   {busy ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
-                  Disable
+                  {tc("disable")}
                 </Button>
               </DialogFooter>
             </>
           ) : (
             <>
               <DialogHeader>
-                <DialogTitle>Delete {row.name}?</DialogTitle>
+                <DialogTitle>{t("deleteTitle", { name: row.name })}</DialogTitle>
                 <DialogDescription>
-                  Its tokens and the consents people gave it are deleted too.
                   {metadataDocument
-                    ? " A metadata-document client is created again the next time it signs someone in. To block it, disable it instead."
-                    : " The app can register again while dynamic registration is on."}
+                    ? t("deleteDescriptionMetadataDocument")
+                    : t("deleteDescriptionDynamic")}
                 </DialogDescription>
               </DialogHeader>
               <DialogFooter>
                 <Button variant="outline" disabled={busy} onClick={() => setConfirm(null)}>
-                  Cancel
+                  {tc("cancel")}
                 </Button>
                 <Button
                   variant="destructive"
                   disabled={busy}
-                  onClick={() => void run(() => deleteSelfRegisteredClient(row.clientId), "Client deleted")}
+                  onClick={() => void run(() => deleteSelfRegisteredClient(row.clientId), t("deleted"))}
                 >
                   {busy ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
-                  Delete
+                  {tc("delete")}
                 </Button>
               </DialogFooter>
             </>

@@ -7,7 +7,8 @@ import { env } from "@ostiary/core/lib/env";
 import { openSecret, sealSecret } from "@ostiary/core/lib/secret-box";
 import {
   buildProviderOptions,
-  invalidProviderField,
+  providerFieldIssue,
+  type ProviderFieldIssueCode,
   missingProviderFields,
   providerFieldKeys,
   type ProviderValues,
@@ -325,9 +326,15 @@ export type SocialProviderInput = {
   secrets: Record<string, string | null>;
 };
 
+/**
+ * Why a save was refused. `error` is in English; `code` (with `fields` or `field` and
+ * `options`) lets the admin console translate it. No code: `error` comes from Better Auth.
+ */
+export type SaveErrorCode = ProviderFieldIssueCode | "envManaged" | "missingFields" | "unusable";
+
 export type SaveResult =
   | { ok: true; changed: string[]; created: boolean }
-  | { ok: false; error: string };
+  | { ok: false; error: string; code?: SaveErrorCode; field?: string; fields?: string[]; options?: readonly string[] };
 
 /**
  * Validates and stores a provider's settings, merging secrets with the stored ones. Returns
@@ -339,7 +346,11 @@ export async function saveSocialProvider(
   updatedBy: string | null,
 ): Promise<SaveResult> {
   if (id in envSocialProviders()) {
-    return { ok: false, error: "This provider is set by environment variables. Change them, or remove them to manage it here." };
+    return {
+      ok: false,
+      error: "This provider is set by environment variables. Change them, or remove them to manage it here.",
+      code: "envManaged",
+    };
   }
   const { plain, secret } = providerFieldKeys(id);
   const [row] = await db.select().from(socialProvider).where(eq(socialProvider.id, id)).limit(1);
@@ -361,18 +372,20 @@ export async function saveSocialProvider(
   for (const key of Object.keys(secrets)) if (!secret.includes(key)) delete secrets[key];
 
   const values = { ...config, ...secrets };
-  const invalid = invalidProviderField(id, values);
-  if (invalid) return { ok: false, error: invalid };
+  const issue = providerFieldIssue(id, values);
+  if (issue) return { ok: false, error: issue.message, code: issue.code, field: issue.field, options: issue.options };
   if (input.enabled) {
     const missing = missingProviderFields(id, values);
     if (missing.length) {
       const labels = SOCIAL_PROVIDER_META[id].fields.filter((f) => missing.includes(f.key)).map((f) => f.label);
-      return { ok: false, error: `Fill in ${labels.join(", ")} before turning it on.` };
+      return { ok: false, error: `Fill in ${labels.join(", ")} before turning it on.`, code: "missingFields", fields: missing };
     }
     try {
       instantiate(id, buildProviderOptions(id, values, { allowSignUp: input.allowSignUp }));
     } catch (error) {
-      return { ok: false, error: error instanceof Error ? error.message : "These settings cannot be used." };
+      return error instanceof Error
+        ? { ok: false, error: error.message }
+        : { ok: false, error: "These settings cannot be used.", code: "unusable" };
     }
   }
 

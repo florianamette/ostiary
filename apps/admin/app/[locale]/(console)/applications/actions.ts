@@ -1,6 +1,7 @@
 "use server";
 
 import { eq } from "drizzle-orm";
+import { getTranslations } from "next-intl/server";
 
 import { db } from "@ostiary/core/db/index";
 import { oauthClient } from "@ostiary/core/db/schema";
@@ -38,24 +39,25 @@ export type ClientRegistrationInput = {
 
 export async function updateClientRegistration(input: ClientRegistrationInput): Promise<Result> {
   const { session, audit } = await adminActor();
+  const t = await getTranslations("admin.pages.applications.actions.registration");
   if (!(DYNAMIC_REGISTRATION_MODES as readonly string[]).includes(input.dynamic)) {
-    return { ok: false, error: "Choose who may register clients." };
+    return { ok: false, error: t("chooseMode") };
   }
   const available = new Set<string>([...OIDC_SCOPES, ...(await currentApiScopes())]);
   const scopes = [...new Set(input.scopes)];
   const unknown = scopes.find((scope) => !available.has(scope));
-  if (unknown) return { ok: false, error: `"${unknown}" is not a scope of this server.` };
-  if (scopes.length === 0) return { ok: false, error: "Allow at least one scope." };
+  if (unknown) return { ok: false, error: t("unknownScope", { scope: unknown }) };
+  if (scopes.length === 0) return { ok: false, error: t("noScopes") };
 
   const hosts: string[] = [];
   for (const raw of input.metadataDocumentHosts.split(/[\s,]+/).filter(Boolean)) {
     const host = normalizeHost(raw);
-    if (!host) return { ok: false, error: `"${raw}" is not a host name, e.g. claude.ai.` };
+    if (!host) return { ok: false, error: t("invalidHost", { raw, example: "claude.ai" }) };
     hosts.push(host);
   }
   const max = input.maxRegistrationsPerHour;
   if (!Number.isInteger(max) || max < 0 || max > MAX_REGISTRATIONS_PER_HOUR_LIMIT) {
-    return { ok: false, error: `The hourly limit must be a whole number from 0 to ${MAX_REGISTRATIONS_PER_HOUR_LIMIT}.` };
+    return { ok: false, error: t("invalidLimit", { max: String(MAX_REGISTRATIONS_PER_HOUR_LIMIT) }) };
   }
 
   const settings: ClientRegistrationSettings = {
@@ -72,7 +74,7 @@ export async function updateClientRegistration(input: ClientRegistrationInput): 
     narrowed = await restrictSelfRegisteredScopes(scopes);
   } catch (error) {
     console.error("Could not save the client registration settings", error);
-    return { ok: false, error: "Could not save the settings." };
+    return { ok: false, error: t("saveFailed") };
   }
   await audit({
     action: "client_registration.update",
@@ -83,9 +85,10 @@ export async function updateClientRegistration(input: ClientRegistrationInput): 
 
 /** Loads a client and checks it was self-registered (admin-registered ones are not managed here). */
 async function selfRegisteredClient(clientId: string) {
+  const t = await getTranslations("admin.pages.applications.actions.registration");
   const source = await clientRegistrationSource(clientId);
-  if (source === null) return { ok: false as const, error: "This client no longer exists." };
-  if (source === "admin") return { ok: false as const, error: "Only self-registered clients can be changed here." };
+  if (source === null) return { ok: false as const, error: t("clientGone") };
+  if (source === "admin") return { ok: false as const, error: t("notSelfRegistered") };
   const [row] = await db
     .select({ name: oauthClient.name })
     .from(oauthClient)

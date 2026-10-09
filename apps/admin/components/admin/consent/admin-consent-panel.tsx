@@ -6,6 +6,7 @@ import {
   ChevronRightIcon,
   SearchIcon,
 } from "lucide-react";
+import { useFormatter, useTranslations } from "next-intl";
 
 import {
   AdminConsentRowActions,
@@ -44,9 +45,9 @@ export type { OAuthConsentRow };
 
 type ConsentScopeFilter = "all" | "offline" | "openid" | "with_reference";
 
-function formatDate(iso: string) {
+function formatDate(format: ReturnType<typeof useFormatter>, iso: string) {
   try {
-    return new Date(iso).toLocaleDateString(undefined, {
+    return format.dateTime(new Date(iso), {
       year: "numeric",
       month: "short",
       day: "numeric",
@@ -172,12 +173,15 @@ function filterConsents(
 }
 
 export function AdminConsentPanel() {
+  const t = useTranslations("admin.pages.consent.panel");
+  const tc = useTranslations("admin.common");
+  const format = useFormatter();
   const { data: sessionWrap } = authClient.useSession();
   const userLabel =
     sessionWrap?.user?.email ??
     sessionWrap?.user?.name ??
     sessionWrap?.user?.id ??
-    "Signed-in user";
+    t("signedInUser");
 
   const [searchInput, setSearchInput] = React.useState("");
   const [debouncedSearch, setDebouncedSearch] = React.useState("");
@@ -192,8 +196,8 @@ export function AdminConsentPanel() {
   const [refreshKey, setRefreshKey] = React.useState(0);
 
   React.useEffect(() => {
-    const t = window.setTimeout(() => setDebouncedSearch(searchInput), 300);
-    return () => window.clearTimeout(t);
+    const timer = window.setTimeout(() => setDebouncedSearch(searchInput), 300);
+    return () => window.clearTimeout(timer);
   }, [searchInput]);
 
   React.useEffect(() => {
@@ -216,7 +220,7 @@ export function AdminConsentPanel() {
       if (cancelled) return;
       if (consentsRes.error) {
         setListError(
-          consentsRes.error.message ?? "Failed to load consents"
+          consentsRes.error.message ?? t("loadConsentsFailed")
         );
         setRows([]);
         setLoading(false);
@@ -224,7 +228,7 @@ export function AdminConsentPanel() {
       }
       if (clientsRes.error) {
         setListError(
-          clientsRes.error.message ?? "Failed to load OAuth clients"
+          clientsRes.error.message ?? t("loadClientsFailed")
         );
         setRows([]);
         setLoading(false);
@@ -241,7 +245,7 @@ export function AdminConsentPanel() {
     return () => {
       cancelled = true;
     };
-  }, [refreshKey, userLabel]);
+  }, [refreshKey, userLabel, t]);
 
   const filtered = React.useMemo(
     () => filterConsents(rows, debouncedSearch, scopeFilter),
@@ -266,11 +270,11 @@ export function AdminConsentPanel() {
           <SearchIcon className="pointer-events-none absolute top-1/2 left-2.5 size-4 -translate-y-1/2 text-muted-foreground" />
           <Input
             type="search"
-            placeholder="Search by user, client, consent id, reference, or scope…"
+            placeholder={t("searchPlaceholder")}
             className="pl-9"
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
-            aria-label="Search consents"
+            aria-label={t("searchLabel")}
           />
         </div>
         <div className="flex flex-wrap items-center gap-2">
@@ -279,13 +283,19 @@ export function AdminConsentPanel() {
             onValueChange={(v) => setScopeFilter(v as ConsentScopeFilter)}
           >
             <SelectTrigger size="sm" className="w-[200px]">
-              <SelectValue placeholder="Scope filter" />
+              <SelectValue placeholder={t("filter.placeholder")} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">All consents</SelectItem>
-              <SelectItem value="openid">Has openid</SelectItem>
-              <SelectItem value="offline">Has offline_access</SelectItem>
-              <SelectItem value="with_reference">Has reference_id</SelectItem>
+              <SelectItem value="all">{t("filter.all")}</SelectItem>
+              <SelectItem value="openid">
+                {t("filter.hasScope", { scope: "openid" })}
+              </SelectItem>
+              <SelectItem value="offline">
+                {t("filter.hasScope", { scope: "offline_access" })}
+              </SelectItem>
+              <SelectItem value="with_reference">
+                {t("filter.hasScope", { scope: "reference_id" })}
+              </SelectItem>
             </SelectContent>
           </Select>
           <Button
@@ -294,14 +304,14 @@ export function AdminConsentPanel() {
             disabled={loading}
             onClick={() => refetch()}
           >
-            Refresh
+            {tc("refresh")}
           </Button>
         </div>
       </div>
 
       {listError ? (
         <Alert variant="destructive">
-          <AlertTitle>Could not load consents</AlertTitle>
+          <AlertTitle>{t("loadErrorTitle")}</AlertTitle>
           <AlertDescription>{listError}</AlertDescription>
         </Alert>
       ) : null}
@@ -310,13 +320,13 @@ export function AdminConsentPanel() {
         <Table>
           <TableHeader>
             <TableRow className="hover:bg-transparent">
-              <TableHead className="w-[min(26%,240px)]">User</TableHead>
-              <TableHead className="hidden sm:table-cell">Application</TableHead>
-              <TableHead className="hidden lg:table-cell">Scopes</TableHead>
-              <TableHead className="hidden md:table-cell">Reference</TableHead>
-              <TableHead className="hidden xl:table-cell">Granted</TableHead>
-              <TableHead className="hidden xl:table-cell">Updated</TableHead>
-              <TableHead className="w-12 text-right">Actions</TableHead>
+              <TableHead className="w-[min(26%,240px)]">{t("columns.user")}</TableHead>
+              <TableHead className="hidden sm:table-cell">{t("columns.application")}</TableHead>
+              <TableHead className="hidden lg:table-cell">{t("columns.scopes")}</TableHead>
+              <TableHead className="hidden md:table-cell">{t("columns.reference")}</TableHead>
+              <TableHead className="hidden xl:table-cell">{t("columns.granted")}</TableHead>
+              <TableHead className="hidden xl:table-cell">{t("columns.updated")}</TableHead>
+              <TableHead className="w-12 text-right">{tc("actions")}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -326,7 +336,7 @@ export function AdminConsentPanel() {
                   colSpan={7}
                   className="h-24 text-center text-muted-foreground"
                 >
-                  Loading consents…
+                  {t("loading")}
                 </TableCell>
               </TableRow>
             ) : pageRows.length === 0 ? (
@@ -336,8 +346,8 @@ export function AdminConsentPanel() {
                   className="h-24 text-center text-muted-foreground"
                 >
                   {rows.length === 0
-                    ? "No consents recorded for this account yet."
-                    : "No consents match your filters."}
+                    ? t("emptyNone")
+                    : t("emptyFiltered")}
                 </TableCell>
               </TableRow>
             ) : (
@@ -408,10 +418,10 @@ export function AdminConsentPanel() {
                     )}
                   </TableCell>
                   <TableCell className="text-muted-foreground hidden text-sm xl:table-cell">
-                    {formatDate(row.createdAt)}
+                    {formatDate(format, row.createdAt)}
                   </TableCell>
                   <TableCell className="text-muted-foreground hidden text-sm xl:table-cell">
-                    {formatDate(row.updatedAt)}
+                    {formatDate(format, row.updatedAt)}
                   </TableCell>
                   <TableCell className="text-right">
                     <AdminConsentRowActions
@@ -434,13 +444,17 @@ export function AdminConsentPanel() {
         <div className="flex flex-col gap-3 border-t px-3 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-4">
           <p className="text-muted-foreground text-xs sm:text-sm">
             {filtered.length === 0
-              ? "0 consents"
-              : `Showing ${showingFrom}-${showingTo} of ${filtered.length}`}
+              ? t("noResults")
+              : t("showing", {
+                  from: showingFrom,
+                  to: showingTo,
+                  total: filtered.length,
+                })}
           </p>
           <div className="flex flex-wrap items-center gap-3 sm:gap-4">
             <div className="flex items-center gap-2">
               <span className="text-muted-foreground whitespace-nowrap text-xs">
-                Rows per page
+                {t("rowsPerPage")}
               </span>
               <Select
                 value={String(pageSize)}
@@ -451,7 +465,7 @@ export function AdminConsentPanel() {
                 <SelectTrigger
                   size="sm"
                   className="w-[88px]"
-                  aria-label="Rows per page"
+                  aria-label={t("rowsPerPage")}
                 >
                   <SelectValue />
                 </SelectTrigger>
@@ -472,10 +486,10 @@ export function AdminConsentPanel() {
                 onClick={() => setPage((p) => Math.max(0, p - 1))}
               >
                 <ChevronLeftIcon />
-                Previous
+                {t("previous")}
               </Button>
               <span className="text-muted-foreground tabular-nums text-xs sm:text-sm">
-                Page {safePage + 1} / {totalPages}
+                {t("pageOf", { page: safePage + 1, total: totalPages })}
               </span>
               <Button
                 variant="outline"
@@ -485,7 +499,7 @@ export function AdminConsentPanel() {
                   setPage((p) => Math.min(totalPages - 1, p + 1))
                 }
               >
-                Next
+                {t("next")}
                 <ChevronRightIcon />
               </Button>
             </div>
@@ -494,39 +508,35 @@ export function AdminConsentPanel() {
       </div>
 
       <p className="text-muted-foreground text-xs">
-        Data from{" "}
-        <code className="rounded bg-muted px-1 py-0.5 font-mono">
-          authClient.oauth2.getConsents()
-        </code>
-        ; client names resolved via{" "}
-        <code className="rounded bg-muted px-1 py-0.5 font-mono">
-          getClients()
-        </code>
-        . Revoke uses{" "}
-        <code className="rounded bg-muted px-1 py-0.5 font-mono">
-          deleteConsent
-        </code>
-        . See{" "}
-        <a
-          href="https://better-auth.com/docs/plugins/oauth-provider#list-consent"
-          className="font-medium text-foreground underline-offset-4 hover:underline"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          OAuth consent
-        </a>{" "}
-        in the{" "}
-        <a
-          href="https://better-auth.com/docs/plugins/oauth-provider"
-          className="font-medium text-foreground underline-offset-4 hover:underline"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          OAuth provider
-        </a>{" "}
-        docs. The interactive authorize UI is at{" "}
-        <code className="rounded bg-muted px-1 py-0.5 font-mono">/consent</code>
-        .
+        {t.rich("footnote", {
+          getConsents: "authClient.oauth2.getConsents()",
+          getClients: "getClients()",
+          deleteConsent: "deleteConsent",
+          path: "/consent",
+          code: (c) => (
+            <code className="rounded bg-muted px-1 py-0.5 font-mono">{c}</code>
+          ),
+          consentLink: (c) => (
+            <a
+              href="https://better-auth.com/docs/plugins/oauth-provider#list-consent"
+              className="font-medium text-foreground underline-offset-4 hover:underline"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {c}
+            </a>
+          ),
+          providerLink: (c) => (
+            <a
+              href="https://better-auth.com/docs/plugins/oauth-provider"
+              className="font-medium text-foreground underline-offset-4 hover:underline"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {c}
+            </a>
+          ),
+        })}
       </p>
     </div>
   );

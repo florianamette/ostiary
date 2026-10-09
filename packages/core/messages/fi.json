@@ -1,46 +1,46 @@
 {
   "layout": {
-    "title": "Sign in",
-    "description": "Log in to your work tools and profile."
+    "title": "Kirjaudu",
+    "description": "Kirjaudu työkaluihisi ja profiiliisi."
   },
   "auth": {
     "login": {
-      "title": "Login to your account",
-      "description": "Sign in with your email or username and password.",
-      "identifierLabel": "Email or username",
-      "identifierPlaceholder": "you@example.com or your_username",
-      "emailLabel": "Email",
+      "title": "Kirjaudu tilillesi",
+      "description": "Kirjaudu sähköpostiosoitteella tai käyttäjänimellä ja salasanalla.",
+      "identifierLabel": "Sähköposti tai käyttäjänimi",
+      "identifierPlaceholder": "you@example.com tai your_username",
+      "emailLabel": "Sähköposti",
       "emailPlaceholder": "m@example.com",
-      "passwordLabel": "Password",
-      "forgotPasswordLink": "Forgot password?",
-      "submit": "Login",
-      "submitting": "Signing in…",
-      "noAccount": "Don't have an account?",
-      "signUpLink": "Sign up",
-      "verifyEmailAfterSignup": "Check your inbox for a verification link. You must verify your email before signing in.",
-      "passkey": "Sign in with passkey",
-      "passkeySubmitting": "Waiting for passkey…",
+      "passwordLabel": "Salasana",
+      "forgotPasswordLink": "Unohditko salasanan?",
+      "submit": "Kirjaudu",
+      "submitting": "Kirjaudutaan…",
+      "noAccount": "Eikö sinulla ole tiliä?",
+      "signUpLink": "Rekisteröidy",
+      "verifyEmailAfterSignup": "Tarkista saapuneet viestisi: lähetimme vahvistuslinkin. Sinun on vahvistettava sähköpostiosoitteesi ennen kirjautumista.",
+      "passkey": "Kirjaudu pääsyavaimella",
+      "passkeySubmitting": "Odotetaan pääsyavainta…",
       "emailCode": "Lähetä minulle kirjautumiskoodi sähköpostiin",
-      "lastUsedBadge": "Last used",
-      "lastUsedHintEmail": "You last signed in with email and password.",
-      "lastUsedHintUsername": "You last signed in with username and password.",
-      "lastUsedHintPasskey": "You last signed in with a passkey.",
+      "lastUsedBadge": "Viimeksi käytetty",
+      "lastUsedHintEmail": "Kirjauduit viimeksi sähköpostilla ja salasanalla.",
+      "lastUsedHintUsername": "Kirjauduit viimeksi käyttäjänimellä ja salasanalla.",
+      "lastUsedHintPasskey": "Kirjauduit viimeksi pääsyavaimella.",
       "lastUsedHintEmailCode": "Kirjauduit viimeksi sähköpostiin lähetetyllä koodilla.",
-      "lastUsedHintOther": "You last signed in with {method}.",
+      "lastUsedHintOther": "Kirjauduit viimeksi tavalla {method}.",
       "errors": {
         "emailNotVerified": "Please verify your email first. We sent you a new verification link, check your inbox.",
-        "signInFailed": "Could not sign in. Check your details and try again.",
-        "passkeyFailed": "Passkey sign-in failed. Try again or use your password."
+        "signInFailed": "Kirjautuminen epäonnistui. Tarkista tietosi ja yritä uudelleen.",
+        "passkeyFailed": "Kirjautuminen pääsyavaimella epäonnistui. Yritä uudelleen tai käytä salasanaa."
       },
       "resend": {
-        "title": "Didn't get the email?",
-        "description": "Enter your email and we'll send you a new verification link.",
+        "title": "Etkö saanut sähköpostia?",
+        "description": "Anna sähköpostiosoitteesi, niin lähetämme uuden vahvistuslinkin.",
         "emailPlaceholder": "you@example.com",
-        "send": "Send a new link",
-        "sendAgain": "Send again",
-        "sent": "If an unverified account uses this address, a new link is on its way. Check your inbox and spam folder.",
-        "invalidEmail": "Enter a valid email address.",
-        "error": "Could not send the email. Try again in a minute."
+        "send": "Lähetä uusi linkki",
+        "sendAgain": "Lähetä uudelleen",
+        "sent": "Jos tätä osoitetta käyttää vahvistamaton tili, uusi linkki on matkalla. Tarkista saapuneet viestit ja roskapostikansio.",
+        "invalidEmail": "Anna kelvollinen sähköpostiosoite.",
+        "error": "Sähköpostia ei voitu lähettää. Yritä uudelleen hetken kuluttua."
       },
       "addAccountDescription": "Tässä selaimessa jo kirjautuneet tilit pysyvät kirjautuneina."
     },
@@ -93,81 +93,81 @@
       }
     },
     "forgotPassword": {
-      "metaTitle": "Forgot password",
-      "title": "Reset your password",
-      "description": "Enter the email on your account. If it exists, we will send you a link to choose a new password.",
-      "emailLabel": "Email",
+      "metaTitle": "Unohtunut salasana",
+      "title": "Nollaa salasanasi",
+      "description": "Anna tilisi sähköpostiosoite. Jos tili on olemassa, lähetämme linkin uuden salasanan valitsemiseen.",
+      "emailLabel": "Sähköposti",
       "emailPlaceholder": "m@example.com",
-      "emailHint": "Use the same email you registered with. If you usually sign in with a username, recovery still uses your account email.",
-      "submit": "Send reset link",
-      "submitting": "Sending…",
-      "backToLogin": "Back to login",
-      "emailSent": "If an account exists for that email, you will receive a reset link shortly.",
+      "emailHint": "Käytä samaa sähköpostiosoitetta, jolla rekisteröidyit. Vaikka kirjautuisit yleensä käyttäjänimellä, palautus käyttää tilisi sähköpostiosoitetta.",
+      "submit": "Lähetä nollauslinkki",
+      "submitting": "Lähetetään…",
+      "backToLogin": "Takaisin kirjautumiseen",
+      "emailSent": "Jos tällä sähköpostiosoitteella on tili, saat pian nollauslinkin.",
       "errors": {
-        "emailRequired": "Please enter your email address.",
-        "requestFailed": "Could not send the reset email. Try again."
+        "emailRequired": "Anna sähköpostiosoitteesi.",
+        "requestFailed": "Nollausviestiä ei voitu lähettää. Yritä uudelleen."
       }
     },
     "resetPassword": {
-      "metaTitle": "Set new password",
-      "title": "Choose a new password",
-      "description": "Enter and confirm your new password below.",
-      "invalidTokenTitle": "Link expired or invalid",
-      "invalidTokenDescription": "This reset link is no longer valid. Request a new one to continue.",
-      "missingTokenTitle": "No reset link",
-      "missingTokenDescription": "Open the link from your email, or request a new password reset.",
-      "requestNewLink": "Request new link",
-      "backToLogin": "Back to login",
-      "newPasswordLabel": "New password",
-      "confirmPasswordLabel": "Confirm password",
-      "passwordHint": "Must be at least 8 characters long.",
-      "passwordMismatch": "Passwords do not match",
-      "submit": "Update password",
-      "submitting": "Updating…",
-      "success": "Your password was updated. You can sign in now.",
+      "metaTitle": "Aseta uusi salasana",
+      "title": "Valitse uusi salasana",
+      "description": "Anna uusi salasanasi ja vahvista se alla.",
+      "invalidTokenTitle": "Linkki on vanhentunut tai virheellinen",
+      "invalidTokenDescription": "Tämä nollauslinkki ei ole enää voimassa. Pyydä uusi jatkaaksesi.",
+      "missingTokenTitle": "Nollauslinkki puuttuu",
+      "missingTokenDescription": "Avaa sähköpostissa saamasi linkki tai pyydä uusi salasanan nollaus.",
+      "requestNewLink": "Pyydä uusi linkki",
+      "backToLogin": "Takaisin kirjautumiseen",
+      "newPasswordLabel": "Uusi salasana",
+      "confirmPasswordLabel": "Vahvista salasana",
+      "passwordHint": "Vähintään 8 merkkiä.",
+      "passwordMismatch": "Salasanat eivät täsmää",
+      "submit": "Päivitä salasana",
+      "submitting": "Päivitetään…",
+      "success": "Salasanasi on päivitetty. Voit nyt kirjautua.",
       "errors": {
-        "resetFailed": "Could not reset your password. Try again or request a new link."
+        "resetFailed": "Salasanaa ei voitu nollata. Yritä uudelleen tai pyydä uusi linkki."
       }
     },
     "signup": {
-      "title": "Create an account",
-      "description": "Enter your information below to create your account",
-      "usernameLabel": "Username",
+      "title": "Luo tili",
+      "description": "Luo tilisi antamalla tietosi alla",
+      "usernameLabel": "Käyttäjänimi",
       "usernamePlaceholder": "your_username",
-      "usernameHint": "3-30 characters: letters, numbers, dots, and underscores only.",
-      "usernameChecking": "Checking availability…",
-      "usernameAvailable": "This username is available.",
-      "usernameTaken": "This username is already taken.",
-      "usernameInvalidHint": "Use only letters, numbers, dots, and underscores.",
-      "fullNameLabel": "Full Name",
-      "namePlaceholder": "John Doe",
-      "emailLabel": "Email",
+      "usernameHint": "3–30 merkkiä: vain kirjaimia, numeroita, pisteitä ja alaviivoja.",
+      "usernameChecking": "Tarkistetaan saatavuutta…",
+      "usernameAvailable": "Tämä käyttäjänimi on vapaana.",
+      "usernameTaken": "Tämä käyttäjänimi on jo varattu.",
+      "usernameInvalidHint": "Käytä vain kirjaimia, numeroita, pisteitä ja alaviivoja.",
+      "fullNameLabel": "Koko nimi",
+      "namePlaceholder": "Matti Meikäläinen",
+      "emailLabel": "Sähköposti",
       "emailPlaceholder": "m@example.com",
-      "emailDescription": "We'll use this to contact you. We will not share your email with anyone else.",
-      "passwordLabel": "Password",
-      "confirmPasswordLabel": "Confirm Password",
-      "passwordHint": "Must be at least 8 characters long.",
-      "confirmPasswordHint": "Please confirm your password.",
-      "passwordMismatch": "Passwords do not match",
-      "submit": "Create Account",
-      "submitting": "Creating account…",
-      "hasAccount": "Already have an account?",
-      "signInLink": "Sign in",
-      "loginLink": "Login",
-      "afterRegisterRedirect": "Account created. Check your email to verify before signing in.",
+      "emailDescription": "Käytämme tätä ottaaksemme sinuun yhteyttä. Emme jaa sähköpostiosoitettasi kenellekään muulle.",
+      "passwordLabel": "Salasana",
+      "confirmPasswordLabel": "Vahvista salasana",
+      "passwordHint": "Vähintään 8 merkkiä.",
+      "confirmPasswordHint": "Vahvista salasanasi.",
+      "passwordMismatch": "Salasanat eivät täsmää",
+      "submit": "Luo tili",
+      "submitting": "Luodaan tiliä…",
+      "hasAccount": "Onko sinulla jo tili?",
+      "signInLink": "Kirjaudu",
+      "loginLink": "Kirjaudu",
+      "afterRegisterRedirect": "Tili luotu. Vahvista sähköpostiosoitteesi ennen kirjautumista: tarkista saapuneet viestisi.",
       "errors": {
-        "signUpFailed": "Could not create your account. Try again.",
-        "compromisedPassword": "This password appears in known data breaches. Choose a different one.",
-        "usernameTooShort": "Username must be at least 3 characters.",
-        "usernameInvalid": "That username is not valid.",
-        "usernameTaken": "That username is already taken. Try another."
+        "signUpFailed": "Tiliäsi ei voitu luoda. Yritä uudelleen.",
+        "compromisedPassword": "Tämä salasana esiintyy tunnetuissa tietovuodoissa. Valitse toinen.",
+        "usernameTooShort": "Käyttäjänimen on oltava vähintään 3 merkkiä.",
+        "usernameInvalid": "Käyttäjänimi ei kelpaa.",
+        "usernameTaken": "Käyttäjänimi on jo varattu. Kokeile toista."
       }
     },
     "screen": {
-      "headline": "One account for all your apps.",
-      "subhead": "Sign in once and reach every app connected to {name}. Your profile and security settings follow you everywhere.",
-      "footer": "Secured by {name}.",
-      "ecosystem": "Works with"
+      "headline": "Yksi tili <accent>kaikkiin sovelluksiisi</accent>.",
+      "subhead": "Kirjaudu kerran ja käytä kaikkia palveluun {name} yhdistettyjä sovelluksia. Profiilisi ja turvallisuusasetuksesi kulkevat mukanasi kaikkialle.",
+      "footer": "Suojauksen tarjoaa {name}.",
+      "ecosystem": "Toimii yhdessä:"
     },
     "social": {
       "or": "tai",
@@ -175,8 +175,8 @@
       "signInWith": "Kirjaudu palvelulla {provider}",
       "lastUsed": "Viimeksi käytetty",
       "otherProviders": "Muita kirjautumistapoja",
-      "error": "Could not sign in with that account. Try again or use another method.",
-      "notLinked": "That account isn't connected to a {name} account yet. Sign in another way, then connect it from your security settings.",
+      "error": "Kirjautuminen tällä tilillä epäonnistui. Yritä uudelleen tai käytä toista tapaa.",
+      "notLinked": "Tätä tiliä ei ole vielä yhdistetty {name}-tiliin. Kirjaudu toisella tavalla ja yhdistä se sitten turvallisuusasetuksistasi.",
       "noEmail": "Tili ei jakanut sähköpostiosoitetta. Yritä myöhemmin uudelleen tai kirjaudu toisella tavalla.",
       "signUpDisabled": "Tälle osoitteelle ei ole vielä tiliä, eikä tällä kirjautumistavalla voi luoda sellaista. Kirjaudu sisään toisella tavalla."
     },
@@ -189,23 +189,23 @@
     }
   },
   "consent": {
-    "emptyTitle": "Authorization",
-    "emptyDescription": "There is no pending OAuth request. Start the flow from the application you want to connect.",
-    "connectTitle": "Connect {name}",
-    "intro": "This application is requesting access to your account. Review the permissions below before continuing.",
+    "emptyTitle": "Valtuutus",
+    "emptyDescription": "Odottavaa OAuth-pyyntöä ei ole. Aloita kirjautuminen sovelluksesta, jonka haluat yhdistää.",
+    "connectTitle": "Yhdistä {name}",
+    "intro": "Tämä sovellus pyytää pääsyä tiliisi. Tarkista alla olevat käyttöoikeudet ennen kuin jatkat.",
     "errors": {
-      "needSignIn": "You need to sign in before you can approve this request.",
-      "loadFailed": "Could not load application details.",
-      "actionFailed": "Something went wrong."
+      "needSignIn": "Sinun on kirjauduttava ennen kuin voit hyväksyä tämän pyynnön.",
+      "loadFailed": "Sovelluksen tietoja ei voitu ladata.",
+      "actionFailed": "Jokin meni vikaan."
     },
-    "signIn": "Sign in",
-    "visitWebsite": "Visit application website",
-    "requestedAccess": "Requested access",
-    "defaultScopes": "Default permissions for this client (no explicit scopes in the request).",
-    "terms": "Terms of service",
-    "privacy": "Privacy policy",
-    "deny": "Deny",
-    "allow": "Allow",
+    "signIn": "Kirjaudu",
+    "visitWebsite": "Siirry sovelluksen verkkosivustolle",
+    "requestedAccess": "Pyydetty pääsy",
+    "defaultScopes": "Tämän asiakkaan oletuskäyttöoikeudet (pyynnössä ei ole erikseen määritettyjä scopeja).",
+    "terms": "Käyttöehdot",
+    "privacy": "Tietosuojakäytäntö",
+    "deny": "Hylkää",
+    "allow": "Salli",
     "scopes": {
       "openid": "Henkilöllisyytesi vahvistaminen (OpenID Connect)",
       "profile": "Nimi ja profiilitiedot",
@@ -221,108 +221,1540 @@
   },
   "admin": {
     "themeToggle": {
-      "light": "Light",
-      "dark": "Dark",
-      "system": "System",
-      "srOnly": "Toggle theme",
-      "label": "Theme"
+      "light": "Vaalea",
+      "dark": "Tumma",
+      "system": "Järjestelmä",
+      "srOnly": "Vaihda teemaa",
+      "label": "Teema"
     },
     "nav": {
-      "groupAdmin": "Admin",
+      "groupAdmin": "Ylläpito",
       "groupOAuth": "OAuth",
-      "overview": "Overview",
-      "users": "Users",
-      "applications": "Applications",
+      "overview": "Yleiskatsaus",
+      "users": "Käyttäjät",
+      "applications": "Sovellukset",
       "apis": "API:t",
       "apiKeys": "API-avaimet",
-      "consent": "Consent",
-      "organizations": "Organizations",
+      "consent": "Suostumukset",
+      "organizations": "Organisaatiot",
       "sso": "SSO",
       "signInProviders": "Kirjautumispalvelut",
       "webhooks": "Webhookit",
-      "security": "Security",
+      "security": "Turvallisuus",
       "usage": "Sovellusten käyttö",
-      "audit": "Audit log",
+      "audit": "Tarkastusloki",
       "signingKeys": "Allekirjoitusavaimet"
     },
     "header": {
-      "crumb": "Admin",
-      "fallback": "Admin",
-      "overview": "Overview",
-      "users": "Users",
-      "applications": "Applications",
+      "crumb": "Ylläpito",
+      "fallback": "Ylläpito",
+      "overview": "Yleiskatsaus",
+      "users": "Käyttäjät",
+      "applications": "Sovellukset",
       "apis": "API:t",
       "apiKeys": "API-avaimet",
-      "consent": "Consent",
-      "organizations": "Organizations",
+      "consent": "Suostumukset",
+      "organizations": "Organisaatiot",
       "sso": "SSO",
       "signInProviders": "Kirjautumispalvelut",
       "webhooks": "Webhookit",
-      "security": "Security",
+      "security": "Turvallisuus",
       "usage": "Sovellusten käyttö",
-      "audit": "Audit log",
+      "audit": "Tarkastusloki",
       "signingKeys": "Allekirjoitusavaimet"
     },
     "pages": {
       "overview": {
-        "title": "Overview",
+        "title": "Yleiskatsaus",
         "activity": {
-          "title": "Sign-in activity",
-          "description": "Sign-ins, new accounts and sign-outs per day, last 30 days.",
-          "signIns": "Sign-ins",
-          "signUps": "Sign-ups",
-          "signOuts": "Sign-outs",
-          "showTable": "View as table",
-          "showChart": "View as chart",
-          "legend": "Totals for the last 30 days",
-          "day": "Day",
-          "note": "Sign-outs are tracked from October 6, 2026. Earlier sign-ins only include sessions that were still active then."
+          "title": "Kirjautumisaktiivisuus",
+          "description": "Kirjautumiset, uudet tilit ja uloskirjautumiset päivittäin viimeisten 30 päivän ajalta.",
+          "signIns": "Kirjautumiset",
+          "signUps": "Rekisteröitymiset",
+          "signOuts": "Uloskirjautumiset",
+          "showTable": "Näytä taulukkona",
+          "showChart": "Näytä kaaviona",
+          "legend": "Yhteensä viimeisten 30 päivän aikana",
+          "day": "Päivä",
+          "note": "Uloskirjautumisia on seurattu 6.10.2026 alkaen. Aiemmat kirjautumiset sisältävät vain istunnot, jotka olivat silloin vielä aktiivisia."
         },
-        "description": "Accounts, sign-in activity and the newest members of the platform."
+        "description": "Tilit, kirjautumisaktiivisuus ja alustan uusimmat jäsenet.",
+        "recentUsers": {
+          "title": "Viimeksi liittyneet",
+          "description": "Uusimmat tilit. Avaa tili nähdäksesi sen istunnot ja toiminnan.",
+          "loading": "Ladataan…",
+          "empty": "Ei vielä käyttäjiä."
+        },
+        "stats": {
+          "error": "Yhtä tai useampaa mittaria ei voitu ladata. Varmista, että olet kirjautunut ylläpitäjänä.",
+          "errorTitle": "Mittarit eivät ole saatavilla",
+          "loadingTitle": "Ladataan",
+          "loadingHint": "Ladataan…",
+          "totalUsers": {
+            "title": "Käyttäjiä yhteensä",
+            "hint": "Kaikki alustan tilit."
+          },
+          "admins": {
+            "title": "Ylläpitäjät",
+            "hint": "Tilit, joilla on pääsy tähän konsoliin."
+          },
+          "banned": {
+            "title": "Estetyt",
+            "hint": "Tilit, jotka eivät voi kirjautua juuri nyt."
+          },
+          "verified": {
+            "title": "Vahvistettu sähköposti",
+            "hint": "Tilit, jotka ovat vahvistaneet sähköpostiosoitteensa."
+          },
+          "recent": {
+            "title": "Uudet (7 päivää)",
+            "hint": "Viimeisten 7 päivän aikana luodut tilit."
+          }
+        }
       },
       "applications": {
-        "title": "Applications",
+        "title": "Sovellukset",
         "description": "OAuth-asiakkaat, jotka voivat kirjata ihmisiä sisään palvelulla {name}: uudelleenohjausosoitteet, grant-tyypit ja suostumusasetukset.",
         "unusedHint": "{count, plural, one {# sovellusta ei ole} other {# sovellusta ei ole}} käytetty viimeisten 30 päivän aikana.",
-        "viewUsage": "Näytä käyttö"
+        "viewUsage": "Näytä käyttö",
+        "panel": {
+          "selfRegisteredHint": "Rekisteröitynyt itse: ylläpitäjä ei ole tarkistanut",
+          "selfRegisteredBadge": "Itse rekisteröitynyt",
+          "registration": {
+            "all": "Mikä tahansa rekisteröinti",
+            "admin": "Ylläpitäjä",
+            "dynamic": "Dynaaminen rekisteröinti",
+            "metadata_document": "Metatietoasiakirja"
+          },
+          "authMethod": {
+            "none": "tunnistautuminen: ei mitään",
+            "client_secret_basic": "tunnistautuminen: salaisuus (basic)",
+            "client_secret_post": "tunnistautuminen: salaisuus (post)",
+            "private_key_jwt": "tunnistautuminen: yksityisen avaimen JWT"
+          },
+          "loadFailed": "OAuth-asiakkaiden lataus epäonnistui",
+          "loadErrorTitle": "Sovelluksia ei voitu ladata",
+          "searchPlaceholder": "Hae nimellä, asiakastunnuksella, uudelleenohjausosoitteella tai grant-tyypillä…",
+          "searchLabel": "Hae sovelluksia",
+          "clientType": "Asiakastyyppi",
+          "registeredBy": "Rekisteröijä",
+          "kind": {
+            "all": "Kaikki asiakkaat",
+            "public": "Julkinen",
+            "confidential": "Luottamuksellinen",
+            "trusted": "Luotettu (ohita suostumus)",
+            "device": "Laitekirjautuminen"
+          },
+          "columns": {
+            "application": "Sovellus",
+            "redirects": "Uudelleenohjaukset",
+            "grants": "Grant-tyypit",
+            "consent": "Suostumus"
+          },
+          "badges": {
+            "device": "Laite",
+            "trusted": "Luotettu",
+            "consent": "Suostumus",
+            "active": "Aktiivinen",
+            "skipped": "Ohitettu",
+            "required": "Pakollinen"
+          },
+          "loadingRows": "Ladataan sovelluksia…",
+          "empty": "Tällä tilillä ei ole vielä OAuth-asiakkaita.",
+          "noMatch": "Mikään sovellus ei vastaa suodattimia.",
+          "linkedApis": "Linkitetyt API:t: {apis}",
+          "noApplications": "0 sovellusta",
+          "showing": "Näytetään {from}–{to} / {total}",
+          "rowsPerPage": "Rivejä sivulla",
+          "previous": "Edellinen",
+          "next": "Seuraava",
+          "page": "Sivu {page} / {total}",
+          "footnote": "Tiedot lähteestä <code>{getClients}</code>. Rekisteröinti ja muokkaus (myös <code>{skipConsent}</code>) kutsuvat <code>{create}</code>- ja <code>{update}</code>-päätepisteitä; muut muutokset käyttävät päätepisteitä <code>{deleteClient}</code> ja <code>{rotateSecret}</code>. Katso <docs>OAuth provider</docs> -dokumentaatio. Asiakkaat rajataan kirjautuneeseen käyttäjään (tai kohteeseen <code>{clientReference}</code>, kun se on määritetty). Itse rekisteröityneillä asiakkailla ei ole omistajaa, ja ne kaikki näytetään; ne voi poistaa käytöstä tai poistaa, mutta niitä ei voi muokata."
+        },
+        "registration": {
+          "title": "Itserekisteröinti",
+          "description": "Antaa MCP-asiakkaiden ja tekoälyagenttien rekisteröityä itse sen sijaan, että ne lisättäisiin täällä. Ne saavat vain alla olevat scopet, niille näytetään aina suostumusnäkymä vahvistamattomaksi merkittynä, eivätkä ne koskaan saa koneiden välistä (client credentials) pääsyä.",
+          "dynamicRegistration": "Dynaaminen rekisteröinti",
+          "dynamic": {
+            "off": {
+              "label": "Pois",
+              "hint": "POST /oauth2/register hylätään."
+            },
+            "signed_in": {
+              "label": "Vain kirjautuneet käyttäjät",
+              "hint": "Vain käyttäjän istunnon sisältävät pyynnöt voivat rekisteröityä. Useimmat MCP-asiakkaat eivät pysty siihen."
+            },
+            "open": {
+              "label": "Kuka tahansa (avoin rekisteröinti)",
+              "hint": "Mitä MCP-asiakkaat odottavat: mikä tahansa sovellus voi rekisteröityä, ja jokainen käyttäjä hyväksyy sen suostumusnäkymässä."
+            }
+          },
+          "metadataDocuments": "Metatietoasiakirjat (client_id-URL)",
+          "metadataOnFrom": "Päällä, isännistä {hosts}",
+          "metadataOnAnyHost": "Päällä, mikä tahansa HTTPS-isäntä",
+          "scopes": "Scopet, joita ne voivat pyytää",
+          "missingScope": "Ei enää tämän palvelimen scope: ohitetaan",
+          "perHour": "Uusia asiakkaita tunnissa",
+          "endpoint": "Rekisteröinnin päätepiste: <code>{url}</code> (ilmoitettu discovery-asiakirjassa).",
+          "saved": "Asetukset tallennettu. Todennuspalvelin ottaa ne käyttöön minuutissa.",
+          "dialogDescription": "Itse rekisteröityviä asiakkaita ei tarkisteta. Käyttäjät näkevät ne vahvistamattomina sovelluksina ja hyväksyvät jokaisen suostumusnäkymässä.",
+          "dynamicLabel": "Dynaaminen asiakasrekisteröinti (RFC 7591)",
+          "cimdLabel": "Client ID -metatietoasiakirjat",
+          "cimdHint": "client_id on HTTPS-URL sovelluksen JSON-metatietoihin, kuten uudemmat MCP-asiakkaat käyttävät. Vain julkisista isännistä haetaan, ilman uudelleenohjauksia, enintään 5 kt.",
+          "hostsLabel": "Sallitut isännät",
+          "hostsHint": "Yksi riviä kohden. Tyhjä: mikä tahansa julkinen HTTPS-isäntä.",
+          "scopesLabel": "Scopet, joita itse rekisteröityneet asiakkaat voivat pyytää",
+          "scopesHint": "Jokainen käyttäjä hyväksyy silti sovelluksen pyytämät scopet. Scopen poistaminen poistaa sen myös jo rekisteröidyiltä asiakkailta; jo myönnetyt tokenit säilyttävät sen vanhenemiseensa asti.",
+          "perHourHint": "Kaikissa instansseissa yhteensä, molemmille tavoille. Jokainen osoite on lisäksi rajoitettu 5 rekisteröintiin minuutissa."
+        },
+        "branding": {
+          "title": "Kirjautumisen brändäys",
+          "description": "Miltä kirjautumisnäkymät näyttävät, kun käyttäjät tulevat sovelluksesta <app>{client}</app>: kirjautuminen, rekisteröityminen, kaksivaiheinen tunnistautuminen, salasanan palautus ja suostumus. {brand}-merkki pysyy näkyvissä jokaisessa näkymässä.",
+          "logoFetchedOnSave": "Palvelin hakee logon, kun tallennat; esikatselu näyttää sen sen jälkeen.",
+          "accentInvalid": "Anna korostusväri heksavärinä, esim. {example}.",
+          "hexInvalid": "Anna heksaväri, esim. {example}.",
+          "saved": "Kirjautumisen brändäys tallennettu",
+          "resetDone": "Kirjautumisen brändäys palautettu",
+          "displayName": "Näyttönimi",
+          "displayNameHint": "Näytetään muodossa ”Kirjaudu sisään jatkaaksesi palveluun …”. Tyhjänä käytetään sovelluksen nimeä.",
+          "tagline": "Iskulause (valinnainen)",
+          "taglinePlaceholder": "Lukulistasi, missä tahansa.",
+          "accent": "Korostusväri",
+          "accentPick": "Valitse korostusväri",
+          "accentHex": "Korostusväri (heksa)",
+          "accentOff": "Pois: näkymät käyttävät teeman värejä.",
+          "contrast": {
+            "label": "Kontrastitarkistukset",
+            "ratio": "{label}: <value>{ratio}:1</value>",
+            "passes": "(läpäisee {min}:1)",
+            "below": "(alle {min}:1)",
+            "buttonLabel": "Painikkeen teksti ({color, select, black {musta} other {valkoinen}})",
+            "lightCard": "Painikkeet vaalealla kortilla",
+            "darkCard": "Painikkeet tummalla kortilla",
+            "textAdjusted": "Korostusvärin päällä oleva teksti käyttää väriä {color} saavuttaakseen suhteen {min}:1."
+          },
+          "logo": "Logo",
+          "logoSourceLabel": "Logon lähde",
+          "logoSource": {
+            "app_icon": "Sovelluksen kuvake",
+            "url": "URL-osoitteesta",
+            "upload": "Lataa tiedosto"
+          },
+          "logoAppIconHint": "Sovellukselle löydetty kuvake (sen {field} tai sen sivusto), kuten suostumusnäkymässä.",
+          "logoUrl": "Logon URL",
+          "logoUrlHint": "https julkisessa isännässä. {name} hakee sen ja tallentaa välimuistiin; selaimet eivät koskaan lataa sitä sieltä.",
+          "logoFile": "Logotiedosto",
+          "logoFileHint": "PNG, JPEG, WebP, AVIF, GIF, ICO tai SVG, enintään 256 kt. Neliö toimii parhaiten.",
+          "panel": "Sivupaneeli (leveät näytöt, valinnainen)",
+          "panelImage": "Sivupaneelin kuva",
+          "removeImage": "Poista kuva",
+          "panelHint": "Tumman paneelin otsikko ja taustakuva. PNG, JPEG, WebP tai AVIF, enintään 1 Mt.",
+          "social": "Sosiaalinen kirjautuminen tämän sovelluksen näkymissä",
+          "socialNone": "Sosiaalisia kirjautumispalveluja ei ole otettu käyttöön.",
+          "socialShown": "Näytettävät sosiaaliset palvelut",
+          "socialAll": "Kaikki käytössä olevat",
+          "socialSome": "Vain nämä",
+          "socialHint": "Piilottaa painikkeet vain tämän sovelluksen näkymistä; se ei estä ketään kirjautumasta muulla tavalla.",
+          "previewTitle": "Esikatselu",
+          "previewScheme": "Esikatselun värimaailma",
+          "light": "Vaalea",
+          "dark": "Tumma",
+          "faintOnLight": "Tämänväriset painikkeet erottuvat tuskin vaaleasta kortista (WCAG edellyttää säätimiltä 3:1). Tekstit pysyvät luettavina; harkitse tummempaa sävyä.",
+          "faintOnDark": "Tämänväriset painikkeet erottuvat tuskin tummasta kortista (WCAG edellyttää säätimiltä 3:1). Tekstit pysyvät luettavina; harkitse vaaleampaa sävyä.",
+          "resetting": "Palautetaan…",
+          "reset": "Palauta oletus",
+          "save": "Tallenna brändäys",
+          "preview": {
+            "label": "Kirjautumissivun esikatselu",
+            "appFallback": "Sovellus",
+            "title": "Kirjaudu",
+            "submit": "Kirjaudu",
+            "noAccount": "Eikö sinulla ole tiliä? <link>Luo tili</link>"
+          }
+        },
+        "actions": {
+          "registration": {
+            "chooseMode": "Valitse, kuka voi rekisteröidä asiakkaita.",
+            "unknownScope": "”{scope}” ei ole tämän palvelimen scope.",
+            "noScopes": "Salli vähintään yksi scope.",
+            "invalidHost": "”{raw}” ei ole isäntänimi, esim. {example}.",
+            "invalidLimit": "Tuntirajan on oltava kokonaisluku väliltä 0–{max}.",
+            "saveFailed": "Asetuksia ei voitu tallentaa.",
+            "clientGone": "Tätä asiakasta ei ole enää olemassa.",
+            "notSelfRegistered": "Täällä voi muuttaa vain itse rekisteröityneitä asiakkaita."
+          },
+          "branding": {
+            "clientGone": "Tätä sovellusta ei ole enää olemassa.",
+            "selfRegistered": "Itse rekisteröityneitä asiakkaita ei voi brändätä.",
+            "logoMissing": "Valitse ladattava logotiedosto.",
+            "logoFetchFailed": "Logon URL-osoitteesta ei voitu hakea kuvaa. Tarkista, että se on julkinen ja että se on kuva.",
+            "faintOnLight": "Korostusväri on haalea vaalealla kortilla: painikkeet erottuvat tuskin.",
+            "faintOnDark": "Korostusväri on haalea tummalla kortilla: painikkeet erottuvat tuskin.",
+            "saveFailed": "Brändäystä ei voitu tallentaa."
+          }
+        },
+        "register": {
+          "trigger": "Rekisteröi sovellus",
+          "title": "Rekisteröi OAuth-sovellus",
+          "description": "Luo tiliisi sidotun asiakkaan päätepisteen <code>{endpoint}</code> kautta (luotetut sovellukset voivat asettaa kentän <code>{field}</code>). Katso <link>Better Auth, Create client</link>.",
+          "nameLabel": "Sovelluksen nimi",
+          "namePlaceholder": "Oma sovellus",
+          "redirectUrisLabel": "Uudelleenohjausosoitteet",
+          "redirectUrisHintPublic": "Yksi riviä kohden tai pilkuilla erotettuina. HTTPS, tai http osoitteissa localhost, 127.0.0.1 tai [::1].",
+          "redirectUrisHintConfidential": "Yksi riviä kohden tai pilkuilla erotettuina. Vain HTTPS, myös localhost. Paikallista kehitystä varten rekisteröi erillinen julkinen asiakas.",
+          "redirectUrisRequired": "Anna vähintään yksi uudelleenohjausosoite (yksi riviä kohden tai pilkuilla erotettuina).",
+          "clientTypeLabel": "Asiakastyyppi",
+          "clientTypeConfidential": "Luottamuksellinen (asiakkaan salaisuus)",
+          "clientTypePublic": "Julkinen (PKCE, ei salaisuutta)",
+          "deviceCodeLabel": "Laitekirjautuminen (CLI:t, televisiot)",
+          "deviceCodeHint": "Lisää device code -grantin (RFC 8628): sovellus näyttää koodin, ja käyttäjä hyväksyy sen osoitteessa <code>{path}</code> toisella näytöllä. Yleensä julkinen asiakas.",
+          "skipConsentLabel": "Ohita suostumus (luotettu asiakas)",
+          "skipConsentHint": "Käyttäjät eivät näe suostumusnäkymää tälle sovellukselle. Käytä vain omille tai täysin luotetuille integraatioille.",
+          "registerFailed": "Sovellusta ei voitu rekisteröidä",
+          "missingClientId": "Palvelin ei palauttanut kenttää {field}.",
+          "registered": "OAuth-sovellus rekisteröity",
+          "creating": "Luodaan…",
+          "create": "Luo sovellus",
+          "successTitle": "Sovellus luotu",
+          "successWithSecret": "Kopioi asiakkaan salaisuus nyt, se voidaan näyttää vain kerran.",
+          "successPublic": "Julkinen asiakas, salaisuutta ei myönnetä. Käytä PKCE:tä token-päätepisteessä.",
+          "clientId": "Asiakastunnus (Client ID)",
+          "clientSecret": "Asiakkaan salaisuus",
+          "copyClientId": "Kopioi asiakastunnus",
+          "copyClientSecret": "Kopioi asiakkaan salaisuus"
+        },
+        "rowActions": {
+          "menuLabel": "Toiminnot: {name}",
+          "copyClientId": "Kopioi asiakastunnus",
+          "clientIdCopied": "Asiakastunnus kopioitu",
+          "edit": "Muokkaa sovellusta",
+          "editHint": "Nimi, uudelleenohjausosoitteet, laitekirjautuminen ja suostumuksen ohitus",
+          "branding": "Kirjautumisen brändäys",
+          "brandingHint": "Tämän sovelluksen kirjautumisnäkymien logo, korostusväri ja tekstit",
+          "rotateSecret": "Vaihda salaisuus",
+          "rotateHintPublic": "Julkisilla asiakkailla ei ole salaisuutta",
+          "rotateHintDisabled": "Ota asiakas ensin käyttöön",
+          "rotateHint": "Vaihtaa luottamuksellisen asiakkaan salaisuuden",
+          "delete": "Poista sovellus",
+          "editDialog": {
+            "title": "Muokkaa sovellusta",
+            "description": "Päivittää asiakkaan <id>{clientId}</id> päätepisteen <code>{endpoint}</code> kautta (rajoitetut kentät, kuten <code>{field}</code>). Katso <link>Better Auth, Update client</link>.",
+            "nameLabel": "Sovelluksen nimi",
+            "namePlaceholder": "Oma sovellus",
+            "redirectUrisLabel": "Uudelleenohjausosoitteet",
+            "redirectUrisHint": "Yksi riviä kohden tai pilkuilla erotettuina. HTTPS vaaditaan. Vain julkiset asiakkaat voivat käyttää http:tä localhostissa.",
+            "redirectUrisRequired": "Anna vähintään yksi uudelleenohjausosoite (yksi riviä kohden tai pilkuilla erotettuina).",
+            "deviceCodeLabel": "Laitekirjautuminen (CLI:t, televisiot)",
+            "deviceCodeHint": "Sallii device code -grantin. Sen poistaminen käytöstä estää uudet laitekirjautumiset; jo myönnetyt tokenit toimivat edelleen.",
+            "skipConsentLabel": "Ohita suostumus (luotettu asiakas)",
+            "skipConsentHint": "Kun tämä on käytössä, käyttäjiä ei pyydetä hyväksymään tämän sovelluksen scopeja.",
+            "updateFailed": "Sovellusta ei voitu päivittää",
+            "updated": "Sovellus päivitetty"
+          },
+          "deleteDialog": {
+            "title": "Poistetaanko sovellus?",
+            "description": "Poistaa pysyvästi sovelluksen <strong>{name}</strong> (<code>{clientId}</code>). Tämän asiakkaan OAuth-tokenit ja suostumukset voivat muuttua.",
+            "deleteFailed": "Asiakasta ei voitu poistaa",
+            "deleted": "Sovellus poistettu"
+          },
+          "rotateDialog": {
+            "title": "Vaihdetaanko asiakkaan salaisuus?",
+            "description": "Edellinen salaisuus lakkaa toimimasta heti. Tallenna uusi salaisuus turvalliseen paikkaan, se voidaan näyttää vain kerran.",
+            "newSecretLabel": "Uusi asiakkaan salaisuus",
+            "copySecret": "Kopioi salaisuus",
+            "secretCopied": "Salaisuus kopioitu",
+            "rotating": "Vaihdetaan…",
+            "rotateFailed": "Salaisuutta ei voitu vaihtaa",
+            "newSecretIssued": "Uusi asiakkaan salaisuus myönnetty, kopioi se nyt",
+            "rotated": "Salaisuus vaihdettu"
+          }
+        },
+        "selfRegistered": {
+          "menuLabel": "Toiminnot: {name}",
+          "enabled": "Asiakas otettu käyttöön",
+          "disabled": "Asiakas poistettu käytöstä",
+          "deleted": "Asiakas poistettu",
+          "disableTitle": "Poistetaanko {name} käytöstä?",
+          "disableDescription": "Se ei voi enää kirjata ketään sisään eikä uusia tokeneitaan. Jo myönnetyt käyttötokenit toimivat vanhenemiseensa asti (enintään tunnin).",
+          "deleteTitle": "Poistetaanko {name}?",
+          "deleteDescriptionMetadataDocument": "Myös sen tokenit ja käyttäjien sille antamat suostumukset poistetaan. Metatietoasiakirja-asiakas luodaan uudelleen, kun se seuraavan kerran kirjaa jonkun sisään. Jos haluat estää sen, poista se käytöstä.",
+          "deleteDescriptionDynamic": "Myös sen tokenit ja käyttäjien sille antamat suostumukset poistetaan. Sovellus voi rekisteröityä uudelleen, kun dynaaminen rekisteröinti on päällä."
+        },
+        "brandingErrors": {
+          "textTooLong": "Pidä se alle {max} merkissä.",
+          "displayNameTooLong": "Näyttönimi: pidä se alle {max} merkissä.",
+          "taglineTooLong": "Iskulause: pidä se alle {max} merkissä.",
+          "panelTextTooLong": "Sivupaneelin teksti: pidä se alle {max} merkissä.",
+          "accentColor": "Korostusväri: anna heksaväri, esim. {example}.",
+          "logoSource": "Valitse, mistä logo tulee.",
+          "logoUrl": "Logon URL: anna https-URL julkisessa isännässä (oletusportti).",
+          "logoEmpty": "Logotiedosto on tyhjä.",
+          "logoTooLarge": "Logon on oltava enintään 256 kt.",
+          "logoType": "Logon on oltava PNG-, JPEG-, GIF-, WebP-, AVIF-, ICO- tai SVG-kuva.",
+          "panelImageEmpty": "Sivupaneelin kuva on tyhjä.",
+          "panelImageTooLarge": "Sivupaneelin kuvan on oltava enintään 1 Mt.",
+          "panelImageType": "Sivupaneelin kuvan on oltava PNG-, JPEG-, WebP- tai AVIF-kuva."
+        }
       },
       "apis": {
         "title": "API:t",
-        "description": "API:si (suojatut resurssit), jotka hyväksyvät {name}-käyttöoikeustunnukset: scopet, joita asiakkaat voivat pyytää, sovellukset, jotka voivat käyttää niitä, ja niiden tunnusasetukset."
+        "description": "API:si (suojatut resurssit), jotka hyväksyvät {name}-käyttöoikeustunnukset: scopet, joita asiakkaat voivat pyytää, sovellukset, jotka voivat käyttää niitä, ja niiden tunnusasetukset.",
+        "errors": {
+          "tokenSettings": {
+            "lifetimePositive": "{field, select, access {Käyttötokenin elinajan on oltava positiivinen määrä minuutteja.} other {Päivitystokenin elinajan on oltava positiivinen määrä päiviä.}}",
+            "lifetimeMinimum": "{field, select, access {Käyttötokenin elinajan} other {Päivitystokenin elinajan}} on oltava vähintään yksi minuutti.",
+            "lifetimeMaximum": "{field, select, access {Käyttötokenin elinaika voi olla enintään {max} minuuttia, palvelimen oletus.} other {Päivitystokenin elinaika voi olla enintään {max} päivää, palvelimen oletus.}}",
+            "claimsInvalidJson": "Mukautettujen claimien on oltava kelvollista JSONia, esim. {example}.",
+            "claimsNotObject": "Mukautettujen claimien on oltava JSON-objekti, esim. {example}.",
+            "claimsEmptyName": "Mukautetun claimin nimi ei voi olla tyhjä.",
+            "claimsReserved": "{count, plural, one {{claims} on varattu claim: palvelin asettaa sen.} other {{claims} ovat varattuja claimeja: palvelin asettaa ne.}} Varatut: {reserved}.",
+            "claimsTooLarge": "Mukautetut claimit ovat liian suuria (enintään {kilobytes} kt): ne lisätään jokaiseen tokeniin."
+          },
+          "invalidScope": "”{scope}” ei ole kelvollinen scope.",
+          "reservedScope": "”{scope}” on OpenID Connect -scope, joka on jo jokaisen asiakkaan käytettävissä.",
+          "invalidIdentifier": "Tunnisteen on oltava absoluuttinen URL ilman fragmenttia, esim. {example}.",
+          "registerFailed": "API:a ei voitu rekisteröidä.",
+          "authServerCannotBeDisabled": "Todennuspalvelinta itseään ei voi poistaa käytöstä.",
+          "updateFailed": "API:a ei voitu päivittää.",
+          "deleteFromEnv": "Tämä API on määritetty muuttujassa {variable} ja palaisi seuraavassa julkaisussa. Poista se sen sijaan käytöstä.",
+          "deleteFailed": "API:a ei voitu poistaa.",
+          "authServerStaysOpen": "Todennuspalvelin pysyy avoimena kaikille sovelluksille: kirjautuminen riippuu siitä.",
+          "accessFailed": "Ei voitu muuttaa sitä, mitkä sovellukset voivat käyttää API:a.",
+          "tokensFailed": "Token-asetuksia ei voitu tallentaa."
+        },
+        "duration": {
+          "days": "{count, plural, one {# päivä} other {# päivää}}",
+          "hours": "{count} h",
+          "minutes": "{count} min"
+        },
+        "tokenSummary": {
+          "accessToken": "Käyttötoken {duration}",
+          "refreshToken": "Päivitystoken {duration}",
+          "dpopRequired": "DPoP vaaditaan",
+          "claims": "Claimit: {claims}"
+        },
+        "restrictLabel": "Myönnä tälle API:lle vain nämä scopet",
+        "restrictHint": "Tämän API:n tokenit sisältävät vain nämä scopet (ja OpenID Connect -scopet). Pois: ne sisältävät kaikki asiakkaalle myönnetyt scopet.",
+        "register": {
+          "title": "Rekisteröi API",
+          "description": "Asiakkaat pyytävät sille tokenia parametrilla <code>{param}</code>. Tokenin yleisö (audience) on tunniste, ja API tarkistaa sen JWKS:ää vasten.",
+          "identifier": "Tunniste",
+          "identifierHint": "Yleensä API:n perus-URL. Sitä ei voi muuttaa myöhemmin.",
+          "namePlaceholder": "Tilaus-API",
+          "scopes": "Scopet",
+          "scopesHint": "Välilyönneillä tai pilkuilla erotettuina. Koneasiakkaat ({grant}) on rajattava joihinkin niistä.",
+          "submit": "Rekisteröi API",
+          "submitting": "Rekisteröidään…",
+          "registered": "API rekisteröity"
+        },
+        "list": {
+          "description": "Uudet ja muutetut scopet päivittyvät todennuspalvelimelle minuutissa. Pääsy- ja token-asetukset koskevat seuraavaa tokenia.",
+          "empty": "Ei vielä API:a.",
+          "envScopesTitle": "Scopet muuttujasta {variable}",
+          "envScopesText": "Kaikkien asiakkaiden käytettävissä riippumatta siitä, mitä API:a ne kutsuvat: <mono>{scopes}</mono>. Jos haluat hallita niitä täällä, lisää ne API:in, johon ne kuuluvat, ja poista sitten muuttuja."
+        },
+        "item": {
+          "authServer": "Todennuspalvelin",
+          "restricted": "Rajoitettu",
+          "linkedOnly": "Vain linkitetyt sovellukset",
+          "noResourceParam": "Tokenit myönnetään ilman resource-parametria.",
+          "noScopes": "Ei scopeja.",
+          "editAria": "Muokkaa: {name}",
+          "deleteAria": "Poista: {name}",
+          "applications": "Sovellukset",
+          "everyApplication": "Kaikki sovellukset",
+          "onlyLinked": "Vain {names}",
+          "noneLinked": "Ei linkitettyjä: mikään sovellus ei voi saada tokeneita",
+          "change": "Muuta",
+          "changeAccessAria": "Muuta, mitkä sovellukset voivat käyttää API:a {name}",
+          "tokens": "Tokenit",
+          "defaultSettings": "Oletusasetukset",
+          "changeTokensAria": "Muuta API:n {name} token-asetuksia"
+        },
+        "edit": {
+          "title": "Muokkaa: {name}",
+          "scopesHint": "Scopen poistaminen ei muuta asiakkaita, joilla se jo on, mutta mikään uusi token ei sisällä sitä.",
+          "disabledHint": "Tälle API:lle ei myönnetä uusia tokeneita. Jo myönnetyt tokenit toimivat vanhenemiseensa asti.",
+          "updated": "API päivitetty"
+        },
+        "access": {
+          "title": "Sovellukset, jotka voivat käyttää API:a {name}",
+          "allHint": "Mikä tahansa sovellus voi saada tokeneita tälle API:lle scopejensa rajoissa.",
+          "linkedLabel": "Vain linkitetyt sovellukset",
+          "linkedHint": "Muut sovellukset hylätään ({error}), myös kun ne uusivat tokenia.",
+          "linkedTitle": "Linkitetyt sovellukset",
+          "filterAria": "Suodata sovelluksia",
+          "filterPlaceholder": "Suodata nimellä tai asiakastunnuksella",
+          "noApplications": "Ei vielä sovelluksia.",
+          "noMatch": "Mikään sovellus ei vastaa hakua.",
+          "linksHintAll": "Linkeillä on merkitystä vasta, kun API on rajattu linkitettyihin sovelluksiin. Linkitetty sovellus voi myös tarkastaa (introspect) tämän API:n tokeneita.",
+          "linksHintLinked": "Linkitetty sovellus voi myös tarkastaa (introspect) tämän API:n tokeneita.",
+          "noneLinkedWarning": "Yhtään sovellusta ei ole linkitetty: mikään ei voi saada tokeneita tälle API:lle.",
+          "updated": "Pääsy päivitetty"
+        },
+        "tokens": {
+          "title": "API:n {name} token-asetukset",
+          "description": "Koskee jokaista tälle API:lle myönnettyä käyttötokenia. Jo myönnetyt tokenit säilyttävät asetuksensa.",
+          "accessTtl": "Käyttötokenin elinaika (minuutteina)",
+          "accessTtlHint": "Oletus: {minutes, plural, one {# minuutti} other {# minuuttia}}. Voi olla vain lyhyempi.",
+          "refreshTtl": "Päivitystokenin elinaika (päivinä)",
+          "refreshTtlHint": "Oletus: {days, plural, one {# päivä} other {# päivää}}. Voi olla vain lyhyempi.",
+          "claims": "Mukautetut claimit",
+          "claimsHint": "JSON-objekti, joka lisätään jokaiseen tämän API:n käyttötokeniin. Varatut: <mono>{claims}</mono>.",
+          "dpopLabel": "Vaadi DPoP-sidotut tokenit",
+          "dpopHint": "Asiakkaiden on lähetettävä DPoP-todiste saadakseen tokenin tälle API:lle, ja token sidotaan niiden avaimeen. API:n on tarkistettava todiste jokaisessa pyynnössä.",
+          "saved": "Token-asetukset tallennettu"
+        },
+        "delete": {
+          "title": "Poistetaanko {name}?",
+          "description": "Asiakkaat eivät voi enää saada sille tokeneita, ja sille jo myönnetyt tokenit lakkaavat toimimasta heti. Jos haluat estää vain uudet tokenit, poista se käytöstä.",
+          "deleted": "API poistettu"
+        }
       },
       "signInProviders": {
         "title": "Kirjautumispalvelut",
-        "description": "Anna käyttäjien kirjautua palveluun {name} Google-, Apple-, Microsoft- ja yli 30 muulla tilillä."
+        "description": "Anna käyttäjien kirjautua palveluun {name} Google-, Apple-, Microsoft- ja yli 30 muulla tilillä.",
+        "panel": {
+          "copyCallback": "Kopioi paluuosoite (callback URL)",
+          "authAppFallback": "kirjautumissovelluksen osoite",
+          "environment": "Ympäristö",
+          "activeTitle": "Kirjautumissivulla",
+          "activeDescription": "Tässä järjestyksessä kirjautumis- ja rekisteröitymissivuilla sekä kohdassa Yhdistetyt tilit jokaisen käyttäjän hallintapaneelissa. Muutokset näkyvät kirjautumissivulla 30 sekunnissa.",
+          "noneActive": "Yksikään palvelu ei ole päällä. Valitse jokin luettelosta määrittääksesi sen.",
+          "setByEnvironment": "Määritetty ympäristömuuttujilla",
+          "existingAccountsOnly": "Vain olemassa olevat tilit",
+          "connectedAccounts": "{count, plural, one {# yhdistetty tili} other {# yhdistettyä tiliä}}",
+          "moveUp": "Siirrä {name} ylös",
+          "moveDown": "Siirrä {name} alas",
+          "edit": "Muokkaa: {name}",
+          "providersTitle": "Palvelut",
+          "providersDescription": "Kaikki Better Authin tukemat palvelut. Luo OAuth-sovellus palvelussa, rekisteröi sen asetuksissa näkyvä paluuosoite ja liitä sitten tunnistetiedot. Salaisuudet tallennetaan salattuina, eikä niitä näytetä enää koskaan.",
+          "search": "Hae palveluja",
+          "noMatch": "Mikään palvelu ei vastaa hakua.",
+          "savedOn": "{name} on päällä",
+          "saved": "{name} tallennettu",
+          "removed": "Palvelun {name} asetukset poistettu",
+          "optional": "(valinnainen)",
+          "secretSet": "Asetettu",
+          "replace": "Korvaa",
+          "removedOnSave": "Poistetaan, kun tallennat.",
+          "undo": "Kumoa",
+          "newValue": "Uusi arvo",
+          "environmentDescription": "Määritetty ympäristömuuttujilla ({clientIdVar} ja {clientSecretVar}): muuta niitä siellä tai poista ne hallitaksesi tätä palvelua täällä.",
+          "defaultNote": "Luo OAuth-sovellus palvelussa {name}, rekisteröi alla oleva paluuosoite ja liitä sitten sen tunnistetiedot.",
+          "callbackUrl": "Paluuosoite (callback URL)",
+          "callbackHint": "Kutsutaan myös nimillä redirect URI tai return URL.",
+          "createApp": "Luo sovellus",
+          "setupGuide": "Määritysohje",
+          "secretsUnreadable": "Tallennettuja salaisuuksia ei voi purkaa ({envVar} on muuttunut). Syötä ne uudelleen.",
+          "buttonName": "Painikkeen nimi",
+          "buttonNameHint": "Näytetään kirjautumissivulla muodossa ”Jatka palvelulla …”.",
+          "allowSignUp": "Luo tilit uusille käyttäjille",
+          "allowSignUpHint": "Pois: vain ne, joilla on jo tili, voivat kirjautua sillä (yhdistettynä hallintapaneelista tai samalla vahvistetulla sähköpostilla).",
+          "oneTap": "Näytä Google One Tap",
+          "oneTapHint": "Googlen oma kirjautumiskehote kirjautumis- ja rekisteröitymissivujen yläosassa niille, jotka ovat jo kirjautuneet Googleen selaimessaan. Käyttää tätä asiakastunnusta: lisää {origin} sen Authorized JavaScript origins -kohtaan Google Cloud -konsolissa. Vain kun Google on päällä.",
+          "enabled": "Näytä kirjautumissivulla",
+          "enabledHint": "Pois: painike katoaa ja kirjautumiset tällä palvelulla hylätään. Asetukset säilytetään.",
+          "removeConfirm": "Poistetaanko asetukset ja salaisuudet?",
+          "removeSettings": "Poista asetukset"
+        },
+        "errors": {
+          "unknownProvider": "Tuntematon palvelu.",
+          "envManaged": "Tämä palvelu on määritetty ympäristömuuttujilla. Muuta niitä tai poista ne hallitaksesi sitä täällä.",
+          "invalidOption": "{field}: valitse {options}.",
+          "appleKeyNotEc": "Yksityinen avain: odotettiin Applelta ladattua EC (P-256) -avainta (.p8).",
+          "appleKeyInvalid": "Yksityinen avain: ei kelvollinen PEM-muotoinen yksityinen avain. Liitä koko .p8-tiedosto BEGIN- ja END-rivit mukaan lukien.",
+          "issuerNotHttps": "URL-osoitteen on alettava https://.",
+          "salesforceDomain": "My Domain: isäntänimi, esim. example.my.salesforce.com.",
+          "cognitoRegion": "Alue: AWS-alue, esim. eu-west-1.",
+          "googleHd": "Workspace-verkkotunnus: verkkotunnus, esim. example.com.",
+          "missingFields": "Täytä {fields} ennen kuin otat sen käyttöön.",
+          "unusable": "Näitä asetuksia ei voi käyttää."
+        },
+        "providers": {
+          "apple": {
+            "note": "Apple vaatii HTTPS-paluuosoitteen oikeassa verkkotunnuksessa (ei localhost) ja palauttaa käyttäjän POST-pyynnöllä.",
+            "fields": {
+              "clientId": {
+                "label": "Services ID",
+                "hint": "Sellaisen Services ID:n tunniste, jossa Sign in with Apple on käytössä, esim. com.example.signin."
+              },
+              "teamId": {
+                "label": "Team ID"
+              },
+              "keyId": {
+                "label": "Key ID",
+                "hint": "Avain, jossa Sign in with Apple on käytössä."
+              },
+              "privateKey": {
+                "label": "Yksityinen avain (.p8)",
+                "hint": "Asiakkaan salaisuus on tällä avaimella allekirjoitettu JWT; se luodaan ja uusitaan automaattisesti."
+              },
+              "appBundleIdentifier": {
+                "label": "Sovelluksen bundle ID",
+                "hint": "Vain natiiviin iOS-kirjautumiseen (ID-tokenit myönnetään sovelluksellesi Services ID:n sijaan)."
+              }
+            }
+          },
+          "atlassian": {
+            "fields": {
+              "clientId": {
+                "label": "Asiakastunnus (Client ID)"
+              },
+              "clientSecret": {
+                "label": "Asiakkaan salaisuus"
+              }
+            }
+          },
+          "cloudflare": {
+            "fields": {
+              "clientId": {
+                "label": "Asiakastunnus (Client ID)"
+              },
+              "clientSecret": {
+                "label": "Asiakkaan salaisuus",
+                "hint": "Jätä tyhjäksi julkiselle asiakkaalle (vain PKCE)."
+              }
+            }
+          },
+          "cognito": {
+            "fields": {
+              "clientId": {
+                "label": "Sovellusasiakkaan tunnus (App client ID)"
+              },
+              "clientSecret": {
+                "label": "Sovellusasiakkaan salaisuus",
+                "hint": "Vain jos sovellusasiakkaalla on salaisuus."
+              },
+              "domain": {
+                "label": "Cognito-verkkotunnus"
+              },
+              "region": {
+                "label": "Alue"
+              },
+              "userPoolId": {
+                "label": "Käyttäjäpoolin tunnus (User pool ID)"
+              }
+            }
+          },
+          "discord": {
+            "fields": {
+              "clientId": {
+                "label": "Asiakastunnus (Client ID)"
+              },
+              "clientSecret": {
+                "label": "Asiakkaan salaisuus"
+              }
+            }
+          },
+          "dropbox": {
+            "fields": {
+              "clientId": {
+                "label": "Sovellusavain (App key)"
+              },
+              "clientSecret": {
+                "label": "Sovelluksen salaisuus (App secret)"
+              }
+            }
+          },
+          "facebook": {
+            "fields": {
+              "clientId": {
+                "label": "Sovellustunnus (App ID)"
+              },
+              "clientSecret": {
+                "label": "Sovelluksen salaisuus (App secret)"
+              }
+            }
+          },
+          "figma": {
+            "fields": {
+              "clientId": {
+                "label": "Asiakastunnus (Client ID)"
+              },
+              "clientSecret": {
+                "label": "Asiakkaan salaisuus"
+              }
+            }
+          },
+          "github": {
+            "note": "OAuth App toimii sellaisenaan. GitHub App tarvitsee lisäksi tilin käyttöoikeuden Email addresses tasolla Read-only, muuten kirjautuminen epäonnistuu ilman sähköpostia.",
+            "fields": {
+              "clientId": {
+                "label": "Asiakastunnus (Client ID)"
+              },
+              "clientSecret": {
+                "label": "Asiakkaan salaisuus"
+              }
+            }
+          },
+          "gitlab": {
+            "fields": {
+              "clientId": {
+                "label": "Sovellustunnus (Application ID)"
+              },
+              "clientSecret": {
+                "label": "Asiakkaan salaisuus"
+              },
+              "issuer": {
+                "label": "GitLabin URL",
+                "hint": "Itse ylläpidetylle GitLabille."
+              }
+            }
+          },
+          "google": {
+            "fields": {
+              "clientId": {
+                "label": "Asiakastunnus (Client ID)"
+              },
+              "clientSecret": {
+                "label": "Asiakkaan salaisuus"
+              },
+              "hd": {
+                "label": "Workspace-verkkotunnus",
+                "hint": "Hyväksy vain tämän Google Workspace -verkkotunnuksen tilit."
+              }
+            }
+          },
+          "huggingface": {
+            "fields": {
+              "clientId": {
+                "label": "Asiakastunnus (Client ID)"
+              },
+              "clientSecret": {
+                "label": "Asiakkaan salaisuus"
+              }
+            }
+          },
+          "kakao": {
+            "fields": {
+              "clientId": {
+                "label": "REST API -avain"
+              },
+              "clientSecret": {
+                "label": "Asiakkaan salaisuus",
+                "hint": "Vain jos asiakkaan salaisuus on käytössä sovelluksessa."
+              }
+            }
+          },
+          "kick": {
+            "fields": {
+              "clientId": {
+                "label": "Asiakastunnus (Client ID)"
+              },
+              "clientSecret": {
+                "label": "Asiakkaan salaisuus"
+              }
+            }
+          },
+          "line": {
+            "fields": {
+              "clientId": {
+                "label": "Kanavan tunnus (Channel ID)"
+              },
+              "clientSecret": {
+                "label": "Kanavan salaisuus (Channel secret)"
+              }
+            }
+          },
+          "linear": {
+            "fields": {
+              "clientId": {
+                "label": "Asiakastunnus (Client ID)"
+              },
+              "clientSecret": {
+                "label": "Asiakkaan salaisuus"
+              }
+            }
+          },
+          "linkedin": {
+            "fields": {
+              "clientId": {
+                "label": "Asiakastunnus (Client ID)"
+              },
+              "clientSecret": {
+                "label": "Asiakkaan salaisuus"
+              }
+            }
+          },
+          "microsoft": {
+            "fields": {
+              "clientId": {
+                "label": "Sovelluksen (asiakkaan) tunnus"
+              },
+              "clientSecret": {
+                "label": "Asiakkaan salaisuuden arvo"
+              },
+              "tenantId": {
+                "label": "Vuokraaja (tenant)",
+                "hint": "common (mikä tahansa tili), organizations, consumers tai hakemistosi (vuokraajan) tunnus, jos haluat sallia vain oman organisaatiosi."
+              }
+            }
+          },
+          "naver": {
+            "fields": {
+              "clientId": {
+                "label": "Asiakastunnus (Client ID)"
+              },
+              "clientSecret": {
+                "label": "Asiakkaan salaisuus"
+              }
+            }
+          },
+          "notion": {
+            "fields": {
+              "clientId": {
+                "label": "OAuth-asiakastunnus"
+              },
+              "clientSecret": {
+                "label": "OAuth-asiakkaan salaisuus"
+              }
+            }
+          },
+          "paybin": {
+            "fields": {
+              "clientId": {
+                "label": "Asiakastunnus (Client ID)"
+              },
+              "clientSecret": {
+                "label": "Asiakkaan salaisuus"
+              },
+              "issuer": {
+                "label": "Myöntäjä (issuer)"
+              }
+            }
+          },
+          "paypal": {
+            "note": "Ota sovelluksessa käyttöön ”Log in with PayPal” ja pyydä sähköpostiosoite.",
+            "fields": {
+              "clientId": {
+                "label": "Asiakastunnus (Client ID)"
+              },
+              "clientSecret": {
+                "label": "Asiakkaan salaisuus"
+              },
+              "environment": {
+                "label": "Ympäristö"
+              }
+            }
+          },
+          "polar": {
+            "fields": {
+              "clientId": {
+                "label": "Asiakastunnus (Client ID)"
+              },
+              "clientSecret": {
+                "label": "Asiakkaan salaisuus"
+              }
+            }
+          },
+          "railway": {
+            "fields": {
+              "clientId": {
+                "label": "Asiakastunnus (Client ID)"
+              },
+              "clientSecret": {
+                "label": "Asiakkaan salaisuus"
+              }
+            }
+          },
+          "reddit": {
+            "fields": {
+              "clientId": {
+                "label": "Asiakastunnus (Client ID)"
+              },
+              "clientSecret": {
+                "label": "Asiakkaan salaisuus"
+              }
+            }
+          },
+          "roblox": {
+            "fields": {
+              "clientId": {
+                "label": "Asiakastunnus (Client ID)"
+              },
+              "clientSecret": {
+                "label": "Asiakkaan salaisuus"
+              }
+            }
+          },
+          "salesforce": {
+            "fields": {
+              "clientId": {
+                "label": "Consumer key"
+              },
+              "clientSecret": {
+                "label": "Consumer secret"
+              },
+              "environment": {
+                "label": "Ympäristö"
+              },
+              "loginUrl": {
+                "label": "My Domain",
+                "hint": "Vain isäntänimi. Korvaa osoitteen login.salesforce.com tai test.salesforce.com."
+              }
+            }
+          },
+          "slack": {
+            "fields": {
+              "clientId": {
+                "label": "Asiakastunnus (Client ID)"
+              },
+              "clientSecret": {
+                "label": "Asiakkaan salaisuus"
+              }
+            }
+          },
+          "spotify": {
+            "fields": {
+              "clientId": {
+                "label": "Asiakastunnus (Client ID)"
+              },
+              "clientSecret": {
+                "label": "Asiakkaan salaisuus"
+              }
+            }
+          },
+          "tiktok": {
+            "fields": {
+              "clientKey": {
+                "label": "Asiakasavain (Client key)"
+              },
+              "clientSecret": {
+                "label": "Asiakkaan salaisuus"
+              }
+            }
+          },
+          "twitch": {
+            "fields": {
+              "clientId": {
+                "label": "Asiakastunnus (Client ID)"
+              },
+              "clientSecret": {
+                "label": "Asiakkaan salaisuus"
+              }
+            }
+          },
+          "twitter": {
+            "note": "Käytä OAuth 2.0 -tunnistetietoja (ei API-avainta) ja pyydä sähköpostin käyttöoikeutta sovelluksen asetuksissa.",
+            "fields": {
+              "clientId": {
+                "label": "OAuth 2.0 -asiakastunnus"
+              },
+              "clientSecret": {
+                "label": "OAuth 2.0 -asiakkaan salaisuus"
+              }
+            }
+          },
+          "vercel": {
+            "fields": {
+              "clientId": {
+                "label": "Asiakastunnus (Client ID)"
+              },
+              "clientSecret": {
+                "label": "Asiakkaan salaisuus"
+              }
+            }
+          },
+          "vk": {
+            "fields": {
+              "clientId": {
+                "label": "Sovellustunnus (App ID)"
+              },
+              "clientSecret": {
+                "label": "Suojattu avain (Protected key)"
+              }
+            }
+          },
+          "wechat": {
+            "note": "Verkkosivustosovellus (kirjautuminen QR-koodilla). WeChat ei palauta sähköpostiosoitetta.",
+            "fields": {
+              "clientId": {
+                "label": "AppID"
+              },
+              "clientSecret": {
+                "label": "AppSecret"
+              }
+            }
+          },
+          "zoom": {
+            "fields": {
+              "clientId": {
+                "label": "Asiakastunnus (Client ID)"
+              },
+              "clientSecret": {
+                "label": "Asiakkaan salaisuus"
+              }
+            }
+          }
+        }
       },
       "apiKeys": {
         "title": "API-avaimet",
-        "description": "Avaimet, joita käyttäjät luovat, jotta heidän skriptinsä voivat kutsua API:itasi: ota ne käyttöön tai poista käytöstä, aseta enimmäisvoimassaoloaika ja mitätöi mikä tahansa avain."
+        "description": "Avaimet, joita käyttäjät luovat, jotta heidän skriptinsä voivat kutsua API:itasi: ota ne käyttöön tai poista käytöstä, aseta enimmäisvoimassaoloaika ja mitätöi mikä tahansa avain.",
+        "allKeys": {
+          "title": "Kaikki avaimet",
+          "description": "Uusimmat ensin{truncated, select, true {, viimeisimmät {limit}} other {}}. Vanhentuneet avaimet poistetaan, kun avaimia seuraavan kerran käytetään tai luodaan. Tilin estäminen tai poistaminen mitätöi sen avaimet; organisaation poistaminen poistaa sen avaimet (organisaation omistamat avaimet säilyvät, kun ne luonut jäsen lähtee)."
+        },
+        "settings": {
+          "description": "Käyttäjät luovat avaimia tilisivultaan johonkin API:istasi ja osaan sen scopeista. API tarkistaa jokaisen avaimen tältä palvelimelta. Avain ei koskaan kirjaa ketään sisään tälle palvelimelle tai ylläpitokonsoliin.",
+          "statusOn": "Päällä: käyttäjät voivat luoda avaimia",
+          "statusOff": "Pois: ei uusia avaimia, ja kaikki avaimet hylätään",
+          "maxLifetime": "Enimmäisvoimassaoloaika",
+          "maxLifetimeValue": "{count, plural, one {# päivä} other {# päivää}}",
+          "apisAccepting": "Avaimia hyväksyvät API:t",
+          "apisNone": "Ei yhtään: rekisteröi API, jolla on scopeja ja joka on avoin kaikille sovelluksille",
+          "verifyEndpoint": "Tarkistuksen päätepiste: <code>{endpoint}</code>. API tunnistautuu täällä rekisteröitynä sovelluksena, joka on linkitetty kyseiseen API:in (API:t-sivu, Pääsy). Linkitettyihin sovelluksiin rajatut API:t eivät hyväksy avaimia."
+        },
+        "dialog": {
+          "description": "Avaimet ovat pitkäikäisiä: suosi lyhyitä voimassaoloaikoja. Enimmäisajan laskeminen koskee vain uusia avaimia.",
+          "allowLabel": "Salli API-avaimet",
+          "allowHint": "Pois: kukaan ei voi luoda avainta, ja kaikki olemassa olevat avaimet hylätään tarkistuksessa. Avaimet säilytetään ja toimivat taas, kun otat tämän uudelleen käyttöön.",
+          "maxLifetimeLabel": "Enimmäisvoimassaoloaika (päivinä)",
+          "maxLifetimeHint": "1–{max}. Jokainen avain vanhenee.",
+          "saved": "Asetukset tallennettu. Todennuspalvelin ottaa ne käyttöön minuutissa."
+        },
+        "table": {
+          "empty": "Ei API-avaimia.",
+          "key": "Avain",
+          "owner": "Omistaja",
+          "api": "API",
+          "scopes": "Scopet",
+          "lastUsed": "Viimeksi käytetty",
+          "expires": "Vanhenee",
+          "createdBy": "luonut {email}",
+          "org": "Organisaatio",
+          "removedApi": "Poistettu API",
+          "expired": "Vanhentunut",
+          "revoke": "Mitätöi",
+          "revoked": "API-avain mitätöity",
+          "revokeTitle": "Mitätöidäänkö {name}?",
+          "revokeOrgDescription": "Tämä organisaation {owner} avain lakkaa toimimasta heti. Sen omistajat ja ylläpitäjät voivat luoda uuden, jos API-avaimet ovat käytössä.",
+          "revokeUserDescription": "Käyttäjän {owner} avain lakkaa toimimasta heti. Hän voi luoda uuden, jos API-avaimet ovat käytössä."
+        },
+        "errors": {
+          "chooseEnabled": "Valitse, ovatko API-avaimet käytössä.",
+          "maxLifetimeRange": "Enimmäisvoimassaoloajan on oltava kokonainen määrä päiviä väliltä 1–{max}.",
+          "saveFailed": "Asetuksia ei voitu tallentaa.",
+          "noKey": "Avainta ei annettu.",
+          "keyGone": "Tätä avainta ei ole enää olemassa."
+        }
       },
       "webhooks": {
         "title": "Webhookit",
         "description": "Allekirjoitetut HTTPS-ilmoitukset, jotka kertovat sovelluksillesi, kun {name}-käyttäjät, roolit tai organisaatiojäsenyydet muuttuvat.",
-        "deliveries": "Toimitusloki"
+        "deliveries": "Toimitusloki",
+        "eventDescriptions": {
+          "user_created": "Tili luodaan (rekisteröityminen, ylläpitäjä, SSO, SCIM).",
+          "user_updated": "Nimi, sähköposti, sähköpostin vahvistus, käyttäjänimi tai kuva muuttuu.",
+          "user_deleted": "Tili poistetaan.",
+          "user_banned": "Tili estetään tai SCIM poistaa sen käytöstä.",
+          "user_unbanned": "Esto poistetaan tai SCIM aktivoi tilin uudelleen.",
+          "user_role_changed": "Tilin alustarooli muuttuu.",
+          "organization_member_added": "Joku liittyy organisaatioon.",
+          "organization_member_removed": "Joku poistuu tai poistetaan organisaatiosta.",
+          "organization_member_role_changed": "Jäsenen rooli organisaatiossa muuttuu."
+        },
+        "panel": {
+          "events": "Tapahtumat",
+          "clear": "Tyhjennä",
+          "selectAll": "Valitse kaikki",
+          "signingSecret": "Allekirjoitussalaisuus",
+          "secretCopied": "Salaisuus kopioitu",
+          "copySecret": "Kopioi salaisuus",
+          "url": "URL",
+          "add": {
+            "title": "Lisää päätepiste",
+            "description": "Ostiary lähettää allekirjoitetun JSON-tapahtuman POST-pyynnöllä tähän URL-osoitteeseen, kun jokin valituista tapahtumista tapahtuu, ja yrittää uudelleen noin vuorokauden ajan, jos lähetys epäonnistuu.",
+            "urlHint": "HTTPS, julkisessa osoitteessa.",
+            "urlHintLocalhost": "HTTPS, julkisessa osoitteessa. {url} hyväksytään ({envVar}, vain kehityskäytössä).",
+            "descriptionPlaceholder": "Laskutussovellus: käyttäjien synkronointi",
+            "adding": "Lisätään…",
+            "submit": "Lisää päätepiste"
+          },
+          "list": {
+            "title": "Päätepisteet",
+            "description": "Jokainen pyyntö sisältää otsakkeet <code>{id}</code>, <code>{timestamp}</code> ja <code>{signature}</code> (Standard Webhooks). Päätepiste, joka epäonnistuu {count, plural, one {# kerran} other {# kertaa}} peräkkäin, poistetaan käytöstä.",
+            "empty": "Ei vielä päätepisteitä."
+          },
+          "created": {
+            "title": "Päätepiste lisätty",
+            "description": "Kopioi allekirjoitussalaisuus sovellukseen osoitteessa {url}: se tarkistaa sillä jokaisen toimituksen. Sitä ei näytetä uudelleen."
+          },
+          "test": {
+            "delivered": "Testitapahtuma toimitettu (HTTP {status})",
+            "failed": "Testitapahtuma epäonnistui: {reason}"
+          },
+          "item": {
+            "disabledFailures": "Poistettu käytöstä toistuvien virheiden vuoksi",
+            "rotating": "Salaisuutta vaihdetaan",
+            "editLabel": "Muokkaa: {label}",
+            "deleteLabel": "Poista: {label}",
+            "disabledNotice": "Poistettu käytöstä {count, plural, one {# peräkkäisen epäonnistuneen yrityksen} other {# peräkkäisen epäonnistuneen yrityksen}} jälkeen. Korjaa vastaanottaja ja ota se sitten uudelleen käyttöön: odottavat tapahtumat lähetetään uudelleen.",
+            "disabledNoticeOn": "Poistettu käytöstä {date} {count, plural, one {# peräkkäisen epäonnistuneen yrityksen} other {# peräkkäisen epäonnistuneen yrityksen}} jälkeen. Korjaa vastaanottaja ja ota se sitten uudelleen käyttöön: odottavat tapahtumat lähetetään uudelleen.",
+            "lastSuccess": "Viimeisin onnistuminen",
+            "lastFailure": "Viimeisin virhe",
+            "inARow": "({count} peräkkäin)",
+            "deliveries": "Toimitukset",
+            "deliveriesValue": "{pending} odottaa tai yritetään uudelleen · {failed} epäonnistui",
+            "sendTest": "Lähetä testitapahtuma",
+            "deliveryLog": "Toimitusloki",
+            "regenerateSecret": "Luo salaisuus uudelleen"
+          },
+          "edit": {
+            "title": "Muokkaa päätepistettä",
+            "enabledHint": "Kun päätepiste on poissa käytöstä, sille ei tallenneta uusia tapahtumia ja uudelleenyritykset odottavat.",
+            "updated": "Päätepiste päivitetty"
+          },
+          "rotate": {
+            "title": "Luodaanko allekirjoitussalaisuus uudelleen?",
+            "description": "Toimitukset allekirjoitetaan 24 tunnin ajan sekä vanhalla että uudella salaisuudella, jotta sovellus voi vaihtaa ilman, että tapahtumia jää saamatta.",
+            "newTitle": "Uusi allekirjoitussalaisuus",
+            "newDescription": "Kopioi se sovellukseen nyt: sitä ei näytetä uudelleen. Seuraavan 24 tunnin ajan toimituksissa on myös vanhalla salaisuudella tehty allekirjoitus.",
+            "confirm": "Luo uudelleen"
+          },
+          "delete": {
+            "title": "Poistetaanko tämä päätepiste?",
+            "description": "{url} lakkaa vastaanottamasta tapahtumia, ja sen toimitusloki ja odottavat uudelleenyritykset poistetaan. Jos haluat keskeyttää sen, poista se käytöstä.",
+            "deleted": "Päätepiste poistettu"
+          }
+        },
+        "redeliver": {
+          "button": "Toimita uudelleen",
+          "delivered": "Toimitettu (HTTP {status})",
+          "failed": "Epäonnistui: {reason}"
+        },
+        "log": {
+          "status": {
+            "succeeded": "Toimitettu",
+            "failed": "Epäonnistui",
+            "pending": "Odottaa"
+          },
+          "disabled": "Poissa käytöstä: uudelleenyritykset odottavat, kunnes se otetaan taas käyttöön.",
+          "empty": "Ei vielä toimituksia. Kokeile päätepistettä Webhookit-sivun toiminnolla ”Lähetä testitapahtuma”.",
+          "event": "Tapahtuma",
+          "response": "Vastaus",
+          "attempts": "Yritykset",
+          "nextRetry": "Seuraava yritys",
+          "answer": "Vastaus",
+          "error": "virhe",
+          "footer": "Viimeisimmät {shown} toimitusta. Toimituksia säilytetään {days, plural, one {# päivä} other {# päivää}}. Epäonnistunutta toimitusta yritetään uudelleen {retries, plural, one {# kerran} other {# kertaa}} noin vuorokauden aikana; ”Toimita uudelleen” lähettää saman tapahtuman (sama {header}) heti uudelleen."
+        },
+        "errors": {
+          "noEvents": "Valitse vähintään yksi tapahtuma.",
+          "tooMany": "Enintään {max} päätepistettä.",
+          "endpointNotFound": "Päätepistettä ei löytynyt.",
+          "disabledTest": "Päätepiste on poissa käytöstä: ota se käyttöön lähettääksesi testitapahtuman.",
+          "testNotSent": "Testitapahtumaa ei voitu lähettää.",
+          "deliveryNotFound": "Toimitusta ei löytynyt.",
+          "disabledRedeliver": "Päätepiste on poissa käytöstä: ota se käyttöön toimittaaksesi uudelleen.",
+          "eventNotSent": "Tapahtumaa ei voitu lähettää."
+        }
       },
       "users": {
-        "title": "Users",
-        "description": "Find accounts, change roles, ban or remove them, and open an account to see its sessions and activity."
+        "title": "Käyttäjät",
+        "description": "Etsi tilejä, vaihda rooleja, estä tai poista tilejä ja avaa tili nähdäksesi sen istunnot ja toiminnan.",
+        "list": {
+          "searchPlaceholder": "Hae nimellä tai sähköpostilla…",
+          "searchLabel": "Hae käyttäjiä",
+          "rolePlaceholder": "Rooli",
+          "roleAll": "Kaikki roolit",
+          "roleAdmin": "Ylläpitäjä",
+          "roleUser": "Käyttäjä",
+          "loadErrorTitle": "Käyttäjiä ei voitu ladata",
+          "loadErrorFallback": "Käyttäjien lataus epäonnistui",
+          "columns": {
+            "user": "Käyttäjä",
+            "role": "Rooli",
+            "status": "Tila",
+            "verified": "Vahvistettu",
+            "joined": "Liittynyt"
+          },
+          "loading": "Ladataan käyttäjiä…",
+          "empty": "Mikään käyttäjä ei vastaa suodattimia.",
+          "noUsers": "0 käyttäjää",
+          "showing": "Näytetään {from}–{to} / {total}",
+          "rowsPerPage": "Rivejä sivulla",
+          "previous": "Edellinen",
+          "next": "Seuraava",
+          "pageOf": "Sivu {page} / {pages}",
+          "poweredBy": "Toteutettu <link>Better Auth admin -lisäosan</link> metodeilla <code>listUsers</code>, <code>createUser</code>, <code>setRole</code>, <code>updateUser</code>, <code>setUserPassword</code> ja muilla vastaavilla. Sinun on oltava kirjautunut ylläpitäjänä."
+        },
+        "status": {
+          "banned": "Estetty",
+          "active": "Aktiivinen"
+        },
+        "create": {
+          "trigger": "Lisää käyttäjä",
+          "title": "Lisää käyttäjä",
+          "description": "Luo tilin metodilla <code>createUser</code>.",
+          "email": "Sähköposti",
+          "password": "Salasana",
+          "name": "Nimi",
+          "role": "Rooli",
+          "error": "Käyttäjää ei voitu luoda",
+          "created": "Käyttäjä luotu",
+          "submit": "Luo käyttäjä",
+          "creating": "Luodaan…"
+        },
+        "rowActions": {
+          "menuLabel": "Toiminnot: {name}",
+          "copyId": "Kopioi käyttäjätunnus (ID)",
+          "idCopied": "Käyttäjätunnus (ID) kopioitu",
+          "edit": "Muokkaa käyttäjää",
+          "setPassword": "Aseta salasana",
+          "makeAdmin": "Tee ylläpitäjäksi",
+          "makeUser": "Tee tavalliseksi käyttäjäksi",
+          "ban": "Estä käyttäjä",
+          "unban": "Poista käyttäjän esto",
+          "remove": "Poista käyttäjä",
+          "roleError": "Roolia ei voitu päivittää",
+          "roleSet": "Rooliksi asetettu {role}",
+          "unbanError": "Käyttäjän estoa ei voitu poistaa",
+          "unbanned": "Käyttäjän esto poistettu",
+          "banError": "Käyttäjää ei voitu estää",
+          "banned": "Käyttäjä estetty",
+          "removeError": "Käyttäjää ei voitu poistaa",
+          "removed": "Käyttäjä poistettu",
+          "emailRequired": "Sähköposti on pakollinen",
+          "noChanges": "Ei tallennettavia muutoksia",
+          "updateError": "Käyttäjää ei voitu päivittää",
+          "updated": "Käyttäjä päivitetty",
+          "passwordRequired": "Anna uusi salasana.",
+          "passwordMismatch": "Salasanat eivät täsmää.",
+          "passwordError": "Salasanaa ei voitu asettaa",
+          "passwordUpdated": "Salasana päivitetty",
+          "editTitle": "Muokkaa käyttäjää",
+          "editDescription": "Muuta nimeä tai sähköpostiosoitetta. Käyttäjän on vahvistettava uusi sähköpostiosoite ennen kuin hän voi kirjautua uudelleen.",
+          "name": "Nimi",
+          "email": "Sähköposti",
+          "passwordTitle": "Aseta salasana",
+          "passwordDescription": "Asettaa käyttäjälle <strong>{email}</strong> uuden salasanan metodilla <code>setUserPassword</code>.",
+          "newPassword": "Uusi salasana",
+          "confirmPassword": "Vahvista salasana",
+          "updatePassword": "Päivitä salasana",
+          "removeTitle": "Poistetaanko käyttäjä?",
+          "removeDescription": "Tämä poistaa pysyvästi käyttäjän <strong>{name}</strong> ({email}) ja kaiken tiliin liittyvän. Tarkastuslokin merkinnät säilytetään ilman nimeä ja sähköpostia. Tätä ei voi kumota.",
+          "removeConfirm": "Poista",
+          "removing": "Poistetaan…"
+        },
+        "detailActions": {
+          "impersonateError": "Tämän käyttäjän tiliin ei voitu kirjautua.",
+          "signOutError": "Tätä käyttäjää ei voitu kirjata ulos.",
+          "signedOut": "Kirjattu ulos {count, plural, one {# istunnosta} other {# istunnosta}}",
+          "exportError": "Tämän käyttäjän tietoja ei voitu viedä.",
+          "exported": "Tiedot viety. Vienti on kirjattu tarkastuslokiin.",
+          "exportData": "Vie tiedot",
+          "impersonate": "Kirjaudu käyttäjänä",
+          "signOutEverywhere": "Kirjaa ulos kaikkialta",
+          "impersonateTitle": "Kirjaudutaanko käyttäjänä {email}?",
+          "signOutTitle": "Kirjataanko {email} ulos kaikkialta?",
+          "impersonateDescription": "Näet tilin hallintapaneelin täsmälleen kuten tämä käyttäjä, enintään tunnin ajan. Siellä oleva banneri antaa sinun lopettaa ja palata. Tämä kirjataan tarkastuslokiin.",
+          "signOutDescription": "Tämän käyttäjän kaikki istunnot päättyvät nyt kaikilla laitteilla. Hänen on kirjauduttava uudelleen.",
+          "sessionRevoked": "Istunto mitätöity",
+          "revokeError": "Tätä istuntoa ei voitu mitätöidä.",
+          "revoke": "Mitätöi",
+          "resetTwoFactorError": "Kaksivaiheista tunnistautumista ei voitu nollata.",
+          "twoFactorReset": "Kaksivaiheinen tunnistautuminen poistettu käytöstä",
+          "reset": "Nollaa",
+          "resetTwoFactorTitle": "Nollataanko käyttäjän {email} kaksivaiheinen tunnistautuminen?",
+          "resetTwoFactorDescription": "Käyttäjän todennussovellus, varakoodit ja luotetut laitteet lakkaavat toimimasta, ja hän kirjautuu pelkällä salasanalla, kunnes ottaa sen uudelleen käyttöön. Tee tämä vain, kun olet varmistanut pyytäjän henkilöllisyyden. Tämä kirjataan tarkastuslokiin."
+        },
+        "detail": {
+          "emailVerified": "Sähköposti vahvistettu",
+          "emailNotVerified": "Sähköpostia ei vahvistettu",
+          "banned": "Estetty",
+          "bannedWithReason": "Estetty: {reason}",
+          "scimTitle": "SCIM-provisioitu: {organizations}",
+          "scimDescription": "Identiteetintarjoaja hallitsee tätä tiliä. Poista käyttäjä siellä: tilin poistaminen täällä ei estä hakemistoa luomasta sitä uudelleen seuraavassa synkronoinnissa. Käyttäjä ei voi poistaa tiliä hallintapaneelistaan.",
+          "tiles": {
+            "joined": "Liittynyt",
+            "activeSessions": "Aktiiviset istunnot",
+            "passkeys": "Pääsyavaimet",
+            "twoFactor": "Kaksivaiheinen"
+          },
+          "device": {
+            "unknown": "Tuntematon laite",
+            "browser": "Selain",
+            "browserOnOs": "{browser}, {os}"
+          },
+          "sessions": {
+            "title": "Aktiiviset istunnot",
+            "description": "Laitteet, joilla tämä tili on kirjautuneena.",
+            "empty": "Ei aktiivisia istuntoja.",
+            "device": "Laite",
+            "ipAddress": "IP-osoite",
+            "lastActive": "Viimeksi aktiivinen",
+            "impersonated": "Ylläpitäjän istunto käyttäjänä"
+          },
+          "apiKeys": {
+            "title": "API-avaimet",
+            "description": "Tämän tilin skripteille luomat avaimet. Tilin estäminen tai poistaminen mitätöi ne."
+          },
+          "signInMethods": {
+            "title": "Kirjautumistavat",
+            "credential": "Sähköposti ja salasana",
+            "sso": "SSO: {provider}",
+            "passkey": "Pääsyavain: {name} <muted>({deviceType})</muted>",
+            "unnamed": "Nimetön",
+            "empty": "Ei kirjautumistapoja.",
+            "twoFactor": "Kaksivaiheinen tunnistautuminen <muted>(todennussovellus)</muted>",
+            "managedByYou": "Hallitaan omalta tililtäsi"
+          },
+          "organizations": {
+            "title": "Organisaatiot",
+            "empty": "Ei minkään organisaation jäsen."
+          },
+          "activity": {
+            "title": "Viimeaikainen kirjautumisaktiivisuus",
+            "empty": "Toimintaa ei ole vielä kirjattu.",
+            "events": {
+              "sign_in": "Kirjautui sisään",
+              "sign_up": "Loi tilin",
+              "sign_out": "Kirjautui ulos",
+              "sign_in_failed": "Epäonnistunut kirjautuminen"
+            }
+          },
+          "audit": {
+            "title": "Ylläpitotoimet tälle tilille",
+            "empty": "Ei vielä ylläpitotoimia.",
+            "by": "tekijä: {actor}",
+            "system": "järjestelmä"
+          }
+        }
       },
       "consent": {
-        "title": "Consent",
-        "description": "Permissions people have granted to OAuth clients, with the scopes and when they were given."
+        "title": "Suostumukset",
+        "description": "Käyttöoikeudet, jotka ihmiset ovat myöntäneet OAuth-asiakkaille, sekä scopet ja myöntämisajankohdat.",
+        "panel": {
+          "signedInUser": "Kirjautunut käyttäjä",
+          "loadConsentsFailed": "Suostumusten lataus epäonnistui",
+          "loadClientsFailed": "OAuth-asiakkaiden lataus epäonnistui",
+          "loadErrorTitle": "Suostumuksia ei voitu ladata",
+          "searchPlaceholder": "Hae käyttäjällä, asiakkaalla, suostumuksen tunnuksella, viitteellä tai scopella…",
+          "searchLabel": "Hae suostumuksia",
+          "filter": {
+            "placeholder": "Scope-suodatin",
+            "all": "Kaikki suostumukset",
+            "hasScope": "Sisältää scopen {scope}"
+          },
+          "columns": {
+            "user": "Käyttäjä",
+            "application": "Sovellus",
+            "scopes": "Scopet",
+            "reference": "Viite",
+            "granted": "Myönnetty",
+            "updated": "Päivitetty"
+          },
+          "loading": "Ladataan suostumuksia…",
+          "emptyNone": "Tälle tilille ei ole vielä kirjattu suostumuksia.",
+          "emptyFiltered": "Mikään suostumus ei vastaa suodattimia.",
+          "noResults": "0 suostumusta",
+          "showing": "Näytetään {from}–{to} / {total}",
+          "rowsPerPage": "Rivejä sivulla",
+          "previous": "Edellinen",
+          "next": "Seuraava",
+          "pageOf": "Sivu {page} / {total}",
+          "footnote": "Tiedot lähteestä <code>{getConsents}</code>; asiakkaiden nimet haetaan kohteesta <code>{getClients}</code>. Mitätöinti käyttää kohdetta <code>{deleteConsent}</code>. Katso <consentLink>OAuth consent</consentLink> <providerLink>OAuth provider</providerLink> -dokumentaatiosta. Interaktiivinen valtuutusnäkymä on osoitteessa <code>{path}</code>."
+        },
+        "rowActions": {
+          "menuLabel": "Suostumuksen {id}… toiminnot",
+          "copyConsentId": "Kopioi suostumuksen tunnus",
+          "consentIdCopied": "Suostumuksen tunnus kopioitu",
+          "copyClientId": "Kopioi asiakastunnus",
+          "clientIdCopied": "Asiakastunnus kopioitu",
+          "viewDetails": "Näytä tiedot",
+          "updateScopes": "Päivitä scopet",
+          "wireTo": "Kytke metodiin {method}",
+          "revoke": "Peru suostumus",
+          "revokeFailed": "Suostumusta ei voitu perua",
+          "revoked": "Suostumus peruttu",
+          "dialogTitle": "Perutaanko suostumus?",
+          "dialogDescription": "Poistaa tämän käyttäjän myöntämän luvan asiakkaalle <strong>{client}</strong> (<code>{clientId}</code>). Asiakas voi joutua pyytämään valtuutusta uudelleen.",
+          "revoking": "Perutaan…",
+          "revokeButton": "Peru"
+        }
       },
       "usage": {
         "title": "Sovellusten käyttö",
-        "description": "Mitä sovelluksia käytetään: käyttöoikeustunnukset, käyttäjät ja suostumukset sovelluksittain viimeisten 30 päivän ajalta."
+        "description": "Mitä sovelluksia käytetään: käyttöoikeustunnukset, käyttäjät ja suostumukset sovelluksittain viimeisten 30 päivän ajalta.",
+        "tiles": {
+          "tokens": "Myönnetyt tokenit, 30 päivää",
+          "active": "Käytössä olevat sovellukset",
+          "unused": "Käyttämättömät sovellukset"
+        },
+        "card": {
+          "title": "Käyttötokenit sovelluksittain, viimeiset 30 päivää",
+          "unused": "{count, plural, one {# aktiivinen sovellus ei ole myöntänyt tokenia 30 päivään: harkitse sen poistamista käytöstä tai poistamista.} other {# aktiivista sovellusta ei ole myöntänyt tokenia 30 päivään: harkitse niiden poistamista käytöstä tai poistamista.}}",
+          "allUsed": "Jokainen aktiivinen sovellus on myöntänyt tokeneita viimeisten 30 päivän aikana.",
+          "empty": "OAuth-asiakkaita ei ole rekisteröity.",
+          "application": "Sovellus",
+          "tokens": "Tokenit",
+          "users": "Käyttäjät",
+          "consents": "Suostumukset",
+          "lastToken": "Viimeisin token",
+          "lastTokenValue": "Viimeisin token: {date}",
+          "showInApplications": "Näytä Sovellukset-sivulla",
+          "unusedBadge": "Käyttämätön"
+        }
       },
       "audit": {
-        "title": "Audit log",
-        "description": "Every change made from this console or the admin API: who did it, to what, and when.",
-        "footnote": "Showing the latest 200 entries. Passwords and secrets are never recorded."
+        "title": "Tarkastusloki",
+        "description": "Jokainen tästä konsolista tai ylläpidon API:n kautta tehty muutos: kuka sen teki, mihin ja milloin.",
+        "footnote": "Näytetään viimeisimmät 200 merkintää. Salasanoja ja salaisuuksia ei koskaan tallenneta.",
+        "filterLabel": "Suodata alueen mukaan",
+        "filters": {
+          "all": "Kaikki",
+          "user": "Käyttäjät",
+          "organization": "Organisaatiot",
+          "oauth_client": "OAuth-asiakkaat",
+          "oauth_consent": "Suostumukset",
+          "oauth_resource": "API:t",
+          "api_key": "API-avaimet",
+          "sso_provider": "SSO",
+          "signing_key": "Allekirjoitusavaimet",
+          "webhook": "Webhookit",
+          "social_provider": "Kirjautumispalvelut"
+        },
+        "empty": "Ylläpitotoimia ei ole vielä kirjattu.",
+        "columns": {
+          "when": "Milloin",
+          "who": "Kuka",
+          "action": "Toiminto",
+          "target": "Kohde",
+          "details": "Tiedot",
+          "ip": "IP"
+        },
+        "system": "Järjestelmä",
+        "actions": {
+          "user": {
+            "create": "Loi käyttäjän",
+            "update": "Päivitti käyttäjän",
+            "set_role": "Muutti roolia",
+            "set_password": "Asetti salasanan",
+            "ban": "Esti käyttäjän",
+            "unban": "Poisti käyttäjän eston",
+            "delete": "Poisti käyttäjän",
+            "revoke_session": "Mitätöi istunnon",
+            "revoke_all_sessions": "Kirjasi käyttäjän ulos kaikkialta",
+            "impersonate": "Kirjautui käyttäjänä",
+            "reset_two_factor": "Nollasi kaksivaiheisen tunnistautumisen",
+            "export_data": "Vei tilin tiedot",
+            "self_delete": "Poisti oman tilinsä"
+          },
+          "oauth_client": {
+            "create": "Rekisteröi OAuth-asiakkaan",
+            "update": "Päivitti OAuth-asiakkaan",
+            "delete": "Poisti OAuth-asiakkaan",
+            "rotate_secret": "Vaihtoi asiakkaan salaisuuden",
+            "self_register": "Asiakas rekisteröityi itse",
+            "disable": "Poisti OAuth-asiakkaan käytöstä",
+            "enable": "Otti OAuth-asiakkaan käyttöön",
+            "branding_update": "Muutti kirjautumisen brändäystä",
+            "branding_reset": "Palautti kirjautumisen brändäyksen"
+          },
+          "client_registration": {
+            "update": "Muutti asiakkaiden itserekisteröintiä"
+          },
+          "oauth_resource": {
+            "create": "Rekisteröi API:n",
+            "update": "Päivitti API:n",
+            "delete": "Poisti API:n",
+            "access": "Muutti API:n pääsyä",
+            "tokens": "Muutti API:n token-asetuksia"
+          },
+          "api_key": {
+            "create": "Loi API-avaimen",
+            "revoke": "Mitätöi API-avaimen",
+            "revoke_all": "Mitätöi kaikki API-avaimet",
+            "settings": "Muutti API-avainten asetuksia"
+          },
+          "oauth_consent": {
+            "update": "Päivitti suostumuksen",
+            "delete": "Perui suostumuksen"
+          },
+          "oauth_device": {
+            "approve": "Hyväksyi laitekirjautumisen",
+            "deny": "Hylkäsi laitekirjautumisen"
+          },
+          "organization": {
+            "create": "Loi organisaation",
+            "update": "Nimesi organisaation uudelleen",
+            "delete": "Poisti organisaation",
+            "invite": "Kutsui jäsenen",
+            "cancel_invitation": "Peruutti kutsun",
+            "update_member_role": "Muutti jäsenen roolia",
+            "remove_member": "Poisti jäsenen"
+          },
+          "sso_provider": {
+            "create": "Rekisteröi SSO-palveluntarjoajan",
+            "update": "Päivitti SSO-palveluntarjoajan",
+            "delete": "Poisti SSO-palveluntarjoajan",
+            "verify_domain": "Vahvisti SSO-verkkotunnuksen"
+          },
+          "social_provider": {
+            "create": "Määritti kirjautumispalvelun",
+            "update": "Päivitti kirjautumispalvelun",
+            "delete": "Poisti kirjautumispalvelun",
+            "reorder": "Järjesti kirjautumispalvelut uudelleen"
+          },
+          "scim": {
+            "token_create": "Loi SCIM-tokenin",
+            "token_rotate": "Korvasi SCIM-tokenin",
+            "token_revoke": "Mitätöi SCIM-tokenin"
+          },
+          "signing_key": {
+            "rotate": "Kierrätti allekirjoitusavaimen",
+            "update_settings": "Muutti allekirjoitusavaimen kierrätystä"
+          },
+          "webhook": {
+            "create": "Lisäsi webhook-päätepisteen",
+            "update": "Päivitti webhook-päätepisteen",
+            "enable": "Otti webhook-päätepisteen käyttöön",
+            "disable": "Poisti webhook-päätepisteen käytöstä",
+            "delete": "Poisti webhook-päätepisteen",
+            "rotate_secret": "Loi webhookin salaisuuden uudelleen",
+            "test": "Lähetti webhookin testitapahtuman",
+            "redeliver": "Toimitti webhook-tapahtuman uudelleen"
+          }
+        }
       },
       "security": {
-        "title": "Security",
-        "description": "Failed sign-in attempts, the accounts and addresses behind them, and banned accounts."
+        "title": "Turvallisuus",
+        "description": "Epäonnistuneet kirjautumisyritykset, niiden taustalla olevat tilit ja osoitteet sekä estetyt tilit.",
+        "tiles": {
+          "failed24h": "Epäonnistuneet kirjautumiset, 24 tuntia",
+          "failed7d": "Epäonnistuneet kirjautumiset, 7 päivää",
+          "banned": "Estetyt tilit"
+        },
+        "chart": {
+          "failed": "Epäonnistuneet kirjautumiset"
+        },
+        "perDay": {
+          "title": "Epäonnistuneet kirjautumiset päivittäin",
+          "description": "Väärä salasana tai tuntematon tili, viimeiset 30 päivää (yhteensä {total, number}). Seurattu 6.10.2026 alkaen."
+        },
+        "noFailures": "Ei epäonnistuneita kirjautumisia viimeisten 7 päivän aikana.",
+        "attempts": "Yritykset",
+        "topAccounts": {
+          "title": "Eniten kohteena olleet tilit, 7 päivää",
+          "description": "Kokeiltu sähköpostiosoite tai käyttäjänimi riippumatta siitä, onko tiliä olemassa.",
+          "identifier": "Sähköposti tai käyttäjänimi",
+          "last": "Viimeisin"
+        },
+        "topIps": {
+          "title": "Aktiivisimmat IP-osoitteet, 7 päivää",
+          "description": "Yksi osoite, joka kokeilee monia tilejä, tarkoittaa yleensä tunnistetietojen täyttöhyökkäystä (credential stuffing).",
+          "ip": "IP-osoite",
+          "accounts": "Kokeillut tilit"
+        },
+        "banned": {
+          "title": "Estetyt tilit",
+          "empty": "Ei estettyjä tilejä.",
+          "noReason": "Syytä ei annettu",
+          "until": "{date} asti",
+          "permanent": "pysyvä"
+        }
       },
       "signingKeys": {
         "title": "Allekirjoitusavaimet",
@@ -380,88 +1812,236 @@
           "save": "Asetusten tallennus epäonnistui.",
           "rotate": "Avaimen kierrätys epäonnistui."
         }
+      },
+      "organizations": {
+        "controls": {
+          "unexpectedError": "Jokin meni vikaan.",
+          "organizationUpdated": "Organisaatio päivitetty",
+          "slug": "URL-tunniste",
+          "role": "Rooli",
+          "roleUpdated": "Rooli päivitetty",
+          "roles": {
+            "owner": "omistaja",
+            "admin": "ylläpitäjä",
+            "member": "jäsen"
+          },
+          "removeMemberLabel": "Poista {email}",
+          "removeMemberTitle": "Poistetaanko {email}?",
+          "removeMemberBody": "Hän menettää pääsyn tähän organisaatioon. Hänen tilinsä säilyy.",
+          "memberRemoved": "Jäsen poistettu",
+          "cancelInvitationLabel": "Peruuta kutsu: {email}",
+          "cancelInvitationTitle": "Peruutetaanko kutsu: {email}?",
+          "cancelInvitationBody": "Sähköpostissa oleva linkki lakkaa toimimasta.",
+          "cancelInvitation": "Peruuta kutsu",
+          "invitationCancelled": "Kutsu peruutettu",
+          "invitationSent": "Kutsu lähetetty",
+          "inviteByEmail": "Kutsu sähköpostilla",
+          "sendInvitation": "Lähetä kutsu"
+        },
+        "scim": {
+          "unexpectedError": "Jokin meni vikaan.",
+          "tokenRevoked": "Token mitätöity",
+          "baseUrl": "Perus-URL",
+          "copyBaseUrl": "Kopioi perus-URL",
+          "token": "Token",
+          "copyToken": "Kopioi token",
+          "active": "Aktiivinen",
+          "expires": "Vanhenee",
+          "lastUsed": "Viimeksi käytetty",
+          "noToken": "Ei aktiivista tokenia. Identiteetintarjoaja ei voi provisioida ennen kuin luot sellaisen.",
+          "newToken": "Uusi token",
+          "revoke": "Mitätöi",
+          "generateToken": "Luo token",
+          "rotateTitle": "Korvataanko SCIM-token?",
+          "revokeTitle": "Mitätöidäänkö SCIM-token?",
+          "rotateBody": "Nykyinen token lakkaa toimimasta nyt. Liitä uusi identiteetintarjoajaasi, jotta provisiointi jatkuu.",
+          "revokeBody": "Identiteetintarjoajasi ei voi enää luoda, päivittää tai poistaa käytöstä tilejä. Olemassa olevia tilejä ei muuteta.",
+          "replaceToken": "Korvaa token",
+          "revokeToken": "Mitätöi token",
+          "issuedTitle": "SCIM-token",
+          "issuedDescription": "Kopioi se nyt: sitä ei näytetä uudelleen. Se vanhenee vuoden kuluttua.",
+          "tokenHint": "Liitä se bearer-tokeniksi (Okta: API token, Entra ID: secret token)."
+        },
+        "detail": {
+          "back": "Organisaatiot",
+          "defaultWorkspace": "Oletustyötila",
+          "createdAt": "Luotu {date}",
+          "members": "Jäsenet",
+          "publicMembers": "Jokainen tili kuuluu Public-työtilaan, joten jäseniä ei voi poistaa täällä. Näytetään ensimmäiset 50.",
+          "memberCount": "{count, plural, one {# jäsen} other {# jäsentä}}.",
+          "noMembers": "Ei vielä jäseniä.",
+          "member": "Jäsen",
+          "joined": "Liittynyt",
+          "role": "Rooli",
+          "deactivated": "Poistettu käytöstä",
+          "banned": "Estetty",
+          "invitationExpires": "vanhenee {date}",
+          "noInvitations": "Ei odottavia kutsuja.",
+          "apiKeys": "API-avaimet",
+          "apiKeysDescription": "Tämän organisaation omistamat avaimet, jotka sen omistajat ja ylläpitäjät ovat luoneet tilinsä hallintapaneelissa. Ne toimivat edelleen, kun ne luonut jäsen lähtee, ja ne poistetaan organisaation mukana.",
+          "details": "Tiedot",
+          "sso": "Kertakirjautuminen",
+          "ssoDescription": "Tähän organisaatioon liitetyt identiteetintarjoajat.",
+          "ssoNone": "Ei yhtään. <link>Määritä sellainen</link>.",
+          "verified": "Vahvistettu",
+          "unverified": "Vahvistamaton",
+          "scim": "SCIM-provisiointi",
+          "scimDescription": "Identiteetintarjoajasi (Okta, Entra ID ja muut) luo tämän organisaation tilit ja poistaa ne käytöstä, kun ihmiset lähtevät.",
+          "scimCounts": "{active} provisioitu, {inactive} poistettu käytöstä.",
+          "recentActions": "Viimeaikaiset ylläpitotoimet",
+          "noActions": "Ei vielä yhtään.",
+          "system": "järjestelmä"
+        },
+        "errors": {
+          "invalidNameSlug": "Anna nimi ja URL-tunniste, joka koostuu kirjaimista, numeroista ja yhdysmerkeistä.",
+          "publicSlug": "Public-työtilan URL-tunniste on aina ”public”.",
+          "slugTaken": "Toinen organisaatio käyttää jo tätä URL-tunnistetta.",
+          "unknownRole": "Tuntematon rooli.",
+          "memberNotFound": "Jäsentä ei löytynyt.",
+          "publicMembers": "Jokainen tili kuuluu Public-työtilaan.",
+          "invalidEmail": "Anna kelvollinen sähköpostiosoite.",
+          "noInvitations": "Tähän organisaatioon ei voi kutsua.",
+          "alreadyMember": "Tämä henkilö on jo jäsen.",
+          "invitationNotFound": "Kutsua ei löytynyt.",
+          "requestFailed": "Pyyntö epäonnistui.",
+          "scimUnavailable": "Tämä organisaatio ei voi käyttää SCIM-provisiointia.",
+          "noActiveToken": "Aktiivista tokenia ei ole."
+        }
+      }
+    },
+    "common": {
+      "cancel": "Peruuta",
+      "save": "Tallenna",
+      "saving": "Tallennetaan…",
+      "saveChanges": "Tallenna muutokset",
+      "delete": "Poista",
+      "deleting": "Poistetaan…",
+      "edit": "Muokkaa",
+      "remove": "Poista",
+      "close": "Sulje",
+      "copied": "Kopioitu",
+      "enabled": "Käytössä",
+      "disabled": "Poissa käytöstä",
+      "enable": "Ota käyttöön",
+      "disable": "Poista käytöstä",
+      "on": "Päällä",
+      "off": "Pois",
+      "yes": "Kyllä",
+      "no": "Ei",
+      "never": "Ei koskaan",
+      "none": "Ei mitään",
+      "actions": "Toiminnot",
+      "created": "Luotu",
+      "name": "Nimi",
+      "description": "Kuvaus",
+      "status": "Tila",
+      "back": "Takaisin",
+      "done": "Valmis",
+      "loading": "Ladataan…",
+      "refresh": "Päivitä",
+      "search": "Hae",
+      "optional": "Valinnainen",
+      "unexpectedError": "Jokin meni vikaan. Yritä uudelleen."
+    },
+    "urlCheck": {
+      "tooLong": "URL-osoite on liian pitkä.",
+      "notAbsolute": "Anna absoluuttinen URL, esim. https://app.example.com/webhooks.",
+      "credentials": "URL-osoite ei saa sisältää käyttäjänimeä tai salasanaa.",
+      "fragment": "URL-osoite ei saa sisältää fragmenttia (#).",
+      "notHttps": "URL-osoitteen on käytettävä https://-muotoa.",
+      "localhost": "URL-osoite osoittaa tähän koneeseen (localhost).",
+      "nonPublic": "URL-osoite osoittaa {kind, select, loopback {loopback-osoitteeseen} private {yksityiseen osoitteeseen} linkLocal {link-local-osoitteeseen} cloudMetadata {pilvipalvelun metatieto-osoitteeseen} sharedAddressSpace {jaettuun osoitteeseen (carrier-grade NAT)} other {ei-julkiseen osoitteeseen}}.",
+      "unresolved": "Isäntää {host} ei voitu selvittää.",
+      "noAddress": "Isännällä {host} ei ole osoitetta.",
+      "resolvesNonPublic": "Isäntä {host} osoittaa {kind, select, loopback {loopback-osoitteeseen} private {yksityiseen osoitteeseen} linkLocal {link-local-osoitteeseen} cloudMetadata {pilvipalvelun metatieto-osoitteeseen} sharedAddressSpace {jaettuun osoitteeseen (carrier-grade NAT)} other {ei-julkiseen osoitteeseen}} ({address})."
+    },
+    "shell": {
+      "userFallbackName": "Ylläpitäjä",
+      "userMenu": {
+        "home": "Etusivu",
+        "logOut": "Kirjaudu ulos"
       }
     }
   },
   "dashboard": {
-    "title": "Account",
-    "description": "Manage your profile, organizations, passkeys, sessions, and connected applications.",
-    "navAria": "Account navigation",
+    "title": "Tili",
+    "description": "Hallitse profiiliasi, organisaatioitasi, pääsyavaimiasi, istuntojasi ja yhdistettyjä sovelluksia.",
+    "navAria": "Tilin navigointi",
     "nav": {
-      "overview": "Overview",
-      "profile": "Profile",
-      "organizations": "Organizations",
-      "security": "Security",
-      "apps": "Connected apps",
+      "overview": "Yleiskatsaus",
+      "profile": "Profiili",
+      "organizations": "Organisaatiot",
+      "security": "Turvallisuus",
+      "apps": "Yhdistetyt sovellukset",
       "apiKeys": "API-avaimet",
-      "admin": "Admin",
-      "marketingHome": "About",
-      "signOut": "Sign out",
+      "admin": "Ylläpito",
+      "marketingHome": "Tietoja",
+      "signOut": "Kirjaudu ulos",
       "data": "Tietosi"
     },
     "profile": {
-      "title": "Profile",
-      "description": "Your display name, username, and email status for this account.",
-      "nameLabel": "Display name",
-      "usernameLabel": "Username",
-      "usernameHint": "3-30 characters: letters, numbers, dots, and underscores. Used to sign in instead of email.",
-      "usernameChecking": "Checking availability…",
-      "usernameAvailable": "This username is available.",
-      "usernameTaken": "This username is already taken.",
-      "usernameInvalidHint": "Use only letters, numbers, dots, and underscores.",
-      "usernameTooShort": "Username must be at least 3 characters.",
-      "usernameInvalid": "That username is not valid.",
-      "save": "Save",
-      "saving": "Saving…",
-      "saved": "Profile updated",
-      "saveError": "Could not update profile.",
-      "emailLabel": "Email",
-      "verified": "Verified",
-      "unverified": "Not verified",
-      "unverifiedHint": "Verify your email to protect your account and meet sign-in requirements.",
-      "resendVerification": "Resend verification email",
-      "verificationSent": "Check your inbox for the verification link.",
-      "verificationError": "Could not send verification email.",
-      "changeEmail": "Change",
-      "newEmailLabel": "New email address",
-      "changeEmailHintVerified": "We'll email your current address to approve the change, then send a verification link to the new one. Your email stays the same until both are done.",
-      "changeEmailSubmit": "Send confirmation",
-      "changingEmail": "Sending…",
-      "cancel": "Cancel",
-      "changeEmailSame": "Enter a different email address.",
-      "changeEmailError": "Could not start the email change.",
-      "changeEmailSentToCurrent": "Check {current} to approve the change to {next}. After that, verify {next} from the link we send there.",
-      "changeEmailNeedsVerified": "You can change it once it is verified."
+      "title": "Profiili",
+      "description": "Tämän tilin näyttönimi, käyttäjänimi ja sähköpostin tila.",
+      "nameLabel": "Näyttönimi",
+      "usernameLabel": "Käyttäjänimi",
+      "usernameHint": "3–30 merkkiä: kirjaimia, numeroita, pisteitä ja alaviivoja. Käytetään kirjautumiseen sähköpostin sijaan.",
+      "usernameChecking": "Tarkistetaan saatavuutta…",
+      "usernameAvailable": "Tämä käyttäjänimi on vapaana.",
+      "usernameTaken": "Tämä käyttäjänimi on jo varattu.",
+      "usernameInvalidHint": "Käytä vain kirjaimia, numeroita, pisteitä ja alaviivoja.",
+      "usernameTooShort": "Käyttäjänimen on oltava vähintään 3 merkkiä.",
+      "usernameInvalid": "Käyttäjänimi ei kelpaa.",
+      "save": "Tallenna",
+      "saving": "Tallennetaan…",
+      "saved": "Profiili päivitetty",
+      "saveError": "Profiilia ei voitu päivittää.",
+      "emailLabel": "Sähköposti",
+      "verified": "Vahvistettu",
+      "unverified": "Ei vahvistettu",
+      "unverifiedHint": "Vahvista sähköpostiosoitteesi suojataksesi tilisi ja täyttääksesi kirjautumisvaatimukset.",
+      "resendVerification": "Lähetä vahvistusviesti uudelleen",
+      "verificationSent": "Tarkista saapuneet viestisi: lähetimme vahvistuslinkin.",
+      "verificationError": "Vahvistusviestiä ei voitu lähettää.",
+      "changeEmail": "Vaihda",
+      "newEmailLabel": "Uusi sähköpostiosoite",
+      "changeEmailHintVerified": "Lähetämme nykyiseen osoitteeseesi viestin muutoksen hyväksymistä varten ja sitten vahvistuslinkin uuteen osoitteeseen. Sähköpostiosoitteesi pysyy ennallaan, kunnes molemmat on tehty.",
+      "changeEmailSubmit": "Lähetä vahvistus",
+      "changingEmail": "Lähetetään…",
+      "cancel": "Peruuta",
+      "changeEmailSame": "Anna eri sähköpostiosoite.",
+      "changeEmailError": "Sähköpostiosoitteen vaihtoa ei voitu aloittaa.",
+      "changeEmailSentToCurrent": "Hyväksy muutos osoitteeseen {next} osoitteeseen {current} lähetetyn viestin kautta. Vahvista sen jälkeen {next} sinne lähettämämme linkin avulla.",
+      "changeEmailNeedsVerified": "Voit vaihtaa sen, kun se on vahvistettu."
     },
     "passkeys": {
-      "title": "Passkeys",
-      "hint": "Use a passkey for phishing-resistant sign-in. Add one on this device or with a security key.",
-      "addThisDevice": "Add passkey (this device)",
-      "addSecurityKey": "Add passkey (security key)",
-      "defaultName": "My passkey",
-      "empty": "No passkeys yet. Add one to sign in without typing your password.",
-      "name": "Name",
-      "unnamed": "Unnamed passkey",
-      "deviceType": "Device type",
-      "created": "Added",
-      "actions": "Actions",
-      "rename": "Rename",
-      "delete": "Remove",
-      "save": "Save",
-      "cancel": "Cancel",
-      "loadError": "Could not load passkeys.",
-      "addError": "Could not add passkey.",
-      "deleteError": "Could not remove passkey.",
-      "updateError": "Could not update passkey.",
-      "added": "Passkey added",
-      "deleted": "Passkey removed",
-      "updated": "Passkey updated",
-      "nameRequired": "Enter a name for this passkey.",
-      "none": "None",
-      "confirmRemoveTitle": "Remove this passkey?",
-      "confirmRemoveBody": "You won’t be able to sign in with this passkey anymore. You can add a new one at any time.",
-      "signInAgainToAdd": "For your security, adding a passkey needs a recent sign-in. Sign in again, then add it.",
-      "signInAgain": "Sign in again"
+      "title": "Pääsyavaimet",
+      "hint": "Käytä pääsyavainta tietojenkalastelulta suojattuun kirjautumiseen. Lisää se tälle laitteelle tai suojausavaimella.",
+      "addThisDevice": "Lisää pääsyavain (tämä laite)",
+      "addSecurityKey": "Lisää pääsyavain (suojausavain)",
+      "defaultName": "Oma pääsyavain",
+      "empty": "Ei vielä pääsyavaimia. Lisää sellainen, niin voit kirjautua kirjoittamatta salasanaa.",
+      "name": "Nimi",
+      "unnamed": "Nimetön pääsyavain",
+      "deviceType": "Laitetyyppi",
+      "created": "Lisätty",
+      "actions": "Toiminnot",
+      "rename": "Nimeä uudelleen",
+      "delete": "Poista",
+      "save": "Tallenna",
+      "cancel": "Peruuta",
+      "loadError": "Pääsyavaimia ei voitu ladata.",
+      "addError": "Pääsyavainta ei voitu lisätä.",
+      "deleteError": "Pääsyavainta ei voitu poistaa.",
+      "updateError": "Pääsyavainta ei voitu päivittää.",
+      "added": "Pääsyavain lisätty",
+      "deleted": "Pääsyavain poistettu",
+      "updated": "Pääsyavain päivitetty",
+      "nameRequired": "Anna tälle pääsyavaimelle nimi.",
+      "none": "Ei mitään",
+      "confirmRemoveTitle": "Poistetaanko tämä pääsyavain?",
+      "confirmRemoveBody": "Et voi enää kirjautua tällä pääsyavaimella. Voit lisätä uuden milloin tahansa.",
+      "signInAgainToAdd": "Turvallisuussyistä pääsyavaimen lisääminen edellyttää tuoretta kirjautumista. Kirjaudu uudelleen ja lisää se sitten.",
+      "signInAgain": "Kirjaudu uudelleen"
     },
     "twoFactor": {
       "title": "Kaksivaiheinen tunnistautuminen",
@@ -509,45 +2089,45 @@
       }
     },
     "organizations": {
-      "title": "Organizations",
-      "description": "Teams and partner organizations you belong to. Switch between them and invite members. Platform administrators create new organizations.",
-      "yourOrganizations": "Your organizations",
-      "empty": "No organizations loaded.",
-      "active": "Active",
-      "switchTo": "Set active",
-      "setActiveError": "Could not switch organization.",
-      "setActiveSuccess": "Active organization updated.",
-      "createTitle": "Create an organization",
-      "createHint": "Use a unique URL slug (e.g. acme-corp). The reserved slug “public” is not available.",
-      "orgName": "Organization name",
-      "orgSlug": "Slug",
-      "create": "Create organization",
-      "creating": "Creating…",
-      "createSuccess": "Organization created",
-      "createError": "Could not create organization.",
-      "createValidation": "Enter a name and slug.",
-      "reservedSlug": "This slug is reserved.",
-      "slugTaken": "That slug is already in use.",
-      "loadError": "Could not load organizations.",
-      "inviteTitle": "Invite a member",
-      "inviteHint": "Sends an email with a link to accept the invitation. Available when your role in the active organization is owner or admin.",
-      "inviteEmail": "Email",
-      "inviteRole": "Role",
-      "roleMember": "Member",
-      "roleAdmin": "Admin",
-      "inviteSend": "Send invitation",
-      "inviting": "Sending…",
-      "inviteSuccess": "Invitation sent",
-      "inviteError": "Could not send invitation.",
-      "inviteValidation": "Enter an email address.",
-      "allOrganizations": "All organizations",
-      "memberCount": "{count, plural, one {# member} other {# members}}",
-      "delete": "Delete",
-      "cancel": "Cancel",
-      "deleted": "Organization deleted",
-      "deleteError": "Could not delete the organization.",
-      "confirmDeleteTitle": "Delete {name}?",
-      "confirmDeleteBody": "This removes the organization, its {count, plural, one {# membership} other {# memberships}} and pending invitations. Member accounts stay. This cannot be undone.",
+      "title": "Organisaatiot",
+      "description": "Tiimit ja kumppaniorganisaatiot, joihin kuulut. Vaihda niiden välillä ja kutsu jäseniä. Alustan ylläpitäjät luovat uudet organisaatiot.",
+      "yourOrganizations": "Organisaatiosi",
+      "empty": "Organisaatioita ei ladattu.",
+      "active": "Aktiivinen",
+      "switchTo": "Aseta aktiiviseksi",
+      "setActiveError": "Organisaatiota ei voitu vaihtaa.",
+      "setActiveSuccess": "Aktiivinen organisaatio päivitetty.",
+      "createTitle": "Luo organisaatio",
+      "createHint": "Käytä yksilöllistä URL-tunnistetta (esim. acme-corp). Varattu tunniste ”public” ei ole käytettävissä.",
+      "orgName": "Organisaation nimi",
+      "orgSlug": "URL-tunniste",
+      "create": "Luo organisaatio",
+      "creating": "Luodaan…",
+      "createSuccess": "Organisaatio luotu",
+      "createError": "Organisaatiota ei voitu luoda.",
+      "createValidation": "Anna nimi ja URL-tunniste.",
+      "reservedSlug": "Tämä URL-tunniste on varattu.",
+      "slugTaken": "Tämä URL-tunniste on jo käytössä.",
+      "loadError": "Organisaatioita ei voitu ladata.",
+      "inviteTitle": "Kutsu jäsen",
+      "inviteHint": "Lähettää sähköpostin, jossa on linkki kutsun hyväksymiseen. Käytettävissä, kun roolisi aktiivisessa organisaatiossa on omistaja tai ylläpitäjä.",
+      "inviteEmail": "Sähköposti",
+      "inviteRole": "Rooli",
+      "roleMember": "Jäsen",
+      "roleAdmin": "Ylläpitäjä",
+      "inviteSend": "Lähetä kutsu",
+      "inviting": "Lähetetään…",
+      "inviteSuccess": "Kutsu lähetetty",
+      "inviteError": "Kutsua ei voitu lähettää.",
+      "inviteValidation": "Anna sähköpostiosoite.",
+      "allOrganizations": "Kaikki organisaatiot",
+      "memberCount": "{count, plural, one {# jäsen} other {# jäsentä}}",
+      "delete": "Poista",
+      "cancel": "Peruuta",
+      "deleted": "Organisaatio poistettu",
+      "deleteError": "Organisaatiota ei voitu poistaa.",
+      "confirmDeleteTitle": "Poistetaanko {name}?",
+      "confirmDeleteBody": "Tämä poistaa organisaation, sen {count, plural, one {# jäsenyyden} other {# jäsenyyttä}} ja odottavat kutsut. Jäsenten tilit säilyvät. Tätä ei voi kumota.",
       "apiKeys": {
         "show": "API-avaimet",
         "hide": "Piilota API-avaimet",
@@ -559,41 +2139,43 @@
       }
     },
     "security": {
-      "title": "Security",
-      "description": "Update your password, manage passkeys, and review where you are signed in.",
-      "passwordHeading": "Password",
-      "passwordHint": "Use at least {min} characters. Choose a password you don’t use elsewhere.",
-      "currentPassword": "Current password",
-      "newPassword": "New password",
-      "confirmNewPassword": "Confirm new password",
-      "changePassword": "Update password",
-      "changing": "Updating…",
-      "passwordChanged": "Password updated",
-      "passwordError": "Could not change password.",
-      "passwordTooShort": "The new password must be at least {min} characters.",
-      "passwordMismatch": "New passwords do not match.",
-      "sameAsCurrent": "Choose a different password from your current one.",
-      "invalidCurrentPassword": "Current password is incorrect.",
-      "compromisedPassword": "This new password appears in known data breaches. Choose a different one.",
-      "revokeOthersAfterChange": "Sign out my other devices when the password changes",
-      "revokeOthersAfterChangeHint": "Recommended if you think someone else may know your old password.",
-      "sessionsTitle": "Active sessions",
-      "sessionsHint": "Revoke sessions you do not recognize. Revoking this device will sign you out.",
-      "sessionsLoadError": "Could not load sessions.",
-      "revoke": "Revoke",
-      "revokeOthers": "Sign out other sessions",
-      "revokeError": "Something went wrong.",
-      "sessionRevoked": "Session revoked",
-      "othersRevoked": "Other sessions signed out",
-      "currentSession": "This device",
-      "unknownDevice": "Unknown device",
-      "noSessions": "No sessions found.",
-      "device": "Device",
-      "network": "IP address",
-      "actions": "Actions",
-      "started": "Started",
-      "expires": "Expires",
-      "none": "None"
+      "title": "Turvallisuus",
+      "description": "Vaihda salasanasi, hallitse pääsyavaimia ja tarkista, missä olet kirjautuneena.",
+      "passwordHeading": "Salasana",
+      "passwordHint": "Käytä vähintään {min} merkkiä. Valitse salasana, jota et käytä muualla.",
+      "currentPassword": "Nykyinen salasana",
+      "newPassword": "Uusi salasana",
+      "confirmNewPassword": "Vahvista uusi salasana",
+      "changePassword": "Päivitä salasana",
+      "changing": "Päivitetään…",
+      "passwordChanged": "Salasana päivitetty",
+      "passwordError": "Salasanaa ei voitu vaihtaa.",
+      "passwordTooShort": "Uuden salasanan on oltava vähintään {min} merkkiä.",
+      "passwordMismatch": "Uudet salasanat eivät täsmää.",
+      "sameAsCurrent": "Valitse eri salasana kuin nykyinen.",
+      "invalidCurrentPassword": "Nykyinen salasana on väärin.",
+      "compromisedPassword": "Tämä uusi salasana esiintyy tunnetuissa tietovuodoissa. Valitse toinen.",
+      "revokeOthersAfterChange": "Kirjaa muut laitteeni ulos, kun salasana vaihtuu",
+      "revokeOthersAfterChangeHint": "Suositeltavaa, jos epäilet jonkun muun tietävän vanhan salasanasi.",
+      "sessionsTitle": "Aktiiviset istunnot",
+      "sessionsHint": "Mitätöi istunnot, joita et tunnista. Tämän laitteen istunnon mitätöinti kirjaa sinut ulos.",
+      "sessionsLoadError": "Istuntoja ei voitu ladata.",
+      "revoke": "Mitätöi",
+      "revokeOthers": "Kirjaa muut istunnot ulos",
+      "revokeError": "Jokin meni vikaan.",
+      "sessionRevoked": "Istunto mitätöity",
+      "othersRevoked": "Muut istunnot kirjattu ulos",
+      "currentSession": "Tämä laite",
+      "unknownDevice": "Tuntematon laite",
+      "noSessions": "Istuntoja ei löytynyt.",
+      "device": "Laite",
+      "network": "IP-osoite",
+      "actions": "Toiminnot",
+      "started": "Aloitettu",
+      "expires": "Vanhenee",
+      "none": "Ei mitään",
+      "startedAt": "Aloitettu: {date}",
+      "expiresAt": "Vanhenee: {date}"
     },
     "apps": {
       "title": "Yhdistetyt sovellukset",
@@ -669,22 +2251,22 @@
       "createdBy": "luonut {name}",
       "createdByDeleted": "luojan tili poistettu"
     },
-    "accountMenu": "Account menu",
+    "accountMenu": "Tilivalikko",
     "connectedAccounts": {
-      "title": "Connected accounts",
-      "hint": "Sign in with these accounts as well as your password or passkeys.",
-      "connected": "Connected",
-      "notConnected": "Not connected",
-      "connect": "Connect",
-      "disconnect": "Disconnect",
-      "disconnected": "{provider} disconnected",
-      "cancel": "Cancel",
-      "confirmTitle": "Disconnect {provider}?",
-      "confirmBody": "You won't be able to sign in with this account anymore. You can connect it again later.",
-      "lastMethod": "This is your only way to sign in. Add a password or passkey first.",
-      "error": "Something went wrong. Try again.",
-      "signInAgainToChange": "For your security, connecting an account needs a recent sign-in. Sign in again, then connect it.",
-      "signInAgain": "Sign in again"
+      "title": "Yhdistetyt tilit",
+      "hint": "Kirjaudu näillä tileillä salasanasi tai pääsyavaimiesi lisäksi.",
+      "connected": "Yhdistetty",
+      "notConnected": "Ei yhdistetty",
+      "connect": "Yhdistä",
+      "disconnect": "Katkaise yhteys",
+      "disconnected": "Yhteys palveluun {provider} katkaistu",
+      "cancel": "Peruuta",
+      "confirmTitle": "Katkaistaanko yhteys palveluun {provider}?",
+      "confirmBody": "Et voi enää kirjautua tällä tilillä. Voit yhdistää sen myöhemmin uudelleen.",
+      "lastMethod": "Tämä on ainoa tapasi kirjautua. Lisää ensin salasana tai pääsyavain.",
+      "error": "Jokin meni vikaan. Yritä uudelleen.",
+      "signInAgainToChange": "Turvallisuussyistä tilin yhdistäminen edellyttää tuoretta kirjautumista. Kirjaudu uudelleen ja yhdistä se sitten.",
+      "signInAgain": "Kirjaudu uudelleen"
     },
     "accounts": {
       "switchTo": "Vaihda tiliin",
@@ -752,26 +2334,30 @@
         "impersonating": "Tiliä ei voi poistaa, kun ylläpitäjä tarkastelee sitä.",
         "failed": "Poistoa ei voitu aloittaa. Yritä uudelleen."
       }
+    },
+    "impersonation": {
+      "viewingAs": "Tarkastelet tätä tiliä käyttäjänä <strong>{email}</strong>.",
+      "stop": "Lopeta käyttäjänä toimiminen"
     }
   },
   "acceptInvitation": {
-    "loading": "Checking session…",
-    "needSignInTitle": "Sign in to continue",
-    "needSignInDescription": "You need to be signed in with the invited email address before accepting this invitation.",
-    "signIn": "Sign in",
-    "title": "Accept invitation",
-    "description": "Join the organization that invited you.",
-    "signedInAs": "Signed in as {email}.",
-    "accept": "Accept invitation",
-    "accepting": "Accepting…",
-    "success": "You have joined the organization.",
-    "successTitle": "Welcome",
-    "successDescription": "Redirecting to your dashboard…",
-    "error": "Could not accept the invitation."
+    "loading": "Tarkistetaan istuntoa…",
+    "needSignInTitle": "Kirjaudu jatkaaksesi",
+    "needSignInDescription": "Sinun on oltava kirjautuneena kutsutulla sähköpostiosoitteella ennen kuin voit hyväksyä tämän kutsun.",
+    "signIn": "Kirjaudu",
+    "title": "Hyväksy kutsu",
+    "description": "Liity organisaatioon, joka kutsui sinut.",
+    "signedInAs": "Kirjautuneena käyttäjänä {email}.",
+    "accept": "Hyväksy kutsu",
+    "accepting": "Hyväksytään…",
+    "success": "Olet liittynyt organisaatioon.",
+    "successTitle": "Tervetuloa",
+    "successDescription": "Ohjataan hallintapaneeliisi…",
+    "error": "Kutsua ei voitu hyväksyä."
   },
   "common": {
-    "loading": "Loading…",
-    "language": "Language",
+    "loading": "Ladataan…",
+    "language": "Kieli",
     "localeNames": {
       "en": "Englanti",
       "fr": "Ranska",
@@ -793,12 +2379,20 @@
       "no": "Norja",
       "fi": "Suomi",
       "cs": "Tšekki"
+    },
+    "ui": {
+      "close": "Sulje",
+      "sidebar": "Sivupalkki",
+      "sidebarDescription": "Näyttää mobiilisivupalkin.",
+      "toggleSidebar": "Näytä tai piilota sivupalkki",
+      "breadcrumb": "murupolku",
+      "more": "Lisää"
     }
   },
   "errors": {
-    "boundaryTitle": "Something went wrong",
-    "boundaryDescription": "An error occurred while loading this page.",
-    "retry": "Try again"
+    "boundaryTitle": "Jokin meni vikaan",
+    "boundaryDescription": "Sivun lataamisessa tapahtui virhe.",
+    "retry": "Yritä uudelleen"
   },
   "rateLimit": {
     "seconds": "Liian monta yritystä. Yritä uudelleen {seconds} sekunnin kuluttua.",
@@ -806,94 +2400,156 @@
     "later": "Liian monta yritystä. Odota muutama minuutti ja yritä uudelleen."
   },
   "sso": {
-    "title": "Single sign-on",
-    "description": "Connect your organization's identity provider (OIDC or SAML 2.0) so members can sign in with their work account.",
-    "registerTitle": "Register a provider",
-    "registerDescription": "Your identity provider must redirect back to the callback URL shown below.",
-    "providerId": "Provider ID",
-    "providerIdHint": "A short identifier, e.g. acme-okta.",
-    "issuer": "Issuer URL",
-    "domain": "Email domain",
-    "domainHint": "Users with this email domain are sent to this provider.",
-    "clientId": "Client ID",
-    "clientSecret": "Client secret",
-    "organization": "Organization (optional)",
-    "register": "Register provider",
-    "registering": "Registering…",
-    "registered": "SSO provider registered",
-    "registerError": "Could not register the provider.",
-    "callbackTitle": "Callback URL to configure in your identity provider",
-    "providersTitle": "Configured providers",
-    "providersEmpty": "No SSO provider configured yet.",
-    "loadError": "Could not load SSO providers.",
-    "signInTitle": "Sign in with SSO",
-    "signInDescription": "Enter your work email. We'll redirect you to your organization's identity provider.",
-    "signInEmail": "Work email",
-    "signInSubmit": "Continue",
-    "signInError": "Could not start single sign-on for this address.",
-    "signInLink": "Sign in with SSO",
-    "signInFailed": "Single sign-on did not complete. Try again, or ask your administrator to check the identity provider settings.",
+    "title": "Kertakirjautuminen",
+    "description": "Yhdistä organisaatiosi identiteetintarjoaja (OIDC tai SAML 2.0), jotta jäsenet voivat kirjautua työtilillään.",
+    "registerTitle": "Rekisteröi palveluntarjoaja",
+    "registerDescription": "Identiteetintarjoajasi on ohjattava takaisin alla näkyvään paluuosoitteeseen (callback URL).",
+    "providerId": "Palveluntarjoajan tunnus",
+    "providerIdHint": "Lyhyt tunniste, esim. acme-okta.",
+    "issuer": "Myöntäjän URL (issuer)",
+    "domain": "Sähköpostin verkkotunnus",
+    "domainHint": "Käyttäjät, joilla on tämä sähköpostin verkkotunnus, ohjataan tälle palveluntarjoajalle.",
+    "clientId": "Asiakastunnus (Client ID)",
+    "clientSecret": "Asiakkaan salaisuus",
+    "organization": "Organisaatio (valinnainen)",
+    "register": "Rekisteröi palveluntarjoaja",
+    "registering": "Rekisteröidään…",
+    "registered": "SSO-palveluntarjoaja rekisteröity",
+    "registerError": "Palveluntarjoajaa ei voitu rekisteröidä.",
+    "callbackTitle": "Identiteetintarjoajaan määritettävä paluuosoite (callback URL)",
+    "providersTitle": "Määritetyt palveluntarjoajat",
+    "providersEmpty": "SSO-palveluntarjoajia ei ole vielä määritetty.",
+    "loadError": "SSO-palveluntarjoajia ei voitu ladata.",
+    "signInTitle": "Kirjaudu SSO:lla",
+    "signInDescription": "Anna työsähköpostiosoitteesi. Ohjaamme sinut organisaatiosi identiteetintarjoajalle.",
+    "signInEmail": "Työsähköposti",
+    "signInSubmit": "Jatka",
+    "signInError": "Kertakirjautumista ei voitu aloittaa tälle osoitteelle.",
+    "signInLink": "Kirjaudu SSO:lla",
+    "signInFailed": "Kertakirjautuminen ei onnistunut. Yritä uudelleen tai pyydä ylläpitäjääsi tarkistamaan identiteetintarjoajan asetukset.",
     "saml": {
-      "protocol": "Protocol",
-      "registerDescription": "The identity provider posts signed SAML assertions to the ACS URL below. Sign-in starts from Ostiary (SP-initiated).",
-      "idpSource": "Identity provider configuration",
-      "sourceUrl": "Metadata URL",
-      "sourceXml": "Paste metadata XML",
-      "sourceManual": "Enter manually",
-      "metadataUrl": "IdP metadata URL",
-      "metadataUrlHint": "The server fetches it once when you save. After a certificate rotation, fetch it again from Edit.",
-      "metadataXml": "IdP metadata XML",
-      "metadataXmlHint": "The EntityDescriptor your identity provider exports.",
-      "idpEntityId": "IdP entity ID (issuer)",
-      "ssoUrl": "IdP single sign-on URL",
-      "ssoUrlHint": "The URL for the HTTP-Redirect binding.",
-      "certificate": "IdP signing certificate",
-      "certificateHint": "PEM (-----BEGIN CERTIFICATE-----) or its base64 body.",
-      "mappingTitle": "Attribute mapping",
-      "mappingPreset": "Preset",
+      "protocol": "Protokolla",
+      "registerDescription": "Identiteetintarjoaja lähettää allekirjoitetut SAML-väittämät alla olevaan ACS URL -osoitteeseen. Kirjautuminen aloitetaan Ostiarysta (SP-initiated).",
+      "idpSource": "Identiteetintarjoajan määritys",
+      "sourceUrl": "Metatietojen URL",
+      "sourceXml": "Liitä metatietojen XML",
+      "sourceManual": "Syötä manuaalisesti",
+      "metadataUrl": "IdP:n metatietojen URL",
+      "metadataUrlHint": "Palvelin hakee sen kerran tallennettaessa. Varmenteen vaihdon jälkeen hae se uudelleen kohdasta Muokkaa.",
+      "metadataXml": "IdP:n metatietojen XML",
+      "metadataXmlHint": "Identiteetintarjoajasi viemä EntityDescriptor.",
+      "idpEntityId": "IdP:n entiteettitunnus (issuer)",
+      "ssoUrl": "IdP:n kertakirjautumisen URL",
+      "ssoUrlHint": "HTTP-Redirect-sidonnan URL.",
+      "certificate": "IdP:n allekirjoitusvarmenne",
+      "certificateHint": "PEM (-----BEGIN CERTIFICATE-----) tai sen base64-sisältö.",
+      "mappingTitle": "Attribuuttien määritys",
+      "mappingPreset": "Esiasetus",
       "preset_okta": "Okta",
       "preset_entra": "Microsoft Entra ID",
       "preset_google": "Google Workspace",
       "preset_jumpcloud": "JumpCloud",
-      "preset_custom": "Custom",
-      "attrEmail": "Email attribute",
-      "attrName": "Display name attribute",
-      "attrFirstName": "First name attribute",
-      "attrLastName": "Last name attribute",
-      "mappingHint": "First and last name are used when the identity provider sends them, otherwise the display name. The user ID is the assertion's NameID: configure a persistent identifier.",
-      "wantAssertionsSigned": "Require signed assertions",
-      "wantAssertionsSignedHint": "Recommended. When off, the whole response must still be signed: unsigned responses are always refused.",
-      "requestSigningNote": "Ostiary does not sign authentication requests: leave request signing off in the identity provider.",
-      "spTitle": "Values to enter in your identity provider",
+      "preset_custom": "Mukautettu",
+      "attrEmail": "Sähköpostiattribuutti",
+      "attrName": "Näyttönimen attribuutti",
+      "attrFirstName": "Etunimen attribuutti",
+      "attrLastName": "Sukunimen attribuutti",
+      "mappingHint": "Etu- ja sukunimeä käytetään, kun identiteetintarjoaja lähettää ne, muuten näyttönimeä. Käyttäjätunnus on väittämän NameID: määritä pysyvä tunniste.",
+      "wantAssertionsSigned": "Vaadi allekirjoitetut väittämät",
+      "wantAssertionsSignedHint": "Suositeltavaa. Kun tämä on pois päältä, koko vastauksen on silti oltava allekirjoitettu: allekirjoittamattomat vastaukset hylätään aina.",
+      "requestSigningNote": "Ostiary ei allekirjoita tunnistautumispyyntöjä: jätä pyyntöjen allekirjoitus pois päältä identiteetintarjoajassa.",
+      "spTitle": "Identiteetintarjoajaan syötettävät arvot",
       "acsUrl": "ACS URL (single sign-on URL, reply URL)",
-      "spEntityId": "SP entity ID (audience URI, identifier)",
-      "spMetadataUrl": "SP metadata URL",
-      "copy": "Copy",
-      "copied": "Copied",
-      "setupTitle": "Setup notes",
-      "oktaStep1": "In the Okta admin console: Applications, Create App Integration, SAML 2.0.",
-      "oktaStep2": "Single sign-on URL: the ACS URL. Audience URI (SP Entity ID): the SP entity ID. Name ID format: Persistent. Application username: Email.",
-      "oktaStep3": "Attribute statements: email = user.email, firstName = user.firstName, lastName = user.lastName (the Okta preset).",
-      "oktaStep4": "Assign people, then copy the metadata URL from the Sign On tab into Ostiary.",
-      "entraStep1": "In Microsoft Entra ID: Enterprise applications, New application, Create your own application (non-gallery), then Single sign-on, SAML.",
-      "entraStep2": "Basic SAML configuration: Identifier (Entity ID) = the SP entity ID, Reply URL = the ACS URL.",
-      "entraStep3": "Keep the default claims (the Entra ID preset). The default signing option, Sign SAML assertion, works.",
-      "entraStep4": "Assign users and groups, then copy the App Federation Metadata URL into Ostiary.",
-      "spInitiatedNote": "Only sign-in started from Ostiary is supported. Point app tiles in the identity provider's portal to {url}.",
-      "spDetails": "SP details",
-      "detailsTitle": "{id}: SAML settings",
-      "detailsDescription": "Enter these values in the identity provider.",
-      "assertionsSignedOn": "Signed assertions are required.",
-      "assertionsSignedOff": "Signed responses are required (assertions may be unsigned).",
-      "certExpires": "Signing certificate valid until {date}",
-      "certExpired": "The signing certificate has expired: sign-ins will fail until the IdP metadata is updated.",
-      "editTitle": "Edit {id}",
-      "editDescription": "Changing the domain means it must be verified again. The SP entity ID and ACS URL stay the same.",
-      "replaceIdp": "Replace the identity provider configuration (new metadata or certificate)",
-      "updated": "Provider updated",
-      "save": "Save",
-      "cancel": "Cancel",
-      "close": "Close"
+      "spEntityId": "SP:n entiteettitunnus (audience URI, identifier)",
+      "spMetadataUrl": "SP:n metatietojen URL",
+      "copy": "Kopioi",
+      "copied": "Kopioitu",
+      "setupTitle": "Määritysohjeet",
+      "oktaStep1": "Oktan hallintakonsolissa: Applications, Create App Integration, SAML 2.0.",
+      "oktaStep2": "Single sign-on URL: ACS URL. Audience URI (SP Entity ID): SP:n entiteettitunnus. Name ID format: Persistent. Application username: Email.",
+      "oktaStep3": "Attribute statements: email = user.email, firstName = user.firstName, lastName = user.lastName (Okta-esiasetus).",
+      "oktaStep4": "Määritä käyttäjät ja kopioi sitten metatietojen URL Sign On -välilehdeltä Ostiaryyn.",
+      "entraStep1": "Microsoft Entra ID:ssä: Enterprise applications, New application, Create your own application (non-gallery), sitten Single sign-on, SAML.",
+      "entraStep2": "Basic SAML configuration: Identifier (Entity ID) = SP:n entiteettitunnus, Reply URL = ACS URL.",
+      "entraStep3": "Säilytä oletusväitteet (Entra ID -esiasetus). Oletusarvoinen allekirjoitusvalinta, Sign SAML assertion, toimii.",
+      "entraStep4": "Määritä käyttäjät ja ryhmät ja kopioi sitten App Federation Metadata URL Ostiaryyn.",
+      "spInitiatedNote": "Vain Ostiarysta aloitettu kirjautuminen on tuettu. Ohjaa identiteetintarjoajan portaalin sovellusruudut osoitteeseen {url}.",
+      "spDetails": "SP:n tiedot",
+      "detailsTitle": "{id}: SAML-asetukset",
+      "detailsDescription": "Syötä nämä arvot identiteetintarjoajaan.",
+      "assertionsSignedOn": "Allekirjoitetut väittämät vaaditaan.",
+      "assertionsSignedOff": "Allekirjoitetut vastaukset vaaditaan (väittämät voivat olla allekirjoittamattomia).",
+      "certExpires": "Allekirjoitusvarmenne voimassa {date} asti",
+      "certExpired": "Allekirjoitusvarmenne on vanhentunut: kirjautumiset epäonnistuvat, kunnes IdP:n metatiedot päivitetään.",
+      "editTitle": "Muokkaa: {id}",
+      "editDescription": "Jos verkkotunnusta muutetaan, se on vahvistettava uudelleen. SP:n entiteettitunnus ja ACS URL pysyvät ennallaan.",
+      "replaceIdp": "Korvaa identiteetintarjoajan määritys (uudet metatiedot tai varmenne)",
+      "updated": "Palveluntarjoaja päivitetty",
+      "save": "Tallenna",
+      "cancel": "Peruuta",
+      "close": "Sulje",
+      "copyLabel": "Kopioi: {label}",
+      "errors": {
+        "metadataEmpty": "Metatiedot ovat tyhjät.",
+        "metadataTooLarge": "Metatiedot ovat yli 100 kt.",
+        "metadataDoctype": "Metatiedot eivät saa sisältää DOCTYPE-määrittelyä.",
+        "metadataNotXml": "Metatiedot eivät ole hyvin muodostettua XML:ää.",
+        "notSamlMetadata": "Nämä eivät ole SAML-metatietoja.",
+        "multipleEntities": "Metatietojen on kuvattava täsmälleen yksi identiteetintarjoaja.",
+        "noEntityId": "Metatiedoissa ei ole entityID:tä.",
+        "noIdpDescriptor": "Metatiedoissa ei ole identiteetintarjoajaa (IDPSSODescriptor).",
+        "noSaml2": "Identiteetintarjoaja ei tue SAML 2.0:aa.",
+        "signedRequestsRequired": "Identiteetintarjoaja vaatii allekirjoitetut pyynnöt, joita Ostiary ei lähetä. Poista pyyntöjen allekirjoitus käytöstä identiteetintarjoajassa.",
+        "noRedirectBinding": "Metatiedoissa ei ole SingleSignOnService-palvelua HTTP-Redirect-sidonnalla.",
+        "metadataSsoUrlNotHttps": "Identiteetintarjoajan SSO URL -osoitteen on käytettävä https://-muotoa.",
+        "unreadableCertificate": "Metatiedoissa olevaa allekirjoitusvarmennetta ei voitu lukea.",
+        "noSigningCertificate": "Metatiedoissa ei ole allekirjoitusvarmennetta.",
+        "invalidMapping": "Anna sähköpostin ja nimen attribuuttien nimet (ei välilyöntejä tai lainausmerkkejä).",
+        "allCertificatesExpired": "Kaikki metatietojen allekirjoitusvarmenteet ovat vanhentuneet.",
+        "missingEntityId": "Anna identiteetintarjoajan entiteettitunnus (issuer).",
+        "ssoUrlNotHttps": "SSO URL -osoitteen on oltava https://-osoite.",
+        "invalidCertificate": "Allekirjoitusvarmenne ei ole kelvollinen X.509-varmenne (PEM).",
+        "certificateExpired": "Allekirjoitusvarmenne on vanhentunut.",
+        "fetchFailed": "Metatietoja ei voitu hakea: {reason}",
+        "invalidRedirect": "Metatietojen URL ohjaa virheelliseen osoitteeseen.",
+        "httpStatus": "Metatietojen URL vastasi {status}.",
+        "tooManyRedirects": "Metatietojen URL ohjaa uudelleen liian monta kertaa."
+      }
+    },
+    "panel": {
+      "noOrganization": "Ei organisaatiota",
+      "providersDescription": "Palveluntarjoaja hyväksyy kirjautumiset vasta, kun sen sähköpostin verkkotunnus on vahvistettu DNS-tietueella.",
+      "verified": "Vahvistettu",
+      "domainNotVerified": "Verkkotunnusta ei vahvistettu",
+      "verifyDomain": "Vahvista verkkotunnus",
+      "editLabel": "Muokkaa: {id}",
+      "deleteLabel": "Poista: {id}",
+      "verifyTitle": "Vahvista {domain}",
+      "verifyDescription": "Pyydä verkkotunnuksen omistajaa lisäämään tämä TXT-tietue DNS:äänsä ja tarkista se sitten täällä. Kirjautumiset tämän palveluntarjoajan kautta alkavat toimia, kun se on vahvistettu.",
+      "recordName": "Nimi",
+      "recordValue": "Arvo",
+      "copyRecordName": "Kopioi nimi",
+      "copyRecordValue": "Kopioi arvo",
+      "recordValidity": "Arvo on voimassa 7 päivää.",
+      "domainVerified": "Verkkotunnus vahvistettu",
+      "checkDns": "Tarkista DNS",
+      "editDescription": "Jos verkkotunnusta muutetaan, se on vahvistettava uudelleen. Jos haluat muuttaa asiakkaan tunnistetietoja, poista palveluntarjoaja ja rekisteröi se uudelleen.",
+      "organization": "Organisaatio",
+      "deleteTitle": "Poistetaanko {id}?",
+      "deleteDescription": "Käyttäjät, joilla on {domain}-osoite, eivät voi enää kirjautua tämän palveluntarjoajan kautta. Heidän tilinsä säilyvät, ja he voivat edelleen käyttää salasanaa tai pääsyavainta.",
+      "providerDeleted": "Palveluntarjoaja poistettu"
+    },
+    "errors": {
+      "providerNotFound": "Palveluntarjoajaa ei löytynyt.",
+      "issuerNotUrl": "Myöntäjän (issuer) on oltava URL.",
+      "invalidDomain": "Anna sähköpostin verkkotunnus, esim. acme.com.",
+      "organizationNotFound": "Organisaatiota ei löytynyt.",
+      "samlIssuerLocked": "SAML-palveluntarjoajan SP:n entiteettitunnusta ei voi muuttaa.",
+      "invalidProviderDomain": "Palveluntarjoajan verkkotunnus ei ole kelvollinen.",
+      "txtRecordNotFound": "TXT-tietuetta ei vielä löytynyt. DNS-muutosten näkyminen voi kestää muutaman minuutin.",
+      "envNotSet": "{name} ei ole asetettu.",
+      "invalidProviderId": "Palveluntarjoajan tunnuksen on oltava 2–63 merkkiä: pieniä kirjaimia, numeroita, - tai _.",
+      "unreadableSamlConfig": "Tallennettua SAML-määritystä ei voi lukea; poista palveluntarjoaja ja rekisteröi se uudelleen."
     }
   },
   "selectAccount": {

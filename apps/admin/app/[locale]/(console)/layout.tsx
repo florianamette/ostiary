@@ -1,5 +1,6 @@
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 
 import { AdminShell } from "@/components/admin/admin-shell";
 import { adminNeedsTwoFactor } from "@ostiary/core/lib/admin/admin-two-factor";
@@ -38,10 +39,12 @@ export default async function AdminLayout({
     redirect(`${env.AUTH_APP_URL}/${locale}/dashboard#two-factor`);
   }
 
+  const t = await getTranslations({ locale, namespace: "admin.shell" });
+
   return (
     <AdminShell
       user={{
-        name: sessionUser.name ?? "Admin",
+        name: sessionUser.name ?? t("userFallbackName"),
         email: sessionUser.email,
         avatar: sessionUser.image ?? undefined,
       }}

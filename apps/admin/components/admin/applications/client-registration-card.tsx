@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { Loader2, Settings2Icon } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
@@ -40,17 +41,8 @@ import type {
 } from "@ostiary/core/lib/client-registration-policy";
 import { updateClientRegistration } from "@/app/[locale]/(console)/applications/actions";
 
-const DYNAMIC_LABELS: Record<DynamicRegistrationMode, string> = {
-  off: "Off",
-  signed_in: "Signed-in users only",
-  open: "Anyone (open registration)",
-};
-
-const DYNAMIC_HINTS: Record<DynamicRegistrationMode, string> = {
-  off: "POST /oauth2/register is refused.",
-  signed_in: "Only requests carrying a user's session may register. Most MCP clients cannot.",
-  open: "What MCP clients expect: any app may register, then each user approves it on the consent screen.",
-};
+/** Display order of the modes; labels and hints are in `admin.pages.applications.registration.dynamic`. */
+const DYNAMIC_MODES: DynamicRegistrationMode[] = ["off", "signed_in", "open"];
 
 /** OIDC scopes are listed first; anything else is an API scope. */
 const OIDC = new Set(["openid", "profile", "email", "offline_access"]);
@@ -69,6 +61,8 @@ export function ClientRegistrationCard({
   availableScopes: string[];
   authServer: string;
 }) {
+  const t = useTranslations("admin.pages.applications.registration");
+  const tCommon = useTranslations("admin.common");
   const [open, setOpen] = React.useState(false);
   const enabled = settings.dynamic !== "off" || settings.metadataDocuments;
   const missing = settings.scopes.filter((scope) => !availableScopes.includes(scope));
@@ -77,46 +71,50 @@ export function ClientRegistrationCard({
     <Card className="border-border/80 shadow-sm">
       <CardHeader>
         <CardTitle className="flex flex-wrap items-center gap-2">
-          Self-registration
-          {enabled ? <Badge variant="secondary">On</Badge> : <Badge variant="outline" className="font-normal">Off</Badge>}
+          {t("title")}
+          {enabled ? (
+            <Badge variant="secondary">{tCommon("on")}</Badge>
+          ) : (
+            <Badge variant="outline" className="font-normal">
+              {tCommon("off")}
+            </Badge>
+          )}
         </CardTitle>
         <CardDescription className="max-w-3xl">
-          Lets MCP clients and AI agents register themselves instead of being added here. They only get the scopes
-          below, always show the consent screen marked as unverified, and never get machine (client credentials)
-          access.
+          {t("description")}
         </CardDescription>
         <CardAction>
           <Button size="sm" variant="outline" onClick={() => setOpen(true)}>
             <Settings2Icon />
-            Edit
+            {tCommon("edit")}
           </Button>
         </CardAction>
       </CardHeader>
       <CardContent>
         <dl className="grid gap-4 text-sm sm:grid-cols-2 lg:grid-cols-4">
           <div className="space-y-1">
-            <dt className="text-muted-foreground text-xs">Dynamic registration</dt>
-            <dd className="font-medium">{DYNAMIC_LABELS[settings.dynamic]}</dd>
+            <dt className="text-muted-foreground text-xs">{t("dynamicRegistration")}</dt>
+            <dd className="font-medium">{t(`dynamic.${settings.dynamic}.label`)}</dd>
           </div>
           <div className="space-y-1">
-            <dt className="text-muted-foreground text-xs">Metadata documents (client_id URL)</dt>
+            <dt className="text-muted-foreground text-xs">{t("metadataDocuments")}</dt>
             <dd className="font-medium">
               {settings.metadataDocuments
                 ? settings.metadataDocumentHosts.length
-                  ? `On, from ${settings.metadataDocumentHosts.join(", ")}`
-                  : "On, any HTTPS host"
-                : "Off"}
+                  ? t("metadataOnFrom", { hosts: settings.metadataDocumentHosts.join(", ") })
+                  : t("metadataOnAnyHost")
+                : tCommon("off")}
             </dd>
           </div>
           <div className="space-y-1">
-            <dt className="text-muted-foreground text-xs">Scopes they may request</dt>
+            <dt className="text-muted-foreground text-xs">{t("scopes")}</dt>
             <dd className="flex flex-wrap gap-1">
               {settings.scopes.map((scope) => (
                 <Badge
                   key={scope}
                   variant={missing.includes(scope) ? "destructive" : "secondary"}
                   className="font-mono font-normal"
-                  title={missing.includes(scope) ? "No longer a scope of this server: ignored" : undefined}
+                  title={missing.includes(scope) ? t("missingScope") : undefined}
                 >
                   {scope}
                 </Badge>
@@ -124,15 +122,16 @@ export function ClientRegistrationCard({
             </dd>
           </div>
           <div className="space-y-1">
-            <dt className="text-muted-foreground text-xs">New clients per hour</dt>
+            <dt className="text-muted-foreground text-xs">{t("perHour")}</dt>
             <dd className="font-medium tabular-nums">{settings.maxRegistrationsPerHour}</dd>
           </div>
         </dl>
         {settings.dynamic !== "off" && authServer ? (
           <p className="text-muted-foreground mt-4 text-xs break-all">
-            Registration endpoint:{" "}
-            <code className="rounded bg-muted px-1 py-0.5 font-mono">{authServer}/api/auth/oauth2/register</code>
-            {" "}(advertised in the discovery document).
+            {t.rich("endpoint", {
+              url: `${authServer}/api/auth/oauth2/register`,
+              code: (chunks) => <code className="rounded bg-muted px-1 py-0.5 font-mono">{chunks}</code>,
+            })}
           </p>
         ) : null}
       </CardContent>
@@ -156,6 +155,8 @@ function ClientRegistrationDialog({
   availableScopes: string[];
   onClose: () => void;
 }) {
+  const t = useTranslations("admin.pages.applications.registration");
+  const tCommon = useTranslations("admin.common");
   const router = useRouter();
   const [busy, setBusy] = React.useState(false);
   const [dynamic, setDynamic] = React.useState<DynamicRegistrationMode>(settings.dynamic);
@@ -194,7 +195,7 @@ function ClientRegistrationDialog({
         toast.error(res.error);
         return;
       }
-      toast.success("Settings saved. The auth server applies them within a minute.");
+      toast.success(t("saved"));
       onClose();
       router.refresh();
     } finally {
@@ -207,28 +208,25 @@ function ClientRegistrationDialog({
       <DialogContent className="max-h-[90dvh] overflow-y-auto sm:max-w-lg">
         <form onSubmit={save} className="grid gap-6">
           <DialogHeader>
-            <DialogTitle>Self-registration</DialogTitle>
-            <DialogDescription>
-              Clients that register themselves are not reviewed. People see them as unverified apps and approve each
-              one on the consent screen.
-            </DialogDescription>
+            <DialogTitle>{t("title")}</DialogTitle>
+            <DialogDescription>{t("dialogDescription")}</DialogDescription>
           </DialogHeader>
           <FieldGroup>
             <Field>
-              <FieldLabel htmlFor="registration-dynamic">Dynamic Client Registration (RFC 7591)</FieldLabel>
+              <FieldLabel htmlFor="registration-dynamic">{t("dynamicLabel")}</FieldLabel>
               <Select value={dynamic} onValueChange={(v) => setDynamic(v as DynamicRegistrationMode)} disabled={busy}>
                 <SelectTrigger id="registration-dynamic" className="w-full">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  {(Object.keys(DYNAMIC_LABELS) as DynamicRegistrationMode[]).map((mode) => (
+                  {DYNAMIC_MODES.map((mode) => (
                     <SelectItem key={mode} value={mode}>
-                      {DYNAMIC_LABELS[mode]}
+                      {t(`dynamic.${mode}.label`)}
                     </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
-              <FieldDescription>{DYNAMIC_HINTS[dynamic]}</FieldDescription>
+              <FieldDescription>{t(`dynamic.${dynamic}.hint`)}</FieldDescription>
             </Field>
             <Field>
               <div className="flex gap-3 rounded-md border border-border/80 bg-muted/30 p-3">
@@ -242,18 +240,17 @@ function ClientRegistrationDialog({
                 />
                 <div className="grid gap-1">
                   <Label htmlFor="registration-cimd" className="cursor-pointer font-medium leading-none">
-                    Client ID Metadata Documents
+                    {t("cimdLabel")}
                   </Label>
                   <p className="text-muted-foreground text-xs leading-snug">
-                    The client_id is an HTTPS URL to the app&apos;s JSON metadata, as newer MCP clients use. Only public
-                    hosts are fetched, without redirects, 5 KB at most.
+                    {t("cimdHint")}
                   </p>
                 </div>
               </div>
             </Field>
             {metadataDocuments ? (
               <Field>
-                <FieldLabel htmlFor="registration-hosts">Allowed hosts</FieldLabel>
+                <FieldLabel htmlFor="registration-hosts">{t("hostsLabel")}</FieldLabel>
                 <Textarea
                   id="registration-hosts"
                   value={hosts}
@@ -263,11 +260,11 @@ function ClientRegistrationDialog({
                   placeholder={"claude.ai\nvscode.dev"}
                   className="font-mono text-sm"
                 />
-                <FieldDescription>One per line. Empty: any public HTTPS host.</FieldDescription>
+                <FieldDescription>{t("hostsHint")}</FieldDescription>
               </Field>
             ) : null}
             <Field>
-              <FieldLabel>Scopes self-registered clients may request</FieldLabel>
+              <FieldLabel>{t("scopesLabel")}</FieldLabel>
               <div className="grid gap-2 sm:grid-cols-2">
                 {ordered.map((scope) => (
                   <label
@@ -286,12 +283,11 @@ function ClientRegistrationDialog({
                 ))}
               </div>
               <FieldDescription>
-                Each user still approves the scopes an app asks for. Removing a scope also removes it from clients
-                already registered; tokens already issued keep it until they expire.
+                {t("scopesHint")}
               </FieldDescription>
             </Field>
             <Field>
-              <FieldLabel htmlFor="registration-max">New clients per hour</FieldLabel>
+              <FieldLabel htmlFor="registration-max">{t("perHour")}</FieldLabel>
               <Input
                 id="registration-max"
                 type="number"
@@ -305,17 +301,17 @@ function ClientRegistrationDialog({
                 className="w-32"
               />
               <FieldDescription>
-                Across every instance, for both methods. Each address is also limited to 5 registrations a minute.
+                {t("perHourHint")}
               </FieldDescription>
             </Field>
           </FieldGroup>
           <DialogFooter>
             <Button type="button" variant="outline" disabled={busy} onClick={onClose}>
-              Cancel
+              {tCommon("cancel")}
             </Button>
             <Button type="submit" disabled={busy}>
               {busy ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
-              Save
+              {tCommon("save")}
             </Button>
           </DialogFooter>
         </form>

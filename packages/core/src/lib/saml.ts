@@ -129,7 +129,39 @@ export type ParsedIdpMetadata = {
   certificates: SamlCertificateInfo[];
 };
 
-export type IdpMetadataResult = { ok: true; metadata: ParsedIdpMetadata } | { ok: false; error: string };
+/**
+ * Why IdP metadata or settings were refused. `error` is the English message (logs, tests);
+ * `code` (with `values`) lets the admin console show it in the admin's language.
+ */
+export type SamlErrorCode =
+  | "metadataEmpty"
+  | "metadataTooLarge"
+  | "metadataDoctype"
+  | "metadataNotXml"
+  | "notSamlMetadata"
+  | "multipleEntities"
+  | "noEntityId"
+  | "noIdpDescriptor"
+  | "noSaml2"
+  | "signedRequestsRequired"
+  | "noRedirectBinding"
+  | "metadataSsoUrlNotHttps"
+  | "unreadableCertificate"
+  | "noSigningCertificate"
+  | "invalidMapping"
+  | "allCertificatesExpired"
+  | "missingEntityId"
+  | "ssoUrlNotHttps"
+  | "invalidCertificate"
+  | "certificateExpired"
+  | "fetchFailed"
+  | "invalidRedirect"
+  | "httpStatus"
+  | "tooManyRedirects";
+
+export type SamlError = { ok: false; error: string; code: SamlErrorCode; values?: Record<string, string | number> };
+
+export type IdpMetadataResult = { ok: true; metadata: ParsedIdpMetadata } | SamlError;
 
 function children(parent: XmlElement, ns: string, localName: string): XmlElement[] {
   const out: XmlElement[] = [];
@@ -160,40 +192,40 @@ function isAllowedSsoUrl(value: string): boolean {
  */
 export function parseIdpMetadata(xml: string, now = new Date()): IdpMetadataResult {
   const text = xml.trim();
-  if (!text) return { ok: false, error: "The metadata is empty." };
-  if (Buffer.byteLength(text) > MAX_SAML_METADATA_BYTES) return { ok: false, error: "The metadata is larger than 100 KB." };
-  if (containsDtd(text)) return { ok: false, error: "The metadata must not contain a DOCTYPE." };
+  if (!text) return { ok: false, error: "The metadata is empty.", code: "metadataEmpty" };
+  if (Buffer.byteLength(text) > MAX_SAML_METADATA_BYTES) return { ok: false, error: "The metadata is larger than 100 KB.", code: "metadataTooLarge" };
+  if (containsDtd(text)) return { ok: false, error: "The metadata must not contain a DOCTYPE.", code: "metadataDoctype" };
   let doc: Document;
   try {
     doc = parseXml(text);
   } catch {
-    return { ok: false, error: "The metadata is not well-formed XML." };
+    return { ok: false, error: "The metadata is not well-formed XML.", code: "metadataNotXml" };
   }
   const root = doc.documentElement as unknown as XmlElement | null;
-  if (!root || root.namespaceURI !== MD_NS) return { ok: false, error: "This is not SAML metadata." };
+  if (!root || root.namespaceURI !== MD_NS) return { ok: false, error: "This is not SAML metadata.", code: "notSamlMetadata" };
   let entity: XmlElement | undefined = root;
   if (root.localName === "EntitiesDescriptor") {
     const entities = children(root, MD_NS, "EntityDescriptor");
-    if (entities.length !== 1) return { ok: false, error: "The metadata must describe exactly one identity provider." };
+    if (entities.length !== 1) return { ok: false, error: "The metadata must describe exactly one identity provider.", code: "multipleEntities" };
     entity = entities[0];
   } else if (root.localName !== "EntityDescriptor") {
-    return { ok: false, error: "This is not SAML metadata." };
+    return { ok: false, error: "This is not SAML metadata.", code: "notSamlMetadata" };
   }
   const entityId = entity!.getAttribute("entityID")?.trim();
-  if (!entityId) return { ok: false, error: "The metadata has no entityID." };
+  if (!entityId) return { ok: false, error: "The metadata has no entityID.", code: "noEntityId" };
   const idps = children(entity!, MD_NS, "IDPSSODescriptor");
-  if (idps.length !== 1) return { ok: false, error: "The metadata has no identity provider (IDPSSODescriptor)." };
+  if (idps.length !== 1) return { ok: false, error: "The metadata has no identity provider (IDPSSODescriptor).", code: "noIdpDescriptor" };
   const idp = idps[0]!;
   if (!(idp.getAttribute("protocolSupportEnumeration") ?? "").includes("urn:oasis:names:tc:SAML:2.0:protocol")) {
-    return { ok: false, error: "The identity provider does not support SAML 2.0." };
+    return { ok: false, error: "The identity provider does not support SAML 2.0.", code: "noSaml2" };
   }
   if (idp.getAttribute("WantAuthnRequestsSigned") === "true" || idp.getAttribute("WantAuthnRequestsSigned") === "1") {
-    return { ok: false, error: "The identity provider requires signed requests, which Ostiary does not send. Turn off request signing in the identity provider." };
+    return { ok: false, error: "The identity provider requires signed requests, which Ostiary does not send. Turn off request signing in the identity provider.", code: "signedRequestsRequired" };
   }
   const redirect = children(idp, MD_NS, "SingleSignOnService").find((s) => s.getAttribute("Binding") === SAML_REDIRECT_BINDING);
   const ssoUrl = redirect?.getAttribute("Location")?.trim() ?? "";
-  if (!ssoUrl) return { ok: false, error: "The metadata has no SingleSignOnService with the HTTP-Redirect binding." };
-  if (!isAllowedSsoUrl(ssoUrl)) return { ok: false, error: "The identity provider's SSO URL must use https://." };
+  if (!ssoUrl) return { ok: false, error: "The metadata has no SingleSignOnService with the HTTP-Redirect binding.", code: "noRedirectBinding" };
+  if (!isAllowedSsoUrl(ssoUrl)) return { ok: false, error: "The identity provider's SSO URL must use https://.", code: "metadataSsoUrlNotHttps" };
   const certificates: SamlCertificateInfo[] = [];
   for (const key of children(idp, MD_NS, "KeyDescriptor")) {
     const use = key.getAttribute("use");
@@ -202,13 +234,13 @@ export function parseIdpMetadata(xml: string, now = new Date()): IdpMetadataResu
       for (const data of children(info, DSIG_NS, "X509Data")) {
         for (const certEl of children(data, DSIG_NS, "X509Certificate")) {
           const cert = parseSamlCertificate(certEl.textContent ?? "", now);
-          if (!cert) return { ok: false, error: "A signing certificate in the metadata could not be read." };
+          if (!cert) return { ok: false, error: "A signing certificate in the metadata could not be read.", code: "unreadableCertificate" };
           certificates.push(cert);
         }
       }
     }
   }
-  if (certificates.length === 0) return { ok: false, error: "The metadata has no signing certificate." };
+  if (certificates.length === 0) return { ok: false, error: "The metadata has no signing certificate.", code: "noSigningCertificate" };
   return { ok: true, metadata: { entityId, ssoUrl, certificates } };
 }
 
@@ -241,17 +273,17 @@ export type StoredSamlConfig = {
 
 export type SamlConfigResult =
   | { ok: true; config: Omit<StoredSamlConfig, "issuer">; idp: ParsedIdpMetadata }
-  | { ok: false; error: string };
+  | SamlError;
 
 /** Validates the IdP side and builds the plugin's samlConfig (minus `issuer`, set from the body). */
 export function buildSamlConfig(input: Omit<SamlConfigInput, "spEntityId">, now = new Date()): SamlConfigResult {
   const mapping = normalizeSamlMapping(input.mapping);
-  if (!mapping) return { ok: false, error: "Enter the attribute names for email and name (no spaces or quotes)." };
+  if (!mapping) return { ok: false, error: "Enter the attribute names for email and name (no spaces or quotes).", code: "invalidMapping" };
   const base = { wantAssertionsSigned: input.wantAssertionsSigned, authnRequestsSigned: false as const, mapping };
   if (input.idp.source === "xml") {
     const parsed = parseIdpMetadata(input.idp.xml, now);
     if (!parsed.ok) return parsed;
-    if (parsed.metadata.certificates.every((c) => c.expired)) return { ok: false, error: "Every signing certificate in the metadata has expired." };
+    if (parsed.metadata.certificates.every((c) => c.expired)) return { ok: false, error: "Every signing certificate in the metadata has expired.", code: "allCertificatesExpired" };
     return {
       ok: true,
       idp: parsed.metadata,
@@ -260,11 +292,11 @@ export function buildSamlConfig(input: Omit<SamlConfigInput, "spEntityId">, now 
   }
   const entityId = input.idp.entityId.trim();
   const ssoUrl = input.idp.ssoUrl.trim();
-  if (!entityId || entityId.length > 1024) return { ok: false, error: "Enter the identity provider's entity ID (issuer)." };
-  if (!isAllowedSsoUrl(ssoUrl)) return { ok: false, error: "The SSO URL must be an https:// URL." };
+  if (!entityId || entityId.length > 1024) return { ok: false, error: "Enter the identity provider's entity ID (issuer).", code: "missingEntityId" };
+  if (!isAllowedSsoUrl(ssoUrl)) return { ok: false, error: "The SSO URL must be an https:// URL.", code: "ssoUrlNotHttps" };
   const cert = parseSamlCertificate(input.idp.certificate, now);
-  if (!cert) return { ok: false, error: "The signing certificate is not a valid X.509 certificate (PEM)." };
-  if (cert.expired) return { ok: false, error: "The signing certificate has expired." };
+  if (!cert) return { ok: false, error: "The signing certificate is not a valid X.509 certificate (PEM).", code: "invalidCertificate" };
+  if (cert.expired) return { ok: false, error: "The signing certificate has expired.", code: "certificateExpired" };
   return {
     ok: true,
     idp: { entityId, ssoUrl, certificates: [cert] },

@@ -1,46 +1,46 @@
 {
   "layout": {
-    "title": "Sign in",
-    "description": "Log in to your work tools and profile."
+    "title": "Вход",
+    "description": "Войдите в рабочие инструменты и свой профиль."
   },
   "auth": {
     "login": {
-      "title": "Login to your account",
-      "description": "Sign in with your email or username and password.",
-      "identifierLabel": "Email or username",
-      "identifierPlaceholder": "you@example.com or your_username",
-      "emailLabel": "Email",
+      "title": "Вход в аккаунт",
+      "description": "Войдите с помощью электронной почты или имени пользователя и пароля.",
+      "identifierLabel": "Эл. почта или имя пользователя",
+      "identifierPlaceholder": "you@example.com или your_username",
+      "emailLabel": "Эл. почта",
       "emailPlaceholder": "m@example.com",
-      "passwordLabel": "Password",
-      "forgotPasswordLink": "Forgot password?",
-      "submit": "Login",
-      "submitting": "Signing in…",
-      "noAccount": "Don't have an account?",
-      "signUpLink": "Sign up",
-      "verifyEmailAfterSignup": "Check your inbox for a verification link. You must verify your email before signing in.",
-      "passkey": "Sign in with passkey",
-      "passkeySubmitting": "Waiting for passkey…",
+      "passwordLabel": "Пароль",
+      "forgotPasswordLink": "Забыли пароль?",
+      "submit": "Войти",
+      "submitting": "Вход…",
+      "noAccount": "Нет аккаунта?",
+      "signUpLink": "Зарегистрироваться",
+      "verifyEmailAfterSignup": "Проверьте почту: мы отправили ссылку для подтверждения. Подтвердите адрес, прежде чем входить.",
+      "passkey": "Войти с ключом доступа",
+      "passkeySubmitting": "Ожидание ключа доступа…",
       "emailCode": "Прислать код для входа на почту",
-      "lastUsedBadge": "Last used",
-      "lastUsedHintEmail": "You last signed in with email and password.",
-      "lastUsedHintUsername": "You last signed in with username and password.",
-      "lastUsedHintPasskey": "You last signed in with a passkey.",
+      "lastUsedBadge": "В прошлый раз",
+      "lastUsedHintEmail": "В прошлый раз вы вошли с эл. почтой и паролем.",
+      "lastUsedHintUsername": "В прошлый раз вы вошли с именем пользователя и паролем.",
+      "lastUsedHintPasskey": "В прошлый раз вы вошли с ключом доступа.",
       "lastUsedHintEmailCode": "В прошлый раз вы вошли с кодом из письма.",
-      "lastUsedHintOther": "You last signed in with {method}.",
+      "lastUsedHintOther": "В прошлый раз вы вошли через {method}.",
       "errors": {
         "emailNotVerified": "Please verify your email first. We sent you a new verification link, check your inbox.",
-        "signInFailed": "Could not sign in. Check your details and try again.",
-        "passkeyFailed": "Passkey sign-in failed. Try again or use your password."
+        "signInFailed": "Не удалось войти. Проверьте данные и повторите попытку.",
+        "passkeyFailed": "Не удалось войти с ключом доступа. Повторите попытку или используйте пароль."
       },
       "resend": {
-        "title": "Didn't get the email?",
-        "description": "Enter your email and we'll send you a new verification link.",
+        "title": "Не получили письмо?",
+        "description": "Введите адрес эл. почты, и мы отправим новую ссылку для подтверждения.",
         "emailPlaceholder": "you@example.com",
-        "send": "Send a new link",
-        "sendAgain": "Send again",
-        "sent": "If an unverified account uses this address, a new link is on its way. Check your inbox and spam folder.",
-        "invalidEmail": "Enter a valid email address.",
-        "error": "Could not send the email. Try again in a minute."
+        "send": "Отправить новую ссылку",
+        "sendAgain": "Отправить ещё раз",
+        "sent": "Если этот адрес принадлежит неподтверждённому аккаунту, новая ссылка уже в пути. Проверьте папки «Входящие» и «Спам».",
+        "invalidEmail": "Введите корректный адрес эл. почты.",
+        "error": "Не удалось отправить письмо. Попробуйте через минуту."
       },
       "addAccountDescription": "Аккаунты, уже вошедшие в этом браузере, останутся в системе."
     },
@@ -93,81 +93,81 @@
       }
     },
     "forgotPassword": {
-      "metaTitle": "Forgot password",
-      "title": "Reset your password",
-      "description": "Enter the email on your account. If it exists, we will send you a link to choose a new password.",
-      "emailLabel": "Email",
+      "metaTitle": "Забыли пароль",
+      "title": "Сброс пароля",
+      "description": "Введите адрес эл. почты вашего аккаунта. Если он существует, мы отправим ссылку для выбора нового пароля.",
+      "emailLabel": "Эл. почта",
       "emailPlaceholder": "m@example.com",
-      "emailHint": "Use the same email you registered with. If you usually sign in with a username, recovery still uses your account email.",
-      "submit": "Send reset link",
-      "submitting": "Sending…",
-      "backToLogin": "Back to login",
-      "emailSent": "If an account exists for that email, you will receive a reset link shortly.",
+      "emailHint": "Укажите адрес, с которым вы регистрировались. Даже если вы обычно входите по имени пользователя, для восстановления используется адрес эл. почты аккаунта.",
+      "submit": "Отправить ссылку для сброса",
+      "submitting": "Отправка…",
+      "backToLogin": "Вернуться ко входу",
+      "emailSent": "Если для этого адреса есть аккаунт, вскоре вы получите ссылку для сброса.",
       "errors": {
-        "emailRequired": "Please enter your email address.",
-        "requestFailed": "Could not send the reset email. Try again."
+        "emailRequired": "Введите адрес эл. почты.",
+        "requestFailed": "Не удалось отправить письмо для сброса. Повторите попытку."
       }
     },
     "resetPassword": {
-      "metaTitle": "Set new password",
-      "title": "Choose a new password",
-      "description": "Enter and confirm your new password below.",
-      "invalidTokenTitle": "Link expired or invalid",
-      "invalidTokenDescription": "This reset link is no longer valid. Request a new one to continue.",
-      "missingTokenTitle": "No reset link",
-      "missingTokenDescription": "Open the link from your email, or request a new password reset.",
-      "requestNewLink": "Request new link",
-      "backToLogin": "Back to login",
-      "newPasswordLabel": "New password",
-      "confirmPasswordLabel": "Confirm password",
-      "passwordHint": "Must be at least 8 characters long.",
-      "passwordMismatch": "Passwords do not match",
-      "submit": "Update password",
-      "submitting": "Updating…",
-      "success": "Your password was updated. You can sign in now.",
+      "metaTitle": "Новый пароль",
+      "title": "Выберите новый пароль",
+      "description": "Введите и подтвердите новый пароль.",
+      "invalidTokenTitle": "Ссылка устарела или недействительна",
+      "invalidTokenDescription": "Эта ссылка для сброса больше не действует. Запросите новую, чтобы продолжить.",
+      "missingTokenTitle": "Нет ссылки для сброса",
+      "missingTokenDescription": "Откройте ссылку из письма или запросите новый сброс пароля.",
+      "requestNewLink": "Запросить новую ссылку",
+      "backToLogin": "Вернуться ко входу",
+      "newPasswordLabel": "Новый пароль",
+      "confirmPasswordLabel": "Подтвердите пароль",
+      "passwordHint": "Не менее 8 символов.",
+      "passwordMismatch": "Пароли не совпадают",
+      "submit": "Обновить пароль",
+      "submitting": "Обновление…",
+      "success": "Пароль обновлён. Теперь вы можете войти.",
       "errors": {
-        "resetFailed": "Could not reset your password. Try again or request a new link."
+        "resetFailed": "Не удалось сбросить пароль. Повторите попытку или запросите новую ссылку."
       }
     },
     "signup": {
-      "title": "Create an account",
-      "description": "Enter your information below to create your account",
-      "usernameLabel": "Username",
+      "title": "Создание аккаунта",
+      "description": "Введите данные ниже, чтобы создать аккаунт",
+      "usernameLabel": "Имя пользователя",
       "usernamePlaceholder": "your_username",
-      "usernameHint": "3-30 characters: letters, numbers, dots, and underscores only.",
-      "usernameChecking": "Checking availability…",
-      "usernameAvailable": "This username is available.",
-      "usernameTaken": "This username is already taken.",
-      "usernameInvalidHint": "Use only letters, numbers, dots, and underscores.",
-      "fullNameLabel": "Full Name",
-      "namePlaceholder": "John Doe",
-      "emailLabel": "Email",
+      "usernameHint": "3–30 символов: только буквы, цифры, точки и подчёркивания.",
+      "usernameChecking": "Проверка доступности…",
+      "usernameAvailable": "Это имя пользователя свободно.",
+      "usernameTaken": "Это имя пользователя уже занято.",
+      "usernameInvalidHint": "Используйте только буквы, цифры, точки и подчёркивания.",
+      "fullNameLabel": "Полное имя",
+      "namePlaceholder": "Иван Иванов",
+      "emailLabel": "Эл. почта",
       "emailPlaceholder": "m@example.com",
-      "emailDescription": "We'll use this to contact you. We will not share your email with anyone else.",
-      "passwordLabel": "Password",
-      "confirmPasswordLabel": "Confirm Password",
-      "passwordHint": "Must be at least 8 characters long.",
-      "confirmPasswordHint": "Please confirm your password.",
-      "passwordMismatch": "Passwords do not match",
-      "submit": "Create Account",
-      "submitting": "Creating account…",
-      "hasAccount": "Already have an account?",
-      "signInLink": "Sign in",
-      "loginLink": "Login",
-      "afterRegisterRedirect": "Account created. Check your email to verify before signing in.",
+      "emailDescription": "Мы будем использовать этот адрес, чтобы связаться с вами. Мы никому не передадим ваш адрес.",
+      "passwordLabel": "Пароль",
+      "confirmPasswordLabel": "Подтвердите пароль",
+      "passwordHint": "Не менее 8 символов.",
+      "confirmPasswordHint": "Введите пароль ещё раз.",
+      "passwordMismatch": "Пароли не совпадают",
+      "submit": "Создать аккаунт",
+      "submitting": "Создание аккаунта…",
+      "hasAccount": "Уже есть аккаунт?",
+      "signInLink": "Войти",
+      "loginLink": "Войти",
+      "afterRegisterRedirect": "Аккаунт создан. Подтвердите адрес эл. почты по ссылке из письма, прежде чем входить.",
       "errors": {
-        "signUpFailed": "Could not create your account. Try again.",
-        "compromisedPassword": "This password appears in known data breaches. Choose a different one.",
-        "usernameTooShort": "Username must be at least 3 characters.",
-        "usernameInvalid": "That username is not valid.",
-        "usernameTaken": "That username is already taken. Try another."
+        "signUpFailed": "Не удалось создать аккаунт. Повторите попытку.",
+        "compromisedPassword": "Этот пароль встречается в известных утечках данных. Выберите другой.",
+        "usernameTooShort": "Имя пользователя должно содержать не менее 3 символов.",
+        "usernameInvalid": "Недопустимое имя пользователя.",
+        "usernameTaken": "Это имя пользователя уже занято. Попробуйте другое."
       }
     },
     "screen": {
-      "headline": "One account for all your apps.",
-      "subhead": "Sign in once and reach every app connected to {name}. Your profile and security settings follow you everywhere.",
-      "footer": "Secured by {name}.",
-      "ecosystem": "Works with"
+      "headline": "Один аккаунт для <accent>всех ваших приложений</accent>.",
+      "subhead": "Войдите один раз и получите доступ ко всем приложениям, подключённым к {name}. Ваш профиль и настройки безопасности всегда с вами.",
+      "footer": "Защищено {name}.",
+      "ecosystem": "Работает с"
     },
     "social": {
       "or": "или",
@@ -175,8 +175,8 @@
       "signInWith": "Войти через {provider}",
       "lastUsed": "Использовалось последним",
       "otherProviders": "Другие способы входа",
-      "error": "Could not sign in with that account. Try again or use another method.",
-      "notLinked": "That account isn't connected to a {name} account yet. Sign in another way, then connect it from your security settings.",
+      "error": "Не удалось войти с этим аккаунтом. Повторите попытку или выберите другой способ.",
+      "notLinked": "Этот аккаунт ещё не привязан к аккаунту {name}. Войдите другим способом, затем подключите его в настройках безопасности.",
       "noEmail": "Этот аккаунт не передал адрес электронной почты. Повторите попытку позже или войдите другим способом.",
       "signUpDisabled": "Для этого адреса ещё нет аккаунта, а этот способ входа не может его создать. Войдите другим способом."
     },
@@ -189,23 +189,23 @@
     }
   },
   "consent": {
-    "emptyTitle": "Authorization",
-    "emptyDescription": "There is no pending OAuth request. Start the flow from the application you want to connect.",
-    "connectTitle": "Connect {name}",
-    "intro": "This application is requesting access to your account. Review the permissions below before continuing.",
+    "emptyTitle": "Авторизация",
+    "emptyDescription": "Нет ожидающего запроса OAuth. Начните вход из приложения, которое хотите подключить.",
+    "connectTitle": "Подключение {name}",
+    "intro": "Это приложение запрашивает доступ к вашему аккаунту. Прежде чем продолжить, проверьте разрешения ниже.",
     "errors": {
-      "needSignIn": "You need to sign in before you can approve this request.",
-      "loadFailed": "Could not load application details.",
-      "actionFailed": "Something went wrong."
+      "needSignIn": "Чтобы одобрить этот запрос, нужно войти.",
+      "loadFailed": "Не удалось загрузить сведения о приложении.",
+      "actionFailed": "Что-то пошло не так."
     },
-    "signIn": "Sign in",
-    "visitWebsite": "Visit application website",
-    "requestedAccess": "Requested access",
-    "defaultScopes": "Default permissions for this client (no explicit scopes in the request).",
-    "terms": "Terms of service",
-    "privacy": "Privacy policy",
-    "deny": "Deny",
-    "allow": "Allow",
+    "signIn": "Войти",
+    "visitWebsite": "Перейти на сайт приложения",
+    "requestedAccess": "Запрошенный доступ",
+    "defaultScopes": "Разрешения этого клиента по умолчанию (в запросе нет явных scope).",
+    "terms": "Условия использования",
+    "privacy": "Политика конфиденциальности",
+    "deny": "Отклонить",
+    "allow": "Разрешить",
     "scopes": {
       "openid": "Подтверждение вашей личности (OpenID Connect)",
       "profile": "Имя и данные профиля",
@@ -221,108 +221,1540 @@
   },
   "admin": {
     "themeToggle": {
-      "light": "Light",
-      "dark": "Dark",
-      "system": "System",
-      "srOnly": "Toggle theme",
-      "label": "Theme"
+      "light": "Светлая",
+      "dark": "Тёмная",
+      "system": "Системная",
+      "srOnly": "Переключить тему",
+      "label": "Тема"
     },
     "nav": {
-      "groupAdmin": "Admin",
+      "groupAdmin": "Администрирование",
       "groupOAuth": "OAuth",
-      "overview": "Overview",
-      "users": "Users",
-      "applications": "Applications",
+      "overview": "Обзор",
+      "users": "Пользователи",
+      "applications": "Приложения",
       "apis": "API",
       "apiKeys": "API-ключи",
-      "consent": "Consent",
-      "organizations": "Organizations",
+      "consent": "Согласия",
+      "organizations": "Организации",
       "sso": "SSO",
       "signInProviders": "Провайдеры входа",
       "webhooks": "Вебхуки",
-      "security": "Security",
+      "security": "Безопасность",
       "usage": "Использование приложений",
-      "audit": "Audit log",
+      "audit": "Журнал аудита",
       "signingKeys": "Ключи подписи"
     },
     "header": {
-      "crumb": "Admin",
-      "fallback": "Admin",
-      "overview": "Overview",
-      "users": "Users",
-      "applications": "Applications",
+      "crumb": "Администрирование",
+      "fallback": "Администрирование",
+      "overview": "Обзор",
+      "users": "Пользователи",
+      "applications": "Приложения",
       "apis": "API",
       "apiKeys": "API-ключи",
-      "consent": "Consent",
-      "organizations": "Organizations",
+      "consent": "Согласия",
+      "organizations": "Организации",
       "sso": "SSO",
       "signInProviders": "Провайдеры входа",
       "webhooks": "Вебхуки",
-      "security": "Security",
+      "security": "Безопасность",
       "usage": "Использование приложений",
-      "audit": "Audit log",
+      "audit": "Журнал аудита",
       "signingKeys": "Ключи подписи"
     },
     "pages": {
       "overview": {
-        "title": "Overview",
+        "title": "Обзор",
         "activity": {
-          "title": "Sign-in activity",
-          "description": "Sign-ins, new accounts and sign-outs per day, last 30 days.",
-          "signIns": "Sign-ins",
-          "signUps": "Sign-ups",
-          "signOuts": "Sign-outs",
-          "showTable": "View as table",
-          "showChart": "View as chart",
-          "legend": "Totals for the last 30 days",
-          "day": "Day",
-          "note": "Sign-outs are tracked from October 6, 2026. Earlier sign-ins only include sessions that were still active then."
+          "title": "Активность входов",
+          "description": "Входы, новые аккаунты и выходы по дням за последние 30 дней.",
+          "signIns": "Входы",
+          "signUps": "Регистрации",
+          "signOuts": "Выходы",
+          "showTable": "Показать таблицей",
+          "showChart": "Показать графиком",
+          "legend": "Итоги за последние 30 дней",
+          "day": "День",
+          "note": "Выходы учитываются с 6 октября 2026 года. Более ранние входы включают только сеансы, которые на тот момент ещё были активны."
         },
-        "description": "Accounts, sign-in activity and the newest members of the platform."
+        "description": "Аккаунты, активность входов и новые участники платформы.",
+        "recentUsers": {
+          "title": "Недавно присоединились",
+          "description": "Самые новые аккаунты. Откройте аккаунт, чтобы увидеть его сеансы и активность.",
+          "loading": "Загрузка…",
+          "empty": "Пользователей пока нет."
+        },
+        "stats": {
+          "error": "Не удалось загрузить одну или несколько метрик. Убедитесь, что вы вошли как администратор.",
+          "errorTitle": "Метрики недоступны",
+          "loadingTitle": "Загрузка",
+          "loadingHint": "Загрузка…",
+          "totalUsers": {
+            "title": "Всего пользователей",
+            "hint": "Все аккаунты на платформе."
+          },
+          "admins": {
+            "title": "Администраторы",
+            "hint": "Аккаунты с доступом к этой консоли."
+          },
+          "banned": {
+            "title": "Заблокированы",
+            "hint": "Аккаунты, которые сейчас не могут войти."
+          },
+          "verified": {
+            "title": "Почта подтверждена",
+            "hint": "Аккаунты, подтвердившие адрес электронной почты."
+          },
+          "recent": {
+            "title": "Новые (7 дней)",
+            "hint": "Аккаунты, созданные за последние 7 дней."
+          }
+        }
       },
       "applications": {
-        "title": "Applications",
+        "title": "Приложения",
         "description": "OAuth-клиенты, которые могут выполнять вход через {name}: адреса перенаправления, типы grant и настройки согласия.",
         "unusedHint": "{count, plural, one {# приложение не использовалось} few {# приложения не использовались} many {# приложений не использовались} other {# приложения не использовались}} за последние 30 дней.",
-        "viewUsage": "Открыть статистику"
+        "viewUsage": "Открыть статистику",
+        "panel": {
+          "selfRegisteredHint": "Зарегистрировался сам: не проверен администратором",
+          "selfRegisteredBadge": "Саморегистрация",
+          "registration": {
+            "all": "Любая регистрация",
+            "admin": "Администратор",
+            "dynamic": "Динамическая регистрация",
+            "metadata_document": "Документ метаданных"
+          },
+          "authMethod": {
+            "none": "аутентификация: нет",
+            "client_secret_basic": "аутентификация: секрет (basic)",
+            "client_secret_post": "аутентификация: секрет (post)",
+            "private_key_jwt": "аутентификация: JWT с закрытым ключом"
+          },
+          "loadFailed": "Не удалось загрузить OAuth-клиенты",
+          "loadErrorTitle": "Не удалось загрузить приложения",
+          "searchPlaceholder": "Поиск по названию, ID клиента, redirect URI или гранту…",
+          "searchLabel": "Поиск приложений",
+          "clientType": "Тип клиента",
+          "registeredBy": "Кем зарегистрирован",
+          "kind": {
+            "all": "Все клиенты",
+            "public": "Публичный",
+            "confidential": "Конфиденциальный",
+            "trusted": "Доверенный (без согласия)",
+            "device": "Вход с устройства"
+          },
+          "columns": {
+            "application": "Приложение",
+            "redirects": "Перенаправления",
+            "grants": "Гранты",
+            "consent": "Согласие"
+          },
+          "badges": {
+            "device": "Устройство",
+            "trusted": "Доверенный",
+            "consent": "Согласие",
+            "active": "Активен",
+            "skipped": "Пропускается",
+            "required": "Обязательно"
+          },
+          "loadingRows": "Загрузка приложений…",
+          "empty": "У этого аккаунта пока нет OAuth-клиентов.",
+          "noMatch": "Нет приложений, соответствующих фильтрам.",
+          "linkedApis": "Связанные API: {apis}",
+          "noApplications": "0 приложений",
+          "showing": "Показано {from}–{to} из {total}",
+          "rowsPerPage": "Строк на странице",
+          "previous": "Назад",
+          "next": "Далее",
+          "page": "Страница {page} / {total}",
+          "footnote": "Данные из <code>{getClients}</code>. Регистрация и изменение (включая <code>{skipConsent}</code>) вызывают <code>{create}</code> и <code>{update}</code>; остальные изменения используют <code>{deleteClient}</code> и <code>{rotateSecret}</code>. См. документацию <docs>OAuth provider</docs>. Клиенты привязаны к вошедшему пользователю (или к <code>{clientReference}</code>, если настроено). Самостоятельно зарегистрированные клиенты не имеют владельца и показываются все; их можно отключить или удалить, но не изменить."
+        },
+        "registration": {
+          "title": "Саморегистрация",
+          "description": "Позволяет MCP-клиентам и ИИ-агентам регистрироваться самостоятельно, а не добавляться здесь. Они получают только scope ниже, всегда показывают экран согласия с пометкой «не проверено» и никогда не получают машинный доступ (client credentials).",
+          "dynamicRegistration": "Динамическая регистрация",
+          "dynamic": {
+            "off": {
+              "label": "Выкл.",
+              "hint": "POST /oauth2/register отклоняется."
+            },
+            "signed_in": {
+              "label": "Только вошедшие пользователи",
+              "hint": "Регистрироваться могут только запросы с сеансом пользователя. Большинство MCP-клиентов так не умеют."
+            },
+            "open": {
+              "label": "Все (открытая регистрация)",
+              "hint": "То, чего ждут MCP-клиенты: любое приложение может зарегистрироваться, а затем каждый пользователь одобряет его на экране согласия."
+            }
+          },
+          "metadataDocuments": "Документы метаданных (client_id в виде URL)",
+          "metadataOnFrom": "Вкл., с {hosts}",
+          "metadataOnAnyHost": "Вкл., любой HTTPS-хост",
+          "scopes": "Scope, которые они могут запрашивать",
+          "missingScope": "Больше не является scope этого сервера: игнорируется",
+          "perHour": "Новых клиентов в час",
+          "endpoint": "Эндпоинт регистрации: <code>{url}</code> (указан в документе discovery).",
+          "saved": "Настройки сохранены. Сервер авторизации применит их в течение минуты.",
+          "dialogDescription": "Самостоятельно зарегистрированные клиенты не проверяются. Пользователи видят их как непроверенные приложения и одобряют каждое на экране согласия.",
+          "dynamicLabel": "Динамическая регистрация клиентов (RFC 7591)",
+          "cimdLabel": "Документы метаданных Client ID",
+          "cimdHint": "client_id — это HTTPS URL на JSON-метаданные приложения, как в новых MCP-клиентах. Загружаются только публичные хосты, без перенаправлений, не более 5 КБ.",
+          "hostsLabel": "Разрешённые хосты",
+          "hostsHint": "По одному в строке. Пусто: любой публичный HTTPS-хост.",
+          "scopesLabel": "Scope, которые могут запрашивать самостоятельно зарегистрированные клиенты",
+          "scopesHint": "Каждый пользователь всё равно одобряет scope, которые запрашивает приложение. Удаление scope также убирает его у уже зарегистрированных клиентов; уже выданные токены сохраняют его до истечения срока.",
+          "perHourHint": "Суммарно по всем экземплярам, для обоих способов. Каждый адрес также ограничен 5 регистрациями в минуту."
+        },
+        "branding": {
+          "title": "Оформление входа",
+          "description": "Как выглядят экраны входа, когда пользователи приходят из <app>{client}</app>: вход, регистрация, двухфакторная аутентификация, сброс пароля и согласие. Знак {brand} остаётся виден на каждом экране.",
+          "logoFetchedOnSave": "Сервер загрузит логотип при сохранении; тогда он появится в предпросмотре.",
+          "accentInvalid": "Введите акцентный цвет в формате hex, например {example}.",
+          "hexInvalid": "Введите цвет в формате hex, например {example}.",
+          "saved": "Оформление входа сохранено",
+          "resetDone": "Оформление входа сброшено",
+          "displayName": "Отображаемое название",
+          "displayNameHint": "Показывается как «Войдите, чтобы продолжить в …». Если пусто, используется название приложения.",
+          "tagline": "Слоган (необязательно)",
+          "taglinePlaceholder": "Ваш список чтения — везде.",
+          "accent": "Акцентный цвет",
+          "accentPick": "Выберите акцентный цвет",
+          "accentHex": "Акцентный цвет (hex)",
+          "accentOff": "Выкл.: экраны сохраняют цвета темы.",
+          "contrast": {
+            "label": "Проверка контраста",
+            "ratio": "{label}: <value>{ratio}:1</value>",
+            "passes": "(соответствует {min}:1)",
+            "below": "(ниже {min}:1)",
+            "buttonLabel": "Текст кнопки ({color, select, black {чёрный} other {белый}})",
+            "lightCard": "Кнопки на светлой карточке",
+            "darkCard": "Кнопки на тёмной карточке",
+            "textAdjusted": "Текст на акцентном цвете использует {color}, чтобы достичь {min}:1."
+          },
+          "logo": "Логотип",
+          "logoSourceLabel": "Источник логотипа",
+          "logoSource": {
+            "app_icon": "Значок приложения",
+            "url": "По URL",
+            "upload": "Загрузить"
+          },
+          "logoAppIconHint": "Значок, найденный для приложения (его {field} или его сайт), как на экране согласия.",
+          "logoUrl": "URL логотипа",
+          "logoUrlHint": "https на публичном хосте. {name} загружает и кэширует его; браузеры никогда не загружают его оттуда.",
+          "logoFile": "Файл логотипа",
+          "logoFileHint": "PNG, JPEG, WebP, AVIF, GIF, ICO или SVG, до 256 КБ. Лучше всего квадратный.",
+          "panel": "Боковая панель (широкие экраны, необязательно)",
+          "panelImage": "Изображение боковой панели",
+          "removeImage": "Удалить изображение",
+          "panelHint": "Заголовок и фоновое изображение тёмной панели. PNG, JPEG, WebP или AVIF, до 1 МБ.",
+          "social": "Вход через соцсети на экранах этого приложения",
+          "socialNone": "Ни один провайдер соцсетей не включён.",
+          "socialShown": "Показываемые провайдеры соцсетей",
+          "socialAll": "Все включённые",
+          "socialSome": "Только эти",
+          "socialHint": "Скрывает кнопки только на экранах этого приложения; это не мешает входить другим способом.",
+          "previewTitle": "Предпросмотр",
+          "previewScheme": "Цветовая схема предпросмотра",
+          "light": "Светлая",
+          "dark": "Тёмная",
+          "faintOnLight": "Кнопки этого цвета почти не выделяются на светлой карточке (WCAG требует 3:1 для элементов управления). Подписи остаются читаемыми; попробуйте более тёмный оттенок.",
+          "faintOnDark": "Кнопки этого цвета почти не выделяются на тёмной карточке (WCAG требует 3:1 для элементов управления). Подписи остаются читаемыми; попробуйте более светлый оттенок.",
+          "resetting": "Сброс…",
+          "reset": "Сбросить по умолчанию",
+          "save": "Сохранить оформление",
+          "preview": {
+            "label": "Предпросмотр страницы входа",
+            "appFallback": "Приложение",
+            "title": "Вход",
+            "submit": "Войти",
+            "noAccount": "Нет аккаунта? <link>Создайте его</link>"
+          }
+        },
+        "actions": {
+          "registration": {
+            "chooseMode": "Выберите, кто может регистрировать клиенты.",
+            "unknownScope": "«{scope}» не является scope этого сервера.",
+            "noScopes": "Разрешите хотя бы один scope.",
+            "invalidHost": "«{raw}» не является именем хоста, например {example}.",
+            "invalidLimit": "Лимит в час должен быть целым числом от 0 до {max}.",
+            "saveFailed": "Не удалось сохранить настройки.",
+            "clientGone": "Этот клиент больше не существует.",
+            "notSelfRegistered": "Здесь можно изменять только самостоятельно зарегистрированные клиенты."
+          },
+          "branding": {
+            "clientGone": "Это приложение больше не существует.",
+            "selfRegistered": "Для самостоятельно зарегистрированных клиентов оформление недоступно.",
+            "logoMissing": "Выберите файл логотипа для загрузки.",
+            "logoFetchFailed": "Не удалось загрузить изображение по URL логотипа. Убедитесь, что он публичный и ведёт на изображение.",
+            "faintOnLight": "Акцентный цвет плохо виден на светлой карточке: кнопки почти не будут выделяться.",
+            "faintOnDark": "Акцентный цвет плохо виден на тёмной карточке: кнопки почти не будут выделяться.",
+            "saveFailed": "Не удалось сохранить оформление."
+          }
+        },
+        "register": {
+          "trigger": "Зарегистрировать приложение",
+          "title": "Регистрация OAuth-приложения",
+          "description": "Создаёт клиент, привязанный к вашему аккаунту, через <code>{endpoint}</code> (доверенные приложения могут задать <code>{field}</code>). См. <link>Better Auth, Create client</link>.",
+          "nameLabel": "Название приложения",
+          "namePlaceholder": "Моё приложение",
+          "redirectUrisLabel": "Redirect URI",
+          "redirectUrisHintPublic": "По одному в строке или через запятую. HTTPS или http на localhost, 127.0.0.1 или [::1].",
+          "redirectUrisHintConfidential": "По одному в строке или через запятую. Только HTTPS, включая localhost. Для локальной разработки зарегистрируйте отдельный публичный клиент.",
+          "redirectUrisRequired": "Введите хотя бы один redirect URI (по одному в строке или через запятую).",
+          "clientTypeLabel": "Тип клиента",
+          "clientTypeConfidential": "Конфиденциальный (секрет клиента)",
+          "clientTypePublic": "Публичный (PKCE, без секрета)",
+          "deviceCodeLabel": "Вход с устройства (CLI, телевизоры)",
+          "deviceCodeHint": "Добавляет грант device code (RFC 8628): приложение показывает код, а пользователь одобряет его по адресу <code>{path}</code> на другом экране. Обычно это публичный клиент.",
+          "skipConsentLabel": "Пропускать согласие (доверенный клиент)",
+          "skipConsentHint": "Пользователи не увидят экран согласия для этого приложения. Используйте только для собственных или полностью доверенных интеграций.",
+          "registerFailed": "Не удалось зарегистрировать приложение",
+          "missingClientId": "Сервер не вернул {field}.",
+          "registered": "OAuth-приложение зарегистрировано",
+          "creating": "Создание…",
+          "create": "Создать приложение",
+          "successTitle": "Приложение создано",
+          "successWithSecret": "Скопируйте секрет клиента сейчас: он может быть показан только один раз.",
+          "successPublic": "Публичный клиент, секрет не выдаётся. Используйте PKCE на эндпоинте токенов.",
+          "clientId": "ID клиента",
+          "clientSecret": "Секрет клиента",
+          "copyClientId": "Копировать ID клиента",
+          "copyClientSecret": "Копировать секрет клиента"
+        },
+        "rowActions": {
+          "menuLabel": "Действия для {name}",
+          "copyClientId": "Копировать ID клиента",
+          "clientIdCopied": "ID клиента скопирован",
+          "edit": "Изменить приложение",
+          "editHint": "Название, redirect URI, вход с устройства и пропуск согласия",
+          "branding": "Оформление входа",
+          "brandingHint": "Логотип, акцентный цвет и тексты экранов входа для этого приложения",
+          "rotateSecret": "Сменить секрет",
+          "rotateHintPublic": "У публичных клиентов нет секрета",
+          "rotateHintDisabled": "Сначала включите клиент",
+          "rotateHint": "Меняет секрет конфиденциального клиента",
+          "delete": "Удалить приложение",
+          "editDialog": {
+            "title": "Изменить приложение",
+            "description": "Обновляет <id>{clientId}</id> через <code>{endpoint}</code> (ограниченные поля, такие как <code>{field}</code>). См. <link>Better Auth, Update client</link>.",
+            "nameLabel": "Название приложения",
+            "namePlaceholder": "Моё приложение",
+            "redirectUrisLabel": "Redirect URI",
+            "redirectUrisHint": "По одному в строке или через запятую. Требуется HTTPS. Только публичные клиенты могут использовать http на localhost.",
+            "redirectUrisRequired": "Введите хотя бы один redirect URI (по одному в строке или через запятую).",
+            "deviceCodeLabel": "Вход с устройства (CLI, телевизоры)",
+            "deviceCodeHint": "Разрешает грант device code. Если выключить, новые входы с устройств прекратятся; уже выданные токены продолжат работать.",
+            "skipConsentLabel": "Пропускать согласие (доверенный клиент)",
+            "skipConsentHint": "Если включено, пользователям не предлагается одобрять scope для этого приложения.",
+            "updateFailed": "Не удалось обновить приложение",
+            "updated": "Приложение обновлено"
+          },
+          "deleteDialog": {
+            "title": "Удалить приложение?",
+            "description": "<strong>{name}</strong> (<code>{clientId}</code>) будет удалено навсегда. Это может затронуть OAuth-токены и согласия для этого клиента.",
+            "deleteFailed": "Не удалось удалить клиент",
+            "deleted": "Приложение удалено"
+          },
+          "rotateDialog": {
+            "title": "Сменить секрет клиента?",
+            "description": "Прежний секрет сразу перестанет работать. Сохраните новый секрет в надёжном месте: он может быть показан только один раз.",
+            "newSecretLabel": "Новый секрет клиента",
+            "copySecret": "Копировать секрет",
+            "secretCopied": "Секрет скопирован",
+            "rotating": "Смена…",
+            "rotateFailed": "Не удалось сменить секрет",
+            "newSecretIssued": "Выдан новый секрет клиента, скопируйте его сейчас",
+            "rotated": "Секрет сменён"
+          }
+        },
+        "selfRegistered": {
+          "menuLabel": "Действия для {name}",
+          "enabled": "Клиент включён",
+          "disabled": "Клиент отключён",
+          "deleted": "Клиент удалён",
+          "disableTitle": "Отключить {name}?",
+          "disableDescription": "Он больше не сможет выполнять вход пользователей и обновлять свои токены. Уже выданные токены доступа работают до истечения срока (не более часа).",
+          "deleteTitle": "Удалить {name}?",
+          "deleteDescriptionMetadataDocument": "Его токены и данные ему согласия тоже удаляются. Клиент с документом метаданных будет создан снова при следующем входе через него. Чтобы заблокировать его, отключите его.",
+          "deleteDescriptionDynamic": "Его токены и данные ему согласия тоже удаляются. Приложение может зарегистрироваться снова, пока включена динамическая регистрация."
+        },
+        "brandingErrors": {
+          "textTooLong": "Не более {max} символов.",
+          "displayNameTooLong": "Отображаемое название: не более {max} символов.",
+          "taglineTooLong": "Слоган: не более {max} символов.",
+          "panelTextTooLong": "Текст боковой панели: не более {max} символов.",
+          "accentColor": "Акцентный цвет: введите цвет в формате hex, например {example}.",
+          "logoSource": "Выберите источник логотипа.",
+          "logoUrl": "URL логотипа: введите https URL на публичном хосте (порт по умолчанию).",
+          "logoEmpty": "Файл логотипа пуст.",
+          "logoTooLarge": "Логотип должен быть не больше 256 КБ.",
+          "logoType": "Логотип должен быть изображением PNG, JPEG, GIF, WebP, AVIF, ICO или SVG.",
+          "panelImageEmpty": "Изображение боковой панели пусто.",
+          "panelImageTooLarge": "Изображение боковой панели должно быть не больше 1 МБ.",
+          "panelImageType": "Изображение боковой панели должно быть в формате PNG, JPEG, WebP или AVIF."
+        }
       },
       "apis": {
         "title": "API",
-        "description": "Ваши API (защищённые ресурсы), которые принимают токены доступа {name}: scope, которые могут запрашивать клиенты, приложения, которым разрешён доступ, и настройки их токенов."
+        "description": "Ваши API (защищённые ресурсы), которые принимают токены доступа {name}: scope, которые могут запрашивать клиенты, приложения, которым разрешён доступ, и настройки их токенов.",
+        "errors": {
+          "tokenSettings": {
+            "lifetimePositive": "{field, select, access {Срок жизни токена доступа должен быть положительным числом минут.} other {Срок жизни токена обновления должен быть положительным числом дней.}}",
+            "lifetimeMinimum": "{field, select, access {Срок жизни токена доступа} other {Срок жизни токена обновления}} должен быть не меньше минуты.",
+            "lifetimeMaximum": "{field, select, access {Срок жизни токена доступа не может превышать {max} мин. (значение сервера по умолчанию).} other {Срок жизни токена обновления не может превышать {max} дн. (значение сервера по умолчанию).}}",
+            "claimsInvalidJson": "Пользовательские claims должны быть корректным JSON, например {example}.",
+            "claimsNotObject": "Пользовательские claims должны быть JSON-объектом, например {example}.",
+            "claimsEmptyName": "Имя пользовательского claim не может быть пустым.",
+            "claimsReserved": "{count, plural, one {{claims} — зарезервированный claim: его задаёт сервер.} few {{claims} — зарезервированные claims: их задаёт сервер.} many {{claims} — зарезервированные claims: их задаёт сервер.} other {{claims} — зарезервированные claims: их задаёт сервер.}} Зарезервированы: {reserved}.",
+            "claimsTooLarge": "Пользовательские claims слишком велики (не более {kilobytes} КБ): они добавляются в каждый токен."
+          },
+          "invalidScope": "«{scope}» — недопустимый scope.",
+          "reservedScope": "«{scope}» — scope OpenID Connect, он уже доступен каждому клиенту.",
+          "invalidIdentifier": "Идентификатор должен быть абсолютным URL без фрагмента, например {example}.",
+          "registerFailed": "Не удалось зарегистрировать API.",
+          "authServerCannotBeDisabled": "Сам сервер авторизации нельзя отключить.",
+          "updateFailed": "Не удалось обновить API.",
+          "deleteFromEnv": "Этот API задан в {variable} и вернётся при следующем развёртывании. Вместо этого отключите его.",
+          "deleteFailed": "Не удалось удалить API.",
+          "authServerStaysOpen": "Сервер авторизации остаётся открытым для всех приложений: от него зависит вход.",
+          "accessFailed": "Не удалось изменить, какие приложения могут использовать API.",
+          "tokensFailed": "Не удалось сохранить настройки токенов."
+        },
+        "duration": {
+          "days": "{count, plural, one {# день} few {# дня} many {# дней} other {# дня}}",
+          "hours": "{count} ч",
+          "minutes": "{count} мин"
+        },
+        "tokenSummary": {
+          "accessToken": "Токен доступа {duration}",
+          "refreshToken": "Токен обновления {duration}",
+          "dpopRequired": "Требуется DPoP",
+          "claims": "Claims: {claims}"
+        },
+        "restrictLabel": "Выдавать для этого API только эти scope",
+        "restrictHint": "Токены для этого API содержат только эти scope (и scope OpenID Connect). Выкл.: они содержат все scope, предоставленные клиенту.",
+        "register": {
+          "title": "Регистрация API",
+          "description": "Клиенты запрашивают для него токен с параметром <code>{param}</code>. Аудитория токена — это идентификатор, и API проверяет его по JWKS.",
+          "identifier": "Идентификатор",
+          "identifierHint": "Обычно базовый URL API. Позже его нельзя изменить.",
+          "namePlaceholder": "API заказов",
+          "scopes": "Scope",
+          "scopesHint": "Через пробел или запятую. Машинные клиенты ({grant}) должны быть ограничены частью из них.",
+          "submit": "Зарегистрировать API",
+          "submitting": "Регистрация…",
+          "registered": "API зарегистрирован"
+        },
+        "list": {
+          "description": "Новые и изменённые scope доходят до сервера авторизации в течение минуты. Настройки доступа и токенов применяются к следующему токену.",
+          "empty": "API пока нет.",
+          "envScopesTitle": "Scope из {variable}",
+          "envScopesText": "Доступны каждому клиенту, какой бы API он ни вызывал: <mono>{scopes}</mono>. Чтобы управлять ими здесь, добавьте их в API, к которому они относятся, затем удалите переменную."
+        },
+        "item": {
+          "authServer": "Сервер авторизации",
+          "restricted": "Ограничен",
+          "linkedOnly": "Только связанные приложения",
+          "noResourceParam": "Токены, выданные без параметра resource.",
+          "noScopes": "Нет scope.",
+          "editAria": "Изменить {name}",
+          "deleteAria": "Удалить {name}",
+          "applications": "Приложения",
+          "everyApplication": "Все приложения",
+          "onlyLinked": "Только {names}",
+          "noneLinked": "Нет связанных: ни одно приложение не может получить токены",
+          "change": "Изменить",
+          "changeAccessAria": "Изменить, какие приложения могут использовать {name}",
+          "tokens": "Токены",
+          "defaultSettings": "Настройки по умолчанию",
+          "changeTokensAria": "Изменить настройки токенов {name}"
+        },
+        "edit": {
+          "title": "Изменить {name}",
+          "scopesHint": "Удаление scope не меняет клиенты, у которых он уже есть, но ни один новый токен не будет его содержать.",
+          "disabledHint": "Новые токены для этого API не выдаются. Уже выданные токены работают до истечения срока.",
+          "updated": "API обновлён"
+        },
+        "access": {
+          "title": "Приложения, которые могут использовать {name}",
+          "allHint": "Любое приложение может получать токены для этого API в пределах своих scope.",
+          "linkedLabel": "Только связанные приложения",
+          "linkedHint": "Остальным приложениям отказывается ({error}), в том числе при обновлении токена.",
+          "linkedTitle": "Связанные приложения",
+          "filterAria": "Фильтр приложений",
+          "filterPlaceholder": "Фильтр по названию или ID клиента",
+          "noApplications": "Приложений пока нет.",
+          "noMatch": "Нет подходящих приложений.",
+          "linksHintAll": "Связи имеют значение, только когда API ограничен связанными приложениями. Связанное приложение также может выполнять интроспекцию токенов этого API.",
+          "linksHintLinked": "Связанное приложение также может выполнять интроспекцию токенов этого API.",
+          "noneLinkedWarning": "Нет связанных приложений: ни одно не может получить токены для этого API.",
+          "updated": "Доступ обновлён"
+        },
+        "tokens": {
+          "title": "Настройки токенов для {name}",
+          "description": "Применяются к каждому токену доступа, выданному для этого API. Уже выданные токены сохраняют свои настройки.",
+          "accessTtl": "Срок жизни токена доступа (минуты)",
+          "accessTtlHint": "По умолчанию: {minutes, plural, one {# минута} few {# минуты} many {# минут} other {# минуты}}. Можно только сократить.",
+          "refreshTtl": "Срок жизни токена обновления (дни)",
+          "refreshTtlHint": "По умолчанию: {days, plural, one {# день} few {# дня} many {# дней} other {# дня}}. Можно только сократить.",
+          "claims": "Пользовательские claims",
+          "claimsHint": "JSON-объект, добавляемый в каждый токен доступа для этого API. Зарезервированы: <mono>{claims}</mono>.",
+          "dpopLabel": "Требовать токены с привязкой DPoP",
+          "dpopHint": "Чтобы получить токен для этого API, клиенты должны отправить доказательство DPoP, и токен привязывается к их ключу. API должен проверять доказательство при каждом запросе.",
+          "saved": "Настройки токенов сохранены"
+        },
+        "delete": {
+          "title": "Удалить {name}?",
+          "description": "Клиенты больше не смогут получать для него токены, а уже выданные токены сразу перестанут работать. Чтобы остановить только выдачу новых токенов, отключите его.",
+          "deleted": "API удалён"
+        }
       },
       "signInProviders": {
         "title": "Провайдеры входа",
-        "description": "Вход в {name} через Google, Apple, Microsoft и ещё более 30 сервисов."
+        "description": "Вход в {name} через Google, Apple, Microsoft и ещё более 30 сервисов.",
+        "panel": {
+          "copyCallback": "Копировать callback URL",
+          "authAppFallback": "адрес приложения входа",
+          "environment": "Окружение",
+          "activeTitle": "На странице входа",
+          "activeDescription": "В этом порядке на страницах входа и регистрации, а также в разделе «Подключённые аккаунты» в личном кабинете каждого пользователя. Изменения появляются на странице входа в течение 30 секунд.",
+          "noneActive": "Ни один провайдер не включён. Выберите провайдер в списке, чтобы настроить его.",
+          "setByEnvironment": "Задано переменными окружения",
+          "existingAccountsOnly": "Только существующие аккаунты",
+          "connectedAccounts": "{count, plural, one {# подключённый аккаунт} few {# подключённых аккаунта} many {# подключённых аккаунтов} other {# подключённого аккаунта}}",
+          "moveUp": "Переместить {name} выше",
+          "moveDown": "Переместить {name} ниже",
+          "edit": "Изменить {name}",
+          "providersTitle": "Провайдеры",
+          "providersDescription": "Все провайдеры, которые поддерживает Better Auth. Создайте OAuth-приложение у провайдера, зарегистрируйте callback URL, указанный в его настройках, затем вставьте учётные данные. Секреты хранятся в зашифрованном виде и больше не показываются.",
+          "search": "Поиск провайдеров",
+          "noMatch": "Нет подходящих провайдеров.",
+          "savedOn": "{name} включён",
+          "saved": "{name} сохранён",
+          "removed": "Настройки {name} удалены",
+          "optional": "(необязательно)",
+          "secretSet": "Задан",
+          "replace": "Заменить",
+          "removedOnSave": "Будет удалено при сохранении.",
+          "undo": "Отменить",
+          "newValue": "Новое значение",
+          "environmentDescription": "Задано переменными окружения ({clientIdVar} и {clientSecretVar}): измените их там или удалите, чтобы управлять этим провайдером здесь.",
+          "defaultNote": "Создайте OAuth-приложение в {name}, зарегистрируйте callback URL ниже, затем вставьте его учётные данные.",
+          "callbackUrl": "Callback URL",
+          "callbackHint": "Также называется redirect URI или URL возврата.",
+          "createApp": "Создать приложение",
+          "setupGuide": "Руководство по настройке",
+          "secretsUnreadable": "Сохранённые секреты невозможно расшифровать ({envVar} изменилась). Введите их снова.",
+          "buttonName": "Название кнопки",
+          "buttonNameHint": "Показывается как «Продолжить с …» на странице входа.",
+          "allowSignUp": "Создавать аккаунты для новых пользователей",
+          "allowSignUpHint": "Выкл.: входить через него могут только те, у кого уже есть аккаунт (подключённый из личного кабинета или с тем же подтверждённым адресом почты).",
+          "oneTap": "Показывать Google One Tap",
+          "oneTapHint": "Собственное окно входа Google вверху страниц входа и регистрации для тех, кто уже вошёл в Google в браузере. Использует этот ID клиента: добавьте {origin} в его Authorized JavaScript origins в консоли Google Cloud. Работает, только пока Google включён.",
+          "enabled": "Показывать на странице входа",
+          "enabledHint": "Выкл.: кнопка исчезает, а входы через этот провайдер отклоняются. Настройки сохраняются.",
+          "removeConfirm": "Удалить настройки и секреты?",
+          "removeSettings": "Удалить настройки"
+        },
+        "errors": {
+          "unknownProvider": "Неизвестный провайдер.",
+          "envManaged": "Этот провайдер задан переменными окружения. Измените их или удалите, чтобы управлять им здесь.",
+          "invalidOption": "{field}: выберите {options}.",
+          "appleKeyNotEc": "Закрытый ключ: ожидается ключ EC (P-256), загруженный из Apple (.p8).",
+          "appleKeyInvalid": "Закрытый ключ: это не корректный закрытый ключ PEM. Вставьте весь файл .p8, включая строки BEGIN и END.",
+          "issuerNotHttps": "URL должен начинаться с https://.",
+          "salesforceDomain": "My Domain: имя хоста, например example.my.salesforce.com.",
+          "cognitoRegion": "Регион: регион AWS, например eu-west-1.",
+          "googleHd": "Домен Workspace: домен, например example.com.",
+          "missingFields": "Заполните {fields}, прежде чем включать.",
+          "unusable": "Эти настройки нельзя использовать."
+        },
+        "providers": {
+          "apple": {
+            "note": "Apple требует HTTPS URL возврата на реальном домене (не localhost) и возвращает пользователя через POST.",
+            "fields": {
+              "clientId": {
+                "label": "Services ID",
+                "hint": "Идентификатор Services ID с включённым Sign in with Apple, например com.example.signin."
+              },
+              "teamId": {
+                "label": "Team ID"
+              },
+              "keyId": {
+                "label": "ID ключа",
+                "hint": "Ключ с включённым Sign in with Apple."
+              },
+              "privateKey": {
+                "label": "Закрытый ключ (.p8)",
+                "hint": "Секрет клиента — это JWT, подписанный этим ключом; он создаётся и обновляется автоматически."
+              },
+              "appBundleIdentifier": {
+                "label": "Bundle ID приложения",
+                "hint": "Только для нативного входа в iOS (ID-токены выдаются вашему приложению, а не Services ID)."
+              }
+            }
+          },
+          "atlassian": {
+            "fields": {
+              "clientId": {
+                "label": "ID клиента"
+              },
+              "clientSecret": {
+                "label": "Секрет клиента"
+              }
+            }
+          },
+          "cloudflare": {
+            "fields": {
+              "clientId": {
+                "label": "ID клиента"
+              },
+              "clientSecret": {
+                "label": "Секрет клиента",
+                "hint": "Оставьте пустым для публичного клиента (только PKCE)."
+              }
+            }
+          },
+          "cognito": {
+            "fields": {
+              "clientId": {
+                "label": "ID клиента приложения"
+              },
+              "clientSecret": {
+                "label": "Секрет клиента приложения",
+                "hint": "Только если у клиента приложения есть секрет."
+              },
+              "domain": {
+                "label": "Домен Cognito"
+              },
+              "region": {
+                "label": "Регион"
+              },
+              "userPoolId": {
+                "label": "ID пула пользователей"
+              }
+            }
+          },
+          "discord": {
+            "fields": {
+              "clientId": {
+                "label": "ID клиента"
+              },
+              "clientSecret": {
+                "label": "Секрет клиента"
+              }
+            }
+          },
+          "dropbox": {
+            "fields": {
+              "clientId": {
+                "label": "Ключ приложения (App key)"
+              },
+              "clientSecret": {
+                "label": "Секрет приложения (App secret)"
+              }
+            }
+          },
+          "facebook": {
+            "fields": {
+              "clientId": {
+                "label": "ID приложения"
+              },
+              "clientSecret": {
+                "label": "Секрет приложения"
+              }
+            }
+          },
+          "figma": {
+            "fields": {
+              "clientId": {
+                "label": "ID клиента"
+              },
+              "clientSecret": {
+                "label": "Секрет клиента"
+              }
+            }
+          },
+          "github": {
+            "note": "OAuth App работает как есть. GitHub App также требует разрешения аккаунта Email addresses со значением Read-only, иначе вход завершится ошибкой из-за отсутствия почты.",
+            "fields": {
+              "clientId": {
+                "label": "ID клиента"
+              },
+              "clientSecret": {
+                "label": "Секрет клиента"
+              }
+            }
+          },
+          "gitlab": {
+            "fields": {
+              "clientId": {
+                "label": "ID приложения"
+              },
+              "clientSecret": {
+                "label": "Секрет клиента"
+              },
+              "issuer": {
+                "label": "URL GitLab",
+                "hint": "Для GitLab на собственном сервере."
+              }
+            }
+          },
+          "google": {
+            "fields": {
+              "clientId": {
+                "label": "ID клиента"
+              },
+              "clientSecret": {
+                "label": "Секрет клиента"
+              },
+              "hd": {
+                "label": "Домен Workspace",
+                "hint": "Принимать только аккаунты этого домена Google Workspace."
+              }
+            }
+          },
+          "huggingface": {
+            "fields": {
+              "clientId": {
+                "label": "ID клиента"
+              },
+              "clientSecret": {
+                "label": "Секрет клиента"
+              }
+            }
+          },
+          "kakao": {
+            "fields": {
+              "clientId": {
+                "label": "Ключ REST API"
+              },
+              "clientSecret": {
+                "label": "Секрет клиента",
+                "hint": "Только если для приложения включён секрет клиента."
+              }
+            }
+          },
+          "kick": {
+            "fields": {
+              "clientId": {
+                "label": "ID клиента"
+              },
+              "clientSecret": {
+                "label": "Секрет клиента"
+              }
+            }
+          },
+          "line": {
+            "fields": {
+              "clientId": {
+                "label": "ID канала"
+              },
+              "clientSecret": {
+                "label": "Секрет канала"
+              }
+            }
+          },
+          "linear": {
+            "fields": {
+              "clientId": {
+                "label": "ID клиента"
+              },
+              "clientSecret": {
+                "label": "Секрет клиента"
+              }
+            }
+          },
+          "linkedin": {
+            "fields": {
+              "clientId": {
+                "label": "ID клиента"
+              },
+              "clientSecret": {
+                "label": "Секрет клиента"
+              }
+            }
+          },
+          "microsoft": {
+            "fields": {
+              "clientId": {
+                "label": "ID приложения (клиента)"
+              },
+              "clientSecret": {
+                "label": "Значение секрета клиента"
+              },
+              "tenantId": {
+                "label": "Клиент (tenant)",
+                "hint": "common (любой аккаунт), organizations, consumers или ID вашего каталога (tenant), чтобы разрешить только вашу организацию."
+              }
+            }
+          },
+          "naver": {
+            "fields": {
+              "clientId": {
+                "label": "ID клиента"
+              },
+              "clientSecret": {
+                "label": "Секрет клиента"
+              }
+            }
+          },
+          "notion": {
+            "fields": {
+              "clientId": {
+                "label": "ID клиента OAuth"
+              },
+              "clientSecret": {
+                "label": "Секрет клиента OAuth"
+              }
+            }
+          },
+          "paybin": {
+            "fields": {
+              "clientId": {
+                "label": "ID клиента"
+              },
+              "clientSecret": {
+                "label": "Секрет клиента"
+              },
+              "issuer": {
+                "label": "Издатель (issuer)"
+              }
+            }
+          },
+          "paypal": {
+            "note": "Включите для приложения «Log in with PayPal» и запросите адрес электронной почты.",
+            "fields": {
+              "clientId": {
+                "label": "ID клиента"
+              },
+              "clientSecret": {
+                "label": "Секрет клиента"
+              },
+              "environment": {
+                "label": "Окружение"
+              }
+            }
+          },
+          "polar": {
+            "fields": {
+              "clientId": {
+                "label": "ID клиента"
+              },
+              "clientSecret": {
+                "label": "Секрет клиента"
+              }
+            }
+          },
+          "railway": {
+            "fields": {
+              "clientId": {
+                "label": "ID клиента"
+              },
+              "clientSecret": {
+                "label": "Секрет клиента"
+              }
+            }
+          },
+          "reddit": {
+            "fields": {
+              "clientId": {
+                "label": "ID клиента"
+              },
+              "clientSecret": {
+                "label": "Секрет клиента"
+              }
+            }
+          },
+          "roblox": {
+            "fields": {
+              "clientId": {
+                "label": "ID клиента"
+              },
+              "clientSecret": {
+                "label": "Секрет клиента"
+              }
+            }
+          },
+          "salesforce": {
+            "fields": {
+              "clientId": {
+                "label": "Ключ потребителя (Consumer key)"
+              },
+              "clientSecret": {
+                "label": "Секрет потребителя (Consumer secret)"
+              },
+              "environment": {
+                "label": "Окружение"
+              },
+              "loginUrl": {
+                "label": "My Domain",
+                "hint": "Только имя хоста. Заменяет login.salesforce.com или test.salesforce.com."
+              }
+            }
+          },
+          "slack": {
+            "fields": {
+              "clientId": {
+                "label": "ID клиента"
+              },
+              "clientSecret": {
+                "label": "Секрет клиента"
+              }
+            }
+          },
+          "spotify": {
+            "fields": {
+              "clientId": {
+                "label": "ID клиента"
+              },
+              "clientSecret": {
+                "label": "Секрет клиента"
+              }
+            }
+          },
+          "tiktok": {
+            "fields": {
+              "clientKey": {
+                "label": "Ключ клиента"
+              },
+              "clientSecret": {
+                "label": "Секрет клиента"
+              }
+            }
+          },
+          "twitch": {
+            "fields": {
+              "clientId": {
+                "label": "ID клиента"
+              },
+              "clientSecret": {
+                "label": "Секрет клиента"
+              }
+            }
+          },
+          "twitter": {
+            "note": "Используйте учётные данные OAuth 2.0 (не API-ключ) и запросите доступ к почте в настройках приложения.",
+            "fields": {
+              "clientId": {
+                "label": "ID клиента OAuth 2.0"
+              },
+              "clientSecret": {
+                "label": "Секрет клиента OAuth 2.0"
+              }
+            }
+          },
+          "vercel": {
+            "fields": {
+              "clientId": {
+                "label": "ID клиента"
+              },
+              "clientSecret": {
+                "label": "Секрет клиента"
+              }
+            }
+          },
+          "vk": {
+            "fields": {
+              "clientId": {
+                "label": "ID приложения"
+              },
+              "clientSecret": {
+                "label": "Защищённый ключ"
+              }
+            }
+          },
+          "wechat": {
+            "note": "Приложение для сайта (вход по QR-коду). WeChat не передаёт адрес электронной почты.",
+            "fields": {
+              "clientId": {
+                "label": "AppID"
+              },
+              "clientSecret": {
+                "label": "AppSecret"
+              }
+            }
+          },
+          "zoom": {
+            "fields": {
+              "clientId": {
+                "label": "ID клиента"
+              },
+              "clientSecret": {
+                "label": "Секрет клиента"
+              }
+            }
+          }
+        }
       },
       "apiKeys": {
         "title": "API-ключи",
-        "description": "Ключи, которые пользователи создают, чтобы их скрипты могли вызывать ваши API: включайте и отключайте их, задавайте максимальный срок действия и отзывайте любые ключи."
+        "description": "Ключи, которые пользователи создают, чтобы их скрипты могли вызывать ваши API: включайте и отключайте их, задавайте максимальный срок действия и отзывайте любые ключи.",
+        "allKeys": {
+          "title": "Все ключи",
+          "description": "Сначала новые{truncated, select, true {, последние {limit}} other {}}. Просроченные ключи удаляются при следующем использовании или создании ключей. Блокировка или удаление аккаунта отзывает его ключи; удаление организации удаляет её ключи (ключи, принадлежащие организации, остаются, когда создавший их участник уходит)."
+        },
+        "settings": {
+          "description": "Пользователи создают ключи на странице своего аккаунта для одного из ваших API и части его scope. API проверяет каждый ключ через этот сервер. Ключ никогда не выполняет вход на этом сервере или в консоли администратора.",
+          "statusOn": "Вкл.: пользователи могут создавать ключи",
+          "statusOff": "Выкл.: новых ключей нет, и все ключи отклоняются",
+          "maxLifetime": "Максимальный срок действия",
+          "maxLifetimeValue": "{count, plural, one {# день} few {# дня} many {# дней} other {# дня}}",
+          "apisAccepting": "API, принимающие ключи",
+          "apisNone": "Нет: зарегистрируйте API со scope, открытый для всех приложений",
+          "verifyEndpoint": "Эндпоинт проверки: <code>{endpoint}</code>. API аутентифицируется как приложение, зарегистрированное здесь и связанное с этим API (страница API, «Доступ»). API, ограниченные связанными приложениями, не принимают ключи."
+        },
+        "dialog": {
+          "description": "Ключи долгоживущие: предпочитайте короткие сроки действия. Уменьшение максимума применяется только к новым ключам.",
+          "allowLabel": "Разрешить API-ключи",
+          "allowHint": "Выкл.: никто не может создать ключ, и все существующие ключи отклоняются при проверке. Ключи сохраняются и снова заработают, когда вы включите эту настройку.",
+          "maxLifetimeLabel": "Максимальный срок действия (дни)",
+          "maxLifetimeHint": "От 1 до {max}. Срок действия есть у каждого ключа.",
+          "saved": "Настройки сохранены. Сервер авторизации применит их в течение минуты."
+        },
+        "table": {
+          "empty": "API-ключей нет.",
+          "key": "Ключ",
+          "owner": "Владелец",
+          "api": "API",
+          "scopes": "Scope",
+          "lastUsed": "Последнее использование",
+          "expires": "Истекает",
+          "createdBy": "создал {email}",
+          "org": "Орг.",
+          "removedApi": "Удалённый API",
+          "expired": "Истёк",
+          "revoke": "Отозвать",
+          "revoked": "API-ключ отозван",
+          "revokeTitle": "Отозвать {name}?",
+          "revokeOrgDescription": "Этот ключ организации {owner} сразу перестанет работать. Её владельцы и администраторы могут создать новый, если API-ключи включены.",
+          "revokeUserDescription": "Ключ пользователя {owner} сразу перестанет работать. Пользователь может создать новый, если API-ключи включены."
+        },
+        "errors": {
+          "chooseEnabled": "Выберите, включены ли API-ключи.",
+          "maxLifetimeRange": "Максимальный срок действия должен быть целым числом дней от 1 до {max}.",
+          "saveFailed": "Не удалось сохранить настройки.",
+          "noKey": "Ключ не указан.",
+          "keyGone": "Этот ключ больше не существует."
+        }
       },
       "webhooks": {
         "title": "Вебхуки",
         "description": "Подписанные HTTPS-уведомления, которые сообщают вашим приложениям об изменении пользователей, ролей и членства в организациях {name}.",
-        "deliveries": "Журнал доставки"
+        "deliveries": "Журнал доставки",
+        "eventDescriptions": {
+          "user_created": "Создан аккаунт (регистрация, администратор, SSO, SCIM).",
+          "user_updated": "Изменились имя, почта, подтверждение почты, имя пользователя или фото.",
+          "user_deleted": "Аккаунт удалён.",
+          "user_banned": "Аккаунт заблокирован или деактивирован через SCIM.",
+          "user_unbanned": "Блокировка снята или SCIM снова активировал аккаунт.",
+          "user_role_changed": "Изменилась роль аккаунта на платформе.",
+          "organization_member_added": "Кто-то вступил в организацию.",
+          "organization_member_removed": "Кто-то покинул организацию или был из неё удалён.",
+          "organization_member_role_changed": "Изменилась роль участника в организации."
+        },
+        "panel": {
+          "events": "События",
+          "clear": "Очистить",
+          "selectAll": "Выбрать все",
+          "signingSecret": "Секрет подписи",
+          "secretCopied": "Секрет скопирован",
+          "copySecret": "Копировать секрет",
+          "url": "URL",
+          "add": {
+            "title": "Добавить эндпоинт",
+            "description": "Ostiary отправляет подписанное JSON-событие методом POST на этот URL, когда происходит одно из выбранных событий, и при сбое повторяет попытки около суток.",
+            "urlHint": "HTTPS, на публичном адресе.",
+            "urlHintLocalhost": "HTTPS, на публичном адресе. {url} принимается ({envVar}, только для разработки).",
+            "descriptionPlaceholder": "Биллинг: синхронизация пользователей",
+            "adding": "Добавление…",
+            "submit": "Добавить эндпоинт"
+          },
+          "list": {
+            "title": "Эндпоинты",
+            "description": "Каждый запрос содержит заголовки <code>{id}</code>, <code>{timestamp}</code> и <code>{signature}</code> (Standard Webhooks). Эндпоинт, который {count, plural, one {# раз} few {# раза} many {# раз} other {# раза}} подряд завершился ошибкой, отключается.",
+            "empty": "Эндпоинтов пока нет."
+          },
+          "created": {
+            "title": "Эндпоинт добавлен",
+            "description": "Скопируйте секрет подписи в приложение по адресу {url}: оно проверяет им каждую доставку. Больше он не показывается."
+          },
+          "test": {
+            "delivered": "Тестовое событие доставлено (HTTP {status})",
+            "failed": "Тестовое событие не доставлено: {reason}"
+          },
+          "item": {
+            "disabledFailures": "Отключён после повторяющихся сбоев",
+            "rotating": "Секрет меняется",
+            "editLabel": "Изменить {label}",
+            "deleteLabel": "Удалить {label}",
+            "disabledNotice": "Отключён после {count, plural, one {# неудачной попытки} few {# неудачных попыток} many {# неудачных попыток} other {# неудачной попытки}} подряд. Исправьте получателя и снова включите эндпоинт: ожидающие события будут отправлены повторно.",
+            "disabledNoticeOn": "Отключён {date} после {count, plural, one {# неудачной попытки} few {# неудачных попыток} many {# неудачных попыток} other {# неудачной попытки}} подряд. Исправьте получателя и снова включите эндпоинт: ожидающие события будут отправлены повторно.",
+            "lastSuccess": "Последний успех",
+            "lastFailure": "Последний сбой",
+            "inARow": "({count} подряд)",
+            "deliveries": "Доставки",
+            "deliveriesValue": "{pending} ожидают или повторяются · {failed} с ошибкой",
+            "sendTest": "Отправить тестовое событие",
+            "deliveryLog": "Журнал доставки",
+            "regenerateSecret": "Сгенерировать новый секрет"
+          },
+          "edit": {
+            "title": "Изменить эндпоинт",
+            "enabledHint": "Пока эндпоинт отключён, новые события для него не записываются, а повторные попытки ждут.",
+            "updated": "Эндпоинт обновлён"
+          },
+          "rotate": {
+            "title": "Сгенерировать новый секрет подписи?",
+            "description": "В течение 24 часов доставки подписываются и старым, и новым секретом, чтобы приложение могло переключиться, не пропустив события.",
+            "newTitle": "Новый секрет подписи",
+            "newDescription": "Скопируйте его в приложение сейчас: больше он не показывается. В течение следующих 24 часов доставки также содержат подпись старым секретом.",
+            "confirm": "Сгенерировать"
+          },
+          "delete": {
+            "title": "Удалить этот эндпоинт?",
+            "description": "{url} перестанет получать события, а его журнал доставки и ожидающие повторные попытки будут удалены. Чтобы приостановить его, отключите его.",
+            "deleted": "Эндпоинт удалён"
+          }
+        },
+        "redeliver": {
+          "button": "Доставить повторно",
+          "delivered": "Доставлено (HTTP {status})",
+          "failed": "Ошибка: {reason}"
+        },
+        "log": {
+          "status": {
+            "succeeded": "Доставлено",
+            "failed": "Ошибка",
+            "pending": "Ожидает"
+          },
+          "disabled": "Отключён: повторные попытки ждут, пока его снова не включат.",
+          "empty": "Доставок пока нет. Чтобы проверить эндпоинт, используйте «Отправить тестовое событие» на странице «Вебхуки».",
+          "event": "Событие",
+          "response": "Ответ",
+          "attempts": "Попытки",
+          "nextRetry": "Следующая попытка",
+          "answer": "Ответ",
+          "error": "ошибка",
+          "footer": "Последние доставки: {shown}. Доставки хранятся {days, plural, one {# день} few {# дня} many {# дней} other {# дня}}. Неудачная доставка повторяется {retries, plural, one {# раз} few {# раза} many {# раз} other {# раза}} в течение примерно суток; «Доставить повторно» сразу отправляет то же событие (с тем же {header}) ещё раз."
+        },
+        "errors": {
+          "noEvents": "Выберите хотя бы одно событие.",
+          "tooMany": "Не более {max} эндпоинтов.",
+          "endpointNotFound": "Эндпоинт не найден.",
+          "disabledTest": "Эндпоинт отключён: включите его, чтобы отправить тестовое событие.",
+          "testNotSent": "Не удалось отправить тестовое событие.",
+          "deliveryNotFound": "Доставка не найдена.",
+          "disabledRedeliver": "Эндпоинт отключён: включите его, чтобы доставить повторно.",
+          "eventNotSent": "Не удалось отправить событие."
+        }
       },
       "users": {
-        "title": "Users",
-        "description": "Find accounts, change roles, ban or remove them, and open an account to see its sessions and activity."
+        "title": "Пользователи",
+        "description": "Находите аккаунты, меняйте роли, блокируйте или удаляйте их, открывайте аккаунт, чтобы увидеть его сеансы и активность.",
+        "list": {
+          "searchPlaceholder": "Поиск по имени или почте…",
+          "searchLabel": "Поиск пользователей",
+          "rolePlaceholder": "Роль",
+          "roleAll": "Все роли",
+          "roleAdmin": "Администратор",
+          "roleUser": "Пользователь",
+          "loadErrorTitle": "Не удалось загрузить пользователей",
+          "loadErrorFallback": "Не удалось загрузить пользователей",
+          "columns": {
+            "user": "Пользователь",
+            "role": "Роль",
+            "status": "Статус",
+            "verified": "Подтверждён",
+            "joined": "Регистрация"
+          },
+          "loading": "Загрузка пользователей…",
+          "empty": "Нет пользователей, соответствующих фильтрам.",
+          "noUsers": "0 пользователей",
+          "showing": "Показано {from}–{to} из {total}",
+          "rowsPerPage": "Строк на странице",
+          "previous": "Назад",
+          "next": "Далее",
+          "pageOf": "Страница {page} / {pages}",
+          "poweredBy": "Работает на <code>listUsers</code>, <code>createUser</code>, <code>setRole</code>, <code>updateUser</code>, <code>setUserPassword</code> и связанных методах <link>плагина admin Better Auth</link>. Необходимо войти как администратор."
+        },
+        "status": {
+          "banned": "Заблокирован",
+          "active": "Активен"
+        },
+        "create": {
+          "trigger": "Добавить пользователя",
+          "title": "Добавить пользователя",
+          "description": "Создаёт аккаунт через <code>createUser</code>.",
+          "email": "Эл. почта",
+          "password": "Пароль",
+          "name": "Имя",
+          "role": "Роль",
+          "error": "Не удалось создать пользователя",
+          "created": "Пользователь создан",
+          "submit": "Создать пользователя",
+          "creating": "Создание…"
+        },
+        "rowActions": {
+          "menuLabel": "Действия для {name}",
+          "copyId": "Копировать ID пользователя",
+          "idCopied": "ID пользователя скопирован",
+          "edit": "Изменить пользователя",
+          "setPassword": "Задать пароль",
+          "makeAdmin": "Сделать администратором",
+          "makeUser": "Сделать пользователем",
+          "ban": "Заблокировать пользователя",
+          "unban": "Разблокировать пользователя",
+          "remove": "Удалить пользователя",
+          "roleError": "Не удалось изменить роль",
+          "roleSet": "Назначена роль {role}",
+          "unbanError": "Не удалось разблокировать пользователя",
+          "unbanned": "Пользователь разблокирован",
+          "banError": "Не удалось заблокировать пользователя",
+          "banned": "Пользователь заблокирован",
+          "removeError": "Не удалось удалить пользователя",
+          "removed": "Пользователь удалён",
+          "emailRequired": "Укажите адрес электронной почты",
+          "noChanges": "Нет изменений для сохранения",
+          "updateError": "Не удалось обновить пользователя",
+          "updated": "Пользователь обновлён",
+          "passwordRequired": "Введите новый пароль.",
+          "passwordMismatch": "Пароли не совпадают.",
+          "passwordError": "Не удалось задать пароль",
+          "passwordUpdated": "Пароль обновлён",
+          "editTitle": "Изменить пользователя",
+          "editDescription": "Измените имя или адрес электронной почты. Новый адрес пользователь должен подтвердить, прежде чем снова сможет войти.",
+          "name": "Имя",
+          "email": "Эл. почта",
+          "passwordTitle": "Задать пароль",
+          "passwordDescription": "Задаёт новый пароль для <strong>{email}</strong> с помощью <code>setUserPassword</code>.",
+          "newPassword": "Новый пароль",
+          "confirmPassword": "Подтвердите пароль",
+          "updatePassword": "Обновить пароль",
+          "removeTitle": "Удалить пользователя?",
+          "removeDescription": "<strong>{name}</strong> ({email}) и всё, что связано с аккаунтом, будет удалено навсегда. Записи журнала аудита сохраняются без имени и почты. Это действие нельзя отменить.",
+          "removeConfirm": "Удалить",
+          "removing": "Удаление…"
+        },
+        "detailActions": {
+          "impersonateError": "Не удалось войти от имени этого пользователя.",
+          "signOutError": "Не удалось завершить сеансы этого пользователя.",
+          "signedOut": "{count, plural, one {Завершён # сеанс} few {Завершено # сеанса} many {Завершено # сеансов} other {Завершено # сеанса}}",
+          "exportError": "Не удалось экспортировать данные этого пользователя.",
+          "exported": "Данные экспортированы. Экспорт записан в журнал аудита.",
+          "exportData": "Экспортировать данные",
+          "impersonate": "Войти от имени",
+          "signOutEverywhere": "Выйти на всех устройствах",
+          "impersonateTitle": "Войти как {email}?",
+          "signOutTitle": "Завершить все сеансы {email}?",
+          "impersonateDescription": "Вы увидите личный кабинет точно так же, как этот пользователь, в течение не более часа. Баннер там позволит завершить и вернуться. Это записывается в журнал аудита.",
+          "signOutDescription": "Все сеансы этого пользователя завершатся сейчас на всех устройствах. Ему нужно будет войти снова.",
+          "sessionRevoked": "Сеанс завершён",
+          "revokeError": "Не удалось завершить этот сеанс.",
+          "revoke": "Завершить",
+          "resetTwoFactorError": "Не удалось сбросить двухфакторную аутентификацию.",
+          "twoFactorReset": "Двухфакторная аутентификация выключена",
+          "reset": "Сбросить",
+          "resetTwoFactorTitle": "Сбросить двухфакторную аутентификацию для {email}?",
+          "resetTwoFactorDescription": "Приложение-аутентификатор, резервные коды и доверенные устройства пользователя перестанут работать, и он будет входить только с паролем, пока не настроит её снова. Делайте это, только убедившись, кто обращается. Это записывается в журнал аудита."
+        },
+        "detail": {
+          "emailVerified": "Почта подтверждена",
+          "emailNotVerified": "Почта не подтверждена",
+          "banned": "Заблокирован",
+          "bannedWithReason": "Заблокирован: {reason}",
+          "scimTitle": "Создан через SCIM: {organizations}",
+          "scimDescription": "Этим аккаунтом управляет провайдер удостоверений. Удалите пользователя там: удаление аккаунта здесь не помешает каталогу создать его снова при следующей синхронизации. Пользователь не может удалить аккаунт из личного кабинета.",
+          "tiles": {
+            "joined": "Регистрация",
+            "activeSessions": "Активные сеансы",
+            "passkeys": "Ключи доступа",
+            "twoFactor": "Двухфакторная"
+          },
+          "device": {
+            "unknown": "Неизвестное устройство",
+            "browser": "Браузер",
+            "browserOnOs": "{browser} на {os}"
+          },
+          "sessions": {
+            "title": "Активные сеансы",
+            "description": "Устройства, на которых выполнен вход в этот аккаунт.",
+            "empty": "Нет активных сеансов.",
+            "device": "Устройство",
+            "ipAddress": "IP-адрес",
+            "lastActive": "Последняя активность",
+            "impersonated": "Вход от имени"
+          },
+          "apiKeys": {
+            "title": "API-ключи",
+            "description": "Ключи, созданные этим аккаунтом для скриптов. Блокировка или удаление аккаунта отзывает их."
+          },
+          "signInMethods": {
+            "title": "Способы входа",
+            "credential": "Почта и пароль",
+            "sso": "SSO: {provider}",
+            "passkey": "Ключ доступа: {name} <muted>({deviceType})</muted>",
+            "unnamed": "Без названия",
+            "empty": "Нет способов входа.",
+            "twoFactor": "Двухфакторная аутентификация <muted>(приложение-аутентификатор)</muted>",
+            "managedByYou": "Управляется из вашего аккаунта"
+          },
+          "organizations": {
+            "title": "Организации",
+            "empty": "Не состоит ни в одной организации."
+          },
+          "activity": {
+            "title": "Недавняя активность входов",
+            "empty": "Активность пока не зафиксирована.",
+            "events": {
+              "sign_in": "Вход",
+              "sign_up": "Создан аккаунт",
+              "sign_out": "Выход",
+              "sign_in_failed": "Неудачный вход"
+            }
+          },
+          "audit": {
+            "title": "Действия администраторов с этим аккаунтом",
+            "empty": "Действий администраторов пока нет.",
+            "by": "— {actor}",
+            "system": "система"
+          }
+        }
       },
       "consent": {
-        "title": "Consent",
-        "description": "Permissions people have granted to OAuth clients, with the scopes and when they were given."
+        "title": "Согласия",
+        "description": "Разрешения, которые пользователи выдали OAuth-клиентам, с указанием scope и даты выдачи.",
+        "panel": {
+          "signedInUser": "Вошедший пользователь",
+          "loadConsentsFailed": "Не удалось загрузить согласия",
+          "loadClientsFailed": "Не удалось загрузить OAuth-клиенты",
+          "loadErrorTitle": "Не удалось загрузить согласия",
+          "searchPlaceholder": "Поиск по пользователю, клиенту, ID согласия, ссылке или scope…",
+          "searchLabel": "Поиск согласий",
+          "filter": {
+            "placeholder": "Фильтр по scope",
+            "all": "Все согласия",
+            "hasScope": "Содержит {scope}"
+          },
+          "columns": {
+            "user": "Пользователь",
+            "application": "Приложение",
+            "scopes": "Scope",
+            "reference": "Ссылка",
+            "granted": "Предоставлено",
+            "updated": "Обновлено"
+          },
+          "loading": "Загрузка согласий…",
+          "emptyNone": "Для этого аккаунта пока нет согласий.",
+          "emptyFiltered": "Нет согласий, соответствующих фильтрам.",
+          "noResults": "0 согласий",
+          "showing": "Показано {from}–{to} из {total}",
+          "rowsPerPage": "Строк на странице",
+          "previous": "Назад",
+          "next": "Далее",
+          "pageOf": "Страница {page} / {total}",
+          "footnote": "Данные из <code>{getConsents}</code>; названия клиентов получены через <code>{getClients}</code>. Отзыв использует <code>{deleteConsent}</code>. См. <consentLink>OAuth consent</consentLink> в документации <providerLink>OAuth provider</providerLink>. Интерактивный интерфейс авторизации находится по адресу <code>{path}</code>."
+        },
+        "rowActions": {
+          "menuLabel": "Действия для согласия {id}…",
+          "copyConsentId": "Копировать ID согласия",
+          "consentIdCopied": "ID согласия скопирован",
+          "copyClientId": "Копировать ID клиента",
+          "clientIdCopied": "ID клиента скопирован",
+          "viewDetails": "Подробнее",
+          "updateScopes": "Изменить scope",
+          "wireTo": "Подключить к {method}",
+          "revoke": "Отозвать согласие",
+          "revokeFailed": "Не удалось отозвать согласие",
+          "revoked": "Согласие отозвано",
+          "dialogTitle": "Отозвать согласие?",
+          "dialogDescription": "Удаляет разрешение этого пользователя для <strong>{client}</strong> (<code>{clientId}</code>). Клиенту может потребоваться снова запросить авторизацию.",
+          "revoking": "Отзыв…",
+          "revokeButton": "Отозвать"
+        }
       },
       "usage": {
         "title": "Использование приложений",
-        "description": "Какие приложения используются: токены доступа, пользователи и согласия по каждому приложению за последние 30 дней."
+        "description": "Какие приложения используются: токены доступа, пользователи и согласия по каждому приложению за последние 30 дней.",
+        "tiles": {
+          "tokens": "Выдано токенов за 30 дней",
+          "active": "Используемые приложения",
+          "unused": "Неиспользуемые приложения"
+        },
+        "card": {
+          "title": "Токены доступа по приложениям за последние 30 дней",
+          "unused": "{count, plural, one {# активное приложение не выдавало токенов 30 дней: возможно, его стоит отключить или удалить.} few {# активных приложения не выдавали токенов 30 дней: возможно, их стоит отключить или удалить.} many {# активных приложений не выдавали токенов 30 дней: возможно, их стоит отключить или удалить.} other {# активного приложения не выдавали токенов 30 дней: возможно, их стоит отключить или удалить.}}",
+          "allUsed": "Все активные приложения выдавали токены за последние 30 дней.",
+          "empty": "OAuth-клиенты не зарегистрированы.",
+          "application": "Приложение",
+          "tokens": "Токены",
+          "users": "Пользователи",
+          "consents": "Согласия",
+          "lastToken": "Последний токен",
+          "lastTokenValue": "Последний токен: {date}",
+          "showInApplications": "Показать в «Приложениях»",
+          "unusedBadge": "Не используется"
+        }
       },
       "audit": {
-        "title": "Audit log",
-        "description": "Every change made from this console or the admin API: who did it, to what, and when.",
-        "footnote": "Showing the latest 200 entries. Passwords and secrets are never recorded."
+        "title": "Журнал аудита",
+        "description": "Все изменения, внесённые через эту консоль или API администратора: кто, что и когда изменил.",
+        "footnote": "Показаны последние 200 записей. Пароли и секреты никогда не записываются.",
+        "filterLabel": "Фильтр по разделу",
+        "filters": {
+          "all": "Все",
+          "user": "Пользователи",
+          "organization": "Организации",
+          "oauth_client": "OAuth-клиенты",
+          "oauth_consent": "Согласия",
+          "oauth_resource": "API",
+          "api_key": "API-ключи",
+          "sso_provider": "SSO",
+          "signing_key": "Ключи подписи",
+          "webhook": "Вебхуки",
+          "social_provider": "Провайдеры входа"
+        },
+        "empty": "Действия администраторов пока не записаны.",
+        "columns": {
+          "when": "Когда",
+          "who": "Кто",
+          "action": "Действие",
+          "target": "Объект",
+          "details": "Подробности",
+          "ip": "IP"
+        },
+        "system": "Система",
+        "actions": {
+          "user": {
+            "create": "Создан пользователь",
+            "update": "Обновлён пользователь",
+            "set_role": "Изменена роль",
+            "set_password": "Задан пароль",
+            "ban": "Заблокирован пользователь",
+            "unban": "Разблокирован пользователь",
+            "delete": "Удалён пользователь",
+            "revoke_session": "Завершён сеанс",
+            "revoke_all_sessions": "Завершены все сеансы пользователя",
+            "impersonate": "Вход от имени пользователя",
+            "reset_two_factor": "Сброшена двухфакторная аутентификация",
+            "export_data": "Экспортированы данные аккаунта",
+            "self_delete": "Пользователь удалил свой аккаунт"
+          },
+          "oauth_client": {
+            "create": "Зарегистрирован OAuth-клиент",
+            "update": "Обновлён OAuth-клиент",
+            "delete": "Удалён OAuth-клиент",
+            "rotate_secret": "Сменён секрет клиента",
+            "self_register": "Клиент зарегистрировался сам",
+            "disable": "Отключён OAuth-клиент",
+            "enable": "Включён OAuth-клиент",
+            "branding_update": "Изменено оформление входа",
+            "branding_reset": "Сброшено оформление входа"
+          },
+          "client_registration": {
+            "update": "Изменена саморегистрация клиентов"
+          },
+          "oauth_resource": {
+            "create": "Зарегистрирован API",
+            "update": "Обновлён API",
+            "delete": "Удалён API",
+            "access": "Изменён доступ к API",
+            "tokens": "Изменены настройки токенов API"
+          },
+          "api_key": {
+            "create": "Создан API-ключ",
+            "revoke": "Отозван API-ключ",
+            "revoke_all": "Отозваны все API-ключи",
+            "settings": "Изменены настройки API-ключей"
+          },
+          "oauth_consent": {
+            "update": "Обновлено согласие",
+            "delete": "Отозвано согласие"
+          },
+          "oauth_device": {
+            "approve": "Одобрен вход с устройства",
+            "deny": "Отклонён вход с устройства"
+          },
+          "organization": {
+            "create": "Создана организация",
+            "update": "Переименована организация",
+            "delete": "Удалена организация",
+            "invite": "Приглашён участник",
+            "cancel_invitation": "Отменено приглашение",
+            "update_member_role": "Изменена роль участника",
+            "remove_member": "Удалён участник"
+          },
+          "sso_provider": {
+            "create": "Зарегистрирован провайдер SSO",
+            "update": "Обновлён провайдер SSO",
+            "delete": "Удалён провайдер SSO",
+            "verify_domain": "Подтверждён домен SSO"
+          },
+          "social_provider": {
+            "create": "Настроен провайдер входа",
+            "update": "Обновлён провайдер входа",
+            "delete": "Удалён провайдер входа",
+            "reorder": "Изменён порядок провайдеров входа"
+          },
+          "scim": {
+            "token_create": "Создан токен SCIM",
+            "token_rotate": "Заменён токен SCIM",
+            "token_revoke": "Отозван токен SCIM"
+          },
+          "signing_key": {
+            "rotate": "Сменён ключ подписи",
+            "update_settings": "Изменена ротация ключей подписи"
+          },
+          "webhook": {
+            "create": "Добавлен эндпоинт вебхука",
+            "update": "Обновлён эндпоинт вебхука",
+            "enable": "Включён эндпоинт вебхука",
+            "disable": "Отключён эндпоинт вебхука",
+            "delete": "Удалён эндпоинт вебхука",
+            "rotate_secret": "Сгенерирован новый секрет вебхука",
+            "test": "Отправлено тестовое событие вебхука",
+            "redeliver": "Повторно доставлено событие вебхука"
+          }
+        }
       },
       "security": {
-        "title": "Security",
-        "description": "Failed sign-in attempts, the accounts and addresses behind them, and banned accounts."
+        "title": "Безопасность",
+        "description": "Неудачные попытки входа, связанные с ними аккаунты и адреса, а также заблокированные аккаунты.",
+        "tiles": {
+          "failed24h": "Неудачные входы за 24 часа",
+          "failed7d": "Неудачные входы за 7 дней",
+          "banned": "Заблокированные аккаунты"
+        },
+        "chart": {
+          "failed": "Неудачные входы"
+        },
+        "perDay": {
+          "title": "Неудачные входы по дням",
+          "description": "Неверный пароль или неизвестный аккаунт за последние 30 дней (всего {total, number}). Учёт ведётся с 6 октября 2026 г."
+        },
+        "noFailures": "За последние 7 дней неудачных входов не было.",
+        "attempts": "Попытки",
+        "topAccounts": {
+          "title": "Самые атакуемые аккаунты за 7 дней",
+          "description": "Использованные почта или имя пользователя, независимо от того, существует ли аккаунт.",
+          "identifier": "Почта или имя пользователя",
+          "last": "Последняя"
+        },
+        "topIps": {
+          "title": "Самые активные IP-адреса за 7 дней",
+          "description": "Если один адрес пробует много аккаунтов, обычно это credential stuffing (перебор утёкших учётных данных).",
+          "ip": "IP-адрес",
+          "accounts": "Затронуто аккаунтов"
+        },
+        "banned": {
+          "title": "Заблокированные аккаунты",
+          "empty": "Заблокированных аккаунтов нет.",
+          "noReason": "Причина не указана",
+          "until": "до {date}",
+          "permanent": "навсегда"
+        }
       },
       "signingKeys": {
         "title": "Ключи подписи",
@@ -380,88 +1812,236 @@
           "save": "Не удалось сохранить настройки.",
           "rotate": "Не удалось сменить ключ."
         }
+      },
+      "organizations": {
+        "controls": {
+          "unexpectedError": "Что-то пошло не так.",
+          "organizationUpdated": "Организация обновлена",
+          "slug": "Slug",
+          "role": "Роль",
+          "roleUpdated": "Роль обновлена",
+          "roles": {
+            "owner": "владелец",
+            "admin": "администратор",
+            "member": "участник"
+          },
+          "removeMemberLabel": "Удалить {email}",
+          "removeMemberTitle": "Удалить {email}?",
+          "removeMemberBody": "Пользователь потеряет доступ к этой организации. Его аккаунт сохранится.",
+          "memberRemoved": "Участник удалён",
+          "cancelInvitationLabel": "Отменить приглашение для {email}",
+          "cancelInvitationTitle": "Отменить приглашение для {email}?",
+          "cancelInvitationBody": "Ссылка в письме перестанет работать.",
+          "cancelInvitation": "Отменить приглашение",
+          "invitationCancelled": "Приглашение отменено",
+          "invitationSent": "Приглашение отправлено",
+          "inviteByEmail": "Пригласить по почте",
+          "sendInvitation": "Отправить приглашение"
+        },
+        "scim": {
+          "unexpectedError": "Что-то пошло не так.",
+          "tokenRevoked": "Токен отозван",
+          "baseUrl": "Базовый URL",
+          "copyBaseUrl": "Копировать базовый URL",
+          "token": "Токен",
+          "copyToken": "Копировать токен",
+          "active": "Активен",
+          "expires": "Истекает",
+          "lastUsed": "Последнее использование",
+          "noToken": "Нет активного токена. Провайдер удостоверений не сможет выполнять провижининг, пока вы его не создадите.",
+          "newToken": "Новый токен",
+          "revoke": "Отозвать",
+          "generateToken": "Создать токен",
+          "rotateTitle": "Заменить токен SCIM?",
+          "revokeTitle": "Отозвать токен SCIM?",
+          "rotateBody": "Текущий токен сразу перестанет работать. Вставьте новый в провайдер удостоверений, чтобы провижининг продолжился.",
+          "revokeBody": "Провайдер удостоверений больше не сможет создавать, обновлять или деактивировать аккаунты. Существующие аккаунты не изменятся.",
+          "replaceToken": "Заменить токен",
+          "revokeToken": "Отозвать токен",
+          "issuedTitle": "Токен SCIM",
+          "issuedDescription": "Скопируйте его сейчас: больше он не показывается. Срок действия — один год.",
+          "tokenHint": "Вставьте его как bearer-токен (Okta: API token, Entra ID: secret token)."
+        },
+        "detail": {
+          "back": "Организации",
+          "defaultWorkspace": "Рабочее пространство по умолчанию",
+          "createdAt": "Создана {date}",
+          "members": "Участники",
+          "publicMembers": "Каждый аккаунт входит в рабочее пространство Public, поэтому участников здесь нельзя удалить. Показаны первые 50.",
+          "memberCount": "{count, plural, one {# участник} few {# участника} many {# участников} other {# участника}}.",
+          "noMembers": "Участников пока нет.",
+          "member": "Участник",
+          "joined": "Присоединился",
+          "role": "Роль",
+          "deactivated": "Деактивирован",
+          "banned": "Заблокирован",
+          "invitationExpires": "истекает {date}",
+          "noInvitations": "Нет ожидающих приглашений.",
+          "apiKeys": "API-ключи",
+          "apiKeysDescription": "Ключи, принадлежащие этой организации, созданные её владельцами и администраторами в личном кабинете. Они продолжают работать, когда создавший их участник уходит, и удаляются вместе с организацией.",
+          "details": "Сведения",
+          "sso": "Единый вход (SSO)",
+          "ssoDescription": "Провайдеры удостоверений, привязанные к этой организации.",
+          "ssoNone": "Нет. <link>Настроить</link>.",
+          "verified": "Подтверждён",
+          "unverified": "Не подтверждён",
+          "scim": "Провижининг SCIM",
+          "scimDescription": "Ваш провайдер удостоверений (Okta, Entra ID и другие) создаёт аккаунты этой организации и деактивирует их, когда сотрудники уходят.",
+          "scimCounts": "Создано: {active}, деактивировано: {inactive}.",
+          "recentActions": "Недавние действия администраторов",
+          "noActions": "Пока нет.",
+          "system": "система"
+        },
+        "errors": {
+          "invalidNameSlug": "Введите название и slug из букв, цифр и дефисов.",
+          "publicSlug": "Рабочее пространство Public сохраняет slug «public».",
+          "slugTaken": "Этот slug уже использует другая организация.",
+          "unknownRole": "Неизвестная роль.",
+          "memberNotFound": "Участник не найден.",
+          "publicMembers": "Каждый аккаунт входит в рабочее пространство Public.",
+          "invalidEmail": "Введите корректный адрес электронной почты.",
+          "noInvitations": "Эта организация не принимает приглашения.",
+          "alreadyMember": "Этот человек уже является участником.",
+          "invitationNotFound": "Приглашение не найдено.",
+          "requestFailed": "Запрос не выполнен.",
+          "scimUnavailable": "Эта организация не может использовать провижининг SCIM.",
+          "noActiveToken": "Нет активного токена."
+        }
+      }
+    },
+    "common": {
+      "cancel": "Отмена",
+      "save": "Сохранить",
+      "saving": "Сохранение…",
+      "saveChanges": "Сохранить изменения",
+      "delete": "Удалить",
+      "deleting": "Удаление…",
+      "edit": "Изменить",
+      "remove": "Удалить",
+      "close": "Закрыть",
+      "copied": "Скопировано",
+      "enabled": "Включено",
+      "disabled": "Отключено",
+      "enable": "Включить",
+      "disable": "Отключить",
+      "on": "Вкл.",
+      "off": "Выкл.",
+      "yes": "Да",
+      "no": "Нет",
+      "never": "Никогда",
+      "none": "Нет",
+      "actions": "Действия",
+      "created": "Создано",
+      "name": "Название",
+      "description": "Описание",
+      "status": "Статус",
+      "back": "Назад",
+      "done": "Готово",
+      "loading": "Загрузка…",
+      "refresh": "Обновить",
+      "search": "Поиск",
+      "optional": "Необязательно",
+      "unexpectedError": "Что-то пошло не так. Повторите попытку."
+    },
+    "urlCheck": {
+      "tooLong": "URL слишком длинный.",
+      "notAbsolute": "Введите абсолютный URL, например https://app.example.com/webhooks.",
+      "credentials": "URL не должен содержать имя пользователя или пароль.",
+      "fragment": "URL не должен содержать фрагмент (#).",
+      "notHttps": "URL должен использовать https://.",
+      "localhost": "URL указывает на эту машину (localhost).",
+      "nonPublic": "URL указывает на {kind, select, loopback {loopback-адрес} private {частный адрес} linkLocal {link-local-адрес} cloudMetadata {адрес облачных метаданных} sharedAddressSpace {общий адрес (carrier-grade NAT)} other {непубличный адрес}}.",
+      "unresolved": "Не удалось разрешить хост {host}.",
+      "noAddress": "У хоста {host} нет адреса.",
+      "resolvesNonPublic": "Хост {host} разрешается в {kind, select, loopback {loopback-адрес} private {частный адрес} linkLocal {link-local-адрес} cloudMetadata {адрес облачных метаданных} sharedAddressSpace {общий адрес (carrier-grade NAT)} other {непубличный адрес}} ({address})."
+    },
+    "shell": {
+      "userFallbackName": "Администратор",
+      "userMenu": {
+        "home": "Главная",
+        "logOut": "Выйти"
       }
     }
   },
   "dashboard": {
-    "title": "Account",
-    "description": "Manage your profile, organizations, passkeys, sessions, and connected applications.",
-    "navAria": "Account navigation",
+    "title": "Аккаунт",
+    "description": "Управляйте профилем, организациями, ключами доступа, сеансами и подключёнными приложениями.",
+    "navAria": "Навигация по аккаунту",
     "nav": {
-      "overview": "Overview",
-      "profile": "Profile",
-      "organizations": "Organizations",
-      "security": "Security",
-      "apps": "Connected apps",
+      "overview": "Обзор",
+      "profile": "Профиль",
+      "organizations": "Организации",
+      "security": "Безопасность",
+      "apps": "Подключённые приложения",
       "apiKeys": "API-ключи",
-      "admin": "Admin",
-      "marketingHome": "About",
-      "signOut": "Sign out",
+      "admin": "Администрирование",
+      "marketingHome": "О сервисе",
+      "signOut": "Выйти",
       "data": "Ваши данные"
     },
     "profile": {
-      "title": "Profile",
-      "description": "Your display name, username, and email status for this account.",
-      "nameLabel": "Display name",
-      "usernameLabel": "Username",
-      "usernameHint": "3-30 characters: letters, numbers, dots, and underscores. Used to sign in instead of email.",
-      "usernameChecking": "Checking availability…",
-      "usernameAvailable": "This username is available.",
-      "usernameTaken": "This username is already taken.",
-      "usernameInvalidHint": "Use only letters, numbers, dots, and underscores.",
-      "usernameTooShort": "Username must be at least 3 characters.",
-      "usernameInvalid": "That username is not valid.",
-      "save": "Save",
-      "saving": "Saving…",
-      "saved": "Profile updated",
-      "saveError": "Could not update profile.",
-      "emailLabel": "Email",
-      "verified": "Verified",
-      "unverified": "Not verified",
-      "unverifiedHint": "Verify your email to protect your account and meet sign-in requirements.",
-      "resendVerification": "Resend verification email",
-      "verificationSent": "Check your inbox for the verification link.",
-      "verificationError": "Could not send verification email.",
-      "changeEmail": "Change",
-      "newEmailLabel": "New email address",
-      "changeEmailHintVerified": "We'll email your current address to approve the change, then send a verification link to the new one. Your email stays the same until both are done.",
-      "changeEmailSubmit": "Send confirmation",
-      "changingEmail": "Sending…",
-      "cancel": "Cancel",
-      "changeEmailSame": "Enter a different email address.",
-      "changeEmailError": "Could not start the email change.",
-      "changeEmailSentToCurrent": "Check {current} to approve the change to {next}. After that, verify {next} from the link we send there.",
-      "changeEmailNeedsVerified": "You can change it once it is verified."
+      "title": "Профиль",
+      "description": "Отображаемое имя, имя пользователя и статус эл. почты этого аккаунта.",
+      "nameLabel": "Отображаемое имя",
+      "usernameLabel": "Имя пользователя",
+      "usernameHint": "3–30 символов: буквы, цифры, точки и подчёркивания. Можно использовать для входа вместо эл. почты.",
+      "usernameChecking": "Проверка доступности…",
+      "usernameAvailable": "Это имя пользователя свободно.",
+      "usernameTaken": "Это имя пользователя уже занято.",
+      "usernameInvalidHint": "Используйте только буквы, цифры, точки и подчёркивания.",
+      "usernameTooShort": "Имя пользователя должно содержать не менее 3 символов.",
+      "usernameInvalid": "Недопустимое имя пользователя.",
+      "save": "Сохранить",
+      "saving": "Сохранение…",
+      "saved": "Профиль обновлён",
+      "saveError": "Не удалось обновить профиль.",
+      "emailLabel": "Эл. почта",
+      "verified": "Подтверждён",
+      "unverified": "Не подтверждён",
+      "unverifiedHint": "Подтвердите адрес эл. почты, чтобы защитить аккаунт и выполнить требования для входа.",
+      "resendVerification": "Отправить письмо для подтверждения ещё раз",
+      "verificationSent": "Проверьте почту: там ссылка для подтверждения.",
+      "verificationError": "Не удалось отправить письмо для подтверждения.",
+      "changeEmail": "Изменить",
+      "newEmailLabel": "Новый адрес эл. почты",
+      "changeEmailHintVerified": "Мы отправим письмо на текущий адрес, чтобы вы одобрили изменение, а затем ссылку для подтверждения на новый. Адрес не изменится, пока не будут выполнены оба шага.",
+      "changeEmailSubmit": "Отправить подтверждение",
+      "changingEmail": "Отправка…",
+      "cancel": "Отмена",
+      "changeEmailSame": "Введите другой адрес эл. почты.",
+      "changeEmailError": "Не удалось начать смену адреса эл. почты.",
+      "changeEmailSentToCurrent": "Проверьте {current}, чтобы одобрить смену адреса на {next}. Затем подтвердите {next} по ссылке, которую мы туда отправим.",
+      "changeEmailNeedsVerified": "Изменить адрес можно после его подтверждения."
     },
     "passkeys": {
-      "title": "Passkeys",
-      "hint": "Use a passkey for phishing-resistant sign-in. Add one on this device or with a security key.",
-      "addThisDevice": "Add passkey (this device)",
-      "addSecurityKey": "Add passkey (security key)",
-      "defaultName": "My passkey",
-      "empty": "No passkeys yet. Add one to sign in without typing your password.",
-      "name": "Name",
-      "unnamed": "Unnamed passkey",
-      "deviceType": "Device type",
-      "created": "Added",
-      "actions": "Actions",
-      "rename": "Rename",
-      "delete": "Remove",
-      "save": "Save",
-      "cancel": "Cancel",
-      "loadError": "Could not load passkeys.",
-      "addError": "Could not add passkey.",
-      "deleteError": "Could not remove passkey.",
-      "updateError": "Could not update passkey.",
-      "added": "Passkey added",
-      "deleted": "Passkey removed",
-      "updated": "Passkey updated",
-      "nameRequired": "Enter a name for this passkey.",
-      "none": "None",
-      "confirmRemoveTitle": "Remove this passkey?",
-      "confirmRemoveBody": "You won’t be able to sign in with this passkey anymore. You can add a new one at any time.",
-      "signInAgainToAdd": "For your security, adding a passkey needs a recent sign-in. Sign in again, then add it.",
-      "signInAgain": "Sign in again"
+      "title": "Ключи доступа",
+      "hint": "Ключ доступа обеспечивает вход, защищённый от фишинга. Добавьте его на этом устройстве или с помощью аппаратного ключа безопасности.",
+      "addThisDevice": "Добавить ключ доступа (это устройство)",
+      "addSecurityKey": "Добавить ключ доступа (ключ безопасности)",
+      "defaultName": "Мой ключ доступа",
+      "empty": "Ключей доступа пока нет. Добавьте ключ, чтобы входить без ввода пароля.",
+      "name": "Название",
+      "unnamed": "Ключ доступа без названия",
+      "deviceType": "Тип устройства",
+      "created": "Добавлен",
+      "actions": "Действия",
+      "rename": "Переименовать",
+      "delete": "Удалить",
+      "save": "Сохранить",
+      "cancel": "Отмена",
+      "loadError": "Не удалось загрузить ключи доступа.",
+      "addError": "Не удалось добавить ключ доступа.",
+      "deleteError": "Не удалось удалить ключ доступа.",
+      "updateError": "Не удалось обновить ключ доступа.",
+      "added": "Ключ доступа добавлен",
+      "deleted": "Ключ доступа удалён",
+      "updated": "Ключ доступа обновлён",
+      "nameRequired": "Введите название для этого ключа доступа.",
+      "none": "Нет",
+      "confirmRemoveTitle": "Удалить этот ключ доступа?",
+      "confirmRemoveBody": "Вы больше не сможете входить с этим ключом доступа. Новый ключ можно добавить в любой момент.",
+      "signInAgainToAdd": "В целях безопасности для добавления ключа доступа нужен недавний вход. Войдите снова, затем добавьте ключ.",
+      "signInAgain": "Войти снова"
     },
     "twoFactor": {
       "title": "Двухфакторная аутентификация",
@@ -509,45 +2089,45 @@
       }
     },
     "organizations": {
-      "title": "Organizations",
-      "description": "Teams and partner organizations you belong to. Switch between them and invite members. Platform administrators create new organizations.",
-      "yourOrganizations": "Your organizations",
-      "empty": "No organizations loaded.",
-      "active": "Active",
-      "switchTo": "Set active",
-      "setActiveError": "Could not switch organization.",
-      "setActiveSuccess": "Active organization updated.",
-      "createTitle": "Create an organization",
-      "createHint": "Use a unique URL slug (e.g. acme-corp). The reserved slug “public” is not available.",
-      "orgName": "Organization name",
+      "title": "Организации",
+      "description": "Команды и партнёрские организации, в которых вы состоите. Переключайтесь между ними и приглашайте участников. Новые организации создают администраторы платформы.",
+      "yourOrganizations": "Ваши организации",
+      "empty": "Организации не загружены.",
+      "active": "Активная",
+      "switchTo": "Сделать активной",
+      "setActiveError": "Не удалось переключить организацию.",
+      "setActiveSuccess": "Активная организация изменена.",
+      "createTitle": "Создание организации",
+      "createHint": "Укажите уникальный slug для URL (например, acme-corp). Зарезервированный slug «public» недоступен.",
+      "orgName": "Название организации",
       "orgSlug": "Slug",
-      "create": "Create organization",
-      "creating": "Creating…",
-      "createSuccess": "Organization created",
-      "createError": "Could not create organization.",
-      "createValidation": "Enter a name and slug.",
-      "reservedSlug": "This slug is reserved.",
-      "slugTaken": "That slug is already in use.",
-      "loadError": "Could not load organizations.",
-      "inviteTitle": "Invite a member",
-      "inviteHint": "Sends an email with a link to accept the invitation. Available when your role in the active organization is owner or admin.",
-      "inviteEmail": "Email",
-      "inviteRole": "Role",
-      "roleMember": "Member",
-      "roleAdmin": "Admin",
-      "inviteSend": "Send invitation",
-      "inviting": "Sending…",
-      "inviteSuccess": "Invitation sent",
-      "inviteError": "Could not send invitation.",
-      "inviteValidation": "Enter an email address.",
-      "allOrganizations": "All organizations",
-      "memberCount": "{count, plural, one {# member} other {# members}}",
-      "delete": "Delete",
-      "cancel": "Cancel",
-      "deleted": "Organization deleted",
-      "deleteError": "Could not delete the organization.",
-      "confirmDeleteTitle": "Delete {name}?",
-      "confirmDeleteBody": "This removes the organization, its {count, plural, one {# membership} other {# memberships}} and pending invitations. Member accounts stay. This cannot be undone.",
+      "create": "Создать организацию",
+      "creating": "Создание…",
+      "createSuccess": "Организация создана",
+      "createError": "Не удалось создать организацию.",
+      "createValidation": "Введите название и slug.",
+      "reservedSlug": "Этот slug зарезервирован.",
+      "slugTaken": "Этот slug уже используется.",
+      "loadError": "Не удалось загрузить организации.",
+      "inviteTitle": "Пригласить участника",
+      "inviteHint": "Отправляет письмо со ссылкой для принятия приглашения. Доступно, если в активной организации у вас роль владельца или администратора.",
+      "inviteEmail": "Эл. почта",
+      "inviteRole": "Роль",
+      "roleMember": "Участник",
+      "roleAdmin": "Администратор",
+      "inviteSend": "Отправить приглашение",
+      "inviting": "Отправка…",
+      "inviteSuccess": "Приглашение отправлено",
+      "inviteError": "Не удалось отправить приглашение.",
+      "inviteValidation": "Введите адрес эл. почты.",
+      "allOrganizations": "Все организации",
+      "memberCount": "{count, plural, one {# участник} few {# участника} many {# участников} other {# участника}}",
+      "delete": "Удалить",
+      "cancel": "Отмена",
+      "deleted": "Организация удалена",
+      "deleteError": "Не удалось удалить организацию.",
+      "confirmDeleteTitle": "Удалить {name}?",
+      "confirmDeleteBody": "Будут удалены организация, {count, plural, one {# членство} few {# членства} many {# членств} other {# членства}} в ней и ожидающие приглашения. Аккаунты участников сохранятся. Это действие нельзя отменить.",
       "apiKeys": {
         "show": "API-ключи",
         "hide": "Скрыть API-ключи",
@@ -559,41 +2139,43 @@
       }
     },
     "security": {
-      "title": "Security",
-      "description": "Update your password, manage passkeys, and review where you are signed in.",
-      "passwordHeading": "Password",
-      "passwordHint": "Use at least {min} characters. Choose a password you don’t use elsewhere.",
-      "currentPassword": "Current password",
-      "newPassword": "New password",
-      "confirmNewPassword": "Confirm new password",
-      "changePassword": "Update password",
-      "changing": "Updating…",
-      "passwordChanged": "Password updated",
-      "passwordError": "Could not change password.",
-      "passwordTooShort": "The new password must be at least {min} characters.",
-      "passwordMismatch": "New passwords do not match.",
-      "sameAsCurrent": "Choose a different password from your current one.",
-      "invalidCurrentPassword": "Current password is incorrect.",
-      "compromisedPassword": "This new password appears in known data breaches. Choose a different one.",
-      "revokeOthersAfterChange": "Sign out my other devices when the password changes",
-      "revokeOthersAfterChangeHint": "Recommended if you think someone else may know your old password.",
-      "sessionsTitle": "Active sessions",
-      "sessionsHint": "Revoke sessions you do not recognize. Revoking this device will sign you out.",
-      "sessionsLoadError": "Could not load sessions.",
-      "revoke": "Revoke",
-      "revokeOthers": "Sign out other sessions",
-      "revokeError": "Something went wrong.",
-      "sessionRevoked": "Session revoked",
-      "othersRevoked": "Other sessions signed out",
-      "currentSession": "This device",
-      "unknownDevice": "Unknown device",
-      "noSessions": "No sessions found.",
-      "device": "Device",
-      "network": "IP address",
-      "actions": "Actions",
-      "started": "Started",
-      "expires": "Expires",
-      "none": "None"
+      "title": "Безопасность",
+      "description": "Меняйте пароль, управляйте ключами доступа и проверяйте, где выполнен вход.",
+      "passwordHeading": "Пароль",
+      "passwordHint": "Не менее {min} символов. Выберите пароль, который вы не используете в других местах.",
+      "currentPassword": "Текущий пароль",
+      "newPassword": "Новый пароль",
+      "confirmNewPassword": "Подтвердите новый пароль",
+      "changePassword": "Обновить пароль",
+      "changing": "Обновление…",
+      "passwordChanged": "Пароль обновлён",
+      "passwordError": "Не удалось сменить пароль.",
+      "passwordTooShort": "Новый пароль должен содержать не менее {min} символов.",
+      "passwordMismatch": "Новые пароли не совпадают.",
+      "sameAsCurrent": "Новый пароль должен отличаться от текущего.",
+      "invalidCurrentPassword": "Текущий пароль неверный.",
+      "compromisedPassword": "Этот новый пароль встречается в известных утечках данных. Выберите другой.",
+      "revokeOthersAfterChange": "Выйти на других устройствах после смены пароля",
+      "revokeOthersAfterChangeHint": "Рекомендуется, если вы подозреваете, что кто-то знает ваш старый пароль.",
+      "sessionsTitle": "Активные сеансы",
+      "sessionsHint": "Завершите сеансы, которые вы не узнаёте. Завершение сеанса на этом устройстве приведёт к выходу.",
+      "sessionsLoadError": "Не удалось загрузить сеансы.",
+      "revoke": "Завершить",
+      "revokeOthers": "Завершить другие сеансы",
+      "revokeError": "Что-то пошло не так.",
+      "sessionRevoked": "Сеанс завершён",
+      "othersRevoked": "Другие сеансы завершены",
+      "currentSession": "Это устройство",
+      "unknownDevice": "Неизвестное устройство",
+      "noSessions": "Сеансы не найдены.",
+      "device": "Устройство",
+      "network": "IP-адрес",
+      "actions": "Действия",
+      "started": "Начат",
+      "expires": "Истекает",
+      "none": "Нет",
+      "startedAt": "Начат: {date}",
+      "expiresAt": "Истекает: {date}"
     },
     "apps": {
       "title": "Подключённые приложения",
@@ -669,22 +2251,22 @@
       "createdBy": "создан: {name}",
       "createdByDeleted": "аккаунт создателя удалён"
     },
-    "accountMenu": "Account menu",
+    "accountMenu": "Меню аккаунта",
     "connectedAccounts": {
-      "title": "Connected accounts",
-      "hint": "Sign in with these accounts as well as your password or passkeys.",
-      "connected": "Connected",
-      "notConnected": "Not connected",
-      "connect": "Connect",
-      "disconnect": "Disconnect",
-      "disconnected": "{provider} disconnected",
-      "cancel": "Cancel",
-      "confirmTitle": "Disconnect {provider}?",
-      "confirmBody": "You won't be able to sign in with this account anymore. You can connect it again later.",
-      "lastMethod": "This is your only way to sign in. Add a password or passkey first.",
-      "error": "Something went wrong. Try again.",
-      "signInAgainToChange": "For your security, connecting an account needs a recent sign-in. Sign in again, then connect it.",
-      "signInAgain": "Sign in again"
+      "title": "Подключённые аккаунты",
+      "hint": "Входите с помощью этих аккаунтов, а также пароля или ключей доступа.",
+      "connected": "Подключён",
+      "notConnected": "Не подключён",
+      "connect": "Подключить",
+      "disconnect": "Отключить",
+      "disconnected": "{provider} отключён",
+      "cancel": "Отмена",
+      "confirmTitle": "Отключить {provider}?",
+      "confirmBody": "Вы больше не сможете входить с этим аккаунтом. Позже его можно подключить снова.",
+      "lastMethod": "Это ваш единственный способ входа. Сначала добавьте пароль или ключ доступа.",
+      "error": "Что-то пошло не так. Повторите попытку.",
+      "signInAgainToChange": "В целях безопасности для подключения аккаунта нужен недавний вход. Войдите снова, затем подключите его.",
+      "signInAgain": "Войти снова"
     },
     "accounts": {
       "switchTo": "Переключиться на",
@@ -752,26 +2334,30 @@
         "impersonating": "Аккаунт нельзя удалить, пока его просматривает администратор.",
         "failed": "Не удалось начать удаление. Попробуйте ещё раз."
       }
+    },
+    "impersonation": {
+      "viewingAs": "Вы просматриваете этот аккаунт как <strong>{email}</strong>.",
+      "stop": "Прекратить вход от имени"
     }
   },
   "acceptInvitation": {
-    "loading": "Checking session…",
-    "needSignInTitle": "Sign in to continue",
-    "needSignInDescription": "You need to be signed in with the invited email address before accepting this invitation.",
-    "signIn": "Sign in",
-    "title": "Accept invitation",
-    "description": "Join the organization that invited you.",
-    "signedInAs": "Signed in as {email}.",
-    "accept": "Accept invitation",
-    "accepting": "Accepting…",
-    "success": "You have joined the organization.",
-    "successTitle": "Welcome",
-    "successDescription": "Redirecting to your dashboard…",
-    "error": "Could not accept the invitation."
+    "loading": "Проверка сеанса…",
+    "needSignInTitle": "Войдите, чтобы продолжить",
+    "needSignInDescription": "Чтобы принять приглашение, войдите с адресом эл. почты, на который оно было отправлено.",
+    "signIn": "Войти",
+    "title": "Принять приглашение",
+    "description": "Присоединитесь к пригласившей вас организации.",
+    "signedInAs": "Вы вошли как {email}.",
+    "accept": "Принять приглашение",
+    "accepting": "Принятие…",
+    "success": "Вы присоединились к организации.",
+    "successTitle": "Добро пожаловать",
+    "successDescription": "Переход в личный кабинет…",
+    "error": "Не удалось принять приглашение."
   },
   "common": {
-    "loading": "Loading…",
-    "language": "Language",
+    "loading": "Загрузка…",
+    "language": "Язык",
     "localeNames": {
       "en": "Английский",
       "fr": "Французский",
@@ -793,12 +2379,20 @@
       "no": "Норвежский",
       "fi": "Финский",
       "cs": "Чешский"
+    },
+    "ui": {
+      "close": "Закрыть",
+      "sidebar": "Боковая панель",
+      "sidebarDescription": "Показывает мобильную боковую панель.",
+      "toggleSidebar": "Показать или скрыть боковую панель",
+      "breadcrumb": "навигационная цепочка",
+      "more": "Ещё"
     }
   },
   "errors": {
-    "boundaryTitle": "Something went wrong",
-    "boundaryDescription": "An error occurred while loading this page.",
-    "retry": "Try again"
+    "boundaryTitle": "Что-то пошло не так",
+    "boundaryDescription": "При загрузке этой страницы произошла ошибка.",
+    "retry": "Повторить"
   },
   "rateLimit": {
     "seconds": "Слишком много попыток. Повторите через {seconds, plural, one {# секунду} few {# секунды} many {# секунд} other {# секунды}}.",
@@ -806,94 +2400,156 @@
     "later": "Слишком много попыток. Подождите несколько минут и попробуйте снова."
   },
   "sso": {
-    "title": "Single sign-on",
-    "description": "Connect your organization's identity provider (OIDC or SAML 2.0) so members can sign in with their work account.",
-    "registerTitle": "Register a provider",
-    "registerDescription": "Your identity provider must redirect back to the callback URL shown below.",
-    "providerId": "Provider ID",
-    "providerIdHint": "A short identifier, e.g. acme-okta.",
-    "issuer": "Issuer URL",
-    "domain": "Email domain",
-    "domainHint": "Users with this email domain are sent to this provider.",
-    "clientId": "Client ID",
-    "clientSecret": "Client secret",
-    "organization": "Organization (optional)",
-    "register": "Register provider",
-    "registering": "Registering…",
-    "registered": "SSO provider registered",
-    "registerError": "Could not register the provider.",
-    "callbackTitle": "Callback URL to configure in your identity provider",
-    "providersTitle": "Configured providers",
-    "providersEmpty": "No SSO provider configured yet.",
-    "loadError": "Could not load SSO providers.",
-    "signInTitle": "Sign in with SSO",
-    "signInDescription": "Enter your work email. We'll redirect you to your organization's identity provider.",
-    "signInEmail": "Work email",
-    "signInSubmit": "Continue",
-    "signInError": "Could not start single sign-on for this address.",
-    "signInLink": "Sign in with SSO",
-    "signInFailed": "Single sign-on did not complete. Try again, or ask your administrator to check the identity provider settings.",
+    "title": "Единый вход",
+    "description": "Подключите провайдер удостоверений вашей организации (OIDC или SAML 2.0), чтобы участники могли входить с рабочим аккаунтом.",
+    "registerTitle": "Регистрация провайдера",
+    "registerDescription": "Провайдер удостоверений должен перенаправлять обратно на callback URL, указанный ниже.",
+    "providerId": "ID провайдера",
+    "providerIdHint": "Короткий идентификатор, например acme-okta.",
+    "issuer": "URL издателя (issuer)",
+    "domain": "Почтовый домен",
+    "domainHint": "Пользователи с этим почтовым доменом направляются к этому провайдеру.",
+    "clientId": "ID клиента",
+    "clientSecret": "Секрет клиента",
+    "organization": "Организация (необязательно)",
+    "register": "Зарегистрировать провайдер",
+    "registering": "Регистрация…",
+    "registered": "Провайдер SSO зарегистрирован",
+    "registerError": "Не удалось зарегистрировать провайдер.",
+    "callbackTitle": "Callback URL для настройки в провайдере удостоверений",
+    "providersTitle": "Настроенные провайдеры",
+    "providersEmpty": "Провайдеры SSO ещё не настроены.",
+    "loadError": "Не удалось загрузить провайдеры SSO.",
+    "signInTitle": "Вход через SSO",
+    "signInDescription": "Введите рабочий адрес эл. почты. Мы перенаправим вас к провайдеру удостоверений вашей организации.",
+    "signInEmail": "Рабочая эл. почта",
+    "signInSubmit": "Продолжить",
+    "signInError": "Не удалось начать единый вход для этого адреса.",
+    "signInLink": "Войти через SSO",
+    "signInFailed": "Единый вход не завершён. Повторите попытку или попросите администратора проверить настройки провайдера удостоверений.",
     "saml": {
-      "protocol": "Protocol",
-      "registerDescription": "The identity provider posts signed SAML assertions to the ACS URL below. Sign-in starts from Ostiary (SP-initiated).",
-      "idpSource": "Identity provider configuration",
-      "sourceUrl": "Metadata URL",
-      "sourceXml": "Paste metadata XML",
-      "sourceManual": "Enter manually",
-      "metadataUrl": "IdP metadata URL",
-      "metadataUrlHint": "The server fetches it once when you save. After a certificate rotation, fetch it again from Edit.",
-      "metadataXml": "IdP metadata XML",
-      "metadataXmlHint": "The EntityDescriptor your identity provider exports.",
-      "idpEntityId": "IdP entity ID (issuer)",
-      "ssoUrl": "IdP single sign-on URL",
-      "ssoUrlHint": "The URL for the HTTP-Redirect binding.",
-      "certificate": "IdP signing certificate",
-      "certificateHint": "PEM (-----BEGIN CERTIFICATE-----) or its base64 body.",
-      "mappingTitle": "Attribute mapping",
-      "mappingPreset": "Preset",
+      "protocol": "Протокол",
+      "registerDescription": "Провайдер удостоверений отправляет подписанные утверждения SAML на ACS URL ниже. Вход начинается в Ostiary (по инициативе SP).",
+      "idpSource": "Конфигурация провайдера удостоверений",
+      "sourceUrl": "URL метаданных",
+      "sourceXml": "Вставить XML метаданных",
+      "sourceManual": "Ввести вручную",
+      "metadataUrl": "URL метаданных IdP",
+      "metadataUrlHint": "Сервер загружает их один раз при сохранении. После смены сертификата загрузите их снова в разделе «Изменить».",
+      "metadataXml": "XML метаданных IdP",
+      "metadataXmlHint": "EntityDescriptor, экспортированный провайдером удостоверений.",
+      "idpEntityId": "Entity ID IdP (издатель)",
+      "ssoUrl": "URL единого входа IdP",
+      "ssoUrlHint": "URL для привязки HTTP-Redirect.",
+      "certificate": "Сертификат подписи IdP",
+      "certificateHint": "PEM (-----BEGIN CERTIFICATE-----) или его тело в base64.",
+      "mappingTitle": "Сопоставление атрибутов",
+      "mappingPreset": "Шаблон",
       "preset_okta": "Okta",
       "preset_entra": "Microsoft Entra ID",
       "preset_google": "Google Workspace",
       "preset_jumpcloud": "JumpCloud",
-      "preset_custom": "Custom",
-      "attrEmail": "Email attribute",
-      "attrName": "Display name attribute",
-      "attrFirstName": "First name attribute",
-      "attrLastName": "Last name attribute",
-      "mappingHint": "First and last name are used when the identity provider sends them, otherwise the display name. The user ID is the assertion's NameID: configure a persistent identifier.",
-      "wantAssertionsSigned": "Require signed assertions",
-      "wantAssertionsSignedHint": "Recommended. When off, the whole response must still be signed: unsigned responses are always refused.",
-      "requestSigningNote": "Ostiary does not sign authentication requests: leave request signing off in the identity provider.",
-      "spTitle": "Values to enter in your identity provider",
-      "acsUrl": "ACS URL (single sign-on URL, reply URL)",
-      "spEntityId": "SP entity ID (audience URI, identifier)",
-      "spMetadataUrl": "SP metadata URL",
-      "copy": "Copy",
-      "copied": "Copied",
-      "setupTitle": "Setup notes",
-      "oktaStep1": "In the Okta admin console: Applications, Create App Integration, SAML 2.0.",
-      "oktaStep2": "Single sign-on URL: the ACS URL. Audience URI (SP Entity ID): the SP entity ID. Name ID format: Persistent. Application username: Email.",
-      "oktaStep3": "Attribute statements: email = user.email, firstName = user.firstName, lastName = user.lastName (the Okta preset).",
-      "oktaStep4": "Assign people, then copy the metadata URL from the Sign On tab into Ostiary.",
-      "entraStep1": "In Microsoft Entra ID: Enterprise applications, New application, Create your own application (non-gallery), then Single sign-on, SAML.",
-      "entraStep2": "Basic SAML configuration: Identifier (Entity ID) = the SP entity ID, Reply URL = the ACS URL.",
-      "entraStep3": "Keep the default claims (the Entra ID preset). The default signing option, Sign SAML assertion, works.",
-      "entraStep4": "Assign users and groups, then copy the App Federation Metadata URL into Ostiary.",
-      "spInitiatedNote": "Only sign-in started from Ostiary is supported. Point app tiles in the identity provider's portal to {url}.",
-      "spDetails": "SP details",
-      "detailsTitle": "{id}: SAML settings",
-      "detailsDescription": "Enter these values in the identity provider.",
-      "assertionsSignedOn": "Signed assertions are required.",
-      "assertionsSignedOff": "Signed responses are required (assertions may be unsigned).",
-      "certExpires": "Signing certificate valid until {date}",
-      "certExpired": "The signing certificate has expired: sign-ins will fail until the IdP metadata is updated.",
-      "editTitle": "Edit {id}",
-      "editDescription": "Changing the domain means it must be verified again. The SP entity ID and ACS URL stay the same.",
-      "replaceIdp": "Replace the identity provider configuration (new metadata or certificate)",
-      "updated": "Provider updated",
-      "save": "Save",
-      "cancel": "Cancel",
-      "close": "Close"
+      "preset_custom": "Свой",
+      "attrEmail": "Атрибут эл. почты",
+      "attrName": "Атрибут отображаемого имени",
+      "attrFirstName": "Атрибут имени",
+      "attrLastName": "Атрибут фамилии",
+      "mappingHint": "Имя и фамилия используются, если провайдер удостоверений их передаёт, иначе — отображаемое имя. ID пользователя — это NameID утверждения: настройте постоянный идентификатор.",
+      "wantAssertionsSigned": "Требовать подписанные утверждения",
+      "wantAssertionsSignedHint": "Рекомендуется. Если выключено, весь ответ всё равно должен быть подписан: неподписанные ответы всегда отклоняются.",
+      "requestSigningNote": "Ostiary не подписывает запросы аутентификации: оставьте подпись запросов выключенной в провайдере удостоверений.",
+      "spTitle": "Значения для ввода в провайдере удостоверений",
+      "acsUrl": "ACS URL (URL единого входа, URL ответа)",
+      "spEntityId": "Entity ID SP (URI аудитории, идентификатор)",
+      "spMetadataUrl": "URL метаданных SP",
+      "copy": "Копировать",
+      "copied": "Скопировано",
+      "setupTitle": "Инструкции по настройке",
+      "oktaStep1": "В консоли администратора Okta: Applications, Create App Integration, SAML 2.0.",
+      "oktaStep2": "Single sign-on URL: ACS URL. Audience URI (SP Entity ID): Entity ID SP. Name ID format: Persistent. Application username: Email.",
+      "oktaStep3": "Attribute statements: email = user.email, firstName = user.firstName, lastName = user.lastName (шаблон Okta).",
+      "oktaStep4": "Назначьте пользователей, затем скопируйте URL метаданных со вкладки Sign On в Ostiary.",
+      "entraStep1": "В Microsoft Entra ID: Enterprise applications, New application, Create your own application (non-gallery), затем Single sign-on, SAML.",
+      "entraStep2": "Basic SAML configuration: Identifier (Entity ID) = Entity ID SP, Reply URL = ACS URL.",
+      "entraStep3": "Оставьте утверждения (claims) по умолчанию (шаблон Entra ID). Вариант подписи по умолчанию, Sign SAML assertion, подходит.",
+      "entraStep4": "Назначьте пользователей и группы, затем скопируйте App Federation Metadata URL в Ostiary.",
+      "spInitiatedNote": "Поддерживается только вход, начатый в Ostiary. Направьте плитки приложений на портале провайдера удостоверений на {url}.",
+      "spDetails": "Данные SP",
+      "detailsTitle": "{id}: настройки SAML",
+      "detailsDescription": "Введите эти значения в провайдере удостоверений.",
+      "assertionsSignedOn": "Требуются подписанные утверждения.",
+      "assertionsSignedOff": "Требуются подписанные ответы (утверждения могут быть не подписаны).",
+      "certExpires": "Сертификат подписи действителен до {date}",
+      "certExpired": "Срок действия сертификата подписи истёк: входы не будут работать, пока не обновятся метаданные IdP.",
+      "editTitle": "Изменить {id}",
+      "editDescription": "При смене домена его нужно будет подтвердить заново. Entity ID SP и ACS URL не изменятся.",
+      "replaceIdp": "Заменить конфигурацию провайдера удостоверений (новые метаданные или сертификат)",
+      "updated": "Провайдер обновлён",
+      "save": "Сохранить",
+      "cancel": "Отмена",
+      "close": "Закрыть",
+      "copyLabel": "Копировать: {label}",
+      "errors": {
+        "metadataEmpty": "Метаданные пусты.",
+        "metadataTooLarge": "Метаданные превышают 100 КБ.",
+        "metadataDoctype": "Метаданные не должны содержать DOCTYPE.",
+        "metadataNotXml": "Метаданные не являются корректным XML.",
+        "notSamlMetadata": "Это не метаданные SAML.",
+        "multipleEntities": "Метаданные должны описывать ровно один провайдер удостоверений.",
+        "noEntityId": "В метаданных нет entityID.",
+        "noIdpDescriptor": "В метаданных нет провайдера удостоверений (IDPSSODescriptor).",
+        "noSaml2": "Провайдер удостоверений не поддерживает SAML 2.0.",
+        "signedRequestsRequired": "Провайдер удостоверений требует подписанные запросы, а Ostiary их не отправляет. Отключите подписание запросов в провайдере удостоверений.",
+        "noRedirectBinding": "В метаданных нет SingleSignOnService с привязкой HTTP-Redirect.",
+        "metadataSsoUrlNotHttps": "SSO URL провайдера удостоверений должен использовать https://.",
+        "unreadableCertificate": "Не удалось прочитать сертификат подписи в метаданных.",
+        "noSigningCertificate": "В метаданных нет сертификата подписи.",
+        "invalidMapping": "Введите имена атрибутов для почты и имени (без пробелов и кавычек).",
+        "allCertificatesExpired": "Срок действия всех сертификатов подписи в метаданных истёк.",
+        "missingEntityId": "Введите entity ID провайдера удостоверений (издатель).",
+        "ssoUrlNotHttps": "SSO URL должен быть URL вида https://.",
+        "invalidCertificate": "Сертификат подписи не является корректным сертификатом X.509 (PEM).",
+        "certificateExpired": "Срок действия сертификата подписи истёк.",
+        "fetchFailed": "Не удалось загрузить метаданные: {reason}",
+        "invalidRedirect": "URL метаданных перенаправляет на недопустимый адрес.",
+        "httpStatus": "URL метаданных ответил {status}.",
+        "tooManyRedirects": "URL метаданных перенаправляет слишком много раз."
+      }
+    },
+    "panel": {
+      "noOrganization": "Без организации",
+      "providersDescription": "Провайдер принимает входы только после подтверждения его почтового домена DNS-записью.",
+      "verified": "Подтверждён",
+      "domainNotVerified": "Домен не подтверждён",
+      "verifyDomain": "Подтвердить домен",
+      "editLabel": "Изменить {id}",
+      "deleteLabel": "Удалить {id}",
+      "verifyTitle": "Подтверждение {domain}",
+      "verifyDescription": "Попросите владельца домена добавить эту TXT-запись в DNS, затем проверьте её здесь. Входы через этот провайдер заработают после подтверждения.",
+      "recordName": "Имя",
+      "recordValue": "Значение",
+      "copyRecordName": "Копировать имя",
+      "copyRecordValue": "Копировать значение",
+      "recordValidity": "Значение действительно 7 дней.",
+      "domainVerified": "Домен подтверждён",
+      "checkDns": "Проверить DNS",
+      "editDescription": "После смены домена его нужно подтвердить снова. Чтобы изменить учётные данные клиента, удалите провайдер и зарегистрируйте его заново.",
+      "organization": "Организация",
+      "deleteTitle": "Удалить {id}?",
+      "deleteDescription": "Пользователи с адресом {domain} больше не смогут входить через этот провайдер. Их аккаунты сохранятся, и они по-прежнему смогут использовать пароль или ключ доступа.",
+      "providerDeleted": "Провайдер удалён"
+    },
+    "errors": {
+      "providerNotFound": "Провайдер не найден.",
+      "issuerNotUrl": "Издатель должен быть URL.",
+      "invalidDomain": "Введите почтовый домен, например acme.com.",
+      "organizationNotFound": "Организация не найдена.",
+      "samlIssuerLocked": "Entity ID SP для провайдера SAML нельзя изменить.",
+      "invalidProviderDomain": "Домен провайдера недействителен.",
+      "txtRecordNotFound": "TXT-запись пока не найдена. Изменения DNS могут появиться через несколько минут.",
+      "envNotSet": "{name} не задано.",
+      "invalidProviderId": "ID провайдера должен содержать от 2 до 63 символов: строчные буквы, цифры, - или _.",
+      "unreadableSamlConfig": "Сохранённая конфигурация SAML не читается; удалите провайдер и зарегистрируйте его снова."
     }
   },
   "selectAccount": {

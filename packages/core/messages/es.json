@@ -1,46 +1,46 @@
 {
   "layout": {
-    "title": "Sign in",
-    "description": "Log in to your work tools and profile."
+    "title": "Iniciar sesión",
+    "description": "Accede a tus herramientas de trabajo y a tu perfil."
   },
   "auth": {
     "login": {
-      "title": "Login to your account",
-      "description": "Sign in with your email or username and password.",
-      "identifierLabel": "Email or username",
-      "identifierPlaceholder": "you@example.com or your_username",
-      "emailLabel": "Email",
+      "title": "Inicia sesión en tu cuenta",
+      "description": "Inicia sesión con tu correo electrónico o nombre de usuario y tu contraseña.",
+      "identifierLabel": "Correo electrónico o nombre de usuario",
+      "identifierPlaceholder": "you@example.com o your_username",
+      "emailLabel": "Correo electrónico",
       "emailPlaceholder": "m@example.com",
-      "passwordLabel": "Password",
-      "forgotPasswordLink": "Forgot password?",
-      "submit": "Login",
-      "submitting": "Signing in…",
-      "noAccount": "Don't have an account?",
-      "signUpLink": "Sign up",
-      "verifyEmailAfterSignup": "Check your inbox for a verification link. You must verify your email before signing in.",
-      "passkey": "Sign in with passkey",
-      "passkeySubmitting": "Waiting for passkey…",
+      "passwordLabel": "Contraseña",
+      "forgotPasswordLink": "¿Has olvidado tu contraseña?",
+      "submit": "Iniciar sesión",
+      "submitting": "Iniciando sesión…",
+      "noAccount": "¿No tienes una cuenta?",
+      "signUpLink": "Regístrate",
+      "verifyEmailAfterSignup": "Revisa tu bandeja de entrada para encontrar el enlace de verificación. Debes verificar tu correo electrónico antes de iniciar sesión.",
+      "passkey": "Iniciar sesión con una llave de acceso",
+      "passkeySubmitting": "Esperando la llave de acceso…",
       "emailCode": "Enviarme un código de acceso por correo",
-      "lastUsedBadge": "Last used",
-      "lastUsedHintEmail": "You last signed in with email and password.",
-      "lastUsedHintUsername": "You last signed in with username and password.",
-      "lastUsedHintPasskey": "You last signed in with a passkey.",
+      "lastUsedBadge": "Último usado",
+      "lastUsedHintEmail": "La última vez iniciaste sesión con correo electrónico y contraseña.",
+      "lastUsedHintUsername": "La última vez iniciaste sesión con nombre de usuario y contraseña.",
+      "lastUsedHintPasskey": "La última vez iniciaste sesión con una llave de acceso.",
       "lastUsedHintEmailCode": "La última vez iniciaste sesión con un código enviado por correo.",
-      "lastUsedHintOther": "You last signed in with {method}.",
+      "lastUsedHintOther": "La última vez iniciaste sesión con {method}.",
       "errors": {
         "emailNotVerified": "Please verify your email first. We sent you a new verification link, check your inbox.",
-        "signInFailed": "Could not sign in. Check your details and try again.",
-        "passkeyFailed": "Passkey sign-in failed. Try again or use your password."
+        "signInFailed": "No se pudo iniciar sesión. Comprueba tus datos e inténtalo de nuevo.",
+        "passkeyFailed": "No se pudo iniciar sesión con la llave de acceso. Inténtalo de nuevo o usa tu contraseña."
       },
       "resend": {
-        "title": "Didn't get the email?",
-        "description": "Enter your email and we'll send you a new verification link.",
+        "title": "¿No has recibido el correo?",
+        "description": "Introduce tu correo electrónico y te enviaremos un nuevo enlace de verificación.",
         "emailPlaceholder": "you@example.com",
-        "send": "Send a new link",
-        "sendAgain": "Send again",
-        "sent": "If an unverified account uses this address, a new link is on its way. Check your inbox and spam folder.",
-        "invalidEmail": "Enter a valid email address.",
-        "error": "Could not send the email. Try again in a minute."
+        "send": "Enviar un nuevo enlace",
+        "sendAgain": "Volver a enviar",
+        "sent": "Si una cuenta sin verificar usa esta dirección, recibirá un nuevo enlace en breve. Revisa tu bandeja de entrada y la carpeta de spam.",
+        "invalidEmail": "Introduce una dirección de correo electrónico válida.",
+        "error": "No se pudo enviar el correo. Inténtalo de nuevo dentro de un minuto."
       },
       "addAccountDescription": "Las cuentas que ya tienen sesión en este navegador la mantienen."
     },
@@ -93,81 +93,81 @@
       }
     },
     "forgotPassword": {
-      "metaTitle": "Forgot password",
-      "title": "Reset your password",
-      "description": "Enter the email on your account. If it exists, we will send you a link to choose a new password.",
-      "emailLabel": "Email",
+      "metaTitle": "Contraseña olvidada",
+      "title": "Restablece tu contraseña",
+      "description": "Introduce el correo electrónico de tu cuenta. Si existe, te enviaremos un enlace para elegir una nueva contraseña.",
+      "emailLabel": "Correo electrónico",
       "emailPlaceholder": "m@example.com",
-      "emailHint": "Use the same email you registered with. If you usually sign in with a username, recovery still uses your account email.",
-      "submit": "Send reset link",
-      "submitting": "Sending…",
-      "backToLogin": "Back to login",
-      "emailSent": "If an account exists for that email, you will receive a reset link shortly.",
+      "emailHint": "Usa el mismo correo electrónico con el que te registraste. Aunque normalmente inicies sesión con un nombre de usuario, la recuperación usa el correo de tu cuenta.",
+      "submit": "Enviar enlace de restablecimiento",
+      "submitting": "Enviando…",
+      "backToLogin": "Volver a iniciar sesión",
+      "emailSent": "Si existe una cuenta con ese correo electrónico, recibirás un enlace de restablecimiento en breve.",
       "errors": {
-        "emailRequired": "Please enter your email address.",
-        "requestFailed": "Could not send the reset email. Try again."
+        "emailRequired": "Introduce tu dirección de correo electrónico.",
+        "requestFailed": "No se pudo enviar el correo de restablecimiento. Inténtalo de nuevo."
       }
     },
     "resetPassword": {
-      "metaTitle": "Set new password",
-      "title": "Choose a new password",
-      "description": "Enter and confirm your new password below.",
-      "invalidTokenTitle": "Link expired or invalid",
-      "invalidTokenDescription": "This reset link is no longer valid. Request a new one to continue.",
-      "missingTokenTitle": "No reset link",
-      "missingTokenDescription": "Open the link from your email, or request a new password reset.",
-      "requestNewLink": "Request new link",
-      "backToLogin": "Back to login",
-      "newPasswordLabel": "New password",
-      "confirmPasswordLabel": "Confirm password",
-      "passwordHint": "Must be at least 8 characters long.",
-      "passwordMismatch": "Passwords do not match",
-      "submit": "Update password",
-      "submitting": "Updating…",
-      "success": "Your password was updated. You can sign in now.",
+      "metaTitle": "Establecer nueva contraseña",
+      "title": "Elige una nueva contraseña",
+      "description": "Introduce y confirma tu nueva contraseña a continuación.",
+      "invalidTokenTitle": "Enlace caducado o no válido",
+      "invalidTokenDescription": "Este enlace de restablecimiento ya no es válido. Solicita uno nuevo para continuar.",
+      "missingTokenTitle": "No hay enlace de restablecimiento",
+      "missingTokenDescription": "Abre el enlace de tu correo o solicita un nuevo restablecimiento de contraseña.",
+      "requestNewLink": "Solicitar un nuevo enlace",
+      "backToLogin": "Volver a iniciar sesión",
+      "newPasswordLabel": "Nueva contraseña",
+      "confirmPasswordLabel": "Confirmar contraseña",
+      "passwordHint": "Debe tener al menos 8 caracteres.",
+      "passwordMismatch": "Las contraseñas no coinciden",
+      "submit": "Actualizar contraseña",
+      "submitting": "Actualizando…",
+      "success": "Tu contraseña se ha actualizado. Ya puedes iniciar sesión.",
       "errors": {
-        "resetFailed": "Could not reset your password. Try again or request a new link."
+        "resetFailed": "No se pudo restablecer tu contraseña. Inténtalo de nuevo o solicita un nuevo enlace."
       }
     },
     "signup": {
-      "title": "Create an account",
-      "description": "Enter your information below to create your account",
-      "usernameLabel": "Username",
+      "title": "Crear una cuenta",
+      "description": "Introduce tus datos a continuación para crear tu cuenta",
+      "usernameLabel": "Nombre de usuario",
       "usernamePlaceholder": "your_username",
-      "usernameHint": "3-30 characters: letters, numbers, dots, and underscores only.",
-      "usernameChecking": "Checking availability…",
-      "usernameAvailable": "This username is available.",
-      "usernameTaken": "This username is already taken.",
-      "usernameInvalidHint": "Use only letters, numbers, dots, and underscores.",
-      "fullNameLabel": "Full Name",
-      "namePlaceholder": "John Doe",
-      "emailLabel": "Email",
+      "usernameHint": "De 3 a 30 caracteres: solo letras, números, puntos y guiones bajos.",
+      "usernameChecking": "Comprobando disponibilidad…",
+      "usernameAvailable": "Este nombre de usuario está disponible.",
+      "usernameTaken": "Este nombre de usuario ya está en uso.",
+      "usernameInvalidHint": "Usa solo letras, números, puntos y guiones bajos.",
+      "fullNameLabel": "Nombre completo",
+      "namePlaceholder": "Juan Pérez",
+      "emailLabel": "Correo electrónico",
       "emailPlaceholder": "m@example.com",
-      "emailDescription": "We'll use this to contact you. We will not share your email with anyone else.",
-      "passwordLabel": "Password",
-      "confirmPasswordLabel": "Confirm Password",
-      "passwordHint": "Must be at least 8 characters long.",
-      "confirmPasswordHint": "Please confirm your password.",
-      "passwordMismatch": "Passwords do not match",
-      "submit": "Create Account",
-      "submitting": "Creating account…",
-      "hasAccount": "Already have an account?",
-      "signInLink": "Sign in",
-      "loginLink": "Login",
-      "afterRegisterRedirect": "Account created. Check your email to verify before signing in.",
+      "emailDescription": "Lo usaremos para contactarte. No compartiremos tu correo electrónico con nadie.",
+      "passwordLabel": "Contraseña",
+      "confirmPasswordLabel": "Confirmar contraseña",
+      "passwordHint": "Debe tener al menos 8 caracteres.",
+      "confirmPasswordHint": "Confirma tu contraseña.",
+      "passwordMismatch": "Las contraseñas no coinciden",
+      "submit": "Crear cuenta",
+      "submitting": "Creando cuenta…",
+      "hasAccount": "¿Ya tienes una cuenta?",
+      "signInLink": "Iniciar sesión",
+      "loginLink": "Iniciar sesión",
+      "afterRegisterRedirect": "Cuenta creada. Revisa tu correo para verificarla antes de iniciar sesión.",
       "errors": {
-        "signUpFailed": "Could not create your account. Try again.",
-        "compromisedPassword": "This password appears in known data breaches. Choose a different one.",
-        "usernameTooShort": "Username must be at least 3 characters.",
-        "usernameInvalid": "That username is not valid.",
-        "usernameTaken": "That username is already taken. Try another."
+        "signUpFailed": "No se pudo crear tu cuenta. Inténtalo de nuevo.",
+        "compromisedPassword": "Esta contraseña aparece en filtraciones de datos conocidas. Elige otra.",
+        "usernameTooShort": "El nombre de usuario debe tener al menos 3 caracteres.",
+        "usernameInvalid": "Ese nombre de usuario no es válido.",
+        "usernameTaken": "Ese nombre de usuario ya está en uso. Prueba con otro."
       }
     },
     "screen": {
-      "headline": "One account for all your apps.",
-      "subhead": "Sign in once and reach every app connected to {name}. Your profile and security settings follow you everywhere.",
-      "footer": "Secured by {name}.",
-      "ecosystem": "Works with"
+      "headline": "Una cuenta para <accent>todas tus aplicaciones</accent>.",
+      "subhead": "Inicia sesión una vez y accede a todas las aplicaciones conectadas a {name}. Tu perfil y tu configuración de seguridad te acompañan a todas partes.",
+      "footer": "Protegido por {name}.",
+      "ecosystem": "Compatible con"
     },
     "social": {
       "or": "o",
@@ -175,8 +175,8 @@
       "signInWith": "Iniciar sesión con {provider}",
       "lastUsed": "Último usado",
       "otherProviders": "Más formas de iniciar sesión",
-      "error": "Could not sign in with that account. Try again or use another method.",
-      "notLinked": "That account isn't connected to a {name} account yet. Sign in another way, then connect it from your security settings.",
+      "error": "No se pudo iniciar sesión con esa cuenta. Inténtalo de nuevo o usa otro método.",
+      "notLinked": "Esa cuenta aún no está conectada a una cuenta de {name}. Inicia sesión de otra forma y conéctala desde tu configuración de seguridad.",
       "noEmail": "Esa cuenta no compartió una dirección de correo. Inténtalo más tarde o inicia sesión de otra forma.",
       "signUpDisabled": "Todavía no hay ninguna cuenta para esa dirección y este método de inicio de sesión no puede crearla. Inicia sesión de otra forma."
     },
@@ -189,23 +189,23 @@
     }
   },
   "consent": {
-    "emptyTitle": "Authorization",
-    "emptyDescription": "There is no pending OAuth request. Start the flow from the application you want to connect.",
-    "connectTitle": "Connect {name}",
-    "intro": "This application is requesting access to your account. Review the permissions below before continuing.",
+    "emptyTitle": "Autorización",
+    "emptyDescription": "No hay ninguna solicitud OAuth pendiente. Inicia el proceso desde la aplicación que quieres conectar.",
+    "connectTitle": "Conectar {name}",
+    "intro": "Esta aplicación solicita acceso a tu cuenta. Revisa los permisos a continuación antes de continuar.",
     "errors": {
-      "needSignIn": "You need to sign in before you can approve this request.",
-      "loadFailed": "Could not load application details.",
-      "actionFailed": "Something went wrong."
+      "needSignIn": "Debes iniciar sesión para poder aprobar esta solicitud.",
+      "loadFailed": "No se pudieron cargar los detalles de la aplicación.",
+      "actionFailed": "Algo salió mal."
     },
-    "signIn": "Sign in",
-    "visitWebsite": "Visit application website",
-    "requestedAccess": "Requested access",
-    "defaultScopes": "Default permissions for this client (no explicit scopes in the request).",
-    "terms": "Terms of service",
-    "privacy": "Privacy policy",
-    "deny": "Deny",
-    "allow": "Allow",
+    "signIn": "Iniciar sesión",
+    "visitWebsite": "Visitar el sitio web de la aplicación",
+    "requestedAccess": "Acceso solicitado",
+    "defaultScopes": "Permisos predeterminados de este cliente (la solicitud no incluye scopes explícitos).",
+    "terms": "Términos del servicio",
+    "privacy": "Política de privacidad",
+    "deny": "Denegar",
+    "allow": "Permitir",
     "scopes": {
       "openid": "Verificar quién eres (OpenID Connect)",
       "profile": "Nombre e información del perfil",
@@ -221,108 +221,1540 @@
   },
   "admin": {
     "themeToggle": {
-      "light": "Light",
-      "dark": "Dark",
-      "system": "System",
-      "srOnly": "Toggle theme",
-      "label": "Theme"
+      "light": "Claro",
+      "dark": "Oscuro",
+      "system": "Sistema",
+      "srOnly": "Cambiar tema",
+      "label": "Tema"
     },
     "nav": {
-      "groupAdmin": "Admin",
+      "groupAdmin": "Administración",
       "groupOAuth": "OAuth",
-      "overview": "Overview",
-      "users": "Users",
-      "applications": "Applications",
+      "overview": "Resumen",
+      "users": "Usuarios",
+      "applications": "Aplicaciones",
       "apis": "API",
       "apiKeys": "Claves de API",
-      "consent": "Consent",
-      "organizations": "Organizations",
+      "consent": "Consentimiento",
+      "organizations": "Organizaciones",
       "sso": "SSO",
       "signInProviders": "Proveedores de inicio de sesión",
       "webhooks": "Webhooks",
-      "security": "Security",
+      "security": "Seguridad",
       "usage": "Uso de aplicaciones",
-      "audit": "Audit log",
+      "audit": "Registro de auditoría",
       "signingKeys": "Claves de firma"
     },
     "header": {
-      "crumb": "Admin",
-      "fallback": "Admin",
-      "overview": "Overview",
-      "users": "Users",
-      "applications": "Applications",
+      "crumb": "Administración",
+      "fallback": "Administración",
+      "overview": "Resumen",
+      "users": "Usuarios",
+      "applications": "Aplicaciones",
       "apis": "API",
       "apiKeys": "Claves de API",
-      "consent": "Consent",
-      "organizations": "Organizations",
+      "consent": "Consentimiento",
+      "organizations": "Organizaciones",
       "sso": "SSO",
       "signInProviders": "Proveedores de inicio de sesión",
       "webhooks": "Webhooks",
-      "security": "Security",
+      "security": "Seguridad",
       "usage": "Uso de aplicaciones",
-      "audit": "Audit log",
+      "audit": "Registro de auditoría",
       "signingKeys": "Claves de firma"
     },
     "pages": {
       "overview": {
-        "title": "Overview",
+        "title": "Resumen",
         "activity": {
-          "title": "Sign-in activity",
-          "description": "Sign-ins, new accounts and sign-outs per day, last 30 days.",
-          "signIns": "Sign-ins",
-          "signUps": "Sign-ups",
-          "signOuts": "Sign-outs",
-          "showTable": "View as table",
-          "showChart": "View as chart",
-          "legend": "Totals for the last 30 days",
-          "day": "Day",
-          "note": "Sign-outs are tracked from October 6, 2026. Earlier sign-ins only include sessions that were still active then."
+          "title": "Actividad de inicio de sesión",
+          "description": "Inicios de sesión, cuentas nuevas y cierres de sesión por día, últimos 30 días.",
+          "signIns": "Inicios de sesión",
+          "signUps": "Registros",
+          "signOuts": "Cierres de sesión",
+          "showTable": "Ver como tabla",
+          "showChart": "Ver como gráfico",
+          "legend": "Totales de los últimos 30 días",
+          "day": "Día",
+          "note": "Los cierres de sesión se registran desde el 6 de octubre de 2026. Los inicios de sesión anteriores solo incluyen las sesiones que seguían activas en esa fecha."
         },
-        "description": "Accounts, sign-in activity and the newest members of the platform."
+        "description": "Cuentas, actividad de inicio de sesión y los miembros más recientes de la plataforma.",
+        "recentUsers": {
+          "title": "Altas recientes",
+          "description": "Las cuentas más nuevas. Abre una para ver sus sesiones y su actividad.",
+          "loading": "Cargando…",
+          "empty": "Aún no hay usuarios."
+        },
+        "stats": {
+          "error": "No se pudieron cargar una o más métricas. Asegúrate de haber iniciado sesión como administrador.",
+          "errorTitle": "Métricas no disponibles",
+          "loadingTitle": "Cargando",
+          "loadingHint": "Cargando…",
+          "totalUsers": {
+            "title": "Total de usuarios",
+            "hint": "Todas las cuentas de la plataforma."
+          },
+          "admins": {
+            "title": "Administradores",
+            "hint": "Cuentas con acceso a esta consola."
+          },
+          "banned": {
+            "title": "Bloqueadas",
+            "hint": "Cuentas que ahora mismo no pueden iniciar sesión."
+          },
+          "verified": {
+            "title": "Correo verificado",
+            "hint": "Cuentas que han confirmado su dirección de correo electrónico."
+          },
+          "recent": {
+            "title": "Nuevas (7 días)",
+            "hint": "Cuentas creadas en los últimos 7 días."
+          }
+        }
       },
       "applications": {
-        "title": "Applications",
+        "title": "Aplicaciones",
         "description": "Clientes OAuth que pueden iniciar sesión con {name}: sus URL de redirección, tipos de concesión y ajustes de consentimiento.",
         "unusedHint": "{count, plural, one {# aplicación no se ha usado} other {# aplicaciones no se han usado}} en los últimos 30 días.",
-        "viewUsage": "Ver uso"
+        "viewUsage": "Ver uso",
+        "panel": {
+          "selfRegisteredHint": "Se registró por sí misma: no revisada por un administrador",
+          "selfRegisteredBadge": "Autorregistrada",
+          "registration": {
+            "all": "Cualquier registro",
+            "admin": "Administrador",
+            "dynamic": "Registro dinámico",
+            "metadata_document": "Documento de metadatos"
+          },
+          "authMethod": {
+            "none": "autenticación: ninguna",
+            "client_secret_basic": "autenticación: secreto (basic)",
+            "client_secret_post": "autenticación: secreto (post)",
+            "private_key_jwt": "autenticación: JWT con clave privada"
+          },
+          "loadFailed": "No se pudieron cargar los clientes OAuth",
+          "loadErrorTitle": "No se pudieron cargar las aplicaciones",
+          "searchPlaceholder": "Busca por nombre, ID de cliente, URI de redirección o concesión…",
+          "searchLabel": "Buscar aplicaciones",
+          "clientType": "Tipo de cliente",
+          "registeredBy": "Registrada por",
+          "kind": {
+            "all": "Todos los clientes",
+            "public": "Público",
+            "confidential": "Confidencial",
+            "trusted": "De confianza (sin consentimiento)",
+            "device": "Inicio de sesión en dispositivos"
+          },
+          "columns": {
+            "application": "Aplicación",
+            "redirects": "Redirecciones",
+            "grants": "Concesiones",
+            "consent": "Consentimiento"
+          },
+          "badges": {
+            "device": "Dispositivo",
+            "trusted": "De confianza",
+            "consent": "Consentimiento",
+            "active": "Activo",
+            "skipped": "Omitido",
+            "required": "Obligatorio"
+          },
+          "loadingRows": "Cargando aplicaciones…",
+          "empty": "Aún no hay clientes OAuth para esta cuenta.",
+          "noMatch": "Ninguna aplicación coincide con tus filtros.",
+          "linkedApis": "API vinculadas: {apis}",
+          "noApplications": "0 aplicaciones",
+          "showing": "Mostrando {from}-{to} de {total}",
+          "rowsPerPage": "Filas por página",
+          "previous": "Anterior",
+          "next": "Siguiente",
+          "page": "Página {page} / {total}",
+          "footnote": "Datos de <code>{getClients}</code>. Registrar y editar (incluido <code>{skipConsent}</code>) llaman a <code>{create}</code> y <code>{update}</code>; el resto de cambios usan <code>{deleteClient}</code> y <code>{rotateSecret}</code>. Consulta la documentación del <docs>proveedor OAuth</docs>. Los clientes se limitan al usuario que ha iniciado sesión (o a <code>{clientReference}</code> si está configurado). Los clientes autorregistrados no tienen propietario y se muestran todos; se pueden desactivar o eliminar, pero no editar."
+        },
+        "registration": {
+          "title": "Autorregistro",
+          "description": "Permite que los clientes MCP y los agentes de IA se registren por sí mismos en lugar de añadirse aquí. Solo obtienen los scopes siguientes, siempre muestran la pantalla de consentimiento marcada como no verificada y nunca obtienen acceso de máquina (credenciales de cliente).",
+          "dynamicRegistration": "Registro dinámico",
+          "dynamic": {
+            "off": {
+              "label": "Desactivado",
+              "hint": "Se rechaza POST /oauth2/register."
+            },
+            "signed_in": {
+              "label": "Solo usuarios con sesión iniciada",
+              "hint": "Solo pueden registrarse las solicitudes que incluyan la sesión de un usuario. La mayoría de los clientes MCP no pueden."
+            },
+            "open": {
+              "label": "Cualquiera (registro abierto)",
+              "hint": "Lo que esperan los clientes MCP: cualquier aplicación puede registrarse y luego cada usuario la aprueba en la pantalla de consentimiento."
+            }
+          },
+          "metadataDocuments": "Documentos de metadatos (client_id como URL)",
+          "metadataOnFrom": "Activado, desde {hosts}",
+          "metadataOnAnyHost": "Activado, cualquier host HTTPS",
+          "scopes": "Scopes que pueden solicitar",
+          "missingScope": "Ya no es un scope de este servidor: se ignora",
+          "perHour": "Clientes nuevos por hora",
+          "endpoint": "Endpoint de registro: <code>{url}</code> (anunciado en el documento de descubrimiento).",
+          "saved": "Ajustes guardados. El servidor de autenticación los aplica en menos de un minuto.",
+          "dialogDescription": "Los clientes que se registran por sí mismos no se revisan. Las personas los ven como aplicaciones no verificadas y aprueban cada una en la pantalla de consentimiento.",
+          "dynamicLabel": "Registro dinámico de clientes (RFC 7591)",
+          "cimdLabel": "Documentos de metadatos de ID de cliente",
+          "cimdHint": "El client_id es una URL HTTPS que apunta a los metadatos JSON de la aplicación, como usan los clientes MCP más recientes. Solo se descargan de hosts públicos, sin redirecciones y con un máximo de 5 KB.",
+          "hostsLabel": "Hosts permitidos",
+          "hostsHint": "Uno por línea. Vacío: cualquier host HTTPS público.",
+          "scopesLabel": "Scopes que pueden solicitar los clientes autorregistrados",
+          "scopesHint": "Cada usuario sigue aprobando los scopes que pide una aplicación. Si quitas un scope, también se quita de los clientes ya registrados; los tokens ya emitidos lo conservan hasta que caducan.",
+          "perHourHint": "En todas las instancias, para ambos métodos. Además, cada dirección está limitada a 5 registros por minuto."
+        },
+        "branding": {
+          "title": "Personalización del inicio de sesión",
+          "description": "El aspecto de las pantallas de inicio de sesión cuando las personas llegan desde <app>{client}</app>: inicio de sesión, registro, autenticación en dos pasos, restablecimiento de contraseña y consentimiento. La marca {brand} sigue visible en todas las pantallas.",
+          "logoFetchedOnSave": "El servidor descarga el logotipo al guardar; la vista previa lo mostrará entonces.",
+          "accentInvalid": "Introduce el color de acento como color hexadecimal, p. ej., {example}.",
+          "hexInvalid": "Introduce un color hexadecimal, p. ej., {example}.",
+          "saved": "Personalización del inicio de sesión guardada",
+          "resetDone": "Personalización del inicio de sesión restablecida",
+          "displayName": "Nombre visible",
+          "displayNameHint": "Se muestra como “Inicia sesión para continuar en …”. Si está vacío, se usa el nombre de la aplicación.",
+          "tagline": "Eslogan (opcional)",
+          "taglinePlaceholder": "Tu lista de lectura, en todas partes.",
+          "accent": "Color de acento",
+          "accentPick": "Elige el color de acento",
+          "accentHex": "Color de acento (hex)",
+          "accentOff": "Desactivado: las pantallas mantienen los colores del tema.",
+          "contrast": {
+            "label": "Comprobaciones de contraste",
+            "ratio": "{label}: <value>{ratio}:1</value>",
+            "passes": "(cumple {min}:1)",
+            "below": "(por debajo de {min}:1)",
+            "buttonLabel": "Texto del botón ({color, select, black {en negro} other {en blanco}})",
+            "lightCard": "Botones sobre la tarjeta clara",
+            "darkCard": "Botones sobre la tarjeta oscura",
+            "textAdjusted": "El texto en el color de acento usa {color} para alcanzar {min}:1."
+          },
+          "logo": "Logotipo",
+          "logoSourceLabel": "Origen del logotipo",
+          "logoSource": {
+            "app_icon": "Icono de la aplicación",
+            "url": "Desde una URL",
+            "upload": "Subir"
+          },
+          "logoAppIconHint": "El icono encontrado para la aplicación (su {field} o su sitio web), como en la pantalla de consentimiento.",
+          "logoUrl": "URL del logotipo",
+          "logoUrlHint": "https en un host público. {name} lo descarga y lo guarda en caché; los navegadores nunca lo cargan desde allí.",
+          "logoFile": "Archivo del logotipo",
+          "logoFileHint": "PNG, JPEG, WebP, AVIF, GIF, ICO o SVG, hasta 256 KB. Lo ideal es que sea cuadrado.",
+          "panel": "Panel lateral (pantallas anchas, opcional)",
+          "panelImage": "Imagen del panel lateral",
+          "removeImage": "Quitar imagen",
+          "panelHint": "Titular e imagen de fondo del panel oscuro. PNG, JPEG, WebP o AVIF, hasta 1 MB.",
+          "social": "Inicio de sesión social en las pantallas de esta aplicación",
+          "socialNone": "No hay ningún proveedor social activado.",
+          "socialShown": "Proveedores sociales mostrados",
+          "socialAll": "Todos los activados",
+          "socialSome": "Solo estos",
+          "socialHint": "Solo oculta los botones en las pantallas de esta aplicación; no impide que nadie inicie sesión de otra forma.",
+          "previewTitle": "Vista previa",
+          "previewScheme": "Esquema de colores de la vista previa",
+          "light": "Claro",
+          "dark": "Oscuro",
+          "faintOnLight": "Los botones de este color apenas destacan sobre la tarjeta clara (WCAG pide 3:1 para los controles). El texto sigue siendo legible; considera un tono más oscuro.",
+          "faintOnDark": "Los botones de este color apenas destacan sobre la tarjeta oscura (WCAG pide 3:1 para los controles). El texto sigue siendo legible; considera un tono más claro.",
+          "resetting": "Restableciendo…",
+          "reset": "Restablecer valores predeterminados",
+          "save": "Guardar personalización",
+          "preview": {
+            "label": "Vista previa de la página de inicio de sesión",
+            "appFallback": "Aplicación",
+            "title": "Iniciar sesión",
+            "submit": "Iniciar sesión",
+            "noAccount": "¿No tienes cuenta? <link>Crea una</link>"
+          }
+        },
+        "actions": {
+          "registration": {
+            "chooseMode": "Elige quién puede registrar clientes.",
+            "unknownScope": "\"{scope}\" no es un scope de este servidor.",
+            "noScopes": "Permite al menos un scope.",
+            "invalidHost": "\"{raw}\" no es un nombre de host, p. ej., {example}.",
+            "invalidLimit": "El límite por hora debe ser un número entero entre 0 y {max}.",
+            "saveFailed": "No se pudieron guardar los ajustes.",
+            "clientGone": "Este cliente ya no existe.",
+            "notSelfRegistered": "Aquí solo se pueden cambiar los clientes autorregistrados."
+          },
+          "branding": {
+            "clientGone": "Esta aplicación ya no existe.",
+            "selfRegistered": "Los clientes autorregistrados no se pueden personalizar.",
+            "logoMissing": "Elige un archivo de logotipo para subir.",
+            "logoFetchFailed": "No se pudo descargar una imagen desde la URL del logotipo. Comprueba que sea pública y que sea una imagen.",
+            "faintOnLight": "El color de acento es tenue sobre la tarjeta clara: los botones apenas destacarán.",
+            "faintOnDark": "El color de acento es tenue sobre la tarjeta oscura: los botones apenas destacarán.",
+            "saveFailed": "No se pudo guardar la personalización."
+          }
+        },
+        "register": {
+          "trigger": "Registrar aplicación",
+          "title": "Registrar aplicación OAuth",
+          "description": "Crea un cliente vinculado a tu cuenta mediante <code>{endpoint}</code> (las aplicaciones de confianza pueden definir <code>{field}</code>). Consulta <link>Better Auth, Create client</link>.",
+          "nameLabel": "Nombre de la aplicación",
+          "namePlaceholder": "Mi aplicación",
+          "redirectUrisLabel": "URI de redirección",
+          "redirectUrisHintPublic": "Una por línea o separadas por comas. HTTPS, o http en localhost, 127.0.0.1 o [::1].",
+          "redirectUrisHintConfidential": "Una por línea o separadas por comas. Solo HTTPS, incluido localhost. Para desarrollo local, registra un cliente público aparte.",
+          "redirectUrisRequired": "Introduce al menos una URI de redirección (una por línea o separadas por comas).",
+          "clientTypeLabel": "Tipo de cliente",
+          "clientTypeConfidential": "Confidencial (secreto de cliente)",
+          "clientTypePublic": "Público (PKCE, sin secreto)",
+          "deviceCodeLabel": "Inicio de sesión en dispositivos (CLI, televisores)",
+          "deviceCodeHint": "Añade la concesión de código de dispositivo (RFC 8628): la aplicación muestra un código y el usuario lo aprueba en <code>{path}</code> desde otra pantalla. Normalmente es un cliente público.",
+          "skipConsentLabel": "Omitir consentimiento (cliente de confianza)",
+          "skipConsentHint": "Los usuarios no verán la pantalla de consentimiento de esta aplicación. Úsalo solo para integraciones propias o de total confianza.",
+          "registerFailed": "No se pudo registrar la aplicación",
+          "missingClientId": "El servidor no devolvió ningún {field}.",
+          "registered": "Aplicación OAuth registrada",
+          "creating": "Creando…",
+          "create": "Crear aplicación",
+          "successTitle": "Aplicación creada",
+          "successWithSecret": "Copia ahora el secreto de cliente: puede que solo se muestre una vez.",
+          "successPublic": "Cliente público: no se emite ningún secreto. Usa PKCE en el endpoint de token.",
+          "clientId": "ID de cliente",
+          "clientSecret": "Secreto de cliente",
+          "copyClientId": "Copiar ID de cliente",
+          "copyClientSecret": "Copiar secreto de cliente"
+        },
+        "rowActions": {
+          "menuLabel": "Acciones de {name}",
+          "copyClientId": "Copiar ID de cliente",
+          "clientIdCopied": "ID de cliente copiado",
+          "edit": "Editar aplicación",
+          "editHint": "Nombre, URI de redirección, inicio de sesión en dispositivos y omisión del consentimiento",
+          "branding": "Personalización del inicio de sesión",
+          "brandingHint": "Logotipo, color de acento y textos de las pantallas de inicio de sesión de esta aplicación",
+          "rotateSecret": "Rotar secreto",
+          "rotateHintPublic": "Los clientes públicos no tienen secreto",
+          "rotateHintDisabled": "Activa primero el cliente",
+          "rotateHint": "Rota el secreto del cliente confidencial",
+          "delete": "Eliminar aplicación",
+          "editDialog": {
+            "title": "Editar aplicación",
+            "description": "Actualiza <id>{clientId}</id> mediante <code>{endpoint}</code> (campos restringidos como <code>{field}</code>). Consulta <link>Better Auth, Update client</link>.",
+            "nameLabel": "Nombre de la aplicación",
+            "namePlaceholder": "Mi aplicación",
+            "redirectUrisLabel": "URI de redirección",
+            "redirectUrisHint": "Una por línea o separadas por comas. HTTPS obligatorio. Solo los clientes públicos pueden usar http en localhost.",
+            "redirectUrisRequired": "Introduce al menos una URI de redirección (una por línea o separadas por comas).",
+            "deviceCodeLabel": "Inicio de sesión en dispositivos (CLI, televisores)",
+            "deviceCodeHint": "Permite la concesión de código de dispositivo. Si la desactivas, se detienen los nuevos inicios de sesión en dispositivos; los tokens ya emitidos siguen funcionando.",
+            "skipConsentLabel": "Omitir consentimiento (cliente de confianza)",
+            "skipConsentHint": "Si está activado, no se pide a los usuarios que aprueben los scopes de esta aplicación.",
+            "updateFailed": "No se pudo actualizar la aplicación",
+            "updated": "Aplicación actualizada"
+          },
+          "deleteDialog": {
+            "title": "¿Eliminar la aplicación?",
+            "description": "Elimina de forma permanente <strong>{name}</strong> (<code>{clientId}</code>). Los tokens OAuth y los consentimientos de este cliente pueden verse afectados.",
+            "deleteFailed": "No se pudo eliminar el cliente",
+            "deleted": "Aplicación eliminada"
+          },
+          "rotateDialog": {
+            "title": "¿Rotar el secreto de cliente?",
+            "description": "El secreto anterior deja de funcionar de inmediato. Guarda el nuevo secreto en un lugar seguro: puede que solo se muestre una vez.",
+            "newSecretLabel": "Nuevo secreto de cliente",
+            "copySecret": "Copiar secreto",
+            "secretCopied": "Secreto copiado",
+            "rotating": "Rotando…",
+            "rotateFailed": "No se pudo rotar el secreto",
+            "newSecretIssued": "Nuevo secreto de cliente emitido: cópialo ahora",
+            "rotated": "Secreto rotado"
+          }
+        },
+        "selfRegistered": {
+          "menuLabel": "Acciones de {name}",
+          "enabled": "Cliente activado",
+          "disabled": "Cliente desactivado",
+          "deleted": "Cliente eliminado",
+          "disableTitle": "¿Desactivar {name}?",
+          "disableDescription": "Ya no podrá iniciar la sesión de nadie ni renovar sus tokens. Los tokens de acceso ya emitidos funcionan hasta que caducan (una hora como máximo).",
+          "deleteTitle": "¿Eliminar {name}?",
+          "deleteDescriptionMetadataDocument": "También se eliminan sus tokens y los consentimientos que le dieron las personas. Un cliente con documento de metadatos se vuelve a crear la próxima vez que inicia la sesión de alguien. Para bloquearlo, desactívalo.",
+          "deleteDescriptionDynamic": "También se eliminan sus tokens y los consentimientos que le dieron las personas. La aplicación puede volver a registrarse mientras el registro dinámico esté activado."
+        },
+        "brandingErrors": {
+          "textTooLong": "No superes los {max} caracteres.",
+          "displayNameTooLong": "Nombre visible: no superes los {max} caracteres.",
+          "taglineTooLong": "Eslogan: no superes los {max} caracteres.",
+          "panelTextTooLong": "Texto del panel lateral: no superes los {max} caracteres.",
+          "accentColor": "Color de acento: introduce un color hexadecimal, p. ej., {example}.",
+          "logoSource": "Elige de dónde procede el logotipo.",
+          "logoUrl": "URL del logotipo: introduce una URL https en un host público (puerto predeterminado).",
+          "logoEmpty": "El archivo del logotipo está vacío.",
+          "logoTooLarge": "El logotipo debe ocupar 256 KB o menos.",
+          "logoType": "El logotipo debe ser una imagen PNG, JPEG, GIF, WebP, AVIF, ICO o SVG.",
+          "panelImageEmpty": "La imagen del panel lateral está vacía.",
+          "panelImageTooLarge": "La imagen del panel lateral debe ocupar 1 MB o menos.",
+          "panelImageType": "La imagen del panel lateral debe ser PNG, JPEG, WebP o AVIF."
+        }
       },
       "apis": {
         "title": "API",
-        "description": "Tus API (recursos protegidos) que aceptan tokens de acceso de {name}: los scopes que los clientes pueden solicitar, qué aplicaciones pueden usarlas y la configuración de sus tokens."
+        "description": "Tus API (recursos protegidos) que aceptan tokens de acceso de {name}: los scopes que los clientes pueden solicitar, qué aplicaciones pueden usarlas y la configuración de sus tokens.",
+        "errors": {
+          "tokenSettings": {
+            "lifetimePositive": "{field, select, access {La vida útil del token de acceso debe ser un número positivo de minutos.} other {La vida útil del token de actualización debe ser un número positivo de días.}}",
+            "lifetimeMinimum": "{field, select, access {La vida útil del token de acceso} other {La vida útil del token de actualización}} debe ser de al menos un minuto.",
+            "lifetimeMaximum": "{field, select, access {La vida útil del token de acceso puede ser como máximo de {max} minutos, el valor predeterminado del servidor.} other {La vida útil del token de actualización puede ser como máximo de {max} días, el valor predeterminado del servidor.}}",
+            "claimsInvalidJson": "Los claims personalizados deben ser JSON válido, p. ej., {example}.",
+            "claimsNotObject": "Los claims personalizados deben ser un objeto JSON, p. ej., {example}.",
+            "claimsEmptyName": "El nombre de un claim personalizado no puede estar vacío.",
+            "claimsReserved": "{count, plural, one {{claims} es un claim reservado: lo define el servidor.} other {{claims} son claims reservados: los define el servidor.}} Reservados: {reserved}.",
+            "claimsTooLarge": "Los claims personalizados son demasiado grandes ({kilobytes} KB como máximo): se añaden a cada token."
+          },
+          "invalidScope": "\"{scope}\" no es un scope válido.",
+          "reservedScope": "\"{scope}\" es un scope de OpenID Connect, ya disponible para todos los clientes.",
+          "invalidIdentifier": "El identificador debe ser una URL absoluta sin fragmento, p. ej., {example}.",
+          "registerFailed": "No se pudo registrar la API.",
+          "authServerCannotBeDisabled": "El propio servidor de autenticación no se puede desactivar.",
+          "updateFailed": "No se pudo actualizar la API.",
+          "deleteFromEnv": "Esta API está definida en {variable} y volvería en el próximo despliegue. Desactívala en su lugar.",
+          "deleteFailed": "No se pudo eliminar la API.",
+          "authServerStaysOpen": "El servidor de autenticación sigue abierto a todas las aplicaciones: el inicio de sesión depende de él.",
+          "accessFailed": "No se pudo cambiar qué aplicaciones pueden usar la API.",
+          "tokensFailed": "No se pudieron guardar los ajustes de tokens."
+        },
+        "duration": {
+          "days": "{count, plural, one {# día} other {# días}}",
+          "hours": "{count} h",
+          "minutes": "{count} min"
+        },
+        "tokenSummary": {
+          "accessToken": "Token de acceso {duration}",
+          "refreshToken": "Token de actualización {duration}",
+          "dpopRequired": "DPoP obligatorio",
+          "claims": "Claims: {claims}"
+        },
+        "restrictLabel": "Emitir solo estos scopes para esta API",
+        "restrictHint": "Los tokens de esta API solo llevan estos scopes (y los de OpenID Connect). Desactivado: llevan todos los scopes concedidos al cliente.",
+        "register": {
+          "title": "Registrar una API",
+          "description": "Los clientes piden un token para ella con el parámetro <code>{param}</code>. La audiencia del token es el identificador, y la API lo verifica con el JWKS.",
+          "identifier": "Identificador",
+          "identifierHint": "Normalmente la URL base de la API. No se puede cambiar después.",
+          "namePlaceholder": "API de pedidos",
+          "scopes": "Scopes",
+          "scopesHint": "Separados por espacios o comas. Los clientes de máquina ({grant}) deben limitarse a algunos de ellos.",
+          "submit": "Registrar API",
+          "submitting": "Registrando…",
+          "registered": "API registrada"
+        },
+        "list": {
+          "description": "Los scopes nuevos o modificados llegan al servidor de autenticación en menos de un minuto. Los ajustes de acceso y de tokens se aplican al siguiente token.",
+          "empty": "Aún no hay ninguna API.",
+          "envScopesTitle": "Scopes de {variable}",
+          "envScopesText": "Disponibles para todos los clientes, sea cual sea la API a la que llamen: <mono>{scopes}</mono>. Para gestionarlos aquí, añádelos a la API a la que pertenecen y luego elimina la variable."
+        },
+        "item": {
+          "authServer": "Servidor de autenticación",
+          "restricted": "Restringida",
+          "linkedOnly": "Solo aplicaciones vinculadas",
+          "noResourceParam": "Tokens emitidos sin parámetro resource.",
+          "noScopes": "Sin scopes.",
+          "editAria": "Editar {name}",
+          "deleteAria": "Eliminar {name}",
+          "applications": "Aplicaciones",
+          "everyApplication": "Todas las aplicaciones",
+          "onlyLinked": "Solo {names}",
+          "noneLinked": "Ninguna vinculada: ninguna aplicación puede obtener tokens",
+          "change": "Cambiar",
+          "changeAccessAria": "Cambiar qué aplicaciones pueden usar {name}",
+          "tokens": "Tokens",
+          "defaultSettings": "Ajustes predeterminados",
+          "changeTokensAria": "Cambiar los ajustes de tokens de {name}"
+        },
+        "edit": {
+          "title": "Editar {name}",
+          "scopesHint": "Quitar un scope no cambia los clientes que ya lo tienen, pero ningún token nuevo lo llevará.",
+          "disabledHint": "No se emiten tokens nuevos para esta API. Los tokens ya emitidos funcionan hasta que caducan.",
+          "updated": "API actualizada"
+        },
+        "access": {
+          "title": "Aplicaciones que pueden usar {name}",
+          "allHint": "Cualquier aplicación puede obtener tokens para esta API, dentro de sus scopes.",
+          "linkedLabel": "Solo aplicaciones vinculadas",
+          "linkedHint": "Las demás aplicaciones se rechazan ({error}), también cuando renuevan un token.",
+          "linkedTitle": "Aplicaciones vinculadas",
+          "filterAria": "Filtrar aplicaciones",
+          "filterPlaceholder": "Filtra por nombre o ID de cliente",
+          "noApplications": "Aún no hay ninguna aplicación.",
+          "noMatch": "Ninguna aplicación coincide.",
+          "linksHintAll": "Los vínculos solo importan cuando la API se limita a las aplicaciones vinculadas. Una aplicación vinculada también puede introspeccionar los tokens de esta API.",
+          "linksHintLinked": "Una aplicación vinculada también puede introspeccionar los tokens de esta API.",
+          "noneLinkedWarning": "No hay ninguna aplicación vinculada: ninguna puede obtener tokens para esta API.",
+          "updated": "Acceso actualizado"
+        },
+        "tokens": {
+          "title": "Ajustes de tokens de {name}",
+          "description": "Se aplican a cada token de acceso emitido para esta API. Los tokens ya emitidos conservan sus ajustes.",
+          "accessTtl": "Vida útil del token de acceso (minutos)",
+          "accessTtlHint": "Predeterminado: {minutes, plural, one {# minuto} other {# minutos}}. Solo puede ser más corta.",
+          "refreshTtl": "Vida útil del token de actualización (días)",
+          "refreshTtlHint": "Predeterminado: {days, plural, one {# día} other {# días}}. Solo puede ser más corta.",
+          "claims": "Claims personalizados",
+          "claimsHint": "Un objeto JSON que se añade a cada token de acceso de esta API. Reservados: <mono>{claims}</mono>.",
+          "dpopLabel": "Exigir tokens vinculados con DPoP",
+          "dpopHint": "Los clientes deben enviar una prueba DPoP para obtener un token para esta API, y el token queda vinculado a su clave. La API debe comprobar la prueba en cada solicitud.",
+          "saved": "Ajustes de tokens guardados"
+        },
+        "delete": {
+          "title": "¿Eliminar {name}?",
+          "description": "Los clientes ya no podrán obtener tokens para ella, y los tokens ya emitidos dejarán de funcionar de inmediato. Para impedir solo los tokens nuevos, desactívala.",
+          "deleted": "API eliminada"
+        }
       },
       "signInProviders": {
         "title": "Proveedores de inicio de sesión",
-        "description": "Permite iniciar sesión en {name} con Google, Apple, Microsoft y más de 30 cuentas más."
+        "description": "Permite iniciar sesión en {name} con Google, Apple, Microsoft y más de 30 cuentas más.",
+        "panel": {
+          "copyCallback": "Copiar la URL de callback",
+          "authAppFallback": "la dirección de la aplicación de inicio de sesión",
+          "environment": "Entorno",
+          "activeTitle": "En la página de inicio de sesión",
+          "activeDescription": "En este orden en las páginas de inicio de sesión y de registro, y en Cuentas conectadas del panel de cada usuario. Los cambios llegan a la página de inicio de sesión en menos de 30 segundos.",
+          "noneActive": "No hay ningún proveedor activado. Elige uno de la lista para configurarlo.",
+          "setByEnvironment": "Definido por variables de entorno",
+          "existingAccountsOnly": "Solo cuentas existentes",
+          "connectedAccounts": "{count, plural, one {# cuenta conectada} other {# cuentas conectadas}}",
+          "moveUp": "Subir {name}",
+          "moveDown": "Bajar {name}",
+          "edit": "Editar {name}",
+          "providersTitle": "Proveedores",
+          "providersDescription": "Todos los proveedores que admite Better Auth. Crea una aplicación OAuth en el proveedor, registra la URL de callback que aparece en sus ajustes y pega las credenciales. Los secretos se almacenan cifrados y no se vuelven a mostrar.",
+          "search": "Buscar proveedores",
+          "noMatch": "Ningún proveedor coincide.",
+          "savedOn": "{name} está activado",
+          "saved": "{name} guardado",
+          "removed": "Ajustes de {name} eliminados",
+          "optional": "(opcional)",
+          "secretSet": "Definido",
+          "replace": "Sustituir",
+          "removedOnSave": "Se eliminará al guardar.",
+          "undo": "Deshacer",
+          "newValue": "Nuevo valor",
+          "environmentDescription": "Definido por variables de entorno ({clientIdVar} y {clientSecretVar}): cámbialas allí o elimínalas para gestionar este proveedor aquí.",
+          "defaultNote": "Crea una aplicación OAuth en {name}, registra la URL de callback de abajo y pega sus credenciales.",
+          "callbackUrl": "URL de callback",
+          "callbackHint": "También se llama URI de redirección o URL de retorno.",
+          "createApp": "Crear la aplicación",
+          "setupGuide": "Guía de configuración",
+          "secretsUnreadable": "No se pueden descifrar los secretos almacenados ({envVar} ha cambiado). Vuelve a introducirlos.",
+          "buttonName": "Nombre del botón",
+          "buttonNameHint": "Se muestra como \"Continuar con …\" en la página de inicio de sesión.",
+          "allowSignUp": "Crear cuentas para usuarios nuevos",
+          "allowSignUpHint": "Desactivado: solo pueden iniciar sesión con él las personas que ya tienen una cuenta (conectada desde su panel o con el mismo correo electrónico verificado).",
+          "oneTap": "Mostrar Google One Tap",
+          "oneTapHint": "La ventana de inicio de sesión propia de Google, en la parte superior de las páginas de inicio de sesión y de registro, para quienes ya han iniciado sesión en Google en su navegador. Usa este ID de cliente: añade {origin} a sus orígenes de JavaScript autorizados en la consola de Google Cloud. Solo mientras Google esté activado.",
+          "enabled": "Mostrar en la página de inicio de sesión",
+          "enabledHint": "Desactivado: el botón desaparece y se rechazan los inicios de sesión con este proveedor. Los ajustes se conservan.",
+          "removeConfirm": "¿Eliminar los ajustes y los secretos?",
+          "removeSettings": "Eliminar ajustes"
+        },
+        "errors": {
+          "unknownProvider": "Proveedor desconocido.",
+          "envManaged": "Este proveedor está definido por variables de entorno. Cámbialas, o elimínalas para gestionarlo aquí.",
+          "invalidOption": "{field}: elige {options}.",
+          "appleKeyNotEc": "Clave privada: se esperaba la clave EC (P-256) descargada de Apple (.p8).",
+          "appleKeyInvalid": "Clave privada: no es una clave privada PEM válida. Pega el archivo .p8 completo, incluidas las líneas BEGIN y END.",
+          "issuerNotHttps": "La URL debe empezar por https://.",
+          "salesforceDomain": "Mi dominio: un nombre de host como example.my.salesforce.com.",
+          "cognitoRegion": "Región: una región de AWS como eu-west-1.",
+          "googleHd": "Dominio de Workspace: un dominio como example.com.",
+          "missingFields": "Rellena {fields} antes de activarlo.",
+          "unusable": "Estos ajustes no se pueden usar."
+        },
+        "providers": {
+          "apple": {
+            "note": "Apple necesita una URL de retorno HTTPS en un dominio real (no localhost) y devuelve al usuario con un POST.",
+            "fields": {
+              "clientId": {
+                "label": "Services ID",
+                "hint": "El identificador de un Services ID con Iniciar sesión con Apple activado, p. ej., com.example.signin."
+              },
+              "teamId": {
+                "label": "ID de equipo"
+              },
+              "keyId": {
+                "label": "ID de clave",
+                "hint": "Una clave con Iniciar sesión con Apple activado."
+              },
+              "privateKey": {
+                "label": "Clave privada (.p8)",
+                "hint": "El secreto de cliente es un JWT firmado con esta clave; se genera y se renueva automáticamente."
+              },
+              "appBundleIdentifier": {
+                "label": "ID de paquete de la aplicación",
+                "hint": "Solo para el inicio de sesión nativo en iOS (tokens de ID emitidos para tu aplicación en lugar del Services ID)."
+              }
+            }
+          },
+          "atlassian": {
+            "fields": {
+              "clientId": {
+                "label": "ID de cliente"
+              },
+              "clientSecret": {
+                "label": "Secreto de cliente"
+              }
+            }
+          },
+          "cloudflare": {
+            "fields": {
+              "clientId": {
+                "label": "ID de cliente"
+              },
+              "clientSecret": {
+                "label": "Secreto de cliente",
+                "hint": "Déjalo vacío para un cliente público (solo PKCE)."
+              }
+            }
+          },
+          "cognito": {
+            "fields": {
+              "clientId": {
+                "label": "ID de cliente de la aplicación"
+              },
+              "clientSecret": {
+                "label": "Secreto de cliente de la aplicación",
+                "hint": "Solo si el cliente de la aplicación tiene un secreto."
+              },
+              "domain": {
+                "label": "Dominio de Cognito"
+              },
+              "region": {
+                "label": "Región"
+              },
+              "userPoolId": {
+                "label": "ID del grupo de usuarios"
+              }
+            }
+          },
+          "discord": {
+            "fields": {
+              "clientId": {
+                "label": "ID de cliente"
+              },
+              "clientSecret": {
+                "label": "Secreto de cliente"
+              }
+            }
+          },
+          "dropbox": {
+            "fields": {
+              "clientId": {
+                "label": "Clave de la aplicación"
+              },
+              "clientSecret": {
+                "label": "Secreto de la aplicación"
+              }
+            }
+          },
+          "facebook": {
+            "fields": {
+              "clientId": {
+                "label": "ID de la aplicación"
+              },
+              "clientSecret": {
+                "label": "Clave secreta de la aplicación"
+              }
+            }
+          },
+          "figma": {
+            "fields": {
+              "clientId": {
+                "label": "ID de cliente"
+              },
+              "clientSecret": {
+                "label": "Secreto de cliente"
+              }
+            }
+          },
+          "github": {
+            "note": "Una OAuth App funciona tal cual. Una GitHub App también necesita el permiso de cuenta Email addresses en Read-only; si no, el inicio de sesión falla sin correo electrónico.",
+            "fields": {
+              "clientId": {
+                "label": "ID de cliente"
+              },
+              "clientSecret": {
+                "label": "Secreto de cliente"
+              }
+            }
+          },
+          "gitlab": {
+            "fields": {
+              "clientId": {
+                "label": "ID de la aplicación"
+              },
+              "clientSecret": {
+                "label": "Secreto de cliente"
+              },
+              "issuer": {
+                "label": "URL de GitLab",
+                "hint": "Para un GitLab autogestionado."
+              }
+            }
+          },
+          "google": {
+            "fields": {
+              "clientId": {
+                "label": "ID de cliente"
+              },
+              "clientSecret": {
+                "label": "Secreto de cliente"
+              },
+              "hd": {
+                "label": "Dominio de Workspace",
+                "hint": "Solo acepta cuentas de este dominio de Google Workspace."
+              }
+            }
+          },
+          "huggingface": {
+            "fields": {
+              "clientId": {
+                "label": "ID de cliente"
+              },
+              "clientSecret": {
+                "label": "Secreto de cliente"
+              }
+            }
+          },
+          "kakao": {
+            "fields": {
+              "clientId": {
+                "label": "Clave de API REST"
+              },
+              "clientSecret": {
+                "label": "Secreto de cliente",
+                "hint": "Solo si el secreto de cliente está activado para la aplicación."
+              }
+            }
+          },
+          "kick": {
+            "fields": {
+              "clientId": {
+                "label": "ID de cliente"
+              },
+              "clientSecret": {
+                "label": "Secreto de cliente"
+              }
+            }
+          },
+          "line": {
+            "fields": {
+              "clientId": {
+                "label": "ID del canal"
+              },
+              "clientSecret": {
+                "label": "Secreto del canal"
+              }
+            }
+          },
+          "linear": {
+            "fields": {
+              "clientId": {
+                "label": "ID de cliente"
+              },
+              "clientSecret": {
+                "label": "Secreto de cliente"
+              }
+            }
+          },
+          "linkedin": {
+            "fields": {
+              "clientId": {
+                "label": "ID de cliente"
+              },
+              "clientSecret": {
+                "label": "Secreto de cliente"
+              }
+            }
+          },
+          "microsoft": {
+            "fields": {
+              "clientId": {
+                "label": "ID de aplicación (cliente)"
+              },
+              "clientSecret": {
+                "label": "Valor del secreto de cliente"
+              },
+              "tenantId": {
+                "label": "Inquilino",
+                "hint": "common (cualquier cuenta), organizations, consumers o el ID de tu directorio (inquilino) para permitir solo tu organización."
+              }
+            }
+          },
+          "naver": {
+            "fields": {
+              "clientId": {
+                "label": "ID de cliente"
+              },
+              "clientSecret": {
+                "label": "Secreto de cliente"
+              }
+            }
+          },
+          "notion": {
+            "fields": {
+              "clientId": {
+                "label": "ID de cliente OAuth"
+              },
+              "clientSecret": {
+                "label": "Secreto de cliente OAuth"
+              }
+            }
+          },
+          "paybin": {
+            "fields": {
+              "clientId": {
+                "label": "ID de cliente"
+              },
+              "clientSecret": {
+                "label": "Secreto de cliente"
+              },
+              "issuer": {
+                "label": "Emisor"
+              }
+            }
+          },
+          "paypal": {
+            "note": "Activa \"Log in with PayPal\" para la aplicación y solicita la dirección de correo electrónico.",
+            "fields": {
+              "clientId": {
+                "label": "ID de cliente"
+              },
+              "clientSecret": {
+                "label": "Secreto de cliente"
+              },
+              "environment": {
+                "label": "Entorno"
+              }
+            }
+          },
+          "polar": {
+            "fields": {
+              "clientId": {
+                "label": "ID de cliente"
+              },
+              "clientSecret": {
+                "label": "Secreto de cliente"
+              }
+            }
+          },
+          "railway": {
+            "fields": {
+              "clientId": {
+                "label": "ID de cliente"
+              },
+              "clientSecret": {
+                "label": "Secreto de cliente"
+              }
+            }
+          },
+          "reddit": {
+            "fields": {
+              "clientId": {
+                "label": "ID de cliente"
+              },
+              "clientSecret": {
+                "label": "Secreto de cliente"
+              }
+            }
+          },
+          "roblox": {
+            "fields": {
+              "clientId": {
+                "label": "ID de cliente"
+              },
+              "clientSecret": {
+                "label": "Secreto de cliente"
+              }
+            }
+          },
+          "salesforce": {
+            "fields": {
+              "clientId": {
+                "label": "Clave de consumidor"
+              },
+              "clientSecret": {
+                "label": "Secreto de consumidor"
+              },
+              "environment": {
+                "label": "Entorno"
+              },
+              "loginUrl": {
+                "label": "Mi dominio",
+                "hint": "Solo el nombre de host. Sustituye a login.salesforce.com o test.salesforce.com."
+              }
+            }
+          },
+          "slack": {
+            "fields": {
+              "clientId": {
+                "label": "ID de cliente"
+              },
+              "clientSecret": {
+                "label": "Secreto de cliente"
+              }
+            }
+          },
+          "spotify": {
+            "fields": {
+              "clientId": {
+                "label": "ID de cliente"
+              },
+              "clientSecret": {
+                "label": "Secreto de cliente"
+              }
+            }
+          },
+          "tiktok": {
+            "fields": {
+              "clientKey": {
+                "label": "Clave de cliente"
+              },
+              "clientSecret": {
+                "label": "Secreto de cliente"
+              }
+            }
+          },
+          "twitch": {
+            "fields": {
+              "clientId": {
+                "label": "ID de cliente"
+              },
+              "clientSecret": {
+                "label": "Secreto de cliente"
+              }
+            }
+          },
+          "twitter": {
+            "note": "Usa las credenciales de OAuth 2.0 (no la clave de API) y solicita acceso al correo electrónico en los ajustes de la aplicación.",
+            "fields": {
+              "clientId": {
+                "label": "ID de cliente OAuth 2.0"
+              },
+              "clientSecret": {
+                "label": "Secreto de cliente OAuth 2.0"
+              }
+            }
+          },
+          "vercel": {
+            "fields": {
+              "clientId": {
+                "label": "ID de cliente"
+              },
+              "clientSecret": {
+                "label": "Secreto de cliente"
+              }
+            }
+          },
+          "vk": {
+            "fields": {
+              "clientId": {
+                "label": "ID de la aplicación"
+              },
+              "clientSecret": {
+                "label": "Clave protegida"
+              }
+            }
+          },
+          "wechat": {
+            "note": "Aplicación de sitio web (inicio de sesión con código QR). WeChat no devuelve ninguna dirección de correo electrónico.",
+            "fields": {
+              "clientId": {
+                "label": "AppID"
+              },
+              "clientSecret": {
+                "label": "AppSecret"
+              }
+            }
+          },
+          "zoom": {
+            "fields": {
+              "clientId": {
+                "label": "ID de cliente"
+              },
+              "clientSecret": {
+                "label": "Secreto de cliente"
+              }
+            }
+          }
+        }
       },
       "apiKeys": {
         "title": "Claves de API",
-        "description": "Claves que los usuarios crean para que sus scripts llamen a tus API: actívalas o desactívalas, define su vigencia máxima y revoca cualquier clave."
+        "description": "Claves que los usuarios crean para que sus scripts llamen a tus API: actívalas o desactívalas, define su vigencia máxima y revoca cualquier clave.",
+        "allKeys": {
+          "title": "Todas las claves",
+          "description": "Las más recientes primero{truncated, select, true {, las últimas {limit}} other {}}. Las claves caducadas se eliminan la próxima vez que se usan o se crean claves. Bloquear o eliminar una cuenta revoca sus claves; eliminar una organización elimina sus claves (las claves propiedad de una organización se conservan cuando el miembro que las creó se va)."
+        },
+        "settings": {
+          "description": "Las personas crean claves desde la página de su cuenta para una de tus API y algunos de sus scopes. La API comprueba cada clave con este servidor. Una clave nunca inicia la sesión de nadie en este servidor ni en la consola de administración.",
+          "statusOn": "Activadas: las personas pueden crear claves",
+          "statusOff": "Desactivadas: no se crean claves nuevas y se rechazan todas las claves",
+          "maxLifetime": "Vigencia máxima",
+          "maxLifetimeValue": "{count, plural, one {# día} other {# días}}",
+          "apisAccepting": "API que aceptan claves",
+          "apisNone": "Ninguna: registra una API con scopes, abierta a todas las aplicaciones",
+          "verifyEndpoint": "Endpoint de verificación: <code>{endpoint}</code>. La API se autentica como una aplicación registrada aquí y vinculada a esa API (página API, Acceso). Las API limitadas a aplicaciones vinculadas no aceptan claves."
+        },
+        "dialog": {
+          "description": "Las claves son de larga duración: es preferible una vigencia corta. Reducir el máximo solo afecta a las claves nuevas.",
+          "allowLabel": "Permitir claves de API",
+          "allowHint": "Desactivado: nadie puede crear una clave y todas las claves existentes se rechazan en la verificación. Las claves se conservan y vuelven a funcionar cuando lo vuelvas a activar.",
+          "maxLifetimeLabel": "Vigencia máxima (días)",
+          "maxLifetimeHint": "De 1 a {max}. Todas las claves caducan.",
+          "saved": "Ajustes guardados. El servidor de autenticación los aplica en menos de un minuto."
+        },
+        "table": {
+          "empty": "No hay claves de API.",
+          "key": "Clave",
+          "owner": "Propietario",
+          "api": "API",
+          "scopes": "Scopes",
+          "lastUsed": "Último uso",
+          "expires": "Caduca",
+          "createdBy": "por {email}",
+          "org": "Org.",
+          "removedApi": "API eliminada",
+          "expired": "Caducada",
+          "revoke": "Revocar",
+          "revoked": "Clave de API revocada",
+          "revokeTitle": "¿Revocar {name}?",
+          "revokeOrgDescription": "Esta clave de la organización {owner} deja de funcionar de inmediato. Sus propietarios y administradores pueden crear una nueva si las claves de API están activadas.",
+          "revokeUserDescription": "La clave de {owner} deja de funcionar de inmediato. Puede crear una nueva si las claves de API están activadas."
+        },
+        "errors": {
+          "chooseEnabled": "Elige si las claves de API están activadas.",
+          "maxLifetimeRange": "La vigencia máxima debe ser un número entero de días entre 1 y {max}.",
+          "saveFailed": "No se pudieron guardar los ajustes.",
+          "noKey": "No se ha indicado ninguna clave.",
+          "keyGone": "Esta clave ya no existe."
+        }
       },
       "webhooks": {
         "title": "Webhooks",
         "description": "Notificaciones HTTPS firmadas que avisan a tus aplicaciones cuando cambian los usuarios, los roles o las membresías de organizaciones de {name}.",
-        "deliveries": "Registro de entregas"
+        "deliveries": "Registro de entregas",
+        "eventDescriptions": {
+          "user_created": "Se crea una cuenta (registro, administrador, SSO, SCIM).",
+          "user_updated": "Cambia el nombre, el correo electrónico, la verificación del correo, el nombre de usuario o la foto.",
+          "user_deleted": "Se elimina una cuenta.",
+          "user_banned": "Se bloquea una cuenta o SCIM la desactiva.",
+          "user_unbanned": "Se levanta un bloqueo o SCIM reactiva la cuenta.",
+          "user_role_changed": "Cambia el rol de plataforma de una cuenta.",
+          "organization_member_added": "Alguien se une a una organización.",
+          "organization_member_removed": "Alguien abandona una organización o se le quita de ella.",
+          "organization_member_role_changed": "Cambia el rol de un miembro en una organización."
+        },
+        "panel": {
+          "events": "Eventos",
+          "clear": "Borrar",
+          "selectAll": "Seleccionar todo",
+          "signingSecret": "Secreto de firma",
+          "secretCopied": "Secreto copiado",
+          "copySecret": "Copiar secreto",
+          "url": "URL",
+          "add": {
+            "title": "Añadir un endpoint",
+            "description": "Ostiary envía por POST un evento JSON firmado a esta URL cuando ocurre uno de los eventos elegidos, y lo reintenta durante aproximadamente un día si falla.",
+            "urlHint": "HTTPS, en una dirección pública.",
+            "urlHintLocalhost": "HTTPS, en una dirección pública. Se acepta {url} ({envVar}, solo para desarrollo).",
+            "descriptionPlaceholder": "App de facturación: sincronización de usuarios",
+            "adding": "Añadiendo…",
+            "submit": "Añadir endpoint"
+          },
+          "list": {
+            "title": "Endpoints",
+            "description": "Cada solicitud lleva las cabeceras <code>{id}</code>, <code>{timestamp}</code> y <code>{signature}</code> (Standard Webhooks). Un endpoint que falla {count, plural, one {# vez} other {# veces}} seguidas se desactiva.",
+            "empty": "Aún no hay ningún endpoint."
+          },
+          "created": {
+            "title": "Endpoint añadido",
+            "description": "Copia el secreto de firma en la aplicación de {url}: con él verifica cada entrega. No se vuelve a mostrar."
+          },
+          "test": {
+            "delivered": "Evento de prueba entregado (HTTP {status})",
+            "failed": "Error en el evento de prueba: {reason}"
+          },
+          "item": {
+            "disabledFailures": "Desactivado tras fallos repetidos",
+            "rotating": "Rotación de secreto en curso",
+            "editLabel": "Editar {label}",
+            "deleteLabel": "Eliminar {label}",
+            "disabledNotice": "Desactivado tras {count, plural, one {# intento fallido} other {# intentos fallidos}} seguidos. Corrige el receptor y vuelve a activarlo: los eventos pendientes se volverán a enviar.",
+            "disabledNoticeOn": "Desactivado el {date} tras {count, plural, one {# intento fallido} other {# intentos fallidos}} seguidos. Corrige el receptor y vuelve a activarlo: los eventos pendientes se volverán a enviar.",
+            "lastSuccess": "Último éxito",
+            "lastFailure": "Último fallo",
+            "inARow": "({count} seguidos)",
+            "deliveries": "Entregas",
+            "deliveriesValue": "{pending} en espera o reintentando · {failed} fallidas",
+            "sendTest": "Enviar evento de prueba",
+            "deliveryLog": "Registro de entregas",
+            "regenerateSecret": "Regenerar secreto"
+          },
+          "edit": {
+            "title": "Editar endpoint",
+            "enabledHint": "Mientras está desactivado, no se registran eventos nuevos para este endpoint y los reintentos quedan en espera.",
+            "updated": "Endpoint actualizado"
+          },
+          "rotate": {
+            "title": "¿Regenerar el secreto de firma?",
+            "description": "Durante 24 horas, las entregas se firman con el secreto antiguo y con el nuevo, para que la aplicación pueda cambiar sin perder eventos.",
+            "newTitle": "Nuevo secreto de firma",
+            "newDescription": "Cópialo ahora en la aplicación: no se vuelve a mostrar. Durante las próximas 24 horas, las entregas también llevan una firma con el secreto antiguo.",
+            "confirm": "Regenerar"
+          },
+          "delete": {
+            "title": "¿Eliminar este endpoint?",
+            "description": "{url} deja de recibir eventos, y se eliminan su registro de entregas y los reintentos pendientes. Para pausarlo, desactívalo.",
+            "deleted": "Endpoint eliminado"
+          }
+        },
+        "redeliver": {
+          "button": "Reenviar",
+          "delivered": "Entregado (HTTP {status})",
+          "failed": "Error: {reason}"
+        },
+        "log": {
+          "status": {
+            "succeeded": "Entregado",
+            "failed": "Fallido",
+            "pending": "Pendiente"
+          },
+          "disabled": "Desactivado: los reintentos esperan hasta que se vuelva a activar.",
+          "empty": "Aún no hay entregas. Usa “Enviar evento de prueba” en la página Webhooks para probar el endpoint.",
+          "event": "Evento",
+          "response": "Respuesta",
+          "attempts": "Intentos",
+          "nextRetry": "Próximo reintento",
+          "answer": "Respuesta",
+          "error": "error",
+          "footer": "Las últimas {shown} entregas. Las entregas se conservan {days, plural, one {# día} other {# días}}. Una entrega fallida se reintenta {retries, plural, one {# vez} other {# veces}} durante aproximadamente un día; “Reenviar” vuelve a enviar ahora el mismo evento (mismo {header})."
+        },
+        "errors": {
+          "noEvents": "Elige al menos un evento.",
+          "tooMany": "{max} endpoints como máximo.",
+          "endpointNotFound": "No se encontró el endpoint.",
+          "disabledTest": "El endpoint está desactivado: actívalo para enviar un evento de prueba.",
+          "testNotSent": "No se pudo enviar el evento de prueba.",
+          "deliveryNotFound": "No se encontró la entrega.",
+          "disabledRedeliver": "El endpoint está desactivado: actívalo para reenviar.",
+          "eventNotSent": "No se pudo enviar el evento."
+        }
       },
       "users": {
-        "title": "Users",
-        "description": "Find accounts, change roles, ban or remove them, and open an account to see its sessions and activity."
+        "title": "Usuarios",
+        "description": "Busca cuentas, cambia roles, bloquéalas o elimínalas, y abre una cuenta para ver sus sesiones y su actividad.",
+        "list": {
+          "searchPlaceholder": "Busca por nombre o correo electrónico…",
+          "searchLabel": "Buscar usuarios",
+          "rolePlaceholder": "Rol",
+          "roleAll": "Todos los roles",
+          "roleAdmin": "Administrador",
+          "roleUser": "Usuario",
+          "loadErrorTitle": "No se pudieron cargar los usuarios",
+          "loadErrorFallback": "No se pudieron cargar los usuarios",
+          "columns": {
+            "user": "Usuario",
+            "role": "Rol",
+            "status": "Estado",
+            "verified": "Verificado",
+            "joined": "Alta"
+          },
+          "loading": "Cargando usuarios…",
+          "empty": "Ningún usuario coincide con tus filtros.",
+          "noUsers": "0 usuarios",
+          "showing": "Mostrando {from}-{to} de {total}",
+          "rowsPerPage": "Filas por página",
+          "previous": "Anterior",
+          "next": "Siguiente",
+          "pageOf": "Página {page} / {pages}",
+          "poweredBy": "Funciona con <code>listUsers</code>, <code>createUser</code>, <code>setRole</code>, <code>updateUser</code>, <code>setUserPassword</code> y métodos relacionados del <link>plugin de administración de Better Auth</link>. Debes haber iniciado sesión como administrador."
+        },
+        "status": {
+          "banned": "Bloqueado",
+          "active": "Activo"
+        },
+        "create": {
+          "trigger": "Añadir usuario",
+          "title": "Añadir usuario",
+          "description": "Crea una cuenta mediante <code>createUser</code>.",
+          "email": "Correo electrónico",
+          "password": "Contraseña",
+          "name": "Nombre",
+          "role": "Rol",
+          "error": "No se pudo crear el usuario",
+          "created": "Usuario creado",
+          "submit": "Crear usuario",
+          "creating": "Creando…"
+        },
+        "rowActions": {
+          "menuLabel": "Acciones de {name}",
+          "copyId": "Copiar ID de usuario",
+          "idCopied": "ID de usuario copiado",
+          "edit": "Editar usuario",
+          "setPassword": "Definir contraseña",
+          "makeAdmin": "Hacer administrador",
+          "makeUser": "Hacer usuario",
+          "ban": "Bloquear usuario",
+          "unban": "Desbloquear usuario",
+          "remove": "Eliminar usuario",
+          "roleError": "No se pudo actualizar el rol",
+          "roleSet": "Rol cambiado a {role}",
+          "unbanError": "No se pudo desbloquear al usuario",
+          "unbanned": "Usuario desbloqueado",
+          "banError": "No se pudo bloquear al usuario",
+          "banned": "Usuario bloqueado",
+          "removeError": "No se pudo eliminar el usuario",
+          "removed": "Usuario eliminado",
+          "emailRequired": "El correo electrónico es obligatorio",
+          "noChanges": "No hay cambios que guardar",
+          "updateError": "No se pudo actualizar el usuario",
+          "updated": "Usuario actualizado",
+          "passwordRequired": "Introduce una contraseña nueva.",
+          "passwordMismatch": "Las contraseñas no coinciden.",
+          "passwordError": "No se pudo definir la contraseña",
+          "passwordUpdated": "Contraseña actualizada",
+          "editTitle": "Editar usuario",
+          "editDescription": "Cambia el nombre o la dirección de correo electrónico. El usuario debe verificar la nueva dirección antes de poder volver a iniciar sesión.",
+          "name": "Nombre",
+          "email": "Correo electrónico",
+          "passwordTitle": "Definir contraseña",
+          "passwordDescription": "Define una contraseña nueva para <strong>{email}</strong> mediante <code>setUserPassword</code>.",
+          "newPassword": "Contraseña nueva",
+          "confirmPassword": "Confirmar contraseña",
+          "updatePassword": "Actualizar contraseña",
+          "removeTitle": "¿Eliminar el usuario?",
+          "removeDescription": "Se eliminarán de forma permanente <strong>{name}</strong> ({email}) y todo lo vinculado a la cuenta. Las entradas del registro de auditoría se conservan sin su nombre ni su correo electrónico. Esta acción no se puede deshacer.",
+          "removeConfirm": "Eliminar",
+          "removing": "Eliminando…"
+        },
+        "detailActions": {
+          "impersonateError": "No se pudo suplantar a este usuario.",
+          "signOutError": "No se pudo cerrar la sesión de este usuario.",
+          "signedOut": "{count, plural, one {Se cerró # sesión} other {Se cerraron # sesiones}}",
+          "exportError": "No se pudieron exportar los datos de este usuario.",
+          "exported": "Datos exportados. La exportación queda registrada en el registro de auditoría.",
+          "exportData": "Exportar datos",
+          "impersonate": "Suplantar",
+          "signOutEverywhere": "Cerrar sesión en todas partes",
+          "impersonateTitle": "¿Iniciar sesión como {email}?",
+          "signOutTitle": "¿Cerrar la sesión de {email} en todas partes?",
+          "impersonateDescription": "Verás el panel de la cuenta exactamente como lo ve este usuario, durante un máximo de una hora. Un aviso en el panel te permite parar y volver. Esto queda registrado en el registro de auditoría.",
+          "signOutDescription": "Todas las sesiones de este usuario terminan ahora, en todos los dispositivos. Tendrá que volver a iniciar sesión.",
+          "sessionRevoked": "Sesión revocada",
+          "revokeError": "No se pudo revocar esta sesión.",
+          "revoke": "Revocar",
+          "resetTwoFactorError": "No se pudo restablecer la autenticación en dos pasos.",
+          "twoFactorReset": "Autenticación en dos pasos desactivada",
+          "reset": "Restablecer",
+          "resetTwoFactorTitle": "¿Restablecer la autenticación en dos pasos de {email}?",
+          "resetTwoFactorDescription": "Su aplicación de autenticación, sus códigos de respaldo y sus dispositivos de confianza dejan de funcionar, e iniciará sesión solo con su contraseña hasta que vuelva a configurarla. Hazlo solo después de confirmar quién lo solicita. Esto queda registrado en el registro de auditoría."
+        },
+        "detail": {
+          "emailVerified": "Correo verificado",
+          "emailNotVerified": "Correo no verificado",
+          "banned": "Bloqueado",
+          "bannedWithReason": "Bloqueado: {reason}",
+          "scimTitle": "Aprovisionado por SCIM: {organizations}",
+          "scimDescription": "El proveedor de identidad gestiona esta cuenta. Elimina al usuario allí: eliminar la cuenta aquí no impide que el directorio la vuelva a crear en su próxima sincronización. El usuario no puede eliminar la cuenta desde su panel.",
+          "tiles": {
+            "joined": "Alta",
+            "activeSessions": "Sesiones activas",
+            "passkeys": "Llaves de acceso",
+            "twoFactor": "Dos pasos"
+          },
+          "device": {
+            "unknown": "Dispositivo desconocido",
+            "browser": "Navegador",
+            "browserOnOs": "{browser} en {os}"
+          },
+          "sessions": {
+            "title": "Sesiones activas",
+            "description": "Dispositivos en los que esta cuenta tiene la sesión iniciada.",
+            "empty": "No hay sesiones activas.",
+            "device": "Dispositivo",
+            "ipAddress": "Dirección IP",
+            "lastActive": "Última actividad",
+            "impersonated": "Suplantada"
+          },
+          "apiKeys": {
+            "title": "Claves de API",
+            "description": "Claves que esta cuenta creó para scripts. Bloquear o eliminar la cuenta las revoca."
+          },
+          "signInMethods": {
+            "title": "Métodos de inicio de sesión",
+            "credential": "Correo electrónico y contraseña",
+            "sso": "SSO: {provider}",
+            "passkey": "Llave de acceso: {name} <muted>({deviceType})</muted>",
+            "unnamed": "Sin nombre",
+            "empty": "No hay métodos de inicio de sesión.",
+            "twoFactor": "Autenticación en dos pasos <muted>(aplicación de autenticación)</muted>",
+            "managedByYou": "Se gestiona desde tu cuenta"
+          },
+          "organizations": {
+            "title": "Organizaciones",
+            "empty": "No es miembro de ninguna organización."
+          },
+          "activity": {
+            "title": "Actividad reciente de inicio de sesión",
+            "empty": "Aún no se ha registrado actividad.",
+            "events": {
+              "sign_in": "Inició sesión",
+              "sign_up": "Creó la cuenta",
+              "sign_out": "Cerró sesión",
+              "sign_in_failed": "Inicio de sesión fallido"
+            }
+          },
+          "audit": {
+            "title": "Acciones de administración sobre esta cuenta",
+            "empty": "Aún no hay acciones de administración.",
+            "by": "por {actor}",
+            "system": "sistema"
+          }
+        }
       },
       "consent": {
-        "title": "Consent",
-        "description": "Permissions people have granted to OAuth clients, with the scopes and when they were given."
+        "title": "Consentimiento",
+        "description": "Permisos que las personas han concedido a clientes OAuth, con los scopes y la fecha en que se concedieron.",
+        "panel": {
+          "signedInUser": "Usuario con sesión iniciada",
+          "loadConsentsFailed": "No se pudieron cargar los consentimientos",
+          "loadClientsFailed": "No se pudieron cargar los clientes OAuth",
+          "loadErrorTitle": "No se pudieron cargar los consentimientos",
+          "searchPlaceholder": "Busca por usuario, cliente, ID de consentimiento, referencia o scope…",
+          "searchLabel": "Buscar consentimientos",
+          "filter": {
+            "placeholder": "Filtro de scope",
+            "all": "Todos los consentimientos",
+            "hasScope": "Con {scope}"
+          },
+          "columns": {
+            "user": "Usuario",
+            "application": "Aplicación",
+            "scopes": "Scopes",
+            "reference": "Referencia",
+            "granted": "Concedido",
+            "updated": "Actualizado"
+          },
+          "loading": "Cargando consentimientos…",
+          "emptyNone": "Aún no hay consentimientos registrados para esta cuenta.",
+          "emptyFiltered": "Ningún consentimiento coincide con tus filtros.",
+          "noResults": "0 consentimientos",
+          "showing": "Mostrando {from}-{to} de {total}",
+          "rowsPerPage": "Filas por página",
+          "previous": "Anterior",
+          "next": "Siguiente",
+          "pageOf": "Página {page} / {total}",
+          "footnote": "Datos de <code>{getConsents}</code>; los nombres de los clientes se resuelven con <code>{getClients}</code>. Revocar usa <code>{deleteConsent}</code>. Consulta <consentLink>Consentimiento OAuth</consentLink> en la documentación del <providerLink>proveedor OAuth</providerLink>. La interfaz interactiva de autorización está en <code>{path}</code>."
+        },
+        "rowActions": {
+          "menuLabel": "Acciones del consentimiento {id}…",
+          "copyConsentId": "Copiar ID de consentimiento",
+          "consentIdCopied": "ID de consentimiento copiado",
+          "copyClientId": "Copiar ID de cliente",
+          "clientIdCopied": "ID de cliente copiado",
+          "viewDetails": "Ver detalles",
+          "updateScopes": "Actualizar scopes",
+          "wireTo": "Conectar con {method}",
+          "revoke": "Revocar consentimiento",
+          "revokeFailed": "No se pudo revocar el consentimiento",
+          "revoked": "Consentimiento revocado",
+          "dialogTitle": "¿Revocar el consentimiento?",
+          "dialogDescription": "Elimina la autorización de este usuario para <strong>{client}</strong> (<code>{clientId}</code>). Puede que el cliente tenga que volver a solicitar autorización.",
+          "revoking": "Revocando…",
+          "revokeButton": "Revocar"
+        }
       },
       "usage": {
         "title": "Uso de aplicaciones",
-        "description": "Qué aplicaciones se usan: tokens de acceso, usuarios y consentimientos por aplicación en los últimos 30 días."
+        "description": "Qué aplicaciones se usan: tokens de acceso, usuarios y consentimientos por aplicación en los últimos 30 días.",
+        "tiles": {
+          "tokens": "Tokens emitidos, 30 días",
+          "active": "Aplicaciones en uso",
+          "unused": "Aplicaciones sin uso"
+        },
+        "card": {
+          "title": "Tokens de acceso por aplicación, últimos 30 días",
+          "unused": "{count, plural, one {# aplicación activa no ha emitido ningún token en 30 días: plantéate desactivarla o eliminarla.} other {# aplicaciones activas no han emitido ningún token en 30 días: plantéate desactivarlas o eliminarlas.}}",
+          "allUsed": "Todas las aplicaciones activas emitieron tokens en los últimos 30 días.",
+          "empty": "No hay clientes OAuth registrados.",
+          "application": "Aplicación",
+          "tokens": "Tokens",
+          "users": "Usuarios",
+          "consents": "Consentimientos",
+          "lastToken": "Último token",
+          "lastTokenValue": "Último token: {date}",
+          "showInApplications": "Ver en Aplicaciones",
+          "unusedBadge": "Sin uso"
+        }
       },
       "audit": {
-        "title": "Audit log",
-        "description": "Every change made from this console or the admin API: who did it, to what, and when.",
-        "footnote": "Showing the latest 200 entries. Passwords and secrets are never recorded."
+        "title": "Registro de auditoría",
+        "description": "Cada cambio realizado desde esta consola o la API de administración: quién lo hizo, sobre qué y cuándo.",
+        "footnote": "Se muestran las 200 entradas más recientes. Las contraseñas y los secretos nunca se registran.",
+        "filterLabel": "Filtrar por área",
+        "filters": {
+          "all": "Todo",
+          "user": "Usuarios",
+          "organization": "Organizaciones",
+          "oauth_client": "Clientes OAuth",
+          "oauth_consent": "Consentimientos",
+          "oauth_resource": "API",
+          "api_key": "Claves de API",
+          "sso_provider": "SSO",
+          "signing_key": "Claves de firma",
+          "webhook": "Webhooks",
+          "social_provider": "Proveedores de inicio de sesión"
+        },
+        "empty": "Aún no se ha registrado ninguna acción de administración.",
+        "columns": {
+          "when": "Cuándo",
+          "who": "Quién",
+          "action": "Acción",
+          "target": "Objeto",
+          "details": "Detalles",
+          "ip": "IP"
+        },
+        "system": "Sistema",
+        "actions": {
+          "user": {
+            "create": "Creó un usuario",
+            "update": "Actualizó un usuario",
+            "set_role": "Cambió el rol",
+            "set_password": "Definió la contraseña",
+            "ban": "Bloqueó un usuario",
+            "unban": "Desbloqueó un usuario",
+            "delete": "Eliminó un usuario",
+            "revoke_session": "Revocó una sesión",
+            "revoke_all_sessions": "Cerró la sesión del usuario en todas partes",
+            "impersonate": "Suplantó a un usuario",
+            "reset_two_factor": "Restableció la autenticación en dos pasos",
+            "export_data": "Exportó los datos de la cuenta",
+            "self_delete": "Eliminó su propia cuenta"
+          },
+          "oauth_client": {
+            "create": "Registró un cliente OAuth",
+            "update": "Actualizó un cliente OAuth",
+            "delete": "Eliminó un cliente OAuth",
+            "rotate_secret": "Rotó el secreto de cliente",
+            "self_register": "El cliente se registró por sí mismo",
+            "disable": "Desactivó un cliente OAuth",
+            "enable": "Activó un cliente OAuth",
+            "branding_update": "Cambió la personalización del inicio de sesión",
+            "branding_reset": "Restableció la personalización del inicio de sesión"
+          },
+          "client_registration": {
+            "update": "Cambió el autorregistro de clientes"
+          },
+          "oauth_resource": {
+            "create": "Registró una API",
+            "update": "Actualizó una API",
+            "delete": "Eliminó una API",
+            "access": "Cambió el acceso a una API",
+            "tokens": "Cambió los ajustes de tokens de una API"
+          },
+          "api_key": {
+            "create": "Creó una clave de API",
+            "revoke": "Revocó una clave de API",
+            "revoke_all": "Revocó todas las claves de API",
+            "settings": "Cambió los ajustes de las claves de API"
+          },
+          "oauth_consent": {
+            "update": "Actualizó un consentimiento",
+            "delete": "Revocó un consentimiento"
+          },
+          "oauth_device": {
+            "approve": "Aprobó un inicio de sesión en un dispositivo",
+            "deny": "Denegó un inicio de sesión en un dispositivo"
+          },
+          "organization": {
+            "create": "Creó una organización",
+            "update": "Cambió el nombre de una organización",
+            "delete": "Eliminó una organización",
+            "invite": "Invitó a un miembro",
+            "cancel_invitation": "Canceló una invitación",
+            "update_member_role": "Cambió el rol de un miembro",
+            "remove_member": "Quitó a un miembro"
+          },
+          "sso_provider": {
+            "create": "Registró un proveedor de SSO",
+            "update": "Actualizó un proveedor de SSO",
+            "delete": "Eliminó un proveedor de SSO",
+            "verify_domain": "Verificó un dominio de SSO"
+          },
+          "social_provider": {
+            "create": "Configuró un proveedor de inicio de sesión",
+            "update": "Actualizó un proveedor de inicio de sesión",
+            "delete": "Eliminó un proveedor de inicio de sesión",
+            "reorder": "Reordenó los proveedores de inicio de sesión"
+          },
+          "scim": {
+            "token_create": "Generó un token SCIM",
+            "token_rotate": "Sustituyó un token SCIM",
+            "token_revoke": "Revocó un token SCIM"
+          },
+          "signing_key": {
+            "rotate": "Rotó la clave de firma",
+            "update_settings": "Cambió la rotación de la clave de firma"
+          },
+          "webhook": {
+            "create": "Añadió un endpoint de webhook",
+            "update": "Actualizó un endpoint de webhook",
+            "enable": "Activó un endpoint de webhook",
+            "disable": "Desactivó un endpoint de webhook",
+            "delete": "Eliminó un endpoint de webhook",
+            "rotate_secret": "Regeneró el secreto de un webhook",
+            "test": "Envió un evento de prueba de webhook",
+            "redeliver": "Reenvió un evento de webhook"
+          }
+        }
       },
       "security": {
-        "title": "Security",
-        "description": "Failed sign-in attempts, the accounts and addresses behind them, and banned accounts."
+        "title": "Seguridad",
+        "description": "Intentos fallidos de inicio de sesión, las cuentas y direcciones que los originan, y las cuentas bloqueadas.",
+        "tiles": {
+          "failed24h": "Inicios de sesión fallidos, 24 horas",
+          "failed7d": "Inicios de sesión fallidos, 7 días",
+          "banned": "Cuentas bloqueadas"
+        },
+        "chart": {
+          "failed": "Inicios de sesión fallidos"
+        },
+        "perDay": {
+          "title": "Inicios de sesión fallidos por día",
+          "description": "Contraseña incorrecta o cuenta desconocida, últimos 30 días ({total, number} en total). Se registran desde el 6 de octubre de 2026."
+        },
+        "noFailures": "No hay inicios de sesión fallidos en los últimos 7 días.",
+        "attempts": "Intentos",
+        "topAccounts": {
+          "title": "Cuentas más atacadas, 7 días",
+          "description": "El correo electrónico o nombre de usuario probado, exista o no la cuenta.",
+          "identifier": "Correo electrónico o nombre de usuario",
+          "last": "Último"
+        },
+        "topIps": {
+          "title": "Direcciones IP más activas, 7 días",
+          "description": "Una dirección que prueba muchas cuentas suele indicar relleno de credenciales (credential stuffing).",
+          "ip": "Dirección IP",
+          "accounts": "Cuentas probadas"
+        },
+        "banned": {
+          "title": "Cuentas bloqueadas",
+          "empty": "No hay cuentas bloqueadas.",
+          "noReason": "Sin motivo indicado",
+          "until": "hasta el {date}",
+          "permanent": "permanente"
+        }
       },
       "signingKeys": {
         "title": "Claves de firma",
@@ -380,88 +1812,236 @@
           "save": "No se pudieron guardar los ajustes.",
           "rotate": "No se pudo rotar la clave."
         }
+      },
+      "organizations": {
+        "controls": {
+          "unexpectedError": "Algo salió mal.",
+          "organizationUpdated": "Organización actualizada",
+          "slug": "Slug",
+          "role": "Rol",
+          "roleUpdated": "Rol actualizado",
+          "roles": {
+            "owner": "propietario",
+            "admin": "administrador",
+            "member": "miembro"
+          },
+          "removeMemberLabel": "Quitar a {email}",
+          "removeMemberTitle": "¿Quitar a {email}?",
+          "removeMemberBody": "Perderá el acceso a esta organización. Su cuenta se conserva.",
+          "memberRemoved": "Miembro quitado",
+          "cancelInvitationLabel": "Cancelar la invitación de {email}",
+          "cancelInvitationTitle": "¿Cancelar la invitación de {email}?",
+          "cancelInvitationBody": "El enlace del correo dejará de funcionar.",
+          "cancelInvitation": "Cancelar invitación",
+          "invitationCancelled": "Invitación cancelada",
+          "invitationSent": "Invitación enviada",
+          "inviteByEmail": "Invitar por correo electrónico",
+          "sendInvitation": "Enviar invitación"
+        },
+        "scim": {
+          "unexpectedError": "Algo salió mal.",
+          "tokenRevoked": "Token revocado",
+          "baseUrl": "URL base",
+          "copyBaseUrl": "Copiar URL base",
+          "token": "Token",
+          "copyToken": "Copiar token",
+          "active": "Activo",
+          "expires": "Caduca",
+          "lastUsed": "Último uso",
+          "noToken": "No hay ningún token activo. El proveedor de identidad no puede aprovisionar hasta que generes uno.",
+          "newToken": "Nuevo token",
+          "revoke": "Revocar",
+          "generateToken": "Generar token",
+          "rotateTitle": "¿Sustituir el token SCIM?",
+          "revokeTitle": "¿Revocar el token SCIM?",
+          "rotateBody": "El token actual deja de funcionar ahora. Pega el nuevo en tu proveedor de identidad para seguir aprovisionando.",
+          "revokeBody": "Tu proveedor de identidad ya no podrá crear, actualizar ni desactivar cuentas. Las cuentas existentes no cambian.",
+          "replaceToken": "Sustituir token",
+          "revokeToken": "Revocar token",
+          "issuedTitle": "Token SCIM",
+          "issuedDescription": "Cópialo ahora: no se vuelve a mostrar. Caduca dentro de un año.",
+          "tokenHint": "Pégalo como token de portador (Okta: API token, Entra ID: token secreto)."
+        },
+        "detail": {
+          "back": "Organizaciones",
+          "defaultWorkspace": "Espacio de trabajo predeterminado",
+          "createdAt": "Creada el {date}",
+          "members": "Miembros",
+          "publicMembers": "Todas las cuentas pertenecen al espacio de trabajo Public, así que aquí no se pueden quitar miembros. Se muestran los 50 primeros.",
+          "memberCount": "{count, plural, one {# miembro} other {# miembros}}.",
+          "noMembers": "Aún no hay miembros.",
+          "member": "Miembro",
+          "joined": "Alta",
+          "role": "Rol",
+          "deactivated": "Desactivado",
+          "banned": "Bloqueado",
+          "invitationExpires": "caduca el {date}",
+          "noInvitations": "No hay invitaciones pendientes.",
+          "apiKeys": "Claves de API",
+          "apiKeysDescription": "Claves propiedad de esta organización, creadas por sus propietarios y administradores desde el panel de su cuenta. Siguen funcionando cuando el miembro que las creó se va y se eliminan junto con la organización.",
+          "details": "Detalles",
+          "sso": "Inicio de sesión único",
+          "ssoDescription": "Proveedores de identidad asociados a esta organización.",
+          "ssoNone": "Ninguno. <link>Configura uno</link>.",
+          "verified": "Verificado",
+          "unverified": "Sin verificar",
+          "scim": "Aprovisionamiento SCIM",
+          "scimDescription": "Tu proveedor de identidad (Okta, Entra ID y otros) crea las cuentas de esta organización y las desactiva cuando las personas se van.",
+          "scimCounts": "{active} aprovisionadas, {inactive} desactivadas.",
+          "recentActions": "Acciones de administración recientes",
+          "noActions": "Ninguna todavía.",
+          "system": "sistema"
+        },
+        "errors": {
+          "invalidNameSlug": "Introduce un nombre y un slug formado por letras, números y guiones.",
+          "publicSlug": "El espacio de trabajo Public conserva el slug \"public\".",
+          "slugTaken": "Ese slug ya lo usa otra organización.",
+          "unknownRole": "Rol desconocido.",
+          "memberNotFound": "No se encontró el miembro.",
+          "publicMembers": "Todas las cuentas pertenecen al espacio de trabajo Public.",
+          "invalidEmail": "Introduce una dirección de correo electrónico válida.",
+          "noInvitations": "Esta organización no admite invitaciones.",
+          "alreadyMember": "Esta persona ya es miembro.",
+          "invitationNotFound": "No se encontró la invitación.",
+          "requestFailed": "La solicitud falló.",
+          "scimUnavailable": "Esta organización no puede usar el aprovisionamiento SCIM.",
+          "noActiveToken": "No hay ningún token activo."
+        }
+      }
+    },
+    "common": {
+      "cancel": "Cancelar",
+      "save": "Guardar",
+      "saving": "Guardando…",
+      "saveChanges": "Guardar cambios",
+      "delete": "Eliminar",
+      "deleting": "Eliminando…",
+      "edit": "Editar",
+      "remove": "Quitar",
+      "close": "Cerrar",
+      "copied": "Copiado",
+      "enabled": "Activado",
+      "disabled": "Desactivado",
+      "enable": "Activar",
+      "disable": "Desactivar",
+      "on": "Activado",
+      "off": "Desactivado",
+      "yes": "Sí",
+      "no": "No",
+      "never": "Nunca",
+      "none": "Ninguno",
+      "actions": "Acciones",
+      "created": "Creado",
+      "name": "Nombre",
+      "description": "Descripción",
+      "status": "Estado",
+      "back": "Atrás",
+      "done": "Listo",
+      "loading": "Cargando…",
+      "refresh": "Actualizar",
+      "search": "Buscar",
+      "optional": "Opcional",
+      "unexpectedError": "Algo salió mal. Inténtalo de nuevo."
+    },
+    "urlCheck": {
+      "tooLong": "La URL es demasiado larga.",
+      "notAbsolute": "Introduce una URL absoluta, p. ej., https://app.example.com/webhooks.",
+      "credentials": "La URL no debe contener un nombre de usuario ni una contraseña.",
+      "fragment": "La URL no debe contener un fragmento (#).",
+      "notHttps": "La URL debe usar https://.",
+      "localhost": "La URL apunta a esta máquina (localhost).",
+      "nonPublic": "La URL apunta a una dirección {kind, select, loopback {de loopback} private {de red privada} linkLocal {de enlace local} cloudMetadata {de metadatos de la nube} sharedAddressSpace {compartida (NAT de operador)} other {no pública}}.",
+      "unresolved": "No se pudo resolver el host {host}.",
+      "noAddress": "El host {host} no tiene ninguna dirección.",
+      "resolvesNonPublic": "El host {host} se resuelve en una dirección {kind, select, loopback {de loopback} private {de red privada} linkLocal {de enlace local} cloudMetadata {de metadatos de la nube} sharedAddressSpace {compartida (NAT de operador)} other {no pública}} ({address})."
+    },
+    "shell": {
+      "userFallbackName": "Administrador",
+      "userMenu": {
+        "home": "Inicio",
+        "logOut": "Cerrar sesión"
       }
     }
   },
   "dashboard": {
-    "title": "Account",
-    "description": "Manage your profile, organizations, passkeys, sessions, and connected applications.",
-    "navAria": "Account navigation",
+    "title": "Cuenta",
+    "description": "Gestiona tu perfil, organizaciones, llaves de acceso, sesiones y aplicaciones conectadas.",
+    "navAria": "Navegación de la cuenta",
     "nav": {
-      "overview": "Overview",
-      "profile": "Profile",
-      "organizations": "Organizations",
-      "security": "Security",
-      "apps": "Connected apps",
+      "overview": "Resumen",
+      "profile": "Perfil",
+      "organizations": "Organizaciones",
+      "security": "Seguridad",
+      "apps": "Aplicaciones conectadas",
       "apiKeys": "Claves de API",
-      "admin": "Admin",
-      "marketingHome": "About",
-      "signOut": "Sign out",
+      "admin": "Administración",
+      "marketingHome": "Acerca de",
+      "signOut": "Cerrar sesión",
       "data": "Tus datos"
     },
     "profile": {
-      "title": "Profile",
-      "description": "Your display name, username, and email status for this account.",
-      "nameLabel": "Display name",
-      "usernameLabel": "Username",
-      "usernameHint": "3-30 characters: letters, numbers, dots, and underscores. Used to sign in instead of email.",
-      "usernameChecking": "Checking availability…",
-      "usernameAvailable": "This username is available.",
-      "usernameTaken": "This username is already taken.",
-      "usernameInvalidHint": "Use only letters, numbers, dots, and underscores.",
-      "usernameTooShort": "Username must be at least 3 characters.",
-      "usernameInvalid": "That username is not valid.",
-      "save": "Save",
-      "saving": "Saving…",
-      "saved": "Profile updated",
-      "saveError": "Could not update profile.",
-      "emailLabel": "Email",
-      "verified": "Verified",
-      "unverified": "Not verified",
-      "unverifiedHint": "Verify your email to protect your account and meet sign-in requirements.",
-      "resendVerification": "Resend verification email",
-      "verificationSent": "Check your inbox for the verification link.",
-      "verificationError": "Could not send verification email.",
-      "changeEmail": "Change",
-      "newEmailLabel": "New email address",
-      "changeEmailHintVerified": "We'll email your current address to approve the change, then send a verification link to the new one. Your email stays the same until both are done.",
-      "changeEmailSubmit": "Send confirmation",
-      "changingEmail": "Sending…",
-      "cancel": "Cancel",
-      "changeEmailSame": "Enter a different email address.",
-      "changeEmailError": "Could not start the email change.",
-      "changeEmailSentToCurrent": "Check {current} to approve the change to {next}. After that, verify {next} from the link we send there.",
-      "changeEmailNeedsVerified": "You can change it once it is verified."
+      "title": "Perfil",
+      "description": "Tu nombre visible, tu nombre de usuario y el estado de tu correo electrónico en esta cuenta.",
+      "nameLabel": "Nombre visible",
+      "usernameLabel": "Nombre de usuario",
+      "usernameHint": "De 3 a 30 caracteres: letras, números, puntos y guiones bajos. Sirve para iniciar sesión en lugar del correo electrónico.",
+      "usernameChecking": "Comprobando disponibilidad…",
+      "usernameAvailable": "Este nombre de usuario está disponible.",
+      "usernameTaken": "Este nombre de usuario ya está en uso.",
+      "usernameInvalidHint": "Usa solo letras, números, puntos y guiones bajos.",
+      "usernameTooShort": "El nombre de usuario debe tener al menos 3 caracteres.",
+      "usernameInvalid": "Ese nombre de usuario no es válido.",
+      "save": "Guardar",
+      "saving": "Guardando…",
+      "saved": "Perfil actualizado",
+      "saveError": "No se pudo actualizar el perfil.",
+      "emailLabel": "Correo electrónico",
+      "verified": "Verificado",
+      "unverified": "Sin verificar",
+      "unverifiedHint": "Verifica tu correo electrónico para proteger tu cuenta y cumplir los requisitos de inicio de sesión.",
+      "resendVerification": "Reenviar correo de verificación",
+      "verificationSent": "Revisa tu bandeja de entrada para encontrar el enlace de verificación.",
+      "verificationError": "No se pudo enviar el correo de verificación.",
+      "changeEmail": "Cambiar",
+      "newEmailLabel": "Nueva dirección de correo electrónico",
+      "changeEmailHintVerified": "Enviaremos un correo a tu dirección actual para aprobar el cambio y después un enlace de verificación a la nueva. Tu correo electrónico no cambia hasta que se completen ambos pasos.",
+      "changeEmailSubmit": "Enviar confirmación",
+      "changingEmail": "Enviando…",
+      "cancel": "Cancelar",
+      "changeEmailSame": "Introduce una dirección de correo electrónico diferente.",
+      "changeEmailError": "No se pudo iniciar el cambio de correo electrónico.",
+      "changeEmailSentToCurrent": "Revisa {current} para aprobar el cambio a {next}. Después, verifica {next} con el enlace que te enviaremos allí.",
+      "changeEmailNeedsVerified": "Podrás cambiarlo cuando esté verificado."
     },
     "passkeys": {
-      "title": "Passkeys",
-      "hint": "Use a passkey for phishing-resistant sign-in. Add one on this device or with a security key.",
-      "addThisDevice": "Add passkey (this device)",
-      "addSecurityKey": "Add passkey (security key)",
-      "defaultName": "My passkey",
-      "empty": "No passkeys yet. Add one to sign in without typing your password.",
-      "name": "Name",
-      "unnamed": "Unnamed passkey",
-      "deviceType": "Device type",
-      "created": "Added",
-      "actions": "Actions",
-      "rename": "Rename",
-      "delete": "Remove",
-      "save": "Save",
-      "cancel": "Cancel",
-      "loadError": "Could not load passkeys.",
-      "addError": "Could not add passkey.",
-      "deleteError": "Could not remove passkey.",
-      "updateError": "Could not update passkey.",
-      "added": "Passkey added",
-      "deleted": "Passkey removed",
-      "updated": "Passkey updated",
-      "nameRequired": "Enter a name for this passkey.",
-      "none": "None",
-      "confirmRemoveTitle": "Remove this passkey?",
-      "confirmRemoveBody": "You won’t be able to sign in with this passkey anymore. You can add a new one at any time.",
-      "signInAgainToAdd": "For your security, adding a passkey needs a recent sign-in. Sign in again, then add it.",
-      "signInAgain": "Sign in again"
+      "title": "Llaves de acceso",
+      "hint": "Usa una llave de acceso para iniciar sesión de forma resistente al phishing. Añade una en este dispositivo o con una llave de seguridad.",
+      "addThisDevice": "Añadir llave de acceso (este dispositivo)",
+      "addSecurityKey": "Añadir llave de acceso (llave de seguridad)",
+      "defaultName": "Mi llave de acceso",
+      "empty": "Aún no tienes llaves de acceso. Añade una para iniciar sesión sin escribir tu contraseña.",
+      "name": "Nombre",
+      "unnamed": "Llave de acceso sin nombre",
+      "deviceType": "Tipo de dispositivo",
+      "created": "Añadida",
+      "actions": "Acciones",
+      "rename": "Cambiar nombre",
+      "delete": "Quitar",
+      "save": "Guardar",
+      "cancel": "Cancelar",
+      "loadError": "No se pudieron cargar las llaves de acceso.",
+      "addError": "No se pudo añadir la llave de acceso.",
+      "deleteError": "No se pudo quitar la llave de acceso.",
+      "updateError": "No se pudo actualizar la llave de acceso.",
+      "added": "Llave de acceso añadida",
+      "deleted": "Llave de acceso quitada",
+      "updated": "Llave de acceso actualizada",
+      "nameRequired": "Introduce un nombre para esta llave de acceso.",
+      "none": "Ninguna",
+      "confirmRemoveTitle": "¿Quitar esta llave de acceso?",
+      "confirmRemoveBody": "Ya no podrás iniciar sesión con esta llave de acceso. Puedes añadir una nueva en cualquier momento.",
+      "signInAgainToAdd": "Por seguridad, para añadir una llave de acceso necesitas haber iniciado sesión recientemente. Vuelve a iniciar sesión y añádela.",
+      "signInAgain": "Volver a iniciar sesión"
     },
     "twoFactor": {
       "title": "Autenticación en dos pasos",
@@ -509,45 +2089,45 @@
       }
     },
     "organizations": {
-      "title": "Organizations",
-      "description": "Teams and partner organizations you belong to. Switch between them and invite members. Platform administrators create new organizations.",
-      "yourOrganizations": "Your organizations",
-      "empty": "No organizations loaded.",
-      "active": "Active",
-      "switchTo": "Set active",
-      "setActiveError": "Could not switch organization.",
-      "setActiveSuccess": "Active organization updated.",
-      "createTitle": "Create an organization",
-      "createHint": "Use a unique URL slug (e.g. acme-corp). The reserved slug “public” is not available.",
-      "orgName": "Organization name",
+      "title": "Organizaciones",
+      "description": "Equipos y organizaciones asociadas a las que perteneces. Cambia de una a otra e invita a miembros. Los administradores de la plataforma crean las nuevas organizaciones.",
+      "yourOrganizations": "Tus organizaciones",
+      "empty": "No se ha cargado ninguna organización.",
+      "active": "Activa",
+      "switchTo": "Activar",
+      "setActiveError": "No se pudo cambiar de organización.",
+      "setActiveSuccess": "Organización activa actualizada.",
+      "createTitle": "Crear una organización",
+      "createHint": "Usa un slug de URL único (p. ej., acme-corp). El slug reservado “public” no está disponible.",
+      "orgName": "Nombre de la organización",
       "orgSlug": "Slug",
-      "create": "Create organization",
-      "creating": "Creating…",
-      "createSuccess": "Organization created",
-      "createError": "Could not create organization.",
-      "createValidation": "Enter a name and slug.",
-      "reservedSlug": "This slug is reserved.",
-      "slugTaken": "That slug is already in use.",
-      "loadError": "Could not load organizations.",
-      "inviteTitle": "Invite a member",
-      "inviteHint": "Sends an email with a link to accept the invitation. Available when your role in the active organization is owner or admin.",
-      "inviteEmail": "Email",
-      "inviteRole": "Role",
-      "roleMember": "Member",
-      "roleAdmin": "Admin",
-      "inviteSend": "Send invitation",
-      "inviting": "Sending…",
-      "inviteSuccess": "Invitation sent",
-      "inviteError": "Could not send invitation.",
-      "inviteValidation": "Enter an email address.",
-      "allOrganizations": "All organizations",
-      "memberCount": "{count, plural, one {# member} other {# members}}",
-      "delete": "Delete",
-      "cancel": "Cancel",
-      "deleted": "Organization deleted",
-      "deleteError": "Could not delete the organization.",
-      "confirmDeleteTitle": "Delete {name}?",
-      "confirmDeleteBody": "This removes the organization, its {count, plural, one {# membership} other {# memberships}} and pending invitations. Member accounts stay. This cannot be undone.",
+      "create": "Crear organización",
+      "creating": "Creando…",
+      "createSuccess": "Organización creada",
+      "createError": "No se pudo crear la organización.",
+      "createValidation": "Introduce un nombre y un slug.",
+      "reservedSlug": "Este slug está reservado.",
+      "slugTaken": "Ese slug ya está en uso.",
+      "loadError": "No se pudieron cargar las organizaciones.",
+      "inviteTitle": "Invitar a un miembro",
+      "inviteHint": "Envía un correo con un enlace para aceptar la invitación. Disponible cuando tu rol en la organización activa es propietario o administrador.",
+      "inviteEmail": "Correo electrónico",
+      "inviteRole": "Rol",
+      "roleMember": "Miembro",
+      "roleAdmin": "Administrador",
+      "inviteSend": "Enviar invitación",
+      "inviting": "Enviando…",
+      "inviteSuccess": "Invitación enviada",
+      "inviteError": "No se pudo enviar la invitación.",
+      "inviteValidation": "Introduce una dirección de correo electrónico.",
+      "allOrganizations": "Todas las organizaciones",
+      "memberCount": "{count, plural, one {# miembro} other {# miembros}}",
+      "delete": "Eliminar",
+      "cancel": "Cancelar",
+      "deleted": "Organización eliminada",
+      "deleteError": "No se pudo eliminar la organización.",
+      "confirmDeleteTitle": "¿Eliminar {name}?",
+      "confirmDeleteBody": "Se eliminarán la organización, {count, plural, one {su # membresía} other {sus # membresías}} y las invitaciones pendientes. Las cuentas de los miembros se conservan. Esta acción no se puede deshacer.",
       "apiKeys": {
         "show": "Claves de API",
         "hide": "Ocultar claves de API",
@@ -559,41 +2139,43 @@
       }
     },
     "security": {
-      "title": "Security",
-      "description": "Update your password, manage passkeys, and review where you are signed in.",
-      "passwordHeading": "Password",
-      "passwordHint": "Use at least {min} characters. Choose a password you don’t use elsewhere.",
-      "currentPassword": "Current password",
-      "newPassword": "New password",
-      "confirmNewPassword": "Confirm new password",
-      "changePassword": "Update password",
-      "changing": "Updating…",
-      "passwordChanged": "Password updated",
-      "passwordError": "Could not change password.",
-      "passwordTooShort": "The new password must be at least {min} characters.",
-      "passwordMismatch": "New passwords do not match.",
-      "sameAsCurrent": "Choose a different password from your current one.",
-      "invalidCurrentPassword": "Current password is incorrect.",
-      "compromisedPassword": "This new password appears in known data breaches. Choose a different one.",
-      "revokeOthersAfterChange": "Sign out my other devices when the password changes",
-      "revokeOthersAfterChangeHint": "Recommended if you think someone else may know your old password.",
-      "sessionsTitle": "Active sessions",
-      "sessionsHint": "Revoke sessions you do not recognize. Revoking this device will sign you out.",
-      "sessionsLoadError": "Could not load sessions.",
-      "revoke": "Revoke",
-      "revokeOthers": "Sign out other sessions",
-      "revokeError": "Something went wrong.",
-      "sessionRevoked": "Session revoked",
-      "othersRevoked": "Other sessions signed out",
-      "currentSession": "This device",
-      "unknownDevice": "Unknown device",
-      "noSessions": "No sessions found.",
-      "device": "Device",
-      "network": "IP address",
-      "actions": "Actions",
-      "started": "Started",
-      "expires": "Expires",
-      "none": "None"
+      "title": "Seguridad",
+      "description": "Actualiza tu contraseña, gestiona tus llaves de acceso y revisa dónde has iniciado sesión.",
+      "passwordHeading": "Contraseña",
+      "passwordHint": "Usa al menos {min} caracteres. Elige una contraseña que no uses en otro sitio.",
+      "currentPassword": "Contraseña actual",
+      "newPassword": "Nueva contraseña",
+      "confirmNewPassword": "Confirmar nueva contraseña",
+      "changePassword": "Actualizar contraseña",
+      "changing": "Actualizando…",
+      "passwordChanged": "Contraseña actualizada",
+      "passwordError": "No se pudo cambiar la contraseña.",
+      "passwordTooShort": "La nueva contraseña debe tener al menos {min} caracteres.",
+      "passwordMismatch": "Las nuevas contraseñas no coinciden.",
+      "sameAsCurrent": "Elige una contraseña distinta de la actual.",
+      "invalidCurrentPassword": "La contraseña actual no es correcta.",
+      "compromisedPassword": "Esta nueva contraseña aparece en filtraciones de datos conocidas. Elige otra.",
+      "revokeOthersAfterChange": "Cerrar sesión en mis otros dispositivos al cambiar la contraseña",
+      "revokeOthersAfterChangeHint": "Recomendado si crees que otra persona puede conocer tu contraseña anterior.",
+      "sessionsTitle": "Sesiones activas",
+      "sessionsHint": "Revoca las sesiones que no reconozcas. Si revocas este dispositivo, se cerrará tu sesión.",
+      "sessionsLoadError": "No se pudieron cargar las sesiones.",
+      "revoke": "Revocar",
+      "revokeOthers": "Cerrar las demás sesiones",
+      "revokeError": "Algo salió mal.",
+      "sessionRevoked": "Sesión revocada",
+      "othersRevoked": "Se han cerrado las demás sesiones",
+      "currentSession": "Este dispositivo",
+      "unknownDevice": "Dispositivo desconocido",
+      "noSessions": "No se encontraron sesiones.",
+      "device": "Dispositivo",
+      "network": "Dirección IP",
+      "actions": "Acciones",
+      "started": "Inicio",
+      "expires": "Caduca",
+      "none": "Ninguna",
+      "startedAt": "Iniciada: {date}",
+      "expiresAt": "Caduca: {date}"
     },
     "apps": {
       "title": "Aplicaciones conectadas",
@@ -669,22 +2251,22 @@
       "createdBy": "creada por {name}",
       "createdByDeleted": "cuenta del creador eliminada"
     },
-    "accountMenu": "Account menu",
+    "accountMenu": "Menú de la cuenta",
     "connectedAccounts": {
-      "title": "Connected accounts",
-      "hint": "Sign in with these accounts as well as your password or passkeys.",
-      "connected": "Connected",
-      "notConnected": "Not connected",
-      "connect": "Connect",
-      "disconnect": "Disconnect",
-      "disconnected": "{provider} disconnected",
-      "cancel": "Cancel",
-      "confirmTitle": "Disconnect {provider}?",
-      "confirmBody": "You won't be able to sign in with this account anymore. You can connect it again later.",
-      "lastMethod": "This is your only way to sign in. Add a password or passkey first.",
-      "error": "Something went wrong. Try again.",
-      "signInAgainToChange": "For your security, connecting an account needs a recent sign-in. Sign in again, then connect it.",
-      "signInAgain": "Sign in again"
+      "title": "Cuentas conectadas",
+      "hint": "Inicia sesión con estas cuentas además de con tu contraseña o tus llaves de acceso.",
+      "connected": "Conectada",
+      "notConnected": "No conectada",
+      "connect": "Conectar",
+      "disconnect": "Desconectar",
+      "disconnected": "{provider} desconectado",
+      "cancel": "Cancelar",
+      "confirmTitle": "¿Desconectar {provider}?",
+      "confirmBody": "Ya no podrás iniciar sesión con esta cuenta. Puedes volver a conectarla más adelante.",
+      "lastMethod": "Es tu única forma de iniciar sesión. Añade primero una contraseña o una llave de acceso.",
+      "error": "Algo salió mal. Inténtalo de nuevo.",
+      "signInAgainToChange": "Por seguridad, para conectar una cuenta necesitas haber iniciado sesión recientemente. Vuelve a iniciar sesión y conéctala.",
+      "signInAgain": "Volver a iniciar sesión"
     },
     "accounts": {
       "switchTo": "Cambiar a",
@@ -752,26 +2334,30 @@
         "impersonating": "No se puede eliminar una cuenta mientras un administrador la está viendo.",
         "failed": "No se ha podido iniciar la eliminación. Inténtalo de nuevo."
       }
+    },
+    "impersonation": {
+      "viewingAs": "Estás viendo esta cuenta como <strong>{email}</strong>.",
+      "stop": "Dejar de suplantar"
     }
   },
   "acceptInvitation": {
-    "loading": "Checking session…",
-    "needSignInTitle": "Sign in to continue",
-    "needSignInDescription": "You need to be signed in with the invited email address before accepting this invitation.",
-    "signIn": "Sign in",
-    "title": "Accept invitation",
-    "description": "Join the organization that invited you.",
-    "signedInAs": "Signed in as {email}.",
-    "accept": "Accept invitation",
-    "accepting": "Accepting…",
-    "success": "You have joined the organization.",
-    "successTitle": "Welcome",
-    "successDescription": "Redirecting to your dashboard…",
-    "error": "Could not accept the invitation."
+    "loading": "Comprobando la sesión…",
+    "needSignInTitle": "Inicia sesión para continuar",
+    "needSignInDescription": "Debes iniciar sesión con la dirección de correo electrónico invitada antes de aceptar esta invitación.",
+    "signIn": "Iniciar sesión",
+    "title": "Aceptar invitación",
+    "description": "Únete a la organización que te ha invitado.",
+    "signedInAs": "Sesión iniciada como {email}.",
+    "accept": "Aceptar invitación",
+    "accepting": "Aceptando…",
+    "success": "Te has unido a la organización.",
+    "successTitle": "Te damos la bienvenida",
+    "successDescription": "Redirigiendo a tu panel…",
+    "error": "No se pudo aceptar la invitación."
   },
   "common": {
-    "loading": "Loading…",
-    "language": "Language",
+    "loading": "Cargando…",
+    "language": "Idioma",
     "localeNames": {
       "en": "Inglés",
       "fr": "Francés",
@@ -793,12 +2379,20 @@
       "no": "Noruego",
       "fi": "Finlandés",
       "cs": "Checo"
+    },
+    "ui": {
+      "close": "Cerrar",
+      "sidebar": "Barra lateral",
+      "sidebarDescription": "Muestra la barra lateral móvil.",
+      "toggleSidebar": "Mostrar u ocultar la barra lateral",
+      "breadcrumb": "ruta de navegación",
+      "more": "Más"
     }
   },
   "errors": {
-    "boundaryTitle": "Something went wrong",
-    "boundaryDescription": "An error occurred while loading this page.",
-    "retry": "Try again"
+    "boundaryTitle": "Algo salió mal",
+    "boundaryDescription": "Se produjo un error al cargar esta página.",
+    "retry": "Inténtalo de nuevo"
   },
   "rateLimit": {
     "seconds": "Demasiados intentos. Vuelve a intentarlo en {seconds, plural, one {# segundo} other {# segundos}}.",
@@ -806,94 +2400,156 @@
     "later": "Demasiados intentos. Espera unos minutos e inténtalo de nuevo."
   },
   "sso": {
-    "title": "Single sign-on",
-    "description": "Connect your organization's identity provider (OIDC or SAML 2.0) so members can sign in with their work account.",
-    "registerTitle": "Register a provider",
-    "registerDescription": "Your identity provider must redirect back to the callback URL shown below.",
-    "providerId": "Provider ID",
-    "providerIdHint": "A short identifier, e.g. acme-okta.",
-    "issuer": "Issuer URL",
-    "domain": "Email domain",
-    "domainHint": "Users with this email domain are sent to this provider.",
-    "clientId": "Client ID",
-    "clientSecret": "Client secret",
-    "organization": "Organization (optional)",
-    "register": "Register provider",
-    "registering": "Registering…",
-    "registered": "SSO provider registered",
-    "registerError": "Could not register the provider.",
-    "callbackTitle": "Callback URL to configure in your identity provider",
-    "providersTitle": "Configured providers",
-    "providersEmpty": "No SSO provider configured yet.",
-    "loadError": "Could not load SSO providers.",
-    "signInTitle": "Sign in with SSO",
-    "signInDescription": "Enter your work email. We'll redirect you to your organization's identity provider.",
-    "signInEmail": "Work email",
-    "signInSubmit": "Continue",
-    "signInError": "Could not start single sign-on for this address.",
-    "signInLink": "Sign in with SSO",
-    "signInFailed": "Single sign-on did not complete. Try again, or ask your administrator to check the identity provider settings.",
+    "title": "Inicio de sesión único",
+    "description": "Conecta el proveedor de identidad de tu organización (OIDC o SAML 2.0) para que los miembros puedan iniciar sesión con su cuenta de trabajo.",
+    "registerTitle": "Registrar un proveedor",
+    "registerDescription": "Tu proveedor de identidad debe redirigir de vuelta a la URL de callback que se muestra a continuación.",
+    "providerId": "ID del proveedor",
+    "providerIdHint": "Un identificador corto, p. ej., acme-okta.",
+    "issuer": "URL del emisor",
+    "domain": "Dominio de correo electrónico",
+    "domainHint": "Los usuarios con este dominio de correo electrónico se envían a este proveedor.",
+    "clientId": "ID de cliente",
+    "clientSecret": "Secreto de cliente",
+    "organization": "Organización (opcional)",
+    "register": "Registrar proveedor",
+    "registering": "Registrando…",
+    "registered": "Proveedor de SSO registrado",
+    "registerError": "No se pudo registrar el proveedor.",
+    "callbackTitle": "URL de callback que debes configurar en tu proveedor de identidad",
+    "providersTitle": "Proveedores configurados",
+    "providersEmpty": "Aún no hay ningún proveedor de SSO configurado.",
+    "loadError": "No se pudieron cargar los proveedores de SSO.",
+    "signInTitle": "Iniciar sesión con SSO",
+    "signInDescription": "Introduce tu correo electrónico de trabajo. Te redirigiremos al proveedor de identidad de tu organización.",
+    "signInEmail": "Correo electrónico de trabajo",
+    "signInSubmit": "Continuar",
+    "signInError": "No se pudo iniciar el inicio de sesión único para esta dirección.",
+    "signInLink": "Iniciar sesión con SSO",
+    "signInFailed": "El inicio de sesión único no se completó. Inténtalo de nuevo o pide a tu administrador que revise la configuración del proveedor de identidad.",
     "saml": {
-      "protocol": "Protocol",
-      "registerDescription": "The identity provider posts signed SAML assertions to the ACS URL below. Sign-in starts from Ostiary (SP-initiated).",
-      "idpSource": "Identity provider configuration",
-      "sourceUrl": "Metadata URL",
-      "sourceXml": "Paste metadata XML",
-      "sourceManual": "Enter manually",
-      "metadataUrl": "IdP metadata URL",
-      "metadataUrlHint": "The server fetches it once when you save. After a certificate rotation, fetch it again from Edit.",
-      "metadataXml": "IdP metadata XML",
-      "metadataXmlHint": "The EntityDescriptor your identity provider exports.",
-      "idpEntityId": "IdP entity ID (issuer)",
-      "ssoUrl": "IdP single sign-on URL",
-      "ssoUrlHint": "The URL for the HTTP-Redirect binding.",
-      "certificate": "IdP signing certificate",
-      "certificateHint": "PEM (-----BEGIN CERTIFICATE-----) or its base64 body.",
-      "mappingTitle": "Attribute mapping",
-      "mappingPreset": "Preset",
+      "protocol": "Protocolo",
+      "registerDescription": "El proveedor de identidad envía aserciones SAML firmadas a la URL de ACS que aparece a continuación. El inicio de sesión empieza desde Ostiary (iniciado por el SP).",
+      "idpSource": "Configuración del proveedor de identidad",
+      "sourceUrl": "URL de metadatos",
+      "sourceXml": "Pegar XML de metadatos",
+      "sourceManual": "Introducir manualmente",
+      "metadataUrl": "URL de metadatos del IdP",
+      "metadataUrlHint": "El servidor los descarga una vez al guardar. Tras una rotación de certificado, vuelve a descargarlos desde Editar.",
+      "metadataXml": "XML de metadatos del IdP",
+      "metadataXmlHint": "El EntityDescriptor que exporta tu proveedor de identidad.",
+      "idpEntityId": "ID de entidad del IdP (emisor)",
+      "ssoUrl": "URL de inicio de sesión único del IdP",
+      "ssoUrlHint": "La URL para el binding HTTP-Redirect.",
+      "certificate": "Certificado de firma del IdP",
+      "certificateHint": "PEM (-----BEGIN CERTIFICATE-----) o su contenido en base64.",
+      "mappingTitle": "Asignación de atributos",
+      "mappingPreset": "Preajuste",
       "preset_okta": "Okta",
       "preset_entra": "Microsoft Entra ID",
       "preset_google": "Google Workspace",
       "preset_jumpcloud": "JumpCloud",
-      "preset_custom": "Custom",
-      "attrEmail": "Email attribute",
-      "attrName": "Display name attribute",
-      "attrFirstName": "First name attribute",
-      "attrLastName": "Last name attribute",
-      "mappingHint": "First and last name are used when the identity provider sends them, otherwise the display name. The user ID is the assertion's NameID: configure a persistent identifier.",
-      "wantAssertionsSigned": "Require signed assertions",
-      "wantAssertionsSignedHint": "Recommended. When off, the whole response must still be signed: unsigned responses are always refused.",
-      "requestSigningNote": "Ostiary does not sign authentication requests: leave request signing off in the identity provider.",
-      "spTitle": "Values to enter in your identity provider",
-      "acsUrl": "ACS URL (single sign-on URL, reply URL)",
-      "spEntityId": "SP entity ID (audience URI, identifier)",
-      "spMetadataUrl": "SP metadata URL",
-      "copy": "Copy",
-      "copied": "Copied",
-      "setupTitle": "Setup notes",
-      "oktaStep1": "In the Okta admin console: Applications, Create App Integration, SAML 2.0.",
-      "oktaStep2": "Single sign-on URL: the ACS URL. Audience URI (SP Entity ID): the SP entity ID. Name ID format: Persistent. Application username: Email.",
-      "oktaStep3": "Attribute statements: email = user.email, firstName = user.firstName, lastName = user.lastName (the Okta preset).",
-      "oktaStep4": "Assign people, then copy the metadata URL from the Sign On tab into Ostiary.",
-      "entraStep1": "In Microsoft Entra ID: Enterprise applications, New application, Create your own application (non-gallery), then Single sign-on, SAML.",
-      "entraStep2": "Basic SAML configuration: Identifier (Entity ID) = the SP entity ID, Reply URL = the ACS URL.",
-      "entraStep3": "Keep the default claims (the Entra ID preset). The default signing option, Sign SAML assertion, works.",
-      "entraStep4": "Assign users and groups, then copy the App Federation Metadata URL into Ostiary.",
-      "spInitiatedNote": "Only sign-in started from Ostiary is supported. Point app tiles in the identity provider's portal to {url}.",
-      "spDetails": "SP details",
-      "detailsTitle": "{id}: SAML settings",
-      "detailsDescription": "Enter these values in the identity provider.",
-      "assertionsSignedOn": "Signed assertions are required.",
-      "assertionsSignedOff": "Signed responses are required (assertions may be unsigned).",
-      "certExpires": "Signing certificate valid until {date}",
-      "certExpired": "The signing certificate has expired: sign-ins will fail until the IdP metadata is updated.",
-      "editTitle": "Edit {id}",
-      "editDescription": "Changing the domain means it must be verified again. The SP entity ID and ACS URL stay the same.",
-      "replaceIdp": "Replace the identity provider configuration (new metadata or certificate)",
-      "updated": "Provider updated",
-      "save": "Save",
-      "cancel": "Cancel",
-      "close": "Close"
+      "preset_custom": "Personalizado",
+      "attrEmail": "Atributo de correo electrónico",
+      "attrName": "Atributo de nombre visible",
+      "attrFirstName": "Atributo de nombre",
+      "attrLastName": "Atributo de apellidos",
+      "mappingHint": "Se usan el nombre y los apellidos cuando el proveedor de identidad los envía; si no, el nombre visible. El ID de usuario es el NameID de la aserción: configura un identificador persistente.",
+      "wantAssertionsSigned": "Exigir aserciones firmadas",
+      "wantAssertionsSignedHint": "Recomendado. Si está desactivado, la respuesta completa debe seguir estando firmada: las respuestas sin firmar se rechazan siempre.",
+      "requestSigningNote": "Ostiary no firma las solicitudes de autenticación: deja desactivada la firma de solicitudes en el proveedor de identidad.",
+      "spTitle": "Valores que debes introducir en tu proveedor de identidad",
+      "acsUrl": "URL de ACS (URL de inicio de sesión único, URL de respuesta)",
+      "spEntityId": "ID de entidad del SP (URI de audiencia, identificador)",
+      "spMetadataUrl": "URL de metadatos del SP",
+      "copy": "Copiar",
+      "copied": "Copiado",
+      "setupTitle": "Notas de configuración",
+      "oktaStep1": "En la consola de administración de Okta: Applications, Create App Integration, SAML 2.0.",
+      "oktaStep2": "Single sign-on URL: la URL de ACS. Audience URI (SP Entity ID): el ID de entidad del SP. Name ID format: Persistent. Application username: Email.",
+      "oktaStep3": "Attribute statements: email = user.email, firstName = user.firstName, lastName = user.lastName (el preajuste de Okta).",
+      "oktaStep4": "Asigna personas y, después, copia la URL de metadatos de la pestaña Sign On en Ostiary.",
+      "entraStep1": "En Microsoft Entra ID: Aplicaciones empresariales, Nueva aplicación, Crear su propia aplicación (no de la galería) y, después, Inicio de sesión único, SAML.",
+      "entraStep2": "Configuración básica de SAML: Identificador (id. de entidad) = el ID de entidad del SP; URL de respuesta = la URL de ACS.",
+      "entraStep3": "Mantén las notificaciones predeterminadas (el preajuste de Entra ID). La opción de firma predeterminada, Firmar aserción SAML, funciona.",
+      "entraStep4": "Asigna usuarios y grupos y, después, copia la URL de metadatos de federación de aplicación en Ostiary.",
+      "spInitiatedNote": "Solo se admite el inicio de sesión iniciado desde Ostiary. Haz que los iconos de aplicación del portal del proveedor de identidad apunten a {url}.",
+      "spDetails": "Detalles del SP",
+      "detailsTitle": "{id}: configuración SAML",
+      "detailsDescription": "Introduce estos valores en el proveedor de identidad.",
+      "assertionsSignedOn": "Se exigen aserciones firmadas.",
+      "assertionsSignedOff": "Se exigen respuestas firmadas (las aserciones pueden no estar firmadas).",
+      "certExpires": "Certificado de firma válido hasta el {date}",
+      "certExpired": "El certificado de firma ha caducado: los inicios de sesión fallarán hasta que se actualicen los metadatos del IdP.",
+      "editTitle": "Editar {id}",
+      "editDescription": "Si cambias el dominio, habrá que volver a verificarlo. El ID de entidad del SP y la URL de ACS no cambian.",
+      "replaceIdp": "Sustituir la configuración del proveedor de identidad (nuevos metadatos o certificado)",
+      "updated": "Proveedor actualizado",
+      "save": "Guardar",
+      "cancel": "Cancelar",
+      "close": "Cerrar",
+      "copyLabel": "Copiar: {label}",
+      "errors": {
+        "metadataEmpty": "Los metadatos están vacíos.",
+        "metadataTooLarge": "Los metadatos ocupan más de 100 KB.",
+        "metadataDoctype": "Los metadatos no deben contener un DOCTYPE.",
+        "metadataNotXml": "Los metadatos no son XML bien formado.",
+        "notSamlMetadata": "No son metadatos SAML.",
+        "multipleEntities": "Los metadatos deben describir exactamente un proveedor de identidad.",
+        "noEntityId": "Los metadatos no tienen entityID.",
+        "noIdpDescriptor": "Los metadatos no tienen ningún proveedor de identidad (IDPSSODescriptor).",
+        "noSaml2": "El proveedor de identidad no admite SAML 2.0.",
+        "signedRequestsRequired": "El proveedor de identidad exige solicitudes firmadas, que Ostiary no envía. Desactiva la firma de solicitudes en el proveedor de identidad.",
+        "noRedirectBinding": "Los metadatos no tienen ningún SingleSignOnService con el binding HTTP-Redirect.",
+        "metadataSsoUrlNotHttps": "La URL de SSO del proveedor de identidad debe usar https://.",
+        "unreadableCertificate": "No se pudo leer un certificado de firma de los metadatos.",
+        "noSigningCertificate": "Los metadatos no tienen ningún certificado de firma.",
+        "invalidMapping": "Introduce los nombres de atributo del correo electrónico y del nombre (sin espacios ni comillas).",
+        "allCertificatesExpired": "Todos los certificados de firma de los metadatos han caducado.",
+        "missingEntityId": "Introduce el ID de entidad del proveedor de identidad (emisor).",
+        "ssoUrlNotHttps": "La URL de SSO debe ser una URL https://.",
+        "invalidCertificate": "El certificado de firma no es un certificado X.509 (PEM) válido.",
+        "certificateExpired": "El certificado de firma ha caducado.",
+        "fetchFailed": "No se pudieron descargar los metadatos: {reason}",
+        "invalidRedirect": "La URL de metadatos redirige a una dirección no válida.",
+        "httpStatus": "La URL de metadatos respondió {status}.",
+        "tooManyRedirects": "La URL de metadatos redirige demasiadas veces."
+      }
+    },
+    "panel": {
+      "noOrganization": "Sin organización",
+      "providersDescription": "Un proveedor solo acepta inicios de sesión después de verificar su dominio de correo electrónico con un registro DNS.",
+      "verified": "Verificado",
+      "domainNotVerified": "Dominio no verificado",
+      "verifyDomain": "Verificar dominio",
+      "editLabel": "Editar {id}",
+      "deleteLabel": "Eliminar {id}",
+      "verifyTitle": "Verificar {domain}",
+      "verifyDescription": "Pide al propietario del dominio que añada este registro TXT en su DNS y compruébalo aquí. Los inicios de sesión a través de este proveedor empiezan a funcionar en cuanto se verifica.",
+      "recordName": "Nombre",
+      "recordValue": "Valor",
+      "copyRecordName": "Copiar nombre",
+      "copyRecordValue": "Copiar valor",
+      "recordValidity": "El valor es válido durante 7 días.",
+      "domainVerified": "Dominio verificado",
+      "checkDns": "Comprobar DNS",
+      "editDescription": "Si cambias el dominio, habrá que volver a verificarlo. Para cambiar las credenciales del cliente, elimina el proveedor y vuelve a registrarlo.",
+      "organization": "Organización",
+      "deleteTitle": "¿Eliminar {id}?",
+      "deleteDescription": "Las personas con una dirección de {domain} ya no podrán iniciar sesión a través de este proveedor. Sus cuentas se conservan y pueden seguir usando una contraseña o una llave de acceso.",
+      "providerDeleted": "Proveedor eliminado"
+    },
+    "errors": {
+      "providerNotFound": "No se encontró el proveedor.",
+      "issuerNotUrl": "El emisor debe ser una URL.",
+      "invalidDomain": "Introduce un dominio de correo electrónico, p. ej., acme.com.",
+      "organizationNotFound": "No se encontró la organización.",
+      "samlIssuerLocked": "El ID de entidad del SP de un proveedor SAML no se puede cambiar.",
+      "invalidProviderDomain": "El dominio del proveedor no es válido.",
+      "txtRecordNotFound": "Aún no se ha encontrado el registro TXT. Los cambios de DNS pueden tardar unos minutos en aparecer.",
+      "envNotSet": "{name} no está definida.",
+      "invalidProviderId": "El ID del proveedor debe tener entre 2 y 63 letras minúsculas, dígitos, - o _.",
+      "unreadableSamlConfig": "La configuración SAML almacenada no se puede leer; elimina el proveedor y vuelve a registrarlo."
     }
   },
   "selectAccount": {

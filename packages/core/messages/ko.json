@@ -1,46 +1,46 @@
 {
   "layout": {
-    "title": "Sign in",
-    "description": "Log in to your work tools and profile."
+    "title": "로그인",
+    "description": "업무 도구와 프로필에 로그인하세요."
   },
   "auth": {
     "login": {
-      "title": "Login to your account",
-      "description": "Sign in with your email or username and password.",
-      "identifierLabel": "Email or username",
-      "identifierPlaceholder": "you@example.com or your_username",
-      "emailLabel": "Email",
+      "title": "계정에 로그인",
+      "description": "이메일 또는 사용자 이름과 비밀번호로 로그인하세요.",
+      "identifierLabel": "이메일 또는 사용자 이름",
+      "identifierPlaceholder": "you@example.com 또는 your_username",
+      "emailLabel": "이메일",
       "emailPlaceholder": "m@example.com",
-      "passwordLabel": "Password",
-      "forgotPasswordLink": "Forgot password?",
-      "submit": "Login",
-      "submitting": "Signing in…",
-      "noAccount": "Don't have an account?",
-      "signUpLink": "Sign up",
-      "verifyEmailAfterSignup": "Check your inbox for a verification link. You must verify your email before signing in.",
-      "passkey": "Sign in with passkey",
-      "passkeySubmitting": "Waiting for passkey…",
+      "passwordLabel": "비밀번호",
+      "forgotPasswordLink": "비밀번호를 잊으셨나요?",
+      "submit": "로그인",
+      "submitting": "로그인 중…",
+      "noAccount": "계정이 없으신가요?",
+      "signUpLink": "가입하기",
+      "verifyEmailAfterSignup": "받은편지함에서 인증 링크를 확인하세요. 로그인하려면 먼저 이메일을 인증해야 합니다.",
+      "passkey": "패스키로 로그인",
+      "passkeySubmitting": "패스키 대기 중…",
       "emailCode": "이메일로 로그인 코드 받기",
-      "lastUsedBadge": "Last used",
-      "lastUsedHintEmail": "You last signed in with email and password.",
-      "lastUsedHintUsername": "You last signed in with username and password.",
-      "lastUsedHintPasskey": "You last signed in with a passkey.",
+      "lastUsedBadge": "최근 사용",
+      "lastUsedHintEmail": "지난번에 이메일과 비밀번호로 로그인했습니다.",
+      "lastUsedHintUsername": "지난번에 사용자 이름과 비밀번호로 로그인했습니다.",
+      "lastUsedHintPasskey": "지난번에 패스키로 로그인했습니다.",
       "lastUsedHintEmailCode": "지난번에 이메일로 받은 코드로 로그인했습니다.",
-      "lastUsedHintOther": "You last signed in with {method}.",
+      "lastUsedHintOther": "지난번에 {method}(으)로 로그인했습니다.",
       "errors": {
         "emailNotVerified": "Please verify your email first. We sent you a new verification link, check your inbox.",
-        "signInFailed": "Could not sign in. Check your details and try again.",
-        "passkeyFailed": "Passkey sign-in failed. Try again or use your password."
+        "signInFailed": "로그인할 수 없습니다. 입력한 정보를 확인하고 다시 시도하세요.",
+        "passkeyFailed": "패스키 로그인에 실패했습니다. 다시 시도하거나 비밀번호를 사용하세요."
       },
       "resend": {
-        "title": "Didn't get the email?",
-        "description": "Enter your email and we'll send you a new verification link.",
+        "title": "이메일을 받지 못하셨나요?",
+        "description": "이메일 주소를 입력하면 새 인증 링크를 보내드립니다.",
         "emailPlaceholder": "you@example.com",
-        "send": "Send a new link",
-        "sendAgain": "Send again",
-        "sent": "If an unverified account uses this address, a new link is on its way. Check your inbox and spam folder.",
-        "invalidEmail": "Enter a valid email address.",
-        "error": "Could not send the email. Try again in a minute."
+        "send": "새 링크 보내기",
+        "sendAgain": "다시 보내기",
+        "sent": "이 주소를 사용하는 미인증 계정이 있으면 새 링크가 발송되었습니다. 받은편지함과 스팸 폴더를 확인하세요.",
+        "invalidEmail": "올바른 이메일 주소를 입력하세요.",
+        "error": "이메일을 보낼 수 없습니다. 잠시 후 다시 시도하세요."
       },
       "addAccountDescription": "이 브라우저에 이미 로그인된 계정은 로그인 상태로 유지됩니다."
     },
@@ -93,81 +93,81 @@
       }
     },
     "forgotPassword": {
-      "metaTitle": "Forgot password",
-      "title": "Reset your password",
-      "description": "Enter the email on your account. If it exists, we will send you a link to choose a new password.",
-      "emailLabel": "Email",
+      "metaTitle": "비밀번호 찾기",
+      "title": "비밀번호 재설정",
+      "description": "계정의 이메일 주소를 입력하세요. 계정이 있으면 새 비밀번호를 설정할 수 있는 링크를 보내드립니다.",
+      "emailLabel": "이메일",
       "emailPlaceholder": "m@example.com",
-      "emailHint": "Use the same email you registered with. If you usually sign in with a username, recovery still uses your account email.",
-      "submit": "Send reset link",
-      "submitting": "Sending…",
-      "backToLogin": "Back to login",
-      "emailSent": "If an account exists for that email, you will receive a reset link shortly.",
+      "emailHint": "가입할 때 사용한 이메일을 입력하세요. 평소 사용자 이름으로 로그인하더라도 복구에는 계정 이메일이 사용됩니다.",
+      "submit": "재설정 링크 보내기",
+      "submitting": "보내는 중…",
+      "backToLogin": "로그인으로 돌아가기",
+      "emailSent": "해당 이메일로 된 계정이 있으면 곧 재설정 링크를 받게 됩니다.",
       "errors": {
-        "emailRequired": "Please enter your email address.",
-        "requestFailed": "Could not send the reset email. Try again."
+        "emailRequired": "이메일 주소를 입력하세요.",
+        "requestFailed": "재설정 이메일을 보낼 수 없습니다. 다시 시도하세요."
       }
     },
     "resetPassword": {
-      "metaTitle": "Set new password",
-      "title": "Choose a new password",
-      "description": "Enter and confirm your new password below.",
-      "invalidTokenTitle": "Link expired or invalid",
-      "invalidTokenDescription": "This reset link is no longer valid. Request a new one to continue.",
-      "missingTokenTitle": "No reset link",
-      "missingTokenDescription": "Open the link from your email, or request a new password reset.",
-      "requestNewLink": "Request new link",
-      "backToLogin": "Back to login",
-      "newPasswordLabel": "New password",
-      "confirmPasswordLabel": "Confirm password",
-      "passwordHint": "Must be at least 8 characters long.",
-      "passwordMismatch": "Passwords do not match",
-      "submit": "Update password",
-      "submitting": "Updating…",
-      "success": "Your password was updated. You can sign in now.",
+      "metaTitle": "새 비밀번호 설정",
+      "title": "새 비밀번호 선택",
+      "description": "아래에 새 비밀번호를 입력하고 확인하세요.",
+      "invalidTokenTitle": "링크가 만료되었거나 유효하지 않음",
+      "invalidTokenDescription": "이 재설정 링크는 더 이상 유효하지 않습니다. 계속하려면 새 링크를 요청하세요.",
+      "missingTokenTitle": "재설정 링크 없음",
+      "missingTokenDescription": "이메일의 링크를 열거나 비밀번호 재설정을 다시 요청하세요.",
+      "requestNewLink": "새 링크 요청",
+      "backToLogin": "로그인으로 돌아가기",
+      "newPasswordLabel": "새 비밀번호",
+      "confirmPasswordLabel": "비밀번호 확인",
+      "passwordHint": "8자 이상이어야 합니다.",
+      "passwordMismatch": "비밀번호가 일치하지 않습니다",
+      "submit": "비밀번호 변경",
+      "submitting": "변경 중…",
+      "success": "비밀번호가 변경되었습니다. 이제 로그인할 수 있습니다.",
       "errors": {
-        "resetFailed": "Could not reset your password. Try again or request a new link."
+        "resetFailed": "비밀번호를 재설정할 수 없습니다. 다시 시도하거나 새 링크를 요청하세요."
       }
     },
     "signup": {
-      "title": "Create an account",
-      "description": "Enter your information below to create your account",
-      "usernameLabel": "Username",
+      "title": "계정 만들기",
+      "description": "아래에 정보를 입력하여 계정을 만드세요",
+      "usernameLabel": "사용자 이름",
       "usernamePlaceholder": "your_username",
-      "usernameHint": "3-30 characters: letters, numbers, dots, and underscores only.",
-      "usernameChecking": "Checking availability…",
-      "usernameAvailable": "This username is available.",
-      "usernameTaken": "This username is already taken.",
-      "usernameInvalidHint": "Use only letters, numbers, dots, and underscores.",
-      "fullNameLabel": "Full Name",
-      "namePlaceholder": "John Doe",
-      "emailLabel": "Email",
+      "usernameHint": "3~30자: 영문자, 숫자, 마침표, 밑줄만 사용할 수 있습니다.",
+      "usernameChecking": "사용 가능 여부 확인 중…",
+      "usernameAvailable": "사용할 수 있는 사용자 이름입니다.",
+      "usernameTaken": "이미 사용 중인 사용자 이름입니다.",
+      "usernameInvalidHint": "영문자, 숫자, 마침표, 밑줄만 사용하세요.",
+      "fullNameLabel": "이름",
+      "namePlaceholder": "홍길동",
+      "emailLabel": "이메일",
       "emailPlaceholder": "m@example.com",
-      "emailDescription": "We'll use this to contact you. We will not share your email with anyone else.",
-      "passwordLabel": "Password",
-      "confirmPasswordLabel": "Confirm Password",
-      "passwordHint": "Must be at least 8 characters long.",
-      "confirmPasswordHint": "Please confirm your password.",
-      "passwordMismatch": "Passwords do not match",
-      "submit": "Create Account",
-      "submitting": "Creating account…",
-      "hasAccount": "Already have an account?",
-      "signInLink": "Sign in",
-      "loginLink": "Login",
-      "afterRegisterRedirect": "Account created. Check your email to verify before signing in.",
+      "emailDescription": "연락을 드릴 때 사용합니다. 이메일은 다른 사람과 공유하지 않습니다.",
+      "passwordLabel": "비밀번호",
+      "confirmPasswordLabel": "비밀번호 확인",
+      "passwordHint": "8자 이상이어야 합니다.",
+      "confirmPasswordHint": "비밀번호를 한 번 더 입력하세요.",
+      "passwordMismatch": "비밀번호가 일치하지 않습니다",
+      "submit": "계정 만들기",
+      "submitting": "계정 만드는 중…",
+      "hasAccount": "이미 계정이 있으신가요?",
+      "signInLink": "로그인",
+      "loginLink": "로그인",
+      "afterRegisterRedirect": "계정이 만들어졌습니다. 로그인하기 전에 이메일을 확인하여 인증하세요.",
       "errors": {
-        "signUpFailed": "Could not create your account. Try again.",
-        "compromisedPassword": "This password appears in known data breaches. Choose a different one.",
-        "usernameTooShort": "Username must be at least 3 characters.",
-        "usernameInvalid": "That username is not valid.",
-        "usernameTaken": "That username is already taken. Try another."
+        "signUpFailed": "계정을 만들 수 없습니다. 다시 시도하세요.",
+        "compromisedPassword": "알려진 데이터 유출에 포함된 비밀번호입니다. 다른 비밀번호를 선택하세요.",
+        "usernameTooShort": "사용자 이름은 3자 이상이어야 합니다.",
+        "usernameInvalid": "유효하지 않은 사용자 이름입니다.",
+        "usernameTaken": "이미 사용 중인 사용자 이름입니다. 다른 이름을 입력하세요."
       }
     },
     "screen": {
-      "headline": "One account for all your apps.",
-      "subhead": "Sign in once and reach every app connected to {name}. Your profile and security settings follow you everywhere.",
-      "footer": "Secured by {name}.",
-      "ecosystem": "Works with"
+      "headline": "<accent>모든 앱</accent>을 하나의 계정으로.",
+      "subhead": "한 번 로그인하면 {name}에 연결된 모든 앱을 이용할 수 있습니다. 프로필과 보안 설정은 어디서나 그대로 적용됩니다.",
+      "footer": "{name} 보안 적용.",
+      "ecosystem": "지원 서비스"
     },
     "social": {
       "or": "또는",
@@ -175,8 +175,8 @@
       "signInWith": "{provider}(으)로 로그인",
       "lastUsed": "최근 사용",
       "otherProviders": "다른 로그인 방법",
-      "error": "Could not sign in with that account. Try again or use another method.",
-      "notLinked": "That account isn't connected to a {name} account yet. Sign in another way, then connect it from your security settings.",
+      "error": "해당 계정으로 로그인할 수 없습니다. 다시 시도하거나 다른 방법을 사용하세요.",
+      "notLinked": "이 계정은 아직 {name} 계정에 연결되지 않았습니다. 다른 방법으로 로그인한 다음 보안 설정에서 연결하세요.",
       "noEmail": "이 계정에서 이메일 주소를 공유하지 않았습니다. 나중에 다시 시도하거나 다른 방법으로 로그인하세요.",
       "signUpDisabled": "이 주소로 된 계정이 아직 없으며 이 로그인 방법으로는 계정을 만들 수 없습니다. 다른 방법으로 로그인하세요."
     },
@@ -189,23 +189,23 @@
     }
   },
   "consent": {
-    "emptyTitle": "Authorization",
-    "emptyDescription": "There is no pending OAuth request. Start the flow from the application you want to connect.",
-    "connectTitle": "Connect {name}",
-    "intro": "This application is requesting access to your account. Review the permissions below before continuing.",
+    "emptyTitle": "권한 부여",
+    "emptyDescription": "대기 중인 OAuth 요청이 없습니다. 연결하려는 애플리케이션에서 절차를 시작하세요.",
+    "connectTitle": "{name} 연결",
+    "intro": "이 애플리케이션이 계정에 대한 접근을 요청하고 있습니다. 계속하기 전에 아래 권한을 검토하세요.",
     "errors": {
-      "needSignIn": "You need to sign in before you can approve this request.",
-      "loadFailed": "Could not load application details.",
-      "actionFailed": "Something went wrong."
+      "needSignIn": "이 요청을 승인하려면 먼저 로그인해야 합니다.",
+      "loadFailed": "애플리케이션 정보를 불러올 수 없습니다.",
+      "actionFailed": "문제가 발생했습니다."
     },
-    "signIn": "Sign in",
-    "visitWebsite": "Visit application website",
-    "requestedAccess": "Requested access",
-    "defaultScopes": "Default permissions for this client (no explicit scopes in the request).",
-    "terms": "Terms of service",
-    "privacy": "Privacy policy",
-    "deny": "Deny",
-    "allow": "Allow",
+    "signIn": "로그인",
+    "visitWebsite": "애플리케이션 웹사이트 방문",
+    "requestedAccess": "요청된 접근 권한",
+    "defaultScopes": "이 클라이언트의 기본 권한(요청에 명시된 스코프 없음).",
+    "terms": "서비스 약관",
+    "privacy": "개인정보처리방침",
+    "deny": "거부",
+    "allow": "허용",
     "scopes": {
       "openid": "본인 확인 (OpenID Connect)",
       "profile": "이름 및 프로필 정보",
@@ -221,108 +221,1540 @@
   },
   "admin": {
     "themeToggle": {
-      "light": "Light",
-      "dark": "Dark",
-      "system": "System",
-      "srOnly": "Toggle theme",
-      "label": "Theme"
+      "light": "라이트",
+      "dark": "다크",
+      "system": "시스템",
+      "srOnly": "테마 전환",
+      "label": "테마"
     },
     "nav": {
-      "groupAdmin": "Admin",
+      "groupAdmin": "관리",
       "groupOAuth": "OAuth",
-      "overview": "Overview",
-      "users": "Users",
-      "applications": "Applications",
+      "overview": "개요",
+      "users": "사용자",
+      "applications": "애플리케이션",
       "apis": "API",
       "apiKeys": "API 키",
-      "consent": "Consent",
-      "organizations": "Organizations",
+      "consent": "동의",
+      "organizations": "조직",
       "sso": "SSO",
       "signInProviders": "로그인 제공자",
       "webhooks": "웹훅",
-      "security": "Security",
+      "security": "보안",
       "usage": "앱 사용량",
-      "audit": "Audit log",
+      "audit": "감사 로그",
       "signingKeys": "서명 키"
     },
     "header": {
-      "crumb": "Admin",
-      "fallback": "Admin",
-      "overview": "Overview",
-      "users": "Users",
-      "applications": "Applications",
+      "crumb": "관리",
+      "fallback": "관리",
+      "overview": "개요",
+      "users": "사용자",
+      "applications": "애플리케이션",
       "apis": "API",
       "apiKeys": "API 키",
-      "consent": "Consent",
-      "organizations": "Organizations",
+      "consent": "동의",
+      "organizations": "조직",
       "sso": "SSO",
       "signInProviders": "로그인 제공자",
       "webhooks": "웹훅",
-      "security": "Security",
+      "security": "보안",
       "usage": "앱 사용량",
-      "audit": "Audit log",
+      "audit": "감사 로그",
       "signingKeys": "서명 키"
     },
     "pages": {
       "overview": {
-        "title": "Overview",
+        "title": "개요",
         "activity": {
-          "title": "Sign-in activity",
-          "description": "Sign-ins, new accounts and sign-outs per day, last 30 days.",
-          "signIns": "Sign-ins",
-          "signUps": "Sign-ups",
-          "signOuts": "Sign-outs",
-          "showTable": "View as table",
-          "showChart": "View as chart",
-          "legend": "Totals for the last 30 days",
-          "day": "Day",
-          "note": "Sign-outs are tracked from October 6, 2026. Earlier sign-ins only include sessions that were still active then."
+          "title": "로그인 활동",
+          "description": "최근 30일 동안의 일별 로그인, 신규 계정, 로그아웃 수.",
+          "signIns": "로그인",
+          "signUps": "가입",
+          "signOuts": "로그아웃",
+          "showTable": "표로 보기",
+          "showChart": "차트로 보기",
+          "legend": "최근 30일 합계",
+          "day": "날짜",
+          "note": "로그아웃은 2026년 10월 6일부터 집계됩니다. 그 이전의 로그인은 당시 아직 활성 상태였던 세션만 포함합니다."
         },
-        "description": "Accounts, sign-in activity and the newest members of the platform."
+        "description": "계정, 로그인 활동, 플랫폼의 최신 멤버.",
+        "recentUsers": {
+          "title": "최근 가입",
+          "description": "가장 최근에 만들어진 계정입니다. 계정을 열면 세션과 활동을 볼 수 있습니다.",
+          "loading": "불러오는 중…",
+          "empty": "아직 사용자가 없습니다."
+        },
+        "stats": {
+          "error": "일부 지표를 불러올 수 없습니다. 관리자로 로그인했는지 확인하세요.",
+          "errorTitle": "지표를 사용할 수 없음",
+          "loadingTitle": "불러오는 중",
+          "loadingHint": "불러오는 중…",
+          "totalUsers": {
+            "title": "전체 사용자",
+            "hint": "플랫폼의 모든 계정."
+          },
+          "admins": {
+            "title": "관리자",
+            "hint": "이 콘솔에 접근할 수 있는 계정."
+          },
+          "banned": {
+            "title": "차단됨",
+            "hint": "현재 로그인할 수 없는 계정."
+          },
+          "verified": {
+            "title": "이메일 인증됨",
+            "hint": "이메일 주소를 인증한 계정."
+          },
+          "recent": {
+            "title": "신규(7일)",
+            "hint": "최근 7일 동안 만들어진 계정."
+          }
+        }
       },
       "applications": {
-        "title": "Applications",
+        "title": "애플리케이션",
         "description": "{name}(으)로 사용자를 로그인시킬 수 있는 OAuth 클라이언트: 리디렉션 URL, 그랜트 유형, 동의 설정.",
         "unusedHint": "{count, plural, other {애플리케이션 #개}}가 최근 30일 동안 사용되지 않았습니다.",
-        "viewUsage": "사용량 보기"
+        "viewUsage": "사용량 보기",
+        "panel": {
+          "selfRegisteredHint": "스스로 등록됨: 관리자가 검토하지 않음",
+          "selfRegisteredBadge": "자체 등록",
+          "registration": {
+            "all": "모든 등록 방식",
+            "admin": "관리자",
+            "dynamic": "동적 등록",
+            "metadata_document": "메타데이터 문서"
+          },
+          "authMethod": {
+            "none": "인증: 없음",
+            "client_secret_basic": "인증: 시크릿(basic)",
+            "client_secret_post": "인증: 시크릿(post)",
+            "private_key_jwt": "인증: 비공개 키 JWT"
+          },
+          "loadFailed": "OAuth 클라이언트를 불러오지 못했습니다",
+          "loadErrorTitle": "애플리케이션을 불러올 수 없음",
+          "searchPlaceholder": "이름, 클라이언트 ID, 리디렉션 URI, 그랜트로 검색…",
+          "searchLabel": "애플리케이션 검색",
+          "clientType": "클라이언트 유형",
+          "registeredBy": "등록 주체",
+          "kind": {
+            "all": "모든 클라이언트",
+            "public": "공개",
+            "confidential": "기밀",
+            "trusted": "신뢰됨(동의 건너뜀)",
+            "device": "기기 로그인"
+          },
+          "columns": {
+            "application": "애플리케이션",
+            "redirects": "리디렉션",
+            "grants": "그랜트",
+            "consent": "동의"
+          },
+          "badges": {
+            "device": "기기",
+            "trusted": "신뢰됨",
+            "consent": "동의",
+            "active": "활성",
+            "skipped": "건너뜀",
+            "required": "필수"
+          },
+          "loadingRows": "애플리케이션을 불러오는 중…",
+          "empty": "이 계정에는 아직 OAuth 클라이언트가 없습니다.",
+          "noMatch": "필터와 일치하는 애플리케이션이 없습니다.",
+          "linkedApis": "연결된 API: {apis}",
+          "noApplications": "애플리케이션 0개",
+          "showing": "{total}개 중 {from}-{to}",
+          "rowsPerPage": "페이지당 행 수",
+          "previous": "이전",
+          "next": "다음",
+          "page": "{page} / {total} 페이지",
+          "footnote": "데이터 출처: <code>{getClients}</code>. 등록과 편집(<code>{skipConsent}</code> 포함)은 <code>{create}</code> 및 <code>{update}</code>를 호출하고, 그 밖의 변경은 <code>{deleteClient}</code>와 <code>{rotateSecret}</code>을 사용합니다. <docs>OAuth 제공자</docs> 문서를 참고하세요. 클라이언트는 로그인한 사용자(또는 구성된 경우 <code>{clientReference}</code>) 범위로 제한됩니다. 자체 등록 클라이언트는 소유자가 없으며 모두 표시됩니다. 비활성화하거나 삭제할 수 있지만 편집할 수는 없습니다."
+        },
+        "registration": {
+          "title": "자체 등록",
+          "description": "MCP 클라이언트와 AI 에이전트가 여기에서 추가되는 대신 스스로 등록할 수 있게 합니다. 아래 스코프만 받을 수 있고, 동의 화면에는 항상 확인되지 않은 앱으로 표시되며, 머신(클라이언트 자격 증명) 액세스는 받을 수 없습니다.",
+          "dynamicRegistration": "동적 등록",
+          "dynamic": {
+            "off": {
+              "label": "꺼짐",
+              "hint": "POST /oauth2/register 요청이 거부됩니다."
+            },
+            "signed_in": {
+              "label": "로그인한 사용자만",
+              "hint": "사용자 세션이 포함된 요청만 등록할 수 있습니다. 대부분의 MCP 클라이언트는 이를 지원하지 않습니다."
+            },
+            "open": {
+              "label": "누구나(공개 등록)",
+              "hint": "MCP 클라이언트가 기대하는 방식: 어떤 앱이든 등록할 수 있고, 각 사용자가 동의 화면에서 승인합니다."
+            }
+          },
+          "metadataDocuments": "메타데이터 문서(client_id URL)",
+          "metadataOnFrom": "켜짐, 허용 호스트: {hosts}",
+          "metadataOnAnyHost": "켜짐, 모든 HTTPS 호스트",
+          "scopes": "요청 가능한 스코프",
+          "missingScope": "더 이상 이 서버의 스코프가 아님: 무시됨",
+          "perHour": "시간당 신규 클라이언트",
+          "endpoint": "등록 엔드포인트: <code>{url}</code>(디스커버리 문서에 게시됨).",
+          "saved": "설정을 저장했습니다. 인증 서버가 1분 안에 적용합니다.",
+          "dialogDescription": "스스로 등록한 클라이언트는 검토되지 않습니다. 사용자에게는 확인되지 않은 앱으로 표시되며, 사용자가 동의 화면에서 하나씩 승인합니다.",
+          "dynamicLabel": "동적 클라이언트 등록(RFC 7591)",
+          "cimdLabel": "클라이언트 ID 메타데이터 문서",
+          "cimdHint": "최신 MCP 클라이언트처럼 client_id가 앱의 JSON 메타데이터를 가리키는 HTTPS URL입니다. 공개 호스트에서만 리디렉션 없이 최대 5KB까지 가져옵니다.",
+          "hostsLabel": "허용 호스트",
+          "hostsHint": "한 줄에 하나씩. 비워 두면 모든 공개 HTTPS 호스트를 허용합니다.",
+          "scopesLabel": "자체 등록 클라이언트가 요청할 수 있는 스코프",
+          "scopesHint": "앱이 요청하는 스코프는 여전히 각 사용자가 승인합니다. 스코프를 제거하면 이미 등록된 클라이언트에서도 제거되며, 이미 발급된 토큰은 만료될 때까지 해당 스코프를 유지합니다.",
+          "perHourHint": "모든 인스턴스와 두 방식을 합친 수치입니다. 주소당 분당 5회 등록으로도 제한됩니다."
+        },
+        "branding": {
+          "title": "로그인 브랜딩",
+          "description": "<app>{client}</app>에서 들어온 사용자에게 보이는 로그인 화면(로그인, 가입, 2단계 인증, 비밀번호 재설정, 동의)의 모양입니다. {brand} 표시는 모든 화면에 계속 나타납니다.",
+          "logoFetchedOnSave": "저장할 때 서버가 로고를 가져오며, 그 후 미리 보기에 표시됩니다.",
+          "accentInvalid": "강조 색상을 {example} 같은 16진수 색상으로 입력하세요.",
+          "hexInvalid": "{example} 같은 16진수 색상을 입력하세요.",
+          "saved": "로그인 브랜딩을 저장했습니다",
+          "resetDone": "로그인 브랜딩을 초기화했습니다",
+          "displayName": "표시 이름",
+          "displayNameHint": "“로그인하고 …(으)로 계속하기”에 표시됩니다. 비워 두면 애플리케이션 이름을 사용합니다.",
+          "tagline": "태그라인(선택 사항)",
+          "taglinePlaceholder": "어디서나 나만의 읽기 목록.",
+          "accent": "강조 색상",
+          "accentPick": "강조 색상 선택",
+          "accentHex": "강조 색상(16진수)",
+          "accentOff": "꺼짐: 화면이 테마 색상을 그대로 사용합니다.",
+          "contrast": {
+            "label": "명암비 검사",
+            "ratio": "{label}: <value>{ratio}:1</value>",
+            "passes": "({min}:1 충족)",
+            "below": "({min}:1 미만)",
+            "buttonLabel": "버튼 레이블({color, select, black {검정} other {흰색}})",
+            "lightCard": "밝은 카드 위의 버튼",
+            "darkCard": "어두운 카드 위의 버튼",
+            "textAdjusted": "강조 색상의 텍스트는 {min}:1을 충족하도록 {color}을(를) 사용합니다."
+          },
+          "logo": "로고",
+          "logoSourceLabel": "로고 출처",
+          "logoSource": {
+            "app_icon": "앱 아이콘",
+            "url": "URL에서",
+            "upload": "업로드"
+          },
+          "logoAppIconHint": "동의 화면과 마찬가지로 앱에서 찾은 아이콘({field} 또는 사이트)입니다.",
+          "logoUrl": "로고 URL",
+          "logoUrlHint": "공개 호스트의 https 주소. {name}이(가) 가져와 캐시하며, 브라우저는 그곳에서 직접 불러오지 않습니다.",
+          "logoFile": "로고 파일",
+          "logoFileHint": "PNG, JPEG, WebP, AVIF, GIF, ICO 또는 SVG, 최대 256KB. 정사각형이 가장 좋습니다.",
+          "panel": "사이드 패널(넓은 화면, 선택 사항)",
+          "panelImage": "사이드 패널 이미지",
+          "removeImage": "이미지 제거",
+          "panelHint": "어두운 패널의 제목과 배경 이미지. PNG, JPEG, WebP 또는 AVIF, 최대 1MB.",
+          "social": "이 앱 화면의 소셜 로그인",
+          "socialNone": "활성화된 소셜 제공자가 없습니다.",
+          "socialShown": "표시할 소셜 제공자",
+          "socialAll": "활성화된 모든 제공자",
+          "socialSome": "선택한 제공자만",
+          "socialHint": "이 앱의 화면에서만 버튼을 숨깁니다. 다른 방법으로 로그인하는 것을 막지는 않습니다.",
+          "previewTitle": "미리 보기",
+          "previewScheme": "미리 보기 색상 모드",
+          "light": "라이트",
+          "dark": "다크",
+          "faintOnLight": "이 색상의 버튼은 밝은 카드에서 잘 드러나지 않습니다(WCAG는 컨트롤에 3:1을 요구합니다). 레이블은 읽을 수 있지만 더 어두운 색조를 고려하세요.",
+          "faintOnDark": "이 색상의 버튼은 어두운 카드에서 잘 드러나지 않습니다(WCAG는 컨트롤에 3:1을 요구합니다). 레이블은 읽을 수 있지만 더 밝은 색조를 고려하세요.",
+          "resetting": "초기화 중…",
+          "reset": "기본값으로 초기화",
+          "save": "브랜딩 저장",
+          "preview": {
+            "label": "로그인 페이지 미리 보기",
+            "appFallback": "앱",
+            "title": "로그인",
+            "submit": "로그인",
+            "noAccount": "계정이 없으신가요? <link>계정 만들기</link>"
+          }
+        },
+        "actions": {
+          "registration": {
+            "chooseMode": "클라이언트를 등록할 수 있는 대상을 선택하세요.",
+            "unknownScope": "\"{scope}\"은(는) 이 서버의 스코프가 아닙니다.",
+            "noScopes": "스코프를 하나 이상 허용하세요.",
+            "invalidHost": "\"{raw}\"은(는) 호스트 이름이 아닙니다(예: {example}).",
+            "invalidLimit": "시간당 한도는 0에서 {max} 사이의 정수여야 합니다.",
+            "saveFailed": "설정을 저장하지 못했습니다.",
+            "clientGone": "이 클라이언트는 더 이상 존재하지 않습니다.",
+            "notSelfRegistered": "여기서는 자체 등록 클라이언트만 변경할 수 있습니다."
+          },
+          "branding": {
+            "clientGone": "이 애플리케이션은 더 이상 존재하지 않습니다.",
+            "selfRegistered": "자체 등록 클라이언트에는 브랜딩을 적용할 수 없습니다.",
+            "logoMissing": "업로드할 로고 파일을 선택하세요.",
+            "logoFetchFailed": "로고 URL에서 이미지를 가져올 수 없습니다. 공개되어 있고 이미지인지 확인하세요.",
+            "faintOnLight": "강조 색상이 밝은 카드에서 흐릿합니다. 버튼이 잘 드러나지 않습니다.",
+            "faintOnDark": "강조 색상이 어두운 카드에서 흐릿합니다. 버튼이 잘 드러나지 않습니다.",
+            "saveFailed": "브랜딩을 저장하지 못했습니다."
+          }
+        },
+        "register": {
+          "trigger": "애플리케이션 등록",
+          "title": "OAuth 애플리케이션 등록",
+          "description": "<code>{endpoint}</code>를 통해 내 계정에 연결된 클라이언트를 만듭니다(신뢰할 수 있는 앱은 <code>{field}</code>를 설정할 수 있음). <link>Better Auth, Create client</link>를 참고하세요.",
+          "nameLabel": "애플리케이션 이름",
+          "namePlaceholder": "내 앱",
+          "redirectUrisLabel": "리디렉션 URI",
+          "redirectUrisHintPublic": "한 줄에 하나씩 또는 쉼표로 구분. HTTPS 또는 localhost, 127.0.0.1, [::1]의 http.",
+          "redirectUrisHintConfidential": "한 줄에 하나씩 또는 쉼표로 구분. localhost를 포함해 HTTPS만 허용됩니다. 로컬 개발용으로는 별도의 공개 클라이언트를 등록하세요.",
+          "redirectUrisRequired": "리디렉션 URI를 하나 이상 입력하세요(한 줄에 하나씩 또는 쉼표로 구분).",
+          "clientTypeLabel": "클라이언트 유형",
+          "clientTypeConfidential": "기밀(클라이언트 시크릿)",
+          "clientTypePublic": "공개(PKCE, 시크릿 없음)",
+          "deviceCodeLabel": "기기 로그인(CLI, TV)",
+          "deviceCodeHint": "기기 코드 그랜트(RFC 8628)를 추가합니다. 앱이 코드를 표시하면 사용자가 다른 화면의 <code>{path}</code>에서 승인합니다. 보통 공개 클라이언트입니다.",
+          "skipConsentLabel": "동의 건너뛰기(신뢰할 수 있는 클라이언트)",
+          "skipConsentHint": "사용자에게 이 애플리케이션의 동의 화면이 표시되지 않습니다. 자사 또는 완전히 신뢰할 수 있는 통합에만 사용하세요.",
+          "registerFailed": "애플리케이션을 등록할 수 없습니다",
+          "missingClientId": "서버가 {field}을(를) 반환하지 않았습니다.",
+          "registered": "OAuth 애플리케이션이 등록되었습니다",
+          "creating": "만드는 중…",
+          "create": "애플리케이션 만들기",
+          "successTitle": "애플리케이션이 만들어졌습니다",
+          "successWithSecret": "지금 클라이언트 시크릿을 복사하세요. 한 번만 표시될 수 있습니다.",
+          "successPublic": "공개 클라이언트이므로 시크릿이 발급되지 않습니다. 토큰 엔드포인트에서 PKCE를 사용하세요.",
+          "clientId": "클라이언트 ID",
+          "clientSecret": "클라이언트 시크릿",
+          "copyClientId": "클라이언트 ID 복사",
+          "copyClientSecret": "클라이언트 시크릿 복사"
+        },
+        "rowActions": {
+          "menuLabel": "{name} 작업",
+          "copyClientId": "클라이언트 ID 복사",
+          "clientIdCopied": "클라이언트 ID를 복사했습니다",
+          "edit": "애플리케이션 편집",
+          "editHint": "이름, 리디렉션 URI, 기기 로그인, 동의 건너뛰기",
+          "branding": "로그인 브랜딩",
+          "brandingHint": "이 앱의 로그인 화면 로고, 강조 색상, 문구",
+          "rotateSecret": "시크릿 교체",
+          "rotateHintPublic": "공개 클라이언트에는 시크릿이 없습니다",
+          "rotateHintDisabled": "먼저 클라이언트를 활성화하세요",
+          "rotateHint": "기밀 클라이언트 시크릿을 교체합니다",
+          "delete": "애플리케이션 삭제",
+          "editDialog": {
+            "title": "애플리케이션 편집",
+            "description": "<code>{endpoint}</code>를 통해 <id>{clientId}</id>를 업데이트합니다(<code>{field}</code> 같은 제한된 필드 포함). <link>Better Auth, Update client</link>를 참고하세요.",
+            "nameLabel": "애플리케이션 이름",
+            "namePlaceholder": "내 앱",
+            "redirectUrisLabel": "리디렉션 URI",
+            "redirectUrisHint": "한 줄에 하나씩 또는 쉼표로 구분. HTTPS가 필요합니다. 공개 클라이언트만 localhost에서 http를 사용할 수 있습니다.",
+            "redirectUrisRequired": "리디렉션 URI를 하나 이상 입력하세요(한 줄에 하나씩 또는 쉼표로 구분).",
+            "deviceCodeLabel": "기기 로그인(CLI, TV)",
+            "deviceCodeHint": "기기 코드 그랜트를 허용합니다. 끄면 새 기기 로그인이 중단되며, 이미 발급된 토큰은 계속 작동합니다.",
+            "skipConsentLabel": "동의 건너뛰기(신뢰할 수 있는 클라이언트)",
+            "skipConsentHint": "켜면 사용자에게 이 애플리케이션의 스코프 승인을 요청하지 않습니다.",
+            "updateFailed": "애플리케이션을 업데이트할 수 없습니다",
+            "updated": "애플리케이션이 업데이트되었습니다"
+          },
+          "deleteDialog": {
+            "title": "애플리케이션을 삭제할까요?",
+            "description": "<strong>{name}</strong>(<code>{clientId}</code>)을(를) 영구적으로 삭제합니다. 이 클라이언트의 OAuth 토큰과 동의가 영향을 받을 수 있습니다.",
+            "deleteFailed": "클라이언트를 삭제할 수 없습니다",
+            "deleted": "애플리케이션을 삭제했습니다"
+          },
+          "rotateDialog": {
+            "title": "클라이언트 시크릿을 교체할까요?",
+            "description": "이전 시크릿은 즉시 작동을 멈춥니다. 새 시크릿을 안전한 곳에 보관하세요. 한 번만 표시될 수 있습니다.",
+            "newSecretLabel": "새 클라이언트 시크릿",
+            "copySecret": "시크릿 복사",
+            "secretCopied": "시크릿을 복사했습니다",
+            "rotating": "교체 중…",
+            "rotateFailed": "시크릿을 교체할 수 없습니다",
+            "newSecretIssued": "새 클라이언트 시크릿이 발급되었습니다. 지금 복사하세요",
+            "rotated": "시크릿을 교체했습니다"
+          }
+        },
+        "selfRegistered": {
+          "menuLabel": "{name} 작업",
+          "enabled": "클라이언트를 활성화했습니다",
+          "disabled": "클라이언트를 비활성화했습니다",
+          "deleted": "클라이언트를 삭제했습니다",
+          "disableTitle": "{name}을(를) 비활성화할까요?",
+          "disableDescription": "더 이상 사용자를 로그인시키거나 토큰을 갱신할 수 없습니다. 이미 발급된 액세스 토큰은 만료될 때까지(최대 1시간) 작동합니다.",
+          "deleteTitle": "{name}을(를) 삭제할까요?",
+          "deleteDescriptionMetadataDocument": "토큰과 사용자가 부여한 동의도 함께 삭제됩니다. 메타데이터 문서 클라이언트는 다음에 누군가를 로그인시킬 때 다시 만들어집니다. 차단하려면 대신 비활성화하세요.",
+          "deleteDescriptionDynamic": "토큰과 사용자가 부여한 동의도 함께 삭제됩니다. 동적 등록이 켜져 있는 동안 앱이 다시 등록할 수 있습니다."
+        },
+        "brandingErrors": {
+          "textTooLong": "{max}자 미만으로 입력하세요.",
+          "displayNameTooLong": "표시 이름: {max}자 미만으로 입력하세요.",
+          "taglineTooLong": "태그라인: {max}자 미만으로 입력하세요.",
+          "panelTextTooLong": "사이드 패널 텍스트: {max}자 미만으로 입력하세요.",
+          "accentColor": "강조 색상: {example} 같은 16진수 색상을 입력하세요.",
+          "logoSource": "로고 출처를 선택하세요.",
+          "logoUrl": "로고 URL: 공개 호스트의 https URL을 입력하세요(기본 포트).",
+          "logoEmpty": "로고 파일이 비어 있습니다.",
+          "logoTooLarge": "로고는 256KB 이하여야 합니다.",
+          "logoType": "로고는 PNG, JPEG, GIF, WebP, AVIF, ICO 또는 SVG 이미지여야 합니다.",
+          "panelImageEmpty": "사이드 패널 이미지가 비어 있습니다.",
+          "panelImageTooLarge": "사이드 패널 이미지는 1MB 이하여야 합니다.",
+          "panelImageType": "사이드 패널 이미지는 PNG, JPEG, WebP 또는 AVIF 이미지여야 합니다."
+        }
       },
       "apis": {
         "title": "API",
-        "description": "{name} 액세스 토큰을 받는 API(보호된 리소스): 클라이언트가 요청할 수 있는 스코프, 사용할 수 있는 애플리케이션, 토큰 설정입니다."
+        "description": "{name} 액세스 토큰을 받는 API(보호된 리소스): 클라이언트가 요청할 수 있는 스코프, 사용할 수 있는 애플리케이션, 토큰 설정입니다.",
+        "errors": {
+          "tokenSettings": {
+            "lifetimePositive": "{field, select, access {액세스 토큰 수명은 양수(분)여야 합니다.} other {리프레시 토큰 수명은 양수(일)여야 합니다.}}",
+            "lifetimeMinimum": "{field, select, access {액세스 토큰 수명은} other {리프레시 토큰 수명은}} 1분 이상이어야 합니다.",
+            "lifetimeMaximum": "{field, select, access {액세스 토큰 수명은 서버 기본값인 최대 {max}분까지 설정할 수 있습니다.} other {리프레시 토큰 수명은 서버 기본값인 최대 {max}일까지 설정할 수 있습니다.}}",
+            "claimsInvalidJson": "사용자 지정 클레임은 유효한 JSON이어야 합니다(예: {example}).",
+            "claimsNotObject": "사용자 지정 클레임은 JSON 객체여야 합니다(예: {example}).",
+            "claimsEmptyName": "사용자 지정 클레임 이름은 비워 둘 수 없습니다.",
+            "claimsReserved": "{count, plural, other {{claims}은(는) 예약된 클레임으로, 서버가 설정합니다.}} 예약됨: {reserved}.",
+            "claimsTooLarge": "사용자 지정 클레임이 너무 큽니다(최대 {kilobytes}KB). 모든 토큰에 추가됩니다."
+          },
+          "invalidScope": "\"{scope}\"은(는) 유효한 스코프가 아닙니다.",
+          "reservedScope": "\"{scope}\"은(는) OpenID Connect 스코프로, 이미 모든 클라이언트가 사용할 수 있습니다.",
+          "invalidIdentifier": "식별자는 프래그먼트가 없는 절대 URL이어야 합니다(예: {example}).",
+          "registerFailed": "API를 등록할 수 없습니다.",
+          "authServerCannotBeDisabled": "인증 서버 자체는 비활성화할 수 없습니다.",
+          "updateFailed": "API를 업데이트할 수 없습니다.",
+          "deleteFromEnv": "이 API는 {variable}에 설정되어 있어 다음 배포 때 다시 나타납니다. 대신 비활성화하세요.",
+          "deleteFailed": "API를 삭제할 수 없습니다.",
+          "authServerStaysOpen": "인증 서버는 모든 애플리케이션에 열려 있어야 합니다. 로그인이 인증 서버에 의존합니다.",
+          "accessFailed": "API를 사용할 수 있는 애플리케이션을 변경할 수 없습니다.",
+          "tokensFailed": "토큰 설정을 저장할 수 없습니다."
+        },
+        "duration": {
+          "days": "{count, plural, other {#일}}",
+          "hours": "{count}시간",
+          "minutes": "{count}분"
+        },
+        "tokenSummary": {
+          "accessToken": "액세스 토큰 {duration}",
+          "refreshToken": "리프레시 토큰 {duration}",
+          "dpopRequired": "DPoP 필수",
+          "claims": "클레임: {claims}"
+        },
+        "restrictLabel": "이 API에는 다음 스코프만 발급",
+        "restrictHint": "이 API용 토큰에는 이 스코프(및 OpenID Connect 스코프)만 포함됩니다. 끄면 클라이언트에 부여된 모든 스코프가 포함됩니다.",
+        "register": {
+          "title": "API 등록",
+          "description": "클라이언트는 <code>{param}</code> 매개변수로 이 API용 토큰을 요청합니다. 토큰의 대상(audience)은 식별자이며, API는 JWKS로 토큰을 검증합니다.",
+          "identifier": "식별자",
+          "identifierHint": "보통 API의 기본 URL입니다. 나중에 변경할 수 없습니다.",
+          "namePlaceholder": "주문 API",
+          "scopes": "스코프",
+          "scopesHint": "공백이나 쉼표로 구분합니다. 머신 클라이언트({grant})는 이 중 일부로 제한해야 합니다.",
+          "submit": "API 등록",
+          "submitting": "등록 중…",
+          "registered": "API가 등록되었습니다"
+        },
+        "list": {
+          "description": "새 스코프와 변경된 스코프는 1분 안에 인증 서버에 반영됩니다. 액세스 및 토큰 설정은 다음 토큰부터 적용됩니다.",
+          "empty": "아직 API가 없습니다.",
+          "envScopesTitle": "{variable}의 스코프",
+          "envScopesText": "호출하는 API와 관계없이 모든 클라이언트가 사용할 수 있습니다: <mono>{scopes}</mono>. 여기에서 관리하려면 해당 API에 추가한 다음 변수를 제거하세요."
+        },
+        "item": {
+          "authServer": "인증 서버",
+          "restricted": "제한됨",
+          "linkedOnly": "연결된 앱만",
+          "noResourceParam": "resource 매개변수 없이 발급된 토큰.",
+          "noScopes": "스코프 없음.",
+          "editAria": "{name} 편집",
+          "deleteAria": "{name} 삭제",
+          "applications": "애플리케이션",
+          "everyApplication": "모든 애플리케이션",
+          "onlyLinked": "{names}만",
+          "noneLinked": "연결 없음: 어떤 애플리케이션도 토큰을 받을 수 없음",
+          "change": "변경",
+          "changeAccessAria": "{name}을(를) 사용할 수 있는 애플리케이션 변경",
+          "tokens": "토큰",
+          "defaultSettings": "기본 설정",
+          "changeTokensAria": "{name}의 토큰 설정 변경"
+        },
+        "edit": {
+          "title": "{name} 편집",
+          "scopesHint": "스코프를 제거해도 이미 가진 클라이언트는 바뀌지 않지만, 새 토큰에는 포함되지 않습니다.",
+          "disabledHint": "이 API에 대한 새 토큰이 발급되지 않습니다. 이미 발급된 토큰은 만료될 때까지 작동합니다.",
+          "updated": "API가 업데이트되었습니다"
+        },
+        "access": {
+          "title": "{name}을(를) 사용할 수 있는 애플리케이션",
+          "allHint": "모든 애플리케이션이 자신의 스코프 내에서 이 API의 토큰을 받을 수 있습니다.",
+          "linkedLabel": "연결된 애플리케이션만",
+          "linkedHint": "다른 애플리케이션은 토큰을 갱신할 때를 포함해 거부됩니다({error}).",
+          "linkedTitle": "연결된 애플리케이션",
+          "filterAria": "애플리케이션 필터",
+          "filterPlaceholder": "이름 또는 클라이언트 ID로 필터",
+          "noApplications": "아직 애플리케이션이 없습니다.",
+          "noMatch": "일치하는 애플리케이션이 없습니다.",
+          "linksHintAll": "연결은 API가 연결된 애플리케이션으로 제한된 경우에만 의미가 있습니다. 연결된 애플리케이션은 이 API의 토큰을 검사(introspect)할 수도 있습니다.",
+          "linksHintLinked": "연결된 애플리케이션은 이 API의 토큰을 검사(introspect)할 수도 있습니다.",
+          "noneLinkedWarning": "연결된 애플리케이션이 없습니다. 어떤 애플리케이션도 이 API의 토큰을 받을 수 없습니다.",
+          "updated": "액세스가 업데이트되었습니다"
+        },
+        "tokens": {
+          "title": "{name}의 토큰 설정",
+          "description": "이 API용으로 발급되는 모든 액세스 토큰에 적용됩니다. 이미 발급된 토큰은 기존 설정을 유지합니다.",
+          "accessTtl": "액세스 토큰 수명(분)",
+          "accessTtlHint": "기본값: {minutes, plural, other {#분}}. 더 짧게만 설정할 수 있습니다.",
+          "refreshTtl": "리프레시 토큰 수명(일)",
+          "refreshTtlHint": "기본값: {days, plural, other {#일}}. 더 짧게만 설정할 수 있습니다.",
+          "claims": "사용자 지정 클레임",
+          "claimsHint": "이 API의 모든 액세스 토큰에 추가되는 JSON 객체입니다. 예약됨: <mono>{claims}</mono>.",
+          "dpopLabel": "DPoP 바인딩 토큰 필수",
+          "dpopHint": "클라이언트는 이 API의 토큰을 받으려면 DPoP 증명을 보내야 하며, 토큰은 클라이언트의 키에 바인딩됩니다. API는 요청마다 증명을 확인해야 합니다.",
+          "saved": "토큰 설정을 저장했습니다"
+        },
+        "delete": {
+          "title": "{name}을(를) 삭제할까요?",
+          "description": "클라이언트가 더 이상 이 API의 토큰을 받을 수 없으며, 이미 발급된 토큰도 즉시 작동을 멈춥니다. 새 토큰만 막으려면 대신 비활성화하세요.",
+          "deleted": "API를 삭제했습니다"
+        }
       },
       "signInProviders": {
         "title": "로그인 제공자",
-        "description": "Google, Apple, Microsoft 등 30개 이상의 계정으로 {name}에 로그인할 수 있게 합니다."
+        "description": "Google, Apple, Microsoft 등 30개 이상의 계정으로 {name}에 로그인할 수 있게 합니다.",
+        "panel": {
+          "copyCallback": "콜백 URL 복사",
+          "authAppFallback": "로그인 앱의 주소",
+          "environment": "환경",
+          "activeTitle": "로그인 페이지에 표시됨",
+          "activeDescription": "로그인 및 가입 페이지와 각 사용자 대시보드의 연결된 계정에 이 순서대로 표시됩니다. 변경 사항은 30초 안에 로그인 페이지에 반영됩니다.",
+          "noneActive": "켜진 제공자가 없습니다. 목록에서 하나를 골라 설정하세요.",
+          "setByEnvironment": "환경 변수로 설정됨",
+          "existingAccountsOnly": "기존 계정만",
+          "connectedAccounts": "{count, plural, other {연결된 계정 #개}}",
+          "moveUp": "{name} 위로 이동",
+          "moveDown": "{name} 아래로 이동",
+          "edit": "{name} 편집",
+          "providersTitle": "제공자",
+          "providersDescription": "Better Auth가 지원하는 모든 제공자입니다. 제공자에서 OAuth 앱을 만들고, 설정에 표시된 콜백 URL을 등록한 다음 자격 증명을 붙여넣으세요. 시크릿은 암호화되어 저장되며 다시 표시되지 않습니다.",
+          "search": "제공자 검색",
+          "noMatch": "일치하는 제공자가 없습니다.",
+          "savedOn": "{name}이(가) 켜졌습니다",
+          "saved": "{name}을(를) 저장했습니다",
+          "removed": "{name} 설정을 제거했습니다",
+          "optional": "(선택 사항)",
+          "secretSet": "설정됨",
+          "replace": "교체",
+          "removedOnSave": "저장하면 제거됩니다.",
+          "undo": "실행 취소",
+          "newValue": "새 값",
+          "environmentDescription": "환경 변수({clientIdVar} 및 {clientSecretVar})로 설정되었습니다. 그곳에서 변경하거나, 여기에서 이 제공자를 관리하려면 변수를 제거하세요.",
+          "defaultNote": "{name}에서 OAuth 앱을 만들고, 아래 콜백 URL을 등록한 다음 자격 증명을 붙여넣으세요.",
+          "callbackUrl": "콜백 URL",
+          "callbackHint": "리디렉션 URI 또는 반환 URL이라고도 합니다.",
+          "createApp": "앱 만들기",
+          "setupGuide": "설정 가이드",
+          "secretsUnreadable": "저장된 시크릿을 복호화할 수 없습니다({envVar}이(가) 변경됨). 다시 입력하세요.",
+          "buttonName": "버튼 이름",
+          "buttonNameHint": "로그인 페이지에 \"…(으)로 계속하기\"로 표시됩니다.",
+          "allowSignUp": "새 사용자의 계정 만들기",
+          "allowSignUpHint": "꺼짐: 이미 계정이 있는 사람만 이 제공자로 로그인할 수 있습니다(대시보드에서 연결했거나 같은 인증된 이메일을 사용하는 경우).",
+          "oneTap": "Google One Tap 표시",
+          "oneTapHint": "브라우저에서 이미 Google에 로그인한 사용자에게 로그인 및 가입 페이지 상단에 표시되는 Google 자체 로그인 안내입니다. 이 클라이언트 ID를 사용하므로 Google Cloud 콘솔에서 승인된 JavaScript 원본에 {origin}을(를) 추가하세요. Google이 켜져 있을 때만 작동합니다.",
+          "enabled": "로그인 페이지에 표시",
+          "enabledHint": "꺼짐: 버튼이 사라지고 이 제공자를 통한 로그인이 거부됩니다. 설정은 유지됩니다.",
+          "removeConfirm": "설정과 시크릿을 제거할까요?",
+          "removeSettings": "설정 제거"
+        },
+        "errors": {
+          "unknownProvider": "알 수 없는 제공자입니다.",
+          "envManaged": "이 제공자는 환경 변수로 설정되어 있습니다. 변수를 변경하거나, 여기에서 관리하려면 변수를 제거하세요.",
+          "invalidOption": "{field}: {options} 중에서 선택하세요.",
+          "appleKeyNotEc": "비공개 키: Apple에서 다운로드한 EC(P-256) 키(.p8)가 필요합니다.",
+          "appleKeyInvalid": "비공개 키: 유효한 PEM 비공개 키가 아닙니다. BEGIN 및 END 줄을 포함해 .p8 파일 전체를 붙여넣으세요.",
+          "issuerNotHttps": "URL은 https://로 시작해야 합니다.",
+          "salesforceDomain": "내 도메인: example.my.salesforce.com 같은 호스트 이름.",
+          "cognitoRegion": "리전: eu-west-1 같은 AWS 리전.",
+          "googleHd": "Workspace 도메인: example.com 같은 도메인.",
+          "missingFields": "켜기 전에 {fields}을(를) 입력하세요.",
+          "unusable": "이 설정은 사용할 수 없습니다."
+        },
+        "providers": {
+          "apple": {
+            "note": "Apple은 실제 도메인(localhost 불가)의 HTTPS 반환 URL이 필요하며, POST로 사용자를 돌려보냅니다.",
+            "fields": {
+              "clientId": {
+                "label": "Services ID",
+                "hint": "Sign in with Apple이 켜진 Services ID의 식별자(예: com.example.signin)."
+              },
+              "teamId": {
+                "label": "팀 ID"
+              },
+              "keyId": {
+                "label": "키 ID",
+                "hint": "Sign in with Apple이 활성화된 키."
+              },
+              "privateKey": {
+                "label": "비공개 키(.p8)",
+                "hint": "클라이언트 시크릿은 이 키로 서명한 JWT이며, 자동으로 생성되고 갱신됩니다."
+              },
+              "appBundleIdentifier": {
+                "label": "앱 번들 ID",
+                "hint": "네이티브 iOS 로그인에만 해당합니다(Services ID 대신 앱에 발급되는 ID 토큰)."
+              }
+            }
+          },
+          "atlassian": {
+            "fields": {
+              "clientId": {
+                "label": "클라이언트 ID"
+              },
+              "clientSecret": {
+                "label": "클라이언트 시크릿"
+              }
+            }
+          },
+          "cloudflare": {
+            "fields": {
+              "clientId": {
+                "label": "클라이언트 ID"
+              },
+              "clientSecret": {
+                "label": "클라이언트 시크릿",
+                "hint": "공개 클라이언트(PKCE만 사용)는 비워 두세요."
+              }
+            }
+          },
+          "cognito": {
+            "fields": {
+              "clientId": {
+                "label": "앱 클라이언트 ID"
+              },
+              "clientSecret": {
+                "label": "앱 클라이언트 시크릿",
+                "hint": "앱 클라이언트에 시크릿이 있는 경우에만."
+              },
+              "domain": {
+                "label": "Cognito 도메인"
+              },
+              "region": {
+                "label": "리전"
+              },
+              "userPoolId": {
+                "label": "사용자 풀 ID"
+              }
+            }
+          },
+          "discord": {
+            "fields": {
+              "clientId": {
+                "label": "클라이언트 ID"
+              },
+              "clientSecret": {
+                "label": "클라이언트 시크릿"
+              }
+            }
+          },
+          "dropbox": {
+            "fields": {
+              "clientId": {
+                "label": "앱 키"
+              },
+              "clientSecret": {
+                "label": "앱 시크릿"
+              }
+            }
+          },
+          "facebook": {
+            "fields": {
+              "clientId": {
+                "label": "앱 ID"
+              },
+              "clientSecret": {
+                "label": "앱 시크릿"
+              }
+            }
+          },
+          "figma": {
+            "fields": {
+              "clientId": {
+                "label": "클라이언트 ID"
+              },
+              "clientSecret": {
+                "label": "클라이언트 시크릿"
+              }
+            }
+          },
+          "github": {
+            "note": "OAuth App은 그대로 작동합니다. GitHub App은 계정 권한 Email addresses를 Read-only로 설정해야 하며, 그렇지 않으면 이메일이 없어 로그인에 실패합니다.",
+            "fields": {
+              "clientId": {
+                "label": "클라이언트 ID"
+              },
+              "clientSecret": {
+                "label": "클라이언트 시크릿"
+              }
+            }
+          },
+          "gitlab": {
+            "fields": {
+              "clientId": {
+                "label": "애플리케이션 ID"
+              },
+              "clientSecret": {
+                "label": "클라이언트 시크릿"
+              },
+              "issuer": {
+                "label": "GitLab URL",
+                "hint": "자체 관리형 GitLab용."
+              }
+            }
+          },
+          "google": {
+            "fields": {
+              "clientId": {
+                "label": "클라이언트 ID"
+              },
+              "clientSecret": {
+                "label": "클라이언트 시크릿"
+              },
+              "hd": {
+                "label": "Workspace 도메인",
+                "hint": "이 Google Workspace 도메인의 계정만 허용합니다."
+              }
+            }
+          },
+          "huggingface": {
+            "fields": {
+              "clientId": {
+                "label": "클라이언트 ID"
+              },
+              "clientSecret": {
+                "label": "클라이언트 시크릿"
+              }
+            }
+          },
+          "kakao": {
+            "fields": {
+              "clientId": {
+                "label": "REST API 키"
+              },
+              "clientSecret": {
+                "label": "클라이언트 시크릿",
+                "hint": "앱에서 클라이언트 시크릿을 켠 경우에만."
+              }
+            }
+          },
+          "kick": {
+            "fields": {
+              "clientId": {
+                "label": "클라이언트 ID"
+              },
+              "clientSecret": {
+                "label": "클라이언트 시크릿"
+              }
+            }
+          },
+          "line": {
+            "fields": {
+              "clientId": {
+                "label": "채널 ID"
+              },
+              "clientSecret": {
+                "label": "채널 시크릿"
+              }
+            }
+          },
+          "linear": {
+            "fields": {
+              "clientId": {
+                "label": "클라이언트 ID"
+              },
+              "clientSecret": {
+                "label": "클라이언트 시크릿"
+              }
+            }
+          },
+          "linkedin": {
+            "fields": {
+              "clientId": {
+                "label": "클라이언트 ID"
+              },
+              "clientSecret": {
+                "label": "클라이언트 시크릿"
+              }
+            }
+          },
+          "microsoft": {
+            "fields": {
+              "clientId": {
+                "label": "애플리케이션(클라이언트) ID"
+              },
+              "clientSecret": {
+                "label": "클라이언트 시크릿 값"
+              },
+              "tenantId": {
+                "label": "테넌트",
+                "hint": "common(모든 계정), organizations, consumers 또는 조직만 허용하려면 디렉터리(테넌트) ID."
+              }
+            }
+          },
+          "naver": {
+            "fields": {
+              "clientId": {
+                "label": "클라이언트 ID"
+              },
+              "clientSecret": {
+                "label": "클라이언트 시크릿"
+              }
+            }
+          },
+          "notion": {
+            "fields": {
+              "clientId": {
+                "label": "OAuth 클라이언트 ID"
+              },
+              "clientSecret": {
+                "label": "OAuth 클라이언트 시크릿"
+              }
+            }
+          },
+          "paybin": {
+            "fields": {
+              "clientId": {
+                "label": "클라이언트 ID"
+              },
+              "clientSecret": {
+                "label": "클라이언트 시크릿"
+              },
+              "issuer": {
+                "label": "발급자"
+              }
+            }
+          },
+          "paypal": {
+            "note": "앱에서 \"Log in with PayPal\"을 켜고 이메일 주소를 요청하세요.",
+            "fields": {
+              "clientId": {
+                "label": "클라이언트 ID"
+              },
+              "clientSecret": {
+                "label": "클라이언트 시크릿"
+              },
+              "environment": {
+                "label": "환경"
+              }
+            }
+          },
+          "polar": {
+            "fields": {
+              "clientId": {
+                "label": "클라이언트 ID"
+              },
+              "clientSecret": {
+                "label": "클라이언트 시크릿"
+              }
+            }
+          },
+          "railway": {
+            "fields": {
+              "clientId": {
+                "label": "클라이언트 ID"
+              },
+              "clientSecret": {
+                "label": "클라이언트 시크릿"
+              }
+            }
+          },
+          "reddit": {
+            "fields": {
+              "clientId": {
+                "label": "클라이언트 ID"
+              },
+              "clientSecret": {
+                "label": "클라이언트 시크릿"
+              }
+            }
+          },
+          "roblox": {
+            "fields": {
+              "clientId": {
+                "label": "클라이언트 ID"
+              },
+              "clientSecret": {
+                "label": "클라이언트 시크릿"
+              }
+            }
+          },
+          "salesforce": {
+            "fields": {
+              "clientId": {
+                "label": "소비자 키"
+              },
+              "clientSecret": {
+                "label": "소비자 시크릿"
+              },
+              "environment": {
+                "label": "환경"
+              },
+              "loginUrl": {
+                "label": "내 도메인",
+                "hint": "호스트 이름만 입력합니다. login.salesforce.com 또는 test.salesforce.com을 대체합니다."
+              }
+            }
+          },
+          "slack": {
+            "fields": {
+              "clientId": {
+                "label": "클라이언트 ID"
+              },
+              "clientSecret": {
+                "label": "클라이언트 시크릿"
+              }
+            }
+          },
+          "spotify": {
+            "fields": {
+              "clientId": {
+                "label": "클라이언트 ID"
+              },
+              "clientSecret": {
+                "label": "클라이언트 시크릿"
+              }
+            }
+          },
+          "tiktok": {
+            "fields": {
+              "clientKey": {
+                "label": "클라이언트 키"
+              },
+              "clientSecret": {
+                "label": "클라이언트 시크릿"
+              }
+            }
+          },
+          "twitch": {
+            "fields": {
+              "clientId": {
+                "label": "클라이언트 ID"
+              },
+              "clientSecret": {
+                "label": "클라이언트 시크릿"
+              }
+            }
+          },
+          "twitter": {
+            "note": "API 키가 아닌 OAuth 2.0 자격 증명을 사용하고, 앱 설정에서 이메일 접근 권한을 요청하세요.",
+            "fields": {
+              "clientId": {
+                "label": "OAuth 2.0 클라이언트 ID"
+              },
+              "clientSecret": {
+                "label": "OAuth 2.0 클라이언트 시크릿"
+              }
+            }
+          },
+          "vercel": {
+            "fields": {
+              "clientId": {
+                "label": "클라이언트 ID"
+              },
+              "clientSecret": {
+                "label": "클라이언트 시크릿"
+              }
+            }
+          },
+          "vk": {
+            "fields": {
+              "clientId": {
+                "label": "앱 ID"
+              },
+              "clientSecret": {
+                "label": "보호된 키"
+              }
+            }
+          },
+          "wechat": {
+            "note": "웹사이트 애플리케이션(QR 코드 로그인). WeChat은 이메일 주소를 반환하지 않습니다.",
+            "fields": {
+              "clientId": {
+                "label": "AppID"
+              },
+              "clientSecret": {
+                "label": "AppSecret"
+              }
+            }
+          },
+          "zoom": {
+            "fields": {
+              "clientId": {
+                "label": "클라이언트 ID"
+              },
+              "clientSecret": {
+                "label": "클라이언트 시크릿"
+              }
+            }
+          }
+        }
       },
       "apiKeys": {
         "title": "API 키",
-        "description": "사용자가 스크립트에서 API를 호출하려고 만드는 키: 기능 켜기/끄기, 최대 유효 기간 설정, 모든 키 폐기."
+        "description": "사용자가 스크립트에서 API를 호출하려고 만드는 키: 기능 켜기/끄기, 최대 유효 기간 설정, 모든 키 폐기.",
+        "allKeys": {
+          "title": "모든 키",
+          "description": "최신순{truncated, select, true {, 최근 {limit}개} other {}}. 만료된 키는 다음에 키가 사용되거나 만들어질 때 삭제됩니다. 계정을 차단하거나 삭제하면 해당 키가 폐기되고, 조직을 삭제하면 조직의 키가 삭제됩니다(조직 소유 키는 키를 만든 멤버가 떠나도 유지됩니다)."
+        },
+        "settings": {
+          "description": "사용자는 계정 페이지에서 API 하나와 그 스코프 일부에 대한 키를 만듭니다. API는 각 키를 이 서버에서 확인합니다. 키로는 이 서버나 관리 콘솔에 로그인할 수 없습니다.",
+          "statusOn": "켜짐: 사용자가 키를 만들 수 있음",
+          "statusOff": "꺼짐: 새 키를 만들 수 없고 모든 키가 거부됨",
+          "maxLifetime": "최대 유효 기간",
+          "maxLifetimeValue": "{count, plural, other {#일}}",
+          "apisAccepting": "키를 허용하는 API",
+          "apisNone": "없음: 모든 애플리케이션에 열려 있는, 스코프가 있는 API를 등록하세요",
+          "verifyEndpoint": "확인 엔드포인트: <code>{endpoint}</code>. API는 여기에 등록되고 해당 API에 연결된 애플리케이션으로 인증합니다(API 페이지, 액세스). 연결된 애플리케이션으로 제한된 API는 키를 허용하지 않습니다."
+        },
+        "dialog": {
+          "description": "키는 오래 유지되므로 짧은 유효 기간을 권장합니다. 최대값을 낮추면 새 키에만 적용됩니다.",
+          "allowLabel": "API 키 허용",
+          "allowHint": "꺼짐: 누구도 키를 만들 수 없고 기존 키는 모두 확인 단계에서 거부됩니다. 키는 유지되며 다시 켜면 다시 작동합니다.",
+          "maxLifetimeLabel": "최대 유효 기간(일)",
+          "maxLifetimeHint": "1~{max}. 모든 키는 만료됩니다.",
+          "saved": "설정을 저장했습니다. 인증 서버가 1분 안에 적용합니다."
+        },
+        "table": {
+          "empty": "API 키가 없습니다.",
+          "key": "키",
+          "owner": "소유자",
+          "api": "API",
+          "scopes": "스코프",
+          "lastUsed": "마지막 사용",
+          "expires": "만료",
+          "createdBy": "만든 사람: {email}",
+          "org": "조직",
+          "removedApi": "삭제된 API",
+          "expired": "만료됨",
+          "revoke": "폐기",
+          "revoked": "API 키를 폐기했습니다",
+          "revokeTitle": "{name}을(를) 폐기할까요?",
+          "revokeOrgDescription": "조직 {owner}의 이 키는 즉시 작동을 멈춥니다. API 키가 켜져 있으면 조직의 소유자와 관리자가 새 키를 만들 수 있습니다.",
+          "revokeUserDescription": "{owner}의 키는 즉시 작동을 멈춥니다. API 키가 켜져 있으면 새 키를 만들 수 있습니다."
+        },
+        "errors": {
+          "chooseEnabled": "API 키를 켤지 선택하세요.",
+          "maxLifetimeRange": "최대 유효 기간은 1~{max}일 사이의 정수여야 합니다.",
+          "saveFailed": "설정을 저장하지 못했습니다.",
+          "noKey": "키가 지정되지 않았습니다.",
+          "keyGone": "이 키는 더 이상 존재하지 않습니다."
+        }
       },
       "webhooks": {
         "title": "웹훅",
         "description": "{name}의 사용자, 역할, 조직 멤버십이 바뀔 때 앱에 알려 주는 서명된 HTTPS 알림입니다.",
-        "deliveries": "전송 기록"
+        "deliveries": "전송 기록",
+        "eventDescriptions": {
+          "user_created": "계정이 만들어짐(가입, 관리자, SSO, SCIM).",
+          "user_updated": "이름, 이메일, 이메일 인증, 사용자 이름 또는 사진이 변경됨.",
+          "user_deleted": "계정이 삭제됨.",
+          "user_banned": "계정이 차단되거나 SCIM으로 비활성화됨.",
+          "user_unbanned": "차단이 해제되거나 SCIM이 계정을 다시 활성화함.",
+          "user_role_changed": "계정의 플랫폼 역할이 변경됨.",
+          "organization_member_added": "누군가 조직에 참여함.",
+          "organization_member_removed": "누군가 조직을 떠나거나 조직에서 제거됨.",
+          "organization_member_role_changed": "조직 내 멤버의 역할이 변경됨."
+        },
+        "panel": {
+          "events": "이벤트",
+          "clear": "지우기",
+          "selectAll": "모두 선택",
+          "signingSecret": "서명 시크릿",
+          "secretCopied": "시크릿을 복사했습니다",
+          "copySecret": "시크릿 복사",
+          "url": "URL",
+          "add": {
+            "title": "엔드포인트 추가",
+            "description": "선택한 이벤트가 발생하면 Ostiary가 이 URL로 서명된 JSON 이벤트를 POST하며, 실패하면 약 하루 동안 재시도합니다.",
+            "urlHint": "공개 주소의 HTTPS.",
+            "urlHintLocalhost": "공개 주소의 HTTPS. {url}도 허용됩니다({envVar}, 개발 환경 전용).",
+            "descriptionPlaceholder": "결제 앱: 사용자 동기화",
+            "adding": "추가 중…",
+            "submit": "엔드포인트 추가"
+          },
+          "list": {
+            "title": "엔드포인트",
+            "description": "모든 요청에는 <code>{id}</code>, <code>{timestamp}</code>, <code>{signature}</code> 헤더가 포함됩니다(Standard Webhooks). {count, plural, other {#회}} 연속으로 실패한 엔드포인트는 비활성화됩니다.",
+            "empty": "아직 엔드포인트가 없습니다."
+          },
+          "created": {
+            "title": "엔드포인트를 추가했습니다",
+            "description": "서명 시크릿을 {url}의 앱에 복사하세요. 앱은 이 시크릿으로 각 전송을 검증합니다. 다시 표시되지 않습니다."
+          },
+          "test": {
+            "delivered": "테스트 이벤트를 전송했습니다(HTTP {status})",
+            "failed": "테스트 이벤트 실패: {reason}"
+          },
+          "item": {
+            "disabledFailures": "반복된 실패로 비활성화됨",
+            "rotating": "시크릿 교체 중",
+            "editLabel": "{label} 편집",
+            "deleteLabel": "{label} 삭제",
+            "disabledNotice": "{count, plural, other {#회}} 연속 실패로 비활성화되었습니다. 수신 측을 수정한 다음 다시 켜세요. 대기 중인 이벤트가 다시 전송됩니다.",
+            "disabledNoticeOn": "{date}에 {count, plural, other {#회}} 연속 실패로 비활성화되었습니다. 수신 측을 수정한 다음 다시 켜세요. 대기 중인 이벤트가 다시 전송됩니다.",
+            "lastSuccess": "마지막 성공",
+            "lastFailure": "마지막 실패",
+            "inARow": "({count}회 연속)",
+            "deliveries": "전송",
+            "deliveriesValue": "대기 또는 재시도 중 {pending}건 · 실패 {failed}건",
+            "sendTest": "테스트 이벤트 보내기",
+            "deliveryLog": "전송 기록",
+            "regenerateSecret": "시크릿 다시 생성"
+          },
+          "edit": {
+            "title": "엔드포인트 편집",
+            "enabledHint": "비활성화된 동안에는 이 엔드포인트에 새 이벤트가 기록되지 않고 재시도가 대기합니다.",
+            "updated": "엔드포인트가 업데이트되었습니다"
+          },
+          "rotate": {
+            "title": "서명 시크릿을 다시 생성할까요?",
+            "description": "24시간 동안 전송은 이전 시크릿과 새 시크릿 모두로 서명되므로, 앱이 이벤트를 놓치지 않고 전환할 수 있습니다.",
+            "newTitle": "새 서명 시크릿",
+            "newDescription": "지금 앱에 복사하세요. 다시 표시되지 않습니다. 앞으로 24시간 동안 전송에는 이전 시크릿으로 만든 서명도 포함됩니다.",
+            "confirm": "다시 생성"
+          },
+          "delete": {
+            "title": "이 엔드포인트를 삭제할까요?",
+            "description": "{url}은(는) 더 이상 이벤트를 받지 않으며, 전송 기록과 대기 중인 재시도가 삭제됩니다. 일시 중지하려면 대신 비활성화하세요.",
+            "deleted": "엔드포인트를 삭제했습니다"
+          }
+        },
+        "redeliver": {
+          "button": "다시 전송",
+          "delivered": "전송됨(HTTP {status})",
+          "failed": "실패: {reason}"
+        },
+        "log": {
+          "status": {
+            "succeeded": "전송됨",
+            "failed": "실패",
+            "pending": "대기 중"
+          },
+          "disabled": "비활성화됨: 다시 켤 때까지 재시도가 대기합니다.",
+          "empty": "아직 전송 기록이 없습니다. 웹훅 페이지에서 “테스트 이벤트 보내기”로 엔드포인트를 시험해 보세요.",
+          "event": "이벤트",
+          "response": "응답",
+          "attempts": "시도",
+          "nextRetry": "다음 재시도",
+          "answer": "응답 내용",
+          "error": "오류",
+          "footer": "최근 {shown}건의 전송입니다. 전송 기록은 {days, plural, other {#일}} 동안 보관됩니다. 실패한 전송은 약 하루 동안 {retries, plural, other {#회}} 재시도됩니다. “다시 전송”은 같은 이벤트(같은 {header})를 지금 다시 보냅니다."
+        },
+        "errors": {
+          "noEvents": "이벤트를 하나 이상 선택하세요.",
+          "tooMany": "엔드포인트는 최대 {max}개입니다.",
+          "endpointNotFound": "엔드포인트를 찾을 수 없습니다.",
+          "disabledTest": "엔드포인트가 비활성화되어 있습니다. 테스트 이벤트를 보내려면 켜세요.",
+          "testNotSent": "테스트 이벤트를 보낼 수 없습니다.",
+          "deliveryNotFound": "전송 기록을 찾을 수 없습니다.",
+          "disabledRedeliver": "엔드포인트가 비활성화되어 있습니다. 다시 전송하려면 켜세요.",
+          "eventNotSent": "이벤트를 보낼 수 없습니다."
+        }
       },
       "users": {
-        "title": "Users",
-        "description": "Find accounts, change roles, ban or remove them, and open an account to see its sessions and activity."
+        "title": "사용자",
+        "description": "계정을 찾고, 역할을 변경하고, 차단하거나 삭제하세요. 계정을 열면 세션과 활동을 볼 수 있습니다.",
+        "list": {
+          "searchPlaceholder": "이름 또는 이메일로 검색…",
+          "searchLabel": "사용자 검색",
+          "rolePlaceholder": "역할",
+          "roleAll": "모든 역할",
+          "roleAdmin": "관리자",
+          "roleUser": "사용자",
+          "loadErrorTitle": "사용자를 불러올 수 없음",
+          "loadErrorFallback": "사용자를 불러오지 못했습니다",
+          "columns": {
+            "user": "사용자",
+            "role": "역할",
+            "status": "상태",
+            "verified": "인증됨",
+            "joined": "가입일"
+          },
+          "loading": "사용자를 불러오는 중…",
+          "empty": "필터와 일치하는 사용자가 없습니다.",
+          "noUsers": "사용자 0명",
+          "showing": "{total}명 중 {from}-{to}",
+          "rowsPerPage": "페이지당 행 수",
+          "previous": "이전",
+          "next": "다음",
+          "pageOf": "{page} / {pages} 페이지",
+          "poweredBy": "<link>Better Auth 관리자 플러그인</link>의 <code>listUsers</code>, <code>createUser</code>, <code>setRole</code>, <code>updateUser</code>, <code>setUserPassword</code> 및 관련 메서드를 사용합니다. 관리자로 로그인해야 합니다."
+        },
+        "status": {
+          "banned": "차단됨",
+          "active": "활성"
+        },
+        "create": {
+          "trigger": "사용자 추가",
+          "title": "사용자 추가",
+          "description": "<code>createUser</code>로 계정을 만듭니다.",
+          "email": "이메일",
+          "password": "비밀번호",
+          "name": "이름",
+          "role": "역할",
+          "error": "사용자를 만들 수 없습니다",
+          "created": "사용자를 만들었습니다",
+          "submit": "사용자 만들기",
+          "creating": "만드는 중…"
+        },
+        "rowActions": {
+          "menuLabel": "{name} 작업",
+          "copyId": "사용자 ID 복사",
+          "idCopied": "사용자 ID를 복사했습니다",
+          "edit": "사용자 편집",
+          "setPassword": "비밀번호 설정",
+          "makeAdmin": "관리자로 지정",
+          "makeUser": "일반 사용자로 지정",
+          "ban": "사용자 차단",
+          "unban": "차단 해제",
+          "remove": "사용자 삭제",
+          "roleError": "역할을 업데이트할 수 없습니다",
+          "roleSet": "역할을 {role}(으)로 설정했습니다",
+          "unbanError": "사용자 차단을 해제할 수 없습니다",
+          "unbanned": "사용자 차단을 해제했습니다",
+          "banError": "사용자를 차단할 수 없습니다",
+          "banned": "사용자를 차단했습니다",
+          "removeError": "사용자를 삭제할 수 없습니다",
+          "removed": "사용자를 삭제했습니다",
+          "emailRequired": "이메일은 필수입니다",
+          "noChanges": "저장할 변경 사항이 없습니다",
+          "updateError": "사용자를 업데이트할 수 없습니다",
+          "updated": "사용자가 업데이트되었습니다",
+          "passwordRequired": "새 비밀번호를 입력하세요.",
+          "passwordMismatch": "비밀번호가 일치하지 않습니다.",
+          "passwordError": "비밀번호를 설정할 수 없습니다",
+          "passwordUpdated": "비밀번호가 업데이트되었습니다",
+          "editTitle": "사용자 편집",
+          "editDescription": "이름이나 이메일 주소를 변경합니다. 새 이메일 주소는 사용자가 인증해야 다시 로그인할 수 있습니다.",
+          "name": "이름",
+          "email": "이메일",
+          "passwordTitle": "비밀번호 설정",
+          "passwordDescription": "<code>setUserPassword</code>를 사용해 <strong>{email}</strong>의 새 비밀번호를 설정합니다.",
+          "newPassword": "새 비밀번호",
+          "confirmPassword": "비밀번호 확인",
+          "updatePassword": "비밀번호 업데이트",
+          "removeTitle": "사용자를 삭제할까요?",
+          "removeDescription": "<strong>{name}</strong>({email})과(와) 계정에 연결된 모든 항목이 영구적으로 삭제됩니다. 감사 로그 항목은 이름과 이메일 없이 유지됩니다. 이 작업은 되돌릴 수 없습니다.",
+          "removeConfirm": "삭제",
+          "removing": "삭제 중…"
+        },
+        "detailActions": {
+          "impersonateError": "이 사용자로 대리 로그인할 수 없습니다.",
+          "signOutError": "이 사용자를 로그아웃시킬 수 없습니다.",
+          "signedOut": "{count, plural, other {세션 #개}}에서 로그아웃했습니다",
+          "exportError": "이 사용자의 데이터를 내보낼 수 없습니다.",
+          "exported": "데이터를 내보냈습니다. 내보내기는 감사 로그에 기록됩니다.",
+          "exportData": "데이터 내보내기",
+          "impersonate": "대리 로그인",
+          "signOutEverywhere": "모든 기기에서 로그아웃",
+          "impersonateTitle": "{email}(으)로 로그인할까요?",
+          "signOutTitle": "{email}을(를) 모든 기기에서 로그아웃시킬까요?",
+          "impersonateDescription": "최대 1시간 동안 이 사용자가 보는 그대로 계정 대시보드를 보게 됩니다. 화면의 배너에서 중지하고 돌아올 수 있습니다. 이 작업은 감사 로그에 기록됩니다.",
+          "signOutDescription": "이 사용자의 모든 기기의 모든 세션이 지금 종료됩니다. 다시 로그인해야 합니다.",
+          "sessionRevoked": "세션을 폐기했습니다",
+          "revokeError": "이 세션을 폐기할 수 없습니다.",
+          "revoke": "폐기",
+          "resetTwoFactorError": "2단계 인증을 초기화할 수 없습니다.",
+          "twoFactorReset": "2단계 인증을 껐습니다",
+          "reset": "초기화",
+          "resetTwoFactorTitle": "{email}의 2단계 인증을 초기화할까요?",
+          "resetTwoFactorDescription": "인증 앱, 백업 코드, 신뢰할 수 있는 기기가 작동을 멈추며, 다시 설정할 때까지 비밀번호만으로 로그인합니다. 요청한 사람의 신원을 확인한 후에만 진행하세요. 이 작업은 감사 로그에 기록됩니다."
+        },
+        "detail": {
+          "emailVerified": "이메일 인증됨",
+          "emailNotVerified": "이메일 인증 안 됨",
+          "banned": "차단됨",
+          "bannedWithReason": "차단됨: {reason}",
+          "scimTitle": "SCIM으로 프로비저닝됨: {organizations}",
+          "scimDescription": "ID 제공자가 이 계정을 관리합니다. 사용자는 그곳에서 제거하세요. 여기에서 계정을 삭제해도 디렉터리가 다음 동기화 때 다시 만듭니다. 사용자는 대시보드에서 계정을 삭제할 수 없습니다.",
+          "tiles": {
+            "joined": "가입일",
+            "activeSessions": "활성 세션",
+            "passkeys": "패스키",
+            "twoFactor": "2단계 인증"
+          },
+          "device": {
+            "unknown": "알 수 없는 기기",
+            "browser": "브라우저",
+            "browserOnOs": "{os}의 {browser}"
+          },
+          "sessions": {
+            "title": "활성 세션",
+            "description": "이 계정이 로그인된 기기.",
+            "empty": "활성 세션이 없습니다.",
+            "device": "기기",
+            "ipAddress": "IP 주소",
+            "lastActive": "마지막 활동",
+            "impersonated": "대리 로그인"
+          },
+          "apiKeys": {
+            "title": "API 키",
+            "description": "이 계정이 스크립트용으로 만든 키. 계정을 차단하거나 삭제하면 폐기됩니다."
+          },
+          "signInMethods": {
+            "title": "로그인 방법",
+            "credential": "이메일 및 비밀번호",
+            "sso": "SSO: {provider}",
+            "passkey": "패스키: {name} <muted>({deviceType})</muted>",
+            "unnamed": "이름 없음",
+            "empty": "로그인 방법이 없습니다.",
+            "twoFactor": "2단계 인증 <muted>(인증 앱)</muted>",
+            "managedByYou": "내 계정에서 관리"
+          },
+          "organizations": {
+            "title": "조직",
+            "empty": "어떤 조직의 멤버도 아닙니다."
+          },
+          "activity": {
+            "title": "최근 로그인 활동",
+            "empty": "아직 기록된 활동이 없습니다.",
+            "events": {
+              "sign_in": "로그인",
+              "sign_up": "계정 만듦",
+              "sign_out": "로그아웃",
+              "sign_in_failed": "로그인 실패"
+            }
+          },
+          "audit": {
+            "title": "이 계정에 대한 관리 작업",
+            "empty": "아직 관리 작업이 없습니다.",
+            "by": "수행자: {actor}",
+            "system": "시스템"
+          }
+        }
       },
       "consent": {
-        "title": "Consent",
-        "description": "Permissions people have granted to OAuth clients, with the scopes and when they were given."
+        "title": "동의",
+        "description": "사용자가 OAuth 클라이언트에 부여한 권한과 스코프, 부여 시점.",
+        "panel": {
+          "signedInUser": "로그인한 사용자",
+          "loadConsentsFailed": "동의를 불러오지 못했습니다",
+          "loadClientsFailed": "OAuth 클라이언트를 불러오지 못했습니다",
+          "loadErrorTitle": "동의를 불러올 수 없음",
+          "searchPlaceholder": "사용자, 클라이언트, 동의 ID, 참조 또는 스코프로 검색…",
+          "searchLabel": "동의 검색",
+          "filter": {
+            "placeholder": "스코프 필터",
+            "all": "모든 동의",
+            "hasScope": "{scope} 포함"
+          },
+          "columns": {
+            "user": "사용자",
+            "application": "애플리케이션",
+            "scopes": "스코프",
+            "reference": "참조",
+            "granted": "부여일",
+            "updated": "업데이트일"
+          },
+          "loading": "동의를 불러오는 중…",
+          "emptyNone": "이 계정에 기록된 동의가 아직 없습니다.",
+          "emptyFiltered": "필터와 일치하는 동의가 없습니다.",
+          "noResults": "동의 0건",
+          "showing": "{total}건 중 {from}-{to}",
+          "rowsPerPage": "페이지당 행 수",
+          "previous": "이전",
+          "next": "다음",
+          "pageOf": "{page} / {total} 페이지",
+          "footnote": "데이터 출처: <code>{getConsents}</code>. 클라이언트 이름은 <code>{getClients}</code>로 확인합니다. 폐기는 <code>{deleteConsent}</code>를 사용합니다. <providerLink>OAuth 제공자</providerLink> 문서의 <consentLink>OAuth 동의</consentLink>를 참고하세요. 대화형 승인 UI는 <code>{path}</code>에 있습니다."
+        },
+        "rowActions": {
+          "menuLabel": "동의 {id}… 작업",
+          "copyConsentId": "동의 ID 복사",
+          "consentIdCopied": "동의 ID를 복사했습니다",
+          "copyClientId": "클라이언트 ID 복사",
+          "clientIdCopied": "클라이언트 ID를 복사했습니다",
+          "viewDetails": "세부 정보 보기",
+          "updateScopes": "스코프 업데이트",
+          "wireTo": "{method}에 연결",
+          "revoke": "동의 폐기",
+          "revokeFailed": "동의를 폐기할 수 없습니다",
+          "revoked": "동의를 폐기했습니다",
+          "dialogTitle": "동의를 폐기할까요?",
+          "dialogDescription": "<strong>{client}</strong>(<code>{clientId}</code>)에 대한 이 사용자의 권한 부여를 제거합니다. 클라이언트가 다시 승인을 요청해야 할 수 있습니다.",
+          "revoking": "폐기 중…",
+          "revokeButton": "폐기"
+        }
       },
       "usage": {
         "title": "앱 사용량",
-        "description": "어떤 애플리케이션이 사용되는지: 최근 30일 동안 애플리케이션별 액세스 토큰, 사용자, 동의."
+        "description": "어떤 애플리케이션이 사용되는지: 최근 30일 동안 애플리케이션별 액세스 토큰, 사용자, 동의.",
+        "tiles": {
+          "tokens": "발급된 토큰(30일)",
+          "active": "사용 중인 애플리케이션",
+          "unused": "사용되지 않는 애플리케이션"
+        },
+        "card": {
+          "title": "애플리케이션별 액세스 토큰(최근 30일)",
+          "unused": "{count, plural, other {활성 애플리케이션 #개가 30일 동안 토큰을 발급하지 않았습니다. 비활성화하거나 삭제하는 것을 고려하세요.}}",
+          "allUsed": "모든 활성 애플리케이션이 최근 30일 동안 토큰을 발급했습니다.",
+          "empty": "등록된 OAuth 클라이언트가 없습니다.",
+          "application": "애플리케이션",
+          "tokens": "토큰",
+          "users": "사용자",
+          "consents": "동의",
+          "lastToken": "마지막 토큰",
+          "lastTokenValue": "마지막 토큰: {date}",
+          "showInApplications": "애플리케이션에서 보기",
+          "unusedBadge": "미사용"
+        }
       },
       "audit": {
-        "title": "Audit log",
-        "description": "Every change made from this console or the admin API: who did it, to what, and when.",
-        "footnote": "Showing the latest 200 entries. Passwords and secrets are never recorded."
+        "title": "감사 로그",
+        "description": "이 콘솔이나 관리 API에서 이루어진 모든 변경: 누가, 무엇을, 언제 했는지.",
+        "footnote": "최근 200개 항목을 표시합니다. 비밀번호와 비밀 값은 기록되지 않습니다.",
+        "filterLabel": "영역별 필터",
+        "filters": {
+          "all": "전체",
+          "user": "사용자",
+          "organization": "조직",
+          "oauth_client": "OAuth 클라이언트",
+          "oauth_consent": "동의",
+          "oauth_resource": "API",
+          "api_key": "API 키",
+          "sso_provider": "SSO",
+          "signing_key": "서명 키",
+          "webhook": "웹훅",
+          "social_provider": "로그인 제공자"
+        },
+        "empty": "아직 기록된 관리 작업이 없습니다.",
+        "columns": {
+          "when": "시간",
+          "who": "사용자",
+          "action": "작업",
+          "target": "대상",
+          "details": "세부 정보",
+          "ip": "IP"
+        },
+        "system": "시스템",
+        "actions": {
+          "user": {
+            "create": "사용자 생성",
+            "update": "사용자 업데이트",
+            "set_role": "역할 변경",
+            "set_password": "비밀번호 설정",
+            "ban": "사용자 차단",
+            "unban": "사용자 차단 해제",
+            "delete": "사용자 삭제",
+            "revoke_session": "세션 폐기",
+            "revoke_all_sessions": "사용자를 모든 기기에서 로그아웃",
+            "impersonate": "사용자로 대리 로그인",
+            "reset_two_factor": "2단계 인증 초기화",
+            "export_data": "계정 데이터 내보내기",
+            "self_delete": "본인 계정 삭제"
+          },
+          "oauth_client": {
+            "create": "OAuth 클라이언트 등록",
+            "update": "OAuth 클라이언트 업데이트",
+            "delete": "OAuth 클라이언트 삭제",
+            "rotate_secret": "클라이언트 시크릿 교체",
+            "self_register": "클라이언트 자체 등록",
+            "disable": "OAuth 클라이언트 비활성화",
+            "enable": "OAuth 클라이언트 활성화",
+            "branding_update": "로그인 브랜딩 변경",
+            "branding_reset": "로그인 브랜딩 초기화"
+          },
+          "client_registration": {
+            "update": "클라이언트 자체 등록 설정 변경"
+          },
+          "oauth_resource": {
+            "create": "API 등록",
+            "update": "API 업데이트",
+            "delete": "API 삭제",
+            "access": "API 액세스 변경",
+            "tokens": "API 토큰 설정 변경"
+          },
+          "api_key": {
+            "create": "API 키 생성",
+            "revoke": "API 키 폐기",
+            "revoke_all": "모든 API 키 폐기",
+            "settings": "API 키 설정 변경"
+          },
+          "oauth_consent": {
+            "update": "동의 업데이트",
+            "delete": "동의 폐기"
+          },
+          "oauth_device": {
+            "approve": "기기 로그인 승인",
+            "deny": "기기 로그인 거부"
+          },
+          "organization": {
+            "create": "조직 생성",
+            "update": "조직 이름 변경",
+            "delete": "조직 삭제",
+            "invite": "멤버 초대",
+            "cancel_invitation": "초대 취소",
+            "update_member_role": "멤버 역할 변경",
+            "remove_member": "멤버 제거"
+          },
+          "sso_provider": {
+            "create": "SSO 제공자 등록",
+            "update": "SSO 제공자 업데이트",
+            "delete": "SSO 제공자 삭제",
+            "verify_domain": "SSO 도메인 확인"
+          },
+          "social_provider": {
+            "create": "로그인 제공자 설정",
+            "update": "로그인 제공자 업데이트",
+            "delete": "로그인 제공자 제거",
+            "reorder": "로그인 제공자 순서 변경"
+          },
+          "scim": {
+            "token_create": "SCIM 토큰 생성",
+            "token_rotate": "SCIM 토큰 교체",
+            "token_revoke": "SCIM 토큰 폐기"
+          },
+          "signing_key": {
+            "rotate": "서명 키 교체",
+            "update_settings": "서명 키 교체 설정 변경"
+          },
+          "webhook": {
+            "create": "웹훅 엔드포인트 추가",
+            "update": "웹훅 엔드포인트 업데이트",
+            "enable": "웹훅 엔드포인트 활성화",
+            "disable": "웹훅 엔드포인트 비활성화",
+            "delete": "웹훅 엔드포인트 삭제",
+            "rotate_secret": "웹훅 시크릿 다시 생성",
+            "test": "웹훅 테스트 이벤트 전송",
+            "redeliver": "웹훅 이벤트 다시 전송"
+          }
+        }
       },
       "security": {
-        "title": "Security",
-        "description": "Failed sign-in attempts, the accounts and addresses behind them, and banned accounts."
+        "title": "보안",
+        "description": "실패한 로그인 시도, 해당 계정과 주소, 차단된 계정.",
+        "tiles": {
+          "failed24h": "로그인 실패(24시간)",
+          "failed7d": "로그인 실패(7일)",
+          "banned": "차단된 계정"
+        },
+        "chart": {
+          "failed": "로그인 실패"
+        },
+        "perDay": {
+          "title": "일별 로그인 실패",
+          "description": "최근 30일 동안 잘못된 비밀번호 또는 알 수 없는 계정(총 {total, number}건). 2026년 10월 6일부터 집계됩니다."
+        },
+        "noFailures": "최근 7일 동안 로그인 실패가 없습니다.",
+        "attempts": "시도",
+        "topAccounts": {
+          "title": "가장 많이 노려진 계정(7일)",
+          "description": "계정 존재 여부와 관계없이 시도된 이메일 또는 사용자 이름.",
+          "identifier": "이메일 또는 사용자 이름",
+          "last": "마지막"
+        },
+        "topIps": {
+          "title": "가장 활발한 IP 주소(7일)",
+          "description": "한 주소에서 여러 계정을 시도하면 대개 크리덴셜 스터핑입니다.",
+          "ip": "IP 주소",
+          "accounts": "시도된 계정"
+        },
+        "banned": {
+          "title": "차단된 계정",
+          "empty": "차단된 계정이 없습니다.",
+          "noReason": "사유 없음",
+          "until": "{date}까지",
+          "permanent": "영구"
+        }
       },
       "signingKeys": {
         "title": "서명 키",
@@ -380,88 +1812,236 @@
           "save": "설정을 저장하지 못했습니다.",
           "rotate": "키를 교체하지 못했습니다."
         }
+      },
+      "organizations": {
+        "controls": {
+          "unexpectedError": "문제가 발생했습니다.",
+          "organizationUpdated": "조직이 업데이트되었습니다",
+          "slug": "슬러그",
+          "role": "역할",
+          "roleUpdated": "역할이 업데이트되었습니다",
+          "roles": {
+            "owner": "소유자",
+            "admin": "관리자",
+            "member": "멤버"
+          },
+          "removeMemberLabel": "{email} 제거",
+          "removeMemberTitle": "{email}을(를) 제거할까요?",
+          "removeMemberBody": "이 조직에 대한 접근 권한을 잃습니다. 계정은 유지됩니다.",
+          "memberRemoved": "멤버를 제거했습니다",
+          "cancelInvitationLabel": "{email} 초대 취소",
+          "cancelInvitationTitle": "{email}에 대한 초대를 취소할까요?",
+          "cancelInvitationBody": "이메일의 링크가 더 이상 작동하지 않습니다.",
+          "cancelInvitation": "초대 취소",
+          "invitationCancelled": "초대를 취소했습니다",
+          "invitationSent": "초대를 보냈습니다",
+          "inviteByEmail": "이메일로 초대",
+          "sendInvitation": "초대 보내기"
+        },
+        "scim": {
+          "unexpectedError": "문제가 발생했습니다.",
+          "tokenRevoked": "토큰을 폐기했습니다",
+          "baseUrl": "기본 URL",
+          "copyBaseUrl": "기본 URL 복사",
+          "token": "토큰",
+          "copyToken": "토큰 복사",
+          "active": "활성",
+          "expires": "만료",
+          "lastUsed": "마지막 사용",
+          "noToken": "활성 토큰이 없습니다. 토큰을 생성해야 ID 제공자가 프로비저닝할 수 있습니다.",
+          "newToken": "새 토큰",
+          "revoke": "폐기",
+          "generateToken": "토큰 생성",
+          "rotateTitle": "SCIM 토큰을 교체할까요?",
+          "revokeTitle": "SCIM 토큰을 폐기할까요?",
+          "rotateBody": "현재 토큰은 지금 작동을 멈춥니다. 프로비저닝을 계속하려면 새 토큰을 ID 제공자에 붙여넣으세요.",
+          "revokeBody": "ID 제공자가 더 이상 계정을 만들거나 업데이트하거나 비활성화할 수 없습니다. 기존 계정은 변경되지 않습니다.",
+          "replaceToken": "토큰 교체",
+          "revokeToken": "토큰 폐기",
+          "issuedTitle": "SCIM 토큰",
+          "issuedDescription": "지금 복사하세요. 다시 표시되지 않습니다. 1년 후에 만료됩니다.",
+          "tokenHint": "Bearer 토큰으로 붙여넣으세요(Okta: API token, Entra ID: Secret token)."
+        },
+        "detail": {
+          "back": "조직",
+          "defaultWorkspace": "기본 워크스페이스",
+          "createdAt": "생성일: {date}",
+          "members": "멤버",
+          "publicMembers": "모든 계정이 Public 워크스페이스에 속하므로 여기에서 멤버를 제거할 수 없습니다. 처음 50명을 표시합니다.",
+          "memberCount": "{count, plural, other {멤버 #명}}.",
+          "noMembers": "아직 멤버가 없습니다.",
+          "member": "멤버",
+          "joined": "가입일",
+          "role": "역할",
+          "deactivated": "비활성화됨",
+          "banned": "차단됨",
+          "invitationExpires": "{date} 만료",
+          "noInvitations": "대기 중인 초대가 없습니다.",
+          "apiKeys": "API 키",
+          "apiKeysDescription": "이 조직이 소유한 키로, 조직의 소유자와 관리자가 계정 대시보드에서 만듭니다. 키를 만든 멤버가 떠나도 계속 작동하며, 조직과 함께 삭제됩니다.",
+          "details": "세부 정보",
+          "sso": "싱글 사인온",
+          "ssoDescription": "이 조직에 연결된 ID 제공자.",
+          "ssoNone": "없음. <link>설정하기</link>.",
+          "verified": "확인됨",
+          "unverified": "확인되지 않음",
+          "scim": "SCIM 프로비저닝",
+          "scimDescription": "ID 제공자(Okta, Entra ID 등)가 이 조직의 계정을 만들고, 사람들이 떠나면 비활성화합니다.",
+          "scimCounts": "프로비저닝됨 {active}개, 비활성화됨 {inactive}개.",
+          "recentActions": "최근 관리 작업",
+          "noActions": "아직 없습니다.",
+          "system": "시스템"
+        },
+        "errors": {
+          "invalidNameSlug": "이름과 영문자, 숫자, 하이픈으로 된 슬러그를 입력하세요.",
+          "publicSlug": "Public 워크스페이스의 슬러그는 \"public\"으로 유지됩니다.",
+          "slugTaken": "다른 조직에서 이미 사용 중인 슬러그입니다.",
+          "unknownRole": "알 수 없는 역할입니다.",
+          "memberNotFound": "멤버를 찾을 수 없습니다.",
+          "publicMembers": "모든 계정은 Public 워크스페이스에 속합니다.",
+          "invalidEmail": "유효한 이메일 주소를 입력하세요.",
+          "noInvitations": "이 조직은 초대를 받지 않습니다.",
+          "alreadyMember": "이미 멤버인 사람입니다.",
+          "invitationNotFound": "초대를 찾을 수 없습니다.",
+          "requestFailed": "요청에 실패했습니다.",
+          "scimUnavailable": "이 조직은 SCIM 프로비저닝을 사용할 수 없습니다.",
+          "noActiveToken": "활성 토큰이 없습니다."
+        }
+      }
+    },
+    "common": {
+      "cancel": "취소",
+      "save": "저장",
+      "saving": "저장 중…",
+      "saveChanges": "변경 사항 저장",
+      "delete": "삭제",
+      "deleting": "삭제 중…",
+      "edit": "편집",
+      "remove": "제거",
+      "close": "닫기",
+      "copied": "복사됨",
+      "enabled": "활성화됨",
+      "disabled": "비활성화됨",
+      "enable": "활성화",
+      "disable": "비활성화",
+      "on": "켜짐",
+      "off": "꺼짐",
+      "yes": "예",
+      "no": "아니요",
+      "never": "없음",
+      "none": "없음",
+      "actions": "작업",
+      "created": "생성일",
+      "name": "이름",
+      "description": "설명",
+      "status": "상태",
+      "back": "뒤로",
+      "done": "완료",
+      "loading": "불러오는 중…",
+      "refresh": "새로 고침",
+      "search": "검색",
+      "optional": "선택 사항",
+      "unexpectedError": "문제가 발생했습니다. 다시 시도하세요."
+    },
+    "urlCheck": {
+      "tooLong": "URL이 너무 깁니다.",
+      "notAbsolute": "절대 URL을 입력하세요(예: https://app.example.com/webhooks).",
+      "credentials": "URL에 사용자 이름이나 비밀번호를 포함할 수 없습니다.",
+      "fragment": "URL에 프래그먼트(#)를 포함할 수 없습니다.",
+      "notHttps": "URL은 https://를 사용해야 합니다.",
+      "localhost": "URL이 이 컴퓨터(localhost)를 가리킵니다.",
+      "nonPublic": "URL이 {kind, select, loopback {루프백} private {사설} linkLocal {링크 로컬} cloudMetadata {클라우드 메타데이터} sharedAddressSpace {공유(통신사급 NAT)} other {비공개}} 주소를 가리킵니다.",
+      "unresolved": "호스트 {host}을(를) 확인할 수 없습니다.",
+      "noAddress": "호스트 {host}에 주소가 없습니다.",
+      "resolvesNonPublic": "호스트 {host}이(가) {kind, select, loopback {루프백} private {사설} linkLocal {링크 로컬} cloudMetadata {클라우드 메타데이터} sharedAddressSpace {공유(통신사급 NAT)} other {비공개}} 주소({address})로 확인됩니다."
+    },
+    "shell": {
+      "userFallbackName": "관리자",
+      "userMenu": {
+        "home": "홈",
+        "logOut": "로그아웃"
       }
     }
   },
   "dashboard": {
-    "title": "Account",
-    "description": "Manage your profile, organizations, passkeys, sessions, and connected applications.",
-    "navAria": "Account navigation",
+    "title": "계정",
+    "description": "프로필, 조직, 패스키, 세션, 연결된 애플리케이션을 관리하세요.",
+    "navAria": "계정 탐색",
     "nav": {
-      "overview": "Overview",
-      "profile": "Profile",
-      "organizations": "Organizations",
-      "security": "Security",
-      "apps": "Connected apps",
+      "overview": "개요",
+      "profile": "프로필",
+      "organizations": "조직",
+      "security": "보안",
+      "apps": "연결된 앱",
       "apiKeys": "API 키",
-      "admin": "Admin",
-      "marketingHome": "About",
-      "signOut": "Sign out",
+      "admin": "관리",
+      "marketingHome": "소개",
+      "signOut": "로그아웃",
       "data": "내 데이터"
     },
     "profile": {
-      "title": "Profile",
-      "description": "Your display name, username, and email status for this account.",
-      "nameLabel": "Display name",
-      "usernameLabel": "Username",
-      "usernameHint": "3-30 characters: letters, numbers, dots, and underscores. Used to sign in instead of email.",
-      "usernameChecking": "Checking availability…",
-      "usernameAvailable": "This username is available.",
-      "usernameTaken": "This username is already taken.",
-      "usernameInvalidHint": "Use only letters, numbers, dots, and underscores.",
-      "usernameTooShort": "Username must be at least 3 characters.",
-      "usernameInvalid": "That username is not valid.",
-      "save": "Save",
-      "saving": "Saving…",
-      "saved": "Profile updated",
-      "saveError": "Could not update profile.",
-      "emailLabel": "Email",
-      "verified": "Verified",
-      "unverified": "Not verified",
-      "unverifiedHint": "Verify your email to protect your account and meet sign-in requirements.",
-      "resendVerification": "Resend verification email",
-      "verificationSent": "Check your inbox for the verification link.",
-      "verificationError": "Could not send verification email.",
-      "changeEmail": "Change",
-      "newEmailLabel": "New email address",
-      "changeEmailHintVerified": "We'll email your current address to approve the change, then send a verification link to the new one. Your email stays the same until both are done.",
-      "changeEmailSubmit": "Send confirmation",
-      "changingEmail": "Sending…",
-      "cancel": "Cancel",
-      "changeEmailSame": "Enter a different email address.",
-      "changeEmailError": "Could not start the email change.",
-      "changeEmailSentToCurrent": "Check {current} to approve the change to {next}. After that, verify {next} from the link we send there.",
-      "changeEmailNeedsVerified": "You can change it once it is verified."
+      "title": "프로필",
+      "description": "이 계정의 표시 이름, 사용자 이름, 이메일 상태.",
+      "nameLabel": "표시 이름",
+      "usernameLabel": "사용자 이름",
+      "usernameHint": "3~30자: 영문자, 숫자, 마침표, 밑줄. 이메일 대신 로그인할 때 사용합니다.",
+      "usernameChecking": "사용 가능 여부 확인 중…",
+      "usernameAvailable": "사용할 수 있는 사용자 이름입니다.",
+      "usernameTaken": "이미 사용 중인 사용자 이름입니다.",
+      "usernameInvalidHint": "영문자, 숫자, 마침표, 밑줄만 사용하세요.",
+      "usernameTooShort": "사용자 이름은 3자 이상이어야 합니다.",
+      "usernameInvalid": "유효하지 않은 사용자 이름입니다.",
+      "save": "저장",
+      "saving": "저장 중…",
+      "saved": "프로필이 업데이트되었습니다",
+      "saveError": "프로필을 업데이트할 수 없습니다.",
+      "emailLabel": "이메일",
+      "verified": "인증됨",
+      "unverified": "인증되지 않음",
+      "unverifiedHint": "계정을 보호하고 로그인 요건을 충족하려면 이메일을 인증하세요.",
+      "resendVerification": "인증 이메일 다시 보내기",
+      "verificationSent": "받은편지함에서 인증 링크를 확인하세요.",
+      "verificationError": "인증 이메일을 보낼 수 없습니다.",
+      "changeEmail": "변경",
+      "newEmailLabel": "새 이메일 주소",
+      "changeEmailHintVerified": "현재 주소로 변경 승인 이메일을 보낸 다음 새 주소로 인증 링크를 보내드립니다. 두 단계가 모두 끝날 때까지 이메일은 바뀌지 않습니다.",
+      "changeEmailSubmit": "확인 메일 보내기",
+      "changingEmail": "보내는 중…",
+      "cancel": "취소",
+      "changeEmailSame": "다른 이메일 주소를 입력하세요.",
+      "changeEmailError": "이메일 변경을 시작할 수 없습니다.",
+      "changeEmailSentToCurrent": "{current}에서 {next}(으)로의 변경을 승인하세요. 그런 다음 {next}(으)로 보내드리는 링크로 인증하세요.",
+      "changeEmailNeedsVerified": "인증을 마친 후에 변경할 수 있습니다."
     },
     "passkeys": {
-      "title": "Passkeys",
-      "hint": "Use a passkey for phishing-resistant sign-in. Add one on this device or with a security key.",
-      "addThisDevice": "Add passkey (this device)",
-      "addSecurityKey": "Add passkey (security key)",
-      "defaultName": "My passkey",
-      "empty": "No passkeys yet. Add one to sign in without typing your password.",
-      "name": "Name",
-      "unnamed": "Unnamed passkey",
-      "deviceType": "Device type",
-      "created": "Added",
-      "actions": "Actions",
-      "rename": "Rename",
-      "delete": "Remove",
-      "save": "Save",
-      "cancel": "Cancel",
-      "loadError": "Could not load passkeys.",
-      "addError": "Could not add passkey.",
-      "deleteError": "Could not remove passkey.",
-      "updateError": "Could not update passkey.",
-      "added": "Passkey added",
-      "deleted": "Passkey removed",
-      "updated": "Passkey updated",
-      "nameRequired": "Enter a name for this passkey.",
-      "none": "None",
-      "confirmRemoveTitle": "Remove this passkey?",
-      "confirmRemoveBody": "You won’t be able to sign in with this passkey anymore. You can add a new one at any time.",
-      "signInAgainToAdd": "For your security, adding a passkey needs a recent sign-in. Sign in again, then add it.",
-      "signInAgain": "Sign in again"
+      "title": "패스키",
+      "hint": "피싱에 강한 로그인을 위해 패스키를 사용하세요. 이 기기나 보안 키로 추가할 수 있습니다.",
+      "addThisDevice": "패스키 추가(이 기기)",
+      "addSecurityKey": "패스키 추가(보안 키)",
+      "defaultName": "내 패스키",
+      "empty": "아직 패스키가 없습니다. 패스키를 추가하면 비밀번호를 입력하지 않고 로그인할 수 있습니다.",
+      "name": "이름",
+      "unnamed": "이름 없는 패스키",
+      "deviceType": "기기 유형",
+      "created": "추가일",
+      "actions": "작업",
+      "rename": "이름 변경",
+      "delete": "삭제",
+      "save": "저장",
+      "cancel": "취소",
+      "loadError": "패스키를 불러올 수 없습니다.",
+      "addError": "패스키를 추가할 수 없습니다.",
+      "deleteError": "패스키를 삭제할 수 없습니다.",
+      "updateError": "패스키를 업데이트할 수 없습니다.",
+      "added": "패스키가 추가되었습니다",
+      "deleted": "패스키가 삭제되었습니다",
+      "updated": "패스키가 업데이트되었습니다",
+      "nameRequired": "이 패스키의 이름을 입력하세요.",
+      "none": "없음",
+      "confirmRemoveTitle": "이 패스키를 삭제할까요?",
+      "confirmRemoveBody": "더 이상 이 패스키로 로그인할 수 없습니다. 언제든지 새 패스키를 추가할 수 있습니다.",
+      "signInAgainToAdd": "보안을 위해 패스키를 추가하려면 최근 로그인이 필요합니다. 다시 로그인한 다음 추가하세요.",
+      "signInAgain": "다시 로그인"
     },
     "twoFactor": {
       "title": "2단계 인증",
@@ -509,45 +2089,45 @@
       }
     },
     "organizations": {
-      "title": "Organizations",
-      "description": "Teams and partner organizations you belong to. Switch between them and invite members. Platform administrators create new organizations.",
-      "yourOrganizations": "Your organizations",
-      "empty": "No organizations loaded.",
-      "active": "Active",
-      "switchTo": "Set active",
-      "setActiveError": "Could not switch organization.",
-      "setActiveSuccess": "Active organization updated.",
-      "createTitle": "Create an organization",
-      "createHint": "Use a unique URL slug (e.g. acme-corp). The reserved slug “public” is not available.",
-      "orgName": "Organization name",
-      "orgSlug": "Slug",
-      "create": "Create organization",
-      "creating": "Creating…",
-      "createSuccess": "Organization created",
-      "createError": "Could not create organization.",
-      "createValidation": "Enter a name and slug.",
-      "reservedSlug": "This slug is reserved.",
-      "slugTaken": "That slug is already in use.",
-      "loadError": "Could not load organizations.",
-      "inviteTitle": "Invite a member",
-      "inviteHint": "Sends an email with a link to accept the invitation. Available when your role in the active organization is owner or admin.",
-      "inviteEmail": "Email",
-      "inviteRole": "Role",
-      "roleMember": "Member",
-      "roleAdmin": "Admin",
-      "inviteSend": "Send invitation",
-      "inviting": "Sending…",
-      "inviteSuccess": "Invitation sent",
-      "inviteError": "Could not send invitation.",
-      "inviteValidation": "Enter an email address.",
-      "allOrganizations": "All organizations",
-      "memberCount": "{count, plural, one {# member} other {# members}}",
-      "delete": "Delete",
-      "cancel": "Cancel",
-      "deleted": "Organization deleted",
-      "deleteError": "Could not delete the organization.",
-      "confirmDeleteTitle": "Delete {name}?",
-      "confirmDeleteBody": "This removes the organization, its {count, plural, one {# membership} other {# memberships}} and pending invitations. Member accounts stay. This cannot be undone.",
+      "title": "조직",
+      "description": "소속된 팀과 파트너 조직입니다. 조직 간에 전환하고 멤버를 초대하세요. 새 조직은 플랫폼 관리자가 만듭니다.",
+      "yourOrganizations": "내 조직",
+      "empty": "불러온 조직이 없습니다.",
+      "active": "활성",
+      "switchTo": "활성으로 설정",
+      "setActiveError": "조직을 전환할 수 없습니다.",
+      "setActiveSuccess": "활성 조직이 변경되었습니다.",
+      "createTitle": "조직 만들기",
+      "createHint": "고유한 URL 슬러그를 사용하세요(예: acme-corp). 예약된 슬러그 “public”은 사용할 수 없습니다.",
+      "orgName": "조직 이름",
+      "orgSlug": "슬러그",
+      "create": "조직 만들기",
+      "creating": "만드는 중…",
+      "createSuccess": "조직이 만들어졌습니다",
+      "createError": "조직을 만들 수 없습니다.",
+      "createValidation": "이름과 슬러그를 입력하세요.",
+      "reservedSlug": "예약된 슬러그입니다.",
+      "slugTaken": "이미 사용 중인 슬러그입니다.",
+      "loadError": "조직을 불러올 수 없습니다.",
+      "inviteTitle": "멤버 초대",
+      "inviteHint": "초대를 수락할 수 있는 링크가 담긴 이메일을 보냅니다. 활성 조직에서 소유자 또는 관리자 역할일 때 사용할 수 있습니다.",
+      "inviteEmail": "이메일",
+      "inviteRole": "역할",
+      "roleMember": "멤버",
+      "roleAdmin": "관리자",
+      "inviteSend": "초대 보내기",
+      "inviting": "보내는 중…",
+      "inviteSuccess": "초대를 보냈습니다",
+      "inviteError": "초대를 보낼 수 없습니다.",
+      "inviteValidation": "이메일 주소를 입력하세요.",
+      "allOrganizations": "모든 조직",
+      "memberCount": "{count, plural, other {멤버 #명}}",
+      "delete": "삭제",
+      "cancel": "취소",
+      "deleted": "조직이 삭제되었습니다",
+      "deleteError": "조직을 삭제할 수 없습니다.",
+      "confirmDeleteTitle": "{name}을(를) 삭제할까요?",
+      "confirmDeleteBody": "조직과 {count, plural, other {멤버십 #개}}, 대기 중인 초대가 삭제됩니다. 멤버 계정은 유지됩니다. 이 작업은 되돌릴 수 없습니다.",
       "apiKeys": {
         "show": "API 키",
         "hide": "API 키 숨기기",
@@ -559,41 +2139,43 @@
       }
     },
     "security": {
-      "title": "Security",
-      "description": "Update your password, manage passkeys, and review where you are signed in.",
-      "passwordHeading": "Password",
-      "passwordHint": "Use at least {min} characters. Choose a password you don’t use elsewhere.",
-      "currentPassword": "Current password",
-      "newPassword": "New password",
-      "confirmNewPassword": "Confirm new password",
-      "changePassword": "Update password",
-      "changing": "Updating…",
-      "passwordChanged": "Password updated",
-      "passwordError": "Could not change password.",
-      "passwordTooShort": "The new password must be at least {min} characters.",
-      "passwordMismatch": "New passwords do not match.",
-      "sameAsCurrent": "Choose a different password from your current one.",
-      "invalidCurrentPassword": "Current password is incorrect.",
-      "compromisedPassword": "This new password appears in known data breaches. Choose a different one.",
-      "revokeOthersAfterChange": "Sign out my other devices when the password changes",
-      "revokeOthersAfterChangeHint": "Recommended if you think someone else may know your old password.",
-      "sessionsTitle": "Active sessions",
-      "sessionsHint": "Revoke sessions you do not recognize. Revoking this device will sign you out.",
-      "sessionsLoadError": "Could not load sessions.",
-      "revoke": "Revoke",
-      "revokeOthers": "Sign out other sessions",
-      "revokeError": "Something went wrong.",
-      "sessionRevoked": "Session revoked",
-      "othersRevoked": "Other sessions signed out",
-      "currentSession": "This device",
-      "unknownDevice": "Unknown device",
-      "noSessions": "No sessions found.",
-      "device": "Device",
-      "network": "IP address",
-      "actions": "Actions",
-      "started": "Started",
-      "expires": "Expires",
-      "none": "None"
+      "title": "보안",
+      "description": "비밀번호를 변경하고, 패스키를 관리하고, 로그인된 위치를 확인하세요.",
+      "passwordHeading": "비밀번호",
+      "passwordHint": "{min}자 이상을 사용하세요. 다른 곳에서 쓰지 않는 비밀번호를 선택하세요.",
+      "currentPassword": "현재 비밀번호",
+      "newPassword": "새 비밀번호",
+      "confirmNewPassword": "새 비밀번호 확인",
+      "changePassword": "비밀번호 변경",
+      "changing": "변경 중…",
+      "passwordChanged": "비밀번호가 변경되었습니다",
+      "passwordError": "비밀번호를 변경할 수 없습니다.",
+      "passwordTooShort": "새 비밀번호는 {min}자 이상이어야 합니다.",
+      "passwordMismatch": "새 비밀번호가 일치하지 않습니다.",
+      "sameAsCurrent": "현재 비밀번호와 다른 비밀번호를 선택하세요.",
+      "invalidCurrentPassword": "현재 비밀번호가 올바르지 않습니다.",
+      "compromisedPassword": "새 비밀번호가 알려진 데이터 유출에 포함되어 있습니다. 다른 비밀번호를 선택하세요.",
+      "revokeOthersAfterChange": "비밀번호가 변경되면 다른 기기에서 로그아웃",
+      "revokeOthersAfterChangeHint": "다른 사람이 이전 비밀번호를 알고 있을 수 있다면 권장합니다.",
+      "sessionsTitle": "활성 세션",
+      "sessionsHint": "알 수 없는 세션은 해지하세요. 이 기기의 세션을 해지하면 로그아웃됩니다.",
+      "sessionsLoadError": "세션을 불러올 수 없습니다.",
+      "revoke": "해지",
+      "revokeOthers": "다른 세션 로그아웃",
+      "revokeError": "문제가 발생했습니다.",
+      "sessionRevoked": "세션이 해지되었습니다",
+      "othersRevoked": "다른 세션에서 로그아웃되었습니다",
+      "currentSession": "이 기기",
+      "unknownDevice": "알 수 없는 기기",
+      "noSessions": "세션이 없습니다.",
+      "device": "기기",
+      "network": "IP 주소",
+      "actions": "작업",
+      "started": "시작",
+      "expires": "만료",
+      "none": "없음",
+      "startedAt": "시작: {date}",
+      "expiresAt": "만료: {date}"
     },
     "apps": {
       "title": "연결된 애플리케이션",
@@ -669,22 +2251,22 @@
       "createdBy": "만든 사람: {name}",
       "createdByDeleted": "만든 사람의 계정 삭제됨"
     },
-    "accountMenu": "Account menu",
+    "accountMenu": "계정 메뉴",
     "connectedAccounts": {
-      "title": "Connected accounts",
-      "hint": "Sign in with these accounts as well as your password or passkeys.",
-      "connected": "Connected",
-      "notConnected": "Not connected",
-      "connect": "Connect",
-      "disconnect": "Disconnect",
-      "disconnected": "{provider} disconnected",
-      "cancel": "Cancel",
-      "confirmTitle": "Disconnect {provider}?",
-      "confirmBody": "You won't be able to sign in with this account anymore. You can connect it again later.",
-      "lastMethod": "This is your only way to sign in. Add a password or passkey first.",
-      "error": "Something went wrong. Try again.",
-      "signInAgainToChange": "For your security, connecting an account needs a recent sign-in. Sign in again, then connect it.",
-      "signInAgain": "Sign in again"
+      "title": "연결된 계정",
+      "hint": "비밀번호나 패스키 외에 이 계정으로도 로그인할 수 있습니다.",
+      "connected": "연결됨",
+      "notConnected": "연결되지 않음",
+      "connect": "연결",
+      "disconnect": "연결 해제",
+      "disconnected": "{provider} 연결이 해제되었습니다",
+      "cancel": "취소",
+      "confirmTitle": "{provider} 연결을 해제할까요?",
+      "confirmBody": "더 이상 이 계정으로 로그인할 수 없습니다. 나중에 다시 연결할 수 있습니다.",
+      "lastMethod": "유일한 로그인 방법입니다. 먼저 비밀번호나 패스키를 추가하세요.",
+      "error": "문제가 발생했습니다. 다시 시도하세요.",
+      "signInAgainToChange": "보안을 위해 계정을 연결하려면 최근 로그인이 필요합니다. 다시 로그인한 다음 연결하세요.",
+      "signInAgain": "다시 로그인"
     },
     "accounts": {
       "switchTo": "전환",
@@ -752,26 +2334,30 @@
         "impersonating": "관리자가 보고 있는 동안에는 계정을 삭제할 수 없습니다.",
         "failed": "삭제를 시작할 수 없습니다. 다시 시도하세요."
       }
+    },
+    "impersonation": {
+      "viewingAs": "<strong>{email}</strong>(으)로 이 계정을 보고 있습니다.",
+      "stop": "대리 로그인 중지"
     }
   },
   "acceptInvitation": {
-    "loading": "Checking session…",
-    "needSignInTitle": "Sign in to continue",
-    "needSignInDescription": "You need to be signed in with the invited email address before accepting this invitation.",
-    "signIn": "Sign in",
-    "title": "Accept invitation",
-    "description": "Join the organization that invited you.",
-    "signedInAs": "Signed in as {email}.",
-    "accept": "Accept invitation",
-    "accepting": "Accepting…",
-    "success": "You have joined the organization.",
-    "successTitle": "Welcome",
-    "successDescription": "Redirecting to your dashboard…",
-    "error": "Could not accept the invitation."
+    "loading": "세션 확인 중…",
+    "needSignInTitle": "계속하려면 로그인하세요",
+    "needSignInDescription": "이 초대를 수락하려면 초대받은 이메일 주소로 로그인해야 합니다.",
+    "signIn": "로그인",
+    "title": "초대 수락",
+    "description": "초대한 조직에 참여하세요.",
+    "signedInAs": "{email}(으)로 로그인됨.",
+    "accept": "초대 수락",
+    "accepting": "수락하는 중…",
+    "success": "조직에 참여했습니다.",
+    "successTitle": "환영합니다",
+    "successDescription": "대시보드로 이동하는 중…",
+    "error": "초대를 수락할 수 없습니다."
   },
   "common": {
-    "loading": "Loading…",
-    "language": "Language",
+    "loading": "불러오는 중…",
+    "language": "언어",
     "localeNames": {
       "en": "영어",
       "fr": "프랑스어",
@@ -793,12 +2379,20 @@
       "no": "노르웨이어",
       "fi": "핀란드어",
       "cs": "체코어"
+    },
+    "ui": {
+      "close": "닫기",
+      "sidebar": "사이드바",
+      "sidebarDescription": "모바일 사이드바를 표시합니다.",
+      "toggleSidebar": "사이드바 전환",
+      "breadcrumb": "탐색 경로",
+      "more": "더 보기"
     }
   },
   "errors": {
-    "boundaryTitle": "Something went wrong",
-    "boundaryDescription": "An error occurred while loading this page.",
-    "retry": "Try again"
+    "boundaryTitle": "문제가 발생했습니다",
+    "boundaryDescription": "이 페이지를 불러오는 중에 오류가 발생했습니다.",
+    "retry": "다시 시도"
   },
   "rateLimit": {
     "seconds": "시도 횟수가 너무 많습니다. {seconds}초 후에 다시 시도하세요.",
@@ -806,94 +2400,156 @@
     "later": "시도 횟수가 너무 많습니다. 몇 분 후 다시 시도하세요."
   },
   "sso": {
-    "title": "Single sign-on",
-    "description": "Connect your organization's identity provider (OIDC or SAML 2.0) so members can sign in with their work account.",
-    "registerTitle": "Register a provider",
-    "registerDescription": "Your identity provider must redirect back to the callback URL shown below.",
-    "providerId": "Provider ID",
-    "providerIdHint": "A short identifier, e.g. acme-okta.",
-    "issuer": "Issuer URL",
-    "domain": "Email domain",
-    "domainHint": "Users with this email domain are sent to this provider.",
-    "clientId": "Client ID",
-    "clientSecret": "Client secret",
-    "organization": "Organization (optional)",
-    "register": "Register provider",
-    "registering": "Registering…",
-    "registered": "SSO provider registered",
-    "registerError": "Could not register the provider.",
-    "callbackTitle": "Callback URL to configure in your identity provider",
-    "providersTitle": "Configured providers",
-    "providersEmpty": "No SSO provider configured yet.",
-    "loadError": "Could not load SSO providers.",
-    "signInTitle": "Sign in with SSO",
-    "signInDescription": "Enter your work email. We'll redirect you to your organization's identity provider.",
-    "signInEmail": "Work email",
-    "signInSubmit": "Continue",
-    "signInError": "Could not start single sign-on for this address.",
-    "signInLink": "Sign in with SSO",
-    "signInFailed": "Single sign-on did not complete. Try again, or ask your administrator to check the identity provider settings.",
+    "title": "싱글 사인온",
+    "description": "조직의 ID 제공자(OIDC 또는 SAML 2.0)를 연결하여 멤버가 회사 계정으로 로그인할 수 있게 하세요.",
+    "registerTitle": "제공자 등록",
+    "registerDescription": "ID 제공자는 아래에 표시된 콜백 URL로 다시 리디렉션해야 합니다.",
+    "providerId": "제공자 ID",
+    "providerIdHint": "짧은 식별자(예: acme-okta).",
+    "issuer": "발급자 URL",
+    "domain": "이메일 도메인",
+    "domainHint": "이 이메일 도메인의 사용자는 이 제공자로 이동합니다.",
+    "clientId": "클라이언트 ID",
+    "clientSecret": "클라이언트 시크릿",
+    "organization": "조직(선택 사항)",
+    "register": "제공자 등록",
+    "registering": "등록 중…",
+    "registered": "SSO 제공자가 등록되었습니다",
+    "registerError": "제공자를 등록할 수 없습니다.",
+    "callbackTitle": "ID 제공자에 설정할 콜백 URL",
+    "providersTitle": "구성된 제공자",
+    "providersEmpty": "아직 구성된 SSO 제공자가 없습니다.",
+    "loadError": "SSO 제공자를 불러올 수 없습니다.",
+    "signInTitle": "SSO로 로그인",
+    "signInDescription": "회사 이메일을 입력하세요. 조직의 ID 제공자로 리디렉션해 드립니다.",
+    "signInEmail": "회사 이메일",
+    "signInSubmit": "계속",
+    "signInError": "이 주소로 싱글 사인온을 시작할 수 없습니다.",
+    "signInLink": "SSO로 로그인",
+    "signInFailed": "싱글 사인온이 완료되지 않았습니다. 다시 시도하거나 관리자에게 ID 제공자 설정을 확인해 달라고 요청하세요.",
     "saml": {
-      "protocol": "Protocol",
-      "registerDescription": "The identity provider posts signed SAML assertions to the ACS URL below. Sign-in starts from Ostiary (SP-initiated).",
-      "idpSource": "Identity provider configuration",
-      "sourceUrl": "Metadata URL",
-      "sourceXml": "Paste metadata XML",
-      "sourceManual": "Enter manually",
-      "metadataUrl": "IdP metadata URL",
-      "metadataUrlHint": "The server fetches it once when you save. After a certificate rotation, fetch it again from Edit.",
-      "metadataXml": "IdP metadata XML",
-      "metadataXmlHint": "The EntityDescriptor your identity provider exports.",
-      "idpEntityId": "IdP entity ID (issuer)",
-      "ssoUrl": "IdP single sign-on URL",
-      "ssoUrlHint": "The URL for the HTTP-Redirect binding.",
-      "certificate": "IdP signing certificate",
-      "certificateHint": "PEM (-----BEGIN CERTIFICATE-----) or its base64 body.",
-      "mappingTitle": "Attribute mapping",
-      "mappingPreset": "Preset",
+      "protocol": "프로토콜",
+      "registerDescription": "ID 제공자는 서명된 SAML 어설션을 아래 ACS URL로 전송합니다. 로그인은 Ostiary에서 시작됩니다(SP 시작).",
+      "idpSource": "ID 제공자 구성",
+      "sourceUrl": "메타데이터 URL",
+      "sourceXml": "메타데이터 XML 붙여넣기",
+      "sourceManual": "직접 입력",
+      "metadataUrl": "IdP 메타데이터 URL",
+      "metadataUrlHint": "저장할 때 서버가 한 번 가져옵니다. 인증서를 교체한 후에는 편집에서 다시 가져오세요.",
+      "metadataXml": "IdP 메타데이터 XML",
+      "metadataXmlHint": "ID 제공자가 내보낸 EntityDescriptor.",
+      "idpEntityId": "IdP 엔터티 ID(발급자)",
+      "ssoUrl": "IdP 싱글 사인온 URL",
+      "ssoUrlHint": "HTTP-Redirect 바인딩용 URL.",
+      "certificate": "IdP 서명 인증서",
+      "certificateHint": "PEM(-----BEGIN CERTIFICATE-----) 또는 base64 본문.",
+      "mappingTitle": "속성 매핑",
+      "mappingPreset": "프리셋",
       "preset_okta": "Okta",
       "preset_entra": "Microsoft Entra ID",
       "preset_google": "Google Workspace",
       "preset_jumpcloud": "JumpCloud",
-      "preset_custom": "Custom",
-      "attrEmail": "Email attribute",
-      "attrName": "Display name attribute",
-      "attrFirstName": "First name attribute",
-      "attrLastName": "Last name attribute",
-      "mappingHint": "First and last name are used when the identity provider sends them, otherwise the display name. The user ID is the assertion's NameID: configure a persistent identifier.",
-      "wantAssertionsSigned": "Require signed assertions",
-      "wantAssertionsSignedHint": "Recommended. When off, the whole response must still be signed: unsigned responses are always refused.",
-      "requestSigningNote": "Ostiary does not sign authentication requests: leave request signing off in the identity provider.",
-      "spTitle": "Values to enter in your identity provider",
-      "acsUrl": "ACS URL (single sign-on URL, reply URL)",
-      "spEntityId": "SP entity ID (audience URI, identifier)",
-      "spMetadataUrl": "SP metadata URL",
-      "copy": "Copy",
-      "copied": "Copied",
-      "setupTitle": "Setup notes",
-      "oktaStep1": "In the Okta admin console: Applications, Create App Integration, SAML 2.0.",
-      "oktaStep2": "Single sign-on URL: the ACS URL. Audience URI (SP Entity ID): the SP entity ID. Name ID format: Persistent. Application username: Email.",
-      "oktaStep3": "Attribute statements: email = user.email, firstName = user.firstName, lastName = user.lastName (the Okta preset).",
-      "oktaStep4": "Assign people, then copy the metadata URL from the Sign On tab into Ostiary.",
-      "entraStep1": "In Microsoft Entra ID: Enterprise applications, New application, Create your own application (non-gallery), then Single sign-on, SAML.",
-      "entraStep2": "Basic SAML configuration: Identifier (Entity ID) = the SP entity ID, Reply URL = the ACS URL.",
-      "entraStep3": "Keep the default claims (the Entra ID preset). The default signing option, Sign SAML assertion, works.",
-      "entraStep4": "Assign users and groups, then copy the App Federation Metadata URL into Ostiary.",
-      "spInitiatedNote": "Only sign-in started from Ostiary is supported. Point app tiles in the identity provider's portal to {url}.",
-      "spDetails": "SP details",
-      "detailsTitle": "{id}: SAML settings",
-      "detailsDescription": "Enter these values in the identity provider.",
-      "assertionsSignedOn": "Signed assertions are required.",
-      "assertionsSignedOff": "Signed responses are required (assertions may be unsigned).",
-      "certExpires": "Signing certificate valid until {date}",
-      "certExpired": "The signing certificate has expired: sign-ins will fail until the IdP metadata is updated.",
-      "editTitle": "Edit {id}",
-      "editDescription": "Changing the domain means it must be verified again. The SP entity ID and ACS URL stay the same.",
-      "replaceIdp": "Replace the identity provider configuration (new metadata or certificate)",
-      "updated": "Provider updated",
-      "save": "Save",
-      "cancel": "Cancel",
-      "close": "Close"
+      "preset_custom": "사용자 지정",
+      "attrEmail": "이메일 속성",
+      "attrName": "표시 이름 속성",
+      "attrFirstName": "이름 속성",
+      "attrLastName": "성 속성",
+      "mappingHint": "ID 제공자가 이름과 성을 보내면 이를 사용하고, 그렇지 않으면 표시 이름을 사용합니다. 사용자 ID는 어설션의 NameID이므로 영구 식별자로 구성하세요.",
+      "wantAssertionsSigned": "서명된 어설션 필요",
+      "wantAssertionsSignedHint": "권장. 꺼져 있어도 전체 응답은 서명되어야 합니다. 서명되지 않은 응답은 항상 거부됩니다.",
+      "requestSigningNote": "Ostiary는 인증 요청에 서명하지 않습니다. ID 제공자에서 요청 서명을 끈 상태로 두세요.",
+      "spTitle": "ID 제공자에 입력할 값",
+      "acsUrl": "ACS URL(싱글 사인온 URL, 회신 URL)",
+      "spEntityId": "SP 엔터티 ID(대상 URI, 식별자)",
+      "spMetadataUrl": "SP 메타데이터 URL",
+      "copy": "복사",
+      "copied": "복사됨",
+      "setupTitle": "설정 참고 사항",
+      "oktaStep1": "Okta 관리 콘솔에서: Applications, Create App Integration, SAML 2.0.",
+      "oktaStep2": "Single sign-on URL: ACS URL. Audience URI (SP Entity ID): SP 엔터티 ID. Name ID format: Persistent. Application username: Email.",
+      "oktaStep3": "Attribute statements: email = user.email, firstName = user.firstName, lastName = user.lastName(Okta 프리셋).",
+      "oktaStep4": "사용자를 할당한 다음 Sign On 탭의 메타데이터 URL을 복사하여 Ostiary에 붙여넣으세요.",
+      "entraStep1": "Microsoft Entra ID에서: Enterprise applications, New application, Create your own application (non-gallery), 그다음 Single sign-on, SAML.",
+      "entraStep2": "Basic SAML configuration: Identifier (Entity ID) = SP 엔터티 ID, Reply URL = ACS URL.",
+      "entraStep3": "기본 클레임을 유지하세요(Entra ID 프리셋). 기본 서명 옵션인 Sign SAML assertion으로 작동합니다.",
+      "entraStep4": "사용자와 그룹을 할당한 다음 App Federation Metadata URL을 복사하여 Ostiary에 붙여넣으세요.",
+      "spInitiatedNote": "Ostiary에서 시작하는 로그인만 지원됩니다. ID 제공자 포털의 앱 타일이 {url}을(를) 가리키도록 설정하세요.",
+      "spDetails": "SP 세부 정보",
+      "detailsTitle": "{id}: SAML 설정",
+      "detailsDescription": "ID 제공자에 다음 값을 입력하세요.",
+      "assertionsSignedOn": "서명된 어설션이 필요합니다.",
+      "assertionsSignedOff": "서명된 응답이 필요합니다(어설션은 서명되지 않아도 됨).",
+      "certExpires": "서명 인증서 유효 기간: {date}까지",
+      "certExpired": "서명 인증서가 만료되었습니다. IdP 메타데이터가 업데이트될 때까지 로그인이 실패합니다.",
+      "editTitle": "{id} 편집",
+      "editDescription": "도메인을 변경하면 다시 확인해야 합니다. SP 엔터티 ID와 ACS URL은 그대로 유지됩니다.",
+      "replaceIdp": "ID 제공자 구성 교체(새 메타데이터 또는 인증서)",
+      "updated": "제공자가 업데이트되었습니다",
+      "save": "저장",
+      "cancel": "취소",
+      "close": "닫기",
+      "copyLabel": "복사: {label}",
+      "errors": {
+        "metadataEmpty": "메타데이터가 비어 있습니다.",
+        "metadataTooLarge": "메타데이터가 100KB를 초과합니다.",
+        "metadataDoctype": "메타데이터에 DOCTYPE을 포함할 수 없습니다.",
+        "metadataNotXml": "메타데이터가 올바른 형식의 XML이 아닙니다.",
+        "notSamlMetadata": "SAML 메타데이터가 아닙니다.",
+        "multipleEntities": "메타데이터는 정확히 하나의 ID 제공자를 설명해야 합니다.",
+        "noEntityId": "메타데이터에 entityID가 없습니다.",
+        "noIdpDescriptor": "메타데이터에 ID 제공자(IDPSSODescriptor)가 없습니다.",
+        "noSaml2": "ID 제공자가 SAML 2.0을 지원하지 않습니다.",
+        "signedRequestsRequired": "ID 제공자가 서명된 요청을 요구하지만 Ostiary는 요청에 서명하지 않습니다. ID 제공자에서 요청 서명을 끄세요.",
+        "noRedirectBinding": "메타데이터에 HTTP-Redirect 바인딩을 사용하는 SingleSignOnService가 없습니다.",
+        "metadataSsoUrlNotHttps": "ID 제공자의 SSO URL은 https://를 사용해야 합니다.",
+        "unreadableCertificate": "메타데이터의 서명 인증서를 읽을 수 없습니다.",
+        "noSigningCertificate": "메타데이터에 서명 인증서가 없습니다.",
+        "invalidMapping": "이메일과 이름의 속성 이름을 입력하세요(공백이나 따옴표 없이).",
+        "allCertificatesExpired": "메타데이터의 모든 서명 인증서가 만료되었습니다.",
+        "missingEntityId": "ID 제공자의 엔터티 ID(발급자)를 입력하세요.",
+        "ssoUrlNotHttps": "SSO URL은 https:// URL이어야 합니다.",
+        "invalidCertificate": "서명 인증서가 유효한 X.509 인증서(PEM)가 아닙니다.",
+        "certificateExpired": "서명 인증서가 만료되었습니다.",
+        "fetchFailed": "메타데이터를 가져올 수 없습니다: {reason}",
+        "invalidRedirect": "메타데이터 URL이 잘못된 주소로 리디렉션됩니다.",
+        "httpStatus": "메타데이터 URL이 {status}(으)로 응답했습니다.",
+        "tooManyRedirects": "메타데이터 URL의 리디렉션이 너무 많습니다."
+      }
+    },
+    "panel": {
+      "noOrganization": "조직 없음",
+      "providersDescription": "제공자는 이메일 도메인이 DNS 레코드로 확인된 후에만 로그인을 허용합니다.",
+      "verified": "확인됨",
+      "domainNotVerified": "도메인 확인 안 됨",
+      "verifyDomain": "도메인 확인",
+      "editLabel": "{id} 편집",
+      "deleteLabel": "{id} 삭제",
+      "verifyTitle": "{domain} 확인",
+      "verifyDescription": "도메인 소유자에게 DNS에 이 TXT 레코드를 추가해 달라고 요청한 다음 여기에서 확인하세요. 확인이 끝나면 이 제공자를 통한 로그인이 작동합니다.",
+      "recordName": "이름",
+      "recordValue": "값",
+      "copyRecordName": "이름 복사",
+      "copyRecordValue": "값 복사",
+      "recordValidity": "이 값은 7일 동안 유효합니다.",
+      "domainVerified": "도메인을 확인했습니다",
+      "checkDns": "DNS 확인",
+      "editDescription": "도메인을 변경하면 다시 확인해야 합니다. 클라이언트 자격 증명을 변경하려면 제공자를 삭제하고 다시 등록하세요.",
+      "organization": "조직",
+      "deleteTitle": "{id}을(를) 삭제할까요?",
+      "deleteDescription": "{domain} 주소를 쓰는 사람은 더 이상 이 제공자로 로그인할 수 없습니다. 계정은 유지되며 비밀번호나 패스키는 계속 사용할 수 있습니다.",
+      "providerDeleted": "제공자를 삭제했습니다"
+    },
+    "errors": {
+      "providerNotFound": "제공자를 찾을 수 없습니다.",
+      "issuerNotUrl": "발급자는 URL이어야 합니다.",
+      "invalidDomain": "이메일 도메인을 입력하세요(예: acme.com).",
+      "organizationNotFound": "조직을 찾을 수 없습니다.",
+      "samlIssuerLocked": "SAML 제공자의 SP 엔터티 ID는 변경할 수 없습니다.",
+      "invalidProviderDomain": "제공자의 도메인이 유효하지 않습니다.",
+      "txtRecordNotFound": "아직 TXT 레코드를 찾을 수 없습니다. DNS 변경이 반영되기까지 몇 분 걸릴 수 있습니다.",
+      "envNotSet": "{name}이(가) 설정되지 않았습니다.",
+      "invalidProviderId": "제공자 ID는 2~63자의 영문 소문자, 숫자, - 또는 _여야 합니다.",
+      "unreadableSamlConfig": "저장된 SAML 구성을 읽을 수 없습니다. 제공자를 삭제하고 다시 등록하세요."
     }
   },
   "selectAccount": {

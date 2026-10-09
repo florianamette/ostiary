@@ -1,46 +1,46 @@
 {
   "layout": {
-    "title": "Sign in",
-    "description": "Log in to your work tools and profile."
+    "title": "サインイン",
+    "description": "業務ツールとプロフィールにログインします。"
   },
   "auth": {
     "login": {
-      "title": "Login to your account",
-      "description": "Sign in with your email or username and password.",
-      "identifierLabel": "Email or username",
-      "identifierPlaceholder": "you@example.com or your_username",
-      "emailLabel": "Email",
+      "title": "アカウントにログイン",
+      "description": "メールアドレスまたはユーザー名とパスワードでサインインします。",
+      "identifierLabel": "メールアドレスまたはユーザー名",
+      "identifierPlaceholder": "you@example.com または your_username",
+      "emailLabel": "メールアドレス",
       "emailPlaceholder": "m@example.com",
-      "passwordLabel": "Password",
-      "forgotPasswordLink": "Forgot password?",
-      "submit": "Login",
-      "submitting": "Signing in…",
-      "noAccount": "Don't have an account?",
-      "signUpLink": "Sign up",
-      "verifyEmailAfterSignup": "Check your inbox for a verification link. You must verify your email before signing in.",
-      "passkey": "Sign in with passkey",
-      "passkeySubmitting": "Waiting for passkey…",
+      "passwordLabel": "パスワード",
+      "forgotPasswordLink": "パスワードをお忘れですか?",
+      "submit": "ログイン",
+      "submitting": "サインイン中…",
+      "noAccount": "アカウントをお持ちでないですか?",
+      "signUpLink": "新規登録",
+      "verifyEmailAfterSignup": "受信トレイで確認リンクをご確認ください。サインインする前にメールアドレスの確認が必要です。",
+      "passkey": "パスキーでサインイン",
+      "passkeySubmitting": "パスキーを待っています…",
       "emailCode": "サインインコードをメールで受け取る",
-      "lastUsedBadge": "Last used",
-      "lastUsedHintEmail": "You last signed in with email and password.",
-      "lastUsedHintUsername": "You last signed in with username and password.",
-      "lastUsedHintPasskey": "You last signed in with a passkey.",
+      "lastUsedBadge": "前回使用",
+      "lastUsedHintEmail": "前回はメールアドレスとパスワードでサインインしました。",
+      "lastUsedHintUsername": "前回はユーザー名とパスワードでサインインしました。",
+      "lastUsedHintPasskey": "前回はパスキーでサインインしました。",
       "lastUsedHintEmailCode": "前回はメールで届いたコードでサインインしました。",
-      "lastUsedHintOther": "You last signed in with {method}.",
+      "lastUsedHintOther": "前回は {method} でサインインしました。",
       "errors": {
         "emailNotVerified": "Please verify your email first. We sent you a new verification link, check your inbox.",
-        "signInFailed": "Could not sign in. Check your details and try again.",
-        "passkeyFailed": "Passkey sign-in failed. Try again or use your password."
+        "signInFailed": "サインインできませんでした。入力内容を確認して、もう一度お試しください。",
+        "passkeyFailed": "パスキーでのサインインに失敗しました。もう一度お試しいただくか、パスワードを使用してください。"
       },
       "resend": {
-        "title": "Didn't get the email?",
-        "description": "Enter your email and we'll send you a new verification link.",
+        "title": "メールが届きませんか?",
+        "description": "メールアドレスを入力すると、新しい確認リンクをお送りします。",
         "emailPlaceholder": "you@example.com",
-        "send": "Send a new link",
-        "sendAgain": "Send again",
-        "sent": "If an unverified account uses this address, a new link is on its way. Check your inbox and spam folder.",
-        "invalidEmail": "Enter a valid email address.",
-        "error": "Could not send the email. Try again in a minute."
+        "send": "新しいリンクを送信",
+        "sendAgain": "再送信",
+        "sent": "このアドレスを使用している未確認のアカウントがある場合、新しいリンクを送信しました。受信トレイと迷惑メールフォルダをご確認ください。",
+        "invalidEmail": "有効なメールアドレスを入力してください。",
+        "error": "メールを送信できませんでした。しばらくしてからもう一度お試しください。"
       },
       "addAccountDescription": "このブラウザでサインイン済みのアカウントはそのまま維持されます。"
     },
@@ -93,81 +93,81 @@
       }
     },
     "forgotPassword": {
-      "metaTitle": "Forgot password",
-      "title": "Reset your password",
-      "description": "Enter the email on your account. If it exists, we will send you a link to choose a new password.",
-      "emailLabel": "Email",
+      "metaTitle": "パスワードをお忘れの場合",
+      "title": "パスワードをリセット",
+      "description": "アカウントのメールアドレスを入力してください。アカウントが存在する場合、新しいパスワードを設定するためのリンクをお送りします。",
+      "emailLabel": "メールアドレス",
       "emailPlaceholder": "m@example.com",
-      "emailHint": "Use the same email you registered with. If you usually sign in with a username, recovery still uses your account email.",
-      "submit": "Send reset link",
-      "submitting": "Sending…",
-      "backToLogin": "Back to login",
-      "emailSent": "If an account exists for that email, you will receive a reset link shortly.",
+      "emailHint": "登録時と同じメールアドレスを使用してください。普段ユーザー名でサインインしている場合も、復旧にはアカウントのメールアドレスを使用します。",
+      "submit": "リセットリンクを送信",
+      "submitting": "送信中…",
+      "backToLogin": "ログインに戻る",
+      "emailSent": "このメールアドレスのアカウントが存在する場合、まもなくリセットリンクが届きます。",
       "errors": {
-        "emailRequired": "Please enter your email address.",
-        "requestFailed": "Could not send the reset email. Try again."
+        "emailRequired": "メールアドレスを入力してください。",
+        "requestFailed": "リセットメールを送信できませんでした。もう一度お試しください。"
       }
     },
     "resetPassword": {
-      "metaTitle": "Set new password",
-      "title": "Choose a new password",
-      "description": "Enter and confirm your new password below.",
-      "invalidTokenTitle": "Link expired or invalid",
-      "invalidTokenDescription": "This reset link is no longer valid. Request a new one to continue.",
-      "missingTokenTitle": "No reset link",
-      "missingTokenDescription": "Open the link from your email, or request a new password reset.",
-      "requestNewLink": "Request new link",
-      "backToLogin": "Back to login",
-      "newPasswordLabel": "New password",
-      "confirmPasswordLabel": "Confirm password",
-      "passwordHint": "Must be at least 8 characters long.",
-      "passwordMismatch": "Passwords do not match",
-      "submit": "Update password",
-      "submitting": "Updating…",
-      "success": "Your password was updated. You can sign in now.",
+      "metaTitle": "新しいパスワードを設定",
+      "title": "新しいパスワードを設定",
+      "description": "新しいパスワードを入力し、確認のためもう一度入力してください。",
+      "invalidTokenTitle": "リンクが期限切れか無効です",
+      "invalidTokenDescription": "このリセットリンクは無効になっています。続行するには新しいリンクをリクエストしてください。",
+      "missingTokenTitle": "リセットリンクがありません",
+      "missingTokenDescription": "メールに記載されたリンクを開くか、パスワードのリセットをもう一度リクエストしてください。",
+      "requestNewLink": "新しいリンクをリクエスト",
+      "backToLogin": "ログインに戻る",
+      "newPasswordLabel": "新しいパスワード",
+      "confirmPasswordLabel": "パスワードの確認",
+      "passwordHint": "8 文字以上で入力してください。",
+      "passwordMismatch": "パスワードが一致しません",
+      "submit": "パスワードを更新",
+      "submitting": "更新中…",
+      "success": "パスワードを更新しました。サインインできるようになりました。",
       "errors": {
-        "resetFailed": "Could not reset your password. Try again or request a new link."
+        "resetFailed": "パスワードをリセットできませんでした。もう一度お試しいただくか、新しいリンクをリクエストしてください。"
       }
     },
     "signup": {
-      "title": "Create an account",
-      "description": "Enter your information below to create your account",
-      "usernameLabel": "Username",
+      "title": "アカウントを作成",
+      "description": "以下に情報を入力してアカウントを作成してください",
+      "usernameLabel": "ユーザー名",
       "usernamePlaceholder": "your_username",
-      "usernameHint": "3-30 characters: letters, numbers, dots, and underscores only.",
-      "usernameChecking": "Checking availability…",
-      "usernameAvailable": "This username is available.",
-      "usernameTaken": "This username is already taken.",
-      "usernameInvalidHint": "Use only letters, numbers, dots, and underscores.",
-      "fullNameLabel": "Full Name",
-      "namePlaceholder": "John Doe",
-      "emailLabel": "Email",
+      "usernameHint": "3〜30 文字。英字、数字、ピリオド、アンダースコアのみ使用できます。",
+      "usernameChecking": "使用可能か確認中…",
+      "usernameAvailable": "このユーザー名は使用できます。",
+      "usernameTaken": "このユーザー名はすでに使用されています。",
+      "usernameInvalidHint": "英字、数字、ピリオド、アンダースコアのみ使用してください。",
+      "fullNameLabel": "氏名",
+      "namePlaceholder": "山田 太郎",
+      "emailLabel": "メールアドレス",
       "emailPlaceholder": "m@example.com",
-      "emailDescription": "We'll use this to contact you. We will not share your email with anyone else.",
-      "passwordLabel": "Password",
-      "confirmPasswordLabel": "Confirm Password",
-      "passwordHint": "Must be at least 8 characters long.",
-      "confirmPasswordHint": "Please confirm your password.",
-      "passwordMismatch": "Passwords do not match",
-      "submit": "Create Account",
-      "submitting": "Creating account…",
-      "hasAccount": "Already have an account?",
-      "signInLink": "Sign in",
-      "loginLink": "Login",
-      "afterRegisterRedirect": "Account created. Check your email to verify before signing in.",
+      "emailDescription": "ご連絡のために使用します。メールアドレスを第三者と共有することはありません。",
+      "passwordLabel": "パスワード",
+      "confirmPasswordLabel": "パスワードの確認",
+      "passwordHint": "8 文字以上で入力してください。",
+      "confirmPasswordHint": "確認のためパスワードをもう一度入力してください。",
+      "passwordMismatch": "パスワードが一致しません",
+      "submit": "アカウントを作成",
+      "submitting": "アカウントを作成中…",
+      "hasAccount": "すでにアカウントをお持ちですか?",
+      "signInLink": "サインイン",
+      "loginLink": "ログイン",
+      "afterRegisterRedirect": "アカウントを作成しました。サインインする前に、メールを確認してアドレスを認証してください。",
       "errors": {
-        "signUpFailed": "Could not create your account. Try again.",
-        "compromisedPassword": "This password appears in known data breaches. Choose a different one.",
-        "usernameTooShort": "Username must be at least 3 characters.",
-        "usernameInvalid": "That username is not valid.",
-        "usernameTaken": "That username is already taken. Try another."
+        "signUpFailed": "アカウントを作成できませんでした。もう一度お試しください。",
+        "compromisedPassword": "このパスワードは既知のデータ漏えいに含まれています。別のパスワードを選んでください。",
+        "usernameTooShort": "ユーザー名は 3 文字以上で入力してください。",
+        "usernameInvalid": "このユーザー名は無効です。",
+        "usernameTaken": "このユーザー名はすでに使用されています。別のユーザー名をお試しください。"
       }
     },
     "screen": {
-      "headline": "One account for all your apps.",
-      "subhead": "Sign in once and reach every app connected to {name}. Your profile and security settings follow you everywhere.",
-      "footer": "Secured by {name}.",
-      "ecosystem": "Works with"
+      "headline": "<accent>すべてのアプリ</accent>をひとつのアカウントで。",
+      "subhead": "一度サインインするだけで、{name} に接続されたすべてのアプリを利用できます。プロフィールとセキュリティ設定はどこでも共通です。",
+      "footer": "{name} によって保護されています。",
+      "ecosystem": "対応サービス"
     },
     "social": {
       "or": "または",
@@ -175,8 +175,8 @@
       "signInWith": "{provider} でサインイン",
       "lastUsed": "前回使用",
       "otherProviders": "その他のサインイン方法",
-      "error": "Could not sign in with that account. Try again or use another method.",
-      "notLinked": "That account isn't connected to a {name} account yet. Sign in another way, then connect it from your security settings.",
+      "error": "このアカウントでサインインできませんでした。もう一度お試しいただくか、別の方法を使用してください。",
+      "notLinked": "このアカウントはまだ {name} アカウントに連携されていません。別の方法でサインインしてから、セキュリティ設定で連携してください。",
       "noEmail": "このアカウントからメールアドレスが共有されませんでした。後でもう一度お試しいただくか、別の方法でサインインしてください。",
       "signUpDisabled": "このアドレスのアカウントはまだなく、このサインイン方法では作成できません。別の方法でサインインしてください。"
     },
@@ -189,23 +189,23 @@
     }
   },
   "consent": {
-    "emptyTitle": "Authorization",
-    "emptyDescription": "There is no pending OAuth request. Start the flow from the application you want to connect.",
-    "connectTitle": "Connect {name}",
-    "intro": "This application is requesting access to your account. Review the permissions below before continuing.",
+    "emptyTitle": "認可",
+    "emptyDescription": "保留中の OAuth リクエストはありません。接続したいアプリケーションからフローを開始してください。",
+    "connectTitle": "{name} を接続",
+    "intro": "このアプリケーションがあなたのアカウントへのアクセスを求めています。続行する前に、以下の権限を確認してください。",
     "errors": {
-      "needSignIn": "You need to sign in before you can approve this request.",
-      "loadFailed": "Could not load application details.",
-      "actionFailed": "Something went wrong."
+      "needSignIn": "このリクエストを承認するにはサインインが必要です。",
+      "loadFailed": "アプリケーションの詳細を読み込めませんでした。",
+      "actionFailed": "問題が発生しました。"
     },
-    "signIn": "Sign in",
-    "visitWebsite": "Visit application website",
-    "requestedAccess": "Requested access",
-    "defaultScopes": "Default permissions for this client (no explicit scopes in the request).",
-    "terms": "Terms of service",
-    "privacy": "Privacy policy",
-    "deny": "Deny",
-    "allow": "Allow",
+    "signIn": "サインイン",
+    "visitWebsite": "アプリケーションのウェブサイトを開く",
+    "requestedAccess": "要求されたアクセス",
+    "defaultScopes": "このクライアントのデフォルトの権限(リクエストでスコープが明示されていません)。",
+    "terms": "利用規約",
+    "privacy": "プライバシーポリシー",
+    "deny": "拒否",
+    "allow": "許可",
     "scopes": {
       "openid": "本人確認（OpenID Connect）",
       "profile": "名前とプロフィール情報",
@@ -221,108 +221,1540 @@
   },
   "admin": {
     "themeToggle": {
-      "light": "Light",
-      "dark": "Dark",
-      "system": "System",
-      "srOnly": "Toggle theme",
-      "label": "Theme"
+      "light": "ライト",
+      "dark": "ダーク",
+      "system": "システム",
+      "srOnly": "テーマを切り替え",
+      "label": "テーマ"
     },
     "nav": {
-      "groupAdmin": "Admin",
+      "groupAdmin": "管理",
       "groupOAuth": "OAuth",
-      "overview": "Overview",
-      "users": "Users",
-      "applications": "Applications",
+      "overview": "概要",
+      "users": "ユーザー",
+      "applications": "アプリケーション",
       "apis": "API",
       "apiKeys": "APIキー",
-      "consent": "Consent",
-      "organizations": "Organizations",
+      "consent": "同意",
+      "organizations": "組織",
       "sso": "SSO",
       "signInProviders": "サインインプロバイダー",
       "webhooks": "Webhook",
-      "security": "Security",
+      "security": "セキュリティ",
       "usage": "アプリの利用状況",
-      "audit": "Audit log",
+      "audit": "監査ログ",
       "signingKeys": "署名鍵"
     },
     "header": {
-      "crumb": "Admin",
-      "fallback": "Admin",
-      "overview": "Overview",
-      "users": "Users",
-      "applications": "Applications",
+      "crumb": "管理",
+      "fallback": "管理",
+      "overview": "概要",
+      "users": "ユーザー",
+      "applications": "アプリケーション",
       "apis": "API",
       "apiKeys": "APIキー",
-      "consent": "Consent",
-      "organizations": "Organizations",
+      "consent": "同意",
+      "organizations": "組織",
       "sso": "SSO",
       "signInProviders": "サインインプロバイダー",
       "webhooks": "Webhook",
-      "security": "Security",
+      "security": "セキュリティ",
       "usage": "アプリの利用状況",
-      "audit": "Audit log",
+      "audit": "監査ログ",
       "signingKeys": "署名鍵"
     },
     "pages": {
       "overview": {
-        "title": "Overview",
+        "title": "概要",
         "activity": {
-          "title": "Sign-in activity",
-          "description": "Sign-ins, new accounts and sign-outs per day, last 30 days.",
-          "signIns": "Sign-ins",
-          "signUps": "Sign-ups",
-          "signOuts": "Sign-outs",
-          "showTable": "View as table",
-          "showChart": "View as chart",
-          "legend": "Totals for the last 30 days",
-          "day": "Day",
-          "note": "Sign-outs are tracked from October 6, 2026. Earlier sign-ins only include sessions that were still active then."
+          "title": "サインインのアクティビティ",
+          "description": "過去 30 日間の 1 日あたりのサインイン数、新規アカウント数、サインアウト数。",
+          "signIns": "サインイン",
+          "signUps": "新規登録",
+          "signOuts": "サインアウト",
+          "showTable": "表で表示",
+          "showChart": "グラフで表示",
+          "legend": "過去 30 日間の合計",
+          "day": "日付",
+          "note": "サインアウトは 2026 年 10 月 6 日から記録されています。それ以前のサインインは、その時点でまだ有効だったセッションのみを含みます。"
         },
-        "description": "Accounts, sign-in activity and the newest members of the platform."
+        "description": "アカウント、サインインのアクティビティ、プラットフォームの最新メンバー。",
+        "recentUsers": {
+          "title": "最近の登録",
+          "description": "最新のアカウントです。開くとセッションとアクティビティを確認できます。",
+          "loading": "読み込み中…",
+          "empty": "ユーザーはまだいません。"
+        },
+        "stats": {
+          "error": "1 つ以上の指標を読み込めませんでした。管理者としてサインインしていることを確認してください。",
+          "errorTitle": "指標を利用できません",
+          "loadingTitle": "読み込み中",
+          "loadingHint": "読み込み中…",
+          "totalUsers": {
+            "title": "ユーザー総数",
+            "hint": "プラットフォーム上のすべてのアカウント。"
+          },
+          "admins": {
+            "title": "管理者",
+            "hint": "このコンソールにアクセスできるアカウント。"
+          },
+          "banned": {
+            "title": "利用停止中",
+            "hint": "現在サインインできないアカウント。"
+          },
+          "verified": {
+            "title": "メール確認済み",
+            "hint": "メールアドレスを確認したアカウント。"
+          },
+          "recent": {
+            "title": "新規（7 日間）",
+            "hint": "過去 7 日間に作成されたアカウント。"
+          }
+        }
       },
       "applications": {
-        "title": "Applications",
+        "title": "アプリケーション",
         "description": "{name} でユーザーをサインインさせられる OAuth クライアント：リダイレクト URL、グラントタイプ、同意設定。",
         "unusedHint": "{count, plural, other {# 件のアプリ}}が過去 30 日間使われていません。",
-        "viewUsage": "利用状況を見る"
+        "viewUsage": "利用状況を見る",
+        "panel": {
+          "selfRegisteredHint": "自己登録：管理者による確認なし",
+          "selfRegisteredBadge": "自己登録",
+          "registration": {
+            "all": "すべての登録方法",
+            "admin": "管理者",
+            "dynamic": "動的登録",
+            "metadata_document": "メタデータドキュメント"
+          },
+          "authMethod": {
+            "none": "認証: なし",
+            "client_secret_basic": "認証: シークレット（basic）",
+            "client_secret_post": "認証: シークレット（post）",
+            "private_key_jwt": "認証: 秘密鍵 JWT"
+          },
+          "loadFailed": "OAuth クライアントを読み込めませんでした",
+          "loadErrorTitle": "アプリケーションを読み込めませんでした",
+          "searchPlaceholder": "名前、クライアント ID、リダイレクト URI、グラントで検索…",
+          "searchLabel": "アプリケーションを検索",
+          "clientType": "クライアントの種類",
+          "registeredBy": "登録方法",
+          "kind": {
+            "all": "すべてのクライアント",
+            "public": "パブリック",
+            "confidential": "コンフィデンシャル",
+            "trusted": "信頼済み（同意をスキップ）",
+            "device": "デバイスサインイン"
+          },
+          "columns": {
+            "application": "アプリケーション",
+            "redirects": "リダイレクト",
+            "grants": "グラント",
+            "consent": "同意"
+          },
+          "badges": {
+            "device": "デバイス",
+            "trusted": "信頼済み",
+            "consent": "同意",
+            "active": "有効",
+            "skipped": "スキップ",
+            "required": "必須"
+          },
+          "loadingRows": "アプリケーションを読み込み中…",
+          "empty": "このアカウントの OAuth クライアントはまだありません。",
+          "noMatch": "フィルターに一致するアプリケーションはありません。",
+          "linkedApis": "連携 API: {apis}",
+          "noApplications": "0 件のアプリケーション",
+          "showing": "{total} 件中 {from}-{to} 件を表示",
+          "rowsPerPage": "1 ページあたりの行数",
+          "previous": "前へ",
+          "next": "次へ",
+          "page": "{page} / {total} ページ",
+          "footnote": "データは <code>{getClients}</code> から取得しています。登録と編集（<code>{skipConsent}</code> を含む）は <code>{create}</code> と <code>{update}</code> を呼び出し、その他の変更は <code>{deleteClient}</code> と <code>{rotateSecret}</code> を使います。<docs>OAuth プロバイダー</docs>のドキュメントを参照してください。クライアントはサインイン中のユーザー（設定されている場合は <code>{clientReference}</code>）に紐づきます。自己登録クライアントには所有者がおらず、すべて表示されます。無効化や削除はできますが、編集はできません。"
+        },
+        "registration": {
+          "title": "自己登録",
+          "description": "MCP クライアントや AI エージェントが、ここで追加されなくても自分で登録できるようにします。利用できるのは以下のスコープのみで、同意画面には常に未確認と表示され、マシン（クライアントクレデンシャル）アクセスは付与されません。",
+          "dynamicRegistration": "動的登録",
+          "dynamic": {
+            "off": {
+              "label": "オフ",
+              "hint": "POST /oauth2/register は拒否されます。"
+            },
+            "signed_in": {
+              "label": "サインイン中のユーザーのみ",
+              "hint": "ユーザーのセッションを含むリクエストのみ登録できます。ほとんどの MCP クライアントはこれに対応していません。"
+            },
+            "open": {
+              "label": "誰でも（オープン登録）",
+              "hint": "MCP クライアントが想定する設定です。どのアプリも登録でき、各ユーザーが同意画面で承認します。"
+            }
+          },
+          "metadataDocuments": "メタデータドキュメント（client_id URL）",
+          "metadataOnFrom": "オン（{hosts} から）",
+          "metadataOnAnyHost": "オン（任意の HTTPS ホスト）",
+          "scopes": "要求できるスコープ",
+          "missingScope": "このサーバーのスコープではなくなりました：無視されます",
+          "perHour": "1 時間あたりの新規クライアント数",
+          "endpoint": "登録エンドポイント: <code>{url}</code>（ディスカバリードキュメントで公開されています）。",
+          "saved": "設定を保存しました。認証サーバーが 1 分以内に反映します。",
+          "dialogDescription": "自己登録したクライアントは確認されません。ユーザーには未確認のアプリとして表示され、同意画面でそれぞれ承認します。",
+          "dynamicLabel": "動的クライアント登録（RFC 7591）",
+          "cimdLabel": "クライアント ID メタデータドキュメント",
+          "cimdHint": "client_id は、新しい MCP クライアントが使うように、アプリの JSON メタデータを指す HTTPS URL です。取得するのはパブリックなホストのみで、リダイレクトは追わず、最大 5 KB です。",
+          "hostsLabel": "許可するホスト",
+          "hostsHint": "1 行に 1 つ。空欄の場合は任意のパブリック HTTPS ホスト。",
+          "scopesLabel": "自己登録クライアントが要求できるスコープ",
+          "scopesHint": "アプリが要求するスコープは、引き続き各ユーザーが承認します。スコープを削除すると登録済みのクライアントからも削除されます。発行済みのトークンは期限が切れるまでそのスコープを保持します。",
+          "perHourHint": "両方の方法を合わせた、全インスタンスでの上限です。また、各アドレスは 1 分あたり 5 件の登録に制限されます。"
+        },
+        "branding": {
+          "title": "サインインのブランディング",
+          "description": "<app>{client}</app> から来たユーザーに表示されるサインイン画面（ログイン、新規登録、2段階認証、パスワードのリセット、同意）の見た目です。{brand} のマークはすべての画面に表示されたままです。",
+          "logoFetchedOnSave": "ロゴは保存時にサーバーが取得し、その後プレビューに表示されます。",
+          "accentInvalid": "アクセントカラーは {example} のような 16 進数の色で入力してください。",
+          "hexInvalid": "{example} のような 16 進数の色を入力してください。",
+          "saved": "サインインのブランディングを保存しました",
+          "resetDone": "サインインのブランディングをリセットしました",
+          "displayName": "表示名",
+          "displayNameHint": "「… に進むにはサインインしてください」のように表示されます。空欄の場合はアプリケーション名を使います。",
+          "tagline": "キャッチフレーズ（任意）",
+          "taglinePlaceholder": "あなたの読書リストを、どこでも。",
+          "accent": "アクセントカラー",
+          "accentPick": "アクセントカラーを選択",
+          "accentHex": "アクセントカラー（16 進数）",
+          "accentOff": "オフ：画面はテーマの色のままです。",
+          "contrast": {
+            "label": "コントラストチェック",
+            "ratio": "{label}: <value>{ratio}:1</value>",
+            "passes": "（{min}:1 を満たしています）",
+            "below": "（{min}:1 未満）",
+            "buttonLabel": "ボタンのラベル（{color, select, black {黒} other {白}}）",
+            "lightCard": "ライトカード上のボタン",
+            "darkCard": "ダークカード上のボタン",
+            "textAdjusted": "アクセントカラー上のテキストは {min}:1 を満たすため {color} を使います。"
+          },
+          "logo": "ロゴ",
+          "logoSourceLabel": "ロゴの取得元",
+          "logoSource": {
+            "app_icon": "アプリのアイコン",
+            "url": "URL から",
+            "upload": "アップロード"
+          },
+          "logoAppIconHint": "同意画面と同じく、アプリについて見つかったアイコン（{field} またはサイトのもの）。",
+          "logoUrl": "ロゴの URL",
+          "logoUrlHint": "パブリックなホスト上の https。{name} が取得してキャッシュするため、ブラウザーがそこから直接読み込むことはありません。",
+          "logoFile": "ロゴファイル",
+          "logoFileHint": "PNG、JPEG、WebP、AVIF、GIF、ICO、SVG（256 KB まで）。正方形がおすすめです。",
+          "panel": "サイドパネル（ワイド画面、任意）",
+          "panelImage": "サイドパネルの画像",
+          "removeImage": "画像を削除",
+          "panelHint": "ダークパネルの見出しと背景画像。PNG、JPEG、WebP、AVIF（1 MB まで）。",
+          "social": "このアプリの画面でのソーシャルサインイン",
+          "socialNone": "有効なソーシャルプロバイダーはありません。",
+          "socialShown": "表示するソーシャルプロバイダー",
+          "socialAll": "有効なものすべて",
+          "socialSome": "選択したもののみ",
+          "socialHint": "このアプリの画面でボタンを非表示にするだけで、他の方法でのサインインは妨げません。",
+          "previewTitle": "プレビュー",
+          "previewScheme": "プレビューのカラースキーム",
+          "light": "ライト",
+          "dark": "ダーク",
+          "faintOnLight": "この色のボタンはライトカード上でほとんど目立ちません（WCAG はコントロールに 3:1 を求めています）。ラベルは読めますが、より濃い色をおすすめします。",
+          "faintOnDark": "この色のボタンはダークカード上でほとんど目立ちません（WCAG はコントロールに 3:1 を求めています）。ラベルは読めますが、より明るい色をおすすめします。",
+          "resetting": "リセット中…",
+          "reset": "デフォルトに戻す",
+          "save": "ブランディングを保存",
+          "preview": {
+            "label": "サインインページのプレビュー",
+            "appFallback": "アプリ",
+            "title": "サインイン",
+            "submit": "サインイン",
+            "noAccount": "アカウントをお持ちでない場合は<link>作成</link>"
+          }
+        },
+        "actions": {
+          "registration": {
+            "chooseMode": "クライアントを登録できる対象を選択してください。",
+            "unknownScope": "「{scope}」はこのサーバーのスコープではありません。",
+            "noScopes": "スコープを 1 つ以上許可してください。",
+            "invalidHost": "「{raw}」はホスト名ではありません（例: {example}）。",
+            "invalidLimit": "1 時間あたりの上限は 0 から {max} までの整数にしてください。",
+            "saveFailed": "設定を保存できませんでした。",
+            "clientGone": "このクライアントはもう存在しません。",
+            "notSelfRegistered": "ここで変更できるのは自己登録クライアントのみです。"
+          },
+          "branding": {
+            "clientGone": "このアプリケーションはもう存在しません。",
+            "selfRegistered": "自己登録クライアントにはブランディングを設定できません。",
+            "logoMissing": "アップロードするロゴファイルを選択してください。",
+            "logoFetchFailed": "ロゴの URL から画像を取得できませんでした。公開されている画像であることを確認してください。",
+            "faintOnLight": "アクセントカラーがライトカード上で薄すぎるため、ボタンがほとんど目立ちません。",
+            "faintOnDark": "アクセントカラーがダークカード上で薄すぎるため、ボタンがほとんど目立ちません。",
+            "saveFailed": "ブランディングを保存できませんでした。"
+          }
+        },
+        "register": {
+          "trigger": "アプリケーションを登録",
+          "title": "OAuth アプリケーションを登録",
+          "description": "<code>{endpoint}</code> を通じて、あなたのアカウントに紐づくクライアントを作成します（信頼済みアプリは <code>{field}</code> を設定できます）。<link>Better Auth の「Create client」</link>を参照してください。",
+          "nameLabel": "アプリケーション名",
+          "namePlaceholder": "マイアプリ",
+          "redirectUrisLabel": "リダイレクト URI",
+          "redirectUrisHintPublic": "1 行に 1 つ、またはカンマ区切り。HTTPS、または localhost、127.0.0.1、[::1] での http。",
+          "redirectUrisHintConfidential": "1 行に 1 つ、またはカンマ区切り。localhost を含め HTTPS のみ。ローカル開発用には別のパブリッククライアントを登録してください。",
+          "redirectUrisRequired": "リダイレクト URI を 1 つ以上入力してください（1 行に 1 つ、またはカンマ区切り）。",
+          "clientTypeLabel": "クライアントの種類",
+          "clientTypeConfidential": "コンフィデンシャル（クライアントシークレット）",
+          "clientTypePublic": "パブリック（PKCE、シークレットなし）",
+          "deviceCodeLabel": "デバイスサインイン（CLI、テレビ）",
+          "deviceCodeHint": "デバイスコードグラント（RFC 8628）を追加します。アプリがコードを表示し、ユーザーが別の画面の <code>{path}</code> で承認します。通常はパブリッククライアントです。",
+          "skipConsentLabel": "同意をスキップ（信頼済みクライアント）",
+          "skipConsentHint": "ユーザーにはこのアプリケーションの同意画面が表示されません。自社製または完全に信頼できる連携にのみ使用してください。",
+          "registerFailed": "アプリケーションを登録できませんでした",
+          "missingClientId": "サーバーが {field} を返しませんでした。",
+          "registered": "OAuth アプリケーションを登録しました",
+          "creating": "作成中…",
+          "create": "アプリケーションを作成",
+          "successTitle": "アプリケーションを作成しました",
+          "successWithSecret": "クライアントシークレットを今すぐコピーしてください。一度しか表示されない場合があります。",
+          "successPublic": "パブリッククライアントのため、シークレットは発行されません。トークンエンドポイントでは PKCE を使用してください。",
+          "clientId": "クライアント ID",
+          "clientSecret": "クライアントシークレット",
+          "copyClientId": "クライアント ID をコピー",
+          "copyClientSecret": "クライアントシークレットをコピー"
+        },
+        "rowActions": {
+          "menuLabel": "{name} の操作",
+          "copyClientId": "クライアント ID をコピー",
+          "clientIdCopied": "クライアント ID をコピーしました",
+          "edit": "アプリケーションを編集",
+          "editHint": "名前、リダイレクト URI、デバイスサインイン、同意のスキップ",
+          "branding": "サインインのブランディング",
+          "brandingHint": "このアプリのサインイン画面のロゴ、アクセントカラー、文言",
+          "rotateSecret": "シークレットをローテーション",
+          "rotateHintPublic": "パブリッククライアントにはシークレットがありません",
+          "rotateHintDisabled": "先にクライアントを有効にしてください",
+          "rotateHint": "コンフィデンシャルクライアントのシークレットをローテーションします",
+          "delete": "アプリケーションを削除",
+          "editDialog": {
+            "title": "アプリケーションを編集",
+            "description": "<code>{endpoint}</code> を通じて <id>{clientId}</id> を更新します（<code>{field}</code> などの制限付きフィールドを含む）。<link>Better Auth の「Update client」</link>を参照してください。",
+            "nameLabel": "アプリケーション名",
+            "namePlaceholder": "マイアプリ",
+            "redirectUrisLabel": "リダイレクト URI",
+            "redirectUrisHint": "1 行に 1 つ、またはカンマ区切り。HTTPS が必須です。localhost で http を使えるのはパブリッククライアントのみです。",
+            "redirectUrisRequired": "リダイレクト URI を 1 つ以上入力してください（1 行に 1 つ、またはカンマ区切り）。",
+            "deviceCodeLabel": "デバイスサインイン（CLI、テレビ）",
+            "deviceCodeHint": "デバイスコードグラントを許可します。オフにすると新しいデバイスサインインは停止しますが、発行済みのトークンは引き続き使えます。",
+            "skipConsentLabel": "同意をスキップ（信頼済みクライアント）",
+            "skipConsentHint": "有効にすると、このアプリケーションのスコープの承認をユーザーに求めません。",
+            "updateFailed": "アプリケーションを更新できませんでした",
+            "updated": "アプリケーションを更新しました"
+          },
+          "deleteDialog": {
+            "title": "アプリケーションを削除しますか？",
+            "description": "<strong>{name}</strong>（<code>{clientId}</code>）を完全に削除します。このクライアントの OAuth トークンと同意に影響する場合があります。",
+            "deleteFailed": "クライアントを削除できませんでした",
+            "deleted": "アプリケーションを削除しました"
+          },
+          "rotateDialog": {
+            "title": "クライアントシークレットをローテーションしますか？",
+            "description": "以前のシークレットはすぐに使えなくなります。新しいシークレットは一度しか表示されない場合があるため、安全な場所に保存してください。",
+            "newSecretLabel": "新しいクライアントシークレット",
+            "copySecret": "シークレットをコピー",
+            "secretCopied": "シークレットをコピーしました",
+            "rotating": "ローテーション中…",
+            "rotateFailed": "シークレットをローテーションできませんでした",
+            "newSecretIssued": "新しいクライアントシークレットを発行しました。今すぐコピーしてください",
+            "rotated": "シークレットをローテーションしました"
+          }
+        },
+        "selfRegistered": {
+          "menuLabel": "{name} の操作",
+          "enabled": "クライアントを有効にしました",
+          "disabled": "クライアントを無効にしました",
+          "deleted": "クライアントを削除しました",
+          "disableTitle": "{name} を無効にしますか？",
+          "disableDescription": "ユーザーのサインインやトークンの更新ができなくなります。発行済みのアクセストークンは期限が切れるまで（最長 1 時間）使えます。",
+          "deleteTitle": "{name} を削除しますか？",
+          "deleteDescriptionMetadataDocument": "トークンと、ユーザーが与えた同意も削除されます。メタデータドキュメントのクライアントは、次に誰かをサインインさせるときに再作成されます。ブロックするには、代わりに無効にしてください。",
+          "deleteDescriptionDynamic": "トークンと、ユーザーが与えた同意も削除されます。動的登録がオンの間は、アプリが再登録できます。"
+        },
+        "brandingErrors": {
+          "textTooLong": "{max} 文字未満にしてください。",
+          "displayNameTooLong": "表示名：{max} 文字未満にしてください。",
+          "taglineTooLong": "キャッチフレーズ：{max} 文字未満にしてください。",
+          "panelTextTooLong": "サイドパネルのテキスト：{max} 文字未満にしてください。",
+          "accentColor": "アクセントカラー：{example} のような 16 進数の色を入力してください。",
+          "logoSource": "ロゴの取得元を選択してください。",
+          "logoUrl": "ロゴの URL：パブリックなホスト上の https URL（デフォルトのポート）を入力してください。",
+          "logoEmpty": "ロゴファイルが空です。",
+          "logoTooLarge": "ロゴは 256 KB 以下にしてください。",
+          "logoType": "ロゴは PNG、JPEG、GIF、WebP、AVIF、ICO、SVG のいずれかの画像にしてください。",
+          "panelImageEmpty": "サイドパネルの画像が空です。",
+          "panelImageTooLarge": "サイドパネルの画像は 1 MB 以下にしてください。",
+          "panelImageType": "サイドパネルの画像は PNG、JPEG、WebP、AVIF のいずれかにしてください。"
+        }
       },
       "apis": {
         "title": "API",
-        "description": "{name} のアクセストークンを受け付ける API(保護されたリソース):クライアントが要求できるスコープ、利用できるアプリケーション、トークンの設定。"
+        "description": "{name} のアクセストークンを受け付ける API(保護されたリソース):クライアントが要求できるスコープ、利用できるアプリケーション、トークンの設定。",
+        "errors": {
+          "tokenSettings": {
+            "lifetimePositive": "{field, select, access {アクセストークンの有効期間は正の分数にしてください。} other {リフレッシュトークンの有効期間は正の日数にしてください。}}",
+            "lifetimeMinimum": "{field, select, access {アクセストークンの有効期間} other {リフレッシュトークンの有効期間}}は 1 分以上にしてください。",
+            "lifetimeMaximum": "{field, select, access {アクセストークンの有効期間は、サーバーのデフォルトである最大 {max} 分までです。} other {リフレッシュトークンの有効期間は、サーバーのデフォルトである最大 {max} 日までです。}}",
+            "claimsInvalidJson": "カスタムクレームは有効な JSON にしてください（例: {example}）。",
+            "claimsNotObject": "カスタムクレームは JSON オブジェクトにしてください（例: {example}）。",
+            "claimsEmptyName": "カスタムクレームの名前は空にできません。",
+            "claimsReserved": "{count, plural, other {{claims} は予約済みのクレームで、サーバーが設定します。}}予約済み: {reserved}。",
+            "claimsTooLarge": "カスタムクレームが大きすぎます（最大 {kilobytes} KB）。すべてのトークンに追加されます。"
+          },
+          "invalidScope": "「{scope}」は有効なスコープではありません。",
+          "reservedScope": "「{scope}」は OpenID Connect のスコープで、すでにすべてのクライアントが利用できます。",
+          "invalidIdentifier": "識別子はフラグメントのない絶対 URL にしてください（例: {example}）。",
+          "registerFailed": "API を登録できませんでした。",
+          "authServerCannotBeDisabled": "認証サーバー自体は無効にできません。",
+          "updateFailed": "API を更新できませんでした。",
+          "deleteFromEnv": "この API は {variable} で設定されているため、次回のデプロイで元に戻ります。代わりに無効にしてください。",
+          "deleteFailed": "API を削除できませんでした。",
+          "authServerStaysOpen": "サインインは認証サーバーに依存するため、認証サーバーはすべてのアプリケーションに開放されたままです。",
+          "accessFailed": "API を利用できるアプリケーションを変更できませんでした。",
+          "tokensFailed": "トークンの設定を保存できませんでした。"
+        },
+        "duration": {
+          "days": "{count, plural, other {#日}}",
+          "hours": "{count} 時間",
+          "minutes": "{count} 分"
+        },
+        "tokenSummary": {
+          "accessToken": "アクセストークン {duration}",
+          "refreshToken": "リフレッシュトークン {duration}",
+          "dpopRequired": "DPoP 必須",
+          "claims": "クレーム: {claims}"
+        },
+        "restrictLabel": "この API にはこれらのスコープのみ発行する",
+        "restrictHint": "この API 向けのトークンには、これらのスコープ（と OpenID Connect のスコープ）のみが含まれます。オフの場合は、クライアントに付与されたすべてのスコープが含まれます。",
+        "register": {
+          "title": "API を登録",
+          "description": "クライアントは <code>{param}</code> パラメーターでこの API 用のトークンを要求します。トークンのオーディエンスは識別子で、API は JWKS を使ってトークンを検証します。",
+          "identifier": "識別子",
+          "identifierHint": "通常は API のベース URL です。後から変更することはできません。",
+          "namePlaceholder": "注文 API",
+          "scopes": "スコープ",
+          "scopesHint": "スペースまたはカンマで区切ります。マシンクライアント（{grant}）は、その一部に制限する必要があります。",
+          "submit": "API を登録",
+          "submitting": "登録中…",
+          "registered": "API を登録しました"
+        },
+        "list": {
+          "description": "新規または変更されたスコープは 1 分以内に認証サーバーに反映されます。アクセスとトークンの設定は次のトークンから適用されます。",
+          "empty": "API はまだありません。",
+          "envScopesTitle": "{variable} のスコープ",
+          "envScopesText": "呼び出す API に関係なく、すべてのクライアントが利用できます: <mono>{scopes}</mono>。ここで管理するには、該当する API に追加してから変数を削除してください。"
+        },
+        "item": {
+          "authServer": "認証サーバー",
+          "restricted": "制限あり",
+          "linkedOnly": "連携アプリのみ",
+          "noResourceParam": "resource パラメーターなしで発行されるトークン。",
+          "noScopes": "スコープはありません。",
+          "editAria": "{name} を編集",
+          "deleteAria": "{name} を削除",
+          "applications": "アプリケーション",
+          "everyApplication": "すべてのアプリケーション",
+          "onlyLinked": "{names} のみ",
+          "noneLinked": "連携なし：どのアプリケーションもトークンを取得できません",
+          "change": "変更",
+          "changeAccessAria": "{name} を利用できるアプリケーションを変更",
+          "tokens": "トークン",
+          "defaultSettings": "デフォルト設定",
+          "changeTokensAria": "{name} のトークン設定を変更"
+        },
+        "edit": {
+          "title": "{name} を編集",
+          "scopesHint": "スコープを削除しても、すでにそのスコープを持つクライアントは変わりませんが、新しいトークンには含まれなくなります。",
+          "disabledHint": "この API の新しいトークンは発行されません。発行済みのトークンは期限が切れるまで使えます。",
+          "updated": "API を更新しました"
+        },
+        "access": {
+          "title": "{name} を利用できるアプリケーション",
+          "allHint": "どのアプリケーションも、自身のスコープの範囲内でこの API のトークンを取得できます。",
+          "linkedLabel": "連携アプリケーションのみ",
+          "linkedHint": "その他のアプリケーションは、トークンの更新時も含めて拒否されます（{error}）。",
+          "linkedTitle": "連携アプリケーション",
+          "filterAria": "アプリケーションを絞り込む",
+          "filterPlaceholder": "名前またはクライアント ID で絞り込む",
+          "noApplications": "アプリケーションはまだありません。",
+          "noMatch": "一致するアプリケーションはありません。",
+          "linksHintAll": "連携は、API を連携アプリケーションのみに制限した場合にのみ意味を持ちます。連携アプリケーションは、この API のトークンをイントロスペクトすることもできます。",
+          "linksHintLinked": "連携アプリケーションは、この API のトークンをイントロスペクトすることもできます。",
+          "noneLinkedWarning": "連携しているアプリケーションがないため、この API のトークンはどのアプリケーションも取得できません。",
+          "updated": "アクセスを更新しました"
+        },
+        "tokens": {
+          "title": "{name} のトークン設定",
+          "description": "この API に発行されるすべてのアクセストークンに適用されます。発行済みのトークンは元の設定のままです。",
+          "accessTtl": "アクセストークンの有効期間（分）",
+          "accessTtlHint": "デフォルト: {minutes, plural, other {# 分}}。短くすることのみできます。",
+          "refreshTtl": "リフレッシュトークンの有効期間（日）",
+          "refreshTtlHint": "デフォルト: {days, plural, other {#日}}。短くすることのみできます。",
+          "claims": "カスタムクレーム",
+          "claimsHint": "この API のすべてのアクセストークンに追加される JSON オブジェクト。予約済み: <mono>{claims}</mono>。",
+          "dpopLabel": "DPoP でバインドされたトークンを必須にする",
+          "dpopHint": "クライアントはこの API のトークンを取得する際に DPoP proof を送信する必要があり、トークンはクライアントの鍵にバインドされます。API はリクエストごとに proof を検証する必要があります。",
+          "saved": "トークンの設定を保存しました"
+        },
+        "delete": {
+          "title": "{name} を削除しますか？",
+          "description": "クライアントはこの API のトークンを取得できなくなり、発行済みのトークンもすぐに使えなくなります。新しいトークンの発行だけを止めるには、代わりに無効にしてください。",
+          "deleted": "API を削除しました"
+        }
       },
       "signInProviders": {
         "title": "サインインプロバイダー",
-        "description": "Google、Apple、Microsoft など 30 以上のアカウントで {name} にサインインできるようにします。"
+        "description": "Google、Apple、Microsoft など 30 以上のアカウントで {name} にサインインできるようにします。",
+        "panel": {
+          "copyCallback": "コールバック URL をコピー",
+          "authAppFallback": "サインインアプリのアドレス",
+          "environment": "環境",
+          "activeTitle": "サインインページに表示中",
+          "activeDescription": "サインインページと新規登録ページ、および各ユーザーのダッシュボードの「連携アカウント」にこの順で表示されます。変更は 30 秒以内にサインインページに反映されます。",
+          "noneActive": "オンになっているプロバイダーはありません。一覧から選んで設定してください。",
+          "setByEnvironment": "環境変数で設定済み",
+          "existingAccountsOnly": "既存のアカウントのみ",
+          "connectedAccounts": "{count, plural, other {# 件の連携アカウント}}",
+          "moveUp": "{name} を上へ移動",
+          "moveDown": "{name} を下へ移動",
+          "edit": "{name} を編集",
+          "providersTitle": "プロバイダー",
+          "providersDescription": "Better Auth がサポートするすべてのプロバイダーです。プロバイダー側で OAuth アプリを作成し、設定に表示されるコールバック URL を登録してから、認証情報を貼り付けてください。シークレットは暗号化して保存され、再表示されることはありません。",
+          "search": "プロバイダーを検索",
+          "noMatch": "一致するプロバイダーはありません。",
+          "savedOn": "{name} をオンにしました",
+          "saved": "{name} を保存しました",
+          "removed": "{name} の設定を削除しました",
+          "optional": "（任意）",
+          "secretSet": "設定済み",
+          "replace": "置き換え",
+          "removedOnSave": "保存すると削除されます。",
+          "undo": "元に戻す",
+          "newValue": "新しい値",
+          "environmentDescription": "環境変数（{clientIdVar} と {clientSecretVar}）で設定されています。変更はそちらで行うか、環境変数を削除してこのプロバイダーをここで管理してください。",
+          "defaultNote": "{name} で OAuth アプリを作成し、以下のコールバック URL を登録してから、その認証情報を貼り付けてください。",
+          "callbackUrl": "コールバック URL",
+          "callbackHint": "リダイレクト URI やリターン URL とも呼ばれます。",
+          "createApp": "アプリを作成",
+          "setupGuide": "設定ガイド",
+          "secretsUnreadable": "保存されているシークレットを復号できません（{envVar} が変更されました）。もう一度入力してください。",
+          "buttonName": "ボタン名",
+          "buttonNameHint": "サインインページで「… で続行」と表示されます。",
+          "allowSignUp": "新規ユーザーのアカウントを作成する",
+          "allowSignUpHint": "オフ：すでにアカウントを持つユーザー（ダッシュボードから連携済み、または同じ確認済みメールアドレス）のみがサインインできます。",
+          "oneTap": "Google One Tap を表示",
+          "oneTapHint": "ブラウザーで Google にサインイン済みのユーザー向けに、サインインページと新規登録ページの上部に表示される Google のサインインプロンプトです。このクライアント ID を使います。Google Cloud コンソールで、承認済みの JavaScript 生成元に {origin} を追加してください。Google がオンの場合のみ有効です。",
+          "enabled": "サインインページに表示",
+          "enabledHint": "オフ：ボタンが非表示になり、このプロバイダーでのサインインは拒否されます。設定は保持されます。",
+          "removeConfirm": "設定とシークレットを削除しますか？",
+          "removeSettings": "設定を削除"
+        },
+        "errors": {
+          "unknownProvider": "不明なプロバイダーです。",
+          "envManaged": "このプロバイダーは環境変数で設定されています。環境変数を変更するか、削除してここで管理してください。",
+          "invalidOption": "{field}：{options} から選択してください。",
+          "appleKeyNotEc": "秘密鍵：Apple からダウンロードした EC（P-256）鍵（.p8）が必要です。",
+          "appleKeyInvalid": "秘密鍵：有効な PEM 秘密鍵ではありません。BEGIN 行と END 行を含め、.p8 ファイル全体を貼り付けてください。",
+          "issuerNotHttps": "URL は https:// で始まる必要があります。",
+          "salesforceDomain": "私のドメイン：example.my.salesforce.com のようなホスト名。",
+          "cognitoRegion": "リージョン：eu-west-1 のような AWS リージョン。",
+          "googleHd": "Workspace ドメイン：example.com のようなドメイン。",
+          "missingFields": "オンにする前に {fields} を入力してください。",
+          "unusable": "この設定は使用できません。"
+        },
+        "providers": {
+          "apple": {
+            "note": "Apple では実在のドメイン上の HTTPS リターン URL（localhost 不可）が必要で、ユーザーは POST で戻されます。",
+            "fields": {
+              "clientId": {
+                "label": "Services ID",
+                "hint": "Sign in with Apple を有効にした Services ID の識別子（例: com.example.signin）。"
+              },
+              "teamId": {
+                "label": "Team ID"
+              },
+              "keyId": {
+                "label": "Key ID",
+                "hint": "Sign in with Apple を有効にした鍵。"
+              },
+              "privateKey": {
+                "label": "秘密鍵（.p8）",
+                "hint": "クライアントシークレットはこの鍵で署名された JWT で、自動的に生成・更新されます。"
+              },
+              "appBundleIdentifier": {
+                "label": "アプリの Bundle ID",
+                "hint": "ネイティブ iOS サインイン専用です（Services ID ではなくアプリに発行される ID トークン）。"
+              }
+            }
+          },
+          "atlassian": {
+            "fields": {
+              "clientId": {
+                "label": "クライアント ID"
+              },
+              "clientSecret": {
+                "label": "クライアントシークレット"
+              }
+            }
+          },
+          "cloudflare": {
+            "fields": {
+              "clientId": {
+                "label": "クライアント ID"
+              },
+              "clientSecret": {
+                "label": "クライアントシークレット",
+                "hint": "パブリッククライアント（PKCE のみ）の場合は空欄にしてください。"
+              }
+            }
+          },
+          "cognito": {
+            "fields": {
+              "clientId": {
+                "label": "アプリクライアント ID"
+              },
+              "clientSecret": {
+                "label": "アプリクライアントシークレット",
+                "hint": "アプリクライアントにシークレットがある場合のみ。"
+              },
+              "domain": {
+                "label": "Cognito ドメイン"
+              },
+              "region": {
+                "label": "リージョン"
+              },
+              "userPoolId": {
+                "label": "ユーザープール ID"
+              }
+            }
+          },
+          "discord": {
+            "fields": {
+              "clientId": {
+                "label": "クライアント ID"
+              },
+              "clientSecret": {
+                "label": "クライアントシークレット"
+              }
+            }
+          },
+          "dropbox": {
+            "fields": {
+              "clientId": {
+                "label": "App key"
+              },
+              "clientSecret": {
+                "label": "App secret"
+              }
+            }
+          },
+          "facebook": {
+            "fields": {
+              "clientId": {
+                "label": "アプリ ID"
+              },
+              "clientSecret": {
+                "label": "App Secret"
+              }
+            }
+          },
+          "figma": {
+            "fields": {
+              "clientId": {
+                "label": "クライアント ID"
+              },
+              "clientSecret": {
+                "label": "クライアントシークレット"
+              }
+            }
+          },
+          "github": {
+            "note": "OAuth App はそのまま使えます。GitHub App の場合は、アカウント権限の Email addresses を Read-only に設定する必要があります。設定しないと、メールアドレスがないためサインインに失敗します。",
+            "fields": {
+              "clientId": {
+                "label": "クライアント ID"
+              },
+              "clientSecret": {
+                "label": "クライアントシークレット"
+              }
+            }
+          },
+          "gitlab": {
+            "fields": {
+              "clientId": {
+                "label": "アプリケーション ID"
+              },
+              "clientSecret": {
+                "label": "クライアントシークレット"
+              },
+              "issuer": {
+                "label": "GitLab の URL",
+                "hint": "セルフマネージドの GitLab の場合。"
+              }
+            }
+          },
+          "google": {
+            "fields": {
+              "clientId": {
+                "label": "クライアント ID"
+              },
+              "clientSecret": {
+                "label": "クライアントシークレット"
+              },
+              "hd": {
+                "label": "Workspace ドメイン",
+                "hint": "この Google Workspace ドメインのアカウントのみを受け付けます。"
+              }
+            }
+          },
+          "huggingface": {
+            "fields": {
+              "clientId": {
+                "label": "クライアント ID"
+              },
+              "clientSecret": {
+                "label": "クライアントシークレット"
+              }
+            }
+          },
+          "kakao": {
+            "fields": {
+              "clientId": {
+                "label": "REST APIキー"
+              },
+              "clientSecret": {
+                "label": "クライアントシークレット",
+                "hint": "アプリでクライアントシークレットがオンになっている場合のみ。"
+              }
+            }
+          },
+          "kick": {
+            "fields": {
+              "clientId": {
+                "label": "クライアント ID"
+              },
+              "clientSecret": {
+                "label": "クライアントシークレット"
+              }
+            }
+          },
+          "line": {
+            "fields": {
+              "clientId": {
+                "label": "チャネル ID"
+              },
+              "clientSecret": {
+                "label": "チャネルシークレット"
+              }
+            }
+          },
+          "linear": {
+            "fields": {
+              "clientId": {
+                "label": "クライアント ID"
+              },
+              "clientSecret": {
+                "label": "クライアントシークレット"
+              }
+            }
+          },
+          "linkedin": {
+            "fields": {
+              "clientId": {
+                "label": "クライアント ID"
+              },
+              "clientSecret": {
+                "label": "クライアントシークレット"
+              }
+            }
+          },
+          "microsoft": {
+            "fields": {
+              "clientId": {
+                "label": "アプリケーション (クライアント) ID"
+              },
+              "clientSecret": {
+                "label": "クライアントシークレットの値"
+              },
+              "tenantId": {
+                "label": "テナント",
+                "hint": "common（すべてのアカウント）、organizations、consumers、または自組織のみを許可する場合はディレクトリ (テナント) ID。"
+              }
+            }
+          },
+          "naver": {
+            "fields": {
+              "clientId": {
+                "label": "クライアント ID"
+              },
+              "clientSecret": {
+                "label": "クライアントシークレット"
+              }
+            }
+          },
+          "notion": {
+            "fields": {
+              "clientId": {
+                "label": "OAuth クライアント ID"
+              },
+              "clientSecret": {
+                "label": "OAuth クライアントシークレット"
+              }
+            }
+          },
+          "paybin": {
+            "fields": {
+              "clientId": {
+                "label": "クライアント ID"
+              },
+              "clientSecret": {
+                "label": "クライアントシークレット"
+              },
+              "issuer": {
+                "label": "発行者"
+              }
+            }
+          },
+          "paypal": {
+            "note": "アプリで「Log in with PayPal」をオンにし、メールアドレスを要求してください。",
+            "fields": {
+              "clientId": {
+                "label": "クライアント ID"
+              },
+              "clientSecret": {
+                "label": "クライアントシークレット"
+              },
+              "environment": {
+                "label": "環境"
+              }
+            }
+          },
+          "polar": {
+            "fields": {
+              "clientId": {
+                "label": "クライアント ID"
+              },
+              "clientSecret": {
+                "label": "クライアントシークレット"
+              }
+            }
+          },
+          "railway": {
+            "fields": {
+              "clientId": {
+                "label": "クライアント ID"
+              },
+              "clientSecret": {
+                "label": "クライアントシークレット"
+              }
+            }
+          },
+          "reddit": {
+            "fields": {
+              "clientId": {
+                "label": "クライアント ID"
+              },
+              "clientSecret": {
+                "label": "クライアントシークレット"
+              }
+            }
+          },
+          "roblox": {
+            "fields": {
+              "clientId": {
+                "label": "クライアント ID"
+              },
+              "clientSecret": {
+                "label": "クライアントシークレット"
+              }
+            }
+          },
+          "salesforce": {
+            "fields": {
+              "clientId": {
+                "label": "コンシューマー鍵"
+              },
+              "clientSecret": {
+                "label": "コンシューマーの秘密"
+              },
+              "environment": {
+                "label": "環境"
+              },
+              "loginUrl": {
+                "label": "私のドメイン",
+                "hint": "ホスト名のみ。login.salesforce.com または test.salesforce.com の代わりに使われます。"
+              }
+            }
+          },
+          "slack": {
+            "fields": {
+              "clientId": {
+                "label": "クライアント ID"
+              },
+              "clientSecret": {
+                "label": "クライアントシークレット"
+              }
+            }
+          },
+          "spotify": {
+            "fields": {
+              "clientId": {
+                "label": "クライアント ID"
+              },
+              "clientSecret": {
+                "label": "クライアントシークレット"
+              }
+            }
+          },
+          "tiktok": {
+            "fields": {
+              "clientKey": {
+                "label": "クライアントキー"
+              },
+              "clientSecret": {
+                "label": "クライアントシークレット"
+              }
+            }
+          },
+          "twitch": {
+            "fields": {
+              "clientId": {
+                "label": "クライアント ID"
+              },
+              "clientSecret": {
+                "label": "クライアントシークレット"
+              }
+            }
+          },
+          "twitter": {
+            "note": "OAuth 2.0 の認証情報（APIキーではなく）を使い、アプリの設定でメールアドレスへのアクセスを要求してください。",
+            "fields": {
+              "clientId": {
+                "label": "OAuth 2.0 クライアント ID"
+              },
+              "clientSecret": {
+                "label": "OAuth 2.0 クライアントシークレット"
+              }
+            }
+          },
+          "vercel": {
+            "fields": {
+              "clientId": {
+                "label": "クライアント ID"
+              },
+              "clientSecret": {
+                "label": "クライアントシークレット"
+              }
+            }
+          },
+          "vk": {
+            "fields": {
+              "clientId": {
+                "label": "アプリ ID"
+              },
+              "clientSecret": {
+                "label": "保護キー"
+              }
+            }
+          },
+          "wechat": {
+            "note": "ウェブサイトアプリケーション（QR コードでのサインイン）。WeChat はメールアドレスを返しません。",
+            "fields": {
+              "clientId": {
+                "label": "AppID"
+              },
+              "clientSecret": {
+                "label": "AppSecret"
+              }
+            }
+          },
+          "zoom": {
+            "fields": {
+              "clientId": {
+                "label": "クライアント ID"
+              },
+              "clientSecret": {
+                "label": "クライアントシークレット"
+              }
+            }
+          }
+        }
       },
       "apiKeys": {
         "title": "APIキー",
-        "description": "ユーザーがスクリプトから API を呼び出すために作成するキー:機能のオン/オフ、最大有効期間の設定、任意のキーの取り消し。"
+        "description": "ユーザーがスクリプトから API を呼び出すために作成するキー:機能のオン/オフ、最大有効期間の設定、任意のキーの取り消し。",
+        "allKeys": {
+          "title": "すべてのキー",
+          "description": "新しい順{truncated, select, true {（最新の {limit} 件）} other {}}。期限切れのキーは、次にキーが使用または作成されたときに削除されます。アカウントを利用停止または削除するとそのキーは取り消され、組織を削除するとそのキーも削除されます（組織が所有するキーは、作成したメンバーが退出しても残ります）。"
+        },
+        "settings": {
+          "description": "ユーザーはアカウントページから、いずれかの API とその一部のスコープ用のキーを作成します。API は各キーをこのサーバーで検証します。キーでこのサーバーや管理コンソールにサインインすることはできません。",
+          "statusOn": "オン：ユーザーはキーを作成できます",
+          "statusOff": "オフ：新しいキーは作成できず、すべてのキーが拒否されます",
+          "maxLifetime": "最大有効期間",
+          "maxLifetimeValue": "{count, plural, other {#日}}",
+          "apisAccepting": "キーを受け付ける API",
+          "apisNone": "なし：スコープを持ち、すべてのアプリケーションに開放された API を登録してください",
+          "verifyEndpoint": "検証エンドポイント: <code>{endpoint}</code>。API は、ここに登録されその API に連携したアプリケーション（API ページの「アクセス」）として認証します。連携アプリケーションのみに制限された API はキーを受け付けません。"
+        },
+        "dialog": {
+          "description": "キーは長期間有効です。短い有効期間をおすすめします。最大値を下げても、適用されるのは新しいキーのみです。",
+          "allowLabel": "APIキーを許可",
+          "allowHint": "オフ：誰もキーを作成できず、既存のキーもすべて検証時に拒否されます。キーは保持され、再びオンにすると使えるようになります。",
+          "maxLifetimeLabel": "最大有効期間（日）",
+          "maxLifetimeHint": "1 から {max} まで。すべてのキーに有効期限があります。",
+          "saved": "設定を保存しました。認証サーバーが 1 分以内に反映します。"
+        },
+        "table": {
+          "empty": "APIキーはありません。",
+          "key": "キー",
+          "owner": "所有者",
+          "api": "API",
+          "scopes": "スコープ",
+          "lastUsed": "最終使用",
+          "expires": "有効期限",
+          "createdBy": "作成者: {email}",
+          "org": "組織",
+          "removedApi": "削除された API",
+          "expired": "期限切れ",
+          "revoke": "取り消す",
+          "revoked": "APIキーを取り消しました",
+          "revokeTitle": "{name} を取り消しますか？",
+          "revokeOrgDescription": "組織 {owner} のこのキーはすぐに使えなくなります。APIキーがオンであれば、組織のオーナーと管理者は新しいキーを作成できます。",
+          "revokeUserDescription": "{owner} のキーはすぐに使えなくなります。APIキーがオンであれば、新しいキーを作成できます。"
+        },
+        "errors": {
+          "chooseEnabled": "APIキーをオンにするかどうかを選択してください。",
+          "maxLifetimeRange": "最大有効期間は 1 から {max} までの整数の日数にしてください。",
+          "saveFailed": "設定を保存できませんでした。",
+          "noKey": "キーが指定されていません。",
+          "keyGone": "このキーはもう存在しません。"
+        }
       },
       "webhooks": {
         "title": "Webhook",
         "description": "{name} のユーザー、ロール、組織メンバーシップが変わったときにアプリへ知らせる署名付き HTTPS 通知です。",
-        "deliveries": "配信ログ"
+        "deliveries": "配信ログ",
+        "eventDescriptions": {
+          "user_created": "アカウントが作成された（新規登録、管理者、SSO、SCIM）。",
+          "user_updated": "名前、メールアドレス、メールの確認状態、ユーザー名、画像が変更された。",
+          "user_deleted": "アカウントが削除された。",
+          "user_banned": "アカウントが利用停止された、または SCIM で無効化された。",
+          "user_unbanned": "利用停止が解除された、または SCIM でアカウントが再有効化された。",
+          "user_role_changed": "アカウントのプラットフォームロールが変更された。",
+          "organization_member_added": "誰かが組織に参加した。",
+          "organization_member_removed": "誰かが組織から退出した、または削除された。",
+          "organization_member_role_changed": "組織内のメンバーのロールが変更された。"
+        },
+        "panel": {
+          "events": "イベント",
+          "clear": "クリア",
+          "selectAll": "すべて選択",
+          "signingSecret": "署名シークレット",
+          "secretCopied": "シークレットをコピーしました",
+          "copySecret": "シークレットをコピー",
+          "url": "URL",
+          "add": {
+            "title": "エンドポイントを追加",
+            "description": "選択したイベントが発生すると、Ostiary はこの URL に署名付き JSON イベントを POST します。失敗した場合は約 1 日間再試行します。",
+            "urlHint": "パブリックなアドレス上の HTTPS。",
+            "urlHintLocalhost": "パブリックなアドレス上の HTTPS。{url} も受け付けます（{envVar}、開発時のみ）。",
+            "descriptionPlaceholder": "請求アプリ：ユーザー同期",
+            "adding": "追加中…",
+            "submit": "エンドポイントを追加"
+          },
+          "list": {
+            "title": "エンドポイント",
+            "description": "すべてのリクエストには <code>{id}</code>、<code>{timestamp}</code>、<code>{signature}</code> ヘッダーが含まれます（Standard Webhooks）。{count, plural, other {# 回}}連続で失敗したエンドポイントは無効になります。",
+            "empty": "エンドポイントはまだありません。"
+          },
+          "created": {
+            "title": "エンドポイントを追加しました",
+            "description": "署名シークレットを {url} のアプリにコピーしてください。アプリはこれを使って各配信を検証します。再表示はされません。"
+          },
+          "test": {
+            "delivered": "テストイベントを配信しました（HTTP {status}）",
+            "failed": "テストイベントが失敗しました: {reason}"
+          },
+          "item": {
+            "disabledFailures": "失敗が続いたため無効化",
+            "rotating": "シークレットのローテーション中",
+            "editLabel": "{label} を編集",
+            "deleteLabel": "{label} を削除",
+            "disabledNotice": "{count, plural, other {# 回}}連続で失敗したため無効になりました。受信側を修正してから再びオンにしてください。保留中のイベントは再送信されます。",
+            "disabledNoticeOn": "{date} に {count, plural, other {# 回}}連続で失敗したため無効になりました。受信側を修正してから再びオンにしてください。保留中のイベントは再送信されます。",
+            "lastSuccess": "最終成功",
+            "lastFailure": "最終失敗",
+            "inARow": "（{count} 回連続）",
+            "deliveries": "配信",
+            "deliveriesValue": "待機中または再試行中 {pending} 件 · 失敗 {failed} 件",
+            "sendTest": "テストイベントを送信",
+            "deliveryLog": "配信ログ",
+            "regenerateSecret": "シークレットを再生成"
+          },
+          "edit": {
+            "title": "エンドポイントを編集",
+            "enabledHint": "無効の間、このエンドポイントの新しいイベントは記録されず、再試行は待機します。",
+            "updated": "エンドポイントを更新しました"
+          },
+          "rotate": {
+            "title": "署名シークレットを再生成しますか？",
+            "description": "24 時間は古いシークレットと新しいシークレットの両方で配信に署名するため、アプリはイベントを取りこぼさずに切り替えられます。",
+            "newTitle": "新しい署名シークレット",
+            "newDescription": "今すぐアプリにコピーしてください。再表示はされません。今後 24 時間は、配信に古いシークレットによる署名も含まれます。",
+            "confirm": "再生成"
+          },
+          "delete": {
+            "title": "このエンドポイントを削除しますか？",
+            "description": "{url} はイベントを受信しなくなり、配信ログと保留中の再試行も削除されます。一時停止するには、代わりに無効にしてください。",
+            "deleted": "エンドポイントを削除しました"
+          }
+        },
+        "redeliver": {
+          "button": "再配信",
+          "delivered": "配信しました（HTTP {status}）",
+          "failed": "失敗しました: {reason}"
+        },
+        "log": {
+          "status": {
+            "succeeded": "配信済み",
+            "failed": "失敗",
+            "pending": "保留中"
+          },
+          "disabled": "無効：再びオンにするまで再試行は待機します。",
+          "empty": "配信はまだありません。Webhook ページの「テストイベントを送信」でエンドポイントを試してください。",
+          "event": "イベント",
+          "response": "レスポンス",
+          "attempts": "試行回数",
+          "nextRetry": "次回の再試行",
+          "answer": "応答",
+          "error": "エラー",
+          "footer": "最新 {shown} 件の配信です。配信は {days, plural, other {#日}}間保持されます。失敗した配信は約 1 日かけて {retries, plural, other {# 回}}再試行されます。「再配信」を使うと、同じイベント（同じ {header}）を今すぐ再送信します。"
+        },
+        "errors": {
+          "noEvents": "イベントを 1 つ以上選択してください。",
+          "tooMany": "エンドポイントは最大 {max} 個までです。",
+          "endpointNotFound": "エンドポイントが見つかりません。",
+          "disabledTest": "エンドポイントが無効です。テストイベントを送信するにはオンにしてください。",
+          "testNotSent": "テストイベントを送信できませんでした。",
+          "deliveryNotFound": "配信が見つかりません。",
+          "disabledRedeliver": "エンドポイントが無効です。再配信するにはオンにしてください。",
+          "eventNotSent": "イベントを送信できませんでした。"
+        }
       },
       "users": {
-        "title": "Users",
-        "description": "Find accounts, change roles, ban or remove them, and open an account to see its sessions and activity."
+        "title": "ユーザー",
+        "description": "アカウントを検索し、ロールの変更、利用停止、削除を行います。アカウントを開くとセッションとアクティビティを確認できます。",
+        "list": {
+          "searchPlaceholder": "名前またはメールアドレスで検索…",
+          "searchLabel": "ユーザーを検索",
+          "rolePlaceholder": "ロール",
+          "roleAll": "すべてのロール",
+          "roleAdmin": "管理者",
+          "roleUser": "ユーザー",
+          "loadErrorTitle": "ユーザーを読み込めませんでした",
+          "loadErrorFallback": "ユーザーの読み込みに失敗しました",
+          "columns": {
+            "user": "ユーザー",
+            "role": "ロール",
+            "status": "ステータス",
+            "verified": "確認済み",
+            "joined": "登録日"
+          },
+          "loading": "ユーザーを読み込み中…",
+          "empty": "フィルターに一致するユーザーはいません。",
+          "noUsers": "0 人のユーザー",
+          "showing": "{total} 件中 {from}-{to} 件を表示",
+          "rowsPerPage": "1 ページあたりの行数",
+          "previous": "前へ",
+          "next": "次へ",
+          "pageOf": "{page} / {pages} ページ",
+          "poweredBy": "<link>Better Auth 管理プラグイン</link>の <code>listUsers</code>、<code>createUser</code>、<code>setRole</code>、<code>updateUser</code>、<code>setUserPassword</code> などのメソッドを使用しています。管理者としてサインインしている必要があります。"
+        },
+        "status": {
+          "banned": "利用停止中",
+          "active": "有効"
+        },
+        "create": {
+          "trigger": "ユーザーを追加",
+          "title": "ユーザーを追加",
+          "description": "<code>createUser</code> を使ってアカウントを作成します。",
+          "email": "メールアドレス",
+          "password": "パスワード",
+          "name": "名前",
+          "role": "ロール",
+          "error": "ユーザーを作成できませんでした",
+          "created": "ユーザーを作成しました",
+          "submit": "ユーザーを作成",
+          "creating": "作成中…"
+        },
+        "rowActions": {
+          "menuLabel": "{name} の操作",
+          "copyId": "ユーザー ID をコピー",
+          "idCopied": "ユーザー ID をコピーしました",
+          "edit": "ユーザーを編集",
+          "setPassword": "パスワードを設定",
+          "makeAdmin": "管理者にする",
+          "makeUser": "一般ユーザーにする",
+          "ban": "ユーザーを利用停止",
+          "unban": "利用停止を解除",
+          "remove": "ユーザーを削除",
+          "roleError": "ロールを更新できませんでした",
+          "roleSet": "ロールを {role} に設定しました",
+          "unbanError": "利用停止を解除できませんでした",
+          "unbanned": "利用停止を解除しました",
+          "banError": "ユーザーを利用停止できませんでした",
+          "banned": "ユーザーを利用停止しました",
+          "removeError": "ユーザーを削除できませんでした",
+          "removed": "ユーザーを削除しました",
+          "emailRequired": "メールアドレスは必須です",
+          "noChanges": "保存する変更はありません",
+          "updateError": "ユーザーを更新できませんでした",
+          "updated": "ユーザーを更新しました",
+          "passwordRequired": "新しいパスワードを入力してください。",
+          "passwordMismatch": "パスワードが一致しません。",
+          "passwordError": "パスワードを設定できませんでした",
+          "passwordUpdated": "パスワードを更新しました",
+          "editTitle": "ユーザーを編集",
+          "editDescription": "名前またはメールアドレスを変更します。新しいメールアドレスは、ユーザーが確認するまでサインインに使えません。",
+          "name": "名前",
+          "email": "メールアドレス",
+          "passwordTitle": "パスワードを設定",
+          "passwordDescription": "<code>setUserPassword</code> を使って <strong>{email}</strong> の新しいパスワードを設定します。",
+          "newPassword": "新しいパスワード",
+          "confirmPassword": "パスワードの確認",
+          "updatePassword": "パスワードを更新",
+          "removeTitle": "ユーザーを削除しますか？",
+          "removeDescription": "<strong>{name}</strong>（{email}）と、このアカウントに関連するすべてのデータを完全に削除します。監査ログのエントリは名前とメールアドレスを除いて保持されます。この操作は元に戻せません。",
+          "removeConfirm": "削除",
+          "removing": "削除中…"
+        },
+        "detailActions": {
+          "impersonateError": "このユーザーとしてサインインできませんでした。",
+          "signOutError": "このユーザーをサインアウトさせられませんでした。",
+          "signedOut": "{count, plural, other {# 件のセッション}}からサインアウトさせました",
+          "exportError": "このユーザーのデータをエクスポートできませんでした。",
+          "exported": "データをエクスポートしました。エクスポートは監査ログに記録されます。",
+          "exportData": "データをエクスポート",
+          "impersonate": "代理サインイン",
+          "signOutEverywhere": "すべての場所からサインアウト",
+          "impersonateTitle": "{email} としてサインインしますか？",
+          "signOutTitle": "{email} をすべての場所からサインアウトさせますか？",
+          "impersonateDescription": "最長 1 時間、このユーザーとまったく同じアカウントダッシュボードを表示できます。ダッシュボード上のバナーから終了して戻れます。この操作は監査ログに記録されます。",
+          "signOutDescription": "このユーザーのすべてのセッションが、すべてのデバイスで今すぐ終了します。ユーザーは再度サインインする必要があります。",
+          "sessionRevoked": "セッションを取り消しました",
+          "revokeError": "このセッションを取り消せませんでした。",
+          "revoke": "取り消す",
+          "resetTwoFactorError": "2段階認証をリセットできませんでした。",
+          "twoFactorReset": "2段階認証をオフにしました",
+          "reset": "リセット",
+          "resetTwoFactorTitle": "{email} の2段階認証をリセットしますか？",
+          "resetTwoFactorDescription": "認証アプリ、バックアップコード、信頼済みデバイスは使えなくなり、再設定するまではパスワードのみでサインインすることになります。依頼者の本人確認が済んでから実行してください。この操作は監査ログに記録されます。"
+        },
+        "detail": {
+          "emailVerified": "メール確認済み",
+          "emailNotVerified": "メール未確認",
+          "banned": "利用停止中",
+          "bannedWithReason": "利用停止中: {reason}",
+          "scimTitle": "SCIM でプロビジョニング: {organizations}",
+          "scimDescription": "このアカウントは ID プロバイダーが管理しています。ユーザーの削除はそちらで行ってください。ここでアカウントを削除しても、次回の同期でディレクトリが再作成します。ユーザーはダッシュボードからアカウントを削除できません。",
+          "tiles": {
+            "joined": "登録日",
+            "activeSessions": "アクティブなセッション",
+            "passkeys": "パスキー",
+            "twoFactor": "2段階認証"
+          },
+          "device": {
+            "unknown": "不明なデバイス",
+            "browser": "ブラウザー",
+            "browserOnOs": "{os} の {browser}"
+          },
+          "sessions": {
+            "title": "アクティブなセッション",
+            "description": "このアカウントがサインインしているデバイス。",
+            "empty": "アクティブなセッションはありません。",
+            "device": "デバイス",
+            "ipAddress": "IP アドレス",
+            "lastActive": "最終アクティブ",
+            "impersonated": "代理サインイン"
+          },
+          "apiKeys": {
+            "title": "APIキー",
+            "description": "このアカウントがスクリプト用に作成したキー。アカウントを利用停止または削除すると取り消されます。"
+          },
+          "signInMethods": {
+            "title": "サインイン方法",
+            "credential": "メールアドレスとパスワード",
+            "sso": "SSO: {provider}",
+            "passkey": "パスキー: {name} <muted>（{deviceType}）</muted>",
+            "unnamed": "名前なし",
+            "empty": "サインイン方法はありません。",
+            "twoFactor": "2段階認証 <muted>（認証アプリ）</muted>",
+            "managedByYou": "あなたのアカウントから管理"
+          },
+          "organizations": {
+            "title": "組織",
+            "empty": "どの組織のメンバーでもありません。"
+          },
+          "activity": {
+            "title": "最近のサインインアクティビティ",
+            "empty": "記録されたアクティビティはまだありません。",
+            "events": {
+              "sign_in": "サインイン",
+              "sign_up": "アカウント作成",
+              "sign_out": "サインアウト",
+              "sign_in_failed": "サインイン失敗"
+            }
+          },
+          "audit": {
+            "title": "このアカウントに対する管理操作",
+            "empty": "管理操作はまだありません。",
+            "by": "実行者: {actor}",
+            "system": "システム"
+          }
+        }
       },
       "consent": {
-        "title": "Consent",
-        "description": "Permissions people have granted to OAuth clients, with the scopes and when they were given."
+        "title": "同意",
+        "description": "ユーザーが OAuth クライアントに付与した権限と、そのスコープおよび付与日時。",
+        "panel": {
+          "signedInUser": "サインイン中のユーザー",
+          "loadConsentsFailed": "同意を読み込めませんでした",
+          "loadClientsFailed": "OAuth クライアントを読み込めませんでした",
+          "loadErrorTitle": "同意を読み込めませんでした",
+          "searchPlaceholder": "ユーザー、クライアント、同意 ID、参照、スコープで検索…",
+          "searchLabel": "同意を検索",
+          "filter": {
+            "placeholder": "スコープで絞り込み",
+            "all": "すべての同意",
+            "hasScope": "{scope} を含む"
+          },
+          "columns": {
+            "user": "ユーザー",
+            "application": "アプリケーション",
+            "scopes": "スコープ",
+            "reference": "参照",
+            "granted": "付与日時",
+            "updated": "更新日時"
+          },
+          "loading": "同意を読み込み中…",
+          "emptyNone": "このアカウントで記録された同意はまだありません。",
+          "emptyFiltered": "フィルターに一致する同意はありません。",
+          "noResults": "0 件の同意",
+          "showing": "{total} 件中 {from}-{to} 件を表示",
+          "rowsPerPage": "1 ページあたりの行数",
+          "previous": "前へ",
+          "next": "次へ",
+          "pageOf": "{page} / {total} ページ",
+          "footnote": "データは <code>{getConsents}</code> から取得し、クライアント名は <code>{getClients}</code> で解決しています。取り消しには <code>{deleteConsent}</code> を使います。<providerLink>OAuth プロバイダー</providerLink>のドキュメントの<consentLink>OAuth の同意</consentLink>を参照してください。対話型の認可 UI は <code>{path}</code> にあります。"
+        },
+        "rowActions": {
+          "menuLabel": "同意 {id}… の操作",
+          "copyConsentId": "同意 ID をコピー",
+          "consentIdCopied": "同意 ID をコピーしました",
+          "copyClientId": "クライアント ID をコピー",
+          "clientIdCopied": "クライアント ID をコピーしました",
+          "viewDetails": "詳細を表示",
+          "updateScopes": "スコープを更新",
+          "wireTo": "{method} に接続",
+          "revoke": "同意を取り消す",
+          "revokeFailed": "同意を取り消せませんでした",
+          "revoked": "同意を取り消しました",
+          "dialogTitle": "同意を取り消しますか？",
+          "dialogDescription": "このユーザーが <strong>{client}</strong>（<code>{clientId}</code>）に与えた許可を削除します。クライアントは再度認可を要求する必要がある場合があります。",
+          "revoking": "取り消し中…",
+          "revokeButton": "取り消す"
+        }
       },
       "usage": {
         "title": "アプリの利用状況",
-        "description": "どのアプリが使われているか：過去 30 日間のアプリごとのアクセストークン、ユーザー、同意。"
+        "description": "どのアプリが使われているか：過去 30 日間のアプリごとのアクセストークン、ユーザー、同意。",
+        "tiles": {
+          "tokens": "発行されたトークン（30 日間）",
+          "active": "使用中のアプリケーション",
+          "unused": "未使用のアプリケーション"
+        },
+        "card": {
+          "title": "アプリケーションごとのアクセストークン（過去 30 日間）",
+          "unused": "{count, plural, other {# 件の有効なアプリケーションが 30 日間トークンを発行していません。無効化または削除を検討してください。}}",
+          "allUsed": "すべての有効なアプリケーションが過去 30 日間にトークンを発行しました。",
+          "empty": "登録済みの OAuth クライアントはありません。",
+          "application": "アプリケーション",
+          "tokens": "トークン",
+          "users": "ユーザー",
+          "consents": "同意",
+          "lastToken": "最終トークン",
+          "lastTokenValue": "最終トークン: {date}",
+          "showInApplications": "アプリケーションで表示",
+          "unusedBadge": "未使用"
+        }
       },
       "audit": {
-        "title": "Audit log",
-        "description": "Every change made from this console or the admin API: who did it, to what, and when.",
-        "footnote": "Showing the latest 200 entries. Passwords and secrets are never recorded."
+        "title": "監査ログ",
+        "description": "このコンソールまたは管理 API から行われたすべての変更：誰が、何に対して、いつ行ったか。",
+        "footnote": "最新の 200 件を表示しています。パスワードとシークレットは記録されません。",
+        "filterLabel": "領域で絞り込み",
+        "filters": {
+          "all": "すべて",
+          "user": "ユーザー",
+          "organization": "組織",
+          "oauth_client": "OAuth クライアント",
+          "oauth_consent": "同意",
+          "oauth_resource": "API",
+          "api_key": "APIキー",
+          "sso_provider": "SSO",
+          "signing_key": "署名鍵",
+          "webhook": "Webhook",
+          "social_provider": "サインインプロバイダー"
+        },
+        "empty": "記録された管理操作はまだありません。",
+        "columns": {
+          "when": "日時",
+          "who": "実行者",
+          "action": "操作",
+          "target": "対象",
+          "details": "詳細",
+          "ip": "IP"
+        },
+        "system": "システム",
+        "actions": {
+          "user": {
+            "create": "ユーザーを作成",
+            "update": "ユーザーを更新",
+            "set_role": "ロールを変更",
+            "set_password": "パスワードを設定",
+            "ban": "ユーザーを利用停止",
+            "unban": "利用停止を解除",
+            "delete": "ユーザーを削除",
+            "revoke_session": "セッションを取り消し",
+            "revoke_all_sessions": "ユーザーをすべての場所からサインアウト",
+            "impersonate": "ユーザーとして代理サインイン",
+            "reset_two_factor": "2段階認証をリセット",
+            "export_data": "アカウントデータをエクスポート",
+            "self_delete": "自分のアカウントを削除"
+          },
+          "oauth_client": {
+            "create": "OAuth クライアントを登録",
+            "update": "OAuth クライアントを更新",
+            "delete": "OAuth クライアントを削除",
+            "rotate_secret": "クライアントシークレットをローテーション",
+            "self_register": "クライアントが自己登録",
+            "disable": "OAuth クライアントを無効化",
+            "enable": "OAuth クライアントを有効化",
+            "branding_update": "サインインのブランディングを変更",
+            "branding_reset": "サインインのブランディングをリセット"
+          },
+          "client_registration": {
+            "update": "クライアントの自己登録設定を変更"
+          },
+          "oauth_resource": {
+            "create": "API を登録",
+            "update": "API を更新",
+            "delete": "API を削除",
+            "access": "API のアクセスを変更",
+            "tokens": "API のトークン設定を変更"
+          },
+          "api_key": {
+            "create": "APIキーを作成",
+            "revoke": "APIキーを取り消し",
+            "revoke_all": "すべての APIキーを取り消し",
+            "settings": "APIキーの設定を変更"
+          },
+          "oauth_consent": {
+            "update": "同意を更新",
+            "delete": "同意を取り消し"
+          },
+          "oauth_device": {
+            "approve": "デバイスサインインを承認",
+            "deny": "デバイスサインインを拒否"
+          },
+          "organization": {
+            "create": "組織を作成",
+            "update": "組織名を変更",
+            "delete": "組織を削除",
+            "invite": "メンバーを招待",
+            "cancel_invitation": "招待をキャンセル",
+            "update_member_role": "メンバーのロールを変更",
+            "remove_member": "メンバーを削除"
+          },
+          "sso_provider": {
+            "create": "SSO プロバイダーを登録",
+            "update": "SSO プロバイダーを更新",
+            "delete": "SSO プロバイダーを削除",
+            "verify_domain": "SSO ドメインを確認"
+          },
+          "social_provider": {
+            "create": "サインインプロバイダーを設定",
+            "update": "サインインプロバイダーを更新",
+            "delete": "サインインプロバイダーを削除",
+            "reorder": "サインインプロバイダーを並べ替え"
+          },
+          "scim": {
+            "token_create": "SCIM トークンを生成",
+            "token_rotate": "SCIM トークンを置き換え",
+            "token_revoke": "SCIM トークンを取り消し"
+          },
+          "signing_key": {
+            "rotate": "署名鍵をローテーション",
+            "update_settings": "署名鍵のローテーション設定を変更"
+          },
+          "webhook": {
+            "create": "Webhook エンドポイントを追加",
+            "update": "Webhook エンドポイントを更新",
+            "enable": "Webhook エンドポイントを有効化",
+            "disable": "Webhook エンドポイントを無効化",
+            "delete": "Webhook エンドポイントを削除",
+            "rotate_secret": "Webhook シークレットを再生成",
+            "test": "Webhook のテストイベントを送信",
+            "redeliver": "Webhook イベントを再配信"
+          }
+        }
       },
       "security": {
-        "title": "Security",
-        "description": "Failed sign-in attempts, the accounts and addresses behind them, and banned accounts."
+        "title": "セキュリティ",
+        "description": "失敗したサインイン試行、その対象アカウントと送信元アドレス、利用停止中のアカウント。",
+        "tiles": {
+          "failed24h": "サインイン失敗（24 時間）",
+          "failed7d": "サインイン失敗（7 日間）",
+          "banned": "利用停止中のアカウント"
+        },
+        "chart": {
+          "failed": "サインイン失敗"
+        },
+        "perDay": {
+          "title": "1 日あたりのサインイン失敗",
+          "description": "パスワードの誤りまたは不明なアカウント、過去 30 日間（合計 {total, number} 件）。2026 年 10 月 6 日から記録されています。"
+        },
+        "noFailures": "過去 7 日間にサインインの失敗はありません。",
+        "attempts": "試行回数",
+        "topAccounts": {
+          "title": "最も狙われたアカウント（7 日間）",
+          "description": "試行されたメールアドレスまたはユーザー名（アカウントの有無にかかわらず）。",
+          "identifier": "メールアドレスまたはユーザー名",
+          "last": "最終"
+        },
+        "topIps": {
+          "title": "試行の多い IP アドレス（7 日間）",
+          "description": "1 つのアドレスが多数のアカウントを試している場合、通常はクレデンシャルスタッフィングです。",
+          "ip": "IP アドレス",
+          "accounts": "試行されたアカウント数"
+        },
+        "banned": {
+          "title": "利用停止中のアカウント",
+          "empty": "利用停止中のアカウントはありません。",
+          "noReason": "理由なし",
+          "until": "{date} まで",
+          "permanent": "無期限"
+        }
       },
       "signingKeys": {
         "title": "署名鍵",
@@ -380,88 +1812,236 @@
           "save": "設定を保存できませんでした。",
           "rotate": "鍵をローテーションできませんでした。"
         }
+      },
+      "organizations": {
+        "controls": {
+          "unexpectedError": "問題が発生しました。",
+          "organizationUpdated": "組織を更新しました",
+          "slug": "スラッグ",
+          "role": "ロール",
+          "roleUpdated": "ロールを更新しました",
+          "roles": {
+            "owner": "オーナー",
+            "admin": "管理者",
+            "member": "メンバー"
+          },
+          "removeMemberLabel": "{email} を削除",
+          "removeMemberTitle": "{email} を削除しますか？",
+          "removeMemberBody": "この組織へのアクセス権を失います。アカウントは残ります。",
+          "memberRemoved": "メンバーを削除しました",
+          "cancelInvitationLabel": "{email} への招待をキャンセル",
+          "cancelInvitationTitle": "{email} への招待をキャンセルしますか？",
+          "cancelInvitationBody": "メール内のリンクは使えなくなります。",
+          "cancelInvitation": "招待をキャンセル",
+          "invitationCancelled": "招待をキャンセルしました",
+          "invitationSent": "招待を送信しました",
+          "inviteByEmail": "メールで招待",
+          "sendInvitation": "招待を送信"
+        },
+        "scim": {
+          "unexpectedError": "問題が発生しました。",
+          "tokenRevoked": "トークンを取り消しました",
+          "baseUrl": "ベース URL",
+          "copyBaseUrl": "ベース URL をコピー",
+          "token": "トークン",
+          "copyToken": "トークンをコピー",
+          "active": "有効",
+          "expires": "有効期限",
+          "lastUsed": "最終使用",
+          "noToken": "有効なトークンはありません。トークンを生成するまで、ID プロバイダーはプロビジョニングできません。",
+          "newToken": "新しいトークン",
+          "revoke": "取り消す",
+          "generateToken": "トークンを生成",
+          "rotateTitle": "SCIM トークンを置き換えますか？",
+          "revokeTitle": "SCIM トークンを取り消しますか？",
+          "rotateBody": "現在のトークンはすぐに使えなくなります。プロビジョニングを続けるには、新しいトークンを ID プロバイダーに貼り付けてください。",
+          "revokeBody": "ID プロバイダーはアカウントの作成、更新、無効化ができなくなります。既存のアカウントは変更されません。",
+          "replaceToken": "トークンを置き換え",
+          "revokeToken": "トークンを取り消す",
+          "issuedTitle": "SCIM トークン",
+          "issuedDescription": "今すぐコピーしてください。再表示はされません。有効期限は 1 年です。",
+          "tokenHint": "ベアラートークンとして貼り付けてください（Okta: API トークン、Entra ID: シークレットトークン）。"
+        },
+        "detail": {
+          "back": "組織",
+          "defaultWorkspace": "デフォルトのワークスペース",
+          "createdAt": "作成日 {date}",
+          "members": "メンバー",
+          "publicMembers": "すべてのアカウントは Public ワークスペースに属しているため、ここでメンバーを削除することはできません。最初の 50 人を表示しています。",
+          "memberCount": "{count, plural, other {# 人のメンバー}}。",
+          "noMembers": "メンバーはまだいません。",
+          "member": "メンバー",
+          "joined": "参加日",
+          "role": "ロール",
+          "deactivated": "無効化済み",
+          "banned": "利用停止中",
+          "invitationExpires": "有効期限 {date}",
+          "noInvitations": "保留中の招待はありません。",
+          "apiKeys": "APIキー",
+          "apiKeysDescription": "この組織が所有するキーで、オーナーと管理者がアカウントダッシュボードで作成したものです。作成したメンバーが退出しても使い続けられ、組織とともに削除されます。",
+          "details": "詳細",
+          "sso": "シングルサインオン",
+          "ssoDescription": "この組織に紐づく ID プロバイダー。",
+          "ssoNone": "なし。<link>設定する</link>。",
+          "verified": "確認済み",
+          "unverified": "未確認",
+          "scim": "SCIM プロビジョニング",
+          "scimDescription": "ID プロバイダー（Okta、Entra ID など）がこの組織のアカウントを作成し、ユーザーが退職したときに無効化します。",
+          "scimCounts": "プロビジョニング済み {active} 件、無効化済み {inactive} 件。",
+          "recentActions": "最近の管理操作",
+          "noActions": "まだありません。",
+          "system": "システム"
+        },
+        "errors": {
+          "invalidNameSlug": "名前と、英字・数字・ハイフンからなるスラッグを入力してください。",
+          "publicSlug": "Public ワークスペースのスラッグは「public」のままです。",
+          "slugTaken": "このスラッグはすでに別の組織で使われています。",
+          "unknownRole": "不明なロールです。",
+          "memberNotFound": "メンバーが見つかりません。",
+          "publicMembers": "すべてのアカウントは Public ワークスペースに属しています。",
+          "invalidEmail": "有効なメールアドレスを入力してください。",
+          "noInvitations": "この組織は招待を受け付けていません。",
+          "alreadyMember": "このユーザーはすでにメンバーです。",
+          "invitationNotFound": "招待が見つかりません。",
+          "requestFailed": "リクエストに失敗しました。",
+          "scimUnavailable": "この組織では SCIM プロビジョニングを使用できません。",
+          "noActiveToken": "有効なトークンはありません。"
+        }
+      }
+    },
+    "common": {
+      "cancel": "キャンセル",
+      "save": "保存",
+      "saving": "保存中…",
+      "saveChanges": "変更を保存",
+      "delete": "削除",
+      "deleting": "削除中…",
+      "edit": "編集",
+      "remove": "削除",
+      "close": "閉じる",
+      "copied": "コピーしました",
+      "enabled": "有効",
+      "disabled": "無効",
+      "enable": "有効にする",
+      "disable": "無効にする",
+      "on": "オン",
+      "off": "オフ",
+      "yes": "はい",
+      "no": "いいえ",
+      "never": "なし",
+      "none": "なし",
+      "actions": "操作",
+      "created": "作成日時",
+      "name": "名前",
+      "description": "説明",
+      "status": "ステータス",
+      "back": "戻る",
+      "done": "完了",
+      "loading": "読み込み中…",
+      "refresh": "更新",
+      "search": "検索",
+      "optional": "任意",
+      "unexpectedError": "問題が発生しました。もう一度お試しください。"
+    },
+    "urlCheck": {
+      "tooLong": "URL が長すぎます。",
+      "notAbsolute": "絶対 URL を入力してください（例: https://app.example.com/webhooks）。",
+      "credentials": "URL にユーザー名やパスワードを含めることはできません。",
+      "fragment": "URL にフラグメント（#）を含めることはできません。",
+      "notHttps": "URL は https:// を使用する必要があります。",
+      "localhost": "URL がこのマシン（localhost）を指しています。",
+      "nonPublic": "URL が{kind, select, loopback {ループバック} private {プライベート} linkLocal {リンクローカル} cloudMetadata {クラウドメタデータ} sharedAddressSpace {共有（キャリアグレード NAT）} other {非公開}}アドレスを指しています。",
+      "unresolved": "ホスト {host} を名前解決できませんでした。",
+      "noAddress": "ホスト {host} にはアドレスがありません。",
+      "resolvesNonPublic": "ホスト {host} が{kind, select, loopback {ループバック} private {プライベート} linkLocal {リンクローカル} cloudMetadata {クラウドメタデータ} sharedAddressSpace {共有（キャリアグレード NAT）} other {非公開}}アドレス（{address}）に解決されます。"
+    },
+    "shell": {
+      "userFallbackName": "管理者",
+      "userMenu": {
+        "home": "ホーム",
+        "logOut": "サインアウト"
       }
     }
   },
   "dashboard": {
-    "title": "Account",
-    "description": "Manage your profile, organizations, passkeys, sessions, and connected applications.",
-    "navAria": "Account navigation",
+    "title": "アカウント",
+    "description": "プロフィール、組織、パスキー、セッション、連携中のアプリを管理します。",
+    "navAria": "アカウントのナビゲーション",
     "nav": {
-      "overview": "Overview",
-      "profile": "Profile",
-      "organizations": "Organizations",
-      "security": "Security",
-      "apps": "Connected apps",
+      "overview": "概要",
+      "profile": "プロフィール",
+      "organizations": "組織",
+      "security": "セキュリティ",
+      "apps": "連携中のアプリ",
       "apiKeys": "APIキー",
-      "admin": "Admin",
-      "marketingHome": "About",
-      "signOut": "Sign out",
+      "admin": "管理",
+      "marketingHome": "このサービスについて",
+      "signOut": "サインアウト",
       "data": "あなたのデータ"
     },
     "profile": {
-      "title": "Profile",
-      "description": "Your display name, username, and email status for this account.",
-      "nameLabel": "Display name",
-      "usernameLabel": "Username",
-      "usernameHint": "3-30 characters: letters, numbers, dots, and underscores. Used to sign in instead of email.",
-      "usernameChecking": "Checking availability…",
-      "usernameAvailable": "This username is available.",
-      "usernameTaken": "This username is already taken.",
-      "usernameInvalidHint": "Use only letters, numbers, dots, and underscores.",
-      "usernameTooShort": "Username must be at least 3 characters.",
-      "usernameInvalid": "That username is not valid.",
-      "save": "Save",
-      "saving": "Saving…",
-      "saved": "Profile updated",
-      "saveError": "Could not update profile.",
-      "emailLabel": "Email",
-      "verified": "Verified",
-      "unverified": "Not verified",
-      "unverifiedHint": "Verify your email to protect your account and meet sign-in requirements.",
-      "resendVerification": "Resend verification email",
-      "verificationSent": "Check your inbox for the verification link.",
-      "verificationError": "Could not send verification email.",
-      "changeEmail": "Change",
-      "newEmailLabel": "New email address",
-      "changeEmailHintVerified": "We'll email your current address to approve the change, then send a verification link to the new one. Your email stays the same until both are done.",
-      "changeEmailSubmit": "Send confirmation",
-      "changingEmail": "Sending…",
-      "cancel": "Cancel",
-      "changeEmailSame": "Enter a different email address.",
-      "changeEmailError": "Could not start the email change.",
-      "changeEmailSentToCurrent": "Check {current} to approve the change to {next}. After that, verify {next} from the link we send there.",
-      "changeEmailNeedsVerified": "You can change it once it is verified."
+      "title": "プロフィール",
+      "description": "このアカウントの表示名、ユーザー名、メールアドレスの確認状況。",
+      "nameLabel": "表示名",
+      "usernameLabel": "ユーザー名",
+      "usernameHint": "3〜30 文字。英字、数字、ピリオド、アンダースコアが使用できます。メールアドレスの代わりにサインインに使用します。",
+      "usernameChecking": "使用可能か確認中…",
+      "usernameAvailable": "このユーザー名は使用できます。",
+      "usernameTaken": "このユーザー名はすでに使用されています。",
+      "usernameInvalidHint": "英字、数字、ピリオド、アンダースコアのみ使用してください。",
+      "usernameTooShort": "ユーザー名は 3 文字以上で入力してください。",
+      "usernameInvalid": "このユーザー名は無効です。",
+      "save": "保存",
+      "saving": "保存中…",
+      "saved": "プロフィールを更新しました",
+      "saveError": "プロフィールを更新できませんでした。",
+      "emailLabel": "メールアドレス",
+      "verified": "確認済み",
+      "unverified": "未確認",
+      "unverifiedHint": "アカウントを保護し、サインインの要件を満たすために、メールアドレスを確認してください。",
+      "resendVerification": "確認メールを再送信",
+      "verificationSent": "受信トレイで確認リンクをご確認ください。",
+      "verificationError": "確認メールを送信できませんでした。",
+      "changeEmail": "変更",
+      "newEmailLabel": "新しいメールアドレス",
+      "changeEmailHintVerified": "変更を承認するためのメールを現在のアドレスに送信し、その後新しいアドレスに確認リンクを送信します。両方が完了するまで、メールアドレスは変更されません。",
+      "changeEmailSubmit": "確認メールを送信",
+      "changingEmail": "送信中…",
+      "cancel": "キャンセル",
+      "changeEmailSame": "別のメールアドレスを入力してください。",
+      "changeEmailError": "メールアドレスの変更を開始できませんでした。",
+      "changeEmailSentToCurrent": "{current} を確認して、{next} への変更を承認してください。その後、{next} に届くリンクからアドレスを確認してください。",
+      "changeEmailNeedsVerified": "確認が完了すると変更できます。"
     },
     "passkeys": {
-      "title": "Passkeys",
-      "hint": "Use a passkey for phishing-resistant sign-in. Add one on this device or with a security key.",
-      "addThisDevice": "Add passkey (this device)",
-      "addSecurityKey": "Add passkey (security key)",
-      "defaultName": "My passkey",
-      "empty": "No passkeys yet. Add one to sign in without typing your password.",
-      "name": "Name",
-      "unnamed": "Unnamed passkey",
-      "deviceType": "Device type",
-      "created": "Added",
-      "actions": "Actions",
-      "rename": "Rename",
-      "delete": "Remove",
-      "save": "Save",
-      "cancel": "Cancel",
-      "loadError": "Could not load passkeys.",
-      "addError": "Could not add passkey.",
-      "deleteError": "Could not remove passkey.",
-      "updateError": "Could not update passkey.",
-      "added": "Passkey added",
-      "deleted": "Passkey removed",
-      "updated": "Passkey updated",
-      "nameRequired": "Enter a name for this passkey.",
-      "none": "None",
-      "confirmRemoveTitle": "Remove this passkey?",
-      "confirmRemoveBody": "You won’t be able to sign in with this passkey anymore. You can add a new one at any time.",
-      "signInAgainToAdd": "For your security, adding a passkey needs a recent sign-in. Sign in again, then add it.",
-      "signInAgain": "Sign in again"
+      "title": "パスキー",
+      "hint": "フィッシングに強いサインインのためにパスキーを使用しましょう。このデバイスまたはセキュリティキーで追加できます。",
+      "addThisDevice": "パスキーを追加(このデバイス)",
+      "addSecurityKey": "パスキーを追加(セキュリティキー)",
+      "defaultName": "マイパスキー",
+      "empty": "パスキーはまだありません。追加すると、パスワードを入力せずにサインインできます。",
+      "name": "名前",
+      "unnamed": "名前のないパスキー",
+      "deviceType": "デバイスの種類",
+      "created": "追加日",
+      "actions": "操作",
+      "rename": "名前を変更",
+      "delete": "削除",
+      "save": "保存",
+      "cancel": "キャンセル",
+      "loadError": "パスキーを読み込めませんでした。",
+      "addError": "パスキーを追加できませんでした。",
+      "deleteError": "パスキーを削除できませんでした。",
+      "updateError": "パスキーを更新できませんでした。",
+      "added": "パスキーを追加しました",
+      "deleted": "パスキーを削除しました",
+      "updated": "パスキーを更新しました",
+      "nameRequired": "このパスキーの名前を入力してください。",
+      "none": "なし",
+      "confirmRemoveTitle": "このパスキーを削除しますか?",
+      "confirmRemoveBody": "このパスキーではサインインできなくなります。新しいパスキーはいつでも追加できます。",
+      "signInAgainToAdd": "セキュリティのため、パスキーを追加するには最近のサインインが必要です。もう一度サインインしてから追加してください。",
+      "signInAgain": "もう一度サインイン"
     },
     "twoFactor": {
       "title": "2段階認証",
@@ -509,45 +2089,45 @@
       }
     },
     "organizations": {
-      "title": "Organizations",
-      "description": "Teams and partner organizations you belong to. Switch between them and invite members. Platform administrators create new organizations.",
-      "yourOrganizations": "Your organizations",
-      "empty": "No organizations loaded.",
-      "active": "Active",
-      "switchTo": "Set active",
-      "setActiveError": "Could not switch organization.",
-      "setActiveSuccess": "Active organization updated.",
-      "createTitle": "Create an organization",
-      "createHint": "Use a unique URL slug (e.g. acme-corp). The reserved slug “public” is not available.",
-      "orgName": "Organization name",
-      "orgSlug": "Slug",
-      "create": "Create organization",
-      "creating": "Creating…",
-      "createSuccess": "Organization created",
-      "createError": "Could not create organization.",
-      "createValidation": "Enter a name and slug.",
-      "reservedSlug": "This slug is reserved.",
-      "slugTaken": "That slug is already in use.",
-      "loadError": "Could not load organizations.",
-      "inviteTitle": "Invite a member",
-      "inviteHint": "Sends an email with a link to accept the invitation. Available when your role in the active organization is owner or admin.",
-      "inviteEmail": "Email",
-      "inviteRole": "Role",
-      "roleMember": "Member",
-      "roleAdmin": "Admin",
-      "inviteSend": "Send invitation",
-      "inviting": "Sending…",
-      "inviteSuccess": "Invitation sent",
-      "inviteError": "Could not send invitation.",
-      "inviteValidation": "Enter an email address.",
-      "allOrganizations": "All organizations",
-      "memberCount": "{count, plural, one {# member} other {# members}}",
-      "delete": "Delete",
-      "cancel": "Cancel",
-      "deleted": "Organization deleted",
-      "deleteError": "Could not delete the organization.",
-      "confirmDeleteTitle": "Delete {name}?",
-      "confirmDeleteBody": "This removes the organization, its {count, plural, one {# membership} other {# memberships}} and pending invitations. Member accounts stay. This cannot be undone.",
+      "title": "組織",
+      "description": "所属しているチームやパートナー組織です。組織を切り替えたり、メンバーを招待したりできます。新しい組織はプラットフォーム管理者が作成します。",
+      "yourOrganizations": "所属している組織",
+      "empty": "組織が読み込まれていません。",
+      "active": "アクティブ",
+      "switchTo": "アクティブにする",
+      "setActiveError": "組織を切り替えられませんでした。",
+      "setActiveSuccess": "アクティブな組織を更新しました。",
+      "createTitle": "組織を作成",
+      "createHint": "一意の URL スラッグを使用してください(例: acme-corp)。予約済みのスラッグ「public」は使用できません。",
+      "orgName": "組織名",
+      "orgSlug": "スラッグ",
+      "create": "組織を作成",
+      "creating": "作成中…",
+      "createSuccess": "組織を作成しました",
+      "createError": "組織を作成できませんでした。",
+      "createValidation": "名前とスラッグを入力してください。",
+      "reservedSlug": "このスラッグは予約されています。",
+      "slugTaken": "このスラッグはすでに使用されています。",
+      "loadError": "組織を読み込めませんでした。",
+      "inviteTitle": "メンバーを招待",
+      "inviteHint": "招待を承諾するためのリンクをメールで送信します。アクティブな組織でのロールがオーナーまたは管理者の場合に利用できます。",
+      "inviteEmail": "メールアドレス",
+      "inviteRole": "ロール",
+      "roleMember": "メンバー",
+      "roleAdmin": "管理者",
+      "inviteSend": "招待を送信",
+      "inviting": "送信中…",
+      "inviteSuccess": "招待を送信しました",
+      "inviteError": "招待を送信できませんでした。",
+      "inviteValidation": "メールアドレスを入力してください。",
+      "allOrganizations": "すべての組織",
+      "memberCount": "{count, plural, other {# 人のメンバー}}",
+      "delete": "削除",
+      "cancel": "キャンセル",
+      "deleted": "組織を削除しました",
+      "deleteError": "組織を削除できませんでした。",
+      "confirmDeleteTitle": "{name} を削除しますか?",
+      "confirmDeleteBody": "組織と、その {count, plural, other {# 件のメンバーシップ}}、保留中の招待が削除されます。メンバーのアカウントは残ります。この操作は元に戻せません。",
       "apiKeys": {
         "show": "APIキー",
         "hide": "APIキーを隠す",
@@ -559,41 +2139,43 @@
       }
     },
     "security": {
-      "title": "Security",
-      "description": "Update your password, manage passkeys, and review where you are signed in.",
-      "passwordHeading": "Password",
-      "passwordHint": "Use at least {min} characters. Choose a password you don’t use elsewhere.",
-      "currentPassword": "Current password",
-      "newPassword": "New password",
-      "confirmNewPassword": "Confirm new password",
-      "changePassword": "Update password",
-      "changing": "Updating…",
-      "passwordChanged": "Password updated",
-      "passwordError": "Could not change password.",
-      "passwordTooShort": "The new password must be at least {min} characters.",
-      "passwordMismatch": "New passwords do not match.",
-      "sameAsCurrent": "Choose a different password from your current one.",
-      "invalidCurrentPassword": "Current password is incorrect.",
-      "compromisedPassword": "This new password appears in known data breaches. Choose a different one.",
-      "revokeOthersAfterChange": "Sign out my other devices when the password changes",
-      "revokeOthersAfterChangeHint": "Recommended if you think someone else may know your old password.",
-      "sessionsTitle": "Active sessions",
-      "sessionsHint": "Revoke sessions you do not recognize. Revoking this device will sign you out.",
-      "sessionsLoadError": "Could not load sessions.",
-      "revoke": "Revoke",
-      "revokeOthers": "Sign out other sessions",
-      "revokeError": "Something went wrong.",
-      "sessionRevoked": "Session revoked",
-      "othersRevoked": "Other sessions signed out",
-      "currentSession": "This device",
-      "unknownDevice": "Unknown device",
-      "noSessions": "No sessions found.",
-      "device": "Device",
-      "network": "IP address",
-      "actions": "Actions",
-      "started": "Started",
-      "expires": "Expires",
-      "none": "None"
+      "title": "セキュリティ",
+      "description": "パスワードの更新、パスキーの管理、サインイン中の場所の確認を行います。",
+      "passwordHeading": "パスワード",
+      "passwordHint": "{min} 文字以上にしてください。他で使用していないパスワードを選んでください。",
+      "currentPassword": "現在のパスワード",
+      "newPassword": "新しいパスワード",
+      "confirmNewPassword": "新しいパスワードの確認",
+      "changePassword": "パスワードを更新",
+      "changing": "更新中…",
+      "passwordChanged": "パスワードを更新しました",
+      "passwordError": "パスワードを変更できませんでした。",
+      "passwordTooShort": "新しいパスワードは {min} 文字以上にしてください。",
+      "passwordMismatch": "新しいパスワードが一致しません。",
+      "sameAsCurrent": "現在のパスワードとは異なるパスワードを選んでください。",
+      "invalidCurrentPassword": "現在のパスワードが正しくありません。",
+      "compromisedPassword": "この新しいパスワードは既知のデータ漏えいに含まれています。別のパスワードを選んでください。",
+      "revokeOthersAfterChange": "パスワード変更時に他のデバイスからサインアウトする",
+      "revokeOthersAfterChangeHint": "古いパスワードを他の人に知られている可能性がある場合におすすめします。",
+      "sessionsTitle": "アクティブなセッション",
+      "sessionsHint": "心当たりのないセッションは取り消してください。このデバイスを取り消すとサインアウトされます。",
+      "sessionsLoadError": "セッションを読み込めませんでした。",
+      "revoke": "取り消す",
+      "revokeOthers": "他のセッションからサインアウト",
+      "revokeError": "問題が発生しました。",
+      "sessionRevoked": "セッションを取り消しました",
+      "othersRevoked": "他のセッションからサインアウトしました",
+      "currentSession": "このデバイス",
+      "unknownDevice": "不明なデバイス",
+      "noSessions": "セッションが見つかりません。",
+      "device": "デバイス",
+      "network": "IP アドレス",
+      "actions": "操作",
+      "started": "開始",
+      "expires": "有効期限",
+      "none": "なし",
+      "startedAt": "開始: {date}",
+      "expiresAt": "有効期限: {date}"
     },
     "apps": {
       "title": "連携中のアプリ",
@@ -669,22 +2251,22 @@
       "createdBy": "作成者: {name}",
       "createdByDeleted": "作成者のアカウントは削除済み"
     },
-    "accountMenu": "Account menu",
+    "accountMenu": "アカウントメニュー",
     "connectedAccounts": {
-      "title": "Connected accounts",
-      "hint": "Sign in with these accounts as well as your password or passkeys.",
-      "connected": "Connected",
-      "notConnected": "Not connected",
-      "connect": "Connect",
-      "disconnect": "Disconnect",
-      "disconnected": "{provider} disconnected",
-      "cancel": "Cancel",
-      "confirmTitle": "Disconnect {provider}?",
-      "confirmBody": "You won't be able to sign in with this account anymore. You can connect it again later.",
-      "lastMethod": "This is your only way to sign in. Add a password or passkey first.",
-      "error": "Something went wrong. Try again.",
-      "signInAgainToChange": "For your security, connecting an account needs a recent sign-in. Sign in again, then connect it.",
-      "signInAgain": "Sign in again"
+      "title": "連携済みのアカウント",
+      "hint": "パスワードやパスキーに加えて、これらのアカウントでもサインインできます。",
+      "connected": "連携済み",
+      "notConnected": "未連携",
+      "connect": "連携",
+      "disconnect": "連携を解除",
+      "disconnected": "{provider} の連携を解除しました",
+      "cancel": "キャンセル",
+      "confirmTitle": "{provider} の連携を解除しますか?",
+      "confirmBody": "このアカウントではサインインできなくなります。後でもう一度連携できます。",
+      "lastMethod": "これが唯一のサインイン方法です。先にパスワードまたはパスキーを追加してください。",
+      "error": "問題が発生しました。もう一度お試しください。",
+      "signInAgainToChange": "セキュリティのため、アカウントを連携するには最近のサインインが必要です。もう一度サインインしてから連携してください。",
+      "signInAgain": "もう一度サインイン"
     },
     "accounts": {
       "switchTo": "切り替え先",
@@ -752,26 +2334,30 @@
         "impersonating": "管理者が表示している間は、アカウントを削除できません。",
         "failed": "削除を開始できませんでした。もう一度お試しください。"
       }
+    },
+    "impersonation": {
+      "viewingAs": "<strong>{email}</strong> としてこのアカウントを表示しています。",
+      "stop": "代理サインインを終了"
     }
   },
   "acceptInvitation": {
-    "loading": "Checking session…",
-    "needSignInTitle": "Sign in to continue",
-    "needSignInDescription": "You need to be signed in with the invited email address before accepting this invitation.",
-    "signIn": "Sign in",
-    "title": "Accept invitation",
-    "description": "Join the organization that invited you.",
-    "signedInAs": "Signed in as {email}.",
-    "accept": "Accept invitation",
-    "accepting": "Accepting…",
-    "success": "You have joined the organization.",
-    "successTitle": "Welcome",
-    "successDescription": "Redirecting to your dashboard…",
-    "error": "Could not accept the invitation."
+    "loading": "セッションを確認中…",
+    "needSignInTitle": "サインインして続行",
+    "needSignInDescription": "この招待を承諾するには、招待されたメールアドレスでサインインする必要があります。",
+    "signIn": "サインイン",
+    "title": "招待を承諾",
+    "description": "招待元の組織に参加します。",
+    "signedInAs": "{email} としてサインイン中です。",
+    "accept": "招待を承諾",
+    "accepting": "承諾中…",
+    "success": "組織に参加しました。",
+    "successTitle": "ようこそ",
+    "successDescription": "ダッシュボードに移動しています…",
+    "error": "招待を承諾できませんでした。"
   },
   "common": {
-    "loading": "Loading…",
-    "language": "Language",
+    "loading": "読み込み中…",
+    "language": "言語",
     "localeNames": {
       "en": "英語",
       "fr": "フランス語",
@@ -793,12 +2379,20 @@
       "no": "ノルウェー語",
       "fi": "フィンランド語",
       "cs": "チェコ語"
+    },
+    "ui": {
+      "close": "閉じる",
+      "sidebar": "サイドバー",
+      "sidebarDescription": "モバイル用のサイドバーを表示します。",
+      "toggleSidebar": "サイドバーを切り替え",
+      "breadcrumb": "パンくずリスト",
+      "more": "その他"
     }
   },
   "errors": {
-    "boundaryTitle": "Something went wrong",
-    "boundaryDescription": "An error occurred while loading this page.",
-    "retry": "Try again"
+    "boundaryTitle": "問題が発生しました",
+    "boundaryDescription": "このページの読み込み中にエラーが発生しました。",
+    "retry": "もう一度試す"
   },
   "rateLimit": {
     "seconds": "試行回数が多すぎます。{seconds} 秒後にもう一度お試しください。",
@@ -806,94 +2400,156 @@
     "later": "試行回数が多すぎます。数分待ってからもう一度お試しください。"
   },
   "sso": {
-    "title": "Single sign-on",
-    "description": "Connect your organization's identity provider (OIDC or SAML 2.0) so members can sign in with their work account.",
-    "registerTitle": "Register a provider",
-    "registerDescription": "Your identity provider must redirect back to the callback URL shown below.",
-    "providerId": "Provider ID",
-    "providerIdHint": "A short identifier, e.g. acme-okta.",
-    "issuer": "Issuer URL",
-    "domain": "Email domain",
-    "domainHint": "Users with this email domain are sent to this provider.",
-    "clientId": "Client ID",
-    "clientSecret": "Client secret",
-    "organization": "Organization (optional)",
-    "register": "Register provider",
-    "registering": "Registering…",
-    "registered": "SSO provider registered",
-    "registerError": "Could not register the provider.",
-    "callbackTitle": "Callback URL to configure in your identity provider",
-    "providersTitle": "Configured providers",
-    "providersEmpty": "No SSO provider configured yet.",
-    "loadError": "Could not load SSO providers.",
-    "signInTitle": "Sign in with SSO",
-    "signInDescription": "Enter your work email. We'll redirect you to your organization's identity provider.",
-    "signInEmail": "Work email",
-    "signInSubmit": "Continue",
-    "signInError": "Could not start single sign-on for this address.",
-    "signInLink": "Sign in with SSO",
-    "signInFailed": "Single sign-on did not complete. Try again, or ask your administrator to check the identity provider settings.",
+    "title": "シングルサインオン",
+    "description": "組織の ID プロバイダー(OIDC または SAML 2.0)を接続すると、メンバーが職場のアカウントでサインインできるようになります。",
+    "registerTitle": "プロバイダーを登録",
+    "registerDescription": "ID プロバイダーは、以下に表示されるコールバック URL にリダイレクトする必要があります。",
+    "providerId": "プロバイダー ID",
+    "providerIdHint": "短い識別子(例: acme-okta)。",
+    "issuer": "発行者 URL",
+    "domain": "メールドメイン",
+    "domainHint": "このメールドメインのユーザーは、このプロバイダーに転送されます。",
+    "clientId": "クライアント ID",
+    "clientSecret": "クライアントシークレット",
+    "organization": "組織(任意)",
+    "register": "プロバイダーを登録",
+    "registering": "登録中…",
+    "registered": "SSO プロバイダーを登録しました",
+    "registerError": "プロバイダーを登録できませんでした。",
+    "callbackTitle": "ID プロバイダーに設定するコールバック URL",
+    "providersTitle": "設定済みのプロバイダー",
+    "providersEmpty": "SSO プロバイダーはまだ設定されていません。",
+    "loadError": "SSO プロバイダーを読み込めませんでした。",
+    "signInTitle": "SSO でサインイン",
+    "signInDescription": "職場のメールアドレスを入力してください。組織の ID プロバイダーにリダイレクトします。",
+    "signInEmail": "職場のメールアドレス",
+    "signInSubmit": "続行",
+    "signInError": "このアドレスでシングルサインオンを開始できませんでした。",
+    "signInLink": "SSO でサインイン",
+    "signInFailed": "シングルサインオンが完了しませんでした。もう一度お試しいただくか、管理者に ID プロバイダーの設定を確認するよう依頼してください。",
     "saml": {
-      "protocol": "Protocol",
-      "registerDescription": "The identity provider posts signed SAML assertions to the ACS URL below. Sign-in starts from Ostiary (SP-initiated).",
-      "idpSource": "Identity provider configuration",
-      "sourceUrl": "Metadata URL",
-      "sourceXml": "Paste metadata XML",
-      "sourceManual": "Enter manually",
-      "metadataUrl": "IdP metadata URL",
-      "metadataUrlHint": "The server fetches it once when you save. After a certificate rotation, fetch it again from Edit.",
-      "metadataXml": "IdP metadata XML",
-      "metadataXmlHint": "The EntityDescriptor your identity provider exports.",
-      "idpEntityId": "IdP entity ID (issuer)",
-      "ssoUrl": "IdP single sign-on URL",
-      "ssoUrlHint": "The URL for the HTTP-Redirect binding.",
-      "certificate": "IdP signing certificate",
-      "certificateHint": "PEM (-----BEGIN CERTIFICATE-----) or its base64 body.",
-      "mappingTitle": "Attribute mapping",
-      "mappingPreset": "Preset",
+      "protocol": "プロトコル",
+      "registerDescription": "ID プロバイダーは、署名付きの SAML アサーションを以下の ACS URL に送信します。サインインは Ostiary から開始されます(SP-initiated)。",
+      "idpSource": "ID プロバイダーの設定",
+      "sourceUrl": "メタデータ URL",
+      "sourceXml": "メタデータ XML を貼り付け",
+      "sourceManual": "手動で入力",
+      "metadataUrl": "IdP メタデータ URL",
+      "metadataUrlHint": "保存時にサーバーが一度だけ取得します。証明書のローテーション後は、「編集」から再取得してください。",
+      "metadataXml": "IdP メタデータ XML",
+      "metadataXmlHint": "ID プロバイダーがエクスポートする EntityDescriptor。",
+      "idpEntityId": "IdP エンティティ ID(発行者)",
+      "ssoUrl": "IdP シングルサインオン URL",
+      "ssoUrlHint": "HTTP-Redirect バインディングの URL。",
+      "certificate": "IdP 署名証明書",
+      "certificateHint": "PEM(-----BEGIN CERTIFICATE-----)またはその base64 本文。",
+      "mappingTitle": "属性マッピング",
+      "mappingPreset": "プリセット",
       "preset_okta": "Okta",
       "preset_entra": "Microsoft Entra ID",
       "preset_google": "Google Workspace",
       "preset_jumpcloud": "JumpCloud",
-      "preset_custom": "Custom",
-      "attrEmail": "Email attribute",
-      "attrName": "Display name attribute",
-      "attrFirstName": "First name attribute",
-      "attrLastName": "Last name attribute",
-      "mappingHint": "First and last name are used when the identity provider sends them, otherwise the display name. The user ID is the assertion's NameID: configure a persistent identifier.",
-      "wantAssertionsSigned": "Require signed assertions",
-      "wantAssertionsSignedHint": "Recommended. When off, the whole response must still be signed: unsigned responses are always refused.",
-      "requestSigningNote": "Ostiary does not sign authentication requests: leave request signing off in the identity provider.",
-      "spTitle": "Values to enter in your identity provider",
-      "acsUrl": "ACS URL (single sign-on URL, reply URL)",
-      "spEntityId": "SP entity ID (audience URI, identifier)",
-      "spMetadataUrl": "SP metadata URL",
-      "copy": "Copy",
-      "copied": "Copied",
-      "setupTitle": "Setup notes",
-      "oktaStep1": "In the Okta admin console: Applications, Create App Integration, SAML 2.0.",
-      "oktaStep2": "Single sign-on URL: the ACS URL. Audience URI (SP Entity ID): the SP entity ID. Name ID format: Persistent. Application username: Email.",
-      "oktaStep3": "Attribute statements: email = user.email, firstName = user.firstName, lastName = user.lastName (the Okta preset).",
-      "oktaStep4": "Assign people, then copy the metadata URL from the Sign On tab into Ostiary.",
-      "entraStep1": "In Microsoft Entra ID: Enterprise applications, New application, Create your own application (non-gallery), then Single sign-on, SAML.",
-      "entraStep2": "Basic SAML configuration: Identifier (Entity ID) = the SP entity ID, Reply URL = the ACS URL.",
-      "entraStep3": "Keep the default claims (the Entra ID preset). The default signing option, Sign SAML assertion, works.",
-      "entraStep4": "Assign users and groups, then copy the App Federation Metadata URL into Ostiary.",
-      "spInitiatedNote": "Only sign-in started from Ostiary is supported. Point app tiles in the identity provider's portal to {url}.",
-      "spDetails": "SP details",
-      "detailsTitle": "{id}: SAML settings",
-      "detailsDescription": "Enter these values in the identity provider.",
-      "assertionsSignedOn": "Signed assertions are required.",
-      "assertionsSignedOff": "Signed responses are required (assertions may be unsigned).",
-      "certExpires": "Signing certificate valid until {date}",
-      "certExpired": "The signing certificate has expired: sign-ins will fail until the IdP metadata is updated.",
-      "editTitle": "Edit {id}",
-      "editDescription": "Changing the domain means it must be verified again. The SP entity ID and ACS URL stay the same.",
-      "replaceIdp": "Replace the identity provider configuration (new metadata or certificate)",
-      "updated": "Provider updated",
-      "save": "Save",
-      "cancel": "Cancel",
-      "close": "Close"
+      "preset_custom": "カスタム",
+      "attrEmail": "メールアドレスの属性",
+      "attrName": "表示名の属性",
+      "attrFirstName": "名の属性",
+      "attrLastName": "姓の属性",
+      "mappingHint": "ID プロバイダーが姓と名を送信する場合はそれを使用し、それ以外の場合は表示名を使用します。ユーザー ID はアサーションの NameID です。永続的な識別子を設定してください。",
+      "wantAssertionsSigned": "署名付きアサーションを必須にする",
+      "wantAssertionsSignedHint": "推奨。オフの場合でも、レスポンス全体に署名が必要です。署名のないレスポンスは常に拒否されます。",
+      "requestSigningNote": "Ostiary は認証リクエストに署名しません。ID プロバイダーではリクエストの署名をオフのままにしてください。",
+      "spTitle": "ID プロバイダーに入力する値",
+      "acsUrl": "ACS URL(シングルサインオン URL、応答 URL)",
+      "spEntityId": "SP エンティティ ID(対象者 URI、識別子)",
+      "spMetadataUrl": "SP メタデータ URL",
+      "copy": "コピー",
+      "copied": "コピーしました",
+      "setupTitle": "設定メモ",
+      "oktaStep1": "Okta 管理コンソールで、Applications、Create App Integration、SAML 2.0 の順に選択します。",
+      "oktaStep2": "Single sign-on URL: ACS URL。Audience URI (SP Entity ID): SP エンティティ ID。Name ID format: Persistent。Application username: Email。",
+      "oktaStep3": "Attribute statements: email = user.email、firstName = user.firstName、lastName = user.lastName(Okta プリセット)。",
+      "oktaStep4": "ユーザーを割り当ててから、Sign On タブのメタデータ URL を Ostiary にコピーします。",
+      "entraStep1": "Microsoft Entra ID で、エンタープライズ アプリケーション、新しいアプリケーション、独自のアプリケーションの作成(ギャラリー以外)の順に選択し、シングル サインオン、SAML を選択します。",
+      "entraStep2": "基本的な SAML 構成: 識別子 (エンティティ ID) = SP エンティティ ID、応答 URL = ACS URL。",
+      "entraStep3": "既定のクレームはそのままにします(Entra ID プリセット)。既定の署名オプション「SAML アサーションへの署名」で動作します。",
+      "entraStep4": "ユーザーとグループを割り当ててから、アプリのフェデレーション メタデータ URL を Ostiary にコピーします。",
+      "spInitiatedNote": "Ostiary から開始されるサインインのみサポートされています。ID プロバイダーのポータルにあるアプリのタイルは {url} を指すように設定してください。",
+      "spDetails": "SP の詳細",
+      "detailsTitle": "{id}: SAML 設定",
+      "detailsDescription": "これらの値を ID プロバイダーに入力してください。",
+      "assertionsSignedOn": "署名付きアサーションが必須です。",
+      "assertionsSignedOff": "署名付きレスポンスが必須です(アサーションは署名なしでもかまいません)。",
+      "certExpires": "署名証明書の有効期限: {date}",
+      "certExpired": "署名証明書の有効期限が切れています。IdP メタデータを更新するまでサインインは失敗します。",
+      "editTitle": "{id} を編集",
+      "editDescription": "ドメインを変更すると、再度確認が必要になります。SP エンティティ ID と ACS URL は変わりません。",
+      "replaceIdp": "ID プロバイダーの設定を置き換える(新しいメタデータまたは証明書)",
+      "updated": "プロバイダーを更新しました",
+      "save": "保存",
+      "cancel": "キャンセル",
+      "close": "閉じる",
+      "copyLabel": "コピー: {label}",
+      "errors": {
+        "metadataEmpty": "メタデータが空です。",
+        "metadataTooLarge": "メタデータが 100 KB を超えています。",
+        "metadataDoctype": "メタデータに DOCTYPE を含めることはできません。",
+        "metadataNotXml": "メタデータが整形式の XML ではありません。",
+        "notSamlMetadata": "SAML メタデータではありません。",
+        "multipleEntities": "メタデータには ID プロバイダーをちょうど 1 つ記述する必要があります。",
+        "noEntityId": "メタデータに entityID がありません。",
+        "noIdpDescriptor": "メタデータに ID プロバイダー（IDPSSODescriptor）がありません。",
+        "noSaml2": "ID プロバイダーが SAML 2.0 をサポートしていません。",
+        "signedRequestsRequired": "ID プロバイダーが署名付きリクエストを必須としていますが、Ostiary は署名付きリクエストを送信しません。ID プロバイダーでリクエストの署名をオフにしてください。",
+        "noRedirectBinding": "メタデータに HTTP-Redirect バインディングの SingleSignOnService がありません。",
+        "metadataSsoUrlNotHttps": "ID プロバイダーの SSO URL は https:// を使用する必要があります。",
+        "unreadableCertificate": "メタデータ内の署名証明書を読み取れませんでした。",
+        "noSigningCertificate": "メタデータに署名証明書がありません。",
+        "invalidMapping": "メールアドレスと名前の属性名を入力してください（スペースや引用符は使用できません）。",
+        "allCertificatesExpired": "メタデータ内のすべての署名証明書の有効期限が切れています。",
+        "missingEntityId": "ID プロバイダーのエンティティ ID（発行者）を入力してください。",
+        "ssoUrlNotHttps": "SSO URL は https:// の URL にしてください。",
+        "invalidCertificate": "署名証明書が有効な X.509 証明書（PEM）ではありません。",
+        "certificateExpired": "署名証明書の有効期限が切れています。",
+        "fetchFailed": "メタデータを取得できませんでした: {reason}",
+        "invalidRedirect": "メタデータ URL が無効なアドレスにリダイレクトしています。",
+        "httpStatus": "メタデータ URL が {status} を返しました。",
+        "tooManyRedirects": "メタデータ URL のリダイレクト回数が多すぎます。"
+      }
+    },
+    "panel": {
+      "noOrganization": "組織なし",
+      "providersDescription": "プロバイダーは、メールドメインが DNS レコードで確認されるまでサインインを受け付けません。",
+      "verified": "確認済み",
+      "domainNotVerified": "ドメイン未確認",
+      "verifyDomain": "ドメインを確認",
+      "editLabel": "{id} を編集",
+      "deleteLabel": "{id} を削除",
+      "verifyTitle": "{domain} を確認",
+      "verifyDescription": "ドメインの所有者にこの TXT レコードを DNS に追加してもらい、ここで確認してください。確認が完了すると、このプロバイダー経由のサインインが使えるようになります。",
+      "recordName": "名前",
+      "recordValue": "値",
+      "copyRecordName": "名前をコピー",
+      "copyRecordValue": "値をコピー",
+      "recordValidity": "この値は 7 日間有効です。",
+      "domainVerified": "ドメインを確認しました",
+      "checkDns": "DNS を確認",
+      "editDescription": "ドメインを変更すると、再度確認が必要になります。クライアントの認証情報を変更するには、プロバイダーを削除して再登録してください。",
+      "organization": "組織",
+      "deleteTitle": "{id} を削除しますか？",
+      "deleteDescription": "{domain} のアドレスを持つユーザーは、このプロバイダー経由でサインインできなくなります。アカウントは残り、パスワードやパスキーは引き続き使えます。",
+      "providerDeleted": "プロバイダーを削除しました"
+    },
+    "errors": {
+      "providerNotFound": "プロバイダーが見つかりません。",
+      "issuerNotUrl": "発行者は URL にしてください。",
+      "invalidDomain": "メールドメインを入力してください（例: acme.com）。",
+      "organizationNotFound": "組織が見つかりません。",
+      "samlIssuerLocked": "SAML プロバイダーの SP エンティティ ID は変更できません。",
+      "invalidProviderDomain": "プロバイダーのドメインが無効です。",
+      "txtRecordNotFound": "TXT レコードがまだ見つかりません。DNS の変更が反映されるまで数分かかる場合があります。",
+      "envNotSet": "{name} が設定されていません。",
+      "invalidProviderId": "プロバイダー ID は、英小文字、数字、- または _ からなる 2〜63 文字にしてください。",
+      "unreadableSamlConfig": "保存されている SAML 設定を読み取れません。プロバイダーを削除して再登録してください。"
     }
   },
   "selectAccount": {

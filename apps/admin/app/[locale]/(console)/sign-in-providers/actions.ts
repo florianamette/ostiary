@@ -1,11 +1,14 @@
 "use server";
 
+import { getFormatter, getTranslations } from "next-intl/server";
+
 import { adminActor } from "@/lib/admin-audit";
 import { isSocialProvider, SOCIAL_PROVIDER_META, type SocialProvider } from "@ostiary/core/lib/social-provider-meta";
 import {
   deleteSocialProvider,
   reorderSocialProviders,
   saveSocialProvider,
+  type SaveResult,
   type SocialProviderInput,
 } from "@ostiary/core/lib/social-providers";
 
@@ -29,9 +32,31 @@ function strings(value: unknown): Record<string, string> {
   );
 }
 
+/** A refused save, in the admin's language when the core gave a code (Better Auth's errors stay as they are). */
+async function saveError(id: SocialProvider, result: Extract<SaveResult, { ok: false }>): Promise<string> {
+  if (!result.code) return result.error;
+  const t = await getTranslations("admin.pages.signInProviders");
+  const format = await getFormatter();
+  const label = (key: string) => {
+    const translated = `providers.${id}.fields.${key}.label`;
+    return t.has(translated) ? t(translated) : (SOCIAL_PROVIDER_META[id].fields.find((f) => f.key === key)?.label ?? key);
+  };
+  switch (result.code) {
+    case "invalidOption":
+      return t("errors.invalidOption", {
+        field: label(result.field ?? ""),
+        options: format.list(result.options ?? [], { type: "disjunction" }),
+      });
+    case "missingFields":
+      return t("errors.missingFields", { fields: format.list((result.fields ?? []).map(label), { type: "unit" }) });
+    default:
+      return t(`errors.${result.code}`);
+  }
+}
+
 export async function saveProvider(id: string, input: SocialProviderInput): Promise<Result> {
   const { session, audit } = await adminActor();
-  if (!isSocialProvider(id)) return { ok: false, error: "Unknown provider." };
+  if (!isSocialProvider(id)) return { ok: false, error: (await getTranslations("admin.pages.signInProviders"))("errors.unknownProvider") };
   const secrets = Object.fromEntries(
     Object.entries(input.secrets ?? {}).filter(
       (entry): entry is [string, string | null] => typeof entry[1] === "string" || entry[1] === null,
@@ -48,7 +73,7 @@ export async function saveProvider(id: string, input: SocialProviderInput): Prom
     },
     session.user.id,
   );
-  if (!result.ok) return result;
+  if (!result.ok) return { ok: false, error: await saveError(id, result) };
   if (result.changed.length) {
     await audit({
       action: result.created ? "social_provider.create" : "social_provider.update",
@@ -69,7 +94,7 @@ export async function reorderProviders(ids: string[]): Promise<Result> {
 
 export async function removeProvider(id: string): Promise<Result> {
   const { audit } = await adminActor();
-  if (!isSocialProvider(id)) return { ok: false, error: "Unknown provider." };
+  if (!isSocialProvider(id)) return { ok: false, error: (await getTranslations("admin.pages.signInProviders"))("errors.unknownProvider") };
   if (await deleteSocialProvider(id)) await audit({ action: "social_provider.delete", target: target(id) });
   return { ok: true };
 }

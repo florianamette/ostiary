@@ -1,12 +1,13 @@
 "use client";
 
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 import { Button } from "@ostiary/core/components/ui/button";
 import { authClient } from "@/lib/auth-client";
 
 export function SignOutButton() {
   const locale = useLocale();
+  const t = useTranslations("dashboard.nav");
 
   return (
     <Button
@@ -23,7 +24,7 @@ export function SignOutButton() {
         });
       }}
     >
-      Sign out
+      {t("signOut")}
     </Button>
   );
 }

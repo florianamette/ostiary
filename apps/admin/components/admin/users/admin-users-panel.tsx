@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { ChevronLeftIcon, ChevronRightIcon, SearchIcon } from "lucide-react";
+import { useFormatter, useTranslations } from "next-intl";
 
 import { Link } from "@/i18n/navigation";
 import { AdminCreateUserDialog } from "@/components/admin/users/admin-create-user-dialog";
@@ -36,19 +37,14 @@ import { cn } from "@ostiary/core/lib/utils";
 
 type RoleFilter = "all" | "admin" | "user";
 
-function formatUserDate(value: Date | string | undefined | null) {
+function formatUserDate(
+  value: Date | string | undefined | null,
+  format: ReturnType<typeof useFormatter>
+) {
   if (value == null) return "-";
-  try {
-    const d = value instanceof Date ? value : new Date(value);
-    if (Number.isNaN(d.getTime())) return "-";
-    return d.toLocaleDateString(undefined, {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    });
-  } catch {
-    return "-";
-  }
+  const d = value instanceof Date ? value : new Date(value);
+  if (Number.isNaN(d.getTime())) return "-";
+  return format.dateTime(d, { year: "numeric", month: "short", day: "numeric" });
 }
 
 type ListUser = {
@@ -62,6 +58,9 @@ type ListUser = {
 };
 
 export function AdminUsersPanel() {
+  const t = useTranslations("admin.pages.users");
+  const tc = useTranslations("admin.common");
+  const format = useFormatter();
   const { data: sessionWrap } = authClient.useSession();
   const currentUserId = sessionWrap?.user?.id;
 
@@ -78,8 +77,8 @@ export function AdminUsersPanel() {
   const [refreshKey, setRefreshKey] = React.useState(0);
 
   React.useEffect(() => {
-    const t = window.setTimeout(() => setDebouncedSearch(searchInput), 350);
-    return () => window.clearTimeout(t);
+    const timer = window.setTimeout(() => setDebouncedSearch(searchInput), 350);
+    return () => window.clearTimeout(timer);
   }, [searchInput]);
 
   React.useEffect(() => {
@@ -140,7 +139,7 @@ export function AdminUsersPanel() {
       if (cancelled) return;
 
       if (res.error) {
-        setListError(res.error.message ?? "Failed to load users");
+        setListError(res.error.message ?? t("list.loadErrorFallback"));
         setUsers([]);
         setTotal(0);
         setLoading(false);
@@ -156,7 +155,7 @@ export function AdminUsersPanel() {
     return () => {
       cancelled = true;
     };
-  }, [safePage, debouncedSearch, roleFilter, refreshKey, pageSize]);
+  }, [safePage, debouncedSearch, roleFilter, refreshKey, pageSize, t]);
   const showingFrom = total === 0 ? 0 : safePage * pageSize + 1;
   const showingTo = Math.min(safePage * pageSize + pageSize, total);
 
@@ -171,11 +170,11 @@ export function AdminUsersPanel() {
           <SearchIcon className="pointer-events-none absolute top-1/2 left-2.5 size-4 -translate-y-1/2 text-muted-foreground" />
           <Input
             type="search"
-            placeholder="Search by name or email…"
+            placeholder={t("list.searchPlaceholder")}
             className="pl-9"
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
-            aria-label="Search users"
+            aria-label={t("list.searchLabel")}
           />
         </div>
         <div className="flex flex-wrap items-center gap-2">
@@ -184,12 +183,12 @@ export function AdminUsersPanel() {
             onValueChange={(v) => setRoleFilter(v as RoleFilter)}
           >
             <SelectTrigger size="sm" className="w-[140px]">
-              <SelectValue placeholder="Role" />
+              <SelectValue placeholder={t("list.rolePlaceholder")} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">All roles</SelectItem>
-              <SelectItem value="admin">Admin</SelectItem>
-              <SelectItem value="user">User</SelectItem>
+              <SelectItem value="all">{t("list.roleAll")}</SelectItem>
+              <SelectItem value="admin">{t("list.roleAdmin")}</SelectItem>
+              <SelectItem value="user">{t("list.roleUser")}</SelectItem>
             </SelectContent>
           </Select>
           <AdminCreateUserDialog onCreated={refetch} />
@@ -198,7 +197,7 @@ export function AdminUsersPanel() {
 
       {listError ? (
         <Alert variant="destructive">
-          <AlertTitle>Could not load users</AlertTitle>
+          <AlertTitle>{t("list.loadErrorTitle")}</AlertTitle>
           <AlertDescription>{listError}</AlertDescription>
         </Alert>
       ) : null}
@@ -207,12 +206,12 @@ export function AdminUsersPanel() {
         <Table>
           <TableHeader>
             <TableRow className="hover:bg-transparent">
-              <TableHead className="w-[min(28%,220px)]">User</TableHead>
-              <TableHead className="hidden sm:table-cell">Role</TableHead>
-              <TableHead className="hidden md:table-cell">Status</TableHead>
-              <TableHead className="hidden lg:table-cell">Verified</TableHead>
-              <TableHead className="hidden lg:table-cell">Joined</TableHead>
-              <TableHead className="w-12 text-right">Actions</TableHead>
+              <TableHead className="w-[min(28%,220px)]">{t("list.columns.user")}</TableHead>
+              <TableHead className="hidden sm:table-cell">{t("list.columns.role")}</TableHead>
+              <TableHead className="hidden md:table-cell">{t("list.columns.status")}</TableHead>
+              <TableHead className="hidden lg:table-cell">{t("list.columns.verified")}</TableHead>
+              <TableHead className="hidden lg:table-cell">{t("list.columns.joined")}</TableHead>
+              <TableHead className="w-12 text-right">{tc("actions")}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -222,7 +221,7 @@ export function AdminUsersPanel() {
                   colSpan={6}
                   className="h-24 text-center text-muted-foreground"
                 >
-                  Loading users…
+                  {t("list.loading")}
                 </TableCell>
               </TableRow>
             ) : users.length === 0 ? (
@@ -231,7 +230,7 @@ export function AdminUsersPanel() {
                   colSpan={6}
                   className="h-24 text-center text-muted-foreground"
                 >
-                  No users match your filters.
+                  {t("list.empty")}
                 </TableCell>
               </TableRow>
             ) : (
@@ -258,11 +257,11 @@ export function AdminUsersPanel() {
                         </Badge>
                         {user.banned ? (
                           <Badge variant="destructive" className="text-xs">
-                            Banned
+                            {t("status.banned")}
                           </Badge>
                         ) : (
                           <Badge variant="outline" className="text-xs">
-                            Active
+                            {t("status.active")}
                           </Badge>
                         )}
                       </div>
@@ -280,10 +279,10 @@ export function AdminUsersPanel() {
                   </TableCell>
                   <TableCell className="hidden md:table-cell">
                     {user.banned ? (
-                      <Badge variant="destructive">Banned</Badge>
+                      <Badge variant="destructive">{t("status.banned")}</Badge>
                     ) : (
                       <Badge variant="outline" className="font-normal">
-                        Active
+                        {t("status.active")}
                       </Badge>
                     )}
                   </TableCell>
@@ -296,11 +295,11 @@ export function AdminUsersPanel() {
                           : "text-muted-foreground"
                       )}
                     >
-                      {user.emailVerified ? "Yes" : "No"}
+                      {user.emailVerified ? tc("yes") : tc("no")}
                     </span>
                   </TableCell>
                   <TableCell className="text-muted-foreground hidden text-sm lg:table-cell">
-                    {formatUserDate(user.createdAt)}
+                    {formatUserDate(user.createdAt, format)}
                   </TableCell>
                   <TableCell className="text-right">
                     <AdminUserRowActions
@@ -324,13 +323,13 @@ export function AdminUsersPanel() {
         <div className="flex flex-col gap-3 border-t px-3 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-4">
           <p className="text-muted-foreground text-xs sm:text-sm">
             {total === 0
-              ? "0 users"
-              : `Showing ${showingFrom}-${showingTo} of ${total}`}
+              ? t("list.noUsers")
+              : t("list.showing", { from: showingFrom, to: showingTo, total })}
           </p>
           <div className="flex flex-wrap items-center gap-3 sm:gap-4">
             <div className="flex items-center gap-2">
               <span className="text-muted-foreground whitespace-nowrap text-xs">
-                Rows per page
+                {t("list.rowsPerPage")}
               </span>
               <Select
                 value={String(pageSize)}
@@ -341,7 +340,7 @@ export function AdminUsersPanel() {
                 <SelectTrigger
                   size="sm"
                   className="w-[88px]"
-                  aria-label="Rows per page"
+                  aria-label={t("list.rowsPerPage")}
                 >
                   <SelectValue />
                 </SelectTrigger>
@@ -362,10 +361,10 @@ export function AdminUsersPanel() {
                 onClick={() => setPage((p) => Math.max(0, p - 1))}
               >
                 <ChevronLeftIcon />
-                Previous
+                {t("list.previous")}
               </Button>
               <span className="text-muted-foreground tabular-nums text-xs sm:text-sm">
-                Page {safePage + 1} / {totalPages}
+                {t("list.pageOf", { page: safePage + 1, pages: totalPages })}
               </span>
               <Button
                 variant="outline"
@@ -375,7 +374,7 @@ export function AdminUsersPanel() {
                   setPage((p) => Math.min(totalPages - 1, p + 1))
                 }
               >
-                Next
+                {t("list.next")}
                 <ChevronRightIcon />
               </Button>
             </div>
@@ -384,32 +383,21 @@ export function AdminUsersPanel() {
       </div>
 
       <p className="text-muted-foreground text-xs">
-        Powered by{" "}
-        <code className="rounded bg-muted px-1 py-0.5 font-mono">listUsers</code>
-        ,{" "}
-        <code className="rounded bg-muted px-1 py-0.5 font-mono">
-          createUser
-        </code>
-        ,{" "}
-        <code className="rounded bg-muted px-1 py-0.5 font-mono">setRole</code>
-        ,{" "}
-        <code className="rounded bg-muted px-1 py-0.5 font-mono">
-          updateUser
-        </code>
-        ,{" "}
-        <code className="rounded bg-muted px-1 py-0.5 font-mono">
-          setUserPassword
-        </code>
-        , and related methods from the{" "}
-        <a
-          href="https://better-auth.com/docs/plugins/admin"
-          className="font-medium text-foreground underline-offset-4 hover:underline"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Better Auth admin plugin
-        </a>
-        . You must be signed in as an admin.
+        {t.rich("list.poweredBy", {
+          code: (chunks) => (
+            <code className="rounded bg-muted px-1 py-0.5 font-mono">{chunks}</code>
+          ),
+          link: (chunks) => (
+            <a
+              href="https://better-auth.com/docs/plugins/admin"
+              className="font-medium text-foreground underline-offset-4 hover:underline"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {chunks}
+            </a>
+          ),
+        })}
       </p>
     </div>
   );

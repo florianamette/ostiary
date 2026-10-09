@@ -42,9 +42,9 @@ export default async function SecurityPage({ params }: { params: Promise<{ local
 
       <div className="grid gap-4 sm:grid-cols-3">
         {[
-          { label: "Failed sign-ins, 24 hours", value: stats.totals.last24h },
-          { label: "Failed sign-ins, 7 days", value: stats.totals.last7d },
-          { label: "Banned accounts", value: stats.banned.length },
+          { label: t("tiles.failed24h"), value: stats.totals.last24h },
+          { label: t("tiles.failed7d"), value: stats.totals.last7d },
+          { label: t("tiles.banned"), value: stats.banned.length },
         ].map((tile) => (
           <div key={tile.label} className="rounded-lg border border-border/80 bg-card p-4 shadow-sm">
             <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">{tile.label}</p>
@@ -55,10 +55,8 @@ export default async function SecurityPage({ params }: { params: Promise<{ local
 
       <Card className="border-border/80 shadow-sm">
         <CardHeader>
-          <CardTitle>Failed sign-ins per day</CardTitle>
-          <CardDescription>
-            Wrong password or unknown account, last 30 days ({stats.totals.last30d.toLocaleString(locale)} in total). Tracked from October 6, 2026.
-          </CardDescription>
+          <CardTitle>{t("perDay.title")}</CardTitle>
+          <CardDescription>{t("perDay.description", { total: stats.totals.last30d })}</CardDescription>
         </CardHeader>
         <CardContent>
           <FailedSignInsChart data={stats.series} />
@@ -68,19 +66,19 @@ export default async function SecurityPage({ params }: { params: Promise<{ local
       <div className="grid gap-6 lg:grid-cols-2">
         <Card className="border-border/80 shadow-sm">
           <CardHeader>
-            <CardTitle className="text-base">Most targeted accounts, 7 days</CardTitle>
-            <CardDescription>The email or username tried, whether or not the account exists.</CardDescription>
+            <CardTitle className="text-base">{t("topAccounts.title")}</CardTitle>
+            <CardDescription>{t("topAccounts.description")}</CardDescription>
           </CardHeader>
           <CardContent>
             {stats.topIdentifiers.length === 0 ? (
-              <p className="text-sm text-muted-foreground">No failed sign-ins in the last 7 days.</p>
+              <p className="text-sm text-muted-foreground">{t("noFailures")}</p>
             ) : (
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Email or username</TableHead>
-                    <TableHead className="text-right">Attempts</TableHead>
-                    <TableHead className="hidden text-right sm:table-cell">Last</TableHead>
+                    <TableHead>{t("topAccounts.identifier")}</TableHead>
+                    <TableHead className="text-right">{t("attempts")}</TableHead>
+                    <TableHead className="hidden text-right sm:table-cell">{t("topAccounts.last")}</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -99,19 +97,19 @@ export default async function SecurityPage({ params }: { params: Promise<{ local
 
         <Card className="border-border/80 shadow-sm">
           <CardHeader>
-            <CardTitle className="text-base">Busiest IP addresses, 7 days</CardTitle>
-            <CardDescription>One address trying many accounts usually means credential stuffing.</CardDescription>
+            <CardTitle className="text-base">{t("topIps.title")}</CardTitle>
+            <CardDescription>{t("topIps.description")}</CardDescription>
           </CardHeader>
           <CardContent>
             {stats.topIps.length === 0 ? (
-              <p className="text-sm text-muted-foreground">No failed sign-ins in the last 7 days.</p>
+              <p className="text-sm text-muted-foreground">{t("noFailures")}</p>
             ) : (
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>IP address</TableHead>
-                    <TableHead className="text-right">Attempts</TableHead>
-                    <TableHead className="text-right">Accounts tried</TableHead>
+                    <TableHead>{t("topIps.ip")}</TableHead>
+                    <TableHead className="text-right">{t("attempts")}</TableHead>
+                    <TableHead className="text-right">{t("topIps.accounts")}</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -131,19 +129,19 @@ export default async function SecurityPage({ params }: { params: Promise<{ local
 
       <Card className="border-border/80 shadow-sm">
         <CardHeader>
-          <CardTitle className="text-base">Banned accounts</CardTitle>
+          <CardTitle className="text-base">{t("banned.title")}</CardTitle>
         </CardHeader>
         <CardContent>
           {stats.banned.length === 0 ? (
-            <p className="text-sm text-muted-foreground">No banned accounts.</p>
+            <p className="text-sm text-muted-foreground">{t("banned.empty")}</p>
           ) : (
             <ul className="space-y-2 text-sm">
               {stats.banned.map((b) => (
                 <li key={b.id} className="flex flex-wrap justify-between gap-2">
                   <Link href={`/users/${b.id}`} className="underline-offset-4 hover:underline">{b.name || b.email}</Link>
                   <span className="text-xs text-muted-foreground">
-                    {b.reason || "No reason given"}
-                    {b.expires ? ` · until ${formatDateTime(b.expires, locale)}` : " · permanent"}
+                    {b.reason || t("banned.noReason")}
+                    {b.expires ? ` · ${t("banned.until", { date: formatDateTime(b.expires, locale) })}` : ` · ${t("banned.permanent")}`}
                   </span>
                 </li>
               ))}

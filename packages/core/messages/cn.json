@@ -33,14 +33,14 @@
         "passkeyFailed": "通行密钥登录失败，请重试或使用密码登录。"
       },
       "resend": {
-        "title": "Didn't get the email?",
-        "description": "Enter your email and we'll send you a new verification link.",
+        "title": "没有收到邮件？",
+        "description": "输入你的邮箱，我们将向你发送新的验证链接。",
         "emailPlaceholder": "you@example.com",
-        "send": "Send a new link",
-        "sendAgain": "Send again",
-        "sent": "If an unverified account uses this address, a new link is on its way. Check your inbox and spam folder.",
-        "invalidEmail": "Enter a valid email address.",
-        "error": "Could not send the email. Try again in a minute."
+        "send": "发送新链接",
+        "sendAgain": "重新发送",
+        "sent": "如果有未验证的账户使用此地址，新链接已在发送途中。请查看收件箱和垃圾邮件文件夹。",
+        "invalidEmail": "请输入有效的邮箱地址。",
+        "error": "无法发送邮件。请稍后再试。"
       },
       "addAccountDescription": "此浏览器上已登录的账户将保持登录。"
     },
@@ -164,7 +164,7 @@
       }
     },
     "screen": {
-      "headline": "一个账户，畅通所有应用。",
+      "headline": "一个账户，<accent>畅通所有应用</accent>。",
       "subhead": "登录一次，即可访问与 {name} 关联的所有应用。您的个人资料和安全设置随处可用。",
       "footer": "由 {name} 保护。",
       "ecosystem": "适用于"
@@ -278,51 +278,1483 @@
           "day": "日期",
           "note": "退出自 2026 年 10 月 6 日起统计。此前的登录仅包含当时仍有效的会话。"
         },
-        "description": "平台的账户、登录活动和最新注册用户。"
+        "description": "平台的账户、登录活动和最新注册用户。",
+        "recentUsers": {
+          "title": "最近加入",
+          "description": "最新的账户。打开账户可查看其会话和活动。",
+          "loading": "加载中…",
+          "empty": "还没有用户。"
+        },
+        "stats": {
+          "error": "无法加载一项或多项指标。请确认你以管理员身份登录。",
+          "errorTitle": "指标不可用",
+          "loadingTitle": "加载中",
+          "loadingHint": "加载中…",
+          "totalUsers": {
+            "title": "用户总数",
+            "hint": "平台上的所有账户。"
+          },
+          "admins": {
+            "title": "管理员",
+            "hint": "可访问此控制台的账户。"
+          },
+          "banned": {
+            "title": "已封禁",
+            "hint": "当前无法登录的账户。"
+          },
+          "verified": {
+            "title": "已验证邮箱",
+            "hint": "已确认邮箱地址的账户。"
+          },
+          "recent": {
+            "title": "新增（7 天）",
+            "hint": "最近 7 天内创建的账户。"
+          }
+        }
       },
       "applications": {
         "title": "应用",
         "description": "可使用 {name} 登录用户的 OAuth 客户端：重定向地址、授权类型和同意设置。",
         "unusedHint": "{count, plural, other {# 个应用}}在最近 30 天内未被使用。",
-        "viewUsage": "查看使用情况"
+        "viewUsage": "查看使用情况",
+        "panel": {
+          "selfRegisteredHint": "自行注册：未经管理员审核",
+          "selfRegisteredBadge": "自行注册",
+          "registration": {
+            "all": "所有注册方式",
+            "admin": "管理员",
+            "dynamic": "动态注册",
+            "metadata_document": "元数据文档"
+          },
+          "authMethod": {
+            "none": "认证：无",
+            "client_secret_basic": "认证：密钥（basic）",
+            "client_secret_post": "认证：密钥（post）",
+            "private_key_jwt": "认证：私钥 JWT"
+          },
+          "loadFailed": "无法加载 OAuth 客户端",
+          "loadErrorTitle": "无法加载应用",
+          "searchPlaceholder": "按名称、客户端 ID、重定向 URI 或授权类型搜索…",
+          "searchLabel": "搜索应用",
+          "clientType": "客户端类型",
+          "registeredBy": "注册方式",
+          "kind": {
+            "all": "所有客户端",
+            "public": "公开",
+            "confidential": "机密",
+            "trusted": "受信任（跳过同意）",
+            "device": "设备登录"
+          },
+          "columns": {
+            "application": "应用",
+            "redirects": "重定向",
+            "grants": "授权类型",
+            "consent": "同意"
+          },
+          "badges": {
+            "device": "设备",
+            "trusted": "受信任",
+            "consent": "同意",
+            "active": "已启用",
+            "skipped": "已跳过",
+            "required": "必需"
+          },
+          "loadingRows": "正在加载应用…",
+          "empty": "此账户还没有 OAuth 客户端。",
+          "noMatch": "没有符合筛选条件的应用。",
+          "linkedApis": "关联的 API：{apis}",
+          "noApplications": "0 个应用",
+          "showing": "第 {from}-{to} 条，共 {total} 条",
+          "rowsPerPage": "每页行数",
+          "previous": "上一页",
+          "next": "下一页",
+          "page": "第 {page} / {total} 页",
+          "footnote": "数据来自 <code>{getClients}</code>。注册和编辑（包括 <code>{skipConsent}</code>）调用 <code>{create}</code> 和 <code>{update}</code>；其他修改使用 <code>{deleteClient}</code> 和 <code>{rotateSecret}</code>。请参阅 <docs>OAuth provider</docs> 文档。客户端的范围限定为当前登录用户（配置后则为 <code>{clientReference}</code>）。自行注册的客户端没有所有者，全部列出；它们可以停用或删除，但不能编辑。"
+        },
+        "registration": {
+          "title": "自行注册",
+          "description": "允许 MCP 客户端和 AI 代理自行注册，而不是在此添加。它们只能获得下方的权限范围，同意页面始终标记为未验证，且永远不会获得机器（客户端凭据）访问权限。",
+          "dynamicRegistration": "动态注册",
+          "dynamic": {
+            "off": {
+              "label": "关闭",
+              "hint": "拒绝 POST /oauth2/register 请求。"
+            },
+            "signed_in": {
+              "label": "仅限已登录用户",
+              "hint": "只有携带用户会话的请求才能注册。大多数 MCP 客户端无法做到。"
+            },
+            "open": {
+              "label": "任何人（开放注册）",
+              "hint": "MCP 客户端所期望的方式：任何应用都可以注册，然后由每位用户在同意页面上批准。"
+            }
+          },
+          "metadataDocuments": "元数据文档（client_id URL）",
+          "metadataOnFrom": "开启，来自 {hosts}",
+          "metadataOnAnyHost": "开启，任意 HTTPS 主机",
+          "scopes": "可请求的权限范围",
+          "missingScope": "已不再是此服务器的权限范围：已忽略",
+          "perHour": "每小时新增客户端数",
+          "endpoint": "注册端点：<code>{url}</code>（在发现文档中公布）。",
+          "saved": "设置已保存。认证服务器会在一分钟内生效。",
+          "dialogDescription": "自行注册的客户端不经过审核。用户会看到它们被标记为未验证的应用，并需在同意页面上逐一批准。",
+          "dynamicLabel": "动态客户端注册（RFC 7591）",
+          "cimdLabel": "客户端 ID 元数据文档",
+          "cimdHint": "client_id 是指向应用 JSON 元数据的 HTTPS URL，较新的 MCP 客户端采用这种方式。只获取公共主机上的文档，不跟随重定向，最大 5 KB。",
+          "hostsLabel": "允许的主机",
+          "hostsHint": "每行一个。留空：任意公共 HTTPS 主机。",
+          "scopesLabel": "自行注册的客户端可请求的权限范围",
+          "scopesHint": "每位用户仍需批准应用请求的权限范围。移除某个权限范围也会将其从已注册的客户端中移除；已签发的令牌在过期前仍保留该权限范围。",
+          "perHourHint": "跨所有实例，两种方式合计。每个地址每分钟最多注册 5 次。"
+        },
+        "branding": {
+          "title": "登录品牌",
+          "description": "用户从 <app>{client}</app> 进入时登录页面的外观：登录、注册、双重身份验证、重置密码和同意。{brand} 标志在每个页面上都会保留。",
+          "logoFetchedOnSave": "服务器会在你保存时获取标志，届时预览中才会显示。",
+          "accentInvalid": "请以十六进制颜色输入强调色，例如 {example}。",
+          "hexInvalid": "请输入十六进制颜色，例如 {example}。",
+          "saved": "登录品牌已保存",
+          "resetDone": "登录品牌已重置",
+          "displayName": "显示名称",
+          "displayNameHint": "显示为“登录以继续使用 …”。留空则使用应用名称。",
+          "tagline": "标语（可选）",
+          "taglinePlaceholder": "你的阅读清单，随处可读。",
+          "accent": "强调色",
+          "accentPick": "选择强调色",
+          "accentHex": "强调色（十六进制）",
+          "accentOff": "关闭：页面沿用主题颜色。",
+          "contrast": {
+            "label": "对比度检查",
+            "ratio": "{label}：<value>{ratio}:1</value>",
+            "passes": "（达到 {min}:1）",
+            "below": "（低于 {min}:1）",
+            "buttonLabel": "按钮文字（{color, select, black {黑色} other {白色}}）",
+            "lightCard": "浅色卡片上的按钮",
+            "darkCard": "深色卡片上的按钮",
+            "textAdjusted": "强调色中的文字使用 {color} 以达到 {min}:1。"
+          },
+          "logo": "标志",
+          "logoSourceLabel": "标志来源",
+          "logoSource": {
+            "app_icon": "应用图标",
+            "url": "来自 URL",
+            "upload": "上传"
+          },
+          "logoAppIconHint": "为该应用找到的图标（其 {field} 或其网站），与同意页面上的相同。",
+          "logoUrl": "标志 URL",
+          "logoUrlHint": "公共主机上的 https 地址。{name} 会获取并缓存它；浏览器不会直接从该地址加载。",
+          "logoFile": "标志文件",
+          "logoFileHint": "PNG、JPEG、WebP、AVIF、GIF、ICO 或 SVG，最大 256 KB。最好使用正方形图片。",
+          "panel": "侧边面板（宽屏，可选）",
+          "panelImage": "侧边面板图片",
+          "removeImage": "移除图片",
+          "panelHint": "深色面板的标题和背景图片。PNG、JPEG、WebP 或 AVIF，最大 1 MB。",
+          "social": "此应用页面上的社交登录",
+          "socialNone": "未启用任何社交登录提供商。",
+          "socialShown": "显示的社交登录提供商",
+          "socialAll": "所有已启用的",
+          "socialSome": "仅限以下",
+          "socialHint": "仅在此应用的页面上隐藏按钮；不会阻止任何人通过其他方式登录。",
+          "previewTitle": "预览",
+          "previewScheme": "预览配色",
+          "light": "浅色",
+          "dark": "深色",
+          "faintOnLight": "此颜色的按钮在浅色卡片上几乎不显眼（WCAG 要求控件对比度达到 3:1）。文字仍然清晰；建议使用更深的色调。",
+          "faintOnDark": "此颜色的按钮在深色卡片上几乎不显眼（WCAG 要求控件对比度达到 3:1）。文字仍然清晰；建议使用更浅的色调。",
+          "resetting": "正在重置…",
+          "reset": "恢复默认",
+          "save": "保存品牌设置",
+          "preview": {
+            "label": "登录页面预览",
+            "appFallback": "应用",
+            "title": "登录",
+            "submit": "登录",
+            "noAccount": "没有账户？<link>立即创建</link>"
+          }
+        },
+        "actions": {
+          "registration": {
+            "chooseMode": "请选择谁可以注册客户端。",
+            "unknownScope": "“{scope}”不是此服务器的权限范围。",
+            "noScopes": "请至少允许一个权限范围。",
+            "invalidHost": "“{raw}”不是有效的主机名，例如 {example}。",
+            "invalidLimit": "每小时上限必须是 0 到 {max} 之间的整数。",
+            "saveFailed": "无法保存设置。",
+            "clientGone": "此客户端已不存在。",
+            "notSelfRegistered": "此处只能修改自行注册的客户端。"
+          },
+          "branding": {
+            "clientGone": "此应用已不存在。",
+            "selfRegistered": "自行注册的客户端无法设置品牌。",
+            "logoMissing": "请选择要上传的标志文件。",
+            "logoFetchFailed": "无法从标志 URL 获取图片。请检查该地址是否公开且为图片。",
+            "faintOnLight": "强调色在浅色卡片上过淡：按钮几乎不显眼。",
+            "faintOnDark": "强调色在深色卡片上过淡：按钮几乎不显眼。",
+            "saveFailed": "无法保存品牌设置。"
+          }
+        },
+        "register": {
+          "trigger": "注册应用",
+          "title": "注册 OAuth 应用",
+          "description": "通过 <code>{endpoint}</code> 创建与你的账户关联的客户端（受信任的应用可设置 <code>{field}</code>）。请参阅 <link>Better Auth：创建客户端</link>。",
+          "nameLabel": "应用名称",
+          "namePlaceholder": "我的应用",
+          "redirectUrisLabel": "重定向 URI",
+          "redirectUrisHintPublic": "每行一个或以逗号分隔。须为 HTTPS，或 localhost、127.0.0.1、[::1] 上的 http。",
+          "redirectUrisHintConfidential": "每行一个或以逗号分隔。仅限 HTTPS，localhost 也不例外。本地开发请另行注册一个公开客户端。",
+          "redirectUrisRequired": "请至少输入一个重定向 URI（每行一个或以逗号分隔）。",
+          "clientTypeLabel": "客户端类型",
+          "clientTypeConfidential": "机密（客户端密钥）",
+          "clientTypePublic": "公开（PKCE，无密钥）",
+          "deviceCodeLabel": "设备登录（CLI、电视）",
+          "deviceCodeHint": "添加设备码授权（RFC 8628）：应用显示一个代码，用户在另一块屏幕上的 <code>{path}</code> 处批准。通常为公开客户端。",
+          "skipConsentLabel": "跳过同意（受信任的客户端）",
+          "skipConsentHint": "用户将不会看到此应用的同意页面。仅用于自有或完全受信任的集成。",
+          "registerFailed": "无法注册应用",
+          "missingClientId": "服务器未返回 {field}。",
+          "registered": "OAuth 应用已注册",
+          "creating": "正在创建…",
+          "create": "创建应用",
+          "successTitle": "应用已创建",
+          "successWithSecret": "请立即复制客户端密钥，它可能只显示这一次。",
+          "successPublic": "公开客户端，不签发密钥。请在令牌端点使用 PKCE。",
+          "clientId": "客户端 ID",
+          "clientSecret": "客户端密钥",
+          "copyClientId": "复制客户端 ID",
+          "copyClientSecret": "复制客户端密钥"
+        },
+        "rowActions": {
+          "menuLabel": "{name} 的操作",
+          "copyClientId": "复制客户端 ID",
+          "clientIdCopied": "客户端 ID 已复制",
+          "edit": "编辑应用",
+          "editHint": "名称、重定向 URI、设备登录和跳过同意",
+          "branding": "登录品牌",
+          "brandingHint": "此应用登录页面的标志、强调色和文案",
+          "rotateSecret": "轮换密钥",
+          "rotateHintPublic": "公开客户端没有密钥",
+          "rotateHintDisabled": "请先启用客户端",
+          "rotateHint": "轮换机密客户端的密钥",
+          "delete": "删除应用",
+          "editDialog": {
+            "title": "编辑应用",
+            "description": "通过 <code>{endpoint}</code> 更新 <id>{clientId}</id>（含 <code>{field}</code> 等受限字段）。请参阅 <link>Better Auth：更新客户端</link>。",
+            "nameLabel": "应用名称",
+            "namePlaceholder": "我的应用",
+            "redirectUrisLabel": "重定向 URI",
+            "redirectUrisHint": "每行一个或以逗号分隔。须使用 HTTPS。只有公开客户端可在 localhost 上使用 http。",
+            "redirectUrisRequired": "请至少输入一个重定向 URI（每行一个或以逗号分隔）。",
+            "deviceCodeLabel": "设备登录（CLI、电视）",
+            "deviceCodeHint": "允许设备码授权。关闭后将停止新的设备登录；已签发的令牌仍然有效。",
+            "skipConsentLabel": "跳过同意（受信任的客户端）",
+            "skipConsentHint": "启用后，不会提示用户为此应用批准权限范围。",
+            "updateFailed": "无法更新应用",
+            "updated": "应用已更新"
+          },
+          "deleteDialog": {
+            "title": "删除应用？",
+            "description": "将永久删除 <strong>{name}</strong>（<code>{clientId}</code>）。此客户端的 OAuth 令牌和同意记录可能会受影响。",
+            "deleteFailed": "无法删除客户端",
+            "deleted": "应用已删除"
+          },
+          "rotateDialog": {
+            "title": "轮换客户端密钥？",
+            "description": "旧密钥会立即失效。请将新密钥保存在安全的地方，它可能只显示这一次。",
+            "newSecretLabel": "新的客户端密钥",
+            "copySecret": "复制密钥",
+            "secretCopied": "密钥已复制",
+            "rotating": "正在轮换…",
+            "rotateFailed": "无法轮换密钥",
+            "newSecretIssued": "已签发新的客户端密钥，请立即复制",
+            "rotated": "密钥已轮换"
+          }
+        },
+        "selfRegistered": {
+          "menuLabel": "{name} 的操作",
+          "enabled": "客户端已启用",
+          "disabled": "客户端已停用",
+          "deleted": "客户端已删除",
+          "disableTitle": "停用 {name}？",
+          "disableDescription": "它将无法再让任何人登录或刷新其令牌。已签发的访问令牌在过期前仍然有效（最长一小时）。",
+          "deleteTitle": "删除 {name}？",
+          "deleteDescriptionMetadataDocument": "其令牌和用户给予它的同意也会一并删除。元数据文档客户端会在下次让用户登录时被重新创建。如需阻止它，请改为停用。",
+          "deleteDescriptionDynamic": "其令牌和用户给予它的同意也会一并删除。在动态注册开启期间，该应用可以再次注册。"
+        },
+        "brandingErrors": {
+          "textTooLong": "请不要超过 {max} 个字符。",
+          "displayNameTooLong": "显示名称：请不要超过 {max} 个字符。",
+          "taglineTooLong": "标语：请不要超过 {max} 个字符。",
+          "panelTextTooLong": "侧边面板文字：请不要超过 {max} 个字符。",
+          "accentColor": "强调色：请输入十六进制颜色，例如 {example}。",
+          "logoSource": "请选择标志来源。",
+          "logoUrl": "标志 URL：请输入公共主机上的 https URL（默认端口）。",
+          "logoEmpty": "标志文件为空。",
+          "logoTooLarge": "标志不能超过 256 KB。",
+          "logoType": "标志必须是 PNG、JPEG、GIF、WebP、AVIF、ICO 或 SVG 图片。",
+          "panelImageEmpty": "侧边面板图片为空。",
+          "panelImageTooLarge": "侧边面板图片不能超过 1 MB。",
+          "panelImageType": "侧边面板图片必须是 PNG、JPEG、WebP 或 AVIF 图片。"
+        }
       },
       "apis": {
         "title": "API",
-        "description": "接受 {name} 访问令牌的 API(受保护资源):客户端可以请求的 scope、可以使用它们的应用,以及它们的令牌设置。"
+        "description": "接受 {name} 访问令牌的 API(受保护资源):客户端可以请求的 scope、可以使用它们的应用,以及它们的令牌设置。",
+        "errors": {
+          "tokenSettings": {
+            "lifetimePositive": "{field, select, access {访问令牌有效期必须是正数分钟。} other {刷新令牌有效期必须是正数天。}}",
+            "lifetimeMinimum": "{field, select, access {访问令牌有效期} other {刷新令牌有效期}}至少为一分钟。",
+            "lifetimeMaximum": "{field, select, access {访问令牌有效期最长为 {max} 分钟，即服务器默认值。} other {刷新令牌有效期最长为 {max} 天，即服务器默认值。}}",
+            "claimsInvalidJson": "自定义声明必须是有效的 JSON，例如 {example}。",
+            "claimsNotObject": "自定义声明必须是 JSON 对象，例如 {example}。",
+            "claimsEmptyName": "自定义声明名称不能为空。",
+            "claimsReserved": "{count, plural, other {{claims} 是保留声明：由服务器设置。}}保留声明：{reserved}。",
+            "claimsTooLarge": "自定义声明过大（最大 {kilobytes} KB）：它们会添加到每个令牌中。"
+          },
+          "invalidScope": "“{scope}”不是有效的权限范围。",
+          "reservedScope": "“{scope}”是 OpenID Connect 权限范围，所有客户端均已可用。",
+          "invalidIdentifier": "标识符必须是不含片段的绝对 URL，例如 {example}。",
+          "registerFailed": "无法注册该 API。",
+          "authServerCannotBeDisabled": "认证服务器本身无法停用。",
+          "updateFailed": "无法更新该 API。",
+          "deleteFromEnv": "此 API 在 {variable} 中设置，下次部署时会重新出现。请改为停用。",
+          "deleteFailed": "无法删除该 API。",
+          "authServerStaysOpen": "认证服务器始终对所有应用开放：登录依赖于它。",
+          "accessFailed": "无法更改可使用该 API 的应用。",
+          "tokensFailed": "无法保存令牌设置。"
+        },
+        "duration": {
+          "days": "{count, plural, other {# 天}}",
+          "hours": "{count} 小时",
+          "minutes": "{count} 分钟"
+        },
+        "tokenSummary": {
+          "accessToken": "访问令牌 {duration}",
+          "refreshToken": "刷新令牌 {duration}",
+          "dpopRequired": "需要 DPoP",
+          "claims": "声明：{claims}"
+        },
+        "restrictLabel": "此 API 仅签发这些权限范围",
+        "restrictHint": "此 API 的令牌只包含这些权限范围（以及 OpenID Connect 权限范围）。关闭：包含客户端已获授予的所有权限范围。",
+        "register": {
+          "title": "注册 API",
+          "description": "客户端通过 <code>{param}</code> 参数为其请求令牌。令牌的受众（audience）即为标识符，API 会根据 JWKS 验证令牌。",
+          "identifier": "标识符",
+          "identifierHint": "通常是 API 的基础 URL。之后无法更改。",
+          "namePlaceholder": "订单 API",
+          "scopes": "权限范围",
+          "scopesHint": "以空格或逗号分隔。机器客户端（{grant}）必须限定为其中部分权限范围。",
+          "submit": "注册 API",
+          "submitting": "正在注册…",
+          "registered": "API 已注册"
+        },
+        "list": {
+          "description": "新增和修改的权限范围会在一分钟内同步到认证服务器。访问和令牌设置从下一个令牌开始生效。",
+          "empty": "还没有 API。",
+          "envScopesTitle": "来自 {variable} 的权限范围",
+          "envScopesText": "无论调用哪个 API，所有客户端均可使用：<mono>{scopes}</mono>。如需在此管理，请将它们添加到所属的 API，然后移除该变量。"
+        },
+        "item": {
+          "authServer": "认证服务器",
+          "restricted": "受限",
+          "linkedOnly": "仅限关联的应用",
+          "noResourceParam": "不带 resource 参数签发的令牌。",
+          "noScopes": "无权限范围。",
+          "editAria": "编辑 {name}",
+          "deleteAria": "删除 {name}",
+          "applications": "应用",
+          "everyApplication": "所有应用",
+          "onlyLinked": "仅限 {names}",
+          "noneLinked": "未关联：任何应用都无法获取令牌",
+          "change": "更改",
+          "changeAccessAria": "更改可使用 {name} 的应用",
+          "tokens": "令牌",
+          "defaultSettings": "默认设置",
+          "changeTokensAria": "更改 {name} 的令牌设置"
+        },
+        "edit": {
+          "title": "编辑 {name}",
+          "scopesHint": "移除权限范围不会影响已拥有它的客户端，但新令牌将不再包含它。",
+          "disabledHint": "不再为此 API 签发新令牌。已签发的令牌在过期前仍然有效。",
+          "updated": "API 已更新"
+        },
+        "access": {
+          "title": "可使用 {name} 的应用",
+          "allHint": "任何应用都可以在其权限范围内获取此 API 的令牌。",
+          "linkedLabel": "仅限关联的应用",
+          "linkedHint": "其他应用会被拒绝（{error}），刷新令牌时也是如此。",
+          "linkedTitle": "关联的应用",
+          "filterAria": "筛选应用",
+          "filterPlaceholder": "按名称或客户端 ID 筛选",
+          "noApplications": "还没有应用。",
+          "noMatch": "没有匹配的应用。",
+          "linksHintAll": "只有当 API 仅限关联的应用时，关联才会生效。关联的应用还可以内省（introspect）此 API 的令牌。",
+          "linksHintLinked": "关联的应用还可以内省（introspect）此 API 的令牌。",
+          "noneLinkedWarning": "未关联任何应用：没有应用能获取此 API 的令牌。",
+          "updated": "访问权限已更新"
+        },
+        "tokens": {
+          "title": "{name} 的令牌设置",
+          "description": "应用于为此 API 签发的每个访问令牌。已签发的令牌保留其原有设置。",
+          "accessTtl": "访问令牌有效期（分钟）",
+          "accessTtlHint": "默认：{minutes, plural, other {# 分钟}}。只能更短。",
+          "refreshTtl": "刷新令牌有效期（天）",
+          "refreshTtlHint": "默认：{days, plural, other {# 天}}。只能更短。",
+          "claims": "自定义声明",
+          "claimsHint": "添加到此 API 每个访问令牌中的 JSON 对象。保留声明：<mono>{claims}</mono>。",
+          "dpopLabel": "要求 DPoP 绑定令牌",
+          "dpopHint": "客户端必须发送 DPoP 证明才能获取此 API 的令牌，且令牌会绑定到其密钥。API 必须在每次请求时检查该证明。",
+          "saved": "令牌设置已保存"
+        },
+        "delete": {
+          "title": "删除 {name}？",
+          "description": "客户端将无法再获取它的令牌，已为它签发的令牌也会立即失效。如只想停止签发新令牌，请改为停用。",
+          "deleted": "API 已删除"
+        }
       },
       "signInProviders": {
         "title": "登录提供商",
-        "description": "让用户使用 Google、Apple、Microsoft 等 30 多种账号登录 {name}。"
+        "description": "让用户使用 Google、Apple、Microsoft 等 30 多种账号登录 {name}。",
+        "panel": {
+          "copyCallback": "复制回调 URL",
+          "authAppFallback": "登录应用的地址",
+          "environment": "环境",
+          "activeTitle": "显示在登录页面上",
+          "activeDescription": "按此顺序显示在登录和注册页面上，以及每位用户控制台的“已连接账户”中。更改会在 30 秒内同步到登录页面。",
+          "noneActive": "尚未开启任何提供商。请在列表中选择一个进行设置。",
+          "setByEnvironment": "由环境变量设置",
+          "existingAccountsOnly": "仅限现有账户",
+          "connectedAccounts": "{count, plural, other {# 个已连接账户}}",
+          "moveUp": "上移 {name}",
+          "moveDown": "下移 {name}",
+          "edit": "编辑 {name}",
+          "providersTitle": "提供商",
+          "providersDescription": "Better Auth 支持的所有提供商。在提供商处创建 OAuth 应用，在其设置中填写此处显示的回调 URL，然后粘贴凭据。密钥加密存储，之后不会再显示。",
+          "search": "搜索提供商",
+          "noMatch": "没有匹配的提供商。",
+          "savedOn": "{name} 已开启",
+          "saved": "{name} 已保存",
+          "removed": "{name} 的设置已移除",
+          "optional": "（可选）",
+          "secretSet": "已设置",
+          "replace": "替换",
+          "removedOnSave": "保存时移除。",
+          "undo": "撤销",
+          "newValue": "新值",
+          "environmentDescription": "由环境变量（{clientIdVar} 和 {clientSecretVar}）设置：请在那里修改，或将其移除以在此管理该提供商。",
+          "defaultNote": "在 {name} 创建 OAuth 应用，填写下方的回调 URL，然后粘贴其凭据。",
+          "callbackUrl": "回调 URL",
+          "callbackHint": "也称为重定向 URI 或返回 URL。",
+          "createApp": "创建应用",
+          "setupGuide": "设置指南",
+          "secretsUnreadable": "无法解密已存储的密钥（{envVar} 已更改）。请重新输入。",
+          "buttonName": "按钮名称",
+          "buttonNameHint": "在登录页面上显示为“使用 … 继续”。",
+          "allowSignUp": "为新用户创建账户",
+          "allowSignUpHint": "关闭：只有已有账户的用户才能用它登录（已在控制台中连接，或使用相同的已验证邮箱）。",
+          "oneTap": "显示 Google One Tap",
+          "oneTapHint": "Google 自己的登录提示，显示在登录和注册页面顶部，面向已在浏览器中登录 Google 的用户。使用此客户端 ID：请在 Google Cloud 控制台中将 {origin} 添加到其“已获授权的 JavaScript 来源”。仅在 Google 开启时有效。",
+          "enabled": "显示在登录页面上",
+          "enabledHint": "关闭：按钮消失，并拒绝通过此提供商登录。设置会保留。",
+          "removeConfirm": "移除设置和密钥？",
+          "removeSettings": "移除设置"
+        },
+        "errors": {
+          "unknownProvider": "未知的提供商。",
+          "envManaged": "此提供商由环境变量设置。请修改它们，或将其移除以在此管理。",
+          "invalidOption": "{field}：请选择 {options}。",
+          "appleKeyNotEc": "私钥：应为从 Apple 下载的 EC（P-256）密钥（.p8）。",
+          "appleKeyInvalid": "私钥：不是有效的 PEM 私钥。请粘贴完整的 .p8 文件，包括 BEGIN 和 END 行。",
+          "issuerNotHttps": "URL 必须以 https:// 开头。",
+          "salesforceDomain": "My Domain：主机名，例如 example.my.salesforce.com。",
+          "cognitoRegion": "区域：AWS 区域，例如 eu-west-1。",
+          "googleHd": "Workspace 域名：域名，例如 example.com。",
+          "missingFields": "开启前请填写 {fields}。",
+          "unusable": "这些设置无法使用。"
+        },
+        "providers": {
+          "apple": {
+            "note": "Apple 需要真实域名（不能是 localhost）上的 HTTPS 返回 URL，并通过 POST 将用户送回。",
+            "fields": {
+              "clientId": {
+                "label": "服务 ID",
+                "hint": "已开启“通过 Apple 登录”的服务 ID 的标识符，例如 com.example.signin。"
+              },
+              "teamId": {
+                "label": "团队 ID"
+              },
+              "keyId": {
+                "label": "密钥 ID",
+                "hint": "已启用“通过 Apple 登录”的密钥。"
+              },
+              "privateKey": {
+                "label": "私钥（.p8）",
+                "hint": "客户端密钥是用此密钥签名的 JWT；会自动生成和续期。"
+              },
+              "appBundleIdentifier": {
+                "label": "App Bundle ID",
+                "hint": "仅用于原生 iOS 登录（ID 令牌签发给你的应用而不是服务 ID）。"
+              }
+            }
+          },
+          "atlassian": {
+            "fields": {
+              "clientId": {
+                "label": "客户端 ID"
+              },
+              "clientSecret": {
+                "label": "客户端密钥"
+              }
+            }
+          },
+          "cloudflare": {
+            "fields": {
+              "clientId": {
+                "label": "客户端 ID"
+              },
+              "clientSecret": {
+                "label": "客户端密钥",
+                "hint": "公开客户端（仅 PKCE）请留空。"
+              }
+            }
+          },
+          "cognito": {
+            "fields": {
+              "clientId": {
+                "label": "应用客户端 ID"
+              },
+              "clientSecret": {
+                "label": "应用客户端密钥",
+                "hint": "仅当应用客户端有密钥时填写。"
+              },
+              "domain": {
+                "label": "Cognito 域"
+              },
+              "region": {
+                "label": "区域"
+              },
+              "userPoolId": {
+                "label": "用户池 ID"
+              }
+            }
+          },
+          "discord": {
+            "fields": {
+              "clientId": {
+                "label": "客户端 ID"
+              },
+              "clientSecret": {
+                "label": "客户端密钥"
+              }
+            }
+          },
+          "dropbox": {
+            "fields": {
+              "clientId": {
+                "label": "App key"
+              },
+              "clientSecret": {
+                "label": "App secret"
+              }
+            }
+          },
+          "facebook": {
+            "fields": {
+              "clientId": {
+                "label": "应用编号"
+              },
+              "clientSecret": {
+                "label": "应用密钥"
+              }
+            }
+          },
+          "figma": {
+            "fields": {
+              "clientId": {
+                "label": "客户端 ID"
+              },
+              "clientSecret": {
+                "label": "客户端密钥"
+              }
+            }
+          },
+          "github": {
+            "note": "OAuth App 可直接使用。GitHub App 还需将账户权限“Email addresses”设为“Read-only”，否则会因没有邮箱而登录失败。",
+            "fields": {
+              "clientId": {
+                "label": "客户端 ID"
+              },
+              "clientSecret": {
+                "label": "客户端密钥"
+              }
+            }
+          },
+          "gitlab": {
+            "fields": {
+              "clientId": {
+                "label": "应用程序 ID"
+              },
+              "clientSecret": {
+                "label": "客户端密钥"
+              },
+              "issuer": {
+                "label": "GitLab URL",
+                "hint": "用于自托管的 GitLab。"
+              }
+            }
+          },
+          "google": {
+            "fields": {
+              "clientId": {
+                "label": "客户端 ID"
+              },
+              "clientSecret": {
+                "label": "客户端密钥"
+              },
+              "hd": {
+                "label": "Workspace 域名",
+                "hint": "仅接受此 Google Workspace 域名的账户。"
+              }
+            }
+          },
+          "huggingface": {
+            "fields": {
+              "clientId": {
+                "label": "客户端 ID"
+              },
+              "clientSecret": {
+                "label": "客户端密钥"
+              }
+            }
+          },
+          "kakao": {
+            "fields": {
+              "clientId": {
+                "label": "REST API 密钥"
+              },
+              "clientSecret": {
+                "label": "客户端密钥",
+                "hint": "仅当应用开启了客户端密钥时填写。"
+              }
+            }
+          },
+          "kick": {
+            "fields": {
+              "clientId": {
+                "label": "客户端 ID"
+              },
+              "clientSecret": {
+                "label": "客户端密钥"
+              }
+            }
+          },
+          "line": {
+            "fields": {
+              "clientId": {
+                "label": "Channel ID"
+              },
+              "clientSecret": {
+                "label": "Channel secret"
+              }
+            }
+          },
+          "linear": {
+            "fields": {
+              "clientId": {
+                "label": "客户端 ID"
+              },
+              "clientSecret": {
+                "label": "客户端密钥"
+              }
+            }
+          },
+          "linkedin": {
+            "fields": {
+              "clientId": {
+                "label": "客户端 ID"
+              },
+              "clientSecret": {
+                "label": "客户端密钥"
+              }
+            }
+          },
+          "microsoft": {
+            "fields": {
+              "clientId": {
+                "label": "应用程序(客户端) ID"
+              },
+              "clientSecret": {
+                "label": "客户端密码值"
+              },
+              "tenantId": {
+                "label": "租户",
+                "hint": "common（任意账户）、organizations、consumers，或填写你的目录（租户）ID 以仅允许你的组织。"
+              }
+            }
+          },
+          "naver": {
+            "fields": {
+              "clientId": {
+                "label": "客户端 ID"
+              },
+              "clientSecret": {
+                "label": "客户端密钥"
+              }
+            }
+          },
+          "notion": {
+            "fields": {
+              "clientId": {
+                "label": "OAuth 客户端 ID"
+              },
+              "clientSecret": {
+                "label": "OAuth 客户端密钥"
+              }
+            }
+          },
+          "paybin": {
+            "fields": {
+              "clientId": {
+                "label": "客户端 ID"
+              },
+              "clientSecret": {
+                "label": "客户端密钥"
+              },
+              "issuer": {
+                "label": "签发者（Issuer）"
+              }
+            }
+          },
+          "paypal": {
+            "note": "为应用开启“Log in with PayPal”，并请求邮箱地址。",
+            "fields": {
+              "clientId": {
+                "label": "客户端 ID"
+              },
+              "clientSecret": {
+                "label": "客户端密钥"
+              },
+              "environment": {
+                "label": "环境"
+              }
+            }
+          },
+          "polar": {
+            "fields": {
+              "clientId": {
+                "label": "客户端 ID"
+              },
+              "clientSecret": {
+                "label": "客户端密钥"
+              }
+            }
+          },
+          "railway": {
+            "fields": {
+              "clientId": {
+                "label": "客户端 ID"
+              },
+              "clientSecret": {
+                "label": "客户端密钥"
+              }
+            }
+          },
+          "reddit": {
+            "fields": {
+              "clientId": {
+                "label": "客户端 ID"
+              },
+              "clientSecret": {
+                "label": "客户端密钥"
+              }
+            }
+          },
+          "roblox": {
+            "fields": {
+              "clientId": {
+                "label": "客户端 ID"
+              },
+              "clientSecret": {
+                "label": "客户端密钥"
+              }
+            }
+          },
+          "salesforce": {
+            "fields": {
+              "clientId": {
+                "label": "使用者密钥"
+              },
+              "clientSecret": {
+                "label": "使用者密码"
+              },
+              "environment": {
+                "label": "环境"
+              },
+              "loginUrl": {
+                "label": "我的域",
+                "hint": "仅填写主机名。替代 login.salesforce.com 或 test.salesforce.com。"
+              }
+            }
+          },
+          "slack": {
+            "fields": {
+              "clientId": {
+                "label": "客户端 ID"
+              },
+              "clientSecret": {
+                "label": "客户端密钥"
+              }
+            }
+          },
+          "spotify": {
+            "fields": {
+              "clientId": {
+                "label": "客户端 ID"
+              },
+              "clientSecret": {
+                "label": "客户端密钥"
+              }
+            }
+          },
+          "tiktok": {
+            "fields": {
+              "clientKey": {
+                "label": "Client Key"
+              },
+              "clientSecret": {
+                "label": "客户端密钥"
+              }
+            }
+          },
+          "twitch": {
+            "fields": {
+              "clientId": {
+                "label": "客户端 ID"
+              },
+              "clientSecret": {
+                "label": "客户端密钥"
+              }
+            }
+          },
+          "twitter": {
+            "note": "请使用 OAuth 2.0 凭据（而非 API 密钥），并在应用设置中申请邮箱访问权限。",
+            "fields": {
+              "clientId": {
+                "label": "OAuth 2.0 客户端 ID"
+              },
+              "clientSecret": {
+                "label": "OAuth 2.0 客户端密钥"
+              }
+            }
+          },
+          "vercel": {
+            "fields": {
+              "clientId": {
+                "label": "客户端 ID"
+              },
+              "clientSecret": {
+                "label": "客户端密钥"
+              }
+            }
+          },
+          "vk": {
+            "fields": {
+              "clientId": {
+                "label": "应用 ID"
+              },
+              "clientSecret": {
+                "label": "受保护密钥"
+              }
+            }
+          },
+          "wechat": {
+            "note": "网站应用（扫码登录）。微信不返回邮箱地址。",
+            "fields": {
+              "clientId": {
+                "label": "AppID"
+              },
+              "clientSecret": {
+                "label": "AppSecret"
+              }
+            }
+          },
+          "zoom": {
+            "fields": {
+              "clientId": {
+                "label": "客户端 ID"
+              },
+              "clientSecret": {
+                "label": "客户端密钥"
+              }
+            }
+          }
+        }
       },
       "apiKeys": {
         "title": "API 密钥",
-        "description": "用户为让脚本调用您的 API 而创建的密钥：开启或关闭此功能、设置最长有效期，以及撤销任意密钥。"
+        "description": "用户为让脚本调用您的 API 而创建的密钥：开启或关闭此功能、设置最长有效期，以及撤销任意密钥。",
+        "allKeys": {
+          "title": "所有密钥",
+          "description": "按最新排序{truncated, select, true {，显示最近 {limit} 个} other {}}。过期的密钥会在下次使用或创建密钥时删除。封禁或删除账户会撤销其密钥；删除组织会删除其密钥（组织拥有的密钥在创建它们的成员离开后仍保留）。"
+        },
+        "settings": {
+          "description": "用户在账户页面为你的某个 API 及其部分权限范围创建密钥。API 通过此服务器校验每个密钥。密钥永远不能用于登录此服务器或管理控制台。",
+          "statusOn": "开启：用户可以创建密钥",
+          "statusOff": "关闭：不能创建新密钥，且所有密钥都会被拒绝",
+          "maxLifetime": "最长有效期",
+          "maxLifetimeValue": "{count, plural, other {# 天}}",
+          "apisAccepting": "接受密钥的 API",
+          "apisNone": "无：请注册一个带权限范围且对所有应用开放的 API",
+          "verifyEndpoint": "校验端点：<code>{endpoint}</code>。API 以在此注册、并关联到该 API 的应用身份进行认证（API 页面中的“访问”）。仅限关联应用的 API 不接受密钥。"
+        },
+        "dialog": {
+          "description": "密钥长期有效：建议设置较短的有效期。降低最长有效期仅对新密钥生效。",
+          "allowLabel": "允许 API 密钥",
+          "allowHint": "关闭：任何人都不能创建密钥，所有现有密钥在校验时都会被拒绝。密钥会保留，重新开启后即可再次使用。",
+          "maxLifetimeLabel": "最长有效期（天）",
+          "maxLifetimeHint": "1 到 {max}。所有密钥都会过期。",
+          "saved": "设置已保存。认证服务器会在一分钟内生效。"
+        },
+        "table": {
+          "empty": "没有 API 密钥。",
+          "key": "密钥",
+          "owner": "所有者",
+          "api": "API",
+          "scopes": "权限范围",
+          "lastUsed": "上次使用",
+          "expires": "过期时间",
+          "createdBy": "由 {email} 创建",
+          "org": "组织",
+          "removedApi": "已移除的 API",
+          "expired": "已过期",
+          "revoke": "撤销",
+          "revoked": "API 密钥已撤销",
+          "revokeTitle": "撤销 {name}？",
+          "revokeOrgDescription": "组织 {owner} 的此密钥将立即失效。若 API 密钥功能已开启，其所有者和管理员可以创建新密钥。",
+          "revokeUserDescription": "{owner} 的密钥将立即失效。若 API 密钥功能已开启，对方可以创建新密钥。"
+        },
+        "errors": {
+          "chooseEnabled": "请选择是否开启 API 密钥。",
+          "maxLifetimeRange": "最长有效期必须是 1 到 {max} 之间的整数天。",
+          "saveFailed": "无法保存设置。",
+          "noKey": "未提供密钥。",
+          "keyGone": "此密钥已不存在。"
+        }
       },
       "webhooks": {
         "title": "Webhook",
         "description": "签名的 HTTPS 通知，在 {name} 的用户、角色和组织成员关系发生变化时通知你的应用。",
-        "deliveries": "投递日志"
+        "deliveries": "投递日志",
+        "eventDescriptions": {
+          "user_created": "创建了账户（注册、管理员、SSO、SCIM）。",
+          "user_updated": "名称、邮箱、邮箱验证、用户名或头像发生变化。",
+          "user_deleted": "删除了账户。",
+          "user_banned": "账户被封禁，或被 SCIM 停用。",
+          "user_unbanned": "解除封禁，或 SCIM 重新激活账户。",
+          "user_role_changed": "账户的平台角色发生变化。",
+          "organization_member_added": "有人加入组织。",
+          "organization_member_removed": "有人离开组织或被移出组织。",
+          "organization_member_role_changed": "成员在组织中的角色发生变化。"
+        },
+        "panel": {
+          "events": "事件",
+          "clear": "清除",
+          "selectAll": "全选",
+          "signingSecret": "签名密钥",
+          "secretCopied": "密钥已复制",
+          "copySecret": "复制密钥",
+          "url": "URL",
+          "add": {
+            "title": "添加端点",
+            "description": "当所选事件之一发生时，Ostiary 会向此 URL POST 一个签名的 JSON 事件，失败时会重试约一天。",
+            "urlHint": "HTTPS，公共地址。",
+            "urlHintLocalhost": "HTTPS，公共地址。{url} 也可接受（{envVar}，仅限开发环境）。",
+            "descriptionPlaceholder": "计费应用：用户同步",
+            "adding": "正在添加…",
+            "submit": "添加端点"
+          },
+          "list": {
+            "title": "端点",
+            "description": "每个请求都带有 <code>{id}</code>、<code>{timestamp}</code> 和 <code>{signature}</code> 请求头（Standard Webhooks）。连续失败 {count, plural, other {# 次}}的端点会被停用。",
+            "empty": "还没有端点。"
+          },
+          "created": {
+            "title": "端点已添加",
+            "description": "请将签名密钥复制到 {url} 处的应用中：应用用它验证每次投递。密钥不会再次显示。"
+          },
+          "test": {
+            "delivered": "测试事件已投递（HTTP {status}）",
+            "failed": "测试事件失败：{reason}"
+          },
+          "item": {
+            "disabledFailures": "因多次失败已停用",
+            "rotating": "密钥轮换中",
+            "editLabel": "编辑 {label}",
+            "deleteLabel": "删除 {label}",
+            "disabledNotice": "因连续 {count, plural, other {# 次尝试失败}}已停用。请修复接收端后重新开启：待处理的事件会重新发送。",
+            "disabledNoticeOn": "已于 {date} 因连续 {count, plural, other {# 次尝试失败}}而停用。请修复接收端后重新开启：待处理的事件会重新发送。",
+            "lastSuccess": "上次成功",
+            "lastFailure": "上次失败",
+            "inARow": "（连续 {count} 次）",
+            "deliveries": "投递",
+            "deliveriesValue": "{pending} 个等待或重试中 · {failed} 个失败",
+            "sendTest": "发送测试事件",
+            "deliveryLog": "投递日志",
+            "regenerateSecret": "重新生成密钥"
+          },
+          "edit": {
+            "title": "编辑端点",
+            "enabledHint": "停用期间，不会为此端点记录新事件，重试也会暂停。",
+            "updated": "端点已更新"
+          },
+          "rotate": {
+            "title": "重新生成签名密钥？",
+            "description": "在 24 小时内，投递会同时使用旧密钥和新密钥签名，因此应用可以在不漏掉事件的情况下完成切换。",
+            "newTitle": "新的签名密钥",
+            "newDescription": "请立即将其复制到应用中：它不会再次显示。在接下来的 24 小时内，投递还会附带使用旧密钥生成的签名。",
+            "confirm": "重新生成"
+          },
+          "delete": {
+            "title": "删除此端点？",
+            "description": "{url} 将不再接收事件，其投递日志和待处理的重试也会被删除。如需暂停，请改为停用。",
+            "deleted": "端点已删除"
+          }
+        },
+        "redeliver": {
+          "button": "重新投递",
+          "delivered": "已投递（HTTP {status}）",
+          "failed": "失败：{reason}"
+        },
+        "log": {
+          "status": {
+            "succeeded": "已投递",
+            "failed": "失败",
+            "pending": "待处理"
+          },
+          "disabled": "已停用：重试会等到重新开启后再进行。",
+          "empty": "还没有投递。可在 Webhook 页面使用“发送测试事件”测试此端点。",
+          "event": "事件",
+          "response": "响应",
+          "attempts": "尝试次数",
+          "nextRetry": "下次重试",
+          "answer": "响应内容",
+          "error": "错误",
+          "footer": "最近 {shown} 次投递。投递记录保留 {days, plural, other {# 天}}。失败的投递会在约一天内重试 {retries, plural, other {# 次}}；“重新投递”会立即再次发送同一事件（相同的 {header}）。"
+        },
+        "errors": {
+          "noEvents": "请至少选择一个事件。",
+          "tooMany": "最多 {max} 个端点。",
+          "endpointNotFound": "未找到端点。",
+          "disabledTest": "端点已停用：请开启后再发送测试事件。",
+          "testNotSent": "无法发送测试事件。",
+          "deliveryNotFound": "未找到投递记录。",
+          "disabledRedeliver": "端点已停用：请开启后再重新投递。",
+          "eventNotSent": "无法发送该事件。"
+        }
       },
       "users": {
         "title": "用户",
-        "description": "查找账户、修改角色、封禁或删除账户，并打开账户查看其会话和活动。"
+        "description": "查找账户、修改角色、封禁或删除账户，并打开账户查看其会话和活动。",
+        "list": {
+          "searchPlaceholder": "按名称或邮箱搜索…",
+          "searchLabel": "搜索用户",
+          "rolePlaceholder": "角色",
+          "roleAll": "所有角色",
+          "roleAdmin": "管理员",
+          "roleUser": "用户",
+          "loadErrorTitle": "无法加载用户",
+          "loadErrorFallback": "加载用户失败",
+          "columns": {
+            "user": "用户",
+            "role": "角色",
+            "status": "状态",
+            "verified": "已验证",
+            "joined": "加入时间"
+          },
+          "loading": "正在加载用户…",
+          "empty": "没有符合筛选条件的用户。",
+          "noUsers": "0 个用户",
+          "showing": "第 {from}-{to} 条，共 {total} 条",
+          "rowsPerPage": "每页行数",
+          "previous": "上一页",
+          "next": "下一页",
+          "pageOf": "第 {page} / {pages} 页",
+          "poweredBy": "基于 <link>Better Auth admin 插件</link>的 <code>listUsers</code>、<code>createUser</code>、<code>setRole</code>、<code>updateUser</code>、<code>setUserPassword</code> 等方法。你必须以管理员身份登录。"
+        },
+        "status": {
+          "banned": "已封禁",
+          "active": "正常"
+        },
+        "create": {
+          "trigger": "添加用户",
+          "title": "添加用户",
+          "description": "通过 <code>createUser</code> 创建账户。",
+          "email": "邮箱",
+          "password": "密码",
+          "name": "名称",
+          "role": "角色",
+          "error": "无法创建用户",
+          "created": "用户已创建",
+          "submit": "创建用户",
+          "creating": "正在创建…"
+        },
+        "rowActions": {
+          "menuLabel": "{name} 的操作",
+          "copyId": "复制用户 ID",
+          "idCopied": "用户 ID 已复制",
+          "edit": "编辑用户",
+          "setPassword": "设置密码",
+          "makeAdmin": "设为管理员",
+          "makeUser": "设为普通用户",
+          "ban": "封禁用户",
+          "unban": "解除封禁",
+          "remove": "删除用户",
+          "roleError": "无法更新角色",
+          "roleSet": "角色已设为 {role}",
+          "unbanError": "无法解除封禁",
+          "unbanned": "已解除封禁",
+          "banError": "无法封禁用户",
+          "banned": "用户已封禁",
+          "removeError": "无法删除用户",
+          "removed": "用户已删除",
+          "emailRequired": "请填写邮箱",
+          "noChanges": "没有需要保存的更改",
+          "updateError": "无法更新用户",
+          "updated": "用户已更新",
+          "passwordRequired": "请输入新密码。",
+          "passwordMismatch": "两次输入的密码不一致。",
+          "passwordError": "无法设置密码",
+          "passwordUpdated": "密码已更新",
+          "editTitle": "编辑用户",
+          "editDescription": "修改名称或邮箱地址。新的邮箱地址须经用户验证后才能再次登录。",
+          "name": "名称",
+          "email": "邮箱",
+          "passwordTitle": "设置密码",
+          "passwordDescription": "使用 <code>setUserPassword</code> 为 <strong>{email}</strong> 设置新密码。",
+          "newPassword": "新密码",
+          "confirmPassword": "确认密码",
+          "updatePassword": "更新密码",
+          "removeTitle": "删除用户？",
+          "removeDescription": "将永久删除 <strong>{name}</strong>（{email}）及与该账户关联的所有内容。审计日志条目会保留，但不含其名称和邮箱。此操作无法撤销。",
+          "removeConfirm": "删除",
+          "removing": "正在删除…"
+        },
+        "detailActions": {
+          "impersonateError": "无法模拟此用户。",
+          "signOutError": "无法让此用户退出登录。",
+          "signedOut": "已退出 {count, plural, other {# 个会话}}",
+          "exportError": "无法导出此用户的数据。",
+          "exported": "数据已导出。导出操作已记录在审计日志中。",
+          "exportData": "导出数据",
+          "impersonate": "模拟登录",
+          "signOutEverywhere": "在所有设备上退出",
+          "impersonateTitle": "以 {email} 的身份登录？",
+          "signOutTitle": "让 {email} 在所有设备上退出？",
+          "impersonateDescription": "你将以与此用户完全相同的视角查看账户控制台，最长一小时。页面上的横幅可让你随时停止并返回。此操作会记录在审计日志中。",
+          "signOutDescription": "此用户在所有设备上的每个会话都会立即结束。对方需要重新登录。",
+          "sessionRevoked": "会话已撤销",
+          "revokeError": "无法撤销此会话。",
+          "revoke": "撤销",
+          "resetTwoFactorError": "无法重置双重身份验证。",
+          "twoFactorReset": "双重身份验证已关闭",
+          "reset": "重置",
+          "resetTwoFactorTitle": "为 {email} 重置双重身份验证？",
+          "resetTwoFactorDescription": "其身份验证器应用、备用代码和受信任设备都将失效，在重新设置之前只需密码即可登录。请仅在确认请求者身份后执行此操作。此操作会记录在审计日志中。"
+        },
+        "detail": {
+          "emailVerified": "邮箱已验证",
+          "emailNotVerified": "邮箱未验证",
+          "banned": "已封禁",
+          "bannedWithReason": "已封禁：{reason}",
+          "scimTitle": "由 SCIM 预配：{organizations}",
+          "scimDescription": "此账户由身份提供方管理。请在那里移除该用户：在此删除账户并不能阻止目录在下次同步时重新创建它。用户无法在其控制台中删除该账户。",
+          "tiles": {
+            "joined": "加入时间",
+            "activeSessions": "活动会话",
+            "passkeys": "通行密钥",
+            "twoFactor": "双重身份验证"
+          },
+          "device": {
+            "unknown": "未知设备",
+            "browser": "浏览器",
+            "browserOnOs": "{os} 上的 {browser}"
+          },
+          "sessions": {
+            "title": "活动会话",
+            "description": "此账户已登录的设备。",
+            "empty": "没有活动会话。",
+            "device": "设备",
+            "ipAddress": "IP 地址",
+            "lastActive": "上次活动",
+            "impersonated": "模拟登录"
+          },
+          "apiKeys": {
+            "title": "API 密钥",
+            "description": "此账户为脚本创建的密钥。封禁或删除账户会撤销这些密钥。"
+          },
+          "signInMethods": {
+            "title": "登录方式",
+            "credential": "邮箱和密码",
+            "sso": "SSO：{provider}",
+            "passkey": "通行密钥：{name} <muted>（{deviceType}）</muted>",
+            "unnamed": "未命名",
+            "empty": "没有登录方式。",
+            "twoFactor": "双重身份验证 <muted>（身份验证器应用）</muted>",
+            "managedByYou": "在你的账户中管理"
+          },
+          "organizations": {
+            "title": "组织",
+            "empty": "不是任何组织的成员。"
+          },
+          "activity": {
+            "title": "最近的登录活动",
+            "empty": "还没有活动记录。",
+            "events": {
+              "sign_in": "已登录",
+              "sign_up": "创建了账户",
+              "sign_out": "已退出",
+              "sign_in_failed": "登录失败"
+            }
+          },
+          "audit": {
+            "title": "针对此账户的管理员操作",
+            "empty": "还没有管理员操作。",
+            "by": "操作人：{actor}",
+            "system": "系统"
+          }
+        }
       },
       "consent": {
         "title": "授权记录",
-        "description": "用户授予 OAuth 客户端的权限，包括范围和授予时间。"
+        "description": "用户授予 OAuth 客户端的权限，包括范围和授予时间。",
+        "panel": {
+          "signedInUser": "当前登录用户",
+          "loadConsentsFailed": "加载授权记录失败",
+          "loadClientsFailed": "加载 OAuth 客户端失败",
+          "loadErrorTitle": "无法加载授权记录",
+          "searchPlaceholder": "按用户、客户端、同意 ID、引用或权限范围搜索…",
+          "searchLabel": "搜索授权记录",
+          "filter": {
+            "placeholder": "按权限范围筛选",
+            "all": "所有授权记录",
+            "hasScope": "包含 {scope}"
+          },
+          "columns": {
+            "user": "用户",
+            "application": "应用",
+            "scopes": "权限范围",
+            "reference": "引用",
+            "granted": "授予时间",
+            "updated": "更新时间"
+          },
+          "loading": "正在加载授权记录…",
+          "emptyNone": "此账户还没有授权记录。",
+          "emptyFiltered": "没有符合筛选条件的授权记录。",
+          "noResults": "0 条授权记录",
+          "showing": "第 {from}-{to} 条，共 {total} 条",
+          "rowsPerPage": "每页行数",
+          "previous": "上一页",
+          "next": "下一页",
+          "pageOf": "第 {page} / {total} 页",
+          "footnote": "数据来自 <code>{getConsents}</code>；客户端名称通过 <code>{getClients}</code> 解析。撤销使用 <code>{deleteConsent}</code>。请参阅 <providerLink>OAuth provider</providerLink> 文档中的 <consentLink>OAuth consent</consentLink>。交互式授权界面位于 <code>{path}</code>。"
+        },
+        "rowActions": {
+          "menuLabel": "同意 {id}… 的操作",
+          "copyConsentId": "复制同意 ID",
+          "consentIdCopied": "同意 ID 已复制",
+          "copyClientId": "复制客户端 ID",
+          "clientIdCopied": "客户端 ID 已复制",
+          "viewDetails": "查看详情",
+          "updateScopes": "更新权限范围",
+          "wireTo": "对接到 {method}",
+          "revoke": "撤销同意",
+          "revokeFailed": "无法撤销同意",
+          "revoked": "同意已撤销",
+          "dialogTitle": "撤销同意？",
+          "dialogDescription": "将移除此用户对 <strong>{client}</strong>（<code>{clientId}</code>）的授权。客户端可能需要重新请求授权。",
+          "revoking": "正在撤销…",
+          "revokeButton": "撤销"
+        }
       },
       "usage": {
         "title": "应用使用情况",
-        "description": "哪些应用在使用中：最近 30 天内每个应用的访问令牌、用户和同意记录。"
+        "description": "哪些应用在使用中：最近 30 天内每个应用的访问令牌、用户和同意记录。",
+        "tiles": {
+          "tokens": "已签发令牌（30 天）",
+          "active": "使用中的应用",
+          "unused": "未使用的应用"
+        },
+        "card": {
+          "title": "最近 30 天各应用的访问令牌",
+          "unused": "{count, plural, other {# 个已启用的应用在 30 天内未签发令牌：建议停用或删除。}}",
+          "allUsed": "所有已启用的应用在最近 30 天内都签发过令牌。",
+          "empty": "没有已注册的 OAuth 客户端。",
+          "application": "应用",
+          "tokens": "令牌",
+          "users": "用户",
+          "consents": "同意记录",
+          "lastToken": "最近令牌",
+          "lastTokenValue": "最近令牌：{date}",
+          "showInApplications": "在“应用”中查看",
+          "unusedBadge": "未使用"
+        }
       },
       "audit": {
         "title": "审计日志",
         "description": "在此控制台或管理 API 中进行的每项更改：操作人、对象和时间。",
-        "footnote": "显示最近 200 条记录。从不记录密码和密钥。"
+        "footnote": "显示最近 200 条记录。从不记录密码和密钥。",
+        "filterLabel": "按类别筛选",
+        "filters": {
+          "all": "全部",
+          "user": "用户",
+          "organization": "组织",
+          "oauth_client": "OAuth 客户端",
+          "oauth_consent": "授权记录",
+          "oauth_resource": "API",
+          "api_key": "API 密钥",
+          "sso_provider": "SSO",
+          "signing_key": "签名密钥",
+          "webhook": "Webhook",
+          "social_provider": "登录提供商"
+        },
+        "empty": "还没有记录管理员操作。",
+        "columns": {
+          "when": "时间",
+          "who": "操作人",
+          "action": "操作",
+          "target": "对象",
+          "details": "详情",
+          "ip": "IP"
+        },
+        "system": "系统",
+        "actions": {
+          "user": {
+            "create": "创建了用户",
+            "update": "更新了用户",
+            "set_role": "更改了角色",
+            "set_password": "设置了密码",
+            "ban": "封禁了用户",
+            "unban": "解除了用户封禁",
+            "delete": "删除了用户",
+            "revoke_session": "撤销了一个会话",
+            "revoke_all_sessions": "让用户在所有设备上退出",
+            "impersonate": "模拟了用户",
+            "reset_two_factor": "重置了双重身份验证",
+            "export_data": "导出了账户数据",
+            "self_delete": "删除了自己的账户"
+          },
+          "oauth_client": {
+            "create": "注册了 OAuth 客户端",
+            "update": "更新了 OAuth 客户端",
+            "delete": "删除了 OAuth 客户端",
+            "rotate_secret": "轮换了客户端密钥",
+            "self_register": "客户端自行注册",
+            "disable": "停用了 OAuth 客户端",
+            "enable": "启用了 OAuth 客户端",
+            "branding_update": "更改了登录品牌",
+            "branding_reset": "重置了登录品牌"
+          },
+          "client_registration": {
+            "update": "更改了客户端自行注册设置"
+          },
+          "oauth_resource": {
+            "create": "注册了 API",
+            "update": "更新了 API",
+            "delete": "删除了 API",
+            "access": "更改了 API 访问权限",
+            "tokens": "更改了 API 令牌设置"
+          },
+          "api_key": {
+            "create": "创建了 API 密钥",
+            "revoke": "撤销了 API 密钥",
+            "revoke_all": "撤销了所有 API 密钥",
+            "settings": "更改了 API 密钥设置"
+          },
+          "oauth_consent": {
+            "update": "更新了同意",
+            "delete": "撤销了同意"
+          },
+          "oauth_device": {
+            "approve": "批准了设备登录",
+            "deny": "拒绝了设备登录"
+          },
+          "organization": {
+            "create": "创建了组织",
+            "update": "重命名了组织",
+            "delete": "删除了组织",
+            "invite": "邀请了成员",
+            "cancel_invitation": "取消了邀请",
+            "update_member_role": "更改了成员角色",
+            "remove_member": "移除了成员"
+          },
+          "sso_provider": {
+            "create": "注册了 SSO 提供方",
+            "update": "更新了 SSO 提供方",
+            "delete": "删除了 SSO 提供方",
+            "verify_domain": "验证了 SSO 域名"
+          },
+          "social_provider": {
+            "create": "设置了登录提供商",
+            "update": "更新了登录提供商",
+            "delete": "移除了登录提供商",
+            "reorder": "调整了登录提供商顺序"
+          },
+          "scim": {
+            "token_create": "生成了 SCIM 令牌",
+            "token_rotate": "替换了 SCIM 令牌",
+            "token_revoke": "撤销了 SCIM 令牌"
+          },
+          "signing_key": {
+            "rotate": "轮换了签名密钥",
+            "update_settings": "更改了签名密钥轮换设置"
+          },
+          "webhook": {
+            "create": "添加了 Webhook 端点",
+            "update": "更新了 Webhook 端点",
+            "enable": "启用了 Webhook 端点",
+            "disable": "停用了 Webhook 端点",
+            "delete": "删除了 Webhook 端点",
+            "rotate_secret": "重新生成了 Webhook 密钥",
+            "test": "发送了 Webhook 测试事件",
+            "redeliver": "重新投递了 Webhook 事件"
+          }
+        }
       },
       "security": {
         "title": "安全",
-        "description": "登录失败记录、相关账户与 IP 地址，以及被封禁的账户。"
+        "description": "登录失败记录、相关账户与 IP 地址，以及被封禁的账户。",
+        "tiles": {
+          "failed24h": "登录失败（24 小时）",
+          "failed7d": "登录失败（7 天）",
+          "banned": "已封禁账户"
+        },
+        "chart": {
+          "failed": "登录失败"
+        },
+        "perDay": {
+          "title": "每日登录失败次数",
+          "description": "密码错误或账户不存在，最近 30 天（共 {total, number} 次）。自 2026 年 10 月 6 日起统计。"
+        },
+        "noFailures": "最近 7 天没有登录失败。",
+        "attempts": "尝试次数",
+        "topAccounts": {
+          "title": "被尝试最多的账户（7 天）",
+          "description": "尝试使用的邮箱或用户名，无论账户是否存在。",
+          "identifier": "邮箱或用户名",
+          "last": "最近一次"
+        },
+        "topIps": {
+          "title": "最活跃的 IP 地址（7 天）",
+          "description": "同一地址尝试大量账户通常意味着撞库攻击。",
+          "ip": "IP 地址",
+          "accounts": "尝试的账户数"
+        },
+        "banned": {
+          "title": "已封禁账户",
+          "empty": "没有被封禁的账户。",
+          "noReason": "未提供原因",
+          "until": "至 {date}",
+          "permanent": "永久"
+        }
       },
       "signingKeys": {
         "title": "签名密钥",
@@ -380,6 +1812,154 @@
           "save": "无法保存设置。",
           "rotate": "无法轮换密钥。"
         }
+      },
+      "organizations": {
+        "controls": {
+          "unexpectedError": "出了点问题。",
+          "organizationUpdated": "组织已更新",
+          "slug": "Slug",
+          "role": "角色",
+          "roleUpdated": "角色已更新",
+          "roles": {
+            "owner": "所有者",
+            "admin": "管理员",
+            "member": "成员"
+          },
+          "removeMemberLabel": "移除 {email}",
+          "removeMemberTitle": "移除 {email}？",
+          "removeMemberBody": "对方将失去对此组织的访问权限。其账户会保留。",
+          "memberRemoved": "成员已移除",
+          "cancelInvitationLabel": "取消对 {email} 的邀请",
+          "cancelInvitationTitle": "取消对 {email} 的邀请？",
+          "cancelInvitationBody": "邮件中的链接将失效。",
+          "cancelInvitation": "取消邀请",
+          "invitationCancelled": "邀请已取消",
+          "invitationSent": "邀请已发送",
+          "inviteByEmail": "通过邮箱邀请",
+          "sendInvitation": "发送邀请"
+        },
+        "scim": {
+          "unexpectedError": "出了点问题。",
+          "tokenRevoked": "令牌已撤销",
+          "baseUrl": "基础 URL",
+          "copyBaseUrl": "复制基础 URL",
+          "token": "令牌",
+          "copyToken": "复制令牌",
+          "active": "有效",
+          "expires": "过期时间",
+          "lastUsed": "上次使用",
+          "noToken": "没有有效的令牌。在你生成令牌之前，身份提供方无法进行预配。",
+          "newToken": "新令牌",
+          "revoke": "撤销",
+          "generateToken": "生成令牌",
+          "rotateTitle": "替换 SCIM 令牌？",
+          "revokeTitle": "撤销 SCIM 令牌？",
+          "rotateBody": "当前令牌会立即失效。请将新令牌粘贴到你的身份提供方中，以继续预配。",
+          "revokeBody": "你的身份提供方将无法再创建、更新或停用账户。现有账户不受影响。",
+          "replaceToken": "替换令牌",
+          "revokeToken": "撤销令牌",
+          "issuedTitle": "SCIM 令牌",
+          "issuedDescription": "请立即复制：它不会再次显示。有效期为一年。",
+          "tokenHint": "将其粘贴为 Bearer 令牌（Okta：API token；Entra ID：机密令牌）。"
+        },
+        "detail": {
+          "back": "组织",
+          "defaultWorkspace": "默认工作区",
+          "createdAt": "创建于 {date}",
+          "members": "成员",
+          "publicMembers": "每个账户都属于 Public 工作区，因此无法在此移除成员。仅显示前 50 名。",
+          "memberCount": "{count, plural, other {# 名成员}}。",
+          "noMembers": "还没有成员。",
+          "member": "成员",
+          "joined": "加入时间",
+          "role": "角色",
+          "deactivated": "已停用",
+          "banned": "已封禁",
+          "invitationExpires": "{date} 过期",
+          "noInvitations": "没有待处理的邀请。",
+          "apiKeys": "API 密钥",
+          "apiKeysDescription": "归此组织所有的密钥，由其所有者和管理员在账户控制台中创建。创建它们的成员离开后仍然有效，并会随组织一起删除。",
+          "details": "详情",
+          "sso": "单点登录",
+          "ssoDescription": "关联到此组织的身份提供方。",
+          "ssoNone": "无。<link>立即设置</link>。",
+          "verified": "已验证",
+          "unverified": "未验证",
+          "scim": "SCIM 预配",
+          "scimDescription": "你的身份提供方（Okta、Entra ID 等）会创建此组织的账户，并在人员离开时停用它们。",
+          "scimCounts": "已预配 {active} 个，已停用 {inactive} 个。",
+          "recentActions": "最近的管理员操作",
+          "noActions": "暂无。",
+          "system": "系统"
+        },
+        "errors": {
+          "invalidNameSlug": "请输入名称，以及由字母、数字和连字符组成的 slug。",
+          "publicSlug": "Public 工作区的 slug 固定为“public”。",
+          "slugTaken": "该 slug 已被其他组织使用。",
+          "unknownRole": "未知角色。",
+          "memberNotFound": "未找到成员。",
+          "publicMembers": "每个账户都属于 Public 工作区。",
+          "invalidEmail": "请输入有效的邮箱地址。",
+          "noInvitations": "此组织不接受邀请。",
+          "alreadyMember": "此人已是成员。",
+          "invitationNotFound": "未找到邀请。",
+          "requestFailed": "请求失败。",
+          "scimUnavailable": "此组织无法使用 SCIM 预配。",
+          "noActiveToken": "没有有效的令牌。"
+        }
+      }
+    },
+    "common": {
+      "cancel": "取消",
+      "save": "保存",
+      "saving": "正在保存…",
+      "saveChanges": "保存更改",
+      "delete": "删除",
+      "deleting": "正在删除…",
+      "edit": "编辑",
+      "remove": "移除",
+      "close": "关闭",
+      "copied": "已复制",
+      "enabled": "已启用",
+      "disabled": "已停用",
+      "enable": "启用",
+      "disable": "停用",
+      "on": "开启",
+      "off": "关闭",
+      "yes": "是",
+      "no": "否",
+      "never": "从不",
+      "none": "无",
+      "actions": "操作",
+      "created": "创建时间",
+      "name": "名称",
+      "description": "描述",
+      "status": "状态",
+      "back": "返回",
+      "done": "完成",
+      "loading": "加载中…",
+      "refresh": "刷新",
+      "search": "搜索",
+      "optional": "可选",
+      "unexpectedError": "出了点问题，请重试。"
+    },
+    "urlCheck": {
+      "tooLong": "URL 过长。",
+      "notAbsolute": "请输入绝对 URL，例如 https://app.example.com/webhooks。",
+      "credentials": "URL 不能包含用户名或密码。",
+      "fragment": "URL 不能包含片段（#）。",
+      "notHttps": "URL 必须使用 https://。",
+      "localhost": "URL 指向本机（localhost）。",
+      "nonPublic": "URL 指向{kind, select, loopback {环回} private {私有} linkLocal {链路本地} cloudMetadata {云元数据} sharedAddressSpace {共享（运营商级 NAT）} other {非公共}}地址。",
+      "unresolved": "无法解析主机 {host}。",
+      "noAddress": "主机 {host} 没有地址。",
+      "resolvesNonPublic": "主机 {host} 解析到{kind, select, loopback {环回} private {私有} linkLocal {链路本地} cloudMetadata {云元数据} sharedAddressSpace {共享（运营商级 NAT）} other {非公共}}地址（{address}）。"
+    },
+    "shell": {
+      "userFallbackName": "管理员",
+      "userMenu": {
+        "home": "首页",
+        "logOut": "退出登录"
       }
     }
   },
@@ -593,7 +2173,9 @@
       "actions": "操作",
       "started": "开始时间",
       "expires": "过期时间",
-      "none": "无"
+      "none": "无",
+      "startedAt": "开始时间：{date}",
+      "expiresAt": "过期时间：{date}"
     },
     "apps": {
       "title": "已连接应用",
@@ -752,6 +2334,10 @@
         "impersonating": "管理员正在查看此账户时，无法删除该账户。",
         "failed": "无法开始删除。请重试。"
       }
+    },
+    "impersonation": {
+      "viewingAs": "你正在以 <strong>{email}</strong> 的身份查看此账户。",
+      "stop": "停止模拟"
     }
   },
   "acceptInvitation": {
@@ -793,6 +2379,14 @@
       "no": "挪威语",
       "fi": "芬兰语",
       "cs": "捷克语"
+    },
+    "ui": {
+      "close": "关闭",
+      "sidebar": "侧边栏",
+      "sidebarDescription": "显示移动端侧边栏。",
+      "toggleSidebar": "切换侧边栏",
+      "breadcrumb": "面包屑导航",
+      "more": "更多"
     }
   },
   "errors": {
@@ -893,7 +2487,69 @@
       "updated": "提供方已更新",
       "save": "保存",
       "cancel": "取消",
-      "close": "关闭"
+      "close": "关闭",
+      "copyLabel": "复制：{label}",
+      "errors": {
+        "metadataEmpty": "元数据为空。",
+        "metadataTooLarge": "元数据超过 100 KB。",
+        "metadataDoctype": "元数据不能包含 DOCTYPE。",
+        "metadataNotXml": "元数据不是格式正确的 XML。",
+        "notSamlMetadata": "这不是 SAML 元数据。",
+        "multipleEntities": "元数据必须且只能描述一个身份提供方。",
+        "noEntityId": "元数据中没有 entityID。",
+        "noIdpDescriptor": "元数据中没有身份提供方（IDPSSODescriptor）。",
+        "noSaml2": "该身份提供方不支持 SAML 2.0。",
+        "signedRequestsRequired": "该身份提供方要求签名请求，而 Ostiary 不发送签名请求。请在身份提供方中关闭请求签名。",
+        "noRedirectBinding": "元数据中没有使用 HTTP-Redirect 绑定的 SingleSignOnService。",
+        "metadataSsoUrlNotHttps": "身份提供方的 SSO 地址必须使用 https://。",
+        "unreadableCertificate": "无法读取元数据中的某个签名证书。",
+        "noSigningCertificate": "元数据中没有签名证书。",
+        "invalidMapping": "请输入邮箱和名称的属性名（不能包含空格或引号）。",
+        "allCertificatesExpired": "元数据中的所有签名证书均已过期。",
+        "missingEntityId": "请输入身份提供方的实体 ID（Issuer）。",
+        "ssoUrlNotHttps": "SSO 地址必须是 https:// URL。",
+        "invalidCertificate": "签名证书不是有效的 X.509 证书（PEM）。",
+        "certificateExpired": "签名证书已过期。",
+        "fetchFailed": "无法获取元数据：{reason}",
+        "invalidRedirect": "元数据地址重定向到无效的地址。",
+        "httpStatus": "元数据地址返回了 {status}。",
+        "tooManyRedirects": "元数据地址重定向次数过多。"
+      }
+    },
+    "panel": {
+      "noOrganization": "无组织",
+      "providersDescription": "提供方的邮箱域名通过 DNS 记录验证后，才会接受登录。",
+      "verified": "已验证",
+      "domainNotVerified": "域名未验证",
+      "verifyDomain": "验证域名",
+      "editLabel": "编辑 {id}",
+      "deleteLabel": "删除 {id}",
+      "verifyTitle": "验证 {domain}",
+      "verifyDescription": "请域名所有者在其 DNS 中添加此 TXT 记录，然后在此检查。验证通过后，即可通过此提供方登录。",
+      "recordName": "名称",
+      "recordValue": "值",
+      "copyRecordName": "复制名称",
+      "copyRecordValue": "复制值",
+      "recordValidity": "该值在 7 天内有效。",
+      "domainVerified": "域名已验证",
+      "checkDns": "检查 DNS",
+      "editDescription": "更改域名后需重新验证。如需更改客户端凭据，请删除提供方后重新注册。",
+      "organization": "组织",
+      "deleteTitle": "删除 {id}？",
+      "deleteDescription": "使用 {domain} 邮箱地址的用户将无法再通过此提供方登录。其账户会保留，仍可使用密码或通行密钥登录。",
+      "providerDeleted": "提供方已删除"
+    },
+    "errors": {
+      "providerNotFound": "未找到提供方。",
+      "issuerNotUrl": "Issuer 必须是 URL。",
+      "invalidDomain": "请输入邮箱域名，例如 acme.com。",
+      "organizationNotFound": "未找到组织。",
+      "samlIssuerLocked": "SAML 提供方的 SP 实体 ID 无法更改。",
+      "invalidProviderDomain": "提供方的域名无效。",
+      "txtRecordNotFound": "尚未找到 TXT 记录。DNS 更改可能需要几分钟才能生效。",
+      "envNotSet": "未设置 {name}。",
+      "invalidProviderId": "提供方 ID 必须由 2 到 63 个小写字母、数字、- 或 _ 组成。",
+      "unreadableSamlConfig": "无法读取已存储的 SAML 配置；请删除提供方后重新注册。"
     }
   },
   "selectAccount": {

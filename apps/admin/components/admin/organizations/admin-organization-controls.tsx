@@ -3,6 +3,7 @@
 import * as React from "react";
 import { Loader2, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 
 import { Button } from "@ostiary/core/components/ui/button";
@@ -36,6 +37,7 @@ const ROLES: Role[] = ["owner", "admin", "member"];
 
 /** Runs a server action, reports the result and refreshes the page data. */
 function useAction() {
+  const t = useTranslations("admin.pages.organizations.controls");
   const router = useRouter();
   const [busy, setBusy] = React.useState(false);
   const run = React.useCallback(
@@ -51,18 +53,20 @@ function useAction() {
         router.refresh();
         return true;
       } catch {
-        toast.error("Something went wrong.");
+        toast.error(t("unexpectedError"));
         return false;
       } finally {
         setBusy(false);
       }
     },
-    [router],
+    [router, t],
   );
   return { busy, run };
 }
 
 export function RenameOrganizationForm({ id, name, slug }: { id: string; name: string; slug: string }) {
+  const t = useTranslations("admin.pages.organizations.controls");
+  const tc = useTranslations("admin.common");
   const [draftName, setDraftName] = React.useState(name);
   const [draftSlug, setDraftSlug] = React.useState(slug);
   const { busy, run } = useAction();
@@ -71,22 +75,22 @@ export function RenameOrganizationForm({ id, name, slug }: { id: string; name: s
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        void run(() => renameOrganization(id, draftName, draftSlug), "Organization updated");
+        void run(() => renameOrganization(id, draftName, draftSlug), t("organizationUpdated"));
       }}
     >
       <FieldGroup>
         <Field>
-          <FieldLabel htmlFor="org-name">Name</FieldLabel>
+          <FieldLabel htmlFor="org-name">{tc("name")}</FieldLabel>
           <Input id="org-name" value={draftName} onChange={(e) => setDraftName(e.target.value)} disabled={busy} />
         </Field>
         <Field>
-          <FieldLabel htmlFor="org-slug">Slug</FieldLabel>
+          <FieldLabel htmlFor="org-slug">{t("slug")}</FieldLabel>
           <Input id="org-slug" value={draftSlug} onChange={(e) => setDraftSlug(e.target.value)} disabled={busy} autoComplete="off" />
         </Field>
         <div>
           <Button type="submit" size="sm" disabled={busy || !dirty}>
             {busy ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
-            Save
+            {tc("save")}
           </Button>
         </div>
       </FieldGroup>
@@ -95,20 +99,21 @@ export function RenameOrganizationForm({ id, name, slug }: { id: string; name: s
 }
 
 export function MemberRoleSelect({ orgId, memberId, role }: { orgId: string; memberId: string; role: string }) {
+  const t = useTranslations("admin.pages.organizations.controls");
   const { busy, run } = useAction();
   return (
     <Select
       value={ROLES.includes(role as Role) ? role : "member"}
       disabled={busy}
-      onValueChange={(next) => void run(() => updateMemberRole(orgId, memberId, next as Role), "Role updated")}
+      onValueChange={(next) => void run(() => updateMemberRole(orgId, memberId, next as Role), t("roleUpdated"))}
     >
-      <SelectTrigger size="sm" className="w-28" aria-label="Role">
+      <SelectTrigger size="sm" className="w-28" aria-label={t("role")}>
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
         {ROLES.map((r) => (
           <SelectItem key={r} value={r}>
-            {r}
+            {t(`roles.${r}`)}
           </SelectItem>
         ))}
       </SelectContent>
@@ -130,6 +135,7 @@ function ConfirmButton({
   confirmLabel: string;
   onConfirm: () => Promise<boolean>;
 }) {
+  const tc = useTranslations("admin.common");
   const [open, setOpen] = React.useState(false);
   const [busy, setBusy] = React.useState(false);
   return (
@@ -145,7 +151,7 @@ function ConfirmButton({
           </DialogHeader>
           <DialogFooter>
             <Button type="button" variant="outline" disabled={busy} onClick={() => setOpen(false)}>
-              Cancel
+              {tc("cancel")}
             </Button>
             <Button
               type="button"
@@ -169,32 +175,36 @@ function ConfirmButton({
 }
 
 export function RemoveMemberButton({ orgId, memberId, email }: { orgId: string; memberId: string; email: string }) {
+  const t = useTranslations("admin.pages.organizations.controls");
+  const tc = useTranslations("admin.common");
   const { run } = useAction();
   return (
     <ConfirmButton
-      label={`Remove ${email}`}
-      title={`Remove ${email}?`}
-      body="They lose access to this organization. Their account stays."
-      confirmLabel="Remove"
-      onConfirm={() => run(() => removeMember(orgId, memberId), "Member removed")}
+      label={t("removeMemberLabel", { email })}
+      title={t("removeMemberTitle", { email })}
+      body={t("removeMemberBody")}
+      confirmLabel={tc("remove")}
+      onConfirm={() => run(() => removeMember(orgId, memberId), t("memberRemoved"))}
     />
   );
 }
 
 export function CancelInvitationButton({ orgId, invitationId, email }: { orgId: string; invitationId: string; email: string }) {
+  const t = useTranslations("admin.pages.organizations.controls");
   const { run } = useAction();
   return (
     <ConfirmButton
-      label={`Cancel invitation for ${email}`}
-      title={`Cancel the invitation for ${email}?`}
-      body="The link in the email stops working."
-      confirmLabel="Cancel invitation"
-      onConfirm={() => run(() => cancelInvitation(orgId, invitationId), "Invitation cancelled")}
+      label={t("cancelInvitationLabel", { email })}
+      title={t("cancelInvitationTitle", { email })}
+      body={t("cancelInvitationBody")}
+      confirmLabel={t("cancelInvitation")}
+      onConfirm={() => run(() => cancelInvitation(orgId, invitationId), t("invitationCancelled"))}
     />
   );
 }
 
 export function InviteMemberForm({ orgId }: { orgId: string }) {
+  const t = useTranslations("admin.pages.organizations.controls");
   const [email, setEmail] = React.useState("");
   const [role, setRole] = React.useState<Role>("member");
   const { busy, run } = useAction();
@@ -203,28 +213,28 @@ export function InviteMemberForm({ orgId }: { orgId: string }) {
       className="flex flex-col gap-2 sm:flex-row sm:items-end"
       onSubmit={async (e) => {
         e.preventDefault();
-        if (await run(() => inviteMember(orgId, email, role), "Invitation sent")) setEmail("");
+        if (await run(() => inviteMember(orgId, email, role), t("invitationSent"))) setEmail("");
       }}
     >
       <Field className="flex-1">
-        <FieldLabel htmlFor="invite-email">Invite by email</FieldLabel>
+        <FieldLabel htmlFor="invite-email">{t("inviteByEmail")}</FieldLabel>
         <Input id="invite-email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} disabled={busy} required />
       </Field>
       <Select value={role} onValueChange={(v) => setRole(v as Role)} disabled={busy}>
-        <SelectTrigger className="w-full sm:w-32" aria-label="Role">
+        <SelectTrigger className="w-full sm:w-32" aria-label={t("role")}>
           <SelectValue />
         </SelectTrigger>
         <SelectContent>
           {ROLES.map((r) => (
             <SelectItem key={r} value={r}>
-              {r}
+              {t(`roles.${r}`)}
             </SelectItem>
           ))}
         </SelectContent>
       </Select>
       <Button type="submit" disabled={busy || !email.trim()}>
         {busy ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
-        Send invitation
+        {t("sendInvitation")}
       </Button>
     </form>
   );
