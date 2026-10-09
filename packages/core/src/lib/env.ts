@@ -35,6 +35,11 @@ export const envSchema = z
     VERCEL_ENV: z.string().optional(),
     VERCEL_URL: z.string().optional(),
     VERCEL_PROJECT_PRODUCTION_URL: z.string().optional(),
+    /**
+     * "true" adds Vercel Web Analytics to both apps (also turn it on in the Vercel project).
+     * Page views are sent without query strings or fragments, which can carry tokens.
+     */
+    VERCEL_ANALYTICS: z.enum(["true", "false"]).optional(),
     /** Optional Sentry DSN for error tracking (server). */
     SENTRY_DSN: z.string().optional(),
     /** Origin of the auth app (canonical Better Auth URL for every app in the monorepo). */
