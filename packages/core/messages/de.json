@@ -539,7 +539,16 @@
       "deleted": "Organization deleted",
       "deleteError": "Could not delete the organization.",
       "confirmDeleteTitle": "Delete {name}?",
-      "confirmDeleteBody": "This removes the organization, its {count, plural, one {# membership} other {# memberships}} and pending invitations. Member accounts stay. This cannot be undone."
+      "confirmDeleteBody": "This removes the organization, its {count, plural, one {# membership} other {# memberships}} and pending invitations. Member accounts stay. This cannot be undone.",
+      "apiKeys": {
+        "show": "API-Schlüssel",
+        "hide": "API-Schlüssel ausblenden",
+        "title": "API-Schlüssel von {name}",
+        "description": "Schlüssel im Besitz der Organisation, für ihre Skripte und Dienste. Sie bleiben gültig, wenn das Mitglied, das sie erstellt hat, die Organisation verlässt. Nur Inhaber und Admins sehen sie.",
+        "empty": "Diese Organisation hat keine API-Schlüssel.",
+        "loadError": "Die API-Schlüssel dieser Organisation konnten nicht geladen werden.",
+        "limit": "Diese Organisation hat bereits {max} Schlüssel. Widerrufen Sie einen, um einen neuen zu erstellen."
+      }
     },
     "security": {
       "title": "Security",
@@ -646,8 +655,11 @@
         "signedOut": "Ihre Sitzung ist abgelaufen. Melden Sie sich erneut an.",
         "impersonating": "API-Schlüssel können nicht erstellt werden, während Sie das Konto einer anderen Person ansehen.",
         "recentSignIn": "Aus Sicherheitsgründen müssen Sie sich erneut anmelden, um einen API-Schlüssel zu erstellen.",
-        "failed": "Der API-Schlüssel konnte nicht erstellt werden."
-      }
+        "failed": "Der API-Schlüssel konnte nicht erstellt werden.",
+        "forbidden": "Nur Inhaber und Admins dieser Organisation können ihre API-Schlüssel verwalten."
+      },
+      "createdBy": "erstellt von {name}",
+      "createdByDeleted": "Konto des Erstellers gelöscht"
     },
     "accountMenu": "Account menu",
     "connectedAccounts": {

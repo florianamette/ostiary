@@ -539,7 +539,16 @@
       "deleted": "Organization deleted",
       "deleteError": "Could not delete the organization.",
       "confirmDeleteTitle": "Delete {name}?",
-      "confirmDeleteBody": "This removes the organization, its {count, plural, one {# membership} other {# memberships}} and pending invitations. Member accounts stay. This cannot be undone."
+      "confirmDeleteBody": "This removes the organization, its {count, plural, one {# membership} other {# memberships}} and pending invitations. Member accounts stay. This cannot be undone.",
+      "apiKeys": {
+        "show": "API anahtarları",
+        "hide": "API anahtarlarını gizle",
+        "title": "{name} API anahtarları",
+        "description": "Kuruluşa ait anahtarlar, betikleri ve hizmetleri için. Onları oluşturan üye ayrıldığında da çalışmaya devam ederler. Yalnızca sahipler ve yöneticiler görür.",
+        "empty": "Bu kuruluşun API anahtarı yok.",
+        "loadError": "Bu kuruluşun API anahtarları yüklenemedi.",
+        "limit": "Bu kuruluşun zaten {max} anahtarı var. Yenisini oluşturmak için birini iptal edin."
+      }
     },
     "security": {
       "title": "Security",
@@ -646,8 +655,11 @@
         "signedOut": "Oturumunuz sona erdi. Yeniden giriş yapın.",
         "impersonating": "Başka birinin hesabını görüntülerken API anahtarı oluşturulamaz.",
         "recentSignIn": "Güvenliğiniz için API anahtarı oluşturmadan önce yeniden giriş yapın.",
-        "failed": "API anahtarı oluşturulamadı."
-      }
+        "failed": "API anahtarı oluşturulamadı.",
+        "forbidden": "Bu kuruluşun API anahtarlarını yalnızca sahipleri ve yöneticileri yönetebilir."
+      },
+      "createdBy": "oluşturan: {name}",
+      "createdByDeleted": "oluşturanın hesabı silindi"
     },
     "accountMenu": "Account menu",
     "connectedAccounts": {

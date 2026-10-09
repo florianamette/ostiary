@@ -539,7 +539,16 @@
       "deleted": "Organization deleted",
       "deleteError": "Could not delete the organization.",
       "confirmDeleteTitle": "Delete {name}?",
-      "confirmDeleteBody": "This removes the organization, its {count, plural, one {# membership} other {# memberships}} and pending invitations. Member accounts stay. This cannot be undone."
+      "confirmDeleteBody": "This removes the organization, its {count, plural, one {# membership} other {# memberships}} and pending invitations. Member accounts stay. This cannot be undone.",
+      "apiKeys": {
+        "show": "Klíče API",
+        "hide": "Skrýt klíče API",
+        "title": "Klíče API organizace {name}",
+        "description": "Klíče vlastněné organizací pro její skripty a služby. Fungují dál, i když člen, který je vytvořil, odejde. Vidí je jen vlastníci a správci.",
+        "empty": "Tato organizace nemá žádné klíče API.",
+        "loadError": "Klíče API této organizace se nepodařilo načíst.",
+        "limit": "Tato organizace už má {max} klíčů. Zrušte jeden, abyste mohli vytvořit další."
+      }
     },
     "security": {
       "title": "Security",
@@ -646,8 +655,11 @@
         "signedOut": "Vaše relace skončila. Přihlaste se znovu.",
         "impersonating": "API klíče nelze vytvářet při prohlížení účtu jiné osoby.",
         "recentSignIn": "Z bezpečnostních důvodů se pro vytvoření API klíče přihlaste znovu.",
-        "failed": "API klíč se nepodařilo vytvořit."
-      }
+        "failed": "API klíč se nepodařilo vytvořit.",
+        "forbidden": "Klíče API této organizace mohou spravovat jen její vlastníci a správci."
+      },
+      "createdBy": "vytvořil(a) {name}",
+      "createdByDeleted": "účet autora smazán"
     },
     "accountMenu": "Account menu",
     "connectedAccounts": {

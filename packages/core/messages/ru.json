@@ -539,7 +539,16 @@
       "deleted": "Organization deleted",
       "deleteError": "Could not delete the organization.",
       "confirmDeleteTitle": "Delete {name}?",
-      "confirmDeleteBody": "This removes the organization, its {count, plural, one {# membership} other {# memberships}} and pending invitations. Member accounts stay. This cannot be undone."
+      "confirmDeleteBody": "This removes the organization, its {count, plural, one {# membership} other {# memberships}} and pending invitations. Member accounts stay. This cannot be undone.",
+      "apiKeys": {
+        "show": "API-ключи",
+        "hide": "Скрыть API-ключи",
+        "title": "API-ключи: {name}",
+        "description": "Ключи, принадлежащие организации, для её скриптов и сервисов. Они продолжают работать, когда создавший их участник уходит. Их видят только владельцы и администраторы.",
+        "empty": "У этой организации нет API-ключей.",
+        "loadError": "Не удалось загрузить API-ключи этой организации.",
+        "limit": "У этой организации уже {max} ключей. Отзовите один, чтобы создать новый."
+      }
     },
     "security": {
       "title": "Security",
@@ -646,8 +655,11 @@
         "signedOut": "Ваш сеанс завершён. Войдите снова.",
         "impersonating": "Нельзя создавать API-ключи, просматривая чужой аккаунт.",
         "recentSignIn": "В целях безопасности войдите снова, чтобы создать API-ключ.",
-        "failed": "Не удалось создать API-ключ."
-      }
+        "failed": "Не удалось создать API-ключ.",
+        "forbidden": "Управлять API-ключами этой организации могут только её владельцы и администраторы."
+      },
+      "createdBy": "создан: {name}",
+      "createdByDeleted": "аккаунт создателя удалён"
     },
     "accountMenu": "Account menu",
     "connectedAccounts": {

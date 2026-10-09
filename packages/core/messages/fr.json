@@ -539,7 +539,16 @@
       "deleted": "Organisation supprimée",
       "deleteError": "Impossible de supprimer l’organisation.",
       "confirmDeleteTitle": "Supprimer {name} ?",
-      "confirmDeleteBody": "Cela supprime l’organisation, {count, plural, one {# adhésion} other {# adhésions}} et les invitations en attente. Les comptes des membres sont conservés. Action irréversible."
+      "confirmDeleteBody": "Cela supprime l’organisation, {count, plural, one {# adhésion} other {# adhésions}} et les invitations en attente. Les comptes des membres sont conservés. Action irréversible.",
+      "apiKeys": {
+        "show": "Clés d’API",
+        "hide": "Masquer les clés d’API",
+        "title": "Clés d’API de {name}",
+        "description": "Clés détenues par l’organisation, pour ses scripts et services. Elles restent valides quand le membre qui les a créées s’en va. Seuls les propriétaires et administrateurs les voient.",
+        "empty": "Cette organisation n’a aucune clé d’API.",
+        "loadError": "Impossible de charger les clés d’API de cette organisation.",
+        "limit": "Cette organisation a déjà {max} clés. Révoquez-en une pour en créer une autre."
+      }
     },
     "security": {
       "title": "Sécurité",
@@ -646,8 +655,11 @@
         "signedOut": "Votre session a expiré. Reconnectez-vous.",
         "impersonating": "Impossible de créer des clés d’API lorsque vous consultez le compte d’une autre personne.",
         "recentSignIn": "Pour votre sécurité, reconnectez-vous pour créer une clé d’API.",
-        "failed": "Impossible de créer la clé d’API."
-      }
+        "failed": "Impossible de créer la clé d’API.",
+        "forbidden": "Seuls les propriétaires et administrateurs de cette organisation peuvent gérer ses clés d’API."
+      },
+      "createdBy": "créée par {name}",
+      "createdByDeleted": "compte du créateur supprimé"
     },
     "accountMenu": "Menu du compte",
     "connectedAccounts": {
