@@ -283,6 +283,21 @@ All notable changes are documented here. The format follows
 
 ### Fixed
 
+- **English left in translated screens.** The admin console rendered most of its text in
+  English whatever the language: APIs, API keys, webhooks, applications (sign-in branding,
+  self-registration, client dialogs), consent, users, organizations and SCIM, SSO and SAML,
+  sign-in providers, usage, security, audit log labels and the overview. About 1,100 strings
+  now go through the messages, including toasts, placeholders, aria-labels, confirmations,
+  table headers, empty states and the errors server actions return (core validators keep
+  their English `error` and add a `code` the console translates). Dates follow the page's
+  language instead of the browser's. In the other 19 locales, about 420 values per locale
+  that were still the English text (account dashboard, sign-in, SSO, consent, invitations)
+  are translated, as are all the new keys. Protocol, product and provider names, scopes,
+  header and environment variable names stay as they are. The translations are
+  machine-written and would benefit from a review by native speakers. A unit test
+  (`packages/core/src/i18n/messages.test.ts`) fails when a locale misses a key of `en.json`,
+  has an extra one, or uses different ICU arguments or tags; `I18N_REPORT=1` lists values
+  still identical to English.
 - **Client IP in the audit log and sign-in history behind proxies.** These took the
   left-most `x-forwarded-for` value (whatever the client sent) and fell back to
   `x-real-ip`, unlike rate limits and sessions. They now resolve the address the way
