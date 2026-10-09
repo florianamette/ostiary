@@ -32,7 +32,7 @@ const CLAIMS = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims";
 
 /**
  * Attribute names each IdP sends (Entra ID by default; Okta, Google Workspace and JumpCloud
- * once the attribute statements from the README are added). The user ID is always the
+ * once the attribute statements from docs/enterprise-sso.md are added). The user ID is always the
  * assertion's NameID: the plugin does not read it from an attribute.
  */
 export const SAML_PRESET_MAPPINGS: Record<Exclude<SamlPreset, "custom">, SamlMapping> = {

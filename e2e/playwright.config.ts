@@ -20,7 +20,7 @@ function nextStart(app: "auth" | "admin", url: string) {
 
 /*
  * The apps must be built first (pnpm build:apps) and the database migrated (pnpm db:setup).
- * See README, "Testing".
+ * See docs/testing.md.
  */
 export default defineConfig({
   testDir: "tests",

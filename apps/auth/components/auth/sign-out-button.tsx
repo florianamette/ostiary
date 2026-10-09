@@ -18,6 +18,7 @@ export function SignOutButton() {
         void authClient.signOut({
           fetchOptions: {
             onSuccess: () => {
+              // eslint-disable-next-line @next/next/no-location-assign-relative-destination -- full load: the session is gone
               window.location.href = `/${locale}/login`;
             },
           },

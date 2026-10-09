@@ -60,6 +60,7 @@ export function AdminUserDetailActions({
         return;
       }
       // The session cookie is shared across apps; continue as the user on their dashboard.
+      // eslint-disable-next-line @next/next/no-location-assign-relative-destination -- another app (the auth app), with the new session
       window.location.href = `${authAppUrl}/${locale}/dashboard`;
     } finally {
       setBusy(false);
