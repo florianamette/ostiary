@@ -1,0 +1,1 @@
+ALTER TABLE "social_provider" ADD COLUMN "one_tap" boolean DEFAULT false NOT NULL;

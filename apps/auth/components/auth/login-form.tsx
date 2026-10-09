@@ -25,6 +25,8 @@ import { Link } from "@/i18n/navigation"
 import type { SocialProviderOption } from "@ostiary/core/lib/social-provider-meta"
 import { brand } from "@ostiary/core/lib/brand"
 import { SocialSignInButtons } from "@/components/auth/social-sign-in-buttons"
+import { GoogleOneTap } from "@/components/auth/google-one-tap"
+import type { GoogleOneTapConfig } from "@ostiary/core/lib/social-provider-meta"
 import { authClient } from "@/lib/auth-client"
 import { ResendVerification } from "@/components/auth/resend-verification"
 import { EmailCodeSignIn } from "@/components/auth/email-code-sign-in"
@@ -42,8 +44,13 @@ export function LoginForm({
   className,
   socialProviders = [],
   captcha: captchaConfig = null,
+  oneTap = null,
   ...props
-}: React.ComponentProps<"div"> & { socialProviders?: SocialProviderOption[]; captcha?: CaptchaConfig | null }) {
+}: React.ComponentProps<"div"> & {
+  socialProviders?: SocialProviderOption[]
+  captcha?: CaptchaConfig | null
+  oneTap?: GoogleOneTapConfig | null
+}) {
   const t = useTranslations("auth.login")
   const tLimit = useTranslations("rateLimit")
   const tSso = useTranslations("sso");
@@ -323,13 +330,17 @@ export function LoginForm({
                   lastUsedMethod={lastUsedMethod}
                   disabled={isSubmitting || passkeySubmitting}
                 />
+                {/* Not when adding an account: someone is already signed in here. */}
+                <GoogleOneTap config={addingAccount ? null : oneTap} callbackURL={callbackURL} context="signin" />
                 {socialError ? (
                   <FieldDescription className="text-center text-destructive" role="alert">
                     {socialError === "account_not_linked"
                       ? tSocial("notLinked", { name: brand.name })
                       : socialError === "email_not_found"
                         ? tSocial("noEmail")
-                        : tSocial("error")}
+                        : socialError === "signup_disabled"
+                          ? tSocial("signUpDisabled")
+                          : tSocial("error")}
                   </FieldDescription>
                 ) : null}
                 <FieldDescription className="text-center">

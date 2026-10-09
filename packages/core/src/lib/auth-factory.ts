@@ -19,6 +19,7 @@ import {
     type JwtOptions,
     lastLoginMethod,
     multiSession,
+    oneTap,
     organization,
     username,
 } from "better-auth/plugins";
@@ -63,7 +64,7 @@ import {
     metadataDocumentHostAllowed,
     registrationRequestError,
 } from "@ostiary/core/lib/client-registration-policy";
-import { socialProvidersConfig, syncSocialProviders } from "@ostiary/core/lib/social-providers";
+import { googleOneTap, socialProvidersConfig, syncSocialProviders } from "@ostiary/core/lib/social-providers";
 import { KEY_RATE_LIMIT, API_KEY_NAME_MAX_LENGTH, MAX_LIFETIME_DAYS_LIMIT } from "@ostiary/core/lib/api-key-policy";
 import { deleteUserApiKeys } from "@ostiary/core/lib/api-keys";
 import { apiKeyVerification } from "@ostiary/core/lib/api-key-verification";
@@ -452,6 +453,10 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
                 await syncSigningKeys(jwtOptions);
                 // Sign-in providers enabled from the admin console, without a restart.
                 await syncSocialProviders(ctx.context);
+                // Google One Tap answers only while the admin console has it on (and Google too).
+                if (ctx.path === "/one-tap/callback" && !(await googleOneTap())) {
+                    throw new APIError("NOT_FOUND", { message: "Google One Tap is not enabled." });
+                }
                 if (env.REQUIRE_ADMIN_2FA === "true" && isAdminPath(ctx.path)) {
                     const current = await getSessionFromCtx(ctx);
                     if (current && adminNeedsTwoFactor(current.user as { role?: string | null; twoFactorEnabled?: boolean | null }, true)) {
@@ -635,6 +640,8 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
             lastLoginMethod({
                 customResolveMethod: (ctx) => {
                     if (ctx.path.includes("sign-in/username")) return "username";
+                    // A One Tap sign-in is a Google sign-in (the "last used" hint and button).
+                    if (ctx.path === "/one-tap/callback") return "google";
                     return null;
                 },
             }),
@@ -673,6 +680,14 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
             }),
             // Optional: off unless CAPTCHA_PROVIDER, CAPTCHA_SITE_KEY and CAPTCHA_SECRET_KEY are set.
             ...(captchaOptions ? [captcha(captchaOptions)] : []),
+            // Google One Tap on the sign-in and sign-up pages, off unless turned on for Google in the
+            // admin console (see the before hook). No options here: the endpoint reads Google's
+            // client ID, `hd` and sign-up setting from `socialProviders.google` on each request,
+            // which syncSocialProviders keeps equal to the admin console's settings. It checks the
+            // ID token's signature (Google's keys), issuer, audience and age, then signs in like
+            // "Continue with Google": same account linking, no second factor, and a pending OAuth
+            // authorization resumes (the client sends the signed `oauth_query`).
+            oneTap(),
             passkey({
                 rpID: passkeyWebAuthn.rpID,
                 rpName: passkeyWebAuthn.rpName,

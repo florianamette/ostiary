@@ -46,7 +46,7 @@ Hosted identity platforms are great until the bill scales with your users or you
 - Optional captcha (Cloudflare Turnstile, hCaptcha or reCAPTCHA v2) on sign-up, password sign-in, password reset and sign-in codes
 - Passkeys (WebAuthn), plus a recent sign-in required to add one
 - Two-factor authentication: authenticator app (TOTP) and backup codes, with "trust this device"
-- Social sign-in with every Better Auth provider (Google, Apple, Microsoft, GitHub and 32 more), set up from the admin console, with brand buttons and connected accounts
+- Social sign-in with every Better Auth provider (Google, Apple, Microsoft, GitHub and 32 more), set up from the admin console, with brand buttons and connected accounts, plus Google One Tap
 - Enterprise SSO (OIDC), with DNS domain verification
 - Account dashboard: profile, email change (approved from the current inbox), sessions, passkeys, two-factor authentication, connected accounts, connected apps (with their icons, permissions in plain words, when they were connected and last used)
 
@@ -225,6 +225,15 @@ Secrets are stored encrypted and never shown again (you can replace them). **Cre
 | Zoom | `zoom` | - |
 
 With a few providers the sign-in page shows a full-width button for each; from four, a grid with names; from seven, a grid of logos with tooltips. The provider used last on that device keeps its full-width button.
+
+### Google One Tap
+
+Google's own prompt ("Sign in as …", the browser's FedCM dialog in Chrome) for people already signed in to Google in their browser. Turn on **Show Google One Tap** in Google's settings under **Sign-in providers**; it works only while Google itself is on, and uses the same client ID, Workspace domain (`hd`) and **Create accounts for new users** setting.
+
+- **Google Cloud console**: add the auth app's origin (e.g. `https://auth.example.com`, and `http://localhost:3000` for local tests) to the OAuth client's **Authorized JavaScript origins**. Without it Google refuses the prompt (the redirect URI alone is not enough). A real test needs that client and a browser signed in to Google: with any other client ID the script loads but no account is offered.
+- **Where**: the sign-in and sign-up pages only, never consent, account or admin pages. Not shown when someone is already signed in (or adding another account), nor when this device last signed in another way (password, passkey, code, another provider): those people get the method they use. Dismissed, blocked or unsupported, it simply does not appear.
+- **What happens**: Better Auth's `oneTap` plugin checks the ID token (Google's signature, issuer, audience = your client ID, at most an hour old, and `hd` when set) at `POST /api/auth/one-tap/callback`, then signs in exactly like **Continue with Google**: same account linking, last-used method (Google), sign-in history, and a pending authorization for an app resumes. The endpoint answers 404 while One Tap is off.
+- **Content Security Policy**: the sign-in and sign-up pages also allow `https://accounts.google.com/gsi/client` (script), `/gsi/style` (style), and `/gsi/` (frames and requests). Other pages keep the stricter policy.
 
 ## Provision users with SCIM
 
@@ -495,6 +504,7 @@ A refused request gets `429 Too Many Requests` with a `Retry-After` header (seco
 | --- | --- | --- |
 | `/sign-in/email`, `/sign-in/username` | 10 per minute | Password guessing; room for several people behind one address |
 | `/sign-in/social` | 60 per minute | Only returns the provider's authorization URL; room for an office signing in at once |
+| `/one-tap/callback` | 60 per minute | Google One Tap: checks a Google-signed ID token |
 | `/sign-up/email` | 10 per 5 minutes | Each sends a verification email |
 | `/request-password-reset`, `/send-verification-email` | 5 per 10 minutes | Each sends an email to any address |
 | `/email-otp/send-verification-otp`, `/sign-in/email-otp` | 3 per minute | Sign-in codes (also void after 3 wrong tries) |

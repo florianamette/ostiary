@@ -21,6 +21,8 @@ export const RATE_LIMIT_RULES = {
     // ID token): nothing to guess. Better Auth's /sign-in/* default (3 per 10 s) would turn
     // away a few people clicking "Continue with Google" at once from an office address.
     "/sign-in/social": { window: 60, max: 60 },
+    // Google One Tap: checks a Google-signed ID token, nothing to guess either.
+    "/one-tap/callback": { window: 60, max: 60 },
     // Each sign-up sends a verification email.
     "/sign-up/email": { window: 300, max: 10 },
     // Each sends an email to any address: limit what one IP can send to someone's inbox.

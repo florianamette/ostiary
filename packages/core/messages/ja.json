@@ -177,7 +177,8 @@
       "otherProviders": "その他のサインイン方法",
       "error": "Could not sign in with that account. Try again or use another method.",
       "notLinked": "That account isn't connected to a {name} account yet. Sign in another way, then connect it from your security settings.",
-      "noEmail": "このアカウントからメールアドレスが共有されませんでした。後でもう一度お試しいただくか、別の方法でサインインしてください。"
+      "noEmail": "このアカウントからメールアドレスが共有されませんでした。後でもう一度お試しいただくか、別の方法でサインインしてください。",
+      "signUpDisabled": "このアドレスのアカウントはまだなく、このサインイン方法では作成できません。別の方法でサインインしてください。"
     }
   },
   "consent": {

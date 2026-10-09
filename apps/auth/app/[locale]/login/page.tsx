@@ -3,7 +3,7 @@ import { captchaConfig } from "@ostiary/core/lib/captcha";
 import { Suspense } from "react";
 
 import { LoginForm } from "@/components/auth/login-form";
-import { enabledSocialProviders } from "@ostiary/core/lib/social-providers";
+import { enabledSocialProviders, googleOneTap } from "@ostiary/core/lib/social-providers";
 
 function LoginFallback() {
   return (
@@ -24,7 +24,11 @@ export default async function Page({
   return (
     <AuthScreen locale={locale}>
         <Suspense fallback={<LoginFallback />}>
-          <LoginForm socialProviders={await enabledSocialProviders()} captcha={captchaConfig()} />
+          <LoginForm
+            socialProviders={await enabledSocialProviders()}
+            captcha={captchaConfig()}
+            oneTap={await googleOneTap()}
+          />
         </Suspense>
     </AuthScreen>
   );
