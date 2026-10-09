@@ -8,6 +8,8 @@ All notable changes are documented here. The format follows
 
 ### Added
 
+- **Vercel Web Analytics, opt-in.** `VERCEL_ANALYTICS=true` adds it to both apps. Page views
+  are sent without query strings or fragments, so tokens in sign-in URLs never leave the browser.
 - **Your data: export and account deletion** (GDPR access, portability and erasure). A new
   **Your data** section on the dashboard. **Download my data** returns one JSON file with the
   profile, sign-in methods, passkeys, two-factor status, sessions, connected apps with consents
