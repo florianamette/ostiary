@@ -298,6 +298,20 @@ All notable changes are documented here. The format follows
   HTTPS everywhere, localhost included, and only public clients may use http on
   localhost.
 
+### Security
+
+- **Dependency upgrades for published advisories.** Next.js 16.2.1 to 16.4.0 (and
+  `eslint-config-next`): fixes the critical remote code execution advisories in image
+  optimization (GHSA-2xp9-vwfh-vxw4), `next/og` (GHSA-vcvr-r3jv-pc5j, used for the
+  Open Graph images) and GHSA-p293-qw3h-jr36, plus the high and moderate middleware/proxy
+  bypass, cache poisoning, SSRF and denial of service advisories; it also brings PostCSS
+  8.5.23. sharp 0.34.5 to 0.35.5 (libvips, libheif and librsvg advisories). next-intl
+  4.8.3 to 4.14.9 (open redirect GHSA-8f24-v5vv-gm5j, prototype pollution
+  GHSA-4c35-wcg5-mm9h). Resend 6.9.4 to 6.32.1, which drops `svix` and its vulnerable
+  `uuid`. Development only: Vitest 4.1.11 and tsx 4.23.15. No code or configuration change.
+  The new `eslint-config-next` warns about `window.location` navigations to internal pages
+  (warnings only; those full reloads are intended).
+
 ## [0.1.1] - 2026-10-07
 
 ### Fixed
