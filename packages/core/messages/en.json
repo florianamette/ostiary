@@ -232,6 +232,7 @@
       "signInProviders": "Sign-in providers",
       "webhooks": "Webhooks",
       "security": "Security",
+      "usage": "App usage",
       "audit": "Audit log",
       "signingKeys": "Signing keys"
     },
@@ -249,6 +250,7 @@
       "signInProviders": "Sign-in providers",
       "webhooks": "Webhooks",
       "security": "Security",
+      "usage": "App usage",
       "audit": "Audit log",
       "signingKeys": "Signing keys"
     },
@@ -271,7 +273,9 @@
       },
       "applications": {
         "title": "Applications",
-        "description": "OAuth clients that can sign people in with {name}: their redirect URLs, grant types, consent settings and usage."
+        "description": "OAuth clients that can sign people in with {name}: their redirect URLs, grant types and consent settings.",
+        "unusedHint": "{count, plural, one {# application hasn’t} other {# applications haven’t}} been used in the last 30 days.",
+        "viewUsage": "View usage"
       },
       "apis": {
         "title": "APIs",
@@ -297,6 +301,10 @@
       "consent": {
         "title": "Consent",
         "description": "Permissions people have granted to OAuth clients, with the scopes and when they were given."
+      },
+      "usage": {
+        "title": "App usage",
+        "description": "Which applications are used: access tokens, users and consents per application over the last 30 days."
       },
       "audit": {
         "title": "Audit log",
@@ -570,16 +578,20 @@
     },
     "apps": {
       "title": "Connected applications",
-      "description": "OAuth applications you have authorized to access your account.",
-      "empty": "You have not authorized any applications yet.",
-      "revokeAccess": "Revoke access",
-      "scopes": "Scopes",
-      "loadError": "Could not load your authorizations.",
-      "revokeError": "Could not revoke access.",
-      "revoked": "Access revoked",
-      "none": "None",
+      "description": "Apps you have allowed to access your account.",
+      "empty": "You have not connected any applications yet.",
+      "disconnect": "Disconnect",
+      "disconnectApp": "Disconnect {app}",
+      "permissions": "Permissions",
+      "signInOnly": "Sign-in only",
+      "connectedOn": "Connected on {date}",
+      "lastUsed": "Last used {time}",
+      "opensInNewTab": "(opens in a new tab)",
+      "loadError": "Could not load your connected applications.",
+      "revokeError": "Could not disconnect the application.",
+      "revoked": "Application disconnected",
       "cancel": "Cancel",
-      "confirmRevokeTitle": "Revoke access for {app}?",
+      "confirmRevokeTitle": "Disconnect {app}?",
       "confirmRevokeBody": "This app will no longer be able to access your account until you authorize it again."
     },
     "apiKeys": {

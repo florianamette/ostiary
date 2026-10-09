@@ -35,6 +35,8 @@ import {
   DEFAULT_ADMIN_TABLE_PAGE_SIZE,
   type AdminTablePageSize,
 } from "@ostiary/core/lib/admin/admin-table-page-size";
+import { adminAppIconUrl } from "@/lib/app-icon-url";
+import { AppIcon } from "@ostiary/core/components/app-icon";
 import { authClient } from "@/lib/auth-client";
 import { adminNotify } from "@ostiary/core/lib/admin/admin-notify";
 
@@ -371,13 +373,16 @@ export function AdminConsentPanel() {
                     </div>
                   </TableCell>
                   <TableCell className="hidden sm:table-cell">
-                    <div className="flex flex-col gap-0.5">
-                      <span className="text-sm font-medium">
-                        {row.clientLabel}
-                      </span>
-                      <code className="text-muted-foreground max-w-[220px] truncate font-mono text-xs">
-                        {row.clientId}
-                      </code>
+                    <div className="flex items-center gap-2.5">
+                      <AppIcon name={row.clientLabel} src={adminAppIconUrl(row.clientId)} size={28} />
+                      <div className="flex min-w-0 flex-col gap-0.5">
+                        <span className="text-sm font-medium">
+                          {row.clientLabel}
+                        </span>
+                        <code className="text-muted-foreground max-w-[220px] truncate font-mono text-xs">
+                          {row.clientId}
+                        </code>
+                      </div>
                     </div>
                   </TableCell>
                   <TableCell className="hidden lg:table-cell">

@@ -198,10 +198,10 @@
     "deny": "Deny",
     "allow": "Allow",
     "scopes": {
-      "openid": "Verify who you are (OpenID Connect)",
-      "profile": "Name and profile information",
-      "email": "Email address",
-      "offline_access": "Access when you are not actively using the application"
+      "openid": "Kimliğinizi doğrulama (OpenID Connect)",
+      "profile": "Ad ve profil bilgileri",
+      "email": "E-posta adresi",
+      "offline_access": "Uygulamayı etkin olarak kullanmadığınızda erişim"
     },
     "unverified": {
       "title": "Doğrulanmamış uygulama",
@@ -232,6 +232,7 @@
       "signInProviders": "Oturum açma sağlayıcıları",
       "webhooks": "Webhook'lar",
       "security": "Security",
+      "usage": "Uygulama kullanımı",
       "audit": "Audit log",
       "signingKeys": "İmzalama anahtarları"
     },
@@ -249,6 +250,7 @@
       "signInProviders": "Oturum açma sağlayıcıları",
       "webhooks": "Webhook'lar",
       "security": "Security",
+      "usage": "Uygulama kullanımı",
       "audit": "Audit log",
       "signingKeys": "İmzalama anahtarları"
     },
@@ -271,7 +273,9 @@
       },
       "applications": {
         "title": "Applications",
-        "description": "OAuth clients that can sign people in with {name}: their redirect URLs, grant types, consent settings and usage."
+        "description": "{name} ile kullanıcıların oturum açmasını sağlayabilen OAuth istemcileri: yönlendirme URL’leri, grant türleri ve onay ayarları.",
+        "unusedHint": "{count, plural, other {# uygulama}} son 30 gündür kullanılmadı.",
+        "viewUsage": "Kullanımı gör"
       },
       "apis": {
         "title": "API'ler",
@@ -297,6 +301,10 @@
       "consent": {
         "title": "Consent",
         "description": "Permissions people have granted to OAuth clients, with the scopes and when they were given."
+      },
+      "usage": {
+        "title": "Uygulama kullanımı",
+        "description": "Hangi uygulamalar kullanılıyor: son 30 gündeki uygulama başına erişim belirteçleri, kullanıcılar ve onaylar."
       },
       "audit": {
         "title": "Audit log",
@@ -569,18 +577,22 @@
       "none": "None"
     },
     "apps": {
-      "title": "Connected applications",
-      "description": "OAuth applications you have authorized to access your account.",
-      "empty": "You have not authorized any applications yet.",
-      "revokeAccess": "Revoke access",
-      "scopes": "Scopes",
-      "loadError": "Could not load your authorizations.",
-      "revokeError": "Could not revoke access.",
-      "revoked": "Access revoked",
-      "none": "None",
-      "cancel": "Cancel",
-      "confirmRevokeTitle": "Revoke access for {app}?",
-      "confirmRevokeBody": "This app will no longer be able to access your account until you authorize it again."
+      "title": "Bağlı uygulamalar",
+      "description": "Hesabınıza erişmesine izin verdiğiniz uygulamalar.",
+      "empty": "Henüz hiçbir uygulama bağlamadınız.",
+      "disconnect": "Bağlantıyı kes",
+      "disconnectApp": "{app} bağlantısını kes",
+      "permissions": "İzinler",
+      "signInOnly": "Yalnızca oturum açma",
+      "connectedOn": "Bağlanma tarihi: {date}",
+      "lastUsed": "Son kullanım: {time}",
+      "opensInNewTab": "(yeni sekmede açılır)",
+      "loadError": "Bağlı uygulamalarınız yüklenemedi.",
+      "revokeError": "Uygulamanın bağlantısı kesilemedi.",
+      "revoked": "Uygulamanın bağlantısı kesildi",
+      "cancel": "İptal",
+      "confirmRevokeTitle": "{app} bağlantısı kesilsin mi?",
+      "confirmRevokeBody": "Bu uygulama, siz yeniden yetkilendirene kadar hesabınıza erişemeyecek."
     },
     "apiKeys": {
       "title": "API anahtarları",
