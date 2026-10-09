@@ -141,7 +141,11 @@ const ENTRIES: Record<SocialProvider, Entry> = {
   dropbox: { name: "Dropbox", fields: [clientId("App key"), clientSecret("App secret")], consoleUrl: "https://www.dropbox.com/developers/apps" },
   facebook: { name: "Facebook", fields: [clientId("App ID"), clientSecret("App secret")], consoleUrl: "https://developers.facebook.com/apps/" },
   figma: { name: "Figma", consoleUrl: "https://www.figma.com/developers/apps" },
-  github: { name: "GitHub", consoleUrl: "https://github.com/settings/developers" },
+  github: {
+    name: "GitHub",
+    consoleUrl: "https://github.com/settings/developers",
+    note: "An OAuth App works as is. A GitHub App also needs the account permission Email addresses set to Read-only, or sign-in fails with no email.",
+  },
   gitlab: {
     name: "GitLab",
     fields: [
