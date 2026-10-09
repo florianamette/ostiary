@@ -6,10 +6,12 @@ import { and, eq } from "drizzle-orm";
 import { z } from "zod";
 
 import { db } from "@ostiary/core/db/index";
-import { apikey, oauthClientResource, user } from "@ostiary/core/db/schema";
+import { apikey, oauthClientResource, organization, user } from "@ostiary/core/db/schema";
 import {
   API_KEY_VERIFY_PATH,
   checkKeyForApi,
+  keyOwnerType,
+  organizationMayOwnKeys,
   parseKeyGrant,
   pluginErrorToVerifyError,
   type VerifyError,
@@ -32,7 +34,12 @@ export type ApiKeyVerification =
   | {
       valid: true;
       keyId: string;
-      userId: string;
+      /** Who the key belongs to. Organization keys outlive the member who created them. */
+      ownerType: "user" | "organization";
+      /** The owning user, or null for an organization's key. */
+      userId: string | null;
+      /** Only for an organization's key. */
+      organizationId?: string;
       api: string;
       scopes: string[];
       expiresAt: string | null;
@@ -51,7 +58,9 @@ export type ApiKeyVerification =
  * - The caller names its API (`resource`) and must be linked to it on the admin APIs page,
  *   the same rule Better Auth applies before a resource server may introspect a token.
  * - A key for another API gets the same answer as an unknown key, before the key's usage or
- *   rate limit is touched. Then the plugin checks it (expiry, rate limit) and records its use.
+ *   rate limit is touched. So does the key of a banned or deleted user, or of a deleted
+ *   organization. The answer says who owns the key: `ownerType` "user" with `userId`, or
+ *   "organization" with `organizationId` (and `userId: null`). Then the plugin checks it (expiry, rate limit) and records its use.
  */
 export function apiKeyVerification({
   providerOptions,
@@ -110,22 +119,36 @@ export function apiKeyVerification({
           if (!(await currentApiKeySettings()).enabled) return answer({ valid: false, error: "api_keys_disabled" });
 
           const [row] = await db
-            .select({ permissions: apikey.permissions, referenceId: apikey.referenceId })
+            .select({ permissions: apikey.permissions, referenceId: apikey.referenceId, configId: apikey.configId })
             .from(apikey)
             .where(eq(apikey.key, await defaultKeyHasher(key)))
             .limit(1);
           if (!row) return answer({ valid: false, error: "invalid_key" });
-          const [owner] = await db
-            .select({ banned: user.banned, banExpires: user.banExpires })
-            .from(user)
-            .where(eq(user.id, row.referenceId))
-            .limit(1);
+          const ownerType = keyOwnerType(row.configId);
+          let owner: { banned: boolean | null; banExpires: Date | null } | null = null;
+          if (ownerType === "organization") {
+            // An organization has no ban: its key is good while the organization exists.
+            const [org] = organizationMayOwnKeys(row.referenceId)
+              ? await db
+                  .select({ id: organization.id })
+                  .from(organization)
+                  .where(eq(organization.id, row.referenceId))
+                  .limit(1)
+              : [];
+            owner = org ? { banned: false, banExpires: null } : null;
+          } else {
+            [owner = null] = await db
+              .select({ banned: user.banned, banExpires: user.banExpires })
+              .from(user)
+              .where(eq(user.id, row.referenceId))
+              .limit(1);
+          }
           const checked = checkKeyForApi({
             grant: parseKeyGrant(row.permissions),
             requestedApi: resource,
             api: await findKeyApi(resource),
             authServer,
-            owner: owner ?? null,
+            owner,
           });
           if (!checked.ok) return answer({ valid: false, error: checked.error });
 
@@ -152,7 +175,9 @@ export function apiKeyVerification({
           return answer({
             valid: true,
             keyId: verified.key.id,
-            userId: verified.key.referenceId,
+            ...(ownerType === "organization"
+              ? { ownerType, userId: null, organizationId: verified.key.referenceId }
+              : { ownerType, userId: verified.key.referenceId }),
             api: resource,
             scopes: checked.scopes,
             expiresAt,

@@ -539,7 +539,16 @@
       "deleted": "Organization deleted",
       "deleteError": "Could not delete the organization.",
       "confirmDeleteTitle": "Delete {name}?",
-      "confirmDeleteBody": "This removes the organization, its {count, plural, one {# membership} other {# memberships}} and pending invitations. Member accounts stay. This cannot be undone."
+      "confirmDeleteBody": "This removes the organization, its {count, plural, one {# membership} other {# memberships}} and pending invitations. Member accounts stay. This cannot be undone.",
+      "apiKeys": {
+        "show": "API-nycklar",
+        "hide": "Dölj API-nycklar",
+        "title": "API-nycklar för {name}",
+        "description": "Nycklar som ägs av organisationen, för dess skript och tjänster. De fortsätter att fungera när medlemmen som skapade dem lämnar. Endast ägare och administratörer ser dem.",
+        "empty": "Den här organisationen har inga API-nycklar.",
+        "loadError": "Det gick inte att läsa in organisationens API-nycklar.",
+        "limit": "Den här organisationen har redan {max} nycklar. Återkalla en för att skapa en ny."
+      }
     },
     "security": {
       "title": "Security",
@@ -646,8 +655,11 @@
         "signedOut": "Din session har avslutats. Logga in igen.",
         "impersonating": "Det går inte att skapa API-nycklar medan du visar någon annans konto.",
         "recentSignIn": "Av säkerhetsskäl måste du logga in igen för att skapa en API-nyckel.",
-        "failed": "Det gick inte att skapa API-nyckeln."
-      }
+        "failed": "Det gick inte att skapa API-nyckeln.",
+        "forbidden": "Endast ägare och administratörer i den här organisationen kan hantera dess API-nycklar."
+      },
+      "createdBy": "skapad av {name}",
+      "createdByDeleted": "skaparens konto borttaget"
     },
     "accountMenu": "Account menu",
     "connectedAccounts": {

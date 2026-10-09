@@ -539,7 +539,16 @@
       "deleted": "Organization deleted",
       "deleteError": "Could not delete the organization.",
       "confirmDeleteTitle": "Delete {name}?",
-      "confirmDeleteBody": "This removes the organization, its {count, plural, one {# membership} other {# memberships}} and pending invitations. Member accounts stay. This cannot be undone."
+      "confirmDeleteBody": "This removes the organization, its {count, plural, one {# membership} other {# memberships}} and pending invitations. Member accounts stay. This cannot be undone.",
+      "apiKeys": {
+        "show": "API-nøgler",
+        "hide": "Skjul API-nøgler",
+        "title": "API-nøgler for {name}",
+        "description": "Nøgler, som organisationen ejer, til dens scripts og tjenester. De virker stadig, når medlemmet, der oprettede dem, forlader organisationen. Kun ejere og administratorer kan se dem.",
+        "empty": "Denne organisation har ingen API-nøgler.",
+        "loadError": "Organisationens API-nøgler kunne ikke indlæses.",
+        "limit": "Denne organisation har allerede {max} nøgler. Tilbagekald en for at oprette en ny."
+      }
     },
     "security": {
       "title": "Security",
@@ -646,8 +655,11 @@
         "signedOut": "Din session er udløbet. Log ind igen.",
         "impersonating": "API-nøgler kan ikke oprettes, mens du ser en anden persons konto.",
         "recentSignIn": "Af hensyn til din sikkerhed skal du logge ind igen for at oprette en API-nøgle.",
-        "failed": "Kunne ikke oprette API-nøglen."
-      }
+        "failed": "Kunne ikke oprette API-nøglen.",
+        "forbidden": "Kun ejere og administratorer af denne organisation kan administrere dens API-nøgler."
+      },
+      "createdBy": "oprettet af {name}",
+      "createdByDeleted": "opretterens konto slettet"
     },
     "accountMenu": "Account menu",
     "connectedAccounts": {

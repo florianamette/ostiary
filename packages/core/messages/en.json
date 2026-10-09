@@ -539,7 +539,16 @@
       "deleted": "Organization deleted",
       "deleteError": "Could not delete the organization.",
       "confirmDeleteTitle": "Delete {name}?",
-      "confirmDeleteBody": "This removes the organization, its {count, plural, one {# membership} other {# memberships}} and pending invitations. Member accounts stay. This cannot be undone."
+      "confirmDeleteBody": "This removes the organization, its {count, plural, one {# membership} other {# memberships}} and pending invitations. Member accounts stay. This cannot be undone.",
+      "apiKeys": {
+        "show": "API keys",
+        "hide": "Hide API keys",
+        "title": "API keys of {name}",
+        "description": "Keys owned by the organization, for its scripts and services. They keep working when the member who created them leaves. Only owners and admins see them.",
+        "empty": "This organization has no API keys.",
+        "loadError": "Could not load this organization's API keys.",
+        "limit": "This organization already has {max} keys. Revoke one to create another."
+      }
     },
     "security": {
       "title": "Security",
@@ -646,8 +655,11 @@
         "signedOut": "Your session has ended. Sign in again.",
         "impersonating": "API keys cannot be created while viewing someone else's account.",
         "recentSignIn": "For your security, sign in again to create an API key.",
-        "failed": "Could not create the API key."
-      }
+        "failed": "Could not create the API key.",
+        "forbidden": "Only owners and admins of this organization can manage its API keys."
+      },
+      "createdBy": "created by {name}",
+      "createdByDeleted": "creator's account deleted"
     },
     "accountMenu": "Account menu",
     "connectedAccounts": {

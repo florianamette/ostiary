@@ -13,6 +13,10 @@ export function toAdminApiKeyRows(keys: ApiKeyListItem[]): AdminApiKeyRow[] {
     createdAt: key.createdAt.toISOString(),
     lastUsedAt: key.lastUsedAt?.toISOString() ?? null,
     expiresAt: key.expiresAt?.toISOString() ?? null,
-    owner: { id: key.owner.id, email: key.owner.email },
+    owner:
+      key.owner.type === "organization"
+        ? { type: "organization", id: key.owner.id, label: key.owner.name }
+        : { type: "user", id: key.owner.id, label: key.owner.email },
+    createdBy: key.createdBy ? { id: key.createdBy.id, email: key.createdBy.email } : null,
   }));
 }

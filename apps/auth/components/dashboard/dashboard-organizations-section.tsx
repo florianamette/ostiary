@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Loader2 } from "lucide-react";
+import { KeyRoundIcon, Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 
@@ -22,7 +22,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@ostiary/core/components/ui/select";
+import { ApiKeysManager, type ApiKeysSource } from "@/components/dashboard/dashboard-api-keys-section";
 import { authClient } from "@/lib/auth-client";
+import {
+  createOrganizationApiKey,
+  getOrganizationApiKeys,
+  getOrganizationsWithManagedApiKeys,
+  revokeOrganizationApiKey,
+} from "@/lib/organization-api-keys-actions";
 import { PUBLIC_ORGANIZATION_ID } from "@ostiary/core/lib/organization-public";
 
 type OrgRow = { id: string; name: string; slug: string };
@@ -52,6 +59,15 @@ export function DashboardOrganizationsSection() {
   );
   const [inviting, setInviting] = React.useState(false);
   const [memberRole, setMemberRole] = React.useState<string | undefined>();
+  // Organizations whose API keys the user manages (owner or admin), and the one shown.
+  const [keyOrgIds, setKeyOrgIds] = React.useState<Set<string>>(new Set());
+  const [keysOpenFor, setKeysOpenFor] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    void getOrganizationsWithManagedApiKeys()
+      .then((ids) => setKeyOrgIds(new Set(ids)))
+      .catch(() => setKeyOrgIds(new Set()));
+  }, [orgs]);
 
   const loadOrgs = React.useCallback(async () => {
     setLoading(true);
@@ -173,30 +189,49 @@ export function DashboardOrganizationsSection() {
                 return (
                   <li
                     key={o.id}
-                    className="flex flex-col gap-2 rounded-md border border-border px-3 py-2 sm:flex-row sm:items-center sm:justify-between"
+                    className="flex flex-col gap-2 rounded-md border border-border px-3 py-2 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between"
                   >
                     <div>
                       <p className="text-sm font-medium">{o.name}</p>
                       <p className="text-xs text-muted-foreground">{o.slug}</p>
                     </div>
-                    {isActive ? (
-                      <span className="text-xs font-medium text-muted-foreground">
-                        {t("active")}
-                      </span>
-                    ) : (
-                      <Button
-                        type="button"
-                        variant="outline"
-                        size="sm"
-                        disabled={settingId === o.id}
-                        onClick={() => void handleSetActive(o.id)}
-                      >
-                        {settingId === o.id ? (
-                          <Loader2 className="size-4 animate-spin" aria-hidden />
-                        ) : null}
-                        {t("switchTo")}
-                      </Button>
-                    )}
+                    <div className="flex flex-wrap items-center gap-2">
+                      {keyOrgIds.has(o.id) ? (
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="sm"
+                          aria-expanded={keysOpenFor === o.id}
+                          onClick={() => setKeysOpenFor((open) => (open === o.id ? null : o.id))}
+                        >
+                          <KeyRoundIcon className="size-3.5" aria-hidden />
+                          {keysOpenFor === o.id ? t("apiKeys.hide") : t("apiKeys.show")}
+                        </Button>
+                      ) : null}
+                      {isActive ? (
+                        <span className="text-xs font-medium text-muted-foreground">
+                          {t("active")}
+                        </span>
+                      ) : (
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          disabled={settingId === o.id}
+                          onClick={() => void handleSetActive(o.id)}
+                        >
+                          {settingId === o.id ? (
+                            <Loader2 className="size-4 animate-spin" aria-hidden />
+                          ) : null}
+                          {t("switchTo")}
+                        </Button>
+                      )}
+                    </div>
+                    {keysOpenFor === o.id ? (
+                      <div className="basis-full sm:mt-1">
+                        <OrganizationApiKeys organization={o} />
+                      </div>
+                    ) : null}
                   </li>
                 );
               })}
@@ -246,5 +281,33 @@ export function DashboardOrganizationsSection() {
         ) : null}
       </CardContent>
     </Card>
+  );
+}
+
+/**
+ * One organization's API keys, for its owners and admins: the organization owns them, so they
+ * keep working when the member who created them leaves.
+ */
+function OrganizationApiKeys({ organization }: { organization: OrgRow }) {
+  const t = useTranslations("dashboard.organizations.apiKeys");
+  const source = React.useMemo<ApiKeysSource>(
+    () => ({
+      load: () => getOrganizationApiKeys(organization.id),
+      create: (input) => createOrganizationApiKey(organization.id, input),
+      revoke: (id) => revokeOrganizationApiKey(organization.id, id),
+    }),
+    [organization.id],
+  );
+  return (
+    <ApiKeysManager
+      source={source}
+      layout="inline"
+      testId={`org-api-keys-${organization.slug}`}
+      title={t("title", { name: organization.name })}
+      description={t("description")}
+      emptyText={t("empty")}
+      loadErrorText={t("loadError")}
+      limitText={(max) => t("limit", { max })}
+    />
   );
 }
