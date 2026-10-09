@@ -539,7 +539,16 @@
       "deleted": "Organization deleted",
       "deleteError": "Could not delete the organization.",
       "confirmDeleteTitle": "Delete {name}?",
-      "confirmDeleteBody": "This removes the organization, its {count, plural, one {# membership} other {# memberships}} and pending invitations. Member accounts stay. This cannot be undone."
+      "confirmDeleteBody": "This removes the organization, its {count, plural, one {# membership} other {# memberships}} and pending invitations. Member accounts stay. This cannot be undone.",
+      "apiKeys": {
+        "show": "API कुंजियाँ",
+        "hide": "API कुंजियाँ छिपाएँ",
+        "title": "{name} की API कुंजियाँ",
+        "description": "संगठन के स्वामित्व वाली कुंजियाँ, उसकी स्क्रिप्ट और सेवाओं के लिए। इन्हें बनाने वाला सदस्य चला जाए तब भी ये काम करती रहती हैं। केवल स्वामी और व्यवस्थापक इन्हें देखते हैं।",
+        "empty": "इस संगठन के पास कोई API कुंजी नहीं है।",
+        "loadError": "इस संगठन की API कुंजियाँ लोड नहीं हो सकीं।",
+        "limit": "इस संगठन के पास पहले से {max} कुंजियाँ हैं। नई बनाने के लिए एक रद्द करें।"
+      }
     },
     "security": {
       "title": "Security",
@@ -646,8 +655,11 @@
         "signedOut": "आपका सेशन खत्म हो गया है। फिर से साइन इन करें।",
         "impersonating": "किसी और का खाता देखते समय API कुंजियाँ नहीं बनाई जा सकतीं।",
         "recentSignIn": "आपकी सुरक्षा के लिए, API कुंजी बनाने के लिए फिर से साइन इन करें।",
-        "failed": "API कुंजी नहीं बनाई जा सकी।"
-      }
+        "failed": "API कुंजी नहीं बनाई जा सकी।",
+        "forbidden": "केवल इस संगठन के स्वामी और व्यवस्थापक ही इसकी API कुंजियाँ प्रबंधित कर सकते हैं।"
+      },
+      "createdBy": "{name} द्वारा बनाई गई",
+      "createdByDeleted": "निर्माता का खाता हटा दिया गया"
     },
     "accountMenu": "Account menu",
     "connectedAccounts": {

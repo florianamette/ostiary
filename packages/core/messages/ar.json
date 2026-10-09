@@ -539,7 +539,16 @@
       "deleted": "Organization deleted",
       "deleteError": "Could not delete the organization.",
       "confirmDeleteTitle": "Delete {name}?",
-      "confirmDeleteBody": "This removes the organization, its {count, plural, one {# membership} other {# memberships}} and pending invitations. Member accounts stay. This cannot be undone."
+      "confirmDeleteBody": "This removes the organization, its {count, plural, one {# membership} other {# memberships}} and pending invitations. Member accounts stay. This cannot be undone.",
+      "apiKeys": {
+        "show": "مفاتيح API",
+        "hide": "إخفاء مفاتيح API",
+        "title": "مفاتيح API لـ {name}",
+        "description": "مفاتيح تملكها المؤسسة لبرامجها النصية وخدماتها. تظل صالحة عندما يغادر العضو الذي أنشأها. لا يراها إلا المالكون والمسؤولون.",
+        "empty": "لا تملك هذه المؤسسة أي مفاتيح API.",
+        "loadError": "تعذّر تحميل مفاتيح API لهذه المؤسسة.",
+        "limit": "لدى هذه المؤسسة بالفعل الحد الأقصى من المفاتيح ({max}). أبطل أحدها لإنشاء مفتاح آخر."
+      }
     },
     "security": {
       "title": "Security",
@@ -646,8 +655,11 @@
         "signedOut": "انتهت جلستك. سجّل الدخول مرة أخرى.",
         "impersonating": "لا يمكن إنشاء مفاتيح API أثناء عرض حساب شخص آخر.",
         "recentSignIn": "لأمانك، سجّل الدخول مرة أخرى لإنشاء مفتاح API.",
-        "failed": "تعذّر إنشاء مفتاح API."
-      }
+        "failed": "تعذّر إنشاء مفتاح API.",
+        "forbidden": "يمكن لمالكي هذه المؤسسة ومسؤوليها فقط إدارة مفاتيح API الخاصة بها."
+      },
+      "createdBy": "أنشأه {name}",
+      "createdByDeleted": "حُذف حساب المنشئ"
     },
     "accountMenu": "Account menu",
     "connectedAccounts": {

@@ -8,6 +8,25 @@ All notable changes are documented here. The format follows
 
 ### Added
 
+- **Organization API keys.** Owners and admins of an organization create, list and revoke
+  keys the organization owns, from the account dashboard (**Organizations**, **API keys**
+  under the organization); members do not see them. The key belongs to the organization, so
+  it keeps working when the member who created it leaves; `apikey.created_by` records them.
+  Same rules as personal keys (one API and its scopes, expiry within the admin maximum, shown
+  once, recent sign-in, no impersonation, no linked-only APIs), at most 50 per organization,
+  never for the Public workspace. Built on the plugin's own model: a second configuration
+  (`configId: "organization"`, `references: "organization"`, `referenceId` = organization
+  id), with the plugin's `apiKey` permission granted to the `owner` and `admin` roles (the
+  other organization permissions are Better Auth's defaults, unchanged). `POST
+  /api/auth/api-key/verify` now answers `ownerType` (`"user"` or `"organization"`), and
+  `organizationId` with `userId: null` for an organization's key; user keys keep `userId`.
+  Admin console: an **API keys** card on the organization's page, and organization keys on
+  the **API keys** page, both with revoke. Audit entries (`api_key.create`,
+  `api_key.revoke`) target the organization. Migration `0011_org_api_keys`: `reference_id`
+  loses its foreign key to `user`; generated `user_id` and `organization_id` columns carry
+  cascading foreign keys instead, so deleting an account still deletes its personal keys
+  and deleting an organization deletes its keys; `created_by` (set null when that account
+  is deleted). Strings in all 20 languages.
 - **Google One Tap** on the sign-in and sign-up pages, with Better Auth's `oneTap` plugin.
   Turned on per provider in the admin console (**Sign-in providers** > Google > **Show
   Google One Tap**, new `social_provider.one_tap` column, migration `0010_google_one_tap`),

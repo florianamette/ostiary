@@ -539,7 +539,16 @@
       "deleted": "组织已删除",
       "deleteError": "无法删除该组织。",
       "confirmDeleteTitle": "删除 {name}？",
-      "confirmDeleteBody": "将删除该组织、{count} 个成员关系及待处理邀请。成员账户会保留。此操作无法撤销。"
+      "confirmDeleteBody": "将删除该组织、{count} 个成员关系及待处理邀请。成员账户会保留。此操作无法撤销。",
+      "apiKeys": {
+        "show": "API 密钥",
+        "hide": "隐藏 API 密钥",
+        "title": "{name} 的 API 密钥",
+        "description": "归组织所有的密钥，用于其脚本和服务。创建它们的成员离开后仍然有效。只有所有者和管理员可以看到。",
+        "empty": "该组织没有 API 密钥。",
+        "loadError": "无法加载该组织的 API 密钥。",
+        "limit": "该组织已有 {max} 个密钥。请撤销一个后再创建。"
+      }
     },
     "security": {
       "title": "安全",
@@ -646,8 +655,11 @@
         "signedOut": "您的会话已结束。请重新登录。",
         "impersonating": "查看他人账户时无法创建 API 密钥。",
         "recentSignIn": "为了您的安全，请重新登录后再创建 API 密钥。",
-        "failed": "无法创建 API 密钥。"
-      }
+        "failed": "无法创建 API 密钥。",
+        "forbidden": "只有该组织的所有者和管理员可以管理其 API 密钥。"
+      },
+      "createdBy": "创建者：{name}",
+      "createdByDeleted": "创建者账号已删除"
     },
     "accountMenu": "账户菜单",
     "connectedAccounts": {

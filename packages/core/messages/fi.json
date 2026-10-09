@@ -539,7 +539,16 @@
       "deleted": "Organization deleted",
       "deleteError": "Could not delete the organization.",
       "confirmDeleteTitle": "Delete {name}?",
-      "confirmDeleteBody": "This removes the organization, its {count, plural, one {# membership} other {# memberships}} and pending invitations. Member accounts stay. This cannot be undone."
+      "confirmDeleteBody": "This removes the organization, its {count, plural, one {# membership} other {# memberships}} and pending invitations. Member accounts stay. This cannot be undone.",
+      "apiKeys": {
+        "show": "API-avaimet",
+        "hide": "Piilota API-avaimet",
+        "title": "Organisaation {name} API-avaimet",
+        "description": "Organisaation omistamat avaimet sen skripteille ja palveluille. Ne toimivat edelleen, kun ne luonut jäsen lähtee. Vain omistajat ja ylläpitäjät näkevät ne.",
+        "empty": "Tällä organisaatiolla ei ole API-avaimia.",
+        "loadError": "Organisaation API-avaimia ei voitu ladata.",
+        "limit": "Tällä organisaatiolla on jo {max} avainta. Peruuta yksi luodaksesi uuden."
+      }
     },
     "security": {
       "title": "Security",
@@ -646,8 +655,11 @@
         "signedOut": "Istuntosi on päättynyt. Kirjaudu uudelleen.",
         "impersonating": "API-avaimia ei voi luoda, kun tarkastelet toisen henkilön tiliä.",
         "recentSignIn": "Turvallisuussyistä kirjaudu uudelleen luodaksesi API-avaimen.",
-        "failed": "API-avainta ei voitu luoda."
-      }
+        "failed": "API-avainta ei voitu luoda.",
+        "forbidden": "Vain tämän organisaation omistajat ja ylläpitäjät voivat hallita sen API-avaimia."
+      },
+      "createdBy": "luonut {name}",
+      "createdByDeleted": "luojan tili poistettu"
     },
     "accountMenu": "Account menu",
     "connectedAccounts": {

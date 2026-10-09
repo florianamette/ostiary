@@ -539,7 +539,16 @@
       "deleted": "Organization deleted",
       "deleteError": "Could not delete the organization.",
       "confirmDeleteTitle": "Delete {name}?",
-      "confirmDeleteBody": "This removes the organization, its {count, plural, one {# membership} other {# memberships}} and pending invitations. Member accounts stay. This cannot be undone."
+      "confirmDeleteBody": "This removes the organization, its {count, plural, one {# membership} other {# memberships}} and pending invitations. Member accounts stay. This cannot be undone.",
+      "apiKeys": {
+        "show": "API-sleutels",
+        "hide": "API-sleutels verbergen",
+        "title": "API-sleutels van {name}",
+        "description": "Sleutels van de organisatie, voor haar scripts en diensten. Ze blijven werken als het lid dat ze heeft gemaakt vertrekt. Alleen eigenaren en beheerders zien ze.",
+        "empty": "Deze organisatie heeft geen API-sleutels.",
+        "loadError": "Kan de API-sleutels van deze organisatie niet laden.",
+        "limit": "Deze organisatie heeft al {max} sleutels. Trek er een in om een nieuwe te maken."
+      }
     },
     "security": {
       "title": "Security",
@@ -646,8 +655,11 @@
         "signedOut": "Je sessie is beëindigd. Log opnieuw in.",
         "impersonating": "Je kunt geen API-sleutels maken terwijl je het account van iemand anders bekijkt.",
         "recentSignIn": "Log voor je veiligheid opnieuw in om een API-sleutel te maken.",
-        "failed": "Kan de API-sleutel niet maken."
-      }
+        "failed": "Kan de API-sleutel niet maken.",
+        "forbidden": "Alleen eigenaren en beheerders van deze organisatie kunnen haar API-sleutels beheren."
+      },
+      "createdBy": "gemaakt door {name}",
+      "createdByDeleted": "account van maker verwijderd"
     },
     "accountMenu": "Account menu",
     "connectedAccounts": {

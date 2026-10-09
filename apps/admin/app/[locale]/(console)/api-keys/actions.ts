@@ -1,7 +1,7 @@
 "use server";
 
 import { MAX_LIFETIME_DAYS_LIMIT } from "@ostiary/core/lib/api-key-policy";
-import { apiKeyAuditMetadata, deleteApiKey, saveApiKeySettings } from "@ostiary/core/lib/api-keys";
+import { apiKeyAuditMetadata, apiKeyAuditTarget, deleteApiKey, saveApiKeySettings } from "@ostiary/core/lib/api-keys";
 import { adminActor } from "@/lib/admin-audit";
 
 type Result = { ok: true } | { ok: false; error: string };
@@ -25,7 +25,7 @@ export async function updateApiKeySettings(input: { enabled: boolean; maxLifetim
   return { ok: true };
 }
 
-/** Revokes (deletes) any user's key. */
+/** Revokes (deletes) any key, a user's or an organization's. */
 export async function adminRevokeApiKey(id: string): Promise<Result> {
   const { audit } = await adminActor();
   if (typeof id !== "string" || !id) return { ok: false, error: "No key given." };
@@ -33,7 +33,7 @@ export async function adminRevokeApiKey(id: string): Promise<Result> {
   if (!deleted) return { ok: false, error: "This key no longer exists." };
   await audit({
     action: "api_key.revoke",
-    target: { type: "user", id: deleted.owner.id, label: deleted.owner.email },
+    target: apiKeyAuditTarget(deleted.owner),
     metadata: apiKeyAuditMetadata(deleted),
   });
   return { ok: true };

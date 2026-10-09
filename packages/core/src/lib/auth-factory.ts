@@ -24,6 +24,8 @@ import {
     username,
 } from "better-auth/plugins";
 import { twoFactor } from "better-auth/plugins/two-factor";
+import { createAccessControl } from "better-auth/plugins/access";
+import { adminAc, defaultStatements, memberAc, ownerAc } from "better-auth/plugins/organization/access";
 
 import { db } from "@ostiary/core/db/index";
 import * as schema from "@ostiary/core/db/schema";
@@ -65,7 +67,13 @@ import {
     registrationRequestError,
 } from "@ostiary/core/lib/client-registration-policy";
 import { googleOneTap, socialProvidersConfig, syncSocialProviders } from "@ostiary/core/lib/social-providers";
-import { KEY_RATE_LIMIT, API_KEY_NAME_MAX_LENGTH, MAX_LIFETIME_DAYS_LIMIT } from "@ostiary/core/lib/api-key-policy";
+import {
+    KEY_RATE_LIMIT,
+    API_KEY_NAME_MAX_LENGTH,
+    MAX_LIFETIME_DAYS_LIMIT,
+    ORGANIZATION_KEY_CONFIG_ID,
+    USER_KEY_CONFIG_ID,
+} from "@ostiary/core/lib/api-key-policy";
 import { deleteUserApiKeys } from "@ostiary/core/lib/api-keys";
 import { apiKeyVerification } from "@ostiary/core/lib/api-key-verification";
 import {
@@ -175,6 +183,20 @@ const UNUSED_EMAIL_OTP_PATHS = [
  * switch, one registered API and its scopes, the maximum lifetime) and write the audit log.
  * The plugin's verification has no HTTP route; APIs use /api-key/verify (api-key-verification.ts).
  */
+/**
+ * Better Auth's default organization roles, unchanged, plus the API key plugin's `apiKey`
+ * resource: owners and admins manage the organization's keys, members do not.
+ */
+const organizationAc = createAccessControl({
+    ...defaultStatements,
+    apiKey: ["create", "read", "update", "delete"],
+});
+const organizationRoles = {
+    owner: organizationAc.newRole({ ...ownerAc.statements, apiKey: ["create", "read", "update", "delete"] }),
+    admin: organizationAc.newRole({ ...adminAc.statements, apiKey: ["create", "read", "update", "delete"] }),
+    member: organizationAc.newRole({ ...memberAc.statements }),
+};
+
 const API_KEY_PLUGIN_PATHS = ["/api-key/create", "/api-key/get", "/api-key/update", "/api-key/delete", "/api-key/list"];
 
 /** Prefix of new API keys. */
@@ -345,11 +367,12 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
         }),
     });
 
-    // API keys for the APIs registered in Ostiary, owned by users. Each key holds one API and
-    // some of its scopes in `permissions`. Never a session: `enableSessionForAPIKeys` stays off
-    // (the default), so a key sent to Ostiary itself (x-api-key or otherwise) signs nobody in,
-    // on the auth app as on the admin console.
-    const apiKeys = apiKey({
+    // API keys for the APIs registered in Ostiary, owned by users ("default" configuration) or
+    // by organizations ("organization": `referenceId` is the organization id). Each key holds one
+    // API and some of its scopes in `permissions`. Never a session: `enableSessionForAPIKeys`
+    // stays off (the default), so a key sent to Ostiary itself (x-api-key or otherwise) signs
+    // nobody in, on the auth app as on the admin console.
+    const apiKeyConfig = {
         enableSessionForAPIKeys: false,
         defaultPrefix: API_KEY_PREFIX,
         // 64 random letters after the prefix (the default), stored as a SHA-256 digest.
@@ -359,7 +382,13 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
         // Every key expires; the admin console sets the maximum (checked before creation).
         keyExpiration: { defaultExpiresIn: null, minExpiresIn: 1, maxExpiresIn: MAX_LIFETIME_DAYS_LIMIT },
         rateLimit: { enabled: true, timeWindow: KEY_RATE_LIMIT.timeWindowMs, maxRequests: KEY_RATE_LIMIT.maxRequests },
-    });
+    } as const;
+    const apiKeys = apiKey([
+        { ...apiKeyConfig, configId: USER_KEY_CONFIG_ID, references: "user" },
+        // The plugin checks the creator's organization role (`apiKey: ["create"]`, see
+        // organizationRoles) on top of Ostiary's own check in the dashboard action.
+        { ...apiKeyConfig, configId: ORGANIZATION_KEY_CONFIG_ID, references: "organization" },
+    ]);
 
     return betterAuth({
         baseURL,
@@ -694,6 +723,9 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
                 origin: passkeyWebAuthn.origin,
             }),
             organization({
+                // Better Auth's default roles, plus organization API keys for owners and admins.
+                ac: organizationAc,
+                roles: organizationRoles,
                 // Only platform admins can create organizations. The check runs on the
                 // server, so the UI is not the only gate.
                 allowUserToCreateOrganization: (user) =>
