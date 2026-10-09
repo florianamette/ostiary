@@ -1,6 +1,6 @@
 import { randomBytes } from "node:crypto";
 
-import { expect, type APIRequestContext } from "@playwright/test";
+import { expect, type APIRequestContext, type Page } from "@playwright/test";
 
 import { waitForEmail } from "./mail";
 import { freshTotp, secretFromUri } from "./totp";
@@ -79,4 +79,12 @@ export async function signInWithTotp(api: APIRequestContext, email: string, pass
   const second = await api.post("/api/auth/two-factor/verify-totp", { data: { code: await freshTotp(secret) } });
   expect(second.status(), await second.text()).toBe(200);
   await expectSignedInAs(api, email);
+}
+
+/** Signs in on the auth app's login page (the page must be on it, or `goto` true). */
+export async function loginViaUi(page: Page, email: string, password: string, goto = true) {
+  if (goto) await page.goto("/en/login");
+  await page.getByRole("textbox", { name: "Email or username" }).fill(email);
+  await page.getByRole("textbox", { name: "Password" }).fill(password);
+  await page.getByRole("button", { name: "Login", exact: true }).click();
 }

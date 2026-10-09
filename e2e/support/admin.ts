@@ -41,3 +41,23 @@ export async function limitApiToLinked(page: Page, api: TestApi, clientIds: stri
   await dialog.getByRole("button", { name: "Save" }).click();
   await expect(page.getByText("Access updated")).toBeVisible();
 }
+
+/** APIs page, "Change" next to Applications: links applications, keeping the API open to every one. */
+export async function linkApplications(page: Page, api: TestApi, clientIds: string[]) {
+  await page.goto("/en/apis");
+  await page.getByRole("button", { name: `Change which applications can use ${api.name}` }).click();
+  const dialog = page.getByRole("dialog");
+  const filter = dialog.getByRole("searchbox", { name: "Filter applications" });
+  for (const clientId of clientIds) {
+    if (await filter.isVisible()) await filter.fill(clientId);
+    await dialog.getByRole("checkbox", { name: clientId }).check();
+  }
+  await dialog.getByRole("button", { name: "Save" }).click();
+  await expect(page.getByText("Access updated")).toBeVisible();
+}
+
+/** Picks an option of a Radix select (combobox) by its label. */
+export async function selectOption(page: Page, scope: import("@playwright/test").Locator, label: string | RegExp, option: string | RegExp) {
+  await scope.getByRole("combobox", { name: label }).click();
+  await page.getByRole("option", { name: option }).click();
+}
