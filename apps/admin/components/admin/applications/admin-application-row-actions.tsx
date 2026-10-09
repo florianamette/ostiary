@@ -9,6 +9,7 @@ import {
   PencilIcon,
   Trash2Icon,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { Button } from "@ostiary/core/components/ui/button";
 import {
@@ -73,6 +74,8 @@ export function AdminApplicationRowActions({
   onChanged: () => void;
   onNotify: (message: string, variant?: "error" | "success") => void;
 }) {
+  const t = useTranslations("admin.pages.applications.rowActions");
+  const tc = useTranslations("admin.common");
   const [removeOpen, setRemoveOpen] = React.useState(false);
   const [removePending, setRemovePending] = React.useState(false);
   const [rotateOpen, setRotateOpen] = React.useState(false);
@@ -110,7 +113,7 @@ export function AdminApplicationRowActions({
     setEditError(null);
     const redirect_uris = parseRedirectUris(editRedirectsRaw);
     if (redirect_uris.length === 0) {
-      setEditError("Enter at least one redirect URI (one per line or comma-separated).");
+      setEditError(t("editDialog.redirectUrisRequired"));
       return;
     }
     setEditPending(true);
@@ -139,11 +142,11 @@ export function AdminApplicationRowActions({
           "error" in json &&
           typeof (json as { error?: unknown }).error === "string"
             ? (json as { error: string }).error
-            : "Could not update application";
+            : t("editDialog.updateFailed");
         setEditError(err);
         return;
       }
-      onNotify("Application updated", "success");
+      onNotify(t("editDialog.updated"), "success");
       setEditOpen(false);
       resetEdit();
       onChanged();
@@ -159,10 +162,10 @@ export function AdminApplicationRowActions({
         client_id: row.clientId,
       });
       if (error) {
-        onNotify(error.message ?? "Could not delete client", "error");
+        onNotify(error.message ?? t("deleteDialog.deleteFailed"), "error");
         return;
       }
-      onNotify("Application removed", "success");
+      onNotify(t("deleteDialog.deleted"), "success");
       setRemoveOpen(false);
       onChanged();
     } finally {
@@ -178,7 +181,7 @@ export function AdminApplicationRowActions({
         client_id: row.clientId,
       });
       if (error) {
-        onNotify(error.message ?? "Could not rotate secret", "error");
+        onNotify(error.message ?? t("rotateDialog.rotateFailed"), "error");
         return;
       }
       const secret =
@@ -190,9 +193,9 @@ export function AdminApplicationRowActions({
           : null;
       if (secret) {
         setNewSecret(secret);
-        onNotify("New client secret issued, copy it now", "success");
+        onNotify(t("rotateDialog.newSecretIssued"), "success");
       } else {
-        onNotify("Secret rotated", "success");
+        onNotify(t("rotateDialog.rotated"), "success");
         setRotateOpen(false);
         onChanged();
       }
@@ -215,7 +218,7 @@ export function AdminApplicationRowActions({
             variant="ghost"
             size="icon-sm"
             className="text-muted-foreground"
-            aria-label={`Actions for ${row.name}`}
+            aria-label={t("menuLabel", { name: row.name })}
           >
             <MoreHorizontalIcon />
           </Button>
@@ -224,40 +227,40 @@ export function AdminApplicationRowActions({
           <DropdownMenuItem
             onClick={() => {
               void navigator.clipboard.writeText(row.clientId);
-              onNotify("Client ID copied", "success");
+              onNotify(t("clientIdCopied"), "success");
             }}
           >
             <CopyIcon />
-            Copy client ID
+            {t("copyClientId")}
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem
             onClick={() => openEdit()}
-            title="Name, redirect URIs, device sign-in and skip consent"
+            title={t("editHint")}
           >
             <PencilIcon />
-            Edit application
+            {t("edit")}
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() => setBrandingOpen(true)}
-            title="Logo, accent color and wording of the sign-in screens for this app"
+            title={t("brandingHint")}
           >
             <PaletteIcon />
-            Sign-in branding
+            {t("branding")}
           </DropdownMenuItem>
           <DropdownMenuItem
             disabled={!canRotateSecret}
             title={
               row.public
-                ? "Public clients have no secret"
+                ? t("rotateHintPublic")
                 : row.disabled
-                  ? "Enable the client first"
-                  : "Rotates the confidential client secret"
+                  ? t("rotateHintDisabled")
+                  : t("rotateHint")
             }
             onClick={() => setRotateOpen(true)}
           >
             <KeyRoundIcon />
-            Rotate secret
+            {t("rotateSecret")}
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem
@@ -266,7 +269,7 @@ export function AdminApplicationRowActions({
             onClick={() => setRemoveOpen(true)}
           >
             <Trash2Icon />
-            Delete application
+            {t("delete")}
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
@@ -288,41 +291,42 @@ export function AdminApplicationRowActions({
         <DialogContent className="sm:max-w-md">
           <form onSubmit={(ev) => void submitEdit(ev)}>
             <DialogHeader>
-              <DialogTitle>Edit application</DialogTitle>
+              <DialogTitle>{t("editDialog.title")}</DialogTitle>
               <DialogDescription>
-                Updates{" "}
-                <code className="font-mono text-xs">{row.clientId}</code> via{" "}
-                <code className="text-foreground">
-                  PATCH /api/admin/oauth-clients/…
-                </code>{" "}
-                (restricted fields such as{" "}
-                <code className="text-foreground">skip_consent</code>). See{" "}
-                <a
-                  href="https://better-auth.com/docs/plugins/oauth-provider#update-client"
-                  className="font-medium text-foreground underline-offset-4 hover:underline"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Better Auth, Update client
-                </a>
-                .
+                {t.rich("editDialog.description", {
+                  clientId: row.clientId,
+                  endpoint: "PATCH /api/admin/oauth-clients/…",
+                  field: "skip_consent",
+                  id: (c) => <code className="font-mono text-xs">{c}</code>,
+                  code: (c) => <code className="text-foreground">{c}</code>,
+                  link: (c) => (
+                    <a
+                      href="https://better-auth.com/docs/plugins/oauth-provider#update-client"
+                      className="font-medium text-foreground underline-offset-4 hover:underline"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {c}
+                    </a>
+                  ),
+                })}
               </DialogDescription>
             </DialogHeader>
             <FieldGroup className="py-4">
               <Field>
                 <FieldLabel htmlFor={`oauth-edit-name-${row.clientId}`}>
-                  Application name
+                  {t("editDialog.nameLabel")}
                 </FieldLabel>
                 <Input
                   id={`oauth-edit-name-${row.clientId}`}
                   value={editName}
                   onChange={(e) => setEditName(e.target.value)}
-                  placeholder="My app"
+                  placeholder={t("editDialog.namePlaceholder")}
                 />
               </Field>
               <Field>
                 <FieldLabel htmlFor={`oauth-edit-redirects-${row.clientId}`}>
-                  Redirect URIs
+                  {t("editDialog.redirectUrisLabel")}
                 </FieldLabel>
                 <Textarea
                   id={`oauth-edit-redirects-${row.clientId}`}
@@ -333,8 +337,7 @@ export function AdminApplicationRowActions({
                   className="font-mono text-sm"
                 />
                 <p className="text-muted-foreground text-xs">
-                  One per line or comma-separated. HTTPS required. Only public
-                  clients may use http on localhost.
+                  {t("editDialog.redirectUrisHint")}
                 </p>
               </Field>
               <Field>
@@ -351,11 +354,10 @@ export function AdminApplicationRowActions({
                       htmlFor={`oauth-edit-device-code-${row.clientId}`}
                       className="cursor-pointer font-medium leading-none"
                     >
-                      Device sign-in (CLIs, TVs)
+                      {t("editDialog.deviceCodeLabel")}
                     </Label>
                     <p className="text-muted-foreground text-xs leading-snug">
-                      Allows the device code grant. Turning it off stops new
-                      device sign-ins; tokens already issued keep working.
+                      {t("editDialog.deviceCodeHint")}
                     </p>
                   </div>
                 </div>
@@ -374,11 +376,10 @@ export function AdminApplicationRowActions({
                       htmlFor={`oauth-edit-skip-consent-${row.clientId}`}
                       className="cursor-pointer font-medium leading-none"
                     >
-                      Skip consent (trusted client)
+                      {t("editDialog.skipConsentLabel")}
                     </Label>
                     <p className="text-muted-foreground text-xs leading-snug">
-                      When enabled, users are not prompted to approve scopes for
-                      this application.
+                      {t("editDialog.skipConsentHint")}
                     </p>
                   </div>
                 </div>
@@ -395,10 +396,10 @@ export function AdminApplicationRowActions({
                 variant="outline"
                 onClick={() => setEditOpen(false)}
               >
-                Cancel
+                {tc("cancel")}
               </Button>
               <Button type="submit" disabled={editPending}>
-                {editPending ? "Saving…" : "Save changes"}
+                {editPending ? tc("saving") : tc("saveChanges")}
               </Button>
             </DialogFooter>
           </form>
@@ -408,24 +409,26 @@ export function AdminApplicationRowActions({
       <Dialog open={removeOpen} onOpenChange={setRemoveOpen}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Delete application?</DialogTitle>
+            <DialogTitle>{t("deleteDialog.title")}</DialogTitle>
             <DialogDescription>
-              Permanently removes{" "}
-              <span className="font-medium text-foreground">{row.name}</span> (
-              <code className="font-mono text-xs">{row.clientId}</code>). OAuth
-              tokens and consents for this client may be affected.
+              {t.rich("deleteDialog.description", {
+                name: row.name,
+                clientId: row.clientId,
+                strong: (c) => <span className="font-medium text-foreground">{c}</span>,
+                code: (c) => <code className="font-mono text-xs">{c}</code>,
+              })}
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
             <Button variant="outline" onClick={() => setRemoveOpen(false)}>
-              Cancel
+              {tc("cancel")}
             </Button>
             <Button
               variant="destructive"
               disabled={removePending}
               onClick={() => void removeClient()}
             >
-              {removePending ? "Deleting…" : "Delete"}
+              {removePending ? tc("deleting") : tc("delete")}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -440,15 +443,14 @@ export function AdminApplicationRowActions({
       >
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Rotate client secret?</DialogTitle>
+            <DialogTitle>{t("rotateDialog.title")}</DialogTitle>
             <DialogDescription>
-              The previous secret stops working immediately. Save the new secret
-              somewhere safe, it may only be shown once.
+              {t("rotateDialog.description")}
             </DialogDescription>
           </DialogHeader>
           {newSecret ? (
             <div className="grid gap-2 py-2">
-              <Label>New client secret</Label>
+              <Label>{t("rotateDialog.newSecretLabel")}</Label>
               <Input readOnly value={newSecret} className="font-mono text-xs" />
               <Button
                 variant="outline"
@@ -456,27 +458,27 @@ export function AdminApplicationRowActions({
                 className="w-fit"
                 onClick={() => {
                   void navigator.clipboard.writeText(newSecret);
-                  onNotify("Secret copied", "success");
+                  onNotify(t("rotateDialog.secretCopied"), "success");
                 }}
               >
                 <CopyIcon />
-                Copy secret
+                {t("rotateDialog.copySecret")}
               </Button>
             </div>
           ) : null}
           <DialogFooter>
             {newSecret ? (
-              <Button onClick={() => closeRotateDialog()}>Done</Button>
+              <Button onClick={() => closeRotateDialog()}>{tc("done")}</Button>
             ) : (
               <>
                 <Button variant="outline" onClick={() => setRotateOpen(false)}>
-                  Cancel
+                  {tc("cancel")}
                 </Button>
                 <Button
                   disabled={rotatePending}
                   onClick={() => void rotateSecret()}
                 >
-                  {rotatePending ? "Rotating…" : "Rotate secret"}
+                  {rotatePending ? t("rotateDialog.rotating") : t("rotateSecret")}
                 </Button>
               </>
             )}

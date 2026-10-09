@@ -2,6 +2,7 @@
 
 import { randomUUID } from "node:crypto";
 import { count, eq } from "drizzle-orm";
+import { getTranslations } from "next-intl/server";
 
 import { db } from "@ostiary/core/db/index";
 import { webhookDelivery, webhookEndpoint } from "@ostiary/core/db/schema";
@@ -36,10 +37,16 @@ type EndpointInput = { url: string; description: string; events: string[] };
 
 async function parseInput(input: EndpointInput): Promise<{ ok: true; url: string; description: string | null; events: WebhookEventType[] } | { ok: false; error: string }> {
   const events = [...new Set(input.events)].filter(isWebhookEventType);
-  if (events.length === 0) return { ok: false, error: "Choose at least one event." };
+  if (events.length === 0) {
+    const t = await getTranslations("admin.pages.webhooks.errors");
+    return { ok: false, error: t("noEvents") };
+  }
   const description = input.description.trim().slice(0, MAX_DESCRIPTION) || null;
   const checked = await checkWebhookUrl(input.url, webhooksAllowLocalhost());
-  if (!checked.ok) return checked;
+  if (!checked.ok) {
+    const t = await getTranslations("admin.urlCheck");
+    return { ok: false, error: t(checked.code, checked.values) };
+  }
   return { ok: true, url: checked.url.toString(), description, events };
 }
 
@@ -51,7 +58,10 @@ async function findEndpoint(id: string): Promise<{ url: string; enabled: boolean
 export async function createWebhook(input: EndpointInput): Promise<SecretResult & { id?: string }> {
   const { audit, session } = await adminActor();
   const [{ total } = { total: 0 }] = await db.select({ total: count() }).from(webhookEndpoint);
-  if (total >= MAX_ENDPOINTS) return { ok: false, error: `At most ${MAX_ENDPOINTS} endpoints.` };
+  if (total >= MAX_ENDPOINTS) {
+    const t = await getTranslations("admin.pages.webhooks.errors");
+    return { ok: false, error: t("tooMany", { max: MAX_ENDPOINTS }) };
+  }
   const parsed = await parseInput(input);
   if (!parsed.ok) return parsed;
   const secret = generateWebhookSecret();
@@ -71,7 +81,7 @@ export async function createWebhook(input: EndpointInput): Promise<SecretResult 
 export async function updateWebhook(id: string, input: EndpointInput & { enabled: boolean }): Promise<Result> {
   const { audit } = await adminActor();
   const [current] = await db.select().from(webhookEndpoint).where(eq(webhookEndpoint.id, id));
-  if (!current) return { ok: false, error: "Endpoint not found." };
+  if (!current) return { ok: false, error: (await getTranslations("admin.pages.webhooks.errors"))("endpointNotFound") };
   const parsed = await parseInput(input);
   if (!parsed.ok) return parsed;
   const now = new Date();
@@ -101,7 +111,7 @@ export async function updateWebhook(id: string, input: EndpointInput & { enabled
 export async function deleteWebhook(id: string): Promise<Result> {
   const { audit } = await adminActor();
   const deleted = await db.delete(webhookEndpoint).where(eq(webhookEndpoint.id, id)).returning({ url: webhookEndpoint.url });
-  if (deleted.length === 0) return { ok: false, error: "Endpoint not found." };
+  if (deleted.length === 0) return { ok: false, error: (await getTranslations("admin.pages.webhooks.errors"))("endpointNotFound") };
   await audit({ action: "webhook.delete", target: { type: "webhook", id, label: deleted[0]!.url } });
   return { ok: true };
 }
@@ -116,7 +126,7 @@ export async function rotateWebhookSecret(id: string): Promise<SecretResult> {
     .select({ url: webhookEndpoint.url, secretEncrypted: webhookEndpoint.secretEncrypted })
     .from(webhookEndpoint)
     .where(eq(webhookEndpoint.id, id));
-  if (!current) return { ok: false, error: "Endpoint not found." };
+  if (!current) return { ok: false, error: (await getTranslations("admin.pages.webhooks.errors"))("endpointNotFound") };
   const secret = generateWebhookSecret();
   await db
     .update(webhookEndpoint)
@@ -133,26 +143,28 @@ export async function rotateWebhookSecret(id: string): Promise<SecretResult> {
 
 export async function sendWebhookTest(id: string): Promise<SendResult> {
   const { audit } = await adminActor();
+  const t = await getTranslations("admin.pages.webhooks.errors");
   const endpoint = await findEndpoint(id);
-  if (!endpoint) return { ok: false, error: "Endpoint not found." };
-  if (!endpoint.enabled) return { ok: false, error: "The endpoint is disabled: turn it on to send a test event." };
+  if (!endpoint) return { ok: false, error: t("endpointNotFound") };
+  if (!endpoint.enabled) return { ok: false, error: t("disabledTest") };
   const outcome = await sendTestEvent(id);
-  if (!outcome) return { ok: false, error: "The test event could not be sent." };
+  if (!outcome) return { ok: false, error: t("testNotSent") };
   await audit({ action: "webhook.test", target: { type: "webhook", id, label: endpoint.url }, metadata: { status: outcome.status ?? "error" } });
   return { ok: true, outcome };
 }
 
 export async function redeliverWebhook(deliveryId: string): Promise<SendResult> {
   const { audit } = await adminActor();
+  const t = await getTranslations("admin.pages.webhooks.errors");
   const [delivery] = await db
     .select({ endpointId: webhookDelivery.endpointId, eventId: webhookDelivery.eventId, eventType: webhookDelivery.eventType })
     .from(webhookDelivery)
     .where(eq(webhookDelivery.id, deliveryId));
-  if (!delivery) return { ok: false, error: "Delivery not found." };
+  if (!delivery) return { ok: false, error: t("deliveryNotFound") };
   const endpoint = await findEndpoint(delivery.endpointId);
-  if (!endpoint?.enabled) return { ok: false, error: "The endpoint is disabled: turn it on to redeliver." };
+  if (!endpoint?.enabled) return { ok: false, error: t("disabledRedeliver") };
   const outcome = await redeliver(deliveryId);
-  if (!outcome) return { ok: false, error: "The event could not be sent." };
+  if (!outcome) return { ok: false, error: t("eventNotSent") };
   await audit({
     action: "webhook.redeliver",
     target: { type: "webhook", id: delivery.endpointId, label: endpoint.url },

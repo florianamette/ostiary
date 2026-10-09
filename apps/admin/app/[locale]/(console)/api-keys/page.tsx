@@ -47,11 +47,12 @@ export default async function AdminApiKeysPage({ params }: { params: Promise<{ l
       />
       <Card className="border-border/80 shadow-sm">
         <CardHeader>
-          <CardTitle className="text-base">All keys</CardTitle>
+          <CardTitle className="text-base">{t("allKeys.title")}</CardTitle>
           <CardDescription>
-            Newest first{keys.length >= LIST_LIMIT ? `, the latest ${LIST_LIMIT}` : ""}. Expired keys are deleted
-            the next time keys are used or created. Banning or deleting an account revokes its keys; deleting an
-            organization deletes its keys (keys an organization owns stay when the member who created them leaves).
+            {t("allKeys.description", {
+              truncated: keys.length >= LIST_LIMIT ? "true" : "false",
+              limit: String(LIST_LIMIT),
+            })}
           </CardDescription>
         </CardHeader>
         <CardContent>

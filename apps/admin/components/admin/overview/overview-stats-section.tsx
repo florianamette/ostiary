@@ -1,16 +1,13 @@
 "use client";
 
 import * as React from "react";
+import { useFormatter, useTranslations } from "next-intl";
 
 import { Alert, AlertDescription, AlertTitle } from "@ostiary/core/components/ui/alert";
 import { authClient } from "@/lib/auth-client";
 
 import { OverviewStatCard } from "./overview-stat-card";
 import type { OverviewStatDefinition } from "./types";
-
-function formatInt(n: number) {
-  return n.toLocaleString(undefined, { maximumFractionDigits: 0 });
-}
 
 async function fetchTotal(
   query: Record<string, string | number | boolean>
@@ -22,6 +19,8 @@ async function fetchTotal(
 }
 
 export function OverviewStatsSection({ refreshKey }: { refreshKey: number }) {
+  const t = useTranslations("admin.pages.overview.stats");
+  const format = useFormatter();
   const [stats, setStats] = React.useState<OverviewStatDefinition[]>([]);
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState<string | null>(null);
@@ -82,41 +81,20 @@ export function OverviewStatsSection({ refreshKey }: { refreshKey: number }) {
         verified === null ||
         recent === null
       ) {
-        setError(
-          "Could not load one or more metrics. Ensure you are signed in as an admin."
-        );
+        setError(t("error"));
         setStats([]);
         setLoading(false);
         return;
       }
 
-      const next: OverviewStatDefinition[] = [
-        {
-          title: "Total users",
-          value: formatInt(total),
-          hint: "Every account on the platform.",
-        },
-        {
-          title: "Administrators",
-          value: formatInt(admins),
-          hint: "Accounts with access to this console.",
-        },
-        {
-          title: "Banned",
-          value: formatInt(banned),
-          hint: "Accounts that can't sign in right now.",
-        },
-        {
-          title: "Verified email",
-          value: formatInt(verified),
-          hint: "Accounts that confirmed their email address.",
-        },
-        {
-          title: "New (7 days)",
-          value: formatInt(recent),
-          hint: "Accounts created in the last 7 days.",
-        },
-      ];
+      const counts = { totalUsers: total, admins, banned, verified, recent };
+      const next: OverviewStatDefinition[] = (
+        Object.keys(counts) as (keyof typeof counts)[]
+      ).map((key) => ({
+        title: t(`${key}.title`),
+        value: format.number(counts[key], { maximumFractionDigits: 0 }),
+        hint: t(`${key}.hint`),
+      }));
 
       setStats(next);
       setLoading(false);
@@ -125,13 +103,13 @@ export function OverviewStatsSection({ refreshKey }: { refreshKey: number }) {
     return () => {
       cancelled = true;
     };
-  }, [refreshKey]);
+  }, [refreshKey, t, format]);
 
   return (
     <div className="space-y-3">
       {error ? (
         <Alert variant="destructive">
-          <AlertTitle>Metrics unavailable</AlertTitle>
+          <AlertTitle>{t("errorTitle")}</AlertTitle>
           <AlertDescription>{error}</AlertDescription>
         </Alert>
       ) : null}
@@ -141,9 +119,9 @@ export function OverviewStatsSection({ refreshKey }: { refreshKey: number }) {
               <OverviewStatCard
                 key={i}
                 stat={{
-                  title: "Loading",
+                  title: t("loadingTitle"),
                   value: "…",
-                  hint: "Loading…",
+                  hint: t("loadingHint"),
                 }}
               />
             ))

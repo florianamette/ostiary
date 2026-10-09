@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { Loader2 } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
 
 import { DashboardChangePasswordForm } from "@/components/dashboard/dashboard-change-password-form";
@@ -10,6 +10,8 @@ import { DashboardConnectedAccounts } from "@/components/dashboard/dashboard-con
 import { DashboardPasskeysSection } from "@/components/dashboard/dashboard-passkeys-section";
 import { DashboardTwoFactorSection } from "@/components/dashboard/dashboard-two-factor-section";
 import type { SocialProviderOption } from "@ostiary/core/lib/social-provider-meta";
+import { getHtmlLang } from "@ostiary/core/i18n/locale-html";
+import type { AppLocale } from "@ostiary/core/i18n/routing";
 import { Button } from "@ostiary/core/components/ui/button";
 import {
   Card,
@@ -40,14 +42,14 @@ type SessionRow = {
   userAgent?: string | null;
 };
 
-function formatWhen(d: Date, label: string) {
+function formatWhen(d: Date, locale: string): string | null {
   try {
-    return `${label}: ${d.toLocaleString(undefined, {
+    return d.toLocaleString(locale, {
       dateStyle: "medium",
       timeStyle: "short",
-    })}`;
+    });
   } catch {
-    return label;
+    return null;
   }
 }
 
@@ -61,6 +63,11 @@ export function DashboardSecuritySection({
   adminConsoleUrl?: string;
 }) {
   const t = useTranslations("dashboard.security");
+  const locale = useLocale();
+  const when = (d: Date, key: "started" | "expires") => {
+    const date = formatWhen(d, getHtmlLang(locale as AppLocale));
+    return date ? t(`${key}At`, { date }) : t(key);
+  };
   const { data: sessionData } = authClient.useSession();
   const currentToken = sessionData?.session?.token;
 
@@ -214,10 +221,10 @@ export function DashboardSecuritySection({
                           <div className="flex flex-col gap-1">
                             <span className="font-medium">{deviceLabel}</span>
                             <span className="text-xs text-muted-foreground">
-                              {formatWhen(s.createdAt, t("started"))}
+                              {when(s.createdAt, "started")}
                             </span>
                             <span className="text-xs text-muted-foreground">
-                              {formatWhen(s.expiresAt, t("expires"))}
+                              {when(s.expiresAt, "expires")}
                             </span>
                           </div>
                         </TableCell>

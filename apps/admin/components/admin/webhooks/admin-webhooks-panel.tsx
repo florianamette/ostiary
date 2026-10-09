@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { CopyIcon, History, KeyRound, Loader2, Pencil, Send, Trash2, TriangleAlert } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
@@ -69,11 +70,12 @@ function EventChoices({
   onChange: (next: Set<string>) => void;
   disabled?: boolean;
 }) {
+  const t = useTranslations("admin.pages.webhooks.panel");
   const all = selected.size === eventTypes.length;
   return (
     <Field>
       <div className="flex items-center justify-between gap-2">
-        <FieldTitle>Events</FieldTitle>
+        <FieldTitle>{t("events")}</FieldTitle>
         <Button
           type="button"
           size="xs"
@@ -81,7 +83,7 @@ function EventChoices({
           disabled={disabled}
           onClick={() => onChange(all ? new Set() : new Set(eventTypes.map((e) => e.type)))}
         >
-          {all ? "Clear" : "Select all"}
+          {all ? t("clear") : t("selectAll")}
         </Button>
       </div>
       <ul className="max-h-72 divide-y divide-border/60 overflow-y-auto rounded-md border border-border/80">
@@ -116,19 +118,20 @@ function EventChoices({
 
 /** Shows a signing secret once, with a copy button. */
 function SecretReveal({ secret }: { secret: string }) {
+  const t = useTranslations("admin.pages.webhooks.panel");
   return (
     <div className="grid gap-2 py-2">
-      <Label htmlFor="webhook-secret">Signing secret</Label>
+      <Label htmlFor="webhook-secret">{t("signingSecret")}</Label>
       <Input id="webhook-secret" readOnly value={secret} className="font-mono text-xs" onFocus={(e) => e.target.select()} />
       <Button
         type="button"
         variant="outline"
         size="sm"
         className="w-fit"
-        onClick={() => void navigator.clipboard.writeText(secret).then(() => toast.success("Secret copied"))}
+        onClick={() => void navigator.clipboard.writeText(secret).then(() => toast.success(t("secretCopied")))}
       >
         <CopyIcon aria-hidden />
-        Copy secret
+        {t("copySecret")}
       </Button>
     </div>
   );
@@ -149,6 +152,8 @@ export function AdminWebhooksPanel({
   allowLocalhost: boolean;
   autoDisableAfter: number;
 }) {
+  const t = useTranslations("admin.pages.webhooks.panel");
+  const tc = useTranslations("admin.common");
   const router = useRouter();
   const [url, setUrl] = React.useState("");
   const [description, setDescription] = React.useState("");
@@ -179,16 +184,14 @@ export function AdminWebhooksPanel({
     <div className="grid gap-6 xl:grid-cols-[2fr_3fr]">
       <Card className="h-fit border-border/80 shadow-sm">
         <CardHeader>
-          <CardTitle>Add an endpoint</CardTitle>
-          <CardDescription>
-            Ostiary POSTs a signed JSON event to this URL when one of the chosen events happens, and retries for about a day if it fails.
-          </CardDescription>
+          <CardTitle>{t("add.title")}</CardTitle>
+          <CardDescription>{t("add.description")}</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleCreate}>
             <FieldGroup>
               <Field>
-                <FieldLabel htmlFor="webhook-url">URL</FieldLabel>
+                <FieldLabel htmlFor="webhook-url">{t("url")}</FieldLabel>
                 <Input
                   id="webhook-url"
                   type="url"
@@ -199,26 +202,27 @@ export function AdminWebhooksPanel({
                   required
                 />
                 <FieldDescription>
-                  HTTPS, on a public address.
-                  {allowLocalhost ? " http://localhost is accepted (WEBHOOKS_ALLOW_LOCALHOST, development only)." : null}
+                  {allowLocalhost
+                    ? t("add.urlHintLocalhost", { url: "http://localhost", envVar: "WEBHOOKS_ALLOW_LOCALHOST" })
+                    : t("add.urlHint")}
                 </FieldDescription>
               </Field>
               <Field>
-                <FieldLabel htmlFor="webhook-description">Description</FieldLabel>
+                <FieldLabel htmlFor="webhook-description">{tc("description")}</FieldLabel>
                 <Input
                   id="webhook-description"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   disabled={submitting}
                   maxLength={200}
-                  placeholder="Billing app: user sync"
+                  placeholder={t("add.descriptionPlaceholder")}
                 />
               </Field>
               <EventChoices idPrefix="new" eventTypes={eventTypes} selected={events} onChange={setEvents} disabled={submitting} />
               <Field>
                 <Button type="submit" disabled={submitting || events.size === 0}>
                   {submitting ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
-                  {submitting ? "Adding…" : "Add endpoint"}
+                  {submitting ? t("add.adding") : t("add.submit")}
                 </Button>
               </Field>
             </FieldGroup>
@@ -228,16 +232,20 @@ export function AdminWebhooksPanel({
 
       <Card className="h-fit border-border/80 shadow-sm">
         <CardHeader>
-          <CardTitle>Endpoints</CardTitle>
+          <CardTitle>{t("list.title")}</CardTitle>
           <CardDescription>
-            Every request carries the <code className="font-mono text-xs">webhook-id</code>,{" "}
-            <code className="font-mono text-xs">webhook-timestamp</code> and{" "}
-            <code className="font-mono text-xs">webhook-signature</code> headers (Standard Webhooks). An endpoint that fails {autoDisableAfter} times in a row is disabled.
+            {t.rich("list.description", {
+              id: "webhook-id",
+              timestamp: "webhook-timestamp",
+              signature: "webhook-signature",
+              count: autoDisableAfter,
+              code: (chunks) => <code className="font-mono text-xs">{chunks}</code>,
+            })}
           </CardDescription>
         </CardHeader>
         <CardContent>
           {endpoints.length === 0 ? (
-            <p className="text-sm text-muted-foreground">No endpoint yet.</p>
+            <p className="text-sm text-muted-foreground">{t("list.empty")}</p>
           ) : (
             <ul className="space-y-3">
               {endpoints.map((endpoint) => (
@@ -251,15 +259,13 @@ export function AdminWebhooksPanel({
       <Dialog open={created !== null} onOpenChange={(open) => !open && setCreated(null)}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Endpoint added</DialogTitle>
-            <DialogDescription className="break-all">
-              Copy the signing secret into the app at {created?.url}: it verifies each delivery with it. It is not shown again.
-            </DialogDescription>
+            <DialogTitle>{t("created.title")}</DialogTitle>
+            <DialogDescription className="break-all">{t("created.description", { url: created?.url ?? "" })}</DialogDescription>
           </DialogHeader>
           {created ? <SecretReveal secret={created.secret} /> : null}
           <DialogFooter>
             <Button type="button" onClick={() => setCreated(null)}>
-              Done
+              {tc("done")}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -269,6 +275,8 @@ export function AdminWebhooksPanel({
 }
 
 function EndpointItem({ endpoint, eventTypes }: { endpoint: WebhookEndpointRow; eventTypes: EventTypeOption[] }) {
+  const t = useTranslations("admin.pages.webhooks.panel");
+  const tc = useTranslations("admin.common");
   const router = useRouter();
   const [dialog, setDialog] = React.useState<"edit" | "rotate" | "delete" | null>(null);
   const [busy, setBusy] = React.useState(false);
@@ -314,8 +322,8 @@ function EndpointItem({ endpoint, eventTypes }: { endpoint: WebhookEndpointRow; 
     try {
       const res = await sendWebhookTest(endpoint.id);
       if (!res.ok) toast.error(res.error);
-      else if (res.outcome.ok) toast.success(`Test event delivered (HTTP ${res.outcome.status})`);
-      else toast.error(`Test event failed: ${res.outcome.status ? `HTTP ${res.outcome.status}` : res.outcome.excerpt}`);
+      else if (res.outcome.ok) toast.success(t("test.delivered", { status: String(res.outcome.status) }));
+      else toast.error(t("test.failed", { reason: res.outcome.status ? `HTTP ${res.outcome.status}` : res.outcome.excerpt }));
       router.refresh();
     } finally {
       setBusy(false);
@@ -344,11 +352,11 @@ function EndpointItem({ endpoint, eventTypes }: { endpoint: WebhookEndpointRow; 
           <p className="flex flex-wrap items-center gap-2 text-sm font-medium">
             <span className="break-all">{label}</span>
             {!endpoint.enabled && endpoint.disabledReason === "failures" ? (
-              <Badge variant="destructive">Disabled after repeated failures</Badge>
+              <Badge variant="destructive">{t("item.disabledFailures")}</Badge>
             ) : !endpoint.enabled ? (
-              <Badge variant="outline">Disabled</Badge>
+              <Badge variant="outline">{tc("disabled")}</Badge>
             ) : null}
-            {endpoint.rotating ? <Badge variant="outline">Secret rotating</Badge> : null}
+            {endpoint.rotating ? <Badge variant="outline">{t("item.rotating")}</Badge> : null}
           </p>
           {endpoint.description ? <p className="break-all font-mono text-xs text-muted-foreground">{endpoint.url}</p> : null}
           <div className="flex flex-wrap gap-1 pt-1">
@@ -360,10 +368,10 @@ function EndpointItem({ endpoint, eventTypes }: { endpoint: WebhookEndpointRow; 
           </div>
         </div>
         <div className="flex gap-1">
-          <Button type="button" size="icon-sm" variant="ghost" aria-label={`Edit ${label}`} onClick={openEdit}>
+          <Button type="button" size="icon-sm" variant="ghost" aria-label={t("item.editLabel", { label })} onClick={openEdit}>
             <Pencil className="size-4" aria-hidden />
           </Button>
-          <Button type="button" size="icon-sm" variant="ghost" aria-label={`Delete ${label}`} onClick={() => setDialog("delete")}>
+          <Button type="button" size="icon-sm" variant="ghost" aria-label={t("item.deleteLabel", { label })} onClick={() => setDialog("delete")}>
             <Trash2 className="size-4" aria-hidden />
           </Button>
         </div>
@@ -373,39 +381,41 @@ function EndpointItem({ endpoint, eventTypes }: { endpoint: WebhookEndpointRow; 
         <p className="mt-2 flex items-start gap-1.5 text-xs text-destructive">
           <TriangleAlert className="mt-0.5 size-3.5 shrink-0" aria-hidden />
           <span>
-            Disabled {endpoint.disabledAt ? `on ${endpoint.disabledAt} ` : null}after {endpoint.consecutiveFailures} failed attempts in a row. Fix the receiver, then turn it back on: pending events are sent again.
+            {endpoint.disabledAt
+              ? t("item.disabledNoticeOn", { date: endpoint.disabledAt, count: endpoint.consecutiveFailures })
+              : t("item.disabledNotice", { count: endpoint.consecutiveFailures })}
           </span>
         </p>
       ) : null}
 
       <dl className="mt-3 grid gap-x-3 gap-y-1 border-t border-border/60 pt-3 text-xs sm:grid-cols-[auto_1fr]">
-        <dt className="font-medium text-foreground">Last success</dt>
-        <dd className="text-muted-foreground">{endpoint.lastSuccessAt ?? "Never"}</dd>
-        <dt className="font-medium text-foreground">Last failure</dt>
+        <dt className="font-medium text-foreground">{t("item.lastSuccess")}</dt>
+        <dd className="text-muted-foreground">{endpoint.lastSuccessAt ?? tc("never")}</dd>
+        <dt className="font-medium text-foreground">{t("item.lastFailure")}</dt>
         <dd className="text-muted-foreground">
-          {endpoint.lastFailureAt ?? "Never"}
-          {endpoint.enabled && endpoint.consecutiveFailures > 0 ? ` (${endpoint.consecutiveFailures} in a row)` : null}
+          {endpoint.lastFailureAt ?? tc("never")}
+          {endpoint.enabled && endpoint.consecutiveFailures > 0 ? ` ${t("item.inARow", { count: endpoint.consecutiveFailures })}` : null}
         </dd>
-        <dt className="font-medium text-foreground">Deliveries</dt>
+        <dt className="font-medium text-foreground">{t("item.deliveries")}</dt>
         <dd className="text-muted-foreground">
-          {endpoint.pending} waiting or retrying · {endpoint.failed} failed
+          {t("item.deliveriesValue", { pending: endpoint.pending, failed: endpoint.failed })}
         </dd>
       </dl>
 
       <div className="mt-3 flex flex-wrap gap-2">
         <Button type="button" size="xs" variant="outline" disabled={busy || !endpoint.enabled} onClick={() => void sendTest()}>
           {busy && dialog === null ? <Loader2 className="size-3.5 animate-spin" aria-hidden /> : <Send className="size-3.5" aria-hidden />}
-          Send test event
+          {t("item.sendTest")}
         </Button>
         <Button size="xs" variant="outline" asChild>
           <Link href={`/webhooks/${endpoint.id}`}>
             <History className="size-3.5" aria-hidden />
-            Delivery log
+            {t("item.deliveryLog")}
           </Link>
         </Button>
         <Button type="button" size="xs" variant="outline" disabled={busy} onClick={() => setDialog("rotate")}>
           <KeyRound className="size-3.5" aria-hidden />
-          Regenerate secret
+          {t("item.regenerateSecret")}
         </Button>
       </div>
 
@@ -414,16 +424,16 @@ function EndpointItem({ endpoint, eventTypes }: { endpoint: WebhookEndpointRow; 
           {dialog === "edit" ? (
             <>
               <DialogHeader>
-                <DialogTitle>Edit endpoint</DialogTitle>
+                <DialogTitle>{t("edit.title")}</DialogTitle>
                 <DialogDescription className="break-all">{endpoint.url}</DialogDescription>
               </DialogHeader>
               <FieldGroup>
                 <Field>
-                  <FieldLabel htmlFor={`url-${endpoint.id}`}>URL</FieldLabel>
+                  <FieldLabel htmlFor={`url-${endpoint.id}`}>{t("url")}</FieldLabel>
                   <Input id={`url-${endpoint.id}`} type="url" value={url} onChange={(e) => setUrl(e.target.value)} disabled={busy} />
                 </Field>
                 <Field>
-                  <FieldLabel htmlFor={`description-${endpoint.id}`}>Description</FieldLabel>
+                  <FieldLabel htmlFor={`description-${endpoint.id}`}>{tc("description")}</FieldLabel>
                   <Input
                     id={`description-${endpoint.id}`}
                     value={description}
@@ -445,10 +455,10 @@ function EndpointItem({ endpoint, eventTypes }: { endpoint: WebhookEndpointRow; 
                     />
                     <div className="grid gap-1">
                       <Label htmlFor={`enabled-${endpoint.id}`} className="cursor-pointer font-medium leading-none">
-                        Enabled
+                        {tc("enabled")}
                       </Label>
                       <p className="text-muted-foreground text-xs leading-snug">
-                        While disabled, new events are not recorded for this endpoint and retries wait.
+                        {t("edit.enabledHint")}
                       </p>
                     </div>
                   </div>
@@ -456,42 +466,40 @@ function EndpointItem({ endpoint, eventTypes }: { endpoint: WebhookEndpointRow; 
               </FieldGroup>
               <DialogFooter>
                 <Button type="button" variant="outline" disabled={busy} onClick={closeDialog}>
-                  Cancel
+                  {tc("cancel")}
                 </Button>
                 <Button
                   type="button"
                   disabled={busy || events.size === 0}
-                  onClick={() => void run(() => updateWebhook(endpoint.id, { url, description, events: [...events], enabled }), "Endpoint updated")}
+                  onClick={() => void run(() => updateWebhook(endpoint.id, { url, description, events: [...events], enabled }), t("edit.updated"))}
                 >
                   {busy ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
-                  Save
+                  {tc("save")}
                 </Button>
               </DialogFooter>
             </>
           ) : dialog === "rotate" ? (
             <>
               <DialogHeader>
-                <DialogTitle>{newSecret ? "New signing secret" : "Regenerate the signing secret?"}</DialogTitle>
+                <DialogTitle>{newSecret ? t("rotate.newTitle") : t("rotate.title")}</DialogTitle>
                 <DialogDescription>
-                  {newSecret
-                    ? "Copy it into the app now: it is not shown again. For the next 24 hours, deliveries carry a signature with the old secret too."
-                    : "Deliveries are signed with both the old and the new secret for 24 hours, so the app can switch without missing events."}
+                  {newSecret ? t("rotate.newDescription") : t("rotate.description")}
                 </DialogDescription>
               </DialogHeader>
               {newSecret ? <SecretReveal secret={newSecret} /> : null}
               <DialogFooter>
                 {newSecret ? (
                   <Button type="button" onClick={closeDialog}>
-                    Done
+                    {tc("done")}
                   </Button>
                 ) : (
                   <>
                     <Button type="button" variant="outline" disabled={busy} onClick={closeDialog}>
-                      Cancel
+                      {tc("cancel")}
                     </Button>
                     <Button type="button" disabled={busy} onClick={() => void rotate()}>
                       {busy ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
-                      Regenerate
+                      {t("rotate.confirm")}
                     </Button>
                   </>
                 )}
@@ -500,18 +508,16 @@ function EndpointItem({ endpoint, eventTypes }: { endpoint: WebhookEndpointRow; 
           ) : dialog === "delete" ? (
             <>
               <DialogHeader>
-                <DialogTitle>Delete this endpoint?</DialogTitle>
-                <DialogDescription className="break-all">
-                  {endpoint.url} stops receiving events, and its delivery log and pending retries are deleted. To pause it, disable it instead.
-                </DialogDescription>
+                <DialogTitle>{t("delete.title")}</DialogTitle>
+                <DialogDescription className="break-all">{t("delete.description", { url: endpoint.url })}</DialogDescription>
               </DialogHeader>
               <DialogFooter>
                 <Button type="button" variant="outline" disabled={busy} onClick={closeDialog}>
-                  Cancel
+                  {tc("cancel")}
                 </Button>
-                <Button type="button" variant="destructive" disabled={busy} onClick={() => void run(() => deleteWebhook(endpoint.id), "Endpoint deleted")}>
+                <Button type="button" variant="destructive" disabled={busy} onClick={() => void run(() => deleteWebhook(endpoint.id), t("delete.deleted"))}>
                   {busy ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
-                  Delete
+                  {tc("delete")}
                 </Button>
               </DialogFooter>
             </>

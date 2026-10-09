@@ -3,6 +3,7 @@
 import * as React from "react";
 import { CopyIcon, Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 
 import { Button } from "@ostiary/core/components/ui/button";
@@ -25,7 +26,20 @@ export type ScimTokenSummary = {
   lastUsed: string | null;
 };
 
-function CopyField({ id, label, value, description }: { id: string; label: string; value: string; description?: string }) {
+function CopyField({
+  id,
+  label,
+  copyLabel,
+  value,
+  description,
+}: {
+  id: string;
+  label: string;
+  copyLabel: string;
+  value: string;
+  description?: string;
+}) {
+  const tc = useTranslations("admin.common");
   return (
     <Field>
       <FieldLabel htmlFor={id}>{label}</FieldLabel>
@@ -35,9 +49,9 @@ function CopyField({ id, label, value, description }: { id: string; label: strin
           type="button"
           size="icon"
           variant="outline"
-          aria-label={`Copy ${label.toLowerCase()}`}
+          aria-label={copyLabel}
           onClick={() => {
-            void navigator.clipboard.writeText(value).then(() => toast.success("Copied"));
+            void navigator.clipboard.writeText(value).then(() => toast.success(tc("copied")));
           }}
         >
           <CopyIcon />
@@ -62,6 +76,8 @@ export function OrganizationScim({
   baseUrl: string;
   token: ScimTokenSummary | null;
 }) {
+  const t = useTranslations("admin.pages.organizations.scim");
+  const tc = useTranslations("admin.common");
   const router = useRouter();
   const [busy, setBusy] = React.useState<"generate" | "revoke" | null>(null);
   const [confirm, setConfirm] = React.useState<"rotate" | "revoke" | null>(null);
@@ -79,7 +95,7 @@ export function OrganizationScim({
       setIssued(result.token);
       router.refresh();
     } catch {
-      toast.error("Something went wrong.");
+      toast.error(t("unexpectedError"));
     } finally {
       setBusy(null);
     }
@@ -94,10 +110,10 @@ export function OrganizationScim({
         return;
       }
       setConfirm(null);
-      toast.success("Token revoked");
+      toast.success(t("tokenRevoked"));
       router.refresh();
     } catch {
-      toast.error("Something went wrong.");
+      toast.error(t("unexpectedError"));
     } finally {
       setBusy(null);
     }
@@ -106,38 +122,38 @@ export function OrganizationScim({
   return (
     <div className="space-y-4">
       <FieldGroup>
-        <CopyField id="scim-base-url" label="Base URL" value={baseUrl} />
+        <CopyField id="scim-base-url" label={t("baseUrl")} copyLabel={t("copyBaseUrl")} value={baseUrl} />
       </FieldGroup>
 
       {token ? (
         <dl className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-sm">
-          <dt className="text-muted-foreground">Token</dt>
-          <dd>Active</dd>
-          <dt className="text-muted-foreground">Created</dt>
+          <dt className="text-muted-foreground">{t("token")}</dt>
+          <dd>{t("active")}</dd>
+          <dt className="text-muted-foreground">{tc("created")}</dt>
           <dd>{token.created}</dd>
-          <dt className="text-muted-foreground">Expires</dt>
+          <dt className="text-muted-foreground">{t("expires")}</dt>
           <dd>{token.expires}</dd>
-          <dt className="text-muted-foreground">Last used</dt>
-          <dd>{token.lastUsed ?? "Never"}</dd>
+          <dt className="text-muted-foreground">{t("lastUsed")}</dt>
+          <dd>{token.lastUsed ?? tc("never")}</dd>
         </dl>
       ) : (
-        <p className="text-sm text-muted-foreground">No active token. The identity provider can&apos;t provision until you generate one.</p>
+        <p className="text-sm text-muted-foreground">{t("noToken")}</p>
       )}
 
       <div className="flex flex-wrap gap-2">
         {token ? (
           <>
             <Button type="button" size="sm" variant="outline" disabled={busy !== null} onClick={() => setConfirm("rotate")}>
-              New token
+              {t("newToken")}
             </Button>
             <Button type="button" size="sm" variant="outline" disabled={busy !== null} onClick={() => setConfirm("revoke")}>
-              Revoke
+              {t("revoke")}
             </Button>
           </>
         ) : (
           <Button type="button" size="sm" disabled={busy !== null} onClick={() => void generate()}>
             {busy === "generate" ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
-            Generate token
+            {t("generateToken")}
           </Button>
         )}
       </div>
@@ -145,16 +161,14 @@ export function OrganizationScim({
       <Dialog open={confirm !== null} onOpenChange={(next) => !busy && !next && setConfirm(null)}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>{confirm === "rotate" ? "Replace the SCIM token?" : "Revoke the SCIM token?"}</DialogTitle>
+            <DialogTitle>{confirm === "rotate" ? t("rotateTitle") : t("revokeTitle")}</DialogTitle>
             <DialogDescription>
-              {confirm === "rotate"
-                ? "The current token stops working now. Paste the new one into your identity provider to keep provisioning."
-                : "Your identity provider can no longer create, update or deactivate accounts. Existing accounts are not changed."}
+              {confirm === "rotate" ? t("rotateBody") : t("revokeBody")}
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
             <Button type="button" variant="outline" disabled={busy !== null} onClick={() => setConfirm(null)}>
-              Cancel
+              {tc("cancel")}
             </Button>
             <Button
               type="button"
@@ -163,7 +177,7 @@ export function OrganizationScim({
               onClick={() => void (confirm === "rotate" ? generate() : revoke())}
             >
               {busy ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
-              {confirm === "rotate" ? "Replace token" : "Revoke token"}
+              {confirm === "rotate" ? t("replaceToken") : t("revokeToken")}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -172,21 +186,22 @@ export function OrganizationScim({
       <Dialog open={issued !== null} onOpenChange={(next) => !next && setIssued(null)}>
         <DialogContent className="sm:max-w-lg">
           <DialogHeader>
-            <DialogTitle>SCIM token</DialogTitle>
-            <DialogDescription>Copy it now: it is not shown again. It expires in one year.</DialogDescription>
+            <DialogTitle>{t("issuedTitle")}</DialogTitle>
+            <DialogDescription>{t("issuedDescription")}</DialogDescription>
           </DialogHeader>
           <FieldGroup className="py-2">
-            <CopyField id="scim-issued-base-url" label="Base URL" value={baseUrl} />
+            <CopyField id="scim-issued-base-url" label={t("baseUrl")} copyLabel={t("copyBaseUrl")} value={baseUrl} />
             <CopyField
               id="scim-issued-token"
-              label="Token"
+              label={t("token")}
+              copyLabel={t("copyToken")}
               value={issued ?? ""}
-              description="Paste it as the bearer token (Okta: API token, Entra ID: secret token)."
+              description={t("tokenHint")}
             />
           </FieldGroup>
           <DialogFooter>
             <Button type="button" onClick={() => setIssued(null)}>
-              Done
+              {tc("done")}
             </Button>
           </DialogFooter>
         </DialogContent>

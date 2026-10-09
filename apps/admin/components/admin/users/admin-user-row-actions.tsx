@@ -10,6 +10,7 @@ import {
   Trash2Icon,
   UserPenIcon,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { Button } from "@ostiary/core/components/ui/button";
 import {
@@ -56,6 +57,8 @@ export function AdminUserRowActions({
   onChanged: () => void;
   onNotify: (message: string, variant?: "error" | "success") => void;
 }) {
+  const t = useTranslations("admin.pages.users.rowActions");
+  const tc = useTranslations("admin.common");
   const [editOpen, setEditOpen] = React.useState(false);
   const [editName, setEditName] = React.useState(user.name);
   const [editEmail, setEditEmail] = React.useState(user.email);
@@ -94,10 +97,10 @@ export function AdminUserRowActions({
       role,
     });
     if (error) {
-      onNotify(error.message ?? "Could not update role", "error");
+      onNotify(error.message ?? t("roleError"), "error");
       return;
     }
-    onNotify(`Role set to ${role}`, "success");
+    onNotify(t("roleSet", { role }), "success");
     onChanged();
   }
 
@@ -105,20 +108,20 @@ export function AdminUserRowActions({
     if (user.banned) {
       const { error } = await authClient.admin.unbanUser({ userId: user.id });
       if (error) {
-        onNotify(error.message ?? "Could not unban user", "error");
+        onNotify(error.message ?? t("unbanError"), "error");
         return;
       }
-      onNotify("User unbanned", "success");
+      onNotify(t("unbanned"), "success");
     } else {
       const { error } = await authClient.admin.banUser({
         userId: user.id,
         banReason: "Admin action",
       });
       if (error) {
-        onNotify(error.message ?? "Could not ban user", "error");
+        onNotify(error.message ?? t("banError"), "error");
         return;
       }
-      onNotify("User banned", "success");
+      onNotify(t("banned"), "success");
     }
     onChanged();
   }
@@ -130,10 +133,10 @@ export function AdminUserRowActions({
         userId: user.id,
       });
       if (error) {
-        onNotify(error.message ?? "Could not remove user", "error");
+        onNotify(error.message ?? t("removeError"), "error");
         return;
       }
-      onNotify("User removed", "success");
+      onNotify(t("removed"), "success");
       setRemoveOpen(false);
       onChanged();
     } finally {
@@ -145,14 +148,14 @@ export function AdminUserRowActions({
     const nameTrim = editName.trim();
     const emailTrim = editEmail.trim();
     if (!emailTrim) {
-      onNotify("Email is required", "error");
+      onNotify(t("emailRequired"), "error");
       return;
     }
     const data: Record<string, string> = {};
     if (nameTrim !== user.name) data.name = nameTrim;
     if (emailTrim !== user.email) data.email = emailTrim;
     if (Object.keys(data).length === 0) {
-      onNotify("No changes to save", "error");
+      onNotify(t("noChanges"), "error");
       return;
     }
     setEditPending(true);
@@ -162,10 +165,10 @@ export function AdminUserRowActions({
         data,
       });
       if (error) {
-        onNotify(error.message ?? "Could not update user", "error");
+        onNotify(error.message ?? t("updateError"), "error");
         return;
       }
-      onNotify("User updated", "success");
+      onNotify(t("updated"), "success");
       setEditOpen(false);
       onChanged();
     } finally {
@@ -176,11 +179,11 @@ export function AdminUserRowActions({
   async function savePassword() {
     setPasswordFormError(null);
     if (!newPassword) {
-      setPasswordFormError("Enter a new password.");
+      setPasswordFormError(t("passwordRequired"));
       return;
     }
     if (newPassword !== confirmPassword) {
-      setPasswordFormError("Passwords do not match.");
+      setPasswordFormError(t("passwordMismatch"));
       return;
     }
     setPasswordPending(true);
@@ -190,10 +193,10 @@ export function AdminUserRowActions({
         newPassword,
       });
       if (error) {
-        onNotify(error.message ?? "Could not set password", "error");
+        onNotify(error.message ?? t("passwordError"), "error");
         return;
       }
-      onNotify("Password updated", "success");
+      onNotify(t("passwordUpdated"), "success");
       setPasswordOpen(false);
       onChanged();
     } finally {
@@ -209,7 +212,7 @@ export function AdminUserRowActions({
             variant="ghost"
             size="icon-sm"
             className="text-muted-foreground"
-            aria-label={`Actions for ${user.name}`}
+            aria-label={t("menuLabel", { name: user.name })}
           >
             <MoreHorizontalIcon />
           </Button>
@@ -218,40 +221,40 @@ export function AdminUserRowActions({
           <DropdownMenuItem
             onClick={() => {
               void navigator.clipboard.writeText(user.id);
-              onNotify("User ID copied", "success");
+              onNotify(t("idCopied"), "success");
             }}
           >
             <CopyIcon />
-            Copy user ID
+            {t("copyId")}
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => setEditOpen(true)}>
             <UserPenIcon />
-            Edit user
+            {t("edit")}
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => setPasswordOpen(true)}>
             <LockIcon />
-            Set password
+            {t("setPassword")}
           </DropdownMenuItem>
           <DropdownMenuItem
             disabled={roleTokens(user.role).includes("admin")}
             onClick={() => void setRole("admin")}
           >
             <KeyRoundIcon />
-            Make admin
+            {t("makeAdmin")}
           </DropdownMenuItem>
           <DropdownMenuItem
             disabled={(() => {
-              const t = roleTokens(user.role);
+              const tokens = roleTokens(user.role);
               return (
-                t.length === 0 ||
-                (t.length === 1 && t[0] === "user")
+                tokens.length === 0 ||
+                (tokens.length === 1 && tokens[0] === "user")
               );
             })()}
             onClick={() => void setRole("user")}
           >
             <KeyRoundIcon />
-            Make user
+            {t("makeUser")}
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem
@@ -259,7 +262,7 @@ export function AdminUserRowActions({
             onClick={() => void toggleBan()}
           >
             <BanIcon />
-            {user.banned ? "Unban user" : "Ban user"}
+            {user.banned ? t("unban") : t("ban")}
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem
@@ -268,7 +271,7 @@ export function AdminUserRowActions({
             onClick={() => setRemoveOpen(true)}
           >
             <Trash2Icon />
-            Remove user
+            {t("remove")}
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
@@ -285,15 +288,14 @@ export function AdminUserRowActions({
       >
         <DialogContent className="sm:max-w-sm">
           <DialogHeader>
-            <DialogTitle>Edit user</DialogTitle>
+            <DialogTitle>{t("editTitle")}</DialogTitle>
             <DialogDescription>
-              Change the name or email address. A new email address must be verified by
-              the user before they can sign in again.
+              {t("editDescription")}
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-3 py-2">
             <div className="grid gap-2">
-              <Label htmlFor={`edit-name-${user.id}`}>Name</Label>
+              <Label htmlFor={`edit-name-${user.id}`}>{t("name")}</Label>
               <Input
                 id={`edit-name-${user.id}`}
                 value={editName}
@@ -302,7 +304,7 @@ export function AdminUserRowActions({
               />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor={`edit-email-${user.id}`}>Email</Label>
+              <Label htmlFor={`edit-email-${user.id}`}>{t("email")}</Label>
               <Input
                 id={`edit-email-${user.id}`}
                 type="email"
@@ -314,10 +316,10 @@ export function AdminUserRowActions({
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setEditOpen(false)}>
-              Cancel
+              {tc("cancel")}
             </Button>
             <Button disabled={editPending} onClick={() => void saveProfile()}>
-              {editPending ? "Saving…" : "Save"}
+              {editPending ? tc("saving") : tc("save")}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -326,17 +328,18 @@ export function AdminUserRowActions({
       <Dialog open={passwordOpen} onOpenChange={setPasswordOpen}>
         <DialogContent className="sm:max-w-sm">
           <DialogHeader>
-            <DialogTitle>Set password</DialogTitle>
+            <DialogTitle>{t("passwordTitle")}</DialogTitle>
             <DialogDescription>
-              Sets a new password for{" "}
-              <span className="font-medium text-foreground">{user.email}</span>{" "}
-              using{" "}
-              <code className="text-foreground">setUserPassword</code>.
+              {t.rich("passwordDescription", {
+                email: user.email,
+                strong: (chunks) => <span className="font-medium text-foreground">{chunks}</span>,
+                code: (chunks) => <code className="text-foreground">{chunks}</code>,
+              })}
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-3 py-2">
             <div className="grid gap-2">
-              <Label htmlFor={`new-pw-${user.id}`}>New password</Label>
+              <Label htmlFor={`new-pw-${user.id}`}>{t("newPassword")}</Label>
               <Input
                 id={`new-pw-${user.id}`}
                 type="password"
@@ -346,7 +349,7 @@ export function AdminUserRowActions({
               />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor={`confirm-pw-${user.id}`}>Confirm password</Label>
+              <Label htmlFor={`confirm-pw-${user.id}`}>{t("confirmPassword")}</Label>
               <Input
                 id={`confirm-pw-${user.id}`}
                 type="password"
@@ -363,13 +366,13 @@ export function AdminUserRowActions({
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setPasswordOpen(false)}>
-              Cancel
+              {tc("cancel")}
             </Button>
             <Button
               disabled={passwordPending}
               onClick={() => void savePassword()}
             >
-              {passwordPending ? "Saving…" : "Update password"}
+              {passwordPending ? tc("saving") : t("updatePassword")}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -378,24 +381,25 @@ export function AdminUserRowActions({
       <Dialog open={removeOpen} onOpenChange={setRemoveOpen}>
         <DialogContent className="sm:max-w-sm">
           <DialogHeader>
-            <DialogTitle>Remove user?</DialogTitle>
+            <DialogTitle>{t("removeTitle")}</DialogTitle>
             <DialogDescription>
-              This permanently deletes{" "}
-              <span className="font-medium text-foreground">{user.name}</span>{" "}
-              ({user.email}) and everything linked to the account. Audit log entries are kept
-              without their name or email. This cannot be undone.
+              {t.rich("removeDescription", {
+                name: user.name,
+                email: user.email,
+                strong: (chunks) => <span className="font-medium text-foreground">{chunks}</span>,
+              })}
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
             <Button variant="outline" onClick={() => setRemoveOpen(false)}>
-              Cancel
+              {tc("cancel")}
             </Button>
             <Button
               variant="destructive"
               disabled={removePending}
               onClick={() => void removeUser()}
             >
-              {removePending ? "Removing…" : "Remove"}
+              {removePending ? t("removing") : t("removeConfirm")}
             </Button>
           </DialogFooter>
         </DialogContent>

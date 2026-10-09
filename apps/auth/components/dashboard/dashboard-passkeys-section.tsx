@@ -5,6 +5,8 @@ import { Loader2, Pencil, Trash2 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
 
+import { getHtmlLang } from "@ostiary/core/i18n/locale-html";
+import type { AppLocale } from "@ostiary/core/i18n/routing";
 import { Button } from "@ostiary/core/components/ui/button";
 import {
   Dialog,
@@ -267,7 +269,7 @@ export function DashboardPasskeysSection() {
                     {row.deviceType || t("none")}
                   </TableCell>
                   <TableCell className="hidden align-top text-sm text-muted-foreground md:table-cell">
-                    {row.createdAt.toLocaleString(undefined, {
+                    {row.createdAt.toLocaleString(getHtmlLang(locale as AppLocale), {
                       dateStyle: "medium",
                       timeStyle: "short",
                     })}

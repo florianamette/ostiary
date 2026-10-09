@@ -41,7 +41,20 @@ export type BrandingValues = {
   socialProviders: string[] | null;
 };
 
-export type ValidationResult<T> = { ok: true; value: T } | { ok: false; error: string };
+/**
+ * Why a branding input was refused: `error` in English (logs, tests) and `code` with its
+ * `values`, for the admin console to show in the admin's language.
+ */
+export type BrandingIssue =
+  | { code: "textTooLong"; values: { max: number } }
+  | { code: "displayNameTooLong" | "taglineTooLong" | "panelTextTooLong"; values: { max: number } }
+  | { code: "accentColor"; values: { example: string } }
+  | { code: "logoSource" | "logoUrl" | "logoEmpty" | "logoTooLarge" | "logoType" | "panelImageEmpty" | "panelImageTooLarge" | "panelImageType"; values?: undefined };
+
+export type ValidationFailure = { ok: false; error: string } & BrandingIssue;
+export type ValidationResult<T> = { ok: true; value: T } | ValidationFailure;
+
+const ACCENT_EXAMPLE = "#2563eb";
 
 /** Trimmed single line without control characters; null when empty. */
 export function cleanText(raw: string | null | undefined, max: number): ValidationResult<string | null> {
@@ -49,7 +62,7 @@ export function cleanText(raw: string | null | undefined, max: number): Validati
   // eslint-disable-next-line no-control-regex
   const value = raw.replace(/[\u0000-\u001f\u007f​-‏‪-‮⁦-⁩]/g, " ").replace(/\s+/g, " ").trim();
   if (!value) return { ok: true, value: null };
-  if ([...value].length > max) return { ok: false, error: `Keep it under ${max} characters.` };
+  if ([...value].length > max) return { ok: false, error: `Keep it under ${max} characters.`, code: "textTooLong", values: { max } };
   return { ok: true, value };
 }
 
@@ -58,25 +71,31 @@ export function validateBrandingInput(
   knownSocialProviders: readonly string[],
 ): ValidationResult<BrandingValues> {
   const displayName = cleanText(input.displayName, BRANDING_LIMITS.displayName);
-  if (!displayName.ok) return { ok: false, error: `Display name: ${displayName.error}` };
+  if (!displayName.ok) {
+    return { ok: false, error: `Display name: ${displayName.error}`, code: "displayNameTooLong", values: { max: BRANDING_LIMITS.displayName } };
+  }
   const tagline = cleanText(input.tagline, BRANDING_LIMITS.tagline);
-  if (!tagline.ok) return { ok: false, error: `Tagline: ${tagline.error}` };
+  if (!tagline.ok) return { ok: false, error: `Tagline: ${tagline.error}`, code: "taglineTooLong", values: { max: BRANDING_LIMITS.tagline } };
   const panelText = cleanText(input.panelText, BRANDING_LIMITS.panelText);
-  if (!panelText.ok) return { ok: false, error: `Side panel text: ${panelText.error}` };
+  if (!panelText.ok) {
+    return { ok: false, error: `Side panel text: ${panelText.error}`, code: "panelTextTooLong", values: { max: BRANDING_LIMITS.panelText } };
+  }
 
   let accentColor: string | null = null;
   if (input.accentColor && input.accentColor.trim()) {
     accentColor = normalizeHexColor(input.accentColor);
-    if (!accentColor) return { ok: false, error: "Accent color: enter a hex color such as #2563eb." };
+    if (!accentColor) {
+      return { ok: false, error: `Accent color: enter a hex color such as ${ACCENT_EXAMPLE}.`, code: "accentColor", values: { example: ACCENT_EXAMPLE } };
+    }
   }
 
   const logoSource = (input.logoSource ?? "app_icon") as LogoSource;
-  if (!LOGO_SOURCES.includes(logoSource)) return { ok: false, error: "Choose where the logo comes from." };
+  if (!LOGO_SOURCES.includes(logoSource)) return { ok: false, error: "Choose where the logo comes from.", code: "logoSource" };
   let logoUrl: string | null = null;
   if (logoSource === "url") {
     const source = appIconSource({ icon: input.logoUrl?.trim() ?? null });
     if (source?.kind !== "logo") {
-      return { ok: false, error: "Logo URL: enter an https URL on a public host (default port)." };
+      return { ok: false, error: "Logo URL: enter an https URL on a public host (default port).", code: "logoUrl" };
     }
     logoUrl = source.url;
   }
@@ -105,20 +124,20 @@ export type ValidImage = { contentType: IconType; data: Buffer };
 
 /** An uploaded logo: any icon type (SVG included, served sandboxed), at most 256 KB. */
 export function validateLogoUpload(bytes: Uint8Array): ValidationResult<ValidImage> {
-  if (bytes.length === 0) return { ok: false, error: "The logo file is empty." };
-  if (bytes.length > BRANDING_LIMITS.logoBytes) return { ok: false, error: "The logo must be 256 KB or smaller." };
+  if (bytes.length === 0) return { ok: false, error: "The logo file is empty.", code: "logoEmpty" };
+  if (bytes.length > BRANDING_LIMITS.logoBytes) return { ok: false, error: "The logo must be 256 KB or smaller.", code: "logoTooLarge" };
   const type = sniffImageType(bytes);
-  if (!type) return { ok: false, error: "The logo must be a PNG, JPEG, GIF, WebP, AVIF, ICO or SVG image." };
+  if (!type) return { ok: false, error: "The logo must be a PNG, JPEG, GIF, WebP, AVIF, ICO or SVG image.", code: "logoType" };
   return { ok: true, value: { contentType: type, data: Buffer.from(bytes) } };
 }
 
 /** An uploaded side-panel image: PNG, JPEG, WebP or AVIF, at most 1 MB. */
 export function validatePanelImageUpload(bytes: Uint8Array): ValidationResult<ValidImage> {
-  if (bytes.length === 0) return { ok: false, error: "The side panel image is empty." };
-  if (bytes.length > BRANDING_LIMITS.panelImageBytes) return { ok: false, error: "The side panel image must be 1 MB or smaller." };
+  if (bytes.length === 0) return { ok: false, error: "The side panel image is empty.", code: "panelImageEmpty" };
+  if (bytes.length > BRANDING_LIMITS.panelImageBytes) return { ok: false, error: "The side panel image must be 1 MB or smaller.", code: "panelImageTooLarge" };
   const type = sniffImageType(bytes);
   if (!type || !PANEL_IMAGE_TYPES.includes(type)) {
-    return { ok: false, error: "The side panel image must be a PNG, JPEG, WebP or AVIF image." };
+    return { ok: false, error: "The side panel image must be a PNG, JPEG, WebP or AVIF image.", code: "panelImageType" };
   }
   return { ok: true, value: { contentType: type, data: Buffer.from(bytes) } };
 }

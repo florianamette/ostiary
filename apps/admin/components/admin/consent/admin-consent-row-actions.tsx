@@ -8,6 +8,7 @@ import {
   PencilIcon,
   Trash2Icon,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { Button } from "@ostiary/core/components/ui/button";
 import {
@@ -48,6 +49,8 @@ export function AdminConsentRowActions({
   onChanged: () => void;
   onNotify: (message: string, variant?: "error" | "success") => void;
 }) {
+  const t = useTranslations("admin.pages.consent.rowActions");
+  const tc = useTranslations("admin.common");
   const [removeOpen, setRemoveOpen] = React.useState(false);
   const [removePending, setRemovePending] = React.useState(false);
 
@@ -58,10 +61,10 @@ export function AdminConsentRowActions({
         id: row.id,
       });
       if (error) {
-        onNotify(error.message ?? "Could not revoke consent", "error");
+        onNotify(error.message ?? t("revokeFailed"), "error");
         return;
       }
-      onNotify("Consent revoked", "success");
+      onNotify(t("revoked"), "success");
       setRemoveOpen(false);
       onChanged();
     } finally {
@@ -77,7 +80,7 @@ export function AdminConsentRowActions({
             variant="ghost"
             size="icon-sm"
             className="text-muted-foreground"
-            aria-label={`Actions for consent ${row.id.slice(0, 12)}…`}
+            aria-label={t("menuLabel", { id: row.id.slice(0, 12) })}
           >
             <MoreHorizontalIcon />
           </Button>
@@ -86,35 +89,35 @@ export function AdminConsentRowActions({
           <DropdownMenuItem
             onClick={() => {
               void navigator.clipboard.writeText(row.id);
-              onNotify("Consent ID copied", "success");
+              onNotify(t("consentIdCopied"), "success");
             }}
           >
             <CopyIcon />
-            Copy consent ID
+            {t("copyConsentId")}
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() => {
               void navigator.clipboard.writeText(row.clientId);
-              onNotify("Client ID copied", "success");
+              onNotify(t("clientIdCopied"), "success");
             }}
           >
             <CopyIcon />
-            Copy client ID
+            {t("copyClientId")}
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem
             disabled
-            title="Wire to authClient.oauth2.getConsent"
+            title={t("wireTo", { method: "authClient.oauth2.getConsent" })}
           >
             <EyeIcon />
-            View details
+            {t("viewDetails")}
           </DropdownMenuItem>
           <DropdownMenuItem
             disabled
-            title="Wire to authClient.oauth2.updateConsent"
+            title={t("wireTo", { method: "authClient.oauth2.updateConsent" })}
           >
             <PencilIcon />
-            Update scopes
+            {t("updateScopes")}
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem
@@ -122,7 +125,7 @@ export function AdminConsentRowActions({
             onClick={() => setRemoveOpen(true)}
           >
             <Trash2Icon />
-            Revoke consent
+            {t("revoke")}
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
@@ -130,26 +133,26 @@ export function AdminConsentRowActions({
       <Dialog open={removeOpen} onOpenChange={setRemoveOpen}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Revoke consent?</DialogTitle>
+            <DialogTitle>{t("dialogTitle")}</DialogTitle>
             <DialogDescription>
-              Removes this user&apos;s grant for{" "}
-              <span className="font-medium text-foreground">
-                {row.clientLabel}
-              </span>{" "}
-              (<code className="font-mono text-xs">{row.clientId}</code>). The
-              client may need to request authorization again.
+              {t.rich("dialogDescription", {
+                client: row.clientLabel,
+                clientId: row.clientId,
+                strong: (c) => <span className="font-medium text-foreground">{c}</span>,
+                code: (c) => <code className="font-mono text-xs">{c}</code>,
+              })}
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
             <Button variant="outline" onClick={() => setRemoveOpen(false)}>
-              Cancel
+              {tc("cancel")}
             </Button>
             <Button
               variant="destructive"
               disabled={removePending}
               onClick={() => void revokeConsent()}
             >
-              {removePending ? "Revoking…" : "Revoke"}
+              {removePending ? t("revoking") : t("revokeButton")}
             </Button>
           </DialogFooter>
         </DialogContent>
