@@ -10,7 +10,7 @@ import { Link } from "@/i18n/navigation";
 import { authClient } from "@/lib/auth-client";
 import { cn } from "@ostiary/core/lib/utils";
 
-const SECTION_IDS = ["overview", "profile", "organizations", "security", "apps", "api-keys"];
+const SECTION_IDS = ["overview", "profile", "organizations", "security", "apps", "api-keys", "data"];
 
 /**
  * Tracks which dashboard section is in the reading band near the top of the
@@ -116,6 +116,7 @@ export function DashboardShell({
     { id: "security", href: "/dashboard#security", label: t("nav.security") },
     { id: "apps", href: "/dashboard#apps", label: t("nav.apps") },
     { id: "api-keys", href: "/dashboard#api-keys", label: t("nav.apiKeys") },
+    { id: "data", href: "/dashboard#data", label: t("nav.data") },
   ].filter((item) => sectionIds.includes(item.id));
 
   return (

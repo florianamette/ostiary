@@ -396,7 +396,8 @@
       "apiKeys": "API-nycklar",
       "admin": "Admin",
       "marketingHome": "About",
-      "signOut": "Sign out"
+      "signOut": "Sign out",
+      "data": "Dina data"
     },
     "profile": {
       "title": "Profile",
@@ -691,6 +692,66 @@
       "signOutOf": "Logga ut från {email}",
       "signOutAll": "Logga ut från alla konton",
       "switchFailed": "Det gick inte att byta konto. Försök igen."
+    },
+    "data": {
+      "exportTitle": "Exportera dina data",
+      "exportDescription": "Ladda ned en JSON-fil med allt som den här tjänsten lagrar om ditt konto: profil, inloggningsmetoder, passkeys, sessioner, anslutna appar, API-nycklar, organisationer och aktivitetshistorik. Lösenord, tokens, nycklar och hemligheter för tvåfaktorsautentisering ingår aldrig.",
+      "exportButton": "Ladda ned mina data",
+      "exportDone": "Dina data har laddats ned.",
+      "exportErrors": {
+        "signedOut": "Din session har avslutats. Logga in igen.",
+        "impersonating": "Data kan inte exporteras medan du visar någon annans konto.",
+        "recentSignIn": "Av säkerhetsskäl behöver du logga in igen för att exportera dina data.",
+        "rateLimited": "Du har exporterat dina data flera gånger den senaste timmen. Försök igen senare.",
+        "failed": "Det gick inte att exportera dina data. Försök igen."
+      },
+      "signInAgain": "Logga in igen",
+      "deleteTitle": "Radera konto",
+      "deleteDescription": "Radera ditt konto och allt som är kopplat till det permanent. Det går inte att ångra.",
+      "deleteButton": "Radera mitt konto",
+      "loadError": "Det gick inte att kontrollera om kontot kan raderas.",
+      "blockers": {
+        "admin": {
+          "title": "Du är administratör",
+          "body": "Be först en annan administratör att ta bort din administratörsroll. Då står tjänsten aldrig utan administratör, och ändringen registreras."
+        },
+        "sole_owner": {
+          "title": "Du är enda ägare till en organisation",
+          "body": "Du är enda ägare till {organizations}. Gör en annan medlem till ägare, eller be en administratör att radera organisationen, och kom sedan tillbaka."
+        },
+        "scim": {
+          "title": "Ditt konto hanteras av din organisation",
+          "body": "Ditt företags katalog skapade det här kontot och skulle skapa det igen. Be i stället din IT-administratör att ta bort dig från katalogen.",
+          "bodyNamed": "Katalogen hos {organizations} skapade det här kontot och skulle skapa det igen. Be i stället din IT-administratör att ta bort dig från katalogen."
+        }
+      },
+      "confirmTitle": "Radera ditt konto?",
+      "confirmDescription": "Det går inte att ångra. När du bekräftar via mejlet vi skickar till dig:",
+      "consequences": {
+        "signIn": "Loggas du ut överallt och kan inte längre logga in med det här kontot.",
+        "apps": "Förlorar appar som du har loggat in i med det här kontot åtkomsten direkt.",
+        "data": "Raderas dina passkeys, inställningar för tvåfaktorsautentisering, API-nycklar och länkade konton, och du lämnar dina organisationer.",
+        "records": "Visar uppgifter som sparas av säkerhetsskäl, till exempel granskningsloggen, inte längre ditt namn eller din e-postadress."
+      },
+      "exportFirst": "Vill du ha en kopia först? Ladda ned dina data innan du fortsätter.",
+      "typeEmail": "Skriv {email} för att bekräfta",
+      "password": "Lösenord",
+      "noPassword": "Ditt konto har inget lösenord: din senaste inloggning bekräftar att det är du.",
+      "signInFirst": "Ditt konto har inget lösenord, så logga in igen först för att bekräfta att det är du.",
+      "sendLink": "Mejla mig bekräftelselänken",
+      "cancel": "Avbryt",
+      "sentTitle": "Kolla din inkorg",
+      "sentBody": "Vi har skickat en länk till {email}. Öppna den inom {minutes} minuter i en webbläsare där du är inloggad på det här kontot och bekräfta för att radera det.",
+      "done": "Klar",
+      "deleteErrors": {
+        "mismatch": "E-postadressen matchar inte det här kontot.",
+        "password": "Ange ditt lösenord.",
+        "wrongPassword": "Lösenordet är fel.",
+        "recentSignIn": "Av säkerhetsskäl behöver du logga in igen innan du raderar ditt konto.",
+        "blocked": "Kontot kan inte raderas än. Stäng det här fönstret för att se varför.",
+        "impersonating": "Ett konto kan inte raderas medan en administratör visar det.",
+        "failed": "Det gick inte att starta raderingen. Försök igen."
+      }
     }
   },
   "acceptInvitation": {
@@ -870,6 +931,25 @@
       "failed": "Något gick fel. Försök igen."
     }
   },
+  "deleteAccount": {
+    "title": "Radera ditt konto",
+    "description": "Du har bett om att radera kontot {email}. När du bekräftar försvinner det för gott.",
+    "signedOut": "Logga in på kontot du vill radera och öppna sedan länken igen.",
+    "consequenceApps": "Appar som du har loggat in i med det förlorar åtkomsten direkt.",
+    "consequenceSignIn": "Du loggas ut överallt och kan inte logga in med det igen.",
+    "consequenceUndo": "Det går inte att ångra.",
+    "confirm": "Radera mitt konto permanent",
+    "keep": "Behåll mitt konto",
+    "deletedTitle": "Ditt konto har raderats",
+    "deletedBody": "Allt som var kopplat till det har tagits bort. Tack för att du använde {brand}.",
+    "toSignIn": "Gå till inloggningen",
+    "errors": {
+      "missing": "Länken är ofullständig. Öppna länken i mejlet igen eller börja om från din kontosida.",
+      "invalid": "Länken har gått ut, har redan använts eller skickades till ett annat konto. Kontrollera att du är inloggad på kontot du vill radera, eller börja om från din kontosida.",
+      "blocked": "Kontot kan inte raderas än. Öppna din kontosida för att se vad du behöver göra först.",
+      "failed": "Det gick inte att radera kontot. Försök igen."
+    }
+  },
   "captcha": {
     "label": "Säkerhetskontroll",
     "required": "Slutför säkerhetskontrollen först.",
@@ -884,6 +964,16 @@
       "body": "Ange den här koden på inloggningssidan för {brand} för att slutföra inloggningen.",
       "note": "Koden går ut om {minutes} minuter och fungerar bara en gång.",
       "footnote": "Har du inte begärt någon kod? Ignorera det här mejlet: ingen kan logga in utan koden. Dela den aldrig med någon."
+    },
+    "deleteAccount": {
+      "subject": "Bekräfta raderingen av ditt {brand}-konto",
+      "preheader": "Någon har bett om att radera ditt {brand}-konto. Inget händer förrän du bekräftar.",
+      "heading": "Radera ditt konto?",
+      "body": "Någon har begärt att {brand}-kontot {email} ska raderas permanent. Om du vill fortsätta öppnar du länken nedan i en webbläsare där du är inloggad på det här kontot och bekräftar.",
+      "consequences": "Appar som du loggar in i med det här kontot förlorar åtkomsten, och kontot kan inte återställas.",
+      "button": "Granska och radera",
+      "note": "Länken går ut om {minutes} minuter och fungerar bara en gång.",
+      "footnote": "Har du inte bett om det här? Ignorera det här mejlet: ditt konto förblir som det är. Överväg att byta lösenord, eftersom begäran kom från en inloggad session."
     }
   }
 }

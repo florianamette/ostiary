@@ -396,7 +396,8 @@
       "apiKeys": "Klucze API",
       "admin": "Admin",
       "marketingHome": "About",
-      "signOut": "Sign out"
+      "signOut": "Sign out",
+      "data": "Twoje dane"
     },
     "profile": {
       "title": "Profile",
@@ -691,6 +692,66 @@
       "signOutOf": "Wyloguj z {email}",
       "signOutAll": "Wyloguj ze wszystkich kont",
       "switchFailed": "Nie udało się przełączyć konta. Spróbuj ponownie."
+    },
+    "data": {
+      "exportTitle": "Eksportuj swoje dane",
+      "exportDescription": "Pobierz plik JSON ze wszystkimi danymi, które ta usługa przechowuje o Twoim koncie: profil, metody logowania, klucze dostępu, sesje, połączone aplikacje, klucze API, organizacje i historię aktywności. Hasła, tokeny, klucze i sekrety uwierzytelniania dwuskładnikowego nigdy nie są dołączane.",
+      "exportButton": "Pobierz moje dane",
+      "exportDone": "Twoje dane zostały pobrane.",
+      "exportErrors": {
+        "signedOut": "Twoja sesja wygasła. Zaloguj się ponownie.",
+        "impersonating": "Nie można eksportować danych podczas przeglądania cudzego konta.",
+        "recentSignIn": "Ze względów bezpieczeństwa zaloguj się ponownie, aby wyeksportować dane.",
+        "rateLimited": "W ciągu ostatniej godziny dane były eksportowane już kilka razy. Spróbuj ponownie później.",
+        "failed": "Nie udało się wyeksportować danych. Spróbuj ponownie."
+      },
+      "signInAgain": "Zaloguj się ponownie",
+      "deleteTitle": "Usuń konto",
+      "deleteDescription": "Trwale usuń swoje konto i wszystko, co jest z nim powiązane. Tej operacji nie można cofnąć.",
+      "deleteButton": "Usuń moje konto",
+      "loadError": "Nie udało się sprawdzić, czy to konto można usunąć.",
+      "blockers": {
+        "admin": {
+          "title": "Jesteś administratorem",
+          "body": "Najpierw poproś innego administratora o odebranie Ci roli administratora. Dzięki temu usługa nigdy nie zostanie bez administratora, a zmiana zostanie odnotowana."
+        },
+        "sole_owner": {
+          "title": "Jesteś jedynym właścicielem organizacji",
+          "body": "Jesteś jedynym właścicielem: {organizations}. Nadaj rolę właściciela innemu członkowi lub poproś administratora o usunięcie organizacji, a potem wróć tutaj."
+        },
+        "scim": {
+          "title": "Twoim kontem zarządza Twoja organizacja",
+          "body": "To konto zostało utworzone przez katalog Twojej firmy, który utworzyłby je ponownie. Zamiast tego poproś administratora IT o usunięcie Cię z katalogu.",
+          "bodyNamed": "To konto zostało utworzone przez katalog organizacji {organizations}, który utworzyłby je ponownie. Zamiast tego poproś administratora IT o usunięcie Cię z katalogu."
+        }
+      },
+      "confirmTitle": "Usunąć konto?",
+      "confirmDescription": "Tej operacji nie można cofnąć. Po potwierdzeniu w wysłanej przez nas wiadomości e-mail:",
+      "consequences": {
+        "signIn": "Zostaniesz wylogowany wszędzie i nie zalogujesz się już na to konto.",
+        "apps": "Aplikacje, do których logujesz się tym kontem, natychmiast stracą dostęp.",
+        "data": "Twoje klucze dostępu, ustawienia uwierzytelniania dwuskładnikowego, klucze API i powiązane konta zostaną usunięte, a Ty opuścisz swoje organizacje.",
+        "records": "Zapisy przechowywane ze względów bezpieczeństwa, np. dziennik audytu, nie będą już pokazywać Twojego imienia ani adresu e-mail."
+      },
+      "exportFirst": "Chcesz zachować kopię? Pobierz swoje dane, zanim przejdziesz dalej.",
+      "typeEmail": "Wpisz {email}, aby potwierdzić",
+      "password": "Hasło",
+      "noPassword": "Twoje konto nie ma hasła: niedawne logowanie potwierdza, że to Ty.",
+      "signInFirst": "Twoje konto nie ma hasła, więc najpierw zaloguj się ponownie, aby potwierdzić, że to Ty.",
+      "sendLink": "Wyślij mi link potwierdzający",
+      "cancel": "Anuluj",
+      "sentTitle": "Sprawdź skrzynkę odbiorczą",
+      "sentBody": "Wysłaliśmy link na adres {email}. Otwórz go w ciągu {minutes} minut w przeglądarce, w której jesteś zalogowany na to konto, i potwierdź usunięcie.",
+      "done": "Gotowe",
+      "deleteErrors": {
+        "mismatch": "Ten adres e-mail nie pasuje do tego konta.",
+        "password": "Wpisz hasło.",
+        "wrongPassword": "Nieprawidłowe hasło.",
+        "recentSignIn": "Ze względów bezpieczeństwa zaloguj się ponownie przed usunięciem konta.",
+        "blocked": "Tego konta nie można jeszcze usunąć. Zamknij to okno, aby zobaczyć dlaczego.",
+        "impersonating": "Nie można usunąć konta, gdy przegląda je administrator.",
+        "failed": "Nie udało się rozpocząć usuwania. Spróbuj ponownie."
+      }
     }
   },
   "acceptInvitation": {
@@ -870,6 +931,25 @@
       "failed": "Coś poszło nie tak. Spróbuj ponownie."
     }
   },
+  "deleteAccount": {
+    "title": "Usuń swoje konto",
+    "description": "Poproszono o usunięcie konta {email}. Po potwierdzeniu zniknie ono na zawsze.",
+    "signedOut": "Zaloguj się na konto, które chcesz usunąć, a następnie ponownie otwórz link.",
+    "consequenceApps": "Aplikacje, do których logujesz się tym kontem, natychmiast stracą dostęp.",
+    "consequenceSignIn": "Zostaniesz wylogowany wszędzie i nie zalogujesz się już na to konto.",
+    "consequenceUndo": "Tej operacji nie można cofnąć.",
+    "confirm": "Trwale usuń moje konto",
+    "keep": "Zachowaj moje konto",
+    "deletedTitle": "Twoje konto zostało usunięte",
+    "deletedBody": "Wszystko, co było z nim powiązane, zostało usunięte. Dziękujemy za korzystanie z {brand}.",
+    "toSignIn": "Przejdź do logowania",
+    "errors": {
+      "missing": "Ten link jest niekompletny. Otwórz ponownie link z wiadomości e-mail lub zacznij od nowa na stronie konta.",
+      "invalid": "Ten link wygasł, został już użyty lub wysłano go do innego konta. Sprawdź, czy jesteś zalogowany na konto, które chcesz usunąć, lub zacznij od nowa na stronie konta.",
+      "blocked": "Tego konta nie można jeszcze usunąć. Otwórz stronę konta, aby zobaczyć, co trzeba najpierw zrobić.",
+      "failed": "Nie udało się usunąć konta. Spróbuj ponownie."
+    }
+  },
   "captcha": {
     "label": "Weryfikacja bezpieczeństwa",
     "required": "Najpierw ukończ weryfikację bezpieczeństwa.",
@@ -884,6 +964,16 @@
       "body": "Wpisz ten kod na stronie logowania {brand}, aby dokończyć logowanie.",
       "note": "Kod wygaśnie za {minutes} minut i działa tylko raz.",
       "footnote": "Nie prosiłeś o kod? Zignoruj tę wiadomość: bez kodu nikt się nie zaloguje. Nigdy nikomu go nie udostępniaj."
+    },
+    "deleteAccount": {
+      "subject": "Potwierdź usunięcie konta {brand}",
+      "preheader": "Ktoś poprosił o usunięcie Twojego konta {brand}. Nic się nie stanie, dopóki tego nie potwierdzisz.",
+      "heading": "Usunąć konto?",
+      "body": "Otrzymaliśmy prośbę o trwałe usunięcie konta {brand} {email}. Aby kontynuować, otwórz poniższy link w przeglądarce, w której jesteś zalogowany na to konto, i potwierdź.",
+      "consequences": "Aplikacje, do których logujesz się tym kontem, stracą dostęp, a konta nie będzie można odzyskać.",
+      "button": "Sprawdź i usuń",
+      "note": "Link wygaśnie za {minutes} minut i działa tylko raz.",
+      "footnote": "Jeśli to nie Ty, zignoruj tę wiadomość: Twoje konto pozostanie bez zmian. Rozważ zmianę hasła, ponieważ prośba została wysłana z zalogowanej sesji."
     }
   }
 }

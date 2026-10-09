@@ -396,7 +396,8 @@
       "apiKeys": "API 密钥",
       "admin": "管理后台",
       "marketingHome": "关于",
-      "signOut": "退出登录"
+      "signOut": "退出登录",
+      "data": "你的数据"
     },
     "profile": {
       "title": "个人资料",
@@ -691,6 +692,66 @@
       "signOutOf": "退出 {email}",
       "signOutAll": "退出所有账户",
       "switchFailed": "无法切换账户，请重试。"
+    },
+    "data": {
+      "exportTitle": "导出你的数据",
+      "exportDescription": "下载一个 JSON 文件，包含本服务存储的与你账户相关的全部信息：个人资料、登录方式、通行密钥、会话、已连接应用、API 密钥、组织和活动记录。密码、令牌、密钥和双重身份验证密钥绝不会包含在内。",
+      "exportButton": "下载我的数据",
+      "exportDone": "你的数据已下载。",
+      "exportErrors": {
+        "signedOut": "你的会话已结束。请重新登录。",
+        "impersonating": "查看他人账户时无法导出数据。",
+        "recentSignIn": "为保障安全，请重新登录后再导出数据。",
+        "rateLimited": "你在过去一小时内已多次导出数据。请稍后再试。",
+        "failed": "无法导出你的数据。请重试。"
+      },
+      "signInAgain": "重新登录",
+      "deleteTitle": "删除账户",
+      "deleteDescription": "永久删除你的账户及与之关联的所有数据。此操作无法撤销。",
+      "deleteButton": "删除我的账户",
+      "loadError": "无法确认此账户是否可以删除。",
+      "blockers": {
+        "admin": {
+          "title": "你是管理员",
+          "body": "请先让另一位管理员移除你的管理员角色。这样服务始终有管理员，且此变更会被记录。"
+        },
+        "sole_owner": {
+          "title": "你是某个组织的唯一所有者",
+          "body": "你是 {organizations} 的唯一所有者。请将另一位成员设为所有者，或请管理员删除该组织，然后再回来操作。"
+        },
+        "scim": {
+          "title": "你的账户由组织管理",
+          "body": "此账户由公司目录创建，删除后会被重新创建。请改为联系 IT 管理员将你从目录中移除。",
+          "bodyNamed": "此账户由 {organizations} 的目录创建，删除后会被重新创建。请改为联系 IT 管理员将你从目录中移除。"
+        }
+      },
+      "confirmTitle": "删除你的账户？",
+      "confirmDescription": "此操作无法撤销。在我们发送的邮件中确认后：",
+      "consequences": {
+        "signIn": "你将在所有设备上退出登录，且无法再使用此账户登录。",
+        "apps": "你用此账户登录过的应用将立即失去访问权限。",
+        "data": "你的通行密钥、双重身份验证设置、API 密钥和关联账户将被删除，你也将退出所有组织。",
+        "records": "出于安全目的保留的记录（如审计日志）将不再显示你的姓名或邮箱地址。"
+      },
+      "exportFirst": "想先保留一份副本？请在继续之前下载你的数据。",
+      "typeEmail": "输入 {email} 以确认",
+      "password": "密码",
+      "noPassword": "你的账户没有密码：你最近的登录已确认是你本人。",
+      "signInFirst": "你的账户没有密码，请先重新登录以确认是你本人。",
+      "sendLink": "通过邮件发送确认链接",
+      "cancel": "取消",
+      "sentTitle": "请查收邮件",
+      "sentBody": "我们已向 {email} 发送了一个链接。请在 {minutes} 分钟内，在已登录此账户的浏览器中打开该链接并确认删除。",
+      "done": "完成",
+      "deleteErrors": {
+        "mismatch": "该邮箱地址与此账户不匹配。",
+        "password": "请输入你的密码。",
+        "wrongPassword": "密码不正确。",
+        "recentSignIn": "为保障安全，请重新登录后再删除账户。",
+        "blocked": "此账户暂时无法删除。关闭此窗口即可查看原因。",
+        "impersonating": "管理员正在查看此账户时，无法删除该账户。",
+        "failed": "无法开始删除。请重试。"
+      }
     }
   },
   "acceptInvitation": {
@@ -870,6 +931,25 @@
       "failed": "出现问题。请重试。"
     }
   },
+  "deleteAccount": {
+    "title": "删除你的账户",
+    "description": "你已申请删除账户 {email}。确认后，该账户将被永久删除。",
+    "signedOut": "请登录你要删除的账户，然后重新打开该链接。",
+    "consequenceApps": "你用此账户登录过的应用将立即失去访问权限。",
+    "consequenceSignIn": "你将在所有设备上退出登录，且无法再使用此账户登录。",
+    "consequenceUndo": "此操作无法撤销。",
+    "confirm": "永久删除我的账户",
+    "keep": "保留我的账户",
+    "deletedTitle": "你的账户已删除",
+    "deletedBody": "与该账户关联的所有数据均已移除。感谢你使用 {brand}。",
+    "toSignIn": "前往登录",
+    "errors": {
+      "missing": "此链接不完整。请重新打开邮件中的链接，或从账户页面重新开始。",
+      "invalid": "此链接已过期、已被使用，或是发送给其他账户的。请确认你已登录要删除的账户，或从账户页面重新开始。",
+      "blocked": "此账户暂时无法删除。请打开账户页面，查看需要先完成的操作。",
+      "failed": "无法删除账户。请重试。"
+    }
+  },
   "captcha": {
     "label": "安全验证",
     "required": "请先完成安全验证。",
@@ -884,6 +964,16 @@
       "body": "在 {brand} 登录页面输入此验证码即可完成登录。",
       "note": "验证码将在 {minutes} 分钟后失效，且只能使用一次。",
       "footnote": "没有请求验证码？请忽略此邮件：没有验证码，任何人都无法登录。切勿将验证码告诉任何人。"
+    },
+    "deleteAccount": {
+      "subject": "确认删除你的 {brand} 账户",
+      "preheader": "有人申请删除你的 {brand} 账户。在你确认之前，不会有任何变化。",
+      "heading": "删除你的账户？",
+      "body": "有人申请永久删除 {brand} 账户 {email}。如需继续，请在已登录此账户的浏览器中打开下方链接并确认。",
+      "consequences": "你用此账户登录的应用将失去访问权限，且账户无法恢复。",
+      "button": "查看并删除",
+      "note": "此链接将在 {minutes} 分钟后失效，且只能使用一次。",
+      "footnote": "如果这不是你本人的操作，请忽略此邮件：你的账户将保持不变。由于该请求来自一个已登录的会话，建议你修改密码。"
     }
   }
 }

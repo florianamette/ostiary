@@ -396,7 +396,8 @@
       "apiKeys": "Clés d’API",
       "admin": "Administration",
       "marketingHome": "À propos",
-      "signOut": "Déconnexion"
+      "signOut": "Déconnexion",
+      "data": "Vos données"
     },
     "profile": {
       "title": "Profil",
@@ -691,6 +692,66 @@
       "signOutOf": "Se déconnecter de {email}",
       "signOutAll": "Se déconnecter de tous les comptes",
       "switchFailed": "Impossible de changer de compte. Réessayez."
+    },
+    "data": {
+      "exportTitle": "Exporter vos données",
+      "exportDescription": "Téléchargez un fichier JSON contenant tout ce que ce service conserve sur votre compte : profil, méthodes de connexion, clés d’accès, sessions, applications connectées, clés d’API, organisations et historique d’activité. Les mots de passe, jetons, clés et secrets d’authentification à deux facteurs ne sont jamais inclus.",
+      "exportButton": "Télécharger mes données",
+      "exportDone": "Vos données ont été téléchargées.",
+      "exportErrors": {
+        "signedOut": "Votre session a expiré. Reconnectez-vous.",
+        "impersonating": "Impossible d’exporter des données lorsque vous consultez le compte d’une autre personne.",
+        "recentSignIn": "Pour votre sécurité, reconnectez-vous pour exporter vos données.",
+        "rateLimited": "Vous avez exporté vos données plusieurs fois au cours de la dernière heure. Réessayez plus tard.",
+        "failed": "Impossible d’exporter vos données. Réessayez."
+      },
+      "signInAgain": "Se reconnecter",
+      "deleteTitle": "Supprimer le compte",
+      "deleteDescription": "Supprimez définitivement votre compte et tout ce qui y est lié. Cette action est irréversible.",
+      "deleteButton": "Supprimer mon compte",
+      "loadError": "Impossible de vérifier si ce compte peut être supprimé.",
+      "blockers": {
+        "admin": {
+          "title": "Vous êtes administrateur",
+          "body": "Demandez d’abord à un autre administrateur de vous retirer le rôle d’administrateur. Ainsi, le service n’est jamais sans administrateur et le changement est enregistré."
+        },
+        "sole_owner": {
+          "title": "Vous êtes le seul propriétaire d’une organisation",
+          "body": "Vous êtes le seul propriétaire de {organizations}. Nommez un autre membre propriétaire, ou demandez à un administrateur de supprimer l’organisation, puis revenez ici."
+        },
+        "scim": {
+          "title": "Votre compte est géré par votre organisation",
+          "body": "L’annuaire de votre entreprise a créé ce compte et le recréerait. Demandez plutôt à votre administrateur informatique de vous retirer de l’annuaire.",
+          "bodyNamed": "L’annuaire de {organizations} a créé ce compte et le recréerait. Demandez plutôt à votre administrateur informatique de vous retirer de l’annuaire."
+        }
+      },
+      "confirmTitle": "Supprimer votre compte ?",
+      "confirmDescription": "Cette action est irréversible. Une fois que vous aurez confirmé depuis l’e-mail que nous vous envoyons :",
+      "consequences": {
+        "signIn": "Vous êtes déconnecté partout et ne pouvez plus vous connecter avec ce compte.",
+        "apps": "Les applications auxquelles vous vous êtes connecté avec ce compte perdent immédiatement l’accès.",
+        "data": "Vos clés d’accès, réglages d’authentification à deux facteurs, clés d’API et comptes liés sont supprimés, et vous quittez vos organisations.",
+        "records": "Les enregistrements conservés pour la sécurité, comme le journal d’audit, n’affichent plus votre nom ni votre adresse e-mail."
+      },
+      "exportFirst": "Vous voulez une copie avant ? Téléchargez vos données avant de continuer.",
+      "typeEmail": "Saisissez {email} pour confirmer",
+      "password": "Mot de passe",
+      "noPassword": "Votre compte n’a pas de mot de passe : votre connexion récente confirme qu’il s’agit bien de vous.",
+      "signInFirst": "Votre compte n’a pas de mot de passe : reconnectez-vous d’abord pour confirmer qu’il s’agit bien de vous.",
+      "sendLink": "M’envoyer le lien de confirmation",
+      "cancel": "Annuler",
+      "sentTitle": "Consultez votre boîte mail",
+      "sentBody": "Nous avons envoyé un lien à {email}. Ouvrez-le dans les {minutes} minutes, dans un navigateur où vous êtes connecté à ce compte, puis confirmez la suppression.",
+      "done": "Terminé",
+      "deleteErrors": {
+        "mismatch": "L’adresse e-mail ne correspond pas à ce compte.",
+        "password": "Saisissez votre mot de passe.",
+        "wrongPassword": "Mot de passe incorrect.",
+        "recentSignIn": "Pour votre sécurité, reconnectez-vous avant de supprimer votre compte.",
+        "blocked": "Ce compte ne peut pas encore être supprimé. Fermez cette fenêtre pour savoir pourquoi.",
+        "impersonating": "Un compte ne peut pas être supprimé pendant qu’un administrateur le consulte.",
+        "failed": "Impossible de lancer la suppression. Réessayez."
+      }
     }
   },
   "acceptInvitation": {
@@ -870,6 +931,25 @@
       "failed": "Une erreur s’est produite. Réessayez."
     }
   },
+  "deleteAccount": {
+    "title": "Supprimer votre compte",
+    "description": "Vous avez demandé la suppression du compte {email}. Une fois confirmée, elle est définitive.",
+    "signedOut": "Connectez-vous au compte que vous voulez supprimer, puis ouvrez à nouveau le lien.",
+    "consequenceApps": "Les applications auxquelles vous vous êtes connecté avec ce compte perdent immédiatement l’accès.",
+    "consequenceSignIn": "Vous êtes déconnecté partout et ne pourrez plus vous connecter avec ce compte.",
+    "consequenceUndo": "Cette action est irréversible.",
+    "confirm": "Supprimer définitivement mon compte",
+    "keep": "Conserver mon compte",
+    "deletedTitle": "Votre compte a été supprimé",
+    "deletedBody": "Tout ce qui y était lié a été supprimé. Merci d’avoir utilisé {brand}.",
+    "toSignIn": "Aller à la connexion",
+    "errors": {
+      "missing": "Ce lien est incomplet. Ouvrez à nouveau le lien de l’e-mail, ou recommencez depuis la page de votre compte.",
+      "invalid": "Ce lien a expiré, a déjà été utilisé ou a été envoyé pour un autre compte. Vérifiez que vous êtes connecté au compte à supprimer, ou recommencez depuis la page de votre compte.",
+      "blocked": "Ce compte ne peut pas encore être supprimé. Ouvrez la page de votre compte pour savoir quoi faire d’abord.",
+      "failed": "Impossible de supprimer le compte. Réessayez."
+    }
+  },
   "captcha": {
     "label": "Vérification de sécurité",
     "required": "Effectuez d’abord la vérification de sécurité.",
@@ -884,6 +964,16 @@
       "body": "Saisissez ce code sur la page de connexion {brand} pour terminer la connexion.",
       "note": "Le code expire dans {minutes} minutes et ne fonctionne qu’une fois.",
       "footnote": "Vous n’avez pas demandé de code ? Ignorez cet e-mail : personne ne peut se connecter sans lui. Ne le communiquez jamais à personne."
+    },
+    "deleteAccount": {
+      "subject": "Confirmez la suppression de votre compte {brand}",
+      "preheader": "Une demande de suppression de votre compte {brand} a été faite. Rien ne se passe tant que vous ne confirmez pas.",
+      "heading": "Supprimer votre compte ?",
+      "body": "Une demande a été faite pour supprimer définitivement le compte {brand} {email}. Pour continuer, ouvrez le lien ci-dessous dans un navigateur où vous êtes connecté à ce compte, puis confirmez.",
+      "consequences": "Les applications auxquelles vous vous connectez avec ce compte perdront l’accès, et le compte ne pourra pas être récupéré.",
+      "button": "Vérifier et supprimer",
+      "note": "Le lien expire dans {minutes} minutes et ne fonctionne qu’une seule fois.",
+      "footnote": "Si vous n’êtes pas à l’origine de cette demande, ignorez cet e-mail : votre compte reste inchangé. Pensez à changer votre mot de passe, car la demande provient d’une session connectée."
     }
   }
 }

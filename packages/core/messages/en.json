@@ -396,7 +396,8 @@
       "apiKeys": "API keys",
       "admin": "Admin",
       "marketingHome": "About",
-      "signOut": "Sign out"
+      "signOut": "Sign out",
+      "data": "Your data"
     },
     "profile": {
       "title": "Profile",
@@ -691,6 +692,66 @@
       "signOutOf": "Sign out of {email}",
       "signOutAll": "Sign out of all accounts",
       "switchFailed": "Couldn't switch accounts. Try again."
+    },
+    "data": {
+      "exportTitle": "Export your data",
+      "exportDescription": "Download a JSON file with everything this service stores about your account: profile, sign-in methods, passkeys, sessions, connected apps, API keys, organizations and activity history. Passwords, tokens, keys and two-factor secrets are never included.",
+      "exportButton": "Download my data",
+      "exportDone": "Your data was downloaded.",
+      "exportErrors": {
+        "signedOut": "Your session has ended. Sign in again.",
+        "impersonating": "Data cannot be exported while viewing someone else's account.",
+        "recentSignIn": "For your security, sign in again to export your data.",
+        "rateLimited": "You have exported your data several times in the last hour. Try again later.",
+        "failed": "Could not export your data. Try again."
+      },
+      "signInAgain": "Sign in again",
+      "deleteTitle": "Delete account",
+      "deleteDescription": "Permanently delete your account and everything linked to it. This cannot be undone.",
+      "deleteButton": "Delete my account",
+      "loadError": "Could not check whether this account can be deleted.",
+      "blockers": {
+        "admin": {
+          "title": "You are an administrator",
+          "body": "Ask another administrator to remove your admin role first. This way the service is never left without an administrator, and the change is on record."
+        },
+        "sole_owner": {
+          "title": "You are the only owner of an organization",
+          "body": "You are the only owner of {organizations}. Make another member an owner, or ask an administrator to delete the organization, then come back."
+        },
+        "scim": {
+          "title": "Your account is managed by your organization",
+          "body": "Your company directory created this account and would create it again. Ask your IT administrator to remove you from the directory instead.",
+          "bodyNamed": "The directory of {organizations} created this account and would create it again. Ask your IT administrator to remove you from the directory instead."
+        }
+      },
+      "confirmTitle": "Delete your account?",
+      "confirmDescription": "This cannot be undone. Once you confirm from the email we send you:",
+      "consequences": {
+        "signIn": "You are signed out everywhere and can no longer sign in with this account.",
+        "apps": "Apps you signed in to with this account lose access right away.",
+        "data": "Your passkeys, two-factor settings, API keys and linked accounts are deleted, and you leave your organizations.",
+        "records": "Records kept for security, such as the audit log, no longer show your name or email address."
+      },
+      "exportFirst": "Want a copy first? Download your data before you continue.",
+      "typeEmail": "Type {email} to confirm",
+      "password": "Password",
+      "noPassword": "Your account has no password: your recent sign-in confirms it is you.",
+      "signInFirst": "Your account has no password, so sign in again first to confirm it is you.",
+      "sendLink": "Email me the confirmation link",
+      "cancel": "Cancel",
+      "sentTitle": "Check your inbox",
+      "sentBody": "We sent a link to {email}. Open it within {minutes} minutes, in a browser where you are signed in to this account, and confirm to delete it.",
+      "done": "Done",
+      "deleteErrors": {
+        "mismatch": "The email address does not match this account.",
+        "password": "Enter your password.",
+        "wrongPassword": "That password is not correct.",
+        "recentSignIn": "For your security, sign in again before deleting your account.",
+        "blocked": "This account cannot be deleted yet. Close this window to see why.",
+        "impersonating": "An account cannot be deleted while an administrator is viewing it.",
+        "failed": "Could not start the deletion. Try again."
+      }
     }
   },
   "acceptInvitation": {
@@ -870,6 +931,25 @@
       "failed": "Something went wrong. Try again."
     }
   },
+  "deleteAccount": {
+    "title": "Delete your account",
+    "description": "You asked to delete the account {email}. When you confirm, it is gone for good.",
+    "signedOut": "Sign in to the account you want to delete, then open the link again.",
+    "consequenceApps": "Apps you signed in to with it lose access right away.",
+    "consequenceSignIn": "You are signed out everywhere and cannot sign in with it again.",
+    "consequenceUndo": "This cannot be undone.",
+    "confirm": "Delete my account permanently",
+    "keep": "Keep my account",
+    "deletedTitle": "Your account was deleted",
+    "deletedBody": "Everything linked to it has been removed. Thank you for using {brand}.",
+    "toSignIn": "Go to sign-in",
+    "errors": {
+      "missing": "This link is incomplete. Open the link from the email again, or start over from your account page.",
+      "invalid": "This link has expired, was already used, or was sent to another account. Check that you are signed in to the account you want to delete, or start over from your account page.",
+      "blocked": "This account cannot be deleted yet. Open your account page to see what to do first.",
+      "failed": "Could not delete the account. Try again."
+    }
+  },
   "captcha": {
     "label": "Security check",
     "required": "Complete the security check first.",
@@ -884,6 +964,16 @@
       "body": "Enter this code on the {brand} sign-in page to finish signing in.",
       "note": "The code expires in {minutes} minutes and works only once.",
       "footnote": "Didn't ask for a code? Ignore this email: no one can sign in without it. Never share it with anyone."
+    },
+    "deleteAccount": {
+      "subject": "Confirm the deletion of your {brand} account",
+      "preheader": "Someone asked to delete your {brand} account. Nothing happens until you confirm.",
+      "heading": "Delete your account?",
+      "body": "A request was made to permanently delete the {brand} account {email}. To go ahead, open the link below in a browser where you are signed in to this account, and confirm.",
+      "consequences": "Apps you sign in to with this account will lose access, and the account cannot be recovered.",
+      "button": "Review and delete",
+      "note": "The link expires in {minutes} minutes and works only once.",
+      "footnote": "If you didn't ask for this, ignore this email: your account stays as it is. Consider changing your password, since the request came from a signed-in session."
     }
   }
 }

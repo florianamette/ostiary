@@ -396,7 +396,8 @@
       "apiKeys": "Chiavi API",
       "admin": "Admin",
       "marketingHome": "About",
-      "signOut": "Sign out"
+      "signOut": "Sign out",
+      "data": "I tuoi dati"
     },
     "profile": {
       "title": "Profile",
@@ -691,6 +692,66 @@
       "signOutOf": "Esci da {email}",
       "signOutAll": "Esci da tutti gli account",
       "switchFailed": "Impossibile cambiare account. Riprova."
+    },
+    "data": {
+      "exportTitle": "Esporta i tuoi dati",
+      "exportDescription": "Scarica un file JSON con tutto ciò che questo servizio conserva sul tuo account: profilo, metodi di accesso, passkey, sessioni, app collegate, chiavi API, organizzazioni e cronologia delle attività. Password, token, chiavi e segreti dell’autenticazione a due fattori non sono mai inclusi.",
+      "exportButton": "Scarica i miei dati",
+      "exportDone": "I tuoi dati sono stati scaricati.",
+      "exportErrors": {
+        "signedOut": "La sessione è scaduta. Accedi di nuovo.",
+        "impersonating": "Non puoi esportare i dati mentre visualizzi l’account di un’altra persona.",
+        "recentSignIn": "Per sicurezza, accedi di nuovo per esportare i tuoi dati.",
+        "rateLimited": "Hai esportato i tuoi dati più volte nell’ultima ora. Riprova più tardi.",
+        "failed": "Impossibile esportare i tuoi dati. Riprova."
+      },
+      "signInAgain": "Accedi di nuovo",
+      "deleteTitle": "Elimina account",
+      "deleteDescription": "Elimina definitivamente il tuo account e tutto ciò che vi è collegato. L’operazione non può essere annullata.",
+      "deleteButton": "Elimina il mio account",
+      "loadError": "Impossibile verificare se questo account può essere eliminato.",
+      "blockers": {
+        "admin": {
+          "title": "Sei un amministratore",
+          "body": "Chiedi prima a un altro amministratore di rimuoverti il ruolo di amministratore. Così il servizio non resta mai senza amministratori e la modifica viene registrata."
+        },
+        "sole_owner": {
+          "title": "Sei l’unico proprietario di un’organizzazione",
+          "body": "Sei l’unico proprietario di {organizations}. Rendi proprietario un altro membro, oppure chiedi a un amministratore di eliminare l’organizzazione, poi torna qui."
+        },
+        "scim": {
+          "title": "Il tuo account è gestito dalla tua organizzazione",
+          "body": "La directory della tua azienda ha creato questo account e lo creerebbe di nuovo. Chiedi invece al tuo amministratore IT di rimuoverti dalla directory.",
+          "bodyNamed": "La directory di {organizations} ha creato questo account e lo creerebbe di nuovo. Chiedi invece al tuo amministratore IT di rimuoverti dalla directory."
+        }
+      },
+      "confirmTitle": "Eliminare il tuo account?",
+      "confirmDescription": "L’operazione non può essere annullata. Dopo la conferma dall’email che ti invieremo:",
+      "consequences": {
+        "signIn": "Verrai disconnesso ovunque e non potrai più accedere con questo account.",
+        "apps": "Le app a cui hai effettuato l’accesso con questo account perdono subito l’accesso.",
+        "data": "Le tue passkey, le impostazioni dell’autenticazione a due fattori, le chiavi API e gli account collegati vengono eliminati, e lasci le tue organizzazioni.",
+        "records": "I registri conservati per sicurezza, come il registro di audit, non mostrano più il tuo nome né il tuo indirizzo email."
+      },
+      "exportFirst": "Vuoi prima una copia? Scarica i tuoi dati prima di continuare.",
+      "typeEmail": "Digita {email} per confermare",
+      "password": "Password",
+      "noPassword": "Il tuo account non ha una password: il tuo accesso recente conferma che sei tu.",
+      "signInFirst": "Il tuo account non ha una password, quindi accedi prima di nuovo per confermare che sei tu.",
+      "sendLink": "Inviami il link di conferma",
+      "cancel": "Annulla",
+      "sentTitle": "Controlla la tua casella di posta",
+      "sentBody": "Abbiamo inviato un link a {email}. Aprilo entro {minutes} minuti, in un browser in cui hai effettuato l’accesso a questo account, e conferma l’eliminazione.",
+      "done": "Fatto",
+      "deleteErrors": {
+        "mismatch": "L’indirizzo email non corrisponde a questo account.",
+        "password": "Inserisci la password.",
+        "wrongPassword": "Password errata.",
+        "recentSignIn": "Per sicurezza, accedi di nuovo prima di eliminare il tuo account.",
+        "blocked": "Questo account non può ancora essere eliminato. Chiudi questa finestra per vedere il motivo.",
+        "impersonating": "Non è possibile eliminare un account mentre un amministratore lo sta visualizzando.",
+        "failed": "Impossibile avviare l’eliminazione. Riprova."
+      }
     }
   },
   "acceptInvitation": {
@@ -870,6 +931,25 @@
       "failed": "Si è verificato un errore. Riprova."
     }
   },
+  "deleteAccount": {
+    "title": "Elimina il tuo account",
+    "description": "Hai chiesto di eliminare l’account {email}. Dopo la conferma, verrà eliminato per sempre.",
+    "signedOut": "Accedi all’account che vuoi eliminare, poi apri di nuovo il link.",
+    "consequenceApps": "Le app a cui hai effettuato l’accesso con questo account perdono subito l’accesso.",
+    "consequenceSignIn": "Verrai disconnesso ovunque e non potrai più accedere con questo account.",
+    "consequenceUndo": "L’operazione non può essere annullata.",
+    "confirm": "Elimina definitivamente il mio account",
+    "keep": "Mantieni il mio account",
+    "deletedTitle": "Il tuo account è stato eliminato",
+    "deletedBody": "Tutto ciò che vi era collegato è stato rimosso. Grazie per aver usato {brand}.",
+    "toSignIn": "Vai all’accesso",
+    "errors": {
+      "missing": "Questo link è incompleto. Apri di nuovo il link dall’email, oppure ricomincia dalla pagina del tuo account.",
+      "invalid": "Questo link è scaduto, è già stato usato o è stato inviato per un altro account. Verifica di aver effettuato l’accesso all’account che vuoi eliminare, oppure ricomincia dalla pagina del tuo account.",
+      "blocked": "Questo account non può ancora essere eliminato. Apri la pagina del tuo account per vedere cosa fare prima.",
+      "failed": "Impossibile eliminare l’account. Riprova."
+    }
+  },
   "captcha": {
     "label": "Controllo di sicurezza",
     "required": "Completa prima il controllo di sicurezza.",
@@ -884,6 +964,16 @@
       "body": "Inserisci questo codice nella pagina di accesso di {brand} per completare l’accesso.",
       "note": "Il codice scade tra {minutes} minuti e funziona una sola volta.",
       "footnote": "Non hai richiesto un codice? Ignora questa email: nessuno può accedere senza. Non condividerlo mai con nessuno."
+    },
+    "deleteAccount": {
+      "subject": "Conferma l’eliminazione del tuo account {brand}",
+      "preheader": "È stata richiesta l’eliminazione del tuo account {brand}. Non succede nulla finché non confermi.",
+      "heading": "Eliminare il tuo account?",
+      "body": "È stata richiesta l’eliminazione definitiva dell’account {brand} {email}. Per procedere, apri il link qui sotto in un browser in cui hai effettuato l’accesso a questo account e conferma.",
+      "consequences": "Le app a cui accedi con questo account perderanno l’accesso e l’account non potrà essere recuperato.",
+      "button": "Rivedi ed elimina",
+      "note": "Il link scade tra {minutes} minuti e funziona una sola volta.",
+      "footnote": "Se non l’hai richiesto tu, ignora questa email: il tuo account resta com’è. Valuta di cambiare la password, perché la richiesta proviene da una sessione con accesso effettuato."
     }
   }
 }

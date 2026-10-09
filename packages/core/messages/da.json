@@ -396,7 +396,8 @@
       "apiKeys": "API-nøgler",
       "admin": "Admin",
       "marketingHome": "About",
-      "signOut": "Sign out"
+      "signOut": "Sign out",
+      "data": "Dine data"
     },
     "profile": {
       "title": "Profile",
@@ -691,6 +692,66 @@
       "signOutOf": "Log ud af {email}",
       "signOutAll": "Log ud af alle konti",
       "switchFailed": "Kunne ikke skifte konto. Prøv igen."
+    },
+    "data": {
+      "exportTitle": "Eksportér dine data",
+      "exportDescription": "Download en JSON-fil med alt, hvad denne tjeneste gemmer om din konto: profil, loginmetoder, passkeys, sessioner, forbundne apps, API-nøgler, organisationer og aktivitetshistorik. Adgangskoder, tokens, nøgler og hemmeligheder til totrinsgodkendelse kommer aldrig med.",
+      "exportButton": "Download mine data",
+      "exportDone": "Dine data er downloadet.",
+      "exportErrors": {
+        "signedOut": "Din session er udløbet. Log ind igen.",
+        "impersonating": "Data kan ikke eksporteres, mens du ser en andens konto.",
+        "recentSignIn": "Af hensyn til din sikkerhed skal du logge ind igen for at eksportere dine data.",
+        "rateLimited": "Du har eksporteret dine data flere gange inden for den seneste time. Prøv igen senere.",
+        "failed": "Dine data kunne ikke eksporteres. Prøv igen."
+      },
+      "signInAgain": "Log ind igen",
+      "deleteTitle": "Slet konto",
+      "deleteDescription": "Slet din konto og alt, der er knyttet til den, permanent. Det kan ikke fortrydes.",
+      "deleteButton": "Slet min konto",
+      "loadError": "Det kunne ikke kontrolleres, om denne konto kan slettes.",
+      "blockers": {
+        "admin": {
+          "title": "Du er administrator",
+          "body": "Bed først en anden administrator om at fjerne din administratorrolle. Så står tjenesten aldrig uden en administrator, og ændringen bliver registreret."
+        },
+        "sole_owner": {
+          "title": "Du er den eneste ejer af en organisation",
+          "body": "Du er den eneste ejer af {organizations}. Gør et andet medlem til ejer, eller bed en administrator om at slette organisationen, og kom så tilbage."
+        },
+        "scim": {
+          "title": "Din konto administreres af din organisation",
+          "body": "Din virksomheds katalog har oprettet denne konto og ville oprette den igen. Bed i stedet din it-administrator om at fjerne dig fra kataloget.",
+          "bodyNamed": "Kataloget hos {organizations} har oprettet denne konto og ville oprette den igen. Bed i stedet din it-administrator om at fjerne dig fra kataloget."
+        }
+      },
+      "confirmTitle": "Slet din konto?",
+      "confirmDescription": "Det kan ikke fortrydes. Når du bekræfter via den e-mail, vi sender dig:",
+      "consequences": {
+        "signIn": "Bliver du logget ud overalt og kan ikke længere logge ind med denne konto.",
+        "apps": "Mister apps, du har logget ind på med denne konto, adgangen med det samme.",
+        "data": "Bliver dine passkeys, indstillinger for totrinsgodkendelse, API-nøgler og tilknyttede konti slettet, og du forlader dine organisationer.",
+        "records": "Viser optegnelser, der gemmes af sikkerhedshensyn, som f.eks. revisionsloggen, ikke længere dit navn eller din e-mailadresse."
+      },
+      "exportFirst": "Vil du have en kopi først? Download dine data, før du fortsætter.",
+      "typeEmail": "Skriv {email} for at bekræfte",
+      "password": "Adgangskode",
+      "noPassword": "Din konto har ingen adgangskode: dit nylige login bekræfter, at det er dig.",
+      "signInFirst": "Din konto har ingen adgangskode, så log ind igen først for at bekræfte, at det er dig.",
+      "sendLink": "Send mig bekræftelseslinket",
+      "cancel": "Annuller",
+      "sentTitle": "Tjek din indbakke",
+      "sentBody": "Vi har sendt et link til {email}. Åbn det inden for {minutes} minutter i en browser, hvor du er logget ind på denne konto, og bekræft for at slette den.",
+      "done": "Færdig",
+      "deleteErrors": {
+        "mismatch": "E-mailadressen passer ikke til denne konto.",
+        "password": "Indtast din adgangskode.",
+        "wrongPassword": "Adgangskoden er forkert.",
+        "recentSignIn": "Af hensyn til din sikkerhed skal du logge ind igen, før du sletter din konto.",
+        "blocked": "Denne konto kan ikke slettes endnu. Luk dette vindue for at se hvorfor.",
+        "impersonating": "En konto kan ikke slettes, mens en administrator ser den.",
+        "failed": "Sletningen kunne ikke startes. Prøv igen."
+      }
     }
   },
   "acceptInvitation": {
@@ -870,6 +931,25 @@
       "failed": "Noget gik galt. Prøv igen."
     }
   },
+  "deleteAccount": {
+    "title": "Slet din konto",
+    "description": "Du har bedt om at slette kontoen {email}. Når du bekræfter, er den væk for altid.",
+    "signedOut": "Log ind på den konto, du vil slette, og åbn så linket igen.",
+    "consequenceApps": "Apps, du har logget ind på med den, mister adgangen med det samme.",
+    "consequenceSignIn": "Du bliver logget ud overalt og kan ikke logge ind med den igen.",
+    "consequenceUndo": "Det kan ikke fortrydes.",
+    "confirm": "Slet min konto permanent",
+    "keep": "Behold min konto",
+    "deletedTitle": "Din konto er slettet",
+    "deletedBody": "Alt, der var knyttet til den, er fjernet. Tak, fordi du brugte {brand}.",
+    "toSignIn": "Gå til login",
+    "errors": {
+      "missing": "Dette link er ufuldstændigt. Åbn linket fra e-mailen igen, eller start forfra fra din kontoside.",
+      "invalid": "Dette link er udløbet, allerede brugt eller sendt til en anden konto. Tjek, at du er logget ind på den konto, du vil slette, eller start forfra fra din kontoside.",
+      "blocked": "Denne konto kan ikke slettes endnu. Åbn din kontoside for at se, hvad du skal gøre først.",
+      "failed": "Kontoen kunne ikke slettes. Prøv igen."
+    }
+  },
   "captcha": {
     "label": "Sikkerhedstjek",
     "required": "Gennemfør sikkerhedstjekket først.",
@@ -884,6 +964,16 @@
       "body": "Indtast denne kode på loginsiden for {brand} for at fuldføre login.",
       "note": "Koden udløber om {minutes} minutter og virker kun én gang.",
       "footnote": "Har du ikke bedt om en kode? Ignorer denne e-mail: ingen kan logge ind uden koden. Del den aldrig med nogen."
+    },
+    "deleteAccount": {
+      "subject": "Bekræft sletningen af din {brand}-konto",
+      "preheader": "Nogen har bedt om at slette din {brand}-konto. Der sker intet, før du bekræfter.",
+      "heading": "Slet din konto?",
+      "body": "Der er anmodet om permanent sletning af {brand}-kontoen {email}. Hvis du vil fortsætte, skal du åbne linket nedenfor i en browser, hvor du er logget ind på denne konto, og bekræfte.",
+      "consequences": "Apps, du logger ind på med denne konto, mister adgangen, og kontoen kan ikke gendannes.",
+      "button": "Gennemse og slet",
+      "note": "Linket udløber om {minutes} minutter og virker kun én gang.",
+      "footnote": "Har du ikke bedt om dette? Ignorer denne e-mail: din konto forbliver, som den er. Overvej at skifte din adgangskode, da anmodningen kom fra en session, der var logget ind."
     }
   }
 }

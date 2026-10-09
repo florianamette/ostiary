@@ -4,6 +4,8 @@ import { and, eq, like } from "drizzle-orm";
 
 import { db } from "@ostiary/core/db/index";
 import { session, twoFactor, user, verification } from "@ostiary/core/db/schema";
+import { accountExportFileName, buildAccountExport } from "@ostiary/core/lib/account-data/export";
+import { env } from "@ostiary/core/lib/env";
 import { adminActor } from "@/lib/admin-audit";
 
 async function userLabel(userId: string) {
@@ -67,4 +69,21 @@ export async function resetUserTwoFactor(userId: string): Promise<{ ok: boolean 
     target: { type: "user", id: userId, label: reset.email },
   });
   return { ok: true };
+}
+
+/**
+ * Everything Ostiary holds about a user, the same document as their own "Download my data",
+ * for answering an access request made another way (email, letter). Audited.
+ */
+export async function exportUserData(userId: string): Promise<{ ok: true; fileName: string; json: string } | { ok: false }> {
+  const { audit } = await adminActor();
+  const now = new Date();
+  const data = await buildAccountExport(db, userId, { instance: env.AUTH_APP_URL ?? null, now });
+  if (!data) return { ok: false };
+  await audit({
+    action: "user.export_data",
+    target: { type: "user", id: userId, label: data.profile.email },
+    metadata: { by: "admin" },
+  });
+  return { ok: true, fileName: accountExportFileName(userId, now), json: JSON.stringify(data, null, 2) };
 }

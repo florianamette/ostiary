@@ -78,6 +78,12 @@ import {
 } from "@ostiary/core/lib/api-key-policy";
 import { deleteUserApiKeys } from "@ostiary/core/lib/api-keys";
 import { apiKeyVerification } from "@ostiary/core/lib/api-key-verification";
+import { ACCOUNT_DELETION_BLOCKED, accountDeletionBlockers } from "@ostiary/core/lib/account-data/blockers";
+import { DELETED_USER_LABEL, prepareUserErasure, type ErasureSummary } from "@ostiary/core/lib/account-data/erasure";
+import { ACCOUNT_DELETION_LINK_MINUTES } from "@ostiary/core/lib/account-data/limits";
+import { queueAccountDeletionEmail } from "@ostiary/core/lib/email/queue-account-deletion-email";
+import { emitWebhookEvents } from "@ostiary/core/lib/webhooks/outbox";
+import { makeEvent, memberSnapshot } from "@ostiary/core/lib/webhooks/events";
 import {
     SCIM_DEACTIVATED_MESSAGE,
     SCIM_DEACTIVATED_REASON,
@@ -223,6 +229,30 @@ const organizationRoles = {
 };
 
 const API_KEY_PLUGIN_PATHS = ["/api-key/create", "/api-key/get", "/api-key/update", "/api-key/delete", "/api-key/list"];
+
+/**
+ * Better Auth's GET link that deletes the account when opened. Ostiary's email links to a page
+ * instead (apps/auth .../delete-account), where the signed-in person confirms with a POST to
+ * /delete-user carrying the token: a mail scanner opening links cannot delete anyone.
+ */
+const DELETE_USER_LINK_PATH = "/delete-user/callback";
+
+/**
+ * Memberships of accounts being deleted, read before the delete (the foreign key removes them)
+ * and sent as `organization.member.removed` once it is done. Keyed by account id.
+ */
+const pendingErasures = new Map<string, ErasureSummary["memberships"]>();
+
+/** Refuses a deletion while one of the blockers applies (admin, sole owner, SCIM). */
+async function assertAccountDeletable(userId: string) {
+    const blockers = await accountDeletionBlockers(db, userId);
+    if (blockers.length === 0) return;
+    throw new APIError("FORBIDDEN", {
+        message: "This account cannot be deleted yet. See the account page for what to do first.",
+        code: ACCOUNT_DELETION_BLOCKED,
+        blockers: blockers.map((b) => b.kind),
+    });
+}
 
 /** Prefix of new API keys. */
 const API_KEY_PREFIX = env.API_KEY_PREFIX ?? "ost_";
@@ -419,7 +449,7 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
         baseURL,
         // Sign in with Apple returns with a form POST from Apple's origin.
         trustedOrigins: [...trustedOrigins, "https://appleid.apple.com"],
-        disabledPaths: [...UNUSED_EMAIL_OTP_PATHS, ...API_KEY_PLUGIN_PATHS],
+        disabledPaths: [...UNUSED_EMAIL_OTP_PATHS, ...API_KEY_PLUGIN_PATHS, DELETE_USER_LINK_PATH],
         // Per-IP limits counted in the database, shared by every serverless instance. Rules in
         // lib/rate-limit.ts; off in development unless RATE_LIMIT_ENABLED=true.
         rateLimit: rateLimitOptions(env),
@@ -474,6 +504,23 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
                             metadata: { reason: "banned", keys: revoked },
                             ipAddress: context ? clientIp(context.headers) : null,
                         });
+                    },
+                },
+                // Every deletion (the person, an admin): erase what foreign keys leave behind
+                // (account-data/erasure.ts), then tell apps about the memberships that went with it.
+                delete: {
+                    before: async (deletedUser) => {
+                        const summary = await prepareUserErasure(db, deletedUser);
+                        pendingErasures.set(deletedUser.id, summary.memberships);
+                    },
+                    after: async (deletedUser) => {
+                        const memberships = pendingErasures.get(deletedUser.id) ?? [];
+                        pendingErasures.delete(deletedUser.id);
+                        // Nobody is told about joining the default Public workspace either.
+                        const removed = memberships.filter((m) => m.organizationId !== PUBLIC_ORGANIZATION_ID);
+                        await emitWebhookEvents(
+                            removed.map((m) => makeEvent("organization.member.removed", { member: memberSnapshot(m) })),
+                        );
                     },
                 },
             },
@@ -556,6 +603,40 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
                     if (current && Date.now() - signedInAt > RECENT_SIGN_IN_SECONDS * 1000) {
                         throw new APIError("FORBIDDEN", {
                             message: "Sign in again to add a new way to sign in.",
+                            code: "RECENT_SIGN_IN_REQUIRED",
+                        });
+                    }
+                    return;
+                }
+                if (ctx.path === "/delete-user") {
+                    // Self-service deletion. Step 1 (no token) sends the confirmation email; step 2
+                    // (the emailed token) deletes. Better Auth ties the token to the signed-in account.
+                    const current = await getSessionFromCtx(ctx);
+                    if (!current) return; // The endpoint answers 401.
+                    if (current.session.impersonatedBy) {
+                        throw new APIError("FORBIDDEN", {
+                            message: "An account cannot be deleted while an administrator is viewing it.",
+                            code: "IMPERSONATING",
+                        });
+                    }
+                    const body = (ctx.body ?? {}) as Bag;
+                    // Blockers are checked again on step 2 (beforeDelete), as things may change in between.
+                    if (typeof body.token === "string" && body.token) return;
+                    await assertAccountDeletable(current.user.id);
+                    // Re-enter the password when there is one (Better Auth checks it). Without one
+                    // (passkey, social, SSO, codes), the sign-in itself must be recent.
+                    if (typeof body.password === "string" && body.password) return;
+                    const credential = await ctx.context.internalAdapter.findCredentialAccount(current.user.id);
+                    if (credential?.password) {
+                        throw new APIError("FORBIDDEN", {
+                            message: "Enter your password to delete your account.",
+                            code: "PASSWORD_REQUIRED",
+                        });
+                    }
+                    const signedInAt = new Date(current.session.createdAt).getTime();
+                    if (Date.now() - signedInAt > RECENT_SIGN_IN_SECONDS * 1000) {
+                        throw new APIError("FORBIDDEN", {
+                            message: "Sign in again to delete your account.",
                             code: "RECENT_SIGN_IN_REQUIRED",
                         });
                     }
@@ -657,6 +738,28 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
             storeSessionInDatabase: true,
         },
         user: {
+            // "Delete my account" on the dashboard: password or recent sign-in (hook above), then
+            // an emailed link to a confirmation page. Blockers in account-data/blockers.ts.
+            deleteUser: {
+                enabled: true,
+                deleteTokenExpiresIn: ACCOUNT_DELETION_LINK_MINUTES * 60,
+                sendDeleteAccountVerification: async ({ user, token }, request) => {
+                    const locale = emailLocale(request?.headers);
+                    const url = `${baseURL}/${locale}/delete-account?token=${encodeURIComponent(token)}`;
+                    await queueAccountDeletionEmail({ to: user.email, url, locale });
+                },
+                beforeDelete: async (user) => {
+                    await assertAccountDeletable(user.id);
+                },
+                afterDelete: async (user) => {
+                    // No email, name or IP: the entry outlives the person it is about.
+                    await recordAudit({
+                        actor: null,
+                        action: "user.self_delete",
+                        target: { type: "user", id: user.id, label: DELETED_USER_LABEL },
+                    });
+                },
+            },
             changeEmail: {
                 enabled: true,
                 // The current address must approve the change first, then the new address is

@@ -396,7 +396,8 @@
       "apiKeys": "Chaves de API",
       "admin": "Admin",
       "marketingHome": "About",
-      "signOut": "Sign out"
+      "signOut": "Sign out",
+      "data": "Seus dados"
     },
     "profile": {
       "title": "Profile",
@@ -691,6 +692,66 @@
       "signOutOf": "Terminar sessão de {email}",
       "signOutAll": "Terminar sessão em todas as contas",
       "switchFailed": "Não foi possível mudar de conta. Tente novamente."
+    },
+    "data": {
+      "exportTitle": "Exportar seus dados",
+      "exportDescription": "Baixe um arquivo JSON com tudo o que este serviço armazena sobre sua conta: perfil, métodos de login, chaves de acesso, sessões, aplicativos conectados, chaves de API, organizações e histórico de atividades. Senhas, tokens, chaves e segredos da autenticação em dois fatores nunca são incluídos.",
+      "exportButton": "Baixar meus dados",
+      "exportDone": "Seus dados foram baixados.",
+      "exportErrors": {
+        "signedOut": "Sua sessão terminou. Entre novamente.",
+        "impersonating": "Não é possível exportar dados enquanto você visualiza a conta de outra pessoa.",
+        "recentSignIn": "Por segurança, entre novamente para exportar seus dados.",
+        "rateLimited": "Você exportou seus dados várias vezes na última hora. Tente novamente mais tarde.",
+        "failed": "Não foi possível exportar seus dados. Tente novamente."
+      },
+      "signInAgain": "Entrar novamente",
+      "deleteTitle": "Excluir conta",
+      "deleteDescription": "Exclua permanentemente sua conta e tudo o que está vinculado a ela. Isso não pode ser desfeito.",
+      "deleteButton": "Excluir minha conta",
+      "loadError": "Não foi possível verificar se esta conta pode ser excluída.",
+      "blockers": {
+        "admin": {
+          "title": "Você é administrador",
+          "body": "Primeiro, peça a outro administrador para remover sua função de administrador. Assim o serviço nunca fica sem administrador, e a alteração fica registrada."
+        },
+        "sole_owner": {
+          "title": "Você é o único proprietário de uma organização",
+          "body": "Você é o único proprietário de {organizations}. Torne outro membro proprietário ou peça a um administrador para excluir a organização e depois volte aqui."
+        },
+        "scim": {
+          "title": "Sua conta é gerenciada pela sua organização",
+          "body": "O diretório da sua empresa criou esta conta e a criaria de novo. Peça ao seu administrador de TI para remover você do diretório.",
+          "bodyNamed": "O diretório de {organizations} criou esta conta e a criaria de novo. Peça ao seu administrador de TI para remover você do diretório."
+        }
+      },
+      "confirmTitle": "Excluir sua conta?",
+      "confirmDescription": "Isso não pode ser desfeito. Depois que você confirmar pelo e-mail que enviaremos:",
+      "consequences": {
+        "signIn": "Você sai de todos os lugares e não poderá mais entrar com esta conta.",
+        "apps": "Os aplicativos em que você entrou com esta conta perdem o acesso imediatamente.",
+        "data": "Suas chaves de acesso, configurações de autenticação em dois fatores, chaves de API e contas vinculadas são excluídas, e você sai das suas organizações.",
+        "records": "Os registros mantidos por segurança, como o log de auditoria, deixam de mostrar seu nome e seu endereço de e-mail."
+      },
+      "exportFirst": "Quer uma cópia antes? Baixe seus dados antes de continuar.",
+      "typeEmail": "Digite {email} para confirmar",
+      "password": "Senha",
+      "noPassword": "Sua conta não tem senha: seu login recente confirma que é você.",
+      "signInFirst": "Sua conta não tem senha, então entre novamente primeiro para confirmar que é você.",
+      "sendLink": "Enviar o link de confirmação por e-mail",
+      "cancel": "Cancelar",
+      "sentTitle": "Verifique sua caixa de entrada",
+      "sentBody": "Enviamos um link para {email}. Abra-o em até {minutes} minutos, em um navegador onde você esteja conectado a esta conta, e confirme para excluí-la.",
+      "done": "Concluído",
+      "deleteErrors": {
+        "mismatch": "O endereço de e-mail não corresponde a esta conta.",
+        "password": "Digite sua senha.",
+        "wrongPassword": "Senha incorreta.",
+        "recentSignIn": "Por segurança, entre novamente antes de excluir sua conta.",
+        "blocked": "Esta conta ainda não pode ser excluída. Feche esta janela para ver o motivo.",
+        "impersonating": "Não é possível excluir uma conta enquanto um administrador a está visualizando.",
+        "failed": "Não foi possível iniciar a exclusão. Tente novamente."
+      }
     }
   },
   "acceptInvitation": {
@@ -870,6 +931,25 @@
       "failed": "Algo deu errado. Tente novamente."
     }
   },
+  "deleteAccount": {
+    "title": "Excluir sua conta",
+    "description": "Você pediu para excluir a conta {email}. Depois que você confirmar, ela será excluída para sempre.",
+    "signedOut": "Entre na conta que você quer excluir e abra o link novamente.",
+    "consequenceApps": "Os aplicativos em que você entrou com ela perdem o acesso imediatamente.",
+    "consequenceSignIn": "Você sai de todos os lugares e não poderá entrar com ela novamente.",
+    "consequenceUndo": "Isso não pode ser desfeito.",
+    "confirm": "Excluir minha conta permanentemente",
+    "keep": "Manter minha conta",
+    "deletedTitle": "Sua conta foi excluída",
+    "deletedBody": "Tudo o que estava vinculado a ela foi removido. Obrigado por usar {brand}.",
+    "toSignIn": "Ir para o login",
+    "errors": {
+      "missing": "Este link está incompleto. Abra novamente o link do e-mail ou recomece pela página da sua conta.",
+      "invalid": "Este link expirou, já foi usado ou foi enviado para outra conta. Verifique se você entrou na conta que quer excluir ou recomece pela página da sua conta.",
+      "blocked": "Esta conta ainda não pode ser excluída. Abra a página da sua conta para ver o que fazer primeiro.",
+      "failed": "Não foi possível excluir a conta. Tente novamente."
+    }
+  },
   "captcha": {
     "label": "Verificação de segurança",
     "required": "Conclua primeiro a verificação de segurança.",
@@ -884,6 +964,16 @@
       "body": "Introduza este código na página de início de sessão de {brand} para concluir o acesso.",
       "note": "O código expira dentro de {minutes} minutos e só funciona uma vez.",
       "footnote": "Não pediu um código? Ignore este e-mail: ninguém consegue entrar sem ele. Nunca o partilhe com ninguém."
+    },
+    "deleteAccount": {
+      "subject": "Confirme a exclusão da sua conta {brand}",
+      "preheader": "Alguém pediu para excluir sua conta {brand}. Nada acontece até você confirmar.",
+      "heading": "Excluir sua conta?",
+      "body": "Foi feito um pedido para excluir permanentemente a conta {brand} {email}. Para continuar, abra o link abaixo em um navegador onde você esteja conectado a esta conta e confirme.",
+      "consequences": "Os aplicativos em que você entra com esta conta perderão o acesso, e a conta não poderá ser recuperada.",
+      "button": "Revisar e excluir",
+      "note": "O link expira em {minutes} minutos e só funciona uma vez.",
+      "footnote": "Se não foi você quem pediu, ignore este e-mail: sua conta continua como está. Considere alterar sua senha, já que o pedido veio de uma sessão conectada."
     }
   }
 }
