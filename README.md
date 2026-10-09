@@ -673,6 +673,7 @@ Changes made in the admin console reach the auth app through its caches (scopes 
 | `CAPTCHA_PROVIDER`, `CAPTCHA_SITE_KEY`, `CAPTCHA_SECRET_KEY` | auth | optional | Captcha on sign-up, password sign-in, password reset and sign-in codes. Provider: `cloudflare-turnstile`, `hcaptcha` or `google-recaptcha` (v2 checkbox). Set all three or none, before building (the CSP is built with them). Turnstile and reCAPTCHA tokens are only accepted when solved on the host of `AUTH_APP_URL` |
 | `CRON_SECRET` | auth | for webhooks | 16+ characters. Protects `/api/cron/webhooks`, which retries failed webhook deliveries (Vercel Cron sends it) |
 | `WEBHOOKS_ALLOW_LOCALHOST` | both | optional | `true` accepts `http://localhost` webhook endpoints. Development only, ignored in production |
+| `VERCEL_ANALYTICS` | both | optional | `true` adds [Vercel Web Analytics](https://vercel.com/docs/analytics) to the app (turn it on in the Vercel project too). Page views are sent without query strings or fragments, which can carry reset and deletion tokens |
 
 **Rebrand** by editing `packages/core/src/lib/brand.ts` (name, tagline, colors, logo geometry) and the matching tokens in `packages/core/src/styles/globals.css`, then run `pnpm --filter @ostiary/auth brand:assets` to regenerate `logo.png` and `logo.svg`.
 

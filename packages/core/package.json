@@ -18,6 +18,7 @@
     "@better-auth/passkey": "catalog:",
     "@better-auth/scim": "catalog:",
     "@better-auth/sso": "catalog:",
+    "@vercel/analytics": "catalog:",
     "@xmldom/xmldom": "catalog:",
     "better-auth": "catalog:",
     "class-variance-authority": "catalog:",
@@ -38,9 +39,9 @@
     "shadcn": "catalog:",
     "sonner": "catalog:",
     "tailwind-merge": "catalog:",
+    "tailwindcss": "catalog:",
     "tw-animate-css": "catalog:",
-    "zod": "catalog:",
-    "tailwindcss": "catalog:"
+    "zod": "catalog:"
   },
   "devDependencies": {
     "@electric-sql/pglite": "catalog:",
@@ -50,9 +51,9 @@
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "drizzle-kit": "catalog:",
+    "eslint": "catalog:",
     "tsx": "catalog:",
     "typescript": "catalog:",
-    "vitest": "catalog:",
-    "eslint": "catalog:"
+    "vitest": "catalog:"
   }
 }
