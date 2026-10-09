@@ -44,6 +44,8 @@ export async function updateSsoProvider(
     const [org] = await db.select({ id: organization.id }).from(organization).where(eq(organization.id, input.organizationId));
     if (!org) return { ok: false, error: "Organization not found." };
   }
+  // A SAML provider's issuer is its SP entity ID, which the IdP is configured with.
+  if (current.samlConfig && issuer !== current.issuer) return { ok: false, error: "The SP entity ID of a SAML provider cannot be changed." };
   const domainChanged = domain !== current.domain;
   await db
     .update(ssoProvider)

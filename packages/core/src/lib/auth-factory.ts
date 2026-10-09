@@ -54,6 +54,7 @@ import { oauthResourceIdentifiers } from "@ostiary/core/lib/oauth-resources";
 import { withOpenApiLinks } from "@ostiary/core/lib/oauth-resource-access";
 import { withWebhookEvents } from "@ostiary/core/lib/webhooks/adapter";
 import { ACCESS_TOKEN_EXPIRES_IN, REFRESH_TOKEN_EXPIRES_IN } from "@ostiary/core/lib/oauth-resource-policy";
+import { SAML_CLOCK_SKEW_MS, samlResponseRejection } from "@ostiary/core/lib/saml";
 import {
     clientExists,
     clientRegistrationSource,
@@ -156,6 +157,29 @@ const passwordSignInEvents = {
                 handler: createAuthMiddleware(async (ctx) => {
                     const created = ctx.context.newSession;
                     if (created) await recordAuthEvent("sign_in", created.user.id);
+                }),
+            },
+        ],
+    },
+} satisfies BetterAuthPlugin;
+
+/**
+ * SAML responses reach the ACS (and SLO, which stays off) from the identity provider. The
+ * plugin validates them; this refuses, before any XML parser runs, one that carries a DTD
+ * (XXE, entity expansion) or is not plain base64.
+ */
+const samlResponseGuard = {
+    id: "ostiary-saml-response-guard",
+    hooks: {
+        before: [
+            {
+                matcher: (ctx) => (ctx.path ?? "").startsWith("/sso/saml2/sp/"),
+                handler: createAuthMiddleware(async (ctx) => {
+                    const body = (ctx.body ?? {}) as Record<string, unknown>;
+                    const value = body.SAMLResponse ?? body.SAMLRequest;
+                    if (value === undefined && ctx.path?.startsWith("/sso/saml2/sp/metadata")) return;
+                    const rejection = samlResponseRejection(value);
+                    if (rejection) throw new APIError("BAD_REQUEST", { message: rejection, code: "SAML_RESPONSE_REJECTED" });
                 }),
             },
         ],
@@ -751,12 +775,27 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
                 expiresIn: "10m",
                 interval: "5s",
             }),
-            // Enterprise SSO (OIDC / SAML) per organization. Providers are managed from the admin app.
+            // Enterprise SSO (OIDC / SAML 2.0) per organization. Providers are managed from the admin app.
             // Only platform admins may register providers: a provider claims an email domain, so
             // letting any user register one would let them intercept that domain's SSO sign-ins.
+            samlResponseGuard,
             sso({
                 // A provider only takes sign-ins once its domain owner publishes a DNS TXT record.
                 domainVerification: { enabled: true, tokenPrefix: "ostiary" },
+                // SAML: SP-initiated only. Every response must answer an AuthnRequest this server sent
+                // (InResponseTo, single use, 5 minutes) and each assertion ID is accepted once. The
+                // plugin also checks the signature against the IdP's certificate (samlify refuses an
+                // unsigned response), the audience, the bearer Recipient and the Destination.
+                // Assertions must carry NotBefore/NotOnOrAfter, within a minute of clock drift, and
+                // SHA-1 / RSA1_5 / 3DES are refused (signature algorithms of POST responses by
+                // samlResponseGuard: the plugin only checks the Redirect binding's SigAlg).
+                saml: {
+                    enableInResponseToValidation: true,
+                    allowIdpInitiated: false,
+                    requireTimestamps: true,
+                    clockSkew: SAML_CLOCK_SKEW_MS,
+                    algorithms: { onDeprecated: "reject" },
+                },
                 providersLimit: (user) =>
                     userHasAdminRole((user as { role?: string | null }).role, ["admin"]) ? 100 : 0,
             }),
