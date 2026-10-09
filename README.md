@@ -409,7 +409,7 @@ MCP clients (Claude, VS Code, Cursor, agent frameworks) register themselves with
 Self-registered clients are never reviewed, so Ostiary limits them:
 
 - They may only request the scopes you tick in the settings (OpenID Connect scopes by default; add your API scopes as needed). Narrowing the list also narrows clients registered before.
-- Authorization code with PKCE only: no client credentials, no device sign-in, no skipping the consent screen.
+- Authorization code with PKCE only: no client credentials, no device sign-in (however the client authenticates), no skipping the consent screen. Updates cannot widen them past these limits either.
 - The consent screen marks them as **unverified**, says where the user will be sent, and hides their logo.
 - An hourly cap on new self-registered clients across all instances (30 by default), plus Better Auth's limit of 5 registrations a minute per IP address in production. Metadata documents are fetched only from public addresses (no private or reserved IPs, no redirects, 5 KB, 5 s timeout).
 - The Applications page lists them with a badge and a filter; you can disable or delete them. Registrations and admin changes are in the audit log.
@@ -631,6 +631,7 @@ pnpm lint && pnpm typecheck && pnpm test   # lint, types and unit tests (Vitest)
 - Sign-up with email verification, password sign-in, sign-in codes, TOTP two-factor, the admin two-factor gate (`REQUIRE_ADMIN_2FA`), rate limiting (429 and `Retry-After`)
 - Authorization code with PKCE, consent (allow and deny), refresh, UserInfo, device flow
 - Webhook delivery to a local receiver (Standard Webhooks signature checked), API key creation and verification, Dynamic Client Registration, per-app branding of the login page (signed authorization only)
+- OAuth client management: closed to non-admins, console clients owned by the platform (a demoted admin loses control), self-registered clients kept within their limits (updates, device sign-in with any client authentication), API scopes bound to their API, no session JWT endpoint
 
 Run them locally with Postgres in Docker:
 
@@ -693,6 +694,7 @@ Both apps run the same Better Auth configuration against one database. The admin
 - Signing in with a provider whose verified email matches an existing account links the two only when that account's email is verified too, and never for an account with two-factor authentication or a platform admin: their owners connect the provider from the account page instead.
 - Admins must turn on two-factor authentication (`REQUIRE_ADMIN_2FA`). An admin without it is sent to set it up and cannot use the console or the admin endpoints until then; their own account keeps working. An admin who loses their authenticator and backup codes can have another admin reset it from the user's page (audited).
 - Sign-in codes open existing accounts only (an unknown address gets the same answer and no email), expire after 10 minutes, are stored hashed and are void after 3 wrong tries. On an account whose email was never verified, the first code verifies it and removes the unproven password and sessions.
+- Only platform admins manage OAuth clients, from the admin console; Better Auth's client endpoints are closed to everyone else. Console-registered clients belong to the platform (any admin, nobody else), so an admin who loses the role loses control of them. A client counts as admin-registered only with the console's explicit mark; any other client gets the self-registration limits, also on later updates. Tokens for an API never carry another API's scopes.
 - Only admins can create organizations and register SSO providers; an SSO provider's domain must be one plain hostname (`acme.com`) and be verified with a DNS record, and a provider whose stored domain is anything else is refused at sign-in. Providers are changed and deleted only from the admin console (Better Auth's provider management endpoints are closed).
 - Every account is a member of the Public organization; its member list, invitations, teams and member changes are for platform admins only. SAML sign-ins are SP-initiated only, with signed responses, audience, recipient, `InResponseTo` and one-time assertion checks (see [Enterprise SSO with SAML 2.0](#enterprise-sso-with-saml-20)).
 - SCIM tokens are stored as HMAC digests and can only be issued by platform admins; each one only reaches its own organization.

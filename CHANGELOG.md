@@ -358,6 +358,40 @@ All notable changes are documented here. The format follows
   inviter.
 - README: what `COOKIE_DOMAIN` implies (the session cookie reaches every subdomain) and how to
   choose the domain; `.env.example` warns too.
+- **OAuth client management is for platform admins only.** Better Auth's client endpoints
+  (`/oauth2/create-client`, `/oauth2/update-client`, `/oauth2/client/rotate-secret`,
+  `/oauth2/delete-client`) are closed over HTTP, and `clientPrivileges` refuses every client
+  action (create, read, list, update, rotate, delete) to anyone but a platform admin, also
+  for server-side calls. Ordinary users can still register through Dynamic Client
+  Registration when it is turned on, with its own limits. The admin console deletes and
+  rotates secrets through new routes (`DELETE /api/admin/oauth-clients/<id>`,
+  `POST /api/admin/oauth-clients/<id>/rotate-secret`) after its admin check.
+- **Admin-registered is an explicit mark (fails closed).** A new
+  `oauth_client.admin_registered` column, set by the admin console after it creates a
+  client; any client without it is treated as self-registered (consent screen warning, no
+  device sign-in, no skipped consent, limited scopes). **Migration
+  `0013_oauth_client_admin_registered`** marks existing clients that are not dynamic or
+  metadata-document clients and were made by an admin (logged `oauth_client.create` in the
+  audit log, owned by a current admin, or without owner); clients ordinary users created
+  through Better Auth's endpoints stay self-registered and now show on the Applications page
+  with the other self-registered clients, where they can be disabled or deleted.
+- **Console-registered clients belong to the platform, not to the admin who created them.**
+  They are owned through Better Auth's `clientReference` (`ostiary:platform`, which every
+  admin maps to, and nobody else): any admin can edit, rotate or delete them, and an admin
+  who loses the role no longer can. The migration moves existing ones (owner cleared).
+- **Self-registered clients stay within the self-registration policy.** Updates may not add
+  scopes outside the allowed list, grants other than authorization code and refresh token,
+  client credentials scopes or skipped consent, whoever makes them.
+- **Device sign-in refused to self-registered clients however they authenticate.** The
+  check now covers every client named by the request (`client_id`, HTTP Basic, client
+  assertion) and runs again when a device code is exchanged.
+- **API scopes are bound to their API.** A token for an API that is not restricted could
+  carry another API's scopes (`resource=B&scope=apiA:write`). Such scopes are now dropped
+  (or the request refused with `invalid_scope`); scopes no API declares, such as
+  `OAUTH_API_SCOPES`, are still issued. Restricted APIs are unchanged.
+- **The jwt plugin's session JWT is off.** `GET /api/auth/token` is closed and
+  `/get-session` no longer sends `set-auth-jwt`: nothing used them, and the session JWT was
+  signed with the access tokens' key. `/jwks`, ID tokens and JWT access tokens are unchanged.
 
 - **Accounts, sessions and SSO hardening** (security review of 2026-10-09).
   - `ADMIN_EMAILS` grants the admin role only once the address is verified: a password sign-up
