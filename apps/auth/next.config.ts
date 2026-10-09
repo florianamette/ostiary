@@ -92,6 +92,11 @@ const nextConfig: NextConfig = {
         source: "/api/app-icon/:clientId",
         headers: [{ key: "Content-Security-Policy", value: APP_ICON_CSP }],
       },
+      // Sign-in branding images (logo, side panel): same treatment.
+      {
+        source: "/api/app-branding/:clientId/:asset",
+        headers: [{ key: "Content-Security-Policy", value: APP_ICON_CSP }],
+      },
     ];
   },
 };

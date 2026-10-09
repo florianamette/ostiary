@@ -1,4 +1,5 @@
 import { AuthScreen } from "@/components/auth/auth-screen";
+import { authScreenApp } from "@/lib/app-context";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { Suspense } from "react";
@@ -29,15 +30,18 @@ export async function generateMetadata({
 
 export default async function Page({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const { locale } = await params;
+  const app = await authScreenApp(await searchParams);
 
   return (
-    <AuthScreen locale={locale}>
+    <AuthScreen locale={locale} app={app} appIntent="continue">
         <Suspense fallback={<ResetPasswordFallback />}>
-          <ResetPasswordForm />
+          <ResetPasswordForm appLink={app ? { token: app.token, resumePath: app.resumePath } : null} />
         </Suspense>
     </AuthScreen>
   );

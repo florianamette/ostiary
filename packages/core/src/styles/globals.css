@@ -133,6 +133,28 @@
   --sidebar-ring: #d4a13a;
 }
 
+/*
+ * Per-application branding (lib/app-branding, README "Brand the sign-in page per app").
+ * A sign-in screen opened from an app with an accent color sets four variables on its form
+ * column, `[data-app-brand="accent"]`:
+ *   --app-accent             the admin's color, as entered
+ *   --app-accent-foreground  black or white, whichever reads better on it (always >= 4.5:1)
+ *   --app-accent-text-light  the accent adjusted to >= 4.5:1 on the light card, for text
+ *   --app-accent-text-dark   the same on the dark card
+ * Only primary actions, the focus ring and the app name follow the accent; the side panel and
+ * the identity provider's mark keep this theme. A fork with its own theme can override this
+ * block to change what the accent reaches, or empty it to ignore app accents.
+ */
+[data-app-brand="accent"] {
+  --primary: var(--app-accent);
+  --primary-foreground: var(--app-accent-foreground);
+  --ring: var(--app-accent);
+  --app-accent-text: var(--app-accent-text-light);
+}
+.dark [data-app-brand="accent"] {
+  --app-accent-text: var(--app-accent-text-dark);
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

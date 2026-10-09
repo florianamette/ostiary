@@ -179,6 +179,13 @@
       "notLinked": "That account isn't connected to a {name} account yet. Sign in another way, then connect it from your security settings.",
       "noEmail": "Этот аккаунт не передал адрес электронной почты. Повторите попытку позже или войдите другим способом.",
       "signUpDisabled": "Для этого адреса ещё нет аккаунта, а этот способ входа не может его создать. Войдите другим способом."
+    },
+    "app": {
+      "signIn": "Войдите, чтобы продолжить в <app>{name}</app>",
+      "signUp": "Создайте аккаунт, чтобы продолжить в <app>{name}</app>",
+      "continue": "Продолжить в <app>{name}</app>",
+      "unverified": "Непроверенное приложение.",
+      "unverifiedHint": "{name} его не проверял: продолжайте, только если доверяете ему."
     }
   },
   "consent": {

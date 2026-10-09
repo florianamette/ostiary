@@ -39,6 +39,8 @@ export const AUDIT_ACTION_LABELS: Record<string, string> = {
   "oauth_client.self_register": "Client registered itself",
   "oauth_client.disable": "Disabled OAuth client",
   "oauth_client.enable": "Enabled OAuth client",
+  "oauth_client.branding_update": "Changed sign-in branding",
+  "oauth_client.branding_reset": "Reset sign-in branding",
   "client_registration.update": "Changed client self-registration",
   "oauth_resource.create": "Registered API",
   "oauth_resource.update": "Updated API",
