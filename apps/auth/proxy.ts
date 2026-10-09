@@ -2,6 +2,8 @@ import createMiddleware from "next-intl/middleware";
 import { NextRequest, NextResponse } from "next/server";
 
 import { env } from "@ostiary/core/lib/env";
+import { resolveSafeRedirect } from "@ostiary/core/lib/safe-redirect";
+import { contentSecurityPolicy, createCspNonce, NONCE_HEADER } from "@ostiary/core/lib/csp";
 import { auth } from "@/lib/auth";
 import type { AppLocale } from "@ostiary/core/i18n/routing";
 import { routing } from "@ostiary/core/i18n/routing";
@@ -13,18 +15,12 @@ const handleI18n = createMiddleware(routing);
  * is a path on this app or a page of the admin app, otherwise the dashboard.
  */
 function signedInDestination(request: NextRequest, fallback: URL): URL {
-  const raw = request.nextUrl.searchParams.get("callbackURL");
-  if (!raw) return fallback;
-  if (raw.startsWith("/") && !raw.startsWith("//")) return new URL(raw, request.url);
-  try {
-    const target = new URL(raw);
-    const allowed = [env.ADMIN_APP_URL, env.AUTH_APP_URL]
-      .filter((o): o is string => Boolean(o))
-      .map((o) => new URL(o).origin);
-    return allowed.includes(target.origin) ? target : fallback;
-  } catch {
-    return fallback;
-  }
+  return (
+    resolveSafeRedirect(request.nextUrl.searchParams.get("callbackURL"), {
+      origin: request.nextUrl.origin,
+      allowedOrigins: [env.ADMIN_APP_URL, env.AUTH_APP_URL],
+    }) ?? fallback
+  );
 }
 
 /**
@@ -92,7 +88,29 @@ function localizedUrl(request: NextRequest, locale: AppLocale, path: string): UR
   return new URL(pathname, request.url);
 }
 
+/**
+ * Every page gets a fresh nonce and the CSP that carries it (packages/core/src/lib/csp.ts),
+ * on the response and on the request, where Next.js reads it to put the nonce on its scripts.
+ * Google One Tap's sources are added on the sign-in and sign-up pages only.
+ */
 export async function proxy(request: NextRequest) {
+  const nonce = createCspNonce();
+  const { restPath } = getLocaleAndRestPath(request.nextUrl.pathname);
+  const csp = contentSecurityPolicy({
+    nonce,
+    dev: process.env.NODE_ENV === "development",
+    captchaProvider: env.CAPTCHA_PROVIDER,
+    googleOneTap: restPath === "/login" || restPath === "/signup",
+  });
+  // next-intl forwards a copy of these request headers to the page.
+  request.headers.set(NONCE_HEADER, nonce);
+  request.headers.set("content-security-policy", csp);
+  const response = await route(request);
+  response.headers.set("Content-Security-Policy", csp);
+  return response;
+}
+
+async function route(request: NextRequest): Promise<NextResponse> {
   const intlResponse = handleI18n(request);
 
   if (intlResponse.status >= 300 && intlResponse.status < 400) {

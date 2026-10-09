@@ -57,5 +57,8 @@ describe("twoFactorStepURL", () => {
     expect(twoFactorStepURL(base, { location: "https://evil.example/x" })).toBe("https://auth.example.com/two-factor");
     expect(twoFactorStepURL(base, { location: "//evil.example/x" })).toBe("https://auth.example.com/two-factor");
     expect(twoFactorStepURL(base, { location: null })).toBe("https://auth.example.com/two-factor");
+    for (const location of ["/\\evil.example/x", "/\t/evil.example", "/en/dashboard\r\n"]) {
+      expect(twoFactorStepURL(base, { location })).toBe("https://auth.example.com/two-factor");
+    }
   });
 });

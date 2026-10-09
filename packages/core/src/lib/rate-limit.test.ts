@@ -54,9 +54,15 @@ describe("rate limit table", () => {
 });
 
 describe("ipAddressOptions", () => {
-    it("keeps Better Auth's default (x-forwarded-for, single address) when unset", () => {
-        expect(ipAddressOptions({})).toEqual({});
-        expect(ipAddressOptions({ IP_ADDRESS_HEADERS: " ", TRUSTED_PROXIES: "" })).toEqual({});
+    it("keeps Better Auth's default (x-forwarded-for, single address) on Vercel when unset", () => {
+        expect(ipAddressOptions({ VERCEL: "1" })).toEqual({});
+        expect(ipAddressOptions({ VERCEL: "1", IP_ADDRESS_HEADERS: " ", TRUSTED_PROXIES: "" })).toEqual({});
+    });
+
+    it("trusts no header off Vercel when unset", () => {
+        expect(ipAddressOptions({})).toEqual({ ipAddressHeaders: [] });
+        expect(ipAddressOptions({ IP_ADDRESS_HEADERS: " ", TRUSTED_PROXIES: "" })).toEqual({ ipAddressHeaders: [] });
+        expect(ipAddressOptions({ TRUSTED_PROXIES: "10.0.0.0/8" })).toEqual({ trustedProxies: ["10.0.0.0/8"] });
     });
 
     it("reads comma-separated headers and proxies", () => {

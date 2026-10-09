@@ -326,6 +326,38 @@ All notable changes are documented here. The format follows
   `uuid`. Development only: Vitest 4.1.11 and tsx 4.23.15. No code or configuration change.
   The new `eslint-config-next` warns about `window.location` navigations to internal pages
   (warnings only; those full reloads are intended).
+- **Open redirect after sign-in.** `callbackURL` values such as `/\evil.com` or `/<tab>/evil.com`
+  passed the "starts with `/`, not `//`" check, then URL parsing turned them into another
+  host: a signed-in visit to `/login` (proxy) and the passkey, two-factor and sign-in code
+  paths (client) followed them. One shared check (`packages/core/src/lib/safe-redirect.ts`)
+  now refuses backslashes, control characters and surrounding whitespace, resolves the value
+  and requires this app's origin or a trusted app's (http/https, no credentials). Also used
+  for the app context's resume path.
+- **The auth server recovers from a database outage at startup.** Better Auth initialises
+  once (the OAuth provider plugin queries the database then) and kept the failed attempt, so
+  a database unreachable when the server started meant a 500 on every request until a
+  restart. Both apps now rebuild the instance on a later request (at most every 5 seconds)
+  and log the failure instead of an unhandled rejection.
+- **Client IP off Vercel.** Without `IP_ADDRESS_HEADERS` or `TRUSTED_PROXIES`, a
+  single-address `x-forwarded-for` was trusted everywhere, so a client reaching the app
+  directly could pick a new IP per request (fresh rate-limit counters, made-up IPs in the
+  audit log). It is now trusted by default on Vercel only (`VERCEL=1`). **Upgrading off
+  Vercel: set `IP_ADDRESS_HEADERS` or `TRUSTED_PROXIES`** (README, Client IP); without them
+  every client shares one rate-limit counter per endpoint, no IP is recorded, and the apps
+  log a warning at startup.
+- **Stricter Content Security Policy.** Pages of both apps get a per-request nonce from the
+  proxy, with `'strict-dynamic'`: no `'unsafe-inline'` or `'unsafe-eval'` for scripts in
+  production (`'unsafe-eval'` stays in `next dev` only), plus `object-src 'none'`. Google One
+  Tap's sources stay limited to the sign-in and sign-up pages, the captcha's are added as
+  before. Every page is now rendered per request (a nonce needs it). API routes and static
+  files keep a fixed policy without inline scripts. The `X-Powered-By` header is gone.
+- **Invitation emails.** The inviter's and the organization's names are chosen by users;
+  they are now cleaned before going into the subject and body: no line breaks, control,
+  invisible or bidirectional characters, link-like text broken up (`evil[.]example`), at most
+  60 characters, and the organization name quoted. The footnote says the names come from the
+  inviter.
+- README: what `COOKIE_DOMAIN` implies (the session cookie reaches every subdomain) and how to
+  choose the domain; `.env.example` warns too.
 
 - **Accounts, sessions and SSO hardening** (security review of 2026-10-09).
   - `ADMIN_EMAILS` grants the admin role only once the address is verified: a password sign-up

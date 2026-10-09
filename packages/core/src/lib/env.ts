@@ -30,6 +30,8 @@ export const envSchema = z
      */
     OAUTH_API_AUDIENCES: z.string().optional(),
     PORT: z.string().optional(),
+    /** "1" on Vercel (set by the platform). Decides whether x-forwarded-for is trusted by default. */
+    VERCEL: z.string().optional(),
     VERCEL_ENV: z.string().optional(),
     VERCEL_URL: z.string().optional(),
     VERCEL_PROJECT_PRODUCTION_URL: z.string().optional(),
@@ -74,9 +76,10 @@ export const envSchema = z
      */
     RATE_LIMIT_ENABLED: optional(z.enum(["true", "false"])),
     /**
-     * Comma-separated request headers holding the client IP, tried in order. Default
-     * `x-forwarded-for`, which Vercel overwrites with the real client address. Behind another
-     * proxy, name a header that proxy sets and clients cannot (e.g. `cf-connecting-ip`).
+     * Comma-separated request headers holding the client IP, tried in order. On Vercel the
+     * default is `x-forwarded-for`, which Vercel overwrites with the real client address.
+     * Elsewhere no header is trusted unless this or TRUSTED_PROXIES is set: name a header your
+     * proxy sets and clients cannot (e.g. `cf-connecting-ip`, or `x-real-ip` set by nginx).
      */
     IP_ADDRESS_HEADERS: optional(z.string()),
     /**

@@ -2,6 +2,8 @@ import type { NextConfig } from "next";
 import path from "node:path";
 import createNextIntlPlugin from "next-intl/plugin";
 
+import { contentSecurityPolicy } from "../../packages/core/src/lib/csp";
+
 const withNextIntl = createNextIntlPlugin("./i18n/request.ts");
 
 // Apps live in apps/*, so the monorepo root is two levels up (shared packages sit there too).
@@ -9,21 +11,14 @@ const monorepoRoot = path.resolve(import.meta.dirname, "../..");
 
 const isProd = process.env.NODE_ENV === "production";
 
-const cspDirectives = [
-  "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
-  "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob: https:",
-  "font-src 'self' data:",
-  "connect-src 'self'",
-  "base-uri 'self'",
-  "form-action 'self'",
-  "frame-ancestors 'none'",
-].join("; ");
+// Pages get a per-request nonce policy from proxy.ts. This fixed one covers what the proxy
+// does not see: API routes, static files, generated icons. No inline script runs there.
+const cspDirectives = contentSecurityPolicy({ dev: process.env.NODE_ENV === "development" });
 
 const APP_ICON_CSP = "default-src 'none'; style-src 'unsafe-inline'; sandbox";
 
 const nextConfig: NextConfig = {
+  poweredByHeader: false,
   outputFileTracingRoot: monorepoRoot,
   turbopack: { root: monorepoRoot },
   // Sign-in branding uploads (a 256 KB logo and a 1 MB side-panel image) go through a server action.

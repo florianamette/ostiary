@@ -1,4 +1,5 @@
 import { APP_CONTEXT_PARAM } from "@ostiary/core/lib/app-branding/constants";
+import { resolveSafeRedirect } from "@ostiary/core/lib/safe-redirect";
 import type { SocialProviderOption } from "@ostiary/core/lib/social-provider-meta";
 
 /*
@@ -28,7 +29,9 @@ export function withAppContext(path: string, app: AppLink, extra: Record<string,
  */
 export function appLinkFromQuery(params: URLSearchParams): AppLink {
   const token = params.get(APP_CONTEXT_PARAM);
-  const resumePath = params.get("callbackURL");
+  // A path on this app only (the resume path always is one): never another site.
+  const raw = params.get("callbackURL");
+  const resumePath = resolveSafeRedirect(raw) ? raw : null;
   return token && resumePath ? { token, resumePath } : null;
 }
 

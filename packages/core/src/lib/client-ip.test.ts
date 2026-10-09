@@ -3,7 +3,9 @@ import { describe, expect, it } from "vitest";
 
 import { ipAddressOptions, resolveClientIp } from "@ostiary/core/lib/rate-limit";
 
-const ip = (headers: Record<string, string>, env: Parameters<typeof ipAddressOptions>[0] = {}) =>
+// On Vercel unless a test says otherwise (Better Auth's default header handling).
+const VERCEL = { VERCEL: "1" };
+const ip = (headers: Record<string, string>, env: Parameters<typeof ipAddressOptions>[0] = VERCEL) =>
     resolveClientIp(new Headers(headers), ipAddressOptions(env));
 
 describe("resolveClientIp", () => {
@@ -65,13 +67,32 @@ describe("resolveClientIp", () => {
     });
 });
 
+describe("client IP off Vercel", () => {
+    it("trusts no header unless IP_ADDRESS_HEADERS or TRUSTED_PROXIES is set", () => {
+        expect(ipAddressOptions({})).toEqual({ ipAddressHeaders: [] });
+        expect(ipAddressOptions({ VERCEL: "" })).toEqual({ ipAddressHeaders: [] });
+        // A spoofed single-address x-forwarded-for, the default Better Auth would trust.
+        expect(ip({ "x-forwarded-for": "203.0.113.7" }, {})).toBeNull();
+        expect(ip({ "x-forwarded-for": "203.0.113.7", "x-real-ip": "198.51.100.1" }, {})).toBeNull();
+        // Better Auth reads no header either (and falls back to 127.0.0.1 only outside production).
+        const headers = new Headers({ "x-forwarded-for": "203.0.113.7" });
+        expect(getIP(headers, { advanced: { ipAddress: ipAddressOptions({}) } })).not.toBe("203.0.113.7");
+    });
+
+    it("follows explicit settings", () => {
+        expect(ip({ "x-forwarded-for": "203.0.113.7" }, { IP_ADDRESS_HEADERS: "x-forwarded-for" })).toBe("203.0.113.7");
+        expect(ip({ "x-forwarded-for": "203.0.113.7, 10.0.0.5" }, { TRUSTED_PROXIES: "10.0.0.0/8" })).toBe("203.0.113.7");
+        expect(ip({ "cf-connecting-ip": "203.0.113.7" }, { IP_ADDRESS_HEADERS: "cf-connecting-ip" })).toBe("203.0.113.7");
+    });
+});
+
 describe("resolveClientIp and Better Auth", () => {
     it("picks the same address Better Auth uses for rate limits and sessions", () => {
         const cases: [Record<string, string>, Parameters<typeof ipAddressOptions>[0]][] = [
-            [{ "x-forwarded-for": "203.0.113.7" }, {}],
+            [{ "x-forwarded-for": "203.0.113.7" }, VERCEL],
             [{ "x-forwarded-for": "1.1.1.1, 203.0.113.7, 10.0.0.5" }, { TRUSTED_PROXIES: "10.0.0.0/8" }],
             [{ "cf-connecting-ip": "203.0.113.7", "x-forwarded-for": "198.51.100.1" }, { IP_ADDRESS_HEADERS: "cf-connecting-ip" }],
-            [{ "x-forwarded-for": "::ffff:203.0.113.7" }, {}],
+            [{ "x-forwarded-for": "::ffff:203.0.113.7" }, VERCEL],
         ];
         for (const [headers, env] of cases) {
             const options = ipAddressOptions(env);

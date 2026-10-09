@@ -19,9 +19,11 @@ function ThemedToaster() {
   );
 }
 
-export function Providers({ children }: { children: React.ReactNode }) {
+/** `nonce`: the page's CSP nonce, for the theme script next-themes renders inline. */
+export function Providers({ children, nonce }: { children: React.ReactNode; nonce?: string }) {
   return (
     <ThemeProvider
+      nonce={nonce}
       attribute="class"
       defaultTheme="system"
       enableSystem
