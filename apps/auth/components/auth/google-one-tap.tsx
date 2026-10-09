@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
 
 import { brand } from "@ostiary/core/lib/brand";
@@ -39,6 +39,7 @@ export function GoogleOneTap({
 }) {
   const t = useTranslations("auth.social");
   const tLimit = useTranslations("rateLimit");
+  const locale = useLocale();
   const started = React.useRef(false);
   const clientId = config?.clientId;
 
@@ -55,6 +56,14 @@ export function GoogleOneTap({
         // With fetchOptions, the plugin leaves navigation to us.
         fetchOptions: {
           onSuccess: ({ data }) => {
+            // An account with two-factor authentication: the code step, like after a password.
+            // Same query string (callbackURL and any signed app request), plus where to go next.
+            if (data && typeof data === "object" && "twoFactorRedirect" in data && data.twoFactorRedirect) {
+              const params = new URLSearchParams(window.location.search);
+              if (!params.has("callbackURL")) params.set("callbackURL", callbackURL);
+              window.location.assign(`/${locale}/two-factor?${params.toString()}`);
+              return;
+            }
             // Resuming an app's authorization: Better Auth's redirect plugin is already on it.
             const resumed = data && typeof data === "object" && "redirect" in data && "url" in data;
             if (!resumed) window.location.assign(callbackURL);
@@ -64,7 +73,7 @@ export function GoogleOneTap({
             const message = error.message ?? "";
             toast.error(
               limited ??
-                (message === "account not linked"
+                (message === "account not linked" || (error as { code?: string }).code === "account_not_linked"
                   ? t("notLinked", { name: brand.name })
                   : message === "signup disabled"
                     ? t("signUpDisabled")
@@ -76,7 +85,7 @@ export function GoogleOneTap({
       .catch(() => {
         // Script blocked or unreachable: the other sign-in methods are on the page.
       });
-  }, [clientId, callbackURL, context, t, tLimit]);
+  }, [clientId, callbackURL, context, locale, t, tLimit]);
 
   return null;
 }

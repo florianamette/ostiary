@@ -1669,6 +1669,9 @@
             "revoke_all": "Tüm API anahtarlarını geçersiz kıldı",
             "settings": "API anahtarı ayarlarını değiştirdi"
           },
+          "oauth_token": {
+            "revoke_all": "Tüm uygulama belirteçleri iptal edildi"
+          },
           "oauth_consent": {
             "update": "Onayı güncelledi",
             "delete": "Onayı iptal etti"

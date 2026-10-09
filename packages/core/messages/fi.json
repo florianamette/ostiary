@@ -1669,6 +1669,9 @@
             "revoke_all": "Mitätöi kaikki API-avaimet",
             "settings": "Muutti API-avainten asetuksia"
           },
+          "oauth_token": {
+            "revoke_all": "Peruutti kaikki sovellustunnukset"
+          },
           "oauth_consent": {
             "update": "Päivitti suostumuksen",
             "delete": "Perui suostumuksen"

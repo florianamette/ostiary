@@ -327,6 +327,36 @@ All notable changes are documented here. The format follows
   The new `eslint-config-next` warns about `window.location` navigations to internal pages
   (warnings only; those full reloads are intended).
 
+- **Accounts, sessions and SSO hardening** (security review of 2026-10-09).
+  - `ADMIN_EMAILS` grants the admin role only once the address is verified: a password sign-up
+    becomes admin when its verification link (or a sign-in code) is used, a social sign-up only
+    when the provider reports the address as verified, and SSO or SCIM never. **Operators:** the
+    first sign-up still ends up admin, after opening the verification email.
+  - The two-factor step now applies to social sign-ins (including Google One Tap and ID token
+    sign-in), SSO (OIDC and SAML) and the sign-in that follows an email verification link, not
+    only passwords and sign-in codes, so `REQUIRE_ADMIN_2FA` holds whatever the sign-in method.
+    A pending app authorization continues after the code.
+  - Implicit account linking (a provider's verified email matching an existing account) is
+    refused for accounts with two-factor authentication and for platform admins; they connect
+    providers from the account page. **Behavior change** for those accounts: "Continue with
+    <provider>" shows "isn't connected yet" until they connect it.
+  - Banning an account and resetting its password revoke its OAuth access and refresh tokens
+    (audited as `oauth_token.revoke_all`), as SCIM deactivation already did.
+  - SSO domains must be one plain hostname, checked with one parser on registration (OIDC and
+    SAML) and on edits in the console; a provider whose stored domain is anything else is refused
+    at sign-in (edit it and verify it again). The plugin's provider management endpoints
+    (`/sso/providers`, `/sso/get-provider`, `/sso/update-provider`, `/sso/delete-provider`,
+    `/sso/request-domain-verification`, `/sso/verify-domain`) and the unused shared
+    `/sso/callback` are closed: the admin console manages providers.
+  - The Public organization's members, invitations, teams and roles are no longer readable or
+    changeable by its members (every account); platform admins keep access.
+  - Platform roles are limited to `admin` and `user` (`set-role` and `create-user` refuse others,
+    such as `"user, admin"`).
+  - An impersonating admin can no longer add a passkey to the account or connect a provider.
+  - Turnstile and reCAPTCHA tokens are only accepted when solved on the auth app's host.
+  - Stored provider secrets require the full 16-byte GCM tag; Amazon Cognito's `email_verified`
+    is read strictly (the string `"false"` no longer counts as verified).
+
 ## [0.1.1] - 2026-10-07
 
 ### Fixed

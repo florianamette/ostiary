@@ -1669,6 +1669,9 @@
             "revoke_all": "Alle API-Schlüssel widerrufen",
             "settings": "API-Schlüssel-Einstellungen geändert"
           },
+          "oauth_token": {
+            "revoke_all": "Alle App-Tokens widerrufen"
+          },
           "oauth_consent": {
             "update": "Einwilligung aktualisiert",
             "delete": "Einwilligung widerrufen"

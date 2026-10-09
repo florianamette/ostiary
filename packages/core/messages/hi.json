@@ -1669,6 +1669,9 @@
             "revoke_all": "सभी API कुंजियाँ रद्द कीं",
             "settings": "API कुंजी सेटिंग बदलीं"
           },
+          "oauth_token": {
+            "revoke_all": "सभी ऐप टोकन रद्द किए"
+          },
           "oauth_consent": {
             "update": "सहमति अपडेट की",
             "delete": "सहमति रद्द की"

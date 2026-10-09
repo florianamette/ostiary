@@ -7,6 +7,7 @@ import { getTranslations } from "next-intl/server";
 
 import { db } from "@ostiary/core/db/index";
 import { organization, ssoProvider, verification } from "@ostiary/core/db/schema";
+import { isStrictSsoDomain, parseSsoDomain } from "@ostiary/core/lib/security/sso-domain";
 import { adminActor } from "@/lib/admin-audit";
 
 /*
@@ -20,14 +21,6 @@ const verificationIdentifier = (providerId: string) => `_ostiary-${providerId}`;
 
 const errors = () => getTranslations("sso.errors");
 
-function hostnameOf(domain: string): string | null {
-  try {
-    return new URL(domain.includes("://") ? domain : `https://${domain}`).hostname || null;
-  } catch {
-    return null;
-  }
-}
-
 export async function updateSsoProvider(
   providerId: string,
   input: { issuer: string; domain: string; organizationId: string | null },
@@ -36,13 +29,14 @@ export async function updateSsoProvider(
   const [current] = await db.select().from(ssoProvider).where(eq(ssoProvider.providerId, providerId));
   if (!current) return { ok: false, error: (await errors())("providerNotFound") };
   const issuer = input.issuer.trim();
-  const domain = input.domain.trim().toLowerCase();
+  // The same parser as /sso/register and sign-in (sso-domain.ts): one plain hostname.
+  const domain = parseSsoDomain(input.domain);
   try {
     new URL(issuer);
   } catch {
     return { ok: false, error: (await errors())("issuerNotUrl") };
   }
-  if (!hostnameOf(domain)) return { ok: false, error: (await errors())("invalidDomain") };
+  if (!domain) return { ok: false, error: (await errors())("invalidDomain") };
   if (input.organizationId) {
     const [org] = await db.select({ id: organization.id }).from(organization).where(eq(organization.id, input.organizationId));
     if (!org) return { ok: false, error: (await errors())("organizationNotFound") };
@@ -79,8 +73,9 @@ export async function getDomainVerificationRecord(
   await adminActor();
   const [provider] = await db.select().from(ssoProvider).where(eq(ssoProvider.providerId, providerId));
   if (!provider) return { ok: false, error: (await errors())("providerNotFound") };
-  const hostname = hostnameOf(provider.domain);
-  if (!hostname) return { ok: false, error: (await errors())("invalidProviderDomain") };
+  // The record is published under exactly the domain the plugin matches at sign-in.
+  if (!isStrictSsoDomain(provider.domain)) return { ok: false, error: (await errors())("invalidProviderDomain") };
+  const hostname = provider.domain;
   const identifier = verificationIdentifier(providerId);
   const [active] = await db
     .select()

@@ -1669,6 +1669,9 @@
             "revoke_all": "撤销了所有 API 密钥",
             "settings": "更改了 API 密钥设置"
           },
+          "oauth_token": {
+            "revoke_all": "已撤销所有应用令牌"
+          },
           "oauth_consent": {
             "update": "更新了同意",
             "delete": "撤销了同意"

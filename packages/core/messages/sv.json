@@ -1669,6 +1669,9 @@
             "revoke_all": "Återkallade alla API-nycklar",
             "settings": "Ändrade inställningar för API-nycklar"
           },
+          "oauth_token": {
+            "revoke_all": "Återkallade alla apptoken"
+          },
           "oauth_consent": {
             "update": "Uppdaterade samtycke",
             "delete": "Återkallade samtycke"
