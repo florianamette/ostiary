@@ -1,12 +1,15 @@
 import type { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { tryGetCurrentAuthEndpointContext } from "@better-auth/core/context";
 import { sql } from "drizzle-orm";
 
 import { db } from "@ostiary/core/db/index";
 import { oauthResource } from "@ostiary/core/db/schema";
+import { ENV_API_SCOPES, unrestrictedApiScopes } from "@ostiary/core/lib/oauth-scopes";
 
 type AdapterFactory = ReturnType<typeof drizzleAdapter>;
 type Adapter = ReturnType<AdapterFactory>;
 type FindManyArgs = Parameters<Adapter["findMany"]>[0];
+type FindOneArgs = Parameters<Adapter["findOne"]>[0];
 
 /**
  * Per-API access ("every application" or "only linked applications").
@@ -55,4 +58,41 @@ async function openApiIdentifiers(): Promise<string[]> {
     .from(oauthResource)
     .where(sql`coalesce(${oauthResource.metadata}->>'access', '') <> 'linked'`);
   return rows.map((row) => row.identifier);
+}
+
+/**
+ * Binds API scopes to their API. Better Auth only narrows the scopes of a token for an API
+ * when the API lists `allowedScopes` ("Restrict" in the console); otherwise a token for API B
+ * could carry API A's scopes. This wrapper gives every unrestricted API, as Better Auth reads
+ * it when it issues a token (authorize, code, refresh, client credentials, device), the
+ * allowed list of `unrestrictedApiScopes`: its own scopes, the OpenID Connect ones and the
+ * scopes no other API declares. Nothing is written; the admin endpoints see the stored row.
+ */
+export function withApiScopeBinding(factory: AdapterFactory): AdapterFactory {
+  return (options) => {
+    const adapter = factory(options);
+    const findOne = adapter.findOne.bind(adapter);
+    adapter.findOne = (async (args: FindOneArgs) => {
+      const row = await findOne(args);
+      const identifier = resourceByIdentifier(args);
+      if (!row || identifier === null) return row;
+      if ((row as { allowedScopes?: unknown }).allowedScopes != null) return row;
+      if (tryGetCurrentAuthEndpointContext()?.path?.startsWith("/admin/")) return row;
+      const rows = await db
+        .select({ identifier: oauthResource.identifier, allowedScopes: oauthResource.allowedScopes, metadata: oauthResource.metadata })
+        .from(oauthResource);
+      return { ...row, allowedScopes: unrestrictedApiScopes(identifier, rows, ENV_API_SCOPES) };
+    }) as Adapter["findOne"];
+    return adapter;
+  };
+}
+
+/** The identifier when `args` looks up one API by its identifier (Better Auth's getResource). */
+export function resourceByIdentifier(args: FindOneArgs): string | null {
+  if (args.model !== "oauthResource") return null;
+  const where = args.where ?? [];
+  if (where.length !== 1) return null;
+  const [clause] = where;
+  if (clause.field !== "identifier" || (clause.operator ?? "eq") !== "eq" || typeof clause.value !== "string") return null;
+  return clause.value;
 }

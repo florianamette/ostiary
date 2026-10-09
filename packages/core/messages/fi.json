@@ -634,7 +634,7 @@
           "claims": "Claimit: {claims}"
         },
         "restrictLabel": "Myönnä tälle API:lle vain nämä scopet",
-        "restrictHint": "Tämän API:n tokenit sisältävät vain nämä scopet (ja OpenID Connect -scopet). Pois: ne sisältävät kaikki asiakkaalle myönnetyt scopet.",
+        "restrictHint": "Tämän API:n tokenit sisältävät vain nämä scopet (ja OpenID Connect -scopet). Pois: ne voivat sisältää myös myönnettyjä scopeja, joita mikään muu API ei ilmoita, mutta eivät koskaan toisen API:n scopeja.",
         "register": {
           "title": "Rekisteröi API",
           "description": "Asiakkaat pyytävät sille tokenia parametrilla <code>{param}</code>. Tokenin yleisö (audience) on tunniste, ja API tarkistaa sen JWKS:ää vasten.",

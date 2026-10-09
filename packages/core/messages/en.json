@@ -634,7 +634,7 @@
           "claims": "Claims: {claims}"
         },
         "restrictLabel": "Only issue these scopes for this API",
-        "restrictHint": "Tokens for this API carry only these scopes (and the OpenID Connect ones). Off: they carry every scope the client was granted.",
+        "restrictHint": "Tokens for this API carry only these scopes (and the OpenID Connect ones). Off: they may also carry granted scopes that no other API declares, never another API's scopes.",
         "register": {
           "title": "Register an API",
           "description": "Clients ask for a token for it with the <code>{param}</code> parameter. The token's audience is the identifier, and the API verifies it against the JWKS.",

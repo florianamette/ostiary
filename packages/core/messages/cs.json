@@ -634,7 +634,7 @@
           "claims": "Deklarace: {claims}"
         },
         "restrictLabel": "Pro toto API vydávat jen tyto scopy",
-        "restrictHint": "Tokeny pro toto API nesou jen tyto scopy (a scopy OpenID Connect). Vypnuto: nesou všechny scopy, které klient získal.",
+        "restrictHint": "Tokeny pro toto API nesou jen tyto scopy (a scopy OpenID Connect). Vypnuto: mohou nést i udělené scopy, které nedeklaruje žádné jiné API, nikdy však scopy jiného API.",
         "register": {
           "title": "Registrovat API",
           "description": "Klienti o token pro něj žádají parametrem <code>{param}</code>. Audience tokenu je identifikátor a API ho ověřuje proti JWKS.",

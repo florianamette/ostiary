@@ -634,7 +634,7 @@
           "claims": "क्लेम: {claims}"
         },
         "restrictLabel": "इस API के लिए केवल ये scope जारी करें",
-        "restrictHint": "इस API के टोकन में केवल ये scope (और OpenID Connect वाले) होते हैं। बंद: उनमें क्लाइंट को दिया गया हर scope होता है।",
+        "restrictHint": "इस API के टोकन में केवल ये scope (और OpenID Connect वाले) होते हैं। बंद: उनमें वे दिए गए scope भी हो सकते हैं जिन्हें कोई दूसरा API घोषित नहीं करता, लेकिन किसी दूसरे API के scope कभी नहीं।",
         "register": {
           "title": "API रजिस्टर करें",
           "description": "क्लाइंट <code>{param}</code> पैरामीटर के साथ इसके लिए टोकन माँगते हैं। टोकन का audience पहचानकर्ता होता है, और API इसे JWKS से सत्यापित करता है।",

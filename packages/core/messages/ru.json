@@ -634,7 +634,7 @@
           "claims": "Claims: {claims}"
         },
         "restrictLabel": "Выдавать для этого API только эти scope",
-        "restrictHint": "Токены для этого API содержат только эти scope (и scope OpenID Connect). Выкл.: они содержат все scope, предоставленные клиенту.",
+        "restrictHint": "Токены для этого API содержат только эти scope (и scope OpenID Connect). Выкл.: они могут также содержать предоставленные scope, которые не объявляет ни один другой API, но никогда scope другого API.",
         "register": {
           "title": "Регистрация API",
           "description": "Клиенты запрашивают для него токен с параметром <code>{param}</code>. Аудитория токена — это идентификатор, и API проверяет его по JWKS.",

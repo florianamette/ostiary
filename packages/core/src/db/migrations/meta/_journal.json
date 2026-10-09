@@ -92,6 +92,13 @@
       "when": 1791557792508,
       "tag": "0012_app_branding",
       "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1791573964365,
+      "tag": "0013_oauth_client_admin_registered",
+      "breakpoints": true
     }
   ]
 }

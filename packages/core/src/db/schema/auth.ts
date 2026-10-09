@@ -243,6 +243,9 @@ export const oauthClient = pgTable(
     dpopBoundAccessTokens: boolean("dpop_bound_access_tokens").default(false),
     referenceId: text("reference_id"),
     metadata: jsonb("metadata"),
+    // Ostiary's own column, not Better Auth's: true only for clients registered from the admin
+    // console. Better Auth never writes it, so a client created any other way stays false.
+    adminRegistered: boolean("admin_registered").notNull().default(false),
   },
   (table) => [index("oauthClient_userId_idx").on(table.userId)],
 );

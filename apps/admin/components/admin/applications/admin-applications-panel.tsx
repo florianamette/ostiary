@@ -180,8 +180,9 @@ function filterApplications(
 }
 
 /**
- * Lists the OAuth clients: the signed-in admin's (from Better Auth's `getClients`) and every
- * self-registered one (`selfRegistered`, loaded on the server: they have no owner).
+ * Lists the OAuth clients: the admin-registered ones (Better Auth's `getClients`, which returns
+ * the platform's clients to any admin) and every other one (`selfRegistered`, loaded on the
+ * server).
  *
  * @param linkedApis API names per client id: the APIs each application is linked to on the
  * APIs page. APIs open to every application are not listed.
@@ -568,8 +569,8 @@ export function AdminApplicationsPanel({
           skipConsent: "skip_consent",
           create: "POST /api/admin/oauth-clients",
           update: "PATCH /api/admin/oauth-clients/[clientId]",
-          deleteClient: "deleteClient",
-          rotateSecret: "client.rotateSecret",
+          deleteClient: "DELETE /api/admin/oauth-clients/[clientId]",
+          rotateSecret: "POST /api/admin/oauth-clients/[clientId]/rotate-secret",
           clientReference: "clientReference",
           code: (chunks) => <code className="rounded bg-muted px-1 py-0.5 font-mono">{chunks}</code>,
           docs: (chunks) => (

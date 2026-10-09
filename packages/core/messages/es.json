@@ -634,7 +634,7 @@
           "claims": "Claims: {claims}"
         },
         "restrictLabel": "Emitir solo estos scopes para esta API",
-        "restrictHint": "Los tokens de esta API solo llevan estos scopes (y los de OpenID Connect). Desactivado: llevan todos los scopes concedidos al cliente.",
+        "restrictHint": "Los tokens de esta API solo llevan estos scopes (y los de OpenID Connect). Desactivado: también pueden llevar scopes concedidos que ninguna otra API declara, nunca los scopes de otra API.",
         "register": {
           "title": "Registrar una API",
           "description": "Los clientes piden un token para ella con el parámetro <code>{param}</code>. La audiencia del token es el identificador, y la API lo verifica con el JWKS.",

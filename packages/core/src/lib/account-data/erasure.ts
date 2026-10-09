@@ -182,7 +182,12 @@ export async function prepareUserErasure(db: Database, u: ErasedUser): Promise<E
 
     // Console-registered apps are the instance's: keep them (and every user's tokens for them).
     const owned = await tx
-      .select({ id: oauthClient.id, clientDiscoveryId: oauthClient.clientDiscoveryId, metadata: oauthClient.metadata })
+      .select({
+        id: oauthClient.id,
+        clientDiscoveryId: oauthClient.clientDiscoveryId,
+        metadata: oauthClient.metadata,
+        adminRegistered: oauthClient.adminRegistered,
+      })
       .from(oauthClient)
       .where(eq(oauthClient.userId, u.id));
     const instanceClients = owned.filter((c) => registrationSource(c) === "admin").map((c) => c.id);

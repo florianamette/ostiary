@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import {
   applyClientRegistration,
+  clientActionAllowed,
   DEFAULT_CLIENT_REGISTRATION_SETTINGS,
   effectiveRegistrationScopes,
   markDynamicRegistration,
@@ -10,6 +11,8 @@ import {
   parseClientRegistrationSettings,
   registrationRequestError,
   registrationSource,
+  requestClientIds,
+  selfRegisteredUpdateError,
   type RegistrationProviderOptions,
 } from "@ostiary/core/lib/client-registration-policy";
 
@@ -146,9 +149,18 @@ describe("metadataDocumentHostAllowed", () => {
 });
 
 describe("registrationSource", () => {
-  it("treats existing clients as admin-registered", () => {
-    expect(registrationSource({ clientDiscoveryId: null, metadata: null })).toBe("admin");
-    expect(registrationSource({ metadata: { ostiary_registration: "other" } })).toBe("admin");
+  it("is admin only with the explicit marker", () => {
+    expect(registrationSource({ clientDiscoveryId: null, metadata: null, adminRegistered: true })).toBe("admin");
+    expect(registrationSource({ metadata: { ostiary_registration: "other" }, adminRegistered: true })).toBe("admin");
+  });
+
+  it("fails closed: an unmarked client is self-registered", () => {
+    expect(registrationSource({ clientDiscoveryId: null, metadata: null })).toBe("dynamic");
+    expect(registrationSource({ clientDiscoveryId: null, metadata: null, adminRegistered: false })).toBe("dynamic");
+    expect(registrationSource({ adminRegistered: null })).toBe("dynamic");
+    // A self-registration marker wins over the admin one.
+    expect(registrationSource({ metadata: markDynamicRegistration(null), adminRegistered: true })).toBe("dynamic");
+    expect(registrationSource({ clientDiscoveryId: "cimd", adminRegistered: true })).toBe("metadata_document");
   });
 
   it("recognizes dynamic and metadata document clients", () => {
@@ -159,5 +171,84 @@ describe("registrationSource", () => {
 
   it("keeps existing metadata when marking", () => {
     expect(markDynamicRegistration('{"team":"a"}')).toEqual({ team: "a", ostiary_registration: "dynamic" });
+  });
+});
+
+describe("clientActionAllowed", () => {
+  const actions = ["create", "read", "list", "update", "rotate", "delete", "configure-client-credentials-scopes"];
+
+  it("lets platform admins do everything", () => {
+    for (const action of actions) {
+      expect(clientActionAllowed({ action, isAdmin: true, path: "/admin/oauth2/create-client" })).toBe(true);
+    }
+  });
+
+  it("gives other users no client management", () => {
+    for (const action of actions) {
+      for (const path of ["/oauth2/create-client", "/oauth2/update-client", "/oauth2/delete-client", "/oauth2/client/rotate-secret", "/oauth2/get-clients", "/oauth2/get-client", undefined]) {
+        expect(clientActionAllowed({ action, isAdmin: false, path })).toBe(false);
+      }
+    }
+  });
+
+  it("still lets them self-register through dynamic registration", () => {
+    expect(clientActionAllowed({ action: "create", isAdmin: false, path: "/oauth2/register" })).toBe(true);
+    expect(clientActionAllowed({ action: "update", isAdmin: false, path: "/oauth2/register" })).toBe(false);
+  });
+});
+
+describe("selfRegisteredUpdateError", () => {
+  const allowed = ["openid", "profile", "email", "offline_access"];
+
+  it("accepts changes within the self-registration policy", () => {
+    expect(selfRegisteredUpdateError({ client_name: "Renamed", redirect_uris: ["https://a.example/cb"] }, allowed)).toBeNull();
+    expect(selfRegisteredUpdateError({ scope: "openid email" }, allowed)).toBeNull();
+    expect(selfRegisteredUpdateError({ grant_types: ["authorization_code", "refresh_token"] }, allowed)).toBeNull();
+    expect(selfRegisteredUpdateError({ client_credentials_scopes: [] }, allowed)).toBeNull();
+    expect(selfRegisteredUpdateError({ skip_consent: false }, allowed)).toBeNull();
+    expect(selfRegisteredUpdateError(undefined, allowed)).toBeNull();
+  });
+
+  it("refuses scopes outside the allowed list", () => {
+    expect(selfRegisteredUpdateError({ scope: "openid orders:write" }, allowed)).toMatch(/orders:write/);
+    expect(selfRegisteredUpdateError({ scope: ["openid"] }, allowed)).not.toBeNull();
+  });
+
+  it("refuses machine access, device sign-in and skipping consent", () => {
+    expect(selfRegisteredUpdateError({ grant_types: ["client_credentials"] }, allowed)).toMatch(/client_credentials/);
+    expect(selfRegisteredUpdateError({ grant_types: ["authorization_code", "urn:ietf:params:oauth:grant-type:device_code"] }, allowed)).toMatch(/device_code/);
+    expect(selfRegisteredUpdateError({ client_credentials_scopes: ["openid"] }, allowed)).not.toBeNull();
+    expect(selfRegisteredUpdateError({ skip_consent: true }, allowed)).toMatch(/consent/);
+  });
+});
+
+describe("requestClientIds", () => {
+  const basic = (id: string, secret = "s3cret") =>
+    new Headers({ authorization: `Basic ${Buffer.from(`${encodeURIComponent(id)}:${secret}`).toString("base64")}` });
+  const assertion = (claims: Record<string, unknown>) =>
+    `e30.${Buffer.from(JSON.stringify(claims)).toString("base64url")}.sig`;
+
+  it("reads the body's client_id", () => {
+    expect(requestClientIds(new Headers(), { client_id: "abc" })).toEqual(["abc"]);
+  });
+
+  it("reads HTTP Basic client authentication when the body names no client", () => {
+    expect(requestClientIds(basic("dyn-client"), { client_id: "" })).toEqual(["dyn-client"]);
+    expect(requestClientIds(basic("a b:c"), {})).toEqual(["a b:c"]);
+  });
+
+  it("reads a client assertion's subject and issuer", () => {
+    expect(requestClientIds(null, { client_assertion: assertion({ iss: "kid-client", sub: "kid-client" }) })).toEqual(["kid-client"]);
+    expect(requestClientIds(null, { client_assertion: assertion({ iss: "a", sub: "b" }) }).sort()).toEqual(["a", "b"]);
+  });
+
+  it("lists every id the request names", () => {
+    expect(requestClientIds(basic("from-header"), { client_id: "from-body" }).sort()).toEqual(["from-body", "from-header"]);
+  });
+
+  it("returns nothing for missing or malformed authentication", () => {
+    expect(requestClientIds(undefined, undefined)).toEqual([]);
+    expect(requestClientIds(new Headers({ authorization: "Bearer x" }), { client_assertion: "not-a-jwt" })).toEqual([]);
+    expect(requestClientIds(new Headers({ authorization: "Basic !!!" }), {})).toEqual([]);
   });
 });

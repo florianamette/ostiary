@@ -187,17 +187,126 @@ function parseMetadata(metadata: unknown): Record<string, unknown> | null {
     : null;
 }
 
-/** How a client row was registered. Rows from before this feature are admin-registered. */
+/**
+ * How a client row was registered. Admin-registered only with the explicit marker
+ * (`oauth_client.admin_registered`, set by the admin console after it creates a client):
+ * anything else, including a row whose marker is missing or unreadable, is treated as
+ * self-registered, so it gets the self-registration limits rather than an admin's trust.
+ */
 export function registrationSource(row: {
   clientDiscoveryId?: string | null;
   metadata?: unknown;
+  adminRegistered?: boolean | null;
 }): RegistrationSource {
   if (row.clientDiscoveryId === METADATA_DOCUMENT_DISCOVERY_ID) return "metadata_document";
   if (parseMetadata(row.metadata)?.[REGISTRATION_METADATA_KEY] === "dynamic") return "dynamic";
-  return "admin";
+  return row.adminRegistered === true ? "admin" : "dynamic";
 }
 
 /** `metadata` with the dynamic-registration marker added. */
 export function markDynamicRegistration(metadata: unknown): Record<string, unknown> {
   return { ...(parseMetadata(metadata) ?? {}), [REGISTRATION_METADATA_KEY]: "dynamic" };
+}
+
+/**
+ * `oauth_client.reference_id` of clients registered from the admin console. Better Auth lets
+ * whoever its `clientReference` maps to this value manage them: every platform admin, and
+ * nobody else. The admin who created a client does not own it personally, so losing the
+ * admin role (or the account) ends their control over it.
+ */
+export const PLATFORM_CLIENT_REFERENCE = "ostiary:platform";
+
+/**
+ * Better Auth's client management actions (`clientPrivileges`). Platform admins may do
+ * everything. Anyone else may only create a client through Dynamic Client Registration
+ * (`/oauth2/register`, which has its own limits): no other create, read, list, update,
+ * secret rotation or deletion.
+ */
+export function clientActionAllowed(input: { action: string; isAdmin: boolean; path: string | undefined }): boolean {
+  if (input.isAdmin) return true;
+  return input.action === "create" && input.path === "/oauth2/register";
+}
+
+/** Fields of a client update (Better Auth's `update` object) that the policy limits. */
+type ClientUpdate = {
+  scope?: unknown;
+  grant_types?: unknown;
+  client_credentials_scopes?: unknown;
+  skip_consent?: unknown;
+};
+
+/**
+ * Checks an update to a self-registered client against the self-registration policy: it
+ * may not gain a scope outside `allowedScopes`, a grant other than authorization code and
+ * refresh token, machine (client_credentials) scopes, or skip the consent screen.
+ * Returns the reason it is refused, or null.
+ */
+export function selfRegisteredUpdateError(update: unknown, allowedScopes: readonly string[]): string | null {
+  const value = (update && typeof update === "object" ? update : {}) as ClientUpdate;
+  if (value.scope !== undefined) {
+    if (typeof value.scope !== "string") return "scope must be a string";
+    const allowed = new Set(allowedScopes);
+    const refused = value.scope.split(/\s+/).filter(Boolean).find((scope) => !allowed.has(scope));
+    if (refused) return `scope ${refused} is not available to self-registered clients`;
+  }
+  if (value.grant_types !== undefined) {
+    const refused = registrationRequestError({ grant_types: value.grant_types });
+    if (refused) return refused;
+  }
+  if (Array.isArray(value.client_credentials_scopes) && value.client_credentials_scopes.length > 0) {
+    return "client_credentials scopes are not available to self-registered clients";
+  }
+  if (value.client_credentials_scopes !== undefined && !Array.isArray(value.client_credentials_scopes)) {
+    return "client_credentials_scopes must be an array";
+  }
+  if (value.skip_consent === true) return "A self-registered client cannot skip the consent screen.";
+  return null;
+}
+
+/** The client id in an HTTP Basic `Authorization` header (RFC 6749 2.3.1), or null. */
+function basicAuthClientId(authorization: string | null | undefined): string | null {
+  const match = /^Basic\s+(\S+)\s*$/i.exec(authorization ?? "");
+  if (!match) return null;
+  let decoded: string;
+  try {
+    decoded = Buffer.from(match[1], "base64").toString("utf8");
+  } catch {
+    return null;
+  }
+  const colon = decoded.indexOf(":");
+  if (colon <= 0) return null;
+  try {
+    return decodeURIComponent(decoded.slice(0, colon).replace(/\+/g, "%20"));
+  } catch {
+    return null;
+  }
+}
+
+/** `sub` and `iss` of a client assertion (RFC 7523: both are the client id). Not verified. */
+function assertionClientIds(assertion: unknown): string[] {
+  if (typeof assertion !== "string") return [];
+  const payload = assertion.split(".")[1];
+  if (!payload) return [];
+  try {
+    const claims = JSON.parse(Buffer.from(payload, "base64url").toString("utf8")) as Record<string, unknown>;
+    return [claims.sub, claims.iss].filter((v): v is string => typeof v === "string" && v.length > 0);
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * Every client id a token or device request names, however the client authenticates:
+ * `client_id` in the body, HTTP Basic, or a client assertion (private_key_jwt). Used to
+ * apply a per-client rule before Better Auth authenticates the client, so the rule must
+ * hold for each of them (Better Auth then refuses a request whose ids disagree).
+ */
+export function requestClientIds(headers: Headers | null | undefined, body: unknown): string[] {
+  const fields = (body && typeof body === "object" ? body : {}) as Record<string, unknown>;
+  const ids = [
+    typeof fields.client_id === "string" && fields.client_id ? fields.client_id : null,
+    basicAuthClientId(headers?.get("authorization")),
+    ...assertionClientIds(fields.client_assertion),
+  ].filter((id): id is string => id !== null);
+  return [...new Set(ids)];
 }

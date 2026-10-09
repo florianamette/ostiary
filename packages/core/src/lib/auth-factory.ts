@@ -1,6 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { betterAuth, type BetterAuthPlugin } from "better-auth";
 import { APIError, createAuthMiddleware, getOAuthState, getSessionFromCtx } from "better-auth/api";
+import { tryGetCurrentAuthEndpointContext } from "@better-auth/core/context";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { apiKey } from "@better-auth/api-key";
 import { createCimdClientDiscovery } from "@better-auth/cimd";
@@ -59,20 +60,22 @@ import { ipAddressOptions, rateLimitOptions } from "@ostiary/core/lib/rate-limit
 import { ENV_API_SCOPES, OIDC_SCOPES, syncProviderScopes } from "@ostiary/core/lib/oauth-scopes";
 import { syncSigningKeys } from "@ostiary/core/lib/signing-keys";
 import { oauthResourceIdentifiers } from "@ostiary/core/lib/oauth-resources";
-import { withOpenApiLinks } from "@ostiary/core/lib/oauth-resource-access";
+import { withApiScopeBinding, withOpenApiLinks } from "@ostiary/core/lib/oauth-resource-access";
+import { CLIENT_MANAGEMENT_HTTP_PATHS, oauthClientGuard } from "@ostiary/core/lib/oauth-client-guard";
 import { withWebhookEvents } from "@ostiary/core/lib/webhooks/adapter";
 import { ACCESS_TOKEN_EXPIRES_IN, REFRESH_TOKEN_EXPIRES_IN } from "@ostiary/core/lib/oauth-resource-policy";
 import { SAML_CLOCK_SKEW_MS, samlResponseRejection } from "@ostiary/core/lib/saml";
 import {
     clientExists,
-    clientRegistrationSource,
     currentClientRegistrationSettings,
     registrationCapacityLeft,
     syncClientRegistration,
 } from "@ostiary/core/lib/client-registration";
 import {
+    clientActionAllowed,
     markDynamicRegistration,
     metadataDocumentHostAllowed,
+    PLATFORM_CLIENT_REFERENCE,
     registrationRequestError,
 } from "@ostiary/core/lib/client-registration-policy";
 import { googleOneTap, socialProvidersConfig, syncSocialProviders } from "@ostiary/core/lib/social-providers";
@@ -497,8 +500,10 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
     };
     // Signs ID tokens and JWT access tokens and publishes /jwks. Key rotation (interval and
     // grace period) is set from the admin console before each request, see syncSigningKeys:
-    // Better Auth reads both from this options object on every call.
-    const jwtOptions: JwtOptions = { jwks: {} };
+    // Better Auth reads both from this options object on every call. The plugin's session JWT
+    // (GET /token and the set-auth-jwt header) is off: nothing uses it, and it would be signed
+    // with the access tokens' key.
+    const jwtOptions: JwtOptions = { jwks: {}, disableSettingJwtHeader: true };
     const provider = oauthProvider({
         loginPage: "/login",
         consentPage: "/consent",
@@ -518,12 +523,19 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
         // A client gets a token for an API only if it is linked to it. APIs open to every
         // application (the default) count as linked to every client, see withOpenApiLinks.
         enforcePerClientResources: true,
-        // 1.7 requires a policy before anyone may grant client_credentials scopes. Only
-        // platform admins may; every other client action keeps its 1.5 behavior.
+        // Only platform admins manage clients (create, read, list, update, rotate, delete and
+        // client_credentials scopes), from the admin console. Others may only self-register
+        // through /oauth2/register, when it is on (see clientActionAllowed).
         clientPrivileges: ({ action, user }) =>
-            action === "configure-client-credentials-scopes"
-                ? userHasAdminRole(user?.role as string | null | undefined, ["admin"])
-                : true,
+            clientActionAllowed({
+                action,
+                isAdmin: userHasAdminRole(user?.role as string | null | undefined, ["admin"]),
+                path: tryGetCurrentAuthEndpointContext()?.path,
+            }),
+        // Clients an admin creates belong to the platform, not to that admin: every admin can
+        // manage them, and an admin who loses the role (or the account) no longer can.
+        clientReference: ({ user }) =>
+            userHasAdminRole(user?.role as string | null | undefined, ["admin"]) ? PLATFORM_CLIENT_REFERENCE : undefined,
         // The resource admin endpoints are server-only; this keeps them admin-only as well.
         resourcePrivileges: ({ user }) =>
             userHasAdminRole(user?.role as string | null | undefined, ["admin"]),
@@ -574,7 +586,15 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
         baseURL,
         // Sign in with Apple returns with a form POST from Apple's origin.
         trustedOrigins: [...trustedOrigins, "https://appleid.apple.com"],
-        disabledPaths: [...UNUSED_EMAIL_OTP_PATHS, ...API_KEY_PLUGIN_PATHS, DELETE_USER_LINK_PATH, ...SSO_MANAGEMENT_PATHS],
+        disabledPaths: [
+            ...UNUSED_EMAIL_OTP_PATHS,
+            ...API_KEY_PLUGIN_PATHS,
+            DELETE_USER_LINK_PATH,
+            ...SSO_MANAGEMENT_PATHS,
+            ...CLIENT_MANAGEMENT_HTTP_PATHS,
+            // The jwt plugin's session JWT, see jwtOptions.
+            "/token",
+        ],
         // Per-IP limits counted in the database, shared by every serverless instance. Rules in
         // lib/rate-limit.ts; off in development unless RATE_LIMIT_ENABLED=true.
         rateLimit: rateLimitOptions(env),
@@ -700,19 +720,7 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
                     }
                 }
                 const registration = await syncClientRegistration(provider.options, metadataDocuments);
-                if (ctx.path === "/device/code") {
-                    // Device sign-in shows only the app's name to the user, who types a code
-                    // elsewhere: an easy phishing setup for an app nobody reviewed. Self-registered
-                    // clients (whatever grants their metadata lists) sign in through the browser.
-                    const clientId = str((ctx.body as Bag | undefined)?.client_id);
-                    if (clientId && (await clientRegistrationSource(clientId)) !== "admin") {
-                        throw new APIError("BAD_REQUEST", {
-                            error: "unauthorized_client",
-                            error_description: "Self-registered clients cannot use device sign-in",
-                        });
-                    }
-                    return;
-                }
+                // Device sign-in is for admin-registered clients only: see oauthClientGuard.
                 if (ctx.path === "/oauth2/register" && registration.dynamic !== "off") {
                     // Better Auth checks scopes, redirect URIs and PKCE. Self-registered clients
                     // also get no machine access, and an hourly cap across instances limits abuse
@@ -876,7 +884,8 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
         },
         // Per-API access: APIs open to every application count as linked to every client.
         // User and membership changes become webhook events once committed (lib/webhooks).
-        database: withOpenApiLinks(
+        // API scopes only go into tokens for their own API (withApiScopeBinding).
+        database: withApiScopeBinding(withOpenApiLinks(
             withWebhookEvents(
                 drizzleAdapter(db, {
                     provider: "pg",
@@ -886,7 +895,7 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
                     transaction: true,
                 }),
             ),
-        ),
+        )),
         // The environment's (GitHub); the admin console's are added per request, see syncSocialProviders.
         socialProviders: socialProvidersConfig(),
         account: {
@@ -1072,6 +1081,9 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
                 },
             }),
             provider,
+            // Self-registered clients stay within the self-registration policy; device sign-in
+            // is for admin-registered clients only.
+            oauthClientGuard(),
             // RFC 8628 device sign-in for CLIs, TVs and other apps without a browser. Clients opt in
             // with the device_code grant (admin console). The device shows a code, the user enters
             // it on the auth app's /device page, then the device collects tokens at /oauth2/token.

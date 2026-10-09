@@ -634,7 +634,7 @@
           "claims": "Claims : {claims}"
         },
         "restrictLabel": "N’émettre que ces scopes pour cette API",
-        "restrictHint": "Les jetons de cette API ne portent que ces scopes (et ceux d’OpenID Connect). Désactivé : ils portent tous les scopes accordés au client.",
+        "restrictHint": "Les jetons de cette API ne portent que ces scopes (et ceux d’OpenID Connect). Désactivé : ils peuvent aussi porter les scopes accordés qu’aucune autre API ne déclare, jamais ceux d’une autre API.",
         "register": {
           "title": "Enregistrer une API",
           "description": "Les clients demandent un jeton pour elle avec le paramètre <code>{param}</code>. L’audience du jeton est l’identifiant, et l’API le vérifie avec le JWKS.",

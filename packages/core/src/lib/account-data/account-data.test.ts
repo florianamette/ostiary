@@ -103,9 +103,11 @@ async function seed() {
   await db.insert(s.twoFactor).values({ id: "tf_1", secret: SECRETS.totpSecret, backupCodes: SECRETS.backupCodes, userId: U.id });
   await db.insert(s.oauthClient).values([
     // Registered by another admin, used by the user.
-    { id: "cl_other", clientId: "client-other", clientSecret: SECRETS.clientSecret, name: "Notes", redirectUris: ["https://notes.example/cb"], userId: OTHER.id, createdAt: now, updatedAt: now },
+    { id: "cl_other", clientId: "client-other", clientSecret: SECRETS.clientSecret, name: "Notes", redirectUris: ["https://notes.example/cb"], userId: OTHER.id, adminRegistered: true, createdAt: now, updatedAt: now },
     // Registered by the user from the admin console (instance app): detached, kept.
-    { id: "cl_console", clientId: "client-console", name: "Console app", redirectUris: ["https://console.example/cb"], userId: U.id, createdAt: now, updatedAt: now },
+    { id: "cl_console", clientId: "client-console", name: "Console app", redirectUris: ["https://console.example/cb"], userId: U.id, adminRegistered: true, createdAt: now, updatedAt: now },
+    // Created by the user through Better Auth's client endpoint, without the admin marker: theirs.
+    { id: "cl_unmarked", clientId: "client-unmarked", name: "Unmarked", redirectUris: ["https://unmarked.example/cb"], userId: U.id, createdAt: now, updatedAt: now },
     // Registered by the user through Dynamic Client Registration: theirs, deleted with them.
     { id: "cl_dynamic", clientId: "client-dynamic", name: "My script", redirectUris: ["http://127.0.0.1/cb"], userId: U.id, metadata: { ostiary_registration: "dynamic" }, createdAt: now, updatedAt: now },
   ]);
@@ -191,6 +193,7 @@ describe("account export", () => {
     expect(data!.registeredApps.map((c) => [c.clientId, c.registration]).sort()).toEqual([
       ["client-console", "admin"],
       ["client-dynamic", "dynamic"],
+      ["client-unmarked", "dynamic"],
     ]);
     expect(data!.apiKeys).toEqual([expect.objectContaining({ name: "Nightly export", start: "ost_abcdef", api: "https://api.example.com", scopes: ["orders:read"] })]);
     expect(data!.organizationApiKeysCreated).toEqual([expect.objectContaining({ id: "key_org", name: "Acme CI", organization: "Acme" })]);

@@ -1,13 +1,12 @@
-import { and, desc, eq, gt, isNotNull, or, sql } from "drizzle-orm";
+import { and, desc, eq, gt, isNotNull, not, sql } from "drizzle-orm";
 
 import { db } from "@ostiary/core/db/index";
 import { appSetting, oauthClient } from "@ostiary/core/db/schema";
 import {
   applyClientRegistration,
   DEFAULT_CLIENT_REGISTRATION_SETTINGS,
-  METADATA_DOCUMENT_DISCOVERY_ID,
   parseClientRegistrationSettings,
-  REGISTRATION_METADATA_KEY,
+  PLATFORM_CLIENT_REFERENCE,
   registrationSource,
   type ClientRegistrationSettings,
   type RegistrationProviderOptions,
@@ -89,11 +88,11 @@ export async function syncClientRegistration(
   return settings;
 }
 
-/** SQL condition matching clients created by dynamic registration or a metadata document. */
-const selfRegistered = or(
-  eq(oauthClient.clientDiscoveryId, METADATA_DOCUMENT_DISCOVERY_ID),
-  sql`${oauthClient.metadata} ->> ${REGISTRATION_METADATA_KEY} = 'dynamic'`,
-);
+/**
+ * SQL condition matching every client that is not admin-registered: dynamic registration,
+ * metadata documents, and anything else without the admin marker (see registrationSource).
+ */
+const selfRegistered = not(oauthClient.adminRegistered);
 
 /** Self-registered clients created in the last hour, on every instance. */
 export async function countRecentSelfRegistrations(): Promise<number> {
@@ -122,11 +121,29 @@ export async function clientExists(clientId: string): Promise<boolean> {
 /** How a client was registered, or null when it does not exist. */
 export async function clientRegistrationSource(clientId: string): Promise<RegistrationSource | null> {
   const [row] = await db
-    .select({ clientDiscoveryId: oauthClient.clientDiscoveryId, metadata: oauthClient.metadata })
+    .select({
+      clientDiscoveryId: oauthClient.clientDiscoveryId,
+      metadata: oauthClient.metadata,
+      adminRegistered: oauthClient.adminRegistered,
+    })
     .from(oauthClient)
     .where(eq(oauthClient.clientId, clientId))
     .limit(1);
   return row ? registrationSource(row) : null;
+}
+
+/**
+ * Marks a client the admin console just created as admin-registered. Only a client owned by
+ * the platform (Better Auth gave it PLATFORM_CLIENT_REFERENCE, which only admins map to)
+ * can be marked. Returns false when no such client exists.
+ */
+export async function markAdminRegisteredClient(clientId: string): Promise<boolean> {
+  const updated = await db
+    .update(oauthClient)
+    .set({ adminRegistered: true })
+    .where(and(eq(oauthClient.clientId, clientId), eq(oauthClient.referenceId, PLATFORM_CLIENT_REFERENCE)))
+    .returning({ id: oauthClient.id });
+  return updated.length > 0;
 }
 
 /**
@@ -160,7 +177,10 @@ export type SelfRegisteredClient = {
   createdAt: Date | null;
 };
 
-/** Every self-registered client, newest first (they have no owner, so Better Auth lists none). */
+/**
+ * Every client that is not admin-registered, newest first. Better Auth's list only returns
+ * the platform's clients, so these are loaded here for the admin console.
+ */
 export async function listSelfRegisteredClients(limit = 500): Promise<SelfRegisteredClient[]> {
   const rows = await db
     .select()

@@ -634,7 +634,7 @@
           "claims": "Claims: {claims}"
         },
         "restrictLabel": "Alleen deze scopes uitgeven voor deze API",
-        "restrictHint": "Tokens voor deze API bevatten alleen deze scopes (en die van OpenID Connect). Uit: ze bevatten elke scope die aan de client is verleend.",
+        "restrictHint": "Tokens voor deze API bevatten alleen deze scopes (en die van OpenID Connect). Uit: ze kunnen ook verleende scopes bevatten die geen andere API declareert, maar nooit de scopes van een andere API.",
         "register": {
           "title": "Een API registreren",
           "description": "Clients vragen er een token voor aan met de parameter <code>{param}</code>. De audience van het token is de identifier, en de API verifieert die tegen de JWKS.",

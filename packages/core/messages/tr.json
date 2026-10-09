@@ -634,7 +634,7 @@
           "claims": "Claim'ler: {claims}"
         },
         "restrictLabel": "Bu API için yalnızca bu scope'ları ver",
-        "restrictHint": "Bu API'nin token'ları yalnızca bu scope'ları (ve OpenID Connect scope'larını) taşır. Kapalı: istemciye verilen tüm scope'ları taşırlar.",
+        "restrictHint": "Bu API'nin token'ları yalnızca bu scope'ları (ve OpenID Connect scope'larını) taşır. Kapalı: başka hiçbir API'nin bildirmediği verilen scope'ları da taşıyabilirler, ancak asla başka bir API'nin scope'larını taşımazlar.",
         "register": {
           "title": "API kaydedin",
           "description": "İstemciler bunun için <code>{param}</code> parametresiyle token ister. Token'ın audience değeri tanımlayıcıdır ve API onu JWKS ile doğrular.",
