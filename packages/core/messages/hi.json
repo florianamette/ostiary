@@ -179,6 +179,13 @@
       "notLinked": "That account isn't connected to a {name} account yet. Sign in another way, then connect it from your security settings.",
       "noEmail": "इस खाते ने ईमेल पता साझा नहीं किया। बाद में फिर से कोशिश करें या किसी और तरीके से साइन इन करें।",
       "signUpDisabled": "इस पते के लिए अभी कोई खाता नहीं है, और यह साइन-इन तरीका खाता नहीं बना सकता। किसी दूसरे तरीके से साइन इन करें।"
+    },
+    "app": {
+      "signIn": "<app>{name}</app> पर जारी रखने के लिए साइन इन करें",
+      "signUp": "<app>{name}</app> पर जारी रखने के लिए अपना खाता बनाएँ",
+      "continue": "<app>{name}</app> पर जारी रखें",
+      "unverified": "असत्यापित ऐप।",
+      "unverifiedHint": "{name} ने इसकी समीक्षा नहीं की है: केवल तभी जारी रखें जब आपको इस पर भरोसा हो।"
     }
   },
   "consent": {

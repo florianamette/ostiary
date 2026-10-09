@@ -1,10 +1,13 @@
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 
 import { Logo } from "@ostiary/core/components/brand/logo";
 import { brand } from "@ostiary/core/lib/brand";
 import { LocaleSwitcher } from "@ostiary/core/components/layout/locale-switcher";
 import { ThemeToggle } from "@ostiary/core/components/theme-toggle";
 import { getTranslations } from "next-intl/server";
+
+import { AppBrandHeader, type AppBrandIntent } from "@/components/auth/app-brand-header";
+import type { AuthScreenApp } from "@ostiary/core/lib/app-branding/store";
 
 /**
  * The brand panel's backdrop: the mark's arch drawn at full height, with brass light
@@ -36,40 +39,82 @@ function Doorway() {
 }
 
 /**
+ * The side panel's backdrop for an app with its own image: the image, darkened toward the
+ * bottom so the headline and the identity provider's mark stay legible over it.
+ */
+function PanelImage({ src }: { src: string }) {
+  return (
+    <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+      {/* Same-origin route (see /api/app-branding); never the app's own server. */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={src} alt="" className="absolute inset-0 size-full object-cover" decoding="async" referrerPolicy="no-referrer" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_bottom,color-mix(in_oklab,var(--background)_55%,transparent),color-mix(in_oklab,var(--background)_35%,transparent)_40%,var(--background)_95%)]" />
+    </div>
+  );
+}
+
+/**
  * The shared shell for every auth screen (login, signup, reset, consent…):
  * a brand panel on the left and the form on the right, with the theme and
  * locale controls in the form panel's top-right corner. On small screens the brand panel collapses
  * to the wordmark above the form.
+ *
+ * With `app` (a verified app context, see lib/app-context.ts) the form column shows which app
+ * the user is signing in to and takes its accent color through `[data-app-brand]`; the side
+ * panel may show the app's headline and image. The identity provider's own mark and footer
+ * always stay, so people can tell where they are typing their password.
  */
-export async function AuthScreen({ children, locale }: { children: ReactNode; locale: string }) {
+export async function AuthScreen({
+  children,
+  locale,
+  app = null,
+  appIntent = "continue",
+}: {
+  children: ReactNode;
+  locale: string;
+  app?: AuthScreenApp | null;
+  /** Wording of the app header; "none" applies the colors only (the consent card names the app). */
+  appIntent?: AppBrandIntent | "none";
+}) {
   const t = await getTranslations({ locale, namespace: "auth.screen" });
   const ecosystem = brand.ecosystem;
+  const panelText = app?.verified ? app.panelText : null;
+  const panelImage = app?.verified ? app.panelImageUrl : null;
+  const accent = app?.verified ? app.accent : null;
 
   return (
     <div className="relative grid min-h-svh lg:grid-cols-2">
 
       {/* Brand panel */}
       <aside className="dark relative hidden flex-col justify-between overflow-hidden border-r bg-background p-10 text-foreground lg:flex xl:p-14">
-        <Doorway />
+        {panelImage ? <PanelImage src={panelImage} /> : <Doorway />}
         <div className="relative">
           <Logo />
         </div>
         <div className="relative max-w-sm">
-          <h1 className="text-4xl leading-[1.05] font-semibold tracking-[-0.035em] xl:text-5xl">
-            {t.rich("headline", {
-              accent: (chunks) => <span className="text-serif-accent text-brass">{chunks}</span>,
-            })}
-          </h1>
-          <p className="mt-5 max-w-[19rem] leading-relaxed text-muted-foreground">{t("subhead", { name: brand.name })}</p>
-          {ecosystem.length ? (
-            <ul className="mt-8 flex flex-wrap gap-2">
-              {ecosystem.map((name) => (
-                <li key={name} className="rounded-full border bg-background/60 px-3 py-1 text-[13px] text-muted-foreground">
-                  {name}
-                </li>
-              ))}
-            </ul>
-          ) : null}
+          {panelText ? (
+            <h1 data-testid="app-panel-text" className="text-4xl leading-[1.05] font-semibold tracking-[-0.035em] text-pretty xl:text-5xl">
+              <bdi>{panelText}</bdi>
+            </h1>
+          ) : (
+            <>
+              <h1 className="text-4xl leading-[1.05] font-semibold tracking-[-0.035em] xl:text-5xl">
+                {t.rich("headline", {
+                  accent: (chunks) => <span className="text-serif-accent text-brass">{chunks}</span>,
+                })}
+              </h1>
+              <p className="mt-5 max-w-[19rem] leading-relaxed text-muted-foreground">{t("subhead", { name: brand.name })}</p>
+              {ecosystem.length ? (
+                <ul className="mt-8 flex flex-wrap gap-2">
+                  {ecosystem.map((name) => (
+                    <li key={name} className="rounded-full border bg-background/60 px-3 py-1 text-[13px] text-muted-foreground">
+                      {name}
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+            </>
+          )}
         </div>
         <p className="relative text-xs text-muted-foreground">{t("footer", { name: brand.name })}</p>
       </aside>
@@ -81,11 +126,20 @@ export async function AuthScreen({ children, locale }: { children: ReactNode; lo
           <LocaleSwitcher />
           <ThemeToggle />
         </div>
-        <main className="w-full max-w-md">
-          <div className="mb-8 flex justify-center lg:hidden">
+        <main
+          className="w-full max-w-md"
+          data-app-brand={accent ? "accent" : app ? "plain" : undefined}
+          style={accent ? (accent as CSSProperties) : undefined}
+        >
+          <div className={app && appIntent !== "none" ? "mb-6 flex justify-center lg:hidden" : "mb-8 flex justify-center lg:hidden"}>
             <Logo />
           </div>
+          {app && appIntent !== "none" ? <AppBrandHeader app={app} intent={appIntent} locale={locale} /> : null}
           {children}
+          {app ? (
+            // On phones the side panel is hidden: say whose sign-in page this is under the form too.
+            <p className="mt-6 text-center text-xs text-muted-foreground lg:hidden">{t("footer", { name: brand.name })}</p>
+          ) : null}
         </main>
       </div>
     </div>

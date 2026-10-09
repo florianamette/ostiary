@@ -179,6 +179,13 @@
       "notLinked": "That account isn't connected to a {name} account yet. Sign in another way, then connect it from your security settings.",
       "noEmail": "Tili ei jakanut sähköpostiosoitetta. Yritä myöhemmin uudelleen tai kirjaudu toisella tavalla.",
       "signUpDisabled": "Tälle osoitteelle ei ole vielä tiliä, eikä tällä kirjautumistavalla voi luoda sellaista. Kirjaudu sisään toisella tavalla."
+    },
+    "app": {
+      "signIn": "Kirjaudu sisään jatkaaksesi palveluun <app>{name}</app>",
+      "signUp": "Luo tili jatkaaksesi palveluun <app>{name}</app>",
+      "continue": "Jatka palveluun <app>{name}</app>",
+      "unverified": "Vahvistamaton sovellus.",
+      "unverifiedHint": "{name} ei ole tarkistanut sitä: jatka vain, jos luotat siihen."
     }
   },
   "consent": {

@@ -179,6 +179,13 @@
       "notLinked": "That account isn't connected to a {name} account yet. Sign in another way, then connect it from your security settings.",
       "noEmail": "Essa conta não partilhou um endereço de email. Tente mais tarde ou entre de outra forma.",
       "signUpDisabled": "Ainda não existe uma conta para esse endereço e este método de início de sessão não pode criá-la. Inicie sessão de outra forma."
+    },
+    "app": {
+      "signIn": "Inicie sessão para continuar para <app>{name}</app>",
+      "signUp": "Crie a sua conta para continuar para <app>{name}</app>",
+      "continue": "Continuar para <app>{name}</app>",
+      "unverified": "Aplicação não verificada.",
+      "unverifiedHint": "{name} não a analisou: continue apenas se confiar nela."
     }
   },
   "consent": {

@@ -23,11 +23,16 @@ import {
 import { Input } from "@ostiary/core/components/ui/input";
 import { Link, useRouter } from "@/i18n/navigation";
 import { authClient } from "@/lib/auth-client";
+import { withAppContext, type AppLink } from "@/lib/app-links";
 
 export function ResetPasswordForm({
   className,
+  appLink = null,
   ...props
-}: React.ComponentProps<"div">) {
+}: React.ComponentProps<"div"> & {
+  /** Set when the reset started from an app's sign-in: back to that app's login. */
+  appLink?: AppLink;
+}) {
   const t = useTranslations("auth.resetPassword");
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -49,7 +54,7 @@ export function ResetPasswordForm({
           </CardHeader>
           <CardContent>
             <Button asChild variant="default">
-              <Link href="/forgot-password">{t("requestNewLink")}</Link>
+              <Link href={withAppContext("/forgot-password", appLink)}>{t("requestNewLink")}</Link>
             </Button>
           </CardContent>
         </Card>
@@ -67,10 +72,10 @@ export function ResetPasswordForm({
           </CardHeader>
           <CardContent className="flex flex-col gap-2">
             <Button asChild variant="outline">
-              <Link href="/forgot-password">{t("requestNewLink")}</Link>
+              <Link href={withAppContext("/forgot-password", appLink)}>{t("requestNewLink")}</Link>
             </Button>
             <Button asChild variant="ghost" className="self-start">
-              <Link href="/login">{t("backToLogin")}</Link>
+              <Link href={withAppContext("/login", appLink)}>{t("backToLogin")}</Link>
             </Button>
           </CardContent>
         </Card>
@@ -96,7 +101,7 @@ export function ResetPasswordForm({
         return;
       }
       toast.success(t("success"));
-      router.push("/login");
+      router.push(withAppContext("/login", appLink));
     } finally {
       setIsSubmitting(false);
     }

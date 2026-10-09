@@ -8,6 +8,23 @@ All notable changes are documented here. The format follows
 
 ### Added
 
+- **Sign-in branding per application.** When people arrive from an app, the login, sign-up,
+  two-factor, email-code, password reset, consent, select-account and device screens say
+  "Sign in to continue to <app>" with its logo, tagline and accent color, and the side panel
+  can show its own headline and image. Set from the admin console (**Applications**, **Sign-in
+  branding**) with a live light/dark preview and WCAG contrast checks (button labels always
+  reach AA; text in the accent is adjusted per color scheme; a warning below 3:1 against the
+  card); optionally only some social providers (and One Tap with Google) on that app's
+  screens. Logos come from the app icon, an https URL fetched and cached by the server (SSRF
+  guard) or an upload; images are served from `/api/app-branding/<client_id>/<logo|panel>`
+  with a sandbox CSP. The app is only taken from Better Auth's signed authorization request
+  (signature and a signed `client_id` checked) or from a short-lived HMAC app context token
+  that carries it through sign-up, password reset and their email links; verifying a new
+  account or resetting a password now resumes the app's authorization instead of ending on
+  the dashboard. Self-registered clients never get custom branding: their name with an
+  "Unverified app" warning. Ostiary's mark stays on every screen. Stored in the new
+  `oauth_client_branding` table (migration `0012_app_branding`); changes are audited. Forks
+  can restyle what the accent reaches through `[data-app-brand="accent"]` in `globals.css`.
 - **Organization API keys.** Owners and admins of an organization create, list and revoke
   keys the organization owns, from the account dashboard (**Organizations**, **API keys**
   under the organization); members do not see them. The key belongs to the organization, so

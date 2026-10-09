@@ -179,6 +179,13 @@
       "notLinked": "That account isn't connected to a {name} account yet. Sign in another way, then connect it from your security settings.",
       "noEmail": "Bu hesap bir e-posta adresi paylaşmadı. Daha sonra tekrar deneyin veya başka bir yolla giriş yapın.",
       "signUpDisabled": "Bu adres için henüz bir hesap yok ve bu oturum açma yöntemi hesap oluşturamaz. Başka bir yolla oturum açın."
+    },
+    "app": {
+      "signIn": "<app>{name}</app> uygulamasına devam etmek için oturum açın",
+      "signUp": "<app>{name}</app> uygulamasına devam etmek için hesabınızı oluşturun",
+      "continue": "<app>{name}</app> uygulamasına devam edin",
+      "unverified": "Doğrulanmamış uygulama.",
+      "unverifiedHint": "{name} bu uygulamayı incelemedi: yalnızca güveniyorsanız devam edin."
     }
   },
   "consent": {

@@ -26,6 +26,8 @@ const APP_ICON_CSP = "default-src 'none'; style-src 'unsafe-inline'; sandbox";
 const nextConfig: NextConfig = {
   outputFileTracingRoot: monorepoRoot,
   turbopack: { root: monorepoRoot },
+  // Sign-in branding uploads (a 256 KB logo and a 1 MB side-panel image) go through a server action.
+  experimental: { serverActions: { bodySizeLimit: "2mb" } },
   async headers() {
     const securityHeaders: { key: string; value: string }[] = [
       { key: "X-Frame-Options", value: "DENY" },
@@ -58,6 +60,10 @@ const nextConfig: NextConfig = {
       // must not run scripts or load anything. Listed last so this CSP replaces the one above.
       {
         source: "/api/admin/app-icon/:clientId",
+        headers: [{ key: "Content-Security-Policy", value: APP_ICON_CSP }],
+      },
+      {
+        source: "/api/admin/app-branding/:clientId/:asset",
         headers: [{ key: "Content-Security-Policy", value: APP_ICON_CSP }],
       },
     ];

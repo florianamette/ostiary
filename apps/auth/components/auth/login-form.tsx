@@ -34,6 +34,7 @@ import { useCaptcha } from "@/components/auth/captcha"
 import type { CaptchaConfig } from "@ostiary/core/lib/captcha-providers"
 import { safeCallbackURL } from "@/lib/safe-callback-url"
 import { rateLimitMessage } from "@ostiary/core/lib/rate-limit-message"
+import { withAppContext, type AppLink } from "@/lib/app-links"
 
 /** Sign-in responses for accounts with two-factor authentication: no session yet. */
 function needsTwoFactor(data: unknown): boolean {
@@ -45,11 +46,14 @@ export function LoginForm({
   socialProviders = [],
   captcha: captchaConfig = null,
   oneTap = null,
+  appLink = null,
   ...props
 }: React.ComponentProps<"div"> & {
   socialProviders?: SocialProviderOption[]
   captcha?: CaptchaConfig | null
   oneTap?: GoogleOneTapConfig | null
+  /** Set during an app's sign-in: sign-up and password reset keep the app (see lib/app-links). */
+  appLink?: AppLink
 }) {
   const t = useTranslations("auth.login")
   const tLimit = useTranslations("rateLimit")
@@ -264,7 +268,7 @@ export function LoginForm({
                     {t("passwordLabel")}
                   </FieldLabel>
                   <Link
-                    href="/forgot-password"
+                    href={withAppContext("/forgot-password", appLink)}
                     className="max-w-[min(100%,14rem)] text-right text-xs text-muted-foreground underline-offset-4 hover:underline"
                   >
                     {t("forgotPasswordLink")}
@@ -345,7 +349,7 @@ export function LoginForm({
                 ) : null}
                 <FieldDescription className="text-center">
                   {t("noAccount")}{" "}
-                  <Link href="/signup" className="underline-offset-4 hover:underline">
+                  <Link href={withAppContext("/signup", appLink)} className="underline-offset-4 hover:underline">
                     {t("signUpLink")}
                   </Link>
                 </FieldDescription>

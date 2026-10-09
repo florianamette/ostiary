@@ -38,8 +38,13 @@ export type ConsentClientOrigin = {
 export function ConsentForm({
   className,
   origin = null,
+  branded = null,
   ...props
-}: React.ComponentProps<"div"> & { origin?: ConsentClientOrigin | null }) {
+}: React.ComponentProps<"div"> & {
+  origin?: ConsentClientOrigin | null;
+  /** Name and logo from the admin's branding of this (admin-registered) app, see AuthScreen. */
+  branded?: { name: string; logoUrl: string | null } | null;
+}) {
   const t = useTranslations("consent");
   const tCommon = useTranslations("common");
   const searchParams = useSearchParams();
@@ -136,7 +141,7 @@ export function ConsentForm({
     );
   }
 
-  const displayName = client?.client_name ?? clientId;
+  const displayName = branded?.name ?? client?.client_name ?? clientId;
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -149,7 +154,7 @@ export function ConsentForm({
             {client ? (
               <AppIcon
                 name={displayName}
-                src={origin ? null : `/api/app-icon/${encodeURIComponent(client.client_id)}`}
+                src={origin ? null : (branded?.logoUrl ?? `/api/app-icon/${encodeURIComponent(client.client_id)}`)}
                 size={48}
               />
             ) : null}

@@ -5,6 +5,7 @@ import {
   CopyIcon,
   KeyRoundIcon,
   MoreHorizontalIcon,
+  PaletteIcon,
   PencilIcon,
   Trash2Icon,
 } from "lucide-react";
@@ -36,6 +37,7 @@ import { Textarea } from "@ostiary/core/components/ui/textarea";
 import type { RegistrationSource } from "@ostiary/core/lib/client-registration-policy";
 import { authClient } from "@/lib/auth-client";
 import { DEVICE_CODE_GRANT_TYPE } from "@ostiary/core/lib/admin/oauth-clients/oauth-client-admin.types";
+import { AppBrandingDialog } from "@/components/admin/applications/app-branding-dialog";
 
 function parseRedirectUris(raw: string): string[] {
   return raw
@@ -77,6 +79,7 @@ export function AdminApplicationRowActions({
   const [rotatePending, setRotatePending] = React.useState(false);
   const [newSecret, setNewSecret] = React.useState<string | null>(null);
 
+  const [brandingOpen, setBrandingOpen] = React.useState(false);
   const [editOpen, setEditOpen] = React.useState(false);
   const [editPending, setEditPending] = React.useState(false);
   const [editName, setEditName] = React.useState("");
@@ -236,6 +239,13 @@ export function AdminApplicationRowActions({
             Edit application
           </DropdownMenuItem>
           <DropdownMenuItem
+            onClick={() => setBrandingOpen(true)}
+            title="Logo, accent color and wording of the sign-in screens for this app"
+          >
+            <PaletteIcon />
+            Sign-in branding
+          </DropdownMenuItem>
+          <DropdownMenuItem
             disabled={!canRotateSecret}
             title={
               row.public
@@ -260,6 +270,13 @@ export function AdminApplicationRowActions({
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
+
+      <AppBrandingDialog
+        clientId={row.clientId}
+        open={brandingOpen}
+        onOpenChange={setBrandingOpen}
+        onNotify={onNotify}
+      />
 
       <Dialog
         open={editOpen}
