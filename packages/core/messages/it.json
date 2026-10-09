@@ -176,7 +176,8 @@
       "lastUsed": "Usato l’ultima volta",
       "otherProviders": "Altri modi per accedere",
       "error": "Could not sign in with that account. Try again or use another method.",
-      "notLinked": "That account isn't connected to a {name} account yet. Sign in another way, then connect it from your security settings."
+      "notLinked": "That account isn't connected to a {name} account yet. Sign in another way, then connect it from your security settings.",
+      "noEmail": "Quell'account non ha condiviso un indirizzo email. Riprova più tardi o accedi in un altro modo."
     }
   },
   "consent": {
