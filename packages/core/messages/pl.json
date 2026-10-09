@@ -177,7 +177,8 @@
       "otherProviders": "Inne sposoby logowania",
       "error": "Could not sign in with that account. Try again or use another method.",
       "notLinked": "That account isn't connected to a {name} account yet. Sign in another way, then connect it from your security settings.",
-      "noEmail": "To konto nie udostępniło adresu e-mail. Spróbuj później lub zaloguj się w inny sposób."
+      "noEmail": "To konto nie udostępniło adresu e-mail. Spróbuj później lub zaloguj się w inny sposób.",
+      "signUpDisabled": "Dla tego adresu nie ma jeszcze konta, a ta metoda logowania nie może go utworzyć. Zaloguj się w inny sposób."
     }
   },
   "consent": {

@@ -4,6 +4,8 @@ import { Loader2 } from "lucide-react"
 import { useLocale, useTranslations } from "next-intl"
 import type { SocialProviderOption } from "@ostiary/core/lib/social-provider-meta"
 import { SocialSignInButtons } from "@/components/auth/social-sign-in-buttons"
+import { GoogleOneTap } from "@/components/auth/google-one-tap"
+import type { GoogleOneTapConfig } from "@ostiary/core/lib/social-provider-meta"
 import { toast } from "sonner"
 import { Button } from "@ostiary/core/components/ui/button"
 import {
@@ -30,8 +32,13 @@ import { rateLimitMessage } from "@ostiary/core/lib/rate-limit-message"
 export function SignupForm({
   socialProviders = [],
   captcha: captchaConfig = null,
+  oneTap = null,
   ...props
-}: React.ComponentProps<typeof Card> & { socialProviders?: SocialProviderOption[]; captcha?: CaptchaConfig | null }) {
+}: React.ComponentProps<typeof Card> & {
+  socialProviders?: SocialProviderOption[]
+  captcha?: CaptchaConfig | null
+  oneTap?: GoogleOneTapConfig | null
+}) {
   const t = useTranslations("auth.signup")
   const tLimit = useTranslations("rateLimit")
   const locale = useLocale()
@@ -290,6 +297,7 @@ export function SignupForm({
                 callbackURL={`/${locale}/dashboard`}
                 disabled={isSubmitting}
               />
+              <GoogleOneTap config={oneTap} callbackURL={`/${locale}/dashboard`} context="signup" />
               <FieldDescription className="text-center sm:px-6">
                 {t("hasAccount")}{" "}
                 <Link

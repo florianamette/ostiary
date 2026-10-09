@@ -177,7 +177,8 @@
       "otherProviders": "Другие способы входа",
       "error": "Could not sign in with that account. Try again or use another method.",
       "notLinked": "That account isn't connected to a {name} account yet. Sign in another way, then connect it from your security settings.",
-      "noEmail": "Этот аккаунт не передал адрес электронной почты. Повторите попытку позже или войдите другим способом."
+      "noEmail": "Этот аккаунт не передал адрес электронной почты. Повторите попытку позже или войдите другим способом.",
+      "signUpDisabled": "Для этого адреса ещё нет аккаунта, а этот способ входа не может его создать. Войдите другим способом."
     }
   },
   "consent": {
