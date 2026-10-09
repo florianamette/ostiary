@@ -27,6 +27,8 @@ export function SsoSignInForm() {
       const { error } = await authClient.signIn.sso({
         email: email.trim().toLowerCase(),
         callbackURL: `/${locale}/dashboard`,
+        // Refused answers from the identity provider come back to this page with ?error=.
+        errorCallbackURL: `/${locale}/sso`,
       });
       if (error) {
         toast.error(String(error.message ?? t("signInError")));

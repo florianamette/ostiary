@@ -24,6 +24,22 @@ All notable changes are documented here. The format follows
   origin in the Google client's Authorized JavaScript origins.
 - Sign-in page: a social sign-in refused because the provider may not create accounts now
   says so (`signup_disabled`), in all 20 languages.
+- **SAML 2.0 enterprise SSO**, next to OIDC, with Better Auth's `@better-auth/sso` plugin.
+  Admin console **SSO** page: an OIDC / SAML 2.0 switch; the IdP from a metadata URL
+  (fetched server-side with the webhook SSRF guard), pasted metadata XML or by hand (entity
+  ID, SSO URL, certificate); attribute mapping with presets for Okta, Entra ID, Google
+  Workspace and JumpCloud; **Require signed assertions** (on by default). The ACS URL, SP
+  entity ID and SP metadata URL are shown with copy buttons, with Okta and Entra ID setup
+  notes; providers show their certificate expiry and can be edited (new metadata after a
+  rotation, mapping, options, domain, organization), audited as `sso_provider.update`.
+  Same DNS domain verification as OIDC. Sign-in stays "Sign in with SSO" by email domain;
+  only SP-initiated sign-in is accepted (`InResponseTo` bound to a request from the last 5
+  minutes, used once; each assertion ID once). Assertions need `NotBefore`/`NotOnOrAfter`
+  (1 minute of clock skew). A guard in front of the ACS refuses responses with a DOCTYPE or
+  entity declarations and XML signatures using SHA-1 or unknown algorithms (the plugin only
+  checks the Redirect binding's `SigAlg`). IdP metadata with a DOCTYPE, several entities, no
+  HTTP-Redirect endpoint, no valid signing certificate or `WantAuthnRequestsSigned` is
+  refused. Failed SSO sign-ins return to the SSO page with an error. No migration.
 - **App icons.** Each OAuth application gets a real icon on the account dashboard, the
   consent screen and the admin console: its `logo_uri`, else the icon its site links to
   (`<link rel="icon">`, `apple-touch-icon`, largest `sizes` or SVG first, then
