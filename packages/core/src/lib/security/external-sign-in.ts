@@ -6,6 +6,8 @@
  * factors; password and sign-in code endpoints are handled by the two-factor plugin itself.
  */
 
+import { resolveSafeRedirect } from "@ostiary/core/lib/safe-redirect";
+
 const EXACT = new Set(["/sign-in/social", "/one-tap/callback", "/sso/callback", "/verify-email"]);
 const PREFIXES = ["/callback/", "/oauth2/callback/", "/sso/callback/", "/sso/saml2/sp/acs/", "/sso/saml2/callback/"];
 
@@ -28,15 +30,9 @@ function withoutLoginPrompt(query: string): string {
 
 /** A same-origin path (with query) for `location`, or null for anything else. */
 function samePath(location: string | null | undefined, baseURL: string): string | null {
-  if (!location) return null;
-  try {
-    const origin = new URL(baseURL).origin;
-    const target = new URL(location, origin);
-    if (target.origin !== origin) return null;
-    return `${target.pathname}${target.search}`;
-  } catch {
-    return null;
-  }
+  // The shared callbackURL check: no backslashes or control characters, same origin only.
+  const target = resolveSafeRedirect(location, { origin: baseURL });
+  return target ? `${target.pathname}${target.search}` : null;
 }
 
 /**
