@@ -325,7 +325,11 @@ export function LoginForm({
                 />
                 {socialError ? (
                   <FieldDescription className="text-center text-destructive" role="alert">
-                    {socialError === "account_not_linked" ? tSocial("notLinked", { name: brand.name }) : tSocial("error")}
+                    {socialError === "account_not_linked"
+                      ? tSocial("notLinked", { name: brand.name })
+                      : socialError === "email_not_found"
+                        ? tSocial("noEmail")
+                        : tSocial("error")}
                   </FieldDescription>
                 ) : null}
                 <FieldDescription className="text-center">
