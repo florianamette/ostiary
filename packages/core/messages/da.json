@@ -198,10 +198,10 @@
     "deny": "Deny",
     "allow": "Allow",
     "scopes": {
-      "openid": "Verify who you are (OpenID Connect)",
-      "profile": "Name and profile information",
-      "email": "Email address",
-      "offline_access": "Access when you are not actively using the application"
+      "openid": "Bekræfte hvem du er (OpenID Connect)",
+      "profile": "Navn og profiloplysninger",
+      "email": "E-mailadresse",
+      "offline_access": "Adgang, når du ikke aktivt bruger appen"
     },
     "unverified": {
       "title": "Ikke-verificeret app",
@@ -232,6 +232,7 @@
       "signInProviders": "Loginudbydere",
       "webhooks": "Webhooks",
       "security": "Security",
+      "usage": "App-brug",
       "audit": "Audit log",
       "signingKeys": "Signeringsnøgler"
     },
@@ -249,6 +250,7 @@
       "signInProviders": "Loginudbydere",
       "webhooks": "Webhooks",
       "security": "Security",
+      "usage": "App-brug",
       "audit": "Audit log",
       "signingKeys": "Signeringsnøgler"
     },
@@ -271,7 +273,9 @@
       },
       "applications": {
         "title": "Applications",
-        "description": "OAuth clients that can sign people in with {name}: their redirect URLs, grant types, consent settings and usage."
+        "description": "OAuth-klienter, der kan logge personer ind med {name}: redirect-URL’er, grant-typer og samtykkeindstillinger.",
+        "unusedHint": "{count, plural, one {# app er} other {# apps er}} ikke blevet brugt de seneste 30 dage.",
+        "viewUsage": "Se brug"
       },
       "apis": {
         "title": "API'er",
@@ -297,6 +301,10 @@
       "consent": {
         "title": "Consent",
         "description": "Permissions people have granted to OAuth clients, with the scopes and when they were given."
+      },
+      "usage": {
+        "title": "App-brug",
+        "description": "Hvilke apps der bruges: adgangstokens, brugere og samtykker pr. app de seneste 30 dage."
       },
       "audit": {
         "title": "Audit log",
@@ -569,18 +577,22 @@
       "none": "None"
     },
     "apps": {
-      "title": "Connected applications",
-      "description": "OAuth applications you have authorized to access your account.",
-      "empty": "You have not authorized any applications yet.",
-      "revokeAccess": "Revoke access",
-      "scopes": "Scopes",
-      "loadError": "Could not load your authorizations.",
-      "revokeError": "Could not revoke access.",
-      "revoked": "Access revoked",
-      "none": "None",
-      "cancel": "Cancel",
-      "confirmRevokeTitle": "Revoke access for {app}?",
-      "confirmRevokeBody": "This app will no longer be able to access your account until you authorize it again."
+      "title": "Forbundne apps",
+      "description": "Apps, du har givet adgang til din konto.",
+      "empty": "Du har ikke forbundet nogen apps endnu.",
+      "disconnect": "Afbryd forbindelse",
+      "disconnectApp": "Afbryd forbindelsen til {app}",
+      "permissions": "Tilladelser",
+      "signInOnly": "Kun login",
+      "connectedOn": "Forbundet {date}",
+      "lastUsed": "Sidst brugt {time}",
+      "opensInNewTab": "(åbner i en ny fane)",
+      "loadError": "Dine forbundne apps kunne ikke indlæses.",
+      "revokeError": "Forbindelsen til appen kunne ikke afbrydes.",
+      "revoked": "Forbindelsen til appen er afbrudt",
+      "cancel": "Annuller",
+      "confirmRevokeTitle": "Afbryd forbindelsen til {app}?",
+      "confirmRevokeBody": "Appen kan ikke længere få adgang til din konto, før du godkender den igen."
     },
     "apiKeys": {
       "title": "API-nøgler",

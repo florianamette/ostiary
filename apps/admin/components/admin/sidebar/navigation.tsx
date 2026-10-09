@@ -11,6 +11,7 @@ import {
   LayoutDashboard,
   LogIn,
   ScrollText,
+  Activity,
   ShieldAlert,
   Users,
   Webhook,
@@ -57,6 +58,11 @@ export function useAdminSectionNavItems(): NavMainItem[] {
       title: t("security"),
       url: "/security",
       icon: <ShieldAlert />,
+    },
+    {
+      title: t("usage"),
+      url: "/usage",
+      icon: <Activity />,
     },
     {
       title: t("audit"),

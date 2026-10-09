@@ -198,10 +198,10 @@
     "deny": "Deny",
     "allow": "Allow",
     "scopes": {
-      "openid": "Verify who you are (OpenID Connect)",
-      "profile": "Name and profile information",
-      "email": "Email address",
-      "offline_access": "Access when you are not actively using the application"
+      "openid": "Bekrefte hvem du er (OpenID Connect)",
+      "profile": "Navn og profilinformasjon",
+      "email": "E-postadresse",
+      "offline_access": "Tilgang når du ikke aktivt bruker appen"
     },
     "unverified": {
       "title": "Ubekreftet app",
@@ -232,6 +232,7 @@
       "signInProviders": "Påloggingsleverandører",
       "webhooks": "Webhooks",
       "security": "Security",
+      "usage": "Appbruk",
       "audit": "Audit log",
       "signingKeys": "Signeringsnøkler"
     },
@@ -249,6 +250,7 @@
       "signInProviders": "Påloggingsleverandører",
       "webhooks": "Webhooks",
       "security": "Security",
+      "usage": "Appbruk",
       "audit": "Audit log",
       "signingKeys": "Signeringsnøkler"
     },
@@ -271,7 +273,9 @@
       },
       "applications": {
         "title": "Applications",
-        "description": "OAuth clients that can sign people in with {name}: their redirect URLs, grant types, consent settings and usage."
+        "description": "OAuth-klienter som kan logge inn personer med {name}: omdirigerings-URL-er, grant-typer og samtykkeinnstillinger.",
+        "unusedHint": "{count, plural, one {# app har} other {# apper har}} ikke blitt brukt de siste 30 dagene.",
+        "viewUsage": "Se bruk"
       },
       "apis": {
         "title": "API-er",
@@ -297,6 +301,10 @@
       "consent": {
         "title": "Consent",
         "description": "Permissions people have granted to OAuth clients, with the scopes and when they were given."
+      },
+      "usage": {
+        "title": "Appbruk",
+        "description": "Hvilke apper som brukes: tilgangstokener, brukere og samtykker per app de siste 30 dagene."
       },
       "audit": {
         "title": "Audit log",
@@ -569,18 +577,22 @@
       "none": "None"
     },
     "apps": {
-      "title": "Connected applications",
-      "description": "OAuth applications you have authorized to access your account.",
-      "empty": "You have not authorized any applications yet.",
-      "revokeAccess": "Revoke access",
-      "scopes": "Scopes",
-      "loadError": "Could not load your authorizations.",
-      "revokeError": "Could not revoke access.",
-      "revoked": "Access revoked",
-      "none": "None",
-      "cancel": "Cancel",
-      "confirmRevokeTitle": "Revoke access for {app}?",
-      "confirmRevokeBody": "This app will no longer be able to access your account until you authorize it again."
+      "title": "Tilkoblede apper",
+      "description": "Apper du har gitt tilgang til kontoen din.",
+      "empty": "Du har ikke koblet til noen apper ennå.",
+      "disconnect": "Koble fra",
+      "disconnectApp": "Koble fra {app}",
+      "permissions": "Tillatelser",
+      "signInOnly": "Bare innlogging",
+      "connectedOn": "Tilkoblet {date}",
+      "lastUsed": "Sist brukt {time}",
+      "opensInNewTab": "(åpnes i en ny fane)",
+      "loadError": "Kunne ikke laste inn de tilkoblede appene dine.",
+      "revokeError": "Kunne ikke koble fra appen.",
+      "revoked": "Appen er koblet fra",
+      "cancel": "Avbryt",
+      "confirmRevokeTitle": "Koble fra {app}?",
+      "confirmRevokeBody": "Appen får ikke lenger tilgang til kontoen din før du godkjenner den på nytt."
     },
     "apiKeys": {
       "title": "API-nøkler",

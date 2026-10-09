@@ -198,10 +198,10 @@
     "deny": "Deny",
     "allow": "Allow",
     "scopes": {
-      "openid": "Verify who you are (OpenID Connect)",
-      "profile": "Name and profile information",
-      "email": "Email address",
-      "offline_access": "Access when you are not actively using the application"
+      "openid": "Bevestigen wie je bent (OpenID Connect)",
+      "profile": "Naam en profielgegevens",
+      "email": "E-mailadres",
+      "offline_access": "Toegang wanneer je de applicatie niet actief gebruikt"
     },
     "unverified": {
       "title": "Niet-geverifieerde app",
@@ -232,6 +232,7 @@
       "signInProviders": "Inlogproviders",
       "webhooks": "Webhooks",
       "security": "Security",
+      "usage": "App-gebruik",
       "audit": "Audit log",
       "signingKeys": "Ondertekeningssleutels"
     },
@@ -249,6 +250,7 @@
       "signInProviders": "Inlogproviders",
       "webhooks": "Webhooks",
       "security": "Security",
+      "usage": "App-gebruik",
       "audit": "Audit log",
       "signingKeys": "Ondertekeningssleutels"
     },
@@ -271,7 +273,9 @@
       },
       "applications": {
         "title": "Applications",
-        "description": "OAuth clients that can sign people in with {name}: their redirect URLs, grant types, consent settings and usage."
+        "description": "OAuth-clients die mensen kunnen laten inloggen met {name}: hun redirect-URL’s, grant-types en toestemmingsinstellingen.",
+        "unusedHint": "{count, plural, one {# applicatie is} other {# applicaties zijn}} de afgelopen 30 dagen niet gebruikt.",
+        "viewUsage": "Gebruik bekijken"
       },
       "apis": {
         "title": "API's",
@@ -297,6 +301,10 @@
       "consent": {
         "title": "Consent",
         "description": "Permissions people have granted to OAuth clients, with the scopes and when they were given."
+      },
+      "usage": {
+        "title": "App-gebruik",
+        "description": "Welke applicaties worden gebruikt: toegangstokens, gebruikers en toestemmingen per applicatie in de afgelopen 30 dagen."
       },
       "audit": {
         "title": "Audit log",
@@ -569,18 +577,22 @@
       "none": "None"
     },
     "apps": {
-      "title": "Connected applications",
-      "description": "OAuth applications you have authorized to access your account.",
-      "empty": "You have not authorized any applications yet.",
-      "revokeAccess": "Revoke access",
-      "scopes": "Scopes",
-      "loadError": "Could not load your authorizations.",
-      "revokeError": "Could not revoke access.",
-      "revoked": "Access revoked",
-      "none": "None",
-      "cancel": "Cancel",
-      "confirmRevokeTitle": "Revoke access for {app}?",
-      "confirmRevokeBody": "This app will no longer be able to access your account until you authorize it again."
+      "title": "Verbonden applicaties",
+      "description": "Apps die je toegang tot je account hebt gegeven.",
+      "empty": "Je hebt nog geen applicaties verbonden.",
+      "disconnect": "Ontkoppelen",
+      "disconnectApp": "{app} ontkoppelen",
+      "permissions": "Machtigingen",
+      "signInOnly": "Alleen inloggen",
+      "connectedOn": "Verbonden op {date}",
+      "lastUsed": "Laatst gebruikt {time}",
+      "opensInNewTab": "(opent in een nieuw tabblad)",
+      "loadError": "Je verbonden applicaties konden niet worden geladen.",
+      "revokeError": "De applicatie kon niet worden ontkoppeld.",
+      "revoked": "Applicatie ontkoppeld",
+      "cancel": "Annuleren",
+      "confirmRevokeTitle": "{app} ontkoppelen?",
+      "confirmRevokeBody": "Deze app heeft geen toegang meer tot je account totdat je hem opnieuw autoriseert."
     },
     "apiKeys": {
       "title": "API-sleutels",

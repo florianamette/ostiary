@@ -21,6 +21,8 @@ const cspDirectives = [
   "frame-ancestors 'none'",
 ].join("; ");
 
+const APP_ICON_CSP = "default-src 'none'; style-src 'unsafe-inline'; sandbox";
+
 const nextConfig: NextConfig = {
   outputFileTracingRoot: monorepoRoot,
   turbopack: { root: monorepoRoot },
@@ -51,6 +53,12 @@ const nextConfig: NextConfig = {
       {
         source: "/:path*",
         headers: securityHeaders,
+      },
+      // App icons are images fetched from other sites (possibly SVG): opened on their own they
+      // must not run scripts or load anything. Listed last so this CSP replaces the one above.
+      {
+        source: "/api/admin/app-icon/:clientId",
+        headers: [{ key: "Content-Security-Policy", value: APP_ICON_CSP }],
       },
     ];
   },

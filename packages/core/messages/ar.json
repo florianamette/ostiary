@@ -198,10 +198,10 @@
     "deny": "Deny",
     "allow": "Allow",
     "scopes": {
-      "openid": "Verify who you are (OpenID Connect)",
-      "profile": "Name and profile information",
-      "email": "Email address",
-      "offline_access": "Access when you are not actively using the application"
+      "openid": "التحقق من هويتك (OpenID Connect)",
+      "profile": "الاسم ومعلومات الملف الشخصي",
+      "email": "عنوان البريد الإلكتروني",
+      "offline_access": "الوصول عندما لا تستخدم التطبيق بشكل نشط"
     },
     "unverified": {
       "title": "تطبيق غير موثّق",
@@ -232,6 +232,7 @@
       "signInProviders": "مزودو تسجيل الدخول",
       "webhooks": "خطافات الويب",
       "security": "Security",
+      "usage": "استخدام التطبيقات",
       "audit": "Audit log",
       "signingKeys": "مفاتيح التوقيع"
     },
@@ -249,6 +250,7 @@
       "signInProviders": "مزودو تسجيل الدخول",
       "webhooks": "خطافات الويب",
       "security": "Security",
+      "usage": "استخدام التطبيقات",
       "audit": "Audit log",
       "signingKeys": "مفاتيح التوقيع"
     },
@@ -271,7 +273,9 @@
       },
       "applications": {
         "title": "Applications",
-        "description": "OAuth clients that can sign people in with {name}: their redirect URLs, grant types, consent settings and usage."
+        "description": "عملاء OAuth الذين يمكنهم تسجيل دخول المستخدمين عبر {name}: عناوين إعادة التوجيه وأنواع المنح وإعدادات الموافقة.",
+        "unusedHint": "{count, plural, zero {لا توجد تطبيقات غير مستخدمة} one {تطبيق واحد لم يُستخدم} two {تطبيقان لم يُستخدما} few {# تطبيقات لم تُستخدم} many {# تطبيقًا لم يُستخدم} other {# تطبيق لم يُستخدم}} خلال آخر 30 يومًا.",
+        "viewUsage": "عرض الاستخدام"
       },
       "apis": {
         "title": "واجهات API",
@@ -297,6 +301,10 @@
       "consent": {
         "title": "Consent",
         "description": "Permissions people have granted to OAuth clients, with the scopes and when they were given."
+      },
+      "usage": {
+        "title": "استخدام التطبيقات",
+        "description": "التطبيقات المستخدمة: رموز الوصول والمستخدمون والموافقات لكل تطبيق خلال آخر 30 يومًا."
       },
       "audit": {
         "title": "Audit log",
@@ -569,18 +577,22 @@
       "none": "None"
     },
     "apps": {
-      "title": "Connected applications",
-      "description": "OAuth applications you have authorized to access your account.",
-      "empty": "You have not authorized any applications yet.",
-      "revokeAccess": "Revoke access",
-      "scopes": "Scopes",
-      "loadError": "Could not load your authorizations.",
-      "revokeError": "Could not revoke access.",
-      "revoked": "Access revoked",
-      "none": "None",
-      "cancel": "Cancel",
-      "confirmRevokeTitle": "Revoke access for {app}?",
-      "confirmRevokeBody": "This app will no longer be able to access your account until you authorize it again."
+      "title": "التطبيقات المتصلة",
+      "description": "التطبيقات التي سمحت لها بالوصول إلى حسابك.",
+      "empty": "لم تقم بتوصيل أي تطبيق بعد.",
+      "disconnect": "قطع الاتصال",
+      "disconnectApp": "قطع الاتصال بـ {app}",
+      "permissions": "الأذونات",
+      "signInOnly": "تسجيل الدخول فقط",
+      "connectedOn": "متصل منذ {date}",
+      "lastUsed": "آخر استخدام {time}",
+      "opensInNewTab": "(يفتح في علامة تبويب جديدة)",
+      "loadError": "تعذر تحميل تطبيقاتك المتصلة.",
+      "revokeError": "تعذر قطع الاتصال بالتطبيق.",
+      "revoked": "تم قطع الاتصال بالتطبيق",
+      "cancel": "إلغاء",
+      "confirmRevokeTitle": "قطع الاتصال بـ {app}؟",
+      "confirmRevokeBody": "لن يتمكن هذا التطبيق من الوصول إلى حسابك حتى تأذن له مرة أخرى."
     },
     "apiKeys": {
       "title": "مفاتيح API",

@@ -64,6 +64,13 @@
       "when": 1791475902323,
       "tag": "0008_social_provider",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1791551458818,
+      "tag": "0009_app_icons",
+      "breakpoints": true
     }
   ]
 }
