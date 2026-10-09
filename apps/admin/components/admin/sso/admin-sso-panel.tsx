@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { CheckCircle2, Copy, Loader2, Pencil, ShieldAlert, Trash2 } from "lucide-react";
+import { CheckCircle2, Copy, FileKey2, Loader2, Pencil, ShieldAlert, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
@@ -32,7 +32,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@ostiary/core/components/ui/select";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@ostiary/core/components/ui/tabs";
 import { authClient } from "@/lib/auth-client";
+import {
+  SamlDetailsDialogBody,
+  SamlEditDialogBody,
+  SamlRegisterForm,
+  type SamlProviderDetails,
+} from "@/components/admin/sso/admin-saml";
 import {
   checkDomainVerification,
   deleteSsoProvider,
@@ -47,6 +54,8 @@ export type SsoProviderRow = {
   domainVerified: boolean;
   organizationId: string | null;
   organizationName: string | null;
+  protocol: "oidc" | "saml";
+  saml: SamlProviderDetails | null;
 };
 
 type Org = { id: string; name: string };
@@ -71,8 +80,8 @@ function OrganizationSelect({ id, value, onChange, organizations, disabled }: { 
 }
 
 /**
- * Registers OIDC identity providers and manages existing ones (domain verification, edit,
- * delete). The IdP must redirect back to `callbackBase`, the auth app.
+ * Registers OIDC and SAML 2.0 identity providers and manages existing ones (domain
+ * verification, edit, delete). The IdP must send people back to `callbackBase`, the auth app.
  */
 export function AdminSsoPanel({
   callbackBase,
@@ -84,7 +93,9 @@ export function AdminSsoPanel({
   organizations: Org[];
 }) {
   const t = useTranslations("sso");
+  const ts = useTranslations("sso.saml");
   const router = useRouter();
+  const [protocol, setProtocol] = React.useState<"oidc" | "saml">("oidc");
   const [providerId, setProviderId] = React.useState("");
   const [issuer, setIssuer] = React.useState("");
   const [domain, setDomain] = React.useState("");
@@ -133,9 +144,18 @@ export function AdminSsoPanel({
       <Card className="h-fit border-border/80 shadow-sm">
         <CardHeader>
           <CardTitle>{t("registerTitle")}</CardTitle>
-          <CardDescription>{t("registerDescription")}</CardDescription>
+          <CardDescription>{protocol === "saml" ? ts("registerDescription") : t("registerDescription")}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
+          <Tabs value={protocol} onValueChange={(v) => setProtocol(v as "oidc" | "saml")}>
+            <TabsList aria-label={ts("protocol")}>
+              <TabsTrigger value="oidc">OIDC</TabsTrigger>
+              <TabsTrigger value="saml">SAML 2.0</TabsTrigger>
+            </TabsList>
+            <TabsContent value="saml" className="pt-2">
+              <SamlRegisterForm authAppUrl={callbackBase} organizations={organizations} organizationSelect={(props) => <OrganizationSelect {...props} />} />
+            </TabsContent>
+            <TabsContent value="oidc" className="space-y-4 pt-2">
           <form onSubmit={handleRegister}>
             <FieldGroup>
               <Field>
@@ -176,6 +196,8 @@ export function AdminSsoPanel({
             <p className="font-medium text-foreground">{t("callbackTitle")}</p>
             <p className="mt-1 break-all font-mono text-muted-foreground">{callbackUrl}</p>
           </div>
+            </TabsContent>
+          </Tabs>
         </CardContent>
       </Card>
 
@@ -190,7 +212,7 @@ export function AdminSsoPanel({
           ) : (
             <ul className="space-y-3">
               {providers.map((p) => (
-                <ProviderItem key={p.providerId} provider={p} organizations={organizations} />
+                <ProviderItem key={p.providerId} provider={p} organizations={organizations} authAppUrl={callbackBase} />
               ))}
             </ul>
           )}
@@ -200,9 +222,10 @@ export function AdminSsoPanel({
   );
 }
 
-function ProviderItem({ provider, organizations }: { provider: SsoProviderRow; organizations: Org[] }) {
+function ProviderItem({ provider, organizations, authAppUrl }: { provider: SsoProviderRow; organizations: Org[]; authAppUrl: string }) {
   const router = useRouter();
-  const [dialog, setDialog] = React.useState<"verify" | "edit" | "delete" | null>(null);
+  const ts = useTranslations("sso.saml");
+  const [dialog, setDialog] = React.useState<"verify" | "edit" | "delete" | "details" | null>(null);
   const [busy, setBusy] = React.useState(false);
   const [record, setRecord] = React.useState<{ name: string; value: string } | null>(null);
   const [issuer, setIssuer] = React.useState(provider.issuer);
@@ -238,6 +261,7 @@ function ProviderItem({ provider, organizations }: { provider: SsoProviderRow; o
         <div className="min-w-0 space-y-1">
           <p className="flex items-center gap-2 text-sm font-medium">
             {provider.providerId}
+            <Badge variant="outline">{provider.protocol === "saml" ? "SAML" : "OIDC"}</Badge>
             {provider.domainVerified ? (
               <Badge variant="secondary" className="gap-1"><CheckCircle2 className="size-3" aria-hidden />Verified</Badge>
             ) : (
@@ -248,12 +272,25 @@ function ProviderItem({ provider, organizations }: { provider: SsoProviderRow; o
             {provider.domain}
             {provider.organizationName ? ` · ${provider.organizationName}` : ""}
           </p>
-          <p className="break-all font-mono text-xs text-muted-foreground">{provider.issuer}</p>
+          <p className="break-all font-mono text-xs text-muted-foreground">{provider.saml ? provider.saml.idpEntityId : provider.issuer}</p>
+          {provider.saml?.certificateExpiresAt ? (
+            <p className={provider.saml.certificateExpired ? "text-xs text-destructive" : "text-xs text-muted-foreground"}>
+              {provider.saml.certificateExpired
+                ? ts("certExpired")
+                : ts("certExpires", { date: new Date(provider.saml.certificateExpiresAt).toLocaleDateString() })}
+            </p>
+          ) : null}
         </div>
         <div className="flex gap-1">
           {provider.domainVerified ? null : (
             <Button type="button" size="sm" variant="outline" onClick={() => void openVerify()}>Verify domain</Button>
           )}
+          {provider.saml ? (
+            <Button type="button" size="sm" variant="outline" onClick={() => setDialog("details")}>
+              <FileKey2 className="size-4" aria-hidden />
+              {ts("spDetails")}
+            </Button>
+          ) : null}
           <Button type="button" size="icon-sm" variant="ghost" aria-label={`Edit ${provider.providerId}`} onClick={() => setDialog("edit")}>
             <Pencil className="size-4" aria-hidden />
           </Button>
@@ -299,6 +336,19 @@ function ProviderItem({ provider, organizations }: { provider: SsoProviderRow; o
                 </Button>
               </DialogFooter>
             </>
+          ) : dialog === "details" && provider.saml ? (
+            <SamlDetailsDialogBody providerId={provider.providerId} details={provider.saml} authAppUrl={authAppUrl} onClose={() => setDialog(null)} />
+          ) : dialog === "edit" && provider.saml ? (
+            <SamlEditDialogBody
+              providerId={provider.providerId}
+              details={provider.saml}
+              domain={provider.domain}
+              organizationId={provider.organizationId}
+              organizations={organizations}
+              organizationSelect={(props) => <OrganizationSelect {...props} />}
+              onDone={() => setDialog(null)}
+              onBusy={setBusy}
+            />
           ) : dialog === "edit" ? (
             <>
               <DialogHeader>

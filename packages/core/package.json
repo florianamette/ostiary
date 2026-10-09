@@ -18,6 +18,7 @@
     "@better-auth/passkey": "catalog:",
     "@better-auth/scim": "catalog:",
     "@better-auth/sso": "catalog:",
+    "@xmldom/xmldom": "catalog:",
     "better-auth": "catalog:",
     "class-variance-authority": "catalog:",
     "clsx": "catalog:",

@@ -47,7 +47,7 @@ Hosted identity platforms are great until the bill scales with your users or you
 - Passkeys (WebAuthn), plus a recent sign-in required to add one
 - Two-factor authentication: authenticator app (TOTP) and backup codes, with "trust this device"
 - Social sign-in with every Better Auth provider (Google, Apple, Microsoft, GitHub and 32 more), set up from the admin console, with brand buttons and connected accounts, plus Google One Tap
-- Enterprise SSO (OIDC), with DNS domain verification
+- Enterprise SSO with OIDC or SAML 2.0 (Okta, Entra ID, Google Workspace, JumpCloud), with DNS domain verification
 - Account dashboard: profile, email change (approved from the current inbox), sessions, passkeys, two-factor authentication, connected accounts, connected apps (with their icons, permissions in plain words, when they were connected and last used)
 
 - Account dashboard: profile, email change (approved from the current inbox), sessions, passkeys, connected accounts, authorized apps
@@ -83,7 +83,7 @@ Hosted identity platforms are great until the bill scales with your users or you
 | Pricing | Your infrastructure | Per monthly active user |
 | OIDC / OAuth 2.1 provider | Yes | Yes |
 | Passkeys, two-factor authentication, social sign-in, organizations | Yes | Yes |
-| Enterprise SSO | OIDC (SAML via Better Auth) | OIDC and SAML |
+| Enterprise SSO | OIDC and SAML 2.0 | OIDC and SAML |
 | Admin console and audit log | Yes | Yes |
 | SCIM, breached-password detection, compliance certifications | Not yet | Yes |
 | Source code | Yours, MIT | Closed |
@@ -234,6 +234,44 @@ Google's own prompt ("Sign in as …", the browser's FedCM dialog in Chrome) for
 - **Where**: the sign-in and sign-up pages only, never consent, account or admin pages. Not shown when someone is already signed in (or adding another account), nor when this device last signed in another way (password, passkey, code, another provider): those people get the method they use. Dismissed, blocked or unsupported, it simply does not appear.
 - **What happens**: Better Auth's `oneTap` plugin checks the ID token (Google's signature, issuer, audience = your client ID, at most an hour old, and `hd` when set) at `POST /api/auth/one-tap/callback`, then signs in exactly like **Continue with Google**: same account linking, last-used method (Google), sign-in history, and a pending authorization for an app resumes. The endpoint answers 404 while One Tap is off.
 - **Content Security Policy**: the sign-in and sign-up pages also allow `https://accounts.google.com/gsi/client` (script), `/gsi/style` (style), and `/gsi/` (frames and requests). Other pages keep the stricter policy.
+
+## Enterprise SSO with SAML 2.0
+
+An organization's identity provider can be OIDC or SAML 2.0, registered in the admin console under **SSO** (pick the **SAML 2.0** tab). People then use **Sign in with SSO** on the login page: their email domain picks the provider, Ostiary sends them to the identity provider and they come back signed in. SAML runs on Better Auth's `@better-auth/sso` plugin (samlify underneath); Ostiary adds the admin console, checks on the IdP metadata and a guard in front of the ACS.
+
+**Service provider values** (shown with copy buttons on the form and under **SP details** for each provider; `<id>` is the provider ID):
+
+| | |
+| --- | --- |
+| ACS URL (single sign-on URL, reply URL) | `https://auth.example.com/api/auth/sso/saml2/sp/acs/<id>` |
+| SP entity ID (audience URI, identifier) | `https://auth.example.com/api/auth/sso/saml2/sp/metadata?providerId=<id>` |
+| SP metadata URL | same as the entity ID |
+
+**The identity provider** is given as a metadata URL (fetched once by the server when you save, with the webhook SSRF guard: https, public addresses only, 100 KB, 10 s), pasted metadata XML, or by hand (IdP entity ID, HTTP-Redirect SSO URL, signing certificate). The metadata must describe one IdP with an HTTP-Redirect SSO endpoint and a valid signing certificate, and no DOCTYPE. After a certificate rotation, open **Edit** and give the new metadata; the provider list shows when the certificate expires.
+
+**Attribute mapping**: email and display name are required, first and last name optional (used when sent). Presets fill in the names for Okta, Microsoft Entra ID (its default claim URIs), Google Workspace and JumpCloud. The user ID is always the assertion's NameID: use a persistent identifier.
+
+**Okta**
+
+1. Applications, **Create App Integration**, **SAML 2.0**.
+2. Single sign-on URL: the ACS URL. Audience URI (SP Entity ID): the SP entity ID. Name ID format: Persistent. Application username: Email.
+3. Attribute statements: `email` = `user.email`, `firstName` = `user.firstName`, `lastName` = `user.lastName` (the Okta preset).
+4. Assign people, then paste the metadata URL from the **Sign On** tab into Ostiary.
+
+**Microsoft Entra ID**
+
+1. **Enterprise applications**, **New application**, **Create your own application** (non-gallery), then **Single sign-on**, **SAML**.
+2. Basic SAML configuration: Identifier (Entity ID) = the SP entity ID, Reply URL = the ACS URL.
+3. Keep the default claims (the Entra ID preset). The default signing option, *Sign SAML assertion*, works.
+4. Assign users and groups, then paste the **App Federation Metadata URL** into Ostiary.
+
+Google Workspace (Apps, Web and mobile apps, Add custom SAML app) and JumpCloud work the same way: enter the ACS URL and entity ID, add the email, first name and last name attributes, and paste the IdP metadata.
+
+As with OIDC, a provider takes sign-ins only once its email domain is verified with a DNS TXT record (**Verify domain**). Registrations, edits and deletions are in the audit log.
+
+**What is checked on every response**: an XML signature by the IdP's certificate (unsigned responses are always refused; with **Require signed assertions**, the default, the assertion itself must be signed), the audience (SP entity ID), the bearer `Recipient` and the `Destination` (when present) against the ACS URL, the issuer, `InResponseTo` against an AuthnRequest this server sent in the last 5 minutes (each usable once), each assertion ID once (replay), `NotBefore`/`NotOnOrAfter` required with 1 minute of clock skew, exactly one assertion, SHA-256 or stronger (SHA-1 is refused), no DOCTYPE or entity declarations, 256 KB at most.
+
+**Not supported**: IdP-initiated sign-in (unsolicited responses are refused; point the IdP's app tile at `https://auth.example.com/sso`), signed AuthnRequests (leave request signing off in the IdP), encrypted assertions and single logout.
 
 ## Provision users with SCIM
 
@@ -489,7 +527,7 @@ Both apps run the same Better Auth configuration against one database. The admin
 - Two-factor authentication (authenticator app or backup code) applies to password sign-ins and emailed sign-in codes. Passkeys are already two factors; social and SSO sign-ins rely on that provider's own checks. Backup codes and authenticator secrets are stored encrypted.
 - Admins must turn on two-factor authentication (`REQUIRE_ADMIN_2FA`). An admin without it is sent to set it up and cannot use the console or the admin endpoints until then; their own account keeps working. An admin who loses their authenticator and backup codes can have another admin reset it from the user's page (audited).
 - Sign-in codes open existing accounts only (an unknown address gets the same answer and no email), expire after 10 minutes, are stored hashed and are void after 3 wrong tries. On an account whose email was never verified, the first code verifies it and removes the unproven password and sessions.
-- Only admins can create organizations and register SSO providers; SSO domains must be verified with a DNS record.
+- Only admins can create organizations and register SSO providers; SSO domains must be verified with a DNS record. SAML sign-ins are SP-initiated only, with signed responses, audience, recipient, `InResponseTo` and one-time assertion checks (see [Enterprise SSO with SAML 2.0](#enterprise-sso-with-saml-20)).
 - SCIM tokens are stored as HMAC digests and can only be issued by platform admins; each one only reaches its own organization.
 - API keys are stored as SHA-256 digests, always expire, never act as a session, and are verified only by applications linked to the key's API. Banning or deleting an account revokes its keys; deleting an organization deletes the organization's keys.
 - Token signing keys can be rotated on a schedule or on demand (**Signing keys**); retired keys stay published only for the grace period. Rotations and setting changes are in the audit log.
