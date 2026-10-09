@@ -1,5 +1,6 @@
 import { asc, eq } from "drizzle-orm";
 import type { Metadata } from "next";
+import { ArrowRightIcon, ActivityIcon } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
 import { db } from "@ostiary/core/db/index";
@@ -14,7 +15,8 @@ import { currentApiScopes, OIDC_SCOPES } from "@ostiary/core/lib/oauth-scopes";
 
 import { AdminApplicationsPanel } from "@/components/admin/applications/admin-applications-panel";
 import { ClientRegistrationCard } from "@/components/admin/applications/client-registration-card";
-import { OAuthUsageCard } from "@/components/admin/applications/oauth-usage-card";
+import { countUnusedClients } from "@/components/admin/usage/oauth-usage-card";
+import { Link } from "@/i18n/navigation";
 import { getOAuthClientUsage } from "@/lib/oauth-usage";
 import { requireAdminSession } from "@/lib/require-admin-session";
 
@@ -38,10 +40,13 @@ export async function generateMetadata({
 
 export default async function AdminApplicationsPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const { locale } = await params;
+  const { q } = await searchParams;
   const t = await getTranslations({
     locale,
     namespace: "admin.pages.applications",
@@ -60,6 +65,7 @@ export default async function AdminApplicationsPage({
     listSelfRegisteredClients(),
   ]);
   // The APIs each application is linked to (managed from the APIs page).
+  const unused = countUnusedClients(usage);
   const linkedApis: Record<string, string[]> = {};
   for (const link of links) (linkedApis[link.clientId] ??= []).push(link.name);
 
@@ -71,13 +77,26 @@ export default async function AdminApplicationsPage({
           {t("description", { name: brand.name })}
         </p>
       </div>
-      <OAuthUsageCard usage={usage} locale={locale} />
+      {unused > 0 ? (
+        <Link
+          href="/usage"
+          className="group flex items-center gap-3 rounded-lg border border-border/80 bg-muted/30 px-4 py-3 text-sm transition-colors hover:bg-muted/60"
+        >
+          <ActivityIcon className="size-4 shrink-0 text-muted-foreground" aria-hidden />
+          <span className="min-w-0 flex-1 text-muted-foreground">{t("unusedHint", { count: unused })}</span>
+          <span className="inline-flex shrink-0 items-center gap-1 font-medium text-foreground">
+            {t("viewUsage")}
+            <ArrowRightIcon className="size-3.5 transition-transform group-hover:translate-x-0.5" aria-hidden />
+          </span>
+        </Link>
+      ) : null}
       <ClientRegistrationCard
         settings={registration}
         availableScopes={[...OIDC_SCOPES, ...apiScopes]}
         authServer={env.AUTH_APP_URL ?? ""}
       />
       <AdminApplicationsPanel
+        initialSearch={typeof q === "string" ? q : ""}
         linkedApis={linkedApis}
         selfRegistered={selfRegistered.map((client) => ({
           clientId: client.clientId,

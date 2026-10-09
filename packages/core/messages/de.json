@@ -198,10 +198,10 @@
     "deny": "Deny",
     "allow": "Allow",
     "scopes": {
-      "openid": "Verify who you are (OpenID Connect)",
-      "profile": "Name and profile information",
-      "email": "Email address",
-      "offline_access": "Access when you are not actively using the application"
+      "openid": "Ihre Identität bestätigen (OpenID Connect)",
+      "profile": "Name und Profilinformationen",
+      "email": "E-Mail-Adresse",
+      "offline_access": "Zugriff, auch wenn Sie die Anwendung nicht aktiv nutzen"
     },
     "unverified": {
       "title": "Nicht verifizierte App",
@@ -232,6 +232,7 @@
       "signInProviders": "Anmeldeanbieter",
       "webhooks": "Webhooks",
       "security": "Security",
+      "usage": "App-Nutzung",
       "audit": "Audit log",
       "signingKeys": "Signaturschlüssel"
     },
@@ -249,6 +250,7 @@
       "signInProviders": "Anmeldeanbieter",
       "webhooks": "Webhooks",
       "security": "Security",
+      "usage": "App-Nutzung",
       "audit": "Audit log",
       "signingKeys": "Signaturschlüssel"
     },
@@ -271,7 +273,9 @@
       },
       "applications": {
         "title": "Applications",
-        "description": "OAuth clients that can sign people in with {name}: their redirect URLs, grant types, consent settings and usage."
+        "description": "OAuth-Clients, die Personen mit {name} anmelden können: Weiterleitungs-URLs, Grant-Typen und Einwilligungseinstellungen.",
+        "unusedHint": "{count, plural, one {# Anwendung wurde} other {# Anwendungen wurden}} in den letzten 30 Tagen nicht verwendet.",
+        "viewUsage": "Nutzung anzeigen"
       },
       "apis": {
         "title": "APIs",
@@ -297,6 +301,10 @@
       "consent": {
         "title": "Consent",
         "description": "Permissions people have granted to OAuth clients, with the scopes and when they were given."
+      },
+      "usage": {
+        "title": "App-Nutzung",
+        "description": "Welche Anwendungen genutzt werden: Zugriffstoken, Benutzer und Einwilligungen pro Anwendung in den letzten 30 Tagen."
       },
       "audit": {
         "title": "Audit log",
@@ -569,18 +577,22 @@
       "none": "None"
     },
     "apps": {
-      "title": "Connected applications",
-      "description": "OAuth applications you have authorized to access your account.",
-      "empty": "You have not authorized any applications yet.",
-      "revokeAccess": "Revoke access",
-      "scopes": "Scopes",
-      "loadError": "Could not load your authorizations.",
-      "revokeError": "Could not revoke access.",
-      "revoked": "Access revoked",
-      "none": "None",
-      "cancel": "Cancel",
-      "confirmRevokeTitle": "Revoke access for {app}?",
-      "confirmRevokeBody": "This app will no longer be able to access your account until you authorize it again."
+      "title": "Verbundene Anwendungen",
+      "description": "Apps, denen Sie Zugriff auf Ihr Konto gewährt haben.",
+      "empty": "Sie haben noch keine Anwendungen verbunden.",
+      "disconnect": "Trennen",
+      "disconnectApp": "{app} trennen",
+      "permissions": "Berechtigungen",
+      "signInOnly": "Nur Anmeldung",
+      "connectedOn": "Verbunden am {date}",
+      "lastUsed": "Zuletzt verwendet {time}",
+      "opensInNewTab": "(öffnet in einem neuen Tab)",
+      "loadError": "Ihre verbundenen Anwendungen konnten nicht geladen werden.",
+      "revokeError": "Die Anwendung konnte nicht getrennt werden.",
+      "revoked": "Anwendung getrennt",
+      "cancel": "Abbrechen",
+      "confirmRevokeTitle": "{app} trennen?",
+      "confirmRevokeBody": "Diese App kann erst wieder auf Ihr Konto zugreifen, wenn Sie sie erneut autorisieren."
     },
     "apiKeys": {
       "title": "API-Schlüssel",

@@ -1,6 +1,7 @@
 "use client";
 
 import { authClient } from "@/lib/auth-client";
+import { AppIcon } from "@ostiary/core/components/app-icon";
 import { Button } from "@ostiary/core/components/ui/button";
 import {
   Card,
@@ -142,17 +143,14 @@ export function ConsentForm({
       <Card>
         <CardHeader className="space-y-4">
           <div className="flex items-start gap-4">
-            {/* A self-registered client's logo is not shown: it could imitate a trusted app,
-                and loading it would tell that client's host who is signing in. */}
-            {client?.logo_uri && !origin ? (
-              // OAuth `logo_uri` can point to any HTTPS URL from client registration.
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={client.logo_uri}
-                alt=""
-                width={48}
-                height={48}
-                className="size-12 shrink-0 rounded-md border border-border object-cover"
+            {/* The icon comes through Ostiary (see /api/app-icon), so the app's site doesn't
+                learn who is signing in. A self-registered client gets the monogram only: its
+                logo could imitate a trusted app. */}
+            {client ? (
+              <AppIcon
+                name={displayName}
+                src={origin ? null : `/api/app-icon/${encodeURIComponent(client.client_id)}`}
+                size={48}
               />
             ) : null}
             <div className="min-w-0 flex-1 space-y-1">

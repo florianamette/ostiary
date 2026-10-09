@@ -198,10 +198,10 @@
     "deny": "Deny",
     "allow": "Allow",
     "scopes": {
-      "openid": "Verify who you are (OpenID Connect)",
-      "profile": "Name and profile information",
-      "email": "Email address",
-      "offline_access": "Access when you are not actively using the application"
+      "openid": "Ověření vaší identity (OpenID Connect)",
+      "profile": "Jméno a údaje profilu",
+      "email": "E-mailová adresa",
+      "offline_access": "Přístup, i když aplikaci aktivně nepoužíváte"
     },
     "unverified": {
       "title": "Neověřená aplikace",
@@ -232,6 +232,7 @@
       "signInProviders": "Poskytovatelé přihlášení",
       "webhooks": "Webhooky",
       "security": "Security",
+      "usage": "Využití aplikací",
       "audit": "Audit log",
       "signingKeys": "Podpisové klíče"
     },
@@ -249,6 +250,7 @@
       "signInProviders": "Poskytovatelé přihlášení",
       "webhooks": "Webhooky",
       "security": "Security",
+      "usage": "Využití aplikací",
       "audit": "Audit log",
       "signingKeys": "Podpisové klíče"
     },
@@ -271,7 +273,9 @@
       },
       "applications": {
         "title": "Applications",
-        "description": "OAuth clients that can sign people in with {name}: their redirect URLs, grant types, consent settings and usage."
+        "description": "Klienti OAuth, kteří mohou přihlašovat uživatele přes {name}: adresy přesměrování, typy grantů a nastavení souhlasu.",
+        "unusedHint": "{count, plural, one {# aplikace nebyla použita} few {# aplikace nebyly použity} many {# aplikace nebylo použito} other {# aplikací nebylo použito}} za posledních 30 dní.",
+        "viewUsage": "Zobrazit využití"
       },
       "apis": {
         "title": "API",
@@ -297,6 +301,10 @@
       "consent": {
         "title": "Consent",
         "description": "Permissions people have granted to OAuth clients, with the scopes and when they were given."
+      },
+      "usage": {
+        "title": "Využití aplikací",
+        "description": "Které aplikace se používají: přístupové tokeny, uživatelé a souhlasy podle aplikace za posledních 30 dní."
       },
       "audit": {
         "title": "Audit log",
@@ -569,18 +577,22 @@
       "none": "None"
     },
     "apps": {
-      "title": "Connected applications",
-      "description": "OAuth applications you have authorized to access your account.",
-      "empty": "You have not authorized any applications yet.",
-      "revokeAccess": "Revoke access",
-      "scopes": "Scopes",
-      "loadError": "Could not load your authorizations.",
-      "revokeError": "Could not revoke access.",
-      "revoked": "Access revoked",
-      "none": "None",
-      "cancel": "Cancel",
-      "confirmRevokeTitle": "Revoke access for {app}?",
-      "confirmRevokeBody": "This app will no longer be able to access your account until you authorize it again."
+      "title": "Připojené aplikace",
+      "description": "Aplikace, kterým jste povolili přístup ke svému účtu.",
+      "empty": "Zatím jste nepřipojili žádné aplikace.",
+      "disconnect": "Odpojit",
+      "disconnectApp": "Odpojit {app}",
+      "permissions": "Oprávnění",
+      "signInOnly": "Pouze přihlášení",
+      "connectedOn": "Připojeno {date}",
+      "lastUsed": "Naposledy použito {time}",
+      "opensInNewTab": "(otevře se na nové kartě)",
+      "loadError": "Připojené aplikace se nepodařilo načíst.",
+      "revokeError": "Aplikaci se nepodařilo odpojit.",
+      "revoked": "Aplikace odpojena",
+      "cancel": "Zrušit",
+      "confirmRevokeTitle": "Odpojit {app}?",
+      "confirmRevokeBody": "Tato aplikace nebude mít přístup k vašemu účtu, dokud ji znovu neautorizujete."
     },
     "apiKeys": {
       "title": "API klíče",

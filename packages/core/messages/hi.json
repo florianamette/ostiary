@@ -198,10 +198,10 @@
     "deny": "Deny",
     "allow": "Allow",
     "scopes": {
-      "openid": "Verify who you are (OpenID Connect)",
-      "profile": "Name and profile information",
-      "email": "Email address",
-      "offline_access": "Access when you are not actively using the application"
+      "openid": "आपकी पहचान सत्यापित करना (OpenID Connect)",
+      "profile": "नाम और प्रोफ़ाइल जानकारी",
+      "email": "ईमेल पता",
+      "offline_access": "जब आप ऐप्लिकेशन का सक्रिय रूप से उपयोग नहीं कर रहे हों तब भी पहुँच"
     },
     "unverified": {
       "title": "असत्यापित ऐप",
@@ -232,6 +232,7 @@
       "signInProviders": "साइन-इन प्रदाता",
       "webhooks": "वेबहुक",
       "security": "Security",
+      "usage": "ऐप उपयोग",
       "audit": "Audit log",
       "signingKeys": "साइनिंग कुंजियाँ"
     },
@@ -249,6 +250,7 @@
       "signInProviders": "साइन-इन प्रदाता",
       "webhooks": "वेबहुक",
       "security": "Security",
+      "usage": "ऐप उपयोग",
       "audit": "Audit log",
       "signingKeys": "साइनिंग कुंजियाँ"
     },
@@ -271,7 +273,9 @@
       },
       "applications": {
         "title": "Applications",
-        "description": "OAuth clients that can sign people in with {name}: their redirect URLs, grant types, consent settings and usage."
+        "description": "OAuth क्लाइंट जो {name} से लोगों को साइन इन करा सकते हैं: उनके रीडायरेक्ट URL, ग्रांट प्रकार और सहमति सेटिंग।",
+        "unusedHint": "{count, plural, one {# ऐप्लिकेशन का} other {# ऐप्लिकेशन का}} पिछले 30 दिनों में उपयोग नहीं हुआ।",
+        "viewUsage": "उपयोग देखें"
       },
       "apis": {
         "title": "API",
@@ -297,6 +301,10 @@
       "consent": {
         "title": "Consent",
         "description": "Permissions people have granted to OAuth clients, with the scopes and when they were given."
+      },
+      "usage": {
+        "title": "ऐप उपयोग",
+        "description": "कौन से ऐप्लिकेशन उपयोग में हैं: पिछले 30 दिनों में प्रति ऐप्लिकेशन एक्सेस टोकन, उपयोगकर्ता और सहमतियाँ।"
       },
       "audit": {
         "title": "Audit log",
@@ -569,18 +577,22 @@
       "none": "None"
     },
     "apps": {
-      "title": "Connected applications",
-      "description": "OAuth applications you have authorized to access your account.",
-      "empty": "You have not authorized any applications yet.",
-      "revokeAccess": "Revoke access",
-      "scopes": "Scopes",
-      "loadError": "Could not load your authorizations.",
-      "revokeError": "Could not revoke access.",
-      "revoked": "Access revoked",
-      "none": "None",
-      "cancel": "Cancel",
-      "confirmRevokeTitle": "Revoke access for {app}?",
-      "confirmRevokeBody": "This app will no longer be able to access your account until you authorize it again."
+      "title": "कनेक्ट किए गए ऐप्लिकेशन",
+      "description": "वे ऐप जिन्हें आपने अपने खाते तक पहुँच की अनुमति दी है।",
+      "empty": "आपने अभी तक कोई ऐप्लिकेशन कनेक्ट नहीं किया है।",
+      "disconnect": "डिस्कनेक्ट करें",
+      "disconnectApp": "{app} को डिस्कनेक्ट करें",
+      "permissions": "अनुमतियाँ",
+      "signInOnly": "केवल साइन-इन",
+      "connectedOn": "{date} को कनेक्ट किया गया",
+      "lastUsed": "पिछली बार उपयोग {time}",
+      "opensInNewTab": "(नए टैब में खुलता है)",
+      "loadError": "आपके कनेक्ट किए गए ऐप्लिकेशन लोड नहीं हो सके।",
+      "revokeError": "ऐप्लिकेशन डिस्कनेक्ट नहीं हो सका।",
+      "revoked": "ऐप्लिकेशन डिस्कनेक्ट हो गया",
+      "cancel": "रद्द करें",
+      "confirmRevokeTitle": "{app} को डिस्कनेक्ट करें?",
+      "confirmRevokeBody": "जब तक आप इसे फिर से अधिकृत नहीं करते, यह ऐप आपके खाते तक नहीं पहुँच पाएगा।"
     },
     "apiKeys": {
       "title": "API कुंजियाँ",
