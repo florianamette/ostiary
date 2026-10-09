@@ -25,6 +25,16 @@ All notable changes are documented here. The format follows
   "Unverified app" warning. Ostiary's mark stays on every screen. Stored in the new
   `oauth_client_branding` table (migration `0012_app_branding`); changes are audited. Forks
   can restyle what the accent reaches through `[data-app-brand="accent"]` in `globals.css`.
+- **End-to-end tests** (`e2e/`, Playwright 1.63 with Chromium) and an `e2e` CI job: both apps
+  built and started with `next start` against Postgres 17, plus a local mock server (a
+  GitLab-compatible OAuth provider and a webhook receiver). Covers APIs and scopes created in
+  the admin console, per-client API access, social providers turned on at runtime with a full
+  social sign-in, signing key rotation, sign-up with email verification, password and code
+  sign-ins, TOTP, the admin two-factor gate, rate limits, authorization code with PKCE and
+  consent, refresh, UserInfo, device flow, webhooks, API keys, Dynamic Client Registration
+  and per-app branding of the login page.
+  Test seam `E2E_TEST_MODE` (emails to a file, localhost webhooks, no Have I Been Pwned call),
+  honoured only on a loopback `http://` auth URL. See README, Testing.
 - **Organization API keys.** Owners and admins of an organization create, list and revoke
   keys the organization owns, from the account dashboard (**Organizations**, **API keys**
   under the organization); members do not see them. The key belongs to the organization, so
