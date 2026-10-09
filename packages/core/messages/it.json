@@ -1669,6 +1669,9 @@
             "revoke_all": "Tutte le chiavi API revocate",
             "settings": "Impostazioni delle chiavi API modificate"
           },
+          "oauth_token": {
+            "revoke_all": "Revocati tutti i token delle app"
+          },
           "oauth_consent": {
             "update": "Consenso aggiornato",
             "delete": "Consenso revocato"

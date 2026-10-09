@@ -1669,6 +1669,9 @@
             "revoke_all": "Toutes les clés d’API révoquées",
             "settings": "Paramètres des clés d’API modifiés"
           },
+          "oauth_token": {
+            "revoke_all": "Tous les jetons d’application révoqués"
+          },
           "oauth_consent": {
             "update": "Consentement modifié",
             "delete": "Consentement révoqué"

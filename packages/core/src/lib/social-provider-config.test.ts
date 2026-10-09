@@ -80,6 +80,16 @@ describe("buildProviderOptions", () => {
     });
   });
 
+  it("treats Cognito's email_verified as verified only when it is true or \"true\"", async () => {
+    const base = { clientId: "a", domain: "x.auth.eu-west-1.amazoncognito.com", region: "eu-west-1", userPoolId: "p" };
+    const map = buildProviderOptions("cognito", base).mapProfileToUser as (p: Record<string, unknown>) => Promise<{ emailVerified: boolean }>;
+    expect((await map({ email_verified: "false" })).emailVerified).toBe(false);
+    expect((await map({ email_verified: "False" })).emailVerified).toBe(false);
+    expect((await map({})).emailVerified).toBe(false);
+    expect((await map({ email_verified: "true" })).emailVerified).toBe(true);
+    expect((await map({ email_verified: true })).emailVerified).toBe(true);
+  });
+
   it("asks Cognito for the client secret only when there is one", () => {
     const base = { clientId: "a", domain: "https://x.auth.eu-west-1.amazoncognito.com", region: "eu-west-1", userPoolId: "p" };
     expect(buildProviderOptions("cognito", base)).toMatchObject({ requireClientSecret: false, domain: "x.auth.eu-west-1.amazoncognito.com" });
@@ -156,5 +166,11 @@ describe("secret box", () => {
     parts[3] = Buffer.from("tampered").toString("base64url");
     expect(openSecret(parts.join("."), secret, "social-provider")).toBeNull();
     expect(openSecret("garbage", secret, "social-provider")).toBeNull();
+  });
+
+  it("refuses a truncated authentication tag (GCM must check all 16 bytes)", () => {
+    const parts = sealSecret("value", secret, "social-provider").split(".");
+    parts[2] = Buffer.from(parts[2]!, "base64url").subarray(0, 4).toString("base64url");
+    expect(openSecret(parts.join("."), secret, "social-provider")).toBeNull();
   });
 });

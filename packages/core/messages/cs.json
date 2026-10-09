@@ -1669,6 +1669,9 @@
             "revoke_all": "Odvolání všech API klíčů",
             "settings": "Změna nastavení API klíčů"
           },
+          "oauth_token": {
+            "revoke_all": "Odvolány všechny tokeny aplikací"
+          },
           "oauth_consent": {
             "update": "Úprava souhlasu",
             "delete": "Odvolání souhlasu"

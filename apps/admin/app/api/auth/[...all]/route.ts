@@ -41,10 +41,9 @@ const ALLOWED_PATHS = new Set([
   "/oauth2/get-consent",
   "/oauth2/update-consent",
   "/oauth2/delete-consent",
-  // Enterprise SSO provider management (the IdP callback itself stays on the auth app)
+  // Enterprise SSO: registering an OIDC provider. Everything else about providers goes through
+  // the console's server actions; the IdP callback itself stays on the auth app.
   "/sso/register",
-  "/sso/providers",
-  "/sso/get-provider",
 ]);
 
 const handlers = withRateLimitHeaders(toNextJsHandler(auth));

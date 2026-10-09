@@ -95,9 +95,9 @@ Ostiary is a good fit when you want to own your identity layer. If you need a ma
 
 1. Click **Deploy with Vercel** above. Vercel creates a Neon Postgres database for you and asks for:
    - `BETTER_AUTH_SECRET`: 32+ random characters (`openssl rand -base64 32`)
-   - `ADMIN_EMAILS`: your email address, so your account becomes an admin when you sign up
+   - `ADMIN_EMAILS`: your email address, so your account becomes an admin when you sign up and verify it
    - `RESEND_API_KEY` and `RESEND_FROM`: from [resend.com](https://resend.com), to send verification emails
-2. The build applies the database migrations. When it finishes, open your deployment and sign up with the email you put in `ADMIN_EMAILS`. The admin console asks you to turn on two-factor authentication before you use it.
+2. The build applies the database migrations. When it finishes, open your deployment and sign up with the email you put in `ADMIN_EMAILS`, then open the verification link sent to it: the account becomes an admin once the address is verified. (Signing up with a social provider works too when the provider reports the address as verified; SSO never grants the admin role.) The admin console asks you to turn on two-factor authentication before you use it.
 3. Optional: deploy the admin console as a second project with the same database and secret:
 
    <a href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fflorianamette%2Fostiary%2Ftree%2Fmain%2Fapps%2Fadmin&project-name=ostiary-admin&repository-name=ostiary&env=DATABASE_URL%2CBETTER_AUTH_SECRET%2CAUTH_APP_URL%2CADMIN_APP_URL%2CRESEND_API_KEY%2CRESEND_FROM&envDescription=Use%20the%20same%20DATABASE_URL%20and%20BETTER_AUTH_SECRET%20as%20your%20Ostiary%20auth%20app.%20AUTH_APP_URL%3A%20its%20URL.%20ADMIN_APP_URL%3A%20this%20app%27s%20URL.&envLink=https%3A%2F%2Fgithub.com%2Fflorianamette%2Fostiary%23configuration"><img src="https://vercel.com/button" alt="Deploy the admin console"></a>
@@ -656,7 +656,7 @@ Changes made in the admin console reach the auth app through its caches (scopes 
 | `DATABASE_URL` | both | yes | Postgres connection string (the same for both apps) |
 | `BETTER_AUTH_SECRET` | both | yes | 32+ characters, the same for both apps |
 | `RESEND_API_KEY`, `RESEND_FROM` | both | in production | Sending verification, reset and invitation emails |
-| `ADMIN_EMAILS` | auth | first run | Emails that become admins when they sign up |
+| `ADMIN_EMAILS` | auth | first run | Emails that become admins when they sign up, once the address is verified (the verification link or a sign-in code, or a social provider that reports it verified; never through SSO or SCIM) |
 | `REQUIRE_ADMIN_2FA` | both | optional | `true` (default): admins must turn on two-factor authentication before using the admin console. `false` turns this off |
 | `AUTH_APP_URL`, `ADMIN_APP_URL` | both | admin console | The two apps' public URLs |
 | `NEXT_PUBLIC_ADMIN_APP_URL` | auth | admin console | Shows the "Admin" link in the account menu |
@@ -669,7 +669,7 @@ Changes made in the admin console reach the auth app through its caches (scopes 
 | `IP_ADDRESS_HEADERS` | both | optional | Comma-separated headers holding the client IP, tried in order. Default `x-forwarded-for` (right on Vercel). See [Client IP](#client-ip) |
 | `API_KEY_PREFIX` | both | optional | Prefix of new API keys (default `ost_`; letters, digits, `_`, `-`, 16 at most). Existing keys keep theirs |
 | `TRUSTED_PROXIES` | both | optional | Comma-separated IPs or CIDR ranges of your own reverse proxies, to read the client IP from a multi-hop `x-forwarded-for` |
-| `CAPTCHA_PROVIDER`, `CAPTCHA_SITE_KEY`, `CAPTCHA_SECRET_KEY` | auth | optional | Captcha on sign-up, password sign-in, password reset and sign-in codes. Provider: `cloudflare-turnstile`, `hcaptcha` or `google-recaptcha` (v2 checkbox). Set all three or none, before building (the CSP is built with them) |
+| `CAPTCHA_PROVIDER`, `CAPTCHA_SITE_KEY`, `CAPTCHA_SECRET_KEY` | auth | optional | Captcha on sign-up, password sign-in, password reset and sign-in codes. Provider: `cloudflare-turnstile`, `hcaptcha` or `google-recaptcha` (v2 checkbox). Set all three or none, before building (the CSP is built with them). Turnstile and reCAPTCHA tokens are only accepted when solved on the host of `AUTH_APP_URL` |
 | `CRON_SECRET` | auth | for webhooks | 16+ characters. Protects `/api/cron/webhooks`, which retries failed webhook deliveries (Vercel Cron sends it) |
 | `WEBHOOKS_ALLOW_LOCALHOST` | both | optional | `true` accepts `http://localhost` webhook endpoints. Development only, ignored in production |
 
@@ -689,12 +689,16 @@ Both apps run the same Better Auth configuration against one database. The admin
 
 - Email changes need approval from the current inbox; a stolen session alone cannot move an account.
 - Adding a passkey or connecting an account needs a sign-in from the last 10 minutes; so does exporting your data. Deleting an account needs the password (or a recent sign-in) and an emailed confirmation, see [Your data](#your-data-export-and-account-deletion).
-- Two-factor authentication (authenticator app or backup code) applies to password sign-ins and emailed sign-in codes. Passkeys are already two factors; social and SSO sign-ins rely on that provider's own checks. Backup codes and authenticator secrets are stored encrypted.
+- Two-factor authentication (authenticator app or backup code) applies to every way of signing in except passkeys, which are already two factors: passwords, emailed sign-in codes, social providers (including Google One Tap), SSO and the email verification link all stop at the code step for an account that has it (a device trusted for 30 days skips it, whatever the method). Backup codes and authenticator secrets are stored encrypted.
+- Signing in with a provider whose verified email matches an existing account links the two only when that account's email is verified too, and never for an account with two-factor authentication or a platform admin: their owners connect the provider from the account page instead.
 - Admins must turn on two-factor authentication (`REQUIRE_ADMIN_2FA`). An admin without it is sent to set it up and cannot use the console or the admin endpoints until then; their own account keeps working. An admin who loses their authenticator and backup codes can have another admin reset it from the user's page (audited).
 - Sign-in codes open existing accounts only (an unknown address gets the same answer and no email), expire after 10 minutes, are stored hashed and are void after 3 wrong tries. On an account whose email was never verified, the first code verifies it and removes the unproven password and sessions.
-- Only admins can create organizations and register SSO providers; SSO domains must be verified with a DNS record. SAML sign-ins are SP-initiated only, with signed responses, audience, recipient, `InResponseTo` and one-time assertion checks (see [Enterprise SSO with SAML 2.0](#enterprise-sso-with-saml-20)).
+- Only admins can create organizations and register SSO providers; an SSO provider's domain must be one plain hostname (`acme.com`) and be verified with a DNS record, and a provider whose stored domain is anything else is refused at sign-in. Providers are changed and deleted only from the admin console (Better Auth's provider management endpoints are closed).
+- Every account is a member of the Public organization; its member list, invitations, teams and member changes are for platform admins only. SAML sign-ins are SP-initiated only, with signed responses, audience, recipient, `InResponseTo` and one-time assertion checks (see [Enterprise SSO with SAML 2.0](#enterprise-sso-with-saml-20)).
 - SCIM tokens are stored as HMAC digests and can only be issued by platform admins; each one only reaches its own organization.
 - API keys are stored as SHA-256 digests, always expire, never act as a session, and are verified only by applications linked to the key's API. Banning or deleting an account revokes its keys; deleting an organization deletes the organization's keys.
+- Banning an account or resetting its password also revokes its OAuth access and refresh tokens (as SCIM deactivation does): apps lose access at their next refresh. JWT access tokens already issued stay valid until they expire (an hour by default).
+- Platform roles are `admin` and `user` only. An admin impersonating an account cannot add a passkey to it or connect a provider.
 - Token signing keys can be rotated on a schedule or on demand (**Signing keys**); retired keys stay published only for the grace period. Rotations and setting changes are in the audit log.
 - Social provider secrets (client secrets, Apple's private key) are encrypted at rest with AES-256-GCM, under a key derived from `BETTER_AUTH_SECRET`, and never sent back to the browser.
 - The audit log never stores passwords, secrets or session tokens.

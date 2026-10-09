@@ -1669,6 +1669,9 @@
             "revoke_all": "Revocó todas las claves de API",
             "settings": "Cambió los ajustes de las claves de API"
           },
+          "oauth_token": {
+            "revoke_all": "Revocó todos los tokens de aplicaciones"
+          },
           "oauth_consent": {
             "update": "Actualizó un consentimiento",
             "delete": "Revocó un consentimiento"

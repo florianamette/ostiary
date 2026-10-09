@@ -158,7 +158,15 @@ export function buildProviderOptions(
     }
     case "cognito":
       // The app client authenticates with its secret only when it has one.
-      return { ...options, domain: stripScheme(v("domain")!), requireClientSecret: Boolean(v("clientSecret")) };
+      return {
+        ...options,
+        domain: stripScheme(v("domain")!),
+        requireClientSecret: Boolean(v("clientSecret")),
+        // Cognito's userinfo endpoint sends email_verified as a string: "false" must not count.
+        mapProfileToUser: async (profile: { email_verified?: unknown }) => ({
+          emailVerified: profile.email_verified === true || profile.email_verified === "true",
+        }),
+      };
     case "gitlab":
     case "paybin":
       return v("issuer") ? { ...options, issuer: v("issuer")!.replace(/\/+$/, "") } : options;
