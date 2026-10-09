@@ -186,6 +186,14 @@ All notable changes are documented here. The format follows
 
 ### Fixed
 
+- **Client IP in the audit log and sign-in history behind proxies.** These took the
+  left-most `x-forwarded-for` value (whatever the client sent) and fell back to
+  `x-real-ip`, unlike rate limits and sessions. They now resolve the address the way
+  Better Auth does, with Better Auth's own function and the same `IP_ADDRESS_HEADERS` and
+  `TRUSTED_PROXIES`: a single-address `x-forwarded-for` by default (Vercel), or the
+  right-most address that is not a trusted proxy. A multi-address header without
+  `TRUSTED_PROXIES`, or `x-real-ip` not listed in `IP_ADDRESS_HEADERS`, now records no IP
+  instead of a spoofable one. IPv6 addresses are stored whole, in full form.
 - Admin console: registering or editing an OAuth application showed "Request failed"
   instead of the reason. Better Auth 1.7 puts it in `error_description`, which is now
   shown (for example, a confidential client with an `http://localhost` redirect URI).
