@@ -1,4 +1,5 @@
 import { createAuth } from "@ostiary/core/lib/auth-factory";
+import { recoverableAuth } from "@ostiary/core/lib/recoverable-auth";
 import { env } from "@ostiary/core/lib/env";
 import { getTrustedOrigins } from "@ostiary/core/lib/url";
 
@@ -9,10 +10,14 @@ if (!env.AUTH_APP_URL || !env.ADMIN_APP_URL) {
 /**
  * Same Better Auth configuration as the auth app, same database and secret. The canonical
  * URL stays the auth app so SSO callbacks and invitation links point at the right place.
- * This app's origin is trusted, so requests from its UI pass the origin check.
+ * This app's origin is trusted, so requests from its UI pass the origin check. Rebuilt when
+ * its start fails (database unreachable), see recoverableAuth.
  */
-export const auth = createAuth({
-  baseURL: env.AUTH_APP_URL,
-  trustedOrigins: getTrustedOrigins(),
-  cookieDomain: env.COOKIE_DOMAIN,
-});
+const authAppUrl = env.AUTH_APP_URL;
+export const auth = recoverableAuth(() =>
+  createAuth({
+    baseURL: authAppUrl,
+    trustedOrigins: getTrustedOrigins(),
+    cookieDomain: env.COOKIE_DOMAIN,
+  }),
+);

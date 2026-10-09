@@ -102,7 +102,7 @@ Ostiary is a good fit when you want to own your identity layer. If you need a ma
 
    <a href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fflorianamette%2Fostiary%2Ftree%2Fmain%2Fapps%2Fadmin&project-name=ostiary-admin&repository-name=ostiary&env=DATABASE_URL%2CBETTER_AUTH_SECRET%2CAUTH_APP_URL%2CADMIN_APP_URL%2CRESEND_API_KEY%2CRESEND_FROM&envDescription=Use%20the%20same%20DATABASE_URL%20and%20BETTER_AUTH_SECRET%20as%20your%20Ostiary%20auth%20app.%20AUTH_APP_URL%3A%20its%20URL.%20ADMIN_APP_URL%3A%20this%20app%27s%20URL.&envLink=https%3A%2F%2Fgithub.com%2Fflorianamette%2Fostiary%23configuration"><img src="https://vercel.com/button" alt="Deploy the admin console"></a>
 
-   For a single sign-in across both apps, give them subdomains of one domain (for example `auth.example.com` and `admin.example.com`) and set `COOKIE_DOMAIN=.example.com` on both.
+   For a single sign-in across both apps, give them subdomains of one domain (for example `auth.example.com` and `admin.example.com`) and set `COOKIE_DOMAIN=.example.com` on both. Read [COOKIE_DOMAIN](#cookie_domain) first: the session cookie is then sent to every subdomain of that domain.
 
 ## Connect an app
 
@@ -660,15 +660,15 @@ Changes made in the admin console reach the auth app through its caches (scopes 
 | `REQUIRE_ADMIN_2FA` | both | optional | `true` (default): admins must turn on two-factor authentication before using the admin console. `false` turns this off |
 | `AUTH_APP_URL`, `ADMIN_APP_URL` | both | admin console | The two apps' public URLs |
 | `NEXT_PUBLIC_ADMIN_APP_URL` | auth | admin console | Shows the "Admin" link in the account menu |
-| `COOKIE_DOMAIN` | both | admin console | Parent domain shared by both apps, e.g. `.example.com` |
+| `COOKIE_DOMAIN` | both | admin console | Parent domain shared by both apps, e.g. `.example.com`. The session cookie then reaches every subdomain, see [COOKIE_DOMAIN](#cookie_domain) |
 | `OAUTH_API_AUDIENCES` | both | optional | Comma-separated URLs of your APIs, registered at build time (or use the admin console) |
 | `OAUTH_API_SCOPES` | both | optional | Comma-separated scopes available to every API (or declare them per API in the admin console) |
 | `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET` | both | optional | "Sign in with GitHub" from the environment (read-only in the admin console). Other providers are set up in the admin console, see [Social sign-in](#social-sign-in) |
 | `SCIM_TOKEN_SECRET` | both | optional | 32+ characters to hash SCIM tokens with; derived from `BETTER_AUTH_SECRET` when unset. Changing either invalidates SCIM tokens |
 | `RATE_LIMIT_ENABLED` | both | optional | Rate limiting of the auth endpoints, see [Rate limiting](#rate-limiting). Default: on in production, off in development. `false` turns it off |
-| `IP_ADDRESS_HEADERS` | both | optional | Comma-separated headers holding the client IP, tried in order. Default `x-forwarded-for` (right on Vercel). See [Client IP](#client-ip) |
+| `IP_ADDRESS_HEADERS` | both | off Vercel | Comma-separated headers holding the client IP, tried in order. On Vercel the default is `x-forwarded-for`; elsewhere no header is trusted unless this or `TRUSTED_PROXIES` is set. See [Client IP](#client-ip) |
 | `API_KEY_PREFIX` | both | optional | Prefix of new API keys (default `ost_`; letters, digits, `_`, `-`, 16 at most). Existing keys keep theirs |
-| `TRUSTED_PROXIES` | both | optional | Comma-separated IPs or CIDR ranges of your own reverse proxies, to read the client IP from a multi-hop `x-forwarded-for` |
+| `TRUSTED_PROXIES` | both | off Vercel | Comma-separated IPs or CIDR ranges of your own reverse proxies, to read the client IP from a multi-hop `x-forwarded-for`. See [Client IP](#client-ip) |
 | `CAPTCHA_PROVIDER`, `CAPTCHA_SITE_KEY`, `CAPTCHA_SECRET_KEY` | auth | optional | Captcha on sign-up, password sign-in, password reset and sign-in codes. Provider: `cloudflare-turnstile`, `hcaptcha` or `google-recaptcha` (v2 checkbox). Set all three or none, before building (the CSP is built with them). Turnstile and reCAPTCHA tokens are only accepted when solved on the host of `AUTH_APP_URL` |
 | `CRON_SECRET` | auth | for webhooks | 16+ characters. Protects `/api/cron/webhooks`, which retries failed webhook deliveries (Vercel Cron sends it) |
 | `WEBHOOKS_ALLOW_LOCALHOST` | both | optional | `true` accepts `http://localhost` webhook endpoints. Development only, ignored in production |
@@ -704,6 +704,8 @@ Both apps run the same Better Auth configuration against one database. The admin
 - The audit log never stores passwords, secrets or session tokens.
 - App icons are fetched by Ostiary, never by the user's browser (so the app's site and favicon services don't learn who uses which app), with the webhook SSRF guard: https on port 443 only, public addresses only, pinned connections, two redirects at most, size and time limits, image types checked from the bytes. They are served with a CSP that blocks scripts.
 - Sign-in, codes, password reset and the token endpoint are rate limited per client IP, see below.
+- Pages are served with a nonce-based Content Security Policy (`'strict-dynamic'`, no `'unsafe-inline'` or `'unsafe-eval'` for scripts in production), set per request by each app's `proxy.ts` from `packages/core/src/lib/csp.ts`; Google One Tap's sources are allowed on the sign-in and sign-up pages only. Pages are therefore rendered per request. Forks adding a third-party script must add its origin there and load it with `next/script` (or from a script that already runs).
+- After sign-in, `callbackURL` is followed only to a path on the same app or to the auth or admin app's origin; backslashes, control characters and other origins are refused (`packages/core/src/lib/safe-redirect.ts`).
 
 ### Rate limiting
 
@@ -735,14 +737,25 @@ The rules are in `packages/core/src/lib/rate-limit.ts`. Limits are per address, 
 
 **Redis (optional, not built in).** For heavy traffic, Better Auth can keep the counts in a key-value store instead: pass `secondaryStorage` (with an atomic `increment`, e.g. Upstash Redis) to `betterAuth()` and set `rateLimit.storage: "secondary-storage"` in `packages/core/src/lib/auth-factory.ts`. Note that `secondaryStorage` also moves sessions and verification values out of Postgres.
 
+### COOKIE_DOMAIN
+
+`COOKIE_DOMAIN=.example.com` lets the admin console read the session the auth app created, so one sign-in covers both. The price: browsers send Better Auth's cookies, the session token included (`httpOnly` and `Secure`, but a bearer credential all the same), to **every** host under `example.com`, and any of those hosts can also set cookies for the whole domain.
+
+- Use a domain where every subdomain runs code you trust: no user-generated sites, no third-party SaaS on a CNAME (help desk, status page, marketing tools), no forgotten DNS records pointing at released cloud resources (subdomain takeover). Any of them would receive the session cookies of everyone who visits it while signed in, admins included.
+- Prefer a dedicated parent domain for identity (e.g. `auth.example.com` and `admin.auth.example.com` with `COOKIE_DOMAIN=.auth.example.com`) over your main domain.
+- Without `COOKIE_DOMAIN`, each app keeps host-only cookies: the admin console then needs its own sign-in.
+
 ### Client IP
 
-Rate limits, the IP stored with sessions, the audit log and the sign-in history all need the real client address, and all resolve it the same way (Better Auth's `getIPFromHeader`, with the settings below). By default Better Auth reads `x-forwarded-for` and trusts it only when it holds a single address.
+Rate limits, the IP stored with sessions, the audit log and the sign-in history all need the real client address, and all resolve it the same way (Better Auth's `getIPFromHeader`, with the settings below).
 
-- **Vercel**: nothing to set. Vercel overwrites `x-forwarded-for` with the client's address, so clients cannot spoof it.
+> **Not on Vercel? Set `IP_ADDRESS_HEADERS` or `TRUSTED_PROXIES`.** Off Vercel, Ostiary trusts no header unless one of them is set: a client that reaches the app directly could otherwise put any address in `x-forwarded-for` and get a fresh rate-limit counter (and a made-up IP in the audit log) on every request. With neither set, every client shares one counter per endpoint (a busy site will see 429s for everyone) and no IP is recorded; the apps log a warning at startup.
+
+- **Vercel**: nothing to set (detected from `VERCEL=1`). Vercel overwrites `x-forwarded-for` with the client's address, so clients cannot spoof it; Ostiary reads it when it holds a single address.
 - **Behind Cloudflare**: `IP_ADDRESS_HEADERS=cf-connecting-ip` (only if the origin accepts traffic from Cloudflare alone).
 - **Behind nginx, a load balancer or several proxies** that append to `x-forwarded-for`: set `TRUSTED_PROXIES` to their addresses (e.g. `10.0.0.0/8`). The client IP is then the right-most address that is not a trusted proxy. Or have the proxy overwrite a header (`proxy_set_header X-Real-IP $remote_addr;`) and set `IP_ADDRESS_HEADERS=x-real-ip`.
-- **Exposed directly, no proxy**: clients control every header. Put a proxy in front, or limits can be dodged by sending a different `x-forwarded-for` each time.
+- **A proxy that overwrites `x-forwarded-for`** with the client's address (not appends to it): `IP_ADDRESS_HEADERS=x-forwarded-for`.
+- **Exposed directly, no proxy**: clients control every header, so leave both unset (one shared counter per endpoint) and put a proxy in front.
 
 Never name a header your proxy passes through from the client: anyone could then pick their own IP. When no trusted address is found, all such requests share a single counter per endpoint, and Better Auth logs a warning. The audit log and sign-in history then record no IP rather than a guessed one. They keep IPv6 addresses whole, written in full (`2001:0db8:0000:…:0001`), where rate limits group them by /64.
 

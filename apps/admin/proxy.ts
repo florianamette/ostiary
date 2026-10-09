@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { adminNeedsTwoFactor } from "@ostiary/core/lib/admin/admin-two-factor";
 import { userHasAdminRole } from "@ostiary/core/lib/admin/user-has-admin-role";
+import { contentSecurityPolicy, createCspNonce, NONCE_HEADER } from "@ostiary/core/lib/csp";
 import { env } from "@ostiary/core/lib/env";
 import { routing, type AppLocale } from "@ostiary/core/i18n/routing";
 import { auth } from "@/lib/auth";
@@ -16,13 +17,26 @@ function localeFrom(pathname: string): AppLocale {
     : routing.defaultLocale;
 }
 
+export async function proxy(request: NextRequest) {
+  // A fresh nonce and the CSP that carries it (packages/core/src/lib/csp.ts), on the response
+  // and on the request, where Next.js reads it to put the nonce on its scripts.
+  const nonce = createCspNonce();
+  const csp = contentSecurityPolicy({ nonce, dev: process.env.NODE_ENV === "development" });
+  // next-intl forwards a copy of these request headers to the page.
+  request.headers.set(NONCE_HEADER, nonce);
+  request.headers.set("content-security-policy", csp);
+  const response = await route(request);
+  response.headers.set("Content-Security-Policy", csp);
+  return response;
+}
+
 /**
  * Sends signed-out visitors to sign in on the auth app, then back to the page they asked for,
  * signed-in non-admins to their account dashboard, and admins without two-factor
  * authentication (when REQUIRE_ADMIN_2FA is on) to its setup there. The (console) layout
  * repeats these checks as a second gate.
  */
-export async function proxy(request: NextRequest) {
+async function route(request: NextRequest): Promise<NextResponse> {
   const intlResponse = handleI18n(request);
   if (intlResponse.status >= 300 && intlResponse.status < 400) {
     return intlResponse;

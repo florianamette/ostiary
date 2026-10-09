@@ -71,6 +71,8 @@ type RateLimitEnv = {
     RATE_LIMIT_ENABLED?: "true" | "false";
     IP_ADDRESS_HEADERS?: string;
     TRUSTED_PROXIES?: string;
+    /** "1" on Vercel (set by the platform). */
+    VERCEL?: string;
 };
 
 function list(value: string | undefined): string[] {
@@ -91,15 +93,37 @@ export function rateLimitOptions(env: RateLimitEnv): BetterAuthRateLimitOptions 
     return { enabled, storage: "database", customRules: RATE_LIMIT_RULES };
 }
 
+let untrustedIpWarned = false;
+
 /**
- * Where the client IP comes from (rate limiting and the IP stored on sessions). Better
- * Auth's default is `x-forwarded-for` holding a single address: Vercel overwrites that
- * header with the real client IP. A header with several addresses is ignored unless
- * TRUSTED_PROXIES says which of them are your proxies.
+ * Where the client IP comes from (rate limiting and the IP stored on sessions).
+ *
+ * - On Vercel, Better Auth's default: `x-forwarded-for` holding a single address (Vercel
+ *   overwrites that header with the real client IP).
+ * - Elsewhere, only what IP_ADDRESS_HEADERS or TRUSTED_PROXIES say. With neither, no header is
+ *   trusted: a client reaching the app directly could otherwise put any address in
+ *   `x-forwarded-for` and get a fresh rate-limit counter on every request. Rate limits then
+ *   count every client in one shared bucket per endpoint, and sessions and the audit log
+ *   carry no IP, until one of the two is set (README, Client IP).
+ *
+ * A header with several addresses is ignored unless TRUSTED_PROXIES says which of them are
+ * your proxies.
  */
 export function ipAddressOptions(env: RateLimitEnv): NonNullable<BetterAuthAdvancedOptions["ipAddress"]> {
     const headers = list(env.IP_ADDRESS_HEADERS).map((header) => header.toLowerCase());
     const trustedProxies = list(env.TRUSTED_PROXIES);
+    const onVercel = env.VERCEL === "1";
+    if (!headers.length && !trustedProxies.length && !onVercel) {
+        if (env.NODE_ENV === "production" && !untrustedIpWarned) {
+            untrustedIpWarned = true;
+            console.warn(
+                "[ip] Not on Vercel and neither IP_ADDRESS_HEADERS nor TRUSTED_PROXIES is set: x-forwarded-for is not trusted, " +
+                    "so every client shares one rate-limit counter per endpoint and no IP is recorded. Set one of them (README, Client IP).",
+            );
+        }
+        // No header at all: Better Auth reads none (an empty list is not replaced by its default).
+        return { ipAddressHeaders: [] };
+    }
     return {
         ...(headers.length ? { ipAddressHeaders: headers } : {}),
         ...(trustedProxies.length ? { trustedProxies } : {}),
