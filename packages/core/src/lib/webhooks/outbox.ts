@@ -5,6 +5,7 @@ import { after } from "next/server";
 import { db } from "@ostiary/core/db/index";
 import { webhookDelivery, webhookEndpoint } from "@ostiary/core/db/schema";
 import { env } from "@ostiary/core/lib/env";
+import { e2eTestMode } from "@ostiary/core/lib/e2e-test-mode";
 import { makeEvent, TEST_EVENT_TYPE, type WebhookEvent } from "@ostiary/core/lib/webhooks/events";
 import { decryptSecret } from "@ostiary/core/lib/webhooks/secret-box";
 import { webhookHeaders } from "@ostiary/core/lib/webhooks/signing";
@@ -46,8 +47,9 @@ export type DeliveryOutcome = {
   state: "succeeded" | "pending" | "failed";
 };
 
-/** Whether http://localhost endpoints are accepted (development only). */
+/** Whether http://localhost endpoints are accepted (development only, or end-to-end tests). */
 export function webhooksAllowLocalhost(): boolean {
+  if (e2eTestMode()) return true;
   return env.WEBHOOKS_ALLOW_LOCALHOST === "true" && env.NODE_ENV !== "production";
 }
 
