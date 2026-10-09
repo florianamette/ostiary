@@ -36,9 +36,16 @@ import { Input } from "@ostiary/core/components/ui/input";
 import { Label } from "@ostiary/core/components/ui/label";
 import { Textarea } from "@ostiary/core/components/ui/textarea";
 import type { RegistrationSource } from "@ostiary/core/lib/client-registration-policy";
-import { authClient } from "@/lib/auth-client";
 import { DEVICE_CODE_GRANT_TYPE } from "@ostiary/core/lib/admin/oauth-clients/oauth-client-admin.types";
 import { AppBrandingDialog } from "@/components/admin/applications/app-branding-dialog";
+
+/** The `error` of an admin route's JSON answer, if any. */
+async function errorMessage(res: Response): Promise<string | null> {
+  const json: unknown = await res.json().catch(() => null);
+  return json && typeof json === "object" && "error" in json && typeof (json as { error?: unknown }).error === "string"
+    ? (json as { error: string }).error
+    : null;
+}
 
 function parseRedirectUris(raw: string): string[] {
   return raw
@@ -158,11 +165,12 @@ export function AdminApplicationRowActions({
   async function removeClient() {
     setRemovePending(true);
     try {
-      const { error } = await authClient.oauth2.deleteClient({
-        client_id: row.clientId,
-      });
-      if (error) {
-        onNotify(error.message ?? t("deleteDialog.deleteFailed"), "error");
+      const res = await fetch(
+        `/api/admin/oauth-clients/${encodeURIComponent(row.clientId)}`,
+        { method: "DELETE", credentials: "include" },
+      );
+      if (!res.ok) {
+        onNotify((await errorMessage(res)) ?? t("deleteDialog.deleteFailed"), "error");
         return;
       }
       onNotify(t("deleteDialog.deleted"), "success");
@@ -177,13 +185,19 @@ export function AdminApplicationRowActions({
     setRotatePending(true);
     setNewSecret(null);
     try {
-      const { data, error } = await authClient.oauth2.client.rotateSecret({
-        client_id: row.clientId,
-      });
-      if (error) {
-        onNotify(error.message ?? t("rotateDialog.rotateFailed"), "error");
+      const res = await fetch(
+        `/api/admin/oauth-clients/${encodeURIComponent(row.clientId)}/rotate-secret`,
+        { method: "POST", credentials: "include" },
+      );
+      if (!res.ok) {
+        onNotify((await errorMessage(res)) ?? t("rotateDialog.rotateFailed"), "error");
         return;
       }
+      const json: unknown = await res.json().catch(() => null);
+      const data =
+        json && typeof json === "object" && "data" in json
+          ? (json as { data: unknown }).data
+          : null;
       const secret =
         data &&
         typeof data === "object" &&

@@ -26,6 +26,26 @@ export function resourceScopes(row: {
   );
 }
 
+/**
+ * The scopes a token for one API may carry when that API is not restricted to its own
+ * (`allowedScopes` is null): the OpenID Connect scopes, the API's own scopes, and scopes no
+ * other API declares (such as OAUTH_API_SCOPES). A scope another API declares belongs to that
+ * API and is never issued for this audience.
+ */
+export function unrestrictedApiScopes(
+  identifier: string,
+  rows: readonly { identifier: string; allowedScopes: string[] | null; metadata: unknown }[],
+  envScopes: readonly string[],
+): string[] {
+  const own = new Set<string>();
+  const others = new Set<string>();
+  for (const row of rows) {
+    for (const scope of resourceScopes(row)) (row.identifier === identifier ? own : others).add(scope);
+  }
+  const unowned = envScopes.filter((scope) => !others.has(scope));
+  return [...new Set([...OIDC_SCOPES, ...own, ...unowned])];
+}
+
 /** API scopes: OAUTH_API_SCOPES, then the scopes of every enabled API in the database. */
 export async function loadApiScopes(): Promise<string[]> {
   const rows = await db

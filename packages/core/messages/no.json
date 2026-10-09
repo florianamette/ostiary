@@ -634,7 +634,7 @@
           "claims": "Claims: {claims}"
         },
         "restrictLabel": "Utsted bare disse scopene for dette API-et",
-        "restrictHint": "Tokens for dette API-et inneholder bare disse scopene (og OpenID Connect-scopene). Av: de inneholder alle scopes klienten har fått.",
+        "restrictHint": "Tokens for dette API-et inneholder bare disse scopene (og OpenID Connect-scopene). Av: de kan også inneholde tildelte scopes som ingen andre API-er deklarerer, men aldri scopene til et annet API.",
         "register": {
           "title": "Registrer et API",
           "description": "Klienter ber om et token for det med parameteren <code>{param}</code>. Tokenets målgruppe er identifikatoren, og API-et verifiserer den mot JWKS-en.",
