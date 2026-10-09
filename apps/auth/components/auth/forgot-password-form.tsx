@@ -25,12 +25,18 @@ import { authClient } from "@/lib/auth-client";
 import { useCaptcha } from "@/components/auth/captcha";
 import { rateLimitMessage } from "@ostiary/core/lib/rate-limit-message";
 import type { CaptchaConfig } from "@ostiary/core/lib/captcha-providers";
+import { withAppContext, type AppLink } from "@/lib/app-links";
 
 export function ForgotPasswordForm({
   className,
   captcha: captchaConfig = null,
+  appLink = null,
   ...props
-}: React.ComponentProps<"div"> & { captcha?: CaptchaConfig | null }) {
+}: React.ComponentProps<"div"> & {
+  captcha?: CaptchaConfig | null;
+  /** Set during an app's sign-in: the reset link and the way back keep the app. */
+  appLink?: AppLink;
+}) {
   const t = useTranslations("auth.forgotPassword");
   const tLimit = useTranslations("rateLimit");
   const locale = useLocale();
@@ -50,7 +56,7 @@ export function ForgotPasswordForm({
     setIsSubmitting(true);
     try {
       const redirectTo = new URL(
-        `/${locale}/reset-password`,
+        withAppContext(`/${locale}/reset-password`, appLink),
         window.location.origin,
       ).href;
       const { error } = await authClient.requestPasswordReset(
@@ -106,7 +112,7 @@ export function ForgotPasswordForm({
                 </Button>
                 <FieldDescription className="text-center">
                   <Link
-                    href="/login"
+                    href={withAppContext("/login", appLink)}
                     className="underline-offset-4 hover:underline"
                   >
                     {t("backToLogin")}

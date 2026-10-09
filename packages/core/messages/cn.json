@@ -179,6 +179,13 @@
       "notLinked": "该账户尚未关联到 {name} 账户。请先用其他方式登录，再在安全设置中关联。",
       "noEmail": "该账户未提供电子邮件地址。请稍后重试，或使用其他方式登录。",
       "signUpDisabled": "该地址尚无账户，且此登录方式无法创建账户。请使用其他方式登录。"
+    },
+    "app": {
+      "signIn": "登录以继续前往 <app>{name}</app>",
+      "signUp": "创建账户以继续前往 <app>{name}</app>",
+      "continue": "继续前往 <app>{name}</app>",
+      "unverified": "未经验证的应用。",
+      "unverifiedHint": "{name} 未审核此应用：仅在您信任它时继续。"
     }
   },
   "consent": {

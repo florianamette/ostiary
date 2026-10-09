@@ -179,6 +179,13 @@
       "notLinked": "Ce compte n’est pas encore relié à un compte {name}. Connectez-vous autrement, puis reliez-le depuis vos paramètres de sécurité.",
       "noEmail": "Ce compte n'a pas communiqué d'adresse e-mail. Réessayez plus tard ou connectez-vous autrement.",
       "signUpDisabled": "Aucun compte n'existe encore pour cette adresse, et ce moyen de connexion ne peut pas en créer. Connectez-vous autrement."
+    },
+    "app": {
+      "signIn": "Connectez-vous pour continuer vers <app>{name}</app>",
+      "signUp": "Créez votre compte pour continuer vers <app>{name}</app>",
+      "continue": "Continuer vers <app>{name}</app>",
+      "unverified": "Application non vérifiée.",
+      "unverifiedHint": "{name} ne l’a pas examinée : ne continuez que si vous lui faites confiance."
     }
   },
   "consent": {

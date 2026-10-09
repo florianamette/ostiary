@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import { AuthScreen } from "@/components/auth/auth-screen";
 import { ConsentForm, type ConsentClientOrigin } from "@/components/auth/consent-form";
 import { clientRegistrationSource } from "@ostiary/core/lib/client-registration";
+import { authScreenApp } from "@/lib/app-context";
 
 function ConsentFallback() {
   return <div className="h-64 w-full max-w-md animate-pulse rounded-xl bg-muted/60" />;
@@ -43,11 +44,18 @@ export default async function ConsentPage({
   const { locale } = await params;
   const query = await searchParams;
   const first = (value: string | string[] | undefined) => (Array.isArray(value) ? value[0] : value);
-  const origin = await clientOrigin(first(query.client_id), first(query.redirect_uri));
+  const [origin, app] = await Promise.all([
+    clientOrigin(first(query.client_id), first(query.redirect_uri)),
+    // Colors and side panel only: the consent card names the app itself.
+    authScreenApp(query),
+  ]);
   return (
-    <AuthScreen locale={locale}>
+    <AuthScreen locale={locale} app={app} appIntent="none">
       <Suspense fallback={<ConsentFallback />}>
-        <ConsentForm origin={origin} />
+        <ConsentForm
+          origin={origin}
+          branded={app?.verified && app.clientId === first(query.client_id) ? { name: app.name, logoUrl: app.logoUrl } : null}
+        />
       </Suspense>
     </AuthScreen>
   );

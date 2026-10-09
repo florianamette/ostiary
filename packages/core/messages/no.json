@@ -179,6 +179,13 @@
       "notLinked": "That account isn't connected to a {name} account yet. Sign in another way, then connect it from your security settings.",
       "noEmail": "Kontoen delte ingen e-postadresse. Prøv igjen senere, eller logg inn på en annen måte.",
       "signUpDisabled": "Det finnes ingen konto for den adressen ennå, og denne innloggingsmetoden kan ikke opprette en. Logg inn på en annen måte."
+    },
+    "app": {
+      "signIn": "Logg inn for å fortsette til <app>{name}</app>",
+      "signUp": "Opprett kontoen din for å fortsette til <app>{name}</app>",
+      "continue": "Fortsett til <app>{name}</app>",
+      "unverified": "Ubekreftet app.",
+      "unverifiedHint": "{name} har ikke gjennomgått den: fortsett bare hvis du stoler på den."
     }
   },
   "consent": {

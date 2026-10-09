@@ -179,6 +179,13 @@
       "notLinked": "That account isn't connected to a {name} account yet. Sign in another way, then connect it from your security settings.",
       "noEmail": "Quell'account non ha condiviso un indirizzo email. Riprova più tardi o accedi in un altro modo.",
       "signUpDisabled": "Non esiste ancora un account per questo indirizzo e questo metodo di accesso non può crearne uno. Accedi in un altro modo."
+    },
+    "app": {
+      "signIn": "Accedi per continuare su <app>{name}</app>",
+      "signUp": "Crea il tuo account per continuare su <app>{name}</app>",
+      "continue": "Continua su <app>{name}</app>",
+      "unverified": "App non verificata.",
+      "unverifiedHint": "{name} non l’ha verificata: continua solo se ti fidi."
     }
   },
   "consent": {

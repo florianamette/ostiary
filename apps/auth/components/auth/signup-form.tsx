@@ -28,16 +28,23 @@ import { authClient } from "@/lib/auth-client"
 import { useCaptcha } from "@/components/auth/captcha"
 import type { CaptchaConfig } from "@ostiary/core/lib/captcha-providers"
 import { rateLimitMessage } from "@ostiary/core/lib/rate-limit-message"
+import { withAppContext, type AppLink } from "@/lib/app-links"
 
 export function SignupForm({
   socialProviders = [],
   captcha: captchaConfig = null,
   oneTap = null,
+  appLink = null,
   ...props
 }: React.ComponentProps<typeof Card> & {
   socialProviders?: SocialProviderOption[]
   captcha?: CaptchaConfig | null
   oneTap?: GoogleOneTapConfig | null
+  /**
+   * Set during an app's sign-in: the verification link and social sign-up restart the app's
+   * authorization request, and the login link keeps the app (see lib/app-links).
+   */
+  appLink?: AppLink
 }) {
   const t = useTranslations("auth.signup")
   const tLimit = useTranslations("rateLimit")
@@ -130,14 +137,14 @@ export function SignupForm({
           password,
           name,
           username: trimmedUsername,
-          callbackURL: `/${locale}`,
+          callbackURL: appLink?.resumePath ?? `/${locale}`,
         },
         {
           headers,
           onSuccess: () => {
             resetForm()
             toast.success(t("afterRegisterRedirect"))
-            router.push("/login?registered=1")
+            router.push(withAppContext("/login", appLink, { registered: "1" }))
           },
           onError(ctx) {
             const code = ctx.error.code
@@ -294,14 +301,14 @@ export function SignupForm({
               </Button>
               <SocialSignInButtons
                 providers={socialProviders}
-                callbackURL={`/${locale}/dashboard`}
+                callbackURL={appLink?.resumePath ?? `/${locale}/dashboard`}
                 disabled={isSubmitting}
               />
-              <GoogleOneTap config={oneTap} callbackURL={`/${locale}/dashboard`} context="signup" />
+              <GoogleOneTap config={oneTap} callbackURL={appLink?.resumePath ?? `/${locale}/dashboard`} context="signup" />
               <FieldDescription className="text-center sm:px-6">
                 {t("hasAccount")}{" "}
                 <Link
-                  href="/login"
+                  href={withAppContext("/login", appLink)}
                   className="underline-offset-4 hover:underline"
                 >
                   {t("signInLink")}

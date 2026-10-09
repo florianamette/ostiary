@@ -85,6 +85,13 @@
       "when": 1791557446728,
       "tag": "0011_org_api_keys",
       "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1791557792508,
+      "tag": "0012_app_branding",
+      "breakpoints": true
     }
   ]
 }
