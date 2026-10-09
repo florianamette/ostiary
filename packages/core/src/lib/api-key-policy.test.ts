@@ -2,7 +2,11 @@ import { describe, expect, it } from "vitest";
 
 import {
   apiAcceptsKeys,
+  canManageOrganizationKeys,
   checkKeyForApi,
+  keyOwnerType,
+  MAX_KEYS_PER_ORGANIZATION,
+  organizationMayOwnKeys,
   DEFAULT_API_KEY_SETTINGS,
   grantPermissions,
   lifetimeChoices,
@@ -165,5 +169,35 @@ describe("pluginErrorToVerifyError", () => {
     expect(pluginErrorToVerifyError("USAGE_EXCEEDED")).toBe("rate_limited");
     expect(pluginErrorToVerifyError("KEY_DISABLED")).toBe("invalid_key");
     expect(pluginErrorToVerifyError(undefined)).toBe("invalid_key");
+  });
+});
+
+describe("organization keys", () => {
+  it("tells the owner type from the plugin configuration", () => {
+    expect(keyOwnerType("organization")).toBe("organization");
+    expect(keyOwnerType("default")).toBe("user");
+    expect(keyOwnerType(null)).toBe("user");
+  });
+
+  it("lets owners and admins manage the organization's keys, not members", () => {
+    expect(canManageOrganizationKeys("owner")).toBe(true);
+    expect(canManageOrganizationKeys("admin")).toBe(true);
+    expect(canManageOrganizationKeys("member,admin")).toBe(true);
+    expect(canManageOrganizationKeys("member")).toBe(false);
+    expect(canManageOrganizationKeys("")).toBe(false);
+    expect(canManageOrganizationKeys(null)).toBe(false);
+  });
+
+  it("never gives keys to the Public workspace", () => {
+    expect(organizationMayOwnKeys("org_public_b2c")).toBe(false);
+    expect(organizationMayOwnKeys("")).toBe(false);
+    expect(organizationMayOwnKeys("org_acme")).toBe(true);
+  });
+
+  it("caps an organization's keys separately from a user's", () => {
+    const input = { name: "CI", api: orders.identifier, scopes: ["orders:read"], expiresInDays: 30 };
+    const context = { settings: enabled, api: orders, authServer: AUTH, maxKeys: MAX_KEYS_PER_ORGANIZATION };
+    expect(validateNewKey(input, { ...context, keysHeld: MAX_KEYS_PER_USER }).ok).toBe(true);
+    expect(validateNewKey(input, { ...context, keysHeld: MAX_KEYS_PER_ORGANIZATION })).toEqual({ ok: false, error: "limit" });
   });
 });

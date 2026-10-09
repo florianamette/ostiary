@@ -539,7 +539,16 @@
       "deleted": "Organization deleted",
       "deleteError": "Could not delete the organization.",
       "confirmDeleteTitle": "Delete {name}?",
-      "confirmDeleteBody": "This removes the organization, its {count, plural, one {# membership} other {# memberships}} and pending invitations. Member accounts stay. This cannot be undone."
+      "confirmDeleteBody": "This removes the organization, its {count, plural, one {# membership} other {# memberships}} and pending invitations. Member accounts stay. This cannot be undone.",
+      "apiKeys": {
+        "show": "APIキー",
+        "hide": "APIキーを隠す",
+        "title": "{name} の APIキー",
+        "description": "組織が所有するキーで、組織のスクリプトやサービス用です。作成したメンバーが抜けても有効なままです。オーナーと管理者のみが表示できます。",
+        "empty": "この組織には APIキーがありません。",
+        "loadError": "この組織の APIキーを読み込めませんでした。",
+        "limit": "この組織にはすでに {max} 個のキーがあります。新しく作成するには、いずれかを取り消してください。"
+      }
     },
     "security": {
       "title": "Security",
@@ -646,8 +655,11 @@
         "signedOut": "セッションが終了しました。もう一度サインインしてください。",
         "impersonating": "他のユーザーのアカウントを表示している間は、APIキーを作成できません。",
         "recentSignIn": "セキュリティのため、APIキーを作成するにはもう一度サインインしてください。",
-        "failed": "APIキーを作成できませんでした。"
-      }
+        "failed": "APIキーを作成できませんでした。",
+        "forbidden": "この組織の API キーを管理できるのはオーナーと管理者のみです。"
+      },
+      "createdBy": "作成者: {name}",
+      "createdByDeleted": "作成者のアカウントは削除済み"
     },
     "accountMenu": "Account menu",
     "connectedAccounts": {

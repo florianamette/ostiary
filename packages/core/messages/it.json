@@ -539,7 +539,16 @@
       "deleted": "Organization deleted",
       "deleteError": "Could not delete the organization.",
       "confirmDeleteTitle": "Delete {name}?",
-      "confirmDeleteBody": "This removes the organization, its {count, plural, one {# membership} other {# memberships}} and pending invitations. Member accounts stay. This cannot be undone."
+      "confirmDeleteBody": "This removes the organization, its {count, plural, one {# membership} other {# memberships}} and pending invitations. Member accounts stay. This cannot be undone.",
+      "apiKeys": {
+        "show": "Chiavi API",
+        "hide": "Nascondi chiavi API",
+        "title": "Chiavi API di {name}",
+        "description": "Chiavi di proprietà dell’organizzazione, per i suoi script e servizi. Restano valide quando il membro che le ha create se ne va. Solo proprietari e amministratori le vedono.",
+        "empty": "Questa organizzazione non ha chiavi API.",
+        "loadError": "Impossibile caricare le chiavi API di questa organizzazione.",
+        "limit": "Questa organizzazione ha già {max} chiavi. Revocane una per crearne un’altra."
+      }
     },
     "security": {
       "title": "Security",
@@ -646,8 +655,11 @@
         "signedOut": "La sessione è terminata. Accedi di nuovo.",
         "impersonating": "Non puoi creare chiavi API mentre visualizzi l’account di un’altra persona.",
         "recentSignIn": "Per sicurezza, accedi di nuovo per creare una chiave API.",
-        "failed": "Impossibile creare la chiave API."
-      }
+        "failed": "Impossibile creare la chiave API.",
+        "forbidden": "Solo i proprietari e gli amministratori di questa organizzazione possono gestirne le chiavi API."
+      },
+      "createdBy": "creata da {name}",
+      "createdByDeleted": "account del creatore eliminato"
     },
     "accountMenu": "Account menu",
     "connectedAccounts": {

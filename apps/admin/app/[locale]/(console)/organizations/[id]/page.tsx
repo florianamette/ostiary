@@ -10,6 +10,9 @@ import {
   RenameOrganizationForm,
 } from "@/components/admin/organizations/admin-organization-controls";
 import { OrganizationScim, type ScimTokenSummary } from "@/components/admin/organizations/admin-organization-scim";
+import { ApiKeysTable } from "@/components/admin/api-keys/api-keys-table";
+import { listOrganizationApiKeys } from "@ostiary/core/lib/api-keys";
+import { toAdminApiKeyRows } from "@/lib/api-key-rows";
 import { Badge } from "@ostiary/core/components/ui/badge";
 import {
   Card,
@@ -60,7 +63,7 @@ export default async function AdminOrganizationPage({
   const isPublic = org.id === PUBLIC_ORGANIZATION_ID;
 
   const now = new Date();
-  const [members, invites, providers, audits, scimTokens, scimUsers] = await Promise.all([
+  const [members, invites, providers, audits, scimTokens, scimUsers, apiKeys] = await Promise.all([
     db
       .select({ id: member.id, role: member.role, joined: member.createdAt, userId: user.id, name: user.name, email: user.email, banned: user.banned })
       .from(member)
@@ -94,6 +97,7 @@ export default async function AdminOrganizationPage({
       .from(scimUser)
       .where(eq(scimUser.provisioningDomainId, id))
       .groupBy(scimUser.active),
+    isPublic ? [] : listOrganizationApiKeys(id),
   ]);
   const provisionedIds = isPublic
     ? new Set<string>()
@@ -124,77 +128,94 @@ export default async function AdminOrganizationPage({
         }
       />
 
-      <div className="grid gap-6 lg:grid-cols-[2fr_1fr]">
-        <Card className="border-border/80 shadow-sm">
-          <CardHeader>
-            <CardTitle className="text-base">Members</CardTitle>
-            <CardDescription>
-              {isPublic
-                ? "Every account belongs to the Public workspace, so members can't be removed here. Showing the first 50."
-                : `${members.length} ${members.length === 1 ? "member" : "members"}.`}
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            {members.length === 0 ? (
-              <p className="text-sm text-muted-foreground">No members yet.</p>
-            ) : (
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Member</TableHead>
-                    <TableHead className="hidden sm:table-cell">Joined</TableHead>
-                    <TableHead>Role</TableHead>
-                    {isPublic ? null : <TableHead className="w-10"><span className="sr-only">Actions</span></TableHead>}
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {members.map((m) => (
-                    <TableRow key={m.id}>
-                      <TableCell>
-                        <Link href={`/users/${m.userId}`} className="block font-medium underline-offset-4 hover:underline">{m.name || m.email}</Link>
-                        <span className="flex flex-wrap items-center gap-1.5 text-xs text-muted-foreground">
-                          {m.email}
-                          {provisionedIds.has(m.userId) ? <Badge variant="outline">SCIM</Badge> : null}
-                          {m.banned ? <Badge variant="destructive">{provisionedIds.has(m.userId) ? "Deactivated" : "Banned"}</Badge> : null}
-                        </span>
-                      </TableCell>
-                      <TableCell className="hidden text-sm text-muted-foreground sm:table-cell">{formatDateTime(m.joined, locale)}</TableCell>
-                      <TableCell>
-                        {isPublic ? <Badge variant="secondary">{m.role}</Badge> : <MemberRoleSelect orgId={id} memberId={m.id} role={m.role} />}
-                      </TableCell>
-                      {isPublic ? null : (
-                        <TableCell className="text-right">
-                          <RemoveMemberButton orgId={id} memberId={m.id} email={m.email} />
-                        </TableCell>
-                      )}
+      <div className="grid items-start gap-6 lg:grid-cols-[2fr_1fr]">
+        <div className="min-w-0 space-y-6">
+          <Card className="border-border/80 shadow-sm">
+            <CardHeader>
+              <CardTitle className="text-base">Members</CardTitle>
+              <CardDescription>
+                {isPublic
+                  ? "Every account belongs to the Public workspace, so members can't be removed here. Showing the first 50."
+                  : `${members.length} ${members.length === 1 ? "member" : "members"}.`}
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              {members.length === 0 ? (
+                <p className="text-sm text-muted-foreground">No members yet.</p>
+              ) : (
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Member</TableHead>
+                      <TableHead className="hidden sm:table-cell">Joined</TableHead>
+                      <TableHead>Role</TableHead>
+                      {isPublic ? null : <TableHead className="w-10"><span className="sr-only">Actions</span></TableHead>}
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            )}
-
-            {isPublic ? null : (
-              <div className="space-y-3 border-t border-border/60 pt-6">
-                <InviteMemberForm orgId={id} />
-                {invites.length ? (
-                  <ul className="space-y-2">
-                    {invites.map((inv) => (
-                      <li key={inv.id} className="flex items-center justify-between gap-3 rounded-md border border-border px-3 py-2 text-sm">
-                        <span className="min-w-0 truncate">
-                          {inv.email} <Badge variant="outline" className="ml-1">{inv.role}</Badge>
-                          <span className="ml-2 text-xs text-muted-foreground">expires {formatDateTime(inv.expiresAt, locale)}</span>
-                        </span>
-                        <CancelInvitationButton orgId={id} invitationId={inv.id} email={inv.email} />
-                      </li>
+                  </TableHeader>
+                  <TableBody>
+                    {members.map((m) => (
+                      <TableRow key={m.id}>
+                        <TableCell>
+                          <Link href={`/users/${m.userId}`} className="block font-medium underline-offset-4 hover:underline">{m.name || m.email}</Link>
+                          <span className="flex flex-wrap items-center gap-1.5 text-xs text-muted-foreground">
+                            {m.email}
+                            {provisionedIds.has(m.userId) ? <Badge variant="outline">SCIM</Badge> : null}
+                            {m.banned ? <Badge variant="destructive">{provisionedIds.has(m.userId) ? "Deactivated" : "Banned"}</Badge> : null}
+                          </span>
+                        </TableCell>
+                        <TableCell className="hidden text-sm text-muted-foreground sm:table-cell">{formatDateTime(m.joined, locale)}</TableCell>
+                        <TableCell>
+                          {isPublic ? <Badge variant="secondary">{m.role}</Badge> : <MemberRoleSelect orgId={id} memberId={m.id} role={m.role} />}
+                        </TableCell>
+                        {isPublic ? null : (
+                          <TableCell className="text-right">
+                            <RemoveMemberButton orgId={id} memberId={m.id} email={m.email} />
+                          </TableCell>
+                        )}
+                      </TableRow>
                     ))}
-                  </ul>
-                ) : (
-                  <p className="text-xs text-muted-foreground">No pending invitations.</p>
-                )}
-              </div>
-            )}
-          </CardContent>
-        </Card>
+                  </TableBody>
+                </Table>
+              )}
+
+              {isPublic ? null : (
+                <div className="space-y-3 border-t border-border/60 pt-6">
+                  <InviteMemberForm orgId={id} />
+                  {invites.length ? (
+                    <ul className="space-y-2">
+                      {invites.map((inv) => (
+                        <li key={inv.id} className="flex items-center justify-between gap-3 rounded-md border border-border px-3 py-2 text-sm">
+                          <span className="min-w-0 truncate">
+                            {inv.email} <Badge variant="outline" className="ml-1">{inv.role}</Badge>
+                            <span className="ml-2 text-xs text-muted-foreground">expires {formatDateTime(inv.expiresAt, locale)}</span>
+                          </span>
+                          <CancelInvitationButton orgId={id} invitationId={inv.id} email={inv.email} />
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className="text-xs text-muted-foreground">No pending invitations.</p>
+                  )}
+                </div>
+              )}
+            </CardContent>
+          </Card>
+
+          {isPublic ? null : (
+            <Card id="api-keys" className="border-border/80 shadow-sm">
+              <CardHeader>
+                <CardTitle className="text-base">API keys</CardTitle>
+                <CardDescription>
+                  Keys this organization owns, created by its owners and admins in their account dashboard. They keep
+                  working when the member who created them leaves, and are deleted with the organization.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ApiKeysTable rows={toAdminApiKeyRows(apiKeys)} locale={locale} showOwner={false} />
+              </CardContent>
+            </Card>
+          )}
+        </div>
 
         <div className="space-y-6">
           <Card className="border-border/80 shadow-sm">

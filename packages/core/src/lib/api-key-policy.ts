@@ -1,8 +1,9 @@
+import { PUBLIC_ORGANIZATION_ID } from "@ostiary/core/lib/organization-public";
 import { resourceAccess, type ApiAccess } from "@ostiary/core/lib/oauth-resource-policy";
 import { resourceScopes } from "@ostiary/core/lib/oauth-scopes";
 
 /*
- * API keys: long-lived credentials a user creates for scripts, each for one API registered in
+ * API keys: long-lived credentials a user (or an organization) creates for scripts, each for one API registered in
  * Ostiary (an `oauth_resource` row) and some of that API's scopes. The API checks a key by
  * calling the verification endpoint (see api-key-verification.ts). This file holds the pure
  * rules, shared by the account dashboard, the admin console and the tests.
@@ -27,6 +28,39 @@ export const API_KEY_NAME_MAX_LENGTH = 64;
 
 /** Keys one account may hold at a time. */
 export const MAX_KEYS_PER_USER = 25;
+
+/** Keys one organization may hold at a time. */
+export const MAX_KEYS_PER_ORGANIZATION = 50;
+
+/**
+ * The plugin's configurations (`configId`). A key's configuration says who owns it, and so
+ * what `referenceId` holds: a user id for "default", an organization id for "organization".
+ */
+export const USER_KEY_CONFIG_ID = "default";
+export const ORGANIZATION_KEY_CONFIG_ID = "organization";
+
+export type KeyOwnerType = "user" | "organization";
+
+export function keyOwnerType(configId: string | null | undefined): KeyOwnerType {
+  return configId === ORGANIZATION_KEY_CONFIG_ID ? "organization" : "user";
+}
+
+/** Organization roles that may create, list and revoke the organization's keys. */
+export const ORGANIZATION_KEY_MANAGER_ROLES = ["owner", "admin"] as const;
+
+/** Whether a member's role (Better Auth stores several as "a,b") lets them manage org keys. */
+export function canManageOrganizationKeys(role: string | null | undefined): boolean {
+  if (!role) return false;
+  return role
+    .split(",")
+    .map((r) => r.trim().toLowerCase())
+    .some((r) => (ORGANIZATION_KEY_MANAGER_ROLES as readonly string[]).includes(r));
+}
+
+/** The default Public workspace holds every account: it never owns keys. */
+export function organizationMayOwnKeys(organizationId: string): boolean {
+  return Boolean(organizationId) && organizationId !== PUBLIC_ORGANIZATION_ID;
+}
 
 /**
  * Per-key limit enforced by the plugin on every verification: the API should cache a
@@ -133,10 +167,17 @@ export type NewKey = { name: string; grant: KeyGrant; expiresInSeconds: number }
 /** Checks a key request against the settings and the chosen API. */
 export function validateNewKey(
   input: NewKeyInput,
-  context: { settings: ApiKeySettings; api: KeyApi | null; authServer: string | undefined; keysHeld: number },
+  context: {
+    settings: ApiKeySettings;
+    api: KeyApi | null;
+    authServer: string | undefined;
+    keysHeld: number;
+    /** Cap for the owner: MAX_KEYS_PER_USER unless given (MAX_KEYS_PER_ORGANIZATION for orgs). */
+    maxKeys?: number;
+  },
 ): { ok: true; value: NewKey } | { ok: false; error: NewKeyError } {
   if (!context.settings.enabled) return { ok: false, error: "disabled" };
-  if (context.keysHeld >= MAX_KEYS_PER_USER) return { ok: false, error: "limit" };
+  if (context.keysHeld >= (context.maxKeys ?? MAX_KEYS_PER_USER)) return { ok: false, error: "limit" };
   const name = typeof input.name === "string" ? input.name.trim() : "";
   if (!name || name.length > API_KEY_NAME_MAX_LENGTH) return { ok: false, error: "name" };
   const api = context.api;
@@ -159,7 +200,9 @@ export type VerifyError = "invalid_key" | "expired" | "rate_limited" | "api_keys
 
 /**
  * The checks that come before the plugin's own (enabled, expiry, rate limit): the key is for
- * the API asking, its owner may still use it, and the API still accepts keys. A key for
+ * the API asking, its owner may still use it, and the API still accepts keys. The owner is the
+ * user (null when deleted; banned until the ban ends) or, for an organization's key, the
+ * organization (null when deleted, or the Public workspace). A key for
  * another API gets the same answer as an unknown key. Returns the scopes the key grants
  * now: those it was created with that the API still declares.
  */

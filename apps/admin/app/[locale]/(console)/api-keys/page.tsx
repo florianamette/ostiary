@@ -50,7 +50,8 @@ export default async function AdminApiKeysPage({ params }: { params: Promise<{ l
           <CardTitle className="text-base">All keys</CardTitle>
           <CardDescription>
             Newest first{keys.length >= LIST_LIMIT ? `, the latest ${LIST_LIMIT}` : ""}. Expired keys are deleted
-            the next time keys are used or created. Banning or deleting an account revokes its keys.
+            the next time keys are used or created. Banning or deleting an account revokes its keys; deleting an
+            organization deletes its keys (keys an organization owns stay when the member who created them leaves).
           </CardDescription>
         </CardHeader>
         <CardContent>

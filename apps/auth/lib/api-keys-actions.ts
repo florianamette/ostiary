@@ -25,6 +25,7 @@ import { RECENT_SIGN_IN_SECONDS } from "@ostiary/core/lib/auth-factory";
 import { clientIp } from "@ostiary/core/lib/auth-events";
 import { env } from "@ostiary/core/lib/env";
 import { auth } from "@/lib/auth";
+import { serializeApiKey, type MyApiKey } from "@/lib/api-key-serialize";
 
 /*
  * The account dashboard's API keys. The plugin's own HTTP endpoints are closed (see the auth
@@ -32,18 +33,6 @@ import { auth } from "@/lib/auth";
  * so every key gets one registered API, some of its scopes and a bounded lifetime, and every
  * change is in the audit log.
  */
-
-export type MyApiKey = {
-  id: string;
-  name: string;
-  start: string | null;
-  api: string | null;
-  apiName: string | null;
-  scopes: string[];
-  createdAt: string;
-  lastUsedAt: string | null;
-  expiresAt: string | null;
-};
 
 export type MyApiKeys = {
   enabled: boolean;
@@ -55,21 +44,7 @@ export type MyApiKeys = {
   keys: MyApiKey[];
 };
 
-export type CreateApiKeyError = NewKeyError | "signedOut" | "impersonating" | "recentSignIn" | "failed";
-
-function serialize(key: ApiKeyListItem): MyApiKey {
-  return {
-    id: key.id,
-    name: key.name,
-    start: key.start,
-    api: key.api,
-    apiName: key.apiName,
-    scopes: key.scopes,
-    createdAt: key.createdAt.toISOString(),
-    lastUsedAt: key.lastUsedAt?.toISOString() ?? null,
-    expiresAt: key.expiresAt?.toISOString() ?? null,
-  };
-}
+export type CreateApiKeyError = NewKeyError | "signedOut" | "impersonating" | "recentSignIn" | "forbidden" | "failed";
 
 async function currentSession() {
   const requestHeaders = await headers();
@@ -93,7 +68,7 @@ export async function getMyApiKeys(): Promise<MyApiKeys | null> {
     nameMaxLength: API_KEY_NAME_MAX_LENGTH,
     maxKeys: MAX_KEYS_PER_USER,
     apis: settings.enabled ? apis.map(({ identifier, name, scopes }) => ({ identifier, name, scopes })) : [],
-    keys: keys.map(serialize),
+    keys: keys.map(serializeApiKey),
   };
 }
 
@@ -144,7 +119,8 @@ export async function createMyApiKey(input: {
     createdAt: new Date(created.createdAt),
     lastUsedAt: null,
     expiresAt: created.expiresAt ? new Date(created.expiresAt) : null,
-    owner: { id: userId, email: session.user.email, name: session.user.name },
+    owner: { type: "user", id: userId, email: session.user.email, name: session.user.name },
+    createdBy: null,
   };
   await recordAudit({
     actor: { id: userId, email: session.user.email },
@@ -153,7 +129,7 @@ export async function createMyApiKey(input: {
     metadata: apiKeyAuditMetadata(item),
     ipAddress: clientIp(requestHeaders),
   });
-  return { ok: true, key: created.key, created: serialize(item) };
+  return { ok: true, key: created.key, created: serializeApiKey(item) };
 }
 
 /** Revokes (deletes) one of the signed-in user's keys. */

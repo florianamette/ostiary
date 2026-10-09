@@ -37,10 +37,13 @@ export type AdminApiKeyRow = {
   createdAt: string;
   lastUsedAt: string | null;
   expiresAt: string | null;
-  owner: { id: string; email: string };
+  /** The user or organization owning the key, labelled by email or name. */
+  owner: { type: "user" | "organization"; id: string; label: string };
+  /** Organization keys: the member who created it, while that account exists. */
+  createdBy: { id: string; email: string } | null;
 };
 
-/** Keys with their owner, API, scopes and dates, and a revoke button. */
+/** Keys with their owner (a user or an organization), API, scopes and dates, and a revoke button. */
 export function ApiKeysTable({
   rows,
   locale,
@@ -99,12 +102,28 @@ export function ApiKeysTable({
                   <TableCell className="max-w-[14rem] text-sm">
                     <span className="block truncate font-medium">{row.name}</span>
                     {row.start ? <code className="font-mono text-xs text-muted-foreground">{row.start}…</code> : null}
+                    {!showOwner && row.createdBy ? (
+                      <span className="block truncate text-xs text-muted-foreground">by {row.createdBy.email}</span>
+                    ) : null}
                   </TableCell>
                   {showOwner ? (
-                    <TableCell className="max-w-[14rem] truncate text-sm">
-                      <Link href={`/users/${row.owner.id}`} className="underline-offset-4 hover:underline">
-                        {row.owner.email}
-                      </Link>
+                    <TableCell className="max-w-[14rem] text-sm">
+                      <span className="flex min-w-0 items-center gap-1.5">
+                        {row.owner.type === "organization" ? (
+                          <Badge variant="outline" className="shrink-0">
+                            Org
+                          </Badge>
+                        ) : null}
+                        <Link
+                          href={row.owner.type === "organization" ? `/organizations/${row.owner.id}` : `/users/${row.owner.id}`}
+                          className="truncate underline-offset-4 hover:underline"
+                        >
+                          {row.owner.label}
+                        </Link>
+                      </span>
+                      {row.createdBy ? (
+                        <span className="block truncate text-xs text-muted-foreground">by {row.createdBy.email}</span>
+                      ) : null}
                     </TableCell>
                   ) : null}
                   <TableCell className="max-w-[14rem] text-sm">
@@ -146,7 +165,9 @@ export function ApiKeysTable({
           <DialogHeader>
             <DialogTitle>Revoke {pending?.name}?</DialogTitle>
             <DialogDescription>
-              The key of {pending?.owner.email} stops working right away. They can create a new one if API keys are on.
+              {pending?.owner.type === "organization"
+                ? `This key of the organization ${pending.owner.label} stops working right away. Its owners and admins can create a new one if API keys are on.`
+                : `The key of ${pending?.owner.label} stops working right away. They can create a new one if API keys are on.`}
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
