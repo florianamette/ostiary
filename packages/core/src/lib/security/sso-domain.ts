@@ -26,3 +26,14 @@ export function parseSsoDomain(raw: string | null | undefined): string | null {
 export function isStrictSsoDomain(stored: string | null | undefined): boolean {
   return typeof stored === "string" && parseSsoDomain(stored) === stored;
 }
+
+/**
+ * Prefix of the DNS TXT record that proves a provider's domain (`_<prefix>-<providerId>`), and
+ * of Better Auth's verification row for it. Changing it invalidates records already published.
+ */
+export const SSO_DOMAIN_TOKEN_PREFIX = "ostiary";
+
+/** The verification row (and TXT record name) of an SSO provider's domain. */
+export function ssoDomainVerificationIdentifier(providerId: string): string {
+  return `_${SSO_DOMAIN_TOKEN_PREFIX}-${providerId}`;
+}
