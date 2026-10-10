@@ -2,7 +2,9 @@ import { and, count, desc, eq, type SQL } from "drizzle-orm";
 import { alias } from "drizzle-orm/pg-core";
 
 import { db } from "@ostiary/core/db/index";
-import { apikey, appSetting, oauthResource, organization, user } from "@ostiary/core/db/schema";
+import { apikey, oauthResource, organization, user } from "@ostiary/core/db/schema";
+import { readAppSetting, writeAppSetting } from "@ostiary/core/lib/app-settings";
+import { refreshingCache } from "@ostiary/core/lib/refreshing-cache";
 import {
   apiAcceptsKeys,
   DEFAULT_API_KEY_SETTINGS,
@@ -20,55 +22,27 @@ import {
 /** Row key in `app_setting`. */
 const SETTINGS_KEY = "api_keys";
 
-/**
- * Like the client registration settings, each instance reloads these at most once a minute,
- * so a change made in the admin console reaches the auth app within a minute.
- */
-const REFRESH_MS = 60_000;
-
-type SettingsCache = { loadedAt: number; inFlight: Promise<ApiKeySettings> | null; current: ApiKeySettings };
-const cache = ((globalThis as { __ostiaryApiKeySettings?: SettingsCache }).__ostiaryApiKeySettings ??= {
-  loadedAt: 0,
-  inFlight: null,
-  current: DEFAULT_API_KEY_SETTINGS,
-});
-
 export async function loadApiKeySettings(): Promise<ApiKeySettings> {
-  const [row] = await db
-    .select({ value: appSetting.value })
-    .from(appSetting)
-    .where(eq(appSetting.key, SETTINGS_KEY))
-    .limit(1);
-  return parseApiKeySettings(row?.value);
+  return parseApiKeySettings(await readAppSetting(SETTINGS_KEY));
 }
+
+/** Off until a first successful load; each instance reloads it at most once a minute. */
+const settingsCache = refreshingCache({
+  globalKey: "__ostiaryApiKeySettings",
+  refreshMs: 60_000,
+  initial: DEFAULT_API_KEY_SETTINGS,
+  load: loadApiKeySettings,
+  loadError: "Could not load the API key settings",
+});
 
 /** Current settings, reloaded from the database when the cached copy is older than a minute. */
 export async function currentApiKeySettings(): Promise<ApiKeySettings> {
-  if (Date.now() - cache.loadedAt < REFRESH_MS) return cache.current;
-  cache.inFlight ??= loadApiKeySettings()
-    .then((settings) => {
-      cache.current = settings;
-      cache.loadedAt = Date.now();
-      return settings;
-    })
-    .catch((error) => {
-      // Keep the previous settings (off until a first successful load); retry next request.
-      console.error("Could not load the API key settings", error);
-      return cache.current;
-    })
-    .finally(() => {
-      cache.inFlight = null;
-    });
-  return cache.inFlight;
+  return settingsCache.get();
 }
 
 export async function saveApiKeySettings(settings: ApiKeySettings, updatedBy: string | null): Promise<void> {
-  const now = new Date();
-  await db
-    .insert(appSetting)
-    .values({ key: SETTINGS_KEY, value: settings, updatedAt: now, updatedBy })
-    .onConflictDoUpdate({ target: appSetting.key, set: { value: settings, updatedAt: now, updatedBy } });
-  cache.loadedAt = 0;
+  await writeAppSetting(SETTINGS_KEY, settings, updatedBy);
+  settingsCache.invalidate();
 }
 
 /** One API, or null when it is not registered. */
