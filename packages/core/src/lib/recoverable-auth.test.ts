@@ -10,6 +10,7 @@ function fakeAuth(databaseUp: () => boolean) {
   return {
     $context,
     api: { getSession: async () => ({ ...(await $context), user: "ada" }) },
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars -- the parameter types the handler
     handler: async (_request: Request) => {
       await $context;
       return new Response("ok");

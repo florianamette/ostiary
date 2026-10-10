@@ -59,7 +59,6 @@ const ACCENT_EXAMPLE = "#2563eb";
 /** Trimmed single line without control characters; null when empty. */
 function cleanText(raw: string | null | undefined, max: number): ValidationResult<string | null> {
   if (raw == null) return { ok: true, value: null };
-  // eslint-disable-next-line no-control-regex
   const value = raw.replace(/[\u0000-\u001f\u007f​-‏‪-‮⁦-⁩]/g, " ").replace(/\s+/g, " ").trim();
   if (!value) return { ok: true, value: null };
   if ([...value].length > max) return { ok: false, error: `Keep it under ${max} characters.`, code: "textTooLong", values: { max } };
