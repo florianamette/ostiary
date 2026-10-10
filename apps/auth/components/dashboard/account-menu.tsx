@@ -75,6 +75,7 @@ export function AccountMenu({
       return;
     }
     // Server components read the session: reload rather than re-render.
+    // eslint-disable-next-line @next/next/no-location-assign-relative-destination -- full load: the active session changed
     window.location.assign(dashboardHref);
   }
 
@@ -84,6 +85,7 @@ export function AccountMenu({
     if (current && others.length > 0) {
       const { error } = await authClient.multiSession.revoke({ sessionToken: current.token });
       if (!error) {
+        // eslint-disable-next-line @next/next/no-location-assign-relative-destination -- full load: the active session changed
         window.location.assign(dashboardHref);
         return;
       }
@@ -94,6 +96,7 @@ export function AccountMenu({
   async function signOutAll() {
     setBusy(true);
     await authClient.signOut();
+    // eslint-disable-next-line @next/next/no-location-assign-relative-destination -- full load: the session is gone
     window.location.assign(`/${locale}/login`);
   }
 
