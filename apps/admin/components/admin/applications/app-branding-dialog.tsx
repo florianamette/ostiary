@@ -15,13 +15,11 @@ import {
 } from "@ostiary/core/components/ui/dialog";
 import { Field, FieldGroup, FieldLabel } from "@ostiary/core/components/ui/field";
 import { Input } from "@ostiary/core/components/ui/input";
-import { Label } from "@ostiary/core/components/ui/label";
 import { Textarea } from "@ostiary/core/components/ui/textarea";
 import { accentPalette, normalizeHexColor } from "@ostiary/core/lib/app-branding/color";
-import { BRANDING_LIMITS, type LogoSource } from "@ostiary/core/lib/app-branding/validation";
+import { BRANDING_LIMITS } from "@ostiary/core/lib/app-branding/validation";
 import type { AppBrandingSettings } from "@ostiary/core/lib/app-branding/store";
 import { brand } from "@ostiary/core/lib/brand";
-import { cn } from "@ostiary/core/lib/utils";
 import { adminNotify } from "@ostiary/core/lib/admin/admin-notify";
 import {
   loadAppBranding,
@@ -29,7 +27,13 @@ import {
   saveAppBrandingAction,
   type BrandingDialogData,
 } from "@/app/[locale]/(console)/applications/branding-actions";
-import { AccentContrast, BrandingPreview } from "@/components/admin/applications/app-branding-preview";
+import {
+  AccentField,
+  LogoField,
+  SocialProvidersField,
+  type BrandingFormState,
+} from "@/components/admin/applications/app-branding-fields";
+import { BrandingPreview } from "@/components/admin/applications/app-branding-preview";
 import { adminAppIconUrl } from "@/lib/app-icon-url";
 
 function assetUrl(clientId: string, asset: "logo" | "panel", version: string | null) {
@@ -51,19 +55,7 @@ function useObjectUrl(file: File | null): string | null {
   return url;
 }
 
-type FormState = {
-  displayName: string;
-  tagline: string;
-  accentEnabled: boolean;
-  accentColor: string;
-  logoSource: LogoSource;
-  logoUrl: string;
-  panelText: string;
-  socialMode: "all" | "some";
-  socialProviders: string[];
-};
-
-function toForm(settings: AppBrandingSettings): FormState {
+function toForm(settings: AppBrandingSettings): BrandingFormState {
   return {
     displayName: settings.displayName ?? "",
     tagline: settings.tagline ?? "",
@@ -75,6 +67,26 @@ function toForm(settings: AppBrandingSettings): FormState {
     socialMode: settings.socialProviders ? "some" : "all",
     socialProviders: settings.socialProviders ?? [],
   };
+}
+
+/** The body `saveAppBrandingAction` reads. */
+function toFormData(
+  form: BrandingFormState,
+  files: { logoFile: File | null; panelFile: File | null; removePanel: boolean },
+): FormData {
+  const body = new FormData();
+  body.set("displayName", form.displayName);
+  body.set("tagline", form.tagline);
+  body.set("accentColor", form.accentEnabled ? form.accentColor : "");
+  body.set("logoSource", form.logoSource);
+  body.set("logoUrl", form.logoUrl);
+  body.set("panelText", form.panelText);
+  body.set("socialMode", form.socialMode);
+  for (const id of form.socialProviders) body.append("socialProviders", id);
+  if (files.logoFile && form.logoSource === "upload") body.set("logo", files.logoFile);
+  if (files.panelFile) body.set("panelImage", files.panelFile);
+  if (files.removePanel) body.set("removePanelImage", "1");
+  return body;
 }
 
 export function AppBrandingDialog({
@@ -91,7 +103,7 @@ export function AppBrandingDialog({
   const tCommon = useTranslations("admin.common");
   const [data, setData] = React.useState<BrandingDialogData | null>(null);
   const [loadError, setLoadError] = React.useState<string | null>(null);
-  const [form, setForm] = React.useState<FormState | null>(null);
+  const [form, setForm] = React.useState<BrandingFormState | null>(null);
   const [logoFile, setLogoFile] = React.useState<File | null>(null);
   const [panelFile, setPanelFile] = React.useState<File | null>(null);
   const [removePanel, setRemovePanel] = React.useState(false);
@@ -125,7 +137,7 @@ export function AppBrandingDialog({
     };
   }, [open, clientId]);
 
-  const update = <K extends keyof FormState>(key: K, value: FormState[K]) =>
+  const update = <K extends keyof BrandingFormState>(key: K, value: BrandingFormState[K]) =>
     setForm((current) => (current ? { ...current, [key]: value } : current));
 
   const accent = form?.accentEnabled ? normalizeHexColor(form.accentColor) : null;
@@ -157,18 +169,7 @@ export function AppBrandingDialog({
       setError(t("accentInvalid", { example: "#2563eb" }));
       return;
     }
-    const body = new FormData();
-    body.set("displayName", form.displayName);
-    body.set("tagline", form.tagline);
-    body.set("accentColor", form.accentEnabled ? form.accentColor : "");
-    body.set("logoSource", form.logoSource);
-    body.set("logoUrl", form.logoUrl);
-    body.set("panelText", form.panelText);
-    body.set("socialMode", form.socialMode);
-    for (const id of form.socialProviders) body.append("socialProviders", id);
-    if (logoFile && form.logoSource === "upload") body.set("logo", logoFile);
-    if (panelFile) body.set("panelImage", panelFile);
-    if (removePanel) body.set("removePanelImage", "1");
+    const body = toFormData(form, { logoFile, panelFile, removePanel });
     setPending("save");
     try {
       const result = await saveAppBrandingAction(clientId, body);
@@ -248,101 +249,9 @@ export function AppBrandingDialog({
                 />
               </Field>
 
-              <Field>
-                <div className="flex items-center gap-2">
-                  <input
-                    id={id("accent-on")}
-                    type="checkbox"
-                    className="size-4 rounded border-input"
-                    checked={form.accentEnabled}
-                    onChange={(e) => update("accentEnabled", e.target.checked)}
-                  />
-                  <Label htmlFor={id("accent-on")} className="font-medium">
-                    {t("accent")}
-                  </Label>
-                </div>
-                {form.accentEnabled ? (
-                  <>
-                    <div className="flex items-center gap-2">
-                      <input
-                        type="color"
-                        aria-label={t("accentPick")}
-                        className="h-9 w-12 cursor-pointer rounded-md border border-input bg-background p-1"
-                        value={accent ?? "#000000"}
-                        onChange={(e) => update("accentColor", e.target.value)}
-                      />
-                      <Input
-                        id={id("accent")}
-                        aria-label={t("accentHex")}
-                        value={form.accentColor}
-                        className="w-32 font-mono"
-                        aria-invalid={!accent}
-                        onChange={(e) => update("accentColor", e.target.value)}
-                      />
-                    </div>
-                    {palette ? (
-                      <AccentContrast palette={palette} />
-                    ) : (
-                      <p className="text-destructive text-xs">{t("hexInvalid", { example: "#2563eb" })}</p>
-                    )}
-                  </>
-                ) : (
-                  <p className="text-muted-foreground text-xs">{t("accentOff")}</p>
-                )}
-              </Field>
+              <AccentField form={form} update={update} accent={accent} palette={palette} id={id} />
 
-              <Field>
-                <FieldLabel>{t("logo")}</FieldLabel>
-                <div role="radiogroup" aria-label={t("logoSourceLabel")} className="flex flex-wrap gap-2">
-                  {(["app_icon", "url", "upload"] as const).map((value) => (
-                    <label
-                      key={value}
-                      className={cn(
-                        "flex cursor-pointer items-center gap-2 rounded-md border px-3 py-1.5 text-sm",
-                        form.logoSource === value ? "border-foreground/40 bg-muted" : "border-border",
-                      )}
-                    >
-                      <input
-                        type="radio"
-                        name={id("logo-source")}
-                        value={value}
-                        checked={form.logoSource === value}
-                        onChange={() => update("logoSource", value)}
-                      />
-                      {t(`logoSource.${value}`)}
-                    </label>
-                  ))}
-                </div>
-                {form.logoSource === "app_icon" ? (
-                  <p className="text-muted-foreground text-xs">{t("logoAppIconHint", { field: "logo_uri" })}</p>
-                ) : null}
-                {form.logoSource === "url" ? (
-                  <>
-                    <Input
-                      aria-label={t("logoUrl")}
-                      value={form.logoUrl}
-                      placeholder="https://cdn.example.com/logo.svg"
-                      className="font-mono text-xs"
-                      onChange={(e) => update("logoUrl", e.target.value)}
-                    />
-                    <p className="text-muted-foreground text-xs">
-                      {t("logoUrlHint", { name: brand.name })}
-                    </p>
-                  </>
-                ) : null}
-                {form.logoSource === "upload" ? (
-                  <>
-                    <Input
-                      aria-label={t("logoFile")}
-                      type="file"
-                      accept="image/png,image/jpeg,image/gif,image/webp,image/avif,image/svg+xml,image/x-icon"
-                      onChange={(e) => setLogoFile(e.target.files?.[0] ?? null)}
-                    />
-                    <p className="text-muted-foreground text-xs">{t("logoFileHint")}</p>
-                  </>
-                ) : null}
-                {logoNote ? <p className="text-muted-foreground text-xs">{logoNote}</p> : null}
-              </Field>
+              <LogoField form={form} update={update} onLogoFile={setLogoFile} logoNote={logoNote} id={id} />
 
               <Field>
                 <FieldLabel htmlFor={id("panel-text")}>{t("panel")}</FieldLabel>
@@ -382,47 +291,7 @@ export function AppBrandingDialog({
                 <p className="text-muted-foreground text-xs">{t("panelHint")}</p>
               </Field>
 
-              <Field>
-                <FieldLabel>{t("social")}</FieldLabel>
-                {data.socialProviders.length === 0 ? (
-                  <p className="text-muted-foreground text-xs">{t("socialNone")}</p>
-                ) : (
-                  <>
-                    <div role="radiogroup" aria-label={t("socialShown")} className="flex flex-wrap gap-3 text-sm">
-                      <label className="flex items-center gap-2">
-                        <input type="radio" checked={form.socialMode === "all"} onChange={() => update("socialMode", "all")} />
-                        {t("socialAll")}
-                      </label>
-                      <label className="flex items-center gap-2">
-                        <input type="radio" checked={form.socialMode === "some"} onChange={() => update("socialMode", "some")} />
-                        {t("socialSome")}
-                      </label>
-                    </div>
-                    {form.socialMode === "some" ? (
-                      <div className="flex flex-wrap gap-3 text-sm">
-                        {data.socialProviders.map((p) => (
-                          <label key={p.id} className="flex items-center gap-2">
-                            <input
-                              type="checkbox"
-                              checked={form.socialProviders.includes(p.id)}
-                              onChange={(e) =>
-                                update(
-                                  "socialProviders",
-                                  e.target.checked ? [...form.socialProviders, p.id] : form.socialProviders.filter((x) => x !== p.id),
-                                )
-                              }
-                            />
-                            {p.name}
-                          </label>
-                        ))}
-                      </div>
-                    ) : null}
-                    <p className="text-muted-foreground text-xs">
-                      {t("socialHint")}
-                    </p>
-                  </>
-                )}
-              </Field>
+              <SocialProvidersField form={form} update={update} providers={data.socialProviders} />
             </FieldGroup>
 
             <div className="space-y-3 md:sticky md:top-0 md:self-start">
