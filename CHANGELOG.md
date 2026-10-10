@@ -6,6 +6,13 @@ All notable changes are documented here. The format follows
 
 ## [Unreleased]
 
+### Documentation
+
+- The README is an overview again (776 → 189 lines): the guides moved to `docs/` (connect an app,
+  social sign-in, enterprise SSO, SCIM, webhooks, MCP and agents, API keys, your data,
+  configuration, security, testing). Both `.env.example` files say where each value comes from;
+  the admin one was ignored by git and is now in the repository.
+
 ### Added
 
 - **Vercel Web Analytics, opt-in.** `VERCEL_ANALYTICS=true` adds it to both apps. Page views

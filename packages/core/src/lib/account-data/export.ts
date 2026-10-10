@@ -32,8 +32,8 @@ import { registrationSource } from "@ostiary/core/lib/client-registration-policy
  * JSON document. Each section lists the columns it copies, so a new column (a token, a secret)
  * never reaches an export by itself. Never included: password hashes, OAuth and session tokens,
  * provider tokens, two-factor secrets and backup codes, passkey public keys and credential IDs,
- * API keys or their digests, client secrets, and other people's IP addresses. The README's
- * "Your data" section maps every table to what the export takes from it.
+ * API keys or their digests, client secrets, and other people's IP addresses. docs/account-data.md
+ * maps every table to what the export takes from it.
  */
 
 export const ACCOUNT_EXPORT_FORMAT = "ostiary.account-export";

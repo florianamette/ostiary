@@ -153,6 +153,7 @@ export function LoginForm({
       if (needsTwoFactor(data)) {
         // Same query string: it carries the callbackURL and, for an app's sign-in, the
         // signed OAuth request that resumes once the code is verified.
+        // eslint-disable-next-line @next/next/no-location-assign-relative-destination -- full load: the sign-in set a two-factor cookie
         window.location.assign(`/${locale}/two-factor${window.location.search}`);
       }
     } finally {
@@ -193,6 +194,7 @@ export function LoginForm({
           captcha={captchaConfig}
           onUsePassword={() => setMode("password")}
           // Same query string as after a password: callbackURL and any signed OAuth request.
+          // eslint-disable-next-line @next/next/no-location-assign-relative-destination -- full load: the sign-in set a two-factor cookie
           onTwoFactor={() => window.location.assign(`/${locale}/two-factor${window.location.search}`)}
         />
       </div>

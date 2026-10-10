@@ -6,7 +6,7 @@ import { expect, test } from "../support/fixtures";
 
 type Delivery = { headers: Record<string, string>; body: string };
 
-/** The Standard Webhooks check from the README. */
+/** The Standard Webhooks check from docs/webhooks.md. */
 function verifySignature(secret: string, headers: Record<string, string>, body: string): boolean {
   const key = Buffer.from(secret.slice("whsec_".length), "base64");
   const signed = `${headers["webhook-id"]}.${headers["webhook-timestamp"]}.${body}`;

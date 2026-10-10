@@ -43,6 +43,7 @@ export function AcceptInvitationForm({
       }
       setDone(true);
       toast.success(t("success"));
+      // eslint-disable-next-line @next/next/no-location-assign-relative-destination -- full load: the new membership changes what server components render
       window.location.assign("/dashboard");
     } finally {
       setSubmitting(false);

@@ -61,6 +61,7 @@ export function GoogleOneTap({
             if (data && typeof data === "object" && "twoFactorRedirect" in data && data.twoFactorRedirect) {
               const params = new URLSearchParams(window.location.search);
               if (!params.has("callbackURL")) params.set("callbackURL", callbackURL);
+              // eslint-disable-next-line @next/next/no-location-assign-relative-destination -- full load: the sign-in set a two-factor cookie
               window.location.assign(`/${locale}/two-factor?${params.toString()}`);
               return;
             }

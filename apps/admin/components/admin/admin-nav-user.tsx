@@ -39,6 +39,7 @@ function signOutAndRedirectToLogin() {
     fetchOptions: {
       onSuccess: () => {
         // Sign-in lives on the auth app: the admin proxy sends "/" there and back here afterwards.
+        // eslint-disable-next-line @next/next/no-location-assign-relative-destination -- full load: the session is gone and the proxy redirects
         window.location.href = "/";
       },
     },
