@@ -11,7 +11,6 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@ostiary/core/components/ui/dialog";
@@ -31,6 +30,7 @@ import {
   renameOrganization,
   updateMemberRole,
 } from "@/app/[locale]/(console)/organizations/[id]/actions";
+import { DialogActions } from "@/components/admin/common/dialog-actions";
 
 type Role = "owner" | "admin" | "member";
 const ROLES: Role[] = ["owner", "admin", "member"];
@@ -135,9 +135,16 @@ function ConfirmButton({
   confirmLabel: string;
   onConfirm: () => Promise<boolean>;
 }) {
-  const tc = useTranslations("admin.common");
   const [open, setOpen] = React.useState(false);
   const [busy, setBusy] = React.useState(false);
+
+  async function confirm() {
+    setBusy(true);
+    const ok = await onConfirm();
+    setBusy(false);
+    if (ok) setOpen(false);
+  }
+
   return (
     <>
       <Button type="button" variant="ghost" size="icon-sm" aria-label={label} onClick={() => setOpen(true)}>
@@ -149,25 +156,7 @@ function ConfirmButton({
             <DialogTitle>{title}</DialogTitle>
             <DialogDescription>{body}</DialogDescription>
           </DialogHeader>
-          <DialogFooter>
-            <Button type="button" variant="outline" disabled={busy} onClick={() => setOpen(false)}>
-              {tc("cancel")}
-            </Button>
-            <Button
-              type="button"
-              variant="destructive"
-              disabled={busy}
-              onClick={async () => {
-                setBusy(true);
-                const ok = await onConfirm();
-                setBusy(false);
-                if (ok) setOpen(false);
-              }}
-            >
-              {busy ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
-              {confirmLabel}
-            </Button>
-          </DialogFooter>
+          <DialogActions busy={busy} onCancel={() => setOpen(false)} onConfirm={() => void confirm()} confirmLabel={confirmLabel} destructive />
         </DialogContent>
       </Dialog>
     </>

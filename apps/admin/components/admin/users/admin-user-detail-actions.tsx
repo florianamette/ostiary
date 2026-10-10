@@ -6,13 +6,13 @@ import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
 
+import { DialogActions } from "@/components/admin/common/dialog-actions";
 import { AdminUserRowActions } from "@/components/admin/users/admin-user-row-actions";
 import { Button } from "@ostiary/core/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@ostiary/core/components/ui/dialog";
@@ -46,7 +46,6 @@ export function AdminUserDetailActions({
   const router = useRouter();
   const locale = useLocale();
   const t = useTranslations("admin.pages.users.detailActions");
-  const tc = useTranslations("admin.common");
   const isSelf = user.id === currentUserId;
   const [confirm, setConfirm] = React.useState<"impersonate" | "signout" | null>(null);
   const [busy, setBusy] = React.useState(false);
@@ -143,20 +142,13 @@ export function AdminUserDetailActions({
                 : t("signOutDescription")}
             </DialogDescription>
           </DialogHeader>
-          <DialogFooter>
-            <Button type="button" variant="outline" disabled={busy} onClick={() => setConfirm(null)}>
-              {tc("cancel")}
-            </Button>
-            <Button
-              type="button"
-              variant={confirm === "signout" ? "destructive" : "default"}
-              disabled={busy}
-              onClick={() => void (confirm === "impersonate" ? impersonate() : signOutEverywhere())}
-            >
-              {busy ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
-              {confirm === "impersonate" ? t("impersonate") : t("signOutEverywhere")}
-            </Button>
-          </DialogFooter>
+          <DialogActions
+            busy={busy}
+            onCancel={() => setConfirm(null)}
+            onConfirm={() => void (confirm === "impersonate" ? impersonate() : signOutEverywhere())}
+            confirmLabel={confirm === "impersonate" ? t("impersonate") : t("signOutEverywhere")}
+            destructive={confirm === "signout"}
+          />
         </DialogContent>
       </Dialog>
     </>
@@ -197,7 +189,6 @@ export function RevokeSessionButton({ userId, sessionId }: { userId: string; ses
 export function ResetTwoFactorButton({ userId, email }: { userId: string; email: string }) {
   const router = useRouter();
   const t = useTranslations("admin.pages.users.detailActions");
-  const tc = useTranslations("admin.common");
   const [open, setOpen] = React.useState(false);
   const [busy, setBusy] = React.useState(false);
 
@@ -230,15 +221,7 @@ export function ResetTwoFactorButton({ userId, email }: { userId: string; email:
               {t("resetTwoFactorDescription")}
             </DialogDescription>
           </DialogHeader>
-          <DialogFooter>
-            <Button type="button" variant="outline" disabled={busy} onClick={() => setOpen(false)}>
-              {tc("cancel")}
-            </Button>
-            <Button type="button" variant="destructive" disabled={busy} onClick={() => void reset()}>
-              {busy ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
-              {t("reset")}
-            </Button>
-          </DialogFooter>
+          <DialogActions busy={busy} onCancel={() => setOpen(false)} onConfirm={() => void reset()} confirmLabel={t("reset")} destructive />
         </DialogContent>
       </Dialog>
     </>
