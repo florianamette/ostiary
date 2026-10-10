@@ -9,6 +9,7 @@ import { AdminUserRowActions } from "@/components/admin/users/admin-user-row-act
 import { TableMessageRow, TablePagination, TableSearch } from "@/components/admin/common/admin-table";
 import { useDebouncedValue } from "@/components/admin/common/use-debounced-value";
 import { usePagination } from "@/components/admin/common/use-pagination";
+import { ExternalLink } from "@/components/admin/common/external-link";
 import { Alert, AlertDescription, AlertTitle } from "@ostiary/core/components/ui/alert";
 import { Badge } from "@ostiary/core/components/ui/badge";
 import {
@@ -292,14 +293,7 @@ export function AdminUsersPanel() {
             <code className="rounded bg-muted px-1 py-0.5 font-mono">{chunks}</code>
           ),
           link: (chunks) => (
-            <a
-              href="https://better-auth.com/docs/plugins/admin"
-              className="font-medium text-foreground underline-offset-4 hover:underline"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {chunks}
-            </a>
+            <ExternalLink href="https://better-auth.com/docs/plugins/admin">{chunks}</ExternalLink>
           ),
         })}
       </p>

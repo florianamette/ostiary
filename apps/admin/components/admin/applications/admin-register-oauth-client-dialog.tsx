@@ -32,6 +32,7 @@ import { MotionPanel } from "@ostiary/core/components/motion/motion-panel";
 import { adminNotify } from "@ostiary/core/lib/admin/admin-notify";
 import { DEVICE_CODE_GRANT_TYPE } from "@ostiary/core/lib/admin/oauth-clients/oauth-client-admin.types";
 import { CheckboxField } from "@/components/admin/common/choice-field";
+import { ExternalLink } from "@/components/admin/common/external-link";
 import { asRecord, parseRedirectUris, routeError } from "@/lib/oauth-client-payload";
 
 export function AdminRegisterOAuthClientDialog({
@@ -157,14 +158,7 @@ export function AdminRegisterOAuthClientDialog({
                   field: "skip_consent",
                   code: (c) => <code className="text-foreground">{c}</code>,
                   link: (c) => (
-                    <a
-                      href="https://better-auth.com/docs/plugins/oauth-provider#create-client"
-                      className="font-medium text-foreground underline-offset-4 hover:underline"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {c}
-                    </a>
+                    <ExternalLink href="https://better-auth.com/docs/plugins/oauth-provider#create-client">{c}</ExternalLink>
                   ),
                 })}
               </DialogDescription>

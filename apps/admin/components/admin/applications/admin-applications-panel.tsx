@@ -12,6 +12,7 @@ import { SelfRegisteredRowActions } from "@/components/admin/applications/self-r
 import { TableMessageRow, TablePagination, TableSearch } from "@/components/admin/common/admin-table";
 import { useDebouncedValue } from "@/components/admin/common/use-debounced-value";
 import { usePagination } from "@/components/admin/common/use-pagination";
+import { ExternalLink } from "@/components/admin/common/external-link";
 import { AppIcon } from "@ostiary/core/components/app-icon";
 import { Alert, AlertDescription, AlertTitle } from "@ostiary/core/components/ui/alert";
 import { Badge } from "@ostiary/core/components/ui/badge";
@@ -462,14 +463,7 @@ export function AdminApplicationsPanel({
           clientReference: "clientReference",
           code: (chunks) => <code className="rounded bg-muted px-1 py-0.5 font-mono">{chunks}</code>,
           docs: (chunks) => (
-            <a
-              href="https://better-auth.com/docs/plugins/oauth-provider#list-clients"
-              className="font-medium text-foreground underline-offset-4 hover:underline"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {chunks}
-            </a>
+            <ExternalLink href="https://better-auth.com/docs/plugins/oauth-provider#list-clients">{chunks}</ExternalLink>
           ),
         })}
       </p>
