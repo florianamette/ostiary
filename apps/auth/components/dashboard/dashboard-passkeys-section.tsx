@@ -39,14 +39,20 @@ function isRegistrationCancelled(err: unknown): boolean {
   );
 }
 
+type Attachment = "platform" | "cross-platform";
+
+/** The two ways to add a passkey: this device's authenticator, or a security key. */
+const ADD_OPTIONS = [
+  { attachment: "platform", labelKey: "addThisDevice" },
+  { attachment: "cross-platform", labelKey: "addSecurityKey" },
+] as const satisfies readonly { attachment: Attachment; labelKey: string }[];
+
 export function DashboardPasskeysSection() {
   const t = useTranslations("dashboard.passkeys");
   const locale = useLocale();
   const [rows, setRows] = React.useState<PasskeyRow[]>([]);
   const [loading, setLoading] = React.useState(true);
-  const [adding, setAdding] = React.useState<"platform" | "cross-platform" | null>(
-    null,
-  );
+  const [adding, setAdding] = React.useState<Attachment | null>(null);
   const [deletingId, setDeletingId] = React.useState<string | null>(null);
   const [pendingDelete, setPendingDelete] = React.useState<PasskeyRow | null>(
     null,
@@ -82,7 +88,7 @@ export function DashboardPasskeysSection() {
     void loadPasskeys();
   }, [loadPasskeys]);
 
-  async function handleAdd(attachment: "platform" | "cross-platform") {
+  async function handleAdd(attachment: Attachment) {
     setAdding(attachment);
     try {
       const { data, error } = await authClient.passkey.addPasskey({
@@ -110,10 +116,13 @@ export function DashboardPasskeysSection() {
     }
   }
 
-  async function handleDelete(id: string) {
-    setDeletingId(id);
+  async function confirmDelete() {
+    const row = pendingDelete;
+    if (!row) return;
+    setPendingDelete(null);
+    setDeletingId(row.id);
     try {
-      const { error } = await authClient.passkey.deletePasskey({ id });
+      const { error } = await authClient.passkey.deletePasskey({ id: row.id });
       if (error) {
         toast.error(String(error.message ?? t("deleteError")));
         return;
@@ -123,13 +132,6 @@ export function DashboardPasskeysSection() {
     } finally {
       setDeletingId(null);
     }
-  }
-
-  async function confirmDelete() {
-    const row = pendingDelete;
-    if (!row) return;
-    setPendingDelete(null);
-    await handleDelete(row.id);
   }
 
   function startRename(row: PasskeyRow) {
@@ -166,30 +168,21 @@ export function DashboardPasskeysSection() {
           <FieldDescription>{t("hint")}</FieldDescription>
         </div>
         <div className="flex flex-wrap gap-2">
-          <Button
-            type="button"
-            variant="outline"
-            size="sm"
-            disabled={adding !== null}
-            onClick={() => void handleAdd("platform")}
-          >
-            {adding === "platform" ? (
-              <Loader2 className="size-4 animate-spin" aria-hidden />
-            ) : null}
-            {t("addThisDevice")}
-          </Button>
-          <Button
-            type="button"
-            variant="outline"
-            size="sm"
-            disabled={adding !== null}
-            onClick={() => void handleAdd("cross-platform")}
-          >
-            {adding === "cross-platform" ? (
-              <Loader2 className="size-4 animate-spin" aria-hidden />
-            ) : null}
-            {t("addSecurityKey")}
-          </Button>
+          {ADD_OPTIONS.map(({ attachment, labelKey }) => (
+            <Button
+              key={attachment}
+              type="button"
+              variant="outline"
+              size="sm"
+              disabled={adding !== null}
+              onClick={() => void handleAdd(attachment)}
+            >
+              {adding === attachment ? (
+                <Loader2 className="size-4 animate-spin" aria-hidden />
+              ) : null}
+              {t(labelKey)}
+            </Button>
+          ))}
         </div>
       </div>
 
