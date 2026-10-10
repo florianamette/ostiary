@@ -2065,6 +2065,8 @@
       "scanHint": "Skann den med en autentiseringsapp som 1Password, Google Authenticator eller Microsoft Authenticator, og skriv deretter inn den 6-sifrede koden som vises.",
       "qrAlt": "QR-kode for å legge til denne kontoen i en autentiseringsapp",
       "manualKey": "Får du ikke skannet? Skriv inn denne nøkkelen i appen:",
+      "openInApp": "Åpne i autentiseringsappen",
+      "keyCopied": "Nøkkelen er kopiert",
       "codeLabel": "6-sifret kode",
       "verify": "Bekreft og slå på",
       "codesTitle": "Lagre reservekodene",

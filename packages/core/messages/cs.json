@@ -2065,6 +2065,8 @@
       "scanHint": "Naskenujte ho ověřovací aplikací, například 1Password, Google Authenticator nebo Microsoft Authenticator, a pak zadejte zobrazený 6místný kód.",
       "qrAlt": "QR kód pro přidání tohoto účtu do ověřovací aplikace",
       "manualKey": "Nejde to naskenovat? Zadejte v aplikaci tento klíč:",
+      "openInApp": "Otevřít v ověřovací aplikaci",
+      "keyCopied": "Klíč zkopírován",
       "codeLabel": "6místný kód",
       "verify": "Ověřit a zapnout",
       "codesTitle": "Uložte si záložní kódy",

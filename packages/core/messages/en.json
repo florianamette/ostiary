@@ -2065,6 +2065,8 @@
       "scanHint": "Scan it with an authenticator app such as 1Password, Google Authenticator or Microsoft Authenticator, then enter the 6-digit code it shows.",
       "qrAlt": "QR code to add this account to an authenticator app",
       "manualKey": "Can't scan it? Enter this key in your app:",
+      "openInApp": "Open in authenticator app",
+      "keyCopied": "Key copied",
       "codeLabel": "6-digit code",
       "verify": "Verify and turn on",
       "codesTitle": "Save your backup codes",

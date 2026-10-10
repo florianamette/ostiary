@@ -2065,6 +2065,8 @@
       "scanHint": "Scan den med en godkendelsesapp som 1Password, Google Authenticator eller Microsoft Authenticator, og indtast derefter den 6-cifrede kode, den viser.",
       "qrAlt": "QR-kode til at tilføje denne konto i en godkendelsesapp",
       "manualKey": "Kan du ikke scanne den? Indtast denne nøgle i din app:",
+      "openInApp": "Åbn i godkendelsesappen",
+      "keyCopied": "Nøglen er kopieret",
       "codeLabel": "6-cifret kode",
       "verify": "Bekræft og slå til",
       "codesTitle": "Gem dine backupkoder",

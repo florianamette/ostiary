@@ -2065,6 +2065,8 @@
       "scanHint": "Scan hem met een authenticator-app zoals 1Password, Google Authenticator of Microsoft Authenticator en voer daarna de 6-cijferige code in die de app toont.",
       "qrAlt": "QR-code om dit account aan een authenticator-app toe te voegen",
       "manualKey": "Lukt scannen niet? Voer deze sleutel in je app in:",
+      "openInApp": "Openen in authenticator-app",
+      "keyCopied": "Sleutel gekopieerd",
       "codeLabel": "6-cijferige code",
       "verify": "Verifiëren en inschakelen",
       "codesTitle": "Bewaar je back-upcodes",

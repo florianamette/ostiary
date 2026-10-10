@@ -2065,6 +2065,8 @@
       "scanHint": "1Password、Google Authenticator、Microsoft Authenticator などの認証アプリでスキャンし、表示された6桁のコードを入力してください。",
       "qrAlt": "このアカウントを認証アプリに追加するためのQRコード",
       "manualKey": "スキャンできない場合は、このキーをアプリに入力してください:",
+      "openInApp": "認証アプリで開く",
+      "keyCopied": "キーをコピーしました",
       "codeLabel": "6桁のコード",
       "verify": "確認してオンにする",
       "codesTitle": "バックアップコードを保存",

@@ -2065,6 +2065,8 @@
       "scanHint": "1Password, Google Authenticator veya Microsoft Authenticator gibi bir kimlik doğrulama uygulamasıyla tarayın, ardından gösterilen 6 haneli kodu girin.",
       "qrAlt": "Bu hesabı bir kimlik doğrulama uygulamasına eklemek için QR kodu",
       "manualKey": "Tarayamıyor musunuz? Bu anahtarı uygulamanıza girin:",
+      "openInApp": "Kimlik doğrulama uygulamasında aç",
+      "keyCopied": "Anahtar kopyalandı",
       "codeLabel": "6 haneli kod",
       "verify": "Doğrula ve aç",
       "codesTitle": "Yedek kodlarınızı kaydedin",

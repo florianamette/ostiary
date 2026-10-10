@@ -2065,6 +2065,8 @@
       "scanHint": "Skannaa se todennussovelluksella, kuten 1Password, Google Authenticator tai Microsoft Authenticator, ja anna sitten näkyvä 6-numeroinen koodi.",
       "qrAlt": "QR-koodi tämän tilin lisäämiseksi todennussovellukseen",
       "manualKey": "Etkö voi skannata? Anna tämä avain sovellukseen:",
+      "openInApp": "Avaa todennussovelluksessa",
+      "keyCopied": "Avain kopioitu",
       "codeLabel": "6-numeroinen koodi",
       "verify": "Vahvista ja ota käyttöön",
       "codesTitle": "Tallenna varakoodit",

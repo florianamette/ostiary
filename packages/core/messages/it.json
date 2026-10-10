@@ -2065,6 +2065,8 @@
       "scanHint": "Scansionalo con un’app di autenticazione come 1Password, Google Authenticator o Microsoft Authenticator, poi inserisci il codice a 6 cifre che mostra.",
       "qrAlt": "Codice QR per aggiungere questo account a un’app di autenticazione",
       "manualKey": "Non riesci a scansionarlo? Inserisci questa chiave nella tua app:",
+      "openInApp": "Apri nell’app di autenticazione",
+      "keyCopied": "Chiave copiata",
       "codeLabel": "Codice a 6 cifre",
       "verify": "Verifica e attiva",
       "codesTitle": "Salva i codici di backup",

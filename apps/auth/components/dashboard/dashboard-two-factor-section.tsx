@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Copy, Download, Loader2 } from "lucide-react";
+import { Copy, Download, ExternalLink, Loader2 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -124,6 +124,15 @@ export function DashboardTwoFactorSection({
       );
     });
   }, []);
+
+  async function copyKey(totpURI: string) {
+    try {
+      await navigator.clipboard.writeText(new URL(totpURI).searchParams.get("secret") ?? "");
+      toast.success(t("keyCopied"));
+    } catch {
+      toast.error(t("errors.generic"));
+    }
+  }
 
   function close() {
     if (busy) return;
@@ -342,6 +351,20 @@ export function DashboardTwoFactorSection({
             <div className="w-full space-y-1 text-center">
               <p className="text-xs text-muted-foreground">{t("manualKey")}</p>
               <p className="break-all font-mono text-sm select-all">{manualKey(flow.totpURI)}</p>
+            </div>
+            {/* On a phone the QR code is on the same screen: open the otpauth:// link instead
+                (Apple Passwords, 1Password, Google and Microsoft Authenticator handle it). */}
+            <div className="flex flex-wrap justify-center gap-2">
+              <Button asChild variant="outline" size="sm">
+                <a href={flow.totpURI}>
+                  <ExternalLink className="size-4" aria-hidden />
+                  {t("openInApp")}
+                </a>
+              </Button>
+              <Button type="button" variant="outline" size="sm" onClick={() => void copyKey(flow.totpURI)}>
+                <Copy className="size-4" aria-hidden />
+                {t("copy")}
+              </Button>
             </div>
           </div>
           <FieldGroup className="pb-4">
