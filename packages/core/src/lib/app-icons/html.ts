@@ -12,7 +12,7 @@ function decodeEntities(value: string): string {
 }
 
 /** Attributes of one tag, names lowercased. */
-export function parseAttributes(tag: string): Record<string, string> {
+function parseAttributes(tag: string): Record<string, string> {
   const attributes: Record<string, string> = {};
   const pattern = /([^\s"'<>/=]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'=<>`]+)))?/g;
   // Skip the tag name.

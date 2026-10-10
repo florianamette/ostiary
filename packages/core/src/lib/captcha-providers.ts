@@ -11,7 +11,7 @@ export type CaptchaProvider = (typeof CAPTCHA_PROVIDERS)[number];
 /** What a sign-in screen needs to render the widget. Both values are public. */
 export type CaptchaConfig = { provider: CaptchaProvider; siteKey: string };
 
-export function isCaptchaProvider(value: unknown): value is CaptchaProvider {
+function isCaptchaProvider(value: unknown): value is CaptchaProvider {
   return typeof value === "string" && (CAPTCHA_PROVIDERS as readonly string[]).includes(value);
 }
 

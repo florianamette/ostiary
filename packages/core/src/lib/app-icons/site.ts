@@ -25,7 +25,7 @@ export type ClientSiteInfo = {
 const PRIVATE_SUFFIXES = [".local", ".localhost", ".internal", ".lan", ".home.arpa", ".test", ".invalid", ".example"];
 
 /** A host a person could visit on the public web: a dotted public name or public IP. */
-export function isPublicWebHost(hostname: string): boolean {
+function isPublicWebHost(hostname: string): boolean {
   const host = hostname.replace(/^\[|\]$/g, "").toLowerCase().replace(/\.$/, "");
   if (classifyHost(host).kind !== "public") return false;
   if (classifyHost(host).literal === "fqdn") {

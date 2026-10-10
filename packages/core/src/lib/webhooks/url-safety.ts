@@ -39,7 +39,7 @@ export type UrlRefusal = {
 
 export type UrlCheck = { ok: true; url: URL; addresses: ResolvedAddress[] } | UrlRefusal;
 
-export const MAX_WEBHOOK_URL_LENGTH = 2048;
+const MAX_WEBHOOK_URL_LENGTH = 2048;
 
 const defaultLookup: Lookup = (hostname) => dnsLookup(hostname, { all: true, verbatim: true });
 
@@ -70,7 +70,7 @@ export function parseWebhookUrl(raw: string, allowLocalhost: boolean): { ok: tru
 }
 
 /** Whether a resolved address may be connected to. */
-export function addressAllowed(address: string, allowLocalhost: boolean): boolean {
+function addressAllowed(address: string, allowLocalhost: boolean): boolean {
   const kind = classifyHost(address).kind;
   return kind === "public" || (allowLocalhost && kind === "loopback");
 }

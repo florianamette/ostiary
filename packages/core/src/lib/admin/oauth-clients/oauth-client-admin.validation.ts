@@ -87,7 +87,7 @@ export type CreateOAuthClientBodyInput = z.input<
   ReturnType<typeof createOAuthClientBodySchema>
 >;
 
-export const updateOAuthClientBodyTransformSchema = z
+const updateOAuthClientBodyTransformSchema = z
   .object({
     client_name: z.string().optional(),
     redirect_uris: z.array(z.string().min(1)).min(1).optional(),

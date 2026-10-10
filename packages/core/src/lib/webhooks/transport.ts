@@ -7,9 +7,9 @@ import { createBrotliDecompress, createGunzip, createInflate } from "node:zlib";
 import type { ResolvedAddress } from "@ostiary/core/lib/webhooks/url-safety";
 
 /** How long a receiver has to answer. */
-export const DELIVERY_TIMEOUT_MS = 10_000;
+const DELIVERY_TIMEOUT_MS = 10_000;
 /** How much of the answer is kept for the delivery log. */
-export const RESPONSE_EXCERPT_LENGTH = 500;
+const RESPONSE_EXCERPT_LENGTH = 500;
 
 export type PostResult =
   | { ok: boolean; status: number; excerpt: string }

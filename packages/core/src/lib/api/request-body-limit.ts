@@ -1,6 +1,6 @@
 import { PayloadTooLargeError } from "@ostiary/core/lib/errors";
 
-export const DEFAULT_MAX_JSON_BODY_BYTES = 1024 * 1024;
+const DEFAULT_MAX_JSON_BODY_BYTES = 1024 * 1024;
 
 /**
  * Rejects oversized bodies before buffering full JSON (Content-Length check).

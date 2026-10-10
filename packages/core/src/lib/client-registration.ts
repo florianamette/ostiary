@@ -62,7 +62,7 @@ export async function currentClientRegistrationSettings(): Promise<ClientRegistr
   return cache.inFlight;
 }
 
-export function invalidateClientRegistrationSettings() {
+function invalidateClientRegistrationSettings() {
   cache.loadedAt = 0;
 }
 
@@ -95,7 +95,7 @@ export async function syncClientRegistration(
 const selfRegistered = not(oauthClient.adminRegistered);
 
 /** Self-registered clients created in the last hour, on every instance. */
-export async function countRecentSelfRegistrations(): Promise<number> {
+async function countRecentSelfRegistrations(): Promise<number> {
   const since = new Date(Date.now() - 60 * 60 * 1000);
   const [row] = await db
     .select({ count: sql<number>`count(*)::int` })

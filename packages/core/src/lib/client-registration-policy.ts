@@ -38,16 +38,16 @@ export const DEFAULT_CLIENT_REGISTRATION_SETTINGS: ClientRegistrationSettings = 
 export const MAX_REGISTRATIONS_PER_HOUR_LIMIT = 1000;
 
 /** Self-registered clients sign users in; machine (client_credentials) access stays admin-only. */
-export const SELF_REGISTERED_GRANT_TYPES = ["authorization_code", "refresh_token"] as const;
+const SELF_REGISTERED_GRANT_TYPES = ["authorization_code", "refresh_token"] as const;
 
 /** How an OAuth client came to exist, shown on the Applications page and the consent screen. */
 export type RegistrationSource = "admin" | "dynamic" | "metadata_document";
 
 /** Key in `oauth_client.metadata` marking a client created through /oauth2/register. */
-export const REGISTRATION_METADATA_KEY = "ostiary_registration";
+const REGISTRATION_METADATA_KEY = "ostiary_registration";
 
 /** `clientDiscoveryId` Better Auth stores on clients created from a metadata document. */
-export const METADATA_DOCUMENT_DISCOVERY_ID = "cimd";
+const METADATA_DOCUMENT_DISCOVERY_ID = "cimd";
 
 const SCOPE_TOKEN = /^[\x21\x23-\x5B\x5D-\x7E]+$/;
 const HOST = /^(?=.{1,253}$)(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,63}$/;
@@ -96,11 +96,6 @@ export function parseClientRegistrationSettings(raw: unknown): ClientRegistratio
         ? max
         : defaults.maxRegistrationsPerHour,
   };
-}
-
-/** True when either self-registration mechanism is on. */
-export function selfRegistrationEnabled(settings: ClientRegistrationSettings): boolean {
-  return settings.dynamic !== "off" || settings.metadataDocuments;
 }
 
 /** The scopes self-registered clients get: the allowed ones that still exist on the server. */

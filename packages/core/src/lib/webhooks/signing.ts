@@ -7,7 +7,7 @@ import { createHmac, randomBytes, timingSafeEqual } from "node:crypto";
  * the secret after its `whsec_` prefix. Any library implementing the spec verifies these.
  */
 
-export const SECRET_PREFIX = "whsec_";
+const SECRET_PREFIX = "whsec_";
 
 /** A new signing secret: `whsec_` and 32 random bytes in base64. */
 export function generateWebhookSecret(): string {
@@ -37,7 +37,7 @@ export function webhookHeaders(secrets: string[], id: string, timestamp: number,
 }
 
 /** Accepted clock difference between sender and receiver, as in the reference libraries. */
-export const TIMESTAMP_TOLERANCE_SECONDS = 5 * 60;
+const TIMESTAMP_TOLERANCE_SECONDS = 5 * 60;
 
 /**
  * Checks a delivery the way a receiver does: any `v1` signature matches and the timestamp is

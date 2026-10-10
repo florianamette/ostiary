@@ -22,7 +22,7 @@ export type DeletionBlocker =
   | { kind: "sole_owner"; organizations: { id: string; name: string }[] }
   | { kind: "scim"; organizations: { id: string; name: string }[] };
 
-export const OWNER_ROLE = "owner";
+const OWNER_ROLE = "owner";
 
 function roles(role: string | null | undefined): string[] {
   return (role ?? "")
@@ -32,7 +32,7 @@ function roles(role: string | null | undefined): string[] {
 }
 
 /** True when an organization role string includes `owner` (roles can be comma-separated). */
-export function isOwnerRole(role: string | null | undefined): boolean {
+function isOwnerRole(role: string | null | undefined): boolean {
   return roles(role).includes(OWNER_ROLE);
 }
 

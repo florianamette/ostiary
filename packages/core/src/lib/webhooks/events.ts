@@ -81,7 +81,7 @@ export type WebhookEvent = {
   data: Record<string, unknown>;
 };
 
-export function newEventId(): string {
+function newEventId(): string {
   return `evt_${randomUUID().replace(/-/g, "")}`;
 }
 

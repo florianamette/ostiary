@@ -42,7 +42,7 @@ export async function loadSigningKeySettings(): Promise<SigningKeySettings> {
 }
 
 /** Current settings, reloaded from the database when the cached copy is older than a minute. */
-export async function currentSigningKeySettings(): Promise<SigningKeySettings> {
+async function currentSigningKeySettings(): Promise<SigningKeySettings> {
   if (Date.now() - cache.loadedAt < REFRESH_MS) return cache.current;
   cache.inFlight ??= loadSigningKeySettings()
     .then((settings) => {
@@ -61,7 +61,7 @@ export async function currentSigningKeySettings(): Promise<SigningKeySettings> {
   return cache.inFlight;
 }
 
-export function invalidateSigningKeySettings() {
+function invalidateSigningKeySettings() {
   cache.loadedAt = 0;
 }
 

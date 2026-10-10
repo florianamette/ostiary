@@ -22,7 +22,7 @@ import { checkWebhookUrl } from "@ostiary/core/lib/webhooks/url-safety";
  */
 
 /** Wait before attempt 2, 3, 4 and 5. Attempt 1 is immediate. */
-export const RETRY_DELAYS_MS = [5 * 60_000, 60 * 60_000, 6 * 3_600_000, 18 * 3_600_000];
+const RETRY_DELAYS_MS = [5 * 60_000, 60 * 60_000, 6 * 3_600_000, 18 * 3_600_000];
 export const MAX_ATTEMPTS = RETRY_DELAYS_MS.length + 1;
 /** Failed attempts in a row (all events together) after which an endpoint is disabled. */
 export const AUTO_DISABLE_AFTER = 15;
@@ -59,7 +59,7 @@ export function nextRetryDelay(attempts: number): number | null {
 }
 
 /** The secret, and the previous one while it is still valid after a rotation. */
-export function signingSecrets(endpoint: Pick<Endpoint, "secretEncrypted" | "previousSecretEncrypted" | "previousSecretExpiresAt">, now = new Date()): string[] {
+function signingSecrets(endpoint: Pick<Endpoint, "secretEncrypted" | "previousSecretEncrypted" | "previousSecretExpiresAt">, now = new Date()): string[] {
   const secrets = [decryptSecret(endpoint.secretEncrypted, env.BETTER_AUTH_SECRET)];
   if (endpoint.previousSecretEncrypted && endpoint.previousSecretExpiresAt && endpoint.previousSecretExpiresAt > now) {
     try {
@@ -75,7 +75,7 @@ export function signingSecrets(endpoint: Pick<Endpoint, "secretEncrypted" | "pre
  * Writes one delivery per subscribed endpoint and returns their ids. Throws on database
  * errors: callers decide how to report them.
  */
-export async function enqueueEvents(events: WebhookEvent[], onlyEndpointId?: string): Promise<string[]> {
+async function enqueueEvents(events: WebhookEvent[], onlyEndpointId?: string): Promise<string[]> {
   if (events.length === 0) return [];
   const endpoints = await db
     .select({ id: webhookEndpoint.id, events: webhookEndpoint.events })
@@ -253,7 +253,7 @@ async function deliverClaimed(rows: Delivery[]): Promise<DeliveryOutcome[]> {
 }
 
 /** Sends these deliveries now, if they are due and nobody else is sending them. */
-export async function deliverByIds(ids: string[]): Promise<DeliveryOutcome[]> {
+async function deliverByIds(ids: string[]): Promise<DeliveryOutcome[]> {
   if (ids.length === 0) return [];
   return deliverClaimed(await claim(ids.length, ids));
 }

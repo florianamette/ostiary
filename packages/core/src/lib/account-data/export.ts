@@ -36,11 +36,11 @@ import { registrationSource } from "@ostiary/core/lib/client-registration-policy
  * maps every table to what the export takes from it.
  */
 
-export const ACCOUNT_EXPORT_FORMAT = "ostiary.account-export";
-export const ACCOUNT_EXPORT_VERSION = 1;
+const ACCOUNT_EXPORT_FORMAT = "ostiary.account-export";
+const ACCOUNT_EXPORT_VERSION = 1;
 
 /** Upper bound per history section, so one export stays a reasonable download. */
-export const EXPORT_HISTORY_LIMIT = 5000;
+const EXPORT_HISTORY_LIMIT = 5000;
 
 const iso = (value: Date | string | null | undefined) => (value ? new Date(value).toISOString() : null);
 

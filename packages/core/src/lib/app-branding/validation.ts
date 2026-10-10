@@ -4,7 +4,7 @@ import { normalizeHexColor } from "@ostiary/core/lib/app-branding/color";
 
 /* Checks on what an admin enters in the Branding dialog. Pure, shared with the tests. */
 
-export const LOGO_SOURCES = ["app_icon", "url", "upload"] as const;
+const LOGO_SOURCES = ["app_icon", "url", "upload"] as const;
 export type LogoSource = (typeof LOGO_SOURCES)[number];
 
 export const BRANDING_LIMITS = {
@@ -57,7 +57,7 @@ export type ValidationResult<T> = { ok: true; value: T } | ValidationFailure;
 const ACCENT_EXAMPLE = "#2563eb";
 
 /** Trimmed single line without control characters; null when empty. */
-export function cleanText(raw: string | null | undefined, max: number): ValidationResult<string | null> {
+function cleanText(raw: string | null | undefined, max: number): ValidationResult<string | null> {
   if (raw == null) return { ok: true, value: null };
   // eslint-disable-next-line no-control-regex
   const value = raw.replace(/[\u0000-\u001f\u007f​-‏‪-‮⁦-⁩]/g, " ").replace(/\s+/g, " ").trim();

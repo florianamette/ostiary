@@ -47,7 +47,7 @@ export function unrestrictedApiScopes(
 }
 
 /** API scopes: OAUTH_API_SCOPES, then the scopes of every enabled API in the database. */
-export async function loadApiScopes(): Promise<string[]> {
+async function loadApiScopes(): Promise<string[]> {
   const rows = await db
     .select({
       allowedScopes: oauthResource.allowedScopes,

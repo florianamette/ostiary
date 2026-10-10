@@ -3,10 +3,10 @@ import { isImageContentType, sniffImageType, type IconType } from "@ostiary/core
 import { safeGet, type SafeFetcher } from "@ostiary/core/lib/app-icons/fetch";
 import type { IconSource } from "@ostiary/core/lib/app-icons/site";
 
-export const MAX_HTML_BYTES = 512 * 1024;
-export const MAX_ICON_BYTES = 256 * 1024;
+const MAX_HTML_BYTES = 512 * 1024;
+const MAX_ICON_BYTES = 256 * 1024;
 /** Whole lookup budget for one app: the home page plus a few icon tries. */
-export const RESOLVE_BUDGET_MS = 8_000;
+const RESOLVE_BUDGET_MS = 8_000;
 /** Icon links tried from the page before /favicon.ico. */
 const MAX_CANDIDATES = 3;
 

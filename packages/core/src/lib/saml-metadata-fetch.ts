@@ -11,7 +11,7 @@ import { MAX_SAML_METADATA_BYTES, type SamlError } from "@ostiary/core/lib/saml"
  * against a local IdP.
  */
 
-export const METADATA_FETCH_TIMEOUT_MS = 10_000;
+const METADATA_FETCH_TIMEOUT_MS = 10_000;
 const MAX_REDIRECTS = 2;
 
 export type MetadataFetchOptions = {

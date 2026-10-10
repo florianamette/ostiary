@@ -102,7 +102,7 @@ function instantiate(id: SocialProvider, options: Record<string, unknown>): Prov
   return instance;
 }
 
-export async function loadSocialProviders(): Promise<Loaded> {
+async function loadSocialProviders(): Promise<Loaded> {
   const rows = await db.select().from(socialProvider).orderBy(asc(socialProvider.position), asc(socialProvider.id));
   const fromEnv = envSocialProviders();
   const entries: { id: SocialProvider; name: string; position: number; options: Record<string, unknown>; oneTap: boolean }[] = [];

@@ -102,7 +102,7 @@ export type SigningKeyView = SigningKeyRow & {
 };
 
 /** Ostiary uses Better Auth's default key type. */
-export const SIGNING_ALGORITHM = "EdDSA";
+const SIGNING_ALGORITHM = "EdDSA";
 
 /**
  * Status of every key, newest first. The current key is the one Better Auth picks: the
