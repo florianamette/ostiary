@@ -1,3 +1,5 @@
+import type { APIResponse } from "@playwright/test";
+
 import { createUser, enableTotp, expectSignedInAs, loginViaUi, newUser, signInWithPassword } from "../support/auth";
 import { expect, test } from "../support/fixtures";
 import { waitForEmail } from "../support/mail";
@@ -72,7 +74,7 @@ test("password sign-in is rate limited per client IP with Retry-After", async ({
   const attacker = await newApi();
   // RATE_LIMIT_RULES: 10 a minute on /sign-in/email. This test has its own client IP.
   const statuses: number[] = [];
-  let limited: Awaited<ReturnType<typeof signInWithPassword>> | undefined;
+  let limited: APIResponse | undefined;
   for (let i = 0; i < 12 && !limited; i++) {
     const response = await signInWithPassword(attacker, user.email, "wrong-password-123");
     statuses.push(response.status());

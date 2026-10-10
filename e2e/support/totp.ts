@@ -28,7 +28,7 @@ export function secretFromUri(uri: string): string {
 }
 
 /** RFC 6238 TOTP: HMAC-SHA1, 6 digits, 30-second steps (Better Auth's defaults). */
-export function totp(secret: string, at = Date.now(), period = 30, digits = 6): string {
+function totp(secret: string, at = Date.now(), period = 30, digits = 6): string {
   const counter = Math.floor(at / 1000 / period);
   const message = Buffer.alloc(8);
   message.writeBigUInt64BE(BigInt(counter));

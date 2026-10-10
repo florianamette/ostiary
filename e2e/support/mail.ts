@@ -7,7 +7,7 @@ import { MAIL_FILE } from "./env";
 /** An email captured by the apps in test mode (packages/core/src/lib/e2e-test-mode.ts). */
 export type CapturedEmail = { kind: string; to: string; subject: string; code?: string; url?: string; at: string };
 
-export function readEmails(): CapturedEmail[] {
+function readEmails(): CapturedEmail[] {
   if (!existsSync(MAIL_FILE)) return [];
   return readFileSync(MAIL_FILE, "utf8")
     .split("\n")
