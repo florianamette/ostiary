@@ -18,7 +18,6 @@ import { APP_CONTEXT_PARAM } from "@ostiary/core/lib/app-branding/constants";
  * body, so an expired token can only cost the colors, never break a sign-in or sign-up.
  */
 
-export { APP_CONTEXT_PARAM };
 /** How long a token is honoured: covers a password reset or verification email (1 hour). */
 export const APP_CONTEXT_TTL_SECONDS = 2 * 60 * 60;
 /**

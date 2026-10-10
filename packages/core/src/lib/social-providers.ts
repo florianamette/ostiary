@@ -45,7 +45,7 @@ const SECRETS_PURPOSE = "social-provider";
 const REFRESH_MS = 30_000;
 
 /** Providers set in the environment, with their fields. */
-export function envSocialProviders(): Partial<Record<SocialProvider, ProviderValues>> {
+function envSocialProviders(): Partial<Record<SocialProvider, ProviderValues>> {
   return {
     ...(env.GITHUB_CLIENT_ID && env.GITHUB_CLIENT_SECRET
       ? { github: { clientId: env.GITHUB_CLIENT_ID, clientSecret: env.GITHUB_CLIENT_SECRET } }
@@ -174,7 +174,7 @@ function environmentOnly(): Loaded {
 }
 
 /** The providers, reloaded from the database when the cached copy is older than 30 seconds. */
-export async function currentSocialProviders(): Promise<Loaded> {
+async function currentSocialProviders(): Promise<Loaded> {
   if (cache.current && Date.now() - cache.loadedAt < REFRESH_MS) return cache.current;
   cache.inFlight ??= loadSocialProviders()
     .then((loaded) => {
@@ -194,7 +194,7 @@ export async function currentSocialProviders(): Promise<Loaded> {
 }
 
 /** Makes the next request reload the providers (after an admin change). */
-export function invalidateSocialProviders() {
+function invalidateSocialProviders() {
   cache.loadedAt = 0;
 }
 

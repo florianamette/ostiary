@@ -1,7 +1,7 @@
 import type { AppLocale } from "@ostiary/core/i18n/routing";
 
 /** BCP-47 tags for `<html lang>`; path segment `cn` maps to `zh-Hans`. */
-export const localeToHtmlLang: Record<AppLocale, string> = {
+const localeToHtmlLang: Record<AppLocale, string> = {
   en: "en",
   fr: "fr",
   cn: "zh-Hans",

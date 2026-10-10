@@ -10,7 +10,7 @@ import { checkWebhookUrl, type Lookup, type ResolvedAddress } from "@ostiary/cor
  */
 
 const ICON_FETCH_TIMEOUT_MS = 3_000;
-export const MAX_REDIRECTS = 2;
+const MAX_REDIRECTS = 2;
 const USER_AGENT = "Mozilla/5.0 (compatible; OstiaryIconFetcher/1.0; +https://github.com/florianamette/ostiary)";
 
 export type SafeResponse = { url: string; status: number; contentType: string; body: Buffer };
