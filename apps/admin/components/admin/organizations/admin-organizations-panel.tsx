@@ -22,7 +22,6 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@ostiary/core/components/ui/dialog";
@@ -31,6 +30,7 @@ import {
   PUBLIC_ORGANIZATION_SLUG,
 } from "@ostiary/core/lib/organization-public";
 import { deleteOrganization } from "@/app/[locale]/(console)/organizations/actions";
+import { DialogActions } from "@/components/admin/common/dialog-actions";
 import { authClient } from "@/lib/auth-client";
 
 type OrgRow = { id: string; name: string; slug: string; members: number };
@@ -199,25 +199,14 @@ export function AdminOrganizationsPanel({ organizations }: { organizations: OrgR
               {t("confirmDeleteBody", { count: pendingDelete?.members ?? 0 })}
             </DialogDescription>
           </DialogHeader>
-          <DialogFooter>
-            <Button
-              type="button"
-              variant="outline"
-              disabled={deleting}
-              onClick={() => setPendingDelete(null)}
-            >
-              {t("cancel")}
-            </Button>
-            <Button
-              type="button"
-              variant="destructive"
-              disabled={deleting}
-              onClick={() => void confirmDelete()}
-            >
-              {deleting ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
-              {t("delete")}
-            </Button>
-          </DialogFooter>
+          <DialogActions
+            busy={deleting}
+            onCancel={() => setPendingDelete(null)}
+            cancelLabel={t("cancel")}
+            onConfirm={() => void confirmDelete()}
+            confirmLabel={t("delete")}
+            destructive
+          />
         </DialogContent>
       </Dialog>
     </div>

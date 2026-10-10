@@ -1,16 +1,15 @@
 "use client";
 
 import * as React from "react";
-import { useFormatter, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 
-import {
-  AdminConsentRowActions,
-  type OAuthConsentRow,
-} from "@/components/admin/consent/admin-consent-row-actions";
+import type { OAuthConsentRow } from "@/components/admin/consent/admin-consent-row-actions";
+import { ConsentTableRow } from "@/components/admin/consent/consent-table-row";
 import { TableMessageRow, TablePagination, TableSearch } from "@/components/admin/common/admin-table";
 import { useDebouncedValue } from "@/components/admin/common/use-debounced-value";
+import { usePagination } from "@/components/admin/common/use-pagination";
+import { ExternalLink } from "@/components/admin/common/external-link";
 import { Alert, AlertDescription, AlertTitle } from "@ostiary/core/components/ui/alert";
-import { Badge } from "@ostiary/core/components/ui/badge";
 import { Button } from "@ostiary/core/components/ui/button";
 import {
   Select,
@@ -22,34 +21,14 @@ import {
 import {
   Table,
   TableBody,
-  TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "@ostiary/core/components/ui/table";
-import {
-  DEFAULT_ADMIN_TABLE_PAGE_SIZE,
-  type AdminTablePageSize,
-} from "@ostiary/core/lib/admin/admin-table-page-size";
-import { adminAppIconUrl } from "@/lib/app-icon-url";
-import { AppIcon } from "@ostiary/core/components/app-icon";
 import { authClient } from "@/lib/auth-client";
 import { asRecord, asStringArray, normalizeGetClientsPayload } from "@/lib/oauth-client-payload";
-import { adminNotify } from "@ostiary/core/lib/admin/admin-notify";
 
 type ConsentScopeFilter = "all" | "offline" | "openid" | "with_reference";
-
-function formatDate(format: ReturnType<typeof useFormatter>, iso: string) {
-  try {
-    return format.dateTime(new Date(iso), {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    });
-  } catch {
-    return "-";
-  }
-}
 
 function buildClientNameMap(clientsPayload: unknown): Map<string, string> {
   const map = new Map<string, string>();
@@ -151,7 +130,6 @@ function filterConsents(
 export function AdminConsentPanel() {
   const t = useTranslations("admin.pages.consent.panel");
   const tc = useTranslations("admin.common");
-  const format = useFormatter();
   const { data: sessionWrap } = authClient.useSession();
   const userLabel =
     sessionWrap?.user?.email ??
@@ -163,17 +141,10 @@ export function AdminConsentPanel() {
   const debouncedSearch = useDebouncedValue(searchInput, 300);
   const [scopeFilter, setScopeFilter] =
     React.useState<ConsentScopeFilter>("all");
-  const [page, setPage] = React.useState(0);
-  const [pageSize, setPageSize] =
-    React.useState<AdminTablePageSize>(DEFAULT_ADMIN_TABLE_PAGE_SIZE);
   const [rows, setRows] = React.useState<OAuthConsentRow[]>([]);
   const [loading, setLoading] = React.useState(true);
   const [listError, setListError] = React.useState<string | null>(null);
   const [refreshKey, setRefreshKey] = React.useState(0);
-
-  React.useEffect(() => {
-    setPage(0);
-  }, [debouncedSearch, scopeFilter, pageSize]);
 
   const refetch = React.useCallback(() => {
     setRefreshKey((k) => k + 1);
@@ -189,18 +160,13 @@ export function AdminConsentPanel() {
         authClient.oauth2.getClients(),
       ]);
       if (cancelled) return;
-      if (consentsRes.error) {
-        setListError(
-          consentsRes.error.message ?? t("loadConsentsFailed")
-        );
-        setRows([]);
-        setLoading(false);
-        return;
-      }
-      if (clientsRes.error) {
-        setListError(
-          clientsRes.error.message ?? t("loadClientsFailed")
-        );
+      const failure = consentsRes.error
+        ? consentsRes.error.message ?? t("loadConsentsFailed")
+        : clientsRes.error
+          ? clientsRes.error.message ?? t("loadClientsFailed")
+          : null;
+      if (failure !== null) {
+        setListError(failure);
         setRows([]);
         setLoading(false);
         return;
@@ -223,16 +189,9 @@ export function AdminConsentPanel() {
     [rows, debouncedSearch, scopeFilter]
   );
 
-  const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
-  const safePage = Math.min(page, totalPages - 1);
-  const pageStart = safePage * pageSize;
+  const { page, setPage, pageSize, setPageSize, totalPages, pageStart, showingFrom, showingTo } =
+    usePagination(filtered.length, [debouncedSearch, scopeFilter]);
   const pageRows = filtered.slice(pageStart, pageStart + pageSize);
-  const showingFrom = filtered.length === 0 ? 0 : pageStart + 1;
-  const showingTo = Math.min(pageStart + pageSize, filtered.length);
-
-  React.useEffect(() => {
-    if (page > safePage) setPage(safePage);
-  }, [page, safePage]);
 
   return (
     <div className="space-y-6">
@@ -304,90 +263,7 @@ export function AdminConsentPanel() {
               </TableMessageRow>
             ) : (
               pageRows.map((row) => (
-                <TableRow key={row.id}>
-                  <TableCell>
-                    <div className="flex flex-col gap-0.5">
-                      <span className="font-medium">{row.userLabel}</span>
-                      <code className="text-muted-foreground max-w-[min(100%,280px)] truncate font-mono text-xs">
-                        {row.userId}
-                      </code>
-                      <div className="mt-1 flex flex-wrap gap-1 sm:hidden">
-                        <span className="text-muted-foreground line-clamp-1 text-xs">
-                          {row.clientLabel}
-                        </span>
-                        <div className="flex flex-wrap gap-1">
-                          {row.scopes.slice(0, 3).map((s) => (
-                            <Badge
-                              key={s}
-                              variant="outline"
-                              className="font-mono text-[10px] font-normal"
-                            >
-                              {s}
-                            </Badge>
-                          ))}
-                          {row.scopes.length > 3 ? (
-                            <Badge variant="secondary" className="text-[10px]">
-                              +{row.scopes.length - 3}
-                            </Badge>
-                          ) : null}
-                        </div>
-                      </div>
-                    </div>
-                  </TableCell>
-                  <TableCell className="hidden sm:table-cell">
-                    <div className="flex items-center gap-2.5">
-                      <AppIcon name={row.clientLabel} src={adminAppIconUrl(row.clientId)} size={28} />
-                      <div className="flex min-w-0 flex-col gap-0.5">
-                        <span className="text-sm font-medium">
-                          {row.clientLabel}
-                        </span>
-                        <code className="text-muted-foreground max-w-[220px] truncate font-mono text-xs">
-                          {row.clientId}
-                        </code>
-                      </div>
-                    </div>
-                  </TableCell>
-                  <TableCell className="hidden lg:table-cell">
-                    <div className="flex max-w-md flex-wrap gap-1">
-                      {row.scopes.map((s) => (
-                        <Badge
-                          key={s}
-                          variant="outline"
-                          className="font-mono text-xs font-normal"
-                        >
-                          {s}
-                        </Badge>
-                      ))}
-                    </div>
-                  </TableCell>
-                  <TableCell className="hidden md:table-cell">
-                    {row.referenceId ? (
-                      <code className="text-muted-foreground rounded bg-muted/80 px-1.5 py-0.5 font-mono text-xs break-all">
-                        {row.referenceId}
-                      </code>
-                    ) : (
-                      <span className="text-muted-foreground text-sm">, </span>
-                    )}
-                  </TableCell>
-                  <TableCell className="text-muted-foreground hidden text-sm xl:table-cell">
-                    {formatDate(format, row.createdAt)}
-                  </TableCell>
-                  <TableCell className="text-muted-foreground hidden text-sm xl:table-cell">
-                    {formatDate(format, row.updatedAt)}
-                  </TableCell>
-                  <TableCell className="text-right">
-                    <AdminConsentRowActions
-                      row={row}
-                      onChanged={refetch}
-                      onNotify={(message, variant = "success") => {
-                        adminNotify(
-                          message,
-                          variant === "error" ? "error" : "success"
-                        );
-                      }}
-                    />
-                  </TableCell>
-                </TableRow>
+                <ConsentTableRow key={row.id} row={row} onChanged={refetch} />
               ))
             )}
           </TableBody>
@@ -399,7 +275,7 @@ export function AdminConsentPanel() {
               ? t("noResults")
               : t("showing", { from: showingFrom, to: showingTo, total: filtered.length })
           }
-          page={safePage}
+          page={page}
           totalPages={totalPages}
           onPageChange={setPage}
           pageSize={pageSize}
@@ -409,7 +285,7 @@ export function AdminConsentPanel() {
             rowsPerPage: t("rowsPerPage"),
             previous: t("previous"),
             next: t("next"),
-            page: t("pageOf", { page: safePage + 1, total: totalPages }),
+            page: t("pageOf", { page: page + 1, total: totalPages }),
           }}
         />
       </div>
@@ -424,24 +300,10 @@ export function AdminConsentPanel() {
             <code className="rounded bg-muted px-1 py-0.5 font-mono">{c}</code>
           ),
           consentLink: (c) => (
-            <a
-              href="https://better-auth.com/docs/plugins/oauth-provider#list-consent"
-              className="font-medium text-foreground underline-offset-4 hover:underline"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {c}
-            </a>
+            <ExternalLink href="https://better-auth.com/docs/plugins/oauth-provider#list-consent">{c}</ExternalLink>
           ),
           providerLink: (c) => (
-            <a
-              href="https://better-auth.com/docs/plugins/oauth-provider"
-              className="font-medium text-foreground underline-offset-4 hover:underline"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {c}
-            </a>
+            <ExternalLink href="https://better-auth.com/docs/plugins/oauth-provider">{c}</ExternalLink>
           ),
         })}
       </p>

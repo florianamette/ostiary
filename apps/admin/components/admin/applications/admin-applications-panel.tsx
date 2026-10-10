@@ -1,19 +1,16 @@
 "use client";
 
 import * as React from "react";
-import { useFormatter, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 
-import {
-  AdminApplicationRowActions,
-  type OAuthApplicationRow,
-} from "@/components/admin/applications/admin-application-row-actions";
+import type { OAuthApplicationRow } from "@/components/admin/applications/admin-application-row-actions";
 import { AdminRegisterOAuthClientDialog } from "@/components/admin/applications/admin-register-oauth-client-dialog";
-import { SelfRegisteredRowActions } from "@/components/admin/applications/self-registered-row-actions";
+import { ApplicationTableRow } from "@/components/admin/applications/application-table-row";
 import { TableMessageRow, TablePagination, TableSearch } from "@/components/admin/common/admin-table";
 import { useDebouncedValue } from "@/components/admin/common/use-debounced-value";
-import { AppIcon } from "@ostiary/core/components/app-icon";
+import { usePagination } from "@/components/admin/common/use-pagination";
+import { ExternalLink } from "@/components/admin/common/external-link";
 import { Alert, AlertDescription, AlertTitle } from "@ostiary/core/components/ui/alert";
-import { Badge } from "@ostiary/core/components/ui/badge";
 import { Button } from "@ostiary/core/components/ui/button";
 import {
   Select,
@@ -25,50 +22,17 @@ import {
 import {
   Table,
   TableBody,
-  TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "@ostiary/core/components/ui/table";
-import {
-  DEFAULT_ADMIN_TABLE_PAGE_SIZE,
-  type AdminTablePageSize,
-} from "@ostiary/core/lib/admin/admin-table-page-size";
-import { adminAppIconUrl } from "@/lib/app-icon-url";
 import { authClient } from "@/lib/auth-client";
 import { asRecord, asStringArray, normalizeGetClientsPayload } from "@/lib/oauth-client-payload";
-import { adminNotify } from "@ostiary/core/lib/admin/admin-notify";
 import { DEVICE_CODE_GRANT_TYPE } from "@ostiary/core/lib/admin/oauth-clients/oauth-client-admin.types";
 import type { RegistrationSource } from "@ostiary/core/lib/client-registration-policy";
 
 type ClientKindFilter = "all" | "public" | "confidential" | "trusted" | "device";
 type RegistrationFilter = "all" | "self" | RegistrationSource;
-
-/** Grant badge text: the device grant is a long URN, show its short name. */
-function grantLabel(grant: string) {
-  return grant === DEVICE_CODE_GRANT_TYPE ? "device_code" : grant;
-}
-
-/** Badge for a client that registered itself; admin-registered clients get none. */
-function RegistrationBadge({ source }: { source: RegistrationSource }) {
-  const t = useTranslations("admin.pages.applications.panel");
-  if (source === "admin") return null;
-  return (
-    <Badge
-      variant="outline"
-      className="border-amber-500/40 bg-amber-500/10 font-normal text-amber-800 dark:text-amber-300"
-      title={t("selfRegisteredHint")}
-    >
-      {source === "dynamic" ? t("selfRegisteredBadge") : t("registration.metadata_document")}
-    </Badge>
-  );
-}
-
-function summarizeRedirects(uris: string[]) {
-  if (uris.length === 0) return "-";
-  if (uris.length === 1) return uris[0];
-  return `${uris[0]} +${uris.length - 1}`;
-}
 
 function normalizeAuthMethod(
   v: unknown
@@ -176,24 +140,16 @@ export function AdminApplicationsPanel({
 }) {
   const t = useTranslations("admin.pages.applications.panel");
   const tCommon = useTranslations("admin.common");
-  const format = useFormatter();
   const [searchInput, setSearchInput] = React.useState(initialSearch);
   const debouncedSearch = useDebouncedValue(searchInput, 300);
   const [kindFilter, setKindFilter] =
     React.useState<ClientKindFilter>("all");
   const [registrationFilter, setRegistrationFilter] =
     React.useState<RegistrationFilter>("all");
-  const [page, setPage] = React.useState(0);
-  const [pageSize, setPageSize] =
-    React.useState<AdminTablePageSize>(DEFAULT_ADMIN_TABLE_PAGE_SIZE);
   const [rows, setRows] = React.useState<OAuthApplicationRow[]>([]);
   const [loading, setLoading] = React.useState(true);
   const [listError, setListError] = React.useState<string | null>(null);
   const [refreshKey, setRefreshKey] = React.useState(0);
-
-  React.useEffect(() => {
-    setPage(0);
-  }, [debouncedSearch, kindFilter, registrationFilter, pageSize]);
 
   const refetch = React.useCallback(() => {
     setRefreshKey((k) => k + 1);
@@ -236,22 +192,9 @@ export function AdminApplicationsPanel({
     [allRows, debouncedSearch, kindFilter, registrationFilter]
   );
 
-  const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
-  const safePage = Math.min(page, totalPages - 1);
-  const pageStart = safePage * pageSize;
+  const { page, setPage, pageSize, setPageSize, totalPages, pageStart, showingFrom, showingTo } =
+    usePagination(filtered.length, [debouncedSearch, kindFilter, registrationFilter]);
   const pageRows = filtered.slice(pageStart, pageStart + pageSize);
-  const showingFrom = filtered.length === 0 ? 0 : pageStart + 1;
-  const showingTo = Math.min(pageStart + pageSize, filtered.length);
-
-  React.useEffect(() => {
-    if (page > safePage) setPage(safePage);
-  }, [page, safePage]);
-
-  function formatDate(iso: string) {
-    const date = new Date(iso);
-    if (Number.isNaN(date.getTime())) return "-";
-    return format.dateTime(date, { year: "numeric", month: "short", day: "numeric" });
-  }
 
   return (
     <div className="space-y-6">
@@ -335,120 +278,12 @@ export function AdminApplicationsPanel({
               </TableMessageRow>
             ) : (
               pageRows.map((row) => (
-                <TableRow key={row.clientId}>
-                  <TableCell>
-                    <div className="flex items-start gap-2.5">
-                      <AppIcon name={row.name} src={adminAppIconUrl(row.clientId, row.logoUri)} size={28} className="mt-0.5" />
-                      <div className="flex min-w-0 flex-col gap-0.5">
-                        <span className="font-medium">{row.name}</span>
-                        {row.registration !== "admin" ? (
-                          <span className="mb-0.5">
-                            <RegistrationBadge source={row.registration} />
-                          </span>
-                        ) : null}
-                        <code className="text-muted-foreground max-w-[min(100%,320px)] truncate font-mono text-xs">
-                          {row.clientId}
-                        </code>
-                        {linkedApis[row.clientId]?.length ? (
-                          <span className="text-muted-foreground text-xs">
-                            {t("linkedApis", { apis: linkedApis[row.clientId].join(", ") })}
-                          </span>
-                        ) : null}
-                        <div className="mt-1 flex flex-wrap gap-1 sm:hidden">
-                          <Badge variant={row.public ? "secondary" : "default"}>
-                            {row.public ? t("kind.public") : t("kind.confidential")}
-                          </Badge>
-                          {row.grantTypes.includes(DEVICE_CODE_GRANT_TYPE) ? (
-                            <Badge variant="outline">{t("badges.device")}</Badge>
-                          ) : null}
-                          {row.skipConsent ? (
-                            <Badge variant="outline">{t("badges.trusted")}</Badge>
-                          ) : (
-                            <Badge variant="outline" className="font-normal">
-                              {t("badges.consent")}
-                            </Badge>
-                          )}
-                          {row.disabled ? (
-                            <Badge variant="destructive">{tCommon("disabled")}</Badge>
-                          ) : (
-                            <Badge variant="outline" className="font-normal">
-                              {t("badges.active")}
-                            </Badge>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  </TableCell>
-                  <TableCell className="hidden sm:table-cell">
-                    <div className="flex flex-col gap-1">
-                      <Badge variant={row.public ? "secondary" : "default"}>
-                        {row.public ? t("kind.public") : t("kind.confidential")}
-                      </Badge>
-                      <span className="text-muted-foreground text-xs">
-                        {t(`authMethod.${row.tokenEndpointAuthMethod}`)}
-                      </span>
-                    </div>
-                  </TableCell>
-                  <TableCell className="hidden md:table-cell">
-                    <span
-                      className="line-clamp-2 text-sm break-all"
-                      title={row.redirectUris.join("\n")}
-                    >
-                      {summarizeRedirects(row.redirectUris)}
-                    </span>
-                  </TableCell>
-                  <TableCell className="hidden lg:table-cell">
-                    <div className="flex flex-wrap gap-1">
-                      {row.grantTypes.map((g) => (
-                        <Badge
-                          key={g}
-                          variant="outline"
-                          className="font-mono text-xs font-normal"
-                          title={g}
-                        >
-                          {grantLabel(g)}
-                        </Badge>
-                      ))}
-                    </div>
-                  </TableCell>
-                  <TableCell className="hidden lg:table-cell">
-                    {row.skipConsent ? (
-                      <Badge variant="secondary">{t("badges.skipped")}</Badge>
-                    ) : (
-                      <Badge variant="outline" className="font-normal">
-                        {t("badges.required")}
-                      </Badge>
-                    )}
-                  </TableCell>
-                  <TableCell className="hidden md:table-cell">
-                    {row.disabled ? (
-                      <Badge variant="destructive">{tCommon("disabled")}</Badge>
-                    ) : (
-                      <Badge variant="outline" className="font-normal">
-                        {t("badges.active")}
-                      </Badge>
-                    )}
-                  </TableCell>
-                  <TableCell className="text-muted-foreground hidden text-sm xl:table-cell">
-                    {formatDate(row.createdAt)}
-                  </TableCell>
-                  <TableCell className="text-right">
-                    {row.registration === "admin" ? (
-                      <AdminApplicationRowActions
-                        row={row}
-                        onChanged={refetch}
-                        onNotify={(message, variant = "success") => {
-                          adminNotify(
-                            message,
-                            variant === "error" ? "error" : "success"
-                          );
-                        }}
-                      />
-                    ) : (
-                      <SelfRegisteredRowActions row={row} />
-                    )}
-                  </TableCell>
-                </TableRow>
+                <ApplicationTableRow
+                  key={row.clientId}
+                  row={row}
+                  linkedApis={linkedApis[row.clientId]}
+                  onChanged={refetch}
+                />
               ))
             )}
           </TableBody>
@@ -460,7 +295,7 @@ export function AdminApplicationsPanel({
               ? t("noApplications")
               : t("showing", { from: showingFrom, to: showingTo, total: filtered.length })
           }
-          page={safePage}
+          page={page}
           totalPages={totalPages}
           onPageChange={setPage}
           pageSize={pageSize}
@@ -470,7 +305,7 @@ export function AdminApplicationsPanel({
             rowsPerPage: t("rowsPerPage"),
             previous: t("previous"),
             next: t("next"),
-            page: t("page", { page: safePage + 1, total: totalPages }),
+            page: t("page", { page: page + 1, total: totalPages }),
           }}
         />
       </div>
@@ -486,14 +321,7 @@ export function AdminApplicationsPanel({
           clientReference: "clientReference",
           code: (chunks) => <code className="rounded bg-muted px-1 py-0.5 font-mono">{chunks}</code>,
           docs: (chunks) => (
-            <a
-              href="https://better-auth.com/docs/plugins/oauth-provider#list-clients"
-              className="font-medium text-foreground underline-offset-4 hover:underline"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {chunks}
-            </a>
+            <ExternalLink href="https://better-auth.com/docs/plugins/oauth-provider#list-clients">{chunks}</ExternalLink>
           ),
         })}
       </p>

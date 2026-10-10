@@ -20,7 +20,7 @@ import { setApiAccess, updateApi, updateApiTokens } from "@/app/[locale]/(consol
 import type { ApiRow, ApplicationOption } from "@/components/admin/apis/admin-apis-panel";
 import { CheckboxField, RadioField } from "@/components/admin/common/choice-field";
 import { DialogActions } from "@/components/admin/common/dialog-actions";
-import type { ActionResult } from "@/components/admin/common/use-admin-action";
+import type { ActionResult } from "@/lib/action-result";
 
 const CLAIMS_PLACEHOLDER = '{\n  "tenant": "acme"\n}';
 

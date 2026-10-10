@@ -32,7 +32,54 @@ import { MotionPanel } from "@ostiary/core/components/motion/motion-panel";
 import { adminNotify } from "@ostiary/core/lib/admin/admin-notify";
 import { DEVICE_CODE_GRANT_TYPE } from "@ostiary/core/lib/admin/oauth-clients/oauth-client-admin.types";
 import { CheckboxField } from "@/components/admin/common/choice-field";
+import { ExternalLink } from "@/components/admin/common/external-link";
 import { asRecord, parseRedirectUris, routeError } from "@/lib/oauth-client-payload";
+
+/** The client ID and secret (null for a public client) in the create route's answer. */
+function issuedCredentials(json: unknown): { clientId: string; secret: string | null } {
+  const payload =
+    json &&
+    typeof json === "object" &&
+    "data" in json &&
+    (json as { data: unknown }).data !== undefined
+      ? (json as { data: unknown }).data
+      : json;
+  const o = asRecord(payload);
+  const clientId = o ? String(o.client_id ?? o.clientId ?? "") : "";
+  const secretRaw = o?.client_secret ?? o?.clientSecret;
+  const secret =
+    typeof secretRaw === "string" && secretRaw.length > 0
+      ? secretRaw
+      : null;
+  return { clientId, secret };
+}
+
+/** A value shown once after registration, with a copy button. */
+function IssuedValue({ label, copyLabel, value }: { label: string; copyLabel: string; value: string }) {
+  return (
+    <Field>
+      <FieldLabel>{label}</FieldLabel>
+      <div className="flex gap-2">
+        <Input
+          readOnly
+          className="font-mono text-xs"
+          value={value}
+        />
+        <Button
+          type="button"
+          size="icon"
+          variant="outline"
+          aria-label={copyLabel}
+          onClick={() => {
+            void navigator.clipboard.writeText(value);
+          }}
+        >
+          <CopyIcon />
+        </Button>
+      </div>
+    </Field>
+  );
+}
 
 export function AdminRegisterOAuthClientDialog({
   onCreated,
@@ -104,24 +151,11 @@ export function AdminRegisterOAuthClientDialog({
         setFormError(routeError(json) ?? t("registerFailed"));
         return;
       }
-      const payload =
-        json &&
-        typeof json === "object" &&
-        "data" in json &&
-        (json as { data: unknown }).data !== undefined
-          ? (json as { data: unknown }).data
-          : json;
-      const o = asRecord(payload);
-      const cid = o ? String(o.client_id ?? o.clientId ?? "") : "";
+      const { clientId: cid, secret } = issuedCredentials(json);
       if (!cid) {
         setFormError(t("missingClientId", { field: "client_id" }));
         return;
       }
-      const secretRaw = o?.client_secret ?? o?.clientSecret;
-      const secret =
-        typeof secretRaw === "string" && secretRaw.length > 0
-          ? secretRaw
-          : null;
       setIssuedClientId(cid);
       setIssuedSecret(secret);
       setStep("success");
@@ -157,14 +191,7 @@ export function AdminRegisterOAuthClientDialog({
                   field: "skip_consent",
                   code: (c) => <code className="text-foreground">{c}</code>,
                   link: (c) => (
-                    <a
-                      href="https://better-auth.com/docs/plugins/oauth-provider#create-client"
-                      className="font-medium text-foreground underline-offset-4 hover:underline"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {c}
-                    </a>
+                    <ExternalLink href="https://better-auth.com/docs/plugins/oauth-provider#create-client">{c}</ExternalLink>
                   ),
                 })}
               </DialogDescription>
@@ -285,49 +312,9 @@ export function AdminRegisterOAuthClientDialog({
               </DialogDescription>
             </DialogHeader>
             <FieldGroup className="py-4">
-              <Field>
-                <FieldLabel>{t("clientId")}</FieldLabel>
-                <div className="flex gap-2">
-                  <Input
-                    readOnly
-                    className="font-mono text-xs"
-                    value={issuedClientId}
-                  />
-                  <Button
-                    type="button"
-                    size="icon"
-                    variant="outline"
-                    aria-label={t("copyClientId")}
-                    onClick={() => {
-                      void navigator.clipboard.writeText(issuedClientId);
-                    }}
-                  >
-                    <CopyIcon />
-                  </Button>
-                </div>
-              </Field>
+              <IssuedValue label={t("clientId")} copyLabel={t("copyClientId")} value={issuedClientId} />
               {issuedSecret ? (
-                <Field>
-                  <FieldLabel>{t("clientSecret")}</FieldLabel>
-                  <div className="flex gap-2">
-                    <Input
-                      readOnly
-                      className="font-mono text-xs"
-                      value={issuedSecret}
-                    />
-                    <Button
-                      type="button"
-                      size="icon"
-                      variant="outline"
-                      aria-label={t("copyClientSecret")}
-                      onClick={() => {
-                        void navigator.clipboard.writeText(issuedSecret);
-                      }}
-                    >
-                      <CopyIcon />
-                    </Button>
-                  </div>
-                </Field>
+                <IssuedValue label={t("clientSecret")} copyLabel={t("copyClientSecret")} value={issuedSecret} />
               ) : null}
             </FieldGroup>
             <DialogFooter>
