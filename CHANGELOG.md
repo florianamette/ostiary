@@ -6,6 +6,11 @@ All notable changes are documented here. The format follows
 
 ## [Unreleased]
 
+### Security
+
+- drizzle-kit's migration loader (`@esbuild-kit/core-utils`) now runs esbuild 0.25.12 instead of
+  0.18.20 (GHSA-67mh-4wv8-2f99, development server only; dev dependency).
+
 ### Documentation
 
 - The README is an overview again (776 → 189 lines): the guides moved to `docs/` (connect an app,
