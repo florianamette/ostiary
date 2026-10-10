@@ -481,7 +481,9 @@
             "invalidLimit": "Limit godzinowy musi być liczbą całkowitą od 0 do {max}.",
             "saveFailed": "Nie udało się zapisać ustawień.",
             "clientGone": "Ten klient już nie istnieje.",
-            "notSelfRegistered": "Tutaj można zmieniać tylko klientów zarejestrowanych samodzielnie."
+            "notSelfRegistered": "Tutaj można zmieniać tylko klientów zarejestrowanych samodzielnie.",
+            "invalidIconUrl": "URL ikony musi być adresem https na publicznym hoście (localhost i adresów prywatnych nie można pobrać).",
+            "iconFromMetadataDocument": "Ikona tego klienta pochodzi z jego dokumentu metadanych."
           },
           "branding": {
             "clientGone": "Ta aplikacja już nie istnieje.",
@@ -506,6 +508,8 @@
           "clientTypeLabel": "Typ klienta",
           "clientTypeConfidential": "Poufny (sekret klienta)",
           "clientTypePublic": "Publiczny (PKCE, bez sekretu)",
+          "iconUrlLabel": "URL ikony",
+          "iconUrlHint": "Wyświetlana dla aplikacji w konsoli, na ekranie zgody i na kontach użytkowników. Przydatne dla aplikacji, które przekierowują tylko na localhost. https, PNG/JPEG/WebP/AVIF/GIF/ICO/SVG.",
           "deviceCodeLabel": "Logowanie na urządzeniu (CLI, telewizory)",
           "deviceCodeHint": "Dodaje grant device code (RFC 8628): aplikacja wyświetla kod, a użytkownik zatwierdza go pod <code>{path}</code> na innym ekranie. Zwykle klient publiczny.",
           "skipConsentLabel": "Pomiń zgodę (zaufany klient)",
@@ -544,6 +548,8 @@
             "redirectUrisLabel": "URI przekierowania",
             "redirectUrisHint": "Jeden w wierszu lub rozdzielone przecinkami. Wymagany HTTPS. Tylko klienci publiczni mogą używać http na localhost.",
             "redirectUrisRequired": "Wpisz co najmniej jeden URI przekierowania (jeden w wierszu lub rozdzielone przecinkami).",
+            "iconUrlLabel": "URL ikony",
+            "iconUrlHint": "Wyświetlana dla aplikacji w konsoli, na ekranie zgody i na kontach użytkowników. Przydatne dla aplikacji, które przekierowują tylko na localhost. https, PNG/JPEG/WebP/AVIF/GIF/ICO/SVG.",
             "deviceCodeLabel": "Logowanie na urządzeniu (CLI, telewizory)",
             "deviceCodeHint": "Zezwala na grant device code. Wyłączenie blokuje nowe logowania na urządzeniach; wydane tokeny nadal działają.",
             "skipConsentLabel": "Pomiń zgodę (zaufany klient)",
@@ -574,11 +580,15 @@
           "enabled": "Klient włączony",
           "disabled": "Klient wyłączony",
           "deleted": "Klient usunięty",
+          "iconSaved": "Ikona zapisana",
           "disableTitle": "Wyłączyć {name}?",
           "disableDescription": "Nie będzie już mógł nikogo logować ani odświeżać tokenów. Wydane tokeny dostępu działają do wygaśnięcia (najwyżej godzinę).",
           "deleteTitle": "Usunąć {name}?",
           "deleteDescriptionMetadataDocument": "Jego tokeny i udzielone mu zgody również zostaną usunięte. Klient z dokumentem metadanych zostanie utworzony ponownie przy następnym logowaniu. Aby go zablokować, wyłącz go.",
-          "deleteDescriptionDynamic": "Jego tokeny i udzielone mu zgody również zostaną usunięte. Aplikacja może zarejestrować się ponownie, dopóki rejestracja dynamiczna jest włączona."
+          "deleteDescriptionDynamic": "Jego tokeny i udzielone mu zgody również zostaną usunięte. Aplikacja może zarejestrować się ponownie, dopóki rejestracja dynamiczna jest włączona.",
+          "setIcon": "Ustaw ikonę",
+          "iconTitle": "Ikona aplikacji {name}",
+          "iconDescription": "Wyświetlana w konsoli i na kontach osób korzystających z aplikacji. Ekran zgody nadal pokazuje monogram i ostrzeżenie o niezweryfikowanej aplikacji dla aplikacji zarejestrowanych samodzielnie. Pozostaw puste, aby ją usunąć."
         },
         "brandingErrors": {
           "textTooLong": "Maksymalnie {max} znaków.",

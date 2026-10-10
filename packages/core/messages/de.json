@@ -481,7 +481,9 @@
             "invalidLimit": "Das Stundenlimit muss eine ganze Zahl von 0 bis {max} sein.",
             "saveFailed": "Die Einstellungen konnten nicht gespeichert werden.",
             "clientGone": "Dieser Client existiert nicht mehr.",
-            "notSelfRegistered": "Hier können nur selbst registrierte Clients geändert werden."
+            "notSelfRegistered": "Hier können nur selbst registrierte Clients geändert werden.",
+            "invalidIconUrl": "Die Symbol-URL muss eine https-Adresse auf einem öffentlichen Host sein (localhost und private Adressen können nicht abgerufen werden).",
+            "iconFromMetadataDocument": "Das Symbol dieses Clients stammt aus seinem Metadatendokument."
           },
           "branding": {
             "clientGone": "Diese Anwendung existiert nicht mehr.",
@@ -506,6 +508,8 @@
           "clientTypeLabel": "Client-Typ",
           "clientTypeConfidential": "Vertraulich (Client-Secret)",
           "clientTypePublic": "Öffentlich (PKCE, ohne Secret)",
+          "iconUrlLabel": "Symbol-URL",
+          "iconUrlHint": "Wird für die App in der Konsole, auf dem Zustimmungsbildschirm und in den Konten der Nutzer angezeigt. Nützlich für Apps, die nur auf localhost weiterleiten. https, PNG/JPEG/WebP/AVIF/GIF/ICO/SVG.",
           "deviceCodeLabel": "Geräteanmeldung (CLIs, TVs)",
           "deviceCodeHint": "Fügt den Device-Code-Grant hinzu (RFC 8628): Die App zeigt einen Code an, und der Benutzer bestätigt ihn unter <code>{path}</code> auf einem anderen Bildschirm. Meist ein öffentlicher Client.",
           "skipConsentLabel": "Einwilligung überspringen (vertrauenswürdiger Client)",
@@ -544,6 +548,8 @@
             "redirectUrisLabel": "Weiterleitungs-URIs",
             "redirectUrisHint": "Eine pro Zeile oder durch Kommas getrennt. HTTPS erforderlich. Nur öffentliche Clients dürfen http auf localhost verwenden.",
             "redirectUrisRequired": "Geben Sie mindestens eine Weiterleitungs-URI ein (eine pro Zeile oder durch Kommas getrennt).",
+            "iconUrlLabel": "Symbol-URL",
+            "iconUrlHint": "Wird für die App in der Konsole, auf dem Zustimmungsbildschirm und in den Konten der Nutzer angezeigt. Nützlich für Apps, die nur auf localhost weiterleiten. https, PNG/JPEG/WebP/AVIF/GIF/ICO/SVG.",
             "deviceCodeLabel": "Geräteanmeldung (CLIs, TVs)",
             "deviceCodeHint": "Erlaubt den Device-Code-Grant. Beim Ausschalten werden keine neuen Geräteanmeldungen mehr möglich; bereits ausgestellte Tokens funktionieren weiter.",
             "skipConsentLabel": "Einwilligung überspringen (vertrauenswürdiger Client)",
@@ -574,11 +580,15 @@
           "enabled": "Client aktiviert",
           "disabled": "Client deaktiviert",
           "deleted": "Client gelöscht",
+          "iconSaved": "Symbol gespeichert",
           "disableTitle": "{name} deaktivieren?",
           "disableDescription": "Er kann niemanden mehr anmelden und seine Tokens nicht mehr erneuern. Bereits ausgestellte Access-Tokens funktionieren bis zu ihrem Ablauf (höchstens eine Stunde).",
           "deleteTitle": "{name} löschen?",
           "deleteDescriptionMetadataDocument": "Seine Tokens und die ihm erteilten Einwilligungen werden ebenfalls gelöscht. Ein Metadatendokument-Client wird beim nächsten Anmeldevorgang neu erstellt. Um ihn zu blockieren, deaktivieren Sie ihn stattdessen.",
-          "deleteDescriptionDynamic": "Seine Tokens und die ihm erteilten Einwilligungen werden ebenfalls gelöscht. Die App kann sich erneut registrieren, solange die dynamische Registrierung aktiviert ist."
+          "deleteDescriptionDynamic": "Seine Tokens und die ihm erteilten Einwilligungen werden ebenfalls gelöscht. Die App kann sich erneut registrieren, solange die dynamische Registrierung aktiviert ist.",
+          "setIcon": "Symbol festlegen",
+          "iconTitle": "Symbol für {name}",
+          "iconDescription": "Wird in der Konsole und in den Konten der Personen angezeigt, die die App nutzen. Der Zustimmungsbildschirm zeigt für selbst registrierte Apps weiterhin das Monogramm und den Hinweis „nicht verifiziert“. Leer lassen, um es zu entfernen."
         },
         "brandingErrors": {
           "textTooLong": "Höchstens {max} Zeichen.",

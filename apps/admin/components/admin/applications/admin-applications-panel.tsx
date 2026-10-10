@@ -100,6 +100,7 @@ function mapApiClientToRow(raw: unknown): OAuthApplicationRow | null {
   const publicClient = o.public === true || tokenEndpointAuthMethod === "none";
   const grantTypes = asStringArray(o.grant_types ?? o.grantTypes);
   const redirectUris = asStringArray(o.redirect_uris ?? o.redirectUris);
+  const logoUri = typeof o.logo_uri === "string" && o.logo_uri ? o.logo_uri : null;
   const issuedAt = o.client_id_issued_at ?? o.clientIdIssuedAt;
   let createdAt: string;
   if (typeof issuedAt === "number" && Number.isFinite(issuedAt)) {
@@ -125,6 +126,7 @@ function mapApiClientToRow(raw: unknown): OAuthApplicationRow | null {
       : normalizeAuthMethod(tokenEndpointAuthMethod),
     grantTypes,
     redirectUris,
+    logoUri,
     createdAt,
     // Dynamic clients carry the marker in their metadata, which Better Auth returns inline.
     registration: o.ostiary_registration === "dynamic" ? "dynamic" : "admin",
@@ -336,7 +338,7 @@ export function AdminApplicationsPanel({
                 <TableRow key={row.clientId}>
                   <TableCell>
                     <div className="flex items-start gap-2.5">
-                      <AppIcon name={row.name} src={adminAppIconUrl(row.clientId)} size={28} className="mt-0.5" />
+                      <AppIcon name={row.name} src={adminAppIconUrl(row.clientId, row.logoUri)} size={28} className="mt-0.5" />
                       <div className="flex min-w-0 flex-col gap-0.5">
                         <span className="font-medium">{row.name}</span>
                         {row.registration !== "admin" ? (

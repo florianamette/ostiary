@@ -481,7 +481,9 @@
             "invalidLimit": "Il limite orario deve essere un numero intero da 0 a {max}.",
             "saveFailed": "Impossibile salvare le impostazioni.",
             "clientGone": "Questo client non esiste più.",
-            "notSelfRegistered": "Qui si possono modificare solo i client autoregistrati."
+            "notSelfRegistered": "Qui si possono modificare solo i client autoregistrati.",
+            "invalidIconUrl": "L’URL dell’icona deve essere un indirizzo https su un host pubblico (localhost e gli indirizzi privati non possono essere recuperati).",
+            "iconFromMetadataDocument": "L’icona di questo client proviene dal suo documento di metadati."
           },
           "branding": {
             "clientGone": "Questa applicazione non esiste più.",
@@ -506,6 +508,8 @@
           "clientTypeLabel": "Tipo di client",
           "clientTypeConfidential": "Riservato (client secret)",
           "clientTypePublic": "Pubblico (PKCE, senza secret)",
+          "iconUrlLabel": "URL dell’icona",
+          "iconUrlHint": "Mostrata per l’app nella console, nella schermata di consenso e negli account degli utenti. Utile per le app che reindirizzano solo a localhost. https, PNG/JPEG/WebP/AVIF/GIF/ICO/SVG.",
           "deviceCodeLabel": "Accesso da dispositivo (CLI, TV)",
           "deviceCodeHint": "Aggiunge il grant device code (RFC 8628): l’app mostra un codice e l’utente lo approva su <code>{path}</code> da un altro schermo. Di solito un client pubblico.",
           "skipConsentLabel": "Salta il consenso (client attendibile)",
@@ -544,6 +548,8 @@
             "redirectUrisLabel": "URI di reindirizzamento",
             "redirectUrisHint": "Uno per riga o separati da virgole. HTTPS obbligatorio. Solo i client pubblici possono usare http su localhost.",
             "redirectUrisRequired": "Inserisci almeno un URI di reindirizzamento (uno per riga o separati da virgole).",
+            "iconUrlLabel": "URL dell’icona",
+            "iconUrlHint": "Mostrata per l’app nella console, nella schermata di consenso e negli account degli utenti. Utile per le app che reindirizzano solo a localhost. https, PNG/JPEG/WebP/AVIF/GIF/ICO/SVG.",
             "deviceCodeLabel": "Accesso da dispositivo (CLI, TV)",
             "deviceCodeHint": "Consente il grant device code. Disattivarlo blocca i nuovi accessi da dispositivo; i token già emessi continuano a funzionare.",
             "skipConsentLabel": "Salta il consenso (client attendibile)",
@@ -574,11 +580,15 @@
           "enabled": "Client attivato",
           "disabled": "Client disattivato",
           "deleted": "Client eliminato",
+          "iconSaved": "Icona salvata",
           "disableTitle": "Disattivare {name}?",
           "disableDescription": "Non potrà più far accedere nessuno né aggiornare i suoi token. Gli access token già emessi funzionano fino alla scadenza (al massimo un’ora).",
           "deleteTitle": "Eliminare {name}?",
           "deleteDescriptionMetadataDocument": "Vengono eliminati anche i suoi token e i consensi che le persone gli hanno dato. Un client con documento di metadati viene ricreato la prossima volta che fa accedere qualcuno. Per bloccarlo, disattivalo.",
-          "deleteDescriptionDynamic": "Vengono eliminati anche i suoi token e i consensi che le persone gli hanno dato. L’app può registrarsi di nuovo finché la registrazione dinamica è attiva."
+          "deleteDescriptionDynamic": "Vengono eliminati anche i suoi token e i consensi che le persone gli hanno dato. L’app può registrarsi di nuovo finché la registrazione dinamica è attiva.",
+          "setIcon": "Imposta icona",
+          "iconTitle": "Icona di {name}",
+          "iconDescription": "Mostrata nella console e negli account delle persone che usano l’app. Per le app autoregistrate la schermata di consenso mantiene il monogramma e l’avviso di app non verificata. Lascia vuoto per rimuoverla."
         },
         "brandingErrors": {
           "textTooLong": "Massimo {max} caratteri.",

@@ -481,7 +481,9 @@
             "invalidLimit": "시간당 한도는 0에서 {max} 사이의 정수여야 합니다.",
             "saveFailed": "설정을 저장하지 못했습니다.",
             "clientGone": "이 클라이언트는 더 이상 존재하지 않습니다.",
-            "notSelfRegistered": "여기서는 자체 등록 클라이언트만 변경할 수 있습니다."
+            "notSelfRegistered": "여기서는 자체 등록 클라이언트만 변경할 수 있습니다.",
+            "invalidIconUrl": "아이콘 URL은 공개 호스트의 https 주소여야 합니다(localhost와 사설 주소는 가져올 수 없습니다).",
+            "iconFromMetadataDocument": "이 클라이언트의 아이콘은 메타데이터 문서에서 가져옵니다."
           },
           "branding": {
             "clientGone": "이 애플리케이션은 더 이상 존재하지 않습니다.",
@@ -506,6 +508,8 @@
           "clientTypeLabel": "클라이언트 유형",
           "clientTypeConfidential": "기밀(클라이언트 시크릿)",
           "clientTypePublic": "공개(PKCE, 시크릿 없음)",
+          "iconUrlLabel": "아이콘 URL",
+          "iconUrlHint": "콘솔, 동의 화면, 사용자 계정에서 앱에 표시됩니다. localhost로만 리디렉션하는 앱에 유용합니다. https, PNG/JPEG/WebP/AVIF/GIF/ICO/SVG.",
           "deviceCodeLabel": "기기 로그인(CLI, TV)",
           "deviceCodeHint": "기기 코드 그랜트(RFC 8628)를 추가합니다. 앱이 코드를 표시하면 사용자가 다른 화면의 <code>{path}</code>에서 승인합니다. 보통 공개 클라이언트입니다.",
           "skipConsentLabel": "동의 건너뛰기(신뢰할 수 있는 클라이언트)",
@@ -544,6 +548,8 @@
             "redirectUrisLabel": "리디렉션 URI",
             "redirectUrisHint": "한 줄에 하나씩 또는 쉼표로 구분. HTTPS가 필요합니다. 공개 클라이언트만 localhost에서 http를 사용할 수 있습니다.",
             "redirectUrisRequired": "리디렉션 URI를 하나 이상 입력하세요(한 줄에 하나씩 또는 쉼표로 구분).",
+            "iconUrlLabel": "아이콘 URL",
+            "iconUrlHint": "콘솔, 동의 화면, 사용자 계정에서 앱에 표시됩니다. localhost로만 리디렉션하는 앱에 유용합니다. https, PNG/JPEG/WebP/AVIF/GIF/ICO/SVG.",
             "deviceCodeLabel": "기기 로그인(CLI, TV)",
             "deviceCodeHint": "기기 코드 그랜트를 허용합니다. 끄면 새 기기 로그인이 중단되며, 이미 발급된 토큰은 계속 작동합니다.",
             "skipConsentLabel": "동의 건너뛰기(신뢰할 수 있는 클라이언트)",
@@ -574,11 +580,15 @@
           "enabled": "클라이언트를 활성화했습니다",
           "disabled": "클라이언트를 비활성화했습니다",
           "deleted": "클라이언트를 삭제했습니다",
+          "iconSaved": "아이콘을 저장했습니다",
           "disableTitle": "{name}을(를) 비활성화할까요?",
           "disableDescription": "더 이상 사용자를 로그인시키거나 토큰을 갱신할 수 없습니다. 이미 발급된 액세스 토큰은 만료될 때까지(최대 1시간) 작동합니다.",
           "deleteTitle": "{name}을(를) 삭제할까요?",
           "deleteDescriptionMetadataDocument": "토큰과 사용자가 부여한 동의도 함께 삭제됩니다. 메타데이터 문서 클라이언트는 다음에 누군가를 로그인시킬 때 다시 만들어집니다. 차단하려면 대신 비활성화하세요.",
-          "deleteDescriptionDynamic": "토큰과 사용자가 부여한 동의도 함께 삭제됩니다. 동적 등록이 켜져 있는 동안 앱이 다시 등록할 수 있습니다."
+          "deleteDescriptionDynamic": "토큰과 사용자가 부여한 동의도 함께 삭제됩니다. 동적 등록이 켜져 있는 동안 앱이 다시 등록할 수 있습니다.",
+          "setIcon": "아이콘 설정",
+          "iconTitle": "{name} 아이콘",
+          "iconDescription": "콘솔과 앱을 사용하는 사람들의 계정에 표시됩니다. 자체 등록된 앱의 동의 화면에는 계속 모노그램과 확인되지 않은 앱 알림이 표시됩니다. 제거하려면 비워 두세요."
         },
         "brandingErrors": {
           "textTooLong": "{max}자 미만으로 입력하세요.",

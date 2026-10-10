@@ -481,7 +481,9 @@
             "invalidLimit": "每小时上限必须是 0 到 {max} 之间的整数。",
             "saveFailed": "无法保存设置。",
             "clientGone": "此客户端已不存在。",
-            "notSelfRegistered": "此处只能修改自行注册的客户端。"
+            "notSelfRegistered": "此处只能修改自行注册的客户端。",
+            "invalidIconUrl": "图标 URL 必须是公共主机上的 https 地址（无法获取 localhost 和私有地址）。",
+            "iconFromMetadataDocument": "此客户端的图标来自其元数据文档。"
           },
           "branding": {
             "clientGone": "此应用已不存在。",
@@ -506,6 +508,8 @@
           "clientTypeLabel": "客户端类型",
           "clientTypeConfidential": "机密（客户端密钥）",
           "clientTypePublic": "公开（PKCE，无密钥）",
+          "iconUrlLabel": "图标 URL",
+          "iconUrlHint": "在控制台、授权同意页面和用户账户中为该应用显示。适用于只重定向到 localhost 的应用。https，PNG/JPEG/WebP/AVIF/GIF/ICO/SVG。",
           "deviceCodeLabel": "设备登录（CLI、电视）",
           "deviceCodeHint": "添加设备码授权（RFC 8628）：应用显示一个代码，用户在另一块屏幕上的 <code>{path}</code> 处批准。通常为公开客户端。",
           "skipConsentLabel": "跳过同意（受信任的客户端）",
@@ -544,6 +548,8 @@
             "redirectUrisLabel": "重定向 URI",
             "redirectUrisHint": "每行一个或以逗号分隔。须使用 HTTPS。只有公开客户端可在 localhost 上使用 http。",
             "redirectUrisRequired": "请至少输入一个重定向 URI（每行一个或以逗号分隔）。",
+            "iconUrlLabel": "图标 URL",
+            "iconUrlHint": "在控制台、授权同意页面和用户账户中为该应用显示。适用于只重定向到 localhost 的应用。https，PNG/JPEG/WebP/AVIF/GIF/ICO/SVG。",
             "deviceCodeLabel": "设备登录（CLI、电视）",
             "deviceCodeHint": "允许设备码授权。关闭后将停止新的设备登录；已签发的令牌仍然有效。",
             "skipConsentLabel": "跳过同意（受信任的客户端）",
@@ -574,11 +580,15 @@
           "enabled": "客户端已启用",
           "disabled": "客户端已停用",
           "deleted": "客户端已删除",
+          "iconSaved": "图标已保存",
           "disableTitle": "停用 {name}？",
           "disableDescription": "它将无法再让任何人登录或刷新其令牌。已签发的访问令牌在过期前仍然有效（最长一小时）。",
           "deleteTitle": "删除 {name}？",
           "deleteDescriptionMetadataDocument": "其令牌和用户给予它的同意也会一并删除。元数据文档客户端会在下次让用户登录时被重新创建。如需阻止它，请改为停用。",
-          "deleteDescriptionDynamic": "其令牌和用户给予它的同意也会一并删除。在动态注册开启期间，该应用可以再次注册。"
+          "deleteDescriptionDynamic": "其令牌和用户给予它的同意也会一并删除。在动态注册开启期间，该应用可以再次注册。",
+          "setIcon": "设置图标",
+          "iconTitle": "{name} 的图标",
+          "iconDescription": "显示在控制台以及使用该应用的用户账户中。对于自行注册的应用，授权同意页面仍显示首字母图标和未验证提示。留空即可移除。"
         },
         "brandingErrors": {
           "textTooLong": "请不要超过 {max} 个字符。",

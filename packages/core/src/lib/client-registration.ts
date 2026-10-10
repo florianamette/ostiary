@@ -138,6 +138,8 @@ export type SelfRegisteredClient = {
   tokenEndpointAuthMethod: string | null;
   grantTypes: string[];
   redirectUris: string[];
+  /** Its `logo_uri`, from registration or set by an admin. */
+  icon: string | null;
   scopes: string[];
   ownerId: string | null;
   createdAt: Date | null;
@@ -163,6 +165,7 @@ export async function listSelfRegisteredClients(limit = 500): Promise<SelfRegist
     tokenEndpointAuthMethod: row.tokenEndpointAuthMethod,
     grantTypes: row.grantTypes ?? [],
     redirectUris: row.redirectUris,
+    icon: row.icon,
     scopes: row.scopes ?? [],
     ownerId: row.userId,
     createdAt: row.createdAt,

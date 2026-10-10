@@ -481,7 +481,9 @@
             "invalidLimit": "Hodinový limit musí být celé číslo od 0 do {max}.",
             "saveFailed": "Nastavení se nepodařilo uložit.",
             "clientGone": "Tento klient už neexistuje.",
-            "notSelfRegistered": "Zde lze měnit jen samoregistrované klienty."
+            "notSelfRegistered": "Zde lze měnit jen samoregistrované klienty.",
+            "invalidIconUrl": "URL ikony musí být adresa https na veřejném hostiteli (localhost a soukromé adresy nelze načíst).",
+            "iconFromMetadataDocument": "Ikona tohoto klienta pochází z jeho dokumentu metadat."
           },
           "branding": {
             "clientGone": "Tato aplikace už neexistuje.",
@@ -506,6 +508,8 @@
           "clientTypeLabel": "Typ klienta",
           "clientTypeConfidential": "Důvěrný (tajný klíč klienta)",
           "clientTypePublic": "Veřejný (PKCE, bez tajného klíče)",
+          "iconUrlLabel": "URL ikony",
+          "iconUrlHint": "Zobrazuje se u aplikace v konzoli, na obrazovce souhlasu a v účtech uživatelů. Užitečné pro aplikace, které přesměrovávají jen na localhost. https, PNG/JPEG/WebP/AVIF/GIF/ICO/SVG.",
           "deviceCodeLabel": "Přihlášení zařízení (CLI, televize)",
           "deviceCodeHint": "Přidá grant device code (RFC 8628): aplikace zobrazí kód a uživatel ho schválí na <code>{path}</code> na jiné obrazovce. Obvykle veřejný klient.",
           "skipConsentLabel": "Přeskočit souhlas (důvěryhodný klient)",
@@ -544,6 +548,8 @@
             "redirectUrisLabel": "URI přesměrování",
             "redirectUrisHint": "Jedno na řádek nebo oddělené čárkami. Vyžaduje se HTTPS. Jen veřejní klienti mohou používat http na localhost.",
             "redirectUrisRequired": "Zadejte alespoň jedno URI přesměrování (jedno na řádek nebo oddělené čárkami).",
+            "iconUrlLabel": "URL ikony",
+            "iconUrlHint": "Zobrazuje se u aplikace v konzoli, na obrazovce souhlasu a v účtech uživatelů. Užitečné pro aplikace, které přesměrovávají jen na localhost. https, PNG/JPEG/WebP/AVIF/GIF/ICO/SVG.",
             "deviceCodeLabel": "Přihlášení zařízení (CLI, televize)",
             "deviceCodeHint": "Povoluje grant device code. Vypnutím se zastaví nová přihlášení zařízení; již vydané tokeny fungují dál.",
             "skipConsentLabel": "Přeskočit souhlas (důvěryhodný klient)",
@@ -574,11 +580,15 @@
           "enabled": "Klient zapnut",
           "disabled": "Klient vypnut",
           "deleted": "Klient smazán",
+          "iconSaved": "Ikona uložena",
           "disableTitle": "Vypnout {name}?",
           "disableDescription": "Už nebude moci nikoho přihlásit ani obnovovat své tokeny. Již vydané přístupové tokeny fungují do vypršení (nejvýše hodinu).",
           "deleteTitle": "Smazat {name}?",
           "deleteDescriptionMetadataDocument": "Smažou se i jeho tokeny a souhlasy, které mu lidé udělili. Klient s dokumentem metadat se znovu vytvoří, až příště někoho přihlásí. Chcete-li ho zablokovat, raději ho vypněte.",
-          "deleteDescriptionDynamic": "Smažou se i jeho tokeny a souhlasy, které mu lidé udělili. Aplikace se může znovu zaregistrovat, dokud je dynamická registrace zapnutá."
+          "deleteDescriptionDynamic": "Smažou se i jeho tokeny a souhlasy, které mu lidé udělili. Aplikace se může znovu zaregistrovat, dokud je dynamická registrace zapnutá.",
+          "setIcon": "Nastavit ikonu",
+          "iconTitle": "Ikona aplikace {name}",
+          "iconDescription": "Zobrazuje se v konzoli a v účtech lidí, kteří aplikaci používají. Obrazovka souhlasu u samostatně registrovaných aplikací dál ukazuje monogram a upozornění na neověřenou aplikaci. Ponechte prázdné, chcete-li ji odebrat."
         },
         "brandingErrors": {
           "textTooLong": "Nepřekračujte {max} znaků.",

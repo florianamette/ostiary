@@ -110,6 +110,7 @@ export default async function AdminApplicationsPage({
               : "client_secret_basic",
           grantTypes: client.grantTypes,
           redirectUris: client.redirectUris,
+          logoUri: client.icon,
           createdAt: (client.createdAt ?? new Date()).toISOString(),
           registration: client.source,
         }))}

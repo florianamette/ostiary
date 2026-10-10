@@ -17,6 +17,7 @@ import {
   type ClientRegistrationSettings,
   type DynamicRegistrationMode,
 } from "@ostiary/core/lib/client-registration-policy";
+import { parseLogoUri } from "@ostiary/core/lib/admin/oauth-clients/oauth-client-admin.validation";
 import { currentApiScopes, OIDC_SCOPES } from "@ostiary/core/lib/oauth-scopes";
 import { adminActor } from "@/lib/admin-audit";
 
@@ -109,6 +110,30 @@ export async function setSelfRegisteredClientDisabled(clientId: string, disabled
     action: disabled ? "oauth_client.disable" : "oauth_client.enable",
     target: { type: "oauth_client", id: clientId, label: client.name },
     metadata: { source: client.source },
+  });
+  return { ok: true };
+}
+
+/**
+ * Sets or clears (empty) the icon of a dynamically registered client. A metadata document
+ * client's icon comes from its document, which replaces it on every refresh.
+ */
+export async function setSelfRegisteredClientIcon(clientId: string, logoUri: string): Promise<Result> {
+  const { audit } = await adminActor();
+  const client = await selfRegisteredClient(clientId);
+  if (!client.ok) return client;
+  const t = await getTranslations("admin.pages.applications.actions.registration");
+  if (client.source !== "dynamic") return { ok: false, error: t("iconFromMetadataDocument") };
+  const parsed = parseLogoUri(logoUri);
+  if (!parsed.ok) return { ok: false, error: t("invalidIconUrl") };
+  await db
+    .update(oauthClient)
+    .set({ icon: parsed.value, updatedAt: new Date() })
+    .where(eq(oauthClient.clientId, clientId));
+  await audit({
+    action: "oauth_client.update",
+    target: { type: "oauth_client", id: clientId, label: client.name },
+    metadata: { fields: ["logo_uri"], source: client.source },
   });
   return { ok: true };
 }

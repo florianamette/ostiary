@@ -45,6 +45,7 @@ export function AdminRegisterOAuthClientDialog({
   const [step, setStep] = React.useState<"form" | "success">("form");
   const [clientName, setClientName] = React.useState("");
   const [redirectUrisRaw, setRedirectUrisRaw] = React.useState("");
+  const [logoUri, setLogoUri] = React.useState("");
   const [clientKind, setClientKind] = React.useState<"confidential" | "public">(
     "confidential"
   );
@@ -59,6 +60,7 @@ export function AdminRegisterOAuthClientDialog({
     setStep("form");
     setClientName("");
     setRedirectUrisRaw("");
+    setLogoUri("");
     setClientKind("confidential");
     setSkipConsent(false);
     setDeviceCode(false);
@@ -94,6 +96,7 @@ export function AdminRegisterOAuthClientDialog({
           response_types: ["code"],
           type: clientKind === "public" ? "native" : "web",
           skip_consent: skipConsent,
+          logo_uri: logoUri.trim() || undefined,
         }),
       });
       const json: unknown = await res.json().catch(() => null);
@@ -218,6 +221,17 @@ export function AdminRegisterOAuthClientDialog({
                     </SelectItem>
                   </SelectContent>
                 </Select>
+              </Field>
+              <Field>
+                <FieldLabel htmlFor="oauth-reg-icon">{t("iconUrlLabel")}</FieldLabel>
+                <Input
+                  id="oauth-reg-icon"
+                  type="url"
+                  placeholder="https://example.com/icon.png"
+                  value={logoUri}
+                  onChange={(e) => setLogoUri(e.target.value)}
+                />
+                <p className="text-muted-foreground text-xs">{t("iconUrlHint")}</p>
               </Field>
               <Field>
                 <CheckboxField

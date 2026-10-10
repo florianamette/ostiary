@@ -46,6 +46,8 @@ export type OAuthApplicationRow = {
     | "private_key_jwt";
   grantTypes: string[];
   redirectUris: string[];
+  /** The registered icon (`logo_uri`), or null when the app uses its site's icon or a monogram. */
+  logoUri: string | null;
   createdAt: string;
   /** Registered by an admin, or by the client itself (see client-registration-policy.ts). */
   registration: RegistrationSource;

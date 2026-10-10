@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { isUsableLogoUri } from "@ostiary/core/lib/app-icons/site";
 import { ENV_API_SCOPES, OIDC_SCOPES } from "@ostiary/core/lib/oauth-scopes";
 
 import {
@@ -30,6 +31,27 @@ const oauthGrantTypeSchema = z.enum([
   DEVICE_CODE_GRANT_TYPE,
 ]);
 
+export const INVALID_LOGO_URI_MESSAGE =
+  "The icon URL must be an https address on a public host (localhost and private addresses can't be fetched).";
+
+/**
+ * `logo_uri`, the app's icon: a URL the icon lookup will use (see `appIconSource`), or empty
+ * or null for none.
+ */
+const logoUriSchema = z
+  .string()
+  .trim()
+  .nullable()
+  .optional()
+  .refine((v) => !v || isUsableLogoUri(v), { message: INVALID_LOGO_URI_MESSAGE });
+
+/** An icon URL set outside the JSON API (self-registered clients): the URL, or null to clear it. */
+export function parseLogoUri(raw: unknown): BodyParseResult<string | null> {
+  const parsed = logoUriSchema.safeParse(raw);
+  if (!parsed.success) return { ok: false, error: INVALID_LOGO_URI_MESSAGE };
+  return { ok: true, value: parsed.data || null };
+}
+
 const DEFAULT_GRANT_TYPES = [
   "authorization_code",
   "refresh_token",
@@ -57,6 +79,7 @@ export const createOAuthClientBodySchema = (apiScopes: readonly string[] = ENV_A
       response_types: z.array(z.literal("code")).optional(),
       type: oauthClientApplicationTypeSchema.optional(),
       skip_consent: z.boolean().optional().default(false),
+      logo_uri: logoUriSchema,
       scope: z
         .string()
         .trim()
@@ -93,6 +116,8 @@ const updateOAuthClientBodyTransformSchema = z
     redirect_uris: z.array(z.string().min(1)).min(1).optional(),
     skip_consent: z.boolean().optional(),
     device_code: z.boolean().optional(),
+    // Empty or null clears it.
+    logo_uri: logoUriSchema,
   })
   .strict()
   .refine(
@@ -100,7 +125,8 @@ const updateOAuthClientBodyTransformSchema = z
       data.client_name !== undefined ||
       data.redirect_uris !== undefined ||
       data.skip_consent !== undefined ||
-      data.device_code !== undefined,
+      data.device_code !== undefined ||
+      data.logo_uri !== undefined,
     { message: "No updatable fields provided" },
   )
   .transform((data): UpdateOAuthClientAdminInput => {
@@ -116,6 +142,9 @@ const updateOAuthClientBodyTransformSchema = z
     }
     if (data.device_code !== undefined) {
       out.device_code = data.device_code;
+    }
+    if (data.logo_uri !== undefined) {
+      out.logo_uri = data.logo_uri || null;
     }
     return out;
   });
@@ -159,6 +188,7 @@ export function parseCreateOAuthClientBody(
       response_types: v.grant_types.includes("authorization_code") ? ["code"] : [],
       type: v.type,
       skip_consent: v.skip_consent,
+      logo_uri: v.logo_uri || undefined,
       scope: v.scope?.split(/\s+/).join(" "),
     },
   };

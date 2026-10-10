@@ -481,7 +481,9 @@
             "invalidLimit": "La limite horaire doit être un nombre entier entre 0 et {max}.",
             "saveFailed": "Impossible d’enregistrer les paramètres.",
             "clientGone": "Ce client n’existe plus.",
-            "notSelfRegistered": "Seuls les clients auto-enregistrés peuvent être modifiés ici."
+            "notSelfRegistered": "Seuls les clients auto-enregistrés peuvent être modifiés ici.",
+            "invalidIconUrl": "L’URL de l’icône doit être une adresse https sur un hôte public (localhost et les adresses privées ne peuvent pas être récupérés).",
+            "iconFromMetadataDocument": "L’icône de ce client vient de son document de métadonnées."
           },
           "branding": {
             "clientGone": "Cette application n’existe plus.",
@@ -506,6 +508,8 @@
           "clientTypeLabel": "Type de client",
           "clientTypeConfidential": "Confidentiel (secret client)",
           "clientTypePublic": "Public (PKCE, sans secret)",
+          "iconUrlLabel": "URL de l’icône",
+          "iconUrlHint": "Affichée pour l’application dans la console, sur l’écran de consentement et dans les comptes des utilisateurs. Utile pour les applications qui ne redirigent que vers localhost. https, PNG/JPEG/WebP/AVIF/GIF/ICO/SVG.",
           "deviceCodeLabel": "Connexion par appareil (CLI, TV)",
           "deviceCodeHint": "Ajoute le type d’autorisation device code (RFC 8628) : l’application affiche un code et l’utilisateur l’approuve sur <code>{path}</code> depuis un autre écran. Généralement un client public.",
           "skipConsentLabel": "Ignorer le consentement (client de confiance)",
@@ -544,6 +548,8 @@
             "redirectUrisLabel": "URI de redirection",
             "redirectUrisHint": "Une par ligne ou séparées par des virgules. HTTPS obligatoire. Seuls les clients publics peuvent utiliser http sur localhost.",
             "redirectUrisRequired": "Saisissez au moins une URI de redirection (une par ligne ou séparées par des virgules).",
+            "iconUrlLabel": "URL de l’icône",
+            "iconUrlHint": "Affichée pour l’application dans la console, sur l’écran de consentement et dans les comptes des utilisateurs. Utile pour les applications qui ne redirigent que vers localhost. https, PNG/JPEG/WebP/AVIF/GIF/ICO/SVG.",
             "deviceCodeLabel": "Connexion par appareil (CLI, TV)",
             "deviceCodeHint": "Autorise le type d’autorisation device code. Le désactiver bloque les nouvelles connexions par appareil ; les jetons déjà émis continuent de fonctionner.",
             "skipConsentLabel": "Ignorer le consentement (client de confiance)",
@@ -574,11 +580,15 @@
           "enabled": "Client activé",
           "disabled": "Client désactivé",
           "deleted": "Client supprimé",
+          "iconSaved": "Icône enregistrée",
           "disableTitle": "Désactiver {name} ?",
           "disableDescription": "Il ne pourra plus connecter personne ni actualiser ses jetons. Les jetons d’accès déjà émis fonctionnent jusqu’à leur expiration (une heure au maximum).",
           "deleteTitle": "Supprimer {name} ?",
           "deleteDescriptionMetadataDocument": "Ses jetons et les consentements que les utilisateurs lui ont accordés sont aussi supprimés. Un client à document de métadonnées est recréé la prochaine fois qu’il connecte quelqu’un. Pour le bloquer, désactivez-le plutôt.",
-          "deleteDescriptionDynamic": "Ses jetons et les consentements que les utilisateurs lui ont accordés sont aussi supprimés. L’application peut se réenregistrer tant que l’enregistrement dynamique est activé."
+          "deleteDescriptionDynamic": "Ses jetons et les consentements que les utilisateurs lui ont accordés sont aussi supprimés. L’application peut se réenregistrer tant que l’enregistrement dynamique est activé.",
+          "setIcon": "Définir l’icône",
+          "iconTitle": "Icône de {name}",
+          "iconDescription": "Affichée dans la console et dans les comptes des personnes qui utilisent l’application. L’écran de consentement garde le monogramme et l’avertissement « non vérifiée » pour les applications auto-enregistrées. Laissez vide pour la retirer."
         },
         "brandingErrors": {
           "textTooLong": "Ne dépassez pas {max} caractères.",
