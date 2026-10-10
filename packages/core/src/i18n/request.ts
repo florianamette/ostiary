@@ -1,8 +1,7 @@
 import { hasLocale } from "next-intl";
-
-import { APP_TIME_ZONE } from "@ostiary/core/i18n/constants";
 import { getRequestConfig } from "next-intl/server";
 
+import { APP_TIME_ZONE } from "@ostiary/core/i18n/constants";
 import { routing } from "@ostiary/core/i18n/routing";
 
 export default getRequestConfig(async ({ requestLocale }) => {
