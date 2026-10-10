@@ -49,7 +49,7 @@ import {
 import { rotateSigningKeyNow, updateSigningKeySettings } from "@/app/[locale]/(console)/signing-keys/actions";
 import { formatDateTime } from "@/components/admin/common/page-header";
 
-export type SigningKeyItem = {
+type SigningKeyItem = {
   id: string;
   alg: string;
   crv: string | null;

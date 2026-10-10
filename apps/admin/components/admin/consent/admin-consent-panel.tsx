@@ -1,21 +1,17 @@
 "use client";
 
 import * as React from "react";
-import {
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  SearchIcon,
-} from "lucide-react";
 import { useFormatter, useTranslations } from "next-intl";
 
 import {
   AdminConsentRowActions,
   type OAuthConsentRow,
 } from "@/components/admin/consent/admin-consent-row-actions";
+import { TableMessageRow, TablePagination, TableSearch } from "@/components/admin/common/admin-table";
+import { useDebouncedValue } from "@/components/admin/common/use-debounced-value";
 import { Alert, AlertDescription, AlertTitle } from "@ostiary/core/components/ui/alert";
 import { Badge } from "@ostiary/core/components/ui/badge";
 import { Button } from "@ostiary/core/components/ui/button";
-import { Input } from "@ostiary/core/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -32,16 +28,14 @@ import {
   TableRow,
 } from "@ostiary/core/components/ui/table";
 import {
-  ADMIN_TABLE_PAGE_SIZES,
   DEFAULT_ADMIN_TABLE_PAGE_SIZE,
   type AdminTablePageSize,
 } from "@ostiary/core/lib/admin/admin-table-page-size";
 import { adminAppIconUrl } from "@/lib/app-icon-url";
 import { AppIcon } from "@ostiary/core/components/app-icon";
 import { authClient } from "@/lib/auth-client";
+import { asRecord, asStringArray, normalizeGetClientsPayload } from "@/lib/oauth-client-payload";
 import { adminNotify } from "@ostiary/core/lib/admin/admin-notify";
-
-export type { OAuthConsentRow };
 
 type ConsentScopeFilter = "all" | "offline" | "openid" | "with_reference";
 
@@ -55,24 +49,6 @@ function formatDate(format: ReturnType<typeof useFormatter>, iso: string) {
   } catch {
     return "-";
   }
-}
-
-function asRecord(v: unknown): Record<string, unknown> | null {
-  return v && typeof v === "object" && !Array.isArray(v)
-    ? (v as Record<string, unknown>)
-    : null;
-}
-
-function asStringArray(v: unknown): string[] {
-  if (!Array.isArray(v)) return [];
-  return v.filter((x): x is string => typeof x === "string");
-}
-
-function normalizeGetClientsPayload(data: unknown): unknown[] {
-  if (Array.isArray(data)) return data;
-  const o = asRecord(data);
-  if (o && Array.isArray(o.clients)) return o.clients;
-  return [];
 }
 
 function buildClientNameMap(clientsPayload: unknown): Map<string, string> {
@@ -184,7 +160,7 @@ export function AdminConsentPanel() {
     t("signedInUser");
 
   const [searchInput, setSearchInput] = React.useState("");
-  const [debouncedSearch, setDebouncedSearch] = React.useState("");
+  const debouncedSearch = useDebouncedValue(searchInput, 300);
   const [scopeFilter, setScopeFilter] =
     React.useState<ConsentScopeFilter>("all");
   const [page, setPage] = React.useState(0);
@@ -194,11 +170,6 @@ export function AdminConsentPanel() {
   const [loading, setLoading] = React.useState(true);
   const [listError, setListError] = React.useState<string | null>(null);
   const [refreshKey, setRefreshKey] = React.useState(0);
-
-  React.useEffect(() => {
-    const timer = window.setTimeout(() => setDebouncedSearch(searchInput), 300);
-    return () => window.clearTimeout(timer);
-  }, [searchInput]);
 
   React.useEffect(() => {
     setPage(0);
@@ -266,17 +237,12 @@ export function AdminConsentPanel() {
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div className="relative min-w-0 flex-1 sm:max-w-sm">
-          <SearchIcon className="pointer-events-none absolute top-1/2 left-2.5 size-4 -translate-y-1/2 text-muted-foreground" />
-          <Input
-            type="search"
-            placeholder={t("searchPlaceholder")}
-            className="pl-9"
-            value={searchInput}
-            onChange={(e) => setSearchInput(e.target.value)}
-            aria-label={t("searchLabel")}
-          />
-        </div>
+        <TableSearch
+          value={searchInput}
+          onChange={setSearchInput}
+          placeholder={t("searchPlaceholder")}
+          label={t("searchLabel")}
+        />
         <div className="flex flex-wrap items-center gap-2">
           <Select
             value={scopeFilter}
@@ -331,25 +297,11 @@ export function AdminConsentPanel() {
           </TableHeader>
           <TableBody>
             {loading ? (
-              <TableRow className="hover:bg-transparent">
-                <TableCell
-                  colSpan={7}
-                  className="h-24 text-center text-muted-foreground"
-                >
-                  {t("loading")}
-                </TableCell>
-              </TableRow>
+              <TableMessageRow colSpan={7}>{t("loading")}</TableMessageRow>
             ) : pageRows.length === 0 ? (
-              <TableRow className="hover:bg-transparent">
-                <TableCell
-                  colSpan={7}
-                  className="h-24 text-center text-muted-foreground"
-                >
-                  {rows.length === 0
-                    ? t("emptyNone")
-                    : t("emptyFiltered")}
-                </TableCell>
-              </TableRow>
+              <TableMessageRow colSpan={7}>
+                {rows.length === 0 ? t("emptyNone") : t("emptyFiltered")}
+              </TableMessageRow>
             ) : (
               pageRows.map((row) => (
                 <TableRow key={row.id}>
@@ -441,70 +393,25 @@ export function AdminConsentPanel() {
           </TableBody>
         </Table>
 
-        <div className="flex flex-col gap-3 border-t px-3 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-4">
-          <p className="text-muted-foreground text-xs sm:text-sm">
-            {filtered.length === 0
+        <TablePagination
+          summary={
+            filtered.length === 0
               ? t("noResults")
-              : t("showing", {
-                  from: showingFrom,
-                  to: showingTo,
-                  total: filtered.length,
-                })}
-          </p>
-          <div className="flex flex-wrap items-center gap-3 sm:gap-4">
-            <div className="flex items-center gap-2">
-              <span className="text-muted-foreground whitespace-nowrap text-xs">
-                {t("rowsPerPage")}
-              </span>
-              <Select
-                value={String(pageSize)}
-                onValueChange={(v) =>
-                  setPageSize(Number(v) as AdminTablePageSize)
-                }
-              >
-                <SelectTrigger
-                  size="sm"
-                  className="w-[88px]"
-                  aria-label={t("rowsPerPage")}
-                >
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {ADMIN_TABLE_PAGE_SIZES.map((n) => (
-                    <SelectItem key={n} value={String(n)}>
-                      {n}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="flex items-center gap-2">
-              <Button
-                variant="outline"
-                size="sm"
-                disabled={loading || safePage <= 0}
-                onClick={() => setPage((p) => Math.max(0, p - 1))}
-              >
-                <ChevronLeftIcon />
-                {t("previous")}
-              </Button>
-              <span className="text-muted-foreground tabular-nums text-xs sm:text-sm">
-                {t("pageOf", { page: safePage + 1, total: totalPages })}
-              </span>
-              <Button
-                variant="outline"
-                size="sm"
-                disabled={loading || safePage >= totalPages - 1}
-                onClick={() =>
-                  setPage((p) => Math.min(totalPages - 1, p + 1))
-                }
-              >
-                {t("next")}
-                <ChevronRightIcon />
-              </Button>
-            </div>
-          </div>
-        </div>
+              : t("showing", { from: showingFrom, to: showingTo, total: filtered.length })
+          }
+          page={safePage}
+          totalPages={totalPages}
+          onPageChange={setPage}
+          pageSize={pageSize}
+          onPageSizeChange={setPageSize}
+          loading={loading}
+          labels={{
+            rowsPerPage: t("rowsPerPage"),
+            previous: t("previous"),
+            next: t("next"),
+            page: t("pageOf", { page: safePage + 1, total: totalPages }),
+          }}
+        />
       </div>
 
       <p className="text-muted-foreground text-xs">

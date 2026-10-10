@@ -1,17 +1,16 @@
 "use client";
 
 import * as React from "react";
-import { ChevronLeftIcon, ChevronRightIcon, SearchIcon } from "lucide-react";
 import { useFormatter, useTranslations } from "next-intl";
 
 import { Link } from "@/i18n/navigation";
 import { AdminCreateUserDialog } from "@/components/admin/users/admin-create-user-dialog";
 import { AdminUserRowActions } from "@/components/admin/users/admin-user-row-actions";
+import { TableMessageRow, TablePagination, TableSearch } from "@/components/admin/common/admin-table";
+import { useDebouncedValue } from "@/components/admin/common/use-debounced-value";
 import { Alert, AlertDescription, AlertTitle } from "@ostiary/core/components/ui/alert";
 import { adminNotify } from "@ostiary/core/lib/admin/admin-notify";
 import { Badge } from "@ostiary/core/components/ui/badge";
-import { Button } from "@ostiary/core/components/ui/button";
-import { Input } from "@ostiary/core/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -28,7 +27,6 @@ import {
   TableRow,
 } from "@ostiary/core/components/ui/table";
 import {
-  ADMIN_TABLE_PAGE_SIZES,
   DEFAULT_ADMIN_TABLE_PAGE_SIZE,
   type AdminTablePageSize,
 } from "@ostiary/core/lib/admin/admin-table-page-size";
@@ -65,7 +63,7 @@ export function AdminUsersPanel() {
   const currentUserId = sessionWrap?.user?.id;
 
   const [searchInput, setSearchInput] = React.useState("");
-  const [debouncedSearch, setDebouncedSearch] = React.useState("");
+  const debouncedSearch = useDebouncedValue(searchInput, 350);
   const [roleFilter, setRoleFilter] = React.useState<RoleFilter>("all");
   const [page, setPage] = React.useState(0);
   const [pageSize, setPageSize] =
@@ -75,11 +73,6 @@ export function AdminUsersPanel() {
   const [loading, setLoading] = React.useState(true);
   const [listError, setListError] = React.useState<string | null>(null);
   const [refreshKey, setRefreshKey] = React.useState(0);
-
-  React.useEffect(() => {
-    const timer = window.setTimeout(() => setDebouncedSearch(searchInput), 350);
-    return () => window.clearTimeout(timer);
-  }, [searchInput]);
 
   React.useEffect(() => {
     setPage(0);
@@ -166,17 +159,12 @@ export function AdminUsersPanel() {
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div className="relative min-w-0 flex-1 sm:max-w-sm">
-          <SearchIcon className="pointer-events-none absolute top-1/2 left-2.5 size-4 -translate-y-1/2 text-muted-foreground" />
-          <Input
-            type="search"
-            placeholder={t("list.searchPlaceholder")}
-            className="pl-9"
-            value={searchInput}
-            onChange={(e) => setSearchInput(e.target.value)}
-            aria-label={t("list.searchLabel")}
-          />
-        </div>
+        <TableSearch
+          value={searchInput}
+          onChange={setSearchInput}
+          placeholder={t("list.searchPlaceholder")}
+          label={t("list.searchLabel")}
+        />
         <div className="flex flex-wrap items-center gap-2">
           <Select
             value={roleFilter}
@@ -216,23 +204,9 @@ export function AdminUsersPanel() {
           </TableHeader>
           <TableBody>
             {loading ? (
-              <TableRow className="hover:bg-transparent">
-                <TableCell
-                  colSpan={6}
-                  className="h-24 text-center text-muted-foreground"
-                >
-                  {t("list.loading")}
-                </TableCell>
-              </TableRow>
+              <TableMessageRow colSpan={6}>{t("list.loading")}</TableMessageRow>
             ) : users.length === 0 ? (
-              <TableRow className="hover:bg-transparent">
-                <TableCell
-                  colSpan={6}
-                  className="h-24 text-center text-muted-foreground"
-                >
-                  {t("list.empty")}
-                </TableCell>
-              </TableRow>
+              <TableMessageRow colSpan={6}>{t("list.empty")}</TableMessageRow>
             ) : (
               users.map((user) => (
                 <TableRow key={user.id}>
@@ -320,66 +294,25 @@ export function AdminUsersPanel() {
           </TableBody>
         </Table>
 
-        <div className="flex flex-col gap-3 border-t px-3 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-4">
-          <p className="text-muted-foreground text-xs sm:text-sm">
-            {total === 0
+        <TablePagination
+          summary={
+            total === 0
               ? t("list.noUsers")
-              : t("list.showing", { from: showingFrom, to: showingTo, total })}
-          </p>
-          <div className="flex flex-wrap items-center gap-3 sm:gap-4">
-            <div className="flex items-center gap-2">
-              <span className="text-muted-foreground whitespace-nowrap text-xs">
-                {t("list.rowsPerPage")}
-              </span>
-              <Select
-                value={String(pageSize)}
-                onValueChange={(v) =>
-                  setPageSize(Number(v) as AdminTablePageSize)
-                }
-              >
-                <SelectTrigger
-                  size="sm"
-                  className="w-[88px]"
-                  aria-label={t("list.rowsPerPage")}
-                >
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {ADMIN_TABLE_PAGE_SIZES.map((n) => (
-                    <SelectItem key={n} value={String(n)}>
-                      {n}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="flex items-center gap-2">
-              <Button
-                variant="outline"
-                size="sm"
-                disabled={loading || safePage <= 0}
-                onClick={() => setPage((p) => Math.max(0, p - 1))}
-              >
-                <ChevronLeftIcon />
-                {t("list.previous")}
-              </Button>
-              <span className="text-muted-foreground tabular-nums text-xs sm:text-sm">
-                {t("list.pageOf", { page: safePage + 1, pages: totalPages })}
-              </span>
-              <Button
-                variant="outline"
-                size="sm"
-                disabled={loading || safePage >= totalPages - 1}
-                onClick={() =>
-                  setPage((p) => Math.min(totalPages - 1, p + 1))
-                }
-              >
-                {t("list.next")}
-                <ChevronRightIcon />
-              </Button>
-            </div>
-          </div>
-        </div>
+              : t("list.showing", { from: showingFrom, to: showingTo, total })
+          }
+          page={safePage}
+          totalPages={totalPages}
+          onPageChange={setPage}
+          pageSize={pageSize}
+          onPageSizeChange={setPageSize}
+          loading={loading}
+          labels={{
+            rowsPerPage: t("list.rowsPerPage"),
+            previous: t("list.previous"),
+            next: t("list.next"),
+            page: t("list.pageOf", { page: safePage + 1, pages: totalPages }),
+          }}
+        />
       </div>
 
       <p className="text-muted-foreground text-xs">
