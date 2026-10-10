@@ -51,7 +51,6 @@ const server = http.createServer(async (req, res) => {
   try {
     if (path === "/health") return json(res, 200, { ok: true });
 
-
     // --- GitLab-compatible OAuth provider ----------------------------------------------------
     if (path === "/gitlab/next-profile" && req.method === "POST") {
       nextProfile = JSON.parse(await readBody(req));

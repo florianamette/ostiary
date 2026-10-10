@@ -1,45 +1,18 @@
 import { readFileSync } from "node:fs";
 
-import type { Page } from "@playwright/test";
-
-import { createUser, enableTotp, loginViaUi, signInWithPassword, type TestUser } from "../support/auth";
+import { createUser, enableTotp, signInWithPassword } from "../support/auth";
 import { AUTH_URL } from "../support/env";
 import { ADMIN_STATE, expect, test } from "../support/fixtures";
 import { waitForEmail } from "../support/mail";
-import {
-  CALLBACK_URL,
-  authorizeUrl,
-  createClient,
-  interceptCallback,
-  pkce,
-  tokenRequest,
-  type Client,
-  type TokenResponse,
-} from "../support/oauth";
+import { connectApp } from "../support/oauth";
 
 /* "Your data" on the dashboard: export everything (no secrets), and delete the account by email link. */
 
 const SCOPE = "openid profile email offline_access";
 
-/** Signs in on the page and connects the user to a new app; returns the app's tokens. */
-async function connectApp(page: Page, adminApi: Parameters<typeof createClient>[0], api: Parameters<typeof tokenRequest>[0], user: TestUser) {
-  const client: Client = await createClient(adminApi, { scope: SCOPE });
-  const { verifier, challenge } = pkce();
-  const callback = await interceptCallback(page);
-  await page.goto(authorizeUrl(client, { scope: SCOPE, challenge }));
-  await page.waitForURL(/\/login/);
-  await loginViaUi(page, user.email, user.password, false);
-  await page.waitForURL(/\/consent/);
-  await page.getByRole("button", { name: "Allow" }).click();
-  const code = (await callback()).searchParams.get("code")!;
-  const exchanged = await tokenRequest(api, client, { grant_type: "authorization_code", code, redirect_uri: CALLBACK_URL, code_verifier: verifier });
-  expect(exchanged.status(), await exchanged.text()).toBe(200);
-  return { client, tokens: (await exchanged.json()) as TokenResponse };
-}
-
 test("the export holds every section and no secret", async ({ api, adminApi, page }) => {
   const user = await createUser(api, "export");
-  const { client, tokens } = await connectApp(page, adminApi, api, user);
+  const { client, tokens } = await connectApp(page, api, adminApi, user, SCOPE);
   const totpSecret = await enableTotp(api, user.password);
 
   await page.goto("/en/dashboard#data");
@@ -67,7 +40,7 @@ test("the export holds every section and no secret", async ({ api, adminApi, pag
 
 test("an account is deleted from the emailed link, and its tokens stop working", async ({ api, adminApi, page }) => {
   const user = await createUser(api, "erase");
-  const { tokens } = await connectApp(page, adminApi, api, user);
+  const { tokens } = await connectApp(page, api, adminApi, user, SCOPE);
 
   await page.goto("/en/dashboard#data");
   await page.getByRole("button", { name: "Delete my account" }).click();
