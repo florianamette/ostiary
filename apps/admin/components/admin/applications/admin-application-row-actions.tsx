@@ -67,6 +67,7 @@ export function AdminApplicationRowActions({
   const [rotateOpen, setRotateOpen] = React.useState(false);
   const [brandingOpen, setBrandingOpen] = React.useState(false);
   const [editOpen, setEditOpen] = React.useState(false);
+  const [editPending, setEditPending] = React.useState(false);
   // A new key per opening, so the edit form starts from the current row.
   const [editKey, setEditKey] = React.useState(0);
 
@@ -173,6 +174,8 @@ export function AdminApplicationRowActions({
         row={row}
         open={editOpen}
         onOpenChange={setEditOpen}
+        pending={editPending}
+        onPendingChange={setEditPending}
         onChanged={onChanged}
         onNotify={onNotify}
       />

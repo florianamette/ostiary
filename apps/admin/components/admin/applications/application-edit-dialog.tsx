@@ -28,39 +28,40 @@ export function ApplicationEditDialog({
   row,
   open,
   onOpenChange,
+  pending,
+  onPendingChange,
   onChanged,
   onNotify,
 }: {
   row: OAuthApplicationRow;
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  /** Kept by the parent, so a save still running after the dialog is closed and reopened keeps Save disabled. */
+  pending: boolean;
+  onPendingChange: (pending: boolean) => void;
   onChanged: () => void;
   onNotify: (message: string, variant?: "error" | "success") => void;
 }) {
   const t = useTranslations("admin.pages.applications.rowActions");
   const tc = useTranslations("admin.common");
   const hasDeviceCode = row.grantTypes.includes(DEVICE_CODE_GRANT_TYPE);
-  const [pending, setPending] = React.useState(false);
   const [name, setName] = React.useState(row.name);
   const [redirectsRaw, setRedirectsRaw] = React.useState(row.redirectUris.join("\n"));
   const [skipConsent, setSkipConsent] = React.useState(row.skipConsent);
   const [deviceCode, setDeviceCode] = React.useState(hasDeviceCode);
   const [error, setError] = React.useState<string | null>(null);
 
-  function reset() {
-    setError(null);
-    setPending(false);
-  }
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
+    if (pending) return;
     setError(null);
     const redirect_uris = parseRedirectUris(redirectsRaw);
     if (redirect_uris.length === 0) {
       setError(t("editDialog.redirectUrisRequired"));
       return;
     }
-    setPending(true);
+    onPendingChange(true);
     try {
       const res = await fetch(
         `/api/admin/oauth-clients/${encodeURIComponent(row.clientId)}`,
@@ -85,10 +86,9 @@ export function ApplicationEditDialog({
       }
       onNotify(t("editDialog.updated"), "success");
       onOpenChange(false);
-      reset();
       onChanged();
     } finally {
-      setPending(false);
+      onPendingChange(false);
     }
   }
 
@@ -97,7 +97,7 @@ export function ApplicationEditDialog({
       open={open}
       onOpenChange={(o) => {
         onOpenChange(o);
-        if (!o) reset();
+        if (!o) setError(null);
       }}
     >
       <DialogContent className="sm:max-w-md">
