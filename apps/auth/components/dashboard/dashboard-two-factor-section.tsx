@@ -1,11 +1,10 @@
 "use client";
 
 import * as React from "react";
-import { Copy, Download, ExternalLink, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { renderSVG } from "uqr";
 
 import { Badge } from "@ostiary/core/components/ui/badge";
 import { Button } from "@ostiary/core/components/ui/button";
@@ -25,6 +24,7 @@ import {
 } from "@ostiary/core/components/ui/field";
 import { Input } from "@ostiary/core/components/ui/input";
 import { brand } from "@ostiary/core/lib/brand";
+import { AuthenticatorSetup, BackupCodes } from "@/components/dashboard/dashboard-two-factor-setup";
 import { authClient } from "@/lib/auth-client";
 import { needsRecentSignIn, signInAgain } from "@/lib/sign-in-again";
 
@@ -39,60 +39,31 @@ type Flow =
 
 type ApiError = { status?: number; code?: string; message?: string };
 
-/** The base32 secret from an otpauth:// URI, in groups of four for typing by hand. */
-function manualKey(totpURI: string): string {
-  try {
-    const secret = new URL(totpURI).searchParams.get("secret") ?? "";
-    return secret.replace(/(.{4})/g, "$1 ").trim();
-  } catch {
-    return "";
-  }
-}
-
-function qrDataUrl(text: string): string {
-  return `data:image/svg+xml;utf8,${encodeURIComponent(renderSVG(text, { border: 2 }))}`;
-}
-
-function BackupCodes({ codes }: { codes: string[] }) {
+/** Cancel, and the form's submit button with a spinner while busy. */
+function DialogFormFooter({
+  busy,
+  onCancel,
+  submitDisabled,
+  submitVariant,
+  children,
+}: {
+  busy: boolean;
+  onCancel: () => void;
+  submitDisabled: boolean;
+  submitVariant?: "destructive";
+  children: React.ReactNode;
+}) {
   const t = useTranslations("dashboard.twoFactor");
-
-  async function copy() {
-    try {
-      await navigator.clipboard.writeText(codes.join("\n"));
-      toast.success(t("copied"));
-    } catch {
-      toast.error(t("errors.generic"));
-    }
-  }
-
-  function download() {
-    const text = `${t("fileTitle", { name: brand.name })}\n\n${codes.join("\n")}\n`;
-    const url = URL.createObjectURL(new Blob([text], { type: "text/plain" }));
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `${brand.name.toLowerCase()}-backup-codes.txt`;
-    a.click();
-    URL.revokeObjectURL(url);
-  }
-
   return (
-    <div className="space-y-3">
-      <ul className="grid grid-cols-2 gap-x-4 gap-y-1.5 rounded-md border border-border bg-muted/40 p-4 font-mono text-sm">
-        {codes.map((code) => (
-          <li key={code}>{code}</li>
-        ))}
-      </ul>
-      <div className="flex flex-wrap gap-2">
-        <Button type="button" variant="outline" size="sm" onClick={() => void copy()}>
-          <Copy className="size-4" aria-hidden />
-          {t("copy")}
-        </Button>
-        <Button type="button" variant="outline" size="sm" onClick={download}>
-          <Download className="size-4" aria-hidden />
-          {t("download")}
-        </Button>
-      </div>
-    </div>
+    <DialogFooter>
+      <Button type="button" variant="outline" disabled={busy} onClick={onCancel}>
+        {t("cancel")}
+      </Button>
+      <Button type="submit" variant={submitVariant} disabled={submitDisabled}>
+        {busy ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
+        {children}
+      </Button>
+    </DialogFooter>
   );
 }
 
@@ -124,15 +95,6 @@ export function DashboardTwoFactorSection({
       );
     });
   }, []);
-
-  async function copyKey(totpURI: string) {
-    try {
-      await navigator.clipboard.writeText(new URL(totpURI).searchParams.get("secret") ?? "");
-      toast.success(t("keyCopied"));
-    } catch {
-      toast.error(t("errors.generic"));
-    }
-  }
 
   function close() {
     if (busy) return;
@@ -267,8 +229,6 @@ export function DashboardTwoFactorSection({
     </Field>
   ) : null;
 
-  const spinner = busy ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null;
-
   function dialogBody() {
     if (!flow) return null;
 
@@ -285,15 +245,14 @@ export function DashboardTwoFactorSection({
             <DialogDescription>{t("disableBody")}</DialogDescription>
           </DialogHeader>
           {passwordField ? <FieldGroup className="py-4">{passwordField}</FieldGroup> : <div className="h-4" />}
-          <DialogFooter>
-            <Button type="button" variant="outline" disabled={busy} onClick={close}>
-              {t("cancel")}
-            </Button>
-            <Button type="submit" variant="destructive" disabled={busy || (hasPassword === true && !password)}>
-              {spinner}
-              {t("disable")}
-            </Button>
-          </DialogFooter>
+          <DialogFormFooter
+            busy={busy}
+            onCancel={close}
+            submitVariant="destructive"
+            submitDisabled={busy || (hasPassword === true && !password)}
+          >
+            {t("disable")}
+          </DialogFormFooter>
         </form>
       );
     }
@@ -312,15 +271,9 @@ export function DashboardTwoFactorSection({
             <DialogDescription>{isEnable ? t("passwordHint") : t("regenerateBody")}</DialogDescription>
           </DialogHeader>
           <FieldGroup className="py-4">{passwordField}</FieldGroup>
-          <DialogFooter>
-            <Button type="button" variant="outline" disabled={busy} onClick={close}>
-              {t("cancel")}
-            </Button>
-            <Button type="submit" disabled={busy || !password}>
-              {spinner}
-              {t("continue")}
-            </Button>
-          </DialogFooter>
+          <DialogFormFooter busy={busy} onCancel={close} submitDisabled={busy || !password}>
+            {t("continue")}
+          </DialogFormFooter>
         </form>
       );
     }
@@ -338,35 +291,7 @@ export function DashboardTwoFactorSection({
             <DialogTitle>{t("scanTitle")}</DialogTitle>
             <DialogDescription>{t("scanHint")}</DialogDescription>
           </DialogHeader>
-          <div className="flex flex-col items-center gap-3 py-4">
-            {/* White ground in both themes: scanners need dark modules on light. */}
-            {/* eslint-disable-next-line @next/next/no-img-element -- generated data URL */}
-            <img
-              src={qrDataUrl(flow.totpURI)}
-              alt={t("qrAlt")}
-              width={176}
-              height={176}
-              className="size-44 rounded-md bg-white p-1"
-            />
-            <div className="w-full space-y-1 text-center">
-              <p className="text-xs text-muted-foreground">{t("manualKey")}</p>
-              <p className="break-all font-mono text-sm select-all">{manualKey(flow.totpURI)}</p>
-            </div>
-            {/* On a phone the QR code is on the same screen: open the otpauth:// link instead
-                (Apple Passwords, 1Password, Google and Microsoft Authenticator handle it). */}
-            <div className="flex flex-wrap justify-center gap-2">
-              <Button asChild variant="outline" size="sm">
-                <a href={flow.totpURI}>
-                  <ExternalLink className="size-4" aria-hidden />
-                  {t("openInApp")}
-                </a>
-              </Button>
-              <Button type="button" variant="outline" size="sm" onClick={() => void copyKey(flow.totpURI)}>
-                <Copy className="size-4" aria-hidden />
-                {t("copy")}
-              </Button>
-            </div>
-          </div>
+          <AuthenticatorSetup totpURI={flow.totpURI} />
           <FieldGroup className="pb-4">
             <Field>
               <FieldLabel htmlFor="two-factor-setup-code">{t("codeLabel")}</FieldLabel>
@@ -384,15 +309,9 @@ export function DashboardTwoFactorSection({
               />
             </Field>
           </FieldGroup>
-          <DialogFooter>
-            <Button type="button" variant="outline" disabled={busy} onClick={close}>
-              {t("cancel")}
-            </Button>
-            <Button type="submit" disabled={busy || !code.trim()}>
-              {spinner}
-              {t("verify")}
-            </Button>
-          </DialogFooter>
+          <DialogFormFooter busy={busy} onCancel={close} submitDisabled={busy || !code.trim()}>
+            {t("verify")}
+          </DialogFormFooter>
         </form>
       );
     }
