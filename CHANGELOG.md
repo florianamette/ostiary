@@ -8,6 +8,8 @@ All notable changes are documented here. The format follows
 
 ### Security
 
+- The device sign-in page loads the app's icon through Ostiary (`/api/app-icon`), like the consent
+  screen, instead of from the app's `logo_uri`: the app's site no longer learns who is approving.
 - drizzle-kit's migration loader (`@esbuild-kit/core-utils`) now runs esbuild 0.25.12 instead of
   0.18.20 (GHSA-67mh-4wv8-2f99, development server only; dev dependency).
 

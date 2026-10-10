@@ -17,6 +17,7 @@ import {
   CardTitle,
 } from "@ostiary/core/components/ui/card";
 import { Field, FieldGroup, FieldLabel } from "@ostiary/core/components/ui/field";
+import { AppIcon } from "@ostiary/core/components/app-icon";
 import { Input } from "@ostiary/core/components/ui/input";
 import { formatUserCode, normalizeUserCode, USER_CODE_LENGTH } from "@ostiary/core/lib/device-code";
 import { rateLimitMessage } from "@ostiary/core/lib/rate-limit-message";
@@ -25,7 +26,6 @@ type PublicClient = {
   client_id: string;
   client_name?: string;
   client_uri?: string;
-  logo_uri?: string;
 };
 
 /** `GET /device`: client and scopes are only returned to the user the code is bound to. */
@@ -237,24 +237,9 @@ export function DeviceForm() {
     <Card className="w-full max-w-md">
       <CardHeader className="space-y-4">
         <div className="flex items-start gap-4">
-          {client?.logo_uri ? (
-            // OAuth `logo_uri` can point to any HTTPS URL from client registration.
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={client.logo_uri}
-              alt=""
-              width={48}
-              height={48}
-              className="size-12 shrink-0 rounded-md border border-border object-cover"
-            />
-          ) : (
-            <span
-              aria-hidden
-              className="flex size-12 shrink-0 items-center justify-center rounded-md border border-border bg-muted text-lg font-semibold"
-            >
-              {displayName.slice(0, 1).toUpperCase()}
-            </span>
-          )}
+          {/* Through Ostiary (see /api/app-icon), like the consent screen: the app's site doesn't
+              learn who is signing in. */}
+          <AppIcon name={displayName} src={request.client_id ? `/api/app-icon/${encodeURIComponent(request.client_id)}` : null} size={48} />
           <div className="min-w-0 flex-1 space-y-1">
             <CardTitle className="text-xl leading-snug break-words">
               {t("reviewTitle", { name: displayName })}
