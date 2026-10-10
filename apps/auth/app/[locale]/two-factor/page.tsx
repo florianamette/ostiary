@@ -1,3 +1,4 @@
+import { AuthFormFallback } from "@/components/auth/auth-form-fallback";
 import { AuthScreen } from "@/components/auth/auth-screen";
 import { authScreenApp } from "@/lib/app-context";
 import type { Metadata } from "next";
@@ -5,12 +6,6 @@ import { getTranslations } from "next-intl/server";
 import { Suspense } from "react";
 
 import { TwoFactorForm } from "@/components/auth/two-factor-form";
-
-function TwoFactorFallback() {
-  return (
-    <div className="h-80 w-full max-w-md animate-pulse rounded-xl bg-muted/60" />
-  );
-}
 
 export async function generateMetadata({
   params,
@@ -37,7 +32,7 @@ export default async function Page({
 
   return (
     <AuthScreen locale={locale} app={app} appIntent="continue">
-      <Suspense fallback={<TwoFactorFallback />}>
+      <Suspense fallback={<AuthFormFallback />}>
         <TwoFactorForm />
       </Suspense>
     </AuthScreen>

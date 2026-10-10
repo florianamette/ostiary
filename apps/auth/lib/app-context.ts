@@ -9,8 +9,6 @@ import { normalizeUserCode } from "@ostiary/core/lib/device-code";
 import { env } from "@ostiary/core/lib/env";
 import { auth } from "@/lib/auth";
 
-export type { AuthScreenApp };
-
 type SearchParams = Record<string, string | string[] | undefined>;
 
 /**
