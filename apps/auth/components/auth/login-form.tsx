@@ -66,6 +66,24 @@ function lastUsedHintKey(method: string) {
   }
 }
 
+/** A sign-in method id as words ("magic-link" → "Magic Link"), for methods without a name. */
+function formatLastUsedMethodLabel(method: string): string {
+  return method
+    .split(/[-_]/)
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(" ");
+}
+
+/** Marks the sign-in method this browser used last. */
+function LastUsedBadge({ spaced = false }: { spaced?: boolean }) {
+  const t = useTranslations("auth.login")
+  return (
+    <Badge variant="secondary" className={spaced ? "ml-2 text-xs font-normal" : "text-xs font-normal"}>
+      {t("lastUsedBadge")}
+    </Badge>
+  )
+}
+
 /** Better Auth's `?error=` after a failed social sign-in, as a key of auth.social. */
 function socialErrorKey(error: string) {
   switch (error) {
@@ -147,8 +165,7 @@ export function LoginForm({
       toast.error(limited);
       return;
     }
-    const status = ctx.error.status;
-    const code = ctx.error.code;
+    const { status, code } = ctx.error;
     if (
       status === 403 ||
       code === "EMAIL_NOT_VERIFIED" ||
@@ -211,6 +228,16 @@ export function LoginForm({
 
   const typedEmail = loginIdentifier.includes("@") ? loginIdentifier.trim() : undefined;
   const lastUsedKey = lastUsedMethod ? lastUsedHintKey(lastUsedMethod) : null;
+  // A social provider by its name; any other method by its id in words.
+  const lastUsedHint = lastUsedKey
+    ? t(lastUsedKey)
+    : lastUsedMethod
+      ? t("lastUsedHintOther", {
+          method:
+            socialProviders.find((p) => p.id === lastUsedMethod)?.name ??
+            formatLastUsedMethodLabel(lastUsedMethod),
+        })
+      : null;
 
   if (mode === "code") {
     return (
@@ -248,13 +275,7 @@ export function LoginForm({
           <CardDescription>{addingAccount ? t("addAccountDescription") : t("description")}</CardDescription>
           {lastUsedMethod ? (
             <p className="text-xs text-muted-foreground" role="note">
-              {lastUsedKey
-                ? t(lastUsedKey)
-                : t("lastUsedHintOther", {
-                  method:
-                    socialProviders.find((p) => p.id === lastUsedMethod)?.name ??
-                    formatLastUsedMethodLabel(lastUsedMethod),
-                })}
+              {lastUsedHint}
             </p>
           ) : null}
         </CardHeader>
@@ -266,11 +287,7 @@ export function LoginForm({
                   <FieldLabel htmlFor="login-identifier">
                     {t("identifierLabel")}
                   </FieldLabel>
-                  {lastUsedMethod === "email" || lastUsedMethod === "username" ? (
-                    <Badge variant="secondary" className="text-xs font-normal">
-                      {t("lastUsedBadge")}
-                    </Badge>
-                  ) : null}
+                  {lastUsedMethod === "email" || lastUsedMethod === "username" ? <LastUsedBadge /> : null}
                 </div>
                 <Input
                   id="login-identifier"
@@ -329,11 +346,7 @@ export function LoginForm({
                     <Loader2 className="size-4 animate-spin" aria-hidden />
                   ) : null}
                   {passkeySubmitting ? t("passkeySubmitting") : t("passkey")}
-                  {lastUsedMethod === "passkey" && !passkeySubmitting ? (
-                    <Badge variant="secondary" className="ml-2 text-xs font-normal">
-                      {t("lastUsedBadge")}
-                    </Badge>
-                  ) : null}
+                  {lastUsedMethod === "passkey" && !passkeySubmitting ? <LastUsedBadge spaced /> : null}
                 </Button>
                 <Button
                   type="button"
@@ -343,11 +356,7 @@ export function LoginForm({
                   onClick={() => setMode("code")}
                 >
                   {t("emailCode")}
-                  {lastUsedMethod === "email-otp" ? (
-                    <Badge variant="secondary" className="ml-2 text-xs font-normal">
-                      {t("lastUsedBadge")}
-                    </Badge>
-                  ) : null}
+                  {lastUsedMethod === "email-otp" ? <LastUsedBadge spaced /> : null}
                 </Button>
                 <SocialSignInButtons
                   providers={socialProviders}
@@ -380,14 +389,4 @@ export function LoginForm({
       </Card>
     </div>
   )
-}
-
-function formatLastUsedMethodLabel(method: string): string {
-  return method
-    .split(/[-_]/)
-    .map(
-      (word) =>
-        word.charAt(0).toUpperCase() + word.slice(1).toLowerCase(),
-    )
-    .join(" ");
 }
