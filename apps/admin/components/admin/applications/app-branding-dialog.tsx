@@ -22,6 +22,7 @@ import { BRANDING_LIMITS, type LogoSource } from "@ostiary/core/lib/app-branding
 import type { AppBrandingSettings } from "@ostiary/core/lib/app-branding/store";
 import { brand } from "@ostiary/core/lib/brand";
 import { cn } from "@ostiary/core/lib/utils";
+import { adminNotify } from "@ostiary/core/lib/admin/admin-notify";
 import {
   loadAppBranding,
   resetAppBrandingAction,
@@ -80,12 +81,10 @@ export function AppBrandingDialog({
   clientId,
   open,
   onOpenChange,
-  onNotify,
 }: {
   clientId: string;
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onNotify: (message: string, variant?: "error" | "success") => void;
 }) {
   const t = useTranslations("admin.pages.applications.branding");
   const tScreen = useTranslations("auth.screen");
@@ -177,8 +176,8 @@ export function AppBrandingDialog({
         setError(result.error);
         return;
       }
-      for (const warning of result.warnings) onNotify(warning, "error");
-      onNotify(t("saved"), "success");
+      for (const warning of result.warnings) adminNotify(warning, "error");
+      adminNotify(t("saved"), "success");
       onOpenChange(false);
     } finally {
       setPending(null);
@@ -193,7 +192,7 @@ export function AppBrandingDialog({
         setError(result.error);
         return;
       }
-      onNotify(t("resetDone"), "success");
+      adminNotify(t("resetDone"), "success");
       onOpenChange(false);
     } finally {
       setPending(null);

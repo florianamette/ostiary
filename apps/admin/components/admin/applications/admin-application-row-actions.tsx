@@ -28,6 +28,7 @@ import {
   DropdownMenuTrigger,
 } from "@ostiary/core/components/ui/dropdown-menu";
 import type { RegistrationSource } from "@ostiary/core/lib/client-registration-policy";
+import { adminNotify } from "@ostiary/core/lib/admin/admin-notify";
 import { AppBrandingDialog } from "@/components/admin/applications/app-branding-dialog";
 import { ApplicationEditDialog } from "@/components/admin/applications/application-edit-dialog";
 import { ApplicationRotateSecretDialog } from "@/components/admin/applications/application-rotate-secret-dialog";
@@ -56,11 +57,9 @@ export type OAuthApplicationRow = {
 export function AdminApplicationRowActions({
   row,
   onChanged,
-  onNotify,
 }: {
   row: OAuthApplicationRow;
   onChanged: () => void;
-  onNotify: (message: string, variant?: "error" | "success") => void;
 }) {
   const t = useTranslations("admin.pages.applications.rowActions");
   const tc = useTranslations("admin.common");
@@ -89,10 +88,10 @@ export function AdminApplicationRowActions({
       );
       if (!res.ok) {
         const json: unknown = await res.json().catch(() => null);
-        onNotify(routeError(json) ?? t("deleteDialog.deleteFailed"), "error");
+        adminNotify(routeError(json) ?? t("deleteDialog.deleteFailed"), "error");
         return;
       }
-      onNotify(t("deleteDialog.deleted"), "success");
+      adminNotify(t("deleteDialog.deleted"), "success");
       setRemoveOpen(false);
       onChanged();
     } finally {
@@ -117,7 +116,7 @@ export function AdminApplicationRowActions({
           <DropdownMenuItem
             onClick={() => {
               void navigator.clipboard.writeText(row.clientId);
-              onNotify(t("clientIdCopied"), "success");
+              adminNotify(t("clientIdCopied"), "success");
             }}
           >
             <CopyIcon />
@@ -168,7 +167,6 @@ export function AdminApplicationRowActions({
         clientId={row.clientId}
         open={brandingOpen}
         onOpenChange={setBrandingOpen}
-        onNotify={onNotify}
       />
 
       <ApplicationEditDialog
@@ -179,7 +177,6 @@ export function AdminApplicationRowActions({
         pending={editPending}
         onPendingChange={setEditPending}
         onChanged={onChanged}
-        onNotify={onNotify}
       />
 
       <Dialog open={removeOpen} onOpenChange={setRemoveOpen}>
@@ -215,7 +212,6 @@ export function AdminApplicationRowActions({
         open={rotateOpen}
         onOpenChange={setRotateOpen}
         onChanged={onChanged}
-        onNotify={onNotify}
       />
     </>
   );

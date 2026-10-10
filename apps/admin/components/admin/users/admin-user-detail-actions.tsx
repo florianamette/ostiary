@@ -127,9 +127,6 @@ export function AdminUserDetailActions({
         user={user}
         currentUserId={currentUserId}
         onChanged={() => router.refresh()}
-        onNotify={(message, variant = "success") =>
-          variant === "error" ? toast.error(message) : toast.success(message)
-        }
       />
 
       <Dialog open={confirm !== null} onOpenChange={(open) => !open && !busy && setConfirm(null)}>

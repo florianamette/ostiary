@@ -9,6 +9,7 @@ import {
 } from "@/components/admin/consent/admin-consent-row-actions";
 import { TableMessageRow, TablePagination, TableSearch } from "@/components/admin/common/admin-table";
 import { useDebouncedValue } from "@/components/admin/common/use-debounced-value";
+import { usePagination } from "@/components/admin/common/use-pagination";
 import { Alert, AlertDescription, AlertTitle } from "@ostiary/core/components/ui/alert";
 import { Badge } from "@ostiary/core/components/ui/badge";
 import { Button } from "@ostiary/core/components/ui/button";
@@ -27,15 +28,10 @@ import {
   TableHeader,
   TableRow,
 } from "@ostiary/core/components/ui/table";
-import {
-  DEFAULT_ADMIN_TABLE_PAGE_SIZE,
-  type AdminTablePageSize,
-} from "@ostiary/core/lib/admin/admin-table-page-size";
 import { adminAppIconUrl } from "@/lib/app-icon-url";
 import { AppIcon } from "@ostiary/core/components/app-icon";
 import { authClient } from "@/lib/auth-client";
 import { asRecord, asStringArray, normalizeGetClientsPayload } from "@/lib/oauth-client-payload";
-import { adminNotify } from "@ostiary/core/lib/admin/admin-notify";
 
 type ConsentScopeFilter = "all" | "offline" | "openid" | "with_reference";
 
@@ -163,17 +159,10 @@ export function AdminConsentPanel() {
   const debouncedSearch = useDebouncedValue(searchInput, 300);
   const [scopeFilter, setScopeFilter] =
     React.useState<ConsentScopeFilter>("all");
-  const [page, setPage] = React.useState(0);
-  const [pageSize, setPageSize] =
-    React.useState<AdminTablePageSize>(DEFAULT_ADMIN_TABLE_PAGE_SIZE);
   const [rows, setRows] = React.useState<OAuthConsentRow[]>([]);
   const [loading, setLoading] = React.useState(true);
   const [listError, setListError] = React.useState<string | null>(null);
   const [refreshKey, setRefreshKey] = React.useState(0);
-
-  React.useEffect(() => {
-    setPage(0);
-  }, [debouncedSearch, scopeFilter, pageSize]);
 
   const refetch = React.useCallback(() => {
     setRefreshKey((k) => k + 1);
@@ -223,16 +212,9 @@ export function AdminConsentPanel() {
     [rows, debouncedSearch, scopeFilter]
   );
 
-  const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
-  const safePage = Math.min(page, totalPages - 1);
-  const pageStart = safePage * pageSize;
+  const { page, setPage, pageSize, setPageSize, totalPages, pageStart, showingFrom, showingTo } =
+    usePagination(filtered.length, [debouncedSearch, scopeFilter]);
   const pageRows = filtered.slice(pageStart, pageStart + pageSize);
-  const showingFrom = filtered.length === 0 ? 0 : pageStart + 1;
-  const showingTo = Math.min(pageStart + pageSize, filtered.length);
-
-  React.useEffect(() => {
-    if (page > safePage) setPage(safePage);
-  }, [page, safePage]);
 
   return (
     <div className="space-y-6">
@@ -379,12 +361,6 @@ export function AdminConsentPanel() {
                     <AdminConsentRowActions
                       row={row}
                       onChanged={refetch}
-                      onNotify={(message, variant = "success") => {
-                        adminNotify(
-                          message,
-                          variant === "error" ? "error" : "success"
-                        );
-                      }}
                     />
                   </TableCell>
                 </TableRow>
@@ -399,7 +375,7 @@ export function AdminConsentPanel() {
               ? t("noResults")
               : t("showing", { from: showingFrom, to: showingTo, total: filtered.length })
           }
-          page={safePage}
+          page={page}
           totalPages={totalPages}
           onPageChange={setPage}
           pageSize={pageSize}
@@ -409,7 +385,7 @@ export function AdminConsentPanel() {
             rowsPerPage: t("rowsPerPage"),
             previous: t("previous"),
             next: t("next"),
-            page: t("pageOf", { page: safePage + 1, total: totalPages }),
+            page: t("pageOf", { page: page + 1, total: totalPages }),
           }}
         />
       </div>

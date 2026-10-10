@@ -26,6 +26,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@ostiary/core/components/ui/dropdown-menu";
+import { adminNotify } from "@ostiary/core/lib/admin/admin-notify";
 import { authClient } from "@/lib/auth-client";
 
 export type OAuthConsentRow = {
@@ -43,11 +44,9 @@ export type OAuthConsentRow = {
 export function AdminConsentRowActions({
   row,
   onChanged,
-  onNotify,
 }: {
   row: OAuthConsentRow;
   onChanged: () => void;
-  onNotify: (message: string, variant?: "error" | "success") => void;
 }) {
   const t = useTranslations("admin.pages.consent.rowActions");
   const tc = useTranslations("admin.common");
@@ -61,10 +60,10 @@ export function AdminConsentRowActions({
         id: row.id,
       });
       if (error) {
-        onNotify(error.message ?? t("revokeFailed"), "error");
+        adminNotify(error.message ?? t("revokeFailed"), "error");
         return;
       }
-      onNotify(t("revoked"), "success");
+      adminNotify(t("revoked"), "success");
       setRemoveOpen(false);
       onChanged();
     } finally {
@@ -89,7 +88,7 @@ export function AdminConsentRowActions({
           <DropdownMenuItem
             onClick={() => {
               void navigator.clipboard.writeText(row.id);
-              onNotify(t("consentIdCopied"), "success");
+              adminNotify(t("consentIdCopied"), "success");
             }}
           >
             <CopyIcon />
@@ -98,7 +97,7 @@ export function AdminConsentRowActions({
           <DropdownMenuItem
             onClick={() => {
               void navigator.clipboard.writeText(row.clientId);
-              onNotify(t("clientIdCopied"), "success");
+              adminNotify(t("clientIdCopied"), "success");
             }}
           >
             <CopyIcon />

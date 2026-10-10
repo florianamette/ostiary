@@ -16,6 +16,7 @@ import { Field, FieldGroup, FieldLabel } from "@ostiary/core/components/ui/field
 import { Input } from "@ostiary/core/components/ui/input";
 import { Textarea } from "@ostiary/core/components/ui/textarea";
 import { DEVICE_CODE_GRANT_TYPE } from "@ostiary/core/lib/admin/oauth-clients/oauth-client-admin.types";
+import { adminNotify } from "@ostiary/core/lib/admin/admin-notify";
 import type { OAuthApplicationRow } from "@/components/admin/applications/admin-application-row-actions";
 import { CheckboxField } from "@/components/admin/common/choice-field";
 import { parseRedirectUris, routeError } from "@/lib/oauth-client-payload";
@@ -31,7 +32,6 @@ export function ApplicationEditDialog({
   pending,
   onPendingChange,
   onChanged,
-  onNotify,
 }: {
   row: OAuthApplicationRow;
   open: boolean;
@@ -40,7 +40,6 @@ export function ApplicationEditDialog({
   pending: boolean;
   onPendingChange: (pending: boolean) => void;
   onChanged: () => void;
-  onNotify: (message: string, variant?: "error" | "success") => void;
 }) {
   const t = useTranslations("admin.pages.applications.rowActions");
   const tc = useTranslations("admin.common");
@@ -89,7 +88,7 @@ export function ApplicationEditDialog({
         setError(routeError(json) ?? t("editDialog.updateFailed"));
         return;
       }
-      onNotify(t("editDialog.updated"), "success");
+      adminNotify(t("editDialog.updated"), "success");
       onOpenChange(false);
       onChanged();
     } finally {

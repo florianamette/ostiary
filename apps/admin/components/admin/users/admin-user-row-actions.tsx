@@ -30,6 +30,7 @@ import {
 } from "@ostiary/core/components/ui/dropdown-menu";
 import { Input } from "@ostiary/core/components/ui/input";
 import { Label } from "@ostiary/core/components/ui/label";
+import { adminNotify } from "@ostiary/core/lib/admin/admin-notify";
 import { authClient } from "@/lib/auth-client";
 
 type AdminUserRow = {
@@ -50,12 +51,10 @@ export function AdminUserRowActions({
   user,
   currentUserId,
   onChanged,
-  onNotify,
 }: {
   user: AdminUserRow;
   currentUserId?: string;
   onChanged: () => void;
-  onNotify: (message: string, variant?: "error" | "success") => void;
 }) {
   const t = useTranslations("admin.pages.users.rowActions");
   const tc = useTranslations("admin.common");
@@ -97,10 +96,10 @@ export function AdminUserRowActions({
       role,
     });
     if (error) {
-      onNotify(error.message ?? t("roleError"), "error");
+      adminNotify(error.message ?? t("roleError"), "error");
       return;
     }
-    onNotify(t("roleSet", { role }), "success");
+    adminNotify(t("roleSet", { role }), "success");
     onChanged();
   }
 
@@ -108,20 +107,20 @@ export function AdminUserRowActions({
     if (user.banned) {
       const { error } = await authClient.admin.unbanUser({ userId: user.id });
       if (error) {
-        onNotify(error.message ?? t("unbanError"), "error");
+        adminNotify(error.message ?? t("unbanError"), "error");
         return;
       }
-      onNotify(t("unbanned"), "success");
+      adminNotify(t("unbanned"), "success");
     } else {
       const { error } = await authClient.admin.banUser({
         userId: user.id,
         banReason: "Admin action",
       });
       if (error) {
-        onNotify(error.message ?? t("banError"), "error");
+        adminNotify(error.message ?? t("banError"), "error");
         return;
       }
-      onNotify(t("banned"), "success");
+      adminNotify(t("banned"), "success");
     }
     onChanged();
   }
@@ -133,10 +132,10 @@ export function AdminUserRowActions({
         userId: user.id,
       });
       if (error) {
-        onNotify(error.message ?? t("removeError"), "error");
+        adminNotify(error.message ?? t("removeError"), "error");
         return;
       }
-      onNotify(t("removed"), "success");
+      adminNotify(t("removed"), "success");
       setRemoveOpen(false);
       onChanged();
     } finally {
@@ -148,14 +147,14 @@ export function AdminUserRowActions({
     const nameTrim = editName.trim();
     const emailTrim = editEmail.trim();
     if (!emailTrim) {
-      onNotify(t("emailRequired"), "error");
+      adminNotify(t("emailRequired"), "error");
       return;
     }
     const data: Record<string, string> = {};
     if (nameTrim !== user.name) data.name = nameTrim;
     if (emailTrim !== user.email) data.email = emailTrim;
     if (Object.keys(data).length === 0) {
-      onNotify(t("noChanges"), "error");
+      adminNotify(t("noChanges"), "error");
       return;
     }
     setEditPending(true);
@@ -165,10 +164,10 @@ export function AdminUserRowActions({
         data,
       });
       if (error) {
-        onNotify(error.message ?? t("updateError"), "error");
+        adminNotify(error.message ?? t("updateError"), "error");
         return;
       }
-      onNotify(t("updated"), "success");
+      adminNotify(t("updated"), "success");
       setEditOpen(false);
       onChanged();
     } finally {
@@ -193,10 +192,10 @@ export function AdminUserRowActions({
         newPassword,
       });
       if (error) {
-        onNotify(error.message ?? t("passwordError"), "error");
+        adminNotify(error.message ?? t("passwordError"), "error");
         return;
       }
-      onNotify(t("passwordUpdated"), "success");
+      adminNotify(t("passwordUpdated"), "success");
       setPasswordOpen(false);
       onChanged();
     } finally {
@@ -221,7 +220,7 @@ export function AdminUserRowActions({
           <DropdownMenuItem
             onClick={() => {
               void navigator.clipboard.writeText(user.id);
-              onNotify(t("idCopied"), "success");
+              adminNotify(t("idCopied"), "success");
             }}
           >
             <CopyIcon />

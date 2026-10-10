@@ -8,8 +8,8 @@ import { AdminCreateUserDialog } from "@/components/admin/users/admin-create-use
 import { AdminUserRowActions } from "@/components/admin/users/admin-user-row-actions";
 import { TableMessageRow, TablePagination, TableSearch } from "@/components/admin/common/admin-table";
 import { useDebouncedValue } from "@/components/admin/common/use-debounced-value";
+import { usePagination } from "@/components/admin/common/use-pagination";
 import { Alert, AlertDescription, AlertTitle } from "@ostiary/core/components/ui/alert";
-import { adminNotify } from "@ostiary/core/lib/admin/admin-notify";
 import { Badge } from "@ostiary/core/components/ui/badge";
 import {
   Select,
@@ -26,10 +26,6 @@ import {
   TableHeader,
   TableRow,
 } from "@ostiary/core/components/ui/table";
-import {
-  DEFAULT_ADMIN_TABLE_PAGE_SIZE,
-  type AdminTablePageSize,
-} from "@ostiary/core/lib/admin/admin-table-page-size";
 import { authClient } from "@/lib/auth-client";
 import { cn } from "@ostiary/core/lib/utils";
 
@@ -65,31 +61,18 @@ export function AdminUsersPanel() {
   const [searchInput, setSearchInput] = React.useState("");
   const debouncedSearch = useDebouncedValue(searchInput, 350);
   const [roleFilter, setRoleFilter] = React.useState<RoleFilter>("all");
-  const [page, setPage] = React.useState(0);
-  const [pageSize, setPageSize] =
-    React.useState<AdminTablePageSize>(DEFAULT_ADMIN_TABLE_PAGE_SIZE);
   const [users, setUsers] = React.useState<ListUser[]>([]);
   const [total, setTotal] = React.useState(0);
   const [loading, setLoading] = React.useState(true);
   const [listError, setListError] = React.useState<string | null>(null);
   const [refreshKey, setRefreshKey] = React.useState(0);
 
-  React.useEffect(() => {
-    setPage(0);
-  }, [debouncedSearch, roleFilter, pageSize]);
-
   const refetch = React.useCallback(() => {
     setRefreshKey((k) => k + 1);
   }, []);
 
-  const totalPages = React.useMemo(
-    () => Math.max(1, Math.ceil(total / pageSize)),
-    [total, pageSize]
-  );
-  const safePage = React.useMemo(
-    () => Math.min(page, totalPages - 1),
-    [page, totalPages]
-  );
+  const { page, setPage, pageSize, setPageSize, totalPages, showingFrom, showingTo } =
+    usePagination(total, [debouncedSearch, roleFilter]);
 
   React.useEffect(() => {
     let cancelled = false;
@@ -109,7 +92,7 @@ export function AdminUsersPanel() {
         filterValue?: string;
       } = {
         limit: pageSize,
-        offset: safePage * pageSize,
+        offset: page * pageSize,
         sortBy: "createdAt",
         sortDirection: "desc",
       };
@@ -148,13 +131,7 @@ export function AdminUsersPanel() {
     return () => {
       cancelled = true;
     };
-  }, [safePage, debouncedSearch, roleFilter, refreshKey, pageSize, t]);
-  const showingFrom = total === 0 ? 0 : safePage * pageSize + 1;
-  const showingTo = Math.min(safePage * pageSize + pageSize, total);
-
-  React.useEffect(() => {
-    if (page > safePage) setPage(safePage);
-  }, [page, safePage]);
+  }, [page, debouncedSearch, roleFilter, refreshKey, pageSize, t]);
 
   return (
     <div className="space-y-6">
@@ -280,12 +257,6 @@ export function AdminUsersPanel() {
                       user={user}
                       currentUserId={currentUserId}
                       onChanged={refetch}
-                      onNotify={(message, variant = "success") => {
-                        adminNotify(
-                          message,
-                          variant === "error" ? "error" : "success"
-                        );
-                      }}
                     />
                   </TableCell>
                 </TableRow>
@@ -300,7 +271,7 @@ export function AdminUsersPanel() {
               ? t("list.noUsers")
               : t("list.showing", { from: showingFrom, to: showingTo, total })
           }
-          page={safePage}
+          page={page}
           totalPages={totalPages}
           onPageChange={setPage}
           pageSize={pageSize}
@@ -310,7 +281,7 @@ export function AdminUsersPanel() {
             rowsPerPage: t("list.rowsPerPage"),
             previous: t("list.previous"),
             next: t("list.next"),
-            page: t("list.pageOf", { page: safePage + 1, pages: totalPages }),
+            page: t("list.pageOf", { page: page + 1, pages: totalPages }),
           }}
         />
       </div>
