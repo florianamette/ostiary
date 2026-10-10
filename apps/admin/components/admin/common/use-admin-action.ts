@@ -4,7 +4,7 @@ import * as React from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
-export type ActionResult = { ok: true } | { ok: false; error: string };
+import type { ActionResult } from "@/lib/action-result";
 
 /**
  * Runs server actions behind a `busy` flag. A failure toasts its error; a success toasts

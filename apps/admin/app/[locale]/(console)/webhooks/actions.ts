@@ -19,6 +19,7 @@ import { encryptSecret } from "@ostiary/core/lib/webhooks/secret-box";
 import { generateWebhookSecret } from "@ostiary/core/lib/webhooks/signing";
 import { checkWebhookUrl } from "@ostiary/core/lib/webhooks/url-safety";
 import { adminActor } from "@/lib/admin-audit";
+import type { ActionResult } from "@/lib/action-result";
 
 /*
  * Webhook endpoints. The signing secret is returned once, by create and rotate, and stored
@@ -26,16 +27,12 @@ import { adminActor } from "@/lib/admin-audit";
  * addresses only) when saved and again before every delivery.
  */
 
-type Result = { ok: true } | { ok: false; error: string };
-type SecretResult = { ok: true; secret: string } | { ok: false; error: string };
-type SendResult = { ok: true; outcome: DeliveryOutcome } | { ok: false; error: string };
-
 const MAX_ENDPOINTS = 50;
 const MAX_DESCRIPTION = 200;
 
 type EndpointInput = { url: string; description: string; events: string[] };
 
-async function parseInput(input: EndpointInput): Promise<{ ok: true; url: string; description: string | null; events: WebhookEventType[] } | { ok: false; error: string }> {
+async function parseInput(input: EndpointInput): Promise<ActionResult<{ url: string; description: string | null; events: WebhookEventType[] }>> {
   const events = [...new Set(input.events)].filter(isWebhookEventType);
   if (events.length === 0) {
     const t = await getTranslations("admin.pages.webhooks.errors");
@@ -55,7 +52,7 @@ async function findEndpoint(id: string): Promise<{ url: string; enabled: boolean
   return row ?? null;
 }
 
-export async function createWebhook(input: EndpointInput): Promise<SecretResult & { id?: string }> {
+export async function createWebhook(input: EndpointInput): Promise<ActionResult<{ secret: string }> & { id?: string }> {
   const { audit, session } = await adminActor();
   const [{ total } = { total: 0 }] = await db.select({ total: count() }).from(webhookEndpoint);
   if (total >= MAX_ENDPOINTS) {
@@ -78,7 +75,7 @@ export async function createWebhook(input: EndpointInput): Promise<SecretResult 
   return { ok: true, secret, id };
 }
 
-export async function updateWebhook(id: string, input: EndpointInput & { enabled: boolean }): Promise<Result> {
+export async function updateWebhook(id: string, input: EndpointInput & { enabled: boolean }): Promise<ActionResult> {
   const { audit } = await adminActor();
   const [current] = await db.select().from(webhookEndpoint).where(eq(webhookEndpoint.id, id));
   if (!current) return { ok: false, error: (await getTranslations("admin.pages.webhooks.errors"))("endpointNotFound") };
@@ -108,7 +105,7 @@ export async function updateWebhook(id: string, input: EndpointInput & { enabled
   return { ok: true };
 }
 
-export async function deleteWebhook(id: string): Promise<Result> {
+export async function deleteWebhook(id: string): Promise<ActionResult> {
   const { audit } = await adminActor();
   const deleted = await db.delete(webhookEndpoint).where(eq(webhookEndpoint.id, id)).returning({ url: webhookEndpoint.url });
   if (deleted.length === 0) return { ok: false, error: (await getTranslations("admin.pages.webhooks.errors"))("endpointNotFound") };
@@ -120,7 +117,7 @@ export async function deleteWebhook(id: string): Promise<Result> {
  * Replaces the signing secret. The old one keeps signing (a second signature) for 24 hours, so
  * the receiver can switch to the new secret without rejecting deliveries in between.
  */
-export async function rotateWebhookSecret(id: string): Promise<SecretResult> {
+export async function rotateWebhookSecret(id: string): Promise<ActionResult<{ secret: string }>> {
   const { audit } = await adminActor();
   const [current] = await db
     .select({ url: webhookEndpoint.url, secretEncrypted: webhookEndpoint.secretEncrypted })
@@ -141,7 +138,7 @@ export async function rotateWebhookSecret(id: string): Promise<SecretResult> {
   return { ok: true, secret };
 }
 
-export async function sendWebhookTest(id: string): Promise<SendResult> {
+export async function sendWebhookTest(id: string): Promise<ActionResult<{ outcome: DeliveryOutcome }>> {
   const { audit } = await adminActor();
   const t = await getTranslations("admin.pages.webhooks.errors");
   const endpoint = await findEndpoint(id);
@@ -153,7 +150,7 @@ export async function sendWebhookTest(id: string): Promise<SendResult> {
   return { ok: true, outcome };
 }
 
-export async function redeliverWebhook(deliveryId: string): Promise<SendResult> {
+export async function redeliverWebhook(deliveryId: string): Promise<ActionResult<{ outcome: DeliveryOutcome }>> {
   const { audit } = await adminActor();
   const t = await getTranslations("admin.pages.webhooks.errors");
   const [delivery] = await db

@@ -13,6 +13,7 @@ import { routing } from "@ostiary/core/i18n/routing";
 import { makeEvent, memberSnapshot } from "@ostiary/core/lib/webhooks/events";
 import { emitWebhookEvents } from "@ostiary/core/lib/webhooks/outbox";
 import { adminActor } from "@/lib/admin-audit";
+import type { ActionResult } from "@/lib/action-result";
 
 /*
  * Platform admins usually aren't members of the organizations they manage, and Better Auth's
@@ -23,7 +24,6 @@ import { adminActor } from "@/lib/admin-audit";
 
 const ROLES = ["owner", "admin", "member"] as const;
 type Role = (typeof ROLES)[number];
-type Result = { ok: true } | { ok: false; error: string };
 
 const errors = () => getTranslations("admin.pages.organizations.errors");
 
@@ -32,7 +32,7 @@ async function orgName(id: string) {
   return row?.name ?? null;
 }
 
-export async function renameOrganization(id: string, name: string, slug: string): Promise<Result> {
+export async function renameOrganization(id: string, name: string, slug: string): Promise<ActionResult> {
   const { audit } = await adminActor();
   const cleanName = name.trim();
   const cleanSlug = slug.trim().toLowerCase().replace(/\s+/g, "-");
@@ -46,7 +46,7 @@ export async function renameOrganization(id: string, name: string, slug: string)
   return { ok: true };
 }
 
-export async function updateMemberRole(orgId: string, memberId: string, role: Role): Promise<Result> {
+export async function updateMemberRole(orgId: string, memberId: string, role: Role): Promise<ActionResult> {
   const { audit } = await adminActor();
   if (!ROLES.includes(role)) return { ok: false, error: (await errors())("unknownRole") };
   const [row] = await db
@@ -65,7 +65,7 @@ export async function updateMemberRole(orgId: string, memberId: string, role: Ro
   return { ok: true };
 }
 
-export async function removeMember(orgId: string, memberId: string): Promise<Result> {
+export async function removeMember(orgId: string, memberId: string): Promise<ActionResult> {
   const { audit } = await adminActor();
   if (orgId === PUBLIC_ORGANIZATION_ID) return { ok: false, error: (await errors())("publicMembers") };
   const [row] = await db
@@ -80,7 +80,7 @@ export async function removeMember(orgId: string, memberId: string): Promise<Res
   return { ok: true };
 }
 
-export async function inviteMember(orgId: string, email: string, role: Role): Promise<Result> {
+export async function inviteMember(orgId: string, email: string, role: Role): Promise<ActionResult> {
   const { audit, session } = await adminActor();
   const target = email.trim().toLowerCase();
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(target)) return { ok: false, error: (await errors())("invalidEmail") };
@@ -114,7 +114,7 @@ export async function inviteMember(orgId: string, email: string, role: Role): Pr
   return { ok: true };
 }
 
-export async function cancelInvitation(orgId: string, invitationId: string): Promise<Result> {
+export async function cancelInvitation(orgId: string, invitationId: string): Promise<ActionResult> {
   const { audit } = await adminActor();
   const [row] = await db
     .update(invitation)

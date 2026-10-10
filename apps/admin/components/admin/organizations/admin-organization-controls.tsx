@@ -31,6 +31,7 @@ import {
   updateMemberRole,
 } from "@/app/[locale]/(console)/organizations/[id]/actions";
 import { DialogActions } from "@/components/admin/common/dialog-actions";
+import type { ActionResult } from "@/lib/action-result";
 
 type Role = "owner" | "admin" | "member";
 const ROLES: Role[] = ["owner", "admin", "member"];
@@ -41,7 +42,7 @@ function useAction() {
   const router = useRouter();
   const [busy, setBusy] = React.useState(false);
   const run = React.useCallback(
-    async (fn: () => Promise<{ ok: true } | { ok: false; error: string }>, success: string) => {
+    async (fn: () => Promise<ActionResult>, success: string) => {
       setBusy(true);
       try {
         const result = await fn();
