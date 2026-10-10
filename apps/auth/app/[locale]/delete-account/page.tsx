@@ -1,17 +1,12 @@
-import type { Metadata } from "next";
 import { headers } from "next/headers";
-import { getTranslations } from "next-intl/server";
 
 import { AuthScreen } from "@/components/auth/auth-screen";
 import { DeleteAccountConfirm } from "@/components/auth/delete-account-confirm";
 import { redirect } from "@/i18n/navigation";
 import { auth } from "@/lib/auth";
+import { noIndexMetadata } from "@/lib/page-metadata";
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
-  const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "deleteAccount" });
-  return { title: t("title"), robots: { index: false, follow: false } };
-}
+export const generateMetadata = noIndexMetadata("deleteAccount", "title", { follow: false });
 
 /**
  * Where the account deletion email leads. Opening it deletes nothing: the signed-in person
