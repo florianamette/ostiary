@@ -21,7 +21,7 @@ import { CheckboxField } from "@/components/admin/common/choice-field";
 import { parseRedirectUris, routeError } from "@/lib/oauth-client-payload";
 
 /**
- * Edits an admin-registered client's name, redirect URIs, device grant and consent. The fields
+ * Edits an admin-registered client's name, redirect URIs, icon, device grant and consent. The fields
  * start from `row` when the dialog mounts: give it a new `key` each time it opens.
  */
 export function ApplicationEditDialog({
@@ -47,6 +47,7 @@ export function ApplicationEditDialog({
   const hasDeviceCode = row.grantTypes.includes(DEVICE_CODE_GRANT_TYPE);
   const [name, setName] = React.useState(row.name);
   const [redirectsRaw, setRedirectsRaw] = React.useState(row.redirectUris.join("\n"));
+  const [logoUri, setLogoUri] = React.useState(row.logoUri ?? "");
   const [skipConsent, setSkipConsent] = React.useState(row.skipConsent);
   const [deviceCode, setDeviceCode] = React.useState(hasDeviceCode);
   const [error, setError] = React.useState<string | null>(null);
@@ -73,6 +74,10 @@ export function ApplicationEditDialog({
             client_name: name,
             redirect_uris,
             skip_consent: skipConsent,
+            // Empty clears the icon.
+            ...(logoUri.trim() !== (row.logoUri ?? "")
+              ? { logo_uri: logoUri.trim() || null }
+              : {}),
             ...(deviceCode !== hasDeviceCode
               ? { device_code: deviceCode }
               : {}),
@@ -150,6 +155,21 @@ export function ApplicationEditDialog({
               />
               <p className="text-muted-foreground text-xs">
                 {t("editDialog.redirectUrisHint")}
+              </p>
+            </Field>
+            <Field>
+              <FieldLabel htmlFor={`oauth-edit-icon-${row.clientId}`}>
+                {t("editDialog.iconUrlLabel")}
+              </FieldLabel>
+              <Input
+                id={`oauth-edit-icon-${row.clientId}`}
+                type="url"
+                value={logoUri}
+                onChange={(e) => setLogoUri(e.target.value)}
+                placeholder="https://example.com/icon.png"
+              />
+              <p className="text-muted-foreground text-xs">
+                {t("editDialog.iconUrlHint")}
               </p>
             </Field>
             <Field>

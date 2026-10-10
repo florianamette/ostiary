@@ -481,7 +481,9 @@
             "invalidLimit": "El límite por hora debe ser un número entero entre 0 y {max}.",
             "saveFailed": "No se pudieron guardar los ajustes.",
             "clientGone": "Este cliente ya no existe.",
-            "notSelfRegistered": "Aquí solo se pueden cambiar los clientes autorregistrados."
+            "notSelfRegistered": "Aquí solo se pueden cambiar los clientes autorregistrados.",
+            "invalidIconUrl": "La URL del icono debe ser una dirección https en un host público (localhost y las direcciones privadas no se pueden obtener).",
+            "iconFromMetadataDocument": "El icono de este cliente proviene de su documento de metadatos."
           },
           "branding": {
             "clientGone": "Esta aplicación ya no existe.",
@@ -506,6 +508,8 @@
           "clientTypeLabel": "Tipo de cliente",
           "clientTypeConfidential": "Confidencial (secreto de cliente)",
           "clientTypePublic": "Público (PKCE, sin secreto)",
+          "iconUrlLabel": "URL del icono",
+          "iconUrlHint": "Se muestra para la aplicación en la consola, en la pantalla de consentimiento y en las cuentas de los usuarios. Útil para aplicaciones que solo redirigen a localhost. https, PNG/JPEG/WebP/AVIF/GIF/ICO/SVG.",
           "deviceCodeLabel": "Inicio de sesión en dispositivos (CLI, televisores)",
           "deviceCodeHint": "Añade la concesión de código de dispositivo (RFC 8628): la aplicación muestra un código y el usuario lo aprueba en <code>{path}</code> desde otra pantalla. Normalmente es un cliente público.",
           "skipConsentLabel": "Omitir consentimiento (cliente de confianza)",
@@ -544,6 +548,8 @@
             "redirectUrisLabel": "URI de redirección",
             "redirectUrisHint": "Una por línea o separadas por comas. HTTPS obligatorio. Solo los clientes públicos pueden usar http en localhost.",
             "redirectUrisRequired": "Introduce al menos una URI de redirección (una por línea o separadas por comas).",
+            "iconUrlLabel": "URL del icono",
+            "iconUrlHint": "Se muestra para la aplicación en la consola, en la pantalla de consentimiento y en las cuentas de los usuarios. Útil para aplicaciones que solo redirigen a localhost. https, PNG/JPEG/WebP/AVIF/GIF/ICO/SVG.",
             "deviceCodeLabel": "Inicio de sesión en dispositivos (CLI, televisores)",
             "deviceCodeHint": "Permite la concesión de código de dispositivo. Si la desactivas, se detienen los nuevos inicios de sesión en dispositivos; los tokens ya emitidos siguen funcionando.",
             "skipConsentLabel": "Omitir consentimiento (cliente de confianza)",
@@ -574,11 +580,15 @@
           "enabled": "Cliente activado",
           "disabled": "Cliente desactivado",
           "deleted": "Cliente eliminado",
+          "iconSaved": "Icono guardado",
           "disableTitle": "¿Desactivar {name}?",
           "disableDescription": "Ya no podrá iniciar la sesión de nadie ni renovar sus tokens. Los tokens de acceso ya emitidos funcionan hasta que caducan (una hora como máximo).",
           "deleteTitle": "¿Eliminar {name}?",
           "deleteDescriptionMetadataDocument": "También se eliminan sus tokens y los consentimientos que le dieron las personas. Un cliente con documento de metadatos se vuelve a crear la próxima vez que inicia la sesión de alguien. Para bloquearlo, desactívalo.",
-          "deleteDescriptionDynamic": "También se eliminan sus tokens y los consentimientos que le dieron las personas. La aplicación puede volver a registrarse mientras el registro dinámico esté activado."
+          "deleteDescriptionDynamic": "También se eliminan sus tokens y los consentimientos que le dieron las personas. La aplicación puede volver a registrarse mientras el registro dinámico esté activado.",
+          "setIcon": "Definir icono",
+          "iconTitle": "Icono de {name}",
+          "iconDescription": "Se muestra en la consola y en las cuentas de quienes usan la aplicación. La pantalla de consentimiento mantiene el monograma y el aviso de no verificada para las aplicaciones autorregistradas. Déjalo vacío para quitarlo."
         },
         "brandingErrors": {
           "textTooLong": "No superes los {max} caracteres.",

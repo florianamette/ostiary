@@ -481,7 +481,9 @@
             "invalidLimit": "Tuntirajan on oltava kokonaisluku väliltä 0–{max}.",
             "saveFailed": "Asetuksia ei voitu tallentaa.",
             "clientGone": "Tätä asiakasta ei ole enää olemassa.",
-            "notSelfRegistered": "Täällä voi muuttaa vain itse rekisteröityneitä asiakkaita."
+            "notSelfRegistered": "Täällä voi muuttaa vain itse rekisteröityneitä asiakkaita.",
+            "invalidIconUrl": "Kuvakkeen URL-osoitteen on oltava https-osoite julkisessa palvelimessa (localhostia ja yksityisiä osoitteita ei voi noutaa).",
+            "iconFromMetadataDocument": "Tämän asiakkaan kuvake tulee sen metatietodokumentista."
           },
           "branding": {
             "clientGone": "Tätä sovellusta ei ole enää olemassa.",
@@ -506,6 +508,8 @@
           "clientTypeLabel": "Asiakastyyppi",
           "clientTypeConfidential": "Luottamuksellinen (asiakkaan salaisuus)",
           "clientTypePublic": "Julkinen (PKCE, ei salaisuutta)",
+          "iconUrlLabel": "Kuvakkeen URL",
+          "iconUrlHint": "Näytetään sovellukselle konsolissa, suostumusnäkymässä ja käyttäjien tileillä. Hyödyllinen sovelluksille, jotka ohjaavat vain localhostiin. https, PNG/JPEG/WebP/AVIF/GIF/ICO/SVG.",
           "deviceCodeLabel": "Laitekirjautuminen (CLI:t, televisiot)",
           "deviceCodeHint": "Lisää device code -grantin (RFC 8628): sovellus näyttää koodin, ja käyttäjä hyväksyy sen osoitteessa <code>{path}</code> toisella näytöllä. Yleensä julkinen asiakas.",
           "skipConsentLabel": "Ohita suostumus (luotettu asiakas)",
@@ -544,6 +548,8 @@
             "redirectUrisLabel": "Uudelleenohjausosoitteet",
             "redirectUrisHint": "Yksi riviä kohden tai pilkuilla erotettuina. HTTPS vaaditaan. Vain julkiset asiakkaat voivat käyttää http:tä localhostissa.",
             "redirectUrisRequired": "Anna vähintään yksi uudelleenohjausosoite (yksi riviä kohden tai pilkuilla erotettuina).",
+            "iconUrlLabel": "Kuvakkeen URL",
+            "iconUrlHint": "Näytetään sovellukselle konsolissa, suostumusnäkymässä ja käyttäjien tileillä. Hyödyllinen sovelluksille, jotka ohjaavat vain localhostiin. https, PNG/JPEG/WebP/AVIF/GIF/ICO/SVG.",
             "deviceCodeLabel": "Laitekirjautuminen (CLI:t, televisiot)",
             "deviceCodeHint": "Sallii device code -grantin. Sen poistaminen käytöstä estää uudet laitekirjautumiset; jo myönnetyt tokenit toimivat edelleen.",
             "skipConsentLabel": "Ohita suostumus (luotettu asiakas)",
@@ -574,11 +580,15 @@
           "enabled": "Asiakas otettu käyttöön",
           "disabled": "Asiakas poistettu käytöstä",
           "deleted": "Asiakas poistettu",
+          "iconSaved": "Kuvake tallennettu",
           "disableTitle": "Poistetaanko {name} käytöstä?",
           "disableDescription": "Se ei voi enää kirjata ketään sisään eikä uusia tokeneitaan. Jo myönnetyt käyttötokenit toimivat vanhenemiseensa asti (enintään tunnin).",
           "deleteTitle": "Poistetaanko {name}?",
           "deleteDescriptionMetadataDocument": "Myös sen tokenit ja käyttäjien sille antamat suostumukset poistetaan. Metatietoasiakirja-asiakas luodaan uudelleen, kun se seuraavan kerran kirjaa jonkun sisään. Jos haluat estää sen, poista se käytöstä.",
-          "deleteDescriptionDynamic": "Myös sen tokenit ja käyttäjien sille antamat suostumukset poistetaan. Sovellus voi rekisteröityä uudelleen, kun dynaaminen rekisteröinti on päällä."
+          "deleteDescriptionDynamic": "Myös sen tokenit ja käyttäjien sille antamat suostumukset poistetaan. Sovellus voi rekisteröityä uudelleen, kun dynaaminen rekisteröinti on päällä.",
+          "setIcon": "Aseta kuvake",
+          "iconTitle": "Sovelluksen {name} kuvake",
+          "iconDescription": "Näytetään konsolissa ja sovellusta käyttävien henkilöiden tileillä. Suostumusnäkymä näyttää itse rekisteröityneille sovelluksille edelleen monogrammin ja varmentamattoman sovelluksen ilmoituksen. Jätä tyhjäksi poistaaksesi sen."
         },
         "brandingErrors": {
           "textTooLong": "Pidä se alle {max} merkissä.",

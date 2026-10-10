@@ -481,7 +481,9 @@
             "invalidLimit": "O limite por hora deve ser um número inteiro de 0 a {max}.",
             "saveFailed": "Não foi possível salvar as configurações.",
             "clientGone": "Este cliente não existe mais.",
-            "notSelfRegistered": "Somente clientes autorregistrados podem ser alterados aqui."
+            "notSelfRegistered": "Somente clientes autorregistrados podem ser alterados aqui.",
+            "invalidIconUrl": "O URL do ícone tem de ser um endereço https num anfitrião público (localhost e endereços privados não podem ser obtidos).",
+            "iconFromMetadataDocument": "O ícone deste cliente vem do seu documento de metadados."
           },
           "branding": {
             "clientGone": "Esta aplicação não existe mais.",
@@ -506,6 +508,8 @@
           "clientTypeLabel": "Tipo de cliente",
           "clientTypeConfidential": "Confidencial (segredo do cliente)",
           "clientTypePublic": "Público (PKCE, sem segredo)",
+          "iconUrlLabel": "URL do ícone",
+          "iconUrlHint": "Exibido para a aplicação na consola, no ecrã de consentimento e nas contas dos utilizadores. Útil para aplicações que só redirecionam para localhost. https, PNG/JPEG/WebP/AVIF/GIF/ICO/SVG.",
           "deviceCodeLabel": "Login em dispositivo (CLIs, TVs)",
           "deviceCodeHint": "Adiciona a concessão device code (RFC 8628): o app mostra um código e o usuário o aprova em <code>{path}</code> em outra tela. Normalmente um cliente público.",
           "skipConsentLabel": "Pular consentimento (cliente confiável)",
@@ -544,6 +548,8 @@
             "redirectUrisLabel": "URIs de redirecionamento",
             "redirectUrisHint": "Uma por linha ou separadas por vírgula. HTTPS obrigatório. Somente clientes públicos podem usar http em localhost.",
             "redirectUrisRequired": "Insira pelo menos uma URI de redirecionamento (uma por linha ou separadas por vírgula).",
+            "iconUrlLabel": "URL do ícone",
+            "iconUrlHint": "Exibido para a aplicação na consola, no ecrã de consentimento e nas contas dos utilizadores. Útil para aplicações que só redirecionam para localhost. https, PNG/JPEG/WebP/AVIF/GIF/ICO/SVG.",
             "deviceCodeLabel": "Login em dispositivo (CLIs, TVs)",
             "deviceCodeHint": "Permite a concessão device code. Desativá-la impede novos logins em dispositivos; os tokens já emitidos continuam funcionando.",
             "skipConsentLabel": "Pular consentimento (cliente confiável)",
@@ -574,11 +580,15 @@
           "enabled": "Cliente ativado",
           "disabled": "Cliente desativado",
           "deleted": "Cliente excluído",
+          "iconSaved": "Ícone guardado",
           "disableTitle": "Desativar {name}?",
           "disableDescription": "Ele não poderá mais conectar ninguém nem renovar seus tokens. Os tokens de acesso já emitidos funcionam até expirarem (no máximo uma hora).",
           "deleteTitle": "Excluir {name}?",
           "deleteDescriptionMetadataDocument": "Seus tokens e os consentimentos que as pessoas deram a ele também são excluídos. Um cliente de documento de metadados é criado novamente na próxima vez que conectar alguém. Para bloqueá-lo, desative-o.",
-          "deleteDescriptionDynamic": "Seus tokens e os consentimentos que as pessoas deram a ele também são excluídos. O app pode se registrar novamente enquanto o registro dinâmico estiver ativado."
+          "deleteDescriptionDynamic": "Seus tokens e os consentimentos que as pessoas deram a ele também são excluídos. O app pode se registrar novamente enquanto o registro dinâmico estiver ativado.",
+          "setIcon": "Definir ícone",
+          "iconTitle": "Ícone de {name}",
+          "iconDescription": "Exibido na consola e nas contas das pessoas que usam a aplicação. O ecrã de consentimento mantém o monograma e o aviso de não verificada para aplicações autorregistadas. Deixe vazio para o remover."
         },
         "brandingErrors": {
           "textTooLong": "Use menos de {max} caracteres.",

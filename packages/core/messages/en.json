@@ -481,7 +481,9 @@
             "invalidLimit": "The hourly limit must be a whole number from 0 to {max}.",
             "saveFailed": "Could not save the settings.",
             "clientGone": "This client no longer exists.",
-            "notSelfRegistered": "Only self-registered clients can be changed here."
+            "notSelfRegistered": "Only self-registered clients can be changed here.",
+            "invalidIconUrl": "The icon URL must be an https address on a public host (localhost and private addresses can't be fetched).",
+            "iconFromMetadataDocument": "This client's icon comes from its metadata document."
           },
           "branding": {
             "clientGone": "This application no longer exists.",
@@ -506,6 +508,8 @@
           "clientTypeLabel": "Client type",
           "clientTypeConfidential": "Confidential (client secret)",
           "clientTypePublic": "Public (PKCE, no secret)",
+          "iconUrlLabel": "Icon URL",
+          "iconUrlHint": "Shown for the app in the console, on the consent screen and in users' accounts. Useful for apps that only redirect to localhost. https, PNG/JPEG/WebP/AVIF/GIF/ICO/SVG.",
           "deviceCodeLabel": "Device sign-in (CLIs, TVs)",
           "deviceCodeHint": "Adds the device code grant (RFC 8628): the app shows a code and the user approves it at <code>{path}</code> on another screen. Usually a public client.",
           "skipConsentLabel": "Skip consent (trusted client)",
@@ -544,6 +548,8 @@
             "redirectUrisLabel": "Redirect URIs",
             "redirectUrisHint": "One per line or comma-separated. HTTPS required. Only public clients may use http on localhost.",
             "redirectUrisRequired": "Enter at least one redirect URI (one per line or comma-separated).",
+            "iconUrlLabel": "Icon URL",
+            "iconUrlHint": "Shown for the app in the console, on the consent screen and in users' accounts. Useful for apps that only redirect to localhost. https, PNG/JPEG/WebP/AVIF/GIF/ICO/SVG.",
             "deviceCodeLabel": "Device sign-in (CLIs, TVs)",
             "deviceCodeHint": "Allows the device code grant. Turning it off stops new device sign-ins; tokens already issued keep working.",
             "skipConsentLabel": "Skip consent (trusted client)",
@@ -574,11 +580,15 @@
           "enabled": "Client enabled",
           "disabled": "Client disabled",
           "deleted": "Client deleted",
+          "iconSaved": "Icon saved",
           "disableTitle": "Disable {name}?",
           "disableDescription": "It can no longer sign anyone in or refresh its tokens. Access tokens already issued work until they expire (an hour at most).",
           "deleteTitle": "Delete {name}?",
           "deleteDescriptionMetadataDocument": "Its tokens and the consents people gave it are deleted too. A metadata-document client is created again the next time it signs someone in. To block it, disable it instead.",
-          "deleteDescriptionDynamic": "Its tokens and the consents people gave it are deleted too. The app can register again while dynamic registration is on."
+          "deleteDescriptionDynamic": "Its tokens and the consents people gave it are deleted too. The app can register again while dynamic registration is on.",
+          "setIcon": "Set icon",
+          "iconTitle": "Icon for {name}",
+          "iconDescription": "Shown in the console and in the accounts of people who use the app. The consent screen keeps the monogram and the unverified notice for self-registered apps. Leave empty to remove it."
         },
         "brandingErrors": {
           "textTooLong": "Keep it under {max} characters.",

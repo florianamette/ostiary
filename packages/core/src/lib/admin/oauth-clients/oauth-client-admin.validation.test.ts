@@ -3,7 +3,9 @@ import { describe, expect, it } from "vitest";
 import { DEVICE_CODE_GRANT_TYPE } from "@ostiary/core/lib/admin/oauth-clients/oauth-client-admin.types";
 import {
   createOAuthClientBodySchema,
+  INVALID_LOGO_URI_MESSAGE,
   parseCreateOAuthClientBody,
+  parseLogoUri,
   parseUpdateOAuthClientBody,
   withDeviceCodeGrant,
 } from "@ostiary/core/lib/admin/oauth-clients/oauth-client-admin.validation";
@@ -144,6 +146,53 @@ describe("parseUpdateOAuthClientBody", () => {
     if (r.ok) {
       expect(r.value.client_name).toBeUndefined();
     }
+  });
+});
+
+describe("logo_uri", () => {
+  const rejected = [
+    "http://cdn.example.com/icon.png",
+    "https://localhost/icon.png",
+    "https://127.0.0.1/icon.png",
+    "https://10.0.0.8/icon.png",
+    "https://cdn.example.com:8443/icon.png",
+    "https://user:secret@cdn.example.com/icon.png",
+    `https://cdn.example.com/${"a".repeat(2048)}`,
+  ];
+
+  it("accepts an https URL on a public host when creating", () => {
+    const r = parseCreateOAuthClientBody({ redirect_uris: ["http://127.0.0.1:8080/cb"], logo_uri: " https://cdn.example.com/icon.png " });
+    expect(r.ok && r.value.logo_uri).toBe("https://cdn.example.com/icon.png");
+  });
+
+  it("creates without an icon when empty", () => {
+    for (const logo_uri of ["", null, undefined]) {
+      const r = parseCreateOAuthClientBody({ redirect_uris: ["https://x/cb"], logo_uri });
+      expect(r.ok && r.value.logo_uri).toBeUndefined();
+    }
+  });
+
+  it("rejects URLs the icon lookup cannot fetch", () => {
+    for (const logo_uri of rejected) {
+      const created = parseCreateOAuthClientBody({ redirect_uris: ["https://x/cb"], logo_uri });
+      expect(created).toEqual({ ok: false, error: `logo_uri: ${INVALID_LOGO_URI_MESSAGE}` });
+      expect(parseUpdateOAuthClientBody({ logo_uri }).ok).toBe(false);
+    }
+  });
+
+  it("sets or clears the icon on update, on its own", () => {
+    expect(parseUpdateOAuthClientBody({ logo_uri: "https://cdn.example.com/icon.png" })).toEqual({
+      ok: true,
+      value: { logo_uri: "https://cdn.example.com/icon.png" },
+    });
+    expect(parseUpdateOAuthClientBody({ logo_uri: "" })).toEqual({ ok: true, value: { logo_uri: null } });
+    expect(parseUpdateOAuthClientBody({ logo_uri: null })).toEqual({ ok: true, value: { logo_uri: null } });
+  });
+
+  it("parses an icon set outside the JSON API", () => {
+    expect(parseLogoUri("https://cdn.example.com/icon.png")).toEqual({ ok: true, value: "https://cdn.example.com/icon.png" });
+    expect(parseLogoUri("  ")).toEqual({ ok: true, value: null });
+    expect(parseLogoUri("http://localhost:3000/icon.png").ok).toBe(false);
   });
 });
 

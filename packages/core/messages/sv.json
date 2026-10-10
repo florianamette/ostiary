@@ -481,7 +481,9 @@
             "invalidLimit": "Gränsen per timme måste vara ett heltal från 0 till {max}.",
             "saveFailed": "Det gick inte att spara inställningarna.",
             "clientGone": "Den här klienten finns inte längre.",
-            "notSelfRegistered": "Endast självregistrerade klienter kan ändras här."
+            "notSelfRegistered": "Endast självregistrerade klienter kan ändras här.",
+            "invalidIconUrl": "Ikon-URL:en måste vara en https-adress på en offentlig värd (localhost och privata adresser kan inte hämtas).",
+            "iconFromMetadataDocument": "Den här klientens ikon kommer från dess metadatadokument."
           },
           "branding": {
             "clientGone": "Den här applikationen finns inte längre.",
@@ -506,6 +508,8 @@
           "clientTypeLabel": "Klienttyp",
           "clientTypeConfidential": "Konfidentiell (klienthemlighet)",
           "clientTypePublic": "Publik (PKCE, ingen hemlighet)",
+          "iconUrlLabel": "Ikon-URL",
+          "iconUrlHint": "Visas för appen i konsolen, på samtyckesskärmen och i användarnas konton. Användbart för appar som bara omdirigerar till localhost. https, PNG/JPEG/WebP/AVIF/GIF/ICO/SVG.",
           "deviceCodeLabel": "Enhetsinloggning (CLI:er, tv-apparater)",
           "deviceCodeHint": "Lägger till device code-grant (RFC 8628): appen visar en kod och användaren godkänner den på <code>{path}</code> på en annan skärm. Oftast en publik klient.",
           "skipConsentLabel": "Hoppa över samtycke (betrodd klient)",
@@ -544,6 +548,8 @@
             "redirectUrisLabel": "Omdirigerings-URI:er",
             "redirectUrisHint": "En per rad eller kommaseparerade. HTTPS krävs. Endast publika klienter får använda http på localhost.",
             "redirectUrisRequired": "Ange minst en omdirigerings-URI (en per rad eller kommaseparerade).",
+            "iconUrlLabel": "Ikon-URL",
+            "iconUrlHint": "Visas för appen i konsolen, på samtyckesskärmen och i användarnas konton. Användbart för appar som bara omdirigerar till localhost. https, PNG/JPEG/WebP/AVIF/GIF/ICO/SVG.",
             "deviceCodeLabel": "Enhetsinloggning (CLI:er, tv-apparater)",
             "deviceCodeHint": "Tillåter device code-grant. Om du stänger av den stoppas nya enhetsinloggningar; token som redan utfärdats fortsätter att fungera.",
             "skipConsentLabel": "Hoppa över samtycke (betrodd klient)",
@@ -574,11 +580,15 @@
           "enabled": "Klienten har aktiverats",
           "disabled": "Klienten har inaktiverats",
           "deleted": "Klienten har raderats",
+          "iconSaved": "Ikon sparad",
           "disableTitle": "Inaktivera {name}?",
           "disableDescription": "Den kan inte längre logga in någon eller förnya sina token. Åtkomsttoken som redan utfärdats fungerar tills de går ut (högst en timme).",
           "deleteTitle": "Radera {name}?",
           "deleteDescriptionMetadataDocument": "Dess token och de samtycken användare har gett den raderas också. En klient med metadatadokument skapas igen nästa gång den loggar in någon. Inaktivera den i stället om du vill blockera den.",
-          "deleteDescriptionDynamic": "Dess token och de samtycken användare har gett den raderas också. Appen kan registrera sig igen så länge dynamisk registrering är på."
+          "deleteDescriptionDynamic": "Dess token och de samtycken användare har gett den raderas också. Appen kan registrera sig igen så länge dynamisk registrering är på.",
+          "setIcon": "Ange ikon",
+          "iconTitle": "Ikon för {name}",
+          "iconDescription": "Visas i konsolen och i kontona hos dem som använder appen. Samtyckesskärmen behåller monogrammet och varningen om overifierad app för självregistrerade appar. Lämna tomt för att ta bort den."
         },
         "brandingErrors": {
           "textTooLong": "Håll det under {max} tecken.",

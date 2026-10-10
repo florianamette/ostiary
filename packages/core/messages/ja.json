@@ -481,7 +481,9 @@
             "invalidLimit": "1 時間あたりの上限は 0 から {max} までの整数にしてください。",
             "saveFailed": "設定を保存できませんでした。",
             "clientGone": "このクライアントはもう存在しません。",
-            "notSelfRegistered": "ここで変更できるのは自己登録クライアントのみです。"
+            "notSelfRegistered": "ここで変更できるのは自己登録クライアントのみです。",
+            "invalidIconUrl": "アイコンの URL は公開ホスト上の https アドレスである必要があります（localhost やプライベートアドレスからは取得できません）。",
+            "iconFromMetadataDocument": "このクライアントのアイコンはメタデータドキュメントから取得されます。"
           },
           "branding": {
             "clientGone": "このアプリケーションはもう存在しません。",
@@ -506,6 +508,8 @@
           "clientTypeLabel": "クライアントの種類",
           "clientTypeConfidential": "コンフィデンシャル（クライアントシークレット）",
           "clientTypePublic": "パブリック（PKCE、シークレットなし）",
+          "iconUrlLabel": "アイコンの URL",
+          "iconUrlHint": "コンソール、同意画面、ユーザーのアカウントでこのアプリに表示されます。localhost にのみリダイレクトするアプリに便利です。https、PNG/JPEG/WebP/AVIF/GIF/ICO/SVG。",
           "deviceCodeLabel": "デバイスサインイン（CLI、テレビ）",
           "deviceCodeHint": "デバイスコードグラント（RFC 8628）を追加します。アプリがコードを表示し、ユーザーが別の画面の <code>{path}</code> で承認します。通常はパブリッククライアントです。",
           "skipConsentLabel": "同意をスキップ（信頼済みクライアント）",
@@ -544,6 +548,8 @@
             "redirectUrisLabel": "リダイレクト URI",
             "redirectUrisHint": "1 行に 1 つ、またはカンマ区切り。HTTPS が必須です。localhost で http を使えるのはパブリッククライアントのみです。",
             "redirectUrisRequired": "リダイレクト URI を 1 つ以上入力してください（1 行に 1 つ、またはカンマ区切り）。",
+            "iconUrlLabel": "アイコンの URL",
+            "iconUrlHint": "コンソール、同意画面、ユーザーのアカウントでこのアプリに表示されます。localhost にのみリダイレクトするアプリに便利です。https、PNG/JPEG/WebP/AVIF/GIF/ICO/SVG。",
             "deviceCodeLabel": "デバイスサインイン（CLI、テレビ）",
             "deviceCodeHint": "デバイスコードグラントを許可します。オフにすると新しいデバイスサインインは停止しますが、発行済みのトークンは引き続き使えます。",
             "skipConsentLabel": "同意をスキップ（信頼済みクライアント）",
@@ -574,11 +580,15 @@
           "enabled": "クライアントを有効にしました",
           "disabled": "クライアントを無効にしました",
           "deleted": "クライアントを削除しました",
+          "iconSaved": "アイコンを保存しました",
           "disableTitle": "{name} を無効にしますか？",
           "disableDescription": "ユーザーのサインインやトークンの更新ができなくなります。発行済みのアクセストークンは期限が切れるまで（最長 1 時間）使えます。",
           "deleteTitle": "{name} を削除しますか？",
           "deleteDescriptionMetadataDocument": "トークンと、ユーザーが与えた同意も削除されます。メタデータドキュメントのクライアントは、次に誰かをサインインさせるときに再作成されます。ブロックするには、代わりに無効にしてください。",
-          "deleteDescriptionDynamic": "トークンと、ユーザーが与えた同意も削除されます。動的登録がオンの間は、アプリが再登録できます。"
+          "deleteDescriptionDynamic": "トークンと、ユーザーが与えた同意も削除されます。動的登録がオンの間は、アプリが再登録できます。",
+          "setIcon": "アイコンを設定",
+          "iconTitle": "{name} のアイコン",
+          "iconDescription": "コンソールと、このアプリを使う人のアカウントに表示されます。自己登録アプリの同意画面では、引き続きモノグラムと未確認アプリの注意が表示されます。削除するには空欄にします。"
         },
         "brandingErrors": {
           "textTooLong": "{max} 文字未満にしてください。",

@@ -169,3 +169,31 @@ test("the session JWT endpoint and header are off (L6)", async ({ api }) => {
   // Access and ID tokens are still verifiable.
   expect((await api.get("/api/auth/jwks")).status()).toBe(200);
 });
+
+test("an admin sets and clears an app's icon URL", async ({ adminApi }) => {
+  const icon = async (clientId: string) =>
+    (await query<{ icon: string | null }>("select icon from oauth_client where client_id = $1", [clientId]))[0]?.icon;
+  // A CLI that only redirects to localhost has no site to take an icon from. Nothing fetches
+  // the icon here: it is only looked up when shown.
+  const client = await createClient(adminApi, {
+    type: "native",
+    token_endpoint_auth_method: "none",
+    redirect_uris: ["http://127.0.0.1/callback"],
+    logo_uri: "https://cdn.e2e.example.com/cli.png",
+  });
+  expect(await icon(client.client_id)).toBe("https://cdn.e2e.example.com/cli.png");
+  const id = encodeURIComponent(client.client_id);
+
+  const local = await adminApi.patch(`/api/admin/oauth-clients/${id}`, { data: { logo_uri: "http://localhost:3000/icon.png" } });
+  expect(local.status()).toBe(400);
+  expect(((await local.json()) as { error: string }).error).toContain("logo_uri");
+
+  const changed = await adminApi.patch(`/api/admin/oauth-clients/${id}`, { data: { logo_uri: "https://cdn.e2e.example.com/cli-2.png" } });
+  expect(changed.status(), await changed.text()).toBe(200);
+  expect(await icon(client.client_id)).toBe("https://cdn.e2e.example.com/cli-2.png");
+
+  const cleared = await adminApi.patch(`/api/admin/oauth-clients/${id}`, { data: { logo_uri: "" } });
+  expect(cleared.status(), await cleared.text()).toBe(200);
+  expect(((await cleared.json()) as { data: { logo_uri?: string } }).data.logo_uri).toBeUndefined();
+  expect(await icon(client.client_id)).toBeNull();
+});

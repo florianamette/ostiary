@@ -4,7 +4,7 @@ import { safeGet, type SafeFetcher, type SafeGetOptions } from "@ostiary/core/li
 import { findIconLinks } from "@ostiary/core/lib/app-icons/html";
 import { sniffImageType } from "@ostiary/core/lib/app-icons/image";
 import { resolveAppIcon } from "@ostiary/core/lib/app-icons/resolve";
-import { appIconSource, appSite } from "@ostiary/core/lib/app-icons/site";
+import { appIconSource, appSite, isUsableLogoUri } from "@ostiary/core/lib/app-icons/site";
 import type { GetResult } from "@ostiary/core/lib/webhooks/transport";
 import type { Lookup } from "@ostiary/core/lib/webhooks/url-safety";
 
@@ -53,6 +53,26 @@ describe("app site", () => {
     expect(appIconSource({ icon: "https://cdn.example.com/logo.png", uri: "https://example.com" })).toEqual({ kind: "logo", url: "https://cdn.example.com/logo.png" });
     expect(appIconSource({ icon: "http://cdn.example.com/logo.png", uri: "https://example.com" })).toEqual({ kind: "site", origin: "https://example.com" });
     expect(appIconSource({ icon: "https://169.254.169.254/logo.png", uri: null, redirectUris: [] })).toBeNull();
+  });
+
+  it("accepts as a logo only what the icon lookup would fetch", () => {
+    expect(isUsableLogoUri("https://cdn.example.com/logo.png")).toBe(true);
+    expect(isUsableLogoUri("https://cdn.example.com:443/logo.png")).toBe(true);
+    for (const raw of [
+      "",
+      null,
+      "not a url",
+      "http://cdn.example.com/logo.png",
+      "https://localhost/logo.png",
+      "https://127.0.0.1/logo.png",
+      "https://192.168.1.10/logo.png",
+      "https://app.local/logo.png",
+      "https://cdn.example.com:8443/logo.png",
+      "https://user:pass@cdn.example.com/logo.png",
+      `https://cdn.example.com/${"a".repeat(2048)}.png`,
+    ]) {
+      expect(isUsableLogoUri(raw)).toBe(false);
+    }
   });
 });
 

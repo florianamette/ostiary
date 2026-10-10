@@ -70,6 +70,18 @@ Apps that cannot open a browser use the device authorization grant (RFC 8628). I
 
 The user always approves on the page, even for clients with **Skip consent**.
 
+## App icon
+
+Each application shows an icon in the admin console, on the consent screen and on users' account
+dashboard: its registered `logo_uri`, else the icon of its site (`client_uri`, else the first
+public https redirect URI), else a colored monogram. Apps that only redirect to `localhost`,
+`127.0.0.1` or a custom scheme (CLIs, desktop apps, local development) have no site, so set
+**Icon URL** when you register the app or in **Edit** (`logo_uri` in `POST` and `PATCH
+/api/admin/oauth-clients`). It must be https on a public host and the default port (PNG, JPEG,
+WebP, AVIF, GIF, ICO or SVG); Ostiary fetches it itself, as for any app icon. Empty removes it.
+For a dynamically registered client, the row's menu has **Set icon**; the consent screen still
+shows such an app's monogram and the unverified notice.
+
 ## Brand the sign-in page per app
 
 When someone arrives from one of your apps, the sign-in screens can show that app, like

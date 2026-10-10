@@ -86,6 +86,7 @@ export async function createOAuthClientForAdmin(
         // public through token_endpoint_auth_method "none".
         ...(input.type ? { application_type: input.type === "native" ? "native" : "web" } : {}),
         skip_consent: input.skip_consent,
+        ...(input.logo_uri ? { logo_uri: input.logo_uri } : {}),
         scope: input.scope,
         ...machineScopes(input.grant_types, input.scope),
       },
@@ -128,14 +129,17 @@ export async function rotateOAuthClientSecretForAdmin(
 }
 
 /**
- * Updates an OAuth client using Better Auth’s server-only admin API.
+ * Updates an OAuth client using Better Auth’s server-only admin API. A null `logo_uri` clears
+ * the icon: Better Auth only takes strings (it would store ""), so the column is set to null
+ * here once Better Auth has accepted the update.
  */
 export async function updateOAuthClientForAdmin(
   requestHeaders: Headers,
   clientId: string,
   input: UpdateOAuthClientAdminInput,
 ): Promise<OAuthClientAdminPayload> {
-  const { device_code: deviceCode, ...update } = input;
+  const { device_code: deviceCode, logo_uri: logoUri, ...rest } = input;
+  const update = { ...rest, ...(logoUri ? { logo_uri: logoUri } : {}) };
   let grantTypes: string[] | undefined;
   if (deviceCode !== undefined) {
     // Better Auth replaces the whole grant list, so start from the stored one.
@@ -147,6 +151,7 @@ export async function updateOAuthClientForAdmin(
     if (!row) throw new NotFoundError("OAuth client not found");
     grantTypes = withDeviceCodeGrant(row.grantTypes, deviceCode);
   }
+  let payload: OAuthClientAdminPayload;
   try {
     const data = await auth.api.adminUpdateOAuthClient({
       headers: requestHeaders,
@@ -155,8 +160,16 @@ export async function updateOAuthClientForAdmin(
         update: { ...update, ...(grantTypes ? { grant_types: grantTypes } : {}) },
       },
     });
-    return data as unknown as OAuthClientAdminPayload;
+    payload = data as unknown as OAuthClientAdminPayload;
   } catch (e) {
     throwFromBetterAuthCall(e);
   }
+  if (logoUri === null) {
+    await db
+      .update(oauthClient)
+      .set({ icon: null, updatedAt: new Date() })
+      .where(eq(oauthClient.clientId, clientId));
+    delete payload.logo_uri;
+  }
+  return payload;
 }

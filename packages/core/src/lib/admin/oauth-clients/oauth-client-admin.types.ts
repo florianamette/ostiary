@@ -25,6 +25,8 @@ export type CreateOAuthClientAdminInput = {
   response_types: "code"[];
   type?: OAuthClientApplicationType;
   skip_consent: boolean;
+  /** The app's icon (https, public host); see `appIconSource`. */
+  logo_uri?: string;
   /** Space-separated scopes the client may request. */
   scope?: string;
 };
@@ -39,6 +41,8 @@ export type UpdateOAuthClientAdminInput = {
   skip_consent?: boolean;
   /** Adds or removes the device code grant, other grants unchanged. */
   device_code?: boolean;
+  /** The app's icon; null clears it (back to the site's icon or a monogram). */
+  logo_uri?: string | null;
 };
 
 export type OAuthClientAdminPayload = Record<string, unknown>;

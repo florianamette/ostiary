@@ -481,7 +481,9 @@
             "invalidLimit": "Saatlik sınır 0 ile {max} arasında bir tam sayı olmalıdır.",
             "saveFailed": "Ayarlar kaydedilemedi.",
             "clientGone": "Bu istemci artık mevcut değil.",
-            "notSelfRegistered": "Burada yalnızca kendini kaydeden istemciler değiştirilebilir."
+            "notSelfRegistered": "Burada yalnızca kendini kaydeden istemciler değiştirilebilir.",
+            "invalidIconUrl": "Simge URL’si herkese açık bir ana bilgisayarda https adresi olmalıdır (localhost ve özel adresler alınamaz).",
+            "iconFromMetadataDocument": "Bu istemcinin simgesi meta veri belgesinden gelir."
           },
           "branding": {
             "clientGone": "Bu uygulama artık mevcut değil.",
@@ -506,6 +508,8 @@
           "clientTypeLabel": "İstemci türü",
           "clientTypeConfidential": "Gizli (istemci gizli anahtarı)",
           "clientTypePublic": "Genel (PKCE, gizli anahtar yok)",
+          "iconUrlLabel": "Simge URL’si",
+          "iconUrlHint": "Uygulama için konsolda, onay ekranında ve kullanıcıların hesaplarında gösterilir. Yalnızca localhost’a yönlendiren uygulamalar için kullanışlıdır. https, PNG/JPEG/WebP/AVIF/GIF/ICO/SVG.",
           "deviceCodeLabel": "Cihazla giriş (CLI'lar, TV'ler)",
           "deviceCodeHint": "Cihaz kodu grant'ını (RFC 8628) ekler: uygulama bir kod gösterir ve kullanıcı bunu başka bir ekranda <code>{path}</code> adresinde onaylar. Genellikle genel bir istemcidir.",
           "skipConsentLabel": "Onayı atla (güvenilir istemci)",
@@ -544,6 +548,8 @@
             "redirectUrisLabel": "Yönlendirme URI'leri",
             "redirectUrisHint": "Her satıra bir tane veya virgülle ayrılmış. HTTPS gereklidir. Yalnızca genel istemciler localhost üzerinde http kullanabilir.",
             "redirectUrisRequired": "En az bir yönlendirme URI'si girin (her satıra bir tane veya virgülle ayrılmış).",
+            "iconUrlLabel": "Simge URL’si",
+            "iconUrlHint": "Uygulama için konsolda, onay ekranında ve kullanıcıların hesaplarında gösterilir. Yalnızca localhost’a yönlendiren uygulamalar için kullanışlıdır. https, PNG/JPEG/WebP/AVIF/GIF/ICO/SVG.",
             "deviceCodeLabel": "Cihazla giriş (CLI'lar, TV'ler)",
             "deviceCodeHint": "Cihaz kodu grant'ına izin verir. Kapatmak yeni cihaz girişlerini durdurur; daha önce verilen token'lar çalışmaya devam eder.",
             "skipConsentLabel": "Onayı atla (güvenilir istemci)",
@@ -574,11 +580,15 @@
           "enabled": "İstemci etkinleştirildi",
           "disabled": "İstemci devre dışı bırakıldı",
           "deleted": "İstemci silindi",
+          "iconSaved": "Simge kaydedildi",
           "disableTitle": "{name} devre dışı bırakılsın mı?",
           "disableDescription": "Artık kimsenin girişini yapamaz veya token'larını yenileyemez. Daha önce verilen erişim token'ları süreleri dolana kadar (en fazla bir saat) çalışır.",
           "deleteTitle": "{name} silinsin mi?",
           "deleteDescriptionMetadataDocument": "Token'ları ve kullanıcıların ona verdiği onaylar da silinir. Meta veri belgesi istemcisi, bir sonraki girişte yeniden oluşturulur. Engellemek için bunun yerine devre dışı bırakın.",
-          "deleteDescriptionDynamic": "Token'ları ve kullanıcıların ona verdiği onaylar da silinir. Dinamik kayıt açık olduğu sürece uygulama yeniden kayıt olabilir."
+          "deleteDescriptionDynamic": "Token'ları ve kullanıcıların ona verdiği onaylar da silinir. Dinamik kayıt açık olduğu sürece uygulama yeniden kayıt olabilir.",
+          "setIcon": "Simge ayarla",
+          "iconTitle": "{name} simgesi",
+          "iconDescription": "Konsolda ve uygulamayı kullanan kişilerin hesaplarında gösterilir. Onay ekranı, kendi kendine kaydolan uygulamalar için monogramı ve doğrulanmamış uygulama uyarısını göstermeye devam eder. Kaldırmak için boş bırakın."
         },
         "brandingErrors": {
           "textTooLong": "{max} karakterin altında tutun.",

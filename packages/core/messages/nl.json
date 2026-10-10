@@ -481,7 +481,9 @@
             "invalidLimit": "De limiet per uur moet een geheel getal van 0 tot {max} zijn.",
             "saveFailed": "Kan de instellingen niet opslaan.",
             "clientGone": "Deze client bestaat niet meer.",
-            "notSelfRegistered": "Alleen zelf geregistreerde clients kunnen hier worden gewijzigd."
+            "notSelfRegistered": "Alleen zelf geregistreerde clients kunnen hier worden gewijzigd.",
+            "invalidIconUrl": "De pictogram-URL moet een https-adres op een openbare host zijn (localhost en privéadressen kunnen niet worden opgehaald).",
+            "iconFromMetadataDocument": "Het pictogram van deze client komt uit zijn metadatadocument."
           },
           "branding": {
             "clientGone": "Deze applicatie bestaat niet meer.",
@@ -506,6 +508,8 @@
           "clientTypeLabel": "Clienttype",
           "clientTypeConfidential": "Vertrouwelijk (clientgeheim)",
           "clientTypePublic": "Openbaar (PKCE, geen geheim)",
+          "iconUrlLabel": "Pictogram-URL",
+          "iconUrlHint": "Wordt voor de app getoond in de console, op het toestemmingsscherm en in de accounts van gebruikers. Handig voor apps die alleen naar localhost doorsturen. https, PNG/JPEG/WebP/AVIF/GIF/ICO/SVG.",
           "deviceCodeLabel": "Inloggen op apparaat (CLI's, tv's)",
           "deviceCodeHint": "Voegt de device code grant toe (RFC 8628): de app toont een code en de gebruiker keurt die goed op <code>{path}</code> op een ander scherm. Meestal een openbare client.",
           "skipConsentLabel": "Toestemming overslaan (vertrouwde client)",
@@ -544,6 +548,8 @@
             "redirectUrisLabel": "Redirect-URI's",
             "redirectUrisHint": "Eén per regel of gescheiden door komma's. HTTPS vereist. Alleen openbare clients mogen http op localhost gebruiken.",
             "redirectUrisRequired": "Voer minstens één redirect-URI in (één per regel of gescheiden door komma's).",
+            "iconUrlLabel": "Pictogram-URL",
+            "iconUrlHint": "Wordt voor de app getoond in de console, op het toestemmingsscherm en in de accounts van gebruikers. Handig voor apps die alleen naar localhost doorsturen. https, PNG/JPEG/WebP/AVIF/GIF/ICO/SVG.",
             "deviceCodeLabel": "Inloggen op apparaat (CLI's, tv's)",
             "deviceCodeHint": "Staat de device code grant toe. Uitschakelen stopt nieuwe inlogpogingen op apparaten; al uitgegeven tokens blijven werken.",
             "skipConsentLabel": "Toestemming overslaan (vertrouwde client)",
@@ -574,11 +580,15 @@
           "enabled": "Client ingeschakeld",
           "disabled": "Client uitgeschakeld",
           "deleted": "Client verwijderd",
+          "iconSaved": "Pictogram opgeslagen",
           "disableTitle": "{name} uitschakelen?",
           "disableDescription": "De client kan dan niemand meer laten inloggen en zijn tokens niet meer vernieuwen. Al uitgegeven toegangstokens werken tot ze verlopen (maximaal een uur).",
           "deleteTitle": "{name} verwijderen?",
           "deleteDescriptionMetadataDocument": "De tokens en de toestemmingen die mensen eraan hebben gegeven worden ook verwijderd. Een client met metadatadocument wordt opnieuw aangemaakt zodra hij weer iemand laat inloggen. Schakel hem uit om hem te blokkeren.",
-          "deleteDescriptionDynamic": "De tokens en de toestemmingen die mensen eraan hebben gegeven worden ook verwijderd. De app kan zich opnieuw registreren zolang dynamische registratie aan staat."
+          "deleteDescriptionDynamic": "De tokens en de toestemmingen die mensen eraan hebben gegeven worden ook verwijderd. De app kan zich opnieuw registreren zolang dynamische registratie aan staat.",
+          "setIcon": "Pictogram instellen",
+          "iconTitle": "Pictogram voor {name}",
+          "iconDescription": "Wordt getoond in de console en in de accounts van mensen die de app gebruiken. Het toestemmingsscherm houdt voor zelfgeregistreerde apps het monogram en de melding 'niet geverifieerd'. Laat leeg om het te verwijderen."
         },
         "brandingErrors": {
           "textTooLong": "Gebruik minder dan {max} tekens.",

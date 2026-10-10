@@ -20,6 +20,13 @@ All notable changes are documented here. The format follows
 
 ### Added
 
+- **Icon URL for applications.** Admins set an app's icon (`logo_uri`) when registering it
+  or in **Edit** (`logo_uri` in `POST` and `PATCH /api/admin/oauth-clients`; empty or null
+  clears it), and for dynamically registered clients with **Set icon**. Useful for CLIs,
+  desktop apps and local development, which only redirect to localhost and so had no site to
+  take an icon from. The URL must be https on a public host and the default port, the same
+  rule the icon lookup applies. The console's icon URL changes with it, so a new icon shows
+  at once.
 - **Vercel Web Analytics, opt-in.** `VERCEL_ANALYTICS=true` adds it to both apps. Page views
   are sent without query strings or fragments, so tokens in sign-in URLs never leave the browser.
 - **Your data: export and account deletion** (GDPR access, portability and erasure). A new

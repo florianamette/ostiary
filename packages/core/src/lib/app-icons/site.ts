@@ -70,13 +70,24 @@ export function appSite(client: ClientSiteInfo): AppSite | null {
 
 export type IconSource = { kind: "logo"; url: string } | { kind: "site"; origin: string };
 
+/** The registered logo as a URL Ostiary may fetch: https, public host, default port. */
+function usableLogo(raw: string | null | undefined): URL | null {
+  const logo = parseWebUrl(raw, ["https:"]);
+  return logo && logo.port === "" ? logo : null;
+}
+
+/** Whether `logo_uri` would be used as the app's icon (checked when an admin sets it). */
+export function isUsableLogoUri(raw: string | null | undefined): boolean {
+  return usableLogo(raw) !== null;
+}
+
 /**
  * Where the app's icon comes from: its registered logo (`logo_uri`, https only), else its
  * site's home page. Doubles as the cache key (a logo URL always has a path, an origin never).
  */
 export function appIconSource(client: ClientSiteInfo): IconSource | null {
-  const logo = parseWebUrl(client.icon, ["https:"]);
-  if (logo && logo.port === "") return { kind: "logo", url: logo.href };
+  const logo = usableLogo(client.icon);
+  if (logo) return { kind: "logo", url: logo.href };
   const origin = appSite(client)?.iconOrigin;
   return origin ? { kind: "site", origin } : null;
 }
