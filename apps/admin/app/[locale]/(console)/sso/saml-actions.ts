@@ -15,7 +15,7 @@ import {
   type SamlMapping,
 } from "@ostiary/core/lib/saml";
 import { fetchSamlMetadata } from "@ostiary/core/lib/saml-metadata-fetch";
-import { parseSsoDomain } from "@ostiary/core/lib/security/sso-domain";
+import { parseSsoDomain, ssoDomainVerificationIdentifier } from "@ostiary/core/lib/security/sso-domain";
 import { adminActor } from "@/lib/admin-audit";
 import { auth } from "@/lib/auth";
 
@@ -41,7 +41,6 @@ type SamlProviderInput = {
   wantAssertionsSigned: boolean;
 };
 
-const verificationIdentifier = (providerId: string) => `_ostiary-${providerId}`;
 
 
 function metadataAllowLocalhost(): boolean {
@@ -162,7 +161,7 @@ export async function updateSamlProvider(
     .update(ssoProvider)
     .set({ samlConfig, domain, organizationId: input.organizationId, ...(domainChanged ? { domainVerified: false } : {}) })
     .where(eq(ssoProvider.providerId, providerId));
-  if (domainChanged) await db.delete(verification).where(eq(verification.identifier, verificationIdentifier(providerId)));
+  if (domainChanged) await db.delete(verification).where(eq(verification.identifier, ssoDomainVerificationIdentifier(providerId)));
   await audit({
     action: "sso_provider.update",
     target: { type: "sso_provider", id: providerId, label: providerId },

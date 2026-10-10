@@ -44,7 +44,7 @@ import { clientIp } from "@ostiary/core/lib/auth-events";
 import { MAX_DEVICE_SESSIONS } from "@ostiary/core/lib/device-accounts";
 import { isPlatformAdmin } from "@ostiary/core/lib/admin/user-has-admin-role";
 import { implicitLinkRefusal } from "@ostiary/core/lib/security/account-linking-policy";
-import { isStrictSsoDomain } from "@ostiary/core/lib/security/sso-domain";
+import { isStrictSsoDomain, SSO_DOMAIN_TOKEN_PREFIX } from "@ostiary/core/lib/security/sso-domain";
 import { brand } from "@ostiary/core/lib/brand";
 import { getPasskeyWebAuthnOptions } from "@ostiary/core/lib/passkey-options";
 import { env } from "@ostiary/core/lib/env";
@@ -571,7 +571,7 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
             samlResponseGuard,
             sso({
                 // A provider only takes sign-ins once its domain owner publishes a DNS TXT record.
-                domainVerification: { enabled: true, tokenPrefix: "ostiary" },
+                domainVerification: { enabled: true, tokenPrefix: SSO_DOMAIN_TOKEN_PREFIX },
                 // SAML: SP-initiated only. Every response must answer an AuthnRequest this server sent
                 // (InResponseTo, single use, 5 minutes) and each assertion ID is accepted once. The
                 // plugin also checks the signature against the IdP's certificate (samlify refuses an

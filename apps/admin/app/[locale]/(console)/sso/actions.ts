@@ -7,17 +7,16 @@ import { getTranslations } from "next-intl/server";
 
 import { db } from "@ostiary/core/db/index";
 import { organization, ssoProvider, verification } from "@ostiary/core/db/schema";
-import { isStrictSsoDomain, parseSsoDomain } from "@ostiary/core/lib/security/sso-domain";
+import { isStrictSsoDomain, parseSsoDomain, ssoDomainVerificationIdentifier } from "@ostiary/core/lib/security/sso-domain";
 import { adminActor } from "@/lib/admin-audit";
 
 /*
  * SSO providers are managed here rather than through the plugin's endpoints, which only let
  * the admin who registered a provider (or an admin of its organization) change it. The DNS
- * record format matches the plugin's (tokenPrefix "ostiary"), so both stay compatible.
+ * record format matches the plugin's (SSO_DOMAIN_TOKEN_PREFIX), so both stay compatible.
  */
 
 type Result = { ok: true } | { ok: false; error: string };
-const verificationIdentifier = (providerId: string) => `_ostiary-${providerId}`;
 
 const errors = () => getTranslations("sso.errors");
 
@@ -48,7 +47,7 @@ export async function updateSsoProvider(
     .update(ssoProvider)
     .set({ issuer, domain, organizationId: input.organizationId, ...(domainChanged ? { domainVerified: false } : {}) })
     .where(eq(ssoProvider.providerId, providerId));
-  if (domainChanged) await db.delete(verification).where(eq(verification.identifier, verificationIdentifier(providerId)));
+  if (domainChanged) await db.delete(verification).where(eq(verification.identifier, ssoDomainVerificationIdentifier(providerId)));
   await audit({
     action: "sso_provider.update",
     target: { type: "sso_provider", id: providerId, label: providerId },
@@ -61,7 +60,7 @@ export async function deleteSsoProvider(providerId: string): Promise<Result> {
   const { audit } = await adminActor();
   const deleted = await db.delete(ssoProvider).where(eq(ssoProvider.providerId, providerId)).returning({ domain: ssoProvider.domain });
   if (deleted.length === 0) return { ok: false, error: (await errors())("providerNotFound") };
-  await db.delete(verification).where(eq(verification.identifier, verificationIdentifier(providerId)));
+  await db.delete(verification).where(eq(verification.identifier, ssoDomainVerificationIdentifier(providerId)));
   await audit({ action: "sso_provider.delete", target: { type: "sso_provider", id: providerId, label: providerId }, metadata: { domain: deleted[0]!.domain } });
   return { ok: true };
 }
@@ -76,7 +75,7 @@ export async function getDomainVerificationRecord(
   // The record is published under exactly the domain the plugin matches at sign-in.
   if (!isStrictSsoDomain(provider.domain)) return { ok: false, error: (await errors())("invalidProviderDomain") };
   const hostname = provider.domain;
-  const identifier = verificationIdentifier(providerId);
+  const identifier = ssoDomainVerificationIdentifier(providerId);
   const [active] = await db
     .select()
     .from(verification)
@@ -110,7 +109,7 @@ export async function checkDomainVerification(providerId: string): Promise<Resul
     return { ok: false, error: (await errors())("txtRecordNotFound") };
   }
   await db.update(ssoProvider).set({ domainVerified: true }).where(eq(ssoProvider.providerId, providerId));
-  await db.delete(verification).where(eq(verification.identifier, verificationIdentifier(providerId)));
+  await db.delete(verification).where(eq(verification.identifier, ssoDomainVerificationIdentifier(providerId)));
   await audit({ action: "sso_provider.verify_domain", target: { type: "sso_provider", id: providerId, label: providerId } });
   return { ok: true };
 }
