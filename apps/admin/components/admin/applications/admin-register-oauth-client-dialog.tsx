@@ -20,7 +20,6 @@ import {
   FieldLabel,
 } from "@ostiary/core/components/ui/field";
 import { Input } from "@ostiary/core/components/ui/input";
-import { Label } from "@ostiary/core/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -32,19 +31,8 @@ import { Textarea } from "@ostiary/core/components/ui/textarea";
 import { MotionPanel } from "@ostiary/core/components/motion/motion-panel";
 import { adminNotify } from "@ostiary/core/lib/admin/admin-notify";
 import { DEVICE_CODE_GRANT_TYPE } from "@ostiary/core/lib/admin/oauth-clients/oauth-client-admin.types";
-
-function parseRedirectUris(raw: string): string[] {
-  return raw
-    .split(/[\n,]+/)
-    .map((s) => s.trim())
-    .filter(Boolean);
-}
-
-function asRecord(v: unknown): Record<string, unknown> | null {
-  return v && typeof v === "object" && !Array.isArray(v)
-    ? (v as Record<string, unknown>)
-    : null;
-}
+import { CheckboxField } from "@/components/admin/common/choice-field";
+import { asRecord, parseRedirectUris, routeError } from "@/lib/oauth-client-payload";
 
 export function AdminRegisterOAuthClientDialog({
   onCreated,
@@ -110,14 +98,7 @@ export function AdminRegisterOAuthClientDialog({
       });
       const json: unknown = await res.json().catch(() => null);
       if (!res.ok) {
-        const err =
-          json &&
-          typeof json === "object" &&
-          "error" in json &&
-          typeof (json as { error?: unknown }).error === "string"
-            ? (json as { error: string }).error
-            : t("registerFailed");
-        setFormError(err);
+        setFormError(routeError(json) ?? t("registerFailed"));
         return;
       }
       const payload =
@@ -239,51 +220,25 @@ export function AdminRegisterOAuthClientDialog({
                 </Select>
               </Field>
               <Field>
-                <div className="flex gap-3 rounded-md border border-border/80 bg-muted/30 p-3">
-                  <input
-                    id="oauth-reg-device-code"
-                    type="checkbox"
-                    className="mt-0.5 size-4 shrink-0 rounded border-input"
-                    checked={deviceCode}
-                    onChange={(e) => setDeviceCode(e.target.checked)}
-                  />
-                  <div className="grid gap-1">
-                    <Label
-                      htmlFor="oauth-reg-device-code"
-                      className="cursor-pointer font-medium leading-none"
-                    >
-                      {t("deviceCodeLabel")}
-                    </Label>
-                    <p className="text-muted-foreground text-xs leading-snug">
-                      {t.rich("deviceCodeHint", {
-                        path: "/device",
-                        code: (c) => <code>{c}</code>,
-                      })}
-                    </p>
-                  </div>
-                </div>
+                <CheckboxField
+                  id="oauth-reg-device-code"
+                  checked={deviceCode}
+                  onChange={setDeviceCode}
+                  label={t("deviceCodeLabel")}
+                  hint={t.rich("deviceCodeHint", {
+                    path: "/device",
+                    code: (c) => <code>{c}</code>,
+                  })}
+                />
               </Field>
               <Field>
-                <div className="flex gap-3 rounded-md border border-border/80 bg-muted/30 p-3">
-                  <input
-                    id="oauth-reg-skip-consent"
-                    type="checkbox"
-                    className="mt-0.5 size-4 shrink-0 rounded border-input"
-                    checked={skipConsent}
-                    onChange={(e) => setSkipConsent(e.target.checked)}
-                  />
-                  <div className="grid gap-1">
-                    <Label
-                      htmlFor="oauth-reg-skip-consent"
-                      className="cursor-pointer font-medium leading-none"
-                    >
-                      {t("skipConsentLabel")}
-                    </Label>
-                    <p className="text-muted-foreground text-xs leading-snug">
-                      {t("skipConsentHint")}
-                    </p>
-                  </div>
-                </div>
+                <CheckboxField
+                  id="oauth-reg-skip-consent"
+                  checked={skipConsent}
+                  onChange={setSkipConsent}
+                  label={t("skipConsentLabel")}
+                  hint={t("skipConsentHint")}
+                />
               </Field>
               {formError ? (
                 <p className="text-destructive text-sm" role="alert">
