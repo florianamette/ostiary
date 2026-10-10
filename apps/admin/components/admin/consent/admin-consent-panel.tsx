@@ -37,8 +37,6 @@ import { authClient } from "@/lib/auth-client";
 import { asRecord, asStringArray, normalizeGetClientsPayload } from "@/lib/oauth-client-payload";
 import { adminNotify } from "@ostiary/core/lib/admin/admin-notify";
 
-export type { OAuthConsentRow };
-
 type ConsentScopeFilter = "all" | "offline" | "openid" | "with_reference";
 
 function formatDate(format: ReturnType<typeof useFormatter>, iso: string) {

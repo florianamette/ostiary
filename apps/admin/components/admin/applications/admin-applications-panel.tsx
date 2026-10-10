@@ -41,8 +41,6 @@ import { adminNotify } from "@ostiary/core/lib/admin/admin-notify";
 import { DEVICE_CODE_GRANT_TYPE } from "@ostiary/core/lib/admin/oauth-clients/oauth-client-admin.types";
 import type { RegistrationSource } from "@ostiary/core/lib/client-registration-policy";
 
-export type { OAuthApplicationRow };
-
 type ClientKindFilter = "all" | "public" | "confidential" | "trusted" | "device";
 type RegistrationFilter = "all" | "self" | RegistrationSource;
 

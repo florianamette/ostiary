@@ -48,7 +48,7 @@ import {
   updateSsoProvider,
 } from "@/app/[locale]/(console)/sso/actions";
 
-export type SsoProviderRow = {
+type SsoProviderRow = {
   providerId: string;
   issuer: string;
   domain: string;
