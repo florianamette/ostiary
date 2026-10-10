@@ -1,3 +1,5 @@
+import type { APIResponse, Page } from "@playwright/test";
+
 import { selectOption } from "../support/admin";
 import { ISSUER } from "../support/env";
 import { expect, test } from "../support/fixtures";
@@ -14,7 +16,7 @@ const registration = {
   scope: "openid profile email offline_access",
 };
 
-async function setDynamicRegistration(page: import("@playwright/test").Page, mode: RegExp) {
+async function setDynamicRegistration(page: Page, mode: RegExp) {
   await page.goto("/en/applications");
   await page.getByRole("button", { name: "Edit" }).first().click();
   const dialog = page.getByRole("dialog", { name: "Self-registration" });
@@ -27,7 +29,7 @@ test("dynamic client registration when turned on", async ({ adminPage, api }) =>
   await setDynamicRegistration(adminPage, /^Anyone/);
 
   // The auth server applies the setting within a minute.
-  let response: Awaited<ReturnType<typeof api.post>> | undefined;
+  let response: APIResponse | undefined;
   await expect
     .poll(
       async () => {

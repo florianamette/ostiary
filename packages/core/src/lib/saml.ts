@@ -185,6 +185,27 @@ function isAllowedSsoUrl(value: string): boolean {
 }
 
 /**
+ * The IdP's signing certificates (KeyDescriptors with `use="signing"` or no `use`), or null
+ * when one of them cannot be read.
+ */
+function signingCertificates(idp: XmlElement, now: Date): SamlCertificateInfo[] | null {
+  const certificates: SamlCertificateInfo[] = [];
+  for (const key of children(idp, MD_NS, "KeyDescriptor")) {
+    const use = key.getAttribute("use");
+    if (use && use !== "signing") continue;
+    const certElements = children(key, DSIG_NS, "KeyInfo")
+      .flatMap((info) => children(info, DSIG_NS, "X509Data"))
+      .flatMap((data) => children(data, DSIG_NS, "X509Certificate"));
+    for (const certEl of certElements) {
+      const cert = parseSamlCertificate(certEl.textContent ?? "", now);
+      if (!cert) return null;
+      certificates.push(cert);
+    }
+  }
+  return certificates;
+}
+
+/**
  * Validates IdP metadata XML and extracts what Ostiary relies on. Refused: a DTD, more than
  * one entity, no IdP role, no HTTP-Redirect SSO endpoint (the plugin sends the AuthnRequest
  * with that binding), no signing certificate, or an IdP that requires signed AuthnRequests
@@ -226,20 +247,8 @@ export function parseIdpMetadata(xml: string, now = new Date()): IdpMetadataResu
   const ssoUrl = redirect?.getAttribute("Location")?.trim() ?? "";
   if (!ssoUrl) return { ok: false, error: "The metadata has no SingleSignOnService with the HTTP-Redirect binding.", code: "noRedirectBinding" };
   if (!isAllowedSsoUrl(ssoUrl)) return { ok: false, error: "The identity provider's SSO URL must use https://.", code: "metadataSsoUrlNotHttps" };
-  const certificates: SamlCertificateInfo[] = [];
-  for (const key of children(idp, MD_NS, "KeyDescriptor")) {
-    const use = key.getAttribute("use");
-    if (use && use !== "signing") continue;
-    for (const info of children(key, DSIG_NS, "KeyInfo")) {
-      for (const data of children(info, DSIG_NS, "X509Data")) {
-        for (const certEl of children(data, DSIG_NS, "X509Certificate")) {
-          const cert = parseSamlCertificate(certEl.textContent ?? "", now);
-          if (!cert) return { ok: false, error: "A signing certificate in the metadata could not be read.", code: "unreadableCertificate" };
-          certificates.push(cert);
-        }
-      }
-    }
-  }
+  const certificates = signingCertificates(idp, now);
+  if (!certificates) return { ok: false, error: "A signing certificate in the metadata could not be read.", code: "unreadableCertificate" };
   if (certificates.length === 0) return { ok: false, error: "The metadata has no signing certificate.", code: "noSigningCertificate" };
   return { ok: true, metadata: { entityId, ssoUrl, certificates } };
 }

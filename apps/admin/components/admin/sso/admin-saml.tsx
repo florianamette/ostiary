@@ -12,38 +12,26 @@ import { DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@ost
 import { Field, FieldDescription, FieldGroup, FieldLabel } from "@ostiary/core/components/ui/field";
 import { Input } from "@ostiary/core/components/ui/input";
 import { Label } from "@ostiary/core/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@ostiary/core/components/ui/select";
-import { Textarea } from "@ostiary/core/components/ui/textarea";
 import {
   SAML_PRESET_MAPPINGS,
-  SAML_PRESETS,
   samlServiceProviderUrls,
   type SamlMapping,
-  type SamlPreset,
   type SamlServiceProviderUrls,
 } from "@ostiary/core/lib/saml-presets";
 import type { SamlProviderSummary } from "@ostiary/core/lib/saml";
+import { registerSamlProvider, updateSamlProvider } from "@/app/[locale]/(console)/sso/saml-actions";
+import { DialogActions } from "@/components/admin/common/dialog-actions";
+import { NO_ORG, OrganizationSelect, type Org } from "@/components/admin/sso/organization-select";
 import {
-  registerSamlProvider,
-  updateSamlProvider,
-  type SamlIdpFormInput,
-} from "@/app/[locale]/(console)/sso/saml-actions";
+  EMPTY_IDP,
+  IdpFields,
+  idpInputFrom,
+  MappingFields,
+  SignedAssertionsField,
+  type IdpSource,
+} from "@/components/admin/sso/saml-fields";
 
 export type SamlProviderDetails = SamlProviderSummary & { sp: SamlServiceProviderUrls };
-
-type Org = { id: string; name: string };
-type IdpSource = "url" | "xml" | "manual";
-
-/** The preset whose names match the mapping, or "custom". */
-function presetFor(mapping: SamlMapping | null): SamlPreset {
-  if (!mapping) return "okta";
-  for (const [preset, m] of Object.entries(SAML_PRESET_MAPPINGS)) {
-    if (m.email === mapping.email && m.name === mapping.name && (m.firstName ?? "") === (mapping.firstName ?? "") && (m.lastName ?? "") === (mapping.lastName ?? "")) {
-      return preset as SamlPreset;
-    }
-  }
-  return "custom";
-}
 
 export function CopyValue({ label, value }: { label: string; value: string }) {
   const t = useTranslations("sso.saml");
@@ -109,176 +97,20 @@ export function SamlSetupNotes({ ssoPageUrl }: { ssoPageUrl: string }) {
   );
 }
 
-function IdpFields({
-  idPrefix,
-  source,
-  onSource,
-  values,
-  onChange,
-  disabled,
-  required,
-}: {
-  idPrefix: string;
-  source: IdpSource;
-  onSource: (s: IdpSource) => void;
-  values: { url: string; xml: string; entityId: string; ssoUrl: string; certificate: string };
-  onChange: (field: keyof typeof values, value: string) => void;
-  disabled: boolean;
-  required: boolean;
-}) {
-  const t = useTranslations("sso.saml");
-  return (
-    <>
-      <Field>
-        <FieldLabel htmlFor={`${idPrefix}-source`}>{t("idpSource")}</FieldLabel>
-        <Select value={source} onValueChange={(v) => onSource(v as IdpSource)} disabled={disabled}>
-          <SelectTrigger id={`${idPrefix}-source`} className="w-full">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="url">{t("sourceUrl")}</SelectItem>
-            <SelectItem value="xml">{t("sourceXml")}</SelectItem>
-            <SelectItem value="manual">{t("sourceManual")}</SelectItem>
-          </SelectContent>
-        </Select>
-      </Field>
-      {source === "url" ? (
-        <Field>
-          <FieldLabel htmlFor={`${idPrefix}-url`}>{t("metadataUrl")}</FieldLabel>
-          <Input id={`${idPrefix}-url`} type="url" value={values.url} onChange={(e) => onChange("url", e.target.value)} disabled={disabled} required={required} placeholder="https://idp.example.com/metadata.xml" />
-          <FieldDescription>{t("metadataUrlHint")}</FieldDescription>
-        </Field>
-      ) : source === "xml" ? (
-        <Field>
-          <FieldLabel htmlFor={`${idPrefix}-xml`}>{t("metadataXml")}</FieldLabel>
-          <Textarea id={`${idPrefix}-xml`} value={values.xml} onChange={(e) => onChange("xml", e.target.value)} disabled={disabled} required={required} rows={5} className="font-mono text-xs" placeholder="<md:EntityDescriptor …>" />
-          <FieldDescription>{t("metadataXmlHint")}</FieldDescription>
-        </Field>
-      ) : (
-        <>
-          <Field>
-            <FieldLabel htmlFor={`${idPrefix}-entity`}>{t("idpEntityId")}</FieldLabel>
-            <Input id={`${idPrefix}-entity`} value={values.entityId} onChange={(e) => onChange("entityId", e.target.value)} disabled={disabled} required={required} />
-          </Field>
-          <Field>
-            <FieldLabel htmlFor={`${idPrefix}-sso`}>{t("ssoUrl")}</FieldLabel>
-            <Input id={`${idPrefix}-sso`} type="url" value={values.ssoUrl} onChange={(e) => onChange("ssoUrl", e.target.value)} disabled={disabled} required={required} />
-            <FieldDescription>{t("ssoUrlHint")}</FieldDescription>
-          </Field>
-          <Field>
-            <FieldLabel htmlFor={`${idPrefix}-cert`}>{t("certificate")}</FieldLabel>
-            <Textarea id={`${idPrefix}-cert`} value={values.certificate} onChange={(e) => onChange("certificate", e.target.value)} disabled={disabled} required={required} rows={4} className="font-mono text-xs" placeholder="-----BEGIN CERTIFICATE-----" />
-            <FieldDescription>{t("certificateHint")}</FieldDescription>
-          </Field>
-        </>
-      )}
-    </>
-  );
-}
-
-function MappingFields({
-  idPrefix,
-  mapping,
-  onMapping,
-  disabled,
-}: {
-  idPrefix: string;
-  mapping: SamlMapping;
-  onMapping: (m: SamlMapping) => void;
-  disabled: boolean;
-}) {
-  const t = useTranslations("sso.saml");
-  const preset = presetFor(mapping);
-  const fields: Array<[keyof SamlMapping, string, boolean]> = [
-    ["email", t("attrEmail"), true],
-    ["name", t("attrName"), true],
-    ["firstName", t("attrFirstName"), false],
-    ["lastName", t("attrLastName"), false],
-  ];
-  return (
-    <div className="space-y-3 rounded-md border border-border/80 p-3">
-      <p className="text-sm font-medium">{t("mappingTitle")}</p>
-      <Field>
-        <FieldLabel htmlFor={`${idPrefix}-preset`}>{t("mappingPreset")}</FieldLabel>
-        <Select
-          value={preset}
-          onValueChange={(v) => {
-            if (v !== "custom") onMapping({ ...SAML_PRESET_MAPPINGS[v as Exclude<SamlPreset, "custom">] });
-          }}
-          disabled={disabled}
-        >
-          <SelectTrigger id={`${idPrefix}-preset`} className="w-full">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            {SAML_PRESETS.map((p) => (
-              <SelectItem key={p} value={p}>
-                {t(`preset_${p}`)}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </Field>
-      {fields.map(([key, label, required]) => (
-        <Field key={key}>
-          <FieldLabel htmlFor={`${idPrefix}-${key}`}>{label}</FieldLabel>
-          <Input
-            id={`${idPrefix}-${key}`}
-            value={mapping[key] ?? ""}
-            onChange={(e) => onMapping({ ...mapping, [key]: e.target.value })}
-            disabled={disabled}
-            required={required}
-            className="font-mono text-xs"
-          />
-        </Field>
-      ))}
-      <p className="text-xs text-muted-foreground">{t("mappingHint")}</p>
-    </div>
-  );
-}
-
-function SignedAssertionsField({ id, checked, onChange, disabled }: { id: string; checked: boolean; onChange: (v: boolean) => void; disabled: boolean }) {
-  const t = useTranslations("sso.saml");
-  return (
-    <Field>
-      <div className="flex gap-3 rounded-md border border-border/80 bg-muted/30 p-3">
-        <input id={id} type="checkbox" className="mt-0.5 size-4 shrink-0 rounded border-input" checked={checked} onChange={(e) => onChange(e.target.checked)} disabled={disabled} />
-        <div className="grid gap-1">
-          <Label htmlFor={id} className="cursor-pointer font-medium leading-none">
-            {t("wantAssertionsSigned")}
-          </Label>
-          <p className="text-xs leading-snug text-muted-foreground">{t("wantAssertionsSignedHint")}</p>
-          <p className="text-xs leading-snug text-muted-foreground">{t("requestSigningNote")}</p>
-        </div>
-      </div>
-    </Field>
-  );
-}
-
-function idpInputFrom(source: IdpSource, v: { url: string; xml: string; entityId: string; ssoUrl: string; certificate: string }): SamlIdpFormInput {
-  if (source === "url") return { source: "url", url: v.url.trim() };
-  if (source === "xml") return { source: "xml", xml: v.xml };
-  return { source: "manual", entityId: v.entityId, ssoUrl: v.ssoUrl, certificate: v.certificate };
-}
-
-const EMPTY_IDP = { url: "", xml: "", entityId: "", ssoUrl: "", certificate: "" };
-
 /** Registration form for a SAML 2.0 identity provider. */
 export function SamlRegisterForm({
   authAppUrl,
   organizations,
-  organizationSelect,
 }: {
   authAppUrl: string;
   organizations: Org[];
-  organizationSelect: (props: { id: string; value: string; onChange: (v: string) => void; organizations: Org[]; disabled?: boolean }) => React.ReactNode;
 }) {
   const t = useTranslations("sso");
   const ts = useTranslations("sso.saml");
   const router = useRouter();
   const [providerId, setProviderId] = React.useState("");
   const [domain, setDomain] = React.useState("");
-  const [organizationId, setOrganizationId] = React.useState("__none__");
+  const [organizationId, setOrganizationId] = React.useState(NO_ORG);
   const [source, setSource] = React.useState<IdpSource>("url");
   const [idp, setIdp] = React.useState(EMPTY_IDP);
   const [mapping, setMapping] = React.useState<SamlMapping>({ ...SAML_PRESET_MAPPINGS.okta });
@@ -292,7 +124,7 @@ export function SamlRegisterForm({
       const res = await registerSamlProvider({
         providerId,
         domain,
-        organizationId: organizationId === "__none__" ? null : organizationId,
+        organizationId: organizationId === NO_ORG ? null : organizationId,
         idp: idpInputFrom(source, idp),
         mapping,
         wantAssertionsSigned,
@@ -304,7 +136,7 @@ export function SamlRegisterForm({
       toast.success(t("registered"));
       setProviderId("");
       setDomain("");
-      setOrganizationId("__none__");
+      setOrganizationId(NO_ORG);
       setIdp(EMPTY_IDP);
       router.refresh();
     } catch {
@@ -335,7 +167,7 @@ export function SamlRegisterForm({
           <SignedAssertionsField id="saml-want-signed" checked={wantAssertionsSigned} onChange={setWantAssertionsSigned} disabled={submitting} />
           <Field>
             <FieldLabel htmlFor="saml-organization">{t("organization")}</FieldLabel>
-            {organizationSelect({ id: "saml-organization", value: organizationId, onChange: setOrganizationId, organizations, disabled: submitting })}
+            <OrganizationSelect id="saml-organization" value={organizationId} onChange={setOrganizationId} organizations={organizations} disabled={submitting} />
           </Field>
           <Field>
             <Button type="submit" disabled={submitting}>
@@ -386,7 +218,6 @@ export function SamlEditDialogBody({
   domain: initialDomain,
   organizationId: initialOrg,
   organizations,
-  organizationSelect,
   onDone,
   onBusy,
 }: {
@@ -395,7 +226,6 @@ export function SamlEditDialogBody({
   domain: string;
   organizationId: string | null;
   organizations: Org[];
-  organizationSelect: (props: { id: string; value: string; onChange: (v: string) => void; organizations: Org[]; disabled?: boolean }) => React.ReactNode;
   onDone: () => void;
   onBusy: (busy: boolean) => void;
 }) {
@@ -403,7 +233,7 @@ export function SamlEditDialogBody({
   const ts = useTranslations("sso.saml");
   const router = useRouter();
   const [domain, setDomain] = React.useState(initialDomain);
-  const [orgId, setOrgId] = React.useState(initialOrg ?? "__none__");
+  const [orgId, setOrgId] = React.useState(initialOrg ?? NO_ORG);
   const [mapping, setMapping] = React.useState<SamlMapping>(details.mapping ?? { ...SAML_PRESET_MAPPINGS.okta });
   const [wantAssertionsSigned, setWantAssertionsSigned] = React.useState(details.wantAssertionsSigned);
   const [replaceIdp, setReplaceIdp] = React.useState(false);
@@ -417,7 +247,7 @@ export function SamlEditDialogBody({
     try {
       const res = await updateSamlProvider(providerId, {
         domain,
-        organizationId: orgId === "__none__" ? null : orgId,
+        organizationId: orgId === NO_ORG ? null : orgId,
         mapping,
         wantAssertionsSigned,
         idp: replaceIdp ? idpInputFrom(source, idp) : null,
@@ -449,7 +279,7 @@ export function SamlEditDialogBody({
           </Field>
           <Field>
             <FieldLabel htmlFor={`saml-edit-org-${providerId}`}>{t("organization")}</FieldLabel>
-            {organizationSelect({ id: `saml-edit-org-${providerId}`, value: orgId, onChange: setOrgId, organizations, disabled: busy })}
+            <OrganizationSelect id={`saml-edit-org-${providerId}`} value={orgId} onChange={setOrgId} organizations={organizations} disabled={busy} />
           </Field>
           <MappingFields idPrefix={`saml-edit-map-${providerId}`} mapping={mapping} onMapping={setMapping} disabled={busy} />
           <SignedAssertionsField id={`saml-edit-signed-${providerId}`} checked={wantAssertionsSigned} onChange={setWantAssertionsSigned} disabled={busy} />
@@ -464,13 +294,7 @@ export function SamlEditDialogBody({
           ) : null}
         </FieldGroup>
       </div>
-      <DialogFooter>
-        <Button type="button" variant="outline" disabled={busy} onClick={onDone}>{ts("cancel")}</Button>
-        <Button type="button" disabled={busy} onClick={() => void save()}>
-          {busy ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
-          {ts("save")}
-        </Button>
-      </DialogFooter>
+      <DialogActions busy={busy} onCancel={onDone} cancelLabel={ts("cancel")} onConfirm={() => void save()} confirmLabel={ts("save")} />
     </>
   );
 }

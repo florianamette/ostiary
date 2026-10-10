@@ -103,7 +103,9 @@ describe("withRetryAfter", () => {
 
     it("wraps every route handler", async () => {
         const handlers = withRateLimitHeaders({
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars -- the parameter types the wrapped handlers
             GET: async (_request: Request) => limited(),
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars -- the parameter types the wrapped handlers
             POST: async (_request: Request) => new Response("ok"),
         });
         expect((await handlers.GET(new Request("http://localhost/"))).headers.get("retry-after")).toBe("42");

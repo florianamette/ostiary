@@ -15,6 +15,7 @@ import {
 } from "@ostiary/core/components/ui/dialog";
 import { Input } from "@ostiary/core/components/ui/input";
 import { Label } from "@ostiary/core/components/ui/label";
+import { adminNotify } from "@ostiary/core/lib/admin/admin-notify";
 import type { OAuthApplicationRow } from "@/components/admin/applications/admin-application-row-actions";
 import { asRecord, routeError } from "@/lib/oauth-client-payload";
 
@@ -24,13 +25,11 @@ export function ApplicationRotateSecretDialog({
   open,
   onOpenChange,
   onChanged,
-  onNotify,
 }: {
   row: OAuthApplicationRow;
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onChanged: () => void;
-  onNotify: (message: string, variant?: "error" | "success") => void;
 }) {
   const t = useTranslations("admin.pages.applications.rowActions");
   const tc = useTranslations("admin.common");
@@ -47,15 +46,15 @@ export function ApplicationRotateSecretDialog({
       );
       const json: unknown = await res.json().catch(() => null);
       if (!res.ok) {
-        onNotify(routeError(json) ?? t("rotateDialog.rotateFailed"), "error");
+        adminNotify(routeError(json) ?? t("rotateDialog.rotateFailed"), "error");
         return;
       }
       const secret = asRecord(asRecord(json)?.data)?.client_secret;
       if (typeof secret === "string" && secret) {
         setNewSecret(secret);
-        onNotify(t("rotateDialog.newSecretIssued"), "success");
+        adminNotify(t("rotateDialog.newSecretIssued"), "success");
       } else {
-        onNotify(t("rotateDialog.rotated"), "success");
+        adminNotify(t("rotateDialog.rotated"), "success");
         onOpenChange(false);
         onChanged();
       }
@@ -95,7 +94,7 @@ export function ApplicationRotateSecretDialog({
               className="w-fit"
               onClick={() => {
                 void navigator.clipboard.writeText(newSecret);
-                onNotify(t("rotateDialog.secretCopied"), "success");
+                adminNotify(t("rotateDialog.secretCopied"), "success");
               }}
             >
               <CopyIcon />

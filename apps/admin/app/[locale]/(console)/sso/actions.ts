@@ -9,6 +9,7 @@ import { db } from "@ostiary/core/db/index";
 import { organization, ssoProvider, verification } from "@ostiary/core/db/schema";
 import { isStrictSsoDomain, parseSsoDomain, ssoDomainVerificationIdentifier } from "@ostiary/core/lib/security/sso-domain";
 import { adminActor } from "@/lib/admin-audit";
+import type { ActionResult } from "@/lib/action-result";
 
 /*
  * SSO providers are managed here rather than through the plugin's endpoints, which only let
@@ -16,14 +17,12 @@ import { adminActor } from "@/lib/admin-audit";
  * record format matches the plugin's (SSO_DOMAIN_TOKEN_PREFIX), so both stay compatible.
  */
 
-type Result = { ok: true } | { ok: false; error: string };
-
 const errors = () => getTranslations("sso.errors");
 
 export async function updateSsoProvider(
   providerId: string,
   input: { issuer: string; domain: string; organizationId: string | null },
-): Promise<Result> {
+): Promise<ActionResult> {
   const { audit } = await adminActor();
   const [current] = await db.select().from(ssoProvider).where(eq(ssoProvider.providerId, providerId));
   if (!current) return { ok: false, error: (await errors())("providerNotFound") };
@@ -56,7 +55,7 @@ export async function updateSsoProvider(
   return { ok: true };
 }
 
-export async function deleteSsoProvider(providerId: string): Promise<Result> {
+export async function deleteSsoProvider(providerId: string): Promise<ActionResult> {
   const { audit } = await adminActor();
   const deleted = await db.delete(ssoProvider).where(eq(ssoProvider.providerId, providerId)).returning({ domain: ssoProvider.domain });
   if (deleted.length === 0) return { ok: false, error: (await errors())("providerNotFound") };
@@ -68,7 +67,7 @@ export async function deleteSsoProvider(providerId: string): Promise<Result> {
 /** Returns the DNS TXT record the domain owner must publish (reusing an unexpired token). */
 export async function getDomainVerificationRecord(
   providerId: string,
-): Promise<{ ok: true; name: string; value: string } | { ok: false; error: string }> {
+): Promise<ActionResult<{ name: string; value: string }>> {
   await adminActor();
   const [provider] = await db.select().from(ssoProvider).where(eq(ssoProvider.providerId, providerId));
   if (!provider) return { ok: false, error: (await errors())("providerNotFound") };
@@ -95,7 +94,7 @@ export async function getDomainVerificationRecord(
 }
 
 /** Looks the TXT record up in DNS and marks the domain verified when it matches. */
-export async function checkDomainVerification(providerId: string): Promise<Result> {
+export async function checkDomainVerification(providerId: string): Promise<ActionResult> {
   const { audit } = await adminActor();
   const record = await getDomainVerificationRecord(providerId);
   if (!record.ok) return record;

@@ -11,6 +11,7 @@ import {
   type SaveResult,
   type SocialProviderInput,
 } from "@ostiary/core/lib/social-providers";
+import type { ActionResult } from "@/lib/action-result";
 
 /*
  * Social sign-in providers (Google, Apple, Microsoft...). Settings live in `social_provider`,
@@ -18,8 +19,6 @@ import {
  * Secret values never come back to the browser and never go to the audit log: entries list
  * which fields changed.
  */
-
-type Result = { ok: true } | { ok: false; error: string };
 
 function target(id: SocialProvider) {
   return { type: "social_provider", id, label: SOCIAL_PROVIDER_META[id].name };
@@ -54,7 +53,7 @@ async function saveError(id: SocialProvider, result: Extract<SaveResult, { ok: f
   }
 }
 
-export async function saveProvider(id: string, input: SocialProviderInput): Promise<Result> {
+export async function saveProvider(id: string, input: SocialProviderInput): Promise<ActionResult> {
   const { session, audit } = await adminActor();
   if (!isSocialProvider(id)) return { ok: false, error: (await getTranslations("admin.pages.signInProviders"))("errors.unknownProvider") };
   const secrets = Object.fromEntries(
@@ -84,7 +83,7 @@ export async function saveProvider(id: string, input: SocialProviderInput): Prom
   return { ok: true };
 }
 
-export async function reorderProviders(ids: string[]): Promise<Result> {
+export async function reorderProviders(ids: string[]): Promise<ActionResult> {
   const { session, audit } = await adminActor();
   const order = ids.filter(isSocialProvider).filter((id, i, all) => all.indexOf(id) === i);
   await reorderSocialProviders(order, session.user.id);
@@ -92,7 +91,7 @@ export async function reorderProviders(ids: string[]): Promise<Result> {
   return { ok: true };
 }
 
-export async function removeProvider(id: string): Promise<Result> {
+export async function removeProvider(id: string): Promise<ActionResult> {
   const { audit } = await adminActor();
   if (!isSocialProvider(id)) return { ok: false, error: (await getTranslations("admin.pages.signInProviders"))("errors.unknownProvider") };
   if (await deleteSocialProvider(id)) await audit({ action: "social_provider.delete", target: target(id) });

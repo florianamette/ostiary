@@ -17,7 +17,7 @@ const MONOGRAM_COLORS = [
 ] as const;
 
 /** Same name, same color: a small string hash (FNV-1a) picks the tint. */
-export function monogramColor(name: string): string {
+function monogramColor(name: string): string {
   let hash = 0x811c9dc5;
   for (const char of name.trim().toLowerCase()) {
     hash ^= char.codePointAt(0)!;
@@ -27,7 +27,7 @@ export function monogramColor(name: string): string {
 }
 
 /** First letter or digit of the name (a whole grapheme, so accents and emoji stay intact). */
-export function monogramLetter(name: string): string {
+function monogramLetter(name: string): string {
   const trimmed = name.trim();
   const segments =
     typeof Intl !== "undefined" && "Segmenter" in Intl

@@ -1,4 +1,4 @@
-import { betterAuth, type BetterAuthPlugin } from "better-auth";
+import { betterAuth, type BetterAuthOptions, type BetterAuthPlugin } from "better-auth";
 import { APIError, createAuthMiddleware, getOAuthState } from "better-auth/api";
 import { tryGetCurrentAuthEndpointContext } from "@better-auth/core/context";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
@@ -161,13 +161,14 @@ const UNUSED_EMAIL_OTP_PATHS = [
  * Better Auth's default organization roles, unchanged, plus the API key plugin's `apiKey`
  * resource: owners and admins manage the organization's keys, members do not.
  */
+const API_KEY_ACTIONS = ["create", "read", "update", "delete"] as const;
 const organizationAc = createAccessControl({
     ...defaultStatements,
-    apiKey: ["create", "read", "update", "delete"],
+    apiKey: API_KEY_ACTIONS,
 });
 const organizationRoles = {
-    owner: organizationAc.newRole({ ...ownerAc.statements, apiKey: ["create", "read", "update", "delete"] }),
-    admin: organizationAc.newRole({ ...adminAc.statements, apiKey: ["create", "read", "update", "delete"] }),
+    owner: organizationAc.newRole({ ...ownerAc.statements, apiKey: API_KEY_ACTIONS }),
+    admin: organizationAc.newRole({ ...adminAc.statements, apiKey: API_KEY_ACTIONS }),
     member: organizationAc.newRole({ ...memberAc.statements }),
 };
 
@@ -188,6 +189,64 @@ const DELETE_USER_LINK_PATH = "/delete-user/callback";
 
 /** Prefix of new API keys. */
 const API_KEY_PREFIX = env.API_KEY_PREFIX ?? "ost_";
+
+/**
+ * Client ID Metadata Documents (the client_id is an HTTPS URL to the client's JSON metadata,
+ * as MCP clients use). Added to the provider only while an admin has turned it on, see
+ * syncClientRegistration. Better Auth's Node transport resolves the host once, refuses private
+ * and reserved addresses, pins the connection and never follows redirects; documents are capped
+ * at 5 KB and fetched with a 5 s timeout.
+ */
+function metadataDocumentRegistration() {
+    return {
+        clientDiscovery: createCimdClientDiscovery({
+            fetchClientMetadataResource,
+            // Requires client_name and redirect_uris, both shown on the consent screen.
+            metadataProfile: "mcp-2026-07-28",
+            isMetadataDocumentUrlAllowed: async (url) => {
+                const settings = await currentClientRegistrationSettings();
+                if (!settings.metadataDocuments) return false;
+                if (!metadataDocumentHostAllowed(url, settings.metadataDocumentHosts)) return false;
+                // Refreshing a known client is not a new registration.
+                return (await clientExists(url)) || (await registrationCapacityLeft(settings));
+            },
+            onClientCreated: async ({ client, context }) => {
+                await recordAudit({
+                    actor: null,
+                    action: "oauth_client.self_register",
+                    target: { type: "oauth_client", id: client.clientId, label: client.name ?? null },
+                    metadata: { source: "metadata_document" },
+                    ipAddress: clientIp(context.headers),
+                });
+            },
+        }),
+    };
+}
+
+/** Runs before an identity provider creates, links or signs in an account. */
+const validateUserInfo: NonNullable<NonNullable<BetterAuthOptions["user"]>["validateUserInfo"]> = async (
+    { user, source },
+    ctx,
+) => {
+    // SSO providers whose stored domain is not one plain hostname (older rows, or
+    // written before the check): their domain could be read two ways, see sso-domain.ts.
+    if ((source.method === "sso-oidc" || source.method === "sso-saml") && source.sso?.providerId) {
+        const [stored] = await db
+            .select({ domain: schema.ssoProvider.domain })
+            .from(schema.ssoProvider)
+            .where(eq(schema.ssoProvider.providerId, source.sso.providerId));
+        if (!stored || !isStrictSsoDomain(stored.domain)) {
+            return { error: "invalid_provider_domain", errorDescription: "This SSO provider's domain must be set again by an administrator." };
+        }
+    }
+    if (source.action !== "link-account") return;
+    // Connecting a provider from the dashboard (signed in) is an explicit link.
+    const explicit = ctx.path === "/link-social" || Boolean((await getOAuthState())?.link);
+    if (explicit || typeof user.id !== "string") return;
+    const existing = await ctx.context.internalAdapter.findUserById(user.id);
+    const refusal = existing ? implicitLinkRefusal(existing as { role?: string | null; twoFactorEnabled?: boolean | null }) : null;
+    if (refusal) return { error: "account_not_linked", errorDescription: refusal };
+};
 
 export type AuthFactoryOptions = {
     /**
@@ -216,34 +275,7 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
         // a password must still confirm it.
         allowPasswordless: true,
     });
-    // Client ID Metadata Documents (the client_id is an HTTPS URL to the client's JSON
-    // metadata, as MCP clients use). Added to the provider only while an admin has turned it
-    // on, see syncClientRegistration. Better Auth's Node transport resolves the host once,
-    // refuses private and reserved addresses, pins the connection and never follows
-    // redirects; documents are capped at 5 KB and fetched with a 5 s timeout.
-    const metadataDocuments = {
-        clientDiscovery: createCimdClientDiscovery({
-            fetchClientMetadataResource,
-            // Requires client_name and redirect_uris, both shown on the consent screen.
-            metadataProfile: "mcp-2026-07-28",
-            isMetadataDocumentUrlAllowed: async (url) => {
-                const settings = await currentClientRegistrationSettings();
-                if (!settings.metadataDocuments) return false;
-                if (!metadataDocumentHostAllowed(url, settings.metadataDocumentHosts)) return false;
-                // Refreshing a known client is not a new registration.
-                return (await clientExists(url)) || (await registrationCapacityLeft(settings));
-            },
-            onClientCreated: async ({ client, context }) => {
-                await recordAudit({
-                    actor: null,
-                    action: "oauth_client.self_register",
-                    target: { type: "oauth_client", id: client.clientId, label: client.name ?? null },
-                    metadata: { source: "metadata_document" },
-                    ipAddress: clientIp(context.headers),
-                });
-            },
-        }),
-    };
+    const metadataDocuments = metadataDocumentRegistration();
     // Signs ID tokens and JWT access tokens and publishes /jwks. Key rotation (interval and
     // grace period) is set from the admin console before each request, see syncSigningKeys:
     // Better Auth reads both from this options object on every call. The plugin's session JWT
@@ -390,27 +422,7 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
             storeSessionInDatabase: true,
         },
         user: {
-            // Runs before an identity provider creates, links or signs in an account.
-            validateUserInfo: async ({ user, source }, ctx) => {
-                // SSO providers whose stored domain is not one plain hostname (older rows, or
-                // written before the check): their domain could be read two ways, see sso-domain.ts.
-                if ((source.method === "sso-oidc" || source.method === "sso-saml") && source.sso?.providerId) {
-                    const [provider] = await db
-                        .select({ domain: schema.ssoProvider.domain })
-                        .from(schema.ssoProvider)
-                        .where(eq(schema.ssoProvider.providerId, source.sso.providerId));
-                    if (!provider || !isStrictSsoDomain(provider.domain)) {
-                        return { error: "invalid_provider_domain", errorDescription: "This SSO provider's domain must be set again by an administrator." };
-                    }
-                }
-                if (source.action !== "link-account") return;
-                // Connecting a provider from the dashboard (signed in) is an explicit link.
-                const explicit = ctx.path === "/link-social" || Boolean((await getOAuthState())?.link);
-                if (explicit || typeof user.id !== "string") return;
-                const existing = await ctx.context.internalAdapter.findUserById(user.id);
-                const refusal = existing ? implicitLinkRefusal(existing as { role?: string | null; twoFactorEnabled?: boolean | null }) : null;
-                if (refusal) return { error: "account_not_linked", errorDescription: refusal };
-            },
+            validateUserInfo,
             // "Delete my account" on the dashboard: password or recent sign-in (request-guards.ts), then
             // an emailed link to a confirmation page. Blockers in account-data/blockers.ts.
             deleteUser: {
@@ -592,17 +604,17 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
             // select-account page (prompt=select_account) lets the person pick one. Each account
             // has its own signed cookie, scoped like the session cookie (shared across subdomains).
             multiSession({ maximumSessions: MAX_DEVICE_SESSIONS }),
-            // SCIM 2.0 provisioning at /api/auth/scim/v2, one connection per organization.
-            // Connections and tokens are managed only through the plugin's server-only endpoints,
-            // which have no HTTP route: the admin console calls them after its admin check
-            // (see apps/admin .../organizations/[id]/scim-actions.ts). Okta or Entra authenticate
-            // with the bearer token; nothing else (no session, no API key) reaches SCIM.
             apiKeys,
             apiKeyVerification({
                 providerOptions: provider.options,
                 verifyApiKey: apiKeys.endpoints.verifyApiKey as never,
                 authServer: baseURL,
             }),
+            // SCIM 2.0 provisioning at /api/auth/scim/v2, one connection per organization.
+            // Connections and tokens are managed only through the plugin's server-only endpoints,
+            // which have no HTTP route: the admin console calls them after its admin check
+            // (see apps/admin .../organizations/[id]/scim-actions.ts). Okta or Entra authenticate
+            // with the bearer token; nothing else (no session, no API key) reaches SCIM.
             scim({
                 connections: [],
                 managedConnections: { credentialHashSecret: scimCredentialHashSecret(env) },

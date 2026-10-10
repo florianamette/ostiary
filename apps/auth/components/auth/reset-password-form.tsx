@@ -5,15 +5,7 @@ import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import { useState } from "react";
-import { cn } from "@ostiary/core/lib/utils";
 import { Button } from "@ostiary/core/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@ostiary/core/components/ui/card";
 import {
   Field,
   FieldDescription,
@@ -22,6 +14,7 @@ import {
 } from "@ostiary/core/components/ui/field";
 import { Input } from "@ostiary/core/components/ui/input";
 import { Link, useRouter } from "@/i18n/navigation";
+import { AuthCard } from "@/components/auth/auth-card";
 import { authClient } from "@/lib/auth-client";
 import { withAppContext, type AppLink } from "@/lib/app-links";
 
@@ -46,40 +39,35 @@ export function ResetPasswordForm({
 
   if (errorParam === "INVALID_TOKEN") {
     return (
-      <div className={cn("flex flex-col gap-6", className)} {...props}>
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("invalidTokenTitle")}</CardTitle>
-            <CardDescription>{t("invalidTokenDescription")}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Button asChild variant="default">
-              <Link href={withAppContext("/forgot-password", appLink)}>{t("requestNewLink")}</Link>
-            </Button>
-          </CardContent>
-        </Card>
-      </div>
+      <AuthCard
+        className={className}
+        {...props}
+        heading={t("invalidTokenTitle")}
+        description={t("invalidTokenDescription")}
+      >
+        <Button asChild variant="default">
+          <Link href={withAppContext("/forgot-password", appLink)}>{t("requestNewLink")}</Link>
+        </Button>
+      </AuthCard>
     );
   }
 
   if (!token) {
     return (
-      <div className={cn("flex flex-col gap-6", className)} {...props}>
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("missingTokenTitle")}</CardTitle>
-            <CardDescription>{t("missingTokenDescription")}</CardDescription>
-          </CardHeader>
-          <CardContent className="flex flex-col gap-2">
-            <Button asChild variant="outline">
-              <Link href={withAppContext("/forgot-password", appLink)}>{t("requestNewLink")}</Link>
-            </Button>
-            <Button asChild variant="ghost" className="self-start">
-              <Link href={withAppContext("/login", appLink)}>{t("backToLogin")}</Link>
-            </Button>
-          </CardContent>
-        </Card>
-      </div>
+      <AuthCard
+        className={className}
+        {...props}
+        heading={t("missingTokenTitle")}
+        description={t("missingTokenDescription")}
+        contentClassName="flex flex-col gap-2"
+      >
+        <Button asChild variant="outline">
+          <Link href={withAppContext("/forgot-password", appLink)}>{t("requestNewLink")}</Link>
+        </Button>
+        <Button asChild variant="ghost" className="self-start">
+          <Link href={withAppContext("/login", appLink)}>{t("backToLogin")}</Link>
+        </Button>
+      </AuthCard>
     );
   }
 
@@ -108,65 +96,57 @@ export function ResetPasswordForm({
   };
 
   return (
-    <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card>
-        <CardHeader>
-          <CardTitle>{t("title")}</CardTitle>
-          <CardDescription>{t("description")}</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={(e) => void handleSubmit(e)}>
-            <FieldGroup>
-              <Field>
-                <FieldLabel htmlFor="reset-password">
-                  {t("newPasswordLabel")}
-                </FieldLabel>
-                <Input
-                  id="reset-password"
-                  type="password"
-                  autoComplete="new-password"
-                  required
-                  value={password}
-                  disabled={isSubmitting}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <FieldDescription>{t("passwordHint")}</FieldDescription>
-              </Field>
-              <Field>
-                <FieldLabel htmlFor="reset-password-confirm">
-                  {t("confirmPasswordLabel")}
-                </FieldLabel>
-                <Input
-                  id="reset-password-confirm"
-                  type="password"
-                  autoComplete="new-password"
-                  required
-                  value={confirmPassword}
-                  disabled={isSubmitting}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                />
-                {passwordMismatch ? (
-                  <p className="text-sm text-destructive" role="alert">
-                    {t("passwordMismatch")}
-                  </p>
-                ) : null}
-              </Field>
-              <Field>
-                <Button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full sm:w-auto"
-                >
-                  {isSubmitting ? (
-                    <Loader2 className="size-4 animate-spin" aria-hidden />
-                  ) : null}
-                  {isSubmitting ? t("submitting") : t("submit")}
-                </Button>
-              </Field>
-            </FieldGroup>
-          </form>
-        </CardContent>
-      </Card>
-    </div>
+    <AuthCard className={className} {...props} heading={t("title")} description={t("description")}>
+      <form onSubmit={(e) => void handleSubmit(e)}>
+        <FieldGroup>
+          <Field>
+            <FieldLabel htmlFor="reset-password">
+              {t("newPasswordLabel")}
+            </FieldLabel>
+            <Input
+              id="reset-password"
+              type="password"
+              autoComplete="new-password"
+              required
+              value={password}
+              disabled={isSubmitting}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <FieldDescription>{t("passwordHint")}</FieldDescription>
+          </Field>
+          <Field>
+            <FieldLabel htmlFor="reset-password-confirm">
+              {t("confirmPasswordLabel")}
+            </FieldLabel>
+            <Input
+              id="reset-password-confirm"
+              type="password"
+              autoComplete="new-password"
+              required
+              value={confirmPassword}
+              disabled={isSubmitting}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+            {passwordMismatch ? (
+              <p className="text-sm text-destructive" role="alert">
+                {t("passwordMismatch")}
+              </p>
+            ) : null}
+          </Field>
+          <Field>
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              className="w-full sm:w-auto"
+            >
+              {isSubmitting ? (
+                <Loader2 className="size-4 animate-spin" aria-hidden />
+              ) : null}
+              {isSubmitting ? t("submitting") : t("submit")}
+            </Button>
+          </Field>
+        </FieldGroup>
+      </form>
+    </AuthCard>
   );
 }

@@ -3,6 +3,7 @@ import { defineConfig, devices } from "@playwright/test";
 import { ADMIN_URL, AUTH_URL, MOCK_URL, env } from "./support/env";
 
 const CI = Boolean(process.env.CI);
+const serverEnv = env as Record<string, string>;
 
 /** `next start` for one app, with the test environment (e2e/.env.test). */
 function nextStart(app: "auth" | "admin", url: string) {
@@ -10,7 +11,7 @@ function nextStart(app: "auth" | "admin", url: string) {
   return {
     command: `pnpm --dir ../apps/${app} exec next start -p ${port}`,
     url: `http://127.0.0.1:${port}${app === "auth" ? "/api/auth/ok" : "/icon"}`,
-    env: env as Record<string, string>,
+    env: serverEnv,
     reuseExistingServer: !CI,
     timeout: 60_000,
     stdout: "pipe" as const,
@@ -51,7 +52,7 @@ export default defineConfig({
     {
       command: "node mock-server.mjs",
       url: `${MOCK_URL}/health`,
-      env: env as Record<string, string>,
+      env: serverEnv,
       reuseExistingServer: !CI,
       stdout: "pipe",
     },

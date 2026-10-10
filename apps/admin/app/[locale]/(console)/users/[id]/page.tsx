@@ -3,19 +3,13 @@ import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 
 import { formatDateTime, PageHeader } from "@/components/admin/common/page-header";
+import { Section, SectionEmpty } from "@/components/admin/common/section";
 import {
   AdminUserDetailActions,
   ResetTwoFactorButton,
   RevokeSessionButton,
 } from "@/components/admin/users/admin-user-detail-actions";
 import { Badge } from "@ostiary/core/components/ui/badge";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@ostiary/core/components/ui/card";
 import {
   Table,
   TableBody,
@@ -55,22 +49,6 @@ function shortAgent(ua: string | null, labels: DeviceLabels) {
   const browser = /Edg\//.test(ua) ? "Edge" : /Chrome\//.test(ua) ? "Chrome" : /Firefox\//.test(ua) ? "Firefox" : /Safari\//.test(ua) ? "Safari" : labels.browser;
   const os = /iPhone|iPad/.test(ua) ? "iOS" : /Android/.test(ua) ? "Android" : /Mac OS X/.test(ua) ? "macOS" : /Windows/.test(ua) ? "Windows" : /Linux/.test(ua) ? "Linux" : "";
   return os ? labels.browserOnOs(browser, os) : browser;
-}
-
-function Section({ title, description, children }: { title: string; description?: string; children: React.ReactNode }) {
-  return (
-    <Card className="border-border/80 shadow-sm">
-      <CardHeader>
-        <CardTitle className="text-base">{title}</CardTitle>
-        {description ? <CardDescription>{description}</CardDescription> : null}
-      </CardHeader>
-      <CardContent>{children}</CardContent>
-    </Card>
-  );
-}
-
-function Empty({ children }: { children: React.ReactNode }) {
-  return <p className="text-sm text-muted-foreground">{children}</p>;
 }
 
 export default async function AdminUserPage({
@@ -183,7 +161,7 @@ export default async function AdminUserPage({
 
       <Section title={t("detail.sessions.title")} description={t("detail.sessions.description")}>
         {sessions.length === 0 ? (
-          <Empty>{t("detail.sessions.empty")}</Empty>
+          <SectionEmpty>{t("detail.sessions.empty")}</SectionEmpty>
         ) : (
           <Table>
             <TableHeader>
@@ -243,7 +221,7 @@ export default async function AdminUserPage({
                 <span className="text-muted-foreground">{formatDateTime(p.createdAt, locale)}</span>
               </li>
             ))}
-            {accounts.length + passkeys.length === 0 ? <Empty>{t("detail.signInMethods.empty")}</Empty> : null}
+            {accounts.length + passkeys.length === 0 ? <SectionEmpty>{t("detail.signInMethods.empty")}</SectionEmpty> : null}
             {u.twoFactorEnabled ? (
               <li className="flex items-center justify-between gap-3 border-t border-border/60 pt-2">
                 <span>
@@ -263,7 +241,7 @@ export default async function AdminUserPage({
 
         <Section title={t("detail.organizations.title")}>
           {memberships.length === 0 ? (
-            <Empty>{t("detail.organizations.empty")}</Empty>
+            <SectionEmpty>{t("detail.organizations.empty")}</SectionEmpty>
           ) : (
             <ul className="space-y-2 text-sm">
               {memberships.map((m) => (
@@ -280,7 +258,7 @@ export default async function AdminUserPage({
       <div className="grid gap-6 lg:grid-cols-2">
         <Section title={t("detail.activity.title")}>
           {events.length === 0 ? (
-            <Empty>{t("detail.activity.empty")}</Empty>
+            <SectionEmpty>{t("detail.activity.empty")}</SectionEmpty>
           ) : (
             <ul className="space-y-2 text-sm">
               {events.map((e) => (
@@ -298,7 +276,7 @@ export default async function AdminUserPage({
 
         <Section title={t("detail.audit.title")}>
           {audits.length === 0 ? (
-            <Empty>{t("detail.audit.empty")}</Empty>
+            <SectionEmpty>{t("detail.audit.empty")}</SectionEmpty>
           ) : (
             <ul className="space-y-2 text-sm">
               {audits.map((a) => (

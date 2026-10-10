@@ -1,23 +1,12 @@
-import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
 import { Alert, AlertDescription } from "@ostiary/core/components/ui/alert";
 import { AuthScreen } from "@/components/auth/auth-screen";
 import { SsoSignInForm } from "@/components/auth/sso-sign-in-form";
 import { Link } from "@/i18n/navigation";
+import { noIndexMetadata } from "@/lib/page-metadata";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
-  const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "sso" });
-  return {
-    title: t("signInTitle"),
-    robots: { index: false, follow: true },
-  };
-}
+export const generateMetadata = noIndexMetadata("sso", "signInTitle", { follow: true });
 
 export default async function SsoSignInPage({
   params,

@@ -45,7 +45,7 @@ const SECRETS_PURPOSE = "social-provider";
 const REFRESH_MS = 30_000;
 
 /** Providers set in the environment, with their fields. */
-export function envSocialProviders(): Partial<Record<SocialProvider, ProviderValues>> {
+function envSocialProviders(): Partial<Record<SocialProvider, ProviderValues>> {
   return {
     ...(env.GITHUB_CLIENT_ID && env.GITHUB_CLIENT_SECRET
       ? { github: { clientId: env.GITHUB_CLIENT_ID, clientSecret: env.GITHUB_CLIENT_SECRET } }
@@ -102,6 +102,11 @@ function instantiate(id: SocialProvider, options: Record<string, unknown>): Prov
   return instance;
 }
 
+/** The sign-in button's label: the admin console's, or the provider's name. */
+function buttonName(id: SocialProvider, row: Row | undefined): string {
+  return row?.config.buttonName?.trim() || SOCIAL_PROVIDER_META[id].name;
+}
+
 async function loadSocialProviders(): Promise<Loaded> {
   const rows = await db.select().from(socialProvider).orderBy(asc(socialProvider.position), asc(socialProvider.id));
   const fromEnv = envSocialProviders();
@@ -111,7 +116,7 @@ async function loadSocialProviders(): Promise<Loaded> {
     const row = rows.find((r) => r.id === id);
     entries.push({
       id,
-      name: row?.config.buttonName?.trim() || SOCIAL_PROVIDER_META[id].name,
+      name: buttonName(id, row),
       position: row?.position ?? -1,
       options: buildProviderOptions(id, values, { allowSignUp: row?.allowSignUp ?? true }),
       oneTap: id === "google" && Boolean(row?.oneTap),
@@ -127,7 +132,7 @@ async function loadSocialProviders(): Promise<Loaded> {
     try {
       entries.push({
         id: row.id,
-        name: row.config.buttonName?.trim() || SOCIAL_PROVIDER_META[row.id].name,
+        name: buttonName(row.id, row),
         position: row.position,
         options: buildProviderOptions(row.id, { ...row.config, ...secrets }, { allowSignUp: row.allowSignUp }),
         oneTap: row.id === "google" && row.oneTap,
@@ -174,7 +179,7 @@ function environmentOnly(): Loaded {
 }
 
 /** The providers, reloaded from the database when the cached copy is older than 30 seconds. */
-export async function currentSocialProviders(): Promise<Loaded> {
+async function currentSocialProviders(): Promise<Loaded> {
   if (cache.current && Date.now() - cache.loadedAt < REFRESH_MS) return cache.current;
   cache.inFlight ??= loadSocialProviders()
     .then((loaded) => {
@@ -194,7 +199,7 @@ export async function currentSocialProviders(): Promise<Loaded> {
 }
 
 /** Makes the next request reload the providers (after an admin change). */
-export function invalidateSocialProviders() {
+function invalidateSocialProviders() {
   cache.loadedAt = 0;
 }
 
@@ -361,15 +366,7 @@ export async function saveSocialProvider(
     const value = input.config[key]?.trim();
     if (value) config[key] = value;
   }
-  // Unreadable secrets (another BETTER_AUTH_SECRET) are dropped: they must be entered again.
-  const secrets: Record<string, string> = { ...(stored ?? {}) };
-  for (const key of secret) {
-    if (!(key in input.secrets)) continue;
-    const value = input.secrets[key];
-    if (value === null) delete secrets[key];
-    else if (value.trim()) secrets[key] = key === "privateKey" ? value.trim() + "\n" : value.trim();
-  }
-  for (const key of Object.keys(secrets)) if (!secret.includes(key)) delete secrets[key];
+  const secrets = mergeSecrets(stored, input.secrets, secret);
 
   const values = { ...config, ...secrets };
   const issue = providerFieldIssue(id, values);
@@ -412,6 +409,26 @@ export async function saveSocialProvider(
   }
   invalidateSocialProviders();
   return { ok: true, changed, created: !row };
+}
+
+/**
+ * The stored secrets with the input's changes (see SocialProviderInput), limited to `keys`.
+ * Unreadable secrets (another BETTER_AUTH_SECRET) are dropped: they must be entered again.
+ */
+function mergeSecrets(
+  stored: Record<string, string> | null,
+  input: SocialProviderInput["secrets"],
+  keys: string[],
+): Record<string, string> {
+  const secrets: Record<string, string> = { ...(stored ?? {}) };
+  for (const key of keys) {
+    if (!(key in input)) continue;
+    const value = input[key];
+    if (value === null) delete secrets[key];
+    else if (value.trim()) secrets[key] = key === "privateKey" ? value.trim() + "\n" : value.trim();
+  }
+  for (const key of Object.keys(secrets)) if (!keys.includes(key)) delete secrets[key];
+  return secrets;
 }
 
 /** Display order: `ids` first, in that order (environment providers too), then the rest. */

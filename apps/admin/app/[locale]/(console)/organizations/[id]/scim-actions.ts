@@ -9,14 +9,13 @@ import { organization } from "@ostiary/core/db/schema";
 import { organizationAcceptsScim, SCIM_TOKEN_LIFETIME_MS, SCIM_TOKEN_SCOPES } from "@ostiary/core/lib/scim";
 import { adminActor } from "@/lib/admin-audit";
 import { auth } from "@/lib/auth";
+import type { ActionResult } from "@/lib/action-result";
 
 /*
  * SCIM tokens go through the plugin's server-only endpoints (no HTTP route), so the admin
  * check below is the only way in. An organization has one connection; a new token replaces
  * the previous ones at once, and revoking stops provisioning without touching any account.
  */
-
-type Result<T = object> = ({ ok: true } & T) | { ok: false; error: string };
 
 const errors = () => getTranslations("admin.pages.organizations.errors");
 
@@ -42,7 +41,7 @@ async function activeConnection(orgId: string) {
 }
 
 /** Issues a token (creating the connection the first time). Previous tokens stop working. */
-export async function generateScimToken(orgId: string): Promise<Result<{ token: string; expiresAt: string }>> {
+export async function generateScimToken(orgId: string): Promise<ActionResult<{ token: string; expiresAt: string }>> {
   const { audit, session } = await adminActor();
   const org = await scimOrganization(orgId);
   if (!org) return { ok: false, error: (await errors())("scimUnavailable") };
@@ -84,7 +83,7 @@ export async function generateScimToken(orgId: string): Promise<Result<{ token: 
 }
 
 /** Revokes every token: the identity provider can no longer provision. Accounts stay as they are. */
-export async function revokeScimTokens(orgId: string): Promise<Result> {
+export async function revokeScimTokens(orgId: string): Promise<ActionResult> {
   const { audit, session } = await adminActor();
   const org = await scimOrganization(orgId);
   if (!org) return { ok: false, error: (await errors())("scimUnavailable") };

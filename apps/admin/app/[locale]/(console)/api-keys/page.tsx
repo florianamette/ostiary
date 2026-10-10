@@ -4,7 +4,7 @@ import { getTranslations } from "next-intl/server";
 import { ApiKeySettingsCard } from "@/components/admin/api-keys/api-key-settings-card";
 import { ApiKeysTable } from "@/components/admin/api-keys/api-keys-table";
 import { PageHeader } from "@/components/admin/common/page-header";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@ostiary/core/components/ui/card";
+import { Section } from "@/components/admin/common/section";
 import { API_KEY_VERIFY_PATH, MAX_LIFETIME_DAYS_LIMIT } from "@ostiary/core/lib/api-key-policy";
 import { apisAcceptingKeys, listAllApiKeys, loadApiKeySettings } from "@ostiary/core/lib/api-keys";
 import { env } from "@ostiary/core/lib/env";
@@ -45,20 +45,15 @@ export default async function AdminApiKeysPage({ params }: { params: Promise<{ l
         verifyUrl={`${env.AUTH_APP_URL ?? ""}/api/auth${API_KEY_VERIFY_PATH}`}
         maxLifetimeLimit={MAX_LIFETIME_DAYS_LIMIT}
       />
-      <Card className="border-border/80 shadow-sm">
-        <CardHeader>
-          <CardTitle className="text-base">{t("allKeys.title")}</CardTitle>
-          <CardDescription>
-            {t("allKeys.description", {
-              truncated: keys.length >= LIST_LIMIT ? "true" : "false",
-              limit: String(LIST_LIMIT),
-            })}
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <ApiKeysTable rows={toAdminApiKeyRows(keys)} locale={locale} />
-        </CardContent>
-      </Card>
+      <Section
+        title={t("allKeys.title")}
+        description={t("allKeys.description", {
+          truncated: keys.length >= LIST_LIMIT ? "true" : "false",
+          limit: String(LIST_LIMIT),
+        })}
+      >
+        <ApiKeysTable rows={toAdminApiKeyRows(keys)} locale={locale} />
+      </Section>
     </div>
   );
 }

@@ -18,6 +18,7 @@ import { fetchSamlMetadata } from "@ostiary/core/lib/saml-metadata-fetch";
 import { parseSsoDomain, ssoDomainVerificationIdentifier } from "@ostiary/core/lib/security/sso-domain";
 import { adminActor } from "@/lib/admin-audit";
 import { auth } from "@/lib/auth";
+import type { ActionResult } from "@/lib/action-result";
 
 /*
  * SAML providers. Registration goes through the plugin's /sso/register (with the admin's
@@ -27,8 +28,6 @@ import { auth } from "@/lib/auth";
  * derived from AUTH_APP_URL, AuthnRequests unsigned, signed assertions required unless the
  * admin turns it off (a signed response is still required then: samlify refuses unsigned ones).
  */
-
-type Result = { ok: true } | { ok: false; error: string };
 
 export type SamlIdpFormInput =
   | { source: "xml"; xml: string }
@@ -68,7 +67,7 @@ async function samlFailure(failure: {
   code?: SamlErrorCode;
   urlCode?: string;
   values?: Record<string, string | number>;
-}): Promise<Result> {
+}): Promise<ActionResult> {
   if (failure.code) return { ok: false, error: (await getTranslations("sso.saml.errors"))(failure.code, failure.values) };
   if (failure.urlCode) return { ok: false, error: (await getTranslations("admin.urlCheck"))(failure.urlCode, failure.values) };
   return { ok: false, error: failure.error };
@@ -85,7 +84,7 @@ function errorMessage(error: unknown, fallback: string): string {
 
 export async function registerSamlProvider(
   input: SamlProviderInput & { providerId: string; domain: string; organizationId: string | null },
-): Promise<Result> {
+): Promise<ActionResult> {
   const { audit } = await adminActor();
   if (!env.AUTH_APP_URL) return { ok: false, error: (await errors())("envNotSet", { name: "AUTH_APP_URL" }) };
   const providerId = input.providerId.trim();
@@ -130,7 +129,7 @@ export async function registerSamlProvider(
 export async function updateSamlProvider(
   providerId: string,
   input: Omit<SamlProviderInput, "idp"> & { idp: SamlIdpFormInput | null; domain: string; organizationId: string | null },
-): Promise<Result> {
+): Promise<ActionResult> {
   const { audit } = await adminActor();
   const [current] = await db.select().from(ssoProvider).where(eq(ssoProvider.providerId, providerId));
   if (!current?.samlConfig) return { ok: false, error: (await errors())("providerNotFound") };

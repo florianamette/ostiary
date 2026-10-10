@@ -4,6 +4,7 @@ import { ImageResponse } from "next/og";
 
 import { brand } from "@ostiary/core/lib/brand";
 import { logoMarkDataUri } from "@ostiary/core/lib/brand-image";
+import { getBaseURL } from "@ostiary/core/lib/url";
 
 /**
  * Open Graph / Twitter card: an ink ground with an open doorway on the right, brass
@@ -50,7 +51,7 @@ function splitAccent(title: string, accent: string) {
   return [title.slice(0, at), accent, title.slice(at + accent.length)] as const;
 }
 
-export async function renderOgImage({ title, description, host }: { title: string; description: string; host: string }) {
+async function renderOgImage({ title, description, host }: { title: string; description: string; host: string }) {
   const [regular, semibold, serifItalic] = await fontsPromise;
   const c = brand.colors;
   const [before, accent, after] = splitAccent(title, brand.taglineAccent);
@@ -107,4 +108,13 @@ export async function renderOgImage({ title, description, host }: { title: strin
       ],
     },
   );
+}
+
+/** The site's card: the brand tagline and description, with the host it is served from. */
+export function renderBrandOgImage() {
+  return renderOgImage({
+    title: brand.tagline,
+    description: brand.description,
+    host: new URL(getBaseURL()).host.replace(/^www\./, ""),
+  });
 }

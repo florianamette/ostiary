@@ -1,8 +1,9 @@
 import { createHash, randomBytes } from "node:crypto";
 
-import { expect, type APIRequestContext } from "@playwright/test";
+import { expect, type APIRequestContext, type Page } from "@playwright/test";
 import { createLocalJWKSet, decodeProtectedHeader, jwtVerify, type JSONWebKeySet, type JWTPayload } from "jose";
 
+import { loginViaUi, type TestUser } from "./auth";
 import { ISSUER } from "./env";
 
 /**
@@ -111,7 +112,7 @@ export async function waitForScope(api: APIRequestContext, scope: string, presen
 }
 
 /** Answers the client's redirect URI in this page, and resolves with the URL it was called with. */
-export async function interceptCallback(page: import("@playwright/test").Page): Promise<() => Promise<URL>> {
+export async function interceptCallback(page: Page): Promise<() => Promise<URL>> {
   let resolve!: (url: URL) => void;
   const called = new Promise<URL>((r) => (resolve = r));
   await page.route(`${CALLBACK_URL}**`, async (route) => {
@@ -119,6 +120,25 @@ export async function interceptCallback(page: import("@playwright/test").Page): 
     await route.fulfill({ status: 200, contentType: "text/html", body: "<!doctype html><title>Callback</title><h1>Callback received</h1>" });
   });
   return () => called;
+}
+
+/**
+ * Connects the user to a new client the way a browser does: authorization request, login page,
+ * consent screen, then the code exchange. Returns the client and its tokens.
+ */
+export async function connectApp(page: Page, api: APIRequestContext, adminApi: APIRequestContext, user: TestUser, scope: string) {
+  const client = await createClient(adminApi, { scope });
+  const { verifier, challenge } = pkce();
+  const callback = await interceptCallback(page);
+  await page.goto(authorizeUrl(client, { scope, challenge }));
+  await page.waitForURL(/\/login/);
+  await loginViaUi(page, user.email, user.password, false);
+  await page.waitForURL(/\/consent/);
+  await page.getByRole("button", { name: "Allow" }).click();
+  const code = (await callback()).searchParams.get("code")!;
+  const exchanged = await tokenRequest(api, client, { grant_type: "authorization_code", code, redirect_uri: CALLBACK_URL, code_verifier: verifier });
+  expect(exchanged.status(), await exchanged.text()).toBe(200);
+  return { client, tokens: (await exchanged.json()) as TokenResponse };
 }
 
 /** The API registered from the environment (OAUTH_API_AUDIENCES / OAUTH_API_SCOPES in .env.test). */

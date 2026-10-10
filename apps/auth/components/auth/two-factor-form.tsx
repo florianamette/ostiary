@@ -6,15 +6,7 @@ import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 
-import { cn } from "@ostiary/core/lib/utils";
 import { Button } from "@ostiary/core/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@ostiary/core/components/ui/card";
 import {
   Field,
   FieldDescription,
@@ -23,6 +15,7 @@ import {
 } from "@ostiary/core/components/ui/field";
 import { Input } from "@ostiary/core/components/ui/input";
 import { authClient } from "@/lib/auth-client";
+import { AuthCard } from "@/components/auth/auth-card";
 import { safeCallbackURL } from "@/lib/safe-callback-url";
 import { rateLimitMessage } from "@ostiary/core/lib/rate-limit-message";
 
@@ -102,101 +95,93 @@ export function TwoFactorForm({
 
   if (expired) {
     return (
-      <div className={cn("flex flex-col gap-6", className)} {...props}>
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("expiredTitle")}</CardTitle>
-            <CardDescription>{t("expiredDescription")}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Button asChild>
-              <a href={loginHref}>{t("backToLogin")}</a>
-            </Button>
-          </CardContent>
-        </Card>
-      </div>
+      <AuthCard
+        className={className}
+        {...props}
+        heading={t("expiredTitle")}
+        description={t("expiredDescription")}
+      >
+        <Button asChild>
+          <a href={loginHref}>{t("backToLogin")}</a>
+        </Button>
+      </AuthCard>
     );
   }
 
   return (
-    <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card>
-        <CardHeader>
-          <CardTitle>{t("title")}</CardTitle>
-          <CardDescription>
-            {method === "totp" ? t("descriptionTotp") : t("descriptionBackup")}
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit}>
-            <FieldGroup>
-              <Field>
-                <FieldLabel htmlFor="two-factor-code">
-                  {method === "totp" ? t("codeLabel") : t("backupCodeLabel")}
-                </FieldLabel>
-                <Input
-                  key={method}
-                  id="two-factor-code"
-                  type="text"
-                  autoComplete="one-time-code"
-                  inputMode={method === "totp" ? "numeric" : "text"}
-                  autoCapitalize="none"
-                  spellCheck={false}
-                  placeholder={method === "totp" ? "123456" : "xxxxx-xxxxx"}
-                  maxLength={method === "totp" ? 8 : 32}
-                  className="font-mono tracking-wider"
-                  autoFocus
-                  required
-                  value={code}
-                  disabled={isSubmitting}
-                  onChange={(e) => setCode(e.target.value)}
-                />
-              </Field>
-              <Field className="rounded-lg border border-border/80 p-3">
-                <div className="flex gap-3">
-                  <input
-                    id="two-factor-trust"
-                    type="checkbox"
-                    className="mt-1 size-4 shrink-0 rounded border border-input accent-primary"
-                    checked={trustDevice}
-                    disabled={isSubmitting}
-                    onChange={(e) => setTrustDevice(e.target.checked)}
-                  />
-                  <div className="min-w-0 space-y-1">
-                    <FieldLabel
-                      htmlFor="two-factor-trust"
-                      className="cursor-pointer font-normal leading-snug"
-                    >
-                      {t("trustDevice")}
-                    </FieldLabel>
-                    <FieldDescription>{t("trustDeviceHint")}</FieldDescription>
-                  </div>
-                </div>
-              </Field>
-              <Field>
-                <Button type="submit" disabled={isSubmitting || !code.trim()} className="w-full sm:w-auto">
-                  {isSubmitting ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
-                  {isSubmitting ? t("submitting") : t("submit")}
-                </Button>
-                <Button
-                  type="button"
-                  variant="link"
-                  className="h-auto justify-start px-0 text-muted-foreground"
-                  disabled={isSubmitting}
-                  onClick={() => switchMethod(method === "totp" ? "backup" : "totp")}
+    <AuthCard
+      className={className}
+      {...props}
+      heading={t("title")}
+      description={method === "totp" ? t("descriptionTotp") : t("descriptionBackup")}
+    >
+      <form onSubmit={handleSubmit}>
+        <FieldGroup>
+          <Field>
+            <FieldLabel htmlFor="two-factor-code">
+              {method === "totp" ? t("codeLabel") : t("backupCodeLabel")}
+            </FieldLabel>
+            <Input
+              key={method}
+              id="two-factor-code"
+              type="text"
+              autoComplete="one-time-code"
+              inputMode={method === "totp" ? "numeric" : "text"}
+              autoCapitalize="none"
+              spellCheck={false}
+              placeholder={method === "totp" ? "123456" : "xxxxx-xxxxx"}
+              maxLength={method === "totp" ? 8 : 32}
+              className="font-mono tracking-wider"
+              autoFocus
+              required
+              value={code}
+              disabled={isSubmitting}
+              onChange={(e) => setCode(e.target.value)}
+            />
+          </Field>
+          <Field className="rounded-lg border border-border/80 p-3">
+            <div className="flex gap-3">
+              <input
+                id="two-factor-trust"
+                type="checkbox"
+                className="mt-1 size-4 shrink-0 rounded border border-input accent-primary"
+                checked={trustDevice}
+                disabled={isSubmitting}
+                onChange={(e) => setTrustDevice(e.target.checked)}
+              />
+              <div className="min-w-0 space-y-1">
+                <FieldLabel
+                  htmlFor="two-factor-trust"
+                  className="cursor-pointer font-normal leading-snug"
                 >
-                  {method === "totp" ? t("useBackupCode") : t("useAuthenticator")}
-                </Button>
-                <FieldDescription>
-                  <a href={loginHref} className="underline-offset-4 hover:underline">
-                    {t("backToLogin")}
-                  </a>
-                </FieldDescription>
-              </Field>
-            </FieldGroup>
-          </form>
-        </CardContent>
-      </Card>
-    </div>
+                  {t("trustDevice")}
+                </FieldLabel>
+                <FieldDescription>{t("trustDeviceHint")}</FieldDescription>
+              </div>
+            </div>
+          </Field>
+          <Field>
+            <Button type="submit" disabled={isSubmitting || !code.trim()} className="w-full sm:w-auto">
+              {isSubmitting ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
+              {isSubmitting ? t("submitting") : t("submit")}
+            </Button>
+            <Button
+              type="button"
+              variant="link"
+              className="h-auto justify-start px-0 text-muted-foreground"
+              disabled={isSubmitting}
+              onClick={() => switchMethod(method === "totp" ? "backup" : "totp")}
+            >
+              {method === "totp" ? t("useBackupCode") : t("useAuthenticator")}
+            </Button>
+            <FieldDescription>
+              <a href={loginHref} className="underline-offset-4 hover:underline">
+                {t("backToLogin")}
+              </a>
+            </FieldDescription>
+          </Field>
+        </FieldGroup>
+      </form>
+    </AuthCard>
   );
 }

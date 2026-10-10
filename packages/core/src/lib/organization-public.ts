@@ -4,4 +4,3 @@
  */
 export const PUBLIC_ORGANIZATION_ID = "org_public_b2c";
 export const PUBLIC_ORGANIZATION_SLUG = "public";
-export const PUBLIC_ORGANIZATION_NAME = "Public";

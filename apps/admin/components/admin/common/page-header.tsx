@@ -1,4 +1,5 @@
 import { ChevronLeftIcon } from "lucide-react";
+import type { useFormatter } from "next-intl";
 
 import { Link } from "@/i18n/navigation";
 
@@ -46,4 +47,15 @@ export function formatDateTime(value: Date | string | null | undefined, locale: 
   const d = typeof value === "string" ? new Date(value) : value;
   if (Number.isNaN(d.getTime())) return "-";
   return d.toLocaleString(locale, { dateStyle: "medium", timeStyle: "short" });
+}
+
+/** Short date (e.g. "Mar 4, 2026") for admin tables, with next-intl's formatter. */
+export function formatShortDate(
+  value: Date | string | null | undefined,
+  format: ReturnType<typeof useFormatter>
+) {
+  if (value == null) return "-";
+  const d = value instanceof Date ? value : new Date(value);
+  if (Number.isNaN(d.getTime())) return "-";
+  return format.dateTime(d, { year: "numeric", month: "short", day: "numeric" });
 }

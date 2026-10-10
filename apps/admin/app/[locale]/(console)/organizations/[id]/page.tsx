@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 
 import { formatDateTime, PageHeader } from "@/components/admin/common/page-header";
+import { Section, SectionEmpty } from "@/components/admin/common/section";
 import {
   CancelInvitationButton,
   InviteMemberForm,
@@ -15,13 +16,6 @@ import { ApiKeysTable } from "@/components/admin/api-keys/api-keys-table";
 import { listOrganizationApiKeys } from "@ostiary/core/lib/api-keys";
 import { toAdminApiKeyRows } from "@/lib/api-key-rows";
 import { Badge } from "@ostiary/core/components/ui/badge";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@ostiary/core/components/ui/card";
 import {
   Table,
   TableBody,
@@ -136,168 +130,141 @@ export default async function AdminOrganizationPage({
 
       <div className="grid items-start gap-6 lg:grid-cols-[2fr_1fr]">
         <div className="min-w-0 space-y-6">
-          <Card className="border-border/80 shadow-sm">
-            <CardHeader>
-              <CardTitle className="text-base">{t("members")}</CardTitle>
-              <CardDescription>
-                {isPublic ? t("publicMembers") : t("memberCount", { count: members.length })}
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              {members.length === 0 ? (
-                <p className="text-sm text-muted-foreground">{t("noMembers")}</p>
-              ) : (
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>{t("member")}</TableHead>
-                      <TableHead className="hidden sm:table-cell">{t("joined")}</TableHead>
-                      <TableHead>{t("role")}</TableHead>
-                      {isPublic ? null : <TableHead className="w-10"><span className="sr-only">{tc("actions")}</span></TableHead>}
+          <Section
+            title={t("members")}
+            contentClassName="space-y-6"
+            description={isPublic ? t("publicMembers") : t("memberCount", { count: members.length })}
+          >
+            {members.length === 0 ? (
+              <SectionEmpty>{t("noMembers")}</SectionEmpty>
+            ) : (
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>{t("member")}</TableHead>
+                    <TableHead className="hidden sm:table-cell">{t("joined")}</TableHead>
+                    <TableHead>{t("role")}</TableHead>
+                    {isPublic ? null : <TableHead className="w-10"><span className="sr-only">{tc("actions")}</span></TableHead>}
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {members.map((m) => (
+                    <TableRow key={m.id}>
+                      <TableCell>
+                        <Link href={`/users/${m.userId}`} className="block font-medium underline-offset-4 hover:underline">{m.name || m.email}</Link>
+                        <span className="flex flex-wrap items-center gap-1.5 text-xs text-muted-foreground">
+                          {m.email}
+                          {provisionedIds.has(m.userId) ? <Badge variant="outline">SCIM</Badge> : null}
+                          {m.banned ? <Badge variant="destructive">{provisionedIds.has(m.userId) ? t("deactivated") : t("banned")}</Badge> : null}
+                        </span>
+                      </TableCell>
+                      <TableCell className="hidden text-sm text-muted-foreground sm:table-cell">{formatDateTime(m.joined, locale)}</TableCell>
+                      <TableCell>
+                        {isPublic ? <Badge variant="secondary">{roleLabel(m.role)}</Badge> : <MemberRoleSelect orgId={id} memberId={m.id} role={m.role} />}
+                      </TableCell>
+                      {isPublic ? null : (
+                        <TableCell className="text-right">
+                          <RemoveMemberButton orgId={id} memberId={m.id} email={m.email} />
+                        </TableCell>
+                      )}
                     </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {members.map((m) => (
-                      <TableRow key={m.id}>
-                        <TableCell>
-                          <Link href={`/users/${m.userId}`} className="block font-medium underline-offset-4 hover:underline">{m.name || m.email}</Link>
-                          <span className="flex flex-wrap items-center gap-1.5 text-xs text-muted-foreground">
-                            {m.email}
-                            {provisionedIds.has(m.userId) ? <Badge variant="outline">SCIM</Badge> : null}
-                            {m.banned ? <Badge variant="destructive">{provisionedIds.has(m.userId) ? t("deactivated") : t("banned")}</Badge> : null}
-                          </span>
-                        </TableCell>
-                        <TableCell className="hidden text-sm text-muted-foreground sm:table-cell">{formatDateTime(m.joined, locale)}</TableCell>
-                        <TableCell>
-                          {isPublic ? <Badge variant="secondary">{roleLabel(m.role)}</Badge> : <MemberRoleSelect orgId={id} memberId={m.id} role={m.role} />}
-                        </TableCell>
-                        {isPublic ? null : (
-                          <TableCell className="text-right">
-                            <RemoveMemberButton orgId={id} memberId={m.id} email={m.email} />
-                          </TableCell>
-                        )}
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              )}
+                  ))}
+                </TableBody>
+              </Table>
+            )}
 
-              {isPublic ? null : (
-                <div className="space-y-3 border-t border-border/60 pt-6">
-                  <InviteMemberForm orgId={id} />
-                  {invites.length ? (
-                    <ul className="space-y-2">
-                      {invites.map((inv) => (
-                        <li key={inv.id} className="flex items-center justify-between gap-3 rounded-md border border-border px-3 py-2 text-sm">
-                          <span className="min-w-0 truncate">
-                            {inv.email} <Badge variant="outline" className="ml-1">{roleLabel(inv.role)}</Badge>
-                            <span className="ml-2 text-xs text-muted-foreground">{t("invitationExpires", { date: formatDateTime(inv.expiresAt, locale) })}</span>
-                          </span>
-                          <CancelInvitationButton orgId={id} invitationId={inv.id} email={inv.email} />
-                        </li>
-                      ))}
-                    </ul>
-                  ) : (
-                    <p className="text-xs text-muted-foreground">{t("noInvitations")}</p>
-                  )}
-                </div>
-              )}
-            </CardContent>
-          </Card>
+            {isPublic ? null : (
+              <div className="space-y-3 border-t border-border/60 pt-6">
+                <InviteMemberForm orgId={id} />
+                {invites.length ? (
+                  <ul className="space-y-2">
+                    {invites.map((inv) => (
+                      <li key={inv.id} className="flex items-center justify-between gap-3 rounded-md border border-border px-3 py-2 text-sm">
+                        <span className="min-w-0 truncate">
+                          {inv.email} <Badge variant="outline" className="ml-1">{roleLabel(inv.role)}</Badge>
+                          <span className="ml-2 text-xs text-muted-foreground">{t("invitationExpires", { date: formatDateTime(inv.expiresAt, locale) })}</span>
+                        </span>
+                        <CancelInvitationButton orgId={id} invitationId={inv.id} email={inv.email} />
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="text-xs text-muted-foreground">{t("noInvitations")}</p>
+                )}
+              </div>
+            )}
+          </Section>
 
           {isPublic ? null : (
-            <Card id="api-keys" className="border-border/80 shadow-sm">
-              <CardHeader>
-                <CardTitle className="text-base">{t("apiKeys")}</CardTitle>
-                <CardDescription>{t("apiKeysDescription")}</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ApiKeysTable rows={toAdminApiKeyRows(apiKeys)} locale={locale} showOwner={false} />
-              </CardContent>
-            </Card>
+            <Section id="api-keys" title={t("apiKeys")} description={t("apiKeysDescription")}>
+              <ApiKeysTable rows={toAdminApiKeyRows(apiKeys)} locale={locale} showOwner={false} />
+            </Section>
           )}
         </div>
 
         <div className="space-y-6">
-          <Card className="border-border/80 shadow-sm">
-            <CardHeader>
-              <CardTitle className="text-base">{t("details")}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <RenameOrganizationForm id={org.id} name={org.name} slug={org.slug} />
-            </CardContent>
-          </Card>
+          <Section title={t("details")}>
+            <RenameOrganizationForm id={org.id} name={org.name} slug={org.slug} />
+          </Section>
 
-          <Card className="border-border/80 shadow-sm">
-            <CardHeader>
-              <CardTitle className="text-base">{t("sso")}</CardTitle>
-              <CardDescription>{t("ssoDescription")}</CardDescription>
-            </CardHeader>
-            <CardContent>
-              {providers.length === 0 ? (
-                <p className="text-sm text-muted-foreground">
-                  {t.rich("ssoNone", {
-                    link: (chunks) => (
-                      <Link href="/sso" className="underline underline-offset-4">
-                        {chunks}
-                      </Link>
-                    ),
-                  })}
-                </p>
-              ) : (
-                <ul className="space-y-2 text-sm">
-                  {providers.map((p) => (
-                    <li key={p.providerId} className="flex items-center justify-between gap-2">
-                      <Link href="/sso" className="underline-offset-4 hover:underline">{p.providerId}</Link>
-                      <span className="flex items-center gap-2 text-xs text-muted-foreground">
-                        {p.domain}
-                        <Badge variant={p.verified ? "secondary" : "outline"}>{p.verified ? t("verified") : t("unverified")}</Badge>
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </CardContent>
-          </Card>
+          <Section title={t("sso")} description={t("ssoDescription")}>
+            {providers.length === 0 ? (
+              <SectionEmpty>
+                {t.rich("ssoNone", {
+                  link: (chunks) => (
+                    <Link href="/sso" className="underline underline-offset-4">
+                      {chunks}
+                    </Link>
+                  ),
+                })}
+              </SectionEmpty>
+            ) : (
+              <ul className="space-y-2 text-sm">
+                {providers.map((p) => (
+                  <li key={p.providerId} className="flex items-center justify-between gap-2">
+                    <Link href="/sso" className="underline-offset-4 hover:underline">{p.providerId}</Link>
+                    <span className="flex items-center gap-2 text-xs text-muted-foreground">
+                      {p.domain}
+                      <Badge variant={p.verified ? "secondary" : "outline"}>{p.verified ? t("verified") : t("unverified")}</Badge>
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </Section>
 
           {isPublic ? null : (
-            <Card className="border-border/80 shadow-sm">
-              <CardHeader>
-                <CardTitle className="text-base">{t("scim")}</CardTitle>
-                <CardDescription>
+            <Section
+              title={t("scim")}
+              description={
+                <>
                   {t("scimDescription")}
                   {provisionedActive + provisionedInactive > 0
                     ? ` ${t("scimCounts", { active: provisionedActive, inactive: provisionedInactive })}`
                     : null}
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <OrganizationScim orgId={org.id} baseUrl={scimBaseUrl(env.AUTH_APP_URL ?? "")} token={scimToken} />
-              </CardContent>
-            </Card>
+                </>
+              }
+            >
+              <OrganizationScim orgId={org.id} baseUrl={scimBaseUrl(env.AUTH_APP_URL ?? "")} token={scimToken} />
+            </Section>
           )}
 
-          <Card className="border-border/80 shadow-sm">
-            <CardHeader>
-              <CardTitle className="text-base">{t("recentActions")}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              {audits.length === 0 ? (
-                <p className="text-sm text-muted-foreground">{t("noActions")}</p>
-              ) : (
-                <ul className="space-y-2 text-sm">
-                  {audits.map((a) => (
-                    <li key={a.id}>
-                      {actionLabel(a.action)}
-                      <span className="block text-xs text-muted-foreground">
-                        {a.actorEmail ?? t("system")} · {formatDateTime(a.createdAt, locale)}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </CardContent>
-          </Card>
+          <Section title={t("recentActions")}>
+            {audits.length === 0 ? (
+              <SectionEmpty>{t("noActions")}</SectionEmpty>
+            ) : (
+              <ul className="space-y-2 text-sm">
+                {audits.map((a) => (
+                  <li key={a.id}>
+                    {actionLabel(a.action)}
+                    <span className="block text-xs text-muted-foreground">
+                      {a.actorEmail ?? t("system")} · {formatDateTime(a.createdAt, locale)}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </Section>
         </div>
       </div>
     </div>

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
 import { PageHeader } from "@/components/admin/common/page-header";
+import { StatTiles } from "@/components/admin/common/section";
 import { countUnusedClients, OAuthUsageCard } from "@/components/admin/usage/oauth-usage-card";
 import { getOAuthClientUsage } from "@/lib/oauth-usage";
 import { requireAdminSession } from "@/lib/require-admin-session";
@@ -27,18 +28,14 @@ export default async function UsagePage({ params }: { params: Promise<{ locale: 
     <div className="space-y-6">
       <PageHeader title={t("title")} description={t("description")} />
 
-      <div className="grid gap-4 sm:grid-cols-3">
-        {[
+      <StatTiles
+        locale={locale}
+        tiles={[
           { label: t("tiles.tokens"), value: tokens },
           { label: t("tiles.active"), value: active },
           { label: t("tiles.unused"), value: countUnusedClients(usage) },
-        ].map((tile) => (
-          <div key={tile.label} className="rounded-lg border border-border/80 bg-card p-4 shadow-sm">
-            <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">{tile.label}</p>
-            <p className="mt-2 text-2xl font-semibold tabular-nums">{tile.value.toLocaleString(locale)}</p>
-          </div>
-        ))}
-      </div>
+        ]}
+      />
 
       <OAuthUsageCard usage={usage} locale={locale} />
     </div>

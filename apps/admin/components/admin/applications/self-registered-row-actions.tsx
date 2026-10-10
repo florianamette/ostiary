@@ -1,8 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { BanIcon, CheckCircle2Icon, ImageIcon, Loader2, MoreHorizontalIcon, Trash2Icon } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { BanIcon, CheckCircle2Icon, ImageIcon, MoreHorizontalIcon, Trash2Icon } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import { Button } from "@ostiary/core/components/ui/button";
@@ -10,7 +9,6 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@ostiary/core/components/ui/dialog";
@@ -23,13 +21,14 @@ import {
 } from "@ostiary/core/components/ui/dropdown-menu";
 import { Field, FieldGroup, FieldLabel } from "@ostiary/core/components/ui/field";
 import { Input } from "@ostiary/core/components/ui/input";
-import { adminNotify } from "@ostiary/core/lib/admin/admin-notify";
 import {
   deleteSelfRegisteredClient,
   setSelfRegisteredClientDisabled,
   setSelfRegisteredClientIcon,
 } from "@/app/[locale]/(console)/applications/actions";
 import type { OAuthApplicationRow } from "@/components/admin/applications/admin-application-row-actions";
+import { DialogActions } from "@/components/admin/common/dialog-actions";
+import { useAdminAction } from "@/components/admin/common/use-admin-action";
 
 /**
  * Actions for a client that registered itself: it has no owner, so it cannot be edited like
@@ -37,7 +36,6 @@ import type { OAuthApplicationRow } from "@/components/admin/applications/admin-
  * delete it, and set the icon of a dynamically registered one.
  */
 export function SelfRegisteredRowActions({ row }: { row: OAuthApplicationRow }) {
-  const router = useRouter();
   const t = useTranslations("admin.pages.applications.selfRegistered");
   const te = useTranslations("admin.pages.applications.rowActions.editDialog");
   const tc = useTranslations("admin.common");
@@ -50,24 +48,8 @@ export function SelfRegisteredRowActions({ row }: { row: OAuthApplicationRow }) 
     if (kind === "icon") setLogoUri(row.logoUri ?? "");
     setOpen(kind !== null);
   };
-  const [busy, setBusy] = React.useState(false);
+  const { busy, run } = useAdminAction(() => setConfirm(null));
   const metadataDocument = row.registration === "metadata_document";
-
-  async function run(fn: () => Promise<{ ok: true } | { ok: false; error: string }>, success: string) {
-    setBusy(true);
-    try {
-      const res = await fn();
-      if (!res.ok) {
-        adminNotify(res.error, "error");
-        return;
-      }
-      adminNotify(success, "success");
-      setConfirm(null);
-      router.refresh();
-    } finally {
-      setBusy(false);
-    }
-  }
 
   return (
     <>
@@ -132,15 +114,7 @@ export function SelfRegisteredRowActions({ row }: { row: OAuthApplicationRow }) 
                   <p className="text-muted-foreground text-xs">{te("iconUrlHint")}</p>
                 </Field>
               </FieldGroup>
-              <DialogFooter>
-                <Button type="button" variant="outline" disabled={busy} onClick={() => setConfirm(null)}>
-                  {tc("cancel")}
-                </Button>
-                <Button type="submit" disabled={busy}>
-                  {busy ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
-                  {tc("saveChanges")}
-                </Button>
-              </DialogFooter>
+              <DialogActions busy={busy} onCancel={() => setConfirm(null)} confirmLabel={tc("saveChanges")} />
             </form>
           ) : confirm === "disable" ? (
             <>
@@ -150,19 +124,13 @@ export function SelfRegisteredRowActions({ row }: { row: OAuthApplicationRow }) 
                   {t("disableDescription")}
                 </DialogDescription>
               </DialogHeader>
-              <DialogFooter>
-                <Button variant="outline" disabled={busy} onClick={() => setConfirm(null)}>
-                  {tc("cancel")}
-                </Button>
-                <Button
-                  variant="destructive"
-                  disabled={busy}
-                  onClick={() => void run(() => setSelfRegisteredClientDisabled(row.clientId, true), t("disabled"))}
-                >
-                  {busy ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
-                  {tc("disable")}
-                </Button>
-              </DialogFooter>
+              <DialogActions
+                busy={busy}
+                onCancel={() => setConfirm(null)}
+                onConfirm={() => void run(() => setSelfRegisteredClientDisabled(row.clientId, true), t("disabled"))}
+                confirmLabel={tc("disable")}
+                destructive
+              />
             </>
           ) : (
             <>
@@ -174,19 +142,13 @@ export function SelfRegisteredRowActions({ row }: { row: OAuthApplicationRow }) 
                     : t("deleteDescriptionDynamic")}
                 </DialogDescription>
               </DialogHeader>
-              <DialogFooter>
-                <Button variant="outline" disabled={busy} onClick={() => setConfirm(null)}>
-                  {tc("cancel")}
-                </Button>
-                <Button
-                  variant="destructive"
-                  disabled={busy}
-                  onClick={() => void run(() => deleteSelfRegisteredClient(row.clientId), t("deleted"))}
-                >
-                  {busy ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
-                  {tc("delete")}
-                </Button>
-              </DialogFooter>
+              <DialogActions
+                busy={busy}
+                onCancel={() => setConfirm(null)}
+                onConfirm={() => void run(() => deleteSelfRegisteredClient(row.clientId), t("deleted"))}
+                confirmLabel={tc("delete")}
+                destructive
+              />
             </>
           )}
         </DialogContent>
