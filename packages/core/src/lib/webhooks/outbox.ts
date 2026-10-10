@@ -193,6 +193,31 @@ async function send(delivery: Delivery, endpoint: Endpoint, now: Date): Promise<
   return postPinned(checked.url, checked.addresses, headers, delivery.payload);
 }
 
+/**
+ * Updates the endpoint's run of failures: a success resets it, a failure extends it and
+ * disables the endpoint once it reaches AUTO_DISABLE_AFTER.
+ */
+async function recordEndpointResult(endpointId: string, ok: boolean, at: Date) {
+  if (ok) {
+    await db
+      .update(webhookEndpoint)
+      .set({ consecutiveFailures: 0, lastSuccessAt: at })
+      .where(eq(webhookEndpoint.id, endpointId));
+    return;
+  }
+  const [updated] = await db
+    .update(webhookEndpoint)
+    .set({ consecutiveFailures: sql`${webhookEndpoint.consecutiveFailures} + 1`, lastFailureAt: at })
+    .where(eq(webhookEndpoint.id, endpointId))
+    .returning({ failures: webhookEndpoint.consecutiveFailures });
+  if (updated && updated.failures >= AUTO_DISABLE_AFTER) {
+    await db
+      .update(webhookEndpoint)
+      .set({ enabled: false, disabledReason: "failures", disabledAt: at })
+      .where(and(eq(webhookEndpoint.id, endpointId), eq(webhookEndpoint.enabled, true)));
+  }
+}
+
 /** One attempt: sign, send, record the answer, schedule a retry or give up. */
 async function attempt(delivery: Delivery, endpoint: Endpoint): Promise<DeliveryOutcome> {
   const attempts = delivery.attempts + 1;
@@ -216,24 +241,7 @@ async function attempt(delivery: Delivery, endpoint: Endpoint): Promise<Delivery
     })
     .where(eq(webhookDelivery.id, delivery.id));
 
-  if (result.ok) {
-    await db
-      .update(webhookEndpoint)
-      .set({ consecutiveFailures: 0, lastSuccessAt: finished })
-      .where(eq(webhookEndpoint.id, endpoint.id));
-  } else {
-    const [updated] = await db
-      .update(webhookEndpoint)
-      .set({ consecutiveFailures: sql`${webhookEndpoint.consecutiveFailures} + 1`, lastFailureAt: finished })
-      .where(eq(webhookEndpoint.id, endpoint.id))
-      .returning({ failures: webhookEndpoint.consecutiveFailures });
-    if (updated && updated.failures >= AUTO_DISABLE_AFTER) {
-      await db
-        .update(webhookEndpoint)
-        .set({ enabled: false, disabledReason: "failures", disabledAt: finished })
-        .where(and(eq(webhookEndpoint.id, endpoint.id), eq(webhookEndpoint.enabled, true)));
-    }
-  }
+  await recordEndpointResult(endpoint.id, result.ok, finished);
   return { deliveryId: delivery.id, ok: result.ok, status: result.status, excerpt: result.excerpt, state };
 }
 

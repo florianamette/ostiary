@@ -20,14 +20,13 @@ import {
 import { parseLogoUri } from "@ostiary/core/lib/admin/oauth-clients/oauth-client-admin.validation";
 import { currentApiScopes, OIDC_SCOPES } from "@ostiary/core/lib/oauth-scopes";
 import { adminActor } from "@/lib/admin-audit";
+import type { ActionResult } from "@/lib/action-result";
 
 /*
  * Self-registration settings and the clients registered that way. Those clients have no
  * owner, so Better Auth's client endpoints (scoped to the signed-in user) cannot change
  * them: these actions write the rows directly, and only ever self-registered ones.
  */
-
-type Result = { ok: true } | { ok: false; error: string };
 
 type ClientRegistrationInput = {
   dynamic: DynamicRegistrationMode;
@@ -38,7 +37,7 @@ type ClientRegistrationInput = {
   maxRegistrationsPerHour: number;
 };
 
-export async function updateClientRegistration(input: ClientRegistrationInput): Promise<Result> {
+export async function updateClientRegistration(input: ClientRegistrationInput): Promise<ActionResult> {
   const { session, audit } = await adminActor();
   const t = await getTranslations("admin.pages.applications.actions.registration");
   if (!(DYNAMIC_REGISTRATION_MODES as readonly string[]).includes(input.dynamic)) {
@@ -97,7 +96,7 @@ async function selfRegisteredClient(clientId: string) {
   return { ok: true as const, source, name: row?.name ?? null };
 }
 
-export async function setSelfRegisteredClientDisabled(clientId: string, disabled: boolean): Promise<Result> {
+export async function setSelfRegisteredClientDisabled(clientId: string, disabled: boolean): Promise<ActionResult> {
   const { audit } = await adminActor();
   const client = await selfRegisteredClient(clientId);
   if (!client.ok) return client;
@@ -118,7 +117,7 @@ export async function setSelfRegisteredClientDisabled(clientId: string, disabled
  * Sets or clears (empty) the icon of a dynamically registered client. A metadata document
  * client's icon comes from its document, which replaces it on every refresh.
  */
-export async function setSelfRegisteredClientIcon(clientId: string, logoUri: string): Promise<Result> {
+export async function setSelfRegisteredClientIcon(clientId: string, logoUri: string): Promise<ActionResult> {
   const { audit } = await adminActor();
   const client = await selfRegisteredClient(clientId);
   if (!client.ok) return client;
@@ -138,7 +137,7 @@ export async function setSelfRegisteredClientIcon(clientId: string, logoUri: str
   return { ok: true };
 }
 
-export async function deleteSelfRegisteredClient(clientId: string): Promise<Result> {
+export async function deleteSelfRegisteredClient(clientId: string): Promise<ActionResult> {
   const { audit } = await adminActor();
   const client = await selfRegisteredClient(clientId);
   if (!client.ok) return client;

@@ -1,8 +1,10 @@
 import { randomBytes } from "node:crypto";
 
+import type { APIRequestContext, Page } from "@playwright/test";
+
 import { createUser, enableTotp, getSession } from "../support/auth";
-import { query } from "../support/db";
-import { AUTH_URL, MOCK_URL, env } from "../support/env";
+import { deleteUser, query, userIdOf } from "../support/db";
+import { AUTH_URL, MOCK_URL, SOCIAL_ADMIN_EMAIL } from "../support/env";
 import { expect, test } from "../support/fixtures";
 import { openProvider, startSocialSignIn, upsertProviderRow, waitForSocialProvider } from "../support/social";
 import { freshTotp } from "../support/totp";
@@ -13,6 +15,38 @@ import { freshTotp } from "../support/totp";
  * social_provider table, so they run one after the other.
  */
 test.describe.configure({ mode: "serial" });
+
+/** Turns on the GitLab provider, backed by the mock server, and waits for the auth app to offer it. */
+async function enableGitlab(api: APIRequestContext, clientId = "e2e-gitlab-security") {
+  await upsertProviderRow("gitlab", { issuer: `${MOCK_URL}/gitlab` }, { clientId, clientSecret: "e2e-gitlab-secret" });
+  await waitForSocialProvider(api, "gitlab", true);
+}
+
+async function disableGitlab(api: APIRequestContext) {
+  await query(`update social_provider set enabled = false where id = 'gitlab'`);
+  await waitForSocialProvider(api, "gitlab", false);
+}
+
+/** Signs in with the GitLab mock in the browser, as the given profile. */
+async function gitlabSignIn(page: Page, request: APIRequestContext, profile: Record<string, unknown>) {
+  await request.post(`${MOCK_URL}/gitlab/next-profile`, { data: profile });
+  await page.goto("/en/login");
+  await page.getByRole("button", { name: /GitLab/ }).click();
+}
+
+/** The providers of the user's accounts ("credential" for the password). */
+async function providersOf(email: string): Promise<string[]> {
+  const rows = await query<{ provider_id: string }>(
+    `select a.provider_id from account a join "user" u on u.id = a.user_id where u.email = $1 order by 1`,
+    [email],
+  );
+  return rows.map((row) => row.provider_id);
+}
+
+async function roleAndVerification(email: string) {
+  const [row] = await query<{ role: string | null; email_verified: boolean }>(`select role, email_verified from "user" where email = $1`, [email]);
+  return row;
+}
 
 test("a provider turned on in the console signs in without a restart, and off refuses", async ({ adminPage, api, page }) => {
   const clientId = `e2e-github-${randomBytes(4).toString("hex")}`;
@@ -54,64 +88,36 @@ test("a provider turned on in the console signs in without a restart, and off re
 test("full social sign-in against a local OAuth provider", async ({ api, page, request }) => {
   const id = randomBytes(4).toString("hex");
   const email = `gitlab-${id}@e2e.test`;
-  await upsertProviderRow("gitlab", { issuer: `${MOCK_URL}/gitlab` }, { clientId: `e2e-gitlab-${id}`, clientSecret: "e2e-gitlab-secret" });
-  await waitForSocialProvider(api, "gitlab", true);
+  await enableGitlab(api, `e2e-gitlab-${id}`);
 
-  // The mock provider signs in whoever the test chooses.
-  await request.post(`${MOCK_URL}/gitlab/next-profile`, {
-    data: { id: Number.parseInt(id, 16), username: `gl_${id}`, name: `GitLab ${id}`, email, email_verified: true },
-  });
-
-  // In the browser: the sign-in page's button starts it, the mock redirects back to the callback.
-  await page.goto("/en/login");
-  await page.getByRole("button", { name: /GitLab/ }).click();
+  // The mock provider signs in whoever the test chooses. In the browser: the sign-in page's
+  // button starts it, the mock redirects back to the callback.
+  await gitlabSignIn(page, request, { id: Number.parseInt(id, 16), username: `gl_${id}`, name: `GitLab ${id}`, email, email_verified: true });
   await page.waitForURL(/\/dashboard/);
 
   const session = await page.request.get("/api/auth/get-session");
   expect((await session.json()).user).toMatchObject({ email, name: `GitLab ${id}`, emailVerified: true });
-  const accounts = await query<{ provider_id: string }>(
-    `select a.provider_id from account a join "user" u on u.id = a.user_id where u.email = $1`,
-    [email],
-  );
-  expect(accounts.map((a) => a.provider_id)).toEqual(["gitlab"]);
+  expect(await providersOf(email)).toEqual(["gitlab"]);
 
-  await query(`update social_provider set enabled = false where id = 'gitlab'`);
-  await waitForSocialProvider(api, "gitlab", false);
+  await disableGitlab(api);
 });
-
-/** The third ADMIN_EMAILS address (.env.test), for social sign-ups. */
-const SOCIAL_ADMIN_EMAIL = (env.ADMIN_EMAILS ?? "").split(",")[2]?.trim() ?? "";
-
-async function enableGitlab(api: import("@playwright/test").APIRequestContext) {
-  await upsertProviderRow("gitlab", { issuer: `${MOCK_URL}/gitlab` }, { clientId: "e2e-gitlab-security", clientSecret: "e2e-gitlab-secret" });
-  await waitForSocialProvider(api, "gitlab", true);
-}
-
-/** Signs in with the GitLab mock in the browser, as the given profile. */
-async function gitlabSignIn(page: import("@playwright/test").Page, request: import("@playwright/test").APIRequestContext, profile: Record<string, unknown>) {
-  await request.post(`${MOCK_URL}/gitlab/next-profile`, { data: profile });
-  await page.goto("/en/login");
-  await page.getByRole("button", { name: /GitLab/ }).click();
-}
 
 test("ADMIN_EMAILS: a social sign-up is admin only when the provider verified the address", async ({ api, page, request }) => {
   expect(SOCIAL_ADMIN_EMAIL, "a third address in ADMIN_EMAILS").toBeTruthy();
-  await query(`delete from "user" where email = $1`, [SOCIAL_ADMIN_EMAIL]);
+  await deleteUser(SOCIAL_ADMIN_EMAIL);
   await enableGitlab(api);
   const id = Number.parseInt(randomBytes(3).toString("hex"), 16);
 
   await gitlabSignIn(page, request, { id, username: `gl_${id}`, name: "Not verified", email: SOCIAL_ADMIN_EMAIL, email_verified: false });
   await page.waitForURL(/\/en(\/dashboard)?$/);
-  let [row] = await query<{ role: string | null; email_verified: boolean }>(`select role, email_verified from "user" where email = $1`, [SOCIAL_ADMIN_EMAIL]);
-  expect(row).toEqual({ role: "user", email_verified: false });
+  expect(await roleAndVerification(SOCIAL_ADMIN_EMAIL)).toEqual({ role: "user", email_verified: false });
 
-  await query(`delete from "user" where email = $1`, [SOCIAL_ADMIN_EMAIL]);
+  await deleteUser(SOCIAL_ADMIN_EMAIL);
   await page.context().clearCookies();
   await gitlabSignIn(page, request, { id: id + 1, username: `gl_${id + 1}`, name: "Verified", email: SOCIAL_ADMIN_EMAIL, email_verified: true });
   await page.waitForURL(/\/en(\/dashboard)?$/);
-  [row] = await query<{ role: string | null; email_verified: boolean }>(`select role, email_verified from "user" where email = $1`, [SOCIAL_ADMIN_EMAIL]);
-  expect(row).toEqual({ role: "admin", email_verified: true });
-  await query(`delete from "user" where email = $1`, [SOCIAL_ADMIN_EMAIL]);
+  expect(await roleAndVerification(SOCIAL_ADMIN_EMAIL)).toEqual({ role: "admin", email_verified: true });
+  await deleteUser(SOCIAL_ADMIN_EMAIL);
 });
 
 test("two-factor authentication: a social sign-in asks for the code, and never links into the account implicitly", async ({ api, page, request }) => {
@@ -126,15 +132,13 @@ test("two-factor authentication: a social sign-in asks for the code, and never l
   await page.waitForURL(/error=account_not_linked/);
   await expect(page.getByRole("alert").filter({ hasText: "isn't connected" })).toBeVisible();
   expect(await getSession(page.request)).toBeNull();
-  const providers = async () =>
-    (await query<{ provider_id: string }>(`select a.provider_id from account a join "user" u on u.id = a.user_id where u.email = $1 order by 1`, [user.email])).map((a) => a.provider_id);
-  expect(await providers()).toEqual(["credential"]);
+  expect(await providersOf(user.email)).toEqual(["credential"]);
 
   // Connected explicitly (as "Connect GitLab" on the dashboard does): the sign-in stops for the code.
-  const [owner] = await query<{ id: string }>(`select id from "user" where email = $1`, [user.email]);
+  const ownerId = await userIdOf(user.email);
   await query(
     `insert into account (id, account_id, provider_id, user_id, created_at, updated_at) values ($1, $2, 'gitlab', $3, now(), now())`,
-    [`acc_${randomBytes(6).toString("hex")}`, String(id), owner!.id],
+    [`acc_${randomBytes(6).toString("hex")}`, String(id), ownerId],
   );
   await gitlabSignIn(page, request, profile);
   await page.waitForURL(/\/two-factor/);
@@ -144,6 +148,5 @@ test("two-factor authentication: a social sign-in asks for the code, and never l
   await page.waitForURL((url) => !url.pathname.includes("two-factor"));
   expect((await getSession(page.request))?.user.email).toBe(user.email);
 
-  await query(`update social_provider set enabled = false where id = 'gitlab'`);
-  await waitForSocialProvider(api, "gitlab", false);
+  await disableGitlab(api);
 });

@@ -1,7 +1,7 @@
 import { linkApplications, newApi, registerApi, selectOption } from "../support/admin";
 import { createUser } from "../support/auth";
 import { expect, test } from "../support/fixtures";
-import { basicAuth, createClient, waitForScope } from "../support/oauth";
+import { ENV_API, basicAuth, createClient, waitForScope } from "../support/oauth";
 
 /* API keys: created by a user on the dashboard, verified by a linked application (api-key-verification.ts). */
 test("a user creates an API key and a linked application verifies it", async ({ adminPage, adminApi, api, page }) => {
@@ -52,7 +52,7 @@ test("a user creates an API key and a linked application verifies it", async ({ 
   });
 
   // An API the application is not linked to.
-  const otherApi = await verify(verifier, { key, resource: "https://api.e2e.test" });
+  const otherApi = await verify(verifier, { key, resource: ENV_API.identifier });
   expect(otherApi.status()).toBe(403);
   expect(await otherApi.json()).toMatchObject({ error: "access_denied" });
   const unknown = await verify(verifier, { key: `ost_${"x".repeat(64)}`, resource: resource.identifier });

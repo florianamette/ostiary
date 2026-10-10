@@ -18,6 +18,7 @@ import {
 import { invalidateApiScopes, OIDC_SCOPES } from "@ostiary/core/lib/oauth-scopes";
 import { adminActor } from "@/lib/admin-audit";
 import { auth } from "@/lib/auth";
+import type { ActionResult } from "@/lib/action-result";
 
 /*
  * APIs are Better Auth's OAuth protected resources (`oauth_resource`), changed through its
@@ -32,8 +33,6 @@ import { auth } from "@/lib/auth";
  * effect at once: the auth server reads them from the database on every token request.
  */
 
-type Result = { ok: true } | { ok: false; error: string };
-
 type Translator = Awaited<ReturnType<typeof getTranslations>>;
 
 const errorsT = () => getTranslations("admin.pages.apis.errors");
@@ -46,7 +45,7 @@ function configuredIdentifiers() {
   return new Set(oauthResourceIdentifiers(env.AUTH_APP_URL ?? ""));
 }
 
-function parseScopes(raw: string, t: Translator): { ok: true; scopes: string[] } | { ok: false; error: string } {
+function parseScopes(raw: string, t: Translator): ActionResult<{ scopes: string[] }> {
   const scopes = [...new Set(raw.split(/[\s,]+/).filter(Boolean))];
   const invalid = scopes.find((scope) => !SCOPE_TOKEN.test(scope));
   if (invalid) return { ok: false, error: t("invalidScope", { scope: invalid }) };
@@ -81,7 +80,7 @@ function errorMessage(error: unknown, fallback: string): string {
   return error instanceof Error && error.message ? error.message : fallback;
 }
 
-export async function createApi(input: { identifier: string; name: string; scopes: string; restrict: boolean }): Promise<Result> {
+export async function createApi(input: { identifier: string; name: string; scopes: string; restrict: boolean }): Promise<ActionResult> {
   const { audit } = await adminActor();
   const t = await errorsT();
   const identifier = parseIdentifier(input.identifier);
@@ -114,7 +113,7 @@ export async function createApi(input: { identifier: string; name: string; scope
 export async function updateApi(
   identifier: string,
   input: { name: string; scopes: string; restrict: boolean; disabled: boolean },
-): Promise<Result> {
+): Promise<ActionResult> {
   const { audit } = await adminActor();
   const t = await errorsT();
   const parsed = parseScopes(input.scopes, t);
@@ -147,7 +146,7 @@ export async function updateApi(
   return { ok: true };
 }
 
-export async function deleteApi(identifier: string): Promise<Result> {
+export async function deleteApi(identifier: string): Promise<ActionResult> {
   const { audit } = await adminActor();
   const t = await errorsT();
   if (configuredIdentifiers().has(identifier)) {
@@ -168,7 +167,7 @@ export async function deleteApi(identifier: string): Promise<Result> {
  * added before the mode changes and removed after, so no client is ever refused while the
  * new setting is being saved. A linked application may also introspect the API's tokens.
  */
-export async function setApiAccess(identifier: string, input: { access: ApiAccess; clientIds: string[] }): Promise<Result> {
+export async function setApiAccess(identifier: string, input: { access: ApiAccess; clientIds: string[] }): Promise<ActionResult> {
   const { audit } = await adminActor();
   const t = await errorsT();
   if (input.access === "linked" && identifier === env.AUTH_APP_URL) {
@@ -223,7 +222,7 @@ export async function setApiAccess(identifier: string, input: { access: ApiAcces
 }
 
 /** Saves the API's token settings: lifetimes, custom claims, DPoP. */
-export async function updateApiTokens(identifier: string, input: TokenSettingsInput): Promise<Result> {
+export async function updateApiTokens(identifier: string, input: TokenSettingsInput): Promise<ActionResult> {
   const { audit } = await adminActor();
   const t = await errorsT();
   const parsed = parseTokenSettings(input);

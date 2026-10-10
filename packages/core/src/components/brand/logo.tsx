@@ -6,7 +6,7 @@ import { cn } from "@ostiary/core/lib/utils";
  * the favicon and social images); colors follow the `--brand-*` tokens, so the tile
  * inverts in dark mode.
  */
-export function LogoMark({ className }: { className?: string }) {
+function LogoMark({ className }: { className?: string }) {
   return (
     <svg viewBox={logoMark.viewBox} aria-hidden className={cn("size-7 shrink-0", className)}>
       <rect width="32" height="32" rx={logoMark.radius} className="fill-[var(--brand-tile)]" />

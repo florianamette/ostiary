@@ -1,24 +1,12 @@
 import { AuthFormFallback } from "@/components/auth/auth-form-fallback";
 import { AuthScreen } from "@/components/auth/auth-screen";
 import { authScreenApp } from "@/lib/app-context";
-import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
+import { noIndexMetadata } from "@/lib/page-metadata";
 import { Suspense } from "react";
 
 import { TwoFactorForm } from "@/components/auth/two-factor-form";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
-  const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "auth.twoFactor" });
-  return {
-    title: t("metaTitle"),
-    robots: { index: false, follow: false },
-  };
-}
+export const generateMetadata = noIndexMetadata("auth.twoFactor", "metaTitle", { follow: false });
 
 export default async function Page({
   params,

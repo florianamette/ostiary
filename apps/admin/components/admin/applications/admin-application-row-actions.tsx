@@ -13,14 +13,6 @@ import { useTranslations } from "next-intl";
 
 import { Button } from "@ostiary/core/components/ui/button";
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@ostiary/core/components/ui/dialog";
-import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
@@ -28,10 +20,12 @@ import {
   DropdownMenuTrigger,
 } from "@ostiary/core/components/ui/dropdown-menu";
 import type { RegistrationSource } from "@ostiary/core/lib/client-registration-policy";
+import { adminNotify } from "@ostiary/core/lib/admin/admin-notify";
 import { AppBrandingDialog } from "@/components/admin/applications/app-branding-dialog";
 import { ApplicationEditDialog } from "@/components/admin/applications/application-edit-dialog";
 import { ApplicationRotateSecretDialog } from "@/components/admin/applications/application-rotate-secret-dialog";
 import { routeError } from "@/lib/oauth-client-payload";
+import { ConfirmRemoveDialog } from "@/components/admin/common/confirm-remove-dialog";
 
 export type OAuthApplicationRow = {
   clientId: string;
@@ -56,11 +50,9 @@ export type OAuthApplicationRow = {
 export function AdminApplicationRowActions({
   row,
   onChanged,
-  onNotify,
 }: {
   row: OAuthApplicationRow;
   onChanged: () => void;
-  onNotify: (message: string, variant?: "error" | "success") => void;
 }) {
   const t = useTranslations("admin.pages.applications.rowActions");
   const tc = useTranslations("admin.common");
@@ -89,10 +81,10 @@ export function AdminApplicationRowActions({
       );
       if (!res.ok) {
         const json: unknown = await res.json().catch(() => null);
-        onNotify(routeError(json) ?? t("deleteDialog.deleteFailed"), "error");
+        adminNotify(routeError(json) ?? t("deleteDialog.deleteFailed"), "error");
         return;
       }
-      onNotify(t("deleteDialog.deleted"), "success");
+      adminNotify(t("deleteDialog.deleted"), "success");
       setRemoveOpen(false);
       onChanged();
     } finally {
@@ -117,7 +109,7 @@ export function AdminApplicationRowActions({
           <DropdownMenuItem
             onClick={() => {
               void navigator.clipboard.writeText(row.clientId);
-              onNotify(t("clientIdCopied"), "success");
+              adminNotify(t("clientIdCopied"), "success");
             }}
           >
             <CopyIcon />
@@ -168,7 +160,6 @@ export function AdminApplicationRowActions({
         clientId={row.clientId}
         open={brandingOpen}
         onOpenChange={setBrandingOpen}
-        onNotify={onNotify}
       />
 
       <ApplicationEditDialog
@@ -179,43 +170,30 @@ export function AdminApplicationRowActions({
         pending={editPending}
         onPendingChange={setEditPending}
         onChanged={onChanged}
-        onNotify={onNotify}
       />
 
-      <Dialog open={removeOpen} onOpenChange={setRemoveOpen}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>{t("deleteDialog.title")}</DialogTitle>
-            <DialogDescription>
-              {t.rich("deleteDialog.description", {
-                name: row.name,
-                clientId: row.clientId,
-                strong: (c) => <span className="font-medium text-foreground">{c}</span>,
-                code: (c) => <code className="font-mono text-xs">{c}</code>,
-              })}
-            </DialogDescription>
-          </DialogHeader>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setRemoveOpen(false)}>
-              {tc("cancel")}
-            </Button>
-            <Button
-              variant="destructive"
-              disabled={removePending}
-              onClick={() => void removeClient()}
-            >
-              {removePending ? tc("deleting") : tc("delete")}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+      <ConfirmRemoveDialog
+        open={removeOpen}
+        onOpenChange={setRemoveOpen}
+        className="sm:max-w-md"
+        title={t("deleteDialog.title")}
+        description={t.rich("deleteDialog.description", {
+          name: row.name,
+          clientId: row.clientId,
+          strong: (c) => <span className="font-medium text-foreground">{c}</span>,
+          code: (c) => <code className="font-mono text-xs">{c}</code>,
+        })}
+        pending={removePending}
+        onConfirm={() => void removeClient()}
+        confirmLabel={tc("delete")}
+        pendingLabel={tc("deleting")}
+      />
 
       <ApplicationRotateSecretDialog
         row={row}
         open={rotateOpen}
         onOpenChange={setRotateOpen}
         onChanged={onChanged}
-        onNotify={onNotify}
       />
     </>
   );

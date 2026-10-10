@@ -4,15 +4,7 @@ import { Loader2 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { useState } from "react";
-import { cn } from "@ostiary/core/lib/utils";
 import { Button } from "@ostiary/core/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@ostiary/core/components/ui/card";
 import {
   Field,
   FieldDescription,
@@ -22,6 +14,7 @@ import {
 import { Input } from "@ostiary/core/components/ui/input";
 import { Link } from "@/i18n/navigation";
 import { authClient } from "@/lib/auth-client";
+import { AuthCard } from "@/components/auth/auth-card";
 import { useCaptcha } from "@/components/auth/captcha";
 import { rateLimitMessage } from "@ostiary/core/lib/rate-limit-message";
 import type { CaptchaConfig } from "@ostiary/core/lib/captcha-providers";
@@ -75,54 +68,46 @@ export function ForgotPasswordForm({
   };
 
   return (
-    <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card>
-        <CardHeader>
-          <CardTitle>{t("title")}</CardTitle>
-          <CardDescription>{t("description")}</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={(e) => void handleSubmit(e)}>
-            <FieldGroup>
-              <Field>
-                <FieldLabel htmlFor="forgot-email">{t("emailLabel")}</FieldLabel>
-                <Input
-                  id="forgot-email"
-                  type="email"
-                  autoComplete="email"
-                  required
-                  value={email}
-                  disabled={isSubmitting}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder={t("emailPlaceholder")}
-                />
-                <FieldDescription>{t("emailHint")}</FieldDescription>
-              </Field>
-              {captcha.widget}
-              <Field>
-                <Button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full sm:w-auto"
-                >
-                  {isSubmitting ? (
-                    <Loader2 className="size-4 animate-spin" aria-hidden />
-                  ) : null}
-                  {isSubmitting ? t("submitting") : t("submit")}
-                </Button>
-                <FieldDescription className="text-center">
-                  <Link
-                    href={withAppContext("/login", appLink)}
-                    className="underline-offset-4 hover:underline"
-                  >
-                    {t("backToLogin")}
-                  </Link>
-                </FieldDescription>
-              </Field>
-            </FieldGroup>
-          </form>
-        </CardContent>
-      </Card>
-    </div>
+    <AuthCard className={className} {...props} heading={t("title")} description={t("description")}>
+      <form onSubmit={(e) => void handleSubmit(e)}>
+        <FieldGroup>
+          <Field>
+            <FieldLabel htmlFor="forgot-email">{t("emailLabel")}</FieldLabel>
+            <Input
+              id="forgot-email"
+              type="email"
+              autoComplete="email"
+              required
+              value={email}
+              disabled={isSubmitting}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder={t("emailPlaceholder")}
+            />
+            <FieldDescription>{t("emailHint")}</FieldDescription>
+          </Field>
+          {captcha.widget}
+          <Field>
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              className="w-full sm:w-auto"
+            >
+              {isSubmitting ? (
+                <Loader2 className="size-4 animate-spin" aria-hidden />
+              ) : null}
+              {isSubmitting ? t("submitting") : t("submit")}
+            </Button>
+            <FieldDescription className="text-center">
+              <Link
+                href={withAppContext("/login", appLink)}
+                className="underline-offset-4 hover:underline"
+              >
+                {t("backToLogin")}
+              </Link>
+            </FieldDescription>
+          </Field>
+        </FieldGroup>
+      </form>
+    </AuthCard>
   );
 }

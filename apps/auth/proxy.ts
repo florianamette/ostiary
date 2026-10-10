@@ -77,15 +77,14 @@ function getLocaleAndRestPath(pathname: string): { locale: AppLocale; restPath: 
 
 function localizedUrl(request: NextRequest, locale: AppLocale, path: string): URL {
   const tail = path === "/" ? "" : path;
-  let pathname: string;
-  if (routing.localePrefix === "always") {
-    pathname = `/${locale}${tail}`;
-  } else if (locale === routing.defaultLocale) {
-    pathname = tail || "/";
-  } else {
-    pathname = `/${locale}${tail}`;
-  }
-  return new URL(pathname, request.url);
+  const unprefixed = routing.localePrefix !== "always" && locale === routing.defaultLocale;
+  return new URL(unprefixed ? tail || "/" : `/${locale}${tail}`, request.url);
+}
+
+/** To the login page, back to `callbackPath` once signed in. */
+function loginRedirect(request: NextRequest, locale: AppLocale, callbackPath: string): NextResponse {
+  const loginWithReturn = `/login?callbackURL=${encodeURIComponent(callbackPath)}`;
+  return NextResponse.redirect(localizedUrl(request, locale, loginWithReturn));
 }
 
 /**
@@ -117,63 +116,30 @@ async function route(request: NextRequest): Promise<NextResponse> {
     return intlResponse;
   }
 
-  const { pathname } = request.nextUrl;
-  const { locale, restPath } = getLocaleAndRestPath(pathname);
+  const { locale, restPath } = getLocaleAndRestPath(request.nextUrl.pathname);
+  const getSession = () => auth.api.getSession({ headers: request.headers });
 
   if (restPath === "/") {
-    const session = await auth.api.getSession({
-      headers: request.headers,
-    });
-
-    if (session) {
-      return NextResponse.redirect(localizedUrl(request, locale, "/dashboard"));
-    }
-    return NextResponse.redirect(localizedUrl(request, locale, "/login"));
+    const session = await getSession();
+    return NextResponse.redirect(localizedUrl(request, locale, session ? "/dashboard" : "/login"));
   }
 
-  if (restPath === "/dashboard" || restPath.startsWith("/dashboard/")) {
-    const session = await auth.api.getSession({
-      headers: request.headers,
-    });
-
-    if (!session) {
-      const callbackPath =
-        routing.localePrefix === "always"
-          ? `/${locale}/dashboard`
-          : "/dashboard";
-      const loginWithReturn = `/login?callbackURL=${encodeURIComponent(callbackPath)}`;
-      return NextResponse.redirect(localizedUrl(request, locale, loginWithReturn));
-    }
+  if ((restPath === "/dashboard" || restPath.startsWith("/dashboard/")) && !(await getSession())) {
+    const callbackPath = routing.localePrefix === "always" ? `/${locale}/dashboard` : "/dashboard";
+    return loginRedirect(request, locale, callbackPath);
   }
 
   // Device sign-in: the code is bound to whoever opens it, so sign in first and come back with
   // the code (verification_uri_complete carries it as ?user_code=).
-  if (restPath === "/device") {
-    const session = await auth.api.getSession({
-      headers: request.headers,
-    });
-
-    if (!session) {
-      const callbackPath = `/${locale}/device${request.nextUrl.search}`;
-      const loginWithReturn = `/login?callbackURL=${encodeURIComponent(callbackPath)}`;
-      return NextResponse.redirect(localizedUrl(request, locale, loginWithReturn));
-    }
+  if (restPath === "/device" && !(await getSession())) {
+    return loginRedirect(request, locale, `/${locale}/device${request.nextUrl.search}`);
   }
 
   // `addAccount=1` signs in one more account (account menu, select-account page): no redirect.
   const addingAccount = restPath === "/login" && request.nextUrl.searchParams.get("addAccount") === "1";
-  if ((restPath === "/login" || restPath === "/signup") && !addingAccount) {
-    const session = await auth.api.getSession({
-      headers: request.headers,
-    });
-
-    if (session) {
-      const destination = signedInDestination(
-        request,
-        localizedUrl(request, locale, "/dashboard"),
-      );
-      return shareAuthCookies(request, NextResponse.redirect(destination));
-    }
+  if ((restPath === "/login" || restPath === "/signup") && !addingAccount && (await getSession())) {
+    const destination = signedInDestination(request, localizedUrl(request, locale, "/dashboard"));
+    return shareAuthCookies(request, NextResponse.redirect(destination));
   }
 
   return intlResponse;

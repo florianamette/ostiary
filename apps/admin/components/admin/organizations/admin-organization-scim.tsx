@@ -18,6 +18,7 @@ import {
 import { Field, FieldDescription, FieldGroup, FieldLabel } from "@ostiary/core/components/ui/field";
 import { Input } from "@ostiary/core/components/ui/input";
 import { generateScimToken, revokeScimTokens } from "@/app/[locale]/(console)/organizations/[id]/scim-actions";
+import { DialogActions } from "@/components/admin/common/dialog-actions";
 
 /** The active token's dates, formatted for display. */
 export type ScimTokenSummary = {
@@ -166,20 +167,13 @@ export function OrganizationScim({
               {confirm === "rotate" ? t("rotateBody") : t("revokeBody")}
             </DialogDescription>
           </DialogHeader>
-          <DialogFooter>
-            <Button type="button" variant="outline" disabled={busy !== null} onClick={() => setConfirm(null)}>
-              {tc("cancel")}
-            </Button>
-            <Button
-              type="button"
-              variant={confirm === "revoke" ? "destructive" : "default"}
-              disabled={busy !== null}
-              onClick={() => void (confirm === "rotate" ? generate() : revoke())}
-            >
-              {busy ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
-              {confirm === "rotate" ? t("replaceToken") : t("revokeToken")}
-            </Button>
-          </DialogFooter>
+          <DialogActions
+            busy={busy !== null}
+            onCancel={() => setConfirm(null)}
+            onConfirm={() => void (confirm === "rotate" ? generate() : revoke())}
+            confirmLabel={confirm === "rotate" ? t("replaceToken") : t("revokeToken")}
+            destructive={confirm === "revoke"}
+          />
         </DialogContent>
       </Dialog>
 

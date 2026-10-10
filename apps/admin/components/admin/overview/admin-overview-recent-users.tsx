@@ -22,6 +22,7 @@ import {
 } from "@ostiary/core/components/ui/table";
 import { Link } from "@/i18n/navigation";
 import { authClient } from "@/lib/auth-client";
+import { formatShortDate } from "@/components/admin/common/page-header";
 
 type Row = {
   id: string;
@@ -31,16 +32,6 @@ type Row = {
   banned: boolean | null;
   createdAt?: Date | string | null;
 };
-
-function formatJoined(
-  value: Date | string | undefined | null,
-  format: ReturnType<typeof useFormatter>
-) {
-  if (value == null) return "-";
-  const d = value instanceof Date ? value : new Date(value);
-  if (Number.isNaN(d.getTime())) return "-";
-  return format.dateTime(d, { year: "numeric", month: "short", day: "numeric" });
-}
 
 export function AdminOverviewRecentUsers({
   refreshKey,
@@ -150,7 +141,7 @@ export function AdminOverviewRecentUsers({
                     )}
                   </TableCell>
                   <TableCell className="text-muted-foreground text-right text-sm">
-                    {formatJoined(u.createdAt, format)}
+                    {formatShortDate(u.createdAt, format)}
                   </TableCell>
                 </TableRow>
               ))}

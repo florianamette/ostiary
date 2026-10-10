@@ -5,11 +5,11 @@ import { getTranslations } from "next-intl/server";
 import { MAX_LIFETIME_DAYS_LIMIT } from "@ostiary/core/lib/api-key-policy";
 import { apiKeyAuditMetadata, apiKeyAuditTarget, deleteApiKey, saveApiKeySettings } from "@ostiary/core/lib/api-keys";
 import { adminActor } from "@/lib/admin-audit";
+import type { ActionResult } from "@/lib/action-result";
 
-type Result = { ok: true } | { ok: false; error: string };
 
 /** Turns API keys on or off for everyone and sets the longest lifetime of a new key. */
-export async function updateApiKeySettings(input: { enabled: boolean; maxLifetimeDays: number }): Promise<Result> {
+export async function updateApiKeySettings(input: { enabled: boolean; maxLifetimeDays: number }): Promise<ActionResult> {
   const { session, audit } = await adminActor();
   const t = await getTranslations("admin.pages.apiKeys.errors");
   const days = input.maxLifetimeDays;
@@ -29,7 +29,7 @@ export async function updateApiKeySettings(input: { enabled: boolean; maxLifetim
 }
 
 /** Revokes (deletes) any key, a user's or an organization's. */
-export async function adminRevokeApiKey(id: string): Promise<Result> {
+export async function adminRevokeApiKey(id: string): Promise<ActionResult> {
   const { audit } = await adminActor();
   const t = await getTranslations("admin.pages.apiKeys.errors");
   if (typeof id !== "string" || !id) return { ok: false, error: t("noKey") };

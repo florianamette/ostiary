@@ -129,9 +129,17 @@ export function DashboardTwoFactorSection({
 
   const passwordBody = () => (hasPassword ? { password } : {});
 
-  async function startEnable() {
+  async function whileBusy(action: () => Promise<void>) {
     setBusy(true);
     try {
+      await action();
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  function startEnable() {
+    return whileBusy(async () => {
       const { data, error } = await authClient.twoFactor.enable({
         ...passwordBody(),
         issuer: brand.name,
@@ -146,14 +154,11 @@ export function DashboardTwoFactorSection({
       }
       setPassword("");
       setFlow({ kind: "enable", step: "scan", totpURI: data.totpURI, backupCodes: data.backupCodes ?? [] });
-    } finally {
-      setBusy(false);
-    }
+    });
   }
 
-  async function verifySetup(backupCodes: string[]) {
-    setBusy(true);
-    try {
+  function verifySetup(backupCodes: string[]) {
+    return whileBusy(async () => {
       const { error } = await authClient.twoFactor.verifyTotp({ code: code.replace(/\s/g, "") });
       if (error) {
         showError(error);
@@ -162,14 +167,11 @@ export function DashboardTwoFactorSection({
       setCode("");
       toast.success(t("enabled"));
       setFlow({ kind: "enable", step: "codes", backupCodes });
-    } finally {
-      setBusy(false);
-    }
+    });
   }
 
-  async function regenerate() {
-    setBusy(true);
-    try {
+  function regenerate() {
+    return whileBusy(async () => {
       const { data, error } = await authClient.twoFactor.generateBackupCodes(passwordBody());
       if (error) {
         showError(error);
@@ -177,14 +179,11 @@ export function DashboardTwoFactorSection({
       }
       setPassword("");
       setFlow({ kind: "regenerate", step: "codes", backupCodes: data?.backupCodes ?? [] });
-    } finally {
-      setBusy(false);
-    }
+    });
   }
 
-  async function disable() {
-    setBusy(true);
-    try {
+  function disable() {
+    return whileBusy(async () => {
       const { error } = await authClient.twoFactor.disable(passwordBody());
       if (error) {
         showError(error);
@@ -194,21 +193,15 @@ export function DashboardTwoFactorSection({
       setFlow(null);
       setPassword("");
       router.refresh();
-    } finally {
-      setBusy(false);
-    }
+    });
   }
 
   function open(next: Flow) {
     setPassword("");
     setCode("");
     // Without a password there is nothing to confirm: go straight to the action.
-    if (!hasPassword && next.kind === "enable") {
-      void startEnable();
-      return;
-    }
-    if (!hasPassword && next.kind === "regenerate") {
-      void regenerate();
+    if (!hasPassword && next.kind !== "disable") {
+      void (next.kind === "enable" ? startEnable() : regenerate());
       return;
     }
     setFlow(next);
@@ -229,17 +222,18 @@ export function DashboardTwoFactorSection({
     </Field>
   ) : null;
 
+  /** A dialog form's submit handler: runs `action` instead of navigating. */
+  const submitTo = (action: () => Promise<void>) => (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    void action();
+  };
+
   function dialogBody() {
     if (!flow) return null;
 
     if (flow.kind === "disable") {
       return (
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            void disable();
-          }}
-        >
+        <form onSubmit={submitTo(disable)}>
           <DialogHeader>
             <DialogTitle>{t("disableTitle")}</DialogTitle>
             <DialogDescription>{t("disableBody")}</DialogDescription>
@@ -260,12 +254,7 @@ export function DashboardTwoFactorSection({
     if (flow.step === "password") {
       const isEnable = flow.kind === "enable";
       return (
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            void (isEnable ? startEnable() : regenerate());
-          }}
-        >
+        <form onSubmit={submitTo(isEnable ? startEnable : regenerate)}>
           <DialogHeader>
             <DialogTitle>{isEnable ? t("setupTitle") : t("regenerateTitle")}</DialogTitle>
             <DialogDescription>{isEnable ? t("passwordHint") : t("regenerateBody")}</DialogDescription>
@@ -281,12 +270,7 @@ export function DashboardTwoFactorSection({
     if (flow.step === "scan") {
       const backupCodes = flow.backupCodes;
       return (
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            void verifySetup(backupCodes);
-          }}
-        >
+        <form onSubmit={submitTo(() => verifySetup(backupCodes))}>
           <DialogHeader>
             <DialogTitle>{t("scanTitle")}</DialogTitle>
             <DialogDescription>{t("scanHint")}</DialogDescription>
