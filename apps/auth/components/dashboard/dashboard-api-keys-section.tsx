@@ -16,11 +16,8 @@ import {
   CardTitle,
 } from "@ostiary/core/components/ui/card";
 import { Skeleton } from "@ostiary/core/components/ui/skeleton";
-import {
-  CreateApiKeyDialog,
-  IssuedKeyDialog,
-  RevokeApiKeyDialog,
-} from "@/components/dashboard/dashboard-api-key-dialogs";
+import { ConfirmDialog } from "@/components/dashboard/confirm-dialog";
+import { CreateApiKeyDialog, IssuedKeyDialog } from "@/components/dashboard/dashboard-api-key-dialogs";
 import type { MyApiKey } from "@/lib/api-key-serialize";
 import {
   createMyApiKey,
@@ -194,8 +191,12 @@ export function ApiKeysManager({
 
       <IssuedKeyDialog issued={issued} onClose={() => setIssued(null)} />
 
-      <RevokeApiKeyDialog
-        pending={pendingRevoke}
+      <ConfirmDialog
+        open={pendingRevoke !== null}
+        title={t("confirmRevokeTitle", { name: pendingRevoke?.name ?? "" })}
+        description={t("confirmRevokeBody")}
+        cancelLabel={t("cancel")}
+        confirmLabel={t("revoke")}
         onCancel={() => setPendingRevoke(null)}
         onConfirm={() => void confirmRevoke()}
       />

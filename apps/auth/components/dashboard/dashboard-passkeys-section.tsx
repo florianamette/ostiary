@@ -8,14 +8,6 @@ import { toast } from "sonner";
 import { getHtmlLang } from "@ostiary/core/i18n/locale-html";
 import type { AppLocale } from "@ostiary/core/i18n/routing";
 import { Button } from "@ostiary/core/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@ostiary/core/components/ui/dialog";
 import { FieldDescription } from "@ostiary/core/components/ui/field";
 import { Input } from "@ostiary/core/components/ui/input";
 import { Skeleton } from "@ostiary/core/components/ui/skeleton";
@@ -27,6 +19,7 @@ import {
   TableHeader,
   TableRow,
 } from "@ostiary/core/components/ui/table";
+import { ConfirmDialog } from "@/components/dashboard/confirm-dialog";
 import { authClient } from "@/lib/auth-client";
 import { needsRecentSignIn, signInAgain } from "@/lib/sign-in-again";
 
@@ -313,35 +306,15 @@ export function DashboardPasskeysSection() {
         </div>
       )}
 
-      <Dialog
+      <ConfirmDialog
         open={pendingDelete !== null}
-        onOpenChange={(open) => {
-          if (!open) setPendingDelete(null);
-        }}
-      >
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>{t("confirmRemoveTitle")}</DialogTitle>
-            <DialogDescription>{t("confirmRemoveBody")}</DialogDescription>
-          </DialogHeader>
-          <DialogFooter>
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => setPendingDelete(null)}
-            >
-              {t("cancel")}
-            </Button>
-            <Button
-              type="button"
-              variant="destructive"
-              onClick={() => void confirmDelete()}
-            >
-              {t("delete")}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+        title={t("confirmRemoveTitle")}
+        description={t("confirmRemoveBody")}
+        cancelLabel={t("cancel")}
+        confirmLabel={t("delete")}
+        onCancel={() => setPendingDelete(null)}
+        onConfirm={() => void confirmDelete()}
+      />
     </div>
   );
 }

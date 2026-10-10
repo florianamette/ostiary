@@ -25,7 +25,6 @@ import {
   SelectValue,
 } from "@ostiary/core/components/ui/select";
 import type { ApiKeysSource } from "@/components/dashboard/dashboard-api-keys-section";
-import type { MyApiKey } from "@/lib/api-key-serialize";
 import type { MyApiKeys } from "@/lib/api-keys-actions";
 import { signInAgain } from "@/lib/sign-in-again";
 
@@ -233,42 +232,6 @@ export function IssuedKeyDialog({ issued, onClose }: { issued: { key: string; na
         <DialogFooter>
           <Button type="button" onClick={onClose}>
             {t("done")}
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
-  );
-}
-
-/** Asks before revoking a key: scripts using it stop working at once. */
-export function RevokeApiKeyDialog({
-  pending,
-  onCancel,
-  onConfirm,
-}: {
-  pending: MyApiKey | null;
-  onCancel: () => void;
-  onConfirm: () => void;
-}) {
-  const t = useTranslations("dashboard.apiKeys");
-  return (
-    <Dialog
-      open={pending !== null}
-      onOpenChange={(open) => {
-        if (!open) onCancel();
-      }}
-    >
-      <DialogContent className="sm:max-w-md">
-        <DialogHeader>
-          <DialogTitle>{t("confirmRevokeTitle", { name: pending?.name ?? "" })}</DialogTitle>
-          <DialogDescription>{t("confirmRevokeBody")}</DialogDescription>
-        </DialogHeader>
-        <DialogFooter>
-          <Button type="button" variant="outline" onClick={onCancel}>
-            {t("cancel")}
-          </Button>
-          <Button type="button" variant="destructive" onClick={onConfirm}>
-            {t("revoke")}
           </Button>
         </DialogFooter>
       </DialogContent>
