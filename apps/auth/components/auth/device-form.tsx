@@ -6,6 +6,7 @@ import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
 import { AuthFormFallback } from "@/components/auth/auth-form-fallback";
+import { RequestedScopes } from "@/components/auth/requested-scopes";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "@/i18n/navigation";
 import { Button } from "@ostiary/core/components/ui/button";
@@ -63,7 +64,6 @@ function errorKey(error: { status?: number; error?: unknown; error_description?:
  */
 export function DeviceForm() {
   const t = useTranslations("device");
-  const tConsent = useTranslations("consent");
   const tLimit = useTranslations("rateLimit");
   const locale = useLocale();
   const router = useRouter();
@@ -271,23 +271,7 @@ export function DeviceForm() {
           </span>
         </div>
 
-        <div>
-          <h3 className="mb-2 text-sm font-medium">{tConsent("requestedAccess")}</h3>
-          {scopes.length === 0 ? (
-            <p className="text-sm text-muted-foreground">{t("noScopes")}</p>
-          ) : (
-            <ul className="space-y-2 text-sm">
-              {scopes.map((scope) => (
-                <li key={scope} className="rounded-md border border-border bg-muted/30 px-3 py-2">
-                  <span className="font-mono text-xs text-foreground">{scope}</span>
-                  {tConsent.has(`scopes.${scope}`) ? (
-                    <p className="mt-1 text-muted-foreground">{tConsent(`scopes.${scope}`)}</p>
-                  ) : null}
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
+        <RequestedScopes scopes={scopes} emptyText={t("noScopes")} />
 
         {user ? (
           <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 text-sm">
