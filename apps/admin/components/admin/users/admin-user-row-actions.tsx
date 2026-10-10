@@ -14,14 +14,6 @@ import { useTranslations } from "next-intl";
 
 import { Button } from "@ostiary/core/components/ui/button";
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@ostiary/core/components/ui/dialog";
-import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
@@ -31,6 +23,7 @@ import {
 import { adminNotify } from "@ostiary/core/lib/admin/admin-notify";
 import { authClient } from "@/lib/auth-client";
 import { UserEditDialog, UserPasswordDialog } from "@/components/admin/users/admin-user-dialogs";
+import { ConfirmRemoveDialog } from "@/components/admin/common/confirm-remove-dialog";
 
 type AdminUserRow = {
   id: string;
@@ -56,7 +49,6 @@ export function AdminUserRowActions({
   onChanged: () => void;
 }) {
   const t = useTranslations("admin.pages.users.rowActions");
-  const tc = useTranslations("admin.common");
   const [editOpen, setEditOpen] = React.useState(false);
   const [passwordOpen, setPasswordOpen] = React.useState(false);
   const [removeOpen, setRemoveOpen] = React.useState(false);
@@ -191,32 +183,21 @@ export function AdminUserRowActions({
 
       <UserPasswordDialog user={user} open={passwordOpen} onOpenChange={setPasswordOpen} onChanged={onChanged} />
 
-      <Dialog open={removeOpen} onOpenChange={setRemoveOpen}>
-        <DialogContent className="sm:max-w-sm">
-          <DialogHeader>
-            <DialogTitle>{t("removeTitle")}</DialogTitle>
-            <DialogDescription>
-              {t.rich("removeDescription", {
-                name: user.name,
-                email: user.email,
-                strong: (chunks) => <span className="font-medium text-foreground">{chunks}</span>,
-              })}
-            </DialogDescription>
-          </DialogHeader>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setRemoveOpen(false)}>
-              {tc("cancel")}
-            </Button>
-            <Button
-              variant="destructive"
-              disabled={removePending}
-              onClick={() => void removeUser()}
-            >
-              {removePending ? t("removing") : t("removeConfirm")}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+      <ConfirmRemoveDialog
+        open={removeOpen}
+        onOpenChange={setRemoveOpen}
+        className="sm:max-w-sm"
+        title={t("removeTitle")}
+        description={t.rich("removeDescription", {
+          name: user.name,
+          email: user.email,
+          strong: (chunks) => <span className="font-medium text-foreground">{chunks}</span>,
+        })}
+        pending={removePending}
+        onConfirm={() => void removeUser()}
+        confirmLabel={t("removeConfirm")}
+        pendingLabel={t("removing")}
+      />
     </>
   );
 }

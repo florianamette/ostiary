@@ -13,14 +13,6 @@ import { useTranslations } from "next-intl";
 
 import { Button } from "@ostiary/core/components/ui/button";
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@ostiary/core/components/ui/dialog";
-import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
@@ -33,6 +25,7 @@ import { AppBrandingDialog } from "@/components/admin/applications/app-branding-
 import { ApplicationEditDialog } from "@/components/admin/applications/application-edit-dialog";
 import { ApplicationRotateSecretDialog } from "@/components/admin/applications/application-rotate-secret-dialog";
 import { routeError } from "@/lib/oauth-client-payload";
+import { ConfirmRemoveDialog } from "@/components/admin/common/confirm-remove-dialog";
 
 export type OAuthApplicationRow = {
   clientId: string;
@@ -179,33 +172,22 @@ export function AdminApplicationRowActions({
         onChanged={onChanged}
       />
 
-      <Dialog open={removeOpen} onOpenChange={setRemoveOpen}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>{t("deleteDialog.title")}</DialogTitle>
-            <DialogDescription>
-              {t.rich("deleteDialog.description", {
-                name: row.name,
-                clientId: row.clientId,
-                strong: (c) => <span className="font-medium text-foreground">{c}</span>,
-                code: (c) => <code className="font-mono text-xs">{c}</code>,
-              })}
-            </DialogDescription>
-          </DialogHeader>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setRemoveOpen(false)}>
-              {tc("cancel")}
-            </Button>
-            <Button
-              variant="destructive"
-              disabled={removePending}
-              onClick={() => void removeClient()}
-            >
-              {removePending ? tc("deleting") : tc("delete")}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+      <ConfirmRemoveDialog
+        open={removeOpen}
+        onOpenChange={setRemoveOpen}
+        className="sm:max-w-md"
+        title={t("deleteDialog.title")}
+        description={t.rich("deleteDialog.description", {
+          name: row.name,
+          clientId: row.clientId,
+          strong: (c) => <span className="font-medium text-foreground">{c}</span>,
+          code: (c) => <code className="font-mono text-xs">{c}</code>,
+        })}
+        pending={removePending}
+        onConfirm={() => void removeClient()}
+        confirmLabel={tc("delete")}
+        pendingLabel={tc("deleting")}
+      />
 
       <ApplicationRotateSecretDialog
         row={row}

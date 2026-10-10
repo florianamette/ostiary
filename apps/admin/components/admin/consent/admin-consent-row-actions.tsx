@@ -12,14 +12,6 @@ import { useTranslations } from "next-intl";
 
 import { Button } from "@ostiary/core/components/ui/button";
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@ostiary/core/components/ui/dialog";
-import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
@@ -28,6 +20,7 @@ import {
 } from "@ostiary/core/components/ui/dropdown-menu";
 import { adminNotify } from "@ostiary/core/lib/admin/admin-notify";
 import { authClient } from "@/lib/auth-client";
+import { ConfirmRemoveDialog } from "@/components/admin/common/confirm-remove-dialog";
 
 export type OAuthConsentRow = {
   id: string;
@@ -49,7 +42,6 @@ export function AdminConsentRowActions({
   onChanged: () => void;
 }) {
   const t = useTranslations("admin.pages.consent.rowActions");
-  const tc = useTranslations("admin.common");
   const [removeOpen, setRemoveOpen] = React.useState(false);
   const [removePending, setRemovePending] = React.useState(false);
 
@@ -129,33 +121,22 @@ export function AdminConsentRowActions({
         </DropdownMenuContent>
       </DropdownMenu>
 
-      <Dialog open={removeOpen} onOpenChange={setRemoveOpen}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>{t("dialogTitle")}</DialogTitle>
-            <DialogDescription>
-              {t.rich("dialogDescription", {
-                client: row.clientLabel,
-                clientId: row.clientId,
-                strong: (c) => <span className="font-medium text-foreground">{c}</span>,
-                code: (c) => <code className="font-mono text-xs">{c}</code>,
-              })}
-            </DialogDescription>
-          </DialogHeader>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setRemoveOpen(false)}>
-              {tc("cancel")}
-            </Button>
-            <Button
-              variant="destructive"
-              disabled={removePending}
-              onClick={() => void revokeConsent()}
-            >
-              {removePending ? t("revoking") : t("revokeButton")}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+      <ConfirmRemoveDialog
+        open={removeOpen}
+        onOpenChange={setRemoveOpen}
+        className="sm:max-w-md"
+        title={t("dialogTitle")}
+        description={t.rich("dialogDescription", {
+          client: row.clientLabel,
+          clientId: row.clientId,
+          strong: (c) => <span className="font-medium text-foreground">{c}</span>,
+          code: (c) => <code className="font-mono text-xs">{c}</code>,
+        })}
+        pending={removePending}
+        onConfirm={() => void revokeConsent()}
+        confirmLabel={t("revokeButton")}
+        pendingLabel={t("revoking")}
+      />
     </>
   );
 }
