@@ -6,6 +6,7 @@ import {
   AdminApplicationRowActions,
   type OAuthApplicationRow,
 } from "@/components/admin/applications/admin-application-row-actions";
+import { formatShortDate } from "@/components/admin/common/page-header";
 import { SelfRegisteredRowActions } from "@/components/admin/applications/self-registered-row-actions";
 import { AppIcon } from "@ostiary/core/components/app-icon";
 import { Badge } from "@ostiary/core/components/ui/badge";
@@ -77,12 +78,6 @@ export function ApplicationTableRow({
 }) {
   const t = useTranslations("admin.pages.applications.panel");
   const format = useFormatter();
-
-  function formatDate(iso: string) {
-    const date = new Date(iso);
-    if (Number.isNaN(date.getTime())) return "-";
-    return format.dateTime(date, { year: "numeric", month: "short", day: "numeric" });
-  }
 
   return (
     <TableRow>
@@ -164,7 +159,7 @@ export function ApplicationTableRow({
         <StatusBadge row={row} />
       </TableCell>
       <TableCell className="text-muted-foreground hidden text-sm xl:table-cell">
-        {formatDate(row.createdAt)}
+        {formatShortDate(row.createdAt, format)}
       </TableCell>
       <TableCell className="text-right">
         {row.registration === "admin" ? (

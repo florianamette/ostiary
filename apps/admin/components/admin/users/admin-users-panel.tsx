@@ -10,6 +10,7 @@ import { TableMessageRow, TablePagination, TableSearch } from "@/components/admi
 import { useDebouncedValue } from "@/components/admin/common/use-debounced-value";
 import { usePagination } from "@/components/admin/common/use-pagination";
 import { ExternalLink } from "@/components/admin/common/external-link";
+import { formatShortDate } from "@/components/admin/common/page-header";
 import { Alert, AlertDescription, AlertTitle } from "@ostiary/core/components/ui/alert";
 import { Badge } from "@ostiary/core/components/ui/badge";
 import {
@@ -31,16 +32,6 @@ import { authClient } from "@/lib/auth-client";
 import { cn } from "@ostiary/core/lib/utils";
 
 type RoleFilter = "all" | "admin" | "user";
-
-function formatUserDate(
-  value: Date | string | undefined | null,
-  format: ReturnType<typeof useFormatter>
-) {
-  if (value == null) return "-";
-  const d = value instanceof Date ? value : new Date(value);
-  if (Number.isNaN(d.getTime())) return "-";
-  return format.dateTime(d, { year: "numeric", month: "short", day: "numeric" });
-}
 
 type ListUser = {
   id: string;
@@ -251,7 +242,7 @@ export function AdminUsersPanel() {
                     </span>
                   </TableCell>
                   <TableCell className="text-muted-foreground hidden text-sm lg:table-cell">
-                    {formatUserDate(user.createdAt, format)}
+                    {formatShortDate(user.createdAt, format)}
                   </TableCell>
                   <TableCell className="text-right">
                     <AdminUserRowActions
