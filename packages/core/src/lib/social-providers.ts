@@ -280,7 +280,7 @@ export async function listSocialProviderSettings(): Promise<SocialProviderAdminV
     const row = rows.find((r) => r.id === id);
     const envValues = fromEnv[id];
     if (envValues) {
-      const { plain } = providerFieldKeys(id);
+      const { plain, secret } = providerFieldKeys(id);
       return {
         id,
         source: "environment",
@@ -289,7 +289,7 @@ export async function listSocialProviderSettings(): Promise<SocialProviderAdminV
         allowSignUp: row?.allowSignUp ?? true,
         oneTap: Boolean(row?.oneTap),
         config: Object.fromEntries(plain.filter((k) => envValues[k]).map((k) => [k, envValues[k]!])),
-        secretsSet: providerFieldKeys(id).secret.filter((k) => envValues[k]),
+        secretsSet: secret.filter((k) => envValues[k]),
         secretsUnreadable: false,
         missing: [],
         updatedAt: null,
