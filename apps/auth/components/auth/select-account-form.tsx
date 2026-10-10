@@ -14,6 +14,7 @@ import {
   CardTitle,
 } from "@ostiary/core/components/ui/card";
 import { addAccountHref, type DeviceAccount } from "@ostiary/core/lib/device-accounts";
+import { AuthFormFallback } from "@/components/auth/auth-form-fallback";
 import { useRouter } from "@/i18n/navigation";
 import { authClient } from "@/lib/auth-client";
 import { useDeviceAccounts } from "@/lib/device-sessions";
@@ -63,7 +64,7 @@ export function SelectAccountForm() {
   }
 
   if (isPending || !user || accounts === null) {
-    return <div className="h-64 w-full max-w-md animate-pulse rounded-xl bg-muted/60" />;
+    return <AuthFormFallback height="h-64" />;
   }
 
   return (

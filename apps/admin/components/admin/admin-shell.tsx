@@ -33,5 +33,3 @@ export function AdminShell({
     </TooltipProvider>
   );
 }
-
-export type { AdminSidebarUser };

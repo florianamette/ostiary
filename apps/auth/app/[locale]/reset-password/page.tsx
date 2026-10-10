@@ -1,16 +1,12 @@
+import { AuthFormFallback } from "@/components/auth/auth-form-fallback";
 import { AuthScreen } from "@/components/auth/auth-screen";
 import { authScreenApp } from "@/lib/app-context";
+import { appLinkOf } from "@/lib/app-links";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { Suspense } from "react";
 
 import { ResetPasswordForm } from "@/components/auth/reset-password-form";
-
-function ResetPasswordFallback() {
-  return (
-    <div className="h-80 w-full max-w-md animate-pulse rounded-xl bg-muted/60" />
-  );
-}
 
 export async function generateMetadata({
   params,
@@ -40,9 +36,9 @@ export default async function Page({
 
   return (
     <AuthScreen locale={locale} app={app} appIntent="continue">
-        <Suspense fallback={<ResetPasswordFallback />}>
-          <ResetPasswordForm appLink={app ? { token: app.token, resumePath: app.resumePath } : null} />
-        </Suspense>
+      <Suspense fallback={<AuthFormFallback />}>
+        <ResetPasswordForm appLink={appLinkOf(app)} />
+      </Suspense>
     </AuthScreen>
   );
 }

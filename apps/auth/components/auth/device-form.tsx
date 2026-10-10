@@ -5,6 +5,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
+import { AuthFormFallback } from "@/components/auth/auth-form-fallback";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "@/i18n/navigation";
 import { Button } from "@ostiary/core/components/ui/button";
@@ -161,7 +162,7 @@ export function DeviceForm() {
   }
 
   if (state.step === "loading") {
-    return <div className="h-80 w-full max-w-md animate-pulse rounded-xl bg-muted/60" />;
+    return <AuthFormFallback />;
   }
 
   if (state.step === "done") {

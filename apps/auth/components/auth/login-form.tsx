@@ -41,6 +41,45 @@ function needsTwoFactor(data: unknown): boolean {
   return typeof data === "object" && data !== null && "twoFactorRedirect" in data
 }
 
+/**
+ * After a sign-in that needs a second factor. Same query string: it carries the callbackURL
+ * and, for an app's sign-in, the signed OAuth request that resumes once the code is verified.
+ */
+function continueToTwoFactor(locale: string) {
+  // eslint-disable-next-line @next/next/no-location-assign-relative-destination -- full load: the sign-in set a two-factor cookie
+  window.location.assign(`/${locale}/two-factor${window.location.search}`)
+}
+
+/** The hint for a built-in sign-in method; null for social providers. */
+function lastUsedHintKey(method: string) {
+  switch (method) {
+    case "email":
+      return "lastUsedHintEmail"
+    case "username":
+      return "lastUsedHintUsername"
+    case "passkey":
+      return "lastUsedHintPasskey"
+    case "email-otp":
+      return "lastUsedHintEmailCode"
+    default:
+      return null
+  }
+}
+
+/** Better Auth's `?error=` after a failed social sign-in, as a key of auth.social. */
+function socialErrorKey(error: string) {
+  switch (error) {
+    case "account_not_linked":
+      return "notLinked"
+    case "email_not_found":
+      return "noEmail"
+    case "signup_disabled":
+      return "signUpDisabled"
+    default:
+      return "error"
+  }
+}
+
 export function LoginForm({
   className,
   socialProviders = [],
@@ -88,19 +127,12 @@ export function LoginForm({
   }, []);
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
     const cred = window.PublicKeyCredential;
     if (!cred?.isConditionalMediationAvailable?.()) return;
     void (async () => {
+      // Passkey autofill: errors (including a dismissed prompt) are silent.
       const res = await authClient.signIn.passkey({ autoFill: true });
-      if (res.error) {
-        const code =
-          "code" in res.error
-            ? (res.error as { code?: string }).code
-            : undefined;
-        if (code === "AUTH_CANCELLED") return;
-        return;
-      }
+      if (res.error) return;
       if (res.data) {
         window.location.assign(callbackURL);
       }
@@ -150,12 +182,7 @@ export function LoginForm({
             { username: trimmed, password, callbackURL },
             { headers, onError: handleSignInError },
           );
-      if (needsTwoFactor(data)) {
-        // Same query string: it carries the callbackURL and, for an app's sign-in, the
-        // signed OAuth request that resumes once the code is verified.
-        // eslint-disable-next-line @next/next/no-location-assign-relative-destination -- full load: the sign-in set a two-factor cookie
-        window.location.assign(`/${locale}/two-factor${window.location.search}`);
-      }
+      if (needsTwoFactor(data)) continueToTwoFactor(locale);
     } finally {
       captcha.reset();
       setIsSubmitting(false);
@@ -167,10 +194,7 @@ export function LoginForm({
     try {
       const res = await authClient.signIn.passkey({});
       if (res.error) {
-        const code =
-          "code" in res.error
-            ? (res.error as { code?: string }).code
-            : undefined;
+        const code = "code" in res.error ? (res.error as { code?: string }).code : undefined;
         if (code === "AUTH_CANCELLED") return;
         toast.error(
           String(res.error.message ?? t("errors.passkeyFailed")),
@@ -185,17 +209,18 @@ export function LoginForm({
     }
   }
 
+  const typedEmail = loginIdentifier.includes("@") ? loginIdentifier.trim() : undefined;
+  const lastUsedKey = lastUsedMethod ? lastUsedHintKey(lastUsedMethod) : null;
+
   if (mode === "code") {
     return (
       <div className={cn("flex flex-col gap-6", className)} {...props}>
         <EmailCodeSignIn
-          defaultEmail={loginIdentifier.includes("@") ? loginIdentifier.trim() : undefined}
+          defaultEmail={typedEmail}
           callbackURL={callbackURL}
           captcha={captchaConfig}
           onUsePassword={() => setMode("password")}
-          // Same query string as after a password: callbackURL and any signed OAuth request.
-          // eslint-disable-next-line @next/next/no-location-assign-relative-destination -- full load: the sign-in set a two-factor cookie
-          onTwoFactor={() => window.location.assign(`/${locale}/two-factor${window.location.search}`)}
+          onTwoFactor={() => continueToTwoFactor(locale)}
         />
       </div>
     );
@@ -213,7 +238,7 @@ export function LoginForm({
       ) : null}
       {showPostRegisterHint || needsVerification ? (
         <ResendVerification
-          defaultEmail={loginIdentifier.includes("@") ? loginIdentifier.trim() : undefined}
+          defaultEmail={typedEmail}
           callbackURL={callbackURL}
         />
       ) : null}
@@ -223,19 +248,13 @@ export function LoginForm({
           <CardDescription>{addingAccount ? t("addAccountDescription") : t("description")}</CardDescription>
           {lastUsedMethod ? (
             <p className="text-xs text-muted-foreground" role="note">
-              {lastUsedMethod === "email"
-                ? t("lastUsedHintEmail")
-                : lastUsedMethod === "username"
-                  ? t("lastUsedHintUsername")
-                  : lastUsedMethod === "passkey"
-                    ? t("lastUsedHintPasskey")
-                    : lastUsedMethod === "email-otp"
-                      ? t("lastUsedHintEmailCode")
-                      : t("lastUsedHintOther", {
-                        method:
-                          socialProviders.find((p) => p.id === lastUsedMethod)?.name ??
-                          formatLastUsedMethodLabel(lastUsedMethod),
-                      })}
+              {lastUsedKey
+                ? t(lastUsedKey)
+                : t("lastUsedHintOther", {
+                  method:
+                    socialProviders.find((p) => p.id === lastUsedMethod)?.name ??
+                    formatLastUsedMethodLabel(lastUsedMethod),
+                })}
             </p>
           ) : null}
         </CardHeader>
@@ -340,13 +359,7 @@ export function LoginForm({
                 <GoogleOneTap config={addingAccount ? null : oneTap} callbackURL={callbackURL} context="signin" />
                 {socialError ? (
                   <FieldDescription className="text-center text-destructive" role="alert">
-                    {socialError === "account_not_linked"
-                      ? tSocial("notLinked", { name: brand.name })
-                      : socialError === "email_not_found"
-                        ? tSocial("noEmail")
-                        : socialError === "signup_disabled"
-                          ? tSocial("signUpDisabled")
-                          : tSocial("error")}
+                    {tSocial(socialErrorKey(socialError), { name: brand.name })}
                   </FieldDescription>
                 ) : null}
                 <FieldDescription className="text-center">
@@ -358,12 +371,11 @@ export function LoginForm({
               </Field>
             </FieldGroup>
           </form>
-      <p className="text-center text-sm text-muted-foreground">
-        <Link href="/sso" className="underline-offset-4 hover:underline">
-          {tSso("signInLink")}
-        </Link>
-      </p>
-      
+          <p className="text-center text-sm text-muted-foreground">
+            <Link href="/sso" className="underline-offset-4 hover:underline">
+              {tSso("signInLink")}
+            </Link>
+          </p>
         </CardContent>
       </Card>
     </div>

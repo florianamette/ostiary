@@ -1,7 +1,6 @@
 "use server";
 
 import { and, count, eq, gt, isNotNull, sql } from "drizzle-orm";
-import { headers } from "next/headers";
 
 import { db } from "@ostiary/core/db/index";
 import { account, auditLog } from "@ostiary/core/db/schema";
@@ -12,7 +11,7 @@ import { RECENT_SIGN_IN_SECONDS } from "@ostiary/core/lib/auth-factory";
 import { clientIp } from "@ostiary/core/lib/auth-events";
 import { env } from "@ostiary/core/lib/env";
 import { getBaseURL } from "@ostiary/core/lib/url";
-import { auth } from "@/lib/auth";
+import { currentSession, signedInRecently } from "@/lib/server-session";
 
 /*
  * The dashboard's "Your data" section: export (GDPR access and portability) and what the
@@ -25,16 +24,6 @@ const EXPORTS_PER_HOUR = 3;
 const EXPORT_ACTION = "user.export_data";
 
 export type ExportError = "signedOut" | "impersonating" | "recentSignIn" | "rateLimited" | "failed";
-
-async function currentSession() {
-  const requestHeaders = await headers();
-  const session = await auth.api.getSession({ headers: requestHeaders });
-  return { session, requestHeaders };
-}
-
-function signedInRecently(createdAt: Date | string): boolean {
-  return Date.now() - new Date(createdAt).getTime() <= RECENT_SIGN_IN_SECONDS * 1000;
-}
 
 /**
  * The signed-in account's data as a JSON document, for a download. Like adding a passkey, it

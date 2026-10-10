@@ -1,6 +1,7 @@
 import { db } from "@ostiary/core/db/index";
 import { oauthResource } from "@ostiary/core/db/schema";
 import type { OAuthResourceMetadata } from "@ostiary/core/lib/oauth-resource-policy";
+import { refreshingCache } from "@ostiary/core/lib/refreshing-cache";
 
 /** Standard OpenID Connect scopes (Better Auth's defaults). */
 export const OIDC_SCOPES = ["openid", "profile", "email", "offline_access"] as const;
@@ -47,7 +48,7 @@ export function unrestrictedApiScopes(
 }
 
 /** API scopes: OAUTH_API_SCOPES, then the scopes of every enabled API in the database. */
-export async function loadApiScopes(): Promise<string[]> {
+async function loadApiScopes(): Promise<string[]> {
   const rows = await db
     .select({
       allowedScopes: oauthResource.allowedScopes,
@@ -65,42 +66,22 @@ export async function loadApiScopes(): Promise<string[]> {
  * from the database at most once a minute and writes it into the plugin's options, which the
  * endpoints read on every request (discovery, client registration, token issuance).
  */
-const REFRESH_MS = 60_000;
-
-/**
- * Shared through globalThis: bundlers and loaders may instantiate this module more than once
- * (Next.js server layers, tsx), and an admin change must reset the cache the auth instance reads.
- */
-type ScopeCache = { loadedAt: number; inFlight: Promise<string[]> | null; current: string[] };
-const cache = ((globalThis as { __ostiaryApiScopes?: ScopeCache }).__ostiaryApiScopes ??= {
-  loadedAt: 0,
-  inFlight: null,
-  current: [...ENV_API_SCOPES],
+const scopeCache = refreshingCache({
+  globalKey: "__ostiaryApiScopes",
+  refreshMs: 60_000,
+  initial: [...ENV_API_SCOPES],
+  load: loadApiScopes,
+  loadError: "Could not load the API scopes from the database",
 });
 
 /** Current API scopes, reloaded from the database when the cached list is older than a minute. */
 export async function currentApiScopes(): Promise<string[]> {
-  if (Date.now() - cache.loadedAt < REFRESH_MS) return cache.current;
-  cache.inFlight ??= loadApiScopes()
-    .then((scopes) => {
-      cache.current = scopes;
-      cache.loadedAt = Date.now();
-      return scopes;
-    })
-    .catch((error) => {
-      // Keep serving the previous list; retry on the next request.
-      console.error("Could not load the API scopes from the database", error);
-      return cache.current;
-    })
-    .finally(() => {
-      cache.inFlight = null;
-    });
-  return cache.inFlight;
+  return scopeCache.get();
 }
 
 /** Makes the next `currentApiScopes()` reload from the database (after an admin change). */
 export function invalidateApiScopes() {
-  cache.loadedAt = 0;
+  scopeCache.invalidate();
 }
 
 /** Writes the current scopes into the oauth-provider plugin's options. */

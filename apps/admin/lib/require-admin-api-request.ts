@@ -5,13 +5,13 @@ import { userHasAdminRole } from "@ostiary/core/lib/admin/user-has-admin-role";
 import { env } from "@ostiary/core/lib/env";
 import { auth } from "@/lib/auth";
 
-export type AdminApiAuthFailure = {
+type AdminApiAuthFailure = {
   ok: false;
   status: 401 | 403;
   message: string;
 };
 
-export type AdminApiAuthSuccess = {
+type AdminApiAuthSuccess = {
   ok: true;
   requestHeaders: Headers;
   actor: { id: string; email: string };

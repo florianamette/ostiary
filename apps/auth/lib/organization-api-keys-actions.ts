@@ -1,15 +1,12 @@
 "use server";
 
 import { and, eq } from "drizzle-orm";
-import { headers } from "next/headers";
 
 import { db } from "@ostiary/core/db/index";
 import { member, organization } from "@ostiary/core/db/schema";
 import {
-  API_KEY_NAME_MAX_LENGTH,
   canManageOrganizationKeys,
   grantPermissions,
-  lifetimeChoices,
   MAX_KEYS_PER_ORGANIZATION,
   ORGANIZATION_KEY_CONFIG_ID,
   organizationMayOwnKeys,
@@ -18,21 +15,24 @@ import {
 import {
   apiKeyAuditMetadata,
   apiKeyAuditTarget,
-  apisAcceptingKeys,
   countOrganizationApiKeys,
   currentApiKeySettings,
   deleteApiKey,
   findKeyApi,
   listOrganizationApiKeys,
   setApiKeyCreator,
-  type ApiKeyListItem,
 } from "@ostiary/core/lib/api-keys";
 import { recordAudit } from "@ostiary/core/lib/audit";
-import { RECENT_SIGN_IN_SECONDS } from "@ostiary/core/lib/auth-factory";
 import { clientIp } from "@ostiary/core/lib/auth-events";
 import { env } from "@ostiary/core/lib/env";
 import { auth } from "@/lib/auth";
+import {
+  apiKeysOverview,
+  createdApiKeyItem,
+  type CreatedApiKey,
+} from "@/lib/api-key-actions-shared";
 import { serializeApiKey, type MyApiKey } from "@/lib/api-key-serialize";
+import { currentSession, signedInRecently } from "@/lib/server-session";
 import type { CreateApiKeyError, MyApiKeys } from "@/lib/api-keys-actions";
 
 /*
@@ -42,12 +42,6 @@ import type { CreateApiKeyError, MyApiKeys } from "@/lib/api-keys-actions";
  * keys; members do not see them (key names, APIs and creators are the admins' business). The
  * plugin re-checks the role on creation (organization access control, see the auth factory).
  */
-
-async function currentSession() {
-  const requestHeaders = await headers();
-  const session = await auth.api.getSession({ headers: requestHeaders });
-  return { session, requestHeaders };
-}
 
 /** The organization, if the user is an owner or admin of it and it may own keys. */
 async function managedOrganization(userId: string, organizationId: unknown) {
@@ -80,20 +74,7 @@ export async function getOrganizationApiKeys(organizationId: string): Promise<My
   if (!session) return null;
   const org = await managedOrganization(session.user.id, organizationId);
   if (!org) return null;
-  const [settings, apis, keys] = await Promise.all([
-    currentApiKeySettings(),
-    apisAcceptingKeys(env.AUTH_APP_URL),
-    listOrganizationApiKeys(org.id),
-  ]);
-  return {
-    enabled: settings.enabled,
-    maxLifetimeDays: settings.maxLifetimeDays,
-    lifetimeChoices: lifetimeChoices(settings.maxLifetimeDays),
-    nameMaxLength: API_KEY_NAME_MAX_LENGTH,
-    maxKeys: MAX_KEYS_PER_ORGANIZATION,
-    apis: settings.enabled ? apis.map(({ identifier, name, scopes }) => ({ identifier, name, scopes })) : [],
-    keys: keys.map(serializeApiKey),
-  };
+  return apiKeysOverview(listOrganizationApiKeys(org.id), MAX_KEYS_PER_ORGANIZATION);
 }
 
 /**
@@ -110,9 +91,7 @@ export async function createOrganizationApiKey(
   if (session.session.impersonatedBy) return { ok: false, error: "impersonating" };
   const org = await managedOrganization(session.user.id, organizationId);
   if (!org) return { ok: false, error: "forbidden" };
-  if (Date.now() - new Date(session.session.createdAt).getTime() > RECENT_SIGN_IN_SECONDS * 1000) {
-    return { ok: false, error: "recentSignIn" };
-  }
+  if (!signedInRecently(session.session.createdAt)) return { ok: false, error: "recentSignIn" };
   const userId = session.user.id;
   const [settings, api, keysHeld] = await Promise.all([
     currentApiKeySettings(),
@@ -129,7 +108,7 @@ export async function createOrganizationApiKey(
   if (!checked.ok) return checked;
   const { name, grant, expiresInSeconds } = checked.value;
 
-  let created: { id: string; key: string; start: string | null; createdAt: Date; expiresAt: Date | null };
+  let created: CreatedApiKey;
   try {
     // A server call: the plugin sets `permissions`, makes the organization the owner and checks
     // that `userId` may create its keys (organization role).
@@ -148,19 +127,14 @@ export async function createOrganizationApiKey(
     console.error("Could not create an organization API key", error);
     return { ok: false, error: "failed" };
   }
-  const item: ApiKeyListItem = {
-    id: created.id,
+  const item = createdApiKeyItem(created, {
     name,
-    start: created.start,
     api: grant.api,
     apiName: api?.name ?? null,
     scopes: grant.scopes,
-    createdAt: new Date(created.createdAt),
-    lastUsedAt: null,
-    expiresAt: created.expiresAt ? new Date(created.expiresAt) : null,
     owner: { type: "organization", id: org.id, name: org.name, slug: "" },
     createdBy: { id: userId, email: session.user.email, name: session.user.name },
-  };
+  });
   await recordAudit({
     actor: { id: userId, email: session.user.email },
     action: "api_key.create",

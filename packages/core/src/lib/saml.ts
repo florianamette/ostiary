@@ -19,13 +19,13 @@ export * from "@ostiary/core/lib/saml-presets";
 /** Same cap as the plugin's `maxMetadataSize` default. */
 export const MAX_SAML_METADATA_BYTES = 100 * 1024;
 /** Same cap as the plugin's `maxResponseSize` default. */
-export const MAX_SAML_RESPONSE_BYTES = 256 * 1024;
+const MAX_SAML_RESPONSE_BYTES = 256 * 1024;
 /** Tolerance for IdP clock drift on NotBefore / NotOnOrAfter (the plugin's default is 5 minutes). */
 export const SAML_CLOCK_SKEW_MS = 60_000;
 
 const MD_NS = "urn:oasis:names:tc:SAML:2.0:metadata";
 const DSIG_NS = "http://www.w3.org/2000/09/xmldsig#";
-export const SAML_REDIRECT_BINDING = "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect";
+const SAML_REDIRECT_BINDING = "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect";
 
 // ---------------------------------------------------------------------------------------------
 // XML safety

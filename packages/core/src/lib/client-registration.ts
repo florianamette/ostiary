@@ -1,7 +1,9 @@
 import { and, desc, eq, gt, isNotNull, not, sql } from "drizzle-orm";
 
 import { db } from "@ostiary/core/db/index";
-import { appSetting, oauthClient } from "@ostiary/core/db/schema";
+import { oauthClient } from "@ostiary/core/db/schema";
+import { readAppSetting, writeAppSetting } from "@ostiary/core/lib/app-settings";
+import { refreshingCache } from "@ostiary/core/lib/refreshing-cache";
 import {
   applyClientRegistration,
   DEFAULT_CLIENT_REGISTRATION_SETTINGS,
@@ -16,66 +18,30 @@ import {
 /** Row key in `app_setting`. */
 const SETTINGS_KEY = "client_registration";
 
-/**
- * Like the API scopes (see oauth-scopes.ts), each instance reloads the settings at most once
- * a minute, so a change made in the admin console reaches the auth app within a minute.
- */
-const REFRESH_MS = 60_000;
-
-type SettingsCache = {
-  loadedAt: number;
-  inFlight: Promise<ClientRegistrationSettings> | null;
-  current: ClientRegistrationSettings;
-};
-const cache = ((globalThis as { __ostiaryClientRegistration?: SettingsCache }).__ostiaryClientRegistration ??= {
-  loadedAt: 0,
-  inFlight: null,
-  current: DEFAULT_CLIENT_REGISTRATION_SETTINGS,
-});
-
 export async function loadClientRegistrationSettings(): Promise<ClientRegistrationSettings> {
-  const [row] = await db
-    .select({ value: appSetting.value })
-    .from(appSetting)
-    .where(eq(appSetting.key, SETTINGS_KEY))
-    .limit(1);
-  return parseClientRegistrationSettings(row?.value);
+  return parseClientRegistrationSettings(await readAppSetting(SETTINGS_KEY));
 }
+
+/** Off until a first successful load; each instance reloads it at most once a minute. */
+const settingsCache = refreshingCache({
+  globalKey: "__ostiaryClientRegistration",
+  refreshMs: 60_000,
+  initial: DEFAULT_CLIENT_REGISTRATION_SETTINGS,
+  load: loadClientRegistrationSettings,
+  loadError: "Could not load the client registration settings",
+});
 
 /** Current settings, reloaded from the database when the cached copy is older than a minute. */
 export async function currentClientRegistrationSettings(): Promise<ClientRegistrationSettings> {
-  if (Date.now() - cache.loadedAt < REFRESH_MS) return cache.current;
-  cache.inFlight ??= loadClientRegistrationSettings()
-    .then((settings) => {
-      cache.current = settings;
-      cache.loadedAt = Date.now();
-      return settings;
-    })
-    .catch((error) => {
-      // Keep the previous settings (off until a first successful load); retry next request.
-      console.error("Could not load the client registration settings", error);
-      return cache.current;
-    })
-    .finally(() => {
-      cache.inFlight = null;
-    });
-  return cache.inFlight;
-}
-
-export function invalidateClientRegistrationSettings() {
-  cache.loadedAt = 0;
+  return settingsCache.get();
 }
 
 export async function saveClientRegistrationSettings(
   settings: ClientRegistrationSettings,
   updatedBy: string | null,
 ): Promise<void> {
-  const now = new Date();
-  await db
-    .insert(appSetting)
-    .values({ key: SETTINGS_KEY, value: settings, updatedAt: now, updatedBy })
-    .onConflictDoUpdate({ target: appSetting.key, set: { value: settings, updatedAt: now, updatedBy } });
-  invalidateClientRegistrationSettings();
+  await writeAppSetting(SETTINGS_KEY, settings, updatedBy);
+  settingsCache.invalidate();
 }
 
 /** Writes the current settings into the oauth-provider plugin's options (once per request). */
@@ -95,7 +61,7 @@ export async function syncClientRegistration(
 const selfRegistered = not(oauthClient.adminRegistered);
 
 /** Self-registered clients created in the last hour, on every instance. */
-export async function countRecentSelfRegistrations(): Promise<number> {
+async function countRecentSelfRegistrations(): Promise<number> {
   const since = new Date(Date.now() - 60 * 60 * 1000);
   const [row] = await db
     .select({ count: sql<number>`count(*)::int` })

@@ -9,7 +9,7 @@ import { checkWebhookUrl, type Lookup, type ResolvedAddress } from "@ostiary/cor
  * twice, and each target goes through the same checks.
  */
 
-export const ICON_FETCH_TIMEOUT_MS = 3_000;
+const ICON_FETCH_TIMEOUT_MS = 3_000;
 export const MAX_REDIRECTS = 2;
 const USER_AGENT = "Mozilla/5.0 (compatible; OstiaryIconFetcher/1.0; +https://github.com/florianamette/ostiary)";
 

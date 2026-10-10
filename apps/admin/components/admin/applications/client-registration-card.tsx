@@ -1,10 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { Loader2, Settings2Icon } from "lucide-react";
+import { Settings2Icon } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
 
 import { Badge } from "@ostiary/core/components/ui/badge";
 import { Button } from "@ostiary/core/components/ui/button";
@@ -20,13 +18,11 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@ostiary/core/components/ui/dialog";
 import { Field, FieldDescription, FieldGroup, FieldLabel } from "@ostiary/core/components/ui/field";
 import { Input } from "@ostiary/core/components/ui/input";
-import { Label } from "@ostiary/core/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -40,6 +36,9 @@ import type {
   DynamicRegistrationMode,
 } from "@ostiary/core/lib/client-registration-policy";
 import { updateClientRegistration } from "@/app/[locale]/(console)/applications/actions";
+import { CheckboxField } from "@/components/admin/common/choice-field";
+import { DialogActions } from "@/components/admin/common/dialog-actions";
+import { useAdminAction } from "@/components/admin/common/use-admin-action";
 
 /** Display order of the modes; labels and hints are in `admin.pages.applications.registration.dynamic`. */
 const DYNAMIC_MODES: DynamicRegistrationMode[] = ["off", "signed_in", "open"];
@@ -157,8 +156,7 @@ function ClientRegistrationDialog({
 }) {
   const t = useTranslations("admin.pages.applications.registration");
   const tCommon = useTranslations("admin.common");
-  const router = useRouter();
-  const [busy, setBusy] = React.useState(false);
+  const { busy, run } = useAdminAction(onClose);
   const [dynamic, setDynamic] = React.useState<DynamicRegistrationMode>(settings.dynamic);
   const [metadataDocuments, setMetadataDocuments] = React.useState(settings.metadataDocuments);
   const [hosts, setHosts] = React.useState(settings.metadataDocumentHosts.join("\n"));
@@ -180,27 +178,19 @@ function ClientRegistrationDialog({
     });
   }
 
-  async function save(e: React.FormEvent) {
+  function save(e: React.FormEvent) {
     e.preventDefault();
-    setBusy(true);
-    try {
-      const res = await updateClientRegistration({
-        dynamic,
-        metadataDocuments,
-        scopes: ordered.filter((scope) => scopes.has(scope)),
-        metadataDocumentHosts: hosts,
-        maxRegistrationsPerHour: Number(max),
-      });
-      if (!res.ok) {
-        toast.error(res.error);
-        return;
-      }
-      toast.success(t("saved"));
-      onClose();
-      router.refresh();
-    } finally {
-      setBusy(false);
-    }
+    void run(
+      () =>
+        updateClientRegistration({
+          dynamic,
+          metadataDocuments,
+          scopes: ordered.filter((scope) => scopes.has(scope)),
+          metadataDocumentHosts: hosts,
+          maxRegistrationsPerHour: Number(max),
+        }),
+      t("saved"),
+    );
   }
 
   return (
@@ -229,24 +219,14 @@ function ClientRegistrationDialog({
               <FieldDescription>{t(`dynamic.${dynamic}.hint`)}</FieldDescription>
             </Field>
             <Field>
-              <div className="flex gap-3 rounded-md border border-border/80 bg-muted/30 p-3">
-                <input
-                  id="registration-cimd"
-                  type="checkbox"
-                  className="mt-0.5 size-4 shrink-0 rounded border-input"
-                  checked={metadataDocuments}
-                  disabled={busy}
-                  onChange={(e) => setMetadataDocuments(e.target.checked)}
-                />
-                <div className="grid gap-1">
-                  <Label htmlFor="registration-cimd" className="cursor-pointer font-medium leading-none">
-                    {t("cimdLabel")}
-                  </Label>
-                  <p className="text-muted-foreground text-xs leading-snug">
-                    {t("cimdHint")}
-                  </p>
-                </div>
-              </div>
+              <CheckboxField
+                id="registration-cimd"
+                checked={metadataDocuments}
+                onChange={setMetadataDocuments}
+                disabled={busy}
+                label={t("cimdLabel")}
+                hint={t("cimdHint")}
+              />
             </Field>
             {metadataDocuments ? (
               <Field>
@@ -305,15 +285,7 @@ function ClientRegistrationDialog({
               </FieldDescription>
             </Field>
           </FieldGroup>
-          <DialogFooter>
-            <Button type="button" variant="outline" disabled={busy} onClick={onClose}>
-              {tCommon("cancel")}
-            </Button>
-            <Button type="submit" disabled={busy}>
-              {busy ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
-              {tCommon("save")}
-            </Button>
-          </DialogFooter>
+          <DialogActions busy={busy} onCancel={onClose} confirmLabel={tCommon("save")} />
         </form>
       </DialogContent>
     </Dialog>

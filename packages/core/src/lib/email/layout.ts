@@ -12,7 +12,7 @@ import { getBaseURL } from "@ostiary/core/lib/url";
  * apps); everywhere else the light version shows.
  */
 
-export function escapeHtml(s: string): string {
+function escapeHtml(s: string): string {
   return s
     .replaceAll("&", "&amp;")
     .replaceAll("<", "&lt;")

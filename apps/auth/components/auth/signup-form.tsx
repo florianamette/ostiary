@@ -29,6 +29,14 @@ import { useCaptcha } from "@/components/auth/captcha"
 import type { CaptchaConfig } from "@ostiary/core/lib/captcha-providers"
 import { rateLimitMessage } from "@ostiary/core/lib/rate-limit-message"
 import { withAppContext, type AppLink } from "@/lib/app-links"
+import {
+  checkUsernameAvailabilitySoon,
+  hasUsernameCharacters,
+  USERNAME_MIN_LENGTH,
+  usernameProblem,
+  type UsernameStatus,
+} from "@/lib/username"
+import { UsernameStatusHint } from "@/components/auth/username-status-hint"
 
 export function SignupForm({
   socialProviders = [],
@@ -55,12 +63,11 @@ export function SignupForm({
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [username, setUsername] = useState<string>("");
-  const [usernameStatus, setUsernameStatus] = useState<
-    "idle" | "checking" | "available" | "taken" | "invalid"
-  >("idle");
+  const [usernameStatus, setUsernameStatus] = useState<UsernameStatus>("idle");
   const [passwordMismatch, setPasswordMismatch] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const captcha = useCaptcha(captchaConfig)
+  const socialCallbackURL = appLink?.resumePath ?? `/${locale}/dashboard`
 
   const resetForm = () => {
     setName("")
@@ -74,28 +81,15 @@ export function SignupForm({
 
   useEffect(() => {
     const trimmed = username.trim();
-    if (trimmed.length < 3) {
+    if (trimmed.length < USERNAME_MIN_LENGTH) {
       setUsernameStatus("idle");
       return;
     }
-    if (!/^[a-zA-Z0-9_.]+$/.test(trimmed)) {
+    if (!hasUsernameCharacters(trimmed)) {
       setUsernameStatus("invalid");
       return;
     }
-    setUsernameStatus("checking");
-    const timer = window.setTimeout(() => {
-      void (async () => {
-        const { data, error } = await authClient.isUsernameAvailable({
-          username: trimmed,
-        });
-        if (error) {
-          setUsernameStatus("idle");
-          return;
-        }
-        setUsernameStatus(data?.available ? "available" : "taken");
-      })();
-    }, 400);
-    return () => window.clearTimeout(timer);
+    return checkUsernameAvailabilitySoon(trimmed, setUsernameStatus);
   }, [username]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -108,22 +102,10 @@ export function SignupForm({
     setPasswordMismatch(false)
 
     const trimmedUsername = username.trim();
-    if (trimmedUsername.length < 3) {
-      toast.error(t("errors.usernameTooShort"));
+    const problem = await usernameProblem(trimmedUsername, usernameStatus);
+    if (problem) {
+      toast.error(t(`errors.${problem}`));
       return;
-    }
-    if (!/^[a-zA-Z0-9_.]+$/.test(trimmedUsername)) {
-      toast.error(t("errors.usernameInvalid"));
-      return;
-    }
-    if (usernameStatus !== "available") {
-      const { data } = await authClient.isUsernameAvailable({
-        username: trimmedUsername,
-      });
-      if (!data?.available) {
-        toast.error(t("errors.usernameTaken"));
-        return;
-      }
     }
 
     const headers = captcha.headers()
@@ -219,26 +201,16 @@ export function SignupForm({
                 onChange={(e) => setUsername(e.target.value)}
               />
               <FieldDescription>{t("usernameHint")}</FieldDescription>
-              {username.trim().length >= 3 ? (
-                <FieldDescription
-                  className={
-                    usernameStatus === "taken" || usernameStatus === "invalid"
-                      ? "text-destructive"
-                      : usernameStatus === "available"
-                        ? "text-emerald-600 dark:text-emerald-500"
-                        : undefined
-                  }
-                >
-                  {usernameStatus === "checking"
-                    ? t("usernameChecking")
-                    : usernameStatus === "available"
-                      ? t("usernameAvailable")
-                      : usernameStatus === "taken"
-                        ? t("usernameTaken")
-                        : usernameStatus === "invalid"
-                          ? t("usernameInvalidHint")
-                          : null}
-                </FieldDescription>
+              {username.trim().length >= USERNAME_MIN_LENGTH ? (
+                <UsernameStatusHint
+                  status={usernameStatus}
+                  messages={{
+                    checking: t("usernameChecking"),
+                    available: t("usernameAvailable"),
+                    taken: t("usernameTaken"),
+                    invalid: t("usernameInvalidHint"),
+                  }}
+                />
               ) : null}
             </Field>
             <Field>
@@ -301,10 +273,10 @@ export function SignupForm({
               </Button>
               <SocialSignInButtons
                 providers={socialProviders}
-                callbackURL={appLink?.resumePath ?? `/${locale}/dashboard`}
+                callbackURL={socialCallbackURL}
                 disabled={isSubmitting}
               />
-              <GoogleOneTap config={oneTap} callbackURL={appLink?.resumePath ?? `/${locale}/dashboard`} context="signup" />
+              <GoogleOneTap config={oneTap} callbackURL={socialCallbackURL} context="signup" />
               <FieldDescription className="text-center sm:px-6">
                 {t("hasAccount")}{" "}
                 <Link

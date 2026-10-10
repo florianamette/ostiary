@@ -1,31 +1,30 @@
 "use server";
 
-import { headers } from "next/headers";
-
 import {
-  API_KEY_NAME_MAX_LENGTH,
   grantPermissions,
-  lifetimeChoices,
   MAX_KEYS_PER_USER,
   validateNewKey,
   type NewKeyError,
 } from "@ostiary/core/lib/api-key-policy";
 import {
   apiKeyAuditMetadata,
-  apisAcceptingKeys,
   countUserApiKeys,
   currentApiKeySettings,
   deleteApiKey,
   findKeyApi,
   listUserApiKeys,
-  type ApiKeyListItem,
 } from "@ostiary/core/lib/api-keys";
 import { recordAudit } from "@ostiary/core/lib/audit";
-import { RECENT_SIGN_IN_SECONDS } from "@ostiary/core/lib/auth-factory";
 import { clientIp } from "@ostiary/core/lib/auth-events";
 import { env } from "@ostiary/core/lib/env";
 import { auth } from "@/lib/auth";
+import {
+  apiKeysOverview,
+  createdApiKeyItem,
+  type CreatedApiKey,
+} from "@/lib/api-key-actions-shared";
 import { serializeApiKey, type MyApiKey } from "@/lib/api-key-serialize";
+import { currentSession, signedInRecently } from "@/lib/server-session";
 
 /*
  * The account dashboard's API keys. The plugin's own HTTP endpoints are closed (see the auth
@@ -46,30 +45,11 @@ export type MyApiKeys = {
 
 export type CreateApiKeyError = NewKeyError | "signedOut" | "impersonating" | "recentSignIn" | "forbidden" | "failed";
 
-async function currentSession() {
-  const requestHeaders = await headers();
-  const session = await auth.api.getSession({ headers: requestHeaders });
-  return { session, requestHeaders };
-}
-
 /** The signed-in user's keys and what they may create; null when signed out. */
 export async function getMyApiKeys(): Promise<MyApiKeys | null> {
   const { session } = await currentSession();
   if (!session) return null;
-  const [settings, apis, keys] = await Promise.all([
-    currentApiKeySettings(),
-    apisAcceptingKeys(env.AUTH_APP_URL),
-    listUserApiKeys(session.user.id),
-  ]);
-  return {
-    enabled: settings.enabled,
-    maxLifetimeDays: settings.maxLifetimeDays,
-    lifetimeChoices: lifetimeChoices(settings.maxLifetimeDays),
-    nameMaxLength: API_KEY_NAME_MAX_LENGTH,
-    maxKeys: MAX_KEYS_PER_USER,
-    apis: settings.enabled ? apis.map(({ identifier, name, scopes }) => ({ identifier, name, scopes })) : [],
-    keys: keys.map(serializeApiKey),
-  };
+  return apiKeysOverview(listUserApiKeys(session.user.id), MAX_KEYS_PER_USER);
 }
 
 /**
@@ -86,9 +66,7 @@ export async function createMyApiKey(input: {
   const { session, requestHeaders } = await currentSession();
   if (!session) return { ok: false, error: "signedOut" };
   if (session.session.impersonatedBy) return { ok: false, error: "impersonating" };
-  if (Date.now() - new Date(session.session.createdAt).getTime() > RECENT_SIGN_IN_SECONDS * 1000) {
-    return { ok: false, error: "recentSignIn" };
-  }
+  if (!signedInRecently(session.session.createdAt)) return { ok: false, error: "recentSignIn" };
   const userId = session.user.id;
   const [settings, api, keysHeld] = await Promise.all([
     currentApiKeySettings(),
@@ -99,7 +77,7 @@ export async function createMyApiKey(input: {
   if (!checked.ok) return checked;
   const { name, grant, expiresInSeconds } = checked.value;
 
-  let created: { id: string; key: string; start: string | null; createdAt: Date; expiresAt: Date | null };
+  let created: CreatedApiKey;
   try {
     // A server call (no headers): the plugin lets the server set `permissions` and the owner.
     created = await auth.api.createApiKey({
@@ -109,19 +87,14 @@ export async function createMyApiKey(input: {
     console.error("Could not create an API key", error);
     return { ok: false, error: "failed" };
   }
-  const item: ApiKeyListItem = {
-    id: created.id,
+  const item = createdApiKeyItem(created, {
     name,
-    start: created.start,
     api: grant.api,
     apiName: api?.name ?? null,
     scopes: grant.scopes,
-    createdAt: new Date(created.createdAt),
-    lastUsedAt: null,
-    expiresAt: created.expiresAt ? new Date(created.expiresAt) : null,
     owner: { type: "user", id: userId, email: session.user.email, name: session.user.name },
     createdBy: null,
-  };
+  });
   await recordAudit({
     actor: { id: userId, email: session.user.email },
     action: "api_key.create",

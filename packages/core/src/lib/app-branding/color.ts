@@ -36,7 +36,7 @@ function toHex([r, g, b]: [number, number, number]): string {
 }
 
 /** WCAG relative luminance of an sRGB color. */
-export function relativeLuminance(hex: string): number {
+function relativeLuminance(hex: string): number {
   const [r, g, b] = channels(hex).map((c) => {
     const s = c / 255;
     return s <= 0.04045 ? s / 12.92 : ((s + 0.055) / 1.055) ** 2.4;

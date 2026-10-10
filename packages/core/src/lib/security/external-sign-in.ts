@@ -2,8 +2,9 @@
  * Sign-ins that start a session without the password step: social providers (redirect, ID
  * token, Google One Tap), enterprise SSO (OIDC and SAML) and the email verification link that
  * signs in. For an account with two-factor authentication these stop at the same second step
- * as a password, see auth-factory.ts (externalSignInTwoFactor). Passkeys are already two
- * factors; password and sign-in code endpoints are handled by the two-factor plugin itself.
+ * as a password, see auth-hooks/sign-in-plugins.ts (externalSignInTwoFactor). Passkeys are
+ * already two factors; password and sign-in code endpoints are handled by the two-factor
+ * plugin itself.
  */
 
 import { resolveSafeRedirect } from "@ostiary/core/lib/safe-redirect";

@@ -28,7 +28,7 @@ import { adminActor } from "@/lib/admin-audit";
 
 type Result = { ok: true } | { ok: false; error: string };
 
-export type ClientRegistrationInput = {
+type ClientRegistrationInput = {
   dynamic: DynamicRegistrationMode;
   metadataDocuments: boolean;
   scopes: string[];

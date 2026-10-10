@@ -1,10 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { Loader2, Settings2Icon } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { Settings2Icon } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { toast } from "sonner";
 
 import { Badge } from "@ostiary/core/components/ui/badge";
 import { Button } from "@ostiary/core/components/ui/button";
@@ -20,14 +18,15 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@ostiary/core/components/ui/dialog";
 import { Field, FieldDescription, FieldGroup, FieldLabel } from "@ostiary/core/components/ui/field";
 import { Input } from "@ostiary/core/components/ui/input";
-import { Label } from "@ostiary/core/components/ui/label";
 import { updateApiKeySettings } from "@/app/[locale]/(console)/api-keys/actions";
+import { CheckboxField } from "@/components/admin/common/choice-field";
+import { DialogActions } from "@/components/admin/common/dialog-actions";
+import { useAdminAction } from "@/components/admin/common/use-admin-action";
 
 type Settings = { enabled: boolean; maxLifetimeDays: number };
 
@@ -117,26 +116,13 @@ function ApiKeySettingsDialog({
 }) {
   const t = useTranslations("admin.pages.apiKeys");
   const tc = useTranslations("admin.common");
-  const router = useRouter();
-  const [busy, setBusy] = React.useState(false);
+  const { busy, run } = useAdminAction(onClose);
   const [enabled, setEnabled] = React.useState(settings.enabled);
   const [days, setDays] = React.useState(String(settings.maxLifetimeDays));
 
-  async function save(e: React.FormEvent) {
+  function save(e: React.FormEvent) {
     e.preventDefault();
-    setBusy(true);
-    try {
-      const res = await updateApiKeySettings({ enabled, maxLifetimeDays: Number(days) });
-      if (!res.ok) {
-        toast.error(res.error);
-        return;
-      }
-      toast.success(t("dialog.saved"));
-      onClose();
-      router.refresh();
-    } finally {
-      setBusy(false);
-    }
+    void run(() => updateApiKeySettings({ enabled, maxLifetimeDays: Number(days) }), t("dialog.saved"));
   }
 
   return (
@@ -151,24 +137,14 @@ function ApiKeySettingsDialog({
           </DialogHeader>
           <FieldGroup>
             <Field>
-              <div className="flex gap-3 rounded-md border border-border/80 bg-muted/30 p-3">
-                <input
-                  id="api-keys-enabled"
-                  type="checkbox"
-                  className="mt-0.5 size-4 shrink-0 rounded border-input"
-                  checked={enabled}
-                  disabled={busy}
-                  onChange={(e) => setEnabled(e.target.checked)}
-                />
-                <div className="grid gap-1">
-                  <Label htmlFor="api-keys-enabled" className="cursor-pointer font-medium leading-none">
-                    {t("dialog.allowLabel")}
-                  </Label>
-                  <p className="text-muted-foreground text-xs leading-snug">
-                    {t("dialog.allowHint")}
-                  </p>
-                </div>
-              </div>
+              <CheckboxField
+                id="api-keys-enabled"
+                checked={enabled}
+                onChange={setEnabled}
+                disabled={busy}
+                label={t("dialog.allowLabel")}
+                hint={t("dialog.allowHint")}
+              />
             </Field>
             <Field>
               <FieldLabel htmlFor="api-keys-max">{t("dialog.maxLifetimeLabel")}</FieldLabel>
@@ -187,15 +163,7 @@ function ApiKeySettingsDialog({
               <FieldDescription>{t("dialog.maxLifetimeHint", { max: String(maxLifetimeLimit) })}</FieldDescription>
             </Field>
           </FieldGroup>
-          <DialogFooter>
-            <Button type="button" variant="outline" disabled={busy} onClick={onClose}>
-              {tc("cancel")}
-            </Button>
-            <Button type="submit" disabled={busy}>
-              {busy ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
-              {tc("save")}
-            </Button>
-          </DialogFooter>
+          <DialogActions busy={busy} onCancel={onClose} confirmLabel={tc("save")} />
         </form>
       </DialogContent>
     </Dialog>

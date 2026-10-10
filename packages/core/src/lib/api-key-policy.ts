@@ -22,7 +22,7 @@ export const DEFAULT_API_KEY_SETTINGS: ApiKeySettings = { enabled: false, maxLif
 export const MAX_LIFETIME_DAYS_LIMIT = 365;
 
 /** Lifetimes offered when creating a key, in days (those above the setting are hidden). */
-export const LIFETIME_CHOICES_DAYS = [7, 30, 90, 180, 365] as const;
+const LIFETIME_CHOICES_DAYS = [7, 30, 90, 180, 365] as const;
 
 export const API_KEY_NAME_MAX_LENGTH = 64;
 
@@ -46,7 +46,7 @@ export function keyOwnerType(configId: string | null | undefined): KeyOwnerType 
 }
 
 /** Organization roles that may create, list and revoke the organization's keys. */
-export const ORGANIZATION_KEY_MANAGER_ROLES = ["owner", "admin"] as const;
+const ORGANIZATION_KEY_MANAGER_ROLES = ["owner", "admin"] as const;
 
 /** Whether a member's role (Better Auth stores several as "a,b") lets them manage org keys. */
 export function canManageOrganizationKeys(role: string | null | undefined): boolean {

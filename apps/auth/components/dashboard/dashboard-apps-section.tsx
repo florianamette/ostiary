@@ -14,15 +14,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@ostiary/core/components/ui/card";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@ostiary/core/components/ui/dialog";
 import { Skeleton } from "@ostiary/core/components/ui/skeleton";
+import { ConfirmDialog } from "@/components/dashboard/confirm-dialog";
 import { authClient } from "@/lib/auth-client";
 import { disconnectMyApp, getMyConnectedApps } from "@/lib/connected-apps-actions";
 import type { ConnectedApp } from "@/lib/connected-apps";
@@ -236,37 +229,15 @@ export function DashboardAppsSection() {
         )}
       </CardContent>
 
-      <Dialog
+      <ConfirmDialog
         open={pendingRevoke !== null}
-        onOpenChange={(open) => {
-          if (!open) setPendingRevoke(null);
-        }}
-      >
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>
-              {t("confirmRevokeTitle", { app: pendingRevoke?.name ?? "" })}
-            </DialogTitle>
-            <DialogDescription>{t("confirmRevokeBody")}</DialogDescription>
-          </DialogHeader>
-          <DialogFooter>
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => setPendingRevoke(null)}
-            >
-              {t("cancel")}
-            </Button>
-            <Button
-              type="button"
-              variant="destructive"
-              onClick={() => void confirmRevoke()}
-            >
-              {t("disconnect")}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+        title={t("confirmRevokeTitle", { app: pendingRevoke?.name ?? "" })}
+        description={t("confirmRevokeBody")}
+        cancelLabel={t("cancel")}
+        confirmLabel={t("disconnect")}
+        onCancel={() => setPendingRevoke(null)}
+        onConfirm={() => void confirmRevoke()}
+      />
     </Card>
   );
 }

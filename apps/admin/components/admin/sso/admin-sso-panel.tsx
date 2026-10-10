@@ -19,7 +19,6 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@ostiary/core/components/ui/dialog";
@@ -34,6 +33,8 @@ import {
 } from "@ostiary/core/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@ostiary/core/components/ui/tabs";
 import { authClient } from "@/lib/auth-client";
+import { DialogActions } from "@/components/admin/common/dialog-actions";
+import { useAdminAction } from "@/components/admin/common/use-admin-action";
 import {
   SamlDetailsDialogBody,
   SamlEditDialogBody,
@@ -47,7 +48,7 @@ import {
   updateSsoProvider,
 } from "@/app/[locale]/(console)/sso/actions";
 
-export type SsoProviderRow = {
+type SsoProviderRow = {
   providerId: string;
   issuer: string;
   domain: string;
@@ -111,10 +112,12 @@ export function AdminSsoPanel({
     setSubmitting(true);
     try {
       const id = providerId.trim();
+      const issuerUrl = issuer.trim();
+      const emailDomain = domain.trim().toLowerCase();
       const { error } = await authClient.sso.register({
         providerId: id,
-        issuer: issuer.trim(),
-        domain: domain.trim().toLowerCase(),
+        issuer: issuerUrl,
+        domain: emailDomain,
         oidcConfig: { clientId: clientId.trim(), clientSecret },
       });
       if (error) {
@@ -123,7 +126,7 @@ export function AdminSsoPanel({
       }
       // The plugin only lets members attach a provider to an organization; admins attach it here.
       if (organizationId !== NO_ORG) {
-        const attached = await updateSsoProvider(id, { issuer: issuer.trim(), domain: domain.trim().toLowerCase(), organizationId });
+        const attached = await updateSsoProvider(id, { issuer: issuerUrl, domain: emailDomain, organizationId });
         if (!attached.ok) toast.error(attached.error);
       }
       toast.success(t("registered"));
@@ -158,46 +161,46 @@ export function AdminSsoPanel({
               <SamlRegisterForm authAppUrl={callbackBase} organizations={organizations} organizationSelect={(props) => <OrganizationSelect {...props} />} />
             </TabsContent>
             <TabsContent value="oidc" className="space-y-4 pt-2">
-          <form onSubmit={handleRegister}>
-            <FieldGroup>
-              <Field>
-                <FieldLabel htmlFor="sso-provider-id">{t("providerId")}</FieldLabel>
-                <Input id="sso-provider-id" value={providerId} onChange={(e) => setProviderId(e.target.value)} disabled={submitting} required />
-                <FieldDescription>{t("providerIdHint")}</FieldDescription>
-              </Field>
-              <Field>
-                <FieldLabel htmlFor="sso-issuer">{t("issuer")}</FieldLabel>
-                <Input id="sso-issuer" type="url" value={issuer} onChange={(e) => setIssuer(e.target.value)} disabled={submitting} required />
-              </Field>
-              <Field>
-                <FieldLabel htmlFor="sso-domain">{t("domain")}</FieldLabel>
-                <Input id="sso-domain" value={domain} onChange={(e) => setDomain(e.target.value)} disabled={submitting} placeholder="acme.com" required />
-                <FieldDescription>{t("domainHint")}</FieldDescription>
-              </Field>
-              <Field>
-                <FieldLabel htmlFor="sso-client-id">{t("clientId")}</FieldLabel>
-                <Input id="sso-client-id" value={clientId} onChange={(e) => setClientId(e.target.value)} disabled={submitting} required />
-              </Field>
-              <Field>
-                <FieldLabel htmlFor="sso-client-secret">{t("clientSecret")}</FieldLabel>
-                <Input id="sso-client-secret" type="password" autoComplete="off" value={clientSecret} onChange={(e) => setClientSecret(e.target.value)} disabled={submitting} required />
-              </Field>
-              <Field>
-                <FieldLabel htmlFor="sso-organization">{t("organization")}</FieldLabel>
-                <OrganizationSelect id="sso-organization" value={organizationId} onChange={setOrganizationId} organizations={organizations} disabled={submitting} />
-              </Field>
-              <Field>
-                <Button type="submit" disabled={submitting}>
-                  {submitting ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
-                  {submitting ? t("registering") : t("register")}
-                </Button>
-              </Field>
-            </FieldGroup>
-          </form>
-          <div className="rounded-md border border-border bg-muted/40 p-3 text-xs">
-            <p className="font-medium text-foreground">{t("callbackTitle")}</p>
-            <p className="mt-1 break-all font-mono text-muted-foreground">{callbackUrl}</p>
-          </div>
+              <form onSubmit={handleRegister}>
+                <FieldGroup>
+                  <Field>
+                    <FieldLabel htmlFor="sso-provider-id">{t("providerId")}</FieldLabel>
+                    <Input id="sso-provider-id" value={providerId} onChange={(e) => setProviderId(e.target.value)} disabled={submitting} required />
+                    <FieldDescription>{t("providerIdHint")}</FieldDescription>
+                  </Field>
+                  <Field>
+                    <FieldLabel htmlFor="sso-issuer">{t("issuer")}</FieldLabel>
+                    <Input id="sso-issuer" type="url" value={issuer} onChange={(e) => setIssuer(e.target.value)} disabled={submitting} required />
+                  </Field>
+                  <Field>
+                    <FieldLabel htmlFor="sso-domain">{t("domain")}</FieldLabel>
+                    <Input id="sso-domain" value={domain} onChange={(e) => setDomain(e.target.value)} disabled={submitting} placeholder="acme.com" required />
+                    <FieldDescription>{t("domainHint")}</FieldDescription>
+                  </Field>
+                  <Field>
+                    <FieldLabel htmlFor="sso-client-id">{t("clientId")}</FieldLabel>
+                    <Input id="sso-client-id" value={clientId} onChange={(e) => setClientId(e.target.value)} disabled={submitting} required />
+                  </Field>
+                  <Field>
+                    <FieldLabel htmlFor="sso-client-secret">{t("clientSecret")}</FieldLabel>
+                    <Input id="sso-client-secret" type="password" autoComplete="off" value={clientSecret} onChange={(e) => setClientSecret(e.target.value)} disabled={submitting} required />
+                  </Field>
+                  <Field>
+                    <FieldLabel htmlFor="sso-organization">{t("organization")}</FieldLabel>
+                    <OrganizationSelect id="sso-organization" value={organizationId} onChange={setOrganizationId} organizations={organizations} disabled={submitting} />
+                  </Field>
+                  <Field>
+                    <Button type="submit" disabled={submitting}>
+                      {submitting ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
+                      {submitting ? t("registering") : t("register")}
+                    </Button>
+                  </Field>
+                </FieldGroup>
+              </form>
+              <div className="rounded-md border border-border bg-muted/40 p-3 text-xs">
+                <p className="font-medium text-foreground">{t("callbackTitle")}</p>
+                <p className="mt-1 break-all font-mono text-muted-foreground">{callbackUrl}</p>
+              </div>
             </TabsContent>
           </Tabs>
         </CardContent>
@@ -225,14 +228,13 @@ export function AdminSsoPanel({
 }
 
 function ProviderItem({ provider, organizations, authAppUrl }: { provider: SsoProviderRow; organizations: Org[]; authAppUrl: string }) {
-  const router = useRouter();
   const t = useTranslations("sso");
   const ts = useTranslations("sso.saml");
   const tp = useTranslations("sso.panel");
   const tc = useTranslations("admin.common");
   const format = useFormatter();
   const [dialog, setDialog] = React.useState<"verify" | "edit" | "delete" | "details" | null>(null);
-  const [busy, setBusy] = React.useState(false);
+  const { busy, setBusy, run } = useAdminAction(() => setDialog(null));
   const [record, setRecord] = React.useState<{ name: string; value: string } | null>(null);
   const [issuer, setIssuer] = React.useState(provider.issuer);
   const [domain, setDomain] = React.useState(provider.domain);
@@ -243,22 +245,6 @@ function ProviderItem({ provider, organizations, authAppUrl }: { provider: SsoPr
     const res = await getDomainVerificationRecord(provider.providerId);
     if (res.ok) setRecord({ name: res.name, value: res.value });
     else toast.error(res.error);
-  }
-
-  async function run(fn: () => Promise<{ ok: true } | { ok: false; error: string }>, success: string) {
-    setBusy(true);
-    try {
-      const res = await fn();
-      if (!res.ok) {
-        toast.error(res.error);
-        return;
-      }
-      toast.success(success);
-      setDialog(null);
-      router.refresh();
-    } finally {
-      setBusy(false);
-    }
   }
 
   return (
@@ -335,13 +321,14 @@ function ProviderItem({ provider, organizations, authAppUrl }: { provider: SsoPr
               ) : (
                 <Loader2 className="size-4 animate-spin" aria-hidden />
               )}
-              <DialogFooter>
-                <Button type="button" variant="outline" disabled={busy} onClick={() => setDialog(null)}>{tc("close")}</Button>
-                <Button type="button" disabled={busy || !record} onClick={() => void run(() => checkDomainVerification(provider.providerId), tp("domainVerified"))}>
-                  {busy ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
-                  {tp("checkDns")}
-                </Button>
-              </DialogFooter>
+              <DialogActions
+                busy={busy}
+                onCancel={() => setDialog(null)}
+                cancelLabel={tc("close")}
+                onConfirm={() => void run(() => checkDomainVerification(provider.providerId), tp("domainVerified"))}
+                confirmLabel={tp("checkDns")}
+                confirmDisabled={!record}
+              />
             </>
           ) : dialog === "details" && provider.saml ? (
             <SamlDetailsDialogBody providerId={provider.providerId} details={provider.saml} authAppUrl={authAppUrl} onClose={() => setDialog(null)} />
@@ -376,17 +363,12 @@ function ProviderItem({ provider, organizations, authAppUrl }: { provider: SsoPr
                   <OrganizationSelect id={`org-${provider.providerId}`} value={orgId} onChange={setOrgId} organizations={organizations} disabled={busy} />
                 </Field>
               </FieldGroup>
-              <DialogFooter>
-                <Button type="button" variant="outline" disabled={busy} onClick={() => setDialog(null)}>{tc("cancel")}</Button>
-                <Button
-                  type="button"
-                  disabled={busy}
-                  onClick={() => void run(() => updateSsoProvider(provider.providerId, { issuer, domain, organizationId: orgId === NO_ORG ? null : orgId }), ts("updated"))}
-                >
-                  {busy ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
-                  {tc("save")}
-                </Button>
-              </DialogFooter>
+              <DialogActions
+                busy={busy}
+                onCancel={() => setDialog(null)}
+                onConfirm={() => void run(() => updateSsoProvider(provider.providerId, { issuer, domain, organizationId: orgId === NO_ORG ? null : orgId }), ts("updated"))}
+                confirmLabel={tc("save")}
+              />
             </>
           ) : dialog === "delete" ? (
             <>
@@ -394,13 +376,13 @@ function ProviderItem({ provider, organizations, authAppUrl }: { provider: SsoPr
                 <DialogTitle>{tp("deleteTitle", { id: provider.providerId })}</DialogTitle>
                 <DialogDescription>{tp("deleteDescription", { domain: provider.domain })}</DialogDescription>
               </DialogHeader>
-              <DialogFooter>
-                <Button type="button" variant="outline" disabled={busy} onClick={() => setDialog(null)}>{tc("cancel")}</Button>
-                <Button type="button" variant="destructive" disabled={busy} onClick={() => void run(() => deleteSsoProvider(provider.providerId), tp("providerDeleted"))}>
-                  {busy ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
-                  {tc("delete")}
-                </Button>
-              </DialogFooter>
+              <DialogActions
+                busy={busy}
+                onCancel={() => setDialog(null)}
+                onConfirm={() => void run(() => deleteSsoProvider(provider.providerId), tp("providerDeleted"))}
+                confirmLabel={tc("delete")}
+                destructive
+              />
             </>
           ) : null}
         </DialogContent>

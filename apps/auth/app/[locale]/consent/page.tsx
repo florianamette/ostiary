@@ -1,13 +1,10 @@
 import { Suspense } from "react";
 
+import { AuthFormFallback } from "@/components/auth/auth-form-fallback";
 import { AuthScreen } from "@/components/auth/auth-screen";
 import { ConsentForm, type ConsentClientOrigin } from "@/components/auth/consent-form";
 import { clientRegistrationSource } from "@ostiary/core/lib/client-registration";
 import { authScreenApp } from "@/lib/app-context";
-
-function ConsentFallback() {
-  return <div className="h-64 w-full max-w-md animate-pulse rounded-xl bg-muted/60" />;
-}
 
 function hostOf(url: string | undefined): string | null {
   if (!url) return null;
@@ -51,7 +48,7 @@ export default async function ConsentPage({
   ]);
   return (
     <AuthScreen locale={locale} app={app} appIntent="none">
-      <Suspense fallback={<ConsentFallback />}>
+      <Suspense fallback={<AuthFormFallback height="h-64" />}>
         <ConsentForm
           origin={origin}
           branded={app?.verified && app.clientId === first(query.client_id) ? { name: app.name, logoUrl: app.logoUrl } : null}

@@ -22,8 +22,16 @@ import {
 import { Input } from "@ostiary/core/components/ui/input";
 import { Separator } from "@ostiary/core/components/ui/separator";
 import { Skeleton } from "@ostiary/core/components/ui/skeleton";
+import { UsernameStatusHint } from "@/components/auth/username-status-hint";
 import { DashboardEmailField } from "@/components/dashboard/dashboard-email-field";
 import { authClient } from "@/lib/auth-client";
+import {
+  checkUsernameAvailabilitySoon,
+  hasUsernameCharacters,
+  USERNAME_MIN_LENGTH,
+  usernameProblem,
+  type UsernameStatus,
+} from "@/lib/username";
 
 export function DashboardProfileSection() {
   const t = useTranslations("dashboard.profile");
@@ -34,7 +42,7 @@ export function DashboardProfileSection() {
   const [name, setName] = React.useState("");
   const [username, setUsername] = React.useState("");
   const [usernameStatus, setUsernameStatus] = React.useState<
-    "idle" | "checking" | "available" | "taken" | "invalid" | "unchanged"
+    UsernameStatus | "unchanged"
   >("unchanged");
   const [saving, setSaving] = React.useState(false);
 
@@ -63,28 +71,15 @@ export function DashboardProfileSection() {
       setUsernameStatus("unchanged");
       return;
     }
-    if (trimmed.length < 3) {
+    if (trimmed.length < USERNAME_MIN_LENGTH) {
       setUsernameStatus(trimmed.length === 0 ? "unchanged" : "invalid");
       return;
     }
-    if (!/^[a-zA-Z0-9_.]+$/.test(trimmed)) {
+    if (!hasUsernameCharacters(trimmed)) {
       setUsernameStatus("invalid");
       return;
     }
-    setUsernameStatus("checking");
-    const timer = window.setTimeout(() => {
-      void (async () => {
-        const { data, error } = await authClient.isUsernameAvailable({
-          username: trimmed,
-        });
-        if (error) {
-          setUsernameStatus("idle");
-          return;
-        }
-        setUsernameStatus(data?.available ? "available" : "taken");
-      })();
-    }, 400);
-    return () => window.clearTimeout(timer);
+    return checkUsernameAvailabilitySoon(trimmed, setUsernameStatus);
   }, [username, currentUsername]);
 
   async function handleSaveProfile(e: React.FormEvent) {
@@ -95,22 +90,10 @@ export function DashboardProfileSection() {
     const usernameChanged = trimmedUsername !== currentUsername.trim();
 
     if (usernameChanged) {
-      if (trimmedUsername.length < 3) {
-        toast.error(t("usernameTooShort"));
+      const problem = await usernameProblem(trimmedUsername, usernameStatus);
+      if (problem) {
+        toast.error(t(problem));
         return;
-      }
-      if (!/^[a-zA-Z0-9_.]+$/.test(trimmedUsername)) {
-        toast.error(t("usernameInvalid"));
-        return;
-      }
-      if (usernameStatus !== "available") {
-        const { data } = await authClient.isUsernameAvailable({
-          username: trimmedUsername,
-        });
-        if (!data?.available) {
-          toast.error(t("usernameTaken"));
-          return;
-        }
       }
     }
 
@@ -134,7 +117,6 @@ export function DashboardProfileSection() {
       setSaving(false);
     }
   }
-
 
   if (sessionPending && !user) {
     return (
@@ -190,27 +172,17 @@ export function DashboardProfileSection() {
                 autoComplete="username"
               />
               <FieldDescription>{t("usernameHint")}</FieldDescription>
-              {username.trim().length >= 3 &&
+              {username.trim().length >= USERNAME_MIN_LENGTH &&
               username.trim() !== currentUsername.trim() ? (
-                <FieldDescription
-                  className={
-                    usernameStatus === "taken" || usernameStatus === "invalid"
-                      ? "text-destructive"
-                      : usernameStatus === "available"
-                        ? "text-emerald-600 dark:text-emerald-500"
-                        : undefined
-                  }
-                >
-                  {usernameStatus === "checking"
-                    ? t("usernameChecking")
-                    : usernameStatus === "available"
-                      ? t("usernameAvailable")
-                      : usernameStatus === "taken"
-                        ? t("usernameTaken")
-                        : usernameStatus === "invalid"
-                          ? t("usernameInvalidHint")
-                          : null}
-                </FieldDescription>
+                <UsernameStatusHint
+                  status={usernameStatus}
+                  messages={{
+                    checking: t("usernameChecking"),
+                    available: t("usernameAvailable"),
+                    taken: t("usernameTaken"),
+                    invalid: t("usernameInvalidHint"),
+                  }}
+                />
               ) : null}
             </Field>
             <Field>

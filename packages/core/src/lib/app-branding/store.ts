@@ -28,7 +28,7 @@ export type AppBrandingSettings = {
   updatedAt: string | null;
 };
 
-export const EMPTY_BRANDING: AppBrandingSettings = {
+const EMPTY_BRANDING: AppBrandingSettings = {
   displayName: null,
   tagline: null,
   accentColor: null,
@@ -142,7 +142,7 @@ export async function resetAppBranding(clientId: string): Promise<boolean> {
   return deleted.length > 0;
 }
 
-export function appBrandingAssetPath(clientId: string, asset: "logo" | "panel", version?: string | null): string {
+function appBrandingAssetPath(clientId: string, asset: "logo" | "panel", version?: string | null): string {
   const v = version ? `?v=${encodeURIComponent(version)}` : "";
   return `/api/app-branding/${encodeURIComponent(clientId)}/${asset}${v}`;
 }

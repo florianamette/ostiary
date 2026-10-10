@@ -7,8 +7,8 @@ import { appIconSource, iconSourceKey, type IconSource } from "@ostiary/core/lib
 import type { IconType } from "@ostiary/core/lib/app-icons/image";
 
 /** A found icon is looked up again after a week, a failure after a day. */
-export const ICON_REFRESH_MS = 7 * 24 * 3600 * 1000;
-export const ICON_RETRY_MS = 24 * 3600 * 1000;
+const ICON_REFRESH_MS = 7 * 24 * 3600 * 1000;
+const ICON_RETRY_MS = 24 * 3600 * 1000;
 
 export type StoredIcon = { contentType: IconType; data: Buffer; fetchedAt: Date };
 

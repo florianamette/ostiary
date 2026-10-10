@@ -35,7 +35,7 @@ export type SamlIdpFormInput =
   | { source: "url"; url: string }
   | { source: "manual"; entityId: string; ssoUrl: string; certificate: string };
 
-export type SamlProviderInput = {
+type SamlProviderInput = {
   idp: SamlIdpFormInput;
   mapping: SamlMapping;
   wantAssertionsSigned: boolean;

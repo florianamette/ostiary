@@ -82,7 +82,7 @@ export function scrubValue(value: unknown, needles: string[]): unknown {
 }
 
 /** What identifies the person in free text: email, username, and a name long enough to be specific. */
-export function personalNeedles(u: ErasedUser): string[] {
+function personalNeedles(u: ErasedUser): string[] {
   const needles = [u.email, u.username ?? ""];
   const name = u.name?.trim() ?? "";
   // A one- or two-letter name would erase unrelated text.
@@ -224,7 +224,7 @@ export async function prepareUserErasure(db: Database, u: ErasedUser): Promise<E
 }
 
 /** Keeps a delivered event's envelope (id, type, time) and drops its data. */
-export function redactPayload(payload: string): string {
+function redactPayload(payload: string): string {
   try {
     const event = JSON.parse(payload) as Record<string, unknown>;
     return JSON.stringify({ id: event.id, type: event.type, timestamp: event.timestamp, data: { redacted: true } });

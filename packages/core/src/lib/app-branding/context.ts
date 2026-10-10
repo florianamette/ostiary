@@ -42,7 +42,7 @@ export type VerifiedAppContext = {
 
 type QueryInput = URLSearchParams | string | Record<string, string | string[] | undefined>;
 
-export function toSearchParams(input: QueryInput): URLSearchParams {
+function toSearchParams(input: QueryInput): URLSearchParams {
   if (input instanceof URLSearchParams) return new URLSearchParams(input);
   if (typeof input === "string") return new URLSearchParams(input);
   const params = new URLSearchParams();
@@ -79,7 +79,7 @@ function betterAuthSignature(value: string, secret: string): string {
  * listed in `ba_param`, plus `sig` and `ba_param`. Extra parameters (callbackURL, addAccount)
  * are dropped. Null when the query is not a signed OAuth request.
  */
-export function signedOAuthQuery(input: QueryInput): URLSearchParams | null {
+function signedOAuthQuery(input: QueryInput): URLSearchParams | null {
   const params = toSearchParams(input);
   if (!params.has("sig")) return null;
   const names = new Set(params.getAll(SIGNED_PARAM_NAMES));

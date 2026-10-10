@@ -3,6 +3,8 @@ import { and, desc, eq, gt, isNull, ne, or } from "drizzle-orm";
 
 import { db } from "@ostiary/core/db/index";
 import { appSetting, jwks } from "@ostiary/core/db/schema";
+import { readAppSetting } from "@ostiary/core/lib/app-settings";
+import { refreshingCache } from "@ostiary/core/lib/refreshing-cache";
 import {
   applySigningKeySettings,
   DEFAULT_SIGNING_KEY_SETTINGS,
@@ -15,55 +17,18 @@ import {
 /** Row key in `app_setting`. */
 const SETTINGS_KEY = "signing_keys";
 
-/**
- * Like the client registration settings, each instance reloads these at most once a minute,
- * so a change made in the admin console reaches the auth app within a minute.
- */
-const REFRESH_MS = 60_000;
-
-type SettingsCache = {
-  loadedAt: number;
-  inFlight: Promise<SigningKeySettings> | null;
-  current: SigningKeySettings;
-};
-const cache = ((globalThis as { __ostiarySigningKeys?: SettingsCache }).__ostiarySigningKeys ??= {
-  loadedAt: 0,
-  inFlight: null,
-  current: DEFAULT_SIGNING_KEY_SETTINGS,
-});
-
 export async function loadSigningKeySettings(): Promise<SigningKeySettings> {
-  const [row] = await db
-    .select({ value: appSetting.value })
-    .from(appSetting)
-    .where(eq(appSetting.key, SETTINGS_KEY))
-    .limit(1);
-  return parseSigningKeySettings(row?.value);
+  return parseSigningKeySettings(await readAppSetting(SETTINGS_KEY));
 }
 
-/** Current settings, reloaded from the database when the cached copy is older than a minute. */
-export async function currentSigningKeySettings(): Promise<SigningKeySettings> {
-  if (Date.now() - cache.loadedAt < REFRESH_MS) return cache.current;
-  cache.inFlight ??= loadSigningKeySettings()
-    .then((settings) => {
-      cache.current = settings;
-      cache.loadedAt = Date.now();
-      return settings;
-    })
-    .catch((error) => {
-      // Keep the previous settings (rotation off until a first successful load); retry next request.
-      console.error("Could not load the signing key settings", error);
-      return cache.current;
-    })
-    .finally(() => {
-      cache.inFlight = null;
-    });
-  return cache.inFlight;
-}
-
-export function invalidateSigningKeySettings() {
-  cache.loadedAt = 0;
-}
+/** Rotation off until a first successful load; each instance reloads it at most once a minute. */
+const settingsCache = refreshingCache({
+  globalKey: "__ostiarySigningKeys",
+  refreshMs: 60_000,
+  initial: DEFAULT_SIGNING_KEY_SETTINGS,
+  load: loadSigningKeySettings,
+  loadError: "Could not load the signing key settings",
+});
 
 /**
  * Writes the current settings into the jwt plugin's options (once per request). Better Auth
@@ -71,7 +36,7 @@ export function invalidateSigningKeySettings() {
  * request, both from this same options object.
  */
 export async function syncSigningKeys(options: JwtOptions): Promise<SigningKeySettings> {
-  const settings = await currentSigningKeySettings();
+  const settings = await settingsCache.get();
   applySigningKeySettings(options, settings);
   return settings;
 }
@@ -96,7 +61,7 @@ export async function saveSigningKeySettings(settings: SigningKeySettings, updat
       await tx.update(jwks).set({ expiresAt: liveKeyExpiry(row.createdAt, settings, now) }).where(eq(jwks.id, row.id));
     }
   });
-  invalidateSigningKeySettings();
+  settingsCache.invalidate();
 }
 
 /** Every key, newest first, without the private key (never read it here). */
