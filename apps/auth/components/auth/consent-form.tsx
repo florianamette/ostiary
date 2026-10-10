@@ -1,6 +1,7 @@
 "use client";
 
 import { authClient } from "@/lib/auth-client";
+import { RequestedScopes } from "@/components/auth/requested-scopes";
 import { AppIcon } from "@ostiary/core/components/app-icon";
 import { Button } from "@ostiary/core/components/ui/button";
 import {
@@ -117,17 +118,6 @@ export function ConsentForm({
     [t],
   );
 
-  const scopeDescription = useCallback(
-    (scope: string) => {
-      const key = `scopes.${scope}`;
-      if (t.has(key)) {
-        return t(key);
-      }
-      return null;
-    },
-    [t],
-  );
-
   if (!clientId) {
     return (
       <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -226,34 +216,7 @@ export function ConsentForm({
                 </p>
               ) : null}
 
-              <div>
-                <h3 className="mb-2 text-sm font-medium">
-                  {t("requestedAccess")}
-                </h3>
-                {scopes.length === 0 ? (
-                  <p className="text-sm text-muted-foreground">
-                    {t("defaultScopes")}
-                  </p>
-                ) : (
-                  <ul className="space-y-2 text-sm">
-                    {scopes.map((scope) => (
-                      <li
-                        key={scope}
-                        className="rounded-md border border-border bg-muted/30 px-3 py-2"
-                      >
-                        <span className="font-mono text-xs text-foreground">
-                          {scope}
-                        </span>
-                        {scopeDescription(scope) ? (
-                          <p className="mt-1 text-muted-foreground">
-                            {scopeDescription(scope)}
-                          </p>
-                        ) : null}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
+              <RequestedScopes scopes={scopes} emptyText={t("defaultScopes")} />
 
               {(client.policy_uri || client.tos_uri) && (
                 <p className="text-xs text-muted-foreground">

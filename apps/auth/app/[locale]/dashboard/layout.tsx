@@ -1,24 +1,11 @@
-import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
-
 import { DashboardShell } from "@/components/dashboard/dashboard-shell";
 import { userHasAdminRole } from "@ostiary/core/lib/admin/user-has-admin-role";
 import { env } from "@ostiary/core/lib/env";
 import { getDashboardContext } from "@/lib/dashboard-context";
 import { redirect } from "@/i18n/navigation";
+import { noIndexMetadata } from "@/lib/page-metadata";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
-  const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "dashboard" });
-  return {
-    title: t("title"),
-    robots: { index: false, follow: true },
-  };
-}
+export const generateMetadata = noIndexMetadata("dashboard", "title", { follow: true });
 
 export default async function DashboardLayout({
   children,

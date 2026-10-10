@@ -130,9 +130,9 @@ export function SignupForm({
           },
           onError(ctx) {
             const code = ctx.error.code
-            const captchaError = captcha.errorMessage(code) ?? rateLimitMessage(ctx.error, tLimit)
-            if (captchaError) {
-              toast.error(captchaError)
+            const captchaOrLimit = captcha.errorMessage(code) ?? rateLimitMessage(ctx.error, tLimit)
+            if (captchaOrLimit) {
+              toast.error(captchaOrLimit)
               return
             }
             if (code === "PASSWORD_COMPROMISED") {
