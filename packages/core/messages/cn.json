@@ -2065,6 +2065,8 @@
       "scanHint": "使用 1Password、Google Authenticator 或 Microsoft Authenticator 等身份验证器应用扫描，然后输入显示的 6 位验证码。",
       "qrAlt": "用于将此账户添加到身份验证器应用的二维码",
       "manualKey": "无法扫描？请在应用中输入此密钥：",
+      "openInApp": "在身份验证器应用中打开",
+      "keyCopied": "密钥已复制",
       "codeLabel": "6 位验证码",
       "verify": "验证并开启",
       "codesTitle": "保存备用码",

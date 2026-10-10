@@ -2065,6 +2065,8 @@
       "scanHint": "Zeskanuj go aplikacją uwierzytelniającą, np. 1Password, Google Authenticator lub Microsoft Authenticator, a następnie wpisz wyświetlony 6-cyfrowy kod.",
       "qrAlt": "Kod QR do dodania tego konta w aplikacji uwierzytelniającej",
       "manualKey": "Nie możesz zeskanować? Wpisz ten klucz w aplikacji:",
+      "openInApp": "Otwórz w aplikacji uwierzytelniającej",
+      "keyCopied": "Klucz skopiowany",
       "codeLabel": "6-cyfrowy kod",
       "verify": "Zweryfikuj i włącz",
       "codesTitle": "Zapisz kody zapasowe",

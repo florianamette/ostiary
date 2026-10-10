@@ -2065,6 +2065,8 @@
       "scanHint": "Escaneie com um aplicativo autenticador como 1Password, Google Authenticator ou Microsoft Authenticator e digite o código de 6 dígitos exibido.",
       "qrAlt": "Código QR para adicionar esta conta a um aplicativo autenticador",
       "manualKey": "Não consegue escanear? Digite esta chave no seu aplicativo:",
+      "openInApp": "Abrir no app autenticador",
+      "keyCopied": "Chave copiada",
       "codeLabel": "Código de 6 dígitos",
       "verify": "Verificar e ativar",
       "codesTitle": "Salve seus códigos de backup",

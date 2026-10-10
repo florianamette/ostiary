@@ -2065,6 +2065,8 @@
       "scanHint": "Scannez-le avec une application d’authentification comme 1Password, Google Authenticator ou Microsoft Authenticator, puis saisissez le code à 6 chiffres qu’elle affiche.",
       "qrAlt": "Code QR pour ajouter ce compte à une application d’authentification",
       "manualKey": "Impossible de le scanner ? Saisissez cette clé dans votre application :",
+      "openInApp": "Ouvrir dans l’application d’authentification",
+      "keyCopied": "Clé copiée",
       "codeLabel": "Code à 6 chiffres",
       "verify": "Vérifier et activer",
       "codesTitle": "Enregistrez vos codes de secours",
