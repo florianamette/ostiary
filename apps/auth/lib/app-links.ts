@@ -1,5 +1,4 @@
 import { APP_CONTEXT_PARAM } from "@ostiary/core/lib/app-branding/constants";
-import { resolveSafeRedirect } from "@ostiary/core/lib/safe-redirect";
 import type { SocialProviderOption } from "@ostiary/core/lib/social-provider-meta";
 
 /*
@@ -23,18 +22,6 @@ export function withAppContext(path: string, app: AppLink, extra: Record<string,
   return query ? `${path}?${query}` : path;
 }
 
-/**
- * The app context carried by the current page's query, for screens reached from an email
- * link (reset password) or a redirect: the same two parameters, or null when absent.
- */
-export function appLinkFromQuery(params: URLSearchParams): AppLink {
-  const token = params.get(APP_CONTEXT_PARAM);
-  // A path on this app only (the resume path always is one): never another site.
-  const raw = params.get("callbackURL");
-  const resumePath = resolveSafeRedirect(raw) ? raw : null;
-  return token && resumePath ? { token, resumePath } : null;
-}
-
 /** The enabled social providers, narrowed to the ones the app's branding lists. */
 export function appSocialProviders(
   providers: SocialProviderOption[],
@@ -51,4 +38,9 @@ export function appShowsProvider(
   providerId: string,
 ): boolean {
   return !app?.verified || !app.socialProviders || app.socialProviders.includes(providerId);
+}
+
+/** The part of an AuthScreenApp that forms link onward with, or null without an app. */
+export function appLinkOf(app: { token: string; resumePath: string } | null): AppLink {
+  return app ? { token: app.token, resumePath: app.resumePath } : null;
 }
