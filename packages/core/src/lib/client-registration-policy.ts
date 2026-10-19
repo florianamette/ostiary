@@ -1,4 +1,5 @@
 import { OIDC_SCOPES } from "@ostiary/core/lib/oauth-scopes";
+import { env } from "@ostiary/core/lib/env";
 
 /*
  * Self-registration of OAuth clients, as MCP clients and AI agents expect:
@@ -16,6 +17,32 @@ import { OIDC_SCOPES } from "@ostiary/core/lib/oauth-scopes";
 export const DYNAMIC_REGISTRATION_MODES = ["off", "signed_in", "open"] as const;
 export type DynamicRegistrationMode = (typeof DYNAMIC_REGISTRATION_MODES)[number];
 
+const SCOPE_TOKEN = /^[\x21\x23-\x5B\x5D-\x7E]+$/;
+const HOST = /^(?=.{1,253}$)(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,63}$/;
+
+function uniqueStrings(value: unknown): string[] {
+  if (!Array.isArray(value)) return [];
+  return [...new Set(value.filter((item): item is string => typeof item === "string").map((item) => item.trim()).filter(Boolean))];
+}
+
+/** A comma-separated scope list (e.g. from the environment), validated like stored scopes. Null when empty. */
+function parseScopeList(raw: string | undefined): string[] | null {
+  if (raw === undefined) return null;
+  const scopes = uniqueStrings(raw.split(",")).filter((scope) => SCOPE_TOKEN.test(scope));
+  return scopes.length > 0 ? scopes : null;
+}
+
+/**
+ * The scopes a self-registered client may request by default: OAUTH_CLIENT_REGISTRATION_SCOPES
+ * (comma-separated), falling back to the OpenID Connect scopes only. This is the generic,
+ * deployment-level way to allow your own API scopes for self-registration without editing code;
+ * a downstream fork sets the variable, upstream hardcodes no tenant-specific scope. The admin
+ * console can still narrow or widen within the scopes the server actually has, and a listed
+ * scope is only issued once it exists on the server (see effectiveRegistrationScopes).
+ */
+export const CLIENT_REGISTRATION_DEFAULT_SCOPES: readonly string[] =
+  parseScopeList(env.OAUTH_CLIENT_REGISTRATION_SCOPES) ?? [...OIDC_SCOPES];
+
 export type ClientRegistrationSettings = {
   dynamic: DynamicRegistrationMode;
   metadataDocuments: boolean;
@@ -30,7 +57,7 @@ export type ClientRegistrationSettings = {
 export const DEFAULT_CLIENT_REGISTRATION_SETTINGS: ClientRegistrationSettings = {
   dynamic: "off",
   metadataDocuments: false,
-  scopes: [...OIDC_SCOPES],
+  scopes: [...CLIENT_REGISTRATION_DEFAULT_SCOPES],
   metadataDocumentHosts: [],
   maxRegistrationsPerHour: 30,
 };
@@ -48,14 +75,6 @@ const REGISTRATION_METADATA_KEY = "ostiary_registration";
 
 /** `clientDiscoveryId` Better Auth stores on clients created from a metadata document. */
 const METADATA_DOCUMENT_DISCOVERY_ID = "cimd";
-
-const SCOPE_TOKEN = /^[\x21\x23-\x5B\x5D-\x7E]+$/;
-const HOST = /^(?=.{1,253}$)(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,63}$/;
-
-function uniqueStrings(value: unknown): string[] {
-  if (!Array.isArray(value)) return [];
-  return [...new Set(value.filter((item): item is string => typeof item === "string").map((item) => item.trim()).filter(Boolean))];
-}
 
 /** Lower-cases a host and strips a scheme or path pasted with it. Null when it is not a DNS name. */
 export function normalizeHost(raw: string): string | null {
@@ -119,19 +138,36 @@ export type RegistrationProviderOptions = {
 };
 
 /**
+ * Deployment-level overrides from the environment (auth-factory.ts), layered on top of the
+ * admin console's stored settings. They can only ever restrict, never widen, so turning the
+ * feature on stays a deliberate admin action: a kill-switch for Dynamic Client Registration and
+ * for unauthenticated ("open") registration.
+ */
+export type ClientRegistrationOverrides = {
+  /** OAUTH_ALLOW_DYNAMIC_CLIENT_REGISTRATION: when false, registration is off whatever the setting. */
+  allowDynamic?: boolean;
+  /** OAUTH_ALLOW_UNAUTHENTICATED_CLIENT_REGISTRATION: when false, "open" is clamped to signed-in only. */
+  allowUnauthenticated?: boolean;
+};
+
+/**
  * Writes the settings into the oauth-provider plugin's options, which its endpoints read on
  * every request (registration, discovery, client lookup). `metadataDocuments` is the
  * extension carrying the metadata-document discovery: removing it also makes the clients it
- * created unusable, since Better Auth no longer resolves them.
+ * created unusable, since Better Auth no longer resolves them. `overrides` are the environment
+ * kill-switches, which can only turn registration further off (never on).
  */
 export function applyClientRegistration(
   options: RegistrationProviderOptions,
   settings: ClientRegistrationSettings,
   metadataDocuments: unknown,
+  overrides: ClientRegistrationOverrides = {},
 ): void {
   const scopes = effectiveRegistrationScopes(settings, options.scopes ?? []);
-  options.allowDynamicClientRegistration = settings.dynamic !== "off";
-  options.allowUnauthenticatedClientRegistration = settings.dynamic === "open";
+  const allowDynamic = overrides.allowDynamic !== false && settings.dynamic !== "off";
+  options.allowDynamicClientRegistration = allowDynamic;
+  options.allowUnauthenticatedClientRegistration =
+    allowDynamic && overrides.allowUnauthenticated !== false && settings.dynamic === "open";
   // Both lists set: Better Auth stores their union on each client, and falls back to every
   // server scope (API scopes included) when they are left out.
   options.clientRegistrationDefaultScopes = scopes;
@@ -154,6 +190,22 @@ export function registrationRequestError(body: unknown): string | null {
   return refused === undefined
     ? null
     : `grant_type ${String(refused)} is not available to self-registered clients`;
+}
+
+/**
+ * Unauthenticated client registration is limited to public PKCE clients. Better Auth's
+ * `allowUnauthenticatedClientRegistration` does not enforce this on its own (checked against
+ * 1.7.7): the registration endpoint only blocks the `client_credentials` grant for an anonymous
+ * caller, and a request that omits `token_endpoint_auth_method` defaults to a confidential client
+ * with a generated secret — which it would then hand to whoever made the anonymous request.
+ * Returns the reason to refuse an anonymous confidential registration, or null. With a session,
+ * a confidential client is allowed (the admin console, or a signed-in user).
+ */
+export function unauthenticatedRegistrationError(body: unknown, hasSession: boolean): string | null {
+  if (hasSession) return null;
+  const method = (body as { token_endpoint_auth_method?: unknown } | null)?.token_endpoint_auth_method;
+  if (method === "none") return null;
+  return 'Unauthenticated client registration is limited to public PKCE clients (token_endpoint_auth_method must be "none"). Sign in to register a confidential client.';
 }
 
 /** Whether a metadata document URL is on the allowlist (any host when the list is empty). */

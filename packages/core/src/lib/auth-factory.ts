@@ -63,6 +63,7 @@ import {
     registrationCapacityLeft,
 } from "@ostiary/core/lib/client-registration";
 import {
+    CLIENT_REGISTRATION_DEFAULT_SCOPES,
     clientActionAllowed,
     metadataDocumentHostAllowed,
     PLATFORM_CLIENT_REFERENCE,
@@ -191,6 +192,18 @@ const DELETE_USER_LINK_PATH = "/delete-user/callback";
 const API_KEY_PREFIX = env.API_KEY_PREFIX ?? "ost_";
 
 /**
+ * Deployment-level kill-switches for OAuth client self-registration (RFC 7591 / "MCP out of the
+ * box"), read once from the environment. Both default on, so they do not by themselves change
+ * the admin console's control; setting either to "false" forces the corresponding behavior off
+ * regardless of the stored setting (see applyClientRegistration). A downstream fork can hard-
+ * disable registration, or disable only anonymous registration, without the admin console.
+ */
+const CLIENT_REGISTRATION_OVERRIDES = {
+    allowDynamic: env.OAUTH_ALLOW_DYNAMIC_CLIENT_REGISTRATION !== "false",
+    allowUnauthenticated: env.OAUTH_ALLOW_UNAUTHENTICATED_CLIENT_REGISTRATION !== "false",
+} as const;
+
+/**
  * Client ID Metadata Documents (the client_id is an HTTPS URL to the client's JSON metadata,
  * as MCP clients use). Added to the provider only while an admin has turned it on, see
  * syncClientRegistration. Better Auth's Node transport resolves the host once, refuses private
@@ -285,10 +298,18 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
     const provider = oauthProvider({
         loginPage: "/login",
         consentPage: "/consent",
-        // Self-registration (Dynamic Client Registration, metadata documents) is off here and
-        // set from the admin console's settings before each request, see syncClientRegistration.
+        // Self-registration (Dynamic Client Registration / MCP, metadata documents) is off here and
+        // set from the admin console's settings before each request, then clamped by the
+        // OAUTH_ALLOW_* kill-switches (CLIENT_REGISTRATION_OVERRIDES), see syncClientRegistration.
         allowDynamicClientRegistration: false,
         allowUnauthenticatedClientRegistration: false,
+        // Safe defaults until the first per-request sync: PKCE always required for self-registered
+        // clients, and they may request the OIDC scopes only by default. A downstream fork widens
+        // the allowed set with OAUTH_CLIENT_REGISTRATION_SCOPES (CLIENT_REGISTRATION_DEFAULT_SCOPES);
+        // syncClientRegistration then narrows both lists to the admin console's selection.
+        clientRegistrationRequirePKCE: true,
+        clientRegistrationDefaultScopes: [...CLIENT_REGISTRATION_DEFAULT_SCOPES],
+        clientRegistrationAllowedScopes: [...CLIENT_REGISTRATION_DEFAULT_SCOPES],
         // Only for clients that ask with prompt=select_account (e.g. a native app signing in
         // through the system browser, whose session may belong to someone else).
         selectAccount: { page: "/select-account", shouldRedirect: () => false },
@@ -383,7 +404,7 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
         },
         databaseHooks: databaseHooks(),
         hooks: {
-            before: guardRequests({ provider, jwtOptions, metadataDocuments }),
+            before: guardRequests({ provider, jwtOptions, metadataDocuments, clientRegistrationOverrides: CLIENT_REGISTRATION_OVERRIDES }),
             after: auditRequests(),
         },
         // Per-API access: APIs open to every application count as linked to every client.

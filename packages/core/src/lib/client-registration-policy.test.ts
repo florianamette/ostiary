@@ -13,6 +13,7 @@ import {
   registrationSource,
   requestClientIds,
   selfRegisteredUpdateError,
+  unauthenticatedRegistrationError,
   type RegistrationProviderOptions,
 } from "@ostiary/core/lib/client-registration-policy";
 
@@ -103,6 +104,34 @@ describe("applyClientRegistration", () => {
     expect(opts.allowUnauthenticatedClientRegistration).toBe(false);
   });
 
+  it("lets the OAUTH_ALLOW_DYNAMIC_CLIENT_REGISTRATION override force registration off", () => {
+    const opts = options();
+    applyClientRegistration(opts, { ...DEFAULT_CLIENT_REGISTRATION_SETTINGS, dynamic: "open" }, extension, {
+      allowDynamic: false,
+    });
+    expect(opts.allowDynamicClientRegistration).toBe(false);
+    expect(opts.allowUnauthenticatedClientRegistration).toBe(false);
+  });
+
+  it("lets the OAUTH_ALLOW_UNAUTHENTICATED override clamp open to signed-in", () => {
+    const opts = options();
+    applyClientRegistration(opts, { ...DEFAULT_CLIENT_REGISTRATION_SETTINGS, dynamic: "open" }, extension, {
+      allowUnauthenticated: false,
+    });
+    expect(opts.allowDynamicClientRegistration).toBe(true);
+    expect(opts.allowUnauthenticatedClientRegistration).toBe(false);
+  });
+
+  it("overrides can only restrict, never widen an off setting", () => {
+    const opts = options();
+    applyClientRegistration(opts, DEFAULT_CLIENT_REGISTRATION_SETTINGS, extension, {
+      allowDynamic: true,
+      allowUnauthenticated: true,
+    });
+    expect(opts.allowDynamicClientRegistration).toBe(false);
+    expect(opts.allowUnauthenticatedClientRegistration).toBe(false);
+  });
+
   it("adds and removes the metadata document discovery once", () => {
     const opts = options();
     const on = { ...DEFAULT_CLIENT_REGISTRATION_SETTINGS, metadataDocuments: true };
@@ -132,6 +161,27 @@ describe("registrationRequestError", () => {
     expect(registrationRequestError({ grant_types: ["client_credentials"] })).toMatch(/client_credentials/);
     expect(registrationRequestError({ grant_types: ["authorization_code", "urn:x"] })).toMatch(/urn:x/);
     expect(registrationRequestError({ grant_types: "authorization_code" })).not.toBeNull();
+  });
+});
+
+describe("unauthenticatedRegistrationError", () => {
+  const message = /public PKCE clients/;
+
+  it("allows a public client without a session", () => {
+    expect(unauthenticatedRegistrationError({ token_endpoint_auth_method: "none" }, false)).toBeNull();
+  });
+
+  it("refuses a confidential client without a session", () => {
+    expect(unauthenticatedRegistrationError({ token_endpoint_auth_method: "client_secret_basic" }, false)).toMatch(message);
+    expect(unauthenticatedRegistrationError({ token_endpoint_auth_method: "client_secret_post" }, false)).toMatch(message);
+    // Omitting the method defaults to a confidential client in Better Auth, so refuse that too.
+    expect(unauthenticatedRegistrationError({ client_name: "agent" }, false)).toMatch(message);
+    expect(unauthenticatedRegistrationError(undefined, false)).toMatch(message);
+  });
+
+  it("allows any client with a session (admin console or signed-in user)", () => {
+    expect(unauthenticatedRegistrationError({ token_endpoint_auth_method: "client_secret_basic" }, true)).toBeNull();
+    expect(unauthenticatedRegistrationError({}, true)).toBeNull();
   });
 });
 

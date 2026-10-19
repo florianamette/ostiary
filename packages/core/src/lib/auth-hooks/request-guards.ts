@@ -13,7 +13,12 @@ import { syncProviderScopes } from "@ostiary/core/lib/oauth-scopes";
 import { syncSigningKeys } from "@ostiary/core/lib/signing-keys";
 import { googleOneTap, syncSocialProviders } from "@ostiary/core/lib/social-providers";
 import { registrationCapacityLeft, syncClientRegistration } from "@ostiary/core/lib/client-registration";
-import { registrationRequestError, type ClientRegistrationSettings } from "@ostiary/core/lib/client-registration-policy";
+import {
+    registrationRequestError,
+    unauthenticatedRegistrationError,
+    type ClientRegistrationOverrides,
+    type ClientRegistrationSettings,
+} from "@ostiary/core/lib/client-registration-policy";
 import { ACCOUNT_DELETION_BLOCKED, accountDeletionBlockers } from "@ostiary/core/lib/account-data/blockers";
 import type { Bag } from "@ostiary/core/lib/auth-hooks/values";
 
@@ -74,6 +79,12 @@ async function guardDynamicRegistration(ctx: Ctx, registration: ClientRegistrati
     const refused = registrationRequestError(ctx.body);
     if (refused) {
         throw new APIError("BAD_REQUEST", { error: "invalid_client_metadata", error_description: refused });
+    }
+    // Unauthenticated registration is limited to public PKCE clients: Better Auth would otherwise
+    // hand an anonymous caller a confidential client with a secret (unauthenticatedRegistrationError).
+    const confidential = unauthenticatedRegistrationError(ctx.body, Boolean(await getSessionFromCtx(ctx)));
+    if (confidential) {
+        throw new APIError("BAD_REQUEST", { error: "invalid_client_metadata", error_description: confidential });
     }
     if (!(await registrationCapacityLeft(registration))) {
         throw new APIError("TOO_MANY_REQUESTS", {
@@ -207,10 +218,13 @@ export function guardRequests({
     provider,
     jwtOptions,
     metadataDocuments,
+    clientRegistrationOverrides,
 }: {
     provider: ReturnType<typeof oauthProvider>;
     jwtOptions: JwtOptions;
     metadataDocuments: unknown;
+    /** Environment kill-switches for self-registration, applied on top of the admin console's settings. */
+    clientRegistrationOverrides?: ClientRegistrationOverrides;
 }) {
     return createAuthMiddleware(async (ctx) => {
         // APIs registered from the admin console add scopes without a redeploy.
@@ -224,7 +238,7 @@ export function guardRequests({
             throw new APIError("NOT_FOUND", { message: "Google One Tap is not enabled." });
         }
         if (env.REQUIRE_ADMIN_2FA === "true" && isAdminPath(ctx.path)) await requireAdminTwoFactor(ctx);
-        const registration = await syncClientRegistration(provider.options, metadataDocuments);
+        const registration = await syncClientRegistration(provider.options, metadataDocuments, clientRegistrationOverrides);
         // Device sign-in is for admin-registered clients only: see oauthClientGuard.
         if (ctx.path === "/oauth2/register" && registration.dynamic !== "off") return guardDynamicRegistration(ctx, registration);
         if (ctx.path === "/sso/register") return guardSsoRegistration(ctx);

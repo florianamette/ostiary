@@ -9,11 +9,22 @@ Self-registered clients are never reviewed, so Ostiary limits them:
 
 - They may only request the scopes you tick in the settings (OpenID Connect scopes by default; add your API scopes as needed). Narrowing the list also narrows clients registered before.
 - Authorization code with PKCE only: no client credentials, no device sign-in (however the client authenticates), no skipping the consent screen. Updates cannot widen them past these limits either.
+- **Anonymous registration creates public clients only.** With *Anyone* selected, a request made without a signed-in session must register a public client (`token_endpoint_auth_method: "none"`, which always uses PKCE). A confidential, secret-bearing client can only be registered with a session — an admin, or a signed-in user. A request that omits `token_endpoint_auth_method` is refused rather than silently turned into a confidential client (Better Auth would otherwise default it to one and hand back a secret). This is the safety model behind "MCP out of the box": public PKCE clients self-register freely, secrets never leave with an anonymous caller.
 - The consent screen marks them as **unverified**, says where the user will be sent, and hides their logo.
 - An hourly cap on new self-registered clients across all instances (30 by default), plus Better Auth's limit of 5 registrations a minute per IP address in production. Metadata documents are fetched only from public addresses (no private or reserved IPs, no redirects, 5 KB, 5 s timeout).
 - The Applications page lists them with a badge and a filter; you can disable or delete them. Registrations and admin changes are in the audit log.
 
 Settings live in the database and reach the auth server within a minute, no redeploy needed.
+
+**Environment guard rails.** Three optional variables (both apps) sit on top of the admin console, for deployments that want a fixed policy or configure everything through the environment. They can only make self-registration more restrictive, so turning it on stays a deliberate choice; all default on.
+
+| Variable | Effect |
+| --- | --- |
+| `OAUTH_ALLOW_DYNAMIC_CLIENT_REGISTRATION` | `false` disables `/oauth2/register` entirely, whatever the admin console selects (a kill-switch). |
+| `OAUTH_ALLOW_UNAUTHENTICATED_CLIENT_REGISTRATION` | `false` forbids anonymous registration even in *Anyone* mode, clamping it to signed-in users. |
+| `OAUTH_CLIENT_REGISTRATION_SCOPES` | Comma-separated scopes a self-registered client may request by default (e.g. `openid,profile,email,offline_access,notes:read`). Defaults to the OpenID Connect scopes only. A listed scope must also exist on the server (`OAUTH_API_SCOPES` or an API in the admin console) to be issued. |
+
+A fork that wants its own API scope available to MCP clients out of the box registers the scope (its API under **APIs**, or `OAUTH_API_SCOPES`) and lists it in `OAUTH_CLIENT_REGISTRATION_SCOPES`; it does not need to edit the code.
 
 **Discovery.** When registration is on, the discovery documents advertise it (`registration_endpoint`, and `client_id_metadata_document_supported` for metadata documents). The issuer is `https://auth.example.com/api/auth`, so MCP clients find the metadata at:
 

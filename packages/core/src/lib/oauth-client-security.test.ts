@@ -348,6 +348,79 @@ describe("API scopes are only issued for their own API (L5)", () => {
   });
 });
 
+describe("MCP self-registration advertises and limits to public PKCE clients (H2)", () => {
+  // "Anyone" (open) self-registration, as MCP clients expect out of the box.
+  beforeAll(async () => {
+    await saveClientRegistrationSettings({ ...DEFAULT_CLIENT_REGISTRATION_SETTINGS, dynamic: "open" }, null);
+  });
+  afterAll(async () => {
+    await saveClientRegistrationSettings(DEFAULT_CLIENT_REGISTRATION_SETTINGS, null);
+  });
+
+  const publicClient = {
+    client_name: "My Agent",
+    redirect_uris: ["http://127.0.0.1:33418/callback"],
+    application_type: "native",
+    grant_types: ["authorization_code", "refresh_token"],
+    scope: "openid profile email offline_access",
+  };
+
+  it("discovery advertises the registration endpoint, S256 PKCE, the grants and public clients", async () => {
+    // The metadata is served in an onRequest interceptor that runs before the sync hook, so it
+    // reflects the plugin options as last synced by a prior (non-metadata) request. Any such
+    // request warms them from the current stored settings; here a session read does it.
+    await request("/get-session");
+    const response = await request("/.well-known/oauth-authorization-server");
+    expect(response.status, await response.clone().text()).toBe(200);
+    const metadata = (await response.json()) as {
+      registration_endpoint?: string;
+      code_challenge_methods_supported?: string[];
+      grant_types_supported?: string[];
+      token_endpoint_auth_methods_supported?: string[];
+    };
+    expect(metadata.registration_endpoint).toBe(`${ISSUER}/oauth2/register`);
+    expect(metadata.code_challenge_methods_supported).toContain("S256");
+    expect(metadata.grant_types_supported).toEqual(expect.arrayContaining(["authorization_code", "client_credentials"]));
+    // Public clients (token_endpoint_auth_method "none") are advertised while anonymous
+    // registration is on, which is what an MCP client looks for.
+    expect(metadata.token_endpoint_auth_methods_supported).toContain("none");
+  });
+
+  it("lets an anonymous client self-register as a public PKCE client", async () => {
+    const response = await request("/oauth2/register", { json: { ...publicClient, token_endpoint_auth_method: "none" } });
+    expect(response.status, await response.clone().text()).toBe(201);
+    const body = (await response.json()) as { client_id: string; token_endpoint_auth_method?: string; client_secret?: string };
+    expect(body.client_id).toEqual(expect.any(String));
+    expect(body.client_secret).toBeUndefined();
+    expect(await clientRegistrationSource(body.client_id)).toBe("dynamic");
+  });
+
+  it("refuses an anonymous confidential registration, however the method is set", async () => {
+    for (const body of [
+      { ...publicClient, token_endpoint_auth_method: "client_secret_basic" },
+      { ...publicClient, token_endpoint_auth_method: "client_secret_post" },
+      // Omitting it defaults to a confidential client in Better Auth: still refused.
+      publicClient,
+    ]) {
+      const response = await request("/oauth2/register", { json: body });
+      expect(response.status, JSON.stringify(body)).toBe(400);
+      expect(await response.json()).toMatchObject({ error: "invalid_client_metadata" });
+    }
+  });
+
+  it("still lets a signed-in user register a confidential client", async () => {
+    const user = await signedIn("user");
+    const response = await request("/oauth2/register", {
+      headers: user.headers,
+      json: { ...publicClient, application_type: "web", redirect_uris: ["https://app.example.test/cb"], token_endpoint_auth_method: "client_secret_basic" },
+    });
+    expect(response.status, await response.clone().text()).toBe(201);
+    const body = (await response.json()) as { client_id: string; client_secret?: string };
+    expect(body.client_secret).toEqual(expect.any(String));
+    expect(await clientRegistrationSource(body.client_id)).toBe("dynamic");
+  });
+});
+
 describe("the session JWT is off (L6)", () => {
   it("has no /token endpoint and no set-auth-jwt header", async () => {
     const user = await signedIn("user");
