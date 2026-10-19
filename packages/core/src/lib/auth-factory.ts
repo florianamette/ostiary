@@ -61,11 +61,10 @@ import {
     clientExists,
     currentClientRegistrationSettings,
     registrationCapacityLeft,
+    syncClientRegistration,
 } from "@ostiary/core/lib/client-registration";
 import {
-    CLIENT_REGISTRATION_DEFAULT_SCOPES,
     clientActionAllowed,
-    DEFAULT_DYNAMIC_REGISTRATION_MODE,
     metadataDocumentHostAllowed,
     PLATFORM_CLIENT_REFERENCE,
 } from "@ostiary/core/lib/client-registration-policy";
@@ -193,29 +192,6 @@ const DELETE_USER_LINK_PATH = "/delete-user/callback";
 const API_KEY_PREFIX = env.API_KEY_PREFIX ?? "ost_";
 
 /**
- * Deployment-level kill-switches for OAuth client self-registration (RFC 7591 / "MCP out of the
- * box"), read once from the environment. Both default on, so they do not by themselves change
- * the admin console's control; setting either to "false" forces the corresponding behavior off
- * regardless of the stored setting (see applyClientRegistration). A downstream fork can hard-
- * disable registration, or disable only anonymous registration, without the admin console.
- */
-const CLIENT_REGISTRATION_OVERRIDES = {
-    allowDynamic: env.OAUTH_ALLOW_DYNAMIC_CLIENT_REGISTRATION !== "false",
-    allowUnauthenticated: env.OAUTH_ALLOW_UNAUTHENTICATED_CLIENT_REGISTRATION !== "false",
-} as const;
-
-// Construction-time registration flags, derived from the env default mode and the kill-switches,
-// mirroring applyClientRegistration. They let discovery advertise the registration endpoint on a
-// cold instance when a deployment enables DCR by env; the runtime sync (hooks.before) still updates
-// these per request from the admin console's stored setting.
-const INITIAL_ALLOW_DYNAMIC_REGISTRATION =
-    CLIENT_REGISTRATION_OVERRIDES.allowDynamic && DEFAULT_DYNAMIC_REGISTRATION_MODE !== "off";
-const INITIAL_ALLOW_UNAUTHENTICATED_REGISTRATION =
-    INITIAL_ALLOW_DYNAMIC_REGISTRATION &&
-    CLIENT_REGISTRATION_OVERRIDES.allowUnauthenticated &&
-    DEFAULT_DYNAMIC_REGISTRATION_MODE === "open";
-
-/**
  * Client ID Metadata Documents (the client_id is an HTTPS URL to the client's JSON metadata,
  * as MCP clients use). Added to the provider only while an admin has turned it on, see
  * syncClientRegistration. Better Auth's Node transport resolves the host once, refuses private
@@ -245,6 +221,38 @@ function metadataDocumentRegistration() {
                 });
             },
         }),
+    };
+}
+
+/**
+ * Cold-start discovery sync. The oauth-provider plugin answers the discovery documents
+ * (/.well-known/oauth-authorization-server and /.well-known/openid-configuration) from an
+ * onRequest interceptor that reads provider.options directly, before Better Auth runs the
+ * per-request hooks.before (guardRequests) that otherwise syncs them. On a freshly started
+ * (cold) serverless instance no request has synced those options yet, so discovery would reflect
+ * the construction-time defaults (registration off) rather than the admin console's stored
+ * setting — under-advertising registration_endpoint (and public "none" clients) when an admin
+ * has turned registration on. Plugin onRequest hooks run in the order the plugins are listed, so
+ * placing this immediately before the oauth-provider plugin lets it apply the stored settings to
+ * provider.options first, on the discovery paths only. syncClientRegistration reuses the shared
+ * settings cache (a one-minute TTL per instance, see refreshing-cache.ts), so this is at most one
+ * database read a minute, not one per request. It returns nothing and never short-circuits, so
+ * the oauth-provider plugin still serves the metadata — now from options that match the setting.
+ */
+function clientRegistrationDiscoverySync(
+    provider: ReturnType<typeof oauthProvider>,
+    metadataDocuments: unknown,
+): BetterAuthPlugin {
+    const isDiscoveryPath = (pathname: string) =>
+        pathname.includes("/.well-known/oauth-authorization-server") ||
+        pathname.includes("/.well-known/openid-configuration");
+    return {
+        id: "ostiary-client-registration-discovery-sync",
+        onRequest: async (request) => {
+            if (isDiscoveryPath(new URL(request.url).pathname)) {
+                await syncClientRegistration(provider.options, metadataDocuments);
+            }
+        },
     };
 }
 
@@ -311,17 +319,18 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
         loginPage: "/login",
         consentPage: "/consent",
         // Self-registration (Dynamic Client Registration / MCP, metadata documents) is off here and
-        // set from the admin console's settings before each request, then clamped by the
-        // OAUTH_ALLOW_* kill-switches (CLIENT_REGISTRATION_OVERRIDES), see syncClientRegistration.
-        allowDynamicClientRegistration: INITIAL_ALLOW_DYNAMIC_REGISTRATION,
-        allowUnauthenticatedClientRegistration: INITIAL_ALLOW_UNAUTHENTICATED_REGISTRATION,
+        // set from the admin console's settings before each request, see syncClientRegistration.
+        // The discovery documents are served (from these options) before that first per-request
+        // sync, so on a cold instance clientRegistrationDiscoverySync syncs them on the discovery
+        // paths too, keeping discovery aligned with the admin console's stored setting.
+        allowDynamicClientRegistration: false,
+        allowUnauthenticatedClientRegistration: false,
         // Safe defaults until the first per-request sync: PKCE always required for self-registered
-        // clients, and they may request the OIDC scopes only by default. A downstream fork widens
-        // the allowed set with OAUTH_CLIENT_REGISTRATION_SCOPES (CLIENT_REGISTRATION_DEFAULT_SCOPES);
-        // syncClientRegistration then narrows both lists to the admin console's selection.
+        // clients, and they may request the OIDC scopes only by default. syncClientRegistration
+        // then narrows both lists to the admin console's selection.
         clientRegistrationRequirePKCE: true,
-        clientRegistrationDefaultScopes: [...CLIENT_REGISTRATION_DEFAULT_SCOPES],
-        clientRegistrationAllowedScopes: [...CLIENT_REGISTRATION_DEFAULT_SCOPES],
+        clientRegistrationDefaultScopes: [...OIDC_SCOPES],
+        clientRegistrationAllowedScopes: [...OIDC_SCOPES],
         // Only for clients that ask with prompt=select_account (e.g. a native app signing in
         // through the system browser, whose session may belong to someone else).
         selectAccount: { page: "/select-account", shouldRedirect: () => false },
@@ -416,7 +425,7 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
         },
         databaseHooks: databaseHooks(),
         hooks: {
-            before: guardRequests({ provider, jwtOptions, metadataDocuments, clientRegistrationOverrides: CLIENT_REGISTRATION_OVERRIDES }),
+            before: guardRequests({ provider, jwtOptions, metadataDocuments }),
             after: auditRequests(),
         },
         // Per-API access: APIs open to every application count as linked to every client.
@@ -596,6 +605,10 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
                     });
                 },
             }),
+            // Keeps the discovery documents (served from provider.options before the per-request
+            // sync hook runs) aligned with the admin console's stored setting on a cold instance.
+            // Must be listed before the oauth-provider plugin: onRequest hooks run in plugin order.
+            clientRegistrationDiscoverySync(provider, metadataDocuments),
             provider,
             // Self-registered clients stay within the self-registration policy; device sign-in
             // is for admin-registered clients only.

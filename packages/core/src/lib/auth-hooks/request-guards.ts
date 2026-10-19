@@ -16,7 +16,6 @@ import { registrationCapacityLeft, syncClientRegistration } from "@ostiary/core/
 import {
     registrationRequestError,
     unauthenticatedRegistrationError,
-    type ClientRegistrationOverrides,
     type ClientRegistrationSettings,
 } from "@ostiary/core/lib/client-registration-policy";
 import { ACCOUNT_DELETION_BLOCKED, accountDeletionBlockers } from "@ostiary/core/lib/account-data/blockers";
@@ -218,13 +217,10 @@ export function guardRequests({
     provider,
     jwtOptions,
     metadataDocuments,
-    clientRegistrationOverrides,
 }: {
     provider: ReturnType<typeof oauthProvider>;
     jwtOptions: JwtOptions;
     metadataDocuments: unknown;
-    /** Environment kill-switches for self-registration, applied on top of the admin console's settings. */
-    clientRegistrationOverrides?: ClientRegistrationOverrides;
 }) {
     return createAuthMiddleware(async (ctx) => {
         // APIs registered from the admin console add scopes without a redeploy.
@@ -238,7 +234,7 @@ export function guardRequests({
             throw new APIError("NOT_FOUND", { message: "Google One Tap is not enabled." });
         }
         if (env.REQUIRE_ADMIN_2FA === "true" && isAdminPath(ctx.path)) await requireAdminTwoFactor(ctx);
-        const registration = await syncClientRegistration(provider.options, metadataDocuments, clientRegistrationOverrides);
+        const registration = await syncClientRegistration(provider.options, metadataDocuments);
         // Device sign-in is for admin-registered clients only: see oauthClientGuard.
         if (ctx.path === "/oauth2/register" && registration.dynamic !== "off") return guardDynamicRegistration(ctx, registration);
         if (ctx.path === "/sso/register") return guardSsoRegistration(ctx);

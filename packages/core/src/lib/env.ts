@@ -60,36 +60,6 @@ export const envSchema = z
     REQUIRE_ADMIN_2FA: z.enum(["true", "false"]).default("true"),
     /** Comma-separated scopes for your own APIs, e.g. "orders:read,orders:write". */
     OAUTH_API_SCOPES: z.string().optional(),
-    /**
-     * MCP / Dynamic Client Registration (RFC 7591) deployment kill-switch. When "false", client
-     * self-registration (/oauth2/register) is off no matter what the admin console has selected.
-     * Default on ("true"); the feature still only runs once an admin turns it on under
-     * Applications > Self-registration. See docs/mcp-and-agents.md.
-     */
-    OAUTH_ALLOW_DYNAMIC_CLIENT_REGISTRATION: z.enum(["true", "false"]).optional(),
-    /**
-     * When "false", unauthenticated client registration is never allowed, even when the admin
-     * console selects "Anyone": the "open" mode is clamped to signed-in users only. Default on.
-     * Unauthenticated registration is in any case limited to public PKCE clients (a session is
-     * required to register a confidential client); this toggle turns anonymous registration off
-     * entirely. See docs/mcp-and-agents.md.
-     */
-    OAUTH_ALLOW_UNAUTHENTICATED_CLIENT_REGISTRATION: z.enum(["true", "false"]).optional(),
-    /**
-     * Comma-separated scopes a self-registered client may request by default, e.g.
-     * "openid,profile,email,offline_access,notes:read". Defaults to the OpenID Connect scopes
-     * only. This is the generic, deployment-level way for a downstream fork to allow its own API
-     * scopes for self-registration without editing code; a listed scope must also exist on the
-     * server (OAUTH_API_SCOPES or an API registered in the admin console) to be issued.
-     */
-    OAUTH_CLIENT_REGISTRATION_SCOPES: z.string().optional(),
-    /**
-     * Default dynamic-client-registration mode: "off" | "signed_in" | "open" (default "off").
-     * Lets a deployment enable MCP/dynamic registration purely via configuration (no admin
-     * console) and makes discovery advertise the registration endpoint on a cold instance. The
-     * admin console still overrides this at runtime.
-     */
-    OAUTH_DYNAMIC_CLIENT_REGISTRATION_MODE: z.enum(["off", "signed_in", "open"]).optional(),
     /** GitHub OAuth App credentials. "Sign in with GitHub" appears only when both are set. */
     GITHUB_CLIENT_ID: z.string().min(1).optional(),
     GITHUB_CLIENT_SECRET: z.string().min(1).optional(),

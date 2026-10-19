@@ -4,7 +4,7 @@ import { hashPassword } from "better-auth/crypto";
 import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/pglite";
 import { migrate } from "drizzle-orm/pglite/migrator";
-import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
+import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from "vitest";
 
 /*
  * OAuth client management against the real Better Auth configuration (createAuth) and a real
@@ -366,10 +366,9 @@ describe("MCP self-registration advertises and limits to public PKCE clients (H2
   };
 
   it("discovery advertises the registration endpoint, S256 PKCE, the grants and public clients", async () => {
-    // The metadata is served in an onRequest interceptor that runs before the sync hook, so it
-    // reflects the plugin options as last synced by a prior (non-metadata) request. Any such
-    // request warms them from the current stored settings; here a session read does it.
-    await request("/get-session");
+    // No warming request first: the metadata is served from the plugin options by an onRequest
+    // interceptor, and clientRegistrationDiscoverySync (auth-factory.ts) syncs those options from
+    // the stored setting on the discovery path itself, so discovery reflects the admin console.
     const response = await request("/.well-known/oauth-authorization-server");
     expect(response.status, await response.clone().text()).toBe(200);
     const metadata = (await response.json()) as {
@@ -418,6 +417,42 @@ describe("MCP self-registration advertises and limits to public PKCE clients (H2
     const body = (await response.json()) as { client_id: string; client_secret?: string };
     expect(body.client_secret).toEqual(expect.any(String));
     expect(await clientRegistrationSource(body.client_id)).toBe("dynamic");
+  });
+});
+
+describe("discovery reflects the stored setting on a cold serverless instance (H2)", () => {
+  // The discovery documents are served from the plugin options by an onRequest interceptor that
+  // runs before the per-request sync hook. On a cold instance no request has synced those options,
+  // so without clientRegistrationDiscoverySync (auth-factory.ts) discovery would show the
+  // construction-time default (registration off). Each case builds a fresh auth whose very first
+  // handled request is discovery — the cold-start path — after storing the admin setting.
+  async function coldDiscoveryMetadata() {
+    const cold = createAuth({ baseURL: BASE, trustedOrigins: [BASE] });
+    await cold.$context;
+    const response = await cold.handler(new Request(`${ISSUER}/.well-known/oauth-authorization-server`));
+    expect(response.status, await response.clone().text()).toBe(200);
+    return (await response.json()) as {
+      registration_endpoint?: string;
+      token_endpoint_auth_methods_supported?: string[];
+    };
+  }
+
+  afterEach(async () => {
+    await saveClientRegistrationSettings(DEFAULT_CLIENT_REGISTRATION_SETTINGS, null);
+  });
+
+  it("advertises registration and public clients when the stored setting is open", async () => {
+    await saveClientRegistrationSettings({ ...DEFAULT_CLIENT_REGISTRATION_SETTINGS, dynamic: "open" }, null);
+    const metadata = await coldDiscoveryMetadata();
+    expect(metadata.registration_endpoint).toBe(`${ISSUER}/oauth2/register`);
+    expect(metadata.token_endpoint_auth_methods_supported).toContain("none");
+  });
+
+  it("does not advertise registration when the stored setting is off", async () => {
+    await saveClientRegistrationSettings(DEFAULT_CLIENT_REGISTRATION_SETTINGS, null);
+    const metadata = await coldDiscoveryMetadata();
+    expect(metadata.registration_endpoint).toBeUndefined();
+    expect(metadata.token_endpoint_auth_methods_supported ?? []).not.toContain("none");
   });
 });
 

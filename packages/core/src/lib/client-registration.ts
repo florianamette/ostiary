@@ -10,7 +10,6 @@ import {
   parseClientRegistrationSettings,
   PLATFORM_CLIENT_REFERENCE,
   registrationSource,
-  type ClientRegistrationOverrides,
   type ClientRegistrationSettings,
   type RegistrationProviderOptions,
   type RegistrationSource,
@@ -49,10 +48,9 @@ export async function saveClientRegistrationSettings(
 export async function syncClientRegistration(
   options: RegistrationProviderOptions,
   metadataDocuments: unknown,
-  overrides?: ClientRegistrationOverrides,
 ): Promise<ClientRegistrationSettings> {
   const settings = await currentClientRegistrationSettings();
-  applyClientRegistration(options, settings, metadataDocuments, overrides);
+  applyClientRegistration(options, settings, metadataDocuments);
   return settings;
 }
 

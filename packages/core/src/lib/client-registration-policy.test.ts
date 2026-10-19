@@ -104,34 +104,6 @@ describe("applyClientRegistration", () => {
     expect(opts.allowUnauthenticatedClientRegistration).toBe(false);
   });
 
-  it("lets the OAUTH_ALLOW_DYNAMIC_CLIENT_REGISTRATION override force registration off", () => {
-    const opts = options();
-    applyClientRegistration(opts, { ...DEFAULT_CLIENT_REGISTRATION_SETTINGS, dynamic: "open" }, extension, {
-      allowDynamic: false,
-    });
-    expect(opts.allowDynamicClientRegistration).toBe(false);
-    expect(opts.allowUnauthenticatedClientRegistration).toBe(false);
-  });
-
-  it("lets the OAUTH_ALLOW_UNAUTHENTICATED override clamp open to signed-in", () => {
-    const opts = options();
-    applyClientRegistration(opts, { ...DEFAULT_CLIENT_REGISTRATION_SETTINGS, dynamic: "open" }, extension, {
-      allowUnauthenticated: false,
-    });
-    expect(opts.allowDynamicClientRegistration).toBe(true);
-    expect(opts.allowUnauthenticatedClientRegistration).toBe(false);
-  });
-
-  it("overrides can only restrict, never widen an off setting", () => {
-    const opts = options();
-    applyClientRegistration(opts, DEFAULT_CLIENT_REGISTRATION_SETTINGS, extension, {
-      allowDynamic: true,
-      allowUnauthenticated: true,
-    });
-    expect(opts.allowDynamicClientRegistration).toBe(false);
-    expect(opts.allowUnauthenticatedClientRegistration).toBe(false);
-  });
-
   it("adds and removes the metadata document discovery once", () => {
     const opts = options();
     const on = { ...DEFAULT_CLIENT_REGISTRATION_SETTINGS, metadataDocuments: true };

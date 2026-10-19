@@ -58,7 +58,7 @@ Hosted identity platforms are great until the bill scales with your users or you
 - OAuth 2.1 / OpenID Connect provider: discovery, PKCE, refresh tokens, consent, UserInfo, introspection, JWKS
 - Machine-to-machine tokens (client credentials) with per-client scopes
 - API keys for scripts: users (or organizations) create keys for one of your APIs and some of its scopes; your API verifies them with Ostiary
-- Self-registration for MCP clients and AI agents: Dynamic Client Registration and Client ID Metadata Documents, off by default. Anonymous registration is limited to public PKCE clients (no secret leaves without a sign-in), with environment guard rails and configurable scopes — see [MCP and AI agents](docs/mcp-and-agents.md)
+- Self-registration for MCP clients and AI agents: Dynamic Client Registration and Client ID Metadata Documents, off by default and controlled from the admin console. Anonymous registration is limited to public PKCE clients (no secret leaves without a sign-in) — see [MCP and AI agents](docs/mcp-and-agents.md)
 - Device sign-in (RFC 8628) for CLIs, TVs and other apps without a browser
 - Protected resources: JWT access tokens scoped to your APIs, with the user's role as a claim
 - Organizations with members, roles and invitations
