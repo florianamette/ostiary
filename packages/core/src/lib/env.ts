@@ -83,6 +83,13 @@ export const envSchema = z
      * server (OAUTH_API_SCOPES or an API registered in the admin console) to be issued.
      */
     OAUTH_CLIENT_REGISTRATION_SCOPES: z.string().optional(),
+    /**
+     * Default dynamic-client-registration mode: "off" | "signed_in" | "open" (default "off").
+     * Lets a deployment enable MCP/dynamic registration purely via configuration (no admin
+     * console) and makes discovery advertise the registration endpoint on a cold instance. The
+     * admin console still overrides this at runtime.
+     */
+    OAUTH_DYNAMIC_CLIENT_REGISTRATION_MODE: z.enum(["off", "signed_in", "open"]).optional(),
     /** GitHub OAuth App credentials. "Sign in with GitHub" appears only when both are set. */
     GITHUB_CLIENT_ID: z.string().min(1).optional(),
     GITHUB_CLIENT_SECRET: z.string().min(1).optional(),

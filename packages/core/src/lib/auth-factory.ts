@@ -65,6 +65,7 @@ import {
 import {
     CLIENT_REGISTRATION_DEFAULT_SCOPES,
     clientActionAllowed,
+    DEFAULT_DYNAMIC_REGISTRATION_MODE,
     metadataDocumentHostAllowed,
     PLATFORM_CLIENT_REFERENCE,
 } from "@ostiary/core/lib/client-registration-policy";
@@ -203,6 +204,17 @@ const CLIENT_REGISTRATION_OVERRIDES = {
     allowUnauthenticated: env.OAUTH_ALLOW_UNAUTHENTICATED_CLIENT_REGISTRATION !== "false",
 } as const;
 
+// Construction-time registration flags, derived from the env default mode and the kill-switches,
+// mirroring applyClientRegistration. They let discovery advertise the registration endpoint on a
+// cold instance when a deployment enables DCR by env; the runtime sync (hooks.before) still updates
+// these per request from the admin console's stored setting.
+const INITIAL_ALLOW_DYNAMIC_REGISTRATION =
+    CLIENT_REGISTRATION_OVERRIDES.allowDynamic && DEFAULT_DYNAMIC_REGISTRATION_MODE !== "off";
+const INITIAL_ALLOW_UNAUTHENTICATED_REGISTRATION =
+    INITIAL_ALLOW_DYNAMIC_REGISTRATION &&
+    CLIENT_REGISTRATION_OVERRIDES.allowUnauthenticated &&
+    DEFAULT_DYNAMIC_REGISTRATION_MODE === "open";
+
 /**
  * Client ID Metadata Documents (the client_id is an HTTPS URL to the client's JSON metadata,
  * as MCP clients use). Added to the provider only while an admin has turned it on, see
@@ -301,8 +313,8 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
         // Self-registration (Dynamic Client Registration / MCP, metadata documents) is off here and
         // set from the admin console's settings before each request, then clamped by the
         // OAUTH_ALLOW_* kill-switches (CLIENT_REGISTRATION_OVERRIDES), see syncClientRegistration.
-        allowDynamicClientRegistration: false,
-        allowUnauthenticatedClientRegistration: false,
+        allowDynamicClientRegistration: INITIAL_ALLOW_DYNAMIC_REGISTRATION,
+        allowUnauthenticatedClientRegistration: INITIAL_ALLOW_UNAUTHENTICATED_REGISTRATION,
         // Safe defaults until the first per-request sync: PKCE always required for self-registered
         // clients, and they may request the OIDC scopes only by default. A downstream fork widens
         // the allowed set with OAUTH_CLIENT_REGISTRATION_SCOPES (CLIENT_REGISTRATION_DEFAULT_SCOPES);

@@ -54,8 +54,20 @@ export type ClientRegistrationSettings = {
   maxRegistrationsPerHour: number;
 };
 
+/**
+ * The construction-time and fallback dynamic-registration mode. Env-configurable via
+ * OAUTH_DYNAMIC_CLIENT_REGISTRATION_MODE ("off" | "signed_in" | "open", default "off"), so a
+ * deployment can enable dynamic client registration purely through configuration — no admin
+ * console — and discovery advertises the registration endpoint even on a cold instance. The admin
+ * console still overrides this at runtime (see syncClientRegistration).
+ */
+export const DEFAULT_DYNAMIC_REGISTRATION_MODE: DynamicRegistrationMode =
+  (DYNAMIC_REGISTRATION_MODES as readonly string[]).includes(env.OAUTH_DYNAMIC_CLIENT_REGISTRATION_MODE ?? "")
+    ? (env.OAUTH_DYNAMIC_CLIENT_REGISTRATION_MODE as DynamicRegistrationMode)
+    : "off";
+
 export const DEFAULT_CLIENT_REGISTRATION_SETTINGS: ClientRegistrationSettings = {
-  dynamic: "off",
+  dynamic: DEFAULT_DYNAMIC_REGISTRATION_MODE,
   metadataDocuments: false,
   scopes: [...CLIENT_REGISTRATION_DEFAULT_SCOPES],
   metadataDocumentHosts: [],

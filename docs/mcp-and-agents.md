@@ -20,6 +20,7 @@ Settings live in the database and reach the auth server within a minute, no rede
 
 | Variable | Effect |
 | --- | --- |
+| `OAUTH_DYNAMIC_CLIENT_REGISTRATION_MODE` | Default registration mode `off` \| `signed_in` \| `open` (default `off`). Lets a deployment enable MCP/dynamic registration by configuration alone — no admin console — and makes discovery advertise `registration_endpoint` even on a cold instance. The admin console still overrides it at runtime. |
 | `OAUTH_ALLOW_DYNAMIC_CLIENT_REGISTRATION` | `false` disables `/oauth2/register` entirely, whatever the admin console selects (a kill-switch). |
 | `OAUTH_ALLOW_UNAUTHENTICATED_CLIENT_REGISTRATION` | `false` forbids anonymous registration even in *Anyone* mode, clamping it to signed-in users. |
 | `OAUTH_CLIENT_REGISTRATION_SCOPES` | Comma-separated scopes a self-registered client may request by default (e.g. `openid,profile,email,offline_access,notes:read`). Defaults to the OpenID Connect scopes only. A listed scope must also exist on the server (`OAUTH_API_SCOPES` or an API in the admin console) to be issued. |
