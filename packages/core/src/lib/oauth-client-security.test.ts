@@ -394,16 +394,19 @@ describe("MCP self-registration advertises and limits to public PKCE clients (H2
     expect(await clientRegistrationSource(body.client_id)).toBe("dynamic");
   });
 
-  it("refuses an anonymous confidential registration, however the method is set", async () => {
+  it("coerces an anonymous confidential (or method-omitted) registration to a public PKCE client", async () => {
     for (const body of [
       { ...publicClient, token_endpoint_auth_method: "client_secret_basic" },
       { ...publicClient, token_endpoint_auth_method: "client_secret_post" },
-      // Omitting it defaults to a confidential client in Better Auth: still refused.
+      // Omitting it would default to a confidential client in Better Auth: coerced to public instead
+      // of refused, so an MCP client that omits the method still registers (never with a secret).
       publicClient,
     ]) {
       const response = await request("/oauth2/register", { json: body });
-      expect(response.status, JSON.stringify(body)).toBe(400);
-      expect(await response.json()).toMatchObject({ error: "invalid_client_metadata" });
+      expect(response.status, JSON.stringify(body)).toBe(201);
+      const created = (await response.json()) as { token_endpoint_auth_method?: string; client_secret?: string };
+      expect(created.token_endpoint_auth_method, JSON.stringify(body)).toBe("none");
+      expect(created.client_secret).toBeUndefined();
     }
   });
 

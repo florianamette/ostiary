@@ -15,7 +15,6 @@ import { googleOneTap, syncSocialProviders } from "@ostiary/core/lib/social-prov
 import { registrationCapacityLeft, syncClientRegistration } from "@ostiary/core/lib/client-registration";
 import {
     registrationRequestError,
-    unauthenticatedRegistrationError,
     type ClientRegistrationSettings,
 } from "@ostiary/core/lib/client-registration-policy";
 import { ACCOUNT_DELETION_BLOCKED, accountDeletionBlockers } from "@ostiary/core/lib/account-data/blockers";
@@ -79,11 +78,12 @@ async function guardDynamicRegistration(ctx: Ctx, registration: ClientRegistrati
     if (refused) {
         throw new APIError("BAD_REQUEST", { error: "invalid_client_metadata", error_description: refused });
     }
-    // Unauthenticated registration is limited to public PKCE clients: Better Auth would otherwise
-    // hand an anonymous caller a confidential client with a secret (unauthenticatedRegistrationError).
-    const confidential = unauthenticatedRegistrationError(ctx.body, Boolean(await getSessionFromCtx(ctx)));
-    if (confidential) {
-        throw new APIError("BAD_REQUEST", { error: "invalid_client_metadata", error_description: confidential });
+    // Unauthenticated registration is COERCED to a public PKCE client, never refused: MCP clients
+    // (e.g. Claude) often omit token_endpoint_auth_method, and Better Auth would then default it to a
+    // confidential client with a secret. An anonymous caller must never receive a secret, so force
+    // the public method; a confidential client still requires a signed-in session.
+    if (!(await getSessionFromCtx(ctx)) && ctx.body && typeof ctx.body === "object") {
+        (ctx.body as { token_endpoint_auth_method?: string }).token_endpoint_auth_method = "none";
     }
     if (!(await registrationCapacityLeft(registration))) {
         throw new APIError("TOO_MANY_REQUESTS", {
