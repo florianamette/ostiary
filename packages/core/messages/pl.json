@@ -369,7 +369,11 @@
           "previous": "Poprzednia",
           "next": "Następna",
           "page": "Strona {page} / {total}",
-          "footnote": "Dane z <code>{getClients}</code>. Rejestracja i edycja (w tym <code>{skipConsent}</code>) wywołują <code>{create}</code> i <code>{update}</code>; pozostałe zmiany używają <code>{deleteClient}</code> i <code>{rotateSecret}</code>. Zobacz dokumentację <docs>OAuth provider</docs>. Klienci są przypisani do zalogowanego użytkownika (lub do <code>{clientReference}</code>, jeśli skonfigurowano). Klienci zarejestrowani samodzielnie nie mają właściciela i są wyświetlani wszyscy; można ich wyłączyć lub usunąć, ale nie edytować."
+          "footnote": "Dane z <code>{getClients}</code>. Rejestracja i edycja (w tym <code>{skipConsent}</code>) wywołują <code>{create}</code> i <code>{update}</code>; pozostałe zmiany używają <code>{deleteClient}</code> i <code>{rotateSecret}</code>. Zobacz dokumentację <docs>OAuth provider</docs>. Klienci są przypisani do zalogowanego użytkownika (lub do <code>{clientReference}</code>, jeśli skonfigurowano). Klienci zarejestrowani samodzielnie nie mają właściciela i są wyświetlani wszyscy; można ich wyłączyć lub usunąć, ale nie edytować.",
+          "duplicates": "×{count}",
+          "duplicatesHint": "Identycznych klientów zarejestrowanych samodzielnie: {count}",
+          "showDuplicates": "Pokaż wszystkie ({count})",
+          "hideDuplicates": "Ukryj identyczne"
         },
         "registration": {
           "title": "Samorejestracja",
@@ -405,7 +409,12 @@
           "hostsHint": "Jeden w wierszu. Puste: dowolny publiczny host HTTPS.",
           "scopesLabel": "Scope'y, o które mogą prosić klienci zarejestrowani samodzielnie",
           "scopesHint": "Każdy użytkownik nadal zatwierdza scope'y, o które prosi aplikacja. Usunięcie scope'u usuwa go też z już zarejestrowanych klientów; wydane tokeny zachowują go do wygaśnięcia.",
-          "perHourHint": "Łącznie dla wszystkich instancji i obu metod. Każdy adres jest też ograniczony do 5 rejestracji na minutę."
+          "perHourHint": "Łącznie dla wszystkich instancji i obu metod. Każdy adres jest też ograniczony do 5 rejestracji na minutę.",
+          "reuse": "Identyczni klienci publiczni",
+          "reuseOn": "Używani ponownie",
+          "reuseOff": "Za każdym razem nowy klient",
+          "reuseLabel": "Używaj ponownie identycznych klientów publicznych",
+          "reuseHint": "Aplikacja bez sekretu, która rejestruje się ponownie z tą samą nazwą, URI przekierowania, grantami i scope'ami, otrzymuje z powrotem istniejącego klienta zamiast nowego. Klienci MCP, tacy jak Claude, rejestrują się przy każdym połączeniu."
         },
         "branding": {
           "title": "Wygląd logowania",
@@ -483,7 +492,9 @@
             "clientGone": "Ten klient już nie istnieje.",
             "notSelfRegistered": "Tutaj można zmieniać tylko klientów zarejestrowanych samodzielnie.",
             "invalidIconUrl": "URL ikony musi być adresem https na publicznym hoście (localhost i adresów prywatnych nie można pobrać).",
-            "iconFromMetadataDocument": "Ikona tego klienta pochodzi z jego dokumentu metadanych."
+            "iconFromMetadataDocument": "Ikona tego klienta pochodzi z jego dokumentu metadanych.",
+            "invalidUnusedDays": "Liczba dni musi być liczbą całkowitą od 1 do {max}.",
+            "cleanupFailed": "Nie udało się usunąć zduplikowanych klientów."
           },
           "branding": {
             "clientGone": "Ta aplikacja już nie istnieje.",
@@ -604,6 +615,17 @@
           "panelImageEmpty": "Obraz panelu bocznego jest pusty.",
           "panelImageTooLarge": "Obraz panelu bocznego może mieć najwyżej 1 MB.",
           "panelImageType": "Obraz panelu bocznego musi być w formacie PNG, JPEG, WebP lub AVIF."
+        },
+        "cleanup": {
+          "trigger": "Usuń nieużywane duplikaty",
+          "title": "Usunąć nieużywane duplikaty?",
+          "description": "Z każdej grupy identycznych aplikacji zarejestrowanych samodzielnie zachowywana jest ostatnio używana. Pozostałe są usuwane wraz z ich zgodami, z wyjątkiem tych, które nadal mają ważny token dostępu lub odświeżania: zostają, aby nikt nie został wylogowany.",
+          "pruneLabel": "Usuń też aplikacje zarejestrowane samodzielnie, które nigdy nie były używane",
+          "pruneHint": "Brak tokenu i zgody, zarejestrowane ponad tyle dni temu.",
+          "daysLabel": "Dni",
+          "confirm": "Usuń",
+          "done": "{removed, plural, one {Usunięto # klienta} few {Usunięto # klientów} many {Usunięto # klientów} other {Usunięto # klienta}}.",
+          "doneInUse": "{removed, plural, one {Usunięto # klienta} few {Usunięto # klientów} many {Usunięto # klientów} other {Usunięto # klienta}}. {inUse, plural, one {Zachowano # duplikat: jest nadal zalogowany.} few {Zachowano # duplikaty: są nadal zalogowane.} many {Zachowano # duplikatów: są nadal zalogowane.} other {Zachowano # duplikatu: są nadal zalogowane.}}"
         }
       },
       "apis": {
@@ -1661,7 +1683,8 @@
             "disable": "Wyłączono klienta OAuth",
             "enable": "Włączono klienta OAuth",
             "branding_update": "Zmieniono wygląd logowania",
-            "branding_reset": "Zresetowano wygląd logowania"
+            "branding_reset": "Zresetowano wygląd logowania",
+            "remove_duplicates": "Usunięto zduplikowanych klientów OAuth"
           },
           "client_registration": {
             "update": "Zmieniono samorejestrację klientów"

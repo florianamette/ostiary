@@ -369,7 +369,11 @@
           "previous": "前へ",
           "next": "次へ",
           "page": "{page} / {total} ページ",
-          "footnote": "データは <code>{getClients}</code> から取得しています。登録と編集（<code>{skipConsent}</code> を含む）は <code>{create}</code> と <code>{update}</code> を呼び出し、その他の変更は <code>{deleteClient}</code> と <code>{rotateSecret}</code> を使います。<docs>OAuth プロバイダー</docs>のドキュメントを参照してください。クライアントはサインイン中のユーザー（設定されている場合は <code>{clientReference}</code>）に紐づきます。自己登録クライアントには所有者がおらず、すべて表示されます。無効化や削除はできますが、編集はできません。"
+          "footnote": "データは <code>{getClients}</code> から取得しています。登録と編集（<code>{skipConsent}</code> を含む）は <code>{create}</code> と <code>{update}</code> を呼び出し、その他の変更は <code>{deleteClient}</code> と <code>{rotateSecret}</code> を使います。<docs>OAuth プロバイダー</docs>のドキュメントを参照してください。クライアントはサインイン中のユーザー（設定されている場合は <code>{clientReference}</code>）に紐づきます。自己登録クライアントには所有者がおらず、すべて表示されます。無効化や削除はできますが、編集はできません。",
+          "duplicates": "×{count}",
+          "duplicatesHint": "同一の自己登録クライアント {count} 件",
+          "showDuplicates": "{count} 件すべて表示",
+          "hideDuplicates": "同一のものを非表示"
         },
         "registration": {
           "title": "自己登録",
@@ -405,7 +409,12 @@
           "hostsHint": "1 行に 1 つ。空欄の場合は任意のパブリック HTTPS ホスト。",
           "scopesLabel": "自己登録クライアントが要求できるスコープ",
           "scopesHint": "アプリが要求するスコープは、引き続き各ユーザーが承認します。スコープを削除すると登録済みのクライアントからも削除されます。発行済みのトークンは期限が切れるまでそのスコープを保持します。",
-          "perHourHint": "両方の方法を合わせた、全インスタンスでの上限です。また、各アドレスは 1 分あたり 5 件の登録に制限されます。"
+          "perHourHint": "両方の方法を合わせた、全インスタンスでの上限です。また、各アドレスは 1 分あたり 5 件の登録に制限されます。",
+          "reuse": "同一のパブリッククライアント",
+          "reuseOn": "再利用",
+          "reuseOff": "毎回新しいクライアント",
+          "reuseLabel": "同一のパブリッククライアントを再利用",
+          "reuseHint": "シークレットのないアプリが同じ名前、リダイレクト URI、グラント、スコープで再登録すると、新しいクライアントではなく既存のクライアントが返されます。Claude などの MCP クライアントは接続のたびに登録します。"
         },
         "branding": {
           "title": "サインインのブランディング",
@@ -483,7 +492,9 @@
             "clientGone": "このクライアントはもう存在しません。",
             "notSelfRegistered": "ここで変更できるのは自己登録クライアントのみです。",
             "invalidIconUrl": "アイコンの URL は公開ホスト上の https アドレスである必要があります（localhost やプライベートアドレスからは取得できません）。",
-            "iconFromMetadataDocument": "このクライアントのアイコンはメタデータドキュメントから取得されます。"
+            "iconFromMetadataDocument": "このクライアントのアイコンはメタデータドキュメントから取得されます。",
+            "invalidUnusedDays": "日数は 1 から {max} までの整数にしてください。",
+            "cleanupFailed": "重複したクライアントを削除できませんでした。"
           },
           "branding": {
             "clientGone": "このアプリケーションはもう存在しません。",
@@ -604,6 +615,17 @@
           "panelImageEmpty": "サイドパネルの画像が空です。",
           "panelImageTooLarge": "サイドパネルの画像は 1 MB 以下にしてください。",
           "panelImageType": "サイドパネルの画像は PNG、JPEG、WebP、AVIF のいずれかにしてください。"
+        },
+        "cleanup": {
+          "trigger": "未使用の重複を削除",
+          "title": "未使用の重複を削除しますか？",
+          "description": "同一の自己登録アプリのグループごとに、最後に使われたものが残ります。それ以外は同意とともに削除されますが、有効なアクセストークンまたはリフレッシュトークンをまだ持っているものは残るため、誰もサインアウトされません。",
+          "pruneLabel": "一度も使われていない自己登録アプリも削除",
+          "pruneHint": "トークンも同意もなく、この日数より前に登録されたもの。",
+          "daysLabel": "日数",
+          "confirm": "削除",
+          "done": "{removed, plural, other {# 件のクライアントを削除しました}}。",
+          "doneInUse": "{removed, plural, other {# 件のクライアントを削除しました}}。{inUse, plural, other {# 件の重複はまだサインイン中のため残しました。}}"
         }
       },
       "apis": {
@@ -1661,7 +1683,8 @@
             "disable": "OAuth クライアントを無効化",
             "enable": "OAuth クライアントを有効化",
             "branding_update": "サインインのブランディングを変更",
-            "branding_reset": "サインインのブランディングをリセット"
+            "branding_reset": "サインインのブランディングをリセット",
+            "remove_duplicates": "重複した OAuth クライアントを削除"
           },
           "client_registration": {
             "update": "クライアントの自己登録設定を変更"

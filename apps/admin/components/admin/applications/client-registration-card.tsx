@@ -90,7 +90,7 @@ export function ClientRegistrationCard({
         </CardAction>
       </CardHeader>
       <CardContent>
-        <dl className="grid gap-4 text-sm sm:grid-cols-2 lg:grid-cols-4">
+        <dl className="grid gap-4 text-sm sm:grid-cols-2 lg:grid-cols-5">
           <div className="space-y-1">
             <dt className="text-muted-foreground text-xs">{t("dynamicRegistration")}</dt>
             <dd className="font-medium">{t(`dynamic.${settings.dynamic}.label`)}</dd>
@@ -123,6 +123,10 @@ export function ClientRegistrationCard({
           <div className="space-y-1">
             <dt className="text-muted-foreground text-xs">{t("perHour")}</dt>
             <dd className="font-medium tabular-nums">{settings.maxRegistrationsPerHour}</dd>
+          </div>
+          <div className="space-y-1">
+            <dt className="text-muted-foreground text-xs">{t("reuse")}</dt>
+            <dd className="font-medium">{settings.reuseIdenticalPublicClients ? t("reuseOn") : t("reuseOff")}</dd>
           </div>
         </dl>
         {settings.dynamic !== "off" && authServer ? (
@@ -164,6 +168,7 @@ function ClientRegistrationDialog({
     () => new Set(settings.scopes.filter((scope) => availableScopes.includes(scope))),
   );
   const [max, setMax] = React.useState(String(settings.maxRegistrationsPerHour));
+  const [reuse, setReuse] = React.useState(settings.reuseIdenticalPublicClients);
   const ordered = [
     ...availableScopes.filter((scope) => OIDC.has(scope)),
     ...availableScopes.filter((scope) => !OIDC.has(scope)),
@@ -188,6 +193,7 @@ function ClientRegistrationDialog({
           scopes: ordered.filter((scope) => scopes.has(scope)),
           metadataDocumentHosts: hosts,
           maxRegistrationsPerHour: Number(max),
+          reuseIdenticalPublicClients: reuse,
         }),
       t("saved"),
     );
@@ -283,6 +289,16 @@ function ClientRegistrationDialog({
               <FieldDescription>
                 {t("perHourHint")}
               </FieldDescription>
+            </Field>
+            <Field>
+              <CheckboxField
+                id="registration-reuse"
+                checked={reuse}
+                onChange={setReuse}
+                disabled={busy}
+                label={t("reuseLabel")}
+                hint={t("reuseHint")}
+              />
             </Field>
           </FieldGroup>
           <DialogActions busy={busy} onCancel={onClose} confirmLabel={tCommon("save")} />

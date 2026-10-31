@@ -369,7 +369,11 @@
           "previous": "Edellinen",
           "next": "Seuraava",
           "page": "Sivu {page} / {total}",
-          "footnote": "Tiedot lähteestä <code>{getClients}</code>. Rekisteröinti ja muokkaus (myös <code>{skipConsent}</code>) kutsuvat <code>{create}</code>- ja <code>{update}</code>-päätepisteitä; muut muutokset käyttävät päätepisteitä <code>{deleteClient}</code> ja <code>{rotateSecret}</code>. Katso <docs>OAuth provider</docs> -dokumentaatio. Asiakkaat rajataan kirjautuneeseen käyttäjään (tai kohteeseen <code>{clientReference}</code>, kun se on määritetty). Itse rekisteröityneillä asiakkailla ei ole omistajaa, ja ne kaikki näytetään; ne voi poistaa käytöstä tai poistaa, mutta niitä ei voi muokata."
+          "footnote": "Tiedot lähteestä <code>{getClients}</code>. Rekisteröinti ja muokkaus (myös <code>{skipConsent}</code>) kutsuvat <code>{create}</code>- ja <code>{update}</code>-päätepisteitä; muut muutokset käyttävät päätepisteitä <code>{deleteClient}</code> ja <code>{rotateSecret}</code>. Katso <docs>OAuth provider</docs> -dokumentaatio. Asiakkaat rajataan kirjautuneeseen käyttäjään (tai kohteeseen <code>{clientReference}</code>, kun se on määritetty). Itse rekisteröityneillä asiakkailla ei ole omistajaa, ja ne kaikki näytetään; ne voi poistaa käytöstä tai poistaa, mutta niitä ei voi muokata.",
+          "duplicates": "×{count}",
+          "duplicatesHint": "{count} identtistä itse rekisteröitynyttä asiakasta",
+          "showDuplicates": "Näytä kaikki {count}",
+          "hideDuplicates": "Piilota identtiset"
         },
         "registration": {
           "title": "Itserekisteröinti",
@@ -405,7 +409,12 @@
           "hostsHint": "Yksi riviä kohden. Tyhjä: mikä tahansa julkinen HTTPS-isäntä.",
           "scopesLabel": "Scopet, joita itse rekisteröityneet asiakkaat voivat pyytää",
           "scopesHint": "Jokainen käyttäjä hyväksyy silti sovelluksen pyytämät scopet. Scopen poistaminen poistaa sen myös jo rekisteröidyiltä asiakkailta; jo myönnetyt tokenit säilyttävät sen vanhenemiseensa asti.",
-          "perHourHint": "Kaikissa instansseissa yhteensä, molemmille tavoille. Jokainen osoite on lisäksi rajoitettu 5 rekisteröintiin minuutissa."
+          "perHourHint": "Kaikissa instansseissa yhteensä, molemmille tavoille. Jokainen osoite on lisäksi rajoitettu 5 rekisteröintiin minuutissa.",
+          "reuse": "Identtiset julkiset asiakkaat",
+          "reuseOn": "Käytetään uudelleen",
+          "reuseOff": "Uusi asiakas joka kerta",
+          "reuseLabel": "Käytä identtisiä julkisia asiakkaita uudelleen",
+          "reuseHint": "Sovellus, jolla ei ole salaisuutta ja joka rekisteröityy uudelleen samalla nimellä, uudelleenohjausosoitteilla, granteilla ja scopeilla, saa takaisin olemassa olevan asiakkaansa uuden sijaan. MCP-asiakkaat, kuten Claude, rekisteröityvät jokaisella yhteyskerralla."
         },
         "branding": {
           "title": "Kirjautumisen brändäys",
@@ -483,7 +492,9 @@
             "clientGone": "Tätä asiakasta ei ole enää olemassa.",
             "notSelfRegistered": "Täällä voi muuttaa vain itse rekisteröityneitä asiakkaita.",
             "invalidIconUrl": "Kuvakkeen URL-osoitteen on oltava https-osoite julkisessa palvelimessa (localhostia ja yksityisiä osoitteita ei voi noutaa).",
-            "iconFromMetadataDocument": "Tämän asiakkaan kuvake tulee sen metatietodokumentista."
+            "iconFromMetadataDocument": "Tämän asiakkaan kuvake tulee sen metatietodokumentista.",
+            "invalidUnusedDays": "Päivien määrän on oltava kokonaisluku väliltä 1–{max}.",
+            "cleanupFailed": "Asiakkaiden kaksoiskappaleiden poistaminen epäonnistui."
           },
           "branding": {
             "clientGone": "Tätä sovellusta ei ole enää olemassa.",
@@ -604,6 +615,17 @@
           "panelImageEmpty": "Sivupaneelin kuva on tyhjä.",
           "panelImageTooLarge": "Sivupaneelin kuvan on oltava enintään 1 Mt.",
           "panelImageType": "Sivupaneelin kuvan on oltava PNG-, JPEG-, WebP- tai AVIF-kuva."
+        },
+        "cleanup": {
+          "trigger": "Poista käyttämättömät kaksoiskappaleet",
+          "title": "Poistetaanko käyttämättömät kaksoiskappaleet?",
+          "description": "Jokaisesta identtisten itse rekisteröityneiden sovellusten ryhmästä säilytetään viimeksi käytetty. Muut poistetaan suostumuksineen, paitsi ne, joilla on yhä voimassa oleva käyttö- tai päivitystokeni: ne jäävät, jotta ketään ei kirjata ulos.",
+          "pruneLabel": "Poista myös itse rekisteröityneet sovellukset, joita ei ole koskaan käytetty",
+          "pruneHint": "Ei tokenia eikä suostumusta, rekisteröity useampi kuin tämä määrä päiviä sitten.",
+          "daysLabel": "Päivät",
+          "confirm": "Poista",
+          "done": "{removed, plural, one {# asiakas poistettu} other {# asiakasta poistettu}}.",
+          "doneInUse": "{removed, plural, one {# asiakas poistettu} other {# asiakasta poistettu}}. {inUse, plural, one {# kaksoiskappale säilytettiin: se on yhä kirjautuneena.} other {# kaksoiskappaletta säilytettiin: ne ovat yhä kirjautuneina.}}"
         }
       },
       "apis": {
@@ -1661,7 +1683,8 @@
             "disable": "Poisti OAuth-asiakkaan käytöstä",
             "enable": "Otti OAuth-asiakkaan käyttöön",
             "branding_update": "Muutti kirjautumisen brändäystä",
-            "branding_reset": "Palautti kirjautumisen brändäyksen"
+            "branding_reset": "Palautti kirjautumisen brändäyksen",
+            "remove_duplicates": "Poisti OAuth-asiakkaiden kaksoiskappaleet"
           },
           "client_registration": {
             "update": "Muutti asiakkaiden itserekisteröintiä"

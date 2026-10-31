@@ -369,7 +369,11 @@
           "previous": "上一页",
           "next": "下一页",
           "page": "第 {page} / {total} 页",
-          "footnote": "数据来自 <code>{getClients}</code>。注册和编辑（包括 <code>{skipConsent}</code>）调用 <code>{create}</code> 和 <code>{update}</code>；其他修改使用 <code>{deleteClient}</code> 和 <code>{rotateSecret}</code>。请参阅 <docs>OAuth provider</docs> 文档。客户端的范围限定为当前登录用户（配置后则为 <code>{clientReference}</code>）。自行注册的客户端没有所有者，全部列出；它们可以停用或删除，但不能编辑。"
+          "footnote": "数据来自 <code>{getClients}</code>。注册和编辑（包括 <code>{skipConsent}</code>）调用 <code>{create}</code> 和 <code>{update}</code>；其他修改使用 <code>{deleteClient}</code> 和 <code>{rotateSecret}</code>。请参阅 <docs>OAuth provider</docs> 文档。客户端的范围限定为当前登录用户（配置后则为 <code>{clientReference}</code>）。自行注册的客户端没有所有者，全部列出；它们可以停用或删除，但不能编辑。",
+          "duplicates": "×{count}",
+          "duplicatesHint": "{count} 个相同的自行注册客户端",
+          "showDuplicates": "显示全部 {count} 个",
+          "hideDuplicates": "隐藏相同项"
         },
         "registration": {
           "title": "自行注册",
@@ -405,7 +409,12 @@
           "hostsHint": "每行一个。留空：任意公共 HTTPS 主机。",
           "scopesLabel": "自行注册的客户端可请求的权限范围",
           "scopesHint": "每位用户仍需批准应用请求的权限范围。移除某个权限范围也会将其从已注册的客户端中移除；已签发的令牌在过期前仍保留该权限范围。",
-          "perHourHint": "跨所有实例，两种方式合计。每个地址每分钟最多注册 5 次。"
+          "perHourHint": "跨所有实例，两种方式合计。每个地址每分钟最多注册 5 次。",
+          "reuse": "相同的公开客户端",
+          "reuseOn": "复用",
+          "reuseOff": "每次新建客户端",
+          "reuseLabel": "复用相同的公开客户端",
+          "reuseHint": "没有密钥的应用如果以相同的名称、重定向 URI、授权类型和权限范围再次注册，将取回其现有客户端，而不是获得新的客户端。Claude 等 MCP 客户端每次连接都会注册。"
         },
         "branding": {
           "title": "登录品牌",
@@ -483,7 +492,9 @@
             "clientGone": "此客户端已不存在。",
             "notSelfRegistered": "此处只能修改自行注册的客户端。",
             "invalidIconUrl": "图标 URL 必须是公共主机上的 https 地址（无法获取 localhost 和私有地址）。",
-            "iconFromMetadataDocument": "此客户端的图标来自其元数据文档。"
+            "iconFromMetadataDocument": "此客户端的图标来自其元数据文档。",
+            "invalidUnusedDays": "天数必须是 1 到 {max} 之间的整数。",
+            "cleanupFailed": "无法移除重复的客户端。"
           },
           "branding": {
             "clientGone": "此应用已不存在。",
@@ -604,6 +615,17 @@
           "panelImageEmpty": "侧边面板图片为空。",
           "panelImageTooLarge": "侧边面板图片不能超过 1 MB。",
           "panelImageType": "侧边面板图片必须是 PNG、JPEG、WebP 或 AVIF 图片。"
+        },
+        "cleanup": {
+          "trigger": "移除未使用的重复项",
+          "title": "移除未使用的重复项？",
+          "description": "在每组相同的自行注册应用中，保留最近使用的一个。其余应用连同其同意记录一起删除，但仍持有有效访问令牌或刷新令牌的应用除外：它们会保留，因此不会有人被退出登录。",
+          "pruneLabel": "同时删除从未使用过的自行注册应用",
+          "pruneHint": "没有令牌也没有同意记录，且注册时间超过此天数。",
+          "daysLabel": "天数",
+          "confirm": "移除",
+          "done": "{removed, plural, other {已移除 # 个客户端}}。",
+          "doneInUse": "{removed, plural, other {已移除 # 个客户端}}。{inUse, plural, other {保留了 # 个重复项：它们仍处于登录状态。}}"
         }
       },
       "apis": {
@@ -1661,7 +1683,8 @@
             "disable": "停用了 OAuth 客户端",
             "enable": "启用了 OAuth 客户端",
             "branding_update": "更改了登录品牌",
-            "branding_reset": "重置了登录品牌"
+            "branding_reset": "重置了登录品牌",
+            "remove_duplicates": "移除了重复的 OAuth 客户端"
           },
           "client_registration": {
             "update": "更改了客户端自行注册设置"

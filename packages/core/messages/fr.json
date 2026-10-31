@@ -369,7 +369,11 @@
           "previous": "Précédent",
           "next": "Suivant",
           "page": "Page {page} / {total}",
-          "footnote": "Données issues de <code>{getClients}</code>. L’enregistrement et la modification (y compris <code>{skipConsent}</code>) appellent <code>{create}</code> et <code>{update}</code> ; les autres modifications utilisent <code>{deleteClient}</code> et <code>{rotateSecret}</code>. Voir la documentation <docs>OAuth provider</docs>. Les clients sont rattachés à l’utilisateur connecté (ou à <code>{clientReference}</code> s’il est configuré). Les clients auto-enregistrés n’ont pas de propriétaire et sont tous listés ; ils peuvent être désactivés ou supprimés, mais pas modifiés."
+          "footnote": "Données issues de <code>{getClients}</code>. L’enregistrement et la modification (y compris <code>{skipConsent}</code>) appellent <code>{create}</code> et <code>{update}</code> ; les autres modifications utilisent <code>{deleteClient}</code> et <code>{rotateSecret}</code>. Voir la documentation <docs>OAuth provider</docs>. Les clients sont rattachés à l’utilisateur connecté (ou à <code>{clientReference}</code> s’il est configuré). Les clients auto-enregistrés n’ont pas de propriétaire et sont tous listés ; ils peuvent être désactivés ou supprimés, mais pas modifiés.",
+          "duplicates": "×{count}",
+          "duplicatesHint": "{count} clients auto-enregistrés identiques",
+          "showDuplicates": "Afficher les {count}",
+          "hideDuplicates": "Masquer les identiques"
         },
         "registration": {
           "title": "Auto-enregistrement",
@@ -405,7 +409,12 @@
           "hostsHint": "Un par ligne. Vide : tout hôte HTTPS public.",
           "scopesLabel": "Scopes que les clients auto-enregistrés peuvent demander",
           "scopesHint": "Chaque utilisateur approuve toujours les scopes demandés par une application. Retirer un scope le retire aussi des clients déjà enregistrés ; les jetons déjà émis le conservent jusqu’à leur expiration.",
-          "perHourHint": "Sur l’ensemble des instances, pour les deux méthodes. Chaque adresse est aussi limitée à 5 enregistrements par minute."
+          "perHourHint": "Sur l’ensemble des instances, pour les deux méthodes. Chaque adresse est aussi limitée à 5 enregistrements par minute.",
+          "reuse": "Clients publics identiques",
+          "reuseOn": "Réutilisés",
+          "reuseOff": "Nouveau client à chaque fois",
+          "reuseLabel": "Réutiliser les clients publics identiques",
+          "reuseHint": "Une application sans secret qui s’enregistre à nouveau avec le même nom, les mêmes URI de redirection, types d’autorisation et scopes récupère son client existant au lieu d’en obtenir un nouveau. Les clients MCP comme Claude s’enregistrent à chaque connexion."
         },
         "branding": {
           "title": "Personnalisation de la connexion",
@@ -483,7 +492,9 @@
             "clientGone": "Ce client n’existe plus.",
             "notSelfRegistered": "Seuls les clients auto-enregistrés peuvent être modifiés ici.",
             "invalidIconUrl": "L’URL de l’icône doit être une adresse https sur un hôte public (localhost et les adresses privées ne peuvent pas être récupérés).",
-            "iconFromMetadataDocument": "L’icône de ce client vient de son document de métadonnées."
+            "iconFromMetadataDocument": "L’icône de ce client vient de son document de métadonnées.",
+            "invalidUnusedDays": "Le nombre de jours doit être un nombre entier entre 1 et {max}.",
+            "cleanupFailed": "Impossible de supprimer les clients en double."
           },
           "branding": {
             "clientGone": "Cette application n’existe plus.",
@@ -604,6 +615,17 @@
           "panelImageEmpty": "L’image du panneau latéral est vide.",
           "panelImageTooLarge": "L’image du panneau latéral ne doit pas dépasser 1 Mo.",
           "panelImageType": "L’image du panneau latéral doit être une image PNG, JPEG, WebP ou AVIF."
+        },
+        "cleanup": {
+          "trigger": "Supprimer les doublons inutilisés",
+          "title": "Supprimer les doublons inutilisés ?",
+          "description": "Dans chaque groupe d’applications auto-enregistrées identiques, la plus récemment utilisée est conservée. Les autres sont supprimées avec leurs consentements, sauf celles qui détiennent encore un jeton d’accès ou d’actualisation valide : elles restent, pour que personne ne soit déconnecté.",
+          "pruneLabel": "Supprimer aussi les applications auto-enregistrées jamais utilisées",
+          "pruneHint": "Aucun jeton ni consentement, enregistrées il y a plus de ce nombre de jours.",
+          "daysLabel": "Jours",
+          "confirm": "Supprimer",
+          "done": "{removed, plural, one {# client supprimé} other {# clients supprimés}}.",
+          "doneInUse": "{removed, plural, one {# client supprimé} other {# clients supprimés}}. {inUse, plural, one {# doublon conservé : il est encore connecté.} other {# doublons conservés : ils sont encore connectés.}}"
         }
       },
       "apis": {
@@ -1661,7 +1683,8 @@
             "disable": "Client OAuth désactivé",
             "enable": "Client OAuth activé",
             "branding_update": "Personnalisation de la connexion modifiée",
-            "branding_reset": "Personnalisation de la connexion réinitialisée"
+            "branding_reset": "Personnalisation de la connexion réinitialisée",
+            "remove_duplicates": "Clients OAuth en double supprimés"
           },
           "client_registration": {
             "update": "Auto-enregistrement des clients modifié"
