@@ -25,6 +25,11 @@ export type ClientRegistrationSettings = {
   metadataDocumentHosts: string[];
   /** New self-registered clients per hour, across every instance. */
   maxRegistrationsPerHour: number;
+  /**
+   * An anonymous registration identical to an existing public client gets that client back
+   * instead of a new one (client-dedupe-policy.ts). On unless turned off.
+   */
+  reuseIdenticalPublicClients: boolean;
 };
 
 export const DEFAULT_CLIENT_REGISTRATION_SETTINGS: ClientRegistrationSettings = {
@@ -33,6 +38,7 @@ export const DEFAULT_CLIENT_REGISTRATION_SETTINGS: ClientRegistrationSettings = 
   scopes: [...OIDC_SCOPES],
   metadataDocumentHosts: [],
   maxRegistrationsPerHour: 30,
+  reuseIdenticalPublicClients: true,
 };
 
 export const MAX_REGISTRATIONS_PER_HOUR_LIMIT = 1000;
@@ -95,6 +101,7 @@ export function parseClientRegistrationSettings(raw: unknown): ClientRegistratio
       typeof max === "number" && Number.isInteger(max) && max >= 0 && max <= MAX_REGISTRATIONS_PER_HOUR_LIMIT
         ? max
         : defaults.maxRegistrationsPerHour,
+    reuseIdenticalPublicClients: value.reuseIdenticalPublicClients !== false,
   };
 }
 

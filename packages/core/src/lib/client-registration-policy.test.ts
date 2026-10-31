@@ -38,7 +38,14 @@ describe("parseClientRegistrationSettings", () => {
       scopes: ["openid", "orders:read"],
       metadataDocumentHosts: ["claude.ai", "vscode.dev"],
       maxRegistrationsPerHour: DEFAULT_CLIENT_REGISTRATION_SETTINGS.maxRegistrationsPerHour,
+      reuseIdenticalPublicClients: true,
     });
+  });
+
+  it("reuses identical public clients unless turned off", () => {
+    expect(DEFAULT_CLIENT_REGISTRATION_SETTINGS.reuseIdenticalPublicClients).toBe(true);
+    expect(parseClientRegistrationSettings({ reuseIdenticalPublicClients: "no" }).reuseIdenticalPublicClients).toBe(true);
+    expect(parseClientRegistrationSettings({ reuseIdenticalPublicClients: false }).reuseIdenticalPublicClients).toBe(false);
   });
 
   it("keeps valid values", () => {
@@ -48,6 +55,7 @@ describe("parseClientRegistrationSettings", () => {
       scopes: ["openid", "email"],
       metadataDocumentHosts: [],
       maxRegistrationsPerHour: 0,
+      reuseIdenticalPublicClients: false,
     };
     expect(parseClientRegistrationSettings(value)).toEqual(value);
   });

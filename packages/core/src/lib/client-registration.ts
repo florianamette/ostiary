@@ -3,6 +3,7 @@ import { and, desc, eq, gt, isNotNull, not, sql } from "drizzle-orm";
 import { db } from "@ostiary/core/db/index";
 import { oauthClient } from "@ostiary/core/db/schema";
 import { readAppSetting, writeAppSetting } from "@ostiary/core/lib/app-settings";
+import { selfRegisteredDedupeKey } from "@ostiary/core/lib/client-dedupe";
 import { refreshingCache } from "@ostiary/core/lib/refreshing-cache";
 import {
   applyClientRegistration,
@@ -143,6 +144,8 @@ export type SelfRegisteredClient = {
   scopes: string[];
   ownerId: string | null;
   createdAt: Date | null;
+  /** Shared by identical public clients (client-dedupe-policy.ts); null for any other client. */
+  dedupeKey: string | null;
 };
 
 /**
@@ -169,5 +172,6 @@ export async function listSelfRegisteredClients(limit = 500): Promise<SelfRegist
     scopes: row.scopes ?? [],
     ownerId: row.userId,
     createdAt: row.createdAt,
+    dedupeKey: selfRegisteredDedupeKey(row),
   }));
 }
