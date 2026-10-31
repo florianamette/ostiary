@@ -34,6 +34,10 @@ describe("rateLimitOptions", () => {
         }
     });
 
+    it("limits client registration per address", () => {
+        expect(RATE_LIMIT_RULES["/oauth2/register"]).toEqual({ window: 60, max: 5 });
+    });
+
     it("leaves the token endpoint room for device polling and refreshes", () => {
         const rule = RATE_LIMIT_RULES["/oauth2/token"];
         // One device polling every 5 seconds is 12 requests a minute.
