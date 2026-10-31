@@ -71,10 +71,13 @@ export function ApplicationTableRow({
   row,
   linkedApis,
   onChanged,
+  duplicates,
 }: {
   row: OAuthApplicationRow;
   linkedApis: string[] | undefined;
   onChanged: () => void;
+  /** Set on the first row of a group of identical self-registered clients. */
+  duplicates?: { count: number; expanded: boolean; onToggle: () => void };
 }) {
   const t = useTranslations("admin.pages.applications.panel");
   const format = useFormatter();
@@ -85,7 +88,14 @@ export function ApplicationTableRow({
         <div className="flex items-start gap-2.5">
           <AppIcon name={row.name} src={adminAppIconUrl(row.clientId, row.logoUri)} size={28} className="mt-0.5" />
           <div className="flex min-w-0 flex-col gap-0.5">
-            <span className="font-medium">{row.name}</span>
+            <span className="flex flex-wrap items-center gap-1.5">
+              <span className="font-medium">{row.name}</span>
+              {duplicates ? (
+                <Badge variant="secondary" className="tabular-nums" title={t("duplicatesHint", { count: duplicates.count })}>
+                  {t("duplicates", { count: duplicates.count })}
+                </Badge>
+              ) : null}
+            </span>
             {row.registration !== "admin" ? (
               <span className="mb-0.5">
                 <RegistrationBadge source={row.registration} />
@@ -94,6 +104,16 @@ export function ApplicationTableRow({
             <code className="text-muted-foreground max-w-[min(100%,320px)] truncate font-mono text-xs">
               {row.clientId}
             </code>
+            {duplicates ? (
+              <button
+                type="button"
+                className="text-muted-foreground hover:text-foreground w-fit text-xs underline-offset-2 hover:underline"
+                aria-expanded={duplicates.expanded}
+                onClick={duplicates.onToggle}
+              >
+                {duplicates.expanded ? t("hideDuplicates") : t("showDuplicates", { count: duplicates.count })}
+              </button>
+            ) : null}
             {linkedApis?.length ? (
               <span className="text-muted-foreground text-xs">
                 {t("linkedApis", { apis: linkedApis.join(", ") })}

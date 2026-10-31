@@ -369,7 +369,11 @@
           "previous": "Forrige",
           "next": "Neste",
           "page": "Side {page} / {total}",
-          "footnote": "Data fra <code>{getClients}</code>. Registrering og redigering (inkludert <code>{skipConsent}</code>) kaller <code>{create}</code> og <code>{update}</code>; andre endringer bruker <code>{deleteClient}</code> og <code>{rotateSecret}</code>. Se dokumentasjonen for <docs>OAuth-leverandøren</docs>. Klienter er knyttet til den innloggede brukeren (eller <code>{clientReference}</code> når den er konfigurert). Selvregistrerte klienter har ingen eier og vises alle; de kan deaktiveres eller slettes, men ikke redigeres."
+          "footnote": "Data fra <code>{getClients}</code>. Registrering og redigering (inkludert <code>{skipConsent}</code>) kaller <code>{create}</code> og <code>{update}</code>; andre endringer bruker <code>{deleteClient}</code> og <code>{rotateSecret}</code>. Se dokumentasjonen for <docs>OAuth-leverandøren</docs>. Klienter er knyttet til den innloggede brukeren (eller <code>{clientReference}</code> når den er konfigurert). Selvregistrerte klienter har ingen eier og vises alle; de kan deaktiveres eller slettes, men ikke redigeres.",
+          "duplicates": "×{count}",
+          "duplicatesHint": "{count} identiske selvregistrerte klienter",
+          "showDuplicates": "Vis alle {count}",
+          "hideDuplicates": "Skjul identiske"
         },
         "registration": {
           "title": "Selvregistrering",
@@ -405,7 +409,12 @@
           "hostsHint": "Én per linje. Tom: alle offentlige HTTPS-verter.",
           "scopesLabel": "Scopes selvregistrerte klienter kan be om",
           "scopesHint": "Hver bruker godkjenner fortsatt scopene en app ber om. Når du fjerner et scope, fjernes det også fra klienter som allerede er registrert; tokens som allerede er utstedt, beholder det til de utløper.",
-          "perHourHint": "På tvers av alle instanser, for begge metodene. Hver adresse er i tillegg begrenset til 5 registreringer i minuttet."
+          "perHourHint": "På tvers av alle instanser, for begge metodene. Hver adresse er i tillegg begrenset til 5 registreringer i minuttet.",
+          "reuse": "Identiske offentlige klienter",
+          "reuseOn": "Gjenbrukes",
+          "reuseOff": "Ny klient hver gang",
+          "reuseLabel": "Gjenbruk identiske offentlige klienter",
+          "reuseHint": "En app uten hemmelighet som registrerer seg på nytt med samme navn, omdirigerings-URI-er, grants og scopes, får tilbake den eksisterende klienten i stedet for en ny. MCP-klienter som Claude registrerer seg ved hver tilkobling."
         },
         "branding": {
           "title": "Innloggingsdesign",
@@ -483,7 +492,9 @@
             "clientGone": "Denne klienten finnes ikke lenger.",
             "notSelfRegistered": "Bare selvregistrerte klienter kan endres her.",
             "invalidIconUrl": "Ikon-URL-en må være en https-adresse på en offentlig vert (localhost og private adresser kan ikke hentes).",
-            "iconFromMetadataDocument": "Ikonet til denne klienten kommer fra metadatadokumentet dens."
+            "iconFromMetadataDocument": "Ikonet til denne klienten kommer fra metadatadokumentet dens.",
+            "invalidUnusedDays": "Antall dager må være et heltall fra 1 til {max}.",
+            "cleanupFailed": "Kunne ikke fjerne de dupliserte klientene."
           },
           "branding": {
             "clientGone": "Denne applikasjonen finnes ikke lenger.",
@@ -604,6 +615,17 @@
           "panelImageEmpty": "Sidepanelbildet er tomt.",
           "panelImageTooLarge": "Sidepanelbildet må være 1 MB eller mindre.",
           "panelImageType": "Sidepanelbildet må være et PNG-, JPEG-, WebP- eller AVIF-bilde."
+        },
+        "cleanup": {
+          "trigger": "Fjern ubrukte duplikater",
+          "title": "Fjerne ubrukte duplikater?",
+          "description": "I hver gruppe med identiske selvregistrerte apper beholdes den som sist ble brukt. De andre slettes sammen med samtykkene sine, unntatt de som fortsatt har et gyldig tilgangs- eller oppdateringstoken: De blir værende, så ingen blir logget ut.",
+          "pruneLabel": "Slett også selvregistrerte apper som aldri er brukt",
+          "pruneHint": "Ingen token og ikke noe samtykke, registrert for mer enn dette antallet dager siden.",
+          "daysLabel": "Dager",
+          "confirm": "Fjern",
+          "done": "{removed, plural, one {# klient fjernet} other {# klienter fjernet}}.",
+          "doneInUse": "{removed, plural, one {# klient fjernet} other {# klienter fjernet}}. {inUse, plural, one {# duplikat beholdt: Den er fortsatt pålogget.} other {# duplikater beholdt: De er fortsatt pålogget.}}"
         }
       },
       "apis": {
@@ -1661,7 +1683,8 @@
             "disable": "Deaktiverte OAuth-klient",
             "enable": "Aktiverte OAuth-klient",
             "branding_update": "Endret innloggingsdesign",
-            "branding_reset": "Tilbakestilte innloggingsdesign"
+            "branding_reset": "Tilbakestilte innloggingsdesign",
+            "remove_duplicates": "Fjernet dupliserte OAuth-klienter"
           },
           "client_registration": {
             "update": "Endret selvregistrering av klienter"

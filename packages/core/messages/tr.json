@@ -369,7 +369,11 @@
           "previous": "Önceki",
           "next": "Sonraki",
           "page": "Sayfa {page} / {total}",
-          "footnote": "Veriler <code>{getClients}</code> kaynağından gelir. Kaydetme ve düzenleme (<code>{skipConsent}</code> dahil) <code>{create}</code> ve <code>{update}</code> çağrılarını kullanır; diğer değişiklikler <code>{deleteClient}</code> ve <code>{rotateSecret}</code> kullanır. <docs>OAuth provider</docs> belgelerine bakın. İstemciler giriş yapmış kullanıcıyla (veya yapılandırılmışsa <code>{clientReference}</code> ile) sınırlıdır. Kendini kaydeden istemcilerin sahibi yoktur ve hepsi listelenir; devre dışı bırakılabilir veya silinebilir, ancak düzenlenemezler."
+          "footnote": "Veriler <code>{getClients}</code> kaynağından gelir. Kaydetme ve düzenleme (<code>{skipConsent}</code> dahil) <code>{create}</code> ve <code>{update}</code> çağrılarını kullanır; diğer değişiklikler <code>{deleteClient}</code> ve <code>{rotateSecret}</code> kullanır. <docs>OAuth provider</docs> belgelerine bakın. İstemciler giriş yapmış kullanıcıyla (veya yapılandırılmışsa <code>{clientReference}</code> ile) sınırlıdır. Kendini kaydeden istemcilerin sahibi yoktur ve hepsi listelenir; devre dışı bırakılabilir veya silinebilir, ancak düzenlenemezler.",
+          "duplicates": "×{count}",
+          "duplicatesHint": "{count} özdeş kendini kaydeden istemci",
+          "showDuplicates": "{count} istemcinin tümünü göster",
+          "hideDuplicates": "Özdeşleri gizle"
         },
         "registration": {
           "title": "Kendi kendine kayıt",
@@ -405,7 +409,12 @@
           "hostsHint": "Her satıra bir tane. Boş: herhangi bir genel HTTPS sunucusu.",
           "scopesLabel": "Kendini kaydeden istemcilerin isteyebileceği scope'lar",
           "scopesHint": "Her kullanıcı yine de uygulamanın istediği scope'ları onaylar. Bir scope'u kaldırmak, onu önceden kayıtlı istemcilerden de kaldırır; daha önce verilen token'lar süreleri dolana kadar onu korur.",
-          "perHourHint": "Tüm örnekler genelinde, her iki yöntem için. Her adres ayrıca dakikada 5 kayıtla sınırlıdır."
+          "perHourHint": "Tüm örnekler genelinde, her iki yöntem için. Her adres ayrıca dakikada 5 kayıtla sınırlıdır.",
+          "reuse": "Özdeş genel istemciler",
+          "reuseOn": "Yeniden kullanılır",
+          "reuseOff": "Her seferinde yeni istemci",
+          "reuseLabel": "Özdeş genel istemcileri yeniden kullan",
+          "reuseHint": "Gizli anahtarı olmayan bir uygulama aynı ad, yönlendirme URI'leri, grant'ler ve scope'larla yeniden kaydolursa yeni bir istemci yerine mevcut istemcisini geri alır. Claude gibi MCP istemcileri her bağlantıda kaydolur."
         },
         "branding": {
           "title": "Giriş ekranı markalaması",
@@ -483,7 +492,9 @@
             "clientGone": "Bu istemci artık mevcut değil.",
             "notSelfRegistered": "Burada yalnızca kendini kaydeden istemciler değiştirilebilir.",
             "invalidIconUrl": "Simge URL’si herkese açık bir ana bilgisayarda https adresi olmalıdır (localhost ve özel adresler alınamaz).",
-            "iconFromMetadataDocument": "Bu istemcinin simgesi meta veri belgesinden gelir."
+            "iconFromMetadataDocument": "Bu istemcinin simgesi meta veri belgesinden gelir.",
+            "invalidUnusedDays": "Gün sayısı 1 ile {max} arasında bir tam sayı olmalıdır.",
+            "cleanupFailed": "Yinelenen istemciler kaldırılamadı."
           },
           "branding": {
             "clientGone": "Bu uygulama artık mevcut değil.",
@@ -604,6 +615,17 @@
           "panelImageEmpty": "Yan panel görseli boş.",
           "panelImageTooLarge": "Yan panel görseli en fazla 1 MB olmalıdır.",
           "panelImageType": "Yan panel görseli PNG, JPEG, WebP veya AVIF olmalıdır."
+        },
+        "cleanup": {
+          "trigger": "Kullanılmayan yinelenenleri kaldır",
+          "title": "Kullanılmayan yinelenenler kaldırılsın mı?",
+          "description": "Her özdeş, kendini kaydeden uygulama grubunda en son kullanılan tutulur. Diğerleri onaylarıyla birlikte silinir; ancak hâlâ geçerli bir erişim veya yenileme token'ı olanlar silinmez: kimsenin oturumu kapanmasın diye kalırlar.",
+          "pruneLabel": "Hiç kullanılmamış, kendini kaydeden uygulamaları da sil",
+          "pruneHint": "Token yok, onay yok ve bu kadar günden daha önce kaydedilmiş.",
+          "daysLabel": "Gün",
+          "confirm": "Kaldır",
+          "done": "{removed, plural, other {# istemci kaldırıldı}}.",
+          "doneInUse": "{removed, plural, other {# istemci kaldırıldı}}. {inUse, plural, other {# yinelenen istemci tutuldu: oturumları hâlâ açık.}}"
         }
       },
       "apis": {
@@ -1661,7 +1683,8 @@
             "disable": "OAuth istemcisini devre dışı bıraktı",
             "enable": "OAuth istemcisini etkinleştirdi",
             "branding_update": "Giriş ekranı markalamasını değiştirdi",
-            "branding_reset": "Giriş ekranı markalamasını sıfırladı"
+            "branding_reset": "Giriş ekranı markalamasını sıfırladı",
+            "remove_duplicates": "Yinelenen OAuth istemcilerini kaldırdı"
           },
           "client_registration": {
             "update": "İstemcilerin kendi kendine kaydını değiştirdi"

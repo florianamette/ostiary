@@ -369,7 +369,11 @@
           "previous": "이전",
           "next": "다음",
           "page": "{page} / {total} 페이지",
-          "footnote": "데이터 출처: <code>{getClients}</code>. 등록과 편집(<code>{skipConsent}</code> 포함)은 <code>{create}</code> 및 <code>{update}</code>를 호출하고, 그 밖의 변경은 <code>{deleteClient}</code>와 <code>{rotateSecret}</code>을 사용합니다. <docs>OAuth 제공자</docs> 문서를 참고하세요. 클라이언트는 로그인한 사용자(또는 구성된 경우 <code>{clientReference}</code>) 범위로 제한됩니다. 자체 등록 클라이언트는 소유자가 없으며 모두 표시됩니다. 비활성화하거나 삭제할 수 있지만 편집할 수는 없습니다."
+          "footnote": "데이터 출처: <code>{getClients}</code>. 등록과 편집(<code>{skipConsent}</code> 포함)은 <code>{create}</code> 및 <code>{update}</code>를 호출하고, 그 밖의 변경은 <code>{deleteClient}</code>와 <code>{rotateSecret}</code>을 사용합니다. <docs>OAuth 제공자</docs> 문서를 참고하세요. 클라이언트는 로그인한 사용자(또는 구성된 경우 <code>{clientReference}</code>) 범위로 제한됩니다. 자체 등록 클라이언트는 소유자가 없으며 모두 표시됩니다. 비활성화하거나 삭제할 수 있지만 편집할 수는 없습니다.",
+          "duplicates": "×{count}",
+          "duplicatesHint": "동일한 자체 등록 클라이언트 {count}개",
+          "showDuplicates": "{count}개 모두 보기",
+          "hideDuplicates": "동일 항목 숨기기"
         },
         "registration": {
           "title": "자체 등록",
@@ -405,7 +409,12 @@
           "hostsHint": "한 줄에 하나씩. 비워 두면 모든 공개 HTTPS 호스트를 허용합니다.",
           "scopesLabel": "자체 등록 클라이언트가 요청할 수 있는 스코프",
           "scopesHint": "앱이 요청하는 스코프는 여전히 각 사용자가 승인합니다. 스코프를 제거하면 이미 등록된 클라이언트에서도 제거되며, 이미 발급된 토큰은 만료될 때까지 해당 스코프를 유지합니다.",
-          "perHourHint": "모든 인스턴스와 두 방식을 합친 수치입니다. 주소당 분당 5회 등록으로도 제한됩니다."
+          "perHourHint": "모든 인스턴스와 두 방식을 합친 수치입니다. 주소당 분당 5회 등록으로도 제한됩니다.",
+          "reuse": "동일한 공개 클라이언트",
+          "reuseOn": "재사용",
+          "reuseOff": "매번 새 클라이언트",
+          "reuseLabel": "동일한 공개 클라이언트 재사용",
+          "reuseHint": "시크릿이 없는 앱이 같은 이름, 리디렉션 URI, 그랜트, 스코프로 다시 등록하면 새 클라이언트 대신 기존 클라이언트를 돌려받습니다. Claude 같은 MCP 클라이언트는 연결할 때마다 등록합니다."
         },
         "branding": {
           "title": "로그인 브랜딩",
@@ -483,7 +492,9 @@
             "clientGone": "이 클라이언트는 더 이상 존재하지 않습니다.",
             "notSelfRegistered": "여기서는 자체 등록 클라이언트만 변경할 수 있습니다.",
             "invalidIconUrl": "아이콘 URL은 공개 호스트의 https 주소여야 합니다(localhost와 사설 주소는 가져올 수 없습니다).",
-            "iconFromMetadataDocument": "이 클라이언트의 아이콘은 메타데이터 문서에서 가져옵니다."
+            "iconFromMetadataDocument": "이 클라이언트의 아이콘은 메타데이터 문서에서 가져옵니다.",
+            "invalidUnusedDays": "일수는 1에서 {max} 사이의 정수여야 합니다.",
+            "cleanupFailed": "중복 클라이언트를 제거하지 못했습니다."
           },
           "branding": {
             "clientGone": "이 애플리케이션은 더 이상 존재하지 않습니다.",
@@ -604,6 +615,17 @@
           "panelImageEmpty": "사이드 패널 이미지가 비어 있습니다.",
           "panelImageTooLarge": "사이드 패널 이미지는 1MB 이하여야 합니다.",
           "panelImageType": "사이드 패널 이미지는 PNG, JPEG, WebP 또는 AVIF 이미지여야 합니다."
+        },
+        "cleanup": {
+          "trigger": "사용하지 않는 중복 항목 제거",
+          "title": "사용하지 않는 중복 항목을 제거할까요?",
+          "description": "동일한 자체 등록 앱 그룹마다 가장 최근에 사용된 앱이 유지됩니다. 나머지는 동의와 함께 삭제되지만, 아직 유효한 액세스 토큰이나 리프레시 토큰이 있는 앱은 남겨 두므로 아무도 로그아웃되지 않습니다.",
+          "pruneLabel": "한 번도 사용되지 않은 자체 등록 앱도 삭제",
+          "pruneHint": "토큰과 동의가 없고, 이 일수보다 이전에 등록된 앱입니다.",
+          "daysLabel": "일수",
+          "confirm": "제거",
+          "done": "{removed, plural, other {클라이언트 #개를 제거했습니다}}.",
+          "doneInUse": "{removed, plural, other {클라이언트 #개를 제거했습니다}}. {inUse, plural, other {중복 #개는 아직 로그인 상태라 유지했습니다.}}"
         }
       },
       "apis": {
@@ -1661,7 +1683,8 @@
             "disable": "OAuth 클라이언트 비활성화",
             "enable": "OAuth 클라이언트 활성화",
             "branding_update": "로그인 브랜딩 변경",
-            "branding_reset": "로그인 브랜딩 초기화"
+            "branding_reset": "로그인 브랜딩 초기화",
+            "remove_duplicates": "중복 OAuth 클라이언트 제거"
           },
           "client_registration": {
             "update": "클라이언트 자체 등록 설정 변경"

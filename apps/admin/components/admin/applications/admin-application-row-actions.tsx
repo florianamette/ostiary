@@ -45,6 +45,8 @@ export type OAuthApplicationRow = {
   createdAt: string;
   /** Registered by an admin, or by the client itself (see client-registration-policy.ts). */
   registration: RegistrationSource;
+  /** Shared by identical self-registered public clients, which the list collapses into one row. */
+  dedupeKey?: string | null;
 };
 
 export function AdminApplicationRowActions({
