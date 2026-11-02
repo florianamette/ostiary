@@ -14,9 +14,11 @@ import { syncSigningKeys } from "@ostiary/core/lib/signing-keys";
 import { googleOneTap, syncSocialProviders } from "@ostiary/core/lib/social-providers";
 import { registrationCapacityLeft, syncClientRegistration } from "@ostiary/core/lib/client-registration";
 import {
+    effectiveRegistrationScopes,
     registrationRequestError,
     type ClientRegistrationSettings,
 } from "@ostiary/core/lib/client-registration-policy";
+import { findReusablePublicClient, registrationResponse } from "@ostiary/core/lib/client-dedupe";
 import { ACCOUNT_DELETION_BLOCKED, accountDeletionBlockers } from "@ostiary/core/lib/account-data/blockers";
 import type { Bag } from "@ostiary/core/lib/auth-hooks/values";
 
@@ -70,20 +72,40 @@ async function requireAdminTwoFactor(ctx: Ctx) {
 
 /**
  * Better Auth checks scopes, redirect URIs and PKCE. Self-registered clients also get no
- * machine access, and an hourly cap across instances limits abuse (on top of Better Auth's
- * per-IP limit of 5 registrations a minute).
+ * machine access, and an hourly cap across instances limits abuse (on top of the per-IP
+ * limit in rate-limit.ts).
  */
-async function guardDynamicRegistration(ctx: Ctx, registration: ClientRegistrationSettings) {
+async function guardDynamicRegistration(
+    ctx: Ctx,
+    registration: ClientRegistrationSettings,
+    serverScopes: readonly string[],
+) {
     const refused = registrationRequestError(ctx.body);
     if (refused) {
         throw new APIError("BAD_REQUEST", { error: "invalid_client_metadata", error_description: refused });
     }
+    const anonymous = !(await getSessionFromCtx(ctx));
     // Unauthenticated registration is COERCED to a public PKCE client, never refused: MCP clients
     // (e.g. Claude) often omit token_endpoint_auth_method, and Better Auth would then default it to a
     // confidential client with a secret. An anonymous caller must never receive a secret, so force
     // the public method; a confidential client still requires a signed-in session.
-    if (!(await getSessionFromCtx(ctx)) && ctx.body && typeof ctx.body === "object") {
+    if (anonymous && ctx.body && typeof ctx.body === "object") {
         (ctx.body as { token_endpoint_auth_method?: string }).token_endpoint_auth_method = "none";
+    }
+    // MCP clients register again on every connection: an identical public client is handed back
+    // (same client_id, 201 with its stored metadata) instead of adding one more. It has no secret,
+    // so this gives nothing away. Not counted against the hourly cap: nothing is created. Only
+    // where Better Auth would accept the anonymous request itself: open registration, and no
+    // Authorization header (an initial access token gives the client an owner).
+    const openToAnyone = registration.dynamic === "open" && !ctx.headers?.get("authorization");
+    if (anonymous && openToAnyone && registration.reuseIdenticalPublicClients) {
+        const existing = await findReusablePublicClient(ctx.body, effectiveRegistrationScopes(registration, serverScopes));
+        if (existing) {
+            return new Response(JSON.stringify(registrationResponse(existing)), {
+                status: 201,
+                headers: { "content-type": "application/json", "cache-control": "no-store", pragma: "no-cache" },
+            });
+        }
     }
     if (!(await registrationCapacityLeft(registration))) {
         throw new APIError("TOO_MANY_REQUESTS", {
@@ -236,7 +258,9 @@ export function guardRequests({
         if (env.REQUIRE_ADMIN_2FA === "true" && isAdminPath(ctx.path)) await requireAdminTwoFactor(ctx);
         const registration = await syncClientRegistration(provider.options, metadataDocuments);
         // Device sign-in is for admin-registered clients only: see oauthClientGuard.
-        if (ctx.path === "/oauth2/register" && registration.dynamic !== "off") return guardDynamicRegistration(ctx, registration);
+        if (ctx.path === "/oauth2/register" && registration.dynamic !== "off") {
+            return guardDynamicRegistration(ctx, registration, provider.options.scopes ?? []);
+        }
         if (ctx.path === "/sso/register") return guardSsoRegistration(ctx);
         if (ctx.path.startsWith("/organization/")) return guardOrganizationRequest(ctx);
         if (RECENT_SIGN_IN_PATHS.has(ctx.path)) return requireRecentSignIn(ctx);

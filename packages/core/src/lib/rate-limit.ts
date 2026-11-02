@@ -44,6 +44,10 @@ export const RATE_LIMIT_RULES = {
     // users from one server address. Every credential it accepts is long and random, so this
     // only caps load. The OAuth provider's own default is 20 a minute.
     "/oauth2/token": { window: 60, max: 300 },
+    // Dynamic client registration (MCP clients), anonymous when open: the OAuth provider's own
+    // default, kept here as Ostiary's safety net. An identical public client gets its existing
+    // registration back (client-dedupe.ts); the admin console's hourly cap covers every address.
+    "/oauth2/register": { window: 60, max: 5 },
     // API key verification (api-key-verification.ts): resource servers, each from one address,
     // checking the keys of all their users. The caller is an authenticated client and each key
     // has its own limit too (300 a minute, counted on the key's row by the api-key plugin).
@@ -60,7 +64,6 @@ export const RATE_LIMIT_RULES = {
  *   in auth-factory.ts; 3 wrong codes also void the code).
  * - `/two-factor/*` other than the paths above: 3 per 10 s.
  * - `/device` (user code lookup): 5 per 10 minutes.
- * - `/oauth2/register`: 5 a minute, plus the hourly cap from the admin console.
  * - `/oauth2/authorize`: 30 a minute; `/oauth2/userinfo`: 60; `/oauth2/introspect`: 100;
  *   `/oauth2/revoke`: 30.
  * - Other `/sign-in/*`, `/sign-up/*`, `/change-password`, `/change-email`: 3 per 10 s.

@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import type { OAuthApplicationRow } from "@/components/admin/applications/admin-application-row-actions";
 import { AdminRegisterOAuthClientDialog } from "@/components/admin/applications/admin-register-oauth-client-dialog";
 import { ApplicationTableRow } from "@/components/admin/applications/application-table-row";
+import { RemoveDuplicatesDialog } from "@/components/admin/applications/remove-duplicates-dialog";
 import { TableMessageRow, TablePagination, TableSearch } from "@/components/admin/common/admin-table";
 import { useDebouncedValue } from "@/components/admin/common/use-debounced-value";
 import { usePagination } from "@/components/admin/common/use-pagination";
@@ -121,6 +122,31 @@ function filterApplications(
 }
 
 /**
+ * Groups rows sharing a dedupe key (two or more). `visible` keeps the first row of each group
+ * (its head: rows are newest first) unless the group is expanded.
+ */
+function collapseDuplicates(rows: OAuthApplicationRow[], expanded: ReadonlySet<string>) {
+  const groupSizes = new Map<string, number>();
+  for (const row of rows) {
+    if (row.dedupeKey) groupSizes.set(row.dedupeKey, (groupSizes.get(row.dedupeKey) ?? 0) + 1);
+  }
+  for (const [key, size] of groupSizes) if (size < 2) groupSizes.delete(key);
+  const groupHeads = new Set<string>();
+  const seen = new Set<string>();
+  const visible = rows.filter((row) => {
+    const key = row.dedupeKey;
+    if (!key || !groupSizes.has(key)) return true;
+    if (!seen.has(key)) {
+      seen.add(key);
+      groupHeads.add(row.clientId);
+      return true;
+    }
+    return expanded.has(key);
+  });
+  return { visible, groupSizes, groupHeads };
+}
+
+/**
  * Lists the OAuth clients: the admin-registered ones (Better Auth's `getClients`, which returns
  * the platform's clients to any admin) and every other one (`selfRegistered`, loaded on the
  * server).
@@ -192,9 +218,28 @@ export function AdminApplicationsPanel({
     [allRows, debouncedSearch, kindFilter, registrationFilter]
   );
 
+  // Identical self-registered clients ("Claude" registered on every connection) collapse into
+  // their newest row, which shows how many there are and expands the group.
+  const [expanded, setExpanded] = React.useState<ReadonlySet<string>>(new Set());
+  const { visible, groupSizes, groupHeads } = React.useMemo(
+    () => collapseDuplicates(filtered, expanded),
+    [filtered, expanded]
+  );
+  const hasDuplicates = React.useMemo(
+    () => collapseDuplicates(selfRegistered, new Set()).groupSizes.size > 0,
+    [selfRegistered]
+  );
+  const toggleGroup = React.useCallback((key: string) => {
+    setExpanded((current) => {
+      const next = new Set(current);
+      if (!next.delete(key)) next.add(key);
+      return next;
+    });
+  }, []);
+
   const { page, setPage, pageSize, setPageSize, totalPages, pageStart, showingFrom, showingTo } =
-    usePagination(filtered.length, [debouncedSearch, kindFilter, registrationFilter]);
-  const pageRows = filtered.slice(pageStart, pageStart + pageSize);
+    usePagination(visible.length, [debouncedSearch, kindFilter, registrationFilter]);
+  const pageRows = visible.slice(pageStart, pageStart + pageSize);
 
   return (
     <div className="space-y-6">
@@ -236,6 +281,7 @@ export function AdminApplicationsPanel({
               <SelectItem value="metadata_document">{t("registration.metadata_document")}</SelectItem>
             </SelectContent>
           </Select>
+          {hasDuplicates ? <RemoveDuplicatesDialog /> : null}
           <AdminRegisterOAuthClientDialog onCreated={refetch} />
           <Button
             size="sm"
@@ -283,6 +329,15 @@ export function AdminApplicationsPanel({
                   row={row}
                   linkedApis={linkedApis[row.clientId]}
                   onChanged={refetch}
+                  duplicates={
+                    row.dedupeKey && groupHeads.has(row.clientId)
+                      ? {
+                          count: groupSizes.get(row.dedupeKey) ?? 1,
+                          expanded: expanded.has(row.dedupeKey),
+                          onToggle: () => toggleGroup(row.dedupeKey!),
+                        }
+                      : undefined
+                  }
                 />
               ))
             )}
@@ -291,9 +346,9 @@ export function AdminApplicationsPanel({
 
         <TablePagination
           summary={
-            filtered.length === 0
+            visible.length === 0
               ? t("noApplications")
-              : t("showing", { from: showingFrom, to: showingTo, total: filtered.length })
+              : t("showing", { from: showingFrom, to: showingTo, total: visible.length })
           }
           page={page}
           totalPages={totalPages}

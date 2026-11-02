@@ -113,6 +113,7 @@ export default async function AdminApplicationsPage({
           logoUri: client.icon,
           createdAt: (client.createdAt ?? new Date()).toISOString(),
           registration: client.source,
+          dedupeKey: client.dedupeKey,
         }))}
       />
     </div>

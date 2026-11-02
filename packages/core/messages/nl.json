@@ -369,7 +369,11 @@
           "previous": "Vorige",
           "next": "Volgende",
           "page": "Pagina {page} / {total}",
-          "footnote": "Gegevens uit <code>{getClients}</code>. Registreren en bewerken (inclusief <code>{skipConsent}</code>) roepen <code>{create}</code> en <code>{update}</code> aan; andere wijzigingen gebruiken <code>{deleteClient}</code> en <code>{rotateSecret}</code>. Zie de documentatie van de <docs>OAuth provider</docs>. Clients zijn beperkt tot de ingelogde gebruiker (of <code>{clientReference}</code> als dat is ingesteld). Zelf geregistreerde clients hebben geen eigenaar en worden allemaal getoond; ze kunnen worden uitgeschakeld of verwijderd, niet bewerkt."
+          "footnote": "Gegevens uit <code>{getClients}</code>. Registreren en bewerken (inclusief <code>{skipConsent}</code>) roepen <code>{create}</code> en <code>{update}</code> aan; andere wijzigingen gebruiken <code>{deleteClient}</code> en <code>{rotateSecret}</code>. Zie de documentatie van de <docs>OAuth provider</docs>. Clients zijn beperkt tot de ingelogde gebruiker (of <code>{clientReference}</code> als dat is ingesteld). Zelf geregistreerde clients hebben geen eigenaar en worden allemaal getoond; ze kunnen worden uitgeschakeld of verwijderd, niet bewerkt.",
+          "duplicates": "×{count}",
+          "duplicatesHint": "{count} identieke zelf geregistreerde clients",
+          "showDuplicates": "Alle {count} tonen",
+          "hideDuplicates": "Identieke verbergen"
         },
         "registration": {
           "title": "Zelfregistratie",
@@ -405,7 +409,12 @@
           "hostsHint": "Eén per regel. Leeg: elke openbare HTTPS-host.",
           "scopesLabel": "Scopes die zelf geregistreerde clients mogen aanvragen",
           "scopesHint": "Elke gebruiker keurt nog steeds de scopes goed die een app vraagt. Een scope verwijderen haalt hem ook weg bij al geregistreerde clients; al uitgegeven tokens behouden hem tot ze verlopen.",
-          "perHourHint": "Over alle instanties, voor beide methoden. Elk adres is ook beperkt tot 5 registraties per minuut."
+          "perHourHint": "Over alle instanties, voor beide methoden. Elk adres is ook beperkt tot 5 registraties per minuut.",
+          "reuse": "Identieke openbare clients",
+          "reuseOn": "Hergebruikt",
+          "reuseOff": "Elke keer een nieuwe client",
+          "reuseLabel": "Identieke openbare clients hergebruiken",
+          "reuseHint": "Een app zonder geheim die zich opnieuw registreert met dezelfde naam, redirect-URI’s, grants en scopes krijgt zijn bestaande client terug in plaats van een nieuwe. MCP-clients zoals Claude registreren zich bij elke verbinding."
         },
         "branding": {
           "title": "Huisstijl van het inloggen",
@@ -483,7 +492,9 @@
             "clientGone": "Deze client bestaat niet meer.",
             "notSelfRegistered": "Alleen zelf geregistreerde clients kunnen hier worden gewijzigd.",
             "invalidIconUrl": "De pictogram-URL moet een https-adres op een openbare host zijn (localhost en privéadressen kunnen niet worden opgehaald).",
-            "iconFromMetadataDocument": "Het pictogram van deze client komt uit zijn metadatadocument."
+            "iconFromMetadataDocument": "Het pictogram van deze client komt uit zijn metadatadocument.",
+            "invalidUnusedDays": "Het aantal dagen moet een geheel getal van 1 tot {max} zijn.",
+            "cleanupFailed": "De dubbele clients konden niet worden verwijderd."
           },
           "branding": {
             "clientGone": "Deze applicatie bestaat niet meer.",
@@ -604,6 +615,17 @@
           "panelImageEmpty": "De afbeelding van het zijpaneel is leeg.",
           "panelImageTooLarge": "De afbeelding van het zijpaneel mag maximaal 1 MB zijn.",
           "panelImageType": "De afbeelding van het zijpaneel moet een PNG-, JPEG-, WebP- of AVIF-afbeelding zijn."
+        },
+        "cleanup": {
+          "trigger": "Ongebruikte duplicaten verwijderen",
+          "title": "Ongebruikte duplicaten verwijderen?",
+          "description": "Van elke groep identieke zelf geregistreerde apps blijft de meest recent gebruikte behouden. De andere worden met hun toestemmingen verwijderd, behalve apps die nog een geldig toegangs- of vernieuwingstoken hebben: die blijven, zodat niemand wordt uitgelogd.",
+          "pruneLabel": "Ook zelf geregistreerde apps verwijderen die nooit zijn gebruikt",
+          "pruneHint": "Geen token en geen toestemming, meer dan dit aantal dagen geleden geregistreerd.",
+          "daysLabel": "Dagen",
+          "confirm": "Verwijderen",
+          "done": "{removed, plural, one {# client verwijderd} other {# clients verwijderd}}.",
+          "doneInUse": "{removed, plural, one {# client verwijderd} other {# clients verwijderd}}. {inUse, plural, one {# duplicaat behouden: deze is nog ingelogd.} other {# duplicaten behouden: deze zijn nog ingelogd.}}"
         }
       },
       "apis": {
@@ -1661,7 +1683,8 @@
             "disable": "OAuth-client uitgeschakeld",
             "enable": "OAuth-client ingeschakeld",
             "branding_update": "Huisstijl van het inloggen gewijzigd",
-            "branding_reset": "Huisstijl van het inloggen teruggezet"
+            "branding_reset": "Huisstijl van het inloggen teruggezet",
+            "remove_duplicates": "Dubbele OAuth-clients verwijderd"
           },
           "client_registration": {
             "update": "Zelfregistratie van clients gewijzigd"

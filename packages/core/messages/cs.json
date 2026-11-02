@@ -369,7 +369,11 @@
           "previous": "Předchozí",
           "next": "Další",
           "page": "Stránka {page} / {total}",
-          "footnote": "Data z <code>{getClients}</code>. Registrace a úpravy (včetně <code>{skipConsent}</code>) volají <code>{create}</code> a <code>{update}</code>; ostatní změny používají <code>{deleteClient}</code> a <code>{rotateSecret}</code>. Viz dokumentaci <docs>OAuth provider</docs>. Klienti jsou omezeni na přihlášeného uživatele (nebo na <code>{clientReference}</code>, pokud je nastaveno). Samoregistrovaní klienti nemají vlastníka a zobrazují se všichni; lze je vypnout nebo smazat, ne upravit."
+          "footnote": "Data z <code>{getClients}</code>. Registrace a úpravy (včetně <code>{skipConsent}</code>) volají <code>{create}</code> a <code>{update}</code>; ostatní změny používají <code>{deleteClient}</code> a <code>{rotateSecret}</code>. Viz dokumentaci <docs>OAuth provider</docs>. Klienti jsou omezeni na přihlášeného uživatele (nebo na <code>{clientReference}</code>, pokud je nastaveno). Samoregistrovaní klienti nemají vlastníka a zobrazují se všichni; lze je vypnout nebo smazat, ne upravit.",
+          "duplicates": "×{count}",
+          "duplicatesHint": "Identických samoregistrovaných klientů: {count}",
+          "showDuplicates": "Zobrazit všechny ({count})",
+          "hideDuplicates": "Skrýt identické"
         },
         "registration": {
           "title": "Samoregistrace",
@@ -405,7 +409,12 @@
           "hostsHint": "Jeden na řádek. Prázdné: libovolný veřejný hostitel HTTPS.",
           "scopesLabel": "Scopy, které si mohou samoregistrovaní klienti vyžádat",
           "scopesHint": "Každý uživatel stále schvaluje scopy, o které aplikace žádá. Odebráním scopu se odebere i již registrovaným klientům; již vydané tokeny si ho ponechají do vypršení.",
-          "perHourHint": "Napříč všemi instancemi, pro obě metody. Každá adresa je navíc omezena na 5 registrací za minutu."
+          "perHourHint": "Napříč všemi instancemi, pro obě metody. Každá adresa je navíc omezena na 5 registrací za minutu.",
+          "reuse": "Identičtí veřejní klienti",
+          "reuseOn": "Používají se znovu",
+          "reuseOff": "Pokaždé nový klient",
+          "reuseLabel": "Znovu používat identické veřejné klienty",
+          "reuseHint": "Aplikace bez tajného klíče, která se znovu zaregistruje se stejným názvem, URI přesměrování, granty a scopy, dostane zpět svého stávajícího klienta místo nového. Klienti MCP, jako je Claude, se registrují při každém připojení."
         },
         "branding": {
           "title": "Vzhled přihlášení",
@@ -483,7 +492,9 @@
             "clientGone": "Tento klient už neexistuje.",
             "notSelfRegistered": "Zde lze měnit jen samoregistrované klienty.",
             "invalidIconUrl": "URL ikony musí být adresa https na veřejném hostiteli (localhost a soukromé adresy nelze načíst).",
-            "iconFromMetadataDocument": "Ikona tohoto klienta pochází z jeho dokumentu metadat."
+            "iconFromMetadataDocument": "Ikona tohoto klienta pochází z jeho dokumentu metadat.",
+            "invalidUnusedDays": "Počet dní musí být celé číslo od 1 do {max}.",
+            "cleanupFailed": "Duplicitní klienty se nepodařilo odebrat."
           },
           "branding": {
             "clientGone": "Tato aplikace už neexistuje.",
@@ -604,6 +615,17 @@
           "panelImageEmpty": "Obrázek bočního panelu je prázdný.",
           "panelImageTooLarge": "Obrázek bočního panelu může mít nejvýše 1 MB.",
           "panelImageType": "Obrázek bočního panelu musí být PNG, JPEG, WebP nebo AVIF."
+        },
+        "cleanup": {
+          "trigger": "Odebrat nepoužívané duplicity",
+          "title": "Odebrat nepoužívané duplicity?",
+          "description": "Z každé skupiny identických samoregistrovaných aplikací se ponechá naposledy použitá. Ostatní se smažou i se svými souhlasy, kromě těch, které stále drží platný přístupový nebo obnovovací token: ty zůstanou, aby nikdo nebyl odhlášen.",
+          "pruneLabel": "Smazat i samoregistrované aplikace, které nikdy nebyly použity",
+          "pruneHint": "Žádný token ani souhlas, registrováno před více než tímto počtem dní.",
+          "daysLabel": "Dny",
+          "confirm": "Odebrat",
+          "done": "{removed, plural, one {Odebrán # klient} few {Odebráni # klienti} many {Odebráno # klienta} other {Odebráno # klientů}}.",
+          "doneInUse": "{removed, plural, one {Odebrán # klient} few {Odebráni # klienti} many {Odebráno # klienta} other {Odebráno # klientů}}. {inUse, plural, one {# duplicita ponechána: je stále přihlášená.} few {# duplicity ponechány: jsou stále přihlášené.} many {# duplicity ponecháno: jsou stále přihlášené.} other {# duplicit ponecháno: jsou stále přihlášené.}}"
         }
       },
       "apis": {
@@ -1661,7 +1683,8 @@
             "disable": "Vypnutí klienta OAuth",
             "enable": "Zapnutí klienta OAuth",
             "branding_update": "Změna vzhledu přihlášení",
-            "branding_reset": "Obnovení vzhledu přihlášení"
+            "branding_reset": "Obnovení vzhledu přihlášení",
+            "remove_duplicates": "Odebrání duplicitních klientů OAuth"
           },
           "client_registration": {
             "update": "Změna samoregistrace klientů"
