@@ -369,7 +369,11 @@
           "previous": "Precedente",
           "next": "Successiva",
           "page": "Pagina {page} / {total}",
-          "footnote": "Dati da <code>{getClients}</code>. Registrazione e modifica (incluso <code>{skipConsent}</code>) chiamano <code>{create}</code> e <code>{update}</code>; le altre modifiche usano <code>{deleteClient}</code> e <code>{rotateSecret}</code>. Vedi la documentazione dell’<docs>OAuth provider</docs>. I client sono limitati all’utente connesso (o a <code>{clientReference}</code> se configurato). I client autoregistrati non hanno proprietario e sono tutti elencati; possono essere disattivati o eliminati, non modificati."
+          "footnote": "Dati da <code>{getClients}</code>. Registrazione e modifica (incluso <code>{skipConsent}</code>) chiamano <code>{create}</code> e <code>{update}</code>; le altre modifiche usano <code>{deleteClient}</code> e <code>{rotateSecret}</code>. Vedi la documentazione dell’<docs>OAuth provider</docs>. I client sono limitati all’utente connesso (o a <code>{clientReference}</code> se configurato). I client autoregistrati non hanno proprietario e sono tutti elencati; possono essere disattivati o eliminati, non modificati.",
+          "duplicates": "×{count}",
+          "duplicatesHint": "{count} client autoregistrati identici",
+          "showDuplicates": "Mostra tutti i {count}",
+          "hideDuplicates": "Nascondi identici"
         },
         "registration": {
           "title": "Autoregistrazione",
@@ -405,7 +409,12 @@
           "hostsHint": "Uno per riga. Vuoto: qualsiasi host HTTPS pubblico.",
           "scopesLabel": "Scope che i client autoregistrati possono richiedere",
           "scopesHint": "Ogni utente approva comunque gli scope richiesti da un’app. Rimuovere uno scope lo rimuove anche dai client già registrati; i token già emessi lo mantengono fino alla scadenza.",
-          "perHourHint": "Su tutte le istanze, per entrambi i metodi. Ogni indirizzo è inoltre limitato a 5 registrazioni al minuto."
+          "perHourHint": "Su tutte le istanze, per entrambi i metodi. Ogni indirizzo è inoltre limitato a 5 registrazioni al minuto.",
+          "reuse": "Client pubblici identici",
+          "reuseOn": "Riutilizzati",
+          "reuseOff": "Nuovo client ogni volta",
+          "reuseLabel": "Riutilizza i client pubblici identici",
+          "reuseHint": "Un’app senza secret che si registra di nuovo con lo stesso nome, gli stessi URI di reindirizzamento, grant e scope riottiene il client esistente invece di uno nuovo. I client MCP come Claude si registrano a ogni connessione."
         },
         "branding": {
           "title": "Personalizzazione dell’accesso",
@@ -483,7 +492,9 @@
             "clientGone": "Questo client non esiste più.",
             "notSelfRegistered": "Qui si possono modificare solo i client autoregistrati.",
             "invalidIconUrl": "L’URL dell’icona deve essere un indirizzo https su un host pubblico (localhost e gli indirizzi privati non possono essere recuperati).",
-            "iconFromMetadataDocument": "L’icona di questo client proviene dal suo documento di metadati."
+            "iconFromMetadataDocument": "L’icona di questo client proviene dal suo documento di metadati.",
+            "invalidUnusedDays": "Il numero di giorni deve essere un numero intero da 1 a {max}.",
+            "cleanupFailed": "Impossibile rimuovere i client duplicati."
           },
           "branding": {
             "clientGone": "Questa applicazione non esiste più.",
@@ -604,6 +615,17 @@
           "panelImageEmpty": "L’immagine del pannello laterale è vuota.",
           "panelImageTooLarge": "L’immagine del pannello laterale deve pesare al massimo 1 MB.",
           "panelImageType": "L’immagine del pannello laterale deve essere un’immagine PNG, JPEG, WebP o AVIF."
+        },
+        "cleanup": {
+          "trigger": "Rimuovi duplicati inutilizzati",
+          "title": "Rimuovere i duplicati inutilizzati?",
+          "description": "Per ogni gruppo di app autoregistrate identiche viene mantenuta quella usata più di recente. Le altre vengono eliminate insieme ai relativi consensi, tranne quelle che hanno ancora un access token o un refresh token valido: restano, così nessuno viene disconnesso.",
+          "pruneLabel": "Elimina anche le app autoregistrate mai usate",
+          "pruneHint": "Nessun token e nessun consenso, registrate più di questo numero di giorni fa.",
+          "daysLabel": "Giorni",
+          "confirm": "Rimuovi",
+          "done": "{removed, plural, one {# client rimosso} other {# client rimossi}}.",
+          "doneInUse": "{removed, plural, one {# client rimosso} other {# client rimossi}}. {inUse, plural, one {# duplicato mantenuto: ha ancora un accesso attivo.} other {# duplicati mantenuti: hanno ancora un accesso attivo.}}"
         }
       },
       "apis": {
@@ -1661,7 +1683,8 @@
             "disable": "Client OAuth disattivato",
             "enable": "Client OAuth attivato",
             "branding_update": "Personalizzazione dell’accesso modificata",
-            "branding_reset": "Personalizzazione dell’accesso reimpostata"
+            "branding_reset": "Personalizzazione dell’accesso reimpostata",
+            "remove_duplicates": "Client OAuth duplicati rimossi"
           },
           "client_registration": {
             "update": "Autoregistrazione dei client modificata"

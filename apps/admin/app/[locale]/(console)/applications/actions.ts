@@ -17,6 +17,11 @@ import {
   type ClientRegistrationSettings,
   type DynamicRegistrationMode,
 } from "@ostiary/core/lib/client-registration-policy";
+import {
+  pruneNeverUsedSelfRegisteredClients,
+  removeDuplicateSelfRegisteredClients,
+} from "@ostiary/core/lib/client-dedupe";
+import { MAX_UNUSED_CLIENT_DAYS } from "@ostiary/core/lib/client-dedupe-policy";
 import { parseLogoUri } from "@ostiary/core/lib/admin/oauth-clients/oauth-client-admin.validation";
 import { currentApiScopes, OIDC_SCOPES } from "@ostiary/core/lib/oauth-scopes";
 import { adminActor } from "@/lib/admin-audit";
@@ -35,6 +40,7 @@ type ClientRegistrationInput = {
   /** One host per line or separated by commas. */
   metadataDocumentHosts: string;
   maxRegistrationsPerHour: number;
+  reuseIdenticalPublicClients: boolean;
 };
 
 export async function updateClientRegistration(input: ClientRegistrationInput): Promise<ActionResult> {
@@ -66,6 +72,7 @@ export async function updateClientRegistration(input: ClientRegistrationInput): 
     scopes,
     metadataDocumentHosts: [...new Set(hosts)],
     maxRegistrationsPerHour: max,
+    reuseIdenticalPublicClients: input.reuseIdenticalPublicClients,
   };
   let narrowed: number;
   try {
@@ -149,4 +156,35 @@ export async function deleteSelfRegisteredClient(clientId: string): Promise<Acti
     metadata: { source: client.source },
   });
   return { ok: true };
+}
+
+/**
+ * Removes duplicate self-registered public clients (client-dedupe.ts): keeps the most recently
+ * used of each group, deletes the others unless they still hold live tokens. With
+ * `neverUsedDays`, also deletes self-registered clients never used and older than that.
+ */
+export async function removeUnusedDuplicateClients(
+  neverUsedDays: number | null,
+): Promise<ActionResult<{ removed: number; inUse: number }>> {
+  const { audit } = await adminActor();
+  const t = await getTranslations("admin.pages.applications.actions.registration");
+  if (neverUsedDays !== null && (!Number.isInteger(neverUsedDays) || neverUsedDays < 1 || neverUsedDays > MAX_UNUSED_CLIENT_DAYS)) {
+    return { ok: false, error: t("invalidUnusedDays", { max: String(MAX_UNUSED_CLIENT_DAYS) }) };
+  }
+  try {
+    const report = await removeDuplicateSelfRegisteredClients();
+    const pruned = neverUsedDays === null ? [] : await pruneNeverUsedSelfRegisteredClients(neverUsedDays);
+    await audit({
+      action: "oauth_client.remove_duplicates",
+      metadata: {
+        groups: report.groups.map((group) => ({ name: group.name, kept: group.kept, removed: group.removed, inUse: group.inUse })),
+        neverUsedDays,
+        pruned,
+      },
+    });
+    return { ok: true, removed: report.removed + pruned.length, inUse: report.inUse };
+  } catch (error) {
+    console.error("Could not remove duplicate clients", error);
+    return { ok: false, error: t("cleanupFailed") };
+  }
 }

@@ -369,7 +369,11 @@
           "previous": "Previous",
           "next": "Next",
           "page": "Page {page} / {total}",
-          "footnote": "Data from <code>{getClients}</code>. Register and edit (including <code>{skipConsent}</code>) call <code>{create}</code> and <code>{update}</code>; other mutations use <code>{deleteClient}</code> and <code>{rotateSecret}</code>. See the <docs>OAuth provider</docs> docs. Clients are scoped to the signed-in user (or <code>{clientReference}</code> when configured). Self-registered clients have no owner and are all listed; they can be disabled or deleted, not edited."
+          "footnote": "Data from <code>{getClients}</code>. Register and edit (including <code>{skipConsent}</code>) call <code>{create}</code> and <code>{update}</code>; other mutations use <code>{deleteClient}</code> and <code>{rotateSecret}</code>. See the <docs>OAuth provider</docs> docs. Clients are scoped to the signed-in user (or <code>{clientReference}</code> when configured). Self-registered clients have no owner and are all listed; they can be disabled or deleted, not edited.",
+          "duplicates": "×{count}",
+          "duplicatesHint": "{count} identical self-registered clients",
+          "showDuplicates": "Show all {count}",
+          "hideDuplicates": "Hide identical"
         },
         "registration": {
           "title": "Self-registration",
@@ -405,7 +409,12 @@
           "hostsHint": "One per line. Empty: any public HTTPS host.",
           "scopesLabel": "Scopes self-registered clients may request",
           "scopesHint": "Each user still approves the scopes an app asks for. Removing a scope also removes it from clients already registered; tokens already issued keep it until they expire.",
-          "perHourHint": "Across every instance, for both methods. Each address is also limited to 5 registrations a minute."
+          "perHourHint": "Across every instance, for both methods. Each address is also limited to 5 registrations a minute.",
+          "reuse": "Identical public clients",
+          "reuseOn": "Reused",
+          "reuseOff": "New client each time",
+          "reuseLabel": "Reuse identical public clients",
+          "reuseHint": "An app without a secret that registers again with the same name, redirect URIs, grants and scopes gets its existing client back instead of a new one. MCP clients such as Claude register on every connection."
         },
         "branding": {
           "title": "Sign-in branding",
@@ -483,7 +492,9 @@
             "clientGone": "This client no longer exists.",
             "notSelfRegistered": "Only self-registered clients can be changed here.",
             "invalidIconUrl": "The icon URL must be an https address on a public host (localhost and private addresses can't be fetched).",
-            "iconFromMetadataDocument": "This client's icon comes from its metadata document."
+            "iconFromMetadataDocument": "This client's icon comes from its metadata document.",
+            "invalidUnusedDays": "The number of days must be a whole number from 1 to {max}.",
+            "cleanupFailed": "Could not remove the duplicate clients."
           },
           "branding": {
             "clientGone": "This application no longer exists.",
@@ -604,6 +615,17 @@
           "panelImageEmpty": "The side panel image is empty.",
           "panelImageTooLarge": "The side panel image must be 1 MB or smaller.",
           "panelImageType": "The side panel image must be a PNG, JPEG, WebP or AVIF image."
+        },
+        "cleanup": {
+          "trigger": "Remove unused duplicates",
+          "title": "Remove unused duplicates?",
+          "description": "For each group of identical self-registered apps, the most recently used one is kept. The others are deleted with their consents, except those still holding a live access or refresh token: they stay, so nobody is signed out.",
+          "pruneLabel": "Also delete self-registered apps never used",
+          "pruneHint": "No token and no consent, registered more than this many days ago.",
+          "daysLabel": "Days",
+          "confirm": "Remove",
+          "done": "{removed, plural, one {# client removed} other {# clients removed}}.",
+          "doneInUse": "{removed, plural, one {# client removed} other {# clients removed}}. {inUse, plural, one {# duplicate kept: it is still signed in.} other {# duplicates kept: they are still signed in.}}"
         }
       },
       "apis": {
@@ -1661,7 +1683,8 @@
             "disable": "Disabled OAuth client",
             "enable": "Enabled OAuth client",
             "branding_update": "Changed sign-in branding",
-            "branding_reset": "Reset sign-in branding"
+            "branding_reset": "Reset sign-in branding",
+            "remove_duplicates": "Removed duplicate OAuth clients"
           },
           "client_registration": {
             "update": "Changed client self-registration"
