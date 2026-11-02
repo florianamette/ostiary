@@ -20,6 +20,12 @@ export type DedupeClientFields = {
   softwareVersion: string | null;
   applicationType: string | null;
   postLogoutRedirectUris: readonly string[] | null;
+  /** client_uri: the consent screen's "Visit website" link. */
+  uri: string | null;
+  /** tos_uri and policy_uri: the consent screen's Terms and Privacy links. */
+  tos: string | null;
+  policy: string | null;
+  contacts: readonly string[] | null;
   tokenEndpointAuthMethod: string | null;
   clientSecret: string | null;
   userId: string | null;
@@ -30,9 +36,16 @@ const set = (values: readonly string[] | null | undefined) => [...new Set(values
 
 /**
  * The key identical public clients share: name, the set of redirect URIs, grant types,
- * response types and scopes, software id and version, application type and post-logout
- * redirect URIs. Null for a client that is never reused or grouped: confidential (it has a
- * secret or another auth method) or owned by a user or organization.
+ * response types and scopes, software id and version, application type, post-logout
+ * redirect URIs, website, terms, privacy policy and contacts. Null for a client that is never
+ * reused or grouped: confidential (it has a secret or another auth method) or owned by a user
+ * or organization.
+ *
+ * A reused client keeps its stored metadata, so every link the consent screen shows is part of
+ * the key: otherwise whoever registers "Claude" first, with Claude's redirect URI and their own
+ * website, terms or privacy links, would put those links in front of every later Claude user.
+ * The logo is left out: the consent screen never shows a self-registered client's logo, and
+ * an admin may set one (Set icon) without that stopping the reuse.
  */
 export function publicClientDedupeKey(client: DedupeClientFields): string | null {
   if (client.tokenEndpointAuthMethod !== "none" || client.clientSecret) return null;
@@ -47,6 +60,10 @@ export function publicClientDedupeKey(client: DedupeClientFields): string | null
     client.softwareVersion ?? "",
     client.applicationType ?? "",
     set(client.postLogoutRedirectUris),
+    client.uri ?? "",
+    client.tos ?? "",
+    client.policy ?? "",
+    set(client.contacts),
   ]);
 }
 
@@ -77,7 +94,8 @@ function optionalStrings(value: unknown): string[] | null | undefined {
  * application). `scopes` is what a new self-registered client is stored with: Better Auth
  * stores every allowed scope whatever the request asks for, so a request scope is only checked
  * to be within them. Null when the request must go to Better Auth: not public, malformed (it
- * refuses those), asks for a scope outside the list, or uses a field never reused.
+ * refuses those, an empty `contacts` list included), asks for a scope outside the list, or
+ * uses a field never reused.
  */
 export function registrationRequestDedupeFields(body: unknown, scopes: readonly string[]): DedupeClientFields | null {
   if (!body || typeof body !== "object" || Array.isArray(body)) return null;
@@ -97,9 +115,14 @@ export function registrationRequestDedupeFields(body: unknown, scopes: readonly 
   const responseTypes = optionalStrings(value.response_types);
   const postLogoutRedirectUris = optionalStrings(value.post_logout_redirect_uris);
   const requestedScope = optionalString(value.scope);
-  const fields = [name, softwareId, softwareVersion, applicationType, redirectUris, grantTypes, responseTypes, postLogoutRedirectUris, requestedScope];
+  const uri = optionalString(value.client_uri);
+  const tos = optionalString(value.tos_uri);
+  const policy = optionalString(value.policy_uri);
+  const contacts = optionalStrings(value.contacts);
+  const fields = [name, softwareId, softwareVersion, applicationType, redirectUris, grantTypes, responseTypes, postLogoutRedirectUris, requestedScope, uri, tos, policy, contacts];
   if (fields.some((field) => field === undefined)) return null;
   if (!redirectUris || redirectUris.length === 0) return null;
+  if (contacts?.length === 0) return null; // Better Auth refuses an empty list.
 
   const allowed = new Set(scopes);
   if (requestedScope && requestedScope.split(/\s+/).some((scope) => scope && !allowed.has(scope))) return null;
@@ -115,6 +138,10 @@ export function registrationRequestDedupeFields(body: unknown, scopes: readonly 
     softwareVersion: softwareVersion ?? null,
     applicationType: applicationType ?? "web",
     postLogoutRedirectUris: postLogoutRedirectUris ?? null,
+    uri: uri ?? null,
+    tos: tos ?? null,
+    policy: policy ?? null,
+    contacts: contacts ?? null,
     tokenEndpointAuthMethod: "none",
     clientSecret: null,
     userId: null,

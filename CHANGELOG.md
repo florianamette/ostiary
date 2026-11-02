@@ -25,17 +25,19 @@ All notable changes are documented here. The format follows
 - **One client per MCP app.** Claude and other MCP clients register again on every connection,
   which filled the Applications page with identical "Claude" clients. An anonymous registration
   identical to an existing public client (same name, redirect URIs, grants, response types,
-  scopes, software id and version) now gets that client back: same `client_id`, `201` with its
-  stored metadata. Never for confidential clients, clients registered with a session, disabled
-  clients or registrations that differ. On by default; *Reuse identical public clients* in
-  **Applications > Self-registration** turns it off. `/oauth2/register` keeps its limit of 5 a
-  minute per IP, now in Ostiary's own rate-limit table.
+  scopes, software id and version, website, terms, privacy policy and contacts) now gets that
+  client back: same `client_id`, `201` with its stored metadata. Never for confidential
+  clients, clients registered with a session, disabled clients or registrations that differ,
+  so the first to register a name cannot put their own links on everyone else's consent
+  screen. On by default; *Reuse identical public clients* in **Applications >
+  Self-registration** turns it off. `/oauth2/register` keeps its limit of 5 a minute per IP,
+  now in Ostiary's own rate-limit table.
 - **Remove unused duplicates.** The Applications page collapses identical self-registered
   clients into one row (*Claude ×12*). Its **Remove unused duplicates** button keeps the most
   recently used client of each group and deletes the others unless they still hold a live
-  access or refresh token (those are kept and counted, so no one is signed out), and can also
-  delete self-registered clients never used after a number of days. Audited as
-  `oauth_client.remove_duplicates`.
+  access or refresh token (those are kept and counted, so no one is signed out); disabled
+  clients are left alone. It can also delete self-registered clients never used after a number
+  of days. Audited as `oauth_client.remove_duplicates`.
 
 - **Icon URL for applications.** Admins set an app's icon (`logo_uri`) when registering it
   or in **Edit** (`logo_uri` in `POST` and `PATCH /api/admin/oauth-clients`; empty or null

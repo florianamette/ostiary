@@ -31,6 +31,10 @@ const stored: DedupeClientFields = {
   softwareVersion: null,
   applicationType: "web",
   postLogoutRedirectUris: null,
+  uri: null,
+  tos: null,
+  policy: null,
+  contacts: null,
   tokenEndpointAuthMethod: "none",
   clientSecret: null,
   userId: null,
@@ -85,6 +89,48 @@ describe("publicClientDedupeKey", () => {
     }
   });
 
+  it("differs on every link the consent screen shows, and on the contacts", () => {
+    const base = publicClientDedupeKey(stored);
+    for (const change of [
+      { uri: "https://attacker.example" },
+      { tos: "https://attacker.example/terms" },
+      { policy: "https://attacker.example/privacy" },
+      { contacts: ["attacker@example.test"] },
+    ]) {
+      expect(publicClientDedupeKey({ ...stored, ...change }), JSON.stringify(change)).not.toBe(base);
+    }
+  });
+
+  it("matches a request only when its links and contacts are the stored ones", () => {
+    const links = {
+      client_uri: "https://claude.ai",
+      tos_uri: "https://claude.ai/terms",
+      policy_uri: "https://claude.ai/privacy",
+      contacts: ["support@claude.ai"],
+    };
+    const withLinks = {
+      ...stored,
+      uri: links.client_uri,
+      tos: links.tos_uri,
+      policy: links.policy_uri,
+      contacts: links.contacts,
+    };
+    expect(keyOf({ ...claude, ...links })).toBe(publicClientDedupeKey(withLinks));
+    expect(keyOf(claude)).not.toBe(publicClientDedupeKey(withLinks));
+    for (const change of [
+      { client_uri: "https://attacker.example" },
+      { tos_uri: "https://attacker.example/terms" },
+      { policy_uri: "https://attacker.example/privacy" },
+      { contacts: ["attacker@example.test"] },
+    ]) {
+      expect(keyOf({ ...claude, ...links, ...change }), JSON.stringify(change)).not.toBe(publicClientDedupeKey(withLinks));
+    }
+  });
+
+  it("ignores the logo, which the consent screen hides for a self-registered client", () => {
+    expect(keyOf({ ...claude, logo_uri: "https://claude.ai/logo.png" })).toBe(publicClientDedupeKey(stored));
+  });
+
   it("is null for confidential and owned clients", () => {
     expect(publicClientDedupeKey({ ...stored, tokenEndpointAuthMethod: "client_secret_basic" })).toBeNull();
     expect(publicClientDedupeKey({ ...stored, clientSecret: "hashed" })).toBeNull();
@@ -118,6 +164,9 @@ describe("registrationRequestDedupeFields", () => {
     expect(registrationRequestDedupeFields({ ...claude, redirect_uris: "https://claude.ai/cb" }, SCOPES)).toBeNull();
     expect(registrationRequestDedupeFields({ ...claude, redirect_uris: [] }, SCOPES)).toBeNull();
     expect(registrationRequestDedupeFields({ ...claude, client_name: 3 }, SCOPES)).toBeNull();
+    expect(registrationRequestDedupeFields({ ...claude, tos_uri: 3 }, SCOPES)).toBeNull();
+    expect(registrationRequestDedupeFields({ ...claude, contacts: "support@claude.ai" }, SCOPES)).toBeNull();
+    expect(registrationRequestDedupeFields({ ...claude, contacts: [] }, SCOPES)).toBeNull();
     expect(registrationRequestDedupeFields({ ...claude, scope: "openid admin" }, SCOPES)).toBeNull();
     expect(registrationRequestDedupeFields(null, SCOPES)).toBeNull();
   });
