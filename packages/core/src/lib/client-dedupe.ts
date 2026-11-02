@@ -23,6 +23,9 @@ type ClientRow = typeof oauthClient.$inferSelect;
 /** Not admin-registered (see registrationSource), and not from a metadata document. */
 const dynamicallyRegistered = and(not(oauthClient.adminRegistered), isNull(oauthClient.clientDiscoveryId));
 
+/** `disabled` defaults to false but is nullable: a null is an enabled client. */
+const enabled = or(isNull(oauthClient.disabled), eq(oauthClient.disabled, false));
+
 /** Latest use and live tokens of each client (clients never used are missing from the map). */
 async function clientActivity(clientIds: string[]): Promise<Map<string, { last: Date | null; live: number }>> {
   const activity = new Map<string, { last: Date | null; live: number }>();
@@ -121,7 +124,7 @@ export async function findReusablePublicClient(body: unknown, scopes: readonly s
         isNull(oauthClient.clientSecret),
         isNull(oauthClient.userId),
         isNull(oauthClient.referenceId),
-        or(isNull(oauthClient.disabled), eq(oauthClient.disabled, false)),
+        enabled,
         fields.name === null ? isNull(oauthClient.name) : eq(oauthClient.name, fields.name),
       ),
     );
@@ -170,10 +173,12 @@ export type DuplicateCleanupReport = {
 /**
  * Removes duplicate self-registered public clients: in each group sharing a dedupe key, keeps
  * the most recently used one, and deletes the others unless they still hold a live access or
- * refresh token (those are reported in `inUse`), so no signed-in session breaks.
+ * refresh token (those are reported in `inUse`), so no signed-in session breaks. Disabled
+ * clients are left alone, neither kept nor deleted: an admin disabled them on purpose, and only
+ * an enabled client is handed back to a registration.
  */
 export async function removeDuplicateSelfRegisteredClients(): Promise<DuplicateCleanupReport> {
-  const rows = (await db.select().from(oauthClient).where(dynamicallyRegistered)).filter(
+  const rows = (await db.select().from(oauthClient).where(and(dynamicallyRegistered, enabled))).filter(
     (row) => registrationSource(row) === "dynamic",
   );
   const keyed = rows.flatMap((row) => {

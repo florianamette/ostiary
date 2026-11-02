@@ -189,6 +189,42 @@ describe("an identical anonymous public registration gets the existing client ba
     expect(ids.size).toBe(4);
   });
 
+  it("reuses a client only when its website, terms, privacy links and contacts are the same", async () => {
+    const links = {
+      client_uri: "https://claude.ai",
+      tos_uri: "https://claude.ai/terms",
+      policy_uri: "https://claude.ai/privacy",
+      contacts: ["support@claude.ai"],
+    };
+    const first = await register({ ...claude, ...links });
+    expect((await register({ ...claude, ...links })).client_id).toBe(first.client_id);
+    for (const change of [
+      { client_uri: "https://attacker.example" },
+      { tos_uri: "https://attacker.example/terms" },
+      { policy_uri: "https://attacker.example/privacy" },
+      { contacts: ["attacker@example.test"] },
+    ]) {
+      const other = await register({ ...claude, ...links, ...change });
+      expect(other.client_id, JSON.stringify(change)).not.toBe(first.client_id);
+      expect(other).toMatchObject(change);
+    }
+  });
+
+  it("never shows the first registrant's links to a later registration without them", async () => {
+    const planted = await register({
+      ...claude,
+      client_uri: "https://attacker.example",
+      tos_uri: "https://attacker.example/terms",
+      policy_uri: "https://attacker.example/privacy",
+    });
+    const real = await register(claude);
+    expect(real.client_id).not.toBe(planted.client_id);
+    expect(real.client_uri).toBeUndefined();
+    expect(real.tos_uri).toBeUndefined();
+    expect(real.policy_uri).toBeUndefined();
+    expect((await register(claude)).client_id).toBe(real.client_id);
+  });
+
   it("never reuses a confidential client", async () => {
     const headers = await signedInUser();
     const body = { ...claude, token_endpoint_auth_method: "client_secret_basic" };
@@ -262,6 +298,23 @@ describe("removing duplicates registered before", () => {
 
     // The next connection gets the client that was kept.
     expect((await register(claude)).client_id).toBe(recent);
+  });
+
+  it("leaves disabled clients alone: never kept over an enabled copy, never deleted", async () => {
+    const [disabledRecent, used, unused, disabledUnused] = await duplicates(4);
+    await consent(disabledRecent!, 1 * HOUR); // the most recent use, but disabled below
+    await accessToken(used!, 1 * DAY, HOUR); // expired
+    await db
+      .update(schema.oauthClient)
+      .set({ disabled: true })
+      .where(inArray(schema.oauthClient.clientId, [disabledRecent!, disabledUnused!]));
+
+    const report = await removeDuplicateSelfRegisteredClients();
+    expect(report.groups).toEqual([{ name: "Claude", kept: used, removed: [unused], inUse: [] }]);
+    expect(await remaining([disabledRecent!, used!, unused!, disabledUnused!])).toEqual(
+      [disabledRecent!, used!, disabledUnused!].sort(),
+    );
+    expect((await register(claude)).client_id).toBe(used);
   });
 
   it("does not touch confidential or admin-registered clients", async () => {
