@@ -10,6 +10,7 @@ import { AppIcon } from "@ostiary/core/components/app-icon";
 import { Badge } from "@ostiary/core/components/ui/badge";
 import { TableCell, TableRow } from "@ostiary/core/components/ui/table";
 import { adminAppIconUrl } from "@/lib/app-icon-url";
+import { Link } from "@/i18n/navigation";
 
 function formatDate(format: ReturnType<typeof useFormatter>, iso: string) {
   try {
@@ -24,19 +25,19 @@ function formatDate(format: ReturnType<typeof useFormatter>, iso: string) {
 }
 
 /** One OAuth consent in the consent table. */
-export function ConsentTableRow({
-  row,
-  onChanged,
-}: {
-  row: OAuthConsentRow;
-  onChanged: () => void;
-}) {
+export function ConsentTableRow({ row }: { row: OAuthConsentRow }) {
   const format = useFormatter();
   return (
     <TableRow>
       <TableCell>
         <div className="flex flex-col gap-0.5">
-          <span className="font-medium">{row.userLabel}</span>
+          {row.userId ? (
+            <Link href={`/users/${row.userId}`} className="font-medium underline-offset-4 hover:underline">
+              {row.userLabel}
+            </Link>
+          ) : (
+            <span className="font-medium">{row.userLabel}</span>
+          )}
           <code className="text-muted-foreground max-w-[min(100%,280px)] truncate font-mono text-xs">
             {row.userId}
           </code>
@@ -65,7 +66,7 @@ export function ConsentTableRow({
       </TableCell>
       <TableCell className="hidden sm:table-cell">
         <div className="flex items-center gap-2.5">
-          <AppIcon name={row.clientLabel} src={adminAppIconUrl(row.clientId)} size={28} />
+          <AppIcon name={row.clientLabel} src={adminAppIconUrl(row.clientId, row.clientIcon)} size={28} />
           <div className="flex min-w-0 flex-col gap-0.5">
             <span className="text-sm font-medium">
               {row.clientLabel}
@@ -95,7 +96,7 @@ export function ConsentTableRow({
             {row.referenceId}
           </code>
         ) : (
-          <span className="text-muted-foreground text-sm">, </span>
+          <span className="text-muted-foreground text-sm">-</span>
         )}
       </TableCell>
       <TableCell className="text-muted-foreground hidden text-sm xl:table-cell">
@@ -105,7 +106,7 @@ export function ConsentTableRow({
         {formatDate(format, row.updatedAt)}
       </TableCell>
       <TableCell className="text-right">
-        <AdminConsentRowActions row={row} onChanged={onChanged} />
+        <AdminConsentRowActions row={row} />
       </TableCell>
     </TableRow>
   );

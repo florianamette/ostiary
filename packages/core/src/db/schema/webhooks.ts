@@ -1,4 +1,4 @@
-import { boolean, index, integer, jsonb, pgTable, text, timestamp } from "drizzle-orm/pg-core";
+import { boolean, index, integer, jsonb, pgTable, text, timestamp, uniqueIndex } from "drizzle-orm/pg-core";
 
 import { user } from "./auth";
 
@@ -19,18 +19,18 @@ export const webhookEndpoint = pgTable("webhook_endpoint", {
   secretEncrypted: text("secret_encrypted").notNull(),
   /** The secret replaced by the last rotation: deliveries carry both signatures until it expires. */
   previousSecretEncrypted: text("previous_secret_encrypted"),
-  previousSecretExpiresAt: timestamp("previous_secret_expires_at"),
+  previousSecretExpiresAt: timestamp("previous_secret_expires_at", { withTimezone: true }),
   enabled: boolean("enabled").default(true).notNull(),
   /** Why it is disabled: "manual" (an admin) or "failures" (too many failed attempts in a row). */
-  disabledReason: text("disabled_reason"),
-  disabledAt: timestamp("disabled_at"),
+  disabledReason: text("disabled_reason", { enum: ["manual", "failures"] }),
+  disabledAt: timestamp("disabled_at", { withTimezone: true }),
   /** Failed attempts since the last success. Reset by any 2xx answer. */
   consecutiveFailures: integer("consecutive_failures").default(0).notNull(),
-  lastSuccessAt: timestamp("last_success_at"),
-  lastFailureAt: timestamp("last_failure_at"),
+  lastSuccessAt: timestamp("last_success_at", { withTimezone: true }),
+  lastFailureAt: timestamp("last_failure_at", { withTimezone: true }),
   createdBy: text("created_by").references(() => user.id, { onDelete: "set null" }),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
 });
 
 /** One event for one endpoint: the outbox row, its attempts so far and the last answer. */
@@ -47,20 +47,24 @@ export const webhookDelivery = pgTable(
     /** The exact JSON body that is signed and sent. */
     payload: text("payload").notNull(),
     /** "pending" (to send or retry), "succeeded" or "failed" (no attempt left). */
-    status: text("status").default("pending").notNull(),
+    status: text("status", { enum: ["pending", "succeeded", "failed"] }).default("pending").notNull(),
     attempts: integer("attempts").default(0).notNull(),
     /** When the next attempt is due (pending only). */
-    nextAttemptAt: timestamp("next_attempt_at"),
+    nextAttemptAt: timestamp("next_attempt_at", { withTimezone: true }),
     /** Set while a worker sends it, so the cron and an immediate send never both do. */
-    lockedUntil: timestamp("locked_until"),
-    lastAttemptAt: timestamp("last_attempt_at"),
+    lockedUntil: timestamp("locked_until", { withTimezone: true }),
+    lastAttemptAt: timestamp("last_attempt_at", { withTimezone: true }),
     responseStatus: integer("response_status"),
     /** The first characters of the answer, or the network error. */
     responseExcerpt: text("response_excerpt"),
-    createdAt: timestamp("created_at").defaultNow().notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
   },
   (table) => [
     index("webhookDelivery_due_idx").on(table.status, table.nextAttemptAt),
     index("webhookDelivery_endpoint_idx").on(table.endpointId, table.createdAt),
+    // The retention purge deletes by age.
+    index("webhookDelivery_created_at_idx").on(table.createdAt),
+    // One delivery per event and endpoint: an event is never queued twice for the same URL.
+    uniqueIndex("webhookDelivery_endpoint_event_uidx").on(table.endpointId, table.eventId),
   ],
 );

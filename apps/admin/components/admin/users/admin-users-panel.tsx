@@ -1,17 +1,17 @@
 "use client";
 
 import * as React from "react";
+import { useRouter } from "next/navigation";
 import { useFormatter, useTranslations } from "next-intl";
 
 import { Link } from "@/i18n/navigation";
 import { AdminCreateUserDialog } from "@/components/admin/users/admin-create-user-dialog";
 import { AdminUserRowActions } from "@/components/admin/users/admin-user-row-actions";
-import { TableMessageRow, TablePagination, TableSearch } from "@/components/admin/common/admin-table";
-import { useDebouncedValue } from "@/components/admin/common/use-debounced-value";
+import { ListSearch, TableMessageRow, TablePagination } from "@/components/admin/common/admin-table";
+import { useListParams } from "@/components/admin/common/use-list-params";
 import { usePagination } from "@/components/admin/common/use-pagination";
 import { ExternalLink } from "@/components/admin/common/external-link";
 import { formatShortDate } from "@/components/admin/common/page-header";
-import { Alert, AlertDescription, AlertTitle } from "@ostiary/core/components/ui/alert";
 import { Badge } from "@ostiary/core/components/ui/badge";
 import {
   Select,
@@ -28,116 +28,54 @@ import {
   TableHeader,
   TableRow,
 } from "@ostiary/core/components/ui/table";
-import { authClient } from "@/lib/auth-client";
+import { isPlatformAdmin } from "@ostiary/core/lib/admin/user-has-admin-role";
 import { cn } from "@ostiary/core/lib/utils";
-
-type RoleFilter = "all" | "admin" | "user";
 
 type ListUser = {
   id: string;
   name: string;
   email: string;
-  role?: string | null;
+  role: string | null;
   banned: boolean | null;
-  emailVerified?: boolean | null;
-  createdAt?: Date | string | null;
+  emailVerified: boolean;
+  createdAt: string;
 };
 
-export function AdminUsersPanel() {
+/**
+ * One page of users, loaded on the server from the URL (`?q=`, `?role=`, `?page=`, `?size=`).
+ * The search, role filter and page write the URL, which loads the next page.
+ */
+export function AdminUsersPanel({
+  users,
+  total,
+  currentUserId,
+}: {
+  users: ListUser[];
+  total: number;
+  currentUserId: string;
+}) {
   const t = useTranslations("admin.pages.users");
   const tc = useTranslations("admin.common");
   const format = useFormatter();
-  const { data: sessionWrap } = authClient.useSession();
-  const currentUserId = sessionWrap?.user?.id;
-
-  const [searchInput, setSearchInput] = React.useState("");
-  const debouncedSearch = useDebouncedValue(searchInput, 350);
-  const [roleFilter, setRoleFilter] = React.useState<RoleFilter>("all");
-  const [users, setUsers] = React.useState<ListUser[]>([]);
-  const [total, setTotal] = React.useState(0);
-  const [loading, setLoading] = React.useState(true);
-  const [listError, setListError] = React.useState<string | null>(null);
-  const [refreshKey, setRefreshKey] = React.useState(0);
-
-  const refetch = React.useCallback(() => {
-    setRefreshKey((k) => k + 1);
-  }, []);
-
-  const { page, setPage, pageSize, setPageSize, totalPages, showingFrom, showingTo } =
-    usePagination(total, [debouncedSearch, roleFilter]);
-
-  React.useEffect(() => {
-    let cancelled = false;
-    async function run() {
-      setLoading(true);
-      setListError(null);
-      const query: {
-        limit: number;
-        offset: number;
-        sortBy?: string;
-        sortDirection?: "asc" | "desc";
-        searchValue?: string;
-        searchField?: "email" | "name";
-        searchOperator?: "contains";
-        filterField?: string;
-        filterOperator?: "eq";
-        filterValue?: string;
-      } = {
-        limit: pageSize,
-        offset: page * pageSize,
-        sortBy: "createdAt",
-        sortDirection: "desc",
-      };
-
-      const q = debouncedSearch.trim();
-      if (q) {
-        query.searchValue = q;
-        query.searchField = q.includes("@") ? "email" : "name";
-        query.searchOperator = "contains";
-      }
-
-      if (roleFilter !== "all") {
-        query.filterField = "role";
-        query.filterOperator = "eq";
-        query.filterValue = roleFilter;
-      }
-
-      const res = await authClient.admin.listUsers({ query });
-
-      if (cancelled) return;
-
-      if (res.error) {
-        setListError(res.error.message ?? t("list.loadErrorFallback"));
-        setUsers([]);
-        setTotal(0);
-        setLoading(false);
-        return;
-      }
-
-      const data = res.data;
-      setUsers((data?.users as ListUser[]) ?? []);
-      setTotal(typeof data?.total === "number" ? data.total : 0);
-      setLoading(false);
-    }
-    void run();
-    return () => {
-      cancelled = true;
-    };
-  }, [page, debouncedSearch, roleFilter, refreshKey, pageSize, t]);
+  const router = useRouter();
+  const list = useListParams();
+  const { page, setPage, pageSize, setPageSize, totalPages, showingFrom, showingTo, pending } =
+    usePagination(total, list);
+  const roleFilter = list.get("role") || "all";
+  const refresh = React.useCallback(() => router.refresh(), [router]);
 
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <TableSearch
-          value={searchInput}
-          onChange={setSearchInput}
+        <ListSearch
+          list={list}
           placeholder={t("list.searchPlaceholder")}
           label={t("list.searchLabel")}
         />
         <div className="flex flex-wrap items-center gap-2">
           <Select
             value={roleFilter}
-            onValueChange={(v) => setRoleFilter(v as RoleFilter)}
+            onValueChange={(v) => list.set({ role: v === "all" ? null : v })}
           >
             <SelectTrigger size="sm" className="w-[140px]">
               <SelectValue placeholder={t("list.rolePlaceholder")} />
@@ -148,18 +86,14 @@ export function AdminUsersPanel() {
               <SelectItem value="user">{t("list.roleUser")}</SelectItem>
             </SelectContent>
           </Select>
-          <AdminCreateUserDialog onCreated={refetch} />
+          <AdminCreateUserDialog onCreated={refresh} />
         </div>
       </div>
 
-      {listError ? (
-        <Alert variant="destructive">
-          <AlertTitle>{t("list.loadErrorTitle")}</AlertTitle>
-          <AlertDescription>{listError}</AlertDescription>
-        </Alert>
-      ) : null}
-
-      <div className="rounded-xl border border-border/80 bg-card shadow-xs">
+      <div
+        className={cn("rounded-xl border border-border/80 bg-card shadow-xs transition-opacity", pending && "opacity-60")}
+        aria-busy={pending}
+      >
         <Table>
           <TableHeader>
             <TableRow className="hover:bg-transparent">
@@ -172,9 +106,7 @@ export function AdminUsersPanel() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {loading ? (
-              <TableMessageRow colSpan={6}>{t("list.loading")}</TableMessageRow>
-            ) : users.length === 0 ? (
+            {users.length === 0 ? (
               <TableMessageRow colSpan={6}>{t("list.empty")}</TableMessageRow>
             ) : (
               users.map((user) => (
@@ -190,7 +122,7 @@ export function AdminUsersPanel() {
                       <div className="mt-1 flex flex-wrap gap-1 sm:hidden">
                         <Badge
                           variant={
-                            user.role?.includes("admin")
+                            isPlatformAdmin(user.role)
                               ? "default"
                               : "secondary"
                           }
@@ -213,7 +145,7 @@ export function AdminUsersPanel() {
                   <TableCell className="hidden sm:table-cell">
                     <Badge
                       variant={
-                        user.role?.includes("admin") ? "default" : "secondary"
+                        isPlatformAdmin(user.role) ? "default" : "secondary"
                       }
                       className="max-w-[180px] truncate"
                     >
@@ -248,7 +180,7 @@ export function AdminUsersPanel() {
                     <AdminUserRowActions
                       user={user}
                       currentUserId={currentUserId}
-                      onChanged={refetch}
+                      onChanged={refresh}
                     />
                   </TableCell>
                 </TableRow>
@@ -268,7 +200,7 @@ export function AdminUsersPanel() {
           onPageChange={setPage}
           pageSize={pageSize}
           onPageSizeChange={setPageSize}
-          loading={loading}
+          loading={pending}
           labels={{
             rowsPerPage: t("list.rowsPerPage"),
             previous: t("list.previous"),

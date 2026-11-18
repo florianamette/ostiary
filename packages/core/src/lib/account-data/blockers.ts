@@ -2,7 +2,7 @@ import { eq, inArray } from "drizzle-orm";
 
 import { member, organization, scimSubject, scimUser, user } from "@ostiary/core/db/schema";
 import type { Database } from "@ostiary/core/lib/account-data/database";
-import { userHasAdminRole } from "@ostiary/core/lib/admin/user-has-admin-role";
+import { isPlatformAdmin } from "@ostiary/core/lib/admin/user-has-admin-role";
 
 /**
  * Why an account cannot delete itself. Each blocker has a way out that the dashboard explains:
@@ -51,7 +51,7 @@ export async function accountDeletionBlockers(db: Database, userId: string): Pro
   if (!row) return [];
 
   const blockers: DeletionBlocker[] = [];
-  if (userHasAdminRole(row.role, ["admin"])) blockers.push({ kind: "admin" });
+  if (isPlatformAdmin(row.role)) blockers.push({ kind: "admin" });
 
   const owned = memberships.filter((m) => isOwnerRole(m.role));
   if (owned.length) {

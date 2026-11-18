@@ -52,7 +52,7 @@ describe("secret encryption", () => {
     const secret = generateWebhookSecret();
     const stored = encryptSecret(secret, appSecret);
     expect(stored).not.toContain(secret.slice(6, 20));
-    expect(stored.startsWith("v1:")).toBe(true);
+    expect(stored.startsWith("v1.")).toBe(true);
     expect(decryptSecret(stored, appSecret)).toBe(secret);
     expect(encryptSecret(secret, appSecret)).not.toBe(stored);
   });
@@ -60,9 +60,9 @@ describe("secret encryption", () => {
   it("fails with another key or a tampered value", () => {
     const stored = encryptSecret(generateWebhookSecret(), appSecret);
     expect(() => decryptSecret(stored, "another-secret-another-secret-xx")).toThrow();
-    const [v, iv, data] = stored.split(":");
-    const flipped = Buffer.from(data!, "base64");
+    const [v, iv, tag, data] = stored.split(".");
+    const flipped = Buffer.from(data!, "base64url");
     flipped[0] = flipped[0]! ^ 1;
-    expect(() => decryptSecret(`${v}:${iv}:${flipped.toString("base64")}`, appSecret)).toThrow();
+    expect(() => decryptSecret([v, iv, tag, flipped.toString("base64url")].join("."), appSecret)).toThrow();
   });
 });

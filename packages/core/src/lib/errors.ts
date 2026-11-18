@@ -65,7 +65,7 @@ export class TooManyRequestsError extends Error {
 }
 
 function zodMessage(error: ZodError): string {
-  const first = error.errors[0];
+  const first = error.issues[0];
   return first ? `${first.path.join(".") || "request"}: ${first.message}` : "Validation failed";
 }
 

@@ -10,6 +10,7 @@ import {
   Trash2Icon,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { toast } from "sonner";
 
 import { Button } from "@ostiary/core/components/ui/button";
 import {
@@ -20,12 +21,12 @@ import {
   DropdownMenuTrigger,
 } from "@ostiary/core/components/ui/dropdown-menu";
 import type { RegistrationSource } from "@ostiary/core/lib/client-registration-policy";
-import { adminNotify } from "@ostiary/core/lib/admin/admin-notify";
 import { AppBrandingDialog } from "@/components/admin/applications/app-branding-dialog";
 import { ApplicationEditDialog } from "@/components/admin/applications/application-edit-dialog";
 import { ApplicationRotateSecretDialog } from "@/components/admin/applications/application-rotate-secret-dialog";
 import { routeError } from "@/lib/oauth-client-payload";
 import { ConfirmRemoveDialog } from "@/components/admin/common/confirm-remove-dialog";
+import { useAdminAction } from "@/components/admin/common/use-admin-action";
 
 export type OAuthApplicationRow = {
   clientId: string;
@@ -59,7 +60,6 @@ export function AdminApplicationRowActions({
   const t = useTranslations("admin.pages.applications.rowActions");
   const tc = useTranslations("admin.common");
   const [removeOpen, setRemoveOpen] = React.useState(false);
-  const [removePending, setRemovePending] = React.useState(false);
   const [rotateOpen, setRotateOpen] = React.useState(false);
   const [brandingOpen, setBrandingOpen] = React.useState(false);
   const [editOpen, setEditOpen] = React.useState(false);
@@ -74,24 +74,22 @@ export function AdminApplicationRowActions({
     setEditOpen(true);
   }
 
-  async function removeClient() {
-    setRemovePending(true);
-    try {
-      const res = await fetch(
-        `/api/admin/oauth-clients/${encodeURIComponent(row.clientId)}`,
-        { method: "DELETE", credentials: "include" },
-      );
-      if (!res.ok) {
+  const remove = useAdminAction(() => setRemoveOpen(false), { refresh: onChanged });
+
+  function removeClient() {
+    void remove.run(
+      async () => {
+        const res = await fetch(`/api/admin/oauth-clients/${encodeURIComponent(row.clientId)}`, {
+          method: "DELETE",
+          credentials: "include",
+        });
+        if (res.ok) return { ok: true };
         const json: unknown = await res.json().catch(() => null);
-        adminNotify(routeError(json) ?? t("deleteDialog.deleteFailed"), "error");
-        return;
-      }
-      adminNotify(t("deleteDialog.deleted"), "success");
-      setRemoveOpen(false);
-      onChanged();
-    } finally {
-      setRemovePending(false);
-    }
+        return { ok: false, error: routeError(json) ?? t("deleteDialog.deleteFailed") };
+      },
+      t("deleteDialog.deleted"),
+      t("deleteDialog.deleteFailed"),
+    );
   }
 
   return (
@@ -111,7 +109,7 @@ export function AdminApplicationRowActions({
           <DropdownMenuItem
             onClick={() => {
               void navigator.clipboard.writeText(row.clientId);
-              adminNotify(t("clientIdCopied"), "success");
+              toast.success(t("clientIdCopied"));
             }}
           >
             <CopyIcon />
@@ -177,7 +175,6 @@ export function AdminApplicationRowActions({
       <ConfirmRemoveDialog
         open={removeOpen}
         onOpenChange={setRemoveOpen}
-        className="sm:max-w-md"
         title={t("deleteDialog.title")}
         description={t.rich("deleteDialog.description", {
           name: row.name,
@@ -185,10 +182,9 @@ export function AdminApplicationRowActions({
           strong: (c) => <span className="font-medium text-foreground">{c}</span>,
           code: (c) => <code className="font-mono text-xs">{c}</code>,
         })}
-        pending={removePending}
-        onConfirm={() => void removeClient()}
+        pending={remove.busy}
+        onConfirm={removeClient}
         confirmLabel={tc("delete")}
-        pendingLabel={tc("deleting")}
       />
 
       <ApplicationRotateSecretDialog

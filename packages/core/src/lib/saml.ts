@@ -1,6 +1,7 @@
 import { X509Certificate } from "node:crypto";
 import { DOMParser, type Element as XmlElement } from "@xmldom/xmldom";
 
+import { env } from "@ostiary/core/lib/env";
 import { normalizeSamlMapping, type SamlMapping } from "@ostiary/core/lib/saml-presets";
 
 export * from "@ostiary/core/lib/saml-presets";
@@ -178,7 +179,7 @@ function children(parent: XmlElement, ns: string, localName: string): XmlElement
 function isAllowedSsoUrl(value: string): boolean {
   try {
     const url = new URL(value);
-    return url.protocol === "https:" || (url.protocol === "http:" && process.env.NODE_ENV !== "production");
+    return url.protocol === "https:" || (url.protocol === "http:" && env.NODE_ENV !== "production");
   } catch {
     return false;
   }

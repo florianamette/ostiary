@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start -p 3001",
     "lint": "eslint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --passWithNoTests"
   },
   "dependencies": {
     "@better-auth/drizzle-adapter": "catalog:",
@@ -26,7 +27,6 @@
     "react-dom": "catalog:",
     "recharts": "catalog:",
     "resend": "catalog:",
-    "shadcn": "catalog:",
     "sonner": "catalog:",
     "tailwindcss": "catalog:",
     "tw-animate-css": "catalog:",
@@ -40,6 +40,8 @@
     "@types/react-dom": "catalog:",
     "eslint": "catalog:",
     "eslint-config-next": "catalog:",
-    "typescript": "catalog:"
+    "shadcn": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
   }
 }

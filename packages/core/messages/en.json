@@ -286,10 +286,6 @@
           "empty": "No users yet."
         },
         "stats": {
-          "error": "Could not load one or more metrics. Ensure you are signed in as an admin.",
-          "errorTitle": "Metrics unavailable",
-          "loadingTitle": "Loading",
-          "loadingHint": "Loading…",
           "totalUsers": {
             "title": "Total users",
             "hint": "Every account on the platform."
@@ -1393,8 +1389,6 @@
           "roleAll": "All roles",
           "roleAdmin": "Admin",
           "roleUser": "User",
-          "loadErrorTitle": "Could not load users",
-          "loadErrorFallback": "Failed to load users",
           "columns": {
             "user": "User",
             "role": "Role",
@@ -1402,7 +1396,6 @@
             "verified": "Verified",
             "joined": "Joined"
           },
-          "loading": "Loading users…",
           "empty": "No users match your filters.",
           "noUsers": "0 users",
           "showing": "Showing {from}-{to} of {total}",
@@ -1467,8 +1460,7 @@
           "updatePassword": "Update password",
           "removeTitle": "Remove user?",
           "removeDescription": "This permanently deletes <strong>{name}</strong> ({email}) and everything linked to the account. Audit log entries are kept without their name or email. This cannot be undone.",
-          "removeConfirm": "Remove",
-          "removing": "Removing…"
+          "removeConfirm": "Remove"
         },
         "detailActions": {
           "impersonateError": "Could not impersonate this user.",
@@ -1559,10 +1551,6 @@
         "title": "Consent",
         "description": "Permissions people have granted to OAuth clients, with the scopes and when they were given.",
         "panel": {
-          "signedInUser": "Signed-in user",
-          "loadConsentsFailed": "Failed to load consents",
-          "loadClientsFailed": "Failed to load OAuth clients",
-          "loadErrorTitle": "Could not load consents",
           "searchPlaceholder": "Search by user, client, consent id, reference, or scope…",
           "searchLabel": "Search consents",
           "filter": {
@@ -1578,16 +1566,14 @@
             "granted": "Granted",
             "updated": "Updated"
           },
-          "loading": "Loading consents…",
-          "emptyNone": "No consents recorded for this account yet.",
+          "emptyNone": "Nobody has granted consent to an application yet.",
           "emptyFiltered": "No consents match your filters.",
           "noResults": "0 consents",
           "showing": "Showing {from}-{to} of {total}",
           "rowsPerPage": "Rows per page",
           "previous": "Previous",
           "next": "Next",
-          "pageOf": "Page {page} / {total}",
-          "footnote": "Data from <code>{getConsents}</code>; client names resolved via <code>{getClients}</code>. Revoke uses <code>{deleteConsent}</code>. See <consentLink>OAuth consent</consentLink> in the <providerLink>OAuth provider</providerLink> docs. The interactive authorize UI is at <code>{path}</code>."
+          "pageOf": "Page {page} / {total}"
         },
         "rowActions": {
           "menuLabel": "Actions for consent {id}…",
@@ -1595,16 +1581,13 @@
           "consentIdCopied": "Consent ID copied",
           "copyClientId": "Copy client ID",
           "clientIdCopied": "Client ID copied",
-          "viewDetails": "View details",
-          "updateScopes": "Update scopes",
-          "wireTo": "Wire to {method}",
           "revoke": "Revoke consent",
           "revokeFailed": "Could not revoke consent",
           "revoked": "Consent revoked",
           "dialogTitle": "Revoke consent?",
-          "dialogDescription": "Removes this user's grant for <strong>{client}</strong> (<code>{clientId}</code>). The client may need to request authorization again.",
-          "revoking": "Revoking…",
-          "revokeButton": "Revoke"
+          "dialogDescription": "Removes <strong>{user}</strong>'s consent to <strong>{client}</strong> (<code>{clientId}</code>) and revokes the tokens the app holds for them. The app has to ask them again to get new ones.",
+          "revokeButton": "Revoke",
+          "notFound": "This consent no longer exists."
         }
       },
       "usage": {
@@ -1633,7 +1616,7 @@
       "audit": {
         "title": "Audit log",
         "description": "Every change made from this console or the admin API: who did it, to what, and when.",
-        "footnote": "Showing the latest 200 entries. Passwords and secrets are never recorded.",
+        "footnote": "Passwords and secrets are never recorded.",
         "filterLabel": "Filter by area",
         "filters": {
           "all": "All",
@@ -1753,7 +1736,12 @@
             "test": "Sent webhook test event",
             "redeliver": "Redelivered webhook event"
           }
-        }
+        },
+        "actorPlaceholder": "Search by who acted (email)…",
+        "actorLabel": "Search by actor",
+        "pagesLabel": "Audit log pages",
+        "newest": "Newest entries",
+        "older": "Older entries"
       },
       "security": {
         "title": "Security",
@@ -1850,8 +1838,14 @@
         }
       },
       "organizations": {
+        "title": "Organizations",
+        "description": "Every organization on the platform, with its members. Open one to manage members, SSO and SCIM.",
+        "list": {
+          "searchPlaceholder": "Search by name or slug…",
+          "searchLabel": "Search organizations",
+          "noMatch": "No organization matches your search."
+        },
         "controls": {
-          "unexpectedError": "Something went wrong.",
           "organizationUpdated": "Organization updated",
           "slug": "Slug",
           "role": "Role",
@@ -1903,7 +1897,7 @@
           "defaultWorkspace": "Default workspace",
           "createdAt": "Created {date}",
           "members": "Members",
-          "publicMembers": "Every account belongs to the Public workspace, so members can't be removed here. Showing the first 50.",
+          "publicMembers": "Every account belongs to the Public workspace, so members can't be removed here.",
           "memberCount": "{count, plural, one {# member} other {# members}}.",
           "noMembers": "No members yet.",
           "member": "Member",
@@ -1941,7 +1935,10 @@
           "invitationNotFound": "Invitation not found.",
           "requestFailed": "Request failed.",
           "scimUnavailable": "This organization can't use SCIM provisioning.",
-          "noActiveToken": "There is no active token."
+          "noActiveToken": "There is no active token.",
+          "lastOwner": "An organization needs at least one owner. Make another member an owner first.",
+          "publicDelete": "The Public workspace cannot be deleted.",
+          "organizationNotFound": "Organization not found."
         }
       }
     },
@@ -1977,7 +1974,15 @@
       "refresh": "Refresh",
       "search": "Search",
       "optional": "Optional",
-      "unexpectedError": "Something went wrong. Try again."
+      "unexpectedError": "Something went wrong. Try again.",
+      "invalidInput": "Some of the values sent are not valid. Reload the page and try again.",
+      "pagination": {
+        "rowsPerPage": "Rows per page",
+        "previous": "Previous",
+        "next": "Next",
+        "pageOf": "Page {page} / {pages}",
+        "showing": "Showing {from}-{to} of {total}"
+      }
     },
     "urlCheck": {
       "tooLong": "The URL is too long.",
@@ -2587,7 +2592,8 @@
       "txtRecordNotFound": "The TXT record was not found yet. DNS changes can take a few minutes to appear.",
       "envNotSet": "{name} is not set.",
       "invalidProviderId": "The provider ID must be 2 to 63 lowercase letters, digits, - or _.",
-      "unreadableSamlConfig": "The stored SAML configuration is unreadable; delete and register the provider again."
+      "unreadableSamlConfig": "The stored SAML configuration is unreadable; delete and register the provider again.",
+      "domainTaken": "Another SSO provider already uses this domain."
     }
   },
   "selectAccount": {
@@ -2669,5 +2675,23 @@
       "note": "The link expires in {minutes} minutes and works only once.",
       "footnote": "If you didn't ask for this, ignore this email: your account stays as it is. Consider changing your password, since the request came from a signed-in session."
     }
+  },
+  "authErrors": {
+    "banned": "This account has been suspended. Contact support if you think this is a mistake.",
+    "deactivated": "Your organization has deactivated this account.",
+    "invalidCredentials": "Incorrect email, username or password.",
+    "userExists": "An account with this email address already exists.",
+    "usernameTaken": "This username is already taken.",
+    "usernameInvalid": "This username can't be used. Try another one.",
+    "passwordTooShort": "This password is too short.",
+    "passwordTooLong": "This password is too long.",
+    "passwordCompromised": "This password appeared in a data breach. Choose a different one.",
+    "invalidPassword": "Incorrect password.",
+    "recentSignIn": "Sign in again to do this.",
+    "sessionExpired": "Your session has expired. Sign in again.",
+    "impersonating": "This can't be done while an administrator is viewing the account.",
+    "emailNotVerified": "Verify your email address first.",
+    "invalidToken": "This link is invalid or has expired.",
+    "publicOrganization": "The Public organization's members are managed by platform admins only."
   }
 }

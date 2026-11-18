@@ -286,10 +286,6 @@
           "empty": "Nenhum usuário ainda."
         },
         "stats": {
-          "error": "Não foi possível carregar uma ou mais métricas. Verifique se você entrou como administrador.",
-          "errorTitle": "Métricas indisponíveis",
-          "loadingTitle": "Carregando",
-          "loadingHint": "Carregando…",
           "totalUsers": {
             "title": "Total de usuários",
             "hint": "Todas as contas da plataforma."
@@ -1393,8 +1389,6 @@
           "roleAll": "Todas as funções",
           "roleAdmin": "Administrador",
           "roleUser": "Usuário",
-          "loadErrorTitle": "Não foi possível carregar os usuários",
-          "loadErrorFallback": "Falha ao carregar os usuários",
           "columns": {
             "user": "Usuário",
             "role": "Função",
@@ -1402,7 +1396,6 @@
             "verified": "Verificado",
             "joined": "Entrou em"
           },
-          "loading": "Carregando usuários…",
           "empty": "Nenhum usuário corresponde aos filtros.",
           "noUsers": "0 usuários",
           "showing": "Exibindo {from}-{to} de {total}",
@@ -1467,8 +1460,7 @@
           "updatePassword": "Atualizar senha",
           "removeTitle": "Remover usuário?",
           "removeDescription": "Isso exclui permanentemente <strong>{name}</strong> ({email}) e tudo o que está vinculado à conta. As entradas do log de auditoria são mantidas sem o nome nem o e-mail. Isso não pode ser desfeito.",
-          "removeConfirm": "Remover",
-          "removing": "Removendo…"
+          "removeConfirm": "Remover"
         },
         "detailActions": {
           "impersonateError": "Não foi possível personificar este usuário.",
@@ -1559,10 +1551,6 @@
         "title": "Consentimento",
         "description": "Permissões que as pessoas concederam a clientes OAuth, com os scopes e quando foram concedidas.",
         "panel": {
-          "signedInUser": "Usuário conectado",
-          "loadConsentsFailed": "Falha ao carregar os consentimentos",
-          "loadClientsFailed": "Falha ao carregar os clientes OAuth",
-          "loadErrorTitle": "Não foi possível carregar os consentimentos",
           "searchPlaceholder": "Pesquisar por usuário, cliente, ID do consentimento, referência ou scope…",
           "searchLabel": "Pesquisar consentimentos",
           "filter": {
@@ -1578,16 +1566,14 @@
             "granted": "Concedido",
             "updated": "Atualizado"
           },
-          "loading": "Carregando consentimentos…",
-          "emptyNone": "Nenhum consentimento registrado para esta conta ainda.",
+          "emptyNone": "Ninguém deu consentimento a um aplicativo ainda.",
           "emptyFiltered": "Nenhum consentimento corresponde aos filtros.",
           "noResults": "0 consentimentos",
           "showing": "Exibindo {from}-{to} de {total}",
           "rowsPerPage": "Linhas por página",
           "previous": "Anterior",
           "next": "Próxima",
-          "pageOf": "Página {page} / {total}",
-          "footnote": "Dados de <code>{getConsents}</code>; nomes dos clientes obtidos via <code>{getClients}</code>. Revogar usa <code>{deleteConsent}</code>. Veja <consentLink>Consentimento OAuth</consentLink> na documentação do <providerLink>provedor OAuth</providerLink>. A interface interativa de autorização fica em <code>{path}</code>."
+          "pageOf": "Página {page} / {total}"
         },
         "rowActions": {
           "menuLabel": "Ações para o consentimento {id}…",
@@ -1595,16 +1581,13 @@
           "consentIdCopied": "ID do consentimento copiado",
           "copyClientId": "Copiar ID do cliente",
           "clientIdCopied": "ID do cliente copiado",
-          "viewDetails": "Ver detalhes",
-          "updateScopes": "Atualizar scopes",
-          "wireTo": "Conectar a {method}",
           "revoke": "Revogar consentimento",
           "revokeFailed": "Não foi possível revogar o consentimento",
           "revoked": "Consentimento revogado",
           "dialogTitle": "Revogar consentimento?",
-          "dialogDescription": "Remove a autorização deste usuário para <strong>{client}</strong> (<code>{clientId}</code>). O cliente pode precisar solicitar autorização novamente.",
-          "revoking": "Revogando…",
-          "revokeButton": "Revogar"
+          "dialogDescription": "Remove o consentimento de <strong>{user}</strong> para <strong>{client}</strong> (<code>{clientId}</code>) e revoga os tokens que o aplicativo tem para essa pessoa. O aplicativo terá de pedir novamente para obter novos.",
+          "revokeButton": "Revogar",
+          "notFound": "Este consentimento não existe mais."
         }
       },
       "usage": {
@@ -1633,7 +1616,7 @@
       "audit": {
         "title": "Log de auditoria",
         "description": "Todas as alterações feitas neste console ou pela API de administração: quem fez, em quê e quando.",
-        "footnote": "Exibindo as 200 entradas mais recentes. Senhas e segredos nunca são registrados.",
+        "footnote": "Senhas e segredos nunca são registrados.",
         "filterLabel": "Filtrar por área",
         "filters": {
           "all": "Todas",
@@ -1753,7 +1736,12 @@
             "test": "Enviou evento de teste de webhook",
             "redeliver": "Reenviou evento de webhook"
           }
-        }
+        },
+        "actorPlaceholder": "Pesquisar por quem agiu (e-mail)…",
+        "actorLabel": "Pesquisar por autor",
+        "pagesLabel": "Páginas do registro de auditoria",
+        "newest": "Entradas mais recentes",
+        "older": "Entradas mais antigas"
       },
       "security": {
         "title": "Segurança",
@@ -1850,8 +1838,14 @@
         }
       },
       "organizations": {
+        "title": "Organizações",
+        "description": "Todas as organizações da plataforma, com seus membros. Abra uma para gerenciar membros, SSO e SCIM.",
+        "list": {
+          "searchPlaceholder": "Pesquisar por nome ou slug…",
+          "searchLabel": "Pesquisar organizações",
+          "noMatch": "Nenhuma organização corresponde à sua pesquisa."
+        },
         "controls": {
-          "unexpectedError": "Algo deu errado.",
           "organizationUpdated": "Organização atualizada",
           "slug": "Slug",
           "role": "Função",
@@ -1903,7 +1897,7 @@
           "defaultWorkspace": "Espaço de trabalho padrão",
           "createdAt": "Criada em {date}",
           "members": "Membros",
-          "publicMembers": "Todas as contas pertencem ao espaço de trabalho Public, então os membros não podem ser removidos aqui. Exibindo os 50 primeiros.",
+          "publicMembers": "Todas as contas pertencem ao espaço de trabalho Public, então os membros não podem ser removidos aqui.",
           "memberCount": "{count, plural, one {# membro} other {# membros}}.",
           "noMembers": "Nenhum membro ainda.",
           "member": "Membro",
@@ -1941,7 +1935,10 @@
           "invitationNotFound": "Convite não encontrado.",
           "requestFailed": "A solicitação falhou.",
           "scimUnavailable": "Esta organização não pode usar o provisionamento SCIM.",
-          "noActiveToken": "Não há nenhum token ativo."
+          "noActiveToken": "Não há nenhum token ativo.",
+          "lastOwner": "Uma organização precisa de pelo menos um proprietário. Torne primeiro outro membro proprietário.",
+          "publicDelete": "O espaço de trabalho Public não pode ser excluído.",
+          "organizationNotFound": "Organização não encontrada."
         }
       }
     },
@@ -1977,7 +1974,15 @@
       "refresh": "Atualizar",
       "search": "Pesquisar",
       "optional": "Opcional",
-      "unexpectedError": "Algo deu errado. Tente novamente."
+      "unexpectedError": "Algo deu errado. Tente novamente.",
+      "invalidInput": "Alguns dos valores enviados não são válidos. Recarregue a página e tente novamente.",
+      "pagination": {
+        "rowsPerPage": "Linhas por página",
+        "previous": "Anterior",
+        "next": "Próxima",
+        "pageOf": "Página {page} / {pages}",
+        "showing": "Exibindo {from}-{to} de {total}"
+      }
     },
     "urlCheck": {
       "tooLong": "A URL é longa demais.",
@@ -2587,7 +2592,8 @@
       "txtRecordNotFound": "O registro TXT ainda não foi encontrado. As alterações de DNS podem levar alguns minutos para aparecer.",
       "envNotSet": "{name} não está definida.",
       "invalidProviderId": "O ID do provedor deve ter de 2 a 63 letras minúsculas, dígitos, - ou _.",
-      "unreadableSamlConfig": "A configuração SAML armazenada não pode ser lida; exclua o provedor e registre-o novamente."
+      "unreadableSamlConfig": "A configuração SAML armazenada não pode ser lida; exclua o provedor e registre-o novamente.",
+      "domainTaken": "Outro provedor de SSO já usa este domínio."
     }
   },
   "selectAccount": {
@@ -2669,5 +2675,23 @@
       "note": "O link expira em {minutes} minutos e só funciona uma vez.",
       "footnote": "Se não foi você quem pediu, ignore este e-mail: sua conta continua como está. Considere alterar sua senha, já que o pedido veio de uma sessão conectada."
     }
+  },
+  "authErrors": {
+    "banned": "Esta conta foi suspensa. Contate o suporte se acha que isto é um erro.",
+    "deactivated": "A sua organização desativou esta conta.",
+    "invalidCredentials": "E-mail, nome de utilizador ou palavra-passe incorretos.",
+    "userExists": "Já existe uma conta com este endereço de e-mail.",
+    "usernameTaken": "Este nome de utilizador já está em uso.",
+    "usernameInvalid": "Este nome de utilizador não pode ser usado. Experimente outro.",
+    "passwordTooShort": "Esta palavra-passe é demasiado curta.",
+    "passwordTooLong": "Esta palavra-passe é demasiado longa.",
+    "passwordCompromised": "Esta palavra-passe apareceu numa fuga de dados. Escolha outra.",
+    "invalidPassword": "Palavra-passe incorreta.",
+    "recentSignIn": "Inicie sessão novamente para fazer isto.",
+    "sessionExpired": "A sua sessão expirou. Inicie sessão novamente.",
+    "impersonating": "Não é possível enquanto um administrador está a ver a conta.",
+    "emailNotVerified": "Verifique primeiro o seu endereço de e-mail.",
+    "invalidToken": "Este link é inválido ou expirou.",
+    "publicOrganization": "Os membros da organização Public são geridos apenas pelos administradores da plataforma."
   }
 }

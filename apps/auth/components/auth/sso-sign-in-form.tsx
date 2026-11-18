@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { Loader2 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
 
@@ -9,6 +8,7 @@ import { Button } from "@ostiary/core/components/ui/button";
 import { Field, FieldGroup, FieldLabel } from "@ostiary/core/components/ui/field";
 import { Input } from "@ostiary/core/components/ui/input";
 import { authClient } from "@/lib/auth-client";
+import { useAuthErrorMessage } from "@/lib/auth-error-message";
 
 /**
  * Starts SSO from a work email: Better Auth finds the provider registered for that
@@ -17,12 +17,14 @@ import { authClient } from "@/lib/auth-client";
 export function SsoSignInForm() {
   const t = useTranslations("sso");
   const locale = useLocale();
+  const errorMessage = useAuthErrorMessage();
   const [email, setEmail] = React.useState("");
   const [pending, setPending] = React.useState(false);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setPending(true);
+    let leaving = false;
     try {
       const { error } = await authClient.signIn.sso({
         email: email.trim().toLowerCase(),
@@ -31,13 +33,15 @@ export function SsoSignInForm() {
         errorCallbackURL: `/${locale}/sso`,
       });
       if (error) {
-        toast.error(String(error.message ?? t("signInError")));
+        toast.error(errorMessage(error, t("signInError")));
         return;
       }
+      // On its way to the identity provider.
+      leaving = true;
     } catch {
       toast.error(t("signInError"));
     } finally {
-      setPending(false);
+      if (!leaving) setPending(false);
     }
   }
 
@@ -57,8 +61,7 @@ export function SsoSignInForm() {
           />
         </Field>
         <Field>
-          <Button type="submit" disabled={pending || !email.trim()}>
-            {pending ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
+          <Button type="submit" loading={pending} disabled={!email.trim()}>
             {t("signInSubmit")}
           </Button>
         </Field>

@@ -15,6 +15,7 @@ import {
 } from "@ostiary/core/components/ui/card";
 import { Link } from "@/i18n/navigation";
 import { authClient } from "@/lib/auth-client";
+import { useAuthErrorMessage } from "@/lib/auth-error-message";
 
 export function AcceptInvitationForm({
   invitationId,
@@ -23,6 +24,7 @@ export function AcceptInvitationForm({
 }) {
   const t = useTranslations("acceptInvitation");
   const locale = useLocale();
+  const errorMessage = useAuthErrorMessage();
   const { data: sessionData, isPending: sessionPending } =
     authClient.useSession();
   const [submitting, setSubmitting] = React.useState(false);
@@ -33,20 +35,24 @@ export function AcceptInvitationForm({
 
   async function handleAccept() {
     setSubmitting(true);
+    let leaving = false;
     try {
       const res = await authClient.organization.acceptInvitation({
         invitationId,
       });
       if (res.error) {
-        toast.error(String(res.error.message ?? t("error")));
+        toast.error(errorMessage(res.error, t("error")));
         return;
       }
+      leaving = true;
       setDone(true);
       toast.success(t("success"));
       // eslint-disable-next-line @next/next/no-location-assign-relative-destination -- full load: the new membership changes what server components render
       window.location.assign("/dashboard");
+    } catch {
+      toast.error(t("error"));
     } finally {
-      setSubmitting(false);
+      if (!leaving) setSubmitting(false);
     }
   }
 
@@ -101,12 +107,9 @@ export function AcceptInvitationForm({
         <Button
           type="button"
           className="w-full"
-          disabled={submitting}
+          loading={submitting}
           onClick={() => void handleAccept()}
         >
-          {submitting ? (
-            <Loader2 className="size-4 animate-spin" aria-hidden />
-          ) : null}
           {submitting ? t("accepting") : t("accept")}
         </Button>
       </CardContent>

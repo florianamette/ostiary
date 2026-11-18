@@ -1,9 +1,5 @@
-"use client";
-
-import * as React from "react";
 import { useFormatter, useTranslations } from "next-intl";
 
-import { Alert, AlertDescription, AlertTitle } from "@ostiary/core/components/ui/alert";
 import { Badge } from "@ostiary/core/components/ui/badge";
 import {
   Card,
@@ -21,60 +17,24 @@ import {
   TableRow,
 } from "@ostiary/core/components/ui/table";
 import { Link } from "@/i18n/navigation";
-import { authClient } from "@/lib/auth-client";
+import { isPlatformAdmin } from "@ostiary/core/lib/admin/user-has-admin-role";
 import { formatShortDate } from "@/components/admin/common/page-header";
 
 type Row = {
   id: string;
   name: string;
   email: string;
-  role?: string | null;
+  role: string | null;
   banned: boolean | null;
-  createdAt?: Date | string | null;
+  createdAt: Date;
 };
 
-export function AdminOverviewRecentUsers({
-  refreshKey,
-}: {
-  refreshKey: number;
-}) {
+/** The newest accounts. Without `rows`, a loading line while they load. */
+export function AdminOverviewRecentUsers({ rows }: { rows?: Row[] }) {
   const t = useTranslations("admin.pages.overview.recentUsers");
   const tu = useTranslations("admin.pages.users");
   const tc = useTranslations("admin.common");
   const format = useFormatter();
-  const [rows, setRows] = React.useState<Row[]>([]);
-  const [loading, setLoading] = React.useState(true);
-  const [error, setError] = React.useState<string | null>(null);
-
-  React.useEffect(() => {
-    let cancelled = false;
-    async function run() {
-      setLoading(true);
-      setError(null);
-      const res = await authClient.admin.listUsers({
-        query: {
-          limit: 8,
-          offset: 0,
-          sortBy: "createdAt",
-          sortDirection: "desc",
-        },
-      });
-      if (cancelled) return;
-      if (res.error) {
-        setError(res.error.message ?? tu("list.loadErrorFallback"));
-        setRows([]);
-        setLoading(false);
-        return;
-      }
-      const users = (res.data?.users ?? []) as Row[];
-      setRows(users);
-      setLoading(false);
-    }
-    void run();
-    return () => {
-      cancelled = true;
-    };
-  }, [refreshKey, tu]);
 
   return (
     <Card>
@@ -85,12 +45,7 @@ export function AdminOverviewRecentUsers({
         </CardDescription>
       </CardHeader>
       <CardContent className="pt-4">
-        {error ? (
-          <Alert variant="destructive">
-            <AlertTitle>{tu("list.loadErrorTitle")}</AlertTitle>
-            <AlertDescription>{error}</AlertDescription>
-          </Alert>
-        ) : loading ? (
+        {!rows ? (
           <p className="text-muted-foreground py-8 text-center text-sm">
             {t("loading")}
           </p>
@@ -124,7 +79,7 @@ export function AdminOverviewRecentUsers({
                   <TableCell className="hidden sm:table-cell">
                     <Badge
                       variant={
-                        u.role?.includes("admin") ? "default" : "secondary"
+                        isPlatformAdmin(u.role) ? "default" : "secondary"
                       }
                       className="font-normal"
                     >

@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { Loader2 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
 
@@ -15,6 +14,7 @@ import {
 } from "@ostiary/core/components/ui/field";
 import { Input } from "@ostiary/core/components/ui/input";
 import { authClient } from "@/lib/auth-client";
+import { useAuthAction } from "@/lib/use-auth-action";
 
 /**
  * Current email with its verification status, and the change-email flow: the current inbox
@@ -30,27 +30,19 @@ export function DashboardEmailField({
 }) {
   const t = useTranslations("dashboard.profile");
   const locale = useLocale();
-  const [verificationPending, setVerificationPending] = React.useState(false);
+  const { pending, run } = useAuthAction<"verify" | "change">();
+  const verificationPending = pending === "verify";
+  const changing = pending === "change";
   const [editing, setEditing] = React.useState(false);
   const [newEmail, setNewEmail] = React.useState("");
-  const [changing, setChanging] = React.useState(false);
   const [requestedFor, setRequestedFor] = React.useState<string | null>(null);
 
-  async function handleResendVerification() {
-    setVerificationPending(true);
-    try {
-      const { error } = await authClient.sendVerificationEmail({
-        email,
-        callbackURL: `/${locale}/dashboard`,
-      });
-      if (error) {
-        toast.error(error.message ?? t("verificationError"));
-        return;
-      }
-      toast.success(t("verificationSent"));
-    } finally {
-      setVerificationPending(false);
-    }
+  function handleResendVerification() {
+    return run("verify", {
+      call: () => authClient.sendVerificationEmail({ email, callbackURL: `/${locale}/dashboard` }),
+      success: t("verificationSent"),
+      error: t("verificationError"),
+    });
   }
 
   async function handleChangeEmail(e: React.FormEvent) {
@@ -60,22 +52,15 @@ export function DashboardEmailField({
       toast.error(t("changeEmailSame"));
       return;
     }
-    setChanging(true);
-    try {
-      const { error } = await authClient.changeEmail({
-        newEmail: target,
-        callbackURL: `/${locale}/dashboard`,
-      });
-      if (error) {
-        toast.error(error.message ?? t("changeEmailError"));
-        return;
-      }
-      setRequestedFor(target);
-      setEditing(false);
-      setNewEmail("");
-    } finally {
-      setChanging(false);
-    }
+    await run("change", {
+      call: () => authClient.changeEmail({ newEmail: target, callbackURL: `/${locale}/dashboard` }),
+      error: t("changeEmailError"),
+      onSuccess: () => {
+        setRequestedFor(target);
+        setEditing(false);
+        setNewEmail("");
+      },
+    });
   }
 
   return (
@@ -94,12 +79,9 @@ export function DashboardEmailField({
                   type="button"
                   variant="secondary"
                   size="sm"
-                  disabled={verificationPending}
+                  loading={verificationPending}
                   onClick={() => void handleResendVerification()}
                 >
-                  {verificationPending ? (
-                    <Loader2 className="size-4 animate-spin" aria-hidden />
-                  ) : null}
                   {t("resendVerification")}
                 </Button>
               </>
@@ -148,8 +130,7 @@ export function DashboardEmailField({
             <FieldDescription>{t("changeEmailHintVerified")}</FieldDescription>
           </Field>
           <div className="flex flex-wrap gap-2">
-            <Button type="submit" size="sm" disabled={changing || !newEmail.trim()}>
-              {changing ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
+            <Button type="submit" size="sm" loading={changing} disabled={!newEmail.trim()}>
               {changing ? t("changingEmail") : t("changeEmailSubmit")}
             </Button>
             <Button

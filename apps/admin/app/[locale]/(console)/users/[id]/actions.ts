@@ -6,7 +6,11 @@ import { db } from "@ostiary/core/db/index";
 import { session, twoFactor, user, verification } from "@ostiary/core/db/schema";
 import { accountExportFileName, buildAccountExport } from "@ostiary/core/lib/account-data/export";
 import { env } from "@ostiary/core/lib/env";
-import { adminActor } from "@/lib/admin-audit";
+import { z } from "zod";
+
+import { adminAction, input, type AdminActor } from "@/lib/admin-action";
+
+const userInput = z.tuple([input.id]);
 
 async function userLabel(userId: string) {
   const [row] = await db.select({ email: user.email }).from(user).where(eq(user.id, userId));
@@ -15,7 +19,11 @@ async function userLabel(userId: string) {
 
 /** Signs the user out of one device. */
 export async function revokeUserSession(userId: string, sessionId: string): Promise<{ ok: boolean }> {
-  const { audit } = await adminActor();
+  return adminAction(z.tuple([input.id, input.id]), [userId, sessionId], ([userId, sessionId], actor) => revokeUserSessionRun(userId, sessionId, actor));
+}
+
+async function revokeUserSessionRun(userId: string, sessionId: string, actor: AdminActor): Promise<{ ok: boolean }> {
+  const { audit } = actor;
   const deleted = await db
     .delete(session)
     .where(and(eq(session.id, sessionId), eq(session.userId, userId)))
@@ -30,7 +38,11 @@ export async function revokeUserSession(userId: string, sessionId: string): Prom
 
 /** Signs the user out everywhere. */
 export async function revokeAllUserSessions(userId: string): Promise<{ ok: boolean; count: number }> {
-  const { audit, session: adminSession } = await adminActor();
+  return adminAction(userInput, [userId], ([userId], actor) => revokeAllUserSessionsRun(userId, actor), () => ({ ok: false, count: 0 }));
+}
+
+async function revokeAllUserSessionsRun(userId: string, actor: AdminActor): Promise<{ ok: boolean; count: number }> {
+  const { audit, session: adminSession } = actor;
   if (userId === adminSession.user.id) return { ok: false, count: 0 };
   const deleted = await db.delete(session).where(eq(session.userId, userId)).returning({ id: session.id });
   await audit({
@@ -46,7 +58,11 @@ export async function revokeAllUserSessions(userId: string): Promise<{ ok: boole
  * codes. They sign in with their password alone and can set it up again from their account.
  */
 export async function resetUserTwoFactor(userId: string): Promise<{ ok: boolean }> {
-  const { audit, session: adminSession } = await adminActor();
+  return adminAction(userInput, [userId], ([userId], actor) => resetUserTwoFactorRun(userId, actor));
+}
+
+async function resetUserTwoFactorRun(userId: string, actor: AdminActor): Promise<{ ok: boolean }> {
+  const { audit, session: adminSession } = actor;
   // Admins manage their own 2FA from their account page.
   if (userId === adminSession.user.id) return { ok: false };
   const reset = await db.transaction(async (tx) => {
@@ -76,7 +92,11 @@ export async function resetUserTwoFactor(userId: string): Promise<{ ok: boolean 
  * for answering an access request made another way (email, letter). Audited.
  */
 export async function exportUserData(userId: string): Promise<{ ok: true; fileName: string; json: string } | { ok: false }> {
-  const { audit } = await adminActor();
+  return adminAction(userInput, [userId], ([userId], actor) => exportUserDataRun(userId, actor));
+}
+
+async function exportUserDataRun(userId: string, actor: AdminActor): Promise<{ ok: true; fileName: string; json: string } | { ok: false }> {
+  const { audit } = actor;
   const now = new Date();
   const data = await buildAccountExport(db, userId, { instance: env.AUTH_APP_URL ?? null, now });
   if (!data) return { ok: false };

@@ -1,9 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { ArrowUpRightIcon, Loader2 } from "lucide-react";
+import { ArrowUpRightIcon } from "lucide-react";
 import { useFormatter, useTranslations } from "next-intl";
-import { toast } from "sonner";
 
 import { AppIcon } from "@ostiary/core/components/app-icon";
 import { Button } from "@ostiary/core/components/ui/button";
@@ -16,9 +15,10 @@ import {
 } from "@ostiary/core/components/ui/card";
 import { Skeleton } from "@ostiary/core/components/ui/skeleton";
 import { ConfirmDialog } from "@/components/dashboard/confirm-dialog";
-import { authClient } from "@/lib/auth-client";
+import { useAsyncResource } from "@ostiary/core/hooks/use-async-resource";
 import { disconnectMyApp, getMyConnectedApps } from "@/lib/connected-apps-actions";
 import type { ConnectedApp } from "@/lib/connected-apps";
+import { useAuthAction } from "@/lib/use-auth-action";
 
 /** Scopes implied by signing in at all: not worth a line of their own. */
 const IMPLIED_SCOPES = new Set(["openid"]);
@@ -79,67 +79,39 @@ function AppDates({ app }: { app: ConnectedApp }) {
   );
 }
 
-export function DashboardAppsSection() {
-  const t = useTranslations("dashboard.apps");
-  const { data: sessionWrap } = authClient.useSession();
-  const userId = sessionWrap?.user?.id;
+async function loadConnectedApps(): Promise<ConnectedApp[]> {
+  const apps = await getMyConnectedApps();
+  if (apps === null) throw new Error("signed out");
+  return apps;
+}
 
-  const [rows, setRows] = React.useState<ConnectedApp[]>([]);
-  const [loading, setLoading] = React.useState(true);
-  const [listError, setListError] = React.useState<string | null>(null);
-  const [removingId, setRemovingId] = React.useState<string | null>(null);
+export function DashboardAppsSection({
+  initialApps,
+}: {
+  /** Read by the dashboard page on the server; null if that failed (the section retries). */
+  initialApps: ConnectedApp[] | null;
+}) {
+  const t = useTranslations("dashboard.apps");
+  const apps = useAsyncResource(loadConnectedApps, { initialData: initialApps ?? undefined });
+  const rows = apps.data ?? [];
+  const { pending, run } = useAuthAction<string>();
   const [pendingRevoke, setPendingRevoke] = React.useState<ConnectedApp | null>(
     null,
   );
 
-  const load = React.useCallback(async () => {
-    if (!userId) {
-      setRows([]);
-      setLoading(false);
-      return;
-    }
-    setLoading(true);
-    setListError(null);
-    try {
-      const apps = await getMyConnectedApps();
-      if (apps === null) {
-        setListError(t("loadError"));
-        setRows([]);
-        return;
-      }
-      setRows(apps);
-    } catch {
-      setListError(t("loadError"));
-      setRows([]);
-    } finally {
-      setLoading(false);
-    }
-  }, [userId, t]);
-
-  React.useEffect(() => {
-    void load();
-  }, [load]);
-
   async function confirmRevoke() {
     const row = pendingRevoke;
     if (!row) return;
+    await run(row.clientId, {
+      call: async () => {
+        const { ok } = await disconnectMyApp(row.clientId);
+        return { error: ok ? null : {} };
+      },
+      success: t("revoked"),
+      error: t("revokeError"),
+      onSuccess: apps.reload,
+    });
     setPendingRevoke(null);
-    await revoke(row.clientId);
-  }
-
-  async function revoke(clientId: string) {
-    setRemovingId(clientId);
-    try {
-      const { ok } = await disconnectMyApp(clientId).catch(() => ({ ok: false }));
-      if (!ok) {
-        toast.error(t("revokeError"));
-        return;
-      }
-      toast.success(t("revoked"));
-      void load();
-    } finally {
-      setRemovingId(null);
-    }
   }
 
   function disconnectButton(row: ConnectedApp, extraClass: string) {
@@ -149,13 +121,10 @@ export function DashboardAppsSection() {
         variant="ghost"
         size="sm"
         className={`relative z-10 shrink-0 text-muted-foreground hover:bg-destructive/10 hover:text-destructive ${extraClass}`}
-        disabled={removingId === row.clientId}
+        loading={pending === row.clientId}
         onClick={() => setPendingRevoke(row)}
         aria-label={t("disconnectApp", { app: row.name })}
-    >
-        {removingId === row.clientId ? (
-          <Loader2 className="size-4 animate-spin" aria-hidden />
-        ) : null}
+      >
         {t("disconnect")}
       </Button>
     );
@@ -168,16 +137,16 @@ export function DashboardAppsSection() {
         <CardDescription>{t("description")}</CardDescription>
       </CardHeader>
       <CardContent>
-        {listError ? (
+        {apps.error && !apps.data ? (
           <p className="text-sm text-destructive" role="alert">
-            {listError}
+            {t("loadError")}
           </p>
         ) : null}
-        {loading ? (
+        {apps.loading ? (
           <div className="space-y-4" aria-busy="true">
             <Skeleton className="h-20 w-full" />
           </div>
-        ) : listError ? null : rows.length === 0 ? (
+        ) : apps.error && !apps.data ? null : rows.length === 0 ? (
           <p className="text-sm text-muted-foreground">{t("empty")}</p>
         ) : (
           <ul className="divide-y divide-border/70 overflow-hidden rounded-lg border border-border/80">
@@ -236,7 +205,7 @@ export function DashboardAppsSection() {
         cancelLabel={t("cancel")}
         confirmLabel={t("disconnect")}
         onCancel={() => setPendingRevoke(null)}
-        onConfirm={() => void confirmRevoke()}
+        onConfirm={confirmRevoke}
       />
     </Card>
   );

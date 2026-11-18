@@ -1,6 +1,5 @@
 "use client"
 
-import { Loader2 } from "lucide-react"
 import { useLocale, useTranslations } from "next-intl"
 import type { SocialProviderOption } from "@ostiary/core/lib/social-provider-meta"
 import { SocialSignInButtons } from "@/components/auth/social-sign-in-buttons"
@@ -18,6 +17,7 @@ import {
 import {
   Field,
   FieldDescription,
+  FieldError,
   FieldGroup,
   FieldLabel,
 } from "@ostiary/core/components/ui/field"
@@ -27,7 +27,7 @@ import { Link, useRouter } from "@/i18n/navigation"
 import { authClient } from "@/lib/auth-client"
 import { useCaptcha } from "@/components/auth/captcha"
 import type { CaptchaConfig } from "@ostiary/core/lib/captcha-providers"
-import { rateLimitMessage } from "@ostiary/core/lib/rate-limit-message"
+import { useAuthErrorMessage } from "@/lib/auth-error-message"
 import { withAppContext, type AppLink } from "@/lib/app-links"
 import {
   checkUsernameAvailabilitySoon,
@@ -55,7 +55,7 @@ export function SignupForm({
   appLink?: AppLink
 }) {
   const t = useTranslations("auth.signup")
-  const tLimit = useTranslations("rateLimit")
+  const errorMessage = useAuthErrorMessage()
   const locale = useLocale()
   const router = useRouter()
   const [email, setEmail] = useState<string>("");
@@ -101,18 +101,19 @@ export function SignupForm({
     }
     setPasswordMismatch(false)
 
-    const trimmedUsername = username.trim();
-    const problem = await usernameProblem(trimmedUsername, usernameStatus);
-    if (problem) {
-      toast.error(t(`errors.${problem}`));
-      return;
-    }
-
     const headers = captcha.headers()
     if (!headers) return
 
+    // Busy before the username check: it waits on the network, and a second click meanwhile
+    // would send the form twice.
     setIsSubmitting(true)
     try {
+      const trimmedUsername = username.trim();
+      const problem = await usernameProblem(trimmedUsername, usernameStatus);
+      if (problem) {
+        toast.error(t(`errors.${problem}`));
+        return;
+      }
       await authClient.signUp.email(
         {
           email,
@@ -129,35 +130,16 @@ export function SignupForm({
             router.push(withAppContext("/login", appLink, { registered: "1" }))
           },
           onError(ctx) {
-            const code = ctx.error.code
-            const captchaOrLimit = captcha.errorMessage(code) ?? rateLimitMessage(ctx.error, tLimit)
-            if (captchaOrLimit) {
-              toast.error(captchaOrLimit)
-              return
-            }
-            if (code === "PASSWORD_COMPROMISED") {
-              toast.error(t("errors.compromisedPassword"))
-              return
-            }
-            if (
-              code === "USERNAME_IS_ALREADY_TAKEN" ||
-              (typeof code === "string" && code.includes("USERNAME") && code.includes("TAKEN"))
-            ) {
-              toast.error(t("errors.usernameTaken"));
-              return;
-            }
-            if (
-              code === "USERNAME_TOO_SHORT" ||
-              code === "USERNAME_TOO_LONG" ||
-              code === "INVALID_USERNAME"
-            ) {
-              toast.error(
-                String(ctx.error.message ?? t("errors.usernameInvalid")),
-              );
-              return;
-            }
+            const usernameInvalid = t("errors.usernameInvalid")
             toast.error(
-              String(ctx.error.message ?? t("errors.signUpFailed")),
+              captcha.errorMessage(ctx.error.code) ??
+                errorMessage(ctx.error, t("errors.signUpFailed"), {
+                  PASSWORD_COMPROMISED: t("errors.compromisedPassword"),
+                  USERNAME_IS_ALREADY_TAKEN: t("errors.usernameTaken"),
+                  USERNAME_TOO_SHORT: usernameInvalid,
+                  USERNAME_TOO_LONG: usernameInvalid,
+                  INVALID_USERNAME: usernameInvalid,
+                }),
             )
           },
         },
@@ -181,6 +163,7 @@ export function SignupForm({
               <Input
                 id="name"
                 type="text"
+                autoComplete="name"
                 placeholder={t("namePlaceholder")}
                 required
                 disabled={isSubmitting}
@@ -218,6 +201,7 @@ export function SignupForm({
               <Input
                 id="email"
                 type="email"
+                autoComplete="email"
                 placeholder={t("emailPlaceholder")}
                 required
                 disabled={isSubmitting}
@@ -231,6 +215,7 @@ export function SignupForm({
               <Input
                 id="password"
                 type="password"
+                autoComplete="new-password"
                 required
                 disabled={isSubmitting}
                 value={password}
@@ -248,7 +233,10 @@ export function SignupForm({
               <Input
                 id="confirm-password"
                 type="password"
+                autoComplete="new-password"
                 required
+                aria-invalid={passwordMismatch || undefined}
+                aria-describedby={passwordMismatch ? "confirm-password-error" : undefined}
                 disabled={isSubmitting}
                 value={confirmPassword}
                 onChange={(e) => {
@@ -258,17 +246,12 @@ export function SignupForm({
               />
               <FieldDescription>{t("confirmPasswordHint")}</FieldDescription>
               {passwordMismatch ? (
-                <FieldDescription className="text-destructive">
-                  {t("passwordMismatch")}
-                </FieldDescription>
+                <FieldError id="confirm-password-error">{t("passwordMismatch")}</FieldError>
               ) : null}
             </Field>
             {captcha.widget}
             <Field>
-              <Button type="submit" disabled={isSubmitting} className="w-full sm:w-auto">
-                {isSubmitting ? (
-                  <Loader2 className="size-4 animate-spin" aria-hidden />
-                ) : null}
+              <Button type="submit" loading={isSubmitting} className="w-full sm:w-auto">
                 {isSubmitting ? t("submitting") : t("submit")}
               </Button>
               <SocialSignInButtons

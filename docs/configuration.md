@@ -4,6 +4,7 @@
 | --- | --- | --- | --- |
 | `DATABASE_URL` | both | yes | Postgres connection string (the same for both apps) |
 | `BETTER_AUTH_SECRET` | both | yes | 32+ characters, the same for both apps |
+| `BETTER_AUTH_URL` | auth | off Vercel | The auth app's public URL (the OIDC issuer, links in emails). Vercel provides it; elsewhere it (or `AUTH_APP_URL`) is required in production |
 | `RESEND_API_KEY`, `RESEND_FROM` | both | in production | Sending verification, reset and invitation emails |
 | `ADMIN_EMAILS` | auth | first run | Emails that become admins when they sign up, once the address is verified (the verification link or a sign-in code, or a social provider that reports it verified; never through SSO or SCIM) |
 | `REQUIRE_ADMIN_2FA` | both | optional | `true` (default): admins must turn on two-factor authentication before using the admin console. `false` turns this off |
@@ -19,7 +20,8 @@
 | `API_KEY_PREFIX` | both | optional | Prefix of new API keys (default `ost_`; letters, digits, `_`, `-`, 16 at most). Existing keys keep theirs |
 | `TRUSTED_PROXIES` | both | off Vercel | Comma-separated IPs or CIDR ranges of your own reverse proxies, to read the client IP from a multi-hop `x-forwarded-for`. See [Client IP](security.md#client-ip) |
 | `CAPTCHA_PROVIDER`, `CAPTCHA_SITE_KEY`, `CAPTCHA_SECRET_KEY` | auth | optional | Captcha on sign-up, password sign-in, password reset and sign-in codes. Provider: `cloudflare-turnstile`, `hcaptcha` or `google-recaptcha` (v2 checkbox). Set all three or none, before building (the CSP is built with them). Turnstile and reCAPTCHA tokens are only accepted when solved on the host of `AUTH_APP_URL` |
-| `CRON_SECRET` | auth | for webhooks | 16+ characters. Protects `/api/cron/webhooks`, which retries failed webhook deliveries (Vercel Cron sends it) |
+| `CRON_SECRET` | auth | for webhooks and retention | 16+ characters. Protects `/api/cron/webhooks`, the daily housekeeping route: it retries failed webhook deliveries, deletes old ones and applies the sign-in event retention. Vercel Cron sends it; elsewhere, call the route daily with `Authorization: Bearer $CRON_SECRET` |
+| `AUTH_EVENT_RETENTION_DAYS` | auth | optional | Days sign-in events (activity charts, failed sign-ins) are kept, 30 to 3650 (default 90). Failed sign-ins lose the email or username tried and the IP address after 30 days in any case |
 | `WEBHOOKS_ALLOW_LOCALHOST` | both | optional | `true` accepts `http://localhost` webhook endpoints. Development only, ignored in production |
 | `VERCEL_ANALYTICS` | both | optional | `true` adds [Vercel Web Analytics](https://vercel.com/docs/analytics) to the app (turn it on in the Vercel project too). Page views are sent without query strings or fragments, which can carry reset and deletion tokens |
 

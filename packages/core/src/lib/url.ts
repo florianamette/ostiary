@@ -17,6 +17,8 @@ export function getBaseURL(): string {
   ) {
     return trimTrailingSlash(`https://${env.VERCEL_URL}`);
   }
+  // The auth app's public URL, when only that one is set (self-hosted, see env.ts).
+  if (env.AUTH_APP_URL) return trimTrailingSlash(env.AUTH_APP_URL);
   const port = env.PORT ?? "3000";
   return trimTrailingSlash(`http://localhost:${port}`);
 }

@@ -3,10 +3,10 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { env } from "@ostiary/core/lib/env";
 import { resolveSafeRedirect } from "@ostiary/core/lib/safe-redirect";
-import { contentSecurityPolicy, createCspNonce, NONCE_HEADER } from "@ostiary/core/lib/csp";
+import { withCsp } from "@ostiary/core/lib/with-csp";
+import { localizedUrl, splitLocalePath } from "@ostiary/core/i18n/locale-path";
+import { routing, type AppLocale } from "@ostiary/core/i18n/routing";
 import { auth } from "@/lib/auth";
-import type { AppLocale } from "@ostiary/core/i18n/routing";
-import { routing } from "@ostiary/core/i18n/routing";
 
 const handleI18n = createMiddleware(routing);
 
@@ -48,66 +48,23 @@ function shareAuthCookies(request: NextRequest, response: NextResponse): NextRes
   return response;
 }
 
-function isLocaleSegment(segment: string | undefined): segment is AppLocale {
-  return (
-    segment !== undefined &&
-    (routing.locales as readonly string[]).includes(segment)
-  );
-}
-
-/** Path after optional `[locale]` prefix, always starting with `/`. */
-function getLocaleAndRestPath(pathname: string): { locale: AppLocale; restPath: string } {
-  const segments = pathname.split("/").filter(Boolean);
-  if (segments.length === 0) {
-    return { locale: routing.defaultLocale, restPath: "/" };
-  }
-  const first = segments[0];
-  if (isLocaleSegment(first)) {
-    const rest = segments.slice(1);
-    return {
-      locale: first,
-      restPath: rest.length === 0 ? "/" : `/${rest.join("/")}`,
-    };
-  }
-  return {
-    locale: routing.defaultLocale,
-    restPath: `/${segments.join("/")}`,
-  };
-}
-
-function localizedUrl(request: NextRequest, locale: AppLocale, path: string): URL {
-  const tail = path === "/" ? "" : path;
-  const unprefixed = routing.localePrefix !== "always" && locale === routing.defaultLocale;
-  return new URL(unprefixed ? tail || "/" : `/${locale}${tail}`, request.url);
-}
-
 /** To the login page, back to `callbackPath` once signed in. */
 function loginRedirect(request: NextRequest, locale: AppLocale, callbackPath: string): NextResponse {
   const loginWithReturn = `/login?callbackURL=${encodeURIComponent(callbackPath)}`;
-  return NextResponse.redirect(localizedUrl(request, locale, loginWithReturn));
+  return NextResponse.redirect(localizedUrl(request.url, locale, loginWithReturn));
 }
 
 /**
- * Every page gets a fresh nonce and the CSP that carries it (packages/core/src/lib/csp.ts),
- * on the response and on the request, where Next.js reads it to put the nonce on its scripts.
+ * Every page gets a fresh nonce and the CSP that carries it (packages/core/src/lib/with-csp.ts).
  * Google One Tap's sources are added on the sign-in and sign-up pages only.
  */
-export async function proxy(request: NextRequest) {
-  const nonce = createCspNonce();
-  const { restPath } = getLocaleAndRestPath(request.nextUrl.pathname);
-  const csp = contentSecurityPolicy({
-    nonce,
-    dev: process.env.NODE_ENV === "development",
+export const proxy = withCsp(route, (request) => {
+  const { restPath } = splitLocalePath(request.nextUrl.pathname);
+  return {
     captchaProvider: env.CAPTCHA_PROVIDER,
     googleOneTap: restPath === "/login" || restPath === "/signup",
-  });
-  // next-intl forwards a copy of these request headers to the page.
-  request.headers.set(NONCE_HEADER, nonce);
-  request.headers.set("content-security-policy", csp);
-  const response = await route(request);
-  response.headers.set("Content-Security-Policy", csp);
-  return response;
-}
+  };
+});
 
 async function route(request: NextRequest): Promise<NextResponse> {
   const intlResponse = handleI18n(request);
@@ -116,12 +73,12 @@ async function route(request: NextRequest): Promise<NextResponse> {
     return intlResponse;
   }
 
-  const { locale, restPath } = getLocaleAndRestPath(request.nextUrl.pathname);
+  const { locale, restPath } = splitLocalePath(request.nextUrl.pathname);
   const getSession = () => auth.api.getSession({ headers: request.headers });
 
   if (restPath === "/") {
     const session = await getSession();
-    return NextResponse.redirect(localizedUrl(request, locale, session ? "/dashboard" : "/login"));
+    return NextResponse.redirect(localizedUrl(request.url, locale, session ? "/dashboard" : "/login"));
   }
 
   if ((restPath === "/dashboard" || restPath.startsWith("/dashboard/")) && !(await getSession())) {
@@ -138,7 +95,7 @@ async function route(request: NextRequest): Promise<NextResponse> {
   // `addAccount=1` signs in one more account (account menu, select-account page): no redirect.
   const addingAccount = restPath === "/login" && request.nextUrl.searchParams.get("addAccount") === "1";
   if ((restPath === "/login" || restPath === "/signup") && !addingAccount && (await getSession())) {
-    const destination = signedInDestination(request, localizedUrl(request, locale, "/dashboard"));
+    const destination = signedInDestination(request, localizedUrl(request.url, locale, "/dashboard"));
     return shareAuthCookies(request, NextResponse.redirect(destination));
   }
 

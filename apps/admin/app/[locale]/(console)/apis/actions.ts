@@ -3,8 +3,10 @@
 import { eq } from "drizzle-orm";
 import { headers } from "next/headers";
 import { getTranslations } from "next-intl/server";
+import { z } from "zod";
 
 import { db } from "@ostiary/core/db/index";
+import { betterAuthErrorMessage } from "@ostiary/core/lib/api/better-auth-error";
 import { oauthClientResource } from "@ostiary/core/db/schema";
 import { env } from "@ostiary/core/lib/env";
 import { oauthResourceIdentifiers } from "@ostiary/core/lib/oauth-resources";
@@ -16,7 +18,7 @@ import {
   type TokenSettingsInput,
 } from "@ostiary/core/lib/oauth-resource-policy";
 import { invalidateApiScopes, OIDC_SCOPES } from "@ostiary/core/lib/oauth-scopes";
-import { adminActor } from "@/lib/admin-audit";
+import { adminAction, input } from "@/lib/admin-action";
 import { auth } from "@/lib/auth";
 import type { ActionResult } from "@/lib/action-result";
 
@@ -73,15 +75,27 @@ async function currentApi(identifier: string): Promise<{ name: string; metadata:
   return { name: row.name ?? identifier, metadata: metadata as OAuthResourceMetadata };
 }
 
+/** Better Auth's message for a refused change, else `fallback` (a database error is logged, not shown). */
 function errorMessage(error: unknown, fallback: string): string {
-  const body = (error as { body?: Record<string, unknown> } | null)?.body;
-  const description = body?.error_description ?? body?.message;
-  if (typeof description === "string" && description) return description;
-  return error instanceof Error && error.message ? error.message : fallback;
+  const message = betterAuthErrorMessage(error, fallback);
+  if (message === fallback) console.error("[apis] change failed", error);
+  return message;
 }
 
-export async function createApi(input: { identifier: string; name: string; scopes: string; restrict: boolean }): Promise<ActionResult> {
-  const { audit } = await adminActor();
+const apiFields = { name: input.text, scopes: input.longText, restrict: z.boolean() };
+const createInput = z.tuple([z.object({ identifier: input.text, ...apiFields })]);
+const updateInput = z.tuple([input.id, z.object({ ...apiFields, disabled: z.boolean() })]);
+const accessInput = z.tuple([
+  input.id,
+  z.object({ access: z.enum(["all", "linked"]), clientIds: z.array(input.id).max(10_000) }),
+]);
+const tokensInput = z.tuple([
+  input.id,
+  z.object({ accessTokenMinutes: input.text, refreshTokenDays: input.text, customClaims: input.longText, dpopRequired: z.boolean() }),
+]);
+
+export async function createApi(raw: { identifier: string; name: string; scopes: string; restrict: boolean }): Promise<ActionResult> {
+  return adminAction(createInput, [raw], async ([input], { audit }) => {
   const t = await errorsT();
   const identifier = parseIdentifier(input.identifier);
   if (!identifier) return { ok: false, error: t("invalidIdentifier", { example: "https://api.example.com" }) };
@@ -108,13 +122,14 @@ export async function createApi(input: { identifier: string; name: string; scope
     metadata: { scopes: parsed.scopes, restrict: input.restrict },
   });
   return { ok: true };
+  });
 }
 
 export async function updateApi(
-  identifier: string,
-  input: { name: string; scopes: string; restrict: boolean; disabled: boolean },
+  rawIdentifier: string,
+  raw: { name: string; scopes: string; restrict: boolean; disabled: boolean },
 ): Promise<ActionResult> {
-  const { audit } = await adminActor();
+  return adminAction(updateInput, [rawIdentifier, raw], async ([identifier, input], { audit }) => {
   const t = await errorsT();
   const parsed = parseScopes(input.scopes, t);
   if (!parsed.ok) return parsed;
@@ -144,10 +159,11 @@ export async function updateApi(
     metadata: { scopes: parsed.scopes, restrict: input.restrict, disabled: input.disabled },
   });
   return { ok: true };
+  });
 }
 
-export async function deleteApi(identifier: string): Promise<ActionResult> {
-  const { audit } = await adminActor();
+export async function deleteApi(rawIdentifier: string): Promise<ActionResult> {
+  return adminAction(z.tuple([input.id]), [rawIdentifier], async ([identifier], { audit }) => {
   const t = await errorsT();
   if (configuredIdentifiers().has(identifier)) {
     return { ok: false, error: t("deleteFromEnv", { variable: "OAUTH_API_AUDIENCES" }) };
@@ -160,6 +176,7 @@ export async function deleteApi(identifier: string): Promise<ActionResult> {
   invalidateApiScopes();
   await audit({ action: "oauth_resource.delete", target: { type: "oauth_resource", id: identifier, label: identifier } });
   return { ok: true };
+  });
 }
 
 /**
@@ -167,8 +184,8 @@ export async function deleteApi(identifier: string): Promise<ActionResult> {
  * added before the mode changes and removed after, so no client is ever refused while the
  * new setting is being saved. A linked application may also introspect the API's tokens.
  */
-export async function setApiAccess(identifier: string, input: { access: ApiAccess; clientIds: string[] }): Promise<ActionResult> {
-  const { audit } = await adminActor();
+export async function setApiAccess(rawIdentifier: string, raw: { access: ApiAccess; clientIds: string[] }): Promise<ActionResult> {
+  return adminAction(accessInput, [rawIdentifier, raw], async ([identifier, input], { audit }) => {
   const t = await errorsT();
   if (input.access === "linked" && identifier === env.AUTH_APP_URL) {
     return { ok: false, error: t("authServerStaysOpen") };
@@ -219,11 +236,12 @@ export async function setApiAccess(identifier: string, input: { access: ApiAcces
     });
   }
   return error ? { ok: false, error } : { ok: true };
+  });
 }
 
 /** Saves the API's token settings: lifetimes, custom claims, DPoP. */
-export async function updateApiTokens(identifier: string, input: TokenSettingsInput): Promise<ActionResult> {
-  const { audit } = await adminActor();
+export async function updateApiTokens(rawIdentifier: string, raw: TokenSettingsInput): Promise<ActionResult> {
+  return adminAction(tokensInput, [rawIdentifier, raw], async ([identifier, input], { audit }) => {
   const t = await errorsT();
   const parsed = parseTokenSettings(input);
   if (!parsed.ok) return { ok: false, error: t(`tokenSettings.${parsed.issue.code}`, parsed.issue.values) };
@@ -242,4 +260,5 @@ export async function updateApiTokens(identifier: string, input: TokenSettingsIn
     metadata: { ...settings, customClaims: Object.keys(customClaims ?? {}) },
   });
   return { ok: true };
+  });
 }

@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 
@@ -9,11 +8,13 @@ import { Button } from "@ostiary/core/components/ui/button";
 import {
   Field,
   FieldDescription,
+  FieldError,
   FieldGroup,
   FieldLabel,
 } from "@ostiary/core/components/ui/field";
 import { Input } from "@ostiary/core/components/ui/input";
 import { authClient } from "@/lib/auth-client";
+import { useAuthErrorMessage } from "@/lib/auth-error-message";
 
 const MIN_PASSWORD_LENGTH = 8;
 
@@ -25,6 +26,7 @@ export function DashboardChangePasswordForm({
   onPasswordChanged,
 }: DashboardChangePasswordFormProps) {
   const t = useTranslations("dashboard.security");
+  const errorMessage = useAuthErrorMessage();
 
   const [currentPassword, setCurrentPassword] = React.useState("");
   const [newPassword, setNewPassword] = React.useState("");
@@ -61,22 +63,14 @@ export function DashboardChangePasswordForm({
       });
 
       if (error) {
-        const code = error.code;
-        const message = error.message ?? t("passwordError");
-        if (code === "PASSWORD_COMPROMISED") {
-          toast.error(t("compromisedPassword"));
-          return;
-        }
-        if (
-          typeof code === "string" &&
-          (code.includes("CREDENTIAL") ||
-            code.includes("PASSWORD") ||
-            message.toLowerCase().includes("credential"))
-        ) {
-          toast.error(t("invalidCurrentPassword"));
-          return;
-        }
-        toast.error(String(message));
+        toast.error(
+          errorMessage(error, t("passwordError"), {
+            PASSWORD_COMPROMISED: t("compromisedPassword"),
+            INVALID_PASSWORD: t("invalidCurrentPassword"),
+            // No password on the account (passkey or social sign-in only).
+            CREDENTIAL_ACCOUNT_NOT_FOUND: t("invalidCurrentPassword"),
+          }),
+        );
         return;
       }
 
@@ -89,10 +83,14 @@ export function DashboardChangePasswordForm({
       await authClient.getSession();
 
       onPasswordChanged?.();
+    } catch {
+      toast.error(t("passwordError"));
     } finally {
       setPasswordPending(false);
     }
   }
+
+  const mismatch = confirmPassword.length > 0 && newPassword !== confirmPassword;
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
@@ -138,14 +136,11 @@ export function DashboardChangePasswordForm({
             onChange={(e) => setConfirmPassword(e.target.value)}
             disabled={passwordPending}
             minLength={MIN_PASSWORD_LENGTH}
-            aria-invalid={
-              confirmPassword.length > 0 && newPassword !== confirmPassword
-            }
+            aria-invalid={mismatch || undefined}
+            aria-describedby={mismatch ? "change-pw-mismatch" : undefined}
           />
-          {confirmPassword.length > 0 && newPassword !== confirmPassword ? (
-            <FieldDescription className="text-destructive">
-              {t("passwordMismatch")}
-            </FieldDescription>
+          {mismatch ? (
+            <FieldError id="change-pw-mismatch">{t("passwordMismatch")}</FieldError>
           ) : null}
         </Field>
         <Field className="rounded-lg border border-border/80 p-3">
@@ -174,17 +169,14 @@ export function DashboardChangePasswordForm({
         <Field>
           <Button
             type="submit"
+            loading={passwordPending}
             disabled={
-              passwordPending ||
               !currentPassword.trim() ||
               newPassword.length < MIN_PASSWORD_LENGTH ||
               confirmPassword.length < MIN_PASSWORD_LENGTH ||
               newPassword !== confirmPassword
             }
           >
-            {passwordPending ? (
-              <Loader2 className="size-4 animate-spin" aria-hidden />
-            ) : null}
             {passwordPending ? t("changing") : t("changePassword")}
           </Button>
         </Field>

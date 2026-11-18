@@ -286,10 +286,6 @@
           "empty": "Ingen brugere endnu."
         },
         "stats": {
-          "error": "En eller flere målinger kunne ikke indlæses. Sørg for, at du er logget ind som administrator.",
-          "errorTitle": "Målinger utilgængelige",
-          "loadingTitle": "Indlæser",
-          "loadingHint": "Indlæser…",
           "totalUsers": {
             "title": "Brugere i alt",
             "hint": "Alle konti på platformen."
@@ -1393,8 +1389,6 @@
           "roleAll": "Alle roller",
           "roleAdmin": "Administrator",
           "roleUser": "Bruger",
-          "loadErrorTitle": "Brugerne kunne ikke indlæses",
-          "loadErrorFallback": "Indlæsning af brugere mislykkedes",
           "columns": {
             "user": "Bruger",
             "role": "Rolle",
@@ -1402,7 +1396,6 @@
             "verified": "Bekræftet",
             "joined": "Tilmeldt"
           },
-          "loading": "Indlæser brugere…",
           "empty": "Ingen brugere matcher dine filtre.",
           "noUsers": "0 brugere",
           "showing": "Viser {from}-{to} af {total}",
@@ -1467,8 +1460,7 @@
           "updatePassword": "Opdater adgangskode",
           "removeTitle": "Fjern bruger?",
           "removeDescription": "Dette sletter permanent <strong>{name}</strong> ({email}) og alt, der er knyttet til kontoen. Poster i revisionsloggen bevares uden navn og e-mail. Det kan ikke fortrydes.",
-          "removeConfirm": "Fjern",
-          "removing": "Fjerner…"
+          "removeConfirm": "Fjern"
         },
         "detailActions": {
           "impersonateError": "Kunne ikke logge ind som denne bruger.",
@@ -1559,10 +1551,6 @@
         "title": "Samtykke",
         "description": "Tilladelser, som personer har givet OAuth-klienter, med deres scopes og tidspunktet, de blev givet.",
         "panel": {
-          "signedInUser": "Logget ind bruger",
-          "loadConsentsFailed": "Samtykkerne kunne ikke indlæses",
-          "loadClientsFailed": "OAuth-klienterne kunne ikke indlæses",
-          "loadErrorTitle": "Samtykkerne kunne ikke indlæses",
           "searchPlaceholder": "Søg efter bruger, klient, samtykke-id, reference eller scope…",
           "searchLabel": "Søg i samtykker",
           "filter": {
@@ -1578,16 +1566,14 @@
             "granted": "Givet",
             "updated": "Opdateret"
           },
-          "loading": "Indlæser samtykker…",
-          "emptyNone": "Ingen samtykker registreret for denne konto endnu.",
+          "emptyNone": "Ingen har givet samtykke til en applikation endnu.",
           "emptyFiltered": "Ingen samtykker matcher dine filtre.",
           "noResults": "0 samtykker",
           "showing": "Viser {from}-{to} af {total}",
           "rowsPerPage": "Rækker pr. side",
           "previous": "Forrige",
           "next": "Næste",
-          "pageOf": "Side {page} / {total}",
-          "footnote": "Data fra <code>{getConsents}</code>; klientnavne slås op via <code>{getClients}</code>. Tilbagekald bruger <code>{deleteConsent}</code>. Se <consentLink>OAuth consent</consentLink> i dokumentationen til <providerLink>OAuth provider</providerLink>. Den interaktive godkendelsesbrugerflade findes på <code>{path}</code>."
+          "pageOf": "Side {page} / {total}"
         },
         "rowActions": {
           "menuLabel": "Handlinger for samtykke {id}…",
@@ -1595,16 +1581,13 @@
           "consentIdCopied": "Samtykke-id kopieret",
           "copyClientId": "Kopiér klient-id",
           "clientIdCopied": "Klient-id kopieret",
-          "viewDetails": "Se detaljer",
-          "updateScopes": "Opdater scopes",
-          "wireTo": "Forbind til {method}",
           "revoke": "Tilbagekald samtykke",
           "revokeFailed": "Samtykket kunne ikke tilbagekaldes",
           "revoked": "Samtykke tilbagekaldt",
           "dialogTitle": "Tilbagekald samtykke?",
-          "dialogDescription": "Fjerner denne brugers tilladelse til <strong>{client}</strong> (<code>{clientId}</code>). Klienten skal muligvis anmode om godkendelse igen.",
-          "revoking": "Tilbagekalder…",
-          "revokeButton": "Tilbagekald"
+          "dialogDescription": "Fjerner <strong>{user}</strong>s samtykke til <strong>{client}</strong> (<code>{clientId}</code>) og tilbagekalder de tokens, appen har for personen. Appen skal spørge igen for at få nye.",
+          "revokeButton": "Tilbagekald",
+          "notFound": "Dette samtykke findes ikke længere."
         }
       },
       "usage": {
@@ -1633,7 +1616,7 @@
       "audit": {
         "title": "Revisionslog",
         "description": "Hver ændring foretaget fra denne konsol eller administrations-API'en: hvem der gjorde det, ved hvad og hvornår.",
-        "footnote": "Viser de seneste 200 poster. Adgangskoder og hemmeligheder registreres aldrig.",
+        "footnote": "Adgangskoder og hemmeligheder registreres aldrig.",
         "filterLabel": "Filtrer efter område",
         "filters": {
           "all": "Alle",
@@ -1753,7 +1736,12 @@
             "test": "Sendte webhook-testhændelse",
             "redeliver": "Leverede webhook-hændelse igen"
           }
-        }
+        },
+        "actorPlaceholder": "Søg efter hvem der handlede (e-mail)…",
+        "actorLabel": "Søg efter udfører",
+        "pagesLabel": "Sider i revisionsloggen",
+        "newest": "Nyeste poster",
+        "older": "Ældre poster"
       },
       "security": {
         "title": "Sikkerhed",
@@ -1850,8 +1838,14 @@
         }
       },
       "organizations": {
+        "title": "Organisationer",
+        "description": "Alle organisationer på platformen med deres medlemmer. Åbn en for at administrere medlemmer, SSO og SCIM.",
+        "list": {
+          "searchPlaceholder": "Søg efter navn eller slug…",
+          "searchLabel": "Søg i organisationer",
+          "noMatch": "Ingen organisation matcher din søgning."
+        },
         "controls": {
-          "unexpectedError": "Noget gik galt.",
           "organizationUpdated": "Organisation opdateret",
           "slug": "Slug",
           "role": "Rolle",
@@ -1903,7 +1897,7 @@
           "defaultWorkspace": "Standardarbejdsområde",
           "createdAt": "Oprettet {date}",
           "members": "Medlemmer",
-          "publicMembers": "Alle konti hører til arbejdsområdet Public, så medlemmer kan ikke fjernes her. Viser de første 50.",
+          "publicMembers": "Alle konti hører til arbejdsområdet Public, så medlemmer kan ikke fjernes her.",
           "memberCount": "{count, plural, one {# medlem} other {# medlemmer}}.",
           "noMembers": "Ingen medlemmer endnu.",
           "member": "Medlem",
@@ -1941,7 +1935,10 @@
           "invitationNotFound": "Invitation ikke fundet.",
           "requestFailed": "Anmodningen mislykkedes.",
           "scimUnavailable": "Denne organisation kan ikke bruge SCIM-klargøring.",
-          "noActiveToken": "Der er intet aktivt token."
+          "noActiveToken": "Der er intet aktivt token.",
+          "lastOwner": "En organisation skal have mindst én ejer. Gør først et andet medlem til ejer.",
+          "publicDelete": "Arbejdsområdet Public kan ikke slettes.",
+          "organizationNotFound": "Organisationen blev ikke fundet."
         }
       }
     },
@@ -1977,7 +1974,15 @@
       "refresh": "Opdater",
       "search": "Søg",
       "optional": "Valgfri",
-      "unexpectedError": "Noget gik galt. Prøv igen."
+      "unexpectedError": "Noget gik galt. Prøv igen.",
+      "invalidInput": "Nogle af de sendte værdier er ugyldige. Genindlæs siden, og prøv igen.",
+      "pagination": {
+        "rowsPerPage": "Rækker pr. side",
+        "previous": "Forrige",
+        "next": "Næste",
+        "pageOf": "Side {page} / {pages}",
+        "showing": "Viser {from}-{to} af {total}"
+      }
     },
     "urlCheck": {
       "tooLong": "URL'en er for lang.",
@@ -2587,7 +2592,8 @@
       "txtRecordNotFound": "TXT-posten blev ikke fundet endnu. Det kan tage et par minutter, før DNS-ændringer slår igennem.",
       "envNotSet": "{name} er ikke angivet.",
       "invalidProviderId": "Udbyder-id'et skal være 2 til 63 små bogstaver, cifre, - eller _.",
-      "unreadableSamlConfig": "Den gemte SAML-konfiguration kan ikke læses; slet udbyderen, og registrer den igen."
+      "unreadableSamlConfig": "Den gemte SAML-konfiguration kan ikke læses; slet udbyderen, og registrer den igen.",
+      "domainTaken": "En anden SSO-udbyder bruger allerede dette domæne."
     }
   },
   "selectAccount": {
@@ -2669,5 +2675,23 @@
       "note": "Linket udløber om {minutes} minutter og virker kun én gang.",
       "footnote": "Har du ikke bedt om dette? Ignorer denne e-mail: din konto forbliver, som den er. Overvej at skifte din adgangskode, da anmodningen kom fra en session, der var logget ind."
     }
+  },
+  "authErrors": {
+    "banned": "Denne konto er blevet suspenderet. Kontakt support, hvis du mener, det er en fejl.",
+    "deactivated": "Din organisation har deaktiveret denne konto.",
+    "invalidCredentials": "Forkert e-mail, brugernavn eller adgangskode.",
+    "userExists": "Der findes allerede en konto med denne e-mailadresse.",
+    "usernameTaken": "Brugernavnet er allerede taget.",
+    "usernameInvalid": "Brugernavnet kan ikke bruges. Prøv et andet.",
+    "passwordTooShort": "Adgangskoden er for kort.",
+    "passwordTooLong": "Adgangskoden er for lang.",
+    "passwordCompromised": "Adgangskoden er dukket op i et datalæk. Vælg en anden.",
+    "invalidPassword": "Forkert adgangskode.",
+    "recentSignIn": "Log ind igen for at gøre dette.",
+    "sessionExpired": "Din session er udløbet. Log ind igen.",
+    "impersonating": "Det kan ikke lade sig gøre, mens en administrator ser kontoen.",
+    "emailNotVerified": "Bekræft din e-mailadresse først.",
+    "invalidToken": "Linket er ugyldigt eller udløbet.",
+    "publicOrganization": "Medlemmerne af organisationen Public administreres kun af platformens administratorer."
   }
 }

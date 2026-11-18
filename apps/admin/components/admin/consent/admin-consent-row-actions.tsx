@@ -1,14 +1,9 @@
 "use client";
 
 import * as React from "react";
-import {
-  CopyIcon,
-  EyeIcon,
-  MoreHorizontalIcon,
-  PencilIcon,
-  Trash2Icon,
-} from "lucide-react";
+import { CopyIcon, MoreHorizontalIcon, Trash2Icon } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { toast } from "sonner";
 
 import { Button } from "@ostiary/core/components/ui/button";
 import {
@@ -18,49 +13,30 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@ostiary/core/components/ui/dropdown-menu";
-import { adminNotify } from "@ostiary/core/lib/admin/admin-notify";
-import { authClient } from "@/lib/auth-client";
+import { revokeConsent } from "@/app/[locale]/(console)/consent/actions";
 import { ConfirmRemoveDialog } from "@/components/admin/common/confirm-remove-dialog";
+import { useAdminAction } from "@/components/admin/common/use-admin-action";
 
 export type OAuthConsentRow = {
   id: string;
-  userId: string;
+  userId: string | null;
   userLabel: string;
   clientId: string;
   clientLabel: string;
+  clientIcon: string | null;
   referenceId?: string;
   scopes: string[];
   createdAt: string;
   updatedAt: string;
 };
 
-export function AdminConsentRowActions({
-  row,
-  onChanged,
-}: {
-  row: OAuthConsentRow;
-  onChanged: () => void;
-}) {
+export function AdminConsentRowActions({ row }: { row: OAuthConsentRow }) {
   const t = useTranslations("admin.pages.consent.rowActions");
   const [removeOpen, setRemoveOpen] = React.useState(false);
-  const [removePending, setRemovePending] = React.useState(false);
+  const { busy, run } = useAdminAction(() => setRemoveOpen(false));
 
-  async function revokeConsent() {
-    setRemovePending(true);
-    try {
-      const { error } = await authClient.oauth2.deleteConsent({
-        id: row.id,
-      });
-      if (error) {
-        adminNotify(error.message ?? t("revokeFailed"), "error");
-        return;
-      }
-      adminNotify(t("revoked"), "success");
-      setRemoveOpen(false);
-      onChanged();
-    } finally {
-      setRemovePending(false);
-    }
+  function copy(value: string, done: string) {
+    void navigator.clipboard.writeText(value).then(() => toast.success(done));
   }
 
   return (
@@ -77,44 +53,16 @@ export function AdminConsentRowActions({
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-56">
-          <DropdownMenuItem
-            onClick={() => {
-              void navigator.clipboard.writeText(row.id);
-              adminNotify(t("consentIdCopied"), "success");
-            }}
-          >
+          <DropdownMenuItem onClick={() => copy(row.id, t("consentIdCopied"))}>
             <CopyIcon />
             {t("copyConsentId")}
           </DropdownMenuItem>
-          <DropdownMenuItem
-            onClick={() => {
-              void navigator.clipboard.writeText(row.clientId);
-              adminNotify(t("clientIdCopied"), "success");
-            }}
-          >
+          <DropdownMenuItem onClick={() => copy(row.clientId, t("clientIdCopied"))}>
             <CopyIcon />
             {t("copyClientId")}
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem
-            disabled
-            title={t("wireTo", { method: "authClient.oauth2.getConsent" })}
-          >
-            <EyeIcon />
-            {t("viewDetails")}
-          </DropdownMenuItem>
-          <DropdownMenuItem
-            disabled
-            title={t("wireTo", { method: "authClient.oauth2.updateConsent" })}
-          >
-            <PencilIcon />
-            {t("updateScopes")}
-          </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem
-            variant="destructive"
-            onClick={() => setRemoveOpen(true)}
-          >
+          <DropdownMenuItem variant="destructive" onClick={() => setRemoveOpen(true)}>
             <Trash2Icon />
             {t("revoke")}
           </DropdownMenuItem>
@@ -124,18 +72,17 @@ export function AdminConsentRowActions({
       <ConfirmRemoveDialog
         open={removeOpen}
         onOpenChange={setRemoveOpen}
-        className="sm:max-w-md"
         title={t("dialogTitle")}
         description={t.rich("dialogDescription", {
+          user: row.userLabel,
           client: row.clientLabel,
           clientId: row.clientId,
           strong: (c) => <span className="font-medium text-foreground">{c}</span>,
           code: (c) => <code className="font-mono text-xs">{c}</code>,
         })}
-        pending={removePending}
-        onConfirm={() => void revokeConsent()}
+        pending={busy}
+        onConfirm={() => void run(() => revokeConsent(row.id), t("revoked"))}
         confirmLabel={t("revokeButton")}
-        pendingLabel={t("revoking")}
       />
     </>
   );

@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 import {
   SCIM_DEACTIVATED_REASON,
@@ -6,7 +6,6 @@ import {
   scimCredentialHashSecret,
   scimIdentity,
   setScimDeactivated,
-  ssoDomains,
   syncScimMembership,
 } from "@ostiary/core/lib/scim";
 import { PUBLIC_ORGANIZATION_ID } from "@ostiary/core/lib/organization-public";
@@ -56,26 +55,20 @@ type Db = Parameters<typeof setScimDeactivated>[0];
 const asDb = (db: ReturnType<typeof fakeDatabase>) => db as unknown as Db;
 
 describe("setScimDeactivated", () => {
-  it("bans the account and revokes its OAuth tokens and API keys", async () => {
-    const now = new Date("2026-10-08T12:00:00Z");
-    const db = fakeDatabase({
-      user: [{ id: "u1", banned: false }],
-      oauthRefreshToken: [{ id: "r1", userId: "u1", revoked: null }, { id: "r2", userId: "u2", revoked: null }],
-      oauthAccessToken: [{ id: "a1", userId: "u1", revoked: null }],
-      apikey: [{ id: "k1", referenceId: "u1" }, { id: "k2", referenceId: "u2" }],
-    });
-    await setScimDeactivated(asDb(db), "u1", true, now);
-    expect(db.tables.apikey!.map((k) => k.id)).toEqual(["k2"]);
+  it("bans the account and revokes its app access", async () => {
+    const db = fakeDatabase({ user: [{ id: "u1", email: "a@acme.com", banned: false }] });
+    const revoke = vi.fn(async () => {});
+    await setScimDeactivated(asDb(db), "u1", true, revoke);
     expect(db.tables.user![0]).toMatchObject({ banned: true, banReason: SCIM_DEACTIVATED_REASON });
-    expect(db.tables.oauthRefreshToken![0]!.revoked).toBe(now);
-    expect(db.tables.oauthRefreshToken![1]!.revoked).toBeNull();
-    expect(db.tables.oauthAccessToken![0]!.revoked).toBe(now);
+    expect(revoke).toHaveBeenCalledWith(expect.objectContaining({ id: "u1", email: "a@acme.com" }));
   });
 
-  it("keeps an admin's ban and its reason", async () => {
+  it("keeps an admin's ban and its reason, and still revokes access", async () => {
     const db = fakeDatabase({ user: [{ id: "u1", banned: true, banReason: "Spam" }] });
-    await setScimDeactivated(asDb(db), "u1", true);
+    const revoke = vi.fn(async () => {});
+    await setScimDeactivated(asDb(db), "u1", true, revoke);
     expect(db.tables.user![0]).toMatchObject({ banned: true, banReason: "Spam" });
+    expect(revoke).toHaveBeenCalledOnce();
   });
 
   it("reactivation lifts only the provisioning ban", async () => {
@@ -85,8 +78,10 @@ describe("setScimDeactivated", () => {
         { id: "u2", banned: true, banReason: "Spam" },
       ],
     });
-    await setScimDeactivated(asDb(db), "u1", false);
-    await setScimDeactivated(asDb(db), "u2", false);
+    const revoke = vi.fn(async () => {});
+    await setScimDeactivated(asDb(db), "u1", false, revoke);
+    await setScimDeactivated(asDb(db), "u2", false, revoke);
+    expect(revoke).not.toHaveBeenCalled();
     expect(db.tables.user![0]).toMatchObject({ banned: false, banReason: null });
     expect(db.tables.user![1]).toMatchObject({ banned: true, banReason: "Spam" });
   });
@@ -158,13 +153,25 @@ describe("scimIdentity.resolveUser", () => {
       expect(await resolve(db, email)).toEqual({ action: "create" });
     }
   });
+
+  it("never trusts a stored domain that is not exactly one plain hostname", async () => {
+    const db = fakeDatabase({
+      user: [
+        { id: "u1", email: "a@victim.com", emailVerified: true, role: "user" },
+        { id: "u2", email: "b@acme.io", emailVerified: true, role: "user" },
+      ],
+      ssoProvider: [
+        // Legacy values: a list, and a URL. Only one TXT record was ever checked for each.
+        { organizationId: "org1", domain: "acme.com,victim.com", domainVerified: true },
+        { organizationId: "org1", domain: "https://acme.io/", domainVerified: true },
+      ],
+    });
+    expect(await resolve(db, "a@victim.com")).toEqual({ action: "create" });
+    expect(await resolve(db, "b@acme.io")).toEqual({ action: "create" });
+  });
 });
 
 describe("helpers", () => {
-  it("parses SSO provider domains", () => {
-    expect(ssoDomains("Acme.com, https://acme.fr/x,,")).toEqual(["acme.com", "acme.fr"]);
-  });
-
   it("builds the base URL on the auth app", () => {
     expect(scimBaseUrl("https://auth.example.com/")).toBe("https://auth.example.com/api/auth/scim/v2");
   });

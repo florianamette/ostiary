@@ -37,7 +37,7 @@ function verifyOstiaryWebhook(secret, headers, body) {
 }
 ```
 
-Answer with any 2xx within 10 seconds. Redirects are not followed. A failed delivery is retried 4 times (after 5 minutes, 1 hour, 6 hours and 18 hours) and then marked failed; an endpoint that fails 15 times in a row is disabled, which the console shows. Each endpoint has a **Delivery log** (status, response code, attempts, next retry, the start of the answer) with **Redeliver**. Endpoint changes are in the audit log.
+Answer with any 2xx within 10 seconds. Redirects are not followed. A failed delivery is retried 4 times (after 5 minutes, 1 hour, 6 hours and 18 hours) and then marked failed; an endpoint that fails 15 times in a row is disabled, which the console shows. Disabling an endpoint (automatically or by an admin) gives up the deliveries still waiting for it: turning it back on never sends old events. Deliveries are kept 30 days for the log. Each endpoint has a **Delivery log** (status, response code, attempts, next retry, the start of the answer) with **Redeliver**. Endpoint changes are in the audit log.
 
 Delivery starts right after the request that caused the event, without slowing it down. Retries are sent by `GET /api/cron/webhooks` on the auth app, which needs `CRON_SECRET` (Vercel Cron sends it as `Authorization: Bearer $CRON_SECRET`). `apps/auth/vercel.json` runs it once a day because **Vercel Hobby only allows daily cron jobs**; on Pro, set the schedule to `*/5 * * * *`, or call the route from any other scheduler with the same header. Instances also retry due deliveries on their own, at most once a minute, whenever they send an event.
 

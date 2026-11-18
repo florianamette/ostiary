@@ -3,7 +3,9 @@ import { queueEmail } from "@ostiary/core/lib/email/send";
 
 /** Email verification link (Better Auth `sendVerificationEmail`). */
 export function queueVerificationEmail(input: { to: string; url: string }): void {
-  queueEmail("verification", input.to, "Verify your email address", {
+  queueEmail("verification", input.to, {
+    subject: "Verify your email address",
+    content: {
     preheader: `Confirm your email to finish setting up your ${brand.name} account.`,
     heading: "Verify your email address",
     body: [
@@ -12,5 +14,6 @@ export function queueVerificationEmail(input: { to: string; url: string }): void
     button: { label: "Verify email address", url: input.url },
     note: "This link expires in 1 hour. You can ask for a new one from the sign-in page.",
     footnote: "If you didn't create an account, you can ignore this email: nothing happens until the address is verified.",
+    },
   });
 }

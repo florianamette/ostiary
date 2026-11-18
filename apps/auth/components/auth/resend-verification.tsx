@@ -1,5 +1,4 @@
 "use client"
-import { Loader2 } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { useState } from "react"
 import { toast } from "sonner"
@@ -64,8 +63,7 @@ export function ResendVerification({
           onChange={(e) => setEmail(e.target.value)}
           required
         />
-        <Button type="submit" variant="outline" disabled={sending} className="shrink-0">
-          {sending ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
+        <Button type="submit" variant="outline" loading={sending} className="shrink-0">
           {sent ? t("sendAgain") : t("send")}
         </Button>
       </div>

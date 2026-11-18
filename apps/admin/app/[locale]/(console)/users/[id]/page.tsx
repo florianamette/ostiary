@@ -1,4 +1,4 @@
-import { and, desc, eq, gt, or } from "drizzle-orm";
+import { and, desc, eq, gt, inArray, or, sql } from "drizzle-orm";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 
@@ -74,7 +74,13 @@ export default async function AdminUserPage({
     db
       .select()
       .from(authEvent)
-      .where(or(eq(authEvent.userId, id), eq(authEvent.identifier, u.email), u.username ? eq(authEvent.identifier, u.username) : undefined))
+      .where(
+        or(
+          eq(authEvent.userId, id),
+          // Failed sign-ins carry what was typed; lower() matches any case and uses its index.
+          inArray(sql`lower(${authEvent.identifier})`, [u.email, u.username].filter((v): v is string => Boolean(v)).map((v) => v.toLowerCase())),
+        ),
+      )
       .orderBy(desc(authEvent.createdAt))
       .limit(15),
     db.select().from(auditLog).where(and(eq(auditLog.targetType, "user"), eq(auditLog.targetId, id))).orderBy(desc(auditLog.createdAt)).limit(15),

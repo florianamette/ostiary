@@ -1,11 +1,12 @@
 "use client";
 
+import * as React from "react";
 import { Copy, Download, ExternalLink } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
-import { renderSVG } from "uqr";
 
 import { Button } from "@ostiary/core/components/ui/button";
+import { Skeleton } from "@ostiary/core/components/ui/skeleton";
 import { brand } from "@ostiary/core/lib/brand";
 
 /** The base32 secret of an otpauth:// URI. Throws if the URI does not parse. */
@@ -22,8 +23,23 @@ function manualKey(totpURI: string): string {
   }
 }
 
-function qrDataUrl(text: string): string {
-  return `data:image/svg+xml;utf8,${encodeURIComponent(renderSVG(text, { border: 2 }))}`;
+/**
+ * The QR code of `text` as an image URL, or null while the encoder loads: it is only needed
+ * once someone sets up an authenticator, so it stays out of the dashboard's first bundle.
+ */
+function useQrDataUrl(text: string): string | null {
+  const [url, setUrl] = React.useState<{ text: string; url: string } | null>(null);
+  React.useEffect(() => {
+    let cancelled = false;
+    void import("uqr").then(({ renderSVG }) => {
+      if (cancelled) return;
+      setUrl({ text, url: `data:image/svg+xml;utf8,${encodeURIComponent(renderSVG(text, { border: 2 }))}` });
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [text]);
+  return url?.text === text ? url.url : null;
 }
 
 export function BackupCodes({ codes }: { codes: string[] }) {
@@ -72,6 +88,7 @@ export function BackupCodes({ codes }: { codes: string[] }) {
 /** The new authenticator secret: QR code, key to type by hand, and a link for this device. */
 export function AuthenticatorSetup({ totpURI }: { totpURI: string }) {
   const t = useTranslations("dashboard.twoFactor");
+  const qr = useQrDataUrl(totpURI);
 
   async function copyKey() {
     try {
@@ -85,14 +102,18 @@ export function AuthenticatorSetup({ totpURI }: { totpURI: string }) {
   return (
     <div className="flex flex-col items-center gap-3 py-4">
       {/* White ground in both themes: scanners need dark modules on light. */}
-      {/* eslint-disable-next-line @next/next/no-img-element -- generated data URL */}
-      <img
-        src={qrDataUrl(totpURI)}
-        alt={t("qrAlt")}
-        width={176}
-        height={176}
-        className="size-44 rounded-md bg-white p-1"
-      />
+      {qr ? (
+        // eslint-disable-next-line @next/next/no-img-element -- generated data URL
+        <img
+          src={qr}
+          alt={t("qrAlt")}
+          width={176}
+          height={176}
+          className="size-44 rounded-md bg-white p-1"
+        />
+      ) : (
+        <Skeleton className="size-44 rounded-md" aria-busy="true" />
+      )}
       <div className="w-full space-y-1 text-center">
         <p className="text-xs text-muted-foreground">{t("manualKey")}</p>
         <p className="break-all font-mono text-sm select-all">{manualKey(totpURI)}</p>

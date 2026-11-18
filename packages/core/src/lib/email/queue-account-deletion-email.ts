@@ -37,8 +37,9 @@ export function accountDeletionEmail(
  * a link to a page where the signed-in person confirms once more. Opening the link alone
  * deletes nothing, so a mail scanner that follows links cannot delete an account.
  */
-export async function queueAccountDeletionEmail(input: { to: string; url: string; locale: AppLocale }): Promise<void> {
-  const messages = (await import(`../../../messages/${input.locale}.json`)).default as Messages;
-  const { subject, content } = accountDeletionEmail(input.locale, messages, { url: input.url, email: input.to });
-  queueEmail("delete-account", input.to, subject, content);
+export function queueAccountDeletionEmail(input: { to: string; url: string; locale: AppLocale }): void {
+  queueEmail("delete-account", input.to, async () => {
+    const messages = (await import(`../../../messages/${input.locale}.json`)).default as Messages;
+    return accountDeletionEmail(input.locale, messages, { url: input.url, email: input.to });
+  });
 }

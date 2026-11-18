@@ -1,4 +1,4 @@
-import { oauthProviderOpenIdConfigMetadata } from "@better-auth/oauth-provider";
-import { auth } from "@/lib/auth";
+import { discoveryPreflight, openIdConfiguration } from "@/lib/discovery-response";
 
-export const GET = oauthProviderOpenIdConfigMetadata(auth);
+export const GET = openIdConfiguration;
+export const OPTIONS = discoveryPreflight;

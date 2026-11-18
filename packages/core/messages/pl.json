@@ -286,10 +286,6 @@
           "empty": "Brak użytkowników."
         },
         "stats": {
-          "error": "Nie udało się wczytać co najmniej jednego wskaźnika. Upewnij się, że jesteś zalogowany jako administrator.",
-          "errorTitle": "Wskaźniki niedostępne",
-          "loadingTitle": "Wczytywanie",
-          "loadingHint": "Wczytywanie…",
           "totalUsers": {
             "title": "Wszyscy użytkownicy",
             "hint": "Wszystkie konta na platformie."
@@ -1393,8 +1389,6 @@
           "roleAll": "Wszystkie role",
           "roleAdmin": "Administrator",
           "roleUser": "Użytkownik",
-          "loadErrorTitle": "Nie udało się wczytać użytkowników",
-          "loadErrorFallback": "Nie udało się wczytać użytkowników",
           "columns": {
             "user": "Użytkownik",
             "role": "Rola",
@@ -1402,7 +1396,6 @@
             "verified": "Zweryfikowany",
             "joined": "Dołączył"
           },
-          "loading": "Wczytywanie użytkowników…",
           "empty": "Żaden użytkownik nie pasuje do filtrów.",
           "noUsers": "0 użytkowników",
           "showing": "Wyświetlono {from}-{to} z {total}",
@@ -1467,8 +1460,7 @@
           "updatePassword": "Zaktualizuj hasło",
           "removeTitle": "Usunąć użytkownika?",
           "removeDescription": "Spowoduje to trwałe usunięcie <strong>{name}</strong> ({email}) i wszystkiego, co jest powiązane z kontem. Wpisy dziennika audytu zostaną zachowane bez nazwy i adresu e-mail. Tej operacji nie można cofnąć.",
-          "removeConfirm": "Usuń",
-          "removing": "Usuwanie…"
+          "removeConfirm": "Usuń"
         },
         "detailActions": {
           "impersonateError": "Nie udało się zalogować jako ten użytkownik.",
@@ -1559,10 +1551,6 @@
         "title": "Zgody",
         "description": "Uprawnienia przyznane przez użytkowników klientom OAuth, wraz ze scope'ami i datą udzielenia.",
         "panel": {
-          "signedInUser": "Zalogowany użytkownik",
-          "loadConsentsFailed": "Nie udało się wczytać zgód",
-          "loadClientsFailed": "Nie udało się wczytać klientów OAuth",
-          "loadErrorTitle": "Nie udało się wczytać zgód",
           "searchPlaceholder": "Szukaj po użytkowniku, kliencie, ID zgody, referencji lub scope'ie…",
           "searchLabel": "Szukaj zgód",
           "filter": {
@@ -1578,16 +1566,14 @@
             "granted": "Udzielono",
             "updated": "Zaktualizowano"
           },
-          "loading": "Wczytywanie zgód…",
-          "emptyNone": "Brak zarejestrowanych zgód dla tego konta.",
+          "emptyNone": "Nikt jeszcze nie udzielił zgody żadnej aplikacji.",
           "emptyFiltered": "Żadna zgoda nie pasuje do filtrów.",
           "noResults": "0 zgód",
           "showing": "Wyświetlono {from}-{to} z {total}",
           "rowsPerPage": "Wierszy na stronę",
           "previous": "Poprzednia",
           "next": "Następna",
-          "pageOf": "Strona {page} / {total}",
-          "footnote": "Dane z <code>{getConsents}</code>; nazwy klientów ustalane przez <code>{getClients}</code>. Unieważnianie używa <code>{deleteConsent}</code>. Zobacz <consentLink>OAuth consent</consentLink> w dokumentacji <providerLink>OAuth provider</providerLink>. Interaktywny interfejs autoryzacji znajduje się pod <code>{path}</code>."
+          "pageOf": "Strona {page} / {total}"
         },
         "rowActions": {
           "menuLabel": "Działania dla zgody {id}…",
@@ -1595,16 +1581,13 @@
           "consentIdCopied": "Skopiowano ID zgody",
           "copyClientId": "Kopiuj ID klienta",
           "clientIdCopied": "Skopiowano ID klienta",
-          "viewDetails": "Pokaż szczegóły",
-          "updateScopes": "Zaktualizuj scope'y",
-          "wireTo": "Podłącz do {method}",
           "revoke": "Unieważnij zgodę",
           "revokeFailed": "Nie udało się unieważnić zgody",
           "revoked": "Zgoda unieważniona",
           "dialogTitle": "Unieważnić zgodę?",
-          "dialogDescription": "Usuwa uprawnienie tego użytkownika dla <strong>{client}</strong> (<code>{clientId}</code>). Klient może musieć ponownie poprosić o autoryzację.",
-          "revoking": "Unieważnianie…",
-          "revokeButton": "Unieważnij"
+          "dialogDescription": "Usuwa zgodę <strong>{user}</strong> dla <strong>{client}</strong> (<code>{clientId}</code>) i unieważnia tokeny, które aplikacja ma dla tej osoby. Aby dostać nowe, aplikacja musi poprosić ponownie.",
+          "revokeButton": "Unieważnij",
+          "notFound": "Ta zgoda już nie istnieje."
         }
       },
       "usage": {
@@ -1633,7 +1616,7 @@
       "audit": {
         "title": "Dziennik audytu",
         "description": "Każda zmiana wprowadzona w tej konsoli lub przez API administracyjne: kto, w czym i kiedy.",
-        "footnote": "Wyświetlanych jest 200 najnowszych wpisów. Hasła i sekrety nigdy nie są zapisywane.",
+        "footnote": "Hasła i sekrety nigdy nie są zapisywane.",
         "filterLabel": "Filtruj według obszaru",
         "filters": {
           "all": "Wszystko",
@@ -1753,7 +1736,12 @@
             "test": "Wysłano testowe zdarzenie webhooka",
             "redeliver": "Ponownie dostarczono zdarzenie webhooka"
           }
-        }
+        },
+        "actorPlaceholder": "Szukaj po wykonawcy (e-mail)…",
+        "actorLabel": "Szukaj po wykonawcy",
+        "pagesLabel": "Strony dziennika audytu",
+        "newest": "Najnowsze wpisy",
+        "older": "Starsze wpisy"
       },
       "security": {
         "title": "Bezpieczeństwo",
@@ -1850,8 +1838,14 @@
         }
       },
       "organizations": {
+        "title": "Organizacje",
+        "description": "Wszystkie organizacje na platformie wraz z członkami. Otwórz jedną, aby zarządzać członkami, SSO i SCIM.",
+        "list": {
+          "searchPlaceholder": "Szukaj po nazwie lub slugu…",
+          "searchLabel": "Szukaj organizacji",
+          "noMatch": "Żadna organizacja nie pasuje do wyszukiwania."
+        },
         "controls": {
-          "unexpectedError": "Coś poszło nie tak.",
           "organizationUpdated": "Organizacja zaktualizowana",
           "slug": "Slug",
           "role": "Rola",
@@ -1903,7 +1897,7 @@
           "defaultWorkspace": "Domyślna przestrzeń robocza",
           "createdAt": "Utworzono {date}",
           "members": "Członkowie",
-          "publicMembers": "Każde konto należy do przestrzeni roboczej Public, więc nie można tu usuwać członków. Wyświetlono pierwszych 50.",
+          "publicMembers": "Każde konto należy do przestrzeni roboczej Public, więc nie można tu usuwać członków.",
           "memberCount": "{count, plural, one {# członek} few {# członków} many {# członków} other {# członka}}.",
           "noMembers": "Brak członków.",
           "member": "Członek",
@@ -1941,7 +1935,10 @@
           "invitationNotFound": "Nie znaleziono zaproszenia.",
           "requestFailed": "Żądanie nie powiodło się.",
           "scimUnavailable": "Ta organizacja nie może korzystać z provisioningu SCIM.",
-          "noActiveToken": "Brak aktywnego tokenu."
+          "noActiveToken": "Brak aktywnego tokenu.",
+          "lastOwner": "Organizacja musi mieć co najmniej jednego właściciela. Najpierw nadaj tę rolę innemu członkowi.",
+          "publicDelete": "Obszaru roboczego Public nie można usunąć.",
+          "organizationNotFound": "Nie znaleziono organizacji."
         }
       }
     },
@@ -1977,7 +1974,15 @@
       "refresh": "Odśwież",
       "search": "Szukaj",
       "optional": "Opcjonalnie",
-      "unexpectedError": "Coś poszło nie tak. Spróbuj ponownie."
+      "unexpectedError": "Coś poszło nie tak. Spróbuj ponownie.",
+      "invalidInput": "Niektóre z wysłanych wartości są nieprawidłowe. Odśwież stronę i spróbuj ponownie.",
+      "pagination": {
+        "rowsPerPage": "Wierszy na stronę",
+        "previous": "Poprzednia",
+        "next": "Następna",
+        "pageOf": "Strona {page} / {pages}",
+        "showing": "Wyświetlono {from}-{to} z {total}"
+      }
     },
     "urlCheck": {
       "tooLong": "URL jest za długi.",
@@ -2587,7 +2592,8 @@
       "txtRecordNotFound": "Nie znaleziono jeszcze rekordu TXT. Zmiany DNS mogą pojawić się dopiero po kilku minutach.",
       "envNotSet": "{name} nie jest ustawiona.",
       "invalidProviderId": "ID dostawcy musi mieć od 2 do 63 znaków: małe litery, cyfry, - lub _.",
-      "unreadableSamlConfig": "Zapisana konfiguracja SAML jest nieczytelna; usuń dostawcę i zarejestruj go ponownie."
+      "unreadableSamlConfig": "Zapisana konfiguracja SAML jest nieczytelna; usuń dostawcę i zarejestruj go ponownie.",
+      "domainTaken": "Inny dostawca SSO używa już tej domeny."
     }
   },
   "selectAccount": {
@@ -2669,5 +2675,23 @@
       "note": "Link wygaśnie za {minutes} minut i działa tylko raz.",
       "footnote": "Jeśli to nie Ty, zignoruj tę wiadomość: Twoje konto pozostanie bez zmian. Rozważ zmianę hasła, ponieważ prośba została wysłana z zalogowanej sesji."
     }
+  },
+  "authErrors": {
+    "banned": "To konto zostało zawieszone. Skontaktuj się z pomocą techniczną, jeśli uważasz, że to pomyłka.",
+    "deactivated": "Twoja organizacja dezaktywowała to konto.",
+    "invalidCredentials": "Nieprawidłowy e-mail, nazwa użytkownika lub hasło.",
+    "userExists": "Konto z tym adresem e-mail już istnieje.",
+    "usernameTaken": "Ta nazwa użytkownika jest już zajęta.",
+    "usernameInvalid": "Tej nazwy użytkownika nie można użyć. Spróbuj innej.",
+    "passwordTooShort": "To hasło jest za krótkie.",
+    "passwordTooLong": "To hasło jest za długie.",
+    "passwordCompromised": "To hasło pojawiło się w wycieku danych. Wybierz inne.",
+    "invalidPassword": "Nieprawidłowe hasło.",
+    "recentSignIn": "Zaloguj się ponownie, aby to zrobić.",
+    "sessionExpired": "Twoja sesja wygasła. Zaloguj się ponownie.",
+    "impersonating": "Nie można tego zrobić, gdy administrator przegląda konto.",
+    "emailNotVerified": "Najpierw zweryfikuj swój adres e-mail.",
+    "invalidToken": "Ten link jest nieprawidłowy lub wygasł.",
+    "publicOrganization": "Członkami organizacji Public zarządzają wyłącznie administratorzy platformy."
   }
 }

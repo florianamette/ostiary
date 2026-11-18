@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { KeyRoundIcon, Loader2 } from "lucide-react";
+import { KeyRoundIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 
@@ -22,8 +22,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@ostiary/core/components/ui/select";
+import { Skeleton } from "@ostiary/core/components/ui/skeleton";
+import { useAsyncResource } from "@ostiary/core/hooks/use-async-resource";
+import { useDashboardSession } from "@/components/dashboard/dashboard-session";
 import { ApiKeysManager, type ApiKeysSource } from "@/components/dashboard/dashboard-api-keys-section";
 import { authClient } from "@/lib/auth-client";
+import { useAuthAction } from "@/lib/use-auth-action";
 import {
   createOrganizationApiKey,
   getOrganizationApiKeys,
@@ -42,22 +46,26 @@ function rolesAllowInvite(role: string | undefined): boolean {
   });
 }
 
+async function listOrganizations(): Promise<OrgRow[]> {
+  const res = await authClient.organization.list();
+  if (res.error) throw res.error;
+  // Every account is in the default Public workspace; only real organizations are listed.
+  return (Array.isArray(res.data) ? res.data : [])
+    .filter((o) => o.id !== PUBLIC_ORGANIZATION_ID)
+    .map((o) => ({ id: o.id, name: o.name, slug: o.slug }));
+}
+
 export function DashboardOrganizationsSection() {
   const t = useTranslations("dashboard.organizations");
-  const { data: sessionData, refetch: refetchSession } = authClient.useSession();
-  const activeOrganizationId =
-    (
-      sessionData?.session as { activeOrganizationId?: string | null }
-    )?.activeOrganizationId ?? null;
-
-  const [orgs, setOrgs] = React.useState<OrgRow[]>([]);
-  const [loading, setLoading] = React.useState(true);
-  const [settingId, setSettingId] = React.useState<string | null>(null);
+  const { data: current, refetch: refetchSession } = useDashboardSession();
+  const activeOrganizationId = current.session.activeOrganizationId;
+  const orgsResource = useAsyncResource(listOrganizations);
+  const orgs = React.useMemo(() => orgsResource.data ?? [], [orgsResource.data]);
+  const { pending, run } = useAuthAction<string>();
   const [inviteEmail, setInviteEmail] = React.useState("");
   const [inviteRole, setInviteRole] = React.useState<"member" | "admin">(
     "member",
   );
-  const [inviting, setInviting] = React.useState(false);
   const [memberRole, setMemberRole] = React.useState<string | undefined>();
   // Organizations whose API keys the user manages (owner or admin), and the one shown.
   const [keyOrgIds, setKeyOrgIds] = React.useState<Set<string>>(new Set());
@@ -69,30 +77,9 @@ export function DashboardOrganizationsSection() {
       .catch(() => setKeyOrgIds(new Set()));
   }, [orgs]);
 
-  const loadOrgs = React.useCallback(async () => {
-    setLoading(true);
-    try {
-      const res = await authClient.organization.list();
-      if (res.error) {
-        toast.error(String(res.error.message ?? t("loadError")));
-        setOrgs([]);
-        return;
-      }
-      const list = Array.isArray(res.data) ? res.data : [];
-      setOrgs(
-        // Every account is in the default Public workspace; only real organizations are listed.
-        list
-          .filter((o) => o.id !== PUBLIC_ORGANIZATION_ID)
-          .map((o) => ({ id: o.id, name: o.name, slug: o.slug })),
-      );
-    } finally {
-      setLoading(false);
-    }
-  }, [t]);
-
   React.useEffect(() => {
-    void loadOrgs();
-  }, [loadOrgs]);
+    if (orgsResource.error) toast.error(t("loadError"));
+  }, [orgsResource.error, t]);
 
   React.useEffect(() => {
     void (async () => {
@@ -100,8 +87,8 @@ export function DashboardOrganizationsSection() {
         setMemberRole(undefined);
         return;
       }
-      const res = await authClient.organization.getActiveMemberRole();
-      if (res.error || !res.data) {
+      const res = await authClient.organization.getActiveMemberRole().catch(() => null);
+      if (!res || res.error || !res.data) {
         setMemberRole(undefined);
         return;
       }
@@ -116,22 +103,16 @@ export function DashboardOrganizationsSection() {
     })();
   }, [activeOrganizationId, orgs]);
 
-  async function handleSetActive(organizationId: string) {
-    setSettingId(organizationId);
-    try {
-      const { error } = await authClient.organization.setActive({
-        organizationId,
-      });
-      if (error) {
-        toast.error(String(error.message ?? t("setActiveError")));
-        return;
-      }
-      toast.success(t("setActiveSuccess"));
-      await refetchSession();
-      void loadOrgs();
-    } finally {
-      setSettingId(null);
-    }
+  function handleSetActive(organizationId: string) {
+    return run(`active:${organizationId}`, {
+      call: () => authClient.organization.setActive({ organizationId }),
+      success: t("setActiveSuccess"),
+      error: t("setActiveError"),
+      onSuccess: async () => {
+        await refetchSession();
+        await orgsResource.reload();
+      },
+    });
   }
 
   async function handleInvite(e: React.FormEvent) {
@@ -141,24 +122,20 @@ export function DashboardOrganizationsSection() {
       toast.error(t("inviteValidation"));
       return;
     }
-    setInviting(true);
-    try {
-      const { error } = await authClient.organization.inviteMember({
-        email,
-        role: inviteRole,
-        organizationId: activeOrganizationId,
-      });
-      if (error) {
-        toast.error(String(error.message ?? t("inviteError")));
-        return;
-      }
-      toast.success(t("inviteSuccess"));
-      setInviteEmail("");
-    } finally {
-      setInviting(false);
-    }
+    await run("invite", {
+      call: () =>
+        authClient.organization.inviteMember({
+          email,
+          role: inviteRole,
+          organizationId: activeOrganizationId,
+        }),
+      success: t("inviteSuccess"),
+      error: t("inviteError"),
+      onSuccess: () => setInviteEmail(""),
+    });
   }
 
+  const inviting = pending === "invite";
   const canInvite =
     rolesAllowInvite(memberRole) &&
     activeOrganizationId &&
@@ -176,9 +153,9 @@ export function DashboardOrganizationsSection() {
       <CardContent className="space-y-8">
         <div className="space-y-3">
           <h3 className="text-sm font-medium">{t("yourOrganizations")}</h3>
-          {loading ? (
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Loader2 className="size-4 animate-spin" aria-hidden />
+          {orgsResource.loading ? (
+            <div className="space-y-2" aria-busy="true">
+              <Skeleton className="h-14 w-full" />
             </div>
           ) : orgs.length === 0 ? (
             <p className="text-sm text-muted-foreground">{t("empty")}</p>
@@ -217,12 +194,9 @@ export function DashboardOrganizationsSection() {
                           type="button"
                           variant="outline"
                           size="sm"
-                          disabled={settingId === o.id}
+                          loading={pending === `active:${o.id}`}
                           onClick={() => void handleSetActive(o.id)}
                         >
-                          {settingId === o.id ? (
-                            <Loader2 className="size-4 animate-spin" aria-hidden />
-                          ) : null}
                           {t("switchTo")}
                         </Button>
                       )}
@@ -248,6 +222,7 @@ export function DashboardOrganizationsSection() {
               <Input
                 id="invite-email"
                 type="email"
+                autoComplete="off"
                 value={inviteEmail}
                 onChange={(e) => setInviteEmail(e.target.value)}
                 disabled={inviting}
@@ -271,10 +246,7 @@ export function DashboardOrganizationsSection() {
                 </SelectContent>
               </Select>
             </Field>
-            <Button type="submit" variant="secondary" disabled={inviting}>
-              {inviting ? (
-                <Loader2 className="size-4 animate-spin" aria-hidden />
-              ) : null}
+            <Button type="submit" variant="secondary" loading={inviting}>
               {inviting ? t("inviting") : t("inviteSend")}
             </Button>
           </form>

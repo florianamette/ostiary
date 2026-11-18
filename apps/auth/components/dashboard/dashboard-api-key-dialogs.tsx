@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { CopyIcon, KeyRoundIcon, Loader2 } from "lucide-react";
+import { CopyIcon, KeyRoundIcon } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
 
@@ -181,8 +181,7 @@ export function CreateApiKeyDialog({
             <Button type="button" variant="outline" disabled={busy} onClick={onClose}>
               {t("cancel")}
             </Button>
-            <Button type="submit" disabled={busy || !selected}>
-              {busy ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
+            <Button type="submit" loading={busy} disabled={!selected}>
               {t("createSubmit")}
             </Button>
           </DialogFooter>

@@ -18,6 +18,7 @@ import { AuthFormFallback } from "@/components/auth/auth-form-fallback";
 import { useRouter } from "@/i18n/navigation";
 import { authClient } from "@/lib/auth-client";
 import { useDeviceAccounts } from "@/lib/device-sessions";
+import { useAuthErrorMessage } from "@/lib/auth-error-message";
 
 /**
  * `prompt=select_account` (e.g. a native app signing in through the system browser): before an
@@ -29,6 +30,7 @@ export function SelectAccountForm() {
   const t = useTranslations("selectAccount");
   const locale = useLocale();
   const router = useRouter();
+  const errorMessage = useAuthErrorMessage();
   const searchParams = useSearchParams();
   const { data: session, isPending } = authClient.useSession();
   const accounts = useDeviceAccounts(session?.user.id);
@@ -51,14 +53,19 @@ export function SelectAccountForm() {
   async function choose(account: DeviceAccount) {
     setBusy(account.userId);
     setError(null);
-    // The client plugins follow the returned redirect to the app (or the consent page).
-    const { error } =
-      account.userId === user?.id
-        ? await authClient.$fetch("/oauth2/continue", { method: "POST", body: { selected: true } })
-        : // Making another account active continues the request with it (the provider's hook).
-          await authClient.multiSession.setActive({ sessionToken: account.token });
-    if (error) {
-      setError(error.message ?? t("error"));
+    try {
+      // The client plugins follow the returned redirect to the app (or the consent page).
+      const { error } =
+        account.userId === user?.id
+          ? await authClient.$fetch("/oauth2/continue", { method: "POST", body: { selected: true } })
+          : // Making another account active continues the request with it (the provider's hook).
+            await authClient.multiSession.setActive({ sessionToken: account.token });
+      if (error) {
+        setError(errorMessage(error, t("error")));
+        setBusy(null);
+      }
+    } catch {
+      setError(t("error"));
       setBusy(null);
     }
   }
@@ -109,7 +116,7 @@ export function SelectAccountForm() {
             {t("useAnother")}
           </a>
         </Button>
-        {error && <p className="text-sm text-destructive">{error}</p>}
+        {error && <p className="text-sm text-destructive" role="alert">{error}</p>}
       </CardContent>
     </Card>
   );

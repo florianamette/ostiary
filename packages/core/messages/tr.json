@@ -286,10 +286,6 @@
           "empty": "Henüz kullanıcı yok."
         },
         "stats": {
-          "error": "Bir veya daha fazla metrik yüklenemedi. Yönetici olarak giriş yaptığınızdan emin olun.",
-          "errorTitle": "Metrikler kullanılamıyor",
-          "loadingTitle": "Yükleniyor",
-          "loadingHint": "Yükleniyor…",
           "totalUsers": {
             "title": "Toplam kullanıcı",
             "hint": "Platformdaki tüm hesaplar."
@@ -1393,8 +1389,6 @@
           "roleAll": "Tüm roller",
           "roleAdmin": "Yönetici",
           "roleUser": "Kullanıcı",
-          "loadErrorTitle": "Kullanıcılar yüklenemedi",
-          "loadErrorFallback": "Kullanıcılar yüklenemedi",
           "columns": {
             "user": "Kullanıcı",
             "role": "Rol",
@@ -1402,7 +1396,6 @@
             "verified": "Doğrulandı",
             "joined": "Katılma"
           },
-          "loading": "Kullanıcılar yükleniyor…",
           "empty": "Filtrelerinizle eşleşen kullanıcı yok.",
           "noUsers": "0 kullanıcı",
           "showing": "{total} kayıttan {from}-{to} arası gösteriliyor",
@@ -1467,8 +1460,7 @@
           "updatePassword": "Parolayı güncelle",
           "removeTitle": "Kullanıcı kaldırılsın mı?",
           "removeDescription": "Bu işlem <strong>{name}</strong> ({email}) hesabını ve ona bağlı her şeyi kalıcı olarak siler. Denetim günlüğü kayıtları ad veya e-posta olmadan saklanır. Bu işlem geri alınamaz.",
-          "removeConfirm": "Kaldır",
-          "removing": "Kaldırılıyor…"
+          "removeConfirm": "Kaldır"
         },
         "detailActions": {
           "impersonateError": "Bu kullanıcının kimliğine bürünülemedi.",
@@ -1559,10 +1551,6 @@
         "title": "Onaylar",
         "description": "Kullanıcıların OAuth istemcilerine verdiği izinler, scope'ları ve ne zaman verildikleriyle birlikte.",
         "panel": {
-          "signedInUser": "Giriş yapmış kullanıcı",
-          "loadConsentsFailed": "Onaylar yüklenemedi",
-          "loadClientsFailed": "OAuth istemcileri yüklenemedi",
-          "loadErrorTitle": "Onaylar yüklenemedi",
           "searchPlaceholder": "Kullanıcı, istemci, onay kimliği, referans veya scope ile arayın…",
           "searchLabel": "Onaylarda ara",
           "filter": {
@@ -1578,16 +1566,14 @@
             "granted": "Verilme",
             "updated": "Güncellenme"
           },
-          "loading": "Onaylar yükleniyor…",
-          "emptyNone": "Bu hesap için henüz kaydedilmiş onay yok.",
+          "emptyNone": "Henüz kimse bir uygulamaya onay vermedi.",
           "emptyFiltered": "Filtrelerinizle eşleşen onay yok.",
           "noResults": "0 onay",
           "showing": "{total} kayıttan {from}-{to} arası gösteriliyor",
           "rowsPerPage": "Sayfa başına satır",
           "previous": "Önceki",
           "next": "Sonraki",
-          "pageOf": "Sayfa {page} / {total}",
-          "footnote": "Veriler <code>{getConsents}</code> kaynağından gelir; istemci adları <code>{getClients}</code> ile çözümlenir. İptal işlemi <code>{deleteConsent}</code> kullanır. <providerLink>OAuth provider</providerLink> belgelerindeki <consentLink>OAuth consent</consentLink> bölümüne bakın. Etkileşimli yetkilendirme arayüzü <code>{path}</code> adresindedir."
+          "pageOf": "Sayfa {page} / {total}"
         },
         "rowActions": {
           "menuLabel": "{id}… onayı için işlemler",
@@ -1595,16 +1581,13 @@
           "consentIdCopied": "Onay kimliği kopyalandı",
           "copyClientId": "İstemci kimliğini kopyala",
           "clientIdCopied": "İstemci kimliği kopyalandı",
-          "viewDetails": "Ayrıntıları görüntüle",
-          "updateScopes": "Scope'ları güncelle",
-          "wireTo": "{method} yöntemine bağla",
           "revoke": "Onayı iptal et",
           "revokeFailed": "Onay iptal edilemedi",
           "revoked": "Onay iptal edildi",
           "dialogTitle": "Onay iptal edilsin mi?",
-          "dialogDescription": "Bu kullanıcının <strong>{client}</strong> (<code>{clientId}</code>) için verdiği izni kaldırır. İstemcinin yeniden yetkilendirme istemesi gerekebilir.",
-          "revoking": "İptal ediliyor…",
-          "revokeButton": "İptal et"
+          "dialogDescription": "<strong>{user}</strong> kullanıcısının <strong>{client}</strong> (<code>{clientId}</code>) için verdiği onayı kaldırır ve uygulamanın bu kişi için tuttuğu belirteçleri iptal eder. Uygulama yenilerini almak için tekrar sormalıdır.",
+          "revokeButton": "İptal et",
+          "notFound": "Bu onay artık mevcut değil."
         }
       },
       "usage": {
@@ -1633,7 +1616,7 @@
       "audit": {
         "title": "Denetim günlüğü",
         "description": "Bu konsoldan veya yönetim API'sinden yapılan her değişiklik: kimin yaptığı, neyi değiştirdiği ve ne zaman.",
-        "footnote": "Son 200 kayıt gösteriliyor. Parolalar ve gizli anahtarlar asla kaydedilmez.",
+        "footnote": "Parolalar ve gizli anahtarlar asla kaydedilmez.",
         "filterLabel": "Alana göre filtrele",
         "filters": {
           "all": "Tümü",
@@ -1753,7 +1736,12 @@
             "test": "Webhook test olayı gönderdi",
             "redeliver": "Webhook olayını yeniden teslim etti"
           }
-        }
+        },
+        "actorPlaceholder": "İşlemi yapana göre ara (e-posta)…",
+        "actorLabel": "İşlemi yapana göre ara",
+        "pagesLabel": "Denetim günlüğü sayfaları",
+        "newest": "En yeni kayıtlar",
+        "older": "Daha eski kayıtlar"
       },
       "security": {
         "title": "Güvenlik",
@@ -1850,8 +1838,14 @@
         }
       },
       "organizations": {
+        "title": "Kuruluşlar",
+        "description": "Platformdaki tüm kuruluşlar ve üyeleri. Üyeleri, SSO'yu ve SCIM'i yönetmek için birini açın.",
+        "list": {
+          "searchPlaceholder": "Ada veya slug'a göre ara…",
+          "searchLabel": "Kuruluşlarda ara",
+          "noMatch": "Aramanızla eşleşen kuruluş yok."
+        },
         "controls": {
-          "unexpectedError": "Bir şeyler ters gitti.",
           "organizationUpdated": "Kuruluş güncellendi",
           "slug": "Slug",
           "role": "Rol",
@@ -1903,7 +1897,7 @@
           "defaultWorkspace": "Varsayılan çalışma alanı",
           "createdAt": "Oluşturulma: {date}",
           "members": "Üyeler",
-          "publicMembers": "Her hesap Public çalışma alanına ait olduğundan üyeler burada çıkarılamaz. İlk 50 gösteriliyor.",
+          "publicMembers": "Her hesap Public çalışma alanına ait olduğundan üyeler burada çıkarılamaz.",
           "memberCount": "{count, plural, one {# üye} other {# üye}}.",
           "noMembers": "Henüz üye yok.",
           "member": "Üye",
@@ -1941,7 +1935,10 @@
           "invitationNotFound": "Davet bulunamadı.",
           "requestFailed": "İstek başarısız oldu.",
           "scimUnavailable": "Bu kuruluş SCIM ile hesap sağlamayı kullanamaz.",
-          "noActiveToken": "Etkin token yok."
+          "noActiveToken": "Etkin token yok.",
+          "lastOwner": "Bir kuruluşun en az bir sahibi olmalıdır. Önce başka bir üyeyi sahip yapın.",
+          "publicDelete": "Public çalışma alanı silinemez.",
+          "organizationNotFound": "Kuruluş bulunamadı."
         }
       }
     },
@@ -1977,7 +1974,15 @@
       "refresh": "Yenile",
       "search": "Ara",
       "optional": "İsteğe bağlı",
-      "unexpectedError": "Bir şeyler ters gitti. Tekrar deneyin."
+      "unexpectedError": "Bir şeyler ters gitti. Tekrar deneyin.",
+      "invalidInput": "Gönderilen değerlerin bazıları geçersiz. Sayfayı yeniden yükleyip tekrar deneyin.",
+      "pagination": {
+        "rowsPerPage": "Sayfa başına satır",
+        "previous": "Önceki",
+        "next": "Sonraki",
+        "pageOf": "Sayfa {page} / {pages}",
+        "showing": "{total} kayıttan {from}-{to} arası gösteriliyor"
+      }
     },
     "urlCheck": {
       "tooLong": "URL çok uzun.",
@@ -2587,7 +2592,8 @@
       "txtRecordNotFound": "TXT kaydı henüz bulunamadı. DNS değişikliklerinin görünmesi birkaç dakika sürebilir.",
       "envNotSet": "{name} ayarlanmamış.",
       "invalidProviderId": "Sağlayıcı kimliği 2 ile 63 arasında küçük harf, rakam, - veya _ karakterinden oluşmalıdır.",
-      "unreadableSamlConfig": "Saklanan SAML yapılandırması okunamıyor; sağlayıcıyı silip yeniden kaydedin."
+      "unreadableSamlConfig": "Saklanan SAML yapılandırması okunamıyor; sağlayıcıyı silip yeniden kaydedin.",
+      "domainTaken": "Bu alan adını başka bir SSO sağlayıcısı zaten kullanıyor."
     }
   },
   "selectAccount": {
@@ -2669,5 +2675,23 @@
       "note": "Bağlantının süresi {minutes} dakika içinde dolar ve yalnızca bir kez çalışır.",
       "footnote": "Bunu siz istemediyseniz bu e-postayı yok sayın: hesabınız olduğu gibi kalır. İstek, giriş yapılmış bir oturumdan geldiği için parolanızı değiştirmeyi düşünün."
     }
+  },
+  "authErrors": {
+    "banned": "Bu hesap askıya alındı. Bunun bir hata olduğunu düşünüyorsanız destekle iletişime geçin.",
+    "deactivated": "Kuruluşunuz bu hesabı devre dışı bıraktı.",
+    "invalidCredentials": "E-posta, kullanıcı adı veya parola yanlış.",
+    "userExists": "Bu e-posta adresiyle bir hesap zaten var.",
+    "usernameTaken": "Bu kullanıcı adı zaten alınmış.",
+    "usernameInvalid": "Bu kullanıcı adı kullanılamaz. Başka bir tane deneyin.",
+    "passwordTooShort": "Bu parola çok kısa.",
+    "passwordTooLong": "Bu parola çok uzun.",
+    "passwordCompromised": "Bu parola bir veri sızıntısında görüldü. Başka bir parola seçin.",
+    "invalidPassword": "Parola yanlış.",
+    "recentSignIn": "Bunu yapmak için yeniden oturum açın.",
+    "sessionExpired": "Oturumunuzun süresi doldu. Yeniden oturum açın.",
+    "impersonating": "Bir yönetici hesabı görüntülerken bu yapılamaz.",
+    "emailNotVerified": "Önce e-posta adresinizi doğrulayın.",
+    "invalidToken": "Bu bağlantı geçersiz veya süresi dolmuş.",
+    "publicOrganization": "Public kuruluşunun üyelerini yalnızca platform yöneticileri yönetir."
   }
 }

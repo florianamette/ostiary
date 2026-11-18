@@ -171,7 +171,7 @@ export function parseCreateOAuthClientBody(
 ): BodyParseResult<CreateOAuthClientAdminInput> {
   const parsed = createOAuthClientBodySchema(apiScopes).safeParse(raw);
   if (!parsed.success) {
-    const first = parsed.error.errors[0];
+    const first = parsed.error.issues[0];
     const msg = first
       ? `${first.path.join(".") || "body"}: ${first.message}`
       : "Invalid request body";
@@ -202,7 +202,7 @@ export function parseUpdateOAuthClientBody(
 ): BodyParseResult<UpdateOAuthClientAdminInput> {
   const parsed = updateOAuthClientBodyTransformSchema.safeParse(raw);
   if (!parsed.success) {
-    const first = parsed.error.errors[0];
+    const first = parsed.error.issues[0];
     const msg = first
       ? `${first.path.join(".") || "body"}: ${first.message}`
       : "Invalid request body";

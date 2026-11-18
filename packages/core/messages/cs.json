@@ -286,10 +286,6 @@
           "empty": "Zatím žádní uživatelé."
         },
         "stats": {
-          "error": "Některé metriky se nepodařilo načíst. Ověřte, že jste přihlášeni jako administrátor.",
-          "errorTitle": "Metriky nejsou k dispozici",
-          "loadingTitle": "Načítání",
-          "loadingHint": "Načítání…",
           "totalUsers": {
             "title": "Uživatelé celkem",
             "hint": "Všechny účty na platformě."
@@ -1393,8 +1389,6 @@
           "roleAll": "Všechny role",
           "roleAdmin": "Administrátor",
           "roleUser": "Uživatel",
-          "loadErrorTitle": "Uživatele se nepodařilo načíst",
-          "loadErrorFallback": "Načtení uživatelů selhalo",
           "columns": {
             "user": "Uživatel",
             "role": "Role",
@@ -1402,7 +1396,6 @@
             "verified": "Ověřeno",
             "joined": "Připojen"
           },
-          "loading": "Načítání uživatelů…",
           "empty": "Vašim filtrům neodpovídají žádní uživatelé.",
           "noUsers": "0 uživatelů",
           "showing": "Zobrazeno {from}–{to} z {total}",
@@ -1467,8 +1460,7 @@
           "updatePassword": "Aktualizovat heslo",
           "removeTitle": "Odstranit uživatele?",
           "removeDescription": "Tím se trvale smaže <strong>{name}</strong> ({email}) a vše, co je s účtem propojené. Záznamy v auditním protokolu zůstanou, ale bez jména a e-mailu. Tuto akci nelze vrátit zpět.",
-          "removeConfirm": "Odstranit",
-          "removing": "Odstraňování…"
+          "removeConfirm": "Odstranit"
         },
         "detailActions": {
           "impersonateError": "Za tohoto uživatele se nepodařilo přihlásit.",
@@ -1559,10 +1551,6 @@
         "title": "Souhlasy",
         "description": "Oprávnění, která lidé udělili klientům OAuth, včetně scopů a data udělení.",
         "panel": {
-          "signedInUser": "Přihlášený uživatel",
-          "loadConsentsFailed": "Načtení souhlasů selhalo",
-          "loadClientsFailed": "Načtení klientů OAuth selhalo",
-          "loadErrorTitle": "Souhlasy se nepodařilo načíst",
           "searchPlaceholder": "Hledat podle uživatele, klienta, ID souhlasu, reference nebo scopu…",
           "searchLabel": "Hledat souhlasy",
           "filter": {
@@ -1578,16 +1566,14 @@
             "granted": "Uděleno",
             "updated": "Aktualizováno"
           },
-          "loading": "Načítání souhlasů…",
-          "emptyNone": "Pro tento účet zatím nejsou zaznamenány žádné souhlasy.",
+          "emptyNone": "Zatím nikdo žádné aplikaci neudělil souhlas.",
           "emptyFiltered": "Vašim filtrům neodpovídají žádné souhlasy.",
           "noResults": "0 souhlasů",
           "showing": "Zobrazeno {from}–{to} z {total}",
           "rowsPerPage": "Řádků na stránku",
           "previous": "Předchozí",
           "next": "Další",
-          "pageOf": "Stránka {page} / {total}",
-          "footnote": "Data z <code>{getConsents}</code>; názvy klientů zjištěny přes <code>{getClients}</code>. Odvolání používá <code>{deleteConsent}</code>. Viz <consentLink>OAuth consent</consentLink> v dokumentaci <providerLink>OAuth provider</providerLink>. Interaktivní autorizační rozhraní je na <code>{path}</code>."
+          "pageOf": "Stránka {page} / {total}"
         },
         "rowActions": {
           "menuLabel": "Akce pro souhlas {id}…",
@@ -1595,16 +1581,13 @@
           "consentIdCopied": "ID souhlasu zkopírováno",
           "copyClientId": "Kopírovat ID klienta",
           "clientIdCopied": "ID klienta zkopírováno",
-          "viewDetails": "Zobrazit podrobnosti",
-          "updateScopes": "Aktualizovat scopy",
-          "wireTo": "Napojit na {method}",
           "revoke": "Odvolat souhlas",
           "revokeFailed": "Souhlas se nepodařilo odvolat",
           "revoked": "Souhlas odvolán",
           "dialogTitle": "Odvolat souhlas?",
-          "dialogDescription": "Odebere oprávnění tohoto uživatele pro <strong>{client}</strong> (<code>{clientId}</code>). Klient možná bude muset znovu požádat o autorizaci.",
-          "revoking": "Odvolávání…",
-          "revokeButton": "Odvolat"
+          "dialogDescription": "Odebere souhlas uživatele <strong>{user}</strong> pro <strong>{client}</strong> (<code>{clientId}</code>) a zneplatní tokeny, které pro něj aplikace má. Aby získala nové, musí aplikace požádat znovu.",
+          "revokeButton": "Odvolat",
+          "notFound": "Tento souhlas už neexistuje."
         }
       },
       "usage": {
@@ -1633,7 +1616,7 @@
       "audit": {
         "title": "Auditní protokol",
         "description": "Každá změna provedená z této konzole nebo přes administrační API: kdo ji provedl, čeho se týkala a kdy.",
-        "footnote": "Zobrazuje se posledních 200 záznamů. Hesla a tajné klíče se nikdy nezaznamenávají.",
+        "footnote": "Hesla a tajné klíče se nikdy nezaznamenávají.",
         "filterLabel": "Filtrovat podle oblasti",
         "filters": {
           "all": "Vše",
@@ -1753,7 +1736,12 @@
             "test": "Odeslání testovací události webhooku",
             "redeliver": "Opětovné doručení události webhooku"
           }
-        }
+        },
+        "actorPlaceholder": "Hledat podle toho, kdo akci provedl (e-mail)…",
+        "actorLabel": "Hledat podle autora",
+        "pagesLabel": "Stránky protokolu auditu",
+        "newest": "Nejnovější záznamy",
+        "older": "Starší záznamy"
       },
       "security": {
         "title": "Zabezpečení",
@@ -1850,8 +1838,14 @@
         }
       },
       "organizations": {
+        "title": "Organizace",
+        "description": "Všechny organizace na platformě s jejich členy. Otevřete jednu a spravujte členy, SSO a SCIM.",
+        "list": {
+          "searchPlaceholder": "Hledat podle názvu nebo slugu…",
+          "searchLabel": "Hledat organizace",
+          "noMatch": "Hledání neodpovídá žádná organizace."
+        },
         "controls": {
-          "unexpectedError": "Něco se pokazilo.",
           "organizationUpdated": "Organizace aktualizována",
           "slug": "Slug",
           "role": "Role",
@@ -1903,7 +1897,7 @@
           "defaultWorkspace": "Výchozí pracovní prostor",
           "createdAt": "Vytvořeno {date}",
           "members": "Členové",
-          "publicMembers": "Každý účet patří do pracovního prostoru Public, takže zde nelze členy odebírat. Zobrazuje se prvních 50.",
+          "publicMembers": "Každý účet patří do pracovního prostoru Public, takže zde nelze členy odebírat.",
           "memberCount": "{count, plural, one {# člen} few {# členové} many {# člena} other {# členů}}.",
           "noMembers": "Zatím žádní členové.",
           "member": "Člen",
@@ -1941,7 +1935,10 @@
           "invitationNotFound": "Pozvánka nebyla nalezena.",
           "requestFailed": "Požadavek selhal.",
           "scimUnavailable": "Tato organizace nemůže používat zřizování přes SCIM.",
-          "noActiveToken": "Neexistuje žádný aktivní token."
+          "noActiveToken": "Neexistuje žádný aktivní token.",
+          "lastOwner": "Organizace musí mít alespoň jednoho vlastníka. Nejprve udělejte vlastníkem jiného člena.",
+          "publicDelete": "Pracovní prostor Public nelze smazat.",
+          "organizationNotFound": "Organizace nebyla nalezena."
         }
       }
     },
@@ -1977,7 +1974,15 @@
       "refresh": "Obnovit",
       "search": "Hledat",
       "optional": "Volitelné",
-      "unexpectedError": "Něco se pokazilo. Zkuste to znovu."
+      "unexpectedError": "Něco se pokazilo. Zkuste to znovu.",
+      "invalidInput": "Některé z odeslaných hodnot nejsou platné. Načtěte stránku znovu a zkuste to znovu.",
+      "pagination": {
+        "rowsPerPage": "Řádků na stránku",
+        "previous": "Předchozí",
+        "next": "Další",
+        "pageOf": "Stránka {page} / {pages}",
+        "showing": "Zobrazeno {from}–{to} z {total}"
+      }
     },
     "urlCheck": {
       "tooLong": "URL je příliš dlouhá.",
@@ -2587,7 +2592,8 @@
       "txtRecordNotFound": "Záznam TXT zatím nebyl nalezen. Projevení změn v DNS může trvat několik minut.",
       "envNotSet": "{name} není nastaveno.",
       "invalidProviderId": "ID poskytovatele musí mít 2 až 63 znaků: malá písmena, číslice, - nebo _.",
-      "unreadableSamlConfig": "Uloženou konfiguraci SAML nelze přečíst; smažte poskytovatele a zaregistrujte ho znovu."
+      "unreadableSamlConfig": "Uloženou konfiguraci SAML nelze přečíst; smažte poskytovatele a zaregistrujte ho znovu.",
+      "domainTaken": "Tuto doménu už používá jiný poskytovatel SSO."
     }
   },
   "selectAccount": {
@@ -2669,5 +2675,23 @@
       "note": "Platnost odkazu vyprší za {minutes} minut a lze ho použít jen jednou.",
       "footnote": "Pokud jste o to nežádali, tento e-mail ignorujte: váš účet zůstane beze změny. Zvažte změnu hesla, protože žádost přišla z přihlášené relace."
     }
+  },
+  "authErrors": {
+    "banned": "Tento účet byl pozastaven. Pokud si myslíte, že jde o chybu, kontaktujte podporu.",
+    "deactivated": "Vaše organizace tento účet deaktivovala.",
+    "invalidCredentials": "Nesprávný e-mail, uživatelské jméno nebo heslo.",
+    "userExists": "Účet s touto e-mailovou adresou již existuje.",
+    "usernameTaken": "Toto uživatelské jméno je již obsazené.",
+    "usernameInvalid": "Toto uživatelské jméno nelze použít. Zkuste jiné.",
+    "passwordTooShort": "Toto heslo je příliš krátké.",
+    "passwordTooLong": "Toto heslo je příliš dlouhé.",
+    "passwordCompromised": "Toto heslo se objevilo v úniku dat. Zvolte jiné.",
+    "invalidPassword": "Nesprávné heslo.",
+    "recentSignIn": "Pro tuto akci se znovu přihlaste.",
+    "sessionExpired": "Vaše relace vypršela. Přihlaste se znovu.",
+    "impersonating": "Toto nelze provést, když si účet prohlíží administrátor.",
+    "emailNotVerified": "Nejprve ověřte svou e-mailovou adresu.",
+    "invalidToken": "Tento odkaz je neplatný nebo vypršel.",
+    "publicOrganization": "Členy organizace Public spravují pouze správci platformy."
   }
 }

@@ -32,6 +32,11 @@ function fakeFactory(tables: Record<string, Row[]>) {
       delete: async ({ model, where }: { model: string; where: Where }) => {
         tables[model] = table(model).filter((r) => !matches(r, where));
       },
+      updateMany: async ({ model, where, update }: { model: string; where: Where; update: Row }) => {
+        const rows = table(model).filter((r) => matches(r, where));
+        rows.forEach((r) => Object.assign(r, update));
+        return rows.length;
+      },
       deleteMany: async ({ model, where }: { model: string; where: Where }) => {
         const before = table(model).length;
         tables[model] = table(model).filter((r) => !matches(r, where));
@@ -88,6 +93,25 @@ describe("withWebhookEvents", () => {
       await trx.create!({ model: "user", data: { email: "b@example.com", name: "B" } });
     });
     expect(emitted.map((e) => e.type)).toEqual(["user.created"]);
+  });
+
+  it("turns bulk updates into one event per changed row", async () => {
+    const tables: Record<string, Row[]> = {
+      member: [
+        { id: "m1", organizationId: "o1", userId: "u1", role: "member" },
+        { id: "m2", organizationId: "o1", userId: "u2", role: "member" },
+        { id: "m3", organizationId: "o2", userId: "u3", role: "member" },
+      ],
+      session: [{ id: "s1", userId: "u1" }],
+    };
+    const adapter = withWebhookEvents(fakeFactory(tables))({} as never) as unknown as Record<string, (args: unknown) => Promise<unknown>>;
+    expect(await adapter.updateMany!({ model: "member", where: [{ field: "organizationId", value: "o1" }], update: { role: "admin" } })).toBe(2);
+    await adapter.updateMany!({ model: "member", where: [{ field: "organizationId", value: "none" }], update: { role: "owner" } });
+    await adapter.updateMany!({ model: "session", where: [{ field: "userId", value: "u1" }], update: { expiresAt: new Date() } });
+    expect(emitted.map((e) => [e.type, (e.data.member as Row).id])).toEqual([
+      ["organization.member.role_changed", "m1"],
+      ["organization.member.role_changed", "m2"],
+    ]);
   });
 
   it("sends nothing for an update that matched no row", async () => {

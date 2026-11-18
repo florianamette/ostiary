@@ -1,5 +1,5 @@
 import { createJwk, type JwtOptions } from "better-auth/plugins";
-import { and, desc, eq, gt, isNull, ne, or } from "drizzle-orm";
+import { and, desc, eq, gt, isNull, lt, ne, or } from "drizzle-orm";
 
 import { db } from "@ostiary/core/db/index";
 import { appSetting, jwks } from "@ostiary/core/db/schema";
@@ -91,10 +91,20 @@ export async function rotateSigningKey(
   // createJwk reads only ctx.context (adapter, secret). Outside a request the adapter is the base one.
   const key = await createJwk({ context } as unknown as Parameters<typeof createJwk>[0], options);
   const now = new Date();
+  // Only keys older than the new one (ties broken by id): two rotations at once, on any
+  // instances, then agree on which key survives (the newest), instead of each retiring the
+  // other's new key and leaving none live.
+  const createdAt = new Date(key.createdAt);
   const retired = await db
     .update(jwks)
     .set({ expiresAt: now })
-    .where(and(ne(jwks.id, key.id), live(now)))
+    .where(
+      and(
+        ne(jwks.id, key.id),
+        live(now),
+        or(lt(jwks.createdAt, createdAt), and(eq(jwks.createdAt, createdAt), lt(jwks.id, key.id))),
+      ),
+    )
     .returning({ id: jwks.id });
   return { keyId: key.id, retired: retired.map((row) => row.id) };
 }

@@ -13,6 +13,7 @@ import {
 import { env } from "@ostiary/core/lib/env";
 import { currentApiScopes, OIDC_SCOPES } from "@ostiary/core/lib/oauth-scopes";
 
+import { PageHeader } from "@/components/admin/common/page-header";
 import { AdminApplicationsPanel } from "@/components/admin/applications/admin-applications-panel";
 import { ClientRegistrationCard } from "@/components/admin/applications/client-registration-card";
 import { countUnusedClients } from "@/components/admin/usage/oauth-usage-card";
@@ -40,13 +41,10 @@ export async function generateMetadata({
 
 export default async function AdminApplicationsPage({
   params,
-  searchParams,
 }: {
   params: Promise<{ locale: string }>;
-  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const { locale } = await params;
-  const { q } = await searchParams;
   const t = await getTranslations({
     locale,
     namespace: "admin.pages.applications",
@@ -71,12 +69,7 @@ export default async function AdminApplicationsPage({
 
   return (
     <div className="space-y-6">
-      <div className="space-y-1">
-        <h1 className="text-2xl font-semibold tracking-tight">{t("title")}</h1>
-        <p className="max-w-2xl text-pretty text-sm leading-relaxed text-muted-foreground">
-          {t("description", { name: brand.name })}
-        </p>
-      </div>
+      <PageHeader title={t("title")} description={t("description", { name: brand.name })} />
       {unused > 0 ? (
         <Link
           href="/usage"
@@ -96,7 +89,6 @@ export default async function AdminApplicationsPage({
         authServer={env.AUTH_APP_URL ?? ""}
       />
       <AdminApplicationsPanel
-        initialSearch={typeof q === "string" ? q : ""}
         linkedApis={linkedApis}
         selfRegistered={selfRegistered.map((client) => ({
           clientId: client.clientId,

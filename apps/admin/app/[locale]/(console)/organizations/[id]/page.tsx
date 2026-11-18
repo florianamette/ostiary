@@ -1,7 +1,9 @@
-import { and, asc, count, desc, eq, gt } from "drizzle-orm";
+import { and, asc, count, desc, eq, exists, gt, sql } from "drizzle-orm";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 
+import { ListPagination } from "@/components/admin/common/admin-table";
+import { readPagination, type ListSearchParams } from "@/components/admin/common/list-params";
 import { formatDateTime, PageHeader } from "@/components/admin/common/page-header";
 import { Section, SectionEmpty } from "@/components/admin/common/section";
 import {
@@ -47,11 +49,14 @@ export const dynamic = "force-dynamic";
 
 export default async function AdminOrganizationPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string; id: string }>;
+  searchParams: Promise<ListSearchParams>;
 }) {
   await requireAdminSession();
   const { locale, id } = await params;
+  const { pageSize, offset } = readPagination(await searchParams);
   const t = await getTranslations({ locale, namespace: "admin.pages.organizations.detail" });
   const tRoles = await getTranslations({ locale, namespace: "admin.pages.organizations.controls.roles" });
   const tc = await getTranslations({ locale, namespace: "admin.common" });
@@ -63,14 +68,32 @@ export default async function AdminOrganizationPage({
   const isPublic = org.id === PUBLIC_ORGANIZATION_ID;
 
   const now = new Date();
-  const [members, invites, providers, audits, scimTokens, scimUsers, apiKeys] = await Promise.all([
+  // Whether SCIM provisioned the member into this organization, in the members query itself.
+  const provisioned = exists(
     db
-      .select({ id: member.id, role: member.role, joined: member.createdAt, userId: user.id, name: user.name, email: user.email, banned: user.banned })
+      .select({ one: sql`1` })
+      .from(scimUser)
+      .where(and(eq(scimUser.userId, user.id), eq(scimUser.provisioningDomainId, id))),
+  );
+  const [members, [{ memberTotal }], invites, providers, audits, scimTokens, scimUsers, apiKeys] = await Promise.all([
+    db
+      .select({
+        id: member.id,
+        role: member.role,
+        joined: member.createdAt,
+        userId: user.id,
+        name: user.name,
+        email: user.email,
+        banned: user.banned,
+        scim: sql<boolean>`${provisioned}`,
+      })
       .from(member)
       .innerJoin(user, eq(member.userId, user.id))
       .where(eq(member.organizationId, id))
-      .orderBy(asc(user.name))
-      .limit(isPublic ? 50 : 500),
+      .orderBy(asc(user.name), asc(member.id))
+      .limit(pageSize)
+      .offset(offset),
+    db.select({ memberTotal: count() }).from(member).where(eq(member.organizationId, id)),
     db
       .select()
       .from(invitation)
@@ -99,11 +122,6 @@ export default async function AdminOrganizationPage({
       .groupBy(scimUser.active),
     isPublic ? [] : listOrganizationApiKeys(id),
   ]);
-  const provisionedIds = isPublic
-    ? new Set<string>()
-    : new Set(
-        (await db.select({ userId: scimUser.userId }).from(scimUser).where(eq(scimUser.provisioningDomainId, id))).map((r) => r.userId),
-      );
   const scimToken: ScimTokenSummary | null = scimTokens[0]
     ? {
         created: formatDateTime(scimTokens[0].createdAt, locale),
@@ -133,7 +151,11 @@ export default async function AdminOrganizationPage({
           <Section
             title={t("members")}
             contentClassName="space-y-6"
-            description={isPublic ? t("publicMembers") : t("memberCount", { count: members.length })}
+            description={
+              isPublic
+                ? `${t("publicMembers")} ${t("memberCount", { count: memberTotal })}`
+                : t("memberCount", { count: memberTotal })
+            }
           >
             {members.length === 0 ? (
               <SectionEmpty>{t("noMembers")}</SectionEmpty>
@@ -154,8 +176,8 @@ export default async function AdminOrganizationPage({
                         <Link href={`/users/${m.userId}`} className="block font-medium underline-offset-4 hover:underline">{m.name || m.email}</Link>
                         <span className="flex flex-wrap items-center gap-1.5 text-xs text-muted-foreground">
                           {m.email}
-                          {provisionedIds.has(m.userId) ? <Badge variant="outline">SCIM</Badge> : null}
-                          {m.banned ? <Badge variant="destructive">{provisionedIds.has(m.userId) ? t("deactivated") : t("banned")}</Badge> : null}
+                          {m.scim ? <Badge variant="outline">SCIM</Badge> : null}
+                          {m.banned ? <Badge variant="destructive">{m.scim ? t("deactivated") : t("banned")}</Badge> : null}
                         </span>
                       </TableCell>
                       <TableCell className="hidden text-sm text-muted-foreground sm:table-cell">{formatDateTime(m.joined, locale)}</TableCell>
@@ -172,6 +194,7 @@ export default async function AdminOrganizationPage({
                 </TableBody>
               </Table>
             )}
+            {memberTotal > members.length || offset > 0 ? <ListPagination total={memberTotal} /> : null}
 
             {isPublic ? null : (
               <div className="space-y-3 border-t border-border/60 pt-6">

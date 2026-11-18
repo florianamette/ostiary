@@ -23,7 +23,9 @@ import { accentPalette } from "@ostiary/core/lib/app-branding/color";
 import { getIconForSource } from "@ostiary/core/lib/app-icons/store";
 import type { SocialProviderOption } from "@ostiary/core/lib/social-provider-meta";
 import { enabledSocialProviders } from "@ostiary/core/lib/social-providers";
-import { adminActor } from "@/lib/admin-audit";
+import { z } from "zod";
+
+import { adminAction, input, type AdminActor } from "@/lib/admin-action";
 
 /*
  * Per-application branding of the sign-in screens (lib/app-branding). Admin-registered
@@ -54,7 +56,10 @@ async function adminClient(clientId: string) {
 }
 
 export async function loadAppBranding(clientId: string): Promise<{ ok: true; data: BrandingDialogData } | Failure> {
-  await adminActor();
+  return adminAction(z.tuple([input.id]), [clientId], ([clientId]) => loadAppBrandingRun(clientId));
+}
+
+async function loadAppBrandingRun(clientId: string): Promise<{ ok: true; data: BrandingDialogData } | Failure> {
   const client = await adminClient(clientId);
   if (!client.ok) return client;
   return {
@@ -91,7 +96,15 @@ export async function saveAppBrandingAction(
   clientId: string,
   form: FormData,
 ): Promise<{ ok: true; settings: AppBrandingSettings; warnings: string[] } | Failure> {
-  const { session, audit } = await adminActor();
+  return adminAction(z.tuple([input.id, z.instanceof(FormData)]), [clientId, form], ([clientId, form], actor) => saveAppBrandingActionRun(clientId, form, actor));
+}
+
+async function saveAppBrandingActionRun(
+  clientId: string,
+  form: FormData,
+  actor: AdminActor,
+): Promise<{ ok: true; settings: AppBrandingSettings; warnings: string[] } | Failure> {
+  const { session, audit } = actor;
   const t = await getTranslations("admin.pages.applications.actions.branding");
   const client = await adminClient(clientId);
   if (!client.ok) return client;
@@ -162,7 +175,11 @@ export async function saveAppBrandingAction(
 }
 
 export async function resetAppBrandingAction(clientId: string): Promise<{ ok: true } | Failure> {
-  const { audit } = await adminActor();
+  return adminAction(z.tuple([input.id]), [clientId], ([clientId], actor) => resetAppBrandingActionRun(clientId, actor));
+}
+
+async function resetAppBrandingActionRun(clientId: string, actor: AdminActor): Promise<{ ok: true } | Failure> {
+  const { audit } = actor;
   const client = await adminClient(clientId);
   if (!client.ok) return client;
   if (await resetAppBranding(clientId)) {

@@ -62,14 +62,13 @@ function errorKey(error: { status?: number; error?: unknown; error_description?:
  * here, or arrives with it in `?user_code=`, sees which app asks for which scopes, and approves or
  * denies. Opening a code binds it to the current user, so nobody else can approve it.
  */
-export function DeviceForm() {
+export function DeviceForm({ userEmail }: { /** The signed-in user, read by the page. */ userEmail: string | null }) {
   const t = useTranslations("device");
   const tLimit = useTranslations("rateLimit");
   const locale = useLocale();
   const router = useRouter();
   const searchParams = useSearchParams();
   const userCode = normalizeUserCode(searchParams.get("user_code") ?? "");
-  const { data: session } = authClient.useSession();
 
   // The lookup result for one attempt; a new code, or the same one submitted again, is a new attempt.
   const [attempt, setAttempt] = useState(0);
@@ -136,16 +135,21 @@ export function DeviceForm() {
   async function decide(approve: boolean) {
     setBusy(approve ? "approve" : "deny");
     setActionError(null);
-    const { error } = await authClient.$fetch(approve ? "/device/approve" : "/device/deny", {
-      method: "POST",
-      body: { userCode },
-    });
-    setBusy(null);
-    if (error) {
-      setActionError({ key: errorKey(error), limited: rateLimitMessage(error, tLimit) });
-      return;
+    try {
+      const { error } = await authClient.$fetch(approve ? "/device/approve" : "/device/deny", {
+        method: "POST",
+        body: { userCode },
+      });
+      if (error) {
+        setActionError({ key: errorKey(error), limited: rateLimitMessage(error, tLimit) });
+        return;
+      }
+      setState({ step: "done", approved: approve });
+    } catch {
+      setActionError({ key: "failed", limited: null });
+    } finally {
+      setBusy(null);
     }
-    setState({ step: "done", approved: approve });
   }
 
   async function switchAccount() {
@@ -231,7 +235,6 @@ export function DeviceForm() {
   const { client, request } = state;
   const scopes = (request.scope ?? "").split(/\s+/).filter(Boolean);
   const displayName = client?.client_name || request.client_id || "";
-  const user = session?.user;
 
   return (
     <Card className="w-full max-w-md">
@@ -258,10 +261,10 @@ export function DeviceForm() {
 
         <RequestedScopes scopes={scopes} emptyText={t("noScopes")} />
 
-        {user ? (
+        {userEmail ? (
           <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 text-sm">
             <span className="min-w-0 truncate text-muted-foreground">
-              {t("signedInAs", { email: user.email })}
+              {t("signedInAs", { email: userEmail })}
             </span>
             <button
               type="button"
@@ -281,10 +284,10 @@ export function DeviceForm() {
         ) : null}
 
         <div className="flex flex-col gap-2 sm:flex-row sm:justify-end">
-          <Button type="button" variant="outline" disabled={busy !== null} onClick={() => decide(false)}>
+          <Button type="button" variant="outline" loading={busy === "deny"} disabled={busy !== null} onClick={() => decide(false)}>
             {t("deny")}
           </Button>
-          <Button type="button" disabled={busy !== null} onClick={() => decide(true)}>
+          <Button type="button" loading={busy === "approve"} disabled={busy !== null} onClick={() => decide(true)}>
             {t("approve")}
           </Button>
         </div>

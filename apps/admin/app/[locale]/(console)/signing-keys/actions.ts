@@ -10,14 +10,20 @@ import {
   ROTATION_INTERVAL_DAYS,
   type SigningKeySettings,
 } from "@ostiary/core/lib/signing-keys-policy";
-import { adminActor } from "@/lib/admin-audit";
+import { z } from "zod";
+
+import { adminAction, type AdminActor } from "@/lib/admin-action";
 import { auth } from "@/lib/auth";
 
 /** Errors are keys of admin.pages.signingKeys.errors, translated by the page. */
 type Result<T = object> = ({ ok: true } & T) | { ok: false; error: "interval" | "grace" | "save" | "rotate" };
 
 export async function updateSigningKeySettings(input: SigningKeySettings): Promise<Result> {
-  const { session, audit } = await adminActor();
+  return adminAction(z.tuple([z.object({ rotationIntervalDays: z.number(), gracePeriodDays: z.number() })]), [input], ([input], actor) => updateSigningKeySettingsRun(input, actor), (): Result => ({ ok: false, error: "interval" }));
+}
+
+async function updateSigningKeySettingsRun(input: SigningKeySettings, actor: AdminActor): Promise<Result> {
+  const { session, audit } = actor;
   if (!(ROTATION_INTERVAL_DAYS as readonly number[]).includes(input.rotationIntervalDays)) {
     return { ok: false, error: "interval" };
   }
@@ -44,7 +50,11 @@ export async function updateSigningKeySettings(input: SigningKeySettings): Promi
 }
 
 export async function rotateSigningKeyNow(): Promise<Result<{ keyId: string }>> {
-  const { audit } = await adminActor();
+  return adminAction(z.tuple([]), [], (_, actor) => rotateSigningKeyNowRun(actor), (): Result<{ keyId: string }> => ({ ok: false, error: "rotate" }));
+}
+
+async function rotateSigningKeyNowRun(actor: AdminActor): Promise<Result<{ keyId: string }>> {
+  const { audit } = actor;
   let rotated: { keyId: string; retired: string[] };
   try {
     rotated = await rotateSigningKey(await auth.$context, await loadSigningKeySettings());

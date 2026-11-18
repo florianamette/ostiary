@@ -12,6 +12,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@ostia
 import { SOCIAL_PROVIDER_META, type SocialProviderOption } from "@ostiary/core/lib/social-provider-meta";
 import { cn } from "@ostiary/core/lib/utils";
 import { authClient } from "@/lib/auth-client";
+import { useAuthErrorMessage } from "@/lib/auth-error-message";
 
 /**
  * A provider's mark. On a highlighted (filled) button it sits on a white tile, as Google's
@@ -31,6 +32,18 @@ export function ProviderIcon({
   return <span className="inline-flex rounded-[4px] bg-white p-0.5 text-black">{icon}</span>;
 }
 
+/**
+ * The login page to come back to after a failed provider sign-in, with this page's query
+ * string (the app's callbackURL and signed request) so the person can retry within the app's
+ * sign-in. A previous `error` is dropped: the provider adds the new one.
+ */
+function loginErrorCallbackURL(locale: string): string {
+  const params = new URLSearchParams(window.location.search);
+  params.delete("error");
+  const query = params.toString();
+  return query ? `/${locale}/login?${query}` : `/${locale}/login`;
+}
+
 /** Up to this many providers get a full-width "Continue with ..." button each. */
 const FULL_WIDTH_MAX = 3;
 /** Up to this many, a two-column grid with names; beyond, a grid of logos. */
@@ -45,16 +58,20 @@ const NAMED_GRID_MAX = 6;
 export function SocialSignInButtons({
   providers,
   callbackURL,
+  newUserCallbackURL,
   lastUsedMethod,
   disabled,
 }: {
   providers: SocialProviderOption[];
   callbackURL: string;
+  /** Where a new account lands; during an app's sign-in, the path that resumes it. */
+  newUserCallbackURL?: string;
   lastUsedMethod?: string | null;
   disabled?: boolean;
 }) {
   const t = useTranslations("auth.social");
   const locale = useLocale();
+  const errorMessage = useAuthErrorMessage();
   const [pending, setPending] = React.useState<string | null>(null);
 
   if (providers.length === 0) return null;
@@ -69,12 +86,12 @@ export function SocialSignInButtons({
     const { error } = await authClient.signIn.social({
       provider: provider.id,
       callbackURL,
-      newUserCallbackURL: `/${locale}/dashboard`,
-      errorCallbackURL: `/${locale}/login`,
+      newUserCallbackURL: newUserCallbackURL ?? `/${locale}/dashboard`,
+      errorCallbackURL: loginErrorCallbackURL(locale),
     });
     if (error) {
       setPending(null);
-      toast.error(error.message ?? t("error"));
+      toast.error(errorMessage(error, t("error")));
     }
     // On success the browser is already on its way to the provider.
   }

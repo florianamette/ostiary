@@ -4,6 +4,7 @@ import { socialProviders as builtInProviders } from "better-auth/social-provider
 import { db } from "@ostiary/core/db/index";
 import { socialProvider } from "@ostiary/core/db/schema";
 import { env } from "@ostiary/core/lib/env";
+import { refreshingCache } from "@ostiary/core/lib/refreshing-cache";
 import { openSecret, sealSecret } from "@ostiary/core/lib/secret-box";
 import {
   buildProviderOptions,
@@ -72,13 +73,6 @@ type Loaded = {
   /** Google One Tap, when Google is on and its One Tap setting too. */
   oneTap: GoogleOneTapConfig | null;
 };
-
-type Cache = { loadedAt: number; inFlight: Promise<Loaded> | null; current: Loaded | null };
-const cache = ((globalThis as { __ostiarySocialProviders?: Cache }).__ostiarySocialProviders ??= {
-  loadedAt: 0,
-  inFlight: null,
-  current: null,
-});
 
 type Row = typeof socialProvider.$inferSelect;
 
@@ -178,29 +172,27 @@ function environmentOnly(): Loaded {
   };
 }
 
-/** The providers, reloaded from the database when the cached copy is older than 30 seconds. */
-async function currentSocialProviders(): Promise<Loaded> {
-  if (cache.current && Date.now() - cache.loadedAt < REFRESH_MS) return cache.current;
-  cache.inFlight ??= loadSocialProviders()
-    .then((loaded) => {
-      cache.current = loaded;
-      cache.loadedAt = Date.now();
-      return loaded;
-    })
-    .catch((error) => {
-      // Keep the previous providers (the environment's until a first load); retry next request.
-      console.error("Could not load the social sign-in providers", error);
-      return cache.current ?? environmentOnly();
-    })
-    .finally(() => {
-      cache.inFlight = null;
-    });
-  return cache.inFlight;
+/**
+ * The providers, reloaded from the database when the cached copy is older than 30 seconds.
+ * While the table cannot be read, the previous providers are kept (the environment's until a
+ * first load).
+ */
+const cache = refreshingCache<Loaded>({
+  globalKey: "__ostiarySocialProviders",
+  refreshMs: REFRESH_MS,
+  initial: { enabled: [], instances: [], options: {}, oneTap: null },
+  load: loadSocialProviders,
+  fallback: environmentOnly,
+  loadError: "Could not load the social sign-in providers",
+});
+
+function currentSocialProviders(): Promise<Loaded> {
+  return cache.get();
 }
 
 /** Makes the next request reload the providers (after an admin change). */
 function invalidateSocialProviders() {
-  cache.loadedAt = 0;
+  cache.invalidate();
 }
 
 /** Google One Tap's settings for the sign-in and sign-up pages, or null when it is off. */

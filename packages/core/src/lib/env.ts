@@ -14,16 +14,16 @@ export const envSchema = z
     DATABASE_URL: z.string().url(),
     BETTER_AUTH_SECRET: z.string().min(32),
     /** Canonical app URL for Better Auth (server). Overrides Vercel inference when set. */
-    BETTER_AUTH_URL: z.string().url().optional(),
+    BETTER_AUTH_URL: optional(z.string().url()),
     /** Public site URL for the browser (non-secret). Used by the auth client; optional for same-origin. */
-    NEXT_PUBLIC_APP_URL: z.string().url().optional(),
+    NEXT_PUBLIC_APP_URL: optional(z.string().url()),
     /** Resend API key (server-only). Required in production for verification emails. */
-    RESEND_API_KEY: z.string().min(1).optional(),
+    RESEND_API_KEY: optional(z.string().min(1)),
     /**
      * Verified sender for Resend, e.g. `Acme <onboarding@resend.dev>` or your domain.
      * Required in production when using email verification.
      */
-    RESEND_FROM: z.string().min(3).optional(),
+    RESEND_FROM: optional(z.string().min(3)),
     /**
      * Comma-separated resource servers (APIs) that may receive JWT access tokens,
      * e.g. `https://api.example.com`. Clients request one via the `resource` parameter.
@@ -43,9 +43,9 @@ export const envSchema = z
     /** Optional Sentry DSN for error tracking (server). */
     SENTRY_DSN: z.string().optional(),
     /** Origin of the auth app (canonical Better Auth URL for every app in the monorepo). */
-    AUTH_APP_URL: z.string().url().optional(),
+    AUTH_APP_URL: optional(z.string().url()),
     /** Origin of the admin app. Trusted so the admin UI can call its own /api/auth route. */
-    ADMIN_APP_URL: z.string().url().optional(),
+    ADMIN_APP_URL: optional(z.string().url()),
     /** Parent domain shared by the apps, e.g. `.example.com`. Enables cookies that span apps. */
     COOKIE_DOMAIN: z.string().optional(),
     /**
@@ -61,13 +61,13 @@ export const envSchema = z
     /** Comma-separated scopes for your own APIs, e.g. "orders:read,orders:write". */
     OAUTH_API_SCOPES: z.string().optional(),
     /** GitHub OAuth App credentials. "Sign in with GitHub" appears only when both are set. */
-    GITHUB_CLIENT_ID: z.string().min(1).optional(),
-    GITHUB_CLIENT_SECRET: z.string().min(1).optional(),
+    GITHUB_CLIENT_ID: optional(z.string().min(1)),
+    GITHUB_CLIENT_SECRET: optional(z.string().min(1)),
     /**
      * Optional key (32+ characters) for the digests of SCIM provisioning tokens. Defaults to a
      * key derived from BETTER_AUTH_SECRET; set it to rotate one without the other.
      */
-    SCIM_TOKEN_SECRET: z.string().min(32).optional(),
+    SCIM_TOKEN_SECRET: optional(z.string().min(32)),
     /**
      * Optional captcha on sign-up, password sign-in, password reset and sign-in codes.
      * Off unless all three are set: the provider, its public site key and its secret key.
@@ -99,6 +99,12 @@ export const envSchema = z
      */
     CRON_SECRET: optional(z.string().min(16)),
     /**
+     * Days sign-in events (the activity charts, failed sign-ins) are kept before the cron route
+     * deletes them. At least 30, the longest chart. Failed sign-ins lose the email or username
+     * tried and the IP address after 30 days whatever this is.
+     */
+    AUTH_EVENT_RETENTION_DAYS: optional(z.coerce.number().int().min(30).max(3650)).transform((v) => v ?? 90),
+    /**
      * Development only: when "true", webhook endpoints may be http://localhost (or another
      * loopback address). Ignored when NODE_ENV is "production".
      */
@@ -123,6 +129,16 @@ export const envSchema = z
       }
     }
     if (data.NODE_ENV !== "production") return;
+    // Vercel tells the app its own URL; anywhere else, without one, links in emails and the
+    // OIDC issuer would silently be http://localhost:3000.
+    if (!data.VERCEL && !data.BETTER_AUTH_URL && !data.AUTH_APP_URL) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message:
+          "BETTER_AUTH_URL (or AUTH_APP_URL) is required in production outside Vercel: the public URL of the auth app",
+        path: ["BETTER_AUTH_URL"],
+      });
+    }
     if (!data.RESEND_API_KEY?.trim()) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,

@@ -1,8 +1,8 @@
 import { randomUUID } from "node:crypto";
-import { and, asc, eq, inArray, isNull, lt, lte, ne, or, sql } from "drizzle-orm";
-import { after } from "next/server";
+import { and, asc, eq, inArray, isNull, lt, lte, or, sql } from "drizzle-orm";
 
 import { db } from "@ostiary/core/db/index";
+import { runAfterResponse } from "@ostiary/core/lib/background";
 import { webhookDelivery, webhookEndpoint } from "@ostiary/core/db/schema";
 import { env } from "@ostiary/core/lib/env";
 import { e2eTestMode } from "@ostiary/core/lib/e2e-test-mode";
@@ -36,6 +36,8 @@ export const PREVIOUS_SECRET_TTL_MS = 24 * 3_600_000;
 const USER_AGENT = "Ostiary-Webhooks/1.0";
 
 type Delivery = typeof webhookDelivery.$inferSelect;
+/** The database, or a transaction on it. */
+type Executor = Pick<typeof db, "select" | "insert">;
 type Endpoint = typeof webhookEndpoint.$inferSelect;
 
 export type DeliveryOutcome = {
@@ -75,9 +77,9 @@ function signingSecrets(endpoint: Pick<Endpoint, "secretEncrypted" | "previousSe
  * Writes one delivery per subscribed endpoint and returns their ids. Throws on database
  * errors: callers decide how to report them.
  */
-async function enqueueEvents(events: WebhookEvent[], onlyEndpointId?: string): Promise<string[]> {
+async function enqueueEvents(events: WebhookEvent[], onlyEndpointId?: string, executor: Executor = db): Promise<string[]> {
   if (events.length === 0) return [];
-  const endpoints = await db
+  const endpoints = await executor
     .select({ id: webhookEndpoint.id, events: webhookEndpoint.events })
     .from(webhookEndpoint)
     .where(onlyEndpointId ? eq(webhookEndpoint.id, onlyEndpointId) : eq(webhookEndpoint.enabled, true));
@@ -91,28 +93,15 @@ async function enqueueEvents(events: WebhookEvent[], onlyEndpointId?: string): P
         eventId: event.id,
         eventType: event.type,
         payload: JSON.stringify(event),
-        status: "pending",
+        status: "pending" as const,
         attempts: 0,
         nextAttemptAt: now,
         createdAt: now,
       })),
   );
   if (rows.length === 0) return [];
-  await db.insert(webhookDelivery).values(rows);
+  await executor.insert(webhookDelivery).values(rows);
   return rows.map((row) => row.id);
-}
-
-/** Runs `task` after the response when there is one (request scope), otherwise now in the background. */
-function runAfterResponse(task: () => Promise<unknown>) {
-  const run = () =>
-    task().catch((error: unknown) => {
-      console.error("[webhooks] delivery error", error);
-    });
-  try {
-    after(run);
-  } catch {
-    void run();
-  }
 }
 
 /**
@@ -124,7 +113,7 @@ export async function emitWebhookEvents(events: WebhookEvent[]): Promise<void> {
   if (events.length === 0) return;
   try {
     const ids = await enqueueEvents(events);
-    if (ids.length) runAfterResponse(() => deliverNowAndSweep(ids));
+    if (ids.length) runAfterResponse("webhooks delivery", () => deliverNowAndSweep(ids));
   } catch (error) {
     console.error(
       "[webhooks] could not record events, they will not be delivered:",
@@ -132,6 +121,16 @@ export async function emitWebhookEvents(events: WebhookEvent[]): Promise<void> {
       error,
     );
   }
+}
+
+/**
+ * Records events inside the caller's transaction, so they are committed (or rolled back) with
+ * the change that caused them, and sends them after the response. Throws on database errors,
+ * which rolls the change back too.
+ */
+export async function enqueueWebhookEvents(tx: Executor, events: WebhookEvent[]): Promise<void> {
+  const ids = await enqueueEvents(events, undefined, tx);
+  if (ids.length) runAfterResponse("webhooks delivery", () => deliverNowAndSweep(ids));
 }
 
 /** Last time this instance retried due deliveries on its own (see deliverNowAndSweep). */
@@ -211,11 +210,28 @@ async function recordEndpointResult(endpointId: string, ok: boolean, at: Date) {
     .where(eq(webhookEndpoint.id, endpointId))
     .returning({ failures: webhookEndpoint.consecutiveFailures });
   if (updated && updated.failures >= AUTO_DISABLE_AFTER) {
-    await db
+    const disabled = await db
       .update(webhookEndpoint)
       .set({ enabled: false, disabledReason: "failures", disabledAt: at })
-      .where(and(eq(webhookEndpoint.id, endpointId), eq(webhookEndpoint.enabled, true)));
+      .where(and(eq(webhookEndpoint.id, endpointId), eq(webhookEndpoint.enabled, true)))
+      .returning({ id: webhookEndpoint.id });
+    if (disabled.length) await failPendingDeliveries(endpointId);
   }
+}
+
+/**
+ * Gives up the deliveries still waiting for an endpoint that is being disabled (by an admin or
+ * after too many failures), so they never go out later: re-enabling an endpoint, maybe with a
+ * new URL, must not send it weeks-old events, and their payloads age out with the log instead
+ * of waiting forever. Returns how many were given up.
+ */
+export async function failPendingDeliveries(endpointId: string, executor: Pick<typeof db, "update"> = db): Promise<number> {
+  const failed = await executor
+    .update(webhookDelivery)
+    .set({ status: "failed", nextAttemptAt: null, lockedUntil: null, responseExcerpt: "Not sent: the endpoint was disabled." })
+    .where(and(eq(webhookDelivery.endpointId, endpointId), eq(webhookDelivery.status, "pending")))
+    .returning({ id: webhookDelivery.id });
+  return failed.length;
 }
 
 /** One attempt: sign, send, record the answer, schedule a retry or give up. */
@@ -268,7 +284,7 @@ async function deliverByIds(ids: string[]): Promise<DeliveryOutcome[]> {
 
 /**
  * The cron route's work: sends every due delivery in batches until none is left or the time
- * budget is spent, then deletes old finished deliveries. Returns counts for the response.
+ * budget is spent, then deletes deliveries older than the retention period. Returns counts for the response.
  */
 export async function processDueDeliveries({ budgetMs = 45_000, batch = 25, purge = true } = {}) {
   const started = Date.now();
@@ -285,7 +301,9 @@ export async function processDueDeliveries({ budgetMs = 45_000, batch = 25, purg
   const cutoff = new Date(Date.now() - DELIVERY_RETENTION_DAYS * 86_400_000);
   const purged = await db
     .delete(webhookDelivery)
-    .where(and(ne(webhookDelivery.status, "pending"), lt(webhookDelivery.createdAt, cutoff)))
+    // Pending ones too: retries end within about a day, so a delivery still pending after the
+    // retention period waits on an endpoint that was disabled before this was given up on.
+    .where(lt(webhookDelivery.createdAt, cutoff))
     .returning({ id: webhookDelivery.id });
   counts.purged = purged.length;
   return counts;
@@ -299,23 +317,19 @@ export async function sendTestEvent(endpointId: string): Promise<DeliveryOutcome
   return outcome ?? null;
 }
 
-/** Sends a delivery's event again as a new delivery (same event id), and waits for the answer. */
+/**
+ * Sends a delivery's event again (same event id, same row: one delivery per event and
+ * endpoint), with a fresh set of attempts, and waits for the answer. Null when the delivery
+ * does not exist or is being sent right now.
+ */
 export async function redeliver(deliveryId: string): Promise<DeliveryOutcome | null> {
-  const [original] = await db.select().from(webhookDelivery).where(eq(webhookDelivery.id, deliveryId));
-  if (!original) return null;
   const now = new Date();
-  const id = randomUUID();
-  await db.insert(webhookDelivery).values({
-    id,
-    endpointId: original.endpointId,
-    eventId: original.eventId,
-    eventType: original.eventType,
-    payload: original.payload,
-    status: "pending",
-    attempts: 0,
-    nextAttemptAt: now,
-    createdAt: now,
-  });
-  const [outcome] = await deliverByIds([id]);
+  const reset = await db
+    .update(webhookDelivery)
+    .set({ status: "pending", attempts: 0, nextAttemptAt: now, lockedUntil: null })
+    .where(and(eq(webhookDelivery.id, deliveryId), or(isNull(webhookDelivery.lockedUntil), lt(webhookDelivery.lockedUntil, now))))
+    .returning({ id: webhookDelivery.id });
+  if (reset.length === 0) return null;
+  const [outcome] = await deliverByIds([deliveryId]);
   return outcome ?? null;
 }

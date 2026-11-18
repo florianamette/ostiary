@@ -4,11 +4,13 @@ import { randomBytes } from "node:crypto";
 import { resolveTxt } from "node:dns/promises";
 import { and, eq, gt } from "drizzle-orm";
 import { getTranslations } from "next-intl/server";
+import { z } from "zod";
 
 import { db } from "@ostiary/core/db/index";
-import { organization, ssoProvider, verification } from "@ostiary/core/db/schema";
+import { ssoProvider, verification } from "@ostiary/core/db/schema";
 import { isStrictSsoDomain, parseSsoDomain, ssoDomainVerificationIdentifier } from "@ostiary/core/lib/security/sso-domain";
-import { adminActor } from "@/lib/admin-audit";
+import { adminAction, input, type AdminActor } from "@/lib/admin-action";
+import { applySsoProviderChange } from "@/lib/sso-provider-change";
 import type { ActionResult } from "@/lib/action-result";
 
 /*
@@ -19,56 +21,62 @@ import type { ActionResult } from "@/lib/action-result";
 
 const errors = () => getTranslations("sso.errors");
 
+const providerInput = z.tuple([input.id]);
+const updateInput = z.tuple([
+  input.id,
+  z.object({ issuer: input.text, domain: input.text, organizationId: input.id.nullable() }),
+]);
+
 export async function updateSsoProvider(
-  providerId: string,
-  input: { issuer: string; domain: string; organizationId: string | null },
+  rawProviderId: string,
+  raw: { issuer: string; domain: string; organizationId: string | null },
 ): Promise<ActionResult> {
-  const { audit } = await adminActor();
-  const [current] = await db.select().from(ssoProvider).where(eq(ssoProvider.providerId, providerId));
-  if (!current) return { ok: false, error: (await errors())("providerNotFound") };
-  const issuer = input.issuer.trim();
-  // The same parser as /sso/register and sign-in (sso-domain.ts): one plain hostname.
-  const domain = parseSsoDomain(input.domain);
-  try {
-    new URL(issuer);
-  } catch {
-    return { ok: false, error: (await errors())("issuerNotUrl") };
-  }
-  if (!domain) return { ok: false, error: (await errors())("invalidDomain") };
-  if (input.organizationId) {
-    const [org] = await db.select({ id: organization.id }).from(organization).where(eq(organization.id, input.organizationId));
-    if (!org) return { ok: false, error: (await errors())("organizationNotFound") };
-  }
-  // A SAML provider's issuer is its SP entity ID, which the IdP is configured with.
-  if (current.samlConfig && issuer !== current.issuer) return { ok: false, error: (await errors())("samlIssuerLocked") };
-  const domainChanged = domain !== current.domain;
-  await db
-    .update(ssoProvider)
-    .set({ issuer, domain, organizationId: input.organizationId, ...(domainChanged ? { domainVerified: false } : {}) })
-    .where(eq(ssoProvider.providerId, providerId));
-  if (domainChanged) await db.delete(verification).where(eq(verification.identifier, ssoDomainVerificationIdentifier(providerId)));
-  await audit({
-    action: "sso_provider.update",
-    target: { type: "sso_provider", id: providerId, label: providerId },
-    metadata: { issuer, domain, organizationId: input.organizationId, domainVerificationReset: domainChanged },
+  return adminAction(updateInput, [rawProviderId, raw], async ([providerId, input], { audit }) => {
+    const [current] = await db.select().from(ssoProvider).where(eq(ssoProvider.providerId, providerId));
+    if (!current) return { ok: false, error: (await errors())("providerNotFound") };
+    const issuer = input.issuer.trim();
+    // The same parser as /sso/register and sign-in (sso-domain.ts): one plain hostname.
+    const domain = parseSsoDomain(input.domain);
+    try {
+      new URL(issuer);
+    } catch {
+      return { ok: false, error: (await errors())("issuerNotUrl") };
+    }
+    if (!domain) return { ok: false, error: (await errors())("invalidDomain") };
+    // A SAML provider's issuer is its SP entity ID, which the IdP is configured with.
+    if (current.samlConfig && issuer !== current.issuer) return { ok: false, error: (await errors())("samlIssuerLocked") };
+    const saved = await applySsoProviderChange(current, { domain, organizationId: input.organizationId, extra: { issuer } });
+    if (!saved.ok) return { ok: false, error: (await errors())(saved.error) };
+    await audit({
+      action: "sso_provider.update",
+      target: { type: "sso_provider", id: providerId, label: providerId },
+      metadata: { issuer, domain, organizationId: input.organizationId, domainVerificationReset: saved.domainChanged },
+    });
+    return { ok: true };
   });
-  return { ok: true };
 }
 
-export async function deleteSsoProvider(providerId: string): Promise<ActionResult> {
-  const { audit } = await adminActor();
-  const deleted = await db.delete(ssoProvider).where(eq(ssoProvider.providerId, providerId)).returning({ domain: ssoProvider.domain });
-  if (deleted.length === 0) return { ok: false, error: (await errors())("providerNotFound") };
-  await db.delete(verification).where(eq(verification.identifier, ssoDomainVerificationIdentifier(providerId)));
-  await audit({ action: "sso_provider.delete", target: { type: "sso_provider", id: providerId, label: providerId }, metadata: { domain: deleted[0]!.domain } });
-  return { ok: true };
+export async function deleteSsoProvider(rawProviderId: string): Promise<ActionResult> {
+  return adminAction(providerInput, [rawProviderId], async ([providerId], { audit }) => {
+    const deleted = await db.transaction(async (tx) => {
+      const rows = await tx.delete(ssoProvider).where(eq(ssoProvider.providerId, providerId)).returning({ domain: ssoProvider.domain });
+      await tx.delete(verification).where(eq(verification.identifier, ssoDomainVerificationIdentifier(providerId)));
+      return rows;
+    });
+    if (deleted.length === 0) return { ok: false, error: (await errors())("providerNotFound") };
+    await audit({ action: "sso_provider.delete", target: { type: "sso_provider", id: providerId, label: providerId }, metadata: { domain: deleted[0]!.domain } });
+    return { ok: true };
+  });
 }
 
 /** Returns the DNS TXT record the domain owner must publish (reusing an unexpired token). */
 export async function getDomainVerificationRecord(
   providerId: string,
 ): Promise<ActionResult<{ name: string; value: string }>> {
-  await adminActor();
+  return adminAction(providerInput, [providerId], ([providerId]) => domainVerificationRecord(providerId));
+}
+
+async function domainVerificationRecord(providerId: string): Promise<ActionResult<{ name: string; value: string }>> {
   const [provider] = await db.select().from(ssoProvider).where(eq(ssoProvider.providerId, providerId));
   if (!provider) return { ok: false, error: (await errors())("providerNotFound") };
   // The record is published under exactly the domain the plugin matches at sign-in.
@@ -95,8 +103,11 @@ export async function getDomainVerificationRecord(
 
 /** Looks the TXT record up in DNS and marks the domain verified when it matches. */
 export async function checkDomainVerification(providerId: string): Promise<ActionResult> {
-  const { audit } = await adminActor();
-  const record = await getDomainVerificationRecord(providerId);
+  return adminAction(providerInput, [providerId], ([providerId], actor) => verifyDomain(providerId, actor));
+}
+
+async function verifyDomain(providerId: string, { audit }: AdminActor): Promise<ActionResult> {
+  const record = await domainVerificationRecord(providerId);
   if (!record.ok) return record;
   let found: string[] = [];
   try {
@@ -107,8 +118,10 @@ export async function checkDomainVerification(providerId: string): Promise<Actio
   if (!found.some((txt) => txt.includes(record.value))) {
     return { ok: false, error: (await errors())("txtRecordNotFound") };
   }
-  await db.update(ssoProvider).set({ domainVerified: true }).where(eq(ssoProvider.providerId, providerId));
-  await db.delete(verification).where(eq(verification.identifier, ssoDomainVerificationIdentifier(providerId)));
+  await db.transaction(async (tx) => {
+    await tx.update(ssoProvider).set({ domainVerified: true }).where(eq(ssoProvider.providerId, providerId));
+    await tx.delete(verification).where(eq(verification.identifier, ssoDomainVerificationIdentifier(providerId)));
+  });
   await audit({ action: "sso_provider.verify_domain", target: { type: "sso_provider", id: providerId, label: providerId } });
   return { ok: true };
 }

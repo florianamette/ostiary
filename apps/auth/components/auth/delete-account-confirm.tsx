@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { CheckCircle2Icon, Loader2, TriangleAlertIcon } from "lucide-react";
+import { CheckCircle2Icon, TriangleAlertIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import { Button } from "@ostiary/core/components/ui/button";
@@ -96,8 +96,7 @@ export function DeleteAccountConfirm({ token, email }: { token: string | null; e
       </CardContent>
       <CardFooter className="flex flex-wrap gap-2">
         {token && email && problem?.key !== "invalid" && problem?.key !== "blocked" ? (
-          <Button type="button" variant="destructive" disabled={busy} onClick={() => void confirm()}>
-            {busy ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
+          <Button type="button" variant="destructive" loading={busy} onClick={() => void confirm()}>
             {t("confirm")}
           </Button>
         ) : null}

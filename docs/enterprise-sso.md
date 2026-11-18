@@ -35,3 +35,24 @@ As with OIDC, a provider takes sign-ins only once its email domain is verified w
 **What is checked on every response**: an XML signature by the IdP's certificate (unsigned responses are always refused; with **Require signed assertions**, the default, the assertion itself must be signed), the audience (SP entity ID), the bearer `Recipient` and the `Destination` (when present) against the ACS URL, the issuer, `InResponseTo` against an AuthnRequest this server sent in the last 5 minutes (each usable once), each assertion ID once (replay), `NotBefore`/`NotOnOrAfter` required with 1 minute of clock skew, exactly one assertion, SHA-256 or stronger (SHA-1 is refused), no DOCTYPE or entity declarations, 256 KB at most.
 
 **Not supported**: IdP-initiated sign-in (unsolicited responses are refused; point the IdP's app tile at `https://auth.example.com/sso`), signed AuthnRequests (leave request signing off in the IdP), encrypted assertions and single logout.
+
+## One provider per domain
+
+The email domain picks the provider at sign-in, so each domain belongs to one provider: the database refuses a second provider with the same domain, in any letter case (`acme.com` and `ACME.com` are the same domain). To move a domain to a new provider, delete the old provider or change its domain first.
+
+A domain is a single hostname. Older versions could store a comma-separated list (`acme.com,acme.fr`); such a provider takes no sign-ins (only a single, verified hostname does), and the uniqueness check compares the whole stored value, so it does not see that `acme.com,acme.fr` and `acme.com` overlap. Replace each list with one provider per domain.
+
+## Upgrading
+
+**From a version before migration `0014`**: the migration adds the one-provider-per-domain rule. If two providers already claim the same domain, it stops before changing anything, and the deployment's migration step fails with:
+
+```
+Several SSO providers claim the same domain: acme.com (providers: okta-acme, entra-acme)
+```
+
+Nothing is deleted or un-verified for you, because either provider may be the one people sign in with. In the admin console (**SSO**), keep the provider that is verified and in use, and delete the others or change their domain. Then deploy again (or run `pnpm db:migrate`). To list the duplicates yourself:
+
+```sql
+SELECT lower(domain) AS domain, string_agg(provider_id, ', ') AS providers
+FROM sso_provider GROUP BY lower(domain) HAVING count(*) > 1;
+```

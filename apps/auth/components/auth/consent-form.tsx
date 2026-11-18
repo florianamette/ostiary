@@ -16,16 +16,22 @@ import { ShieldAlertIcon } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
+
+import { useAuthErrorMessage } from "@/lib/auth-error-message";
 
 type PublicClient = {
   client_id: string;
   client_name?: string;
   client_uri?: string;
-  logo_uri?: string;
   policy_uri?: string;
   tos_uri?: string;
 };
+
+/** The app asking for consent, as the consent page read it on the server. */
+export type ConsentClient =
+  | { state: "ok"; client: PublicClient }
+  | { state: "missing" | "needsSignIn" | "failed" };
 
 /** Set for a client that registered itself, see the consent page. */
 export type ConsentClientOrigin = {
@@ -38,28 +44,31 @@ export type ConsentClientOrigin = {
 
 export function ConsentForm({
   className,
+  client: loaded,
+  scopes,
   origin = null,
   branded = null,
   ...props
 }: React.ComponentProps<"div"> & {
+  client: ConsentClient;
+  /** The scopes of the authorization request. */
+  scopes: string[];
   origin?: ConsentClientOrigin | null;
   /** Name and logo from the admin's branding of this (admin-registered) app, see AuthScreen. */
   branded?: { name: string; logoUrl: string | null } | null;
 }) {
   const t = useTranslations("consent");
-  const tCommon = useTranslations("common");
+  const errorMessage = useAuthErrorMessage();
   const searchParams = useSearchParams();
-  const clientId = searchParams.get("client_id");
-  const scopeParam = searchParams.get("scope") ?? "";
-  const scopes = useMemo(
-    () => scopeParam.split(/\s+/).filter(Boolean),
-    [scopeParam],
-  );
-
-  const [client, setClient] = useState<PublicClient | null>(null);
-  const [loadError, setLoadError] = useState<string | null>(null);
-  const [loadNeedsSignIn, setLoadNeedsSignIn] = useState(false);
-  const [busy, setBusy] = useState(false);
+  const client = loaded.state === "ok" ? loaded.client : null;
+  const loadNeedsSignIn = loaded.state === "needsSignIn";
+  const loadError =
+    loaded.state === "needsSignIn"
+      ? t("errors.needSignIn")
+      : loaded.state === "failed"
+        ? t("errors.loadFailed")
+        : null;
+  const [busy, setBusy] = useState<"allow" | "deny" | null>(null);
   const [actionError, setActionError] = useState<string | null>(null);
 
   const consentReturnPath = useMemo(() => {
@@ -67,58 +76,33 @@ export function ConsentForm({
     return q ? `/consent?${q}` : "/consent";
   }, [searchParams]);
 
-  useEffect(() => {
-    if (!clientId) {
-      setLoadError(null);
-      setLoadNeedsSignIn(false);
-      return;
-    }
-    let cancelled = false;
-    void (async () => {
-      setLoadError(null);
-      setLoadNeedsSignIn(false);
-      const { data, error } = await authClient.$fetch(
-        `/oauth2/public-client?client_id=${encodeURIComponent(clientId)}`,
-        { method: "GET" },
-      );
-      if (cancelled) return;
-      if (error) {
-        if (error.status === 401) {
-          setLoadNeedsSignIn(true);
-          setLoadError(t("errors.needSignIn"));
-        } else {
-          setLoadError(error.message ?? t("errors.loadFailed"));
-        }
-        setClient(null);
-        return;
-      }
-      setClient(data as PublicClient);
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, [clientId, t]);
-
   const submit = useCallback(
     async (accept: boolean) => {
       setActionError(null);
-      setBusy(true);
+      setBusy(accept ? "allow" : "deny");
+      let leaving = false;
       try {
         const { error } = await authClient.$fetch("/oauth2/consent", {
           method: "POST",
           body: { accept },
         });
         if (error) {
-          setActionError(error.message ?? t("errors.actionFailed"));
+          setActionError(errorMessage(error, t("errors.actionFailed")));
+          return;
         }
+        // Answered: the browser follows the redirect back to the app. The buttons stay
+        // disabled so a second click (Deny after Allow) cannot send another answer.
+        leaving = true;
+      } catch {
+        setActionError(t("errors.actionFailed"));
       } finally {
-        setBusy(false);
+        if (!leaving) setBusy(null);
       }
     },
-    [t],
+    [errorMessage, t],
   );
 
-  if (!clientId) {
+  if (loaded.state === "missing") {
     return (
       <div className={cn("flex flex-col gap-6", className)} {...props}>
         <Card>
@@ -131,7 +115,7 @@ export function ConsentForm({
     );
   }
 
-  const displayName = branded?.name ?? client?.client_name ?? clientId;
+  const displayName = branded?.name ?? client?.client_name ?? searchParams.get("client_id") ?? "";
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -159,7 +143,7 @@ export function ConsentForm({
         <CardContent className="flex flex-col gap-6">
           {loadError ? (
             <div className="rounded-md border border-border bg-muted/40 px-3 py-2 text-sm text-muted-foreground">
-              <p>{loadError}</p>
+              <p role="alert">{loadError}</p>
               {loadNeedsSignIn ? (
                 <Button className="mt-3" variant="secondary" size="sm" asChild>
                   <Link
@@ -170,10 +154,6 @@ export function ConsentForm({
                 </Button>
               ) : null}
             </div>
-          ) : null}
-
-          {!loadError && !client ? (
-            <p className="text-sm text-muted-foreground">{tCommon("loading")}</p>
           ) : null}
 
           {client && origin ? (
@@ -245,21 +225,23 @@ export function ConsentForm({
               )}
 
               {actionError ? (
-                <p className="text-sm text-destructive">{actionError}</p>
+                <p className="text-sm text-destructive" role="alert">{actionError}</p>
               ) : null}
 
               <div className="flex flex-col gap-2 sm:flex-row sm:justify-end">
                 <Button
                   type="button"
                   variant="outline"
-                  disabled={busy}
+                  loading={busy === "deny"}
+                  disabled={busy !== null}
                   onClick={() => submit(false)}
                 >
                   {t("deny")}
                 </Button>
                 <Button
                   type="button"
-                  disabled={busy}
+                  loading={busy === "allow"}
+                  disabled={busy !== null}
                   onClick={() => submit(true)}
                 >
                   {t("allow")}

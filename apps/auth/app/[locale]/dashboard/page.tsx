@@ -9,6 +9,9 @@ import { DashboardOrganizationsSection } from "@/components/dashboard/dashboard-
 import { DashboardProfileSection } from "@/components/dashboard/dashboard-profile-section";
 import { DashboardSecuritySection } from "@/components/dashboard/dashboard-security-section";
 import { getDashboardContext } from "@/lib/dashboard-context";
+import { getDeletionStatus } from "@/lib/account-data-actions";
+import { getMyApiKeys } from "@/lib/api-keys-actions";
+import { getMyConnectedApps } from "@/lib/connected-apps-actions";
 import { Alert, AlertDescription, AlertTitle } from "@ostiary/core/components/ui/alert";
 import { adminNeedsTwoFactor } from "@ostiary/core/lib/admin/admin-two-factor";
 import { env } from "@ostiary/core/lib/env";
@@ -24,6 +27,15 @@ export default async function DashboardPage({
   const { session, hasOrganizations, showApiKeys } = await getDashboardContext();
   // The admin console sends admins here until they turn on two-factor authentication.
   const twoFactorRequired = adminNeedsTwoFactor(session?.user, env.REQUIRE_ADMIN_2FA === "true");
+  // Read here rather than by each section after it renders: the sections show at once. A read
+  // that fails leaves null, and the section tries again in the browser (or says it could not).
+  const orNull = <T,>(promise: Promise<T>) => promise.catch(() => null);
+  const [socialProviders, connectedApps, apiKeys, deletionStatus] = await Promise.all([
+    enabledSocialProviders(),
+    orNull(getMyConnectedApps()),
+    showApiKeys ? orNull(getMyApiKeys()) : null,
+    orNull(getDeletionStatus()),
+  ]);
 
   return (
     <div className="space-y-10">
@@ -52,12 +64,12 @@ export default async function DashboardPage({
         <DashboardProfileSection />
         {hasOrganizations ? <DashboardOrganizationsSection /> : null}
         <DashboardSecuritySection
-          socialProviders={await enabledSocialProviders()}
+          socialProviders={socialProviders}
           adminConsoleUrl={twoFactorRequired ? env.ADMIN_APP_URL : undefined}
         />
-        <DashboardAppsSection />
-        {showApiKeys ? <DashboardApiKeysSection /> : null}
-        <DashboardDataSection />
+        <DashboardAppsSection initialApps={connectedApps} />
+        {showApiKeys ? <DashboardApiKeysSection initialKeys={apiKeys} /> : null}
+        <DashboardDataSection status={deletionStatus} />
       </div>
     </div>
   );

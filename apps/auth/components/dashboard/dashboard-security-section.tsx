@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { Loader2 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
 
@@ -31,7 +30,10 @@ import {
   TableHeader,
   TableRow,
 } from "@ostiary/core/components/ui/table";
+import { useAsyncResource } from "@ostiary/core/hooks/use-async-resource";
+import { useDashboardSession } from "@/components/dashboard/dashboard-session";
 import { authClient } from "@/lib/auth-client";
+import { useAuthAction } from "@/lib/use-auth-action";
 
 type SessionRow = {
   id: string;
@@ -53,6 +55,19 @@ function formatWhen(d: Date, locale: string): string | null {
   }
 }
 
+async function listSessions(): Promise<SessionRow[]> {
+  const res = await authClient.listSessions();
+  if (res.error) throw res.error;
+  return (Array.isArray(res.data) ? res.data : []).map((s) => ({
+    id: s.id,
+    token: s.token,
+    createdAt: new Date(s.createdAt),
+    expiresAt: new Date(s.expiresAt),
+    ipAddress: s.ipAddress,
+    userAgent: s.userAgent,
+  }));
+}
+
 export function DashboardSecuritySection({
   socialProviders = [],
   adminConsoleUrl,
@@ -68,75 +83,38 @@ export function DashboardSecuritySection({
     const date = formatWhen(d, getHtmlLang(locale as AppLocale));
     return date ? t(`${key}At`, { date }) : t(key);
   };
-  const { data: sessionData } = authClient.useSession();
-  const currentToken = sessionData?.session?.token;
-
-  const [sessions, setSessions] = React.useState<SessionRow[]>([]);
-  const [loadingSessions, setLoadingSessions] = React.useState(true);
-  const [revokeToken, setRevokeToken] = React.useState<string | null>(null);
-  const [revokeOthersPending, setRevokeOthersPending] = React.useState(false);
-
-  const loadSessions = React.useCallback(async () => {
-    setLoadingSessions(true);
-    try {
-      const res = await authClient.listSessions();
-      if (res.error) {
-        toast.error(res.error.message ?? t("sessionsLoadError"));
-        setSessions([]);
-        return;
-      }
-      const list = Array.isArray(res.data) ? res.data : [];
-      setSessions(
-        list.map((s) => ({
-          id: s.id,
-          token: s.token,
-          createdAt: new Date(s.createdAt),
-          expiresAt: new Date(s.expiresAt),
-          ipAddress: s.ipAddress,
-          userAgent: s.userAgent,
-        })),
-      );
-    } finally {
-      setLoadingSessions(false);
-    }
-  }, [t]);
+  const { data: current } = useDashboardSession();
+  const currentSessionId = current.session.id;
+  const sessionsResource = useAsyncResource(listSessions);
+  const sessions = sessionsResource.data ?? [];
+  const { pending, run } = useAuthAction<`revoke:${string}` | "others">();
 
   React.useEffect(() => {
-    void loadSessions();
-  }, [loadSessions]);
+    if (sessionsResource.error) toast.error(t("sessionsLoadError"));
+  }, [sessionsResource.error, t]);
 
-  async function revokeSession(token: string) {
-    setRevokeToken(token);
-    try {
-      const { error } = await authClient.revokeSession({ token });
-      if (error) {
-        toast.error(error.message ?? t("revokeError"));
-        return;
-      }
-      toast.success(t("sessionRevoked"));
-      if (token === currentToken) {
-        window.location.reload();
-        return;
-      }
-      void loadSessions();
-    } finally {
-      setRevokeToken(null);
-    }
+  function revokeSession(row: SessionRow) {
+    return run(`revoke:${row.id}`, {
+      call: () => authClient.revokeSession({ token: row.token }),
+      success: t("sessionRevoked"),
+      error: t("revokeError"),
+      onSuccess: () => {
+        if (row.id === currentSessionId) {
+          window.location.reload();
+          return;
+        }
+        return sessionsResource.reload();
+      },
+    });
   }
 
-  async function handleRevokeOthers() {
-    setRevokeOthersPending(true);
-    try {
-      const { error } = await authClient.revokeOtherSessions();
-      if (error) {
-        toast.error(error.message ?? t("revokeError"));
-        return;
-      }
-      toast.success(t("othersRevoked"));
-      void loadSessions();
-    } finally {
-      setRevokeOthersPending(false);
-    }
+  function handleRevokeOthers() {
+    return run("others", {
+      call: () => authClient.revokeOtherSessions(),
+      success: t("othersRevoked"),
+      error: t("revokeError"),
+      onSuccess: sessionsResource.reload,
+    });
   }
 
   return (
@@ -146,7 +124,7 @@ export function DashboardSecuritySection({
         <CardDescription>{t("description")}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-8">
-        <DashboardChangePasswordForm onPasswordChanged={() => void loadSessions()} />
+        <DashboardChangePasswordForm onPasswordChanged={() => void sessionsResource.reload()} />
 
         <Separator />
 
@@ -175,17 +153,15 @@ export function DashboardSecuritySection({
               type="button"
               variant="outline"
               size="sm"
-              disabled={revokeOthersPending || sessions.length < 2}
+              loading={pending === "others"}
+              disabled={sessions.length < 2}
               onClick={() => void handleRevokeOthers()}
             >
-              {revokeOthersPending ? (
-                <Loader2 className="size-4 animate-spin" aria-hidden />
-              ) : null}
               {t("revokeOthers")}
             </Button>
           </div>
 
-          {loadingSessions ? (
+          {sessionsResource.loading ? (
             <div className="space-y-2" aria-busy="true">
               <Skeleton className="h-14 w-full" />
               <Skeleton className="h-14 w-full" />
@@ -208,7 +184,7 @@ export function DashboardSecuritySection({
                 </TableHeader>
                 <TableBody>
                   {sessions.map((s) => {
-                    const isCurrent = s.token === currentToken;
+                    const isCurrent = s.id === currentSessionId;
                     const ua = s.userAgent?.trim();
                     const deviceLabel = isCurrent
                       ? t("currentSession")
@@ -236,15 +212,9 @@ export function DashboardSecuritySection({
                             type="button"
                             variant="ghost"
                             size="sm"
-                            disabled={revokeToken === s.token}
-                            onClick={() => void revokeSession(s.token)}
+                            loading={pending === `revoke:${s.id}`}
+                            onClick={() => void revokeSession(s)}
                           >
-                            {revokeToken === s.token ? (
-                              <Loader2
-                                className="size-4 animate-spin"
-                                aria-hidden
-                              />
-                            ) : null}
                             {t("revoke")}
                           </Button>
                         </TableCell>

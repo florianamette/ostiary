@@ -1,21 +1,10 @@
 "use client";
 
 import * as React from "react";
-import { Loader2 } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { toast } from "sonner";
 
 import { Badge } from "@ostiary/core/components/ui/badge";
 import { Button } from "@ostiary/core/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@ostiary/core/components/ui/dialog";
 import {
   Table,
   TableBody,
@@ -25,7 +14,9 @@ import {
   TableRow,
 } from "@ostiary/core/components/ui/table";
 import { adminRevokeApiKey } from "@/app/[locale]/(console)/api-keys/actions";
+import { ConfirmRemoveDialog } from "@/components/admin/common/confirm-remove-dialog";
 import { formatDateTime } from "@/components/admin/common/page-header";
+import { useAdminAction } from "@/components/admin/common/use-admin-action";
 import { Link } from "@/i18n/navigation";
 
 export type AdminApiKeyRow = {
@@ -56,27 +47,14 @@ export function ApiKeysTable({
 }) {
   const t = useTranslations("admin.pages.apiKeys.table");
   const tc = useTranslations("admin.common");
-  const router = useRouter();
   const [pending, setPending] = React.useState<AdminApiKeyRow | null>(null);
-  const [busyId, setBusyId] = React.useState<string | null>(null);
-  const now = Date.now();
+  const { busy, run } = useAdminAction(() => setPending(null));
+  // Read once: an expired badge does not need to flip while the page is open.
+  const [now] = React.useState(() => Date.now());
 
-  async function revoke() {
+  function revoke() {
     const row = pending;
-    if (!row) return;
-    setPending(null);
-    setBusyId(row.id);
-    try {
-      const res = await adminRevokeApiKey(row.id);
-      if (!res.ok) {
-        toast.error(res.error);
-        return;
-      }
-      toast.success(t("revoked"));
-      router.refresh();
-    } finally {
-      setBusyId(null);
-    }
+    if (row) void run(() => adminRevokeApiKey(row.id), t("revoked"));
   }
 
   if (rows.length === 0) return <p className="text-sm text-muted-foreground">{t("empty")}</p>;
@@ -152,8 +130,7 @@ export function ApiKeysTable({
                     {expired ? <Badge variant="destructive">{t("expired")}</Badge> : formatDateTime(row.expiresAt, locale)}
                   </TableCell>
                   <TableCell className="text-right">
-                    <Button type="button" variant="ghost" size="sm" disabled={busyId === row.id} onClick={() => setPending(row)}>
-                      {busyId === row.id ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
+                    <Button type="button" variant="ghost" size="sm" onClick={() => setPending(row)}>
                       {t("revoke")}
                     </Button>
                   </TableCell>
@@ -163,26 +140,19 @@ export function ApiKeysTable({
           </TableBody>
         </Table>
       </div>
-      <Dialog open={pending !== null} onOpenChange={(open) => !open && setPending(null)}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>{t("revokeTitle", { name: pending?.name ?? "" })}</DialogTitle>
-            <DialogDescription>
-              {pending?.owner.type === "organization"
-                ? t("revokeOrgDescription", { owner: pending.owner.label })
-                : t("revokeUserDescription", { owner: pending?.owner.label ?? "" })}
-            </DialogDescription>
-          </DialogHeader>
-          <DialogFooter>
-            <Button type="button" variant="outline" onClick={() => setPending(null)}>
-              {tc("cancel")}
-            </Button>
-            <Button type="button" variant="destructive" onClick={() => void revoke()}>
-              {t("revoke")}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+      <ConfirmRemoveDialog
+        open={pending !== null}
+        onOpenChange={(open) => !open && setPending(null)}
+        title={t("revokeTitle", { name: pending?.name ?? "" })}
+        description={
+          pending?.owner.type === "organization"
+            ? t("revokeOrgDescription", { owner: pending.owner.label })
+            : t("revokeUserDescription", { owner: pending?.owner.label ?? "" })
+        }
+        pending={busy}
+        onConfirm={revoke}
+        confirmLabel={t("revoke")}
+      />
     </>
   );
 }

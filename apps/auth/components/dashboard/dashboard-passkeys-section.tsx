@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Loader2, Pencil, Trash2 } from "lucide-react";
+import { Pencil, Trash2 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
 
@@ -20,7 +20,9 @@ import {
   TableRow,
 } from "@ostiary/core/components/ui/table";
 import { ConfirmDialog } from "@/components/dashboard/confirm-dialog";
+import { useAsyncResource } from "@ostiary/core/hooks/use-async-resource";
 import { authClient } from "@/lib/auth-client";
+import { useAuthAction } from "@/lib/use-auth-action";
 import { needsRecentSignIn, signInAgain } from "@/lib/sign-in-again";
 
 type PasskeyRow = {
@@ -47,91 +49,69 @@ const ADD_OPTIONS = [
   { attachment: "cross-platform", labelKey: "addSecurityKey" },
 ] as const satisfies readonly { attachment: Attachment; labelKey: string }[];
 
+async function listPasskeys(): Promise<PasskeyRow[]> {
+  const res = await authClient.passkey.listUserPasskeys();
+  if (res.error) throw res.error;
+  return (Array.isArray(res.data) ? res.data : []).map((p) => ({
+    id: p.id,
+    name: p.name,
+    createdAt: new Date(p.createdAt),
+    deviceType: p.deviceType,
+  }));
+}
+
 export function DashboardPasskeysSection() {
   const t = useTranslations("dashboard.passkeys");
   const locale = useLocale();
-  const [rows, setRows] = React.useState<PasskeyRow[]>([]);
-  const [loading, setLoading] = React.useState(true);
-  const [adding, setAdding] = React.useState<Attachment | null>(null);
-  const [deletingId, setDeletingId] = React.useState<string | null>(null);
+  const passkeys = useAsyncResource(listPasskeys);
+  const rows = passkeys.data ?? [];
+  const { pending, run } = useAuthAction<`add:${Attachment}` | `delete:${string}` | "rename">();
   const [pendingDelete, setPendingDelete] = React.useState<PasskeyRow | null>(
     null,
   );
   const [editingId, setEditingId] = React.useState<string | null>(null);
   const [draftName, setDraftName] = React.useState("");
-  const [savingName, setSavingName] = React.useState(false);
-
-  const loadPasskeys = React.useCallback(async () => {
-    setLoading(true);
-    try {
-      const res = await authClient.passkey.listUserPasskeys();
-      if (res.error) {
-        toast.error(String(res.error.message ?? t("loadError")));
-        setRows([]);
-        return;
-      }
-      const list = Array.isArray(res.data) ? res.data : [];
-      setRows(
-        list.map((p) => ({
-          id: p.id,
-          name: p.name,
-          createdAt: new Date(p.createdAt),
-          deviceType: p.deviceType,
-        })),
-      );
-    } finally {
-      setLoading(false);
-    }
-  }, [t]);
+  const adding = pending?.startsWith("add:") ?? false;
+  const savingName = pending === "rename";
 
   React.useEffect(() => {
-    void loadPasskeys();
-  }, [loadPasskeys]);
+    if (passkeys.error) toast.error(t("loadError"));
+  }, [passkeys.error, t]);
 
-  async function handleAdd(attachment: Attachment) {
-    setAdding(attachment);
-    try {
-      const { data, error } = await authClient.passkey.addPasskey({
-        name: t("defaultName"),
-        authenticatorAttachment: attachment,
-      });
-      if (error) {
-        if (isRegistrationCancelled(error)) return;
+  function handleAdd(attachment: Attachment) {
+    return run(`add:${attachment}`, {
+      call: () =>
+        authClient.passkey.addPasskey({
+          name: t("defaultName"),
+          authenticatorAttachment: attachment,
+        }),
+      success: t("added"),
+      error: t("addError"),
+      onError: (error) => {
+        if (isRegistrationCancelled(error)) return true;
         if (needsRecentSignIn(error)) {
           // Adding a passkey needs a sign-in from the last 10 minutes (see the auth hooks).
           toast.error(t("signInAgainToAdd"), {
             action: { label: t("signInAgain"), onClick: () => void signInAgain(locale) },
           });
-          return;
+          return true;
         }
-        toast.error(String(error.message ?? t("addError")));
-        return;
-      }
-      if (data) {
-        toast.success(t("added"));
-        void loadPasskeys();
-      }
-    } finally {
-      setAdding(null);
-    }
+        return false;
+      },
+      onSuccess: passkeys.reload,
+    });
   }
 
   async function confirmDelete() {
     const row = pendingDelete;
     if (!row) return;
+    await run(`delete:${row.id}`, {
+      call: () => authClient.passkey.deletePasskey({ id: row.id }),
+      success: t("deleted"),
+      error: t("deleteError"),
+      onSuccess: passkeys.reload,
+    });
     setPendingDelete(null);
-    setDeletingId(row.id);
-    try {
-      const { error } = await authClient.passkey.deletePasskey({ id: row.id });
-      if (error) {
-        toast.error(String(error.message ?? t("deleteError")));
-        return;
-      }
-      toast.success(t("deleted"));
-      void loadPasskeys();
-    } finally {
-      setDeletingId(null);
-    }
   }
 
   function startRename(row: PasskeyRow) {
@@ -145,19 +125,15 @@ export function DashboardPasskeysSection() {
       toast.error(t("nameRequired"));
       return;
     }
-    setSavingName(true);
-    try {
-      const { error } = await authClient.passkey.updatePasskey({ id, name });
-      if (error) {
-        toast.error(String(error.message ?? t("updateError")));
-        return;
-      }
-      toast.success(t("updated"));
-      setEditingId(null);
-      void loadPasskeys();
-    } finally {
-      setSavingName(false);
-    }
+    await run("rename", {
+      call: () => authClient.passkey.updatePasskey({ id, name }),
+      success: t("updated"),
+      error: t("updateError"),
+      onSuccess: async () => {
+        setEditingId(null);
+        await passkeys.reload();
+      },
+    });
   }
 
   return (
@@ -174,19 +150,17 @@ export function DashboardPasskeysSection() {
               type="button"
               variant="outline"
               size="sm"
-              disabled={adding !== null}
+              loading={pending === `add:${attachment}`}
+              disabled={adding}
               onClick={() => void handleAdd(attachment)}
             >
-              {adding === attachment ? (
-                <Loader2 className="size-4 animate-spin" aria-hidden />
-              ) : null}
               {t(labelKey)}
             </Button>
           ))}
         </div>
       </div>
 
-      {loading ? (
+      {passkeys.loading ? (
         <div className="space-y-2" aria-busy="true">
           <Skeleton className="h-12 w-full" />
         </div>
@@ -223,15 +197,9 @@ export function DashboardPasskeysSection() {
                           <Button
                             type="button"
                             size="sm"
-                            disabled={savingName}
+                            loading={savingName}
                             onClick={() => void handleSaveName(row.id)}
                           >
-                            {savingName ? (
-                              <Loader2
-                                className="size-4 animate-spin"
-                                aria-hidden
-                              />
-                            ) : null}
                             {t("save")}
                           </Button>
                           <Button
@@ -277,17 +245,10 @@ export function DashboardPasskeysSection() {
                           variant="ghost"
                           size="icon-sm"
                           aria-label={t("delete")}
-                          disabled={deletingId === row.id}
+                          disabled={pending === `delete:${row.id}`}
                           onClick={() => setPendingDelete(row)}
                         >
-                          {deletingId === row.id ? (
-                            <Loader2
-                              className="size-4 animate-spin"
-                              aria-hidden
-                            />
-                          ) : (
-                            <Trash2 className="size-4" aria-hidden />
-                          )}
+                          <Trash2 className="size-4" aria-hidden />
                         </Button>
                       </div>
                     )}
@@ -306,7 +267,7 @@ export function DashboardPasskeysSection() {
         cancelLabel={t("cancel")}
         confirmLabel={t("delete")}
         onCancel={() => setPendingDelete(null)}
-        onConfirm={() => void confirmDelete()}
+        onConfirm={confirmDelete}
       />
     </div>
   );

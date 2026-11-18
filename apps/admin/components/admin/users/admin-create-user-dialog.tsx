@@ -3,6 +3,7 @@
 import * as React from "react";
 import { UserPlusIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { toast } from "sonner";
 
 import { Button } from "@ostiary/core/components/ui/button";
 import {
@@ -28,7 +29,6 @@ import {
   SelectValue,
 } from "@ostiary/core/components/ui/select";
 import { authClient } from "@/lib/auth-client";
-import { adminNotify } from "@ostiary/core/lib/admin/admin-notify";
 
 export function AdminCreateUserDialog({ onCreated }: { onCreated: () => void }) {
   const t = useTranslations("admin.pages.users.create");
@@ -65,7 +65,7 @@ export function AdminCreateUserDialog({ onCreated }: { onCreated: () => void }) 
         setFormError(error.message ?? t("error"));
         return;
       }
-      adminNotify(t("created"));
+      toast.success(t("created"));
       setOpen(false);
       reset();
       onCreated();
