@@ -5,6 +5,7 @@ import { ArrowUpRightIcon } from "lucide-react";
 import { useFormatter, useTranslations } from "next-intl";
 
 import { AppIcon } from "@ostiary/core/components/app-icon";
+import { useClientNow } from "@/lib/use-client-now";
 import { Button } from "@ostiary/core/components/ui/button";
 import {
   Card,
@@ -57,12 +58,13 @@ function AppPermissions({ scopes }: { scopes: string[] }) {
 function AppDates({ app }: { app: ConnectedApp }) {
   const t = useTranslations("dashboard.apps");
   const format = useFormatter();
-  const now = React.useMemo(() => new Date(), []);
+  // Null while hydrating: "Last used" then appears once the page is interactive (see useClientNow).
+  const now = useClientNow();
   const parts: string[] = [];
   if (app.connectedAt) {
     parts.push(t("connectedOn", { date: format.dateTime(new Date(app.connectedAt), { dateStyle: "medium" }) }));
   }
-  if (app.lastUsedAt) {
+  if (app.lastUsedAt && now) {
     const last = new Date(app.lastUsedAt);
     parts.push(t("lastUsed", { time: format.relativeTime(last > now ? now : last, now) }));
   }

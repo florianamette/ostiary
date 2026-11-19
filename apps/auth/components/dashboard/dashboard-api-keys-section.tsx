@@ -18,6 +18,7 @@ import { Skeleton } from "@ostiary/core/components/ui/skeleton";
 import { useAsyncResource } from "@ostiary/core/hooks/use-async-resource";
 import { ConfirmDialog } from "@/components/dashboard/confirm-dialog";
 import { CreateApiKeyDialog, IssuedKeyDialog } from "@/components/dashboard/dashboard-api-key-dialogs";
+import { useClientNow } from "@/lib/use-client-now";
 import type { MyApiKey } from "@/lib/api-key-serialize";
 import {
   createMyApiKey,
@@ -129,8 +130,9 @@ export function ApiKeysManager({
   }
 
   const canCreate = Boolean(data?.enabled && data.apis.length > 0);
-  // Read once: whether a key has expired does not need to tick while the page is open.
-  const [now] = React.useState(() => Date.now());
+  // Read once: whether a key has expired does not need to tick while the page is open. Null
+  // while hydrating, so the server and the browser agree (see useClientNow).
+  const now = useClientNow();
 
   const createButton = data?.enabled ? (
     <Button type="button" size="sm" variant="outline" disabled={!canCreate} onClick={() => setCreating(true)}>
@@ -236,13 +238,13 @@ function ApiKeyItem({
   onRevoke,
 }: {
   apiKey: MyApiKey;
-  now: number;
+  now: Date | null;
   revoking: boolean;
   onRevoke: () => void;
 }) {
   const t = useTranslations("dashboard.apiKeys");
   const locale = useLocale();
-  const expired = key.expiresAt !== null && new Date(key.expiresAt).getTime() <= now;
+  const expired = key.expiresAt !== null && now !== null && new Date(key.expiresAt).getTime() <= now.getTime();
   return (
     <li className="flex flex-col gap-3 rounded-lg border border-border/80 p-4 sm:flex-row sm:items-start sm:justify-between">
       <div className="min-w-0 space-y-1">
