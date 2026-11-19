@@ -22,8 +22,6 @@ import {
   listOrganizationApiKeys,
   setApiKeyCreator,
 } from "@ostiary/core/lib/api-keys";
-import { recordAudit } from "@ostiary/core/lib/audit";
-import { clientIp } from "@ostiary/core/lib/auth-events";
 import { env } from "@ostiary/core/lib/env";
 import { auth } from "@/lib/auth";
 import {
@@ -32,7 +30,7 @@ import {
   type CreatedApiKey,
 } from "@/lib/api-key-actions-shared";
 import { serializeApiKey, type MyApiKey } from "@/lib/api-key-serialize";
-import { currentSession, signedInRecently } from "@/lib/server-session";
+import { signedInRecently, userActor } from "@/lib/server-session";
 import type { CreateApiKeyError, MyApiKeys } from "@/lib/api-keys-actions";
 
 /*
@@ -57,12 +55,12 @@ async function managedOrganization(userId: string, organizationId: unknown) {
 
 /** Ids of the organizations whose keys the signed-in user manages (owner or admin). */
 export async function getOrganizationsWithManagedApiKeys(): Promise<string[]> {
-  const { session } = await currentSession();
-  if (!session) return [];
+  const actor = await userActor();
+  if (!actor.ok) return [];
   const rows = await db
     .select({ organizationId: member.organizationId, role: member.role })
     .from(member)
-    .where(eq(member.userId, session.user.id));
+    .where(eq(member.userId, actor.user.id));
   return rows
     .filter((row) => organizationMayOwnKeys(row.organizationId) && canManageOrganizationKeys(row.role))
     .map((row) => row.organizationId);
@@ -70,9 +68,9 @@ export async function getOrganizationsWithManagedApiKeys(): Promise<string[]> {
 
 /** An organization's keys and what may be created; null unless the user is an owner or admin. */
 export async function getOrganizationApiKeys(organizationId: string): Promise<MyApiKeys | null> {
-  const { session } = await currentSession();
-  if (!session) return null;
-  const org = await managedOrganization(session.user.id, organizationId);
+  const actor = await userActor();
+  if (!actor.ok) return null;
+  const org = await managedOrganization(actor.user.id, organizationId);
   if (!org) return null;
   return apiKeysOverview(listOrganizationApiKeys(org.id), MAX_KEYS_PER_ORGANIZATION);
 }
@@ -86,13 +84,15 @@ export async function createOrganizationApiKey(
   organizationId: string,
   input: { name: string; api: string; scopes: string[]; expiresInDays: number },
 ): Promise<{ ok: true; key: string; created: MyApiKey } | { ok: false; error: CreateApiKeyError }> {
-  const { session, requestHeaders } = await currentSession();
-  if (!session) return { ok: false, error: "signedOut" };
-  if (session.session.impersonatedBy) return { ok: false, error: "impersonating" };
-  const org = await managedOrganization(session.user.id, organizationId);
+  const actor = await userActor({ forbidImpersonation: true });
+  if (!actor.ok) return actor;
+  const { user } = actor;
+  const org = await managedOrganization(user.id, organizationId);
   if (!org) return { ok: false, error: "forbidden" };
-  if (!signedInRecently(session.session.createdAt)) return { ok: false, error: "recentSignIn" };
-  const userId = session.user.id;
+  // After the organization check: someone who may not manage its keys learns nothing more.
+  if (!signedInRecently(actor.session.session.createdAt)) return { ok: false, error: "recentSignIn" };
+  if (!input || typeof input !== "object") return { ok: false, error: "failed" };
+  const userId = user.id;
   const [settings, api, keysHeld] = await Promise.all([
     currentApiKeySettings(),
     typeof input.api === "string" ? findKeyApi(input.api) : null,
@@ -133,32 +133,29 @@ export async function createOrganizationApiKey(
     apiName: api?.name ?? null,
     scopes: grant.scopes,
     owner: { type: "organization", id: org.id, name: org.name, slug: "" },
-    createdBy: { id: userId, email: session.user.email, name: session.user.name },
+    createdBy: { id: userId, email: user.email, name: user.name },
   });
-  await recordAudit({
-    actor: { id: userId, email: session.user.email },
+  await actor.audit({
     action: "api_key.create",
     target: apiKeyAuditTarget(item.owner),
     metadata: apiKeyAuditMetadata(item),
-    ipAddress: clientIp(requestHeaders),
   });
   return { ok: true, key: created.key, created: serializeApiKey(item) };
 }
 
 /** Revokes (deletes) one of the organization's keys. Owners and admins only. */
 export async function revokeOrganizationApiKey(organizationId: string, id: string): Promise<{ ok: boolean }> {
-  const { session, requestHeaders } = await currentSession();
-  if (!session || typeof id !== "string" || !id) return { ok: false };
-  const org = await managedOrganization(session.user.id, organizationId);
+  if (typeof id !== "string" || !id) return { ok: false };
+  const actor = await userActor();
+  if (!actor.ok) return { ok: false };
+  const org = await managedOrganization(actor.user.id, organizationId);
   if (!org) return { ok: false };
   const deleted = await deleteApiKey(id, { organizationId: org.id });
   if (!deleted) return { ok: false };
-  await recordAudit({
-    actor: { id: session.user.id, email: session.user.email },
+  await actor.audit({
     action: "api_key.revoke",
     target: apiKeyAuditTarget(deleted.owner),
     metadata: apiKeyAuditMetadata(deleted),
-    ipAddress: clientIp(requestHeaders),
   });
   return { ok: true };
 }

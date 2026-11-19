@@ -1,3 +1,4 @@
+import { sql } from "drizzle-orm";
 import { index, jsonb, pgTable, text, timestamp } from "drizzle-orm/pg-core";
 
 import { user } from "./auth";
@@ -18,10 +19,14 @@ export const auditLog = pgTable(
     targetLabel: text("target_label"),
     metadata: jsonb("metadata"),
     ipAddress: text("ip_address"),
-    createdAt: timestamp("created_at").defaultNow().notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
   },
   (table) => [
     index("audit_log_created_at_idx").on(table.createdAt),
     index("audit_log_target_idx").on(table.targetType, table.targetId),
+    // Account deletion nulls actor_id (ON DELETE SET NULL); export and erasure filter on it.
+    index("audit_log_actor_id_created_at_idx").on(table.actorId, table.createdAt),
+    // The audit page filters by action prefix (`LIKE 'user.%'`).
+    index("audit_log_action_prefix_idx").using("btree", sql`${table.action} text_pattern_ops`),
   ],
 );

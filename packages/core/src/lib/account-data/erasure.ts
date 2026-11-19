@@ -11,13 +11,16 @@ import {
   ssoProvider,
   verification,
   webhookDelivery,
+  webhookEndpoint,
 } from "@ostiary/core/db/schema";
 import type { Database } from "@ostiary/core/lib/account-data/database";
 import { registrationSource } from "@ostiary/core/lib/client-registration-policy";
 
 /*
- * Erasure (GDPR article 17), run just before an account row is deleted, whoever deletes it
- * (the user, an admin). Foreign keys then remove what belongs to the account alone: sessions,
+ * Erasure (GDPR article 17), whoever deletes the account (the user, an admin). It runs in two
+ * steps around the delete, so a delete that fails leaves the account's history whole:
+ * prepareUserErasure reads what the delete makes unreachable, completeUserErasure erases once
+ * the account row is gone. Foreign keys remove what belongs to the account alone: sessions,
  * sign-in methods, passkeys, two-factor secrets, personal API keys, OAuth tokens and consents,
  * memberships, invitations it sent, device codes, SCIM records, and apps it registered itself.
  * This covers what the foreign keys cannot:
@@ -35,15 +38,27 @@ import { registrationSource } from "@ostiary/core/lib/client-registration-policy
  *   foreign key only clears their creator (`apikey.created_by`).
  * - Apps and SSO providers an administrator registered from the console belong to the
  *   instance, not the person: they are detached (owner cleared) instead of deleted with them.
- * - Webhook deliveries already sent: their payloads carry the person's profile and are kept 30
- *   days for the delivery log, so their data is redacted. Pending ones (including the
- *   `user.deleted` event itself) still go out, and age out with the log.
+ * - Webhook deliveries already sent, or waiting on a disabled endpoint: their payloads carry the
+ *   person's profile and are kept 30 days for the delivery log, so their data is redacted.
+ *   Pending ones for enabled endpoints (including the `user.deleted` event itself) still go
+ *   out, and age out with the log.
  */
 
 /** Replaces names and addresses in kept records. */
 export const DELETED_USER_LABEL = "[deleted user]";
 
 export type ErasedUser = { id: string; email: string; name?: string | null; username?: string | null };
+
+/** What prepareUserErasure read before the delete, for completeUserErasure after it. */
+export type ErasurePlan = {
+  memberships: ErasureSummary["memberships"];
+  /** Audit entries the person made: the foreign key clears their actor id with the account. */
+  actorAuditIds: string[];
+  /** The person's sign-in events: the foreign key clears their user id with the account. */
+  signInEventIds: string[];
+  detachedClients: number;
+  detachedSsoProviders: number;
+};
 
 export type ErasureSummary = {
   /** The memberships the account had, for `organization.member.removed` webhooks. */
@@ -94,91 +109,22 @@ function contains(column: PgColumn | SQL, needle: string) {
   return sql`position(${needle.toLowerCase()} in lower(${column}::text)) > 0`;
 }
 
-/** Erases what the account's foreign keys do not, in one transaction. See the comment above. */
-export async function prepareUserErasure(db: Database, u: ErasedUser): Promise<ErasureSummary> {
-  const needles = personalNeedles(u);
-  const email = u.email.toLowerCase();
-  const identifiers = [email, ...(u.username ? [u.username.toLowerCase()] : [])];
-
+/**
+ * What deleting the account will make unreachable, read just before the delete (Better Auth's
+ * `delete.before` hook): the memberships (for webhooks), and the audit entries and sign-in
+ * events tied to the account by id (the foreign keys clear those ids). Apps and SSO providers an
+ * administrator registered are detached here too, since the delete would otherwise take them
+ * with it; they belong to the instance whether or not the delete then succeeds. Nothing is
+ * erased yet: if the delete fails, the account and its history are still whole.
+ */
+export async function prepareUserErasure(db: Database, u: ErasedUser): Promise<ErasurePlan> {
   return db.transaction(async (tx) => {
     const memberships = await tx
       .select({ id: member.id, organizationId: member.organizationId, userId: member.userId, role: member.role })
       .from(member)
       .where(eq(member.userId, u.id));
-
-    // Audit log: entries stay, the person's identifiers go.
-    const audits = await tx
-      .select({
-        id: auditLog.id,
-        actorId: auditLog.actorId,
-        actorEmail: auditLog.actorEmail,
-        targetType: auditLog.targetType,
-        targetId: auditLog.targetId,
-        targetLabel: auditLog.targetLabel,
-        metadata: auditLog.metadata,
-        ipAddress: auditLog.ipAddress,
-      })
-      .from(auditLog)
-      .where(
-        or(
-          eq(auditLog.actorId, u.id),
-          and(eq(auditLog.targetType, "user"), eq(auditLog.targetId, u.id)),
-          sql`lower(${auditLog.actorEmail}) = ${email}`,
-          ...needles.map((needle) => contains(auditLog.targetLabel, needle)),
-          ...needles.map((needle) => contains(auditLog.metadata, needle)),
-        ),
-      );
-    let auditEntries = 0;
-    for (const row of audits) {
-      const isActor = row.actorId === u.id || row.actorEmail?.toLowerCase() === email;
-      const isTarget = row.targetType === "user" && row.targetId === u.id;
-      const next = {
-        actorEmail: isActor ? DELETED_USER_LABEL : row.actorEmail,
-        // The IP of an entry the person made is theirs; an admin's IP on an entry about them is not.
-        ipAddress: isActor ? null : row.ipAddress,
-        targetLabel: isTarget ? DELETED_USER_LABEL : (scrubValue(row.targetLabel, needles) as string | null),
-        metadata: scrubValue(row.metadata, needles),
-      };
-      if (
-        next.actorEmail === row.actorEmail &&
-        next.ipAddress === row.ipAddress &&
-        next.targetLabel === row.targetLabel &&
-        next.metadata === row.metadata
-      ) {
-        continue;
-      }
-      await tx.update(auditLog).set(next).where(eq(auditLog.id, row.id));
-      auditEntries++;
-    }
-
-    // Sign-in events: counts stay for the charts; the address and the identifier typed go.
-    const signedIn = await tx
-      .update(authEvent)
-      .set({ ipAddress: null, identifier: null })
-      .where(eq(authEvent.userId, u.id))
-      .returning({ id: authEvent.id });
-    const failed = await tx
-      .update(authEvent)
-      .set({ ipAddress: null, identifier: null })
-      .where(and(isNotNull(authEvent.identifier), inArray(sql<string>`lower(${authEvent.identifier})`, identifiers)))
-      .returning({ id: authEvent.id });
-
-    // Codes, links and trusted devices: stored by account id (value) or address (identifier).
-    const verifications = await tx
-      .delete(verification)
-      .where(or(eq(verification.value, u.id), contains(verification.identifier, email)))
-      .returning({ id: verification.id });
-
-    const invitations = await tx
-      .delete(invitation)
-      .where(sql`lower(${invitation.email}) = ${email}`)
-      .returning({ id: invitation.id });
-
-    // Sessions this person opened in someone else's account while impersonating them.
-    const impersonations = await tx
-      .delete(session)
-      .where(and(eq(session.impersonatedBy, u.id), ne(session.userId, u.id)))
-      .returning({ id: session.id });
+    const actorAudits = await tx.select({ id: auditLog.id }).from(auditLog).where(eq(auditLog.actorId, u.id));
+    const signInEvents = await tx.select({ id: authEvent.id }).from(authEvent).where(eq(authEvent.userId, u.id));
 
     // Console-registered apps are the instance's: keep them (and every user's tokens for them).
     const owned = await tx
@@ -200,24 +146,134 @@ export async function prepareUserErasure(db: Database, u: ErasedUser): Promise<E
       .where(eq(ssoProvider.userId, u.id))
       .returning({ id: ssoProvider.id });
 
-    // Delivered (or given up) webhook payloads mentioning the account.
+    return {
+      memberships,
+      actorAuditIds: actorAudits.map((row) => row.id),
+      signInEventIds: signInEvents.map((row) => row.id),
+      detachedClients: instanceClients.length,
+      detachedSsoProviders: sso.length,
+    };
+  });
+}
+
+/**
+ * Erases what the account's foreign keys do not, in one transaction, once the account row is
+ * gone (Better Auth's `delete.after` hook). See the comment above. `plan` is what
+ * prepareUserErasure read before the delete.
+ */
+export async function completeUserErasure(db: Database, u: ErasedUser, plan: ErasurePlan): Promise<ErasureSummary> {
+  const needles = personalNeedles(u);
+  const email = u.email.toLowerCase();
+  const identifiers = [email, ...(u.username ? [u.username.toLowerCase()] : [])];
+  const actorAuditIds = new Set(plan.actorAuditIds);
+
+  return db.transaction(async (tx) => {
+    // Audit log: entries stay, the person's identifiers go.
+    const audits = await tx
+      .select({
+        id: auditLog.id,
+        actorEmail: auditLog.actorEmail,
+        targetType: auditLog.targetType,
+        targetId: auditLog.targetId,
+        targetLabel: auditLog.targetLabel,
+        metadata: auditLog.metadata,
+        ipAddress: auditLog.ipAddress,
+      })
+      .from(auditLog)
+      .where(
+        or(
+          plan.actorAuditIds.length ? inArray(auditLog.id, plan.actorAuditIds) : undefined,
+          and(eq(auditLog.targetType, "user"), eq(auditLog.targetId, u.id)),
+          sql`lower(${auditLog.actorEmail}) = ${email}`,
+          ...needles.map((needle) => contains(auditLog.targetLabel, needle)),
+          ...needles.map((needle) => contains(auditLog.metadata, needle)),
+        ),
+      );
+    let auditEntries = 0;
+    for (const row of audits) {
+      const isActor = actorAuditIds.has(row.id) || row.actorEmail?.toLowerCase() === email;
+      const isTarget = row.targetType === "user" && row.targetId === u.id;
+      const next = {
+        actorEmail: isActor ? DELETED_USER_LABEL : row.actorEmail,
+        // The IP of an entry the person made is theirs; an admin's IP on an entry about them is not.
+        ipAddress: isActor ? null : row.ipAddress,
+        targetLabel: isTarget ? DELETED_USER_LABEL : (scrubValue(row.targetLabel, needles) as string | null),
+        metadata: scrubValue(row.metadata, needles),
+      };
+      if (
+        next.actorEmail === row.actorEmail &&
+        next.ipAddress === row.ipAddress &&
+        next.targetLabel === row.targetLabel &&
+        next.metadata === row.metadata
+      ) {
+        continue;
+      }
+      await tx.update(auditLog).set(next).where(eq(auditLog.id, row.id));
+      auditEntries++;
+    }
+
+    // Sign-in events: counts stay for the charts; the address and the identifier typed go.
+    const signedIn = plan.signInEventIds.length
+      ? await tx
+          .update(authEvent)
+          .set({ ipAddress: null, identifier: null })
+          .where(inArray(authEvent.id, plan.signInEventIds))
+          .returning({ id: authEvent.id })
+      : [];
+    const failed = await tx
+      .update(authEvent)
+      .set({ ipAddress: null, identifier: null })
+      .where(and(isNotNull(authEvent.identifier), inArray(sql<string>`lower(${authEvent.identifier})`, identifiers)))
+      .returning({ id: authEvent.id });
+
+    // Codes, links and trusted devices: stored by account id (value) or address (identifier).
+    const verifications = await tx
+      .delete(verification)
+      .where(or(eq(verification.value, u.id), contains(verification.identifier, email)))
+      .returning({ id: verification.id });
+
+    const invitations = await tx
+      .delete(invitation)
+      .where(sql`lower(${invitation.email}) = ${email}`)
+      .returning({ id: invitation.id });
+
+    // Sessions this person opened in someone else's account while impersonating them.
+    const impersonations = await tx
+      .delete(session)
+      .where(eq(session.impersonatedBy, u.id))
+      .returning({ id: session.id });
+
+    // Webhook payloads mentioning the account: those already sent (or given up), and pending
+    // ones for a disabled endpoint, which may never be sent. Pending ones for enabled endpoints
+    // (including the `user.deleted` event itself) still go out, and age out with the log.
     const deliveries = await tx
       .select({ id: webhookDelivery.id, payload: webhookDelivery.payload })
       .from(webhookDelivery)
-      .where(and(ne(webhookDelivery.status, "pending"), contains(webhookDelivery.payload, u.id)));
+      .where(
+        and(
+          or(
+            ne(webhookDelivery.status, "pending"),
+            inArray(
+              webhookDelivery.endpointId,
+              tx.select({ id: webhookEndpoint.id }).from(webhookEndpoint).where(eq(webhookEndpoint.enabled, false)),
+            ),
+          ),
+          contains(webhookDelivery.payload, u.id),
+        ),
+      );
     for (const delivery of deliveries) {
       await tx.update(webhookDelivery).set({ payload: redactPayload(delivery.payload) }).where(eq(webhookDelivery.id, delivery.id));
     }
 
     return {
-      memberships,
+      memberships: plan.memberships,
       auditEntries,
       signInEvents: signedIn.length + failed.length,
       verifications: verifications.length,
       invitations: invitations.length,
       impersonationSessions: impersonations.length,
-      detachedClients: instanceClients.length,
-      detachedSsoProviders: sso.length,
+      detachedClients: plan.detachedClients,
+      detachedSsoProviders: plan.detachedSsoProviders,
       redactedDeliveries: deliveries.length,
     };
   });

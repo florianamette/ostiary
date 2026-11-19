@@ -1,8 +1,6 @@
 import { headers } from "next/headers";
 
-import { adminNeedsTwoFactor } from "@ostiary/core/lib/admin/admin-two-factor";
-import { userHasAdminRole } from "@ostiary/core/lib/admin/user-has-admin-role";
-import { env } from "@ostiary/core/lib/env";
+import { adminAccess } from "@ostiary/core/lib/admin/admin-access";
 import { auth } from "@/lib/auth";
 
 type AdminApiAuthFailure = {
@@ -17,19 +15,21 @@ type AdminApiAuthSuccess = {
   actor: { id: string; email: string };
 };
 
+const FAILURES = {
+  signed_out: { status: 401, message: "Unauthorized" },
+  not_admin: { status: 403, message: "Forbidden" },
+  needs_2fa: { status: 403, message: "Turn on two-factor authentication to use admin features." },
+} as const;
+
+/** The admin behind an admin API request, or why there is none (401 or 403). */
 export async function requireAdminApiRequest(): Promise<
   AdminApiAuthSuccess | AdminApiAuthFailure
 > {
   const h = await headers();
   const session = await auth.api.getSession({ headers: h });
-  if (!session?.user) {
-    return { ok: false, status: 401, message: "Unauthorized" };
-  }
-  if (!userHasAdminRole(session.user.role, ["admin"])) {
-    return { ok: false, status: 403, message: "Forbidden" };
-  }
-  if (adminNeedsTwoFactor(session.user, env.REQUIRE_ADMIN_2FA === "true")) {
-    return { ok: false, status: 403, message: "Turn on two-factor authentication to use admin features." };
+  const access = adminAccess(session?.user);
+  if (!session || access !== "ok") {
+    return { ok: false, ...FAILURES[access === "ok" ? "signed_out" : access] };
   }
   return {
     ok: true,

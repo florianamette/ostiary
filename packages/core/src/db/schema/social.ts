@@ -20,7 +20,7 @@ export const socialProvider = pgTable("social_provider", {
   allowSignUp: boolean("allow_sign_up").default(true).notNull(),
   /** Google only: offer Google One Tap on the sign-in and sign-up pages (with the same client ID). */
   oneTap: boolean("one_tap").default(false).notNull(),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
   updatedBy: text("updated_by").references(() => user.id, { onDelete: "set null" }),
 });

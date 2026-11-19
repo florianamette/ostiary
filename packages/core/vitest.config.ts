@@ -1,15 +1,3 @@
-import path from "node:path";
-import { defineConfig } from "vitest/config";
+import { vitestConfig } from "./config/vitest.mjs";
 
-export default defineConfig({
-  resolve: {
-    alias: {
-      "@ostiary/core": path.resolve(__dirname, "src"),
-    },
-  },
-  test: {
-    environment: "node",
-    setupFiles: ["./vitest.setup.ts"],
-    include: ["src/**/*.test.ts"],
-  },
-});
+export default vitestConfig(import.meta.dirname, { include: ["src/**/*.test.ts"] });

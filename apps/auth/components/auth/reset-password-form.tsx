@@ -1,6 +1,5 @@
 "use client";
 
-import { Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import { toast } from "sonner";
@@ -9,6 +8,7 @@ import { Button } from "@ostiary/core/components/ui/button";
 import {
   Field,
   FieldDescription,
+  FieldError,
   FieldGroup,
   FieldLabel,
 } from "@ostiary/core/components/ui/field";
@@ -17,6 +17,7 @@ import { Link, useRouter } from "@/i18n/navigation";
 import { AuthCard } from "@/components/auth/auth-card";
 import { authClient } from "@/lib/auth-client";
 import { withAppContext, type AppLink } from "@/lib/app-links";
+import { useAuthErrorMessage } from "@/lib/auth-error-message";
 
 export function ResetPasswordForm({
   className,
@@ -28,6 +29,7 @@ export function ResetPasswordForm({
 }) {
   const t = useTranslations("auth.resetPassword");
   const router = useRouter();
+  const errorMessage = useAuthErrorMessage();
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
   const errorParam = searchParams.get("error");
@@ -85,7 +87,8 @@ export function ResetPasswordForm({
         newPassword: password,
       });
       if (error) {
-        toast.error(error.message ?? t("errors.resetFailed"));
+        // A breached password (PASSWORD_COMPROMISED) and an expired link get their own wording.
+        toast.error(errorMessage(error, t("errors.resetFailed")));
         return;
       }
       toast.success(t("success"));
@@ -125,23 +128,23 @@ export function ResetPasswordForm({
               required
               value={confirmPassword}
               disabled={isSubmitting}
-              onChange={(e) => setConfirmPassword(e.target.value)}
+              aria-invalid={passwordMismatch || undefined}
+              aria-describedby={passwordMismatch ? "reset-password-mismatch" : undefined}
+              onChange={(e) => {
+                setConfirmPassword(e.target.value);
+                setPasswordMismatch(false);
+              }}
             />
             {passwordMismatch ? (
-              <p className="text-sm text-destructive" role="alert">
-                {t("passwordMismatch")}
-              </p>
+              <FieldError id="reset-password-mismatch">{t("passwordMismatch")}</FieldError>
             ) : null}
           </Field>
           <Field>
             <Button
               type="submit"
-              disabled={isSubmitting}
+              loading={isSubmitting}
               className="w-full sm:w-auto"
             >
-              {isSubmitting ? (
-                <Loader2 className="size-4 animate-spin" aria-hidden />
-              ) : null}
               {isSubmitting ? t("submitting") : t("submit")}
             </Button>
           </Field>

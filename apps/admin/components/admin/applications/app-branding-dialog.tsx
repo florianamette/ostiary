@@ -3,6 +3,7 @@
 import * as React from "react";
 import { AlertTriangleIcon, Loader2Icon, MoonIcon, SunIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { toast } from "sonner";
 
 import { Button } from "@ostiary/core/components/ui/button";
 import {
@@ -20,7 +21,6 @@ import { accentPalette, normalizeHexColor } from "@ostiary/core/lib/app-branding
 import { BRANDING_LIMITS } from "@ostiary/core/lib/app-branding/validation";
 import type { AppBrandingSettings } from "@ostiary/core/lib/app-branding/store";
 import { brand } from "@ostiary/core/lib/brand";
-import { adminNotify } from "@ostiary/core/lib/admin/admin-notify";
 import {
   loadAppBranding,
   resetAppBrandingAction,
@@ -177,8 +177,8 @@ export function AppBrandingDialog({
         setError(result.error);
         return;
       }
-      for (const warning of result.warnings) adminNotify(warning, "error");
-      adminNotify(t("saved"), "success");
+      for (const warning of result.warnings) toast.error(warning);
+      toast.success(t("saved"));
       onOpenChange(false);
     } finally {
       setPending(null);
@@ -193,7 +193,7 @@ export function AppBrandingDialog({
         setError(result.error);
         return;
       }
-      adminNotify(t("resetDone"), "success");
+      toast.success(t("resetDone"));
       onOpenChange(false);
     } finally {
       setPending(null);

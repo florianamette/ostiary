@@ -101,11 +101,6 @@ export function auditRequests() {
         const audited = AUDITED_ENDPOINTS[ctx.path];
         if (!audited || failed) return;
 
-        // An address set by an admin is unproven: the user must verify it at next sign-in.
-        const changes = body.data as Bag | undefined;
-        if (ctx.path === "/admin/update-user" && typeof body.userId === "string" && typeof changes?.email === "string") {
-            await ctx.context.internalAdapter.updateUser(body.userId, { emailVerified: false });
-        }
         const response = (returned && typeof returned === "object" ? returned : {}) as Bag;
         const targetId = audited.id?.(body, response);
         const metadata = Object.fromEntries(Object.entries(body).filter(([key]) => !SECRET_FIELDS.has(key)));

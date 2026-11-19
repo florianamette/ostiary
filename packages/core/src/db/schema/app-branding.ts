@@ -23,7 +23,7 @@ export const oauthClientBranding = pgTable("oauth_client_branding", {
   /** `#rrggbb`; null keeps the theme's colors. */
   accentColor: text("accent_color"),
   /** `app_icon` (the app's usual icon), `url` (fetched by the server and cached) or `upload`. */
-  logoSource: text("logo_source").notNull().default("app_icon"),
+  logoSource: text("logo_source", { enum: ["app_icon", "url", "upload"] }).notNull().default("app_icon"),
   /** https URL of the logo when logoSource is `url`; fetched into `app_icon` like other icons. */
   logoUrl: text("logo_url"),
   logoContentType: text("logo_content_type"),
@@ -34,6 +34,6 @@ export const oauthClientBranding = pgTable("oauth_client_branding", {
   panelImageData: bytea("panel_image_data"),
   /** Social sign-in providers shown for this app (ids); null shows every enabled one. */
   socialProviders: jsonb("social_providers").$type<string[] | null>(),
-  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
   updatedBy: text("updated_by").references(() => user.id, { onDelete: "set null" }),
 });

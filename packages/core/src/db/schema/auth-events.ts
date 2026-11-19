@@ -1,3 +1,4 @@
+import { sql } from "drizzle-orm";
 import { index, pgTable, text, timestamp } from "drizzle-orm/pg-core";
 
 import { user } from "./auth";
@@ -15,7 +16,13 @@ export const authEvent = pgTable(
     /** For failed sign-ins: the email or username that was tried. */
     identifier: text("identifier"),
     ipAddress: text("ip_address"),
-    createdAt: timestamp("created_at").defaultNow().notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
   },
-  (table) => [index("auth_event_type_created_at_idx").on(table.type, table.createdAt)],
+  (table) => [
+    index("auth_event_type_created_at_idx").on(table.type, table.createdAt),
+    // A user's activity (admin user page) and account deletion (ON DELETE SET NULL).
+    index("auth_event_user_id_created_at_idx").on(table.userId, table.createdAt),
+    // Failed sign-ins by the email or username tried: export and erasure compare lowercased.
+    index("auth_event_identifier_lower_idx").on(sql`lower(${table.identifier})`),
+  ],
 );

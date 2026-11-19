@@ -1,12 +1,13 @@
 "use client";
 
 import * as React from "react";
-import { DownloadIcon, Loader2, LogOutIcon, UserRoundSearch } from "lucide-react";
+import { DownloadIcon, LogOutIcon, UserRoundSearch } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
 
 import { DialogActions } from "@/components/admin/common/dialog-actions";
+import { useAdminAction } from "@/components/admin/common/use-admin-action";
 import { AdminUserRowActions } from "@/components/admin/users/admin-user-row-actions";
 import { Button } from "@ostiary/core/components/ui/button";
 import {
@@ -157,29 +158,16 @@ export function AdminUserDetailActions({
 
 /** Revoke button for one row of the sessions table. */
 export function RevokeSessionButton({ userId, sessionId }: { userId: string; sessionId: string }) {
-  const router = useRouter();
   const t = useTranslations("admin.pages.users.detailActions");
-  const [busy, setBusy] = React.useState(false);
+  const { busy, run } = useAdminAction();
   return (
     <Button
       type="button"
       variant="ghost"
       size="sm"
-      disabled={busy}
-      onClick={async () => {
-        setBusy(true);
-        try {
-          const { ok } = await revokeUserSession(userId, sessionId);
-          if (ok) {
-            toast.success(t("sessionRevoked"));
-            router.refresh();
-          } else toast.error(t("revokeError"));
-        } finally {
-          setBusy(false);
-        }
-      }}
+      loading={busy}
+      onClick={() => void run(() => revokeUserSession(userId, sessionId), t("sessionRevoked"), t("revokeError"))}
     >
-      {busy ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
       {t("revoke")}
     </Button>
   );
@@ -187,25 +175,12 @@ export function RevokeSessionButton({ userId, sessionId }: { userId: string; ses
 
 /** Turns off a user's two-factor authentication, after a confirmation. Audited. */
 export function ResetTwoFactorButton({ userId, email }: { userId: string; email: string }) {
-  const router = useRouter();
   const t = useTranslations("admin.pages.users.detailActions");
   const [open, setOpen] = React.useState(false);
-  const [busy, setBusy] = React.useState(false);
+  const { busy, run } = useAdminAction(() => setOpen(false));
 
   async function reset() {
-    setBusy(true);
-    try {
-      const { ok } = await resetUserTwoFactor(userId);
-      if (!ok) {
-        toast.error(t("resetTwoFactorError"));
-        return;
-      }
-      toast.success(t("twoFactorReset"));
-      setOpen(false);
-      router.refresh();
-    } finally {
-      setBusy(false);
-    }
+    await run(() => resetUserTwoFactor(userId), t("twoFactorReset"), t("resetTwoFactorError"));
   }
 
   return (

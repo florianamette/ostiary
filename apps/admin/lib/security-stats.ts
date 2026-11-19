@@ -15,21 +15,24 @@ export async function getSecurityStats() {
   start.setUTCHours(0, 0, 0, 0);
   start.setUTCDate(start.getUTCDate() - 29);
 
-  const day = sql<string>`to_char(date_trunc('day', ${authEvent.createdAt}), 'YYYY-MM-DD')`;
+  // Days in UTC, whatever the database session's time zone (created_at is timestamptz).
+  const day = sql<string>`to_char(date_trunc('day', ${authEvent.createdAt} AT TIME ZONE 'UTC'), 'YYYY-MM-DD')`;
+  // The same email or username typed in another case is one account.
+  const identifier = sql<string>`lower(${authEvent.identifier})`;
   const [last24h, last7d, last30d, perDay, topIdentifiers, topIps, banned] = await Promise.all([
     db.select({ n: count() }).from(authEvent).where(and(failed, since(DAY))),
     db.select({ n: count() }).from(authEvent).where(and(failed, since(7 * DAY))),
     db.select({ n: count() }).from(authEvent).where(and(failed, gte(authEvent.createdAt, start))),
     db.select({ day, n: count() }).from(authEvent).where(and(failed, gte(authEvent.createdAt, start))).groupBy(day),
     db
-      .select({ identifier: authEvent.identifier, n: count(), last: sql<Date>`max(${authEvent.createdAt})` })
+      .select({ identifier, n: count(), last: sql<Date>`max(${authEvent.createdAt})`.mapWith(authEvent.createdAt) })
       .from(authEvent)
       .where(and(failed, since(7 * DAY), isNotNull(authEvent.identifier)))
-      .groupBy(authEvent.identifier)
+      .groupBy(identifier)
       .orderBy(desc(count()))
       .limit(10),
     db
-      .select({ ip: authEvent.ipAddress, n: count(), accounts: sql<number>`count(distinct ${authEvent.identifier})` })
+      .select({ ip: authEvent.ipAddress, n: count(), accounts: sql<number>`count(distinct ${identifier})` })
       .from(authEvent)
       .where(and(failed, since(7 * DAY), isNotNull(authEvent.ipAddress)))
       .groupBy(authEvent.ipAddress)

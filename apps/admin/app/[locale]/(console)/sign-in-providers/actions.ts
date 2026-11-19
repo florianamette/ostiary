@@ -2,7 +2,9 @@
 
 import { getFormatter, getTranslations } from "next-intl/server";
 
-import { adminActor } from "@/lib/admin-audit";
+import { z } from "zod";
+
+import { adminAction, input, type AdminActor } from "@/lib/admin-action";
 import { isSocialProvider, SOCIAL_PROVIDER_META, type SocialProvider } from "@ostiary/core/lib/social-provider-meta";
 import {
   deleteSocialProvider,
@@ -53,8 +55,23 @@ async function saveError(id: SocialProvider, result: Extract<SaveResult, { ok: f
   }
 }
 
+const saveInput = z.tuple([
+      input.id,
+      z.object({
+        enabled: z.boolean(),
+        allowSignUp: z.boolean(),
+        oneTap: z.boolean().optional(),
+        config: z.record(z.string().max(100), z.string().max(10_000)),
+        secrets: z.record(z.string().max(100), z.string().max(10_000).nullable()),
+      }),
+    ]);
+
 export async function saveProvider(id: string, input: SocialProviderInput): Promise<ActionResult> {
-  const { session, audit } = await adminActor();
+  return adminAction(saveInput, [id, input], ([id, input], actor) => saveProviderRun(id, input, actor));
+}
+
+async function saveProviderRun(id: string, input: SocialProviderInput, actor: AdminActor): Promise<ActionResult> {
+  const { session, audit } = actor;
   if (!isSocialProvider(id)) return { ok: false, error: (await getTranslations("admin.pages.signInProviders"))("errors.unknownProvider") };
   const secrets = Object.fromEntries(
     Object.entries(input.secrets ?? {}).filter(
@@ -83,16 +100,28 @@ export async function saveProvider(id: string, input: SocialProviderInput): Prom
   return { ok: true };
 }
 
+const reorderInput = z.tuple([z.array(z.string().max(100)).max(200)]);
+
 export async function reorderProviders(ids: string[]): Promise<ActionResult> {
-  const { session, audit } = await adminActor();
+  return adminAction(reorderInput, [ids], ([ids], actor) => reorderProvidersRun(ids, actor));
+}
+
+async function reorderProvidersRun(ids: string[], actor: AdminActor): Promise<ActionResult> {
+  const { session, audit } = actor;
   const order = ids.filter(isSocialProvider).filter((id, i, all) => all.indexOf(id) === i);
   await reorderSocialProviders(order, session.user.id);
   await audit({ action: "social_provider.reorder", metadata: { order } });
   return { ok: true };
 }
 
+const providerInput = z.tuple([input.id]);
+
 export async function removeProvider(id: string): Promise<ActionResult> {
-  const { audit } = await adminActor();
+  return adminAction(providerInput, [id], ([id], actor) => removeProviderRun(id, actor));
+}
+
+async function removeProviderRun(id: string, actor: AdminActor): Promise<ActionResult> {
+  const { audit } = actor;
   if (!isSocialProvider(id)) return { ok: false, error: (await getTranslations("admin.pages.signInProviders"))("errors.unknownProvider") };
   if (await deleteSocialProvider(id)) await audit({ action: "social_provider.delete", target: target(id) });
   return { ok: true };

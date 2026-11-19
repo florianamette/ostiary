@@ -39,7 +39,7 @@ export function OidcRegisterForm({ callbackBase, organizations }: { callbackBase
         oidcConfig: { clientId: clientId.trim(), clientSecret },
       });
       if (error) {
-        toast.error(String(error.message ?? t("registerError")));
+        toast.error(error.code === "SSO_DOMAIN_TAKEN" ? t("errors.domainTaken") : t("registerError"));
         return;
       }
       // The plugin only lets members attach a provider to an organization; admins attach it here.

@@ -17,7 +17,8 @@ export async function getAuthActivity(days = 30): Promise<AuthActivityDay[]> {
   start.setUTCHours(0, 0, 0, 0);
   start.setUTCDate(start.getUTCDate() - (days - 1));
 
-  const day = sql<string>`to_char(date_trunc('day', ${authEvent.createdAt}), 'YYYY-MM-DD')`;
+  // Days in UTC, whatever the database session's time zone (created_at is timestamptz).
+  const day = sql<string>`to_char(date_trunc('day', ${authEvent.createdAt} AT TIME ZONE 'UTC'), 'YYYY-MM-DD')`;
   const rows = await db
     .select({ day, type: authEvent.type, n: count() })
     .from(authEvent)

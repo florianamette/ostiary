@@ -8,7 +8,7 @@ import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
 import * as schema from "@ostiary/core/db/schema";
 import { accountDeletionBlockers } from "@ostiary/core/lib/account-data/blockers";
 import type { Database } from "@ostiary/core/lib/account-data/database";
-import { DELETED_USER_LABEL, prepareUserErasure, scrubValue } from "@ostiary/core/lib/account-data/erasure";
+import { completeUserErasure, DELETED_USER_LABEL, prepareUserErasure, scrubValue } from "@ostiary/core/lib/account-data/erasure";
 import { buildAccountExport } from "@ostiary/core/lib/account-data/export";
 import { PUBLIC_ORGANIZATION_ID } from "@ostiary/core/lib/organization-public";
 
@@ -220,6 +220,13 @@ describe("account export", () => {
   });
 });
 
+/** What Better Auth's hooks do around the delete: read, delete, then erase. */
+async function deleteAndErase() {
+  const plan = await prepareUserErasure(db, U);
+  await db.delete(schema.user).where(eq(schema.user.id, U.id));
+  return completeUserErasure(db, U, plan);
+}
+
 describe("account deletion", () => {
   beforeEach(async () => {
     await reset();
@@ -233,8 +240,7 @@ describe("account deletion", () => {
     );
     expect((await columnsContaining(U.id)).length).toBeGreaterThan(20);
 
-    const summary = await prepareUserErasure(db, U);
-    await db.delete(schema.user).where(eq(schema.user.id, U.id));
+    const summary = await deleteAndErase();
 
     expect(summary.memberships.map((m) => m.id).sort()).toEqual(["mem_u_acme", "mem_u_public"]);
     expect(summary.detachedClients).toBe(1);
@@ -251,8 +257,7 @@ describe("account deletion", () => {
   });
 
   it("keeps the instance's apps, providers and other people's records", async () => {
-    await prepareUserErasure(db, U);
-    await db.delete(schema.user).where(eq(schema.user.id, U.id));
+    await deleteAndErase();
 
     const clients = await db.select({ clientId: schema.oauthClient.clientId, userId: schema.oauthClient.userId }).from(schema.oauthClient);
     expect(clients.sort((a, b) => a.clientId.localeCompare(b.clientId))).toEqual([
@@ -282,6 +287,32 @@ describe("account deletion", () => {
     expect(await db.select({ id: schema.session.id }).from(schema.session)).toEqual([]);
     const delivery = JSON.parse((await db.select().from(schema.webhookDelivery))[0]!.payload);
     expect(delivery).toEqual({ id: "evt_1", type: "user.updated", timestamp: now.toISOString(), data: { redacted: true } });
+  });
+
+  it("redacts pending deliveries waiting on a disabled endpoint, not those still to be sent", async () => {
+    const payload = (id: string) => JSON.stringify({ id, type: "user.updated", timestamp: now.toISOString(), data: { user: { id: U.id, email: U.email } } });
+    await db.insert(schema.webhookEndpoint).values({ id: "wh_off", url: "https://off.example", events: ["user.updated"], secretEncrypted: "enc", enabled: false });
+    await db.insert(schema.webhookDelivery).values([
+      { id: "wd_waiting_off", endpointId: "wh_off", eventId: "evt_2", eventType: "user.updated", status: "pending", payload: payload("evt_2") },
+      { id: "wd_waiting_on", endpointId: "wh_1", eventId: "evt_3", eventType: "user.updated", status: "pending", payload: payload("evt_3") },
+    ]);
+    const summary = await deleteAndErase();
+    expect(summary.redactedDeliveries).toBe(2);
+    const byId = Object.fromEntries((await db.select().from(schema.webhookDelivery)).map((d) => [d.id, JSON.parse(d.payload)]));
+    expect(byId.wd_waiting_off.data).toEqual({ redacted: true });
+    expect(byId.wd_waiting_on.data.user.id).toBe(U.id);
+  });
+
+  it("erases nothing before the delete, so a failed delete leaves the history whole", async () => {
+    const auditsBefore = await db.select().from(schema.auditLog);
+    const eventsBefore = await db.select().from(schema.authEvent);
+    const plan = await prepareUserErasure(db, U);
+    expect(plan.actorAuditIds).toEqual(["al_self"]);
+    expect(plan.signInEventIds.length).toBeGreaterThan(0);
+    // The delete fails (or never happens): the person's entries are untouched.
+    expect(await db.select().from(schema.auditLog)).toEqual(auditsBefore);
+    expect(await db.select().from(schema.authEvent)).toEqual(eventsBefore);
+    expect(await columnsContaining(U.email)).toContain("audit_log.actor_email");
   });
 
   it("refuses admins, sole owners and directory-managed accounts", async () => {

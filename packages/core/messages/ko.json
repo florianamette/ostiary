@@ -286,10 +286,6 @@
           "empty": "아직 사용자가 없습니다."
         },
         "stats": {
-          "error": "일부 지표를 불러올 수 없습니다. 관리자로 로그인했는지 확인하세요.",
-          "errorTitle": "지표를 사용할 수 없음",
-          "loadingTitle": "불러오는 중",
-          "loadingHint": "불러오는 중…",
           "totalUsers": {
             "title": "전체 사용자",
             "hint": "플랫폼의 모든 계정."
@@ -1393,8 +1389,6 @@
           "roleAll": "모든 역할",
           "roleAdmin": "관리자",
           "roleUser": "사용자",
-          "loadErrorTitle": "사용자를 불러올 수 없음",
-          "loadErrorFallback": "사용자를 불러오지 못했습니다",
           "columns": {
             "user": "사용자",
             "role": "역할",
@@ -1402,7 +1396,6 @@
             "verified": "인증됨",
             "joined": "가입일"
           },
-          "loading": "사용자를 불러오는 중…",
           "empty": "필터와 일치하는 사용자가 없습니다.",
           "noUsers": "사용자 0명",
           "showing": "{total}명 중 {from}-{to}",
@@ -1467,8 +1460,7 @@
           "updatePassword": "비밀번호 업데이트",
           "removeTitle": "사용자를 삭제할까요?",
           "removeDescription": "<strong>{name}</strong>({email})과(와) 계정에 연결된 모든 항목이 영구적으로 삭제됩니다. 감사 로그 항목은 이름과 이메일 없이 유지됩니다. 이 작업은 되돌릴 수 없습니다.",
-          "removeConfirm": "삭제",
-          "removing": "삭제 중…"
+          "removeConfirm": "삭제"
         },
         "detailActions": {
           "impersonateError": "이 사용자로 대리 로그인할 수 없습니다.",
@@ -1559,10 +1551,6 @@
         "title": "동의",
         "description": "사용자가 OAuth 클라이언트에 부여한 권한과 스코프, 부여 시점.",
         "panel": {
-          "signedInUser": "로그인한 사용자",
-          "loadConsentsFailed": "동의를 불러오지 못했습니다",
-          "loadClientsFailed": "OAuth 클라이언트를 불러오지 못했습니다",
-          "loadErrorTitle": "동의를 불러올 수 없음",
           "searchPlaceholder": "사용자, 클라이언트, 동의 ID, 참조 또는 스코프로 검색…",
           "searchLabel": "동의 검색",
           "filter": {
@@ -1578,16 +1566,14 @@
             "granted": "부여일",
             "updated": "업데이트일"
           },
-          "loading": "동의를 불러오는 중…",
-          "emptyNone": "이 계정에 기록된 동의가 아직 없습니다.",
+          "emptyNone": "아직 애플리케이션에 동의한 사람이 없습니다.",
           "emptyFiltered": "필터와 일치하는 동의가 없습니다.",
           "noResults": "동의 0건",
           "showing": "{total}건 중 {from}-{to}",
           "rowsPerPage": "페이지당 행 수",
           "previous": "이전",
           "next": "다음",
-          "pageOf": "{page} / {total} 페이지",
-          "footnote": "데이터 출처: <code>{getConsents}</code>. 클라이언트 이름은 <code>{getClients}</code>로 확인합니다. 폐기는 <code>{deleteConsent}</code>를 사용합니다. <providerLink>OAuth 제공자</providerLink> 문서의 <consentLink>OAuth 동의</consentLink>를 참고하세요. 대화형 승인 UI는 <code>{path}</code>에 있습니다."
+          "pageOf": "{page} / {total} 페이지"
         },
         "rowActions": {
           "menuLabel": "동의 {id}… 작업",
@@ -1595,16 +1581,13 @@
           "consentIdCopied": "동의 ID를 복사했습니다",
           "copyClientId": "클라이언트 ID 복사",
           "clientIdCopied": "클라이언트 ID를 복사했습니다",
-          "viewDetails": "세부 정보 보기",
-          "updateScopes": "스코프 업데이트",
-          "wireTo": "{method}에 연결",
           "revoke": "동의 폐기",
           "revokeFailed": "동의를 폐기할 수 없습니다",
           "revoked": "동의를 폐기했습니다",
           "dialogTitle": "동의를 폐기할까요?",
-          "dialogDescription": "<strong>{client}</strong>(<code>{clientId}</code>)에 대한 이 사용자의 권한 부여를 제거합니다. 클라이언트가 다시 승인을 요청해야 할 수 있습니다.",
-          "revoking": "폐기 중…",
-          "revokeButton": "폐기"
+          "dialogDescription": "<strong>{client}</strong>(<code>{clientId}</code>)에 대한 <strong>{user}</strong>의 동의를 삭제하고, 앱이 이 사용자를 위해 보유한 토큰을 폐기합니다. 새 토큰을 받으려면 앱이 다시 동의를 요청해야 합니다.",
+          "revokeButton": "폐기",
+          "notFound": "이 동의는 더 이상 존재하지 않습니다."
         }
       },
       "usage": {
@@ -1633,7 +1616,7 @@
       "audit": {
         "title": "감사 로그",
         "description": "이 콘솔이나 관리 API에서 이루어진 모든 변경: 누가, 무엇을, 언제 했는지.",
-        "footnote": "최근 200개 항목을 표시합니다. 비밀번호와 비밀 값은 기록되지 않습니다.",
+        "footnote": "비밀번호와 비밀 값은 기록되지 않습니다.",
         "filterLabel": "영역별 필터",
         "filters": {
           "all": "전체",
@@ -1753,7 +1736,12 @@
             "test": "웹훅 테스트 이벤트 전송",
             "redeliver": "웹훅 이벤트 다시 전송"
           }
-        }
+        },
+        "actorPlaceholder": "수행자(이메일)로 검색…",
+        "actorLabel": "수행자로 검색",
+        "pagesLabel": "감사 로그 페이지",
+        "newest": "최신 항목",
+        "older": "이전 항목"
       },
       "security": {
         "title": "보안",
@@ -1850,8 +1838,14 @@
         }
       },
       "organizations": {
+        "title": "조직",
+        "description": "플랫폼의 모든 조직과 구성원입니다. 조직을 열어 구성원, SSO, SCIM을 관리하세요.",
+        "list": {
+          "searchPlaceholder": "이름 또는 슬러그로 검색…",
+          "searchLabel": "조직 검색",
+          "noMatch": "검색과 일치하는 조직이 없습니다."
+        },
         "controls": {
-          "unexpectedError": "문제가 발생했습니다.",
           "organizationUpdated": "조직이 업데이트되었습니다",
           "slug": "슬러그",
           "role": "역할",
@@ -1903,7 +1897,7 @@
           "defaultWorkspace": "기본 워크스페이스",
           "createdAt": "생성일: {date}",
           "members": "멤버",
-          "publicMembers": "모든 계정이 Public 워크스페이스에 속하므로 여기에서 멤버를 제거할 수 없습니다. 처음 50명을 표시합니다.",
+          "publicMembers": "모든 계정이 Public 워크스페이스에 속하므로 여기에서 멤버를 제거할 수 없습니다.",
           "memberCount": "{count, plural, other {멤버 #명}}.",
           "noMembers": "아직 멤버가 없습니다.",
           "member": "멤버",
@@ -1941,7 +1935,10 @@
           "invitationNotFound": "초대를 찾을 수 없습니다.",
           "requestFailed": "요청에 실패했습니다.",
           "scimUnavailable": "이 조직은 SCIM 프로비저닝을 사용할 수 없습니다.",
-          "noActiveToken": "활성 토큰이 없습니다."
+          "noActiveToken": "활성 토큰이 없습니다.",
+          "lastOwner": "조직에는 소유자가 한 명 이상 있어야 합니다. 먼저 다른 구성원을 소유자로 지정하세요.",
+          "publicDelete": "Public 워크스페이스는 삭제할 수 없습니다.",
+          "organizationNotFound": "조직을 찾을 수 없습니다."
         }
       }
     },
@@ -1977,7 +1974,15 @@
       "refresh": "새로 고침",
       "search": "검색",
       "optional": "선택 사항",
-      "unexpectedError": "문제가 발생했습니다. 다시 시도하세요."
+      "unexpectedError": "문제가 발생했습니다. 다시 시도하세요.",
+      "invalidInput": "전송된 값 중 일부가 올바르지 않습니다. 페이지를 새로고침한 후 다시 시도하세요.",
+      "pagination": {
+        "rowsPerPage": "페이지당 행 수",
+        "previous": "이전",
+        "next": "다음",
+        "pageOf": "{page} / {pages} 페이지",
+        "showing": "{total}명 중 {from}-{to}"
+      }
     },
     "urlCheck": {
       "tooLong": "URL이 너무 깁니다.",
@@ -2587,7 +2592,8 @@
       "txtRecordNotFound": "아직 TXT 레코드를 찾을 수 없습니다. DNS 변경이 반영되기까지 몇 분 걸릴 수 있습니다.",
       "envNotSet": "{name}이(가) 설정되지 않았습니다.",
       "invalidProviderId": "제공자 ID는 2~63자의 영문 소문자, 숫자, - 또는 _여야 합니다.",
-      "unreadableSamlConfig": "저장된 SAML 구성을 읽을 수 없습니다. 제공자를 삭제하고 다시 등록하세요."
+      "unreadableSamlConfig": "저장된 SAML 구성을 읽을 수 없습니다. 제공자를 삭제하고 다시 등록하세요.",
+      "domainTaken": "다른 SSO 공급자가 이미 이 도메인을 사용하고 있습니다."
     }
   },
   "selectAccount": {
@@ -2669,5 +2675,23 @@
       "note": "이 링크는 {minutes}분 후에 만료되며 한 번만 사용할 수 있습니다.",
       "footnote": "요청하지 않으셨다면 이 이메일은 무시하셔도 됩니다. 계정은 그대로 유지됩니다. 다만 로그인된 세션에서 요청이 전송되었으므로 비밀번호를 변경하는 것이 좋습니다."
     }
+  },
+  "authErrors": {
+    "banned": "이 계정은 정지되었습니다. 오류라고 생각되면 지원팀에 문의하세요.",
+    "deactivated": "조직에서 이 계정을 비활성화했습니다.",
+    "invalidCredentials": "이메일, 사용자 이름 또는 비밀번호가 올바르지 않습니다.",
+    "userExists": "이 이메일 주소로 된 계정이 이미 있습니다.",
+    "usernameTaken": "이 사용자 이름은 이미 사용 중입니다.",
+    "usernameInvalid": "이 사용자 이름은 사용할 수 없습니다. 다른 이름을 시도하세요.",
+    "passwordTooShort": "비밀번호가 너무 짧습니다.",
+    "passwordTooLong": "비밀번호가 너무 깁니다.",
+    "passwordCompromised": "이 비밀번호는 데이터 유출에서 발견되었습니다. 다른 비밀번호를 선택하세요.",
+    "invalidPassword": "비밀번호가 올바르지 않습니다.",
+    "recentSignIn": "이 작업을 하려면 다시 로그인하세요.",
+    "sessionExpired": "세션이 만료되었습니다. 다시 로그인하세요.",
+    "impersonating": "관리자가 계정을 보고 있는 동안에는 이 작업을 할 수 없습니다.",
+    "emailNotVerified": "먼저 이메일 주소를 인증하세요.",
+    "invalidToken": "이 링크는 유효하지 않거나 만료되었습니다.",
+    "publicOrganization": "Public 조직의 멤버는 플랫폼 관리자만 관리합니다."
   }
 }

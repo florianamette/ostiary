@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 import {
@@ -27,36 +26,27 @@ import {
 } from "@ostiary/core/lib/signing-keys-policy";
 import { rotateSigningKeyNow, updateSigningKeySettings } from "@/app/[locale]/(console)/signing-keys/actions";
 import { DialogActions } from "@/components/admin/common/dialog-actions";
+import { useAdminAction } from "@/components/admin/common/use-admin-action";
 
 /** Edits the rotation interval and grace period. */
 export function RotationDialog({ settings, onClose }: { settings: SigningKeySettings; onClose: () => void }) {
   const t = useTranslations("admin.pages.signingKeys");
-  const router = useRouter();
-  const [busy, setBusy] = React.useState(false);
+  const { busy, run } = useAdminAction(onClose);
   const [intervalDays, setIntervalDays] = React.useState(String(settings.rotationIntervalDays));
   const [graceDays, setGraceDays] = React.useState(String(settings.gracePeriodDays));
   // A stored value outside the offered choices (written by another version) stays selectable.
   const intervals = [...new Set<number>([...ROTATION_INTERVAL_DAYS, settings.rotationIntervalDays])].sort((a, b) => a - b);
   const graces = [...new Set<number>([...GRACE_PERIOD_DAYS, settings.gracePeriodDays])].sort((a, b) => a - b);
 
-  async function save(e: React.FormEvent) {
+  function save(e: React.FormEvent) {
     e.preventDefault();
-    setBusy(true);
-    try {
+    void run(async () => {
       const res = await updateSigningKeySettings({
         rotationIntervalDays: Number(intervalDays),
         gracePeriodDays: Number(graceDays),
       });
-      if (!res.ok) {
-        toast.error(t(`errors.${res.error}`));
-        return;
-      }
-      toast.success(t("rotation.saved"));
-      onClose();
-      router.refresh();
-    } finally {
-      setBusy(false);
-    }
+      return res.ok ? res : { ok: false, error: t(`errors.${res.error}`) };
+    }, t("rotation.saved"));
   }
 
   return (
@@ -111,23 +101,15 @@ export function RotationDialog({ settings, onClose }: { settings: SigningKeySett
 /** Confirms a rotation now: what changes for apps and old tokens. */
 export function RotateDialog({ gracePeriodDays, onClose }: { gracePeriodDays: number; onClose: () => void }) {
   const t = useTranslations("admin.pages.signingKeys");
-  const router = useRouter();
-  const [busy, setBusy] = React.useState(false);
+  const { busy, run } = useAdminAction(onClose);
 
-  async function rotate() {
-    setBusy(true);
-    try {
+  function rotate() {
+    void run(async () => {
       const res = await rotateSigningKeyNow();
-      if (!res.ok) {
-        toast.error(t(`errors.${res.error}`));
-        return;
-      }
+      if (!res.ok) return { ok: false, error: t(`errors.${res.error}`) };
       toast.success(t("rotate.done", { kid: res.keyId }));
-      onClose();
-      router.refresh();
-    } finally {
-      setBusy(false);
-    }
+      return res;
+    });
   }
 
   return (
@@ -146,7 +128,7 @@ export function RotateDialog({ gracePeriodDays, onClose }: { gracePeriodDays: nu
           busy={busy}
           onCancel={onClose}
           cancelLabel={t("rotate.cancel")}
-          onConfirm={() => void rotate()}
+          onConfirm={rotate}
           confirmLabel={t("rotate.confirm")}
         />
       </DialogContent>

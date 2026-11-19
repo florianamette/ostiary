@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { useTranslations } from "next-intl";
+import { toast } from "sonner";
 
 import { Button } from "@ostiary/core/components/ui/button";
 import {
@@ -16,7 +17,6 @@ import { Field, FieldGroup, FieldLabel } from "@ostiary/core/components/ui/field
 import { Input } from "@ostiary/core/components/ui/input";
 import { Textarea } from "@ostiary/core/components/ui/textarea";
 import { DEVICE_CODE_GRANT_TYPE } from "@ostiary/core/lib/admin/oauth-clients/oauth-client-admin.types";
-import { adminNotify } from "@ostiary/core/lib/admin/admin-notify";
 import type { OAuthApplicationRow } from "@/components/admin/applications/admin-application-row-actions";
 import { CheckboxField } from "@/components/admin/common/choice-field";
 import { ExternalLink } from "@/components/admin/common/external-link";
@@ -89,7 +89,7 @@ export function ApplicationEditDialog({
         setError(routeError(json) ?? t("editDialog.updateFailed"));
         return;
       }
-      adminNotify(t("editDialog.updated"), "success");
+      toast.success(t("editDialog.updated"));
       onOpenChange(false);
       onChanged();
     } finally {

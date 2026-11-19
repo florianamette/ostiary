@@ -1,28 +1,23 @@
 "use client";
 
 import * as React from "react";
-import { Loader2 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
 
 import { ProviderIcon } from "@/components/auth/social-sign-in-buttons";
 import { Button } from "@ostiary/core/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@ostiary/core/components/ui/dialog";
 import { FieldDescription } from "@ostiary/core/components/ui/field";
 import { Skeleton } from "@ostiary/core/components/ui/skeleton";
+import { useAsyncResource } from "@ostiary/core/hooks/use-async-resource";
 import {
   isSocialProvider,
   SOCIAL_PROVIDER_LABELS,
   type SocialProviderOption,
 } from "@ostiary/core/lib/social-provider-meta";
+import { ConfirmDialog } from "@/components/dashboard/confirm-dialog";
 import { authClient } from "@/lib/auth-client";
+import { useAuthErrorMessage } from "@/lib/auth-error-message";
+import { useAuthAction } from "@/lib/use-auth-action";
 import { needsRecentSignIn, signInAgain } from "@/lib/sign-in-again";
 
 type LinkedAccount = { id: string; accountId: string; providerId: string };
@@ -31,70 +26,66 @@ type LinkedAccount = { id: string; accountId: string; providerId: string };
  * Connect or disconnect the sign-in providers turned on in the admin console. Accounts linked to
  * a provider that has since been turned off are listed too, so they can be disconnected.
  */
+async function listLinkedAccounts(): Promise<LinkedAccount[]> {
+  const res = await authClient.listAccounts();
+  if (res.error) throw res.error;
+  return Array.isArray(res.data)
+    ? res.data.map((a) => ({ id: a.id, accountId: a.accountId, providerId: a.providerId }))
+    : [];
+}
+
 export function DashboardConnectedAccounts({ providers }: { providers: SocialProviderOption[] }) {
   const t = useTranslations("dashboard.connectedAccounts");
   const locale = useLocale();
-  const [accounts, setAccounts] = React.useState<LinkedAccount[] | null>(null);
-  const [busy, setBusy] = React.useState<string | null>(null);
+  const errorMessage = useAuthErrorMessage();
+  const linkedAccounts = useAsyncResource(listLinkedAccounts);
+  // A list that cannot be read shows every provider as not connected, rather than loading forever.
+  const accounts = linkedAccounts.data ?? (linkedAccounts.error ? [] : null);
+  const { pending, run } = useAuthAction<string>();
+  const [connecting, setConnecting] = React.useState<string | null>(null);
   const [pendingDisconnect, setPendingDisconnect] = React.useState<{ provider: SocialProviderOption; accountId: string } | null>(null);
+  const busy = connecting ?? pending;
 
-  const load = React.useCallback(async () => {
-    const res = await authClient.listAccounts();
-    setAccounts(
-      Array.isArray(res.data)
-        ? res.data.map((a) => ({ id: a.id, accountId: a.accountId, providerId: a.providerId }))
-        : [],
-    );
-  }, []);
-
-  React.useEffect(() => {
-    void load();
-  }, [load]);
-
-  function reportError(error: { message?: string; code?: string }) {
-    if (needsRecentSignIn(error)) {
-      toast.error(t("signInAgainToChange"), {
-        action: { label: t("signInAgain"), onClick: () => void signInAgain(locale) },
-      });
-      return;
-    }
-    if (error.code === "FAILED_TO_UNLINK_LAST_ACCOUNT") {
-      toast.error(t("lastMethod"));
-      return;
-    }
-    toast.error(error.message ?? t("error"));
+  function handledError(error: { code?: string }): boolean {
+    if (!needsRecentSignIn(error)) return false;
+    toast.error(t("signInAgainToChange"), {
+      action: { label: t("signInAgain"), onClick: () => void signInAgain(locale) },
+    });
+    return true;
   }
 
   async function connect(provider: SocialProviderOption) {
-    setBusy(provider.id);
-    const { error } = await authClient.linkSocial({
-      provider: provider.id,
-      callbackURL: `/${locale}/dashboard#security`,
-      errorCallbackURL: `/${locale}/dashboard#security`,
-    });
-    if (error) {
-      setBusy(null);
-      reportError(error);
+    setConnecting(provider.id);
+    try {
+      const { error } = await authClient.linkSocial({
+        provider: provider.id,
+        callbackURL: `/${locale}/dashboard#security`,
+        errorCallbackURL: `/${locale}/dashboard#security`,
+      });
+      if (error) {
+        setConnecting(null);
+        if (!handledError(error)) toast.error(errorMessage(error, t("error")));
+      }
+      // On success the browser goes to the provider and comes back connected.
+    } catch {
+      setConnecting(null);
+      toast.error(t("error"));
     }
-    // On success the browser goes to the provider and comes back connected.
   }
 
   async function disconnect() {
-    if (!pendingDisconnect) return;
-    setBusy(pendingDisconnect.provider.id);
-    try {
+    const target = pendingDisconnect;
+    if (!target) return;
+    await run(target.provider.id, {
       // 1.7 selects the account by its local row id (not the provider's account id).
-      const { error } = await authClient.unlinkAccount({ accountId: pendingDisconnect.accountId });
-      if (error) {
-        reportError(error);
-        return;
-      }
-      toast.success(t("disconnected", { provider: pendingDisconnect.provider.name }));
-      setPendingDisconnect(null);
-      void load();
-    } finally {
-      setBusy(null);
-    }
+      call: () => authClient.unlinkAccount({ accountId: target.accountId }),
+      success: t("disconnected", { provider: target.provider.name }),
+      error: t("error"),
+      codes: { FAILED_TO_UNLINK_LAST_ACCOUNT: t("lastMethod") },
+      onError: handledError,
+      onSuccess: linkedAccounts.reload,
+    });
+    setPendingDisconnect(null);
   }
 
   // Enabled providers, then providers turned off since but still linked to this account.
@@ -148,11 +139,11 @@ export function DashboardConnectedAccounts({ providers }: { providers: SocialPro
                     type="button"
                     variant="outline"
                     size="sm"
+                    loading={busy === provider.id}
                     disabled={busy !== null}
                     aria-label={`${t("connect")} ${provider.name}`}
                     onClick={() => void connect(provider)}
                   >
-                    {busy === provider.id ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
                     {t("connect")}
                   </Button>
                 )}
@@ -162,25 +153,15 @@ export function DashboardConnectedAccounts({ providers }: { providers: SocialPro
         </ul>
       )}
 
-      <Dialog open={pendingDisconnect !== null} onOpenChange={(open) => !open && busy === null && setPendingDisconnect(null)}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>
-              {t("confirmTitle", { provider: pendingDisconnect?.provider.name ?? "" })}
-            </DialogTitle>
-            <DialogDescription>{t("confirmBody")}</DialogDescription>
-          </DialogHeader>
-          <DialogFooter>
-            <Button type="button" variant="outline" disabled={busy !== null} onClick={() => setPendingDisconnect(null)}>
-              {t("cancel")}
-            </Button>
-            <Button type="button" variant="destructive" disabled={busy !== null} onClick={() => void disconnect()}>
-              {busy !== null ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
-              {t("disconnect")}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+      <ConfirmDialog
+        open={pendingDisconnect !== null}
+        title={t("confirmTitle", { provider: pendingDisconnect?.provider.name ?? "" })}
+        description={t("confirmBody")}
+        cancelLabel={t("cancel")}
+        confirmLabel={t("disconnect")}
+        onCancel={() => setPendingDisconnect(null)}
+        onConfirm={disconnect}
+      />
     </div>
   );
 }

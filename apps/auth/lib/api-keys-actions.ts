@@ -14,8 +14,6 @@ import {
   findKeyApi,
   listUserApiKeys,
 } from "@ostiary/core/lib/api-keys";
-import { recordAudit } from "@ostiary/core/lib/audit";
-import { clientIp } from "@ostiary/core/lib/auth-events";
 import { env } from "@ostiary/core/lib/env";
 import { auth } from "@/lib/auth";
 import {
@@ -24,7 +22,7 @@ import {
   type CreatedApiKey,
 } from "@/lib/api-key-actions-shared";
 import { serializeApiKey, type MyApiKey } from "@/lib/api-key-serialize";
-import { currentSession, signedInRecently } from "@/lib/server-session";
+import { userActor } from "@/lib/server-session";
 
 /*
  * The account dashboard's API keys. The plugin's own HTTP endpoints are closed (see the auth
@@ -47,9 +45,9 @@ export type CreateApiKeyError = NewKeyError | "signedOut" | "impersonating" | "r
 
 /** The signed-in user's keys and what they may create; null when signed out. */
 export async function getMyApiKeys(): Promise<MyApiKeys | null> {
-  const { session } = await currentSession();
-  if (!session) return null;
-  return apiKeysOverview(listUserApiKeys(session.user.id), MAX_KEYS_PER_USER);
+  const actor = await userActor();
+  if (!actor.ok) return null;
+  return apiKeysOverview(listUserApiKeys(actor.user.id), MAX_KEYS_PER_USER);
 }
 
 /**
@@ -63,11 +61,11 @@ export async function createMyApiKey(input: {
   scopes: string[];
   expiresInDays: number;
 }): Promise<{ ok: true; key: string; created: MyApiKey } | { ok: false; error: CreateApiKeyError }> {
-  const { session, requestHeaders } = await currentSession();
-  if (!session) return { ok: false, error: "signedOut" };
-  if (session.session.impersonatedBy) return { ok: false, error: "impersonating" };
-  if (!signedInRecently(session.session.createdAt)) return { ok: false, error: "recentSignIn" };
-  const userId = session.user.id;
+  const actor = await userActor({ forbidImpersonation: true, recentSignIn: true });
+  if (!actor.ok) return actor;
+  if (!input || typeof input !== "object") return { ok: false, error: "failed" };
+  const { user } = actor;
+  const userId = user.id;
   const [settings, api, keysHeld] = await Promise.all([
     currentApiKeySettings(),
     typeof input.api === "string" ? findKeyApi(input.api) : null,
@@ -92,31 +90,28 @@ export async function createMyApiKey(input: {
     api: grant.api,
     apiName: api?.name ?? null,
     scopes: grant.scopes,
-    owner: { type: "user", id: userId, email: session.user.email, name: session.user.name },
+    owner: { type: "user", id: userId, email: user.email, name: user.name },
     createdBy: null,
   });
-  await recordAudit({
-    actor: { id: userId, email: session.user.email },
+  await actor.audit({
     action: "api_key.create",
-    target: { type: "user", id: userId, label: session.user.email },
+    target: { type: "user", id: userId, label: user.email },
     metadata: apiKeyAuditMetadata(item),
-    ipAddress: clientIp(requestHeaders),
   });
   return { ok: true, key: created.key, created: serializeApiKey(item) };
 }
 
 /** Revokes (deletes) one of the signed-in user's keys. */
 export async function revokeMyApiKey(id: string): Promise<{ ok: boolean }> {
-  const { session, requestHeaders } = await currentSession();
-  if (!session || typeof id !== "string" || !id) return { ok: false };
-  const deleted = await deleteApiKey(id, session.user.id);
+  if (typeof id !== "string" || !id) return { ok: false };
+  const actor = await userActor();
+  if (!actor.ok) return { ok: false };
+  const deleted = await deleteApiKey(id, actor.user.id);
   if (!deleted) return { ok: false };
-  await recordAudit({
-    actor: { id: session.user.id, email: session.user.email },
+  await actor.audit({
     action: "api_key.revoke",
-    target: { type: "user", id: session.user.id, label: session.user.email },
+    target: { type: "user", id: actor.user.id, label: actor.user.email },
     metadata: apiKeyAuditMetadata(deleted),
-    ipAddress: clientIp(requestHeaders),
   });
   return { ok: true };
 }

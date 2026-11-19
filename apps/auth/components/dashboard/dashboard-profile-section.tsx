@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 
@@ -21,10 +20,11 @@ import {
 } from "@ostiary/core/components/ui/field";
 import { Input } from "@ostiary/core/components/ui/input";
 import { Separator } from "@ostiary/core/components/ui/separator";
-import { Skeleton } from "@ostiary/core/components/ui/skeleton";
 import { UsernameStatusHint } from "@/components/auth/username-status-hint";
 import { DashboardEmailField } from "@/components/dashboard/dashboard-email-field";
+import { useDashboardSession } from "@/components/dashboard/dashboard-session";
 import { authClient } from "@/lib/auth-client";
+import { useAuthErrorMessage } from "@/lib/auth-error-message";
 import {
   checkUsernameAvailabilitySoon,
   hasUsernameCharacters,
@@ -35,30 +35,21 @@ import {
 
 export function DashboardProfileSection() {
   const t = useTranslations("dashboard.profile");
-  const { data: sessionData, isPending: sessionPending } =
-    authClient.useSession();
-
-  const user = sessionData?.user;
-  const [name, setName] = React.useState("");
+  const errorMessage = useAuthErrorMessage();
+  const { data: current } = useDashboardSession();
+  const user = current.user;
+  const [name, setName] = React.useState(user.name);
   const [username, setUsername] = React.useState("");
   const [usernameStatus, setUsernameStatus] = React.useState<
     UsernameStatus | "unchanged"
   >("unchanged");
   const [saving, setSaving] = React.useState(false);
 
-  const currentUsername =
-    (user &&
-      "displayUsername" in user &&
-      typeof user.displayUsername === "string" &&
-      user.displayUsername) ||
-    (user && "username" in user && typeof user.username === "string"
-      ? user.username
-      : "") ||
-    "";
+  const currentUsername = user.displayUsername || user.username || "";
 
   React.useEffect(() => {
-    if (user?.name) setName(user.name);
-  }, [user?.name]);
+    if (user.name) setName(user.name);
+  }, [user.name]);
 
   React.useEffect(() => {
     setUsername(currentUsername);
@@ -84,56 +75,37 @@ export function DashboardProfileSection() {
 
   async function handleSaveProfile(e: React.FormEvent) {
     e.preventDefault();
-    if (!user) return;
     const trimmedUsername = username.trim();
     const namePayload = name.trim() || user.name;
     const usernameChanged = trimmedUsername !== currentUsername.trim();
 
-    if (usernameChanged) {
-      const problem = await usernameProblem(trimmedUsername, usernameStatus);
-      if (problem) {
-        toast.error(t(problem));
-        return;
-      }
-    }
-
+    // Busy before the username check: it can wait on the network.
     setSaving(true);
     try {
+      if (usernameChanged) {
+        const problem = await usernameProblem(trimmedUsername, usernameStatus);
+        if (problem) {
+          toast.error(t(problem));
+          return;
+        }
+      }
       const { error } = await authClient.updateUser({
         name: namePayload,
         ...(usernameChanged ? { username: trimmedUsername } : {}),
       });
       if (error) {
-        const code = error.code;
-        if (code === "USERNAME_IS_ALREADY_TAKEN") {
-          toast.error(t("usernameTaken"));
-          return;
-        }
-        toast.error(error.message ?? t("saveError"));
+        toast.error(
+          errorMessage(error, t("saveError"), { USERNAME_IS_ALREADY_TAKEN: t("usernameTaken") }),
+        );
         return;
       }
       toast.success(t("saved"));
+    } catch {
+      toast.error(t("saveError"));
     } finally {
       setSaving(false);
     }
   }
-
-  if (sessionPending && !user) {
-    return (
-      <Card id="profile" className="scroll-mt-32 border-border/80 shadow-sm">
-        <CardHeader>
-          <CardTitle>{t("title")}</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-6">
-          <Skeleton className="h-9 w-full" />
-          <Skeleton className="h-9 w-full" />
-          <Skeleton className="h-9 w-full" />
-        </CardContent>
-      </Card>
-    );
-  }
-
-  if (!user) return null;
 
   // An empty display name falls back to the saved one, so it is not a change.
   const trimmedName = name.trim();
@@ -186,10 +158,7 @@ export function DashboardProfileSection() {
               ) : null}
             </Field>
             <Field>
-              <Button type="submit" disabled={saving || !isDirty}>
-                {saving ? (
-                  <Loader2 className="size-4 animate-spin" aria-hidden />
-                ) : null}
+              <Button type="submit" loading={saving} disabled={!isDirty}>
                 {saving ? t("saving") : t("save")}
               </Button>
             </Field>

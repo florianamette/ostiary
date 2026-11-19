@@ -20,7 +20,7 @@ import { setApiAccess, updateApi, updateApiTokens } from "@/app/[locale]/(consol
 import type { ApiRow, ApplicationOption } from "@/components/admin/apis/admin-apis-panel";
 import { CheckboxField, RadioField } from "@/components/admin/common/choice-field";
 import { DialogActions } from "@/components/admin/common/dialog-actions";
-import type { ActionResult } from "@/lib/action-result";
+import type { AdminActionRun } from "@/components/admin/common/use-admin-action";
 
 const CLAIMS_PLACEHOLDER = '{\n  "tenant": "acme"\n}';
 
@@ -31,7 +31,7 @@ const CLAIMS_PLACEHOLDER = '{\n  "tenant": "acme"\n}';
 type ApiDialogBodyProps = {
   api: ApiRow;
   busy: boolean;
-  run: (action: () => Promise<ActionResult>, success: string) => Promise<void>;
+  run: AdminActionRun;
   onCancel: () => void;
 };
 

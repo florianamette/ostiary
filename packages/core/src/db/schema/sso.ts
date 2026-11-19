@@ -1,6 +1,7 @@
-import { boolean, pgTable, text, index } from "drizzle-orm/pg-core";
+import { sql } from "drizzle-orm";
+import { boolean, pgTable, text, index, uniqueIndex } from "drizzle-orm/pg-core";
 
-import { user } from "./auth";
+import { organization, user } from "./auth";
 
 /**
  * Identity providers for enterprise SSO (@better-auth/sso). Registered from the admin app,
@@ -15,10 +16,16 @@ export const ssoProvider = pgTable(
     samlConfig: text("saml_config"),
     userId: text("user_id").references(() => user.id, { onDelete: "cascade" }),
     providerId: text("provider_id").notNull().unique(),
-    organizationId: text("organization_id"),
+    organizationId: text("organization_id").references(() => organization.id, { onDelete: "set null" }),
     domain: text("domain").notNull(),
     /** Set once the domain owner publishes the DNS TXT record; sign-in requires it. */
     domainVerified: boolean("domain_verified").default(false),
   },
-  (table) => [index("sso_provider_domain_idx").on(table.domain)],
+  (table) => [
+    index("sso_provider_domain_idx").on(table.domain),
+    // One provider per domain, compared case-insensitively, so sign-in by email domain has
+    // exactly one answer. The domain is one hostname (security/sso-domain.ts); a legacy
+    // comma-separated value is unique as a whole string only.
+    uniqueIndex("sso_provider_domain_lower_uidx").on(sql`lower(${table.domain})`),
+  ],
 );

@@ -10,13 +10,12 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@ostiary/core/components/ui/dropdown-menu";
-import { usePathname, useRouter } from "@ostiary/core/i18n/navigation";
+import { useSwitchLocale } from "@ostiary/core/components/layout/use-switch-locale";
 import { locales, type AppLocale } from "@ostiary/core/i18n/routing";
 
 export function LocaleSwitcher() {
   const locale = useLocale() as AppLocale;
-  const pathname = usePathname();
-  const router = useRouter();
+  const switchLocale = useSwitchLocale();
   const t = useTranslations("common");
   const tLocaleNames = useTranslations("common.localeNames");
 
@@ -43,7 +42,7 @@ export function LocaleSwitcher() {
                 ? "flex items-center gap-2 bg-accent"
                 : "flex items-center gap-2"
             }
-            onClick={() => router.replace(pathname, { locale: loc })}
+            onClick={() => switchLocale(loc)}
           >
             <span className="font-mono text-xs text-muted-foreground">
               {loc}

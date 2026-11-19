@@ -1,4 +1,4 @@
-import { userHasAdminRole } from "@ostiary/core/lib/admin/user-has-admin-role";
+import { isPlatformAdmin } from "@ostiary/core/lib/admin/user-has-admin-role";
 
 /*
  * ADMIN_EMAILS (first-run setup): these addresses get the platform admin role, but only once
@@ -47,5 +47,5 @@ export function adminOnVerification(
   if (!path || !INBOX_PROOF_PATHS.has(path)) return false;
   if (user.emailVerified !== true) return false;
   if (!adminEmails.has(user.email.toLowerCase())) return false;
-  return !userHasAdminRole(user.role, ["admin"]);
+  return !isPlatformAdmin(user.role);
 }

@@ -12,6 +12,7 @@ import { useTranslations } from "next-intl";
 
 import { Skeleton } from "@ostiary/core/components/ui/skeleton";
 import { authClient } from "@/lib/auth-client";
+import { useDashboardSession } from "@/components/dashboard/dashboard-session";
 import { cn } from "@ostiary/core/lib/utils";
 
 type SummaryTileProps = {
@@ -56,17 +57,17 @@ function SummaryTile({ href, icon: Icon, label, value, tone = "default" }: Summa
  */
 export function DashboardAccountSummary() {
   const t = useTranslations("dashboard");
-  const { data: sessionData, isPending: sessionPending } =
-    authClient.useSession();
+  const { data: sessionData } = useDashboardSession();
   const [passkeyCount, setPasskeyCount] = React.useState<number | null>(null);
   const [sessionCount, setSessionCount] = React.useState<number | null>(null);
 
   React.useEffect(() => {
     let cancelled = false;
     void (async () => {
+      const failed = { data: null, error: true } as const;
       const [passkeys, sessions] = await Promise.all([
-        authClient.passkey.listUserPasskeys(),
-        authClient.listSessions(),
+        authClient.passkey.listUserPasskeys().catch(() => failed),
+        authClient.listSessions().catch(() => failed),
       ]);
       if (cancelled) return;
       setPasskeyCount(
@@ -85,12 +86,8 @@ export function DashboardAccountSummary() {
     };
   }, []);
 
-  const emailVerified = sessionData?.user?.emailVerified;
-  const emailValue = sessionPending
-    ? null
-    : emailVerified
-      ? t("profile.verified")
-      : t("profile.unverified");
+  const emailVerified = sessionData.user.emailVerified;
+  const emailValue = emailVerified ? t("profile.verified") : t("profile.unverified");
 
   return (
     <div className="grid gap-3 sm:grid-cols-3">
@@ -99,7 +96,7 @@ export function DashboardAccountSummary() {
         icon={emailVerified ? MailCheckIcon : MailWarningIcon}
         label={t("profile.emailLabel")}
         value={emailValue}
-        tone={sessionPending ? "default" : emailVerified ? "positive" : "warning"}
+        tone={emailVerified ? "positive" : "warning"}
       />
       <SummaryTile
         href="#security"

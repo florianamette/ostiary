@@ -1,4 +1,5 @@
 import { randomUUID } from "node:crypto";
+import { and, eq, isNotNull, lt, or } from "drizzle-orm";
 
 import { db } from "@ostiary/core/db/index";
 import { authEvent } from "@ostiary/core/db/schema";
@@ -24,6 +25,39 @@ export async function recordAuthEvent(
   } catch (error) {
     console.error("auth_event insert failed", error);
   }
+}
+
+/**
+ * Failed sign-ins keep the email or username that was tried, often of someone without an
+ * account, and the address it came from. The security page looks at the last 7 days and the
+ * charts at the last 30, so after this they are cleared: the counts stay.
+ */
+export const FAILED_SIGN_IN_DETAILS_DAYS = 30;
+
+const DAY_MS = 86_400_000;
+
+/**
+ * Sign-in events are kept AUTH_EVENT_RETENTION_DAYS (default 90), then deleted, and failed
+ * sign-ins lose what identifies a person after FAILED_SIGN_IN_DETAILS_DAYS. Run by the cron
+ * route. Returns how many rows were deleted and cleared.
+ */
+export async function purgeAuthEvents(now: Date = new Date(), retentionDays: number = env.AUTH_EVENT_RETENTION_DAYS) {
+  const deleted = await db
+    .delete(authEvent)
+    .where(lt(authEvent.createdAt, new Date(now.getTime() - retentionDays * DAY_MS)))
+    .returning({ id: authEvent.id });
+  const cleared = await db
+    .update(authEvent)
+    .set({ identifier: null, ipAddress: null })
+    .where(
+      and(
+        eq(authEvent.type, "sign_in_failed"),
+        lt(authEvent.createdAt, new Date(now.getTime() - FAILED_SIGN_IN_DETAILS_DAYS * DAY_MS)),
+        or(isNotNull(authEvent.identifier), isNotNull(authEvent.ipAddress)),
+      ),
+    )
+    .returning({ id: authEvent.id });
+  return { deleted: deleted.length, cleared: cleared.length };
 }
 
 const ipOptions = ipAddressOptions(env);

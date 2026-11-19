@@ -286,10 +286,6 @@
           "empty": "لا يوجد مستخدمون بعد."
         },
         "stats": {
-          "error": "تعذّر تحميل مقياس واحد أو أكثر. تأكد من أنك سجّلت الدخول بصفتك مسؤولًا.",
-          "errorTitle": "المقاييس غير متاحة",
-          "loadingTitle": "جارٍ التحميل",
-          "loadingHint": "جارٍ التحميل…",
           "totalUsers": {
             "title": "إجمالي المستخدمين",
             "hint": "كل الحسابات على المنصة."
@@ -1393,8 +1389,6 @@
           "roleAll": "كل الأدوار",
           "roleAdmin": "مسؤول",
           "roleUser": "مستخدم",
-          "loadErrorTitle": "تعذّر تحميل المستخدمين",
-          "loadErrorFallback": "تعذّر تحميل المستخدمين",
           "columns": {
             "user": "المستخدم",
             "role": "الدور",
@@ -1402,7 +1396,6 @@
             "verified": "موثّق",
             "joined": "تاريخ الانضمام"
           },
-          "loading": "جارٍ تحميل المستخدمين…",
           "empty": "لا يوجد مستخدمون يطابقون عوامل التصفية.",
           "noUsers": "0 مستخدمين",
           "showing": "عرض {from}-{to} من {total}",
@@ -1467,8 +1460,7 @@
           "updatePassword": "تحديث كلمة المرور",
           "removeTitle": "إزالة المستخدم؟",
           "removeDescription": "يحذف هذا <strong>{name}</strong> ({email}) نهائيًا مع كل ما يرتبط بالحساب. تُحفظ إدخالات سجل التدقيق دون الاسم أو البريد الإلكتروني. لا يمكن التراجع عن ذلك.",
-          "removeConfirm": "إزالة",
-          "removing": "جارٍ الإزالة…"
+          "removeConfirm": "إزالة"
         },
         "detailActions": {
           "impersonateError": "تعذّر انتحال هوية هذا المستخدم.",
@@ -1559,10 +1551,6 @@
         "title": "الموافقات",
         "description": "الأذونات التي منحها الأشخاص لعملاء OAuth، مع النطاقات وتاريخ منحها.",
         "panel": {
-          "signedInUser": "المستخدم المسجّل دخوله",
-          "loadConsentsFailed": "تعذّر تحميل الموافقات",
-          "loadClientsFailed": "تعذّر تحميل عملاء OAuth",
-          "loadErrorTitle": "تعذّر تحميل الموافقات",
           "searchPlaceholder": "ابحث بالمستخدم أو العميل أو معرّف الموافقة أو المرجع أو النطاق…",
           "searchLabel": "البحث في الموافقات",
           "filter": {
@@ -1578,16 +1566,14 @@
             "granted": "تاريخ المنح",
             "updated": "تاريخ التحديث"
           },
-          "loading": "جارٍ تحميل الموافقات…",
-          "emptyNone": "لم تُسجَّل أي موافقات لهذا الحساب بعد.",
+          "emptyNone": "لم يمنح أحد موافقته لأي تطبيق بعد.",
           "emptyFiltered": "لا توجد موافقات تطابق عوامل التصفية.",
           "noResults": "0 موافقات",
           "showing": "عرض {from}-{to} من {total}",
           "rowsPerPage": "عدد الصفوف في الصفحة",
           "previous": "السابق",
           "next": "التالي",
-          "pageOf": "الصفحة {page} / {total}",
-          "footnote": "البيانات من <code>{getConsents}</code>؛ وتُستخرج أسماء العملاء عبر <code>{getClients}</code>. يستخدم الإبطال <code>{deleteConsent}</code>. راجع <consentLink>OAuth consent</consentLink> في وثائق <providerLink>OAuth provider</providerLink>. واجهة التفويض التفاعلية على <code>{path}</code>."
+          "pageOf": "الصفحة {page} / {total}"
         },
         "rowActions": {
           "menuLabel": "إجراءات الموافقة {id}…",
@@ -1595,16 +1581,13 @@
           "consentIdCopied": "تم نسخ معرّف الموافقة",
           "copyClientId": "نسخ معرّف العميل",
           "clientIdCopied": "تم نسخ معرّف العميل",
-          "viewDetails": "عرض التفاصيل",
-          "updateScopes": "تحديث النطاقات",
-          "wireTo": "الربط بـ {method}",
           "revoke": "إبطال الموافقة",
           "revokeFailed": "تعذّر إبطال الموافقة",
           "revoked": "تم إبطال الموافقة",
           "dialogTitle": "إبطال الموافقة؟",
-          "dialogDescription": "يزيل منح هذا المستخدم لـ <strong>{client}</strong> (<code>{clientId}</code>). قد يحتاج العميل إلى طلب التفويض مرة أخرى.",
-          "revoking": "جارٍ الإبطال…",
-          "revokeButton": "إبطال"
+          "dialogDescription": "يزيل موافقة <strong>{user}</strong> على <strong>{client}</strong> (<code>{clientId}</code>) ويُلغي الرموز التي يحتفظ بها التطبيق لهذا الشخص. سيتعيّن على التطبيق أن يطلب الموافقة من جديد للحصول على رموز جديدة.",
+          "revokeButton": "إبطال",
+          "notFound": "لم تعد هذه الموافقة موجودة."
         }
       },
       "usage": {
@@ -1633,7 +1616,7 @@
       "audit": {
         "title": "سجل التدقيق",
         "description": "كل تغيير أُجري من لوحة التحكم هذه أو من واجهة API الإدارية: من أجراه، وعلى ماذا، ومتى.",
-        "footnote": "يتم عرض أحدث 200 إدخال. لا تُسجَّل كلمات المرور والأسرار أبدًا.",
+        "footnote": "لا تُسجَّل كلمات المرور والأسرار أبدًا.",
         "filterLabel": "التصفية حسب المجال",
         "filters": {
           "all": "الكل",
@@ -1753,7 +1736,12 @@
             "test": "إرسال حدث اختبار لخطاف الويب",
             "redeliver": "إعادة تسليم حدث خطاف الويب"
           }
-        }
+        },
+        "actorPlaceholder": "ابحث حسب منفّذ الإجراء (البريد الإلكتروني)…",
+        "actorLabel": "البحث حسب المنفّذ",
+        "pagesLabel": "صفحات سجل التدقيق",
+        "newest": "أحدث الإدخالات",
+        "older": "إدخالات أقدم"
       },
       "security": {
         "title": "الأمان",
@@ -1850,8 +1838,14 @@
         }
       },
       "organizations": {
+        "title": "المؤسسات",
+        "description": "كل المؤسسات على المنصة مع أعضائها. افتح إحداها لإدارة الأعضاء وSSO وSCIM.",
+        "list": {
+          "searchPlaceholder": "ابحث بالاسم أو المعرّف النصي…",
+          "searchLabel": "البحث في المؤسسات",
+          "noMatch": "لا توجد مؤسسة تطابق بحثك."
+        },
         "controls": {
-          "unexpectedError": "حدث خطأ ما.",
           "organizationUpdated": "تم تحديث المؤسسة",
           "slug": "المعرّف (slug)",
           "role": "الدور",
@@ -1903,7 +1897,7 @@
           "defaultWorkspace": "مساحة العمل الافتراضية",
           "createdAt": "أُنشئت في {date}",
           "members": "الأعضاء",
-          "publicMembers": "ينتمي كل حساب إلى مساحة العمل العامة (Public)، لذا لا يمكن إزالة الأعضاء هنا. يُعرض أول 50.",
+          "publicMembers": "ينتمي كل حساب إلى مساحة العمل العامة (Public)، لذا لا يمكن إزالة الأعضاء هنا.",
           "memberCount": "{count, plural, zero {لا أعضاء} one {عضو واحد} two {عضوان} few {# أعضاء} many {# عضوًا} other {# عضو}}.",
           "noMembers": "لا يوجد أعضاء بعد.",
           "member": "العضو",
@@ -1941,7 +1935,10 @@
           "invitationNotFound": "لم يتم العثور على الدعوة.",
           "requestFailed": "فشل الطلب.",
           "scimUnavailable": "لا يمكن لهذه المؤسسة استخدام التوفير عبر SCIM.",
-          "noActiveToken": "لا يوجد رمز نشط."
+          "noActiveToken": "لا يوجد رمز نشط.",
+          "lastOwner": "يجب أن يكون للمؤسسة مالك واحد على الأقل. اجعل عضوًا آخر مالكًا أولاً.",
+          "publicDelete": "لا يمكن حذف مساحة العمل Public.",
+          "organizationNotFound": "لم يتم العثور على المؤسسة."
         }
       }
     },
@@ -1977,7 +1974,15 @@
       "refresh": "تحديث",
       "search": "بحث",
       "optional": "اختياري",
-      "unexpectedError": "حدث خطأ ما. حاول مرة أخرى."
+      "unexpectedError": "حدث خطأ ما. حاول مرة أخرى.",
+      "invalidInput": "بعض القيم المرسلة غير صالحة. أعد تحميل الصفحة وحاول مرة أخرى.",
+      "pagination": {
+        "rowsPerPage": "عدد الصفوف في الصفحة",
+        "previous": "السابق",
+        "next": "التالي",
+        "pageOf": "الصفحة {page} / {pages}",
+        "showing": "عرض {from}-{to} من {total}"
+      }
     },
     "urlCheck": {
       "tooLong": "عنوان URL طويل جدًا.",
@@ -2587,7 +2592,8 @@
       "txtRecordNotFound": "لم يتم العثور على سجل TXT بعد. قد يستغرق ظهور تغييرات DNS بضع دقائق.",
       "envNotSet": "{name} غير مُعيَّن.",
       "invalidProviderId": "يجب أن يتكون معرّف المزوّد من 2 إلى 63 حرفًا من الأحرف الصغيرة أو الأرقام أو - أو _.",
-      "unreadableSamlConfig": "إعدادات SAML المخزّنة غير قابلة للقراءة؛ احذف المزوّد وسجّله مرة أخرى."
+      "unreadableSamlConfig": "إعدادات SAML المخزّنة غير قابلة للقراءة؛ احذف المزوّد وسجّله مرة أخرى.",
+      "domainTaken": "يستخدم موفّر SSO آخر هذا النطاق بالفعل."
     }
   },
   "selectAccount": {
@@ -2669,5 +2675,23 @@
       "note": "تنتهي صلاحية الرابط بعد {minutes} دقيقة ولا يعمل إلا مرة واحدة.",
       "footnote": "إذا لم تطلب ذلك، فتجاهل هذه الرسالة: سيبقى حسابك كما هو. فكّر في تغيير كلمة المرور، لأن الطلب جاء من جلسة مسجّل الدخول فيها."
     }
+  },
+  "authErrors": {
+    "banned": "تم تعليق هذا الحساب. تواصل مع الدعم إذا كنت تعتقد أن هذا خطأ.",
+    "deactivated": "قامت مؤسستك بإلغاء تنشيط هذا الحساب.",
+    "invalidCredentials": "البريد الإلكتروني أو اسم المستخدم أو كلمة المرور غير صحيحة.",
+    "userExists": "يوجد حساب بهذا البريد الإلكتروني بالفعل.",
+    "usernameTaken": "اسم المستخدم هذا مستخدم بالفعل.",
+    "usernameInvalid": "لا يمكن استخدام اسم المستخدم هذا. جرّب اسمًا آخر.",
+    "passwordTooShort": "كلمة المرور هذه قصيرة جدًا.",
+    "passwordTooLong": "كلمة المرور هذه طويلة جدًا.",
+    "passwordCompromised": "ظهرت كلمة المرور هذه في تسريب بيانات. اختر كلمة مرور أخرى.",
+    "invalidPassword": "كلمة المرور غير صحيحة.",
+    "recentSignIn": "سجّل الدخول مرة أخرى للقيام بذلك.",
+    "sessionExpired": "انتهت صلاحية جلستك. سجّل الدخول مرة أخرى.",
+    "impersonating": "لا يمكن القيام بذلك أثناء عرض مسؤول للحساب.",
+    "emailNotVerified": "تحقق من بريدك الإلكتروني أولًا.",
+    "invalidToken": "هذا الرابط غير صالح أو منتهي الصلاحية.",
+    "publicOrganization": "يدير أعضاءَ مؤسسة Public مسؤولو المنصة فقط."
   }
 }

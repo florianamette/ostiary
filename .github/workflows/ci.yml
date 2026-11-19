@@ -26,6 +26,21 @@ jobs:
       - name: Install
         run: pnpm install --frozen-lockfile
 
+      # A schema change committed without its migration (or a hand-edited snapshot) fails here.
+      # Neither command connects to a database.
+      - name: Migrations match the schema
+        working-directory: packages/core
+        run: |
+          pnpm exec drizzle-kit check
+          pnpm exec drizzle-kit generate
+          git diff --exit-code -- src/db/migrations
+          untracked="$(git ls-files --others --exclude-standard -- src/db/migrations)"
+          if [ -n "$untracked" ]; then
+            echo "::error::drizzle-kit generated a migration that is not committed:"
+            echo "$untracked"
+            exit 1
+          fi
+
       - name: Lint
         run: pnpm lint
 
@@ -35,16 +50,8 @@ jobs:
       - name: Test
         run: pnpm test
 
-      - name: Build (auth and admin apps)
-        run: pnpm build
-        env:
-          DATABASE_URL: postgresql://127.0.0.1:5432/ci
-          BETTER_AUTH_SECRET: "01234567890123456789012345678901"
-          BETTER_AUTH_URL: http://localhost:3000
-          NEXT_PUBLIC_APP_URL: http://localhost:3000
-          AUTH_APP_URL: http://localhost:3000
-          ADMIN_APP_URL: http://localhost:3001
-          NEXT_PUBLIC_ADMIN_APP_URL: http://localhost:3001
+      # No build here: the e2e job runs the same production build of both apps (`next build`,
+      # with its own URLs), so a build failure still fails CI, and each app is built once.
 
   e2e:
     runs-on: ubuntu-latest

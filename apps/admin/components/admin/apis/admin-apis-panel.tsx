@@ -1,10 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Loader2 } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { toast } from "sonner";
 
 import { Button } from "@ostiary/core/components/ui/button";
 import {
@@ -20,6 +17,7 @@ import type { ApiAccess, TokenSettings } from "@ostiary/core/lib/oauth-resource-
 import { createApi } from "@/app/[locale]/(console)/apis/actions";
 import { ApiItem } from "@/components/admin/apis/api-item";
 import { CheckboxField } from "@/components/admin/common/choice-field";
+import { useAdminAction } from "@/components/admin/common/use-admin-action";
 
 export type ApiRow = {
   identifier: string;
@@ -54,31 +52,20 @@ export function AdminApisPanel({
 }) {
   const t = useTranslations("admin.pages.apis");
   const tc = useTranslations("admin.common");
-  const router = useRouter();
   const [identifier, setIdentifier] = React.useState("");
   const [name, setName] = React.useState("");
   const [scopes, setScopes] = React.useState("");
   const [restrict, setRestrict] = React.useState(false);
-  const [submitting, setSubmitting] = React.useState(false);
+  const { busy: submitting, run } = useAdminAction(() => {
+    setIdentifier("");
+    setName("");
+    setScopes("");
+    setRestrict(false);
+  });
 
-  async function handleRegister(e: React.FormEvent) {
+  function handleRegister(e: React.FormEvent) {
     e.preventDefault();
-    setSubmitting(true);
-    try {
-      const res = await createApi({ identifier, name, scopes, restrict });
-      if (!res.ok) {
-        toast.error(res.error);
-        return;
-      }
-      toast.success(t("register.registered"));
-      setIdentifier("");
-      setName("");
-      setScopes("");
-      setRestrict(false);
-      router.refresh();
-    } finally {
-      setSubmitting(false);
-    }
+    void run(() => createApi({ identifier, name, scopes, restrict }), t("register.registered"));
   }
 
   return (
@@ -135,8 +122,7 @@ export function AdminApisPanel({
                 />
               </Field>
               <Field>
-                <Button type="submit" disabled={submitting}>
-                  {submitting ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
+                <Button type="submit" loading={submitting}>
                   {submitting ? t("register.submitting") : t("register.submit")}
                 </Button>
               </Field>

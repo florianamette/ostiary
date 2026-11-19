@@ -37,7 +37,6 @@
     "react-dom": "catalog:",
     "recharts": "catalog:",
     "resend": "catalog:",
-    "shadcn": "catalog:",
     "sonner": "catalog:",
     "tailwind-merge": "catalog:",
     "tailwindcss": "catalog:",
@@ -54,6 +53,7 @@
     "drizzle-kit": "catalog:",
     "eslint": "catalog:",
     "eslint-config-next": "catalog:",
+    "shadcn": "catalog:",
     "tsx": "catalog:",
     "typescript": "catalog:",
     "vitest": "catalog:"

@@ -6,8 +6,36 @@ All notable changes are documented here. The format follows
 
 ## [Unreleased]
 
+### Upgrading
+
+- Migration `0014` converts every timestamp column to `timestamptz`, reading existing values
+  as UTC (how Ostiary wrote them; a database whose session time zone is not UTC shifts values
+  that Postgres filled with `now()` by that offset). It rewrites each table once.
+- The same migration stops, naming them, if two SSO providers claim the same email domain in
+  any letter case: keep one, then deploy again (docs/enterprise-sso.md, "Upgrading").
+- Outside Vercel, production now requires `BETTER_AUTH_URL` (or `AUTH_APP_URL`). Admin API
+  writes (`/api/admin/*`) need `ADMIN_APP_URL`, and must come from the console's origin.
+- `zod` 4 (from 3.25) and Next.js 16.4.5 (from 16.4.0).
+
 ### Security
 
+- Next.js 16.4.5 (from 16.4.0): fixes GHSA-2464-fhr4-w9xw and GHSA-673q-mjm6-r5xr (critical)
+  and GHSA-p3m5-59mp-jv5r. `zod` 4.6.7 (GHSA-mrhx-c7xc-m3w5); `vite` and `vitest` patched;
+  `shadcn` (build-time CSS only) moved to dev dependencies.
+- The admin API (`/api/admin/*`) refuses writes whose `Origin` is not the admin console and
+  bodies that are not `application/json`, so a page on a sibling subdomain (`COOKIE_DOMAIN`)
+  cannot act with an admin's cookies. Every response is `Cache-Control: no-store`, including
+  the one carrying a new client's secret.
+- Admin API writes are rate-limited per admin and client IP in Postgres (the IP Better Auth
+  trusts, not a raw `x-forwarded-for`), so the limit holds across instances.
+- Webhook signing secrets use the shared encryption helper (fixed 16-byte authentication
+  tag); secrets stored in the old format still decrypt, with the tag length checked.
+- SCIM links an existing account only when its domain exactly matches a verified provider
+  domain (one plain hostname; lists and URL forms are refused).
+- Suspending an account through SCIM revokes it like a ban: OAuth tokens and the user's API
+  keys, with audit entries.
+- One SSO provider per email domain, in any letter case: registration (`SSO_DOMAIN_TAKEN`),
+  console edits and a unique index all refuse a second one.
 - The device sign-in page loads the app's icon through Ostiary (`/api/app-icon`), like the consent
   screen, instead of from the app's `logo_uri`: the app's site no longer learns who is approving.
 - drizzle-kit's migration loader (`@esbuild-kit/core-utils`) now runs esbuild 0.25.12 instead of
@@ -39,6 +67,20 @@ All notable changes are documented here. The format follows
   clients are left alone. It can also delete self-registered clients never used after a number
   of days. Audited as `oauth_client.remove_duplicates`.
 
+- **Docker.** A `Dockerfile` (auth, admin and migrate targets; standalone Next.js servers
+  running as an unprivileged user, with health checks) and a `docker-compose.yml` with
+  Postgres 17, a migration job, both apps and a daily housekeeping job.
+  `docs/self-hosting.md` covers the reverse proxy, the client IP header, backups and
+  upgrades. `NEXT_OUTPUT=standalone` builds a standalone server for either app.
+- `AUTH_EVENT_RETENTION_DAYS` (default 90): sign-in events are purged by the daily cron
+  route, and failed sign-ins lose the typed identifier and IP address after 30 days.
+- Admin console: search and pagination on the Organizations page; an organization's members
+  are paginated with the real count (the list stopped at 500, or 50 for Public). The audit
+  log pages back past the latest 200 entries and searches by who acted. Search, filters and
+  page are kept in the URL on every list, so the back button keeps them.
+- CI fails when the schema and the committed migrations differ. Dependabot (npm and GitHub
+  Actions, weekly) and CodeQL. A smoke test loads every admin console page; the e2e package
+  is linted; the apps' `lib/` files have unit tests.
 - **Icon URL for applications.** Admins set an app's icon (`logo_uri`) when registering it
   or in **Edit** (`logo_uri` in `POST` and `PATCH /api/admin/oauth-clients`; empty or null
   clears it), and for dynamically registered clients with **Set icon**. Useful for CLIs,
@@ -315,6 +357,23 @@ All notable changes are documented here. The format follows
 
 ### Changed
 
+- Database: new indexes for the queries the console, account export, erasure, rate caps and
+  retention purges run; `sso_provider.organization_id` is a foreign key (`ON DELETE SET
+  NULL`); a webhook event is queued at most once per endpoint (migration
+  `0014_indexes_constraints_timestamptz`, which clears orphaned ids and duplicate
+  deliveries first).
+- The dashboard renders complete on first load: the session, connected apps, API keys and the
+  deletion status are read on the server. The consent and device screens load the app and
+  the user on the server. The overview's counts come from one query and stream in.
+- One rule (`adminAccess`) decides admin access for the console proxy, layout, pages,
+  actions and API routes, and one helper decides what counts as a recent sign-in.
+- Shared setup in `packages/core`: `createAppAuth`, `withCsp`, locale path helpers and
+  `createNextConfig`, used by both apps, with shared ESLint, TypeScript, PostCSS and Vitest
+  bases (`packages/core/config/`).
+- Sign-in and dashboard errors are shown in the user's language: Better Auth's English
+  messages are no longer displayed, and database errors no longer reach the console.
+- The authenticator QR encoder loads only when setting up two-factor authentication, and the
+  auth app no longer depends on recharts. `@types/node` 22, matching CI.
 - Account dashboard, **Connected applications**: each app shows its icon and its site's
   host instead of the client ID, permissions in plain words (API scopes such as
   `labs:publish` as they are; `openid` is implied), "Connected on" and "Last used", and
@@ -323,6 +382,41 @@ All notable changes are documented here. The format follows
 
 ### Fixed
 
+- Changing the language on a sign-in page keeps its query string, so an app's sign-in, a
+  password-reset link or a device code survives the switch. A failed social sign-in returns
+  to the login page with the app's sign-in intact, and a new account created during an app's
+  sign-in returns to the app.
+- The admin Consent page lists every user's consents (it showed only the signed-in admin's),
+  with search and pagination; revoking one also revokes that app's tokens for the person, and
+  is audited.
+- The admin console can no longer remove or demote an organization's last owner.
+- Membership webhook events from the console are queued in the same transaction as the
+  change. Disabling a webhook endpoint gives up its pending deliveries, so re-enabling it
+  never sends stale events (which could hold erased users' data); pending deliveries older
+  than 30 days are purged. Redeliver resends in the same delivery row. Bulk user and member
+  updates now emit events.
+- Deleting an account erases its history only after the delete succeeds.
+- Emails are sent after the response with errors logged, so they are no longer dropped on
+  serverless platforms.
+- Discovery documents are readable from other origins in production (browser-based OIDC
+  clients).
+- Role filters and the Administrators count include users with several roles
+  (`user,admin`). Sign-in charts count days in UTC; failed sign-ins for one address in
+  another letter case count as one account.
+- Admin server actions check their arguments at runtime (a malformed request gets an error,
+  not a 500); admin actions report network failures; removal and confirmation dialogs stay
+  open with a spinner until the change is done; forms stay disabled while the browser leaves
+  after a successful sign-in, consent or invitation.
+- An admin email change unverifies the account only when the address actually changes.
+  Concurrent signing-key rotations always leave the newest key live. Console setting changes
+  are no longer lost when they land during a cache reload.
+- Disconnecting an app from the dashboard is audited and refused while impersonating.
+- Accessibility: password managers can generate passwords on sign-up; password-mismatch and
+  consent errors are announced; focus returns to the code field after a wrong code.
+- Network failures no longer leave a screen loading or disabled for good (account picker,
+  two-factor settings, email code step, device approval).
+- Empty values in a copied `.env` file (`GITHUB_CLIENT_ID=`, `AUTH_APP_URL=`...) count as
+  unset instead of failing validation.
 - **English left in translated screens.** The admin console rendered most of its text in
   English whatever the language: APIs, API keys, webhooks, applications (sign-in branding,
   self-registration, client dialogs), consent, users, organizations and SCIM, SSO and SAML,

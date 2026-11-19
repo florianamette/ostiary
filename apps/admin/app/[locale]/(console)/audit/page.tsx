@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
-import { desc, inArray, like } from "drizzle-orm";
+import { and, desc, ilike, inArray, like, sql } from "drizzle-orm";
 import { getTranslations } from "next-intl/server";
 
+import { UrlListSearch } from "@/components/admin/common/admin-table";
+import { containsPattern, readParam, type ListSearchParams } from "@/components/admin/common/list-params";
 import { formatDateTime, PageHeader } from "@/components/admin/common/page-header";
+import { Button } from "@ostiary/core/components/ui/button";
 import { Badge } from "@ostiary/core/components/ui/badge";
 import { Card, CardContent } from "@ostiary/core/components/ui/card";
 import {
@@ -21,6 +24,8 @@ import { requireAdminSession } from "@/lib/require-admin-session";
 import { cn } from "@ostiary/core/lib/utils";
 
 export const dynamic = "force-dynamic";
+
+const PAGE_SIZE = 100;
 
 const FILTERS = [
   "all",
@@ -68,21 +73,46 @@ export default async function AuditLogPage({
   searchParams,
 }: {
   params: Promise<{ locale: string }>;
-  searchParams: Promise<{ type?: string }>;
+  searchParams: Promise<ListSearchParams>;
 }) {
   await requireAdminSession();
   const { locale } = await params;
-  const { type = "all" } = await searchParams;
+  const query = await searchParams;
+  const type = readParam(query, "type") || "all";
+  const actor = readParam(query, "q");
+  const before = readParam(query, "before");
   const t = await getTranslations({ locale, namespace: "admin.pages.audit" });
   const actionLabel = await getAuditActionLabel(locale);
   const filter = FILTERS.some((f) => f === type) ? type : "all";
 
-  const rows = await db
+  // Newest first, a page at a time: `?before=<id>` continues after that entry (keyset
+  // pagination, which stays fast however long the log gets).
+  const cursor = before
+    ? sql`(${auditLog.createdAt}, ${auditLog.id}) < (select c.created_at, c.id from ${auditLog} c where c.id = ${before})`
+    : undefined;
+  const page = await db
     .select()
     .from(auditLog)
-    .where(filter === "all" ? undefined : like(auditLog.action, `${filter}.%`))
-    .orderBy(desc(auditLog.createdAt))
-    .limit(200);
+    .where(
+      and(
+        filter === "all" ? undefined : like(auditLog.action, `${filter}.%`),
+        actor ? ilike(auditLog.actorEmail, containsPattern(actor)) : undefined,
+        cursor,
+      ),
+    )
+    .orderBy(desc(auditLog.createdAt), desc(auditLog.id))
+    .limit(PAGE_SIZE + 1);
+  const rows = page.slice(0, PAGE_SIZE);
+  const older = page.length > PAGE_SIZE ? rows[rows.length - 1].id : null;
+  const listHref = (next: { type?: string; before?: string | null }) => {
+    const params = new URLSearchParams();
+    const nextType = next.type ?? filter;
+    if (nextType !== "all") params.set("type", nextType);
+    if (actor) params.set("q", actor);
+    if (next.before) params.set("before", next.before);
+    const qs = params.toString();
+    return qs ? `/audit?${qs}` : "/audit";
+  };
 
   // Hook-recorded entries only carry ids; show current emails and organization names.
   const idsOf = (type: string) => [...new Set(rows.filter((r) => r.targetType === type && r.targetId).map((r) => r.targetId!))];
@@ -100,11 +130,13 @@ export default async function AuditLogPage({
     <div className="space-y-6">
       <PageHeader title={t("title")} description={t("description")} />
 
+      <UrlListSearch placeholder={t("actorPlaceholder")} label={t("actorLabel")} />
+
       <nav className="flex flex-wrap gap-2" aria-label={t("filterLabel")}>
         {FILTERS.map((f) => (
           <Link
             key={f}
-            href={f === "all" ? "/audit" : `/audit?type=${f}`}
+            href={listHref({ type: f })}
             aria-current={filter === f ? "page" : undefined}
             className={cn(
               "rounded-full border px-3 py-1 text-sm transition-colors",
@@ -174,6 +206,22 @@ export default async function AuditLogPage({
           )}
         </CardContent>
       </Card>
+      {before || older ? (
+        <nav className="flex justify-between gap-2" aria-label={t("pagesLabel")}>
+          {before ? (
+            <Button asChild variant="outline" size="sm">
+              <Link href={listHref({})}>{t("newest")}</Link>
+            </Button>
+          ) : (
+            <span />
+          )}
+          {older ? (
+            <Button asChild variant="outline" size="sm">
+              <Link href={listHref({ before: older })}>{t("older")}</Link>
+            </Button>
+          ) : null}
+        </nav>
+      ) : null}
       <p className="text-xs text-muted-foreground">{t("footnote")}</p>
     </div>
   );

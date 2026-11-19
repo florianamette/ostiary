@@ -1,7 +1,8 @@
 "use client";
 
-import type * as React from "react";
+import * as React from "react";
 import { ChevronLeftIcon, ChevronRightIcon, SearchIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { Button } from "@ostiary/core/components/ui/button";
 import { Input } from "@ostiary/core/components/ui/input";
@@ -17,6 +18,9 @@ import {
   ADMIN_TABLE_PAGE_SIZES,
   type AdminTablePageSize,
 } from "@ostiary/core/lib/admin/admin-table-page-size";
+import { useDebouncedValue } from "@/components/admin/common/use-debounced-value";
+import { useListParams, type ListParams } from "@/components/admin/common/use-list-params";
+import { usePagination } from "@/components/admin/common/use-pagination";
 
 /** The search box above an admin table. */
 export function TableSearch({
@@ -43,6 +47,43 @@ export function TableSearch({
       />
     </div>
   );
+}
+
+/**
+ * TableSearch kept in the URL (`?q=` by default): the box answers every keystroke, the URL
+ * (and the list) follows once typing pauses.
+ */
+export function ListSearch({
+  list,
+  param = "q",
+  placeholder,
+  label,
+}: {
+  list: ListParams;
+  param?: string;
+  placeholder: string;
+  label: string;
+}) {
+  const fromUrl = list.get(param);
+  const [value, setValue] = React.useState(fromUrl);
+  const [seenUrl, setSeenUrl] = React.useState(fromUrl);
+  const debounced = useDebouncedValue(value, 300);
+  const { set } = list;
+
+  // The URL changed elsewhere (a link, the back button): show its search.
+  if (fromUrl !== seenUrl) {
+    setSeenUrl(fromUrl);
+    if (fromUrl !== value.trim()) setValue(fromUrl);
+  }
+
+  React.useEffect(() => {
+    // Only once typing has paused, so a stale debounced value never overwrites the URL.
+    if (debounced !== value) return;
+    const query = debounced.trim();
+    if (query !== fromUrl) set({ [param]: query || null });
+  }, [debounced, value, fromUrl, param, set]);
+
+  return <TableSearch value={value} onChange={setValue} placeholder={placeholder} label={label} />;
 }
 
 /** A full-width row for "loading" and "nothing to show". */
@@ -74,7 +115,8 @@ export function TablePagination({
   /** Zero-based, already clamped to `totalPages`. */
   page: number;
   totalPages: number;
-  onPageChange: React.Dispatch<React.SetStateAction<number>>;
+  /** Zero-based. */
+  onPageChange: (page: number) => void;
   pageSize: AdminTablePageSize;
   onPageSizeChange: (size: AdminTablePageSize) => void;
   loading: boolean;
@@ -113,7 +155,7 @@ export function TablePagination({
             variant="outline"
             size="sm"
             disabled={loading || page <= 0}
-            onClick={() => onPageChange((p) => Math.max(0, p - 1))}
+            onClick={() => onPageChange(Math.max(0, page - 1))}
           >
             <ChevronLeftIcon />
             {labels.previous}
@@ -125,7 +167,7 @@ export function TablePagination({
             variant="outline"
             size="sm"
             disabled={loading || page >= totalPages - 1}
-            onClick={() => onPageChange((p) => Math.min(totalPages - 1, p + 1))}
+            onClick={() => onPageChange(Math.min(totalPages - 1, page + 1))}
           >
             {labels.next}
             <ChevronRightIcon />
@@ -134,4 +176,38 @@ export function TablePagination({
       </div>
     </div>
   );
+}
+
+/**
+ * TablePagination for a list paginated on the server: the page and page size come from the
+ * URL (see useListParams), which the server page reads too.
+ */
+export function ListPagination({ total }: { total: number }) {
+  const t = useTranslations("admin.common.pagination");
+  const list = useListParams();
+  const { page, setPage, pageSize, setPageSize, totalPages, showingFrom, showingTo, pending } =
+    usePagination(total, list);
+  return (
+    <TablePagination
+      summary={t("showing", { from: showingFrom, to: showingTo, total })}
+      page={page}
+      totalPages={totalPages}
+      onPageChange={setPage}
+      pageSize={pageSize}
+      onPageSizeChange={setPageSize}
+      loading={pending}
+      labels={{
+        rowsPerPage: t("rowsPerPage"),
+        previous: t("previous"),
+        next: t("next"),
+        page: t("pageOf", { page: page + 1, pages: totalPages }),
+      }}
+    />
+  );
+}
+
+/** ListSearch for a server page, which has no list state of its own to pass. */
+export function UrlListSearch({ placeholder, label }: { placeholder: string; label: string }) {
+  const list = useListParams();
+  return <ListSearch list={list} placeholder={placeholder} label={label} />;
 }

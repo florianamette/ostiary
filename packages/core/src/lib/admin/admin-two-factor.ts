@@ -1,4 +1,4 @@
-import { userHasAdminRole } from "@ostiary/core/lib/admin/user-has-admin-role";
+import { isPlatformAdmin } from "@ostiary/core/lib/admin/user-has-admin-role";
 
 type UserWithTwoFactor = {
   role?: string | null;
@@ -15,5 +15,5 @@ export function adminNeedsTwoFactor(
   required: boolean,
 ): boolean {
   if (!required || !user) return false;
-  return userHasAdminRole(user.role, ["admin"]) && !user.twoFactorEnabled;
+  return isPlatformAdmin(user.role) && !user.twoFactorEnabled;
 }

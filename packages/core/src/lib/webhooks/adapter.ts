@@ -25,7 +25,8 @@ const WATCHED = new Set(["user", "member"]);
  * own hooks all write through this adapter. Database hooks would miss the plugins that write
  * with the bare adapter (SCIM, organizations) and only see the new row, not what changed.
  *
- * An update or delete reads the row first, in the same transaction, to tell what changed. The
+ * An update or delete (one row or many) reads the rows first, in the same transaction, to tell
+ * what changed. The
  * events are recorded once the transaction commits (Better Auth's after-commit queue; at once
  * outside a transaction), so a rolled-back sign-up sends nothing. Writes made with Drizzle
  * directly (the admin console's member actions) call emitWebhookEvents themselves.
@@ -43,6 +44,7 @@ function watch(adapter: Adapter): Adapter {
   const original = {
     create: adapter.create.bind(adapter),
     update: adapter.update.bind(adapter),
+    updateMany: adapter.updateMany.bind(adapter),
     delete: adapter.delete.bind(adapter),
     deleteMany: adapter.deleteMany.bind(adapter),
     findOne: adapter.findOne.bind(adapter),
@@ -67,6 +69,22 @@ function watch(adapter: Adapter): Adapter {
     }
     return updated;
   }) as Adapter["update"];
+
+  adapter.updateMany = (async (args: Parameters<Adapter["updateMany"]>[0]) => {
+    if (!WATCHED.has(args.model)) return original.updateMany(args);
+    const rows = await original.findMany<Row>({ model: args.model, where: args.where });
+    const count = await original.updateMany(args);
+    if (count > 0) {
+      const update = args.update as Row;
+      await queue(
+        rows.flatMap((before) => {
+          const after = { ...before, ...update };
+          return args.model === "user" ? userUpdateEvents(before, after) : memberRoleEvents(before, after);
+        }),
+      );
+    }
+    return count;
+  }) as Adapter["updateMany"];
 
   adapter.delete = (async (args: Parameters<Adapter["delete"]>[0]) => {
     if (!WATCHED.has(args.model)) return original.delete(args);

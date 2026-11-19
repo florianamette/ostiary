@@ -1,62 +1,59 @@
 "use client";
 
-import { useTranslations } from "next-intl";
-
-import { Button } from "@ostiary/core/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@ostiary/core/components/ui/dialog";
+import { DialogActions } from "@/components/admin/common/dialog-actions";
 
 /**
- * Asks before removing something from a row menu. While `pending`, the confirm button is
- * disabled and shows `pendingLabel`.
+ * Asks before removing something. While `pending`, both buttons are disabled, the confirm
+ * button spins and the dialog cannot be dismissed, so the result is seen in it.
  */
 export function ConfirmRemoveDialog({
   open,
   onOpenChange,
-  className,
+  className = "sm:max-w-md",
   title,
   description,
   pending,
   onConfirm,
   confirmLabel,
-  pendingLabel,
+  cancelLabel,
 }: {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  className: string;
-  title: string;
+  className?: string;
+  title: React.ReactNode;
   description: React.ReactNode;
   pending: boolean;
   onConfirm: () => void;
   confirmLabel: string;
-  pendingLabel: string;
+  cancelLabel?: string;
 }) {
-  const tc = useTranslations("admin.common");
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog
+      open={open}
+      onOpenChange={(next) => {
+        if (!pending) onOpenChange(next);
+      }}
+    >
       <DialogContent className={className}>
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
-        <DialogFooter>
-          <Button variant="outline" onClick={() => onOpenChange(false)}>
-            {tc("cancel")}
-          </Button>
-          <Button
-            variant="destructive"
-            disabled={pending}
-            onClick={onConfirm}
-          >
-            {pending ? pendingLabel : confirmLabel}
-          </Button>
-        </DialogFooter>
+        <DialogActions
+          busy={pending}
+          onCancel={() => onOpenChange(false)}
+          cancelLabel={cancelLabel}
+          onConfirm={onConfirm}
+          confirmLabel={confirmLabel}
+          destructive
+        />
       </DialogContent>
     </Dialog>
   );

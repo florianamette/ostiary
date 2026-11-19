@@ -2,20 +2,20 @@
 
 import * as React from "react";
 import { useTranslations } from "next-intl";
+import { toast } from "sonner";
 
-import { Button } from "@ostiary/core/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@ostiary/core/components/ui/dialog";
 import { Input } from "@ostiary/core/components/ui/input";
 import { Label } from "@ostiary/core/components/ui/label";
-import { adminNotify } from "@ostiary/core/lib/admin/admin-notify";
 import { authClient } from "@/lib/auth-client";
+import { DialogActions } from "@/components/admin/common/dialog-actions";
+import { useAdminAction } from "@/components/admin/common/use-admin-action";
 
 type DialogProps = {
   user: { id: string; name: string; email: string };
@@ -30,7 +30,7 @@ export function UserEditDialog({ user, open, onOpenChange, onChanged }: DialogPr
   const tc = useTranslations("admin.common");
   const [editName, setEditName] = React.useState(user.name);
   const [editEmail, setEditEmail] = React.useState(user.email);
-  const [editPending, setEditPending] = React.useState(false);
+  const { busy: editPending, run } = useAdminAction(() => onOpenChange(false), { refresh: onChanged });
 
   React.useEffect(() => {
     if (open) return;
@@ -42,32 +42,17 @@ export function UserEditDialog({ user, open, onOpenChange, onChanged }: DialogPr
     const nameTrim = editName.trim();
     const emailTrim = editEmail.trim();
     if (!emailTrim) {
-      adminNotify(t("emailRequired"), "error");
+      toast.error(t("emailRequired"));
       return;
     }
     const data: Record<string, string> = {};
     if (nameTrim !== user.name) data.name = nameTrim;
     if (emailTrim !== user.email) data.email = emailTrim;
     if (Object.keys(data).length === 0) {
-      adminNotify(t("noChanges"), "error");
+      toast.error(t("noChanges"));
       return;
     }
-    setEditPending(true);
-    try {
-      const { error } = await authClient.admin.updateUser({
-        userId: user.id,
-        data,
-      });
-      if (error) {
-        adminNotify(error.message ?? t("updateError"), "error");
-        return;
-      }
-      adminNotify(t("updated"), "success");
-      onOpenChange(false);
-      onChanged();
-    } finally {
-      setEditPending(false);
-    }
+    await run(() => authClient.admin.updateUser({ userId: user.id, data }), t("updated"), t("updateError"));
   }
 
   return (
@@ -109,14 +94,12 @@ export function UserEditDialog({ user, open, onOpenChange, onChanged }: DialogPr
             />
           </div>
         </div>
-        <DialogFooter>
-          <Button variant="outline" onClick={() => onOpenChange(false)}>
-            {tc("cancel")}
-          </Button>
-          <Button disabled={editPending} onClick={() => void saveProfile()}>
-            {editPending ? tc("saving") : tc("save")}
-          </Button>
-        </DialogFooter>
+        <DialogActions
+          busy={editPending}
+          onCancel={() => onOpenChange(false)}
+          onConfirm={() => void saveProfile()}
+          confirmLabel={editPending ? tc("saving") : tc("save")}
+        />
       </DialogContent>
     </Dialog>
   );
@@ -128,7 +111,7 @@ export function UserPasswordDialog({ user, open, onOpenChange, onChanged }: Dial
   const tc = useTranslations("admin.common");
   const [newPassword, setNewPassword] = React.useState("");
   const [confirmPassword, setConfirmPassword] = React.useState("");
-  const [passwordPending, setPasswordPending] = React.useState(false);
+  const { busy: passwordPending, run } = useAdminAction(() => onOpenChange(false), { refresh: onChanged });
   const [passwordFormError, setPasswordFormError] = React.useState<
     string | null
   >(null);
@@ -151,22 +134,11 @@ export function UserPasswordDialog({ user, open, onOpenChange, onChanged }: Dial
       setPasswordFormError(t("passwordMismatch"));
       return;
     }
-    setPasswordPending(true);
-    try {
-      const { error } = await authClient.admin.setUserPassword({
-        userId: user.id,
-        newPassword,
-      });
-      if (error) {
-        adminNotify(error.message ?? t("passwordError"), "error");
-        return;
-      }
-      adminNotify(t("passwordUpdated"), "success");
-      onOpenChange(false);
-      onChanged();
-    } finally {
-      setPasswordPending(false);
-    }
+    await run(
+      () => authClient.admin.setUserPassword({ userId: user.id, newPassword }),
+      t("passwordUpdated"),
+      t("passwordError"),
+    );
   }
 
   return (
@@ -209,17 +181,12 @@ export function UserPasswordDialog({ user, open, onOpenChange, onChanged }: Dial
             </p>
           ) : null}
         </div>
-        <DialogFooter>
-          <Button variant="outline" onClick={() => onOpenChange(false)}>
-            {tc("cancel")}
-          </Button>
-          <Button
-            disabled={passwordPending}
-            onClick={() => void savePassword()}
-          >
-            {passwordPending ? tc("saving") : t("updatePassword")}
-          </Button>
-        </DialogFooter>
+        <DialogActions
+          busy={passwordPending}
+          onCancel={() => onOpenChange(false)}
+          onConfirm={() => void savePassword()}
+          confirmLabel={passwordPending ? tc("saving") : t("updatePassword")}
+        />
       </DialogContent>
     </Dialog>
   );

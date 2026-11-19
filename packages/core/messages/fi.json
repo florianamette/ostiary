@@ -286,10 +286,6 @@
           "empty": "Ei vielä käyttäjiä."
         },
         "stats": {
-          "error": "Yhtä tai useampaa mittaria ei voitu ladata. Varmista, että olet kirjautunut ylläpitäjänä.",
-          "errorTitle": "Mittarit eivät ole saatavilla",
-          "loadingTitle": "Ladataan",
-          "loadingHint": "Ladataan…",
           "totalUsers": {
             "title": "Käyttäjiä yhteensä",
             "hint": "Kaikki alustan tilit."
@@ -1393,8 +1389,6 @@
           "roleAll": "Kaikki roolit",
           "roleAdmin": "Ylläpitäjä",
           "roleUser": "Käyttäjä",
-          "loadErrorTitle": "Käyttäjiä ei voitu ladata",
-          "loadErrorFallback": "Käyttäjien lataus epäonnistui",
           "columns": {
             "user": "Käyttäjä",
             "role": "Rooli",
@@ -1402,7 +1396,6 @@
             "verified": "Vahvistettu",
             "joined": "Liittynyt"
           },
-          "loading": "Ladataan käyttäjiä…",
           "empty": "Mikään käyttäjä ei vastaa suodattimia.",
           "noUsers": "0 käyttäjää",
           "showing": "Näytetään {from}–{to} / {total}",
@@ -1467,8 +1460,7 @@
           "updatePassword": "Päivitä salasana",
           "removeTitle": "Poistetaanko käyttäjä?",
           "removeDescription": "Tämä poistaa pysyvästi käyttäjän <strong>{name}</strong> ({email}) ja kaiken tiliin liittyvän. Tarkastuslokin merkinnät säilytetään ilman nimeä ja sähköpostia. Tätä ei voi kumota.",
-          "removeConfirm": "Poista",
-          "removing": "Poistetaan…"
+          "removeConfirm": "Poista"
         },
         "detailActions": {
           "impersonateError": "Tämän käyttäjän tiliin ei voitu kirjautua.",
@@ -1559,10 +1551,6 @@
         "title": "Suostumukset",
         "description": "Käyttöoikeudet, jotka ihmiset ovat myöntäneet OAuth-asiakkaille, sekä scopet ja myöntämisajankohdat.",
         "panel": {
-          "signedInUser": "Kirjautunut käyttäjä",
-          "loadConsentsFailed": "Suostumusten lataus epäonnistui",
-          "loadClientsFailed": "OAuth-asiakkaiden lataus epäonnistui",
-          "loadErrorTitle": "Suostumuksia ei voitu ladata",
           "searchPlaceholder": "Hae käyttäjällä, asiakkaalla, suostumuksen tunnuksella, viitteellä tai scopella…",
           "searchLabel": "Hae suostumuksia",
           "filter": {
@@ -1578,16 +1566,14 @@
             "granted": "Myönnetty",
             "updated": "Päivitetty"
           },
-          "loading": "Ladataan suostumuksia…",
-          "emptyNone": "Tälle tilille ei ole vielä kirjattu suostumuksia.",
+          "emptyNone": "Kukaan ei ole vielä antanut suostumusta sovellukselle.",
           "emptyFiltered": "Mikään suostumus ei vastaa suodattimia.",
           "noResults": "0 suostumusta",
           "showing": "Näytetään {from}–{to} / {total}",
           "rowsPerPage": "Rivejä sivulla",
           "previous": "Edellinen",
           "next": "Seuraava",
-          "pageOf": "Sivu {page} / {total}",
-          "footnote": "Tiedot lähteestä <code>{getConsents}</code>; asiakkaiden nimet haetaan kohteesta <code>{getClients}</code>. Mitätöinti käyttää kohdetta <code>{deleteConsent}</code>. Katso <consentLink>OAuth consent</consentLink> <providerLink>OAuth provider</providerLink> -dokumentaatiosta. Interaktiivinen valtuutusnäkymä on osoitteessa <code>{path}</code>."
+          "pageOf": "Sivu {page} / {total}"
         },
         "rowActions": {
           "menuLabel": "Suostumuksen {id}… toiminnot",
@@ -1595,16 +1581,13 @@
           "consentIdCopied": "Suostumuksen tunnus kopioitu",
           "copyClientId": "Kopioi asiakastunnus",
           "clientIdCopied": "Asiakastunnus kopioitu",
-          "viewDetails": "Näytä tiedot",
-          "updateScopes": "Päivitä scopet",
-          "wireTo": "Kytke metodiin {method}",
           "revoke": "Peru suostumus",
           "revokeFailed": "Suostumusta ei voitu perua",
           "revoked": "Suostumus peruttu",
           "dialogTitle": "Perutaanko suostumus?",
-          "dialogDescription": "Poistaa tämän käyttäjän myöntämän luvan asiakkaalle <strong>{client}</strong> (<code>{clientId}</code>). Asiakas voi joutua pyytämään valtuutusta uudelleen.",
-          "revoking": "Perutaan…",
-          "revokeButton": "Peru"
+          "dialogDescription": "Poistaa käyttäjän <strong>{user}</strong> suostumuksen sovellukselle <strong>{client}</strong> (<code>{clientId}</code>) ja mitätöi tunnukset, jotka sovelluksella on hänelle. Sovelluksen on pyydettävä uudelleen saadakseen uusia.",
+          "revokeButton": "Peru",
+          "notFound": "Tätä suostumusta ei ole enää olemassa."
         }
       },
       "usage": {
@@ -1633,7 +1616,7 @@
       "audit": {
         "title": "Tarkastusloki",
         "description": "Jokainen tästä konsolista tai ylläpidon API:n kautta tehty muutos: kuka sen teki, mihin ja milloin.",
-        "footnote": "Näytetään viimeisimmät 200 merkintää. Salasanoja ja salaisuuksia ei koskaan tallenneta.",
+        "footnote": "Salasanoja ja salaisuuksia ei koskaan tallenneta.",
         "filterLabel": "Suodata alueen mukaan",
         "filters": {
           "all": "Kaikki",
@@ -1753,7 +1736,12 @@
             "test": "Lähetti webhookin testitapahtuman",
             "redeliver": "Toimitti webhook-tapahtuman uudelleen"
           }
-        }
+        },
+        "actorPlaceholder": "Hae tekijän mukaan (sähköposti)…",
+        "actorLabel": "Hae tekijän mukaan",
+        "pagesLabel": "Tarkastuslokin sivut",
+        "newest": "Uusimmat merkinnät",
+        "older": "Vanhemmat merkinnät"
       },
       "security": {
         "title": "Turvallisuus",
@@ -1850,8 +1838,14 @@
         }
       },
       "organizations": {
+        "title": "Organisaatiot",
+        "description": "Kaikki alustan organisaatiot jäsenineen. Avaa organisaatio hallitaksesi sen jäseniä, SSO:ta ja SCIM:iä.",
+        "list": {
+          "searchPlaceholder": "Hae nimellä tai slugilla…",
+          "searchLabel": "Hae organisaatioita",
+          "noMatch": "Mikään organisaatio ei vastaa hakua."
+        },
         "controls": {
-          "unexpectedError": "Jokin meni vikaan.",
           "organizationUpdated": "Organisaatio päivitetty",
           "slug": "URL-tunniste",
           "role": "Rooli",
@@ -1903,7 +1897,7 @@
           "defaultWorkspace": "Oletustyötila",
           "createdAt": "Luotu {date}",
           "members": "Jäsenet",
-          "publicMembers": "Jokainen tili kuuluu Public-työtilaan, joten jäseniä ei voi poistaa täällä. Näytetään ensimmäiset 50.",
+          "publicMembers": "Jokainen tili kuuluu Public-työtilaan, joten jäseniä ei voi poistaa täällä.",
           "memberCount": "{count, plural, one {# jäsen} other {# jäsentä}}.",
           "noMembers": "Ei vielä jäseniä.",
           "member": "Jäsen",
@@ -1941,7 +1935,10 @@
           "invitationNotFound": "Kutsua ei löytynyt.",
           "requestFailed": "Pyyntö epäonnistui.",
           "scimUnavailable": "Tämä organisaatio ei voi käyttää SCIM-provisiointia.",
-          "noActiveToken": "Aktiivista tokenia ei ole."
+          "noActiveToken": "Aktiivista tokenia ei ole.",
+          "lastOwner": "Organisaatiolla on oltava vähintään yksi omistaja. Tee ensin toisesta jäsenestä omistaja.",
+          "publicDelete": "Public-työtilaa ei voi poistaa.",
+          "organizationNotFound": "Organisaatiota ei löytynyt."
         }
       }
     },
@@ -1977,7 +1974,15 @@
       "refresh": "Päivitä",
       "search": "Hae",
       "optional": "Valinnainen",
-      "unexpectedError": "Jokin meni vikaan. Yritä uudelleen."
+      "unexpectedError": "Jokin meni vikaan. Yritä uudelleen.",
+      "invalidInput": "Osa lähetetyistä arvoista ei kelpaa. Lataa sivu uudelleen ja yritä uudelleen.",
+      "pagination": {
+        "rowsPerPage": "Rivejä sivulla",
+        "previous": "Edellinen",
+        "next": "Seuraava",
+        "pageOf": "Sivu {page} / {pages}",
+        "showing": "Näytetään {from}–{to} / {total}"
+      }
     },
     "urlCheck": {
       "tooLong": "URL-osoite on liian pitkä.",
@@ -2587,7 +2592,8 @@
       "txtRecordNotFound": "TXT-tietuetta ei vielä löytynyt. DNS-muutosten näkyminen voi kestää muutaman minuutin.",
       "envNotSet": "{name} ei ole asetettu.",
       "invalidProviderId": "Palveluntarjoajan tunnuksen on oltava 2–63 merkkiä: pieniä kirjaimia, numeroita, - tai _.",
-      "unreadableSamlConfig": "Tallennettua SAML-määritystä ei voi lukea; poista palveluntarjoaja ja rekisteröi se uudelleen."
+      "unreadableSamlConfig": "Tallennettua SAML-määritystä ei voi lukea; poista palveluntarjoaja ja rekisteröi se uudelleen.",
+      "domainTaken": "Toinen SSO-palveluntarjoaja käyttää jo tätä verkkotunnusta."
     }
   },
   "selectAccount": {
@@ -2669,5 +2675,23 @@
       "note": "Linkki vanhenee {minutes} minuutissa ja toimii vain kerran.",
       "footnote": "Etkö pyytänyt tätä? Voit ohittaa tämän viestin: tilisi pysyy ennallaan. Harkitse salasanasi vaihtamista, sillä pyyntö tuli kirjautuneesta istunnosta."
     }
+  },
+  "authErrors": {
+    "banned": "Tämä tili on jäädytetty. Ota yhteyttä tukeen, jos uskot tämän olevan virhe.",
+    "deactivated": "Organisaatiosi on poistanut tämän tilin käytöstä.",
+    "invalidCredentials": "Väärä sähköposti, käyttäjänimi tai salasana.",
+    "userExists": "Tällä sähköpostiosoitteella on jo tili.",
+    "usernameTaken": "Tämä käyttäjänimi on jo varattu.",
+    "usernameInvalid": "Tätä käyttäjänimeä ei voi käyttää. Kokeile toista.",
+    "passwordTooShort": "Salasana on liian lyhyt.",
+    "passwordTooLong": "Salasana on liian pitkä.",
+    "passwordCompromised": "Tämä salasana on löytynyt tietovuodosta. Valitse toinen.",
+    "invalidPassword": "Väärä salasana.",
+    "recentSignIn": "Kirjaudu uudelleen sisään tehdäksesi tämän.",
+    "sessionExpired": "Istuntosi on vanhentunut. Kirjaudu uudelleen sisään.",
+    "impersonating": "Tätä ei voi tehdä, kun ylläpitäjä tarkastelee tiliä.",
+    "emailNotVerified": "Vahvista ensin sähköpostiosoitteesi.",
+    "invalidToken": "Linkki on virheellinen tai vanhentunut.",
+    "publicOrganization": "Public-organisaation jäseniä hallitsevat vain alustan ylläpitäjät."
   }
 }

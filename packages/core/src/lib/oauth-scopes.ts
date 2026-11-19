@@ -1,5 +1,6 @@
 import { db } from "@ostiary/core/db/index";
 import { oauthResource } from "@ostiary/core/db/schema";
+import { env } from "@ostiary/core/lib/env";
 import type { OAuthResourceMetadata } from "@ostiary/core/lib/oauth-resource-policy";
 import { refreshingCache } from "@ostiary/core/lib/refreshing-cache";
 
@@ -10,7 +11,7 @@ export const OIDC_SCOPES = ["openid", "profile", "email", "offline_access"] as c
  * Scopes from OAUTH_API_SCOPES (comma-separated, e.g. "orders:read,orders:write"). Kept for
  * existing deployments: APIs registered from the admin console declare their own scopes.
  */
-export const ENV_API_SCOPES: readonly string[] = (process.env.OAUTH_API_SCOPES ?? "")
+export const ENV_API_SCOPES: readonly string[] = (env.OAUTH_API_SCOPES ?? "")
   .split(",")
   .map((scope) => scope.trim())
   .filter(Boolean);

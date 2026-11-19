@@ -1,5 +1,6 @@
 import { DashboardShell } from "@/components/dashboard/dashboard-shell";
-import { userHasAdminRole } from "@ostiary/core/lib/admin/user-has-admin-role";
+import { DashboardSessionProvider, type DashboardSession } from "@/components/dashboard/dashboard-session";
+import { isPlatformAdmin } from "@ostiary/core/lib/admin/user-has-admin-role";
 import { env } from "@ostiary/core/lib/env";
 import { getDashboardContext } from "@/lib/dashboard-context";
 import { redirect } from "@/i18n/navigation";
@@ -27,9 +28,32 @@ export default async function DashboardLayout({
     return null;
   }
 
-  const isAdmin = userHasAdminRole(sessionUser.role, ["admin"]);
+  const isAdmin = isPlatformAdmin(sessionUser.role);
+  const fields = sessionUser as typeof sessionUser & {
+    username?: string | null;
+    displayUsername?: string | null;
+    twoFactorEnabled?: boolean | null;
+  };
+  // What the sections read, so they render complete without waiting for /get-session.
+  const initialSession: DashboardSession = {
+    user: {
+      id: sessionUser.id,
+      name: sessionUser.name ?? "",
+      email: sessionUser.email,
+      emailVerified: Boolean(sessionUser.emailVerified),
+      username: fields.username ?? null,
+      displayUsername: fields.displayUsername ?? null,
+      twoFactorEnabled: Boolean(fields.twoFactorEnabled),
+    },
+    session: {
+      id: session.session.id,
+      activeOrganizationId:
+        (session.session as { activeOrganizationId?: string | null }).activeOrganizationId ?? null,
+    },
+  };
 
   return (
+    <DashboardSessionProvider initial={initialSession}>
     <DashboardShell
       user={{
         id: sessionUser.id,
@@ -47,5 +71,6 @@ export default async function DashboardLayout({
     >
       {children}
     </DashboardShell>
+    </DashboardSessionProvider>
   );
 }

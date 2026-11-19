@@ -1,9 +1,12 @@
 import { createHmac } from "node:crypto";
 import type { DBTransactionAdapter } from "better-auth";
+import { queueAfterTransactionHook } from "@better-auth/core/context";
 import type { SCIMIdentity, SCIMProjection, SCIMScope } from "@better-auth/scim";
 
-import { userHasAdminRole } from "@ostiary/core/lib/admin/user-has-admin-role";
+import { isPlatformAdmin } from "@ostiary/core/lib/admin/user-has-admin-role";
 import { PUBLIC_ORGANIZATION_ID } from "@ostiary/core/lib/organization-public";
+import { parseSsoDomain } from "@ostiary/core/lib/security/sso-domain";
+import { revokeUserAccess } from "@ostiary/core/lib/security/user-access-revocation";
 
 /*
  * SCIM 2.0 provisioning, one connection per organization. The organization id is the
@@ -53,24 +56,15 @@ export function scimCredentialHashSecret(env: { SCIM_TOKEN_SECRET?: string; BETT
   return createHmac("sha256", env.BETTER_AUTH_SECRET).update("ostiary:scim-credential-hash").digest("hex");
 }
 
-/** Lowercased hostnames from an SSO provider's domain field ("acme.com", "acme.com,acme.fr", or a URL). */
-export function ssoDomains(raw: string): string[] {
-  return raw
-    .split(",")
-    .map((part) => part.trim().toLowerCase())
-    .filter(Boolean)
-    .map((part) => {
-      try {
-        return new URL(part.includes("://") ? part : `https://${part}`).hostname;
-      } catch {
-        return "";
-      }
-    })
-    .filter(Boolean);
-}
-
 type Database = Pick<DBTransactionAdapter, "findOne" | "findMany" | "create" | "update" | "updateMany" | "deleteMany">;
 type UserRow = { id: string; email: string; emailVerified: boolean; role?: string | null; banned?: boolean | null; banReason?: string | null };
+type Revoke = (user: { id: string; email: string }) => Promise<unknown>;
+
+/** Ends the account's app access once the deactivation is committed (security/user-access-revocation.ts). */
+const revokeAfterCommit: Revoke = (user) =>
+  queueAfterTransactionHook(async () => {
+    await revokeUserAccess(user, "scim_deactivated", null, null);
+  });
 
 /**
  * An account that already exists is linked only when the organization has proven it owns the
@@ -83,7 +77,7 @@ export const scimIdentity: SCIMIdentity = {
   async resolveUser({ provisioningDomainId, resource }, { database }) {
     const email = resource.primaryEmail.trim().toLowerCase();
     const existing = await database.findOne<UserRow>({ model: "user", where: [{ field: "email", value: email }] });
-    if (!existing || !existing.emailVerified || userHasAdminRole(existing.role, ["admin"])) return { action: "create" };
+    if (!existing || !existing.emailVerified || isPlatformAdmin(existing.role)) return { action: "create" };
     const domain = email.split("@")[1] ?? "";
     const providers = await database.findMany<{ domain: string }>({
       model: "ssoProvider",
@@ -92,7 +86,9 @@ export const scimIdentity: SCIMIdentity = {
         { field: "domainVerified", value: true },
       ],
     });
-    if (!providers.some((p) => ssoDomains(p.domain).includes(domain))) return { action: "create" };
+    // Only a provider whose stored domain is exactly this one: the strict parser refuses lists,
+    // URLs and anything else a verified TXT record would not have covered (security/sso-domain.ts).
+    if (!parseSsoDomain(domain) || !providers.some((p) => p.domain === domain)) return { action: "create" };
     // "preserve": the account keeps its own name and email; the directory only controls access.
     return { action: "link", userId: existing.id, profile: "preserve" };
   },
@@ -103,7 +99,7 @@ export const scimIdentity: SCIMIdentity = {
 };
 
 /** Bans (or lifts the provisioning ban on) an account. Exported for tests. */
-export async function setScimDeactivated(database: Database, userId: string, deactivated: boolean, now = new Date()) {
+export async function setScimDeactivated(database: Database, userId: string, deactivated: boolean, revoke: Revoke = revokeAfterCommit) {
   const account = await database.findOne<UserRow>({ model: "user", where: [{ field: "id", value: userId }] });
   if (!account) return;
   if (!deactivated) {
@@ -124,20 +120,10 @@ export async function setScimDeactivated(database: Database, userId: string, dea
       update: { banned: true, banReason: SCIM_DEACTIVATED_REASON, banExpires: null },
     });
   }
-  // Sessions are deleted by the plugin. Access and refresh tokens outlive them, so revoke those
-  // too: apps lose access at their next refresh or introspection.
-  for (const model of ["oauthRefreshToken", "oauthAccessToken"]) {
-    await database.updateMany({
-      model,
-      where: [
-        { field: "userId", value: userId },
-        { field: "revoked", value: null },
-      ],
-      update: { revoked: now },
-    });
-  }
-  // API keys go too, as when an admin bans the account (see the user update hook).
-  await database.deleteMany({ model: "apikey", where: [{ field: "referenceId", value: userId }] });
+  // Sessions are deleted by the plugin. Access and refresh tokens and API keys outlive them,
+  // so they go too, as when an admin bans the account: apps lose access at their next refresh
+  // or introspection. Done once the provisioning transaction commits, and audited.
+  await revoke(account);
 }
 
 /**

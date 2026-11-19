@@ -1,4 +1,4 @@
-import { userHasAdminRole } from "@ostiary/core/lib/admin/user-has-admin-role";
+import { isPlatformAdmin } from "@ostiary/core/lib/admin/user-has-admin-role";
 
 /*
  * Implicit account linking: signing in with a provider whose (verified) email matches an
@@ -9,7 +9,7 @@ import { userHasAdminRole } from "@ostiary/core/lib/admin/user-has-admin-role";
  * signed in, which is an explicit link and not affected.
  */
 export function implicitLinkRefusal(user: { role?: string | null; twoFactorEnabled?: boolean | null }): string | null {
-  if (userHasAdminRole(user.role, ["admin"])) {
+  if (isPlatformAdmin(user.role)) {
     return "This account is an administrator account. Sign in another way, then connect this provider from your account page.";
   }
   if (user.twoFactorEnabled) {

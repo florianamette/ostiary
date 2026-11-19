@@ -8,6 +8,7 @@
     "start": "next start -p 3000",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
+    "test": "vitest run --passWithNoTests",
     "brand:assets": "tsx scripts/generate-brand-assets.ts"
   },
   "dependencies": {
@@ -26,9 +27,7 @@
     "pg": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
-    "recharts": "catalog:",
     "resend": "catalog:",
-    "shadcn": "catalog:",
     "sonner": "catalog:",
     "tailwindcss": "catalog:",
     "tw-animate-css": "catalog:",
@@ -43,8 +42,10 @@
     "@types/react-dom": "catalog:",
     "eslint": "catalog:",
     "eslint-config-next": "catalog:",
+    "shadcn": "catalog:",
     "sharp": "catalog:",
     "tsx": "catalog:",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "vitest": "catalog:"
   }
 }

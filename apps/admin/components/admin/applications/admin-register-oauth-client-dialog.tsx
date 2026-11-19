@@ -3,6 +3,7 @@
 import * as React from "react";
 import { CopyIcon, PlusCircleIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { toast } from "sonner";
 
 import { Button } from "@ostiary/core/components/ui/button";
 import {
@@ -29,7 +30,6 @@ import {
 } from "@ostiary/core/components/ui/select";
 import { Textarea } from "@ostiary/core/components/ui/textarea";
 import { MotionPanel } from "@ostiary/core/components/motion/motion-panel";
-import { adminNotify } from "@ostiary/core/lib/admin/admin-notify";
 import { DEVICE_CODE_GRANT_TYPE } from "@ostiary/core/lib/admin/oauth-clients/oauth-client-admin.types";
 import { CheckboxField } from "@/components/admin/common/choice-field";
 import { ExternalLink } from "@/components/admin/common/external-link";
@@ -159,7 +159,7 @@ export function AdminRegisterOAuthClientDialog({
       setIssuedClientId(cid);
       setIssuedSecret(secret);
       setStep("success");
-      adminNotify(t("registered"));
+      toast.success(t("registered"));
       onCreated();
     } finally {
       setPending(false);

@@ -15,9 +15,14 @@ export function useDeviceAccounts(activeUserId: string | undefined) {
 
   useEffect(() => {
     let cancelled = false;
-    authClient.multiSession.listDeviceSessions().then(({ data }) => {
-      if (!cancelled) setAccounts(orderDeviceAccounts(data ?? [], activeUserId));
-    });
+    authClient.multiSession
+      .listDeviceSessions()
+      .then(({ data }) => data ?? [])
+      // Unreadable (network error): list only the active account rather than load forever.
+      .catch(() => [])
+      .then((sessions) => {
+        if (!cancelled) setAccounts(orderDeviceAccounts(sessions, activeUserId));
+      });
     return () => {
       cancelled = true;
     };

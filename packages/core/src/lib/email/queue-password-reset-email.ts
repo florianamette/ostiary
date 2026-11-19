@@ -3,7 +3,9 @@ import { queueEmail } from "@ostiary/core/lib/email/send";
 
 /** Password reset link (Better Auth `sendResetPassword`). */
 export function queuePasswordResetEmail(input: { to: string; url: string }): void {
-  queueEmail("password reset", input.to, "Reset your password", {
+  queueEmail("password reset", input.to, {
+    subject: "Reset your password",
+    content: {
     preheader: `Choose a new password for your ${brand.name} account.`,
     heading: "Reset your password",
     body: [
@@ -13,5 +15,6 @@ export function queuePasswordResetEmail(input: { to: string; url: string }): voi
     button: { label: "Choose a new password", url: input.url },
     note: "This link expires in 1 hour and can only be used once.",
     footnote: "Didn't ask for this? Ignore this email: your password stays the same.",
+    },
   });
 }

@@ -1,4 +1,4 @@
-import { oauthProviderAuthServerMetadata } from "@better-auth/oauth-provider";
-import { auth } from "@/lib/auth";
+import { authorizationServerMetadata, discoveryPreflight } from "@/lib/discovery-response";
 
-export const GET = oauthProviderAuthServerMetadata(auth);
+export const GET = authorizationServerMetadata;
+export const OPTIONS = discoveryPreflight;

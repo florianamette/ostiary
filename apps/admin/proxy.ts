@@ -1,34 +1,16 @@
 import createMiddleware from "next-intl/middleware";
 import { NextRequest, NextResponse } from "next/server";
 
-import { adminNeedsTwoFactor } from "@ostiary/core/lib/admin/admin-two-factor";
-import { userHasAdminRole } from "@ostiary/core/lib/admin/user-has-admin-role";
-import { contentSecurityPolicy, createCspNonce, NONCE_HEADER } from "@ostiary/core/lib/csp";
+import { adminAccess } from "@ostiary/core/lib/admin/admin-access";
 import { env } from "@ostiary/core/lib/env";
-import { routing, type AppLocale } from "@ostiary/core/i18n/routing";
+import { withCsp } from "@ostiary/core/lib/with-csp";
+import { localizedUrl, splitLocalePath } from "@ostiary/core/i18n/locale-path";
+import { routing } from "@ostiary/core/i18n/routing";
 import { auth } from "@/lib/auth";
 
 const handleI18n = createMiddleware(routing);
-
-function localeFrom(pathname: string): AppLocale {
-  const first = pathname.split("/").filter(Boolean)[0];
-  return (routing.locales as readonly string[]).includes(first ?? "")
-    ? (first as AppLocale)
-    : routing.defaultLocale;
-}
-
-export async function proxy(request: NextRequest) {
-  // A fresh nonce and the CSP that carries it (packages/core/src/lib/csp.ts), on the response
-  // and on the request, where Next.js reads it to put the nonce on its scripts.
-  const nonce = createCspNonce();
-  const csp = contentSecurityPolicy({ nonce, dev: process.env.NODE_ENV === "development" });
-  // next-intl forwards a copy of these request headers to the page.
-  request.headers.set(NONCE_HEADER, nonce);
-  request.headers.set("content-security-policy", csp);
-  const response = await route(request);
-  response.headers.set("Content-Security-Policy", csp);
-  return response;
-}
+// lib/auth.ts refuses to start without both URLs.
+const authAppUrl = env.AUTH_APP_URL!;
 
 /**
  * Sends signed-out visitors to sign in on the auth app, then back to the page they asked for,
@@ -43,23 +25,24 @@ async function route(request: NextRequest): Promise<NextResponse> {
   }
 
   const { pathname, search } = request.nextUrl;
-  const locale = localeFrom(pathname);
+  const { locale } = splitLocalePath(pathname);
   const session = await auth.api.getSession({ headers: request.headers });
-  if (!session) {
-    const back = `${env.ADMIN_APP_URL}${pathname}${search}`;
-    return NextResponse.redirect(
-      `${env.AUTH_APP_URL}/${locale}/login?callbackURL=${encodeURIComponent(back)}`,
-    );
+  switch (adminAccess(session?.user)) {
+    case "signed_out": {
+      const back = `${env.ADMIN_APP_URL}${pathname}${search}`;
+      return NextResponse.redirect(localizedUrl(authAppUrl, locale, `/login?callbackURL=${encodeURIComponent(back)}`));
+    }
+    case "not_admin":
+      return NextResponse.redirect(localizedUrl(authAppUrl, locale, "/dashboard"));
+    case "needs_2fa":
+      return NextResponse.redirect(localizedUrl(authAppUrl, locale, "/dashboard#two-factor"));
+    case "ok":
+      return intlResponse;
   }
-  if (!userHasAdminRole(session.user.role, ["admin"])) {
-    return NextResponse.redirect(`${env.AUTH_APP_URL}/${locale}/dashboard`);
-  }
-  if (adminNeedsTwoFactor(session.user, env.REQUIRE_ADMIN_2FA === "true")) {
-    return NextResponse.redirect(`${env.AUTH_APP_URL}/${locale}/dashboard#two-factor`);
-  }
-
-  return intlResponse;
 }
+
+/** A fresh nonce and the CSP that carries it on every page (packages/core/src/lib/with-csp.ts). */
+export const proxy = withCsp(route);
 
 export const config = {
   // Generated icons and metadata files are served as-is (no locale prefix, no sign-in).

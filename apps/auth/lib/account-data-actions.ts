@@ -6,12 +6,10 @@ import { db } from "@ostiary/core/db/index";
 import { account, auditLog } from "@ostiary/core/db/schema";
 import { accountDeletionBlockers, type DeletionBlocker } from "@ostiary/core/lib/account-data/blockers";
 import { accountExportFileName, buildAccountExport } from "@ostiary/core/lib/account-data/export";
-import { recordAudit } from "@ostiary/core/lib/audit";
-import { RECENT_SIGN_IN_SECONDS } from "@ostiary/core/lib/auth-factory";
-import { clientIp } from "@ostiary/core/lib/auth-events";
 import { env } from "@ostiary/core/lib/env";
+import { recentSignInSecondsLeft } from "@ostiary/core/lib/recent-sign-in";
 import { getBaseURL } from "@ostiary/core/lib/url";
-import { currentSession, signedInRecently } from "@/lib/server-session";
+import { currentSession, userActor } from "@/lib/server-session";
 
 /*
  * The dashboard's "Your data" section: export (GDPR access and portability) and what the
@@ -31,12 +29,10 @@ export type ExportError = "signedOut" | "impersonating" | "recentSignIn" | "rate
  * take everything away at once), and an admin viewing the account cannot use it.
  */
 export async function exportMyData(): Promise<{ ok: true; fileName: string; json: string } | { ok: false; error: ExportError }> {
-  const { session, requestHeaders } = await currentSession();
-  if (!session) return { ok: false, error: "signedOut" };
-  if (session.session.impersonatedBy) return { ok: false, error: "impersonating" };
-  if (!signedInRecently(session.session.createdAt)) return { ok: false, error: "recentSignIn" };
+  const actor = await userActor({ forbidImpersonation: true, recentSignIn: true });
+  if (!actor.ok) return actor;
 
-  const userId = session.user.id;
+  const userId = actor.user.id;
   // Audit entries are stamped by the database clock (column default), so compare with it too.
   const [recent] = await db
     .select({ n: count() })
@@ -48,12 +44,10 @@ export async function exportMyData(): Promise<{ ok: true; fileName: string; json
     const now = new Date();
     const data = await buildAccountExport(db, userId, { instance: env.AUTH_APP_URL ?? getBaseURL(), now });
     if (!data) return { ok: false, error: "signedOut" };
-    await recordAudit({
-      actor: { id: userId, email: session.user.email },
+    await actor.audit({
       action: EXPORT_ACTION,
-      target: { type: "user", id: userId, label: session.user.email },
+      target: { type: "user", id: userId, label: actor.user.email },
       metadata: { by: "self" },
-      ipAddress: clientIp(requestHeaders),
     });
     return { ok: true, fileName: accountExportFileName(userId, now), json: JSON.stringify(data, null, 2) };
   } catch (error) {
@@ -83,12 +77,11 @@ export async function getDeletionStatus(): Promise<DeletionStatus | null> {
       .from(account)
       .where(and(eq(account.userId, session.user.id), eq(account.providerId, "credential"), isNotNull(account.password))),
   ]);
-  const elapsed = (Date.now() - new Date(session.session.createdAt).getTime()) / 1000;
   return {
     email: session.user.email,
     blockers,
     hasPassword: passwords.length > 0,
-    recentSignInSecondsLeft: Math.max(0, Math.floor(RECENT_SIGN_IN_SECONDS - elapsed)),
+    recentSignInSecondsLeft: recentSignInSecondsLeft(session.session.createdAt),
     impersonating: Boolean(session.session.impersonatedBy),
   };
 }

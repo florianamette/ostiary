@@ -7,13 +7,15 @@
     "db:setup": "node scripts/with-env.mjs pnpm --dir .. db:migrate",
     "build:apps": "node scripts/with-env.mjs pnpm --dir .. --filter @ostiary/auth --filter @ostiary/admin build",
     "test:e2e": "playwright test",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint"
   },
   "devDependencies": {
     "@playwright/test": "1.63.0",
     "@types/node": "catalog:",
     "@types/pg": "catalog:",
     "dotenv": "catalog:",
+    "eslint": "catalog:",
     "jose": "6.2.12",
     "pg": "catalog:",
     "typescript": "catalog:"

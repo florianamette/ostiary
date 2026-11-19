@@ -5,6 +5,7 @@ import { db } from "@ostiary/core/db/index";
 import { oauthClient } from "@ostiary/core/db/schema";
 import { markAdminRegisteredClient } from "@ostiary/core/lib/client-registration";
 import { withDeviceCodeGrant } from "@ostiary/core/lib/admin/oauth-clients/oauth-client-admin.validation";
+import { betterAuthErrorMessage, betterAuthErrorStatus } from "@ostiary/core/lib/api/better-auth-error";
 import {
   BadRequestError,
   ForbiddenError,
@@ -17,36 +18,16 @@ import type {
   UpdateOAuthClientAdminInput,
 } from "@ostiary/core/lib/admin/oauth-clients/oauth-client-admin.types";
 
-function messageFromUnknown(error: unknown): string {
-  // Better Auth 1.7 OAuth errors carry the reason in the body (`error_description`) and leave
-  // `message` empty.
-  if (error && typeof error === "object" && "body" in error) {
-    const body = (error as { body?: unknown }).body;
-    if (body && typeof body === "object") {
-      const { error_description: description, message } = body as Record<string, unknown>;
-      if (typeof description === "string" && description.trim()) return description;
-      if (typeof message === "string" && message.trim()) return message;
-    }
-  }
-  if (error && typeof error === "object" && "message" in error) {
-    const m = (error as { message?: unknown }).message;
-    if (typeof m === "string" && m.trim()) return m;
-  }
-  if (error instanceof Error && error.message) return error.message;
-  return "Request failed";
-}
-
-function getHttpStatus(error: unknown): number | undefined {
-  if (!error || typeof error !== "object") return undefined;
-  const o = error as Record<string, unknown>;
-  if (typeof o.status === "number") return o.status;
-  if (typeof o.statusCode === "number") return o.statusCode;
-  return undefined;
-}
-
+/**
+ * Rethrows an error from a Better Auth call as one of lib/errors, so the route answers with
+ * its status. A client error (4xx) keeps the message from Better Auth's body (OAuth endpoints
+ * put it in `error_description`); anything else, a database error or a 5xx, is rethrown as is
+ * and becomes a plain 500 without its internals.
+ */
 function throwFromBetterAuthCall(error: unknown): never {
-  const status = getHttpStatus(error);
-  const message = messageFromUnknown(error);
+  const status = betterAuthErrorStatus(error);
+  if (status === undefined || status >= 500) throw error;
+  const message = betterAuthErrorMessage(error, "Request failed");
   if (status === 404) throw new NotFoundError(message);
   if (status === 403) throw new ForbiddenError(message);
   if (status === 401) throw new UnauthorizedError(message);

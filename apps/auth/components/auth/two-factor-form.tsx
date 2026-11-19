@@ -1,6 +1,5 @@
 "use client";
 
-import { Loader2 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
@@ -17,7 +16,7 @@ import { Input } from "@ostiary/core/components/ui/input";
 import { authClient } from "@/lib/auth-client";
 import { AuthCard } from "@/components/auth/auth-card";
 import { safeCallbackURL } from "@/lib/safe-callback-url";
-import { rateLimitMessage } from "@ostiary/core/lib/rate-limit-message";
+import { useAuthErrorMessage } from "@/lib/auth-error-message";
 
 type Method = "totp" | "backup";
 
@@ -32,7 +31,7 @@ export function TwoFactorForm({
   ...props
 }: React.ComponentProps<"div">) {
   const t = useTranslations("auth.twoFactor");
-  const tLimit = useTranslations("rateLimit");
+  const errorMessage = useAuthErrorMessage();
   const locale = useLocale();
   const searchParams = useSearchParams();
   const callbackURL = safeCallbackURL(searchParams.get("callbackURL"), `/${locale}`);
@@ -51,24 +50,20 @@ export function TwoFactorForm({
 
   function handleError(error: { status?: number; code?: string; message?: string }) {
     switch (error.code) {
-      case "INVALID_CODE":
-      case "INVALID_BACKUP_CODE":
-        toast.error(method === "totp" ? t("errors.invalidCode") : t("errors.invalidBackupCode"));
-        return;
-      case "ACCOUNT_TEMPORARILY_LOCKED":
-        toast.error(t("errors.locked"));
-        return;
       // The pending sign-in is gone: expired, or used up by too many wrong codes.
       case "INVALID_TWO_FACTOR_COOKIE":
       case "TOO_MANY_ATTEMPTS_REQUEST_NEW_CODE":
         setExpired(true);
         return;
     }
-    if (error.status === 429) {
-      toast.error(rateLimitMessage(error, tLimit) ?? t("errors.rateLimited"));
-      return;
-    }
-    toast.error(error.message || t("errors.failed"));
+    const wrongCode = method === "totp" ? t("errors.invalidCode") : t("errors.invalidBackupCode");
+    toast.error(
+      errorMessage(error, error.status === 429 ? t("errors.rateLimited") : t("errors.failed"), {
+        INVALID_CODE: wrongCode,
+        INVALID_BACKUP_CODE: wrongCode,
+        ACCOUNT_TEMPORARILY_LOCKED: t("errors.locked"),
+      }),
+    );
   }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -76,6 +71,7 @@ export function TwoFactorForm({
     const value = method === "totp" ? code.replace(/\s/g, "") : code.trim();
     if (!value) return;
     setIsSubmitting(true);
+    let leaving = false;
     try {
       const { data, error } =
         method === "totp"
@@ -85,11 +81,15 @@ export function TwoFactorForm({
         handleError(error);
         return;
       }
+      // Signed in: the form stays disabled while the browser leaves.
+      leaving = true;
       // An app's sign-in: the server resumed the OAuth request and the client follows its redirect.
       if (data && "redirect" in data && data.redirect) return;
       window.location.assign(callbackURL);
+    } catch {
+      toast.error(t("errors.failed"));
     } finally {
-      setIsSubmitting(false);
+      if (!leaving) setIsSubmitting(false);
     }
   }
 
@@ -161,8 +161,7 @@ export function TwoFactorForm({
             </div>
           </Field>
           <Field>
-            <Button type="submit" disabled={isSubmitting || !code.trim()} className="w-full sm:w-auto">
-              {isSubmitting ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
+            <Button type="submit" loading={isSubmitting} disabled={!code.trim()} className="w-full sm:w-auto">
               {isSubmitting ? t("submitting") : t("submit")}
             </Button>
             <Button

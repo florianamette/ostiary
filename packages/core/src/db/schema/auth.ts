@@ -1,4 +1,4 @@
-import { relations } from "drizzle-orm";
+import { relations, sql } from "drizzle-orm";
 import {
   pgTable,
   text,
@@ -18,15 +18,15 @@ export const user = pgTable("user", {
   displayUsername: text("display_username"),
   emailVerified: boolean("email_verified").default(false).notNull(),
   image: text("image"),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-  updatedAt: timestamp("updated_at")
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { withTimezone: true })
     .defaultNow()
     .$onUpdate(() => /* @__PURE__ */ new Date())
     .notNull(),
   role: text("role"),
   banned: boolean("banned").default(false),
   banReason: text("ban_reason"),
-  banExpires: timestamp("ban_expires"),
+  banExpires: timestamp("ban_expires", { withTimezone: true }),
   twoFactorEnabled: boolean("two_factor_enabled").default(false),
 });
 
@@ -36,8 +36,8 @@ export const organization = pgTable("organization", {
   slug: text("slug").notNull().unique(),
   logo: text("logo"),
   metadata: text("metadata"),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-  updatedAt: timestamp("updated_at").$onUpdate(
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).$onUpdate(
     () => /* @__PURE__ */ new Date(),
   ),
 });
@@ -53,7 +53,7 @@ export const member = pgTable(
       .notNull()
       .references(() => user.id, { onDelete: "cascade" }),
     role: text("role").notNull(),
-    createdAt: timestamp("created_at").defaultNow().notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
   },
   (table) => [
     index("member_organizationId_idx").on(table.organizationId),
@@ -78,20 +78,24 @@ export const invitation = pgTable(
     inviterId: text("inviter_id")
       .notNull()
       .references(() => user.id, { onDelete: "cascade" }),
-    expiresAt: timestamp("expires_at").notNull(),
-    createdAt: timestamp("created_at").defaultNow().notNull(),
+    expiresAt: timestamp("expires_at", { withTimezone: true }).notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
   },
-  (table) => [index("invitation_organizationId_idx").on(table.organizationId)],
+  (table) => [
+    index("invitation_organizationId_idx").on(table.organizationId),
+    // Invitations are looked up by the invitee's email, compared lowercased.
+    index("invitation_email_lower_idx").on(sql`lower(${table.email})`),
+  ],
 );
 
 export const session = pgTable(
   "session",
   {
     id: text("id").primaryKey(),
-    expiresAt: timestamp("expires_at").notNull(),
+    expiresAt: timestamp("expires_at", { withTimezone: true }).notNull(),
     token: text("token").notNull().unique(),
-    createdAt: timestamp("created_at").defaultNow().notNull(),
-    updatedAt: timestamp("updated_at")
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+    updatedAt: timestamp("updated_at", { withTimezone: true })
       .$onUpdate(() => /* @__PURE__ */ new Date())
       .notNull(),
     ipAddress: text("ip_address"),
@@ -105,7 +109,11 @@ export const session = pgTable(
       { onDelete: "set null" },
     ),
   },
-  (table) => [index("session_userId_idx").on(table.userId)],
+  (table) => [
+    index("session_userId_idx").on(table.userId),
+    // Deleting an organization nulls (or resets) the sessions that had it active.
+    index("session_activeOrganizationId_idx").on(table.activeOrganizationId),
+  ],
 );
 
 export const account = pgTable(
@@ -120,12 +128,12 @@ export const account = pgTable(
     accessToken: text("access_token"),
     refreshToken: text("refresh_token"),
     idToken: text("id_token"),
-    accessTokenExpiresAt: timestamp("access_token_expires_at"),
-    refreshTokenExpiresAt: timestamp("refresh_token_expires_at"),
+    accessTokenExpiresAt: timestamp("access_token_expires_at", { withTimezone: true }),
+    refreshTokenExpiresAt: timestamp("refresh_token_expires_at", { withTimezone: true }),
     scope: text("scope"),
     password: text("password"),
-    createdAt: timestamp("created_at").defaultNow().notNull(),
-    updatedAt: timestamp("updated_at")
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+    updatedAt: timestamp("updated_at", { withTimezone: true })
       .$onUpdate(() => /* @__PURE__ */ new Date())
       .notNull(),
   },
@@ -138,9 +146,9 @@ export const verification = pgTable(
     id: text("id").primaryKey(),
     identifier: text("identifier").notNull(),
     value: text("value").notNull(),
-    expiresAt: timestamp("expires_at").notNull(),
-    createdAt: timestamp("created_at").defaultNow().notNull(),
-    updatedAt: timestamp("updated_at")
+    expiresAt: timestamp("expires_at", { withTimezone: true }).notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+    updatedAt: timestamp("updated_at", { withTimezone: true })
       .defaultNow()
       .$onUpdate(() => /* @__PURE__ */ new Date())
       .notNull(),
@@ -152,8 +160,8 @@ export const jwks = pgTable("jwks", {
   id: text("id").primaryKey(),
   publicKey: text("public_key").notNull(),
   privateKey: text("private_key").notNull(),
-  createdAt: timestamp("created_at").notNull(),
-  expiresAt: timestamp("expires_at"),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull(),
+  expiresAt: timestamp("expires_at", { withTimezone: true }),
   alg: text("alg"),
   crv: text("crv"),
 });
@@ -172,7 +180,7 @@ export const passkey = pgTable(
     deviceType: text("device_type").notNull(),
     backedUp: boolean("backed_up").notNull(),
     transports: text("transports"),
-    createdAt: timestamp("created_at").defaultNow(),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
     aaguid: text("aaguid"),
   },
   (table) => [
@@ -192,7 +200,7 @@ export const twoFactor = pgTable(
       .references(() => user.id, { onDelete: "cascade" }),
     verified: boolean("verified").default(true),
     failedVerificationCount: integer("failed_verification_count").default(0),
-    lockedUntil: timestamp("locked_until"),
+    lockedUntil: timestamp("locked_until", { withTimezone: true }),
   },
   (table) => [
     index("twoFactor_secret_idx").on(table.secret),
@@ -216,8 +224,8 @@ export const oauthClient = pgTable(
       .array()
       .default([]),
     userId: text("user_id").references(() => user.id, { onDelete: "cascade" }),
-    createdAt: timestamp("created_at"),
-    updatedAt: timestamp("updated_at"),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }),
     name: text("name"),
     uri: text("uri"),
     icon: text("icon"),
@@ -247,7 +255,11 @@ export const oauthClient = pgTable(
     // console. Better Auth never writes it, so a client created any other way stays false.
     adminRegistered: boolean("admin_registered").notNull().default(false),
   },
-  (table) => [index("oauthClient_userId_idx").on(table.userId)],
+  (table) => [
+    index("oauthClient_userId_idx").on(table.userId),
+    // The hourly cap on self-registered clients counts recent rows.
+    index("oauthClient_createdAt_idx").on(table.createdAt),
+  ],
 );
 
 export const oauthRefreshToken = pgTable(
@@ -268,13 +280,13 @@ export const oauthRefreshToken = pgTable(
     authorizationCodeId: text("authorization_code_id"),
     resources: text("resources").array(),
     requestedUserInfoClaims: text("requested_user_info_claims").array(),
-    expiresAt: timestamp("expires_at").notNull(),
-    createdAt: timestamp("created_at").notNull(),
-    revoked: timestamp("revoked"),
-    rotatedAt: timestamp("rotated_at"),
+    expiresAt: timestamp("expires_at", { withTimezone: true }).notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull(),
+    revoked: timestamp("revoked", { withTimezone: true }),
+    rotatedAt: timestamp("rotated_at", { withTimezone: true }),
     rotationReplayResponse: text("rotation_replay_response"),
-    rotationReplayExpiresAt: timestamp("rotation_replay_expires_at"),
-    authTime: timestamp("auth_time"),
+    rotationReplayExpiresAt: timestamp("rotation_replay_expires_at", { withTimezone: true }),
+    authTime: timestamp("auth_time", { withTimezone: true }),
     confirmation: jsonb("confirmation"),
     scopes: text("scopes").array().notNull(),
   },
@@ -307,14 +319,15 @@ export const oauthAccessToken = pgTable(
     refreshId: text("refresh_id").references(() => oauthRefreshToken.id, {
       onDelete: "cascade",
     }),
-    expiresAt: timestamp("expires_at").notNull(),
-    createdAt: timestamp("created_at").notNull(),
-    revoked: timestamp("revoked"),
+    expiresAt: timestamp("expires_at", { withTimezone: true }).notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull(),
+    revoked: timestamp("revoked", { withTimezone: true }),
     confirmation: jsonb("confirmation"),
     scopes: text("scopes").array().notNull(),
   },
   (table) => [
-    index("oauthAccessToken_clientId_idx").on(table.clientId),
+    // Usage per app: tokens per client over a window, and each client's last use.
+    index("oauthAccessToken_clientId_createdAt_idx").on(table.clientId, table.createdAt),
     index("oauthAccessToken_sessionId_idx").on(table.sessionId),
     index("oauthAccessToken_userId_idx").on(table.userId),
     index("oauthAccessToken_authorizationCodeId_idx").on(
@@ -336,8 +349,8 @@ export const oauthConsent = pgTable(
     resources: text("resources").array(),
     requestedUserInfoClaims: text("requested_user_info_claims").array(),
     scopes: text("scopes").array().notNull(),
-    createdAt: timestamp("created_at").notNull(),
-    updatedAt: timestamp("updated_at").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull(),
   },
   (table) => [
     index("oauthConsent_clientId_idx").on(table.clientId),
@@ -359,8 +372,8 @@ export const oauthResource = pgTable("oauth_resource", {
     "dpop_bound_access_tokens_required",
   ).default(false),
   disabled: boolean("disabled").default(false),
-  createdAt: timestamp("created_at"),
-  updatedAt: timestamp("updated_at"),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }),
   policyVersion: integer("policy_version").default(1),
   metadata: jsonb("metadata"),
 });
@@ -376,7 +389,7 @@ export const oauthClientResource = pgTable(
       .notNull()
       .references(() => oauthResource.identifier, { onDelete: "cascade" }),
     metadata: jsonb("metadata"),
-    createdAt: timestamp("created_at"),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
   },
   (table) => [
     uniqueIndex("oauthClientResource_clientId_resourceId_uidx").on(
@@ -390,7 +403,7 @@ export const oauthClientResource = pgTable(
 
 export const oauthClientAssertion = pgTable("oauth_client_assertion", {
   id: text("id").primaryKey(),
-  expiresAt: timestamp("expires_at").notNull(),
+  expiresAt: timestamp("expires_at", { withTimezone: true }).notNull(),
 });
 
 /**
@@ -405,9 +418,9 @@ export const deviceCode = pgTable(
     deviceCode: text("device_code").notNull(),
     userCode: text("user_code").notNull(),
     userId: text("user_id").references(() => user.id, { onDelete: "cascade" }),
-    expiresAt: timestamp("expires_at").notNull(),
+    expiresAt: timestamp("expires_at", { withTimezone: true }).notNull(),
     status: text("status").notNull(),
-    lastPolledAt: timestamp("last_polled_at"),
+    lastPolledAt: timestamp("last_polled_at", { withTimezone: true }),
     pollingInterval: integer("polling_interval"),
     clientId: text("client_id"),
     scope: text("scope"),

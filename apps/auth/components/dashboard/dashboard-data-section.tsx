@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { DownloadIcon, Loader2, MailCheckIcon, ShieldAlertIcon, Trash2Icon } from "lucide-react";
+import { DownloadIcon, MailCheckIcon, ShieldAlertIcon, Trash2Icon } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
 
@@ -24,11 +24,11 @@ import {
 } from "@ostiary/core/components/ui/dialog";
 import { Field, FieldDescription, FieldGroup, FieldLabel } from "@ostiary/core/components/ui/field";
 import { Input } from "@ostiary/core/components/ui/input";
-import { Skeleton } from "@ostiary/core/components/ui/skeleton";
 import type { DeletionBlocker } from "@ostiary/core/lib/account-data/blockers";
 import { ACCOUNT_DELETION_LINK_MINUTES } from "@ostiary/core/lib/account-data/limits";
 import { rateLimitMessage } from "@ostiary/core/lib/rate-limit-message";
-import { exportMyData, getDeletionStatus, type DeletionStatus, type ExportError } from "@/lib/account-data-actions";
+import { exportMyData, type DeletionStatus, type ExportError } from "@/lib/account-data-actions";
+import { useRouter } from "@/i18n/navigation";
 import { authClient } from "@/lib/auth-client";
 import { signInAgain } from "@/lib/sign-in-again";
 
@@ -49,28 +49,18 @@ function download(fileName: string, text: string) {
  * portability), and delete the account (erasure) after a password or recent sign-in and an
  * emailed confirmation link.
  */
-export function DashboardDataSection() {
+export function DashboardDataSection({
+  status,
+}: {
+  /** What the deletion dialog needs, read by the dashboard page; null if that failed. */
+  status: DeletionStatus | null;
+}) {
   const t = useTranslations("dashboard.data");
   const locale = useLocale();
+  const router = useRouter();
   const [exporting, setExporting] = React.useState(false);
   const [exportError, setExportError] = React.useState<ExportError | null>(null);
-  const [status, setStatus] = React.useState<DeletionStatus | null>(null);
-  const [loading, setLoading] = React.useState(true);
   const [deleting, setDeleting] = React.useState(false);
-
-  const load = React.useCallback(async () => {
-    try {
-      setStatus(await getDeletionStatus());
-    } catch {
-      setStatus(null);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-
-  React.useEffect(() => {
-    void load();
-  }, [load]);
 
   async function exportData() {
     setExporting(true);
@@ -110,8 +100,8 @@ export function DashboardDataSection() {
               </AlertDescription>
             </Alert>
           ) : null}
-          <Button type="button" variant="outline" disabled={exporting} onClick={() => void exportData()}>
-            {exporting ? <Loader2 className="size-4 animate-spin" aria-hidden /> : <DownloadIcon className="size-4" aria-hidden />}
+          <Button type="button" variant="outline" loading={exporting} onClick={() => void exportData()}>
+            {exporting ? null : <DownloadIcon className="size-4" aria-hidden />}
             {t("exportButton")}
           </Button>
         </CardContent>
@@ -123,9 +113,7 @@ export function DashboardDataSection() {
           <CardDescription>{t("deleteDescription")}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          {loading ? (
-            <Skeleton className="h-10 w-48" aria-busy="true" />
-          ) : status ? (
+          {status ? (
             <>
               {status.blockers.map((blocker) => (
                 <BlockerAlert key={blocker.kind} blocker={blocker} />
@@ -156,7 +144,8 @@ export function DashboardDataSection() {
           status={status}
           onClose={() => {
             setDeleting(false);
-            void load();
+            // Blockers may have changed meanwhile (an organization left, a role changed).
+            router.refresh();
           }}
         />
       ) : null}
@@ -326,8 +315,7 @@ function DeleteAccountDialog({ status, onClose }: { status: DeletionStatus; onCl
                   {t("signInAgain")}
                 </Button>
               ) : (
-                <Button type="submit" variant="destructive" disabled={busy || !emailMatches}>
-                  {busy ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
+                <Button type="submit" variant="destructive" loading={busy} disabled={!emailMatches}>
                   {t("sendLink")}
                 </Button>
               )}

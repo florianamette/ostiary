@@ -61,10 +61,10 @@ function ImpersonationBanner({ email, returnUrl }: { email: string; returnUrl: s
           type="button"
           size="sm"
           variant="outline"
-          disabled={busy}
+          loading={busy}
           onClick={async () => {
             setBusy(true);
-            const { error } = await authClient.admin.stopImpersonating();
+            const { error } = await authClient.admin.stopImpersonating().catch(() => ({ error: true }));
             if (error) {
               setBusy(false);
               return;

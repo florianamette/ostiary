@@ -1,6 +1,5 @@
 "use client"
 
-import { Loader2 } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { useEffect, useRef, useState } from "react"
 import { toast } from "sonner"
@@ -23,7 +22,7 @@ import type { CaptchaConfig } from "@ostiary/core/lib/captcha-providers"
 import { SIGN_IN_CODE_LENGTH, SIGN_IN_CODE_MINUTES } from "@ostiary/core/lib/sign-in-code"
 import { useCaptcha } from "@/components/auth/captcha"
 import { authClient } from "@/lib/auth-client"
-import { rateLimitMessage } from "@ostiary/core/lib/rate-limit-message"
+import { useAuthErrorMessage } from "@/lib/auth-error-message"
 
 /**
  * "Email me a sign-in code": ask for a code, then type it, without leaving the page. Inside
@@ -45,17 +44,19 @@ export function EmailCodeSignIn({
   onTwoFactor: () => void
 }) {
   const t = useTranslations("auth.emailCode")
-  const tLimit = useTranslations("rateLimit")
+  const errorMessage = useAuthErrorMessage()
   const captcha = useCaptcha(captchaConfig)
   const [step, setStep] = useState<"email" | "code">("email")
   const [email, setEmail] = useState(defaultEmail ?? "")
   const [code, setCode] = useState("")
   const [busy, setBusy] = useState(false)
+  // Bumped after a wrong code: focus goes back to the input once it is enabled again.
+  const [attempt, setAttempt] = useState(0)
   const codeInput = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     if (step === "code") codeInput.current?.focus()
-  }, [step])
+  }, [step, attempt])
 
   async function sendCode(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -76,8 +77,7 @@ export function EmailCodeSignIn({
       if (error) {
         toast.error(
           captcha.errorMessage(error.code) ??
-            rateLimitMessage(error, tLimit) ??
-            (error.status === 429 ? t("errors.rateLimited") : t("errors.sendFailed")),
+            errorMessage(error, error.status === 429 ? t("errors.rateLimited") : t("errors.sendFailed")),
         )
         return
       }
@@ -96,33 +96,35 @@ export function EmailCodeSignIn({
       return
     }
     setBusy(true)
-    const { data, error } = await authClient.signIn.emailOtp({ email, otp })
-    if (error) {
-      setBusy(false)
-      setCode("")
-      codeInput.current?.focus()
-      const message =
-        rateLimitMessage(error, tLimit) ??
-        (error.code === "INVALID_OTP"
-          ? t("errors.invalidCode")
-          : error.code === "OTP_EXPIRED"
-            ? t("errors.expired")
-            : error.code === "TOO_MANY_ATTEMPTS"
-              ? t("errors.tooManyAttempts")
-              : error.status === 429
-                ? t("errors.rateLimited")
-                : // e.g. a banned account: the server's message says why.
-                  error.message || t("errors.signInFailed"))
-      toast.error(message)
-      return
+    let leaving = false
+    try {
+      const { data, error } = await authClient.signIn.emailOtp({ email, otp })
+      if (error) {
+        setCode("")
+        setAttempt((n) => n + 1)
+        toast.error(
+          errorMessage(error, error.status === 429 ? t("errors.rateLimited") : t("errors.signInFailed"), {
+            INVALID_OTP: t("errors.invalidCode"),
+            OTP_EXPIRED: t("errors.expired"),
+            TOO_MANY_ATTEMPTS: t("errors.tooManyAttempts"),
+          }),
+        )
+        return
+      }
+      // Signed in: the browser leaves for the two-factor step, the app or the callback.
+      leaving = true
+      if (data && "twoFactorRedirect" in data) {
+        onTwoFactor()
+        return
+      }
+      // In an OAuth sign-in the server answers with the app's redirect, which the client follows.
+      if (data && "redirect" in data && data.redirect) return
+      window.location.assign(callbackURL)
+    } catch {
+      toast.error(t("errors.signInFailed"))
+    } finally {
+      if (!leaving) setBusy(false)
     }
-    if (data && "twoFactorRedirect" in data) {
-      onTwoFactor()
-      return
-    }
-    // In an OAuth sign-in the server answers with the app's redirect, which the client follows.
-    if (data && "redirect" in data && data.redirect) return
-    window.location.assign(callbackURL)
   }
 
   function onCodeChange(value: string) {
@@ -170,8 +172,7 @@ export function EmailCodeSignIn({
               </Field>
               {captcha.widget}
               <Field>
-                <Button type="submit" disabled={busy} className="w-full sm:w-auto">
-                  {busy ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
+                <Button type="submit" loading={busy} className="w-full sm:w-auto">
                   {busy ? t("sending") : t("send")}
                 </Button>
                 {backToPassword}
@@ -219,8 +220,7 @@ export function EmailCodeSignIn({
               />
             </Field>
             <Field>
-              <Button type="submit" disabled={busy} className="w-full sm:w-auto">
-                {busy ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
+              <Button type="submit" loading={busy} className="w-full sm:w-auto">
                 {busy ? t("verifying") : t("verify")}
               </Button>
               <FieldDescription className="text-center">

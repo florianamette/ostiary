@@ -286,10 +286,6 @@
           "empty": "ユーザーはまだいません。"
         },
         "stats": {
-          "error": "1 つ以上の指標を読み込めませんでした。管理者としてサインインしていることを確認してください。",
-          "errorTitle": "指標を利用できません",
-          "loadingTitle": "読み込み中",
-          "loadingHint": "読み込み中…",
           "totalUsers": {
             "title": "ユーザー総数",
             "hint": "プラットフォーム上のすべてのアカウント。"
@@ -1393,8 +1389,6 @@
           "roleAll": "すべてのロール",
           "roleAdmin": "管理者",
           "roleUser": "ユーザー",
-          "loadErrorTitle": "ユーザーを読み込めませんでした",
-          "loadErrorFallback": "ユーザーの読み込みに失敗しました",
           "columns": {
             "user": "ユーザー",
             "role": "ロール",
@@ -1402,7 +1396,6 @@
             "verified": "確認済み",
             "joined": "登録日"
           },
-          "loading": "ユーザーを読み込み中…",
           "empty": "フィルターに一致するユーザーはいません。",
           "noUsers": "0 人のユーザー",
           "showing": "{total} 件中 {from}-{to} 件を表示",
@@ -1467,8 +1460,7 @@
           "updatePassword": "パスワードを更新",
           "removeTitle": "ユーザーを削除しますか？",
           "removeDescription": "<strong>{name}</strong>（{email}）と、このアカウントに関連するすべてのデータを完全に削除します。監査ログのエントリは名前とメールアドレスを除いて保持されます。この操作は元に戻せません。",
-          "removeConfirm": "削除",
-          "removing": "削除中…"
+          "removeConfirm": "削除"
         },
         "detailActions": {
           "impersonateError": "このユーザーとしてサインインできませんでした。",
@@ -1559,10 +1551,6 @@
         "title": "同意",
         "description": "ユーザーが OAuth クライアントに付与した権限と、そのスコープおよび付与日時。",
         "panel": {
-          "signedInUser": "サインイン中のユーザー",
-          "loadConsentsFailed": "同意を読み込めませんでした",
-          "loadClientsFailed": "OAuth クライアントを読み込めませんでした",
-          "loadErrorTitle": "同意を読み込めませんでした",
           "searchPlaceholder": "ユーザー、クライアント、同意 ID、参照、スコープで検索…",
           "searchLabel": "同意を検索",
           "filter": {
@@ -1578,16 +1566,14 @@
             "granted": "付与日時",
             "updated": "更新日時"
           },
-          "loading": "同意を読み込み中…",
-          "emptyNone": "このアカウントで記録された同意はまだありません。",
+          "emptyNone": "まだ誰もアプリケーションに同意していません。",
           "emptyFiltered": "フィルターに一致する同意はありません。",
           "noResults": "0 件の同意",
           "showing": "{total} 件中 {from}-{to} 件を表示",
           "rowsPerPage": "1 ページあたりの行数",
           "previous": "前へ",
           "next": "次へ",
-          "pageOf": "{page} / {total} ページ",
-          "footnote": "データは <code>{getConsents}</code> から取得し、クライアント名は <code>{getClients}</code> で解決しています。取り消しには <code>{deleteConsent}</code> を使います。<providerLink>OAuth プロバイダー</providerLink>のドキュメントの<consentLink>OAuth の同意</consentLink>を参照してください。対話型の認可 UI は <code>{path}</code> にあります。"
+          "pageOf": "{page} / {total} ページ"
         },
         "rowActions": {
           "menuLabel": "同意 {id}… の操作",
@@ -1595,16 +1581,13 @@
           "consentIdCopied": "同意 ID をコピーしました",
           "copyClientId": "クライアント ID をコピー",
           "clientIdCopied": "クライアント ID をコピーしました",
-          "viewDetails": "詳細を表示",
-          "updateScopes": "スコープを更新",
-          "wireTo": "{method} に接続",
           "revoke": "同意を取り消す",
           "revokeFailed": "同意を取り消せませんでした",
           "revoked": "同意を取り消しました",
           "dialogTitle": "同意を取り消しますか？",
-          "dialogDescription": "このユーザーが <strong>{client}</strong>（<code>{clientId}</code>）に与えた許可を削除します。クライアントは再度認可を要求する必要がある場合があります。",
-          "revoking": "取り消し中…",
-          "revokeButton": "取り消す"
+          "dialogDescription": "<strong>{user}</strong> による <strong>{client}</strong>（<code>{clientId}</code>）への同意を削除し、アプリがこのユーザー用に保持しているトークンを失効させます。新しいトークンを得るには、アプリが再度同意を求める必要があります。",
+          "revokeButton": "取り消す",
+          "notFound": "この同意はもう存在しません。"
         }
       },
       "usage": {
@@ -1633,7 +1616,7 @@
       "audit": {
         "title": "監査ログ",
         "description": "このコンソールまたは管理 API から行われたすべての変更：誰が、何に対して、いつ行ったか。",
-        "footnote": "最新の 200 件を表示しています。パスワードとシークレットは記録されません。",
+        "footnote": "パスワードとシークレットは記録されません。",
         "filterLabel": "領域で絞り込み",
         "filters": {
           "all": "すべて",
@@ -1753,7 +1736,12 @@
             "test": "Webhook のテストイベントを送信",
             "redeliver": "Webhook イベントを再配信"
           }
-        }
+        },
+        "actorPlaceholder": "実行者（メール）で検索…",
+        "actorLabel": "実行者で検索",
+        "pagesLabel": "監査ログのページ",
+        "newest": "最新のエントリ",
+        "older": "以前のエントリ"
       },
       "security": {
         "title": "セキュリティ",
@@ -1850,8 +1838,14 @@
         }
       },
       "organizations": {
+        "title": "組織",
+        "description": "プラットフォーム上のすべての組織とそのメンバー。組織を開くと、メンバー、SSO、SCIM を管理できます。",
+        "list": {
+          "searchPlaceholder": "名前またはスラッグで検索…",
+          "searchLabel": "組織を検索",
+          "noMatch": "検索に一致する組織はありません。"
+        },
         "controls": {
-          "unexpectedError": "問題が発生しました。",
           "organizationUpdated": "組織を更新しました",
           "slug": "スラッグ",
           "role": "ロール",
@@ -1903,7 +1897,7 @@
           "defaultWorkspace": "デフォルトのワークスペース",
           "createdAt": "作成日 {date}",
           "members": "メンバー",
-          "publicMembers": "すべてのアカウントは Public ワークスペースに属しているため、ここでメンバーを削除することはできません。最初の 50 人を表示しています。",
+          "publicMembers": "すべてのアカウントは Public ワークスペースに属しているため、ここでメンバーを削除することはできません。",
           "memberCount": "{count, plural, other {# 人のメンバー}}。",
           "noMembers": "メンバーはまだいません。",
           "member": "メンバー",
@@ -1941,7 +1935,10 @@
           "invitationNotFound": "招待が見つかりません。",
           "requestFailed": "リクエストに失敗しました。",
           "scimUnavailable": "この組織では SCIM プロビジョニングを使用できません。",
-          "noActiveToken": "有効なトークンはありません。"
+          "noActiveToken": "有効なトークンはありません。",
+          "lastOwner": "組織には少なくとも 1 人のオーナーが必要です。先に別のメンバーをオーナーにしてください。",
+          "publicDelete": "Public ワークスペースは削除できません。",
+          "organizationNotFound": "組織が見つかりません。"
         }
       }
     },
@@ -1977,7 +1974,15 @@
       "refresh": "更新",
       "search": "検索",
       "optional": "任意",
-      "unexpectedError": "問題が発生しました。もう一度お試しください。"
+      "unexpectedError": "問題が発生しました。もう一度お試しください。",
+      "invalidInput": "送信された値の一部が無効です。ページを再読み込みして、もう一度お試しください。",
+      "pagination": {
+        "rowsPerPage": "1 ページあたりの行数",
+        "previous": "前へ",
+        "next": "次へ",
+        "pageOf": "{page} / {pages} ページ",
+        "showing": "{total} 件中 {from}-{to} 件を表示"
+      }
     },
     "urlCheck": {
       "tooLong": "URL が長すぎます。",
@@ -2587,7 +2592,8 @@
       "txtRecordNotFound": "TXT レコードがまだ見つかりません。DNS の変更が反映されるまで数分かかる場合があります。",
       "envNotSet": "{name} が設定されていません。",
       "invalidProviderId": "プロバイダー ID は、英小文字、数字、- または _ からなる 2〜63 文字にしてください。",
-      "unreadableSamlConfig": "保存されている SAML 設定を読み取れません。プロバイダーを削除して再登録してください。"
+      "unreadableSamlConfig": "保存されている SAML 設定を読み取れません。プロバイダーを削除して再登録してください。",
+      "domainTaken": "このドメインは別の SSO プロバイダーですでに使用されています。"
     }
   },
   "selectAccount": {
@@ -2669,5 +2675,23 @@
       "note": "このリンクの有効期限は {minutes} 分で、1 回のみ使用できます。",
       "footnote": "このリクエストに心当たりがない場合は、このメールを無視してください。アカウントはそのまま残ります。ただし、リクエストはサインイン中のセッションから送信されているため、パスワードの変更をご検討ください。"
     }
+  },
+  "authErrors": {
+    "banned": "このアカウントは停止されています。誤りだと思われる場合はサポートにお問い合わせください。",
+    "deactivated": "組織によってこのアカウントは無効化されました。",
+    "invalidCredentials": "メールアドレス、ユーザー名、またはパスワードが正しくありません。",
+    "userExists": "このメールアドレスのアカウントはすでに存在します。",
+    "usernameTaken": "このユーザー名はすでに使われています。",
+    "usernameInvalid": "このユーザー名は使用できません。別のものをお試しください。",
+    "passwordTooShort": "パスワードが短すぎます。",
+    "passwordTooLong": "パスワードが長すぎます。",
+    "passwordCompromised": "このパスワードはデータ漏えいで見つかっています。別のパスワードを選んでください。",
+    "invalidPassword": "パスワードが正しくありません。",
+    "recentSignIn": "この操作を行うには、もう一度サインインしてください。",
+    "sessionExpired": "セッションの有効期限が切れました。もう一度サインインしてください。",
+    "impersonating": "管理者がアカウントを表示している間はこの操作を行えません。",
+    "emailNotVerified": "先にメールアドレスを確認してください。",
+    "invalidToken": "このリンクは無効か、有効期限が切れています。",
+    "publicOrganization": "Public 組織のメンバーはプラットフォーム管理者のみが管理します。"
   }
 }

@@ -1,8 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Loader2, Trash2 } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { Trash2 } from "lucide-react";
 
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
@@ -19,18 +18,13 @@ import {
 import { Field, FieldLabel } from "@ostiary/core/components/ui/field";
 import { Input } from "@ostiary/core/components/ui/input";
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@ostiary/core/components/ui/dialog";
-import {
   PUBLIC_ORGANIZATION_ID,
   PUBLIC_ORGANIZATION_SLUG,
 } from "@ostiary/core/lib/organization-public";
 import { deleteOrganization } from "@/app/[locale]/(console)/organizations/actions";
-import { DialogActions } from "@/components/admin/common/dialog-actions";
+import { ListPagination, UrlListSearch } from "@/components/admin/common/admin-table";
+import { ConfirmRemoveDialog } from "@/components/admin/common/confirm-remove-dialog";
+import { useAdminAction } from "@/components/admin/common/use-admin-action";
 import { authClient } from "@/lib/auth-client";
 
 type OrgRow = { id: string; name: string; slug: string; members: number };
@@ -40,32 +34,33 @@ type OrgRow = { id: string; name: string; slug: string; members: number };
  * (see allowUserToCreateOrganization in the auth factory), and this panel lives only in
  * the admin app.
  */
-export function AdminOrganizationsPanel({ organizations }: { organizations: OrgRow[] }) {
+export function AdminOrganizationsPanel({
+  organizations,
+  total,
+  searching,
+}: {
+  /** One page of organizations, from the URL (`?q=`, `?page=`, `?size=`). */
+  organizations: OrgRow[];
+  total: number;
+  searching: boolean;
+}) {
   const t = useTranslations("dashboard.organizations");
-  const router = useRouter();
+  const tList = useTranslations("admin.pages.organizations.list");
   const [name, setName] = React.useState("");
   const [slug, setSlug] = React.useState("");
-  const [creating, setCreating] = React.useState(false);
   const [pendingDelete, setPendingDelete] = React.useState<OrgRow | null>(null);
-  const [deleting, setDeleting] = React.useState(false);
 
-  async function confirmDelete() {
-    if (!pendingDelete) return;
-    setDeleting(true);
-    try {
-      const { ok } = await deleteOrganization(pendingDelete.id);
-      if (!ok) {
-        toast.error(t("deleteError"));
-        return;
-      }
-      toast.success(t("deleted"));
-      setPendingDelete(null);
-      router.refresh();
-    } catch {
-      toast.error(t("deleteError"));
-    } finally {
-      setDeleting(false);
-    }
+  const remove = useAdminAction(() => setPendingDelete(null));
+  const create = useAdminAction(() => {
+    setName("");
+    setSlug("");
+  });
+  const creating = create.busy;
+
+  function confirmDelete() {
+    const target = pendingDelete;
+    if (!target) return;
+    void remove.run(() => deleteOrganization(target.id), t("deleted"), t("deleteError"));
   }
 
   async function handleCreate(e: React.FormEvent) {
@@ -80,29 +75,19 @@ export function AdminOrganizationsPanel({ organizations }: { organizations: OrgR
       toast.error(t("reservedSlug"));
       return;
     }
-    setCreating(true);
-    try {
-      const check = await authClient.organization.checkSlug({ slug: normalizedSlug });
-      if (check.error) {
-        toast.error(String(check.error.message ?? t("slugTaken")));
-        return;
-      }
-      const { error } = await authClient.organization.create({
-        name: trimmedName,
-        slug: normalizedSlug,
-        keepCurrentActiveOrganization: true,
-      });
-      if (error) {
-        toast.error(String(error.message ?? t("createError")));
-        return;
-      }
-      toast.success(t("createSuccess"));
-      setName("");
-      setSlug("");
-      router.refresh();
-    } finally {
-      setCreating(false);
-    }
+    void create.run(
+      async () => {
+        const check = await authClient.organization.checkSlug({ slug: normalizedSlug });
+        if (check.error) return { ok: false, error: check.error.message || t("slugTaken") };
+        return authClient.organization.create({
+          name: trimmedName,
+          slug: normalizedSlug,
+          keepCurrentActiveOrganization: true,
+        });
+      },
+      t("createSuccess"),
+      t("createError"),
+    );
   }
 
   return (
@@ -133,8 +118,7 @@ export function AdminOrganizationsPanel({ organizations }: { organizations: OrgR
                 autoComplete="off"
               />
             </Field>
-            <Button type="submit" disabled={creating}>
-              {creating ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
+            <Button type="submit" loading={creating}>
               {creating ? t("creating") : t("create")}
             </Button>
           </form>
@@ -145,9 +129,10 @@ export function AdminOrganizationsPanel({ organizations }: { organizations: OrgR
         <CardHeader>
           <CardTitle>{t("allOrganizations")}</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="space-y-4">
+          <UrlListSearch placeholder={tList("searchPlaceholder")} label={tList("searchLabel")} />
           {organizations.length === 0 ? (
-            <p className="text-sm text-muted-foreground">{t("empty")}</p>
+            <p className="text-sm text-muted-foreground">{searching ? tList("noMatch") : t("empty")}</p>
           ) : (
             <ul className="space-y-2">
               {organizations.map((o) => (
@@ -182,33 +167,21 @@ export function AdminOrganizationsPanel({ organizations }: { organizations: OrgR
             </ul>
           )}
         </CardContent>
+        {total > organizations.length ? <ListPagination total={total} /> : null}
       </Card>
 
-      <Dialog
+      <ConfirmRemoveDialog
         open={pendingDelete !== null}
         onOpenChange={(open) => {
-          if (!open && !deleting) setPendingDelete(null);
+          if (!open) setPendingDelete(null);
         }}
-      >
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>
-              {t("confirmDeleteTitle", { name: pendingDelete?.name ?? "" })}
-            </DialogTitle>
-            <DialogDescription>
-              {t("confirmDeleteBody", { count: pendingDelete?.members ?? 0 })}
-            </DialogDescription>
-          </DialogHeader>
-          <DialogActions
-            busy={deleting}
-            onCancel={() => setPendingDelete(null)}
-            cancelLabel={t("cancel")}
-            onConfirm={() => void confirmDelete()}
-            confirmLabel={t("delete")}
-            destructive
-          />
-        </DialogContent>
-      </Dialog>
+        title={t("confirmDeleteTitle", { name: pendingDelete?.name ?? "" })}
+        description={t("confirmDeleteBody", { count: pendingDelete?.members ?? 0 })}
+        pending={remove.busy}
+        onConfirm={confirmDelete}
+        confirmLabel={t("delete")}
+        cancelLabel={t("cancel")}
+      />
     </div>
   );
 }

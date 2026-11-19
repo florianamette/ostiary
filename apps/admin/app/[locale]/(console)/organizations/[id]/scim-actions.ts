@@ -3,11 +3,13 @@
 import { randomUUID } from "node:crypto";
 import { eq } from "drizzle-orm";
 import { getTranslations } from "next-intl/server";
+import { z } from "zod";
 
 import { db } from "@ostiary/core/db/index";
 import { organization } from "@ostiary/core/db/schema";
+import { betterAuthErrorMessage } from "@ostiary/core/lib/api/better-auth-error";
 import { organizationAcceptsScim, SCIM_TOKEN_LIFETIME_MS, SCIM_TOKEN_SCOPES } from "@ostiary/core/lib/scim";
-import { adminActor } from "@/lib/admin-audit";
+import { adminAction, input, type AdminActor } from "@/lib/admin-action";
 import { auth } from "@/lib/auth";
 import type { ActionResult } from "@/lib/action-result";
 
@@ -20,9 +22,11 @@ import type { ActionResult } from "@/lib/action-result";
 const errors = () => getTranslations("admin.pages.organizations.errors");
 
 async function message(error: unknown): Promise<string> {
-  const body = (error as { body?: { message?: unknown } })?.body;
-  return typeof body?.message === "string" ? body.message : (await errors())("requestFailed");
+  if (!(error && typeof error === "object" && "body" in error)) console.error("[scim] token change failed", error);
+  return betterAuthErrorMessage(error, (await errors())("requestFailed"));
 }
+
+const orgInput = z.tuple([input.id]);
 
 async function scimOrganization(orgId: string) {
   if (!organizationAcceptsScim(orgId)) return null;
@@ -42,7 +46,13 @@ async function activeConnection(orgId: string) {
 
 /** Issues a token (creating the connection the first time). Previous tokens stop working. */
 export async function generateScimToken(orgId: string): Promise<ActionResult<{ token: string; expiresAt: string }>> {
-  const { audit, session } = await adminActor();
+  return adminAction(orgInput, [orgId], ([orgId], actor) => issueScimToken(orgId, actor));
+}
+
+async function issueScimToken(
+  orgId: string,
+  { audit, session }: AdminActor,
+): Promise<ActionResult<{ token: string; expiresAt: string }>> {
   const org = await scimOrganization(orgId);
   if (!org) return { ok: false, error: (await errors())("scimUnavailable") };
   const policy = { scopes: SCIM_TOKEN_SCOPES, expiresAt: new Date(Date.now() + SCIM_TOKEN_LIFETIME_MS), actorId: session.user.id };
@@ -84,7 +94,13 @@ export async function generateScimToken(orgId: string): Promise<ActionResult<{ t
 
 /** Revokes every token: the identity provider can no longer provision. Accounts stay as they are. */
 export async function revokeScimTokens(orgId: string): Promise<ActionResult> {
-  const { audit, session } = await adminActor();
+  return adminAction(orgInput, [orgId], ([orgId], actor) => revokeAllScimTokens(orgId, actor));
+}
+
+async function revokeAllScimTokens(
+  orgId: string,
+  { audit, session }: AdminActor,
+): Promise<ActionResult> {
   const org = await scimOrganization(orgId);
   if (!org) return { ok: false, error: (await errors())("scimUnavailable") };
   try {

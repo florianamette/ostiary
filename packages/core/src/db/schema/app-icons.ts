@@ -17,5 +17,5 @@ export const appIcon = pgTable("app_icon", {
   data: bytea("data"),
   /** Why no icon was stored, for debugging (never shown to users). */
   error: text("error"),
-  fetchedAt: timestamp("fetched_at").defaultNow().notNull(),
+  fetchedAt: timestamp("fetched_at", { withTimezone: true }).defaultNow().notNull(),
 });

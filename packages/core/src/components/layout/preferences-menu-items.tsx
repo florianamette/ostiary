@@ -11,7 +11,7 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
 } from "@ostiary/core/components/ui/dropdown-menu";
-import { usePathname, useRouter } from "@ostiary/core/i18n/navigation";
+import { useSwitchLocale } from "@ostiary/core/components/layout/use-switch-locale";
 import { locales, type AppLocale } from "@ostiary/core/i18n/routing";
 
 /**
@@ -20,8 +20,7 @@ import { locales, type AppLocale } from "@ostiary/core/i18n/routing";
  */
 export function PreferencesMenuItems() {
   const locale = useLocale() as AppLocale;
-  const pathname = usePathname();
-  const router = useRouter();
+  const switchLocale = useSwitchLocale();
   const { theme, setTheme } = useTheme();
   const tCommon = useTranslations("common");
   const tLocaleNames = useTranslations("common.localeNames");
@@ -40,7 +39,7 @@ export function PreferencesMenuItems() {
         <DropdownMenuSubContent className="max-h-80 min-w-[11rem] overflow-y-auto">
           <DropdownMenuRadioGroup
             value={locale}
-            onValueChange={(next) => router.replace(pathname, { locale: next as AppLocale })}
+            onValueChange={(next) => switchLocale(next as AppLocale)}
           >
             {locales.map((loc) => (
               <DropdownMenuRadioItem key={loc} value={loc}>

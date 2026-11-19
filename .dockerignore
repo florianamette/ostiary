@@ -1,0 +1,21 @@
+# Dependencies and build output are made inside the image.
+**/node_modules
+**/.next
+**/*.tsbuildinfo
+**/next-env.d.ts
+
+# Secrets never go into an image: containers get them from the environment.
+**/.env*
+!**/.env.example
+
+# Not needed to build.
+.git
+.github
+.vercel
+e2e/.data
+e2e/test-results
+e2e/playwright-report
+Dockerfile
+docker-compose*.yml
+*.md
+!packages/**/*.md

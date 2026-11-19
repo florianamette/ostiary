@@ -1,6 +1,5 @@
 "use client";
 
-import { Loader2 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { useState } from "react";
@@ -16,7 +15,7 @@ import { Link } from "@/i18n/navigation";
 import { authClient } from "@/lib/auth-client";
 import { AuthCard } from "@/components/auth/auth-card";
 import { useCaptcha } from "@/components/auth/captcha";
-import { rateLimitMessage } from "@ostiary/core/lib/rate-limit-message";
+import { useAuthErrorMessage } from "@/lib/auth-error-message";
 import type { CaptchaConfig } from "@ostiary/core/lib/captcha-providers";
 import { withAppContext, type AppLink } from "@/lib/app-links";
 
@@ -31,7 +30,7 @@ export function ForgotPasswordForm({
   appLink?: AppLink;
 }) {
   const t = useTranslations("auth.forgotPassword");
-  const tLimit = useTranslations("rateLimit");
+  const errorMessage = useAuthErrorMessage();
   const locale = useLocale();
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -57,7 +56,7 @@ export function ForgotPasswordForm({
         { headers },
       );
       if (error) {
-        toast.error(captcha.errorMessage(error.code) ?? rateLimitMessage(error, tLimit) ?? error.message ?? t("errors.requestFailed"));
+        toast.error(captcha.errorMessage(error.code) ?? errorMessage(error, t("errors.requestFailed")));
         return;
       }
       toast.success(t("emailSent"));
@@ -89,12 +88,9 @@ export function ForgotPasswordForm({
           <Field>
             <Button
               type="submit"
-              disabled={isSubmitting}
+              loading={isSubmitting}
               className="w-full sm:w-auto"
             >
-              {isSubmitting ? (
-                <Loader2 className="size-4 animate-spin" aria-hidden />
-              ) : null}
               {isSubmitting ? t("submitting") : t("submit")}
             </Button>
             <FieldDescription className="text-center">

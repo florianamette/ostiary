@@ -1,14 +1,14 @@
 "use client";
 
-import { Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import { Button } from "@ostiary/core/components/ui/button";
 import { DialogFooter } from "@ostiary/core/components/ui/dialog";
 
 /**
- * Cancel and confirm buttons of an admin dialog. Without `onConfirm`, the confirm button submits
- * the surrounding form. Both are disabled while `busy`, and the confirm button spins.
+ * Cancel and confirm buttons of an admin dialog, the one footer every admin dialog uses.
+ * Without `onConfirm`, the confirm button submits the surrounding form. Both are disabled while
+ * `busy`, and the confirm button spins.
  */
 export function DialogActions({
   busy,
@@ -36,10 +36,10 @@ export function DialogActions({
       <Button
         type={onConfirm ? "button" : "submit"}
         variant={destructive ? "destructive" : "default"}
-        disabled={busy || confirmDisabled}
+        loading={busy}
+        disabled={confirmDisabled}
         onClick={onConfirm}
       >
-        {busy ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
         {confirmLabel}
       </Button>
     </DialogFooter>

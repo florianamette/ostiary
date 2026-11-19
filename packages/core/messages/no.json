@@ -286,10 +286,6 @@
           "empty": "Ingen brukere ennå."
         },
         "stats": {
-          "error": "Kunne ikke laste inn én eller flere målinger. Kontroller at du er logget inn som administrator.",
-          "errorTitle": "Målinger er ikke tilgjengelige",
-          "loadingTitle": "Laster inn",
-          "loadingHint": "Laster inn…",
           "totalUsers": {
             "title": "Brukere totalt",
             "hint": "Alle kontoer på plattformen."
@@ -1393,8 +1389,6 @@
           "roleAll": "Alle roller",
           "roleAdmin": "Administrator",
           "roleUser": "Bruker",
-          "loadErrorTitle": "Kunne ikke laste inn brukere",
-          "loadErrorFallback": "Kunne ikke laste inn brukere",
           "columns": {
             "user": "Bruker",
             "role": "Rolle",
@@ -1402,7 +1396,6 @@
             "verified": "Bekreftet",
             "joined": "Registrert"
           },
-          "loading": "Laster inn brukere…",
           "empty": "Ingen brukere samsvarer med filtrene.",
           "noUsers": "0 brukere",
           "showing": "Viser {from}–{to} av {total}",
@@ -1467,8 +1460,7 @@
           "updatePassword": "Oppdater passord",
           "removeTitle": "Fjerne brukeren?",
           "removeDescription": "Dette sletter <strong>{name}</strong> ({email}) og alt som er knyttet til kontoen, permanent. Oppføringer i revisjonsloggen beholdes uten navn eller e-post. Dette kan ikke angres.",
-          "removeConfirm": "Fjern",
-          "removing": "Fjerner…"
+          "removeConfirm": "Fjern"
         },
         "detailActions": {
           "impersonateError": "Kunne ikke opptre som denne brukeren.",
@@ -1559,10 +1551,6 @@
         "title": "Samtykke",
         "description": "Tillatelser som personer har gitt til OAuth-klienter, med scopes og når de ble gitt.",
         "panel": {
-          "signedInUser": "Innlogget bruker",
-          "loadConsentsFailed": "Kunne ikke laste inn samtykker",
-          "loadClientsFailed": "Kunne ikke laste inn OAuth-klienter",
-          "loadErrorTitle": "Kunne ikke laste inn samtykker",
           "searchPlaceholder": "Søk etter bruker, klient, samtykke-ID, referanse eller scope…",
           "searchLabel": "Søk i samtykker",
           "filter": {
@@ -1578,16 +1566,14 @@
             "granted": "Gitt",
             "updated": "Oppdatert"
           },
-          "loading": "Laster inn samtykker…",
-          "emptyNone": "Ingen samtykker registrert for denne kontoen ennå.",
+          "emptyNone": "Ingen har gitt samtykke til en applikasjon ennå.",
           "emptyFiltered": "Ingen samtykker samsvarer med filtrene.",
           "noResults": "0 samtykker",
           "showing": "Viser {from}–{to} av {total}",
           "rowsPerPage": "Rader per side",
           "previous": "Forrige",
           "next": "Neste",
-          "pageOf": "Side {page} / {total}",
-          "footnote": "Data fra <code>{getConsents}</code>; klientnavn hentes via <code>{getClients}</code>. Tilbaketrekking bruker <code>{deleteConsent}</code>. Se <consentLink>OAuth-samtykke</consentLink> i dokumentasjonen for <providerLink>OAuth-leverandøren</providerLink>. Det interaktive autorisasjonsgrensesnittet ligger på <code>{path}</code>."
+          "pageOf": "Side {page} / {total}"
         },
         "rowActions": {
           "menuLabel": "Handlinger for samtykke {id}…",
@@ -1595,16 +1581,13 @@
           "consentIdCopied": "Samtykke-ID-en er kopiert",
           "copyClientId": "Kopier klient-ID",
           "clientIdCopied": "Klient-ID-en er kopiert",
-          "viewDetails": "Vis detaljer",
-          "updateScopes": "Oppdater scopes",
-          "wireTo": "Koble til {method}",
           "revoke": "Trekk tilbake samtykke",
           "revokeFailed": "Kunne ikke trekke tilbake samtykket",
           "revoked": "Samtykket er trukket tilbake",
           "dialogTitle": "Trekke tilbake samtykket?",
-          "dialogDescription": "Fjerner denne brukerens tillatelse for <strong>{client}</strong> (<code>{clientId}</code>). Klienten må kanskje be om autorisasjon på nytt.",
-          "revoking": "Trekker tilbake…",
-          "revokeButton": "Trekk tilbake"
+          "dialogDescription": "Fjerner samtykket fra <strong>{user}</strong> til <strong>{client}</strong> (<code>{clientId}</code>) og tilbakekaller tokenene appen har for personen. Appen må spørre på nytt for å få nye.",
+          "revokeButton": "Trekk tilbake",
+          "notFound": "Dette samtykket finnes ikke lenger."
         }
       },
       "usage": {
@@ -1633,7 +1616,7 @@
       "audit": {
         "title": "Revisjonslogg",
         "description": "Alle endringer gjort fra denne konsollen eller administrasjons-API-et: hvem som gjorde dem, på hva og når.",
-        "footnote": "Viser de siste 200 oppføringene. Passord og hemmeligheter blir aldri registrert.",
+        "footnote": "Passord og hemmeligheter blir aldri registrert.",
         "filterLabel": "Filtrer etter område",
         "filters": {
           "all": "Alle",
@@ -1753,7 +1736,12 @@
             "test": "Sendte testhendelse for webhook",
             "redeliver": "Leverte webhook-hendelse på nytt"
           }
-        }
+        },
+        "actorPlaceholder": "Søk etter hvem som handlet (e-post)…",
+        "actorLabel": "Søk etter utfører",
+        "pagesLabel": "Sider i revisjonsloggen",
+        "newest": "Nyeste oppføringer",
+        "older": "Eldre oppføringer"
       },
       "security": {
         "title": "Sikkerhet",
@@ -1850,8 +1838,14 @@
         }
       },
       "organizations": {
+        "title": "Organisasjoner",
+        "description": "Alle organisasjoner på plattformen, med medlemmene sine. Åpne en for å administrere medlemmer, SSO og SCIM.",
+        "list": {
+          "searchPlaceholder": "Søk etter navn eller slug…",
+          "searchLabel": "Søk i organisasjoner",
+          "noMatch": "Ingen organisasjon samsvarer med søket."
+        },
         "controls": {
-          "unexpectedError": "Noe gikk galt.",
           "organizationUpdated": "Organisasjonen er oppdatert",
           "slug": "Slug",
           "role": "Rolle",
@@ -1903,7 +1897,7 @@
           "defaultWorkspace": "Standard arbeidsområde",
           "createdAt": "Opprettet {date}",
           "members": "Medlemmer",
-          "publicMembers": "Alle kontoer tilhører det offentlige arbeidsområdet, så medlemmer kan ikke fjernes her. Viser de første 50.",
+          "publicMembers": "Alle kontoer tilhører det offentlige arbeidsområdet, så medlemmer kan ikke fjernes her.",
           "memberCount": "{count, plural, one {# medlem} other {# medlemmer}}.",
           "noMembers": "Ingen medlemmer ennå.",
           "member": "Medlem",
@@ -1941,7 +1935,10 @@
           "invitationNotFound": "Fant ikke invitasjonen.",
           "requestFailed": "Forespørselen mislyktes.",
           "scimUnavailable": "Denne organisasjonen kan ikke bruke SCIM-klargjøring.",
-          "noActiveToken": "Det finnes ikke noe aktivt token."
+          "noActiveToken": "Det finnes ikke noe aktivt token.",
+          "lastOwner": "En organisasjon må ha minst én eier. Gjør først et annet medlem til eier.",
+          "publicDelete": "Arbeidsområdet Public kan ikke slettes.",
+          "organizationNotFound": "Fant ikke organisasjonen."
         }
       }
     },
@@ -1977,7 +1974,15 @@
       "refresh": "Oppdater",
       "search": "Søk",
       "optional": "Valgfritt",
-      "unexpectedError": "Noe gikk galt. Prøv igjen."
+      "unexpectedError": "Noe gikk galt. Prøv igjen.",
+      "invalidInput": "Noen av verdiene som ble sendt, er ugyldige. Last inn siden på nytt og prøv igjen.",
+      "pagination": {
+        "rowsPerPage": "Rader per side",
+        "previous": "Forrige",
+        "next": "Neste",
+        "pageOf": "Side {page} / {pages}",
+        "showing": "Viser {from}–{to} av {total}"
+      }
     },
     "urlCheck": {
       "tooLong": "URL-en er for lang.",
@@ -2587,7 +2592,8 @@
       "txtRecordNotFound": "Fant ikke TXT-posten ennå. Det kan ta noen minutter før DNS-endringer blir synlige.",
       "envNotSet": "{name} er ikke angitt.",
       "invalidProviderId": "Leverandør-ID-en må være 2 til 63 små bokstaver, sifre, - eller _.",
-      "unreadableSamlConfig": "Den lagrede SAML-konfigurasjonen kan ikke leses; slett leverandøren og registrer den på nytt."
+      "unreadableSamlConfig": "Den lagrede SAML-konfigurasjonen kan ikke leses; slett leverandøren og registrer den på nytt.",
+      "domainTaken": "En annen SSO-leverandør bruker allerede dette domenet."
     }
   },
   "selectAccount": {
@@ -2669,5 +2675,23 @@
       "note": "Lenken utløper om {minutes} minutter og fungerer bare én gang.",
       "footnote": "Har du ikke bedt om dette? Se bort fra denne e-posten: kontoen din forblir som den er. Vurder å bytte passord, siden forespørselen kom fra en innlogget økt."
     }
+  },
+  "authErrors": {
+    "banned": "Denne kontoen er suspendert. Kontakt support hvis du mener dette er en feil.",
+    "deactivated": "Organisasjonen din har deaktivert denne kontoen.",
+    "invalidCredentials": "Feil e-post, brukernavn eller passord.",
+    "userExists": "Det finnes allerede en konto med denne e-postadressen.",
+    "usernameTaken": "Brukernavnet er allerede tatt.",
+    "usernameInvalid": "Brukernavnet kan ikke brukes. Prøv et annet.",
+    "passwordTooShort": "Passordet er for kort.",
+    "passwordTooLong": "Passordet er for langt.",
+    "passwordCompromised": "Passordet har dukket opp i en datalekkasje. Velg et annet.",
+    "invalidPassword": "Feil passord.",
+    "recentSignIn": "Logg inn på nytt for å gjøre dette.",
+    "sessionExpired": "Økten din er utløpt. Logg inn på nytt.",
+    "impersonating": "Dette kan ikke gjøres mens en administrator ser på kontoen.",
+    "emailNotVerified": "Bekreft e-postadressen din først.",
+    "invalidToken": "Lenken er ugyldig eller utløpt.",
+    "publicOrganization": "Medlemmene i organisasjonen Public administreres bare av plattformadministratorer."
   }
 }

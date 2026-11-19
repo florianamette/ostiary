@@ -11,7 +11,9 @@ export function queueChangeEmailConfirmation(input: {
   newEmail: string;
   url: string;
 }): void {
-  queueEmail("change-email-confirmation", input.to, "Confirm your new email address", {
+  queueEmail("change-email-confirmation", input.to, {
+    subject: "Confirm your new email address",
+    content: {
     preheader: `Someone asked to change the email address on your ${brand.name} account.`,
     heading: "Confirm your new email address",
     body: [
@@ -22,5 +24,6 @@ export function queueChangeEmailConfirmation(input: {
     note: "This link expires in 1 hour.",
     footnote:
       "If you didn't ask for this, ignore this email: your address stays the same. Consider changing your password, since the request came from a signed-in session.",
+    },
   });
 }

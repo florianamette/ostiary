@@ -93,6 +93,10 @@ Ostiary is a good fit when you want to own your identity layer. If you need a ma
 
 ## Deploy
 
+Two ways: Vercel with a Neon database (below), or your own server with Docker ([Self-host with Docker](#self-host-with-docker)).
+
+### Vercel
+
 1. Click **Deploy with Vercel** above. Vercel creates a Neon Postgres database for you and asks for:
    - `BETTER_AUTH_SECRET`: 32+ random characters (`openssl rand -base64 32`)
    - `ADMIN_EMAILS`: your email address, so your account becomes an admin when you sign up and verify it
@@ -103,6 +107,17 @@ Ostiary is a good fit when you want to own your identity layer. If you need a ma
    <a href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fflorianamette%2Fostiary%2Ftree%2Fmain%2Fapps%2Fadmin&project-name=ostiary-admin&repository-name=ostiary&env=DATABASE_URL%2CBETTER_AUTH_SECRET%2CAUTH_APP_URL%2CADMIN_APP_URL%2CRESEND_API_KEY%2CRESEND_FROM&envDescription=Use%20the%20same%20DATABASE_URL%20and%20BETTER_AUTH_SECRET%20as%20your%20Ostiary%20auth%20app.%20AUTH_APP_URL%3A%20its%20URL.%20ADMIN_APP_URL%3A%20this%20app%27s%20URL.&envLink=https%3A%2F%2Fgithub.com%2Fflorianamette%2Fostiary%2Fblob%2Fmain%2Fdocs%2Fconfiguration.md"><img src="https://vercel.com/button" alt="Deploy the admin console"></a>
 
    For a single sign-in across both apps, give them subdomains of one domain (for example `auth.example.com` and `admin.example.com`) and set `COOKIE_DOMAIN=.example.com` on both. Read [COOKIE_DOMAIN](docs/security.md#cookie_domain) first: the session cookie is then sent to every subdomain of that domain.
+
+### Self-host with Docker
+
+`docker-compose.yml` runs Postgres, the migrations, both apps and the daily housekeeping job on your own server:
+
+```bash
+cp .env.docker.example .env   # fill in the URLs, secrets and Resend key
+docker compose up -d --build
+```
+
+Put a reverse proxy with TLS in front of ports 3000 (auth) and 3001 (admin). [Self-hosting](docs/self-hosting.md) covers the proxy, the client IP header, backups and upgrades.
 
 ## Connect an app
 
@@ -147,6 +162,7 @@ The [full guide](docs/connect-an-app.md) covers protecting your APIs, signing ke
 | [MCP and AI agents](docs/mcp-and-agents.md) | Dynamic Client Registration, Client ID Metadata Documents, protecting an MCP server |
 | [API keys](docs/api-keys.md) | Personal and organization keys for your APIs, and how your API verifies them |
 | [Your data](docs/account-data.md) | Data export and account deletion (GDPR), what is kept and why |
+| [Self-hosting](docs/self-hosting.md) | Docker Compose, reverse proxy and client IP, housekeeping, upgrades |
 | [Configuration](docs/configuration.md) | Every environment variable |
 | [Security](docs/security.md) | Security model, rate limiting, client IP, `COOKIE_DOMAIN` |
 | [Testing](docs/testing.md) | Unit tests and the Playwright end-to-end suite |

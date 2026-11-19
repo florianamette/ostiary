@@ -1,9 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { KeyRoundIcon, Loader2, PlusIcon, Trash2Icon } from "lucide-react";
+import { KeyRoundIcon, PlusIcon, Trash2Icon } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import { toast } from "sonner";
 
 import { Badge } from "@ostiary/core/components/ui/badge";
 import { Button } from "@ostiary/core/components/ui/button";
@@ -16,8 +15,10 @@ import {
   CardTitle,
 } from "@ostiary/core/components/ui/card";
 import { Skeleton } from "@ostiary/core/components/ui/skeleton";
+import { useAsyncResource } from "@ostiary/core/hooks/use-async-resource";
 import { ConfirmDialog } from "@/components/dashboard/confirm-dialog";
 import { CreateApiKeyDialog, IssuedKeyDialog } from "@/components/dashboard/dashboard-api-key-dialogs";
+import { useClientNow } from "@/lib/use-client-now";
 import type { MyApiKey } from "@/lib/api-key-serialize";
 import {
   createMyApiKey,
@@ -26,6 +27,7 @@ import {
   type CreateApiKeyError,
   type MyApiKeys,
 } from "@/lib/api-keys-actions";
+import { useAuthAction } from "@/lib/use-auth-action";
 
 function formatDate(value: string | null, locale: string): string | null {
   if (!value) return null;
@@ -49,11 +51,17 @@ const personalKeys: ApiKeysSource = { load: getMyApiKeys, create: createMyApiKey
  * API keys for the APIs registered in Ostiary: a script sends the key to the API, which
  * checks it with Ostiary. Each key is for one API and some of its scopes, and expires.
  */
-export function DashboardApiKeysSection() {
+export function DashboardApiKeysSection({
+  initialKeys,
+}: {
+  /** Read by the dashboard page on the server; null if that failed (the section retries). */
+  initialKeys: MyApiKeys | null;
+}) {
   const t = useTranslations("dashboard.apiKeys");
   return (
     <ApiKeysManager
       source={personalKeys}
+      initialData={initialKeys}
       layout="card"
       title={t("title")}
       description={t("description")}
@@ -77,8 +85,11 @@ export function ApiKeysManager({
   loadErrorText,
   limitText,
   testId,
+  initialData = null,
 }: {
   source: ApiKeysSource;
+  /** Keys already read on the server: shown at once, without a first load. */
+  initialData?: MyApiKeys | null;
   layout: "card" | "inline";
   title: string;
   description: string;
@@ -88,52 +99,40 @@ export function ApiKeysManager({
   testId?: string;
 }) {
   const t = useTranslations("dashboard.apiKeys");
-  const [data, setData] = React.useState<MyApiKeys | null>(null);
-  const [loading, setLoading] = React.useState(true);
-  const [loadError, setLoadError] = React.useState(false);
+  const { load: loadKeys, revoke: revokeKey } = source;
+  const load = React.useCallback(async () => {
+    const result = await loadKeys();
+    if (!result) throw new Error("signed out");
+    return result;
+  }, [loadKeys]);
+  const keys = useAsyncResource(load, { initialData: initialData ?? undefined });
+  const data = keys.data ?? null;
+  const loading = keys.loading;
+  const loadError = Boolean(keys.error) && !keys.data;
+  const { pending, run } = useAuthAction<string>();
   const [creating, setCreating] = React.useState(false);
   const [issued, setIssued] = React.useState<{ key: string; name: string } | null>(null);
   const [pendingRevoke, setPendingRevoke] = React.useState<MyApiKey | null>(null);
-  const [revokingId, setRevokingId] = React.useState<string | null>(null);
-  const { load: loadKeys, revoke: revokeKey } = source;
-
-  const load = React.useCallback(async () => {
-    setLoadError(false);
-    try {
-      const result = await loadKeys();
-      if (!result) setLoadError(true);
-      setData(result);
-    } catch {
-      setLoadError(true);
-    } finally {
-      setLoading(false);
-    }
-  }, [loadKeys]);
-
-  React.useEffect(() => {
-    void load();
-  }, [load]);
 
   async function confirmRevoke() {
     const row = pendingRevoke;
     if (!row) return;
+    await run(row.id, {
+      call: async () => {
+        const { ok } = await revokeKey(row.id);
+        return { error: ok ? null : {} };
+      },
+      success: t("revoked"),
+      error: t("revokeError"),
+      onSuccess: keys.reload,
+    });
     setPendingRevoke(null);
-    setRevokingId(row.id);
-    try {
-      const { ok } = await revokeKey(row.id).catch(() => ({ ok: false }));
-      if (!ok) {
-        toast.error(t("revokeError"));
-        return;
-      }
-      toast.success(t("revoked"));
-      void load();
-    } finally {
-      setRevokingId(null);
-    }
   }
 
   const canCreate = Boolean(data?.enabled && data.apis.length > 0);
-  const now = Date.now();
+  // Read once: whether a key has expired does not need to tick while the page is open. Null
+  // while hydrating, so the server and the browser agree (see useClientNow).
+  const now = useClientNow();
 
   const createButton = data?.enabled ? (
     <Button type="button" size="sm" variant="outline" disabled={!canCreate} onClick={() => setCreating(true)}>
@@ -164,7 +163,7 @@ export function ApiKeysManager({
               key={key.id}
               apiKey={key}
               now={now}
-              revoking={revokingId === key.id}
+              revoking={pending === key.id}
               onRevoke={() => setPendingRevoke(key)}
             />
           ))}
@@ -184,7 +183,7 @@ export function ApiKeysManager({
           onCreated={(key, name) => {
             setCreating(false);
             setIssued({ key, name });
-            void load();
+            void keys.reload();
           }}
         />
       ) : null}
@@ -198,7 +197,7 @@ export function ApiKeysManager({
         cancelLabel={t("cancel")}
         confirmLabel={t("revoke")}
         onCancel={() => setPendingRevoke(null)}
-        onConfirm={() => void confirmRevoke()}
+        onConfirm={confirmRevoke}
       />
     </>
   );
@@ -239,13 +238,13 @@ function ApiKeyItem({
   onRevoke,
 }: {
   apiKey: MyApiKey;
-  now: number;
+  now: Date | null;
   revoking: boolean;
   onRevoke: () => void;
 }) {
   const t = useTranslations("dashboard.apiKeys");
   const locale = useLocale();
-  const expired = key.expiresAt !== null && new Date(key.expiresAt).getTime() <= now;
+  const expired = key.expiresAt !== null && now !== null && new Date(key.expiresAt).getTime() <= now.getTime();
   return (
     <li className="flex flex-col gap-3 rounded-lg border border-border/80 p-4 sm:flex-row sm:items-start sm:justify-between">
       <div className="min-w-0 space-y-1">
@@ -296,14 +295,10 @@ function ApiKeyItem({
         variant="outline"
         size="sm"
         className="shrink-0 gap-1.5"
-        disabled={revoking}
+        loading={revoking}
         onClick={onRevoke}
       >
-        {revoking ? (
-          <Loader2 className="size-4 animate-spin" aria-hidden />
-        ) : (
-          <Trash2Icon className="size-3.5" aria-hidden />
-        )}
+        {revoking ? null : <Trash2Icon className="size-3.5" aria-hidden />}
         {t("revoke")}
       </Button>
     </li>

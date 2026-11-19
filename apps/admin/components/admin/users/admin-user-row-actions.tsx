@@ -11,6 +11,7 @@ import {
   UserPenIcon,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { toast } from "sonner";
 
 import { Button } from "@ostiary/core/components/ui/button";
 import {
@@ -20,10 +21,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@ostiary/core/components/ui/dropdown-menu";
-import { adminNotify } from "@ostiary/core/lib/admin/admin-notify";
 import { authClient } from "@/lib/auth-client";
 import { UserEditDialog, UserPasswordDialog } from "@/components/admin/users/admin-user-dialogs";
 import { ConfirmRemoveDialog } from "@/components/admin/common/confirm-remove-dialog";
+import { useAdminAction } from "@/components/admin/common/use-admin-action";
 
 type AdminUserRow = {
   id: string;
@@ -52,66 +53,34 @@ export function AdminUserRowActions({
   const [editOpen, setEditOpen] = React.useState(false);
   const [passwordOpen, setPasswordOpen] = React.useState(false);
   const [removeOpen, setRemoveOpen] = React.useState(false);
-  const [removePending, setRemovePending] = React.useState(false);
 
   const isSelf = currentUserId !== undefined && user.id === currentUserId;
   const roles = roleTokens(user.role);
   const isAdmin = roles.includes("admin");
   const isPlainUser = roles.length === 0 || (roles.length === 1 && roles[0] === "user");
 
-  async function setRole(role: "admin" | "user") {
-    const { error } = await authClient.admin.setRole({
-      userId: user.id,
-      role,
-    });
-    if (error) {
-      adminNotify(error.message ?? t("roleError"), "error");
-      return;
-    }
-    adminNotify(t("roleSet", { role }), "success");
-    onChanged();
+  const { run } = useAdminAction(undefined, { refresh: onChanged });
+  const remove = useAdminAction(() => setRemoveOpen(false), { refresh: onChanged });
+
+  function setRole(role: "admin" | "user") {
+    void run(() => authClient.admin.setRole({ userId: user.id, role }), t("roleSet", { role }), t("roleError"));
   }
 
-  async function toggleBan() {
+  function toggleBan() {
     if (user.banned) {
-      const { error } = await authClient.admin.unbanUser({ userId: user.id });
-      if (error) {
-        adminNotify(error.message ?? t("unbanError"), "error");
-        return;
-      }
-      adminNotify(t("unbanned"), "success");
+      void run(() => authClient.admin.unbanUser({ userId: user.id }), t("unbanned"), t("unbanError"));
     } else {
-      const { error } = await authClient.admin.banUser({
-        userId: user.id,
-        banReason: "Admin action",
-      });
-      if (error) {
-        adminNotify(error.message ?? t("banError"), "error");
-        return;
-      }
-      adminNotify(t("banned"), "success");
-    }
-    onChanged();
-  }
-
-  async function removeUser() {
-    setRemovePending(true);
-    try {
-      const { error } = await authClient.admin.removeUser({
-        userId: user.id,
-      });
-      if (error) {
-        adminNotify(error.message ?? t("removeError"), "error");
-        return;
-      }
-      adminNotify(t("removed"), "success");
-      setRemoveOpen(false);
-      onChanged();
-    } finally {
-      setRemovePending(false);
+      void run(
+        () => authClient.admin.banUser({ userId: user.id, banReason: "Admin action" }),
+        t("banned"),
+        t("banError"),
+      );
     }
   }
 
+  function removeUser() {
+    void remove.run(() => authClient.admin.removeUser({ userId: user.id }), t("removed"), t("removeError"));
+  }
 
   return (
     <>
@@ -130,7 +99,7 @@ export function AdminUserRowActions({
           <DropdownMenuItem
             onClick={() => {
               void navigator.clipboard.writeText(user.id);
-              adminNotify(t("idCopied"), "success");
+              toast.success(t("idCopied"));
             }}
           >
             <CopyIcon />
@@ -147,14 +116,14 @@ export function AdminUserRowActions({
           </DropdownMenuItem>
           <DropdownMenuItem
             disabled={isAdmin}
-            onClick={() => void setRole("admin")}
+            onClick={() => setRole("admin")}
           >
             <KeyRoundIcon />
             {t("makeAdmin")}
           </DropdownMenuItem>
           <DropdownMenuItem
             disabled={isPlainUser}
-            onClick={() => void setRole("user")}
+            onClick={() => setRole("user")}
           >
             <KeyRoundIcon />
             {t("makeUser")}
@@ -162,7 +131,7 @@ export function AdminUserRowActions({
           <DropdownMenuSeparator />
           <DropdownMenuItem
             disabled={isSelf}
-            onClick={() => void toggleBan()}
+            onClick={toggleBan}
           >
             <BanIcon />
             {user.banned ? t("unban") : t("ban")}
@@ -193,10 +162,9 @@ export function AdminUserRowActions({
           email: user.email,
           strong: (chunks) => <span className="font-medium text-foreground">{chunks}</span>,
         })}
-        pending={removePending}
-        onConfirm={() => void removeUser()}
+        pending={remove.busy}
+        onConfirm={removeUser}
         confirmLabel={t("removeConfirm")}
-        pendingLabel={t("removing")}
       />
     </>
   );

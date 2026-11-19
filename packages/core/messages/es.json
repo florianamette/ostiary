@@ -286,10 +286,6 @@
           "empty": "Aún no hay usuarios."
         },
         "stats": {
-          "error": "No se pudieron cargar una o más métricas. Asegúrate de haber iniciado sesión como administrador.",
-          "errorTitle": "Métricas no disponibles",
-          "loadingTitle": "Cargando",
-          "loadingHint": "Cargando…",
           "totalUsers": {
             "title": "Total de usuarios",
             "hint": "Todas las cuentas de la plataforma."
@@ -1393,8 +1389,6 @@
           "roleAll": "Todos los roles",
           "roleAdmin": "Administrador",
           "roleUser": "Usuario",
-          "loadErrorTitle": "No se pudieron cargar los usuarios",
-          "loadErrorFallback": "No se pudieron cargar los usuarios",
           "columns": {
             "user": "Usuario",
             "role": "Rol",
@@ -1402,7 +1396,6 @@
             "verified": "Verificado",
             "joined": "Alta"
           },
-          "loading": "Cargando usuarios…",
           "empty": "Ningún usuario coincide con tus filtros.",
           "noUsers": "0 usuarios",
           "showing": "Mostrando {from}-{to} de {total}",
@@ -1467,8 +1460,7 @@
           "updatePassword": "Actualizar contraseña",
           "removeTitle": "¿Eliminar el usuario?",
           "removeDescription": "Se eliminarán de forma permanente <strong>{name}</strong> ({email}) y todo lo vinculado a la cuenta. Las entradas del registro de auditoría se conservan sin su nombre ni su correo electrónico. Esta acción no se puede deshacer.",
-          "removeConfirm": "Eliminar",
-          "removing": "Eliminando…"
+          "removeConfirm": "Eliminar"
         },
         "detailActions": {
           "impersonateError": "No se pudo suplantar a este usuario.",
@@ -1559,10 +1551,6 @@
         "title": "Consentimiento",
         "description": "Permisos que las personas han concedido a clientes OAuth, con los scopes y la fecha en que se concedieron.",
         "panel": {
-          "signedInUser": "Usuario con sesión iniciada",
-          "loadConsentsFailed": "No se pudieron cargar los consentimientos",
-          "loadClientsFailed": "No se pudieron cargar los clientes OAuth",
-          "loadErrorTitle": "No se pudieron cargar los consentimientos",
           "searchPlaceholder": "Busca por usuario, cliente, ID de consentimiento, referencia o scope…",
           "searchLabel": "Buscar consentimientos",
           "filter": {
@@ -1578,16 +1566,14 @@
             "granted": "Concedido",
             "updated": "Actualizado"
           },
-          "loading": "Cargando consentimientos…",
-          "emptyNone": "Aún no hay consentimientos registrados para esta cuenta.",
+          "emptyNone": "Nadie ha dado todavía su consentimiento a una aplicación.",
           "emptyFiltered": "Ningún consentimiento coincide con tus filtros.",
           "noResults": "0 consentimientos",
           "showing": "Mostrando {from}-{to} de {total}",
           "rowsPerPage": "Filas por página",
           "previous": "Anterior",
           "next": "Siguiente",
-          "pageOf": "Página {page} / {total}",
-          "footnote": "Datos de <code>{getConsents}</code>; los nombres de los clientes se resuelven con <code>{getClients}</code>. Revocar usa <code>{deleteConsent}</code>. Consulta <consentLink>Consentimiento OAuth</consentLink> en la documentación del <providerLink>proveedor OAuth</providerLink>. La interfaz interactiva de autorización está en <code>{path}</code>."
+          "pageOf": "Página {page} / {total}"
         },
         "rowActions": {
           "menuLabel": "Acciones del consentimiento {id}…",
@@ -1595,16 +1581,13 @@
           "consentIdCopied": "ID de consentimiento copiado",
           "copyClientId": "Copiar ID de cliente",
           "clientIdCopied": "ID de cliente copiado",
-          "viewDetails": "Ver detalles",
-          "updateScopes": "Actualizar scopes",
-          "wireTo": "Conectar con {method}",
           "revoke": "Revocar consentimiento",
           "revokeFailed": "No se pudo revocar el consentimiento",
           "revoked": "Consentimiento revocado",
           "dialogTitle": "¿Revocar el consentimiento?",
-          "dialogDescription": "Elimina la autorización de este usuario para <strong>{client}</strong> (<code>{clientId}</code>). Puede que el cliente tenga que volver a solicitar autorización.",
-          "revoking": "Revocando…",
-          "revokeButton": "Revocar"
+          "dialogDescription": "Retira el consentimiento de <strong>{user}</strong> a <strong>{client}</strong> (<code>{clientId}</code>) y revoca los tokens que la aplicación tiene para esa persona. La aplicación tendrá que volver a pedírselo para obtener otros.",
+          "revokeButton": "Revocar",
+          "notFound": "Este consentimiento ya no existe."
         }
       },
       "usage": {
@@ -1633,7 +1616,7 @@
       "audit": {
         "title": "Registro de auditoría",
         "description": "Cada cambio realizado desde esta consola o la API de administración: quién lo hizo, sobre qué y cuándo.",
-        "footnote": "Se muestran las 200 entradas más recientes. Las contraseñas y los secretos nunca se registran.",
+        "footnote": "Las contraseñas y los secretos nunca se registran.",
         "filterLabel": "Filtrar por área",
         "filters": {
           "all": "Todo",
@@ -1753,7 +1736,12 @@
             "test": "Envió un evento de prueba de webhook",
             "redeliver": "Reenvió un evento de webhook"
           }
-        }
+        },
+        "actorPlaceholder": "Buscar por quién actuó (correo)…",
+        "actorLabel": "Buscar por autor",
+        "pagesLabel": "Páginas del registro de auditoría",
+        "newest": "Entradas más recientes",
+        "older": "Entradas anteriores"
       },
       "security": {
         "title": "Seguridad",
@@ -1850,8 +1838,14 @@
         }
       },
       "organizations": {
+        "title": "Organizaciones",
+        "description": "Todas las organizaciones de la plataforma, con sus miembros. Abre una para gestionar sus miembros, el SSO y SCIM.",
+        "list": {
+          "searchPlaceholder": "Buscar por nombre o slug…",
+          "searchLabel": "Buscar organizaciones",
+          "noMatch": "Ninguna organización coincide con tu búsqueda."
+        },
         "controls": {
-          "unexpectedError": "Algo salió mal.",
           "organizationUpdated": "Organización actualizada",
           "slug": "Slug",
           "role": "Rol",
@@ -1903,7 +1897,7 @@
           "defaultWorkspace": "Espacio de trabajo predeterminado",
           "createdAt": "Creada el {date}",
           "members": "Miembros",
-          "publicMembers": "Todas las cuentas pertenecen al espacio de trabajo Public, así que aquí no se pueden quitar miembros. Se muestran los 50 primeros.",
+          "publicMembers": "Todas las cuentas pertenecen al espacio de trabajo Public, así que aquí no se pueden quitar miembros.",
           "memberCount": "{count, plural, one {# miembro} other {# miembros}}.",
           "noMembers": "Aún no hay miembros.",
           "member": "Miembro",
@@ -1941,7 +1935,10 @@
           "invitationNotFound": "No se encontró la invitación.",
           "requestFailed": "La solicitud falló.",
           "scimUnavailable": "Esta organización no puede usar el aprovisionamiento SCIM.",
-          "noActiveToken": "No hay ningún token activo."
+          "noActiveToken": "No hay ningún token activo.",
+          "lastOwner": "Una organización necesita al menos un propietario. Haz primero propietario a otro miembro.",
+          "publicDelete": "El espacio de trabajo Public no se puede eliminar.",
+          "organizationNotFound": "No se encontró la organización."
         }
       }
     },
@@ -1977,7 +1974,15 @@
       "refresh": "Actualizar",
       "search": "Buscar",
       "optional": "Opcional",
-      "unexpectedError": "Algo salió mal. Inténtalo de nuevo."
+      "unexpectedError": "Algo salió mal. Inténtalo de nuevo.",
+      "invalidInput": "Algunos de los valores enviados no son válidos. Recarga la página e inténtalo de nuevo.",
+      "pagination": {
+        "rowsPerPage": "Filas por página",
+        "previous": "Anterior",
+        "next": "Siguiente",
+        "pageOf": "Página {page} / {pages}",
+        "showing": "Mostrando {from}-{to} de {total}"
+      }
     },
     "urlCheck": {
       "tooLong": "La URL es demasiado larga.",
@@ -2587,7 +2592,8 @@
       "txtRecordNotFound": "Aún no se ha encontrado el registro TXT. Los cambios de DNS pueden tardar unos minutos en aparecer.",
       "envNotSet": "{name} no está definida.",
       "invalidProviderId": "El ID del proveedor debe tener entre 2 y 63 letras minúsculas, dígitos, - o _.",
-      "unreadableSamlConfig": "La configuración SAML almacenada no se puede leer; elimina el proveedor y vuelve a registrarlo."
+      "unreadableSamlConfig": "La configuración SAML almacenada no se puede leer; elimina el proveedor y vuelve a registrarlo.",
+      "domainTaken": "Otro proveedor de SSO ya usa este dominio."
     }
   },
   "selectAccount": {
@@ -2669,5 +2675,23 @@
       "note": "El enlace caduca en {minutes} minutos y solo funciona una vez.",
       "footnote": "Si no lo has pedido tú, ignora este correo: tu cuenta se queda como está. Te recomendamos cambiar tu contraseña, ya que la solicitud vino de una sesión iniciada."
     }
+  },
+  "authErrors": {
+    "banned": "Esta cuenta ha sido suspendida. Contacta con soporte si crees que es un error.",
+    "deactivated": "Tu organización ha desactivado esta cuenta.",
+    "invalidCredentials": "Correo, nombre de usuario o contraseña incorrectos.",
+    "userExists": "Ya existe una cuenta con esta dirección de correo.",
+    "usernameTaken": "Este nombre de usuario ya está en uso.",
+    "usernameInvalid": "Este nombre de usuario no se puede usar. Prueba otro.",
+    "passwordTooShort": "Esta contraseña es demasiado corta.",
+    "passwordTooLong": "Esta contraseña es demasiado larga.",
+    "passwordCompromised": "Esta contraseña apareció en una filtración de datos. Elige otra.",
+    "invalidPassword": "Contraseña incorrecta.",
+    "recentSignIn": "Vuelve a iniciar sesión para hacer esto.",
+    "sessionExpired": "Tu sesión ha caducado. Vuelve a iniciar sesión.",
+    "impersonating": "No se puede hacer mientras un administrador está viendo la cuenta.",
+    "emailNotVerified": "Verifica primero tu dirección de correo.",
+    "invalidToken": "Este enlace no es válido o ha caducado.",
+    "publicOrganization": "Los miembros de la organización Public solo los gestionan los administradores de la plataforma."
   }
 }

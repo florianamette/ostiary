@@ -7,8 +7,10 @@ import type { OAuthApplicationRow } from "@/components/admin/applications/admin-
 import { AdminRegisterOAuthClientDialog } from "@/components/admin/applications/admin-register-oauth-client-dialog";
 import { ApplicationTableRow } from "@/components/admin/applications/application-table-row";
 import { RemoveDuplicatesDialog } from "@/components/admin/applications/remove-duplicates-dialog";
-import { TableMessageRow, TablePagination, TableSearch } from "@/components/admin/common/admin-table";
-import { useDebouncedValue } from "@/components/admin/common/use-debounced-value";
+import { ListSearch, TableMessageRow, TablePagination } from "@/components/admin/common/admin-table";
+import { readChoice } from "@/components/admin/common/list-params";
+import { useAdminList } from "@/components/admin/common/use-admin-list";
+import { useListParams } from "@/components/admin/common/use-list-params";
 import { usePagination } from "@/components/admin/common/use-pagination";
 import { ExternalLink } from "@/components/admin/common/external-link";
 import { Alert, AlertDescription, AlertTitle } from "@ostiary/core/components/ui/alert";
@@ -32,7 +34,9 @@ import { asRecord, asStringArray, normalizeGetClientsPayload } from "@/lib/oauth
 import { DEVICE_CODE_GRANT_TYPE } from "@ostiary/core/lib/admin/oauth-clients/oauth-client-admin.types";
 import type { RegistrationSource } from "@ostiary/core/lib/client-registration-policy";
 
-type ClientKindFilter = "all" | "public" | "confidential" | "trusted" | "device";
+const KIND_FILTERS = ["all", "public", "confidential", "trusted", "device"] as const;
+type ClientKindFilter = (typeof KIND_FILTERS)[number];
+const REGISTRATION_FILTERS = ["all", "self", "admin", "dynamic", "metadata_document"] as const;
 type RegistrationFilter = "all" | "self" | RegistrationSource;
 
 function normalizeAuthMethod(
@@ -155,56 +159,33 @@ function collapseDuplicates(rows: OAuthApplicationRow[], expanded: ReadonlySet<s
  * APIs page. APIs open to every application are not listed.
  */
 export function AdminApplicationsPanel({
-  initialSearch = "",
   linkedApis = {},
   selfRegistered,
 }: {
-  /** Prefilled search, e.g. a client ID from the App usage page (`?q=`). */
-  initialSearch?: string;
   linkedApis?: Record<string, string[]>;
   selfRegistered: OAuthApplicationRow[];
 }) {
   const t = useTranslations("admin.pages.applications.panel");
   const tCommon = useTranslations("admin.common");
-  const [searchInput, setSearchInput] = React.useState(initialSearch);
-  const debouncedSearch = useDebouncedValue(searchInput, 300);
-  const [kindFilter, setKindFilter] =
-    React.useState<ClientKindFilter>("all");
-  const [registrationFilter, setRegistrationFilter] =
-    React.useState<RegistrationFilter>("all");
-  const [rows, setRows] = React.useState<OAuthApplicationRow[]>([]);
-  const [loading, setLoading] = React.useState(true);
-  const [listError, setListError] = React.useState<string | null>(null);
-  const [refreshKey, setRefreshKey] = React.useState(0);
+  // Search (`?q=`, also linked from the App usage page), filters and page live in the URL.
+  const list = useListParams();
+  const search = list.get("q");
+  const kindFilter = readChoice({ kind: list.get("kind") }, "kind", KIND_FILTERS, "all");
+  const registrationFilter = readChoice(
+    { registration: list.get("registration") },
+    "registration",
+    REGISTRATION_FILTERS,
+    "all",
+  );
 
-  const refetch = React.useCallback(() => {
-    setRefreshKey((k) => k + 1);
-  }, []);
-
-  React.useEffect(() => {
-    let cancelled = false;
-    async function run() {
-      setLoading(true);
-      setListError(null);
-      const res = await authClient.oauth2.getClients();
-      if (cancelled) return;
-      if (res.error) {
-        setListError(res.error.message ?? t("loadFailed"));
-        setRows([]);
-        setLoading(false);
-        return;
-      }
-      const list = normalizeGetClientsPayload(res.data)
-        .map(mapApiClientToRow)
-        .filter((r): r is OAuthApplicationRow => r !== null);
-      setRows(list);
-      setLoading(false);
-    }
-    void run();
-    return () => {
-      cancelled = true;
-    };
-  }, [refreshKey, t]);
+  const loadClients = React.useCallback(async () => {
+    const res = await authClient.oauth2.getClients();
+    if (res.error) throw new Error(res.error.message || t("loadFailed"));
+    return normalizeGetClientsPayload(res.data)
+      .map(mapApiClientToRow)
+      .filter((r): r is OAuthApplicationRow => r !== null);
+  }, [t]);
+  const { data: rows, loading, error: listError, reload: refetch } = useAdminList(loadClients, []);
 
   // Self-registered rows come from the server and win over the same client in `rows`.
   const allRows = React.useMemo(() => {
@@ -214,8 +195,8 @@ export function AdminApplicationsPanel({
   }, [rows, selfRegistered]);
 
   const filtered = React.useMemo(
-    () => filterApplications(allRows, debouncedSearch, kindFilter, registrationFilter),
-    [allRows, debouncedSearch, kindFilter, registrationFilter]
+    () => filterApplications(allRows, search, kindFilter, registrationFilter),
+    [allRows, search, kindFilter, registrationFilter]
   );
 
   // Identical self-registered clients ("Claude" registered on every connection) collapse into
@@ -238,22 +219,17 @@ export function AdminApplicationsPanel({
   }, []);
 
   const { page, setPage, pageSize, setPageSize, totalPages, pageStart, showingFrom, showingTo } =
-    usePagination(visible.length, [debouncedSearch, kindFilter, registrationFilter]);
+    usePagination(visible.length, list);
   const pageRows = visible.slice(pageStart, pageStart + pageSize);
 
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <TableSearch
-          value={searchInput}
-          onChange={setSearchInput}
-          placeholder={t("searchPlaceholder")}
-          label={t("searchLabel")}
-        />
+        <ListSearch list={list} placeholder={t("searchPlaceholder")} label={t("searchLabel")} />
         <div className="flex flex-wrap items-center gap-2">
           <Select
             value={kindFilter}
-            onValueChange={(v) => setKindFilter(v as ClientKindFilter)}
+            onValueChange={(v) => list.set({ kind: v === "all" ? null : v })}
           >
             <SelectTrigger size="sm" className="w-[160px]">
               <SelectValue placeholder={t("clientType")} />
@@ -268,7 +244,7 @@ export function AdminApplicationsPanel({
           </Select>
           <Select
             value={registrationFilter}
-            onValueChange={(v) => setRegistrationFilter(v as RegistrationFilter)}
+            onValueChange={(v) => list.set({ registration: v === "all" ? null : v })}
           >
             <SelectTrigger size="sm" className="w-[190px]" aria-label={t("registeredBy")}>
               <SelectValue placeholder={t("registeredBy")} />

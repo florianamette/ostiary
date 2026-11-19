@@ -1,10 +1,9 @@
 import { defineConfig, globalIgnores } from "eslint/config";
-import nextVitals from "eslint-config-next/core-web-vitals";
-import nextTs from "eslint-config-next/typescript";
+
+import { baseConfig } from "./config/eslint.mjs";
 
 const eslintConfig = defineConfig([
-  ...nextVitals,
-  ...nextTs,
+  ...baseConfig,
   {
     // A library without a pages directory: nothing for this rule to check.
     rules: { "@next/next/no-html-link-for-pages": "off" },

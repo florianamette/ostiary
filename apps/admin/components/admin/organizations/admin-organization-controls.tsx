@@ -1,19 +1,10 @@
 "use client";
 
 import * as React from "react";
-import { Loader2, Trash2 } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { Trash2 } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { toast } from "sonner";
 
 import { Button } from "@ostiary/core/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@ostiary/core/components/ui/dialog";
 import { Field, FieldGroup, FieldLabel } from "@ostiary/core/components/ui/field";
 import { Input } from "@ostiary/core/components/ui/input";
 import {
@@ -30,47 +21,18 @@ import {
   renameOrganization,
   updateMemberRole,
 } from "@/app/[locale]/(console)/organizations/[id]/actions";
-import { DialogActions } from "@/components/admin/common/dialog-actions";
-import type { ActionResult } from "@/lib/action-result";
+import { ConfirmRemoveDialog } from "@/components/admin/common/confirm-remove-dialog";
+import { useAdminAction } from "@/components/admin/common/use-admin-action";
 
 type Role = "owner" | "admin" | "member";
 const ROLES: Role[] = ["owner", "admin", "member"];
-
-/** Runs a server action, reports the result and refreshes the page data. */
-function useAction() {
-  const t = useTranslations("admin.pages.organizations.controls");
-  const router = useRouter();
-  const [busy, setBusy] = React.useState(false);
-  const run = React.useCallback(
-    async (fn: () => Promise<ActionResult>, success: string) => {
-      setBusy(true);
-      try {
-        const result = await fn();
-        if (!result.ok) {
-          toast.error(result.error);
-          return false;
-        }
-        toast.success(success);
-        router.refresh();
-        return true;
-      } catch {
-        toast.error(t("unexpectedError"));
-        return false;
-      } finally {
-        setBusy(false);
-      }
-    },
-    [router, t],
-  );
-  return { busy, run };
-}
 
 export function RenameOrganizationForm({ id, name, slug }: { id: string; name: string; slug: string }) {
   const t = useTranslations("admin.pages.organizations.controls");
   const tc = useTranslations("admin.common");
   const [draftName, setDraftName] = React.useState(name);
   const [draftSlug, setDraftSlug] = React.useState(slug);
-  const { busy, run } = useAction();
+  const { busy, run } = useAdminAction();
   const dirty = draftName.trim() !== name || draftSlug.trim() !== slug;
   return (
     <form
@@ -89,8 +51,7 @@ export function RenameOrganizationForm({ id, name, slug }: { id: string; name: s
           <Input id="org-slug" value={draftSlug} onChange={(e) => setDraftSlug(e.target.value)} disabled={busy} autoComplete="off" />
         </Field>
         <div>
-          <Button type="submit" size="sm" disabled={busy || !dirty}>
-            {busy ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
+          <Button type="submit" size="sm" loading={busy} disabled={!dirty}>
             {tc("save")}
           </Button>
         </div>
@@ -101,7 +62,7 @@ export function RenameOrganizationForm({ id, name, slug }: { id: string; name: s
 
 export function MemberRoleSelect({ orgId, memberId, role }: { orgId: string; memberId: string; role: string }) {
   const t = useTranslations("admin.pages.organizations.controls");
-  const { busy, run } = useAction();
+  const { busy, run } = useAdminAction();
   return (
     <Select
       value={ROLES.includes(role as Role) ? role : "member"}
@@ -151,15 +112,15 @@ function ConfirmButton({
       <Button type="button" variant="ghost" size="icon-sm" aria-label={label} onClick={() => setOpen(true)}>
         <Trash2 className="size-4" aria-hidden />
       </Button>
-      <Dialog open={open} onOpenChange={(next) => !busy && setOpen(next)}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>{title}</DialogTitle>
-            <DialogDescription>{body}</DialogDescription>
-          </DialogHeader>
-          <DialogActions busy={busy} onCancel={() => setOpen(false)} onConfirm={() => void confirm()} confirmLabel={confirmLabel} destructive />
-        </DialogContent>
-      </Dialog>
+      <ConfirmRemoveDialog
+        open={open}
+        onOpenChange={setOpen}
+        title={title}
+        description={body}
+        pending={busy}
+        onConfirm={() => void confirm()}
+        confirmLabel={confirmLabel}
+      />
     </>
   );
 }
@@ -167,7 +128,7 @@ function ConfirmButton({
 export function RemoveMemberButton({ orgId, memberId, email }: { orgId: string; memberId: string; email: string }) {
   const t = useTranslations("admin.pages.organizations.controls");
   const tc = useTranslations("admin.common");
-  const { run } = useAction();
+  const { run } = useAdminAction();
   return (
     <ConfirmButton
       label={t("removeMemberLabel", { email })}
@@ -181,7 +142,7 @@ export function RemoveMemberButton({ orgId, memberId, email }: { orgId: string; 
 
 export function CancelInvitationButton({ orgId, invitationId, email }: { orgId: string; invitationId: string; email: string }) {
   const t = useTranslations("admin.pages.organizations.controls");
-  const { run } = useAction();
+  const { run } = useAdminAction();
   return (
     <ConfirmButton
       label={t("cancelInvitationLabel", { email })}
@@ -197,7 +158,7 @@ export function InviteMemberForm({ orgId }: { orgId: string }) {
   const t = useTranslations("admin.pages.organizations.controls");
   const [email, setEmail] = React.useState("");
   const [role, setRole] = React.useState<Role>("member");
-  const { busy, run } = useAction();
+  const { busy, run } = useAdminAction();
   return (
     <form
       className="flex flex-col gap-2 sm:flex-row sm:items-end"
@@ -222,8 +183,7 @@ export function InviteMemberForm({ orgId }: { orgId: string }) {
           ))}
         </SelectContent>
       </Select>
-      <Button type="submit" disabled={busy || !email.trim()}>
-        {busy ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
+      <Button type="submit" loading={busy} disabled={!email.trim()}>
         {t("sendInvitation")}
       </Button>
     </form>

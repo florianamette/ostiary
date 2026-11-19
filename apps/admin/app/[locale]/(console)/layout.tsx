@@ -3,8 +3,7 @@ import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 
 import { AdminShell } from "@/components/admin/admin-shell";
-import { adminNeedsTwoFactor } from "@ostiary/core/lib/admin/admin-two-factor";
-import { userHasAdminRole } from "@ostiary/core/lib/admin/user-has-admin-role";
+import { adminAccess } from "@ostiary/core/lib/admin/admin-access";
 import { env } from "@ostiary/core/lib/env";
 import { auth } from "@/lib/auth";
 
@@ -22,7 +21,8 @@ export default async function AdminLayout({
   });
 
   const sessionUser = session?.user;
-  if (!sessionUser) {
+  const access = adminAccess(sessionUser);
+  if (!sessionUser || access === "signed_out") {
     // Sign-in happens on the auth app. Come back here once the session exists.
     const back = `${env.ADMIN_APP_URL}/${locale}`;
     redirect(
@@ -30,12 +30,12 @@ export default async function AdminLayout({
     );
   }
 
-  if (!userHasAdminRole(sessionUser.role, ["admin"])) {
+  if (access === "not_admin") {
     redirect(`${env.AUTH_APP_URL}/${locale}/dashboard`);
   }
 
   // Admins must turn on two-factor authentication first (REQUIRE_ADMIN_2FA), on the auth app.
-  if (adminNeedsTwoFactor(sessionUser, env.REQUIRE_ADMIN_2FA === "true")) {
+  if (access === "needs_2fa") {
     redirect(`${env.AUTH_APP_URL}/${locale}/dashboard#two-factor`);
   }
 

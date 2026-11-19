@@ -1,5 +1,4 @@
 "use client"
-import { Loader2 } from "lucide-react"
 import { useLocale, useTranslations } from "next-intl"
 import { toast } from "sonner"
 import { useEffect, useState } from "react"
@@ -33,7 +32,8 @@ import { EmailCodeSignIn } from "@/components/auth/email-code-sign-in"
 import { useCaptcha } from "@/components/auth/captcha"
 import type { CaptchaConfig } from "@ostiary/core/lib/captcha-providers"
 import { safeCallbackURL } from "@/lib/safe-callback-url"
-import { rateLimitMessage } from "@ostiary/core/lib/rate-limit-message"
+import { useAuthErrorMessage } from "@/lib/auth-error-message"
+import { useLastUsedMethod } from "@/lib/last-used-method"
 import { withAppContext, type AppLink } from "@/lib/app-links"
 
 /** Sign-in responses for accounts with two-factor authentication: no session yet. */
@@ -48,30 +48,6 @@ function needsTwoFactor(data: unknown): boolean {
 function continueToTwoFactor(locale: string) {
   // eslint-disable-next-line @next/next/no-location-assign-relative-destination -- full load: the sign-in set a two-factor cookie
   window.location.assign(`/${locale}/two-factor${window.location.search}`)
-}
-
-/** The hint for a built-in sign-in method; null for social providers. */
-function lastUsedHintKey(method: string) {
-  switch (method) {
-    case "email":
-      return "lastUsedHintEmail"
-    case "username":
-      return "lastUsedHintUsername"
-    case "passkey":
-      return "lastUsedHintPasskey"
-    case "email-otp":
-      return "lastUsedHintEmailCode"
-    default:
-      return null
-  }
-}
-
-/** A sign-in method id as words ("magic-link" → "Magic Link"), for methods without a name. */
-function formatLastUsedMethodLabel(method: string): string {
-  return method
-    .split(/[-_]/)
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-    .join(" ");
 }
 
 /** Marks the sign-in method this browser used last. */
@@ -113,7 +89,7 @@ export function LoginForm({
   appLink?: AppLink
 }) {
   const t = useTranslations("auth.login")
-  const tLimit = useTranslations("rateLimit")
+  const errorMessage = useAuthErrorMessage()
   const tSso = useTranslations("sso");
   const locale = useLocale()
   const searchParams = useSearchParams()
@@ -128,26 +104,16 @@ export function LoginForm({
   const [password, setPassword] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [passkeySubmitting, setPasskeySubmitting] = useState(false);
-  const [lastUsedMethod, setLastUsedMethod] = useState<string | null>(null);
+  const { lastUsedMethod, lastUsedHint } = useLastUsedMethod(socialProviders);
   const [needsVerification, setNeedsVerification] = useState(false);
   // "Email me a sign-in code" replaces the card until the user goes back to their password.
   const [mode, setMode] = useState<"password" | "code">("password");
   const captcha = useCaptcha(captchaConfig);
 
   useEffect(() => {
-    const raw = authClient.getLastUsedLoginMethod();
-    if (!raw) return;
-    try {
-      setLastUsedMethod(decodeURIComponent(raw));
-    } catch {
-      setLastUsedMethod(raw);
-    }
-  }, []);
-
-  useEffect(() => {
-    const cred = window.PublicKeyCredential;
-    if (!cred?.isConditionalMediationAvailable?.()) return;
     void (async () => {
+      const available = await window.PublicKeyCredential?.isConditionalMediationAvailable?.().catch(() => false);
+      if (!available) return;
       // Passkey autofill: errors (including a dismissed prompt) are silent.
       const res = await authClient.signIn.passkey({ autoFill: true });
       if (res.error) return;
@@ -160,14 +126,9 @@ export function LoginForm({
   function handleSignInError(ctx: {
     error: { status?: number; code?: string; message?: string };
   }) {
-    const limited = rateLimitMessage(ctx.error, tLimit);
-    if (limited) {
-      toast.error(limited);
-      return;
-    }
     const { status, code } = ctx.error;
     if (
-      status === 403 ||
+      (status === 403 && code !== "BANNED_USER") ||
       code === "EMAIL_NOT_VERIFIED" ||
       (typeof code === "string" && code.includes("NOT_VERIFIED"))
     ) {
@@ -175,7 +136,7 @@ export function LoginForm({
       setNeedsVerification(true);
       return;
     }
-    toast.error(captcha.errorMessage(code) ?? (ctx.error.message || t("errors.signInFailed")));
+    toast.error(captcha.errorMessage(code) ?? errorMessage(ctx.error, t("errors.signInFailed")));
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -188,6 +149,7 @@ export function LoginForm({
     const headers = captcha.headers();
     if (!headers) return;
     setIsSubmitting(true);
+    let leaving = false;
     try {
       const useEmail = trimmed.includes("@");
       const { data } = useEmail
@@ -200,44 +162,38 @@ export function LoginForm({
             { headers, onError: handleSignInError },
           );
       if (needsTwoFactor(data)) continueToTwoFactor(locale);
+      // Signed in: the browser is on its way to the callback (or the two-factor step), so the
+      // form stays disabled rather than inviting a second submit.
+      leaving = Boolean(data);
     } finally {
-      captcha.reset();
-      setIsSubmitting(false);
+      if (!leaving) {
+        captcha.reset();
+        setIsSubmitting(false);
+      }
     }
   };
 
   async function handlePasskeySignIn() {
     setPasskeySubmitting(true);
+    let leaving = false;
     try {
       const res = await authClient.signIn.passkey({});
       if (res.error) {
         const code = "code" in res.error ? (res.error as { code?: string }).code : undefined;
         if (code === "AUTH_CANCELLED") return;
-        toast.error(
-          String(res.error.message ?? t("errors.passkeyFailed")),
-        );
+        toast.error(errorMessage(res.error, t("errors.passkeyFailed")));
         return;
       }
       if (res.data) {
+        leaving = true;
         window.location.assign(callbackURL);
       }
     } finally {
-      setPasskeySubmitting(false);
+      if (!leaving) setPasskeySubmitting(false);
     }
   }
 
   const typedEmail = loginIdentifier.includes("@") ? loginIdentifier.trim() : undefined;
-  const lastUsedKey = lastUsedMethod ? lastUsedHintKey(lastUsedMethod) : null;
-  // A social provider by its name; any other method by its id in words.
-  const lastUsedHint = lastUsedKey
-    ? t(lastUsedKey)
-    : lastUsedMethod
-      ? t("lastUsedHintOther", {
-          method:
-            socialProviders.find((p) => p.id === lastUsedMethod)?.name ??
-            formatLastUsedMethodLabel(lastUsedMethod),
-        })
-      : null;
 
   if (mode === "code") {
     return (
@@ -273,7 +229,7 @@ export function LoginForm({
         <CardHeader>
           <CardTitle>{t("title")}</CardTitle>
           <CardDescription>{addingAccount ? t("addAccountDescription") : t("description")}</CardDescription>
-          {lastUsedMethod ? (
+          {lastUsedHint ? (
             <p className="text-xs text-muted-foreground" role="note">
               {lastUsedHint}
             </p>
@@ -324,13 +280,7 @@ export function LoginForm({
               </Field>
               {captcha.widget}
               <Field>
-                <Button type="submit" disabled={isSubmitting} className="w-full sm:w-auto">
-                  {isSubmitting ? (
-                    <Loader2
-                      className="size-4 animate-spin"
-                      aria-hidden
-                    />
-                  ) : null}
+                <Button type="submit" loading={isSubmitting} disabled={passkeySubmitting} className="w-full sm:w-auto">
                   {isSubmitting ? t("submitting") : t("submit")}
                 </Button>
                 <Button
@@ -339,12 +289,10 @@ export function LoginForm({
                     lastUsedMethod === "passkey" ? "default" : "outline"
                   }
                   className="mt-2 w-full sm:w-auto"
-                  disabled={isSubmitting || passkeySubmitting}
+                  loading={passkeySubmitting}
+                  disabled={isSubmitting}
                   onClick={() => void handlePasskeySignIn()}
                 >
-                  {passkeySubmitting ? (
-                    <Loader2 className="size-4 animate-spin" aria-hidden />
-                  ) : null}
                   {passkeySubmitting ? t("passkeySubmitting") : t("passkey")}
                   {lastUsedMethod === "passkey" && !passkeySubmitting ? <LastUsedBadge spaced /> : null}
                 </Button>
@@ -361,6 +309,7 @@ export function LoginForm({
                 <SocialSignInButtons
                   providers={socialProviders}
                   callbackURL={callbackURL}
+                  newUserCallbackURL={appLink?.resumePath}
                   lastUsedMethod={lastUsedMethod}
                   disabled={isSubmitting || passkeySubmitting}
                 />

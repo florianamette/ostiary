@@ -33,6 +33,5 @@ export function organizationInviteEmail(input: InviteInput): { subject: string; 
 
 /** Organization invitation link (Better Auth organization plugin). */
 export function queueOrganizationInviteEmail(input: InviteInput): void {
-  const { subject, content } = organizationInviteEmail(input);
-  queueEmail("organization invite", input.to, subject, content);
+  queueEmail("organization invite", input.to, organizationInviteEmail(input));
 }

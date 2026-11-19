@@ -3,6 +3,7 @@
 import * as React from "react";
 import { CopyIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { toast } from "sonner";
 
 import { Button } from "@ostiary/core/components/ui/button";
 import {
@@ -15,7 +16,6 @@ import {
 } from "@ostiary/core/components/ui/dialog";
 import { Input } from "@ostiary/core/components/ui/input";
 import { Label } from "@ostiary/core/components/ui/label";
-import { adminNotify } from "@ostiary/core/lib/admin/admin-notify";
 import type { OAuthApplicationRow } from "@/components/admin/applications/admin-application-row-actions";
 import { asRecord, routeError } from "@/lib/oauth-client-payload";
 
@@ -46,15 +46,15 @@ export function ApplicationRotateSecretDialog({
       );
       const json: unknown = await res.json().catch(() => null);
       if (!res.ok) {
-        adminNotify(routeError(json) ?? t("rotateDialog.rotateFailed"), "error");
+        toast.error(routeError(json) ?? t("rotateDialog.rotateFailed"));
         return;
       }
       const secret = asRecord(asRecord(json)?.data)?.client_secret;
       if (typeof secret === "string" && secret) {
         setNewSecret(secret);
-        adminNotify(t("rotateDialog.newSecretIssued"), "success");
+        toast.success(t("rotateDialog.newSecretIssued"));
       } else {
-        adminNotify(t("rotateDialog.rotated"), "success");
+        toast.success(t("rotateDialog.rotated"));
         onOpenChange(false);
         onChanged();
       }
@@ -94,7 +94,7 @@ export function ApplicationRotateSecretDialog({
               className="w-fit"
               onClick={() => {
                 void navigator.clipboard.writeText(newSecret);
-                adminNotify(t("rotateDialog.secretCopied"), "success");
+                toast.success(t("rotateDialog.secretCopied"));
               }}
             >
               <CopyIcon />

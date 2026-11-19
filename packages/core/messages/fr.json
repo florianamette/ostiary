@@ -286,10 +286,6 @@
           "empty": "Aucun utilisateur pour l’instant."
         },
         "stats": {
-          "error": "Impossible de charger une ou plusieurs statistiques. Vérifiez que vous êtes connecté en tant qu’administrateur.",
-          "errorTitle": "Statistiques indisponibles",
-          "loadingTitle": "Chargement",
-          "loadingHint": "Chargement…",
           "totalUsers": {
             "title": "Utilisateurs au total",
             "hint": "Tous les comptes de la plateforme."
@@ -1393,8 +1389,6 @@
           "roleAll": "Tous les rôles",
           "roleAdmin": "Admin",
           "roleUser": "Utilisateur",
-          "loadErrorTitle": "Impossible de charger les utilisateurs",
-          "loadErrorFallback": "Échec du chargement des utilisateurs",
           "columns": {
             "user": "Utilisateur",
             "role": "Rôle",
@@ -1402,7 +1396,6 @@
             "verified": "Vérifié",
             "joined": "Inscription"
           },
-          "loading": "Chargement des utilisateurs…",
           "empty": "Aucun utilisateur ne correspond à vos filtres.",
           "noUsers": "0 utilisateur",
           "showing": "{from}-{to} sur {total}",
@@ -1467,8 +1460,7 @@
           "updatePassword": "Mettre à jour le mot de passe",
           "removeTitle": "Supprimer l’utilisateur ?",
           "removeDescription": "Cette action supprime définitivement <strong>{name}</strong> ({email}) et tout ce qui est lié au compte. Les entrées du journal d’audit sont conservées sans nom ni e-mail. Cette action est irréversible.",
-          "removeConfirm": "Supprimer",
-          "removing": "Suppression…"
+          "removeConfirm": "Supprimer"
         },
         "detailActions": {
           "impersonateError": "Impossible d’emprunter l’identité de cet utilisateur.",
@@ -1559,10 +1551,6 @@
         "title": "Consentements",
         "description": "Les autorisations accordées par les utilisateurs aux clients OAuth, avec les portées et leur date.",
         "panel": {
-          "signedInUser": "Utilisateur connecté",
-          "loadConsentsFailed": "Échec du chargement des consentements",
-          "loadClientsFailed": "Échec du chargement des clients OAuth",
-          "loadErrorTitle": "Impossible de charger les consentements",
           "searchPlaceholder": "Rechercher par utilisateur, client, ID de consentement, référence ou scope…",
           "searchLabel": "Rechercher des consentements",
           "filter": {
@@ -1578,16 +1566,14 @@
             "granted": "Accordé",
             "updated": "Mis à jour"
           },
-          "loading": "Chargement des consentements…",
-          "emptyNone": "Aucun consentement enregistré pour ce compte pour l’instant.",
+          "emptyNone": "Personne n’a encore donné son consentement à une application.",
           "emptyFiltered": "Aucun consentement ne correspond à vos filtres.",
           "noResults": "0 consentement",
           "showing": "{from}-{to} sur {total}",
           "rowsPerPage": "Lignes par page",
           "previous": "Précédent",
           "next": "Suivant",
-          "pageOf": "Page {page} / {total}",
-          "footnote": "Données issues de <code>{getConsents}</code> ; noms des clients résolus via <code>{getClients}</code>. La révocation utilise <code>{deleteConsent}</code>. Voir <consentLink>OAuth consent</consentLink> dans la documentation <providerLink>OAuth provider</providerLink>. L’interface d’autorisation interactive se trouve sur <code>{path}</code>."
+          "pageOf": "Page {page} / {total}"
         },
         "rowActions": {
           "menuLabel": "Actions pour le consentement {id}…",
@@ -1595,16 +1581,13 @@
           "consentIdCopied": "ID du consentement copié",
           "copyClientId": "Copier l’ID client",
           "clientIdCopied": "ID client copié",
-          "viewDetails": "Voir les détails",
-          "updateScopes": "Modifier les scopes",
-          "wireTo": "Brancher sur {method}",
           "revoke": "Révoquer le consentement",
           "revokeFailed": "Impossible de révoquer le consentement",
           "revoked": "Consentement révoqué",
           "dialogTitle": "Révoquer le consentement ?",
-          "dialogDescription": "Retire l’autorisation accordée par cet utilisateur à <strong>{client}</strong> (<code>{clientId}</code>). Le client devra peut-être redemander l’autorisation.",
-          "revoking": "Révocation…",
-          "revokeButton": "Révoquer"
+          "dialogDescription": "Retire le consentement de <strong>{user}</strong> à <strong>{client}</strong> (<code>{clientId}</code>) et révoque les jetons que l’application détient pour cette personne. L’application devra lui redemander son accord pour en obtenir de nouveaux.",
+          "revokeButton": "Révoquer",
+          "notFound": "Ce consentement n’existe plus."
         }
       },
       "usage": {
@@ -1633,7 +1616,7 @@
       "audit": {
         "title": "Journal d’audit",
         "description": "Chaque modification faite depuis cette console ou l’API d’administration : qui, sur quoi et quand.",
-        "footnote": "Affiche les 200 dernières entrées. Les mots de passe et secrets ne sont jamais enregistrés.",
+        "footnote": "Les mots de passe et secrets ne sont jamais enregistrés.",
         "filterLabel": "Filtrer par domaine",
         "filters": {
           "all": "Tout",
@@ -1753,7 +1736,12 @@
             "test": "Événement de test de webhook envoyé",
             "redeliver": "Événement de webhook renvoyé"
           }
-        }
+        },
+        "actorPlaceholder": "Rechercher par auteur (e-mail)…",
+        "actorLabel": "Rechercher par auteur",
+        "pagesLabel": "Pages du journal d’audit",
+        "newest": "Entrées les plus récentes",
+        "older": "Entrées plus anciennes"
       },
       "security": {
         "title": "Sécurité",
@@ -1850,8 +1838,14 @@
         }
       },
       "organizations": {
+        "title": "Organisations",
+        "description": "Toutes les organisations de la plateforme, avec leurs membres. Ouvrez-en une pour gérer ses membres, le SSO et le SCIM.",
+        "list": {
+          "searchPlaceholder": "Rechercher par nom ou slug…",
+          "searchLabel": "Rechercher des organisations",
+          "noMatch": "Aucune organisation ne correspond à votre recherche."
+        },
         "controls": {
-          "unexpectedError": "Une erreur s’est produite.",
           "organizationUpdated": "Organisation mise à jour",
           "slug": "Slug",
           "role": "Rôle",
@@ -1903,7 +1897,7 @@
           "defaultWorkspace": "Espace de travail par défaut",
           "createdAt": "Créée le {date}",
           "members": "Membres",
-          "publicMembers": "Chaque compte appartient à l’espace de travail Public : les membres ne peuvent donc pas être retirés ici. Affichage des 50 premiers.",
+          "publicMembers": "Chaque compte appartient à l’espace de travail Public : les membres ne peuvent donc pas être retirés ici.",
           "memberCount": "{count, plural, one {# membre} other {# membres}}.",
           "noMembers": "Aucun membre pour l’instant.",
           "member": "Membre",
@@ -1941,7 +1935,10 @@
           "invitationNotFound": "Invitation introuvable.",
           "requestFailed": "La requête a échoué.",
           "scimUnavailable": "Cette organisation ne peut pas utiliser le provisionnement SCIM.",
-          "noActiveToken": "Il n’y a aucun jeton actif."
+          "noActiveToken": "Il n’y a aucun jeton actif.",
+          "lastOwner": "Une organisation doit avoir au moins un propriétaire. Nommez d’abord un autre membre propriétaire.",
+          "publicDelete": "L’espace de travail Public ne peut pas être supprimé.",
+          "organizationNotFound": "Organisation introuvable."
         }
       }
     },
@@ -1977,7 +1974,15 @@
       "refresh": "Actualiser",
       "search": "Rechercher",
       "optional": "Facultatif",
-      "unexpectedError": "Une erreur s’est produite. Réessayez."
+      "unexpectedError": "Une erreur s’est produite. Réessayez.",
+      "invalidInput": "Certaines valeurs envoyées ne sont pas valides. Rechargez la page et réessayez.",
+      "pagination": {
+        "rowsPerPage": "Lignes par page",
+        "previous": "Précédent",
+        "next": "Suivant",
+        "pageOf": "Page {page} / {pages}",
+        "showing": "{from}-{to} sur {total}"
+      }
     },
     "urlCheck": {
       "tooLong": "L’URL est trop longue.",
@@ -2587,7 +2592,8 @@
       "txtRecordNotFound": "L’enregistrement TXT est introuvable pour l’instant. Les modifications DNS peuvent prendre quelques minutes à apparaître.",
       "envNotSet": "{name} n’est pas défini.",
       "invalidProviderId": "L’identifiant du fournisseur doit comporter de 2 à 63 lettres minuscules, chiffres, - ou _.",
-      "unreadableSamlConfig": "La configuration SAML enregistrée est illisible ; supprimez le fournisseur et enregistrez-le à nouveau."
+      "unreadableSamlConfig": "La configuration SAML enregistrée est illisible ; supprimez le fournisseur et enregistrez-le à nouveau.",
+      "domainTaken": "Un autre fournisseur SSO utilise déjà ce domaine."
     }
   },
   "selectAccount": {
@@ -2669,5 +2675,23 @@
       "note": "Le lien expire dans {minutes} minutes et ne fonctionne qu’une seule fois.",
       "footnote": "Si vous n’êtes pas à l’origine de cette demande, ignorez cet e-mail : votre compte reste inchangé. Pensez à changer votre mot de passe, car la demande provient d’une session connectée."
     }
+  },
+  "authErrors": {
+    "banned": "Ce compte a été suspendu. Contactez le support si vous pensez qu'il s'agit d'une erreur.",
+    "deactivated": "Votre organisation a désactivé ce compte.",
+    "invalidCredentials": "E-mail, nom d'utilisateur ou mot de passe incorrect.",
+    "userExists": "Un compte existe déjà avec cette adresse e-mail.",
+    "usernameTaken": "Ce nom d'utilisateur est déjà pris.",
+    "usernameInvalid": "Ce nom d'utilisateur ne peut pas être utilisé. Essayez-en un autre.",
+    "passwordTooShort": "Ce mot de passe est trop court.",
+    "passwordTooLong": "Ce mot de passe est trop long.",
+    "passwordCompromised": "Ce mot de passe figure dans une fuite de données. Choisissez-en un autre.",
+    "invalidPassword": "Mot de passe incorrect.",
+    "recentSignIn": "Reconnectez-vous pour effectuer cette action.",
+    "sessionExpired": "Votre session a expiré. Reconnectez-vous.",
+    "impersonating": "Impossible pendant qu'un administrateur consulte le compte.",
+    "emailNotVerified": "Vérifiez d'abord votre adresse e-mail.",
+    "invalidToken": "Ce lien est invalide ou a expiré.",
+    "publicOrganization": "Les membres de l'organisation Public sont gérés uniquement par les administrateurs de la plateforme."
   }
 }

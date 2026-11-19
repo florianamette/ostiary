@@ -88,7 +88,9 @@ import {
     scimProjection,
 } from "@ostiary/core/lib/scim";
 import { auditRequests } from "@ostiary/core/lib/auth-hooks/audit-hook";
-import { databaseHooks, revokeAppAccess } from "@ostiary/core/lib/auth-hooks/database-hooks";
+import { adminEmailChangeUnverifies } from "@ostiary/core/lib/auth-hooks/admin-email-change";
+import { databaseHooks } from "@ostiary/core/lib/auth-hooks/database-hooks";
+import { revokeUserAccess } from "@ostiary/core/lib/security/user-access-revocation";
 import {
     assertAccountDeletable,
     guardRequests,
@@ -473,7 +475,7 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
                 sendDeleteAccountVerification: async ({ user, token }, request) => {
                     const locale = emailLocale(request?.headers);
                     const url = `${baseURL}/${locale}/delete-account?token=${encodeURIComponent(token)}`;
-                    await queueAccountDeletionEmail({ to: user.email, url, locale });
+                    queueAccountDeletionEmail({ to: user.email, url, locale });
                 },
                 beforeDelete: async (user) => {
                     await assertAccountDeletable(user.id);
@@ -511,7 +513,7 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
             revokeSessionsOnPasswordReset: true,
             // Whoever had the old password may also hold apps' refresh tokens: revoke those too.
             onPasswordReset: async ({ user }, request) => {
-                await revokeAppAccess(user, "password_reset", null, request ? clientIp(request.headers) : null);
+                await revokeUserAccess(user, "password_reset", null, request ? clientIp(request.headers) : null);
             },
             sendResetPassword: async ({ user, url }) => {
                 queuePasswordResetEmail({ to: user.email, url });
@@ -548,6 +550,7 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
             emailCodeTwoFactor(twoFactorPlugin),
             externalSignInTwoFactor(twoFactorPlugin, baseURL),
             passwordSignInEvents,
+            adminEmailChangeUnverifies,
             // "Email me a sign-in code": a 6-digit code, typed on the sign-in page that asked for
             // it, so an OAuth sign-in carries on in that tab even when the email is read on a phone.
             emailOTP({
@@ -567,9 +570,7 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
                 sendVerificationOTP: async ({ email, otp, type }, ctx) => {
                     if (type !== "sign-in") return;
                     const locale = emailLocale(ctx?.headers ?? ctx?.request?.headers);
-                    void queueSignInCodeEmail({ to: email, code: otp, locale }).catch((error: unknown) => {
-                        console.error("[email] sign-in code error:", error);
-                    });
+                    queueSignInCodeEmail({ to: email, code: otp, locale });
                 },
             }),
             // Optional: off unless CAPTCHA_PROVIDER, CAPTCHA_SITE_KEY and CAPTCHA_SECRET_KEY are set.

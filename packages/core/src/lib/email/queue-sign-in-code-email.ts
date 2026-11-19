@@ -31,11 +31,12 @@ export function signInCodeEmail(locale: AppLocale, messages: Messages, code: str
 
 /**
  * Sign-in code (Better Auth `emailOTP`, type `sign-in`), written in the language of the page
- * the code was asked from. Not awaited by the caller: an unknown address sends nothing, so
- * waiting for this would make known addresses slower to answer.
+ * the code was asked from. Sent after the response (see send.ts): an unknown address sends
+ * nothing, so waiting for this would make known addresses slower to answer.
  */
-export async function queueSignInCodeEmail(input: { to: string; code: string; locale: AppLocale }): Promise<void> {
-  const messages = (await import(`../../../messages/${input.locale}.json`)).default as Messages;
-  const { subject, content } = signInCodeEmail(input.locale, messages, input.code);
-  queueEmail("sign-in", input.to, subject, content);
+export function queueSignInCodeEmail(input: { to: string; code: string; locale: AppLocale }): void {
+  queueEmail("sign-in", input.to, async () => {
+    const messages = (await import(`../../../messages/${input.locale}.json`)).default as Messages;
+    return signInCodeEmail(input.locale, messages, input.code);
+  });
 }
