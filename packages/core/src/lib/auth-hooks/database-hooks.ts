@@ -1,12 +1,14 @@
 import { randomUUID } from "node:crypto";
 import type { BetterAuthOptions } from "better-auth";
+import { APIError } from "better-auth/api";
 import { and, eq } from "drizzle-orm";
 
 import { db } from "@ostiary/core/db/index";
 import * as schema from "@ostiary/core/db/schema";
 import { recordAudit } from "@ostiary/core/lib/audit";
 import { clientIp, recordAuthEvent } from "@ostiary/core/lib/auth-events";
-import { adminOnSignUp, adminOnVerification, parseAdminEmails } from "@ostiary/core/lib/admin/admin-emails";
+import { adminOnSignUp, adminOnVerification, fromIdentityProvider, parseAdminEmails } from "@ostiary/core/lib/admin/admin-emails";
+import { emailAliasTaken } from "@ostiary/core/lib/security/email-aliases";
 import { revokeUserAccess } from "@ostiary/core/lib/security/user-access-revocation";
 import { isExternalSignInPath } from "@ostiary/core/lib/security/external-sign-in";
 import { PUBLIC_ORGANIZATION_ID } from "@ostiary/core/lib/organization-public";
@@ -53,12 +55,25 @@ async function promoteVerifiedAdmin(user: { id: string; email: string }, ipAddre
     });
 }
 
+/**
+ * EMAIL_DEDUP: a self-service account whose address reaches an existing account's inbox
+ * (john.doe@gmail.com and johndoe+x@gmail.com) is refused. A 403 here makes a password sign-up
+ * answer as it does for a taken address, without saying so. Accounts an admin, an SSO provider
+ * or SCIM creates, and server calls without a request, are not checked.
+ */
+async function refuseEmailAlias(email: string, path: string | undefined) {
+    if (!path || path.startsWith("/admin/") || fromIdentityProvider(path)) return;
+    if (!(await emailAliasTaken(db, email, env.EMAIL_DEDUP))) return;
+    throw new APIError("FORBIDDEN", { message: "An account already uses this email address.", code: "EMAIL_ALIAS_TAKEN" });
+}
+
 /** Better Auth's database hooks: admin promotion, the Public organization, bans, deletions and sign-in events. */
 export function databaseHooks() {
     return {
         user: {
             create: {
                 before: async (newUser, context) => {
+                    await refuseEmailAlias(newUser.email, context?.path);
                     // Only with an address the provider verified, never through SSO or SCIM. A
                     // password sign-up is promoted when its address is verified (update hook).
                     if (!adminOnSignUp(newUser, context?.path, adminEmails)) return;

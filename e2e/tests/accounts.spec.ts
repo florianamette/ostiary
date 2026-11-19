@@ -1,6 +1,6 @@
 import type { APIResponse } from "@playwright/test";
 
-import { createUser, enableTotp, expectSignedInAs, loginViaUi, newUser, signInWithPassword } from "../support/auth";
+import { createUser, enableTotp, expectSignedInAs, loginViaUi, newUser, signInWithPassword, signUp } from "../support/auth";
 import { expect, test } from "../support/fixtures";
 import { waitForEmail } from "../support/mail";
 import { freshTotp } from "../support/totp";
@@ -38,6 +38,20 @@ test("sign up, verify the email and sign in with the password", async ({ page, b
   await other.waitForURL(/\/dashboard/);
   await expectSignedInAs(other.request, user.email);
   await context.close();
+});
+
+test("EMAIL_DEDUP=gmail: a Gmail alias of an existing account gets the taken-address answer, and no account", async ({ api, newApi }) => {
+  const id = Math.random().toString(36).slice(2, 10);
+  await createUser(api, "alias", `jo.${id}@gmail.com`);
+
+  const alias = newUser("alias", `jo${id}+shop@googlemail.com`);
+  const fresh = await newApi();
+  await signUp(fresh, alias); // 200, as for any taken address
+  const signIn = await signInWithPassword(fresh, alias.email, alias.password);
+  expect(signIn.status()).toBe(401); // no such account (an unverified one would answer 403)
+
+  // Another Gmail address is not an alias.
+  await createUser(await newApi(), "alias", `jo${id}x@gmail.com`);
 });
 
 test("sign in with an emailed code", async ({ api, newApi }) => {

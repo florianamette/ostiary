@@ -19,7 +19,7 @@ export function parseAdminEmails(raw: string | undefined): Set<string> {
 }
 
 /** Paths whose user creation comes from an identity provider that must never mint an admin. */
-function fromIdentityProvider(path: string | undefined): boolean {
+export function fromIdentityProvider(path: string | undefined): boolean {
   return Boolean(path && (path.startsWith("/sso/") || path.startsWith("/scim/")));
 }
 
