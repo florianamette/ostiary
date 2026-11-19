@@ -10,6 +10,7 @@ import { RECENT_SIGN_IN_SECONDS, signedInRecently } from "@ostiary/core/lib/rece
 import { publicOrganizationRequestRefused } from "@ostiary/core/lib/security/public-organization-guard";
 import { parseSsoDomain } from "@ostiary/core/lib/security/sso-domain";
 import { ssoDomainClaimed } from "@ostiary/core/lib/security/sso-domain-claims";
+import { emailAliasTaken } from "@ostiary/core/lib/security/email-aliases";
 import { env } from "@ostiary/core/lib/env";
 import { syncProviderScopes } from "@ostiary/core/lib/oauth-scopes";
 import { syncSigningKeys } from "@ostiary/core/lib/signing-keys";
@@ -220,6 +221,12 @@ async function guardEmailChange(ctx: Ctx) {
             message: "Verify your current email address before changing it.",
             code: "EMAIL_NOT_VERIFIED",
         });
+    }
+    // EMAIL_DEDUP: an alias of another account's address answers as Better Auth does for a
+    // taken address (success, nothing sent), so the change cannot test which addresses exist.
+    const newEmail = (ctx.body as { newEmail?: unknown } | undefined)?.newEmail;
+    if (current && typeof newEmail === "string" && (await emailAliasTaken(db, newEmail, env.EMAIL_DEDUP, current.user.id))) {
+        return ctx.json({ status: true });
     }
 }
 

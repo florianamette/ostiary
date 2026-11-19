@@ -66,7 +66,10 @@ All notable changes are documented here. The format follows
   access or refresh token (those are kept and counted, so no one is signed out); disabled
   clients are left alone. It can also delete self-registered clients never used after a number
   of days. Audited as `oauth_client.remove_duplicates`.
-
+- **One account per inbox (`EMAIL_DEDUP`).** Off by default. `gmail` refuses a sign-up or
+  email change to an alias of an existing account's Gmail address (dots, `+tag`,
+  `googlemail.com`); `plus` also ignores `+tag` on every domain. Answered like a taken
+  address, so it reveals nothing.
 - **Docker.** A `Dockerfile` (auth, admin and migrate targets; standalone Next.js servers
   running as an unprivileged user, with health checks) and a `docker-compose.yml` with
   Postgres 17, a migration job, both apps and a daily housekeeping job.

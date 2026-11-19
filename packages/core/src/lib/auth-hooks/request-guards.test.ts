@@ -10,6 +10,7 @@ type Session = { user: Record<string, unknown>; session: Record<string, unknown>
 let currentSession: Session = null;
 let blockers: { kind: string }[] = [];
 let claimedDomains: string[] = [];
+let aliasTaken: { email: string; exceptUserId?: string }[] = [];
 const events: unknown[][] = [];
 
 vi.mock("better-auth/api", async (importOriginal) => ({
@@ -19,6 +20,12 @@ vi.mock("better-auth/api", async (importOriginal) => ({
 vi.mock("@ostiary/core/db/index", () => ({ db: {} }));
 vi.mock("@ostiary/core/lib/security/sso-domain-claims", () => ({
   ssoDomainClaimed: async (domain: string) => claimedDomains.includes(domain.toLowerCase()),
+}));
+vi.mock("@ostiary/core/lib/security/email-aliases", () => ({
+  emailAliasTaken: async (_db: unknown, email: string, _mode: string, exceptUserId?: string) => {
+    aliasTaken.push({ email, exceptUserId });
+    return email === "john.doe+x@gmail.com";
+  },
 }));
 vi.mock("@ostiary/core/lib/oauth-scopes", async (importOriginal) => ({
   ...(await importOriginal<typeof import("@ostiary/core/lib/oauth-scopes")>()),
@@ -88,6 +95,7 @@ beforeEach(() => {
   blockers = [];
   credential = null;
   events.length = 0;
+  aliasTaken = [];
 });
 
 describe("adding a way to sign in", () => {
@@ -145,6 +153,14 @@ describe("email change", () => {
     expect(await outcome("/change-email", { newEmail: "b@example.com" })).toBe("EMAIL_NOT_VERIFIED");
     currentSession = signedIn();
     expect(await outcome("/change-email", { newEmail: "b@example.com" })).toBe("ok");
+  });
+
+  it("answers an alias of another account's address as Better Auth answers a taken one", async () => {
+    currentSession = signedIn();
+    const answer = (await run("/change-email", { newEmail: "john.doe+x@gmail.com" })) as { status?: boolean } | undefined;
+    expect(answer).toMatchObject({ status: true });
+    expect(aliasTaken).toEqual([{ email: "john.doe+x@gmail.com", exceptUserId: "u1" }]);
+    expect(await run("/change-email", { newEmail: "b@example.com" })).toBeUndefined();
   });
 });
 

@@ -20,6 +20,7 @@ x-app-env: &app-env
   RESEND_FROM: ${RESEND_FROM:?set RESEND_FROM in .env}
   ADMIN_EMAILS: ${ADMIN_EMAILS:-}
   REQUIRE_ADMIN_2FA: ${REQUIRE_ADMIN_2FA:-true}
+  EMAIL_DEDUP: ${EMAIL_DEDUP:-}
   CRON_SECRET: ${CRON_SECRET:?set CRON_SECRET in .env}
   # Where the client IP comes from: the header your reverse proxy sets (docs/self-hosting.md).
   IP_ADDRESS_HEADERS: ${IP_ADDRESS_HEADERS:-}
