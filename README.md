@@ -109,7 +109,7 @@ Two ways: Vercel with a Neon database (below), or your own server with Docker ([
 
    <a href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fflorianamette%2Fostiary%2Ftree%2Fmain%2Fapps%2Fadmin&project-name=ostiary-admin&repository-name=ostiary&env=DATABASE_URL%2CBETTER_AUTH_SECRET%2CAUTH_APP_URL%2CADMIN_APP_URL%2CRESEND_API_KEY%2CRESEND_FROM&envDescription=Use%20the%20same%20DATABASE_URL%20and%20BETTER_AUTH_SECRET%20as%20your%20Ostiary%20auth%20app.%20AUTH_APP_URL%3A%20its%20URL.%20ADMIN_APP_URL%3A%20this%20app%27s%20URL.&envLink=https%3A%2F%2Fgithub.com%2Fflorianamette%2Fostiary%2Fblob%2Fmain%2Fdocs%2Fconfiguration.md"><img src="https://vercel.com/button" alt="Deploy the admin console"></a>
 
-   For a single sign-in across both apps, give them subdomains of one domain (for example `auth.example.com` and `admin.example.com`) and set `COOKIE_DOMAIN=.example.com` on both. Read [COOKIE_DOMAIN](docs/security.md#cookie_domain) first: the session cookie is then sent to every subdomain of that domain.
+   The admin console has no sign-in page of its own: it reads the auth app's session cookie. Give the two apps subdomains of one domain (for example `auth.example.com` and `admin.example.com`, so a custom domain, not `*.vercel.app`) and set `COOKIE_DOMAIN=.example.com` on both. [Deploy on Vercel](docs/deploy-vercel.md) lists every variable each project needs. Read [COOKIE_DOMAIN](docs/security.md#cookie_domain) first: the session cookie is then sent to every subdomain of that domain.
 
 ### Self-host with Docker
 
@@ -155,22 +155,17 @@ The [full guide](docs/connect-an-app.md) covers protecting your APIs, signing ke
 
 ## Documentation
 
-| Guide | What it covers |
-| --- | --- |
-| [Quickstart](docs/quickstart.md) | Run Ostiary locally, become an admin, register an app and sign in through it |
-| [Connect an app](docs/connect-an-app.md) | OIDC setup, APIs and scopes, signing keys, device flow, per-app branding, Google One Tap |
-| [Social sign-in](docs/social-sign-in.md) | Turning on Google, Apple, GitHub and 33 more providers from the admin console |
-| [Enterprise SSO](docs/enterprise-sso.md) | OIDC and SAML 2.0 identity providers (Okta, Entra ID, Google Workspace), domain verification |
-| [Import users](docs/import-users.md) | Moving users from Auth0 or a CSV file, with their bcrypt password hashes |
-| [SCIM provisioning](docs/scim.md) | Okta and Entra ID creating and deactivating accounts per organization |
-| [Webhooks](docs/webhooks.md) | Events, Standard Webhooks signatures, retries and the delivery log |
-| [MCP and AI agents](docs/mcp-and-agents.md) | Dynamic Client Registration, Client ID Metadata Documents, protecting an MCP server |
-| [API keys](docs/api-keys.md) | Personal and organization keys for your APIs, and how your API verifies them |
-| [Your data](docs/account-data.md) | Data export and account deletion (GDPR), what is kept and why |
-| [Self-hosting](docs/self-hosting.md) | Docker Compose, reverse proxy and client IP, housekeeping, upgrades |
-| [Configuration](docs/configuration.md) | Every environment variable |
-| [Security](docs/security.md) | Security model, rate limiting, client IP, `COOKIE_DOMAIN` |
-| [Testing](docs/testing.md) | Unit tests and the Playwright end-to-end suite |
+The guides are in [`docs/`](docs) and on [ostiary.dev/docs](https://www.ostiary.dev/docs).
+
+| Getting started | Build with Ostiary | Users and sign-in | Operate |
+| --- | --- | --- | --- |
+| [Quickstart](docs/quickstart.md) | [Protect an API](docs/protect-an-api.md) | [Sign-in methods](docs/sign-in-methods.md) | [Admin console](docs/admin-console.md) |
+| [Deploy on Vercel](docs/deploy-vercel.md) | [Tokens and claims](docs/tokens-and-claims.md) | [Social sign-in](docs/social-sign-in.md) | [Configuration](docs/configuration.md) |
+| [Self-hosting with Docker](docs/self-hosting.md) | [MCP and AI agents](docs/mcp-and-agents.md) | [Enterprise SSO](docs/enterprise-sso.md) | [Security](docs/security.md) |
+| [Connect an app](docs/connect-an-app.md) | [API keys](docs/api-keys.md) | [SCIM provisioning](docs/scim.md) | [Troubleshooting](docs/troubleshooting.md) |
+| | [Webhooks](docs/webhooks.md) | [Organizations](docs/organizations.md) | [Testing](docs/testing.md) |
+| | | [Import users](docs/import-users.md) | |
+| | | [Your data](docs/account-data.md) | |
 
 ## Run locally
 
