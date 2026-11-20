@@ -1,4 +1,3 @@
-import { randomUUID } from "node:crypto";
 import type { BetterAuthOptions } from "better-auth";
 import { APIError } from "better-auth/api";
 import { and, eq } from "drizzle-orm";
@@ -12,6 +11,7 @@ import { emailAliasTaken } from "@ostiary/core/lib/security/email-aliases";
 import { revokeUserAccess } from "@ostiary/core/lib/security/user-access-revocation";
 import { isExternalSignInPath } from "@ostiary/core/lib/security/external-sign-in";
 import { PUBLIC_ORGANIZATION_ID } from "@ostiary/core/lib/organization-public";
+import { joinPublicOrganization } from "@ostiary/core/lib/public-organization-membership";
 import { env } from "@ostiary/core/lib/env";
 import { completeUserErasure, prepareUserErasure, type ErasurePlan } from "@ostiary/core/lib/account-data/erasure";
 import { emitWebhookEvents } from "@ostiary/core/lib/webhooks/outbox";
@@ -80,21 +80,7 @@ export function databaseHooks() {
                     return { data: { ...newUser, role: "admin" } };
                 },
                 after: async (createdUser) => {
-                    await db
-                        .insert(schema.member)
-                        .values({
-                            id: randomUUID(),
-                            organizationId: PUBLIC_ORGANIZATION_ID,
-                            userId: createdUser.id,
-                            role: "member",
-                            createdAt: new Date(),
-                        })
-                        .onConflictDoNothing({
-                            target: [
-                                schema.member.userId,
-                                schema.member.organizationId,
-                            ],
-                        });
+                    await joinPublicOrganization(db, [createdUser.id]);
                     await recordAuthEvent("sign_up", createdUser.id);
                 },
             },

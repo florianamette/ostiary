@@ -1463,7 +1463,8 @@
           "previous": "Vorige",
           "next": "Volgende",
           "pageOf": "Pagina {page} / {pages}",
-          "poweredBy": "Werkt met <code>listUsers</code>, <code>createUser</code>, <code>setRole</code>, <code>updateUser</code>, <code>setUserPassword</code> en verwante methoden uit de <link>Better Auth admin-plug-in</link>. Je moet ingelogd zijn als beheerder."
+          "poweredBy": "Werkt met <code>listUsers</code>, <code>createUser</code>, <code>setRole</code>, <code>updateUser</code>, <code>setUserPassword</code> en verwante methoden uit de <link>Better Auth admin-plug-in</link>. Je moet ingelogd zijn als beheerder.",
+          "import": "Gebruikers importeren"
         },
         "status": {
           "banned": "Geblokkeerd",
@@ -1607,6 +1608,73 @@
           }
         }
       },
+      "userImport": {
+        "title": "Gebruikers importeren",
+        "description": "Haal accounts over uit Auth0 of een CSV-bestand. Een proefrun laat zien wat er gebeurt voordat er iets wordt opgeslagen.",
+        "fileTitle": "Bestanden",
+        "limits": "Tot {size} MB en {count} gebruikers per import. Splits grotere exports in meerdere bestanden.",
+        "format": "Indeling",
+        "formatAuth0": "Auth0-gebruikersexport (JSON)",
+        "formatCsv": "CSV",
+        "usersFile": "Gebruikersbestand",
+        "usersFileHelpAuth0": "Het bestand van de gebruikersexporttaak van Auth0: één JSON-object per regel, of een JSON-array.",
+        "usersFileHelpCsv": "Een kopregel, daarna één gebruiker per regel. Kolommen: <code>email</code> (verplicht), <code>name</code>, <code>username</code>, <code>emailVerified</code>, <code>role</code>, <code>passwordHash</code> (bcrypt).",
+        "hashesFile": "Export van wachtwoordhashes (optioneel)",
+        "hashesFileHelp": "De bcrypt-hashes die Auth0-support op verzoek levert, gekoppeld aan gebruikers op ID en anders op e-mail. Gebruikers zonder hash melden zich aan met een gemailde code of stellen hun wachtwoord opnieuw in.",
+        "allowAdmin": "Adminrol toestaan",
+        "allowAdminHelp": "Regels met <code>role</code> gelijk aan <code>admin</code> worden geweigerd, tenzij dit aan staat.",
+        "notice": "Geïmporteerde gebruikers krijgen geen e-mail, en bestaande accounts worden nooit gewijzigd. Social logins, MFA en passkeys worden niet geïmporteerd: gebruikers stellen ze opnieuw in.",
+        "check": "Proefrun starten",
+        "checking": "Controleren…",
+        "dryRunTitle": "Proefrun",
+        "dryRunDescription": "{rows, plural, one {# regel gelezen.} other {# regels gelezen.}} Er is nog niets opgeslagen: de bestanden worden opnieuw gecontroleerd als je bevestigt.",
+        "counts": {
+          "toCreate": "Aan te maken",
+          "skippedExisting": "Overgeslagen: e-mail al in gebruik",
+          "skippedAlias": "Overgeslagen: alias van een bestaand e-mailadres",
+          "invalid": "Ongeldige regels"
+        },
+        "details": "Van de aan te maken gebruikers: {withPassword} met wachtwoord, {admins} admins, {blocked} geblokkeerd (blijven geblokkeerd).",
+        "errorsTitle": "Niet geïmporteerde regels (eerste {shown} van {total})",
+        "columns": {
+          "row": "Regel",
+          "email": "E-mail",
+          "reason": "Reden"
+        },
+        "confirm": "{count, plural, one {# gebruiker importeren} other {# gebruikers importeren}}",
+        "importing": "Importeren…",
+        "done": "{count, plural, one {# gebruiker geïmporteerd.} other {# gebruikers geïmporteerd.}}",
+        "doneConflicts": "{count, plural, one {# regel overgeslagen} other {# regels overgeslagen}}: een ander account nam het e-mailadres of de gebruikersnaam na de proefrun.",
+        "partial": "De import stopte na {created} gebruikers, {count} regels zijn niet opgeslagen. Voer hem opnieuw uit: al geïmporteerde gebruikers worden overgeslagen.",
+        "viewUsers": "Gebruikers bekijken",
+        "noFile": "Kies een bestand om te importeren.",
+        "changed": "De bestanden of opties zijn gewijzigd sinds de proefrun. Voer de proefrun opnieuw uit.",
+        "reasons": {
+          "invalidRecord": "Geen geldig record",
+          "missingEmail": "Geen e-mailadres",
+          "invalidEmail": "Ongeldig e-mailadres",
+          "invalidName": "Ongeldige naam (te lang, of stuurtekens)",
+          "invalidUsername": "Ongeldige gebruikersnaam (3 tot 30 letters, cijfers, _ of .)",
+          "invalidEmailVerified": "emailVerified is geen true of false",
+          "invalidRole": "Rol is geen user of admin",
+          "adminNotAllowed": "Adminrol niet toegestaan in deze import",
+          "unsupportedHash": "Wachtwoordhash is geen bcrypt",
+          "bcryptCost": "bcrypt-kosten buiten 4 tot 14",
+          "duplicateInFile": "Zelfde e-mailadres (of inbox) als een eerdere regel",
+          "usernameTaken": "Gebruikersnaam al in gebruik"
+        },
+        "fileErrors": {
+          "empty": "Het bestand bevat geen gebruikers.",
+          "tooLarge": "De bestanden zijn groter dan {size} MB. Splits de export in meerdere bestanden.",
+          "tooManyUsers": "Het bestand bevat meer dan {count} gebruikers. Splits de export in meerdere bestanden.",
+          "invalidJson": "Het bestand is geen geldige JSON: verwacht wordt één object per regel, of een array.",
+          "csvMissingEmail": "Het CSV-bestand heeft geen kolom email.",
+          "csvUnknownColumn": "Onbekende CSV-kolom ‘{column}’. Alleen de gedocumenteerde kolommen worden gelezen: verwijder hem.",
+          "csvDuplicateColumn": "De CSV-kolom ‘{column}’ komt twee keer voor.",
+          "csvUnbalancedQuotes": "Het CSV-bestand heeft een aanhalingsteken dat nooit wordt gesloten.",
+          "invalidHashFile": "De export van wachtwoordhashes is geen geldige JSON."
+        }
+      },
       "consent": {
         "title": "Toestemming",
         "description": "Machtigingen die mensen aan OAuth-clients hebben gegeven, met de scopes en wanneer ze zijn verleend.",
@@ -1716,7 +1784,8 @@
             "reset_two_factor": "Tweestapsverificatie gereset",
             "export_data": "Accountgegevens geëxporteerd",
             "self_delete": "Eigen account verwijderd",
-            "export_csv": "Gebruikers geëxporteerd naar CSV"
+            "export_csv": "Gebruikers geëxporteerd naar CSV",
+            "import": "Gebruikers geïmporteerd"
           },
           "oauth_client": {
             "create": "OAuth-client geregistreerd",

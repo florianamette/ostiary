@@ -12,6 +12,7 @@ const PUBLIC_ORGANIZATION_ID = "org_public_b2c";
 const STATIC_ROUTES = [
   "/",
   "/users",
+  "/users/import",
   "/applications",
   "/apis",
   "/api-keys",

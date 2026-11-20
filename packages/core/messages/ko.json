@@ -1463,7 +1463,8 @@
           "previous": "이전",
           "next": "다음",
           "pageOf": "{page} / {pages} 페이지",
-          "poweredBy": "<link>Better Auth 관리자 플러그인</link>의 <code>listUsers</code>, <code>createUser</code>, <code>setRole</code>, <code>updateUser</code>, <code>setUserPassword</code> 및 관련 메서드를 사용합니다. 관리자로 로그인해야 합니다."
+          "poweredBy": "<link>Better Auth 관리자 플러그인</link>의 <code>listUsers</code>, <code>createUser</code>, <code>setRole</code>, <code>updateUser</code>, <code>setUserPassword</code> 및 관련 메서드를 사용합니다. 관리자로 로그인해야 합니다.",
+          "import": "사용자 가져오기"
         },
         "status": {
           "banned": "차단됨",
@@ -1607,6 +1608,73 @@
           }
         }
       },
+      "userImport": {
+        "title": "사용자 가져오기",
+        "description": "Auth0 또는 CSV 파일에서 계정을 옮겨 옵니다. 무엇이든 기록하기 전에 시험 실행으로 결과를 미리 확인할 수 있습니다.",
+        "fileTitle": "파일",
+        "limits": "한 번에 최대 {size}MB, 사용자 {count}명까지 가져올 수 있습니다. 더 큰 내보내기는 여러 파일로 나누세요.",
+        "format": "형식",
+        "formatAuth0": "Auth0 사용자 내보내기 (JSON)",
+        "formatCsv": "CSV",
+        "usersFile": "사용자 파일",
+        "usersFileHelpAuth0": "Auth0 사용자 내보내기 작업이 만든 파일입니다. 한 줄에 JSON 객체 하나, 또는 JSON 배열.",
+        "usersFileHelpCsv": "헤더 행 다음에 한 행에 사용자 한 명. 열: <code>email</code> (필수), <code>name</code>, <code>username</code>, <code>emailVerified</code>, <code>role</code>, <code>passwordHash</code> (bcrypt).",
+        "hashesFile": "비밀번호 해시 내보내기 (선택)",
+        "hashesFileHelp": "Auth0 지원팀이 요청 시 제공하는 bcrypt 해시로, ID로, 없으면 이메일로 사용자와 연결됩니다. 해시가 없는 사용자는 이메일로 받은 코드로 로그인하거나 비밀번호를 재설정합니다.",
+        "allowAdmin": "admin 역할 허용",
+        "allowAdminHelp": "이 옵션이 꺼져 있으면 <code>role</code>이 <code>admin</code>인 행은 거부됩니다.",
+        "notice": "가져온 사용자에게는 이메일이 발송되지 않으며 기존 계정은 절대 변경되지 않습니다. 소셜 로그인, MFA, 패스키는 가져오지 않으므로 사용자가 다시 설정해야 합니다.",
+        "check": "시험 실행",
+        "checking": "확인 중…",
+        "dryRunTitle": "시험 실행",
+        "dryRunDescription": "{rows, plural, other {#개 행을 읽었습니다.}} 아직 아무것도 기록되지 않았습니다. 확인하면 파일을 다시 검사합니다.",
+        "counts": {
+          "toCreate": "생성 예정",
+          "skippedExisting": "건너뜀: 이미 사용 중인 이메일",
+          "skippedAlias": "건너뜀: 기존 이메일의 별칭",
+          "invalid": "잘못된 행"
+        },
+        "details": "생성할 사용자 중 비밀번호 있음 {withPassword}명, 관리자 {admins}명, 차단됨 {blocked}명(차단 상태 유지).",
+        "errorsTitle": "가져오지 않는 행 ({total}개 중 처음 {shown}개)",
+        "columns": {
+          "row": "행",
+          "email": "이메일",
+          "reason": "사유"
+        },
+        "confirm": "{count, plural, other {사용자 #명 가져오기}}",
+        "importing": "가져오는 중…",
+        "done": "{count, plural, other {사용자 #명을 가져왔습니다.}}",
+        "doneConflicts": "{count, plural, other {#개 행을 건너뛰었습니다}}: 시험 실행 후 다른 계정이 해당 이메일 주소나 사용자 이름을 사용했습니다.",
+        "partial": "사용자 {created}명 이후 가져오기가 중단되어 {count}개 행이 기록되지 않았습니다. 다시 실행하세요. 이미 가져온 사용자는 건너뜁니다.",
+        "viewUsers": "사용자 보기",
+        "noFile": "가져올 파일을 선택하세요.",
+        "changed": "시험 실행 후 파일이나 옵션이 변경되었습니다. 시험 실행을 다시 하세요.",
+        "reasons": {
+          "invalidRecord": "유효한 레코드가 아님",
+          "missingEmail": "이메일 주소 없음",
+          "invalidEmail": "잘못된 이메일 주소",
+          "invalidName": "잘못된 이름(너무 길거나 제어 문자 포함)",
+          "invalidUsername": "잘못된 사용자 이름(영문자, 숫자, _, . 3~30자)",
+          "invalidEmailVerified": "emailVerified가 true도 false도 아님",
+          "invalidRole": "역할이 user도 admin도 아님",
+          "adminNotAllowed": "이 가져오기에서는 admin 역할이 허용되지 않음",
+          "unsupportedHash": "비밀번호 해시가 bcrypt가 아님",
+          "bcryptCost": "bcrypt 비용이 4~14 범위를 벗어남",
+          "duplicateInFile": "앞선 행과 같은 이메일 주소(또는 받은편지함)",
+          "usernameTaken": "이미 사용 중인 사용자 이름"
+        },
+        "fileErrors": {
+          "empty": "파일에 사용자가 없습니다.",
+          "tooLarge": "파일이 {size}MB보다 큽니다. 내보내기를 여러 파일로 나누세요.",
+          "tooManyUsers": "파일에 사용자가 {count}명보다 많습니다. 내보내기를 여러 파일로 나누세요.",
+          "invalidJson": "파일이 올바른 JSON이 아닙니다. 한 줄에 객체 하나 또는 배열이어야 합니다.",
+          "csvMissingEmail": "CSV 파일에 email 열이 없습니다.",
+          "csvUnknownColumn": "알 수 없는 CSV 열 “{column}”. 문서에 나온 열만 읽으므로 이 열을 제거하세요.",
+          "csvDuplicateColumn": "CSV 열 “{column}”이 두 번 나옵니다.",
+          "csvUnbalancedQuotes": "CSV 파일에 닫히지 않은 따옴표가 있습니다.",
+          "invalidHashFile": "비밀번호 해시 내보내기가 올바른 JSON이 아닙니다."
+        }
+      },
       "consent": {
         "title": "동의",
         "description": "사용자가 OAuth 클라이언트에 부여한 권한과 스코프, 부여 시점.",
@@ -1716,7 +1784,8 @@
             "reset_two_factor": "2단계 인증 초기화",
             "export_data": "계정 데이터 내보내기",
             "self_delete": "본인 계정 삭제",
-            "export_csv": "사용자를 CSV로 내보내기"
+            "export_csv": "사용자를 CSV로 내보내기",
+            "import": "사용자 가져오기"
           },
           "oauth_client": {
             "create": "OAuth 클라이언트 등록",

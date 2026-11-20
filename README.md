@@ -68,6 +68,7 @@ Hosted identity platforms are great until the bill scales with your users or you
 **For you (admin console)**
 
 - Users: search, roles, bans, sessions, impersonation, two-factor reset
+- User import from an Auth0 export or a CSV file, with a dry run first: Auth0 bcrypt password hashes keep working and become scrypt at the next sign-in — see [Import users](docs/import-users.md)
 - Sign-in providers: turn social sign-in providers on and off, order them and paste their credentials (stored encrypted) without a redeploy
 - Sign-in branding per application: display name, logo, accent color (with WCAG contrast checks), tagline, side panel and which social buttons show, with a live preview
 - OAuth clients with their icons, an **App usage** page (tokens, users and consents per app over 30 days), consents, organizations, SSO providers
@@ -159,6 +160,7 @@ The [full guide](docs/connect-an-app.md) covers protecting your APIs, signing ke
 | [Connect an app](docs/connect-an-app.md) | OIDC setup, APIs and scopes, signing keys, device flow, per-app branding, Google One Tap |
 | [Social sign-in](docs/social-sign-in.md) | Turning on Google, Apple, GitHub and 33 more providers from the admin console |
 | [Enterprise SSO](docs/enterprise-sso.md) | OIDC and SAML 2.0 identity providers (Okta, Entra ID, Google Workspace), domain verification |
+| [Import users](docs/import-users.md) | Moving users from Auth0 or a CSV file, with their bcrypt password hashes |
 | [SCIM provisioning](docs/scim.md) | Okta and Entra ID creating and deactivating accounts per organization |
 | [Webhooks](docs/webhooks.md) | Events, Standard Webhooks signatures, retries and the delivery log |
 | [MCP and AI agents](docs/mcp-and-agents.md) | Dynamic Client Registration, Client ID Metadata Documents, protecting an MCP server |

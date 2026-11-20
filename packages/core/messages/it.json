@@ -1463,7 +1463,8 @@
           "previous": "Precedente",
           "next": "Successiva",
           "pageOf": "Pagina {page} / {pages}",
-          "poweredBy": "Basato su <code>listUsers</code>, <code>createUser</code>, <code>setRole</code>, <code>updateUser</code>, <code>setUserPassword</code> e metodi correlati del <link>plugin admin di Better Auth</link>. Devi aver effettuato l’accesso come amministratore."
+          "poweredBy": "Basato su <code>listUsers</code>, <code>createUser</code>, <code>setRole</code>, <code>updateUser</code>, <code>setUserPassword</code> e metodi correlati del <link>plugin admin di Better Auth</link>. Devi aver effettuato l’accesso come amministratore.",
+          "import": "Importa utenti"
         },
         "status": {
           "banned": "Bannato",
@@ -1607,6 +1608,73 @@
           }
         }
       },
+      "userImport": {
+        "title": "Importa utenti",
+        "description": "Porta gli account da Auth0 o da un file CSV. Una prova a secco mostra cosa succederà prima di scrivere qualsiasi cosa.",
+        "fileTitle": "File",
+        "limits": "Fino a {size} MB e {count} utenti per importazione. Dividi le esportazioni più grandi in più file.",
+        "format": "Formato",
+        "formatAuth0": "Esportazione utenti Auth0 (JSON)",
+        "formatCsv": "CSV",
+        "usersFile": "File degli utenti",
+        "usersFileHelpAuth0": "Il file prodotto dal job di esportazione utenti di Auth0: un oggetto JSON per riga oppure un array JSON.",
+        "usersFileHelpCsv": "Una riga di intestazione, poi un utente per riga. Colonne: <code>email</code> (obbligatoria), <code>name</code>, <code>username</code>, <code>emailVerified</code>, <code>role</code>, <code>passwordHash</code> (bcrypt).",
+        "hashesFile": "Esportazione degli hash delle password (facoltativa)",
+        "hashesFileHelp": "Gli hash bcrypt che il supporto Auth0 fornisce su richiesta, associati agli utenti per ID, altrimenti per email. Gli utenti senza hash accedono con un codice inviato via email o reimpostano la password.",
+        "allowAdmin": "Consenti il ruolo admin",
+        "allowAdminHelp": "Le righe con <code>role</code> uguale a <code>admin</code> vengono rifiutate se questa opzione non è attiva.",
+        "notice": "Gli utenti importati non ricevono email e gli account esistenti non vengono mai modificati. Accessi social, MFA e passkey non vengono importati: gli utenti li configurano di nuovo.",
+        "check": "Esegui prova a secco",
+        "checking": "Verifica…",
+        "dryRunTitle": "Prova a secco",
+        "dryRunDescription": "{rows, plural, one {# riga letta.} other {# righe lette.}} Non è stato ancora scritto nulla: i file vengono ricontrollati alla conferma.",
+        "counts": {
+          "toCreate": "Da creare",
+          "skippedExisting": "Saltati: email già in uso",
+          "skippedAlias": "Saltati: alias di un’email esistente",
+          "invalid": "Righe non valide"
+        },
+        "details": "Tra gli utenti da creare: {withPassword} con password, {admins} admin, {blocked} bloccati (importati come bannati).",
+        "errorsTitle": "Righe non importate (prime {shown} di {total})",
+        "columns": {
+          "row": "Riga",
+          "email": "Email",
+          "reason": "Motivo"
+        },
+        "confirm": "Importa {count, plural, one {# utente} other {# utenti}}",
+        "importing": "Importazione…",
+        "done": "{count, plural, one {# utente importato.} other {# utenti importati.}}",
+        "doneConflicts": "{count, plural, one {# riga saltata} other {# righe saltate}}: un altro account ha preso l’indirizzo email o il nome utente dopo la prova a secco.",
+        "partial": "L’importazione si è interrotta dopo {created} utenti, {count} righe non sono state scritte. Eseguila di nuovo: gli utenti già importati vengono saltati.",
+        "viewUsers": "Vedi utenti",
+        "noFile": "Scegli un file da importare.",
+        "changed": "I file o le opzioni sono cambiati dopo la prova a secco. Esegui di nuovo la prova a secco.",
+        "reasons": {
+          "invalidRecord": "Record non valido",
+          "missingEmail": "Nessun indirizzo email",
+          "invalidEmail": "Indirizzo email non valido",
+          "invalidName": "Nome non valido (troppo lungo o con caratteri di controllo)",
+          "invalidUsername": "Nome utente non valido (da 3 a 30 lettere, cifre, _ o .)",
+          "invalidEmailVerified": "emailVerified non è né true né false",
+          "invalidRole": "Il ruolo non è né user né admin",
+          "adminNotAllowed": "Ruolo admin non consentito in questa importazione",
+          "unsupportedHash": "L’hash della password non è bcrypt",
+          "bcryptCost": "Costo bcrypt fuori da 4–14",
+          "duplicateInFile": "Stesso indirizzo email (o casella) di una riga precedente",
+          "usernameTaken": "Nome utente già in uso"
+        },
+        "fileErrors": {
+          "empty": "Il file non contiene utenti.",
+          "tooLarge": "I file superano {size} MB. Dividi l’esportazione in più file.",
+          "tooManyUsers": "Il file contiene più di {count} utenti. Dividi l’esportazione in più file.",
+          "invalidJson": "Il file non è JSON valido: è previsto un oggetto per riga oppure un array.",
+          "csvMissingEmail": "Il file CSV non ha la colonna email.",
+          "csvUnknownColumn": "Colonna CSV sconosciuta «{column}». Vengono lette solo le colonne documentate: rimuovila.",
+          "csvDuplicateColumn": "La colonna CSV «{column}» compare due volte.",
+          "csvUnbalancedQuotes": "Il file CSV contiene virgolette mai chiuse.",
+          "invalidHashFile": "L’esportazione degli hash delle password non è JSON valido."
+        }
+      },
       "consent": {
         "title": "Consensi",
         "description": "Autorizzazioni che le persone hanno concesso ai client OAuth, con gli scope e la data in cui sono state concesse.",
@@ -1716,7 +1784,8 @@
             "reset_two_factor": "Autenticazione a due fattori reimpostata",
             "export_data": "Dati dell’account esportati",
             "self_delete": "Ha eliminato il proprio account",
-            "export_csv": "Utenti esportati in CSV"
+            "export_csv": "Utenti esportati in CSV",
+            "import": "Utenti importati"
           },
           "oauth_client": {
             "create": "Client OAuth registrato",

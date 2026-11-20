@@ -1463,7 +1463,8 @@
           "previous": "Previous",
           "next": "Next",
           "pageOf": "Page {page} / {pages}",
-          "poweredBy": "Powered by <code>listUsers</code>, <code>createUser</code>, <code>setRole</code>, <code>updateUser</code>, <code>setUserPassword</code>, and related methods from the <link>Better Auth admin plugin</link>. You must be signed in as an admin."
+          "poweredBy": "Powered by <code>listUsers</code>, <code>createUser</code>, <code>setRole</code>, <code>updateUser</code>, <code>setUserPassword</code>, and related methods from the <link>Better Auth admin plugin</link>. You must be signed in as an admin.",
+          "import": "Import users"
         },
         "status": {
           "banned": "Banned",
@@ -1607,6 +1608,73 @@
           }
         }
       },
+      "userImport": {
+        "title": "Import users",
+        "description": "Bring accounts over from Auth0 or a CSV file. A dry run shows what will happen before anything is written.",
+        "fileTitle": "Files",
+        "limits": "Up to {size} MB and {count} users per import. Split larger exports into several files.",
+        "format": "Format",
+        "formatAuth0": "Auth0 user export (JSON)",
+        "formatCsv": "CSV",
+        "usersFile": "User file",
+        "usersFileHelpAuth0": "The file written by Auth0’s user export job: one JSON object per line, or a JSON array.",
+        "usersFileHelpCsv": "A header row, then one user per row. Columns: <code>email</code> (required), <code>name</code>, <code>username</code>, <code>emailVerified</code>, <code>role</code>, <code>passwordHash</code> (bcrypt).",
+        "hashesFile": "Password hash export (optional)",
+        "hashesFileHelp": "The bcrypt hashes Auth0 support provides on request, matched to users by ID, then by email. Users without a hash sign in with an emailed code or reset their password.",
+        "allowAdmin": "Allow the admin role",
+        "allowAdminHelp": "Rows whose <code>role</code> is <code>admin</code> are refused unless this is on.",
+        "notice": "Imported users get no email, and existing accounts are never changed. Social logins, MFA and passkeys are not imported: users set them up again.",
+        "check": "Run dry run",
+        "checking": "Checking…",
+        "dryRunTitle": "Dry run",
+        "dryRunDescription": "{rows, plural, one {# row read.} other {# rows read.}} Nothing has been written yet: the files are checked again when you confirm.",
+        "counts": {
+          "toCreate": "To create",
+          "skippedExisting": "Skipped: email already used",
+          "skippedAlias": "Skipped: alias of an existing email",
+          "invalid": "Invalid rows"
+        },
+        "details": "Of the users to create: {withPassword} with a password, {admins} admins, {blocked} blocked (imported as banned).",
+        "errorsTitle": "Rows not imported (first {shown} of {total})",
+        "columns": {
+          "row": "Row",
+          "email": "Email",
+          "reason": "Reason"
+        },
+        "confirm": "Import {count, plural, one {# user} other {# users}}",
+        "importing": "Importing…",
+        "done": "{count, plural, one {# user imported.} other {# users imported.}}",
+        "doneConflicts": "{count, plural, one {# row was skipped} other {# rows were skipped}}: another account took the email address or username after the dry run.",
+        "partial": "The import stopped after {created} users, {count} rows were not written. Run it again: users already imported are skipped.",
+        "viewUsers": "View users",
+        "noFile": "Choose a file to import.",
+        "changed": "The files or options changed since the dry run. Run the dry run again.",
+        "reasons": {
+          "invalidRecord": "Not a valid record",
+          "missingEmail": "No email address",
+          "invalidEmail": "Invalid email address",
+          "invalidName": "Invalid name (too long, or control characters)",
+          "invalidUsername": "Invalid username (3 to 30 letters, digits, _ or .)",
+          "invalidEmailVerified": "emailVerified is neither true nor false",
+          "invalidRole": "Role is neither user nor admin",
+          "adminNotAllowed": "Admin role not allowed in this import",
+          "unsupportedHash": "Password hash is not bcrypt",
+          "bcryptCost": "bcrypt cost outside 4 to 14",
+          "duplicateInFile": "Same email address (or inbox) as an earlier row",
+          "usernameTaken": "Username already taken"
+        },
+        "fileErrors": {
+          "empty": "The file has no users.",
+          "tooLarge": "The files are larger than {size} MB. Split the export into several files.",
+          "tooManyUsers": "The file has more than {count} users. Split the export into several files.",
+          "invalidJson": "The file is not valid JSON: expected one object per line, or an array.",
+          "csvMissingEmail": "The CSV file has no email column.",
+          "csvUnknownColumn": "Unknown CSV column “{column}”. Only the documented columns are read: remove it.",
+          "csvDuplicateColumn": "The CSV column “{column}” appears twice.",
+          "csvUnbalancedQuotes": "The CSV file has a quote that is never closed.",
+          "invalidHashFile": "The password hash export is not valid JSON."
+        }
+      },
       "consent": {
         "title": "Consent",
         "description": "Permissions people have granted to OAuth clients, with the scopes and when they were given.",
@@ -1716,7 +1784,8 @@
             "reset_two_factor": "Reset two-factor authentication",
             "export_data": "Exported account data",
             "self_delete": "Deleted their own account",
-            "export_csv": "Exported users to CSV"
+            "export_csv": "Exported users to CSV",
+            "import": "Imported users"
           },
           "oauth_client": {
             "create": "Registered OAuth client",

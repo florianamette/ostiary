@@ -1463,7 +1463,8 @@
           "previous": "Poprzednia",
           "next": "Następna",
           "pageOf": "Strona {page} / {pages}",
-          "poweredBy": "Korzysta z <code>listUsers</code>, <code>createUser</code>, <code>setRole</code>, <code>updateUser</code>, <code>setUserPassword</code> i powiązanych metod <link>wtyczki admin Better Auth</link>. Musisz być zalogowany jako administrator."
+          "poweredBy": "Korzysta z <code>listUsers</code>, <code>createUser</code>, <code>setRole</code>, <code>updateUser</code>, <code>setUserPassword</code> i powiązanych metod <link>wtyczki admin Better Auth</link>. Musisz być zalogowany jako administrator.",
+          "import": "Importuj użytkowników"
         },
         "status": {
           "banned": "Zablokowany",
@@ -1607,6 +1608,73 @@
           }
         }
       },
+      "userImport": {
+        "title": "Importuj użytkowników",
+        "description": "Przenieś konta z Auth0 lub z pliku CSV. Próbny przebieg pokazuje, co się stanie, zanim cokolwiek zostanie zapisane.",
+        "fileTitle": "Pliki",
+        "limits": "Do {size} MB i {count} użytkowników na import. Większe eksporty podziel na kilka plików.",
+        "format": "Format",
+        "formatAuth0": "Eksport użytkowników Auth0 (JSON)",
+        "formatCsv": "CSV",
+        "usersFile": "Plik użytkowników",
+        "usersFileHelpAuth0": "Plik utworzony przez zadanie eksportu użytkowników w Auth0: jeden obiekt JSON w wierszu lub tablica JSON.",
+        "usersFileHelpCsv": "Wiersz nagłówka, potem jeden użytkownik w wierszu. Kolumny: <code>email</code> (wymagana), <code>name</code>, <code>username</code>, <code>emailVerified</code>, <code>role</code>, <code>passwordHash</code> (bcrypt).",
+        "hashesFile": "Eksport skrótów haseł (opcjonalny)",
+        "hashesFileHelp": "Skróty bcrypt udostępniane na prośbę przez wsparcie Auth0, dopasowywane do użytkowników po ID, a następnie po adresie e-mail. Użytkownicy bez skrótu logują się kodem wysłanym e-mailem lub resetują hasło.",
+        "allowAdmin": "Zezwól na rolę admin",
+        "allowAdminHelp": "Wiersze, w których <code>role</code> to <code>admin</code>, są odrzucane, jeśli ta opcja jest wyłączona.",
+        "notice": "Zaimportowani użytkownicy nie dostają żadnego e-maila, a istniejące konta nigdy nie są zmieniane. Logowania społecznościowe, MFA i klucze dostępu nie są importowane: użytkownicy konfigurują je ponownie.",
+        "check": "Uruchom próbny przebieg",
+        "checking": "Sprawdzanie…",
+        "dryRunTitle": "Próbny przebieg",
+        "dryRunDescription": "{rows, plural, one {Odczytano # wiersz.} few {Odczytano # wiersze.} many {Odczytano # wierszy.} other {Odczytano # wiersza.}} Nic jeszcze nie zapisano: pliki zostaną ponownie sprawdzone po potwierdzeniu.",
+        "counts": {
+          "toCreate": "Do utworzenia",
+          "skippedExisting": "Pominięte: e-mail już używany",
+          "skippedAlias": "Pominięte: alias istniejącego e-maila",
+          "invalid": "Nieprawidłowe wiersze"
+        },
+        "details": "Spośród użytkowników do utworzenia: z hasłem {withPassword}, administratorów {admins}, zablokowanych {blocked} (pozostaną zablokowani).",
+        "errorsTitle": "Wiersze, które nie zostaną zaimportowane (pierwsze {shown} z {total})",
+        "columns": {
+          "row": "Wiersz",
+          "email": "E-mail",
+          "reason": "Powód"
+        },
+        "confirm": "Importuj {count, plural, one {# użytkownika} few {# użytkowników} many {# użytkowników} other {# użytkownika}}",
+        "importing": "Importowanie…",
+        "done": "{count, plural, one {Zaimportowano # użytkownika.} few {Zaimportowano # użytkowników.} many {Zaimportowano # użytkowników.} other {Zaimportowano # użytkownika.}}",
+        "doneConflicts": "{count, plural, one {Pominięto # wiersz} few {Pominięto # wiersze} many {Pominięto # wierszy} other {Pominięto # wiersza}}: inne konto zajęło adres e-mail lub nazwę użytkownika po próbnym przebiegu.",
+        "partial": "Import zatrzymał się po {created} użytkownikach, nie zapisano wierszy: {count}. Uruchom go ponownie: już zaimportowani użytkownicy są pomijani.",
+        "viewUsers": "Pokaż użytkowników",
+        "noFile": "Wybierz plik do zaimportowania.",
+        "changed": "Pliki lub opcje zmieniły się od próbnego przebiegu. Uruchom próbny przebieg ponownie.",
+        "reasons": {
+          "invalidRecord": "Nieprawidłowy rekord",
+          "missingEmail": "Brak adresu e-mail",
+          "invalidEmail": "Nieprawidłowy adres e-mail",
+          "invalidName": "Nieprawidłowa nazwa (za długa lub ze znakami sterującymi)",
+          "invalidUsername": "Nieprawidłowa nazwa użytkownika (od 3 do 30 liter, cyfr, _ lub .)",
+          "invalidEmailVerified": "emailVerified nie jest ani true, ani false",
+          "invalidRole": "Rola nie jest ani user, ani admin",
+          "adminNotAllowed": "Rola admin niedozwolona w tym imporcie",
+          "unsupportedHash": "Skrót hasła nie jest w formacie bcrypt",
+          "bcryptCost": "Koszt bcrypt poza zakresem od 4 do 14",
+          "duplicateInFile": "Ten sam adres e-mail (lub skrzynka) co we wcześniejszym wierszu",
+          "usernameTaken": "Nazwa użytkownika jest już zajęta"
+        },
+        "fileErrors": {
+          "empty": "Plik nie zawiera użytkowników.",
+          "tooLarge": "Pliki są większe niż {size} MB. Podziel eksport na kilka plików.",
+          "tooManyUsers": "Plik zawiera więcej niż {count} użytkowników. Podziel eksport na kilka plików.",
+          "invalidJson": "Plik nie jest prawidłowym JSON-em: oczekiwano jednego obiektu w wierszu lub tablicy.",
+          "csvMissingEmail": "Plik CSV nie ma kolumny email.",
+          "csvUnknownColumn": "Nieznana kolumna CSV „{column}”. Odczytywane są tylko udokumentowane kolumny: usuń ją.",
+          "csvDuplicateColumn": "Kolumna CSV „{column}” występuje dwa razy.",
+          "csvUnbalancedQuotes": "Plik CSV zawiera cudzysłów, który nigdy nie jest zamknięty.",
+          "invalidHashFile": "Eksport skrótów haseł nie jest prawidłowym JSON-em."
+        }
+      },
       "consent": {
         "title": "Zgody",
         "description": "Uprawnienia przyznane przez użytkowników klientom OAuth, wraz ze scope'ami i datą udzielenia.",
@@ -1716,7 +1784,8 @@
             "reset_two_factor": "Zresetowano uwierzytelnianie dwuskładnikowe",
             "export_data": "Wyeksportowano dane konta",
             "self_delete": "Użytkownik usunął własne konto",
-            "export_csv": "Wyeksportowano użytkowników do CSV"
+            "export_csv": "Wyeksportowano użytkowników do CSV",
+            "import": "Zaimportowano użytkowników"
           },
           "oauth_client": {
             "create": "Zarejestrowano klienta OAuth",

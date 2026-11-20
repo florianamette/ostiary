@@ -1463,7 +1463,8 @@
           "previous": "Zurück",
           "next": "Weiter",
           "pageOf": "Seite {page} / {pages}",
-          "poweredBy": "Basiert auf <code>listUsers</code>, <code>createUser</code>, <code>setRole</code>, <code>updateUser</code>, <code>setUserPassword</code> und verwandten Methoden des <link>Better-Auth-Admin-Plugins</link>. Sie müssen als Administrator angemeldet sein."
+          "poweredBy": "Basiert auf <code>listUsers</code>, <code>createUser</code>, <code>setRole</code>, <code>updateUser</code>, <code>setUserPassword</code> und verwandten Methoden des <link>Better-Auth-Admin-Plugins</link>. Sie müssen als Administrator angemeldet sein.",
+          "import": "Benutzer importieren"
         },
         "status": {
           "banned": "Gesperrt",
@@ -1607,6 +1608,73 @@
           }
         }
       },
+      "userImport": {
+        "title": "Benutzer importieren",
+        "description": "Übernehmen Sie Konten aus Auth0 oder einer CSV-Datei. Ein Probelauf zeigt, was passiert, bevor etwas geschrieben wird.",
+        "fileTitle": "Dateien",
+        "limits": "Bis zu {size} MB und {count} Benutzer pro Import. Teilen Sie größere Exporte auf mehrere Dateien auf.",
+        "format": "Format",
+        "formatAuth0": "Auth0-Benutzerexport (JSON)",
+        "formatCsv": "CSV",
+        "usersFile": "Benutzerdatei",
+        "usersFileHelpAuth0": "Die Datei aus dem Benutzerexport-Job von Auth0: ein JSON-Objekt pro Zeile oder ein JSON-Array.",
+        "usersFileHelpCsv": "Eine Kopfzeile, dann ein Benutzer pro Zeile. Spalten: <code>email</code> (Pflicht), <code>name</code>, <code>username</code>, <code>emailVerified</code>, <code>role</code>, <code>passwordHash</code> (bcrypt).",
+        "hashesFile": "Export der Passwort-Hashes (optional)",
+        "hashesFileHelp": "Die bcrypt-Hashes, die der Auth0-Support auf Anfrage bereitstellt, den Benutzern per ID, sonst per E-Mail zugeordnet. Benutzer ohne Hash melden sich mit einem per E-Mail gesendeten Code an oder setzen ihr Passwort zurück.",
+        "allowAdmin": "Admin-Rolle erlauben",
+        "allowAdminHelp": "Zeilen, deren <code>role</code> <code>admin</code> ist, werden abgelehnt, solange dies nicht aktiviert ist.",
+        "notice": "Importierte Benutzer erhalten keine E-Mail, und bestehende Konten werden nie geändert. Social Logins, MFA und Passkeys werden nicht importiert: Die Benutzer richten sie neu ein.",
+        "check": "Probelauf starten",
+        "checking": "Wird geprüft…",
+        "dryRunTitle": "Probelauf",
+        "dryRunDescription": "{rows, plural, one {# Zeile gelesen.} other {# Zeilen gelesen.}} Noch wurde nichts geschrieben: Die Dateien werden bei der Bestätigung erneut geprüft.",
+        "counts": {
+          "toCreate": "Zu erstellen",
+          "skippedExisting": "Übersprungen: E-Mail bereits verwendet",
+          "skippedAlias": "Übersprungen: Alias einer bestehenden E-Mail",
+          "invalid": "Ungültige Zeilen"
+        },
+        "details": "Von den zu erstellenden Benutzern: {withPassword} mit Passwort, {admins} Admins, {blocked} gesperrt (als gebannt importiert).",
+        "errorsTitle": "Nicht importierte Zeilen (die ersten {shown} von {total})",
+        "columns": {
+          "row": "Zeile",
+          "email": "E-Mail",
+          "reason": "Grund"
+        },
+        "confirm": "{count, plural, one {# Benutzer importieren} other {# Benutzer importieren}}",
+        "importing": "Wird importiert…",
+        "done": "{count, plural, one {# Benutzer importiert.} other {# Benutzer importiert.}}",
+        "doneConflicts": "{count, plural, one {# Zeile wurde übersprungen} other {# Zeilen wurden übersprungen}}: Ein anderes Konto hat die E-Mail-Adresse oder den Benutzernamen nach dem Probelauf belegt.",
+        "partial": "Der Import wurde nach {created} Benutzern abgebrochen, {count} Zeilen wurden nicht geschrieben. Starten Sie ihn erneut: Bereits importierte Benutzer werden übersprungen.",
+        "viewUsers": "Benutzer anzeigen",
+        "noFile": "Wählen Sie eine Datei zum Importieren.",
+        "changed": "Die Dateien oder Optionen haben sich seit dem Probelauf geändert. Starten Sie den Probelauf erneut.",
+        "reasons": {
+          "invalidRecord": "Kein gültiger Datensatz",
+          "missingEmail": "Keine E-Mail-Adresse",
+          "invalidEmail": "Ungültige E-Mail-Adresse",
+          "invalidName": "Ungültiger Name (zu lang oder Steuerzeichen)",
+          "invalidUsername": "Ungültiger Benutzername (3 bis 30 Buchstaben, Ziffern, _ oder .)",
+          "invalidEmailVerified": "emailVerified ist weder true noch false",
+          "invalidRole": "Rolle ist weder user noch admin",
+          "adminNotAllowed": "Admin-Rolle in diesem Import nicht erlaubt",
+          "unsupportedHash": "Passwort-Hash ist kein bcrypt",
+          "bcryptCost": "bcrypt-Kosten außerhalb von 4 bis 14",
+          "duplicateInFile": "Gleiche E-Mail-Adresse (oder Postfach) wie eine frühere Zeile",
+          "usernameTaken": "Benutzername bereits vergeben"
+        },
+        "fileErrors": {
+          "empty": "Die Datei enthält keine Benutzer.",
+          "tooLarge": "Die Dateien sind größer als {size} MB. Teilen Sie den Export auf mehrere Dateien auf.",
+          "tooManyUsers": "Die Datei enthält mehr als {count} Benutzer. Teilen Sie den Export auf mehrere Dateien auf.",
+          "invalidJson": "Die Datei ist kein gültiges JSON: erwartet wird ein Objekt pro Zeile oder ein Array.",
+          "csvMissingEmail": "Die CSV-Datei hat keine Spalte email.",
+          "csvUnknownColumn": "Unbekannte CSV-Spalte „{column}“. Nur die dokumentierten Spalten werden gelesen: Entfernen Sie sie.",
+          "csvDuplicateColumn": "Die CSV-Spalte „{column}“ kommt zweimal vor.",
+          "csvUnbalancedQuotes": "Die CSV-Datei enthält ein Anführungszeichen, das nie geschlossen wird.",
+          "invalidHashFile": "Der Export der Passwort-Hashes ist kein gültiges JSON."
+        }
+      },
       "consent": {
         "title": "Einwilligungen",
         "description": "Berechtigungen, die Personen OAuth-Clients erteilt haben, mit den Scopes und dem Zeitpunkt der Erteilung.",
@@ -1716,7 +1784,8 @@
             "reset_two_factor": "Zwei-Faktor-Authentifizierung zurückgesetzt",
             "export_data": "Kontodaten exportiert",
             "self_delete": "Eigenes Konto gelöscht",
-            "export_csv": "Benutzer als CSV exportiert"
+            "export_csv": "Benutzer als CSV exportiert",
+            "import": "Benutzer importiert"
           },
           "oauth_client": {
             "create": "OAuth-Client registriert",

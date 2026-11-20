@@ -1463,7 +1463,8 @@
           "previous": "पिछला",
           "next": "अगला",
           "pageOf": "पेज {page} / {pages}",
-          "poweredBy": "<link>Better Auth admin plugin</link> के <code>listUsers</code>, <code>createUser</code>, <code>setRole</code>, <code>updateUser</code>, <code>setUserPassword</code> और संबंधित मेथड द्वारा संचालित। आपको एडमिन के रूप में साइन इन होना चाहिए।"
+          "poweredBy": "<link>Better Auth admin plugin</link> के <code>listUsers</code>, <code>createUser</code>, <code>setRole</code>, <code>updateUser</code>, <code>setUserPassword</code> और संबंधित मेथड द्वारा संचालित। आपको एडमिन के रूप में साइन इन होना चाहिए।",
+          "import": "उपयोगकर्ता आयात करें"
         },
         "status": {
           "banned": "प्रतिबंधित",
@@ -1607,6 +1608,73 @@
           }
         }
       },
+      "userImport": {
+        "title": "उपयोगकर्ता आयात करें",
+        "description": "Auth0 या किसी CSV फ़ाइल से खाते लाएँ। कुछ भी लिखे जाने से पहले एक ड्राई रन दिखाता है कि क्या होगा।",
+        "fileTitle": "फ़ाइलें",
+        "limits": "हर आयात में अधिकतम {size} MB और {count} उपयोगकर्ता। बड़े एक्सपोर्ट को कई फ़ाइलों में बाँटें।",
+        "format": "फ़ॉर्मैट",
+        "formatAuth0": "Auth0 उपयोगकर्ता एक्सपोर्ट (JSON)",
+        "formatCsv": "CSV",
+        "usersFile": "उपयोगकर्ता फ़ाइल",
+        "usersFileHelpAuth0": "Auth0 के उपयोगकर्ता एक्सपोर्ट जॉब से बनी फ़ाइल: हर पंक्ति में एक JSON ऑब्जेक्ट, या एक JSON ऐरे।",
+        "usersFileHelpCsv": "एक हेडर पंक्ति, फिर हर पंक्ति में एक उपयोगकर्ता। कॉलम: <code>email</code> (आवश्यक), <code>name</code>, <code>username</code>, <code>emailVerified</code>, <code>role</code>, <code>passwordHash</code> (bcrypt)।",
+        "hashesFile": "पासवर्ड हैश एक्सपोर्ट (वैकल्पिक)",
+        "hashesFileHelp": "Auth0 सपोर्ट अनुरोध पर जो bcrypt हैश देता है, वे पहले ID से और फिर ईमेल से उपयोगकर्ताओं से मिलाए जाते हैं। जिन उपयोगकर्ताओं का हैश नहीं है, वे ईमेल से मिले कोड से साइन इन करते हैं या पासवर्ड रीसेट करते हैं।",
+        "allowAdmin": "एडमिन भूमिका की अनुमति दें",
+        "allowAdminHelp": "जिन पंक्तियों में <code>role</code> का मान <code>admin</code> है, वे तब तक अस्वीकार होती हैं जब तक यह चालू न हो।",
+        "notice": "आयात किए गए उपयोगकर्ताओं को कोई ईमेल नहीं जाता, और मौजूदा खाते कभी नहीं बदले जाते। सोशल लॉगिन, MFA और पासकी आयात नहीं होते: उपयोगकर्ता उन्हें फिर से सेट करते हैं।",
+        "check": "ड्राई रन चलाएँ",
+        "checking": "जाँच हो रही है…",
+        "dryRunTitle": "ड्राई रन",
+        "dryRunDescription": "{rows, plural, one {# पंक्ति पढ़ी गई।} other {# पंक्तियाँ पढ़ी गईं।}} अभी कुछ भी नहीं लिखा गया है: पुष्टि करने पर फ़ाइलें फिर से जाँची जाती हैं।",
+        "counts": {
+          "toCreate": "बनाए जाएँगे",
+          "skippedExisting": "छोड़े गए: ईमेल पहले से इस्तेमाल में",
+          "skippedAlias": "छोड़े गए: मौजूदा ईमेल का उपनाम",
+          "invalid": "अमान्य पंक्तियाँ"
+        },
+        "details": "बनाए जाने वाले उपयोगकर्ताओं में: {withPassword} पासवर्ड के साथ, {admins} एडमिन, {blocked} ब्लॉक किए गए (प्रतिबंधित के रूप में आयात)।",
+        "errorsTitle": "आयात न होने वाली पंक्तियाँ ({total} में से पहली {shown})",
+        "columns": {
+          "row": "पंक्ति",
+          "email": "ईमेल",
+          "reason": "कारण"
+        },
+        "confirm": "{count, plural, one {# उपयोगकर्ता आयात करें} other {# उपयोगकर्ता आयात करें}}",
+        "importing": "आयात हो रहा है…",
+        "done": "{count, plural, one {# उपयोगकर्ता आयात हुआ।} other {# उपयोगकर्ता आयात हुए।}}",
+        "doneConflicts": "{count, plural, one {# पंक्ति छोड़ी गई} other {# पंक्तियाँ छोड़ी गईं}}: ड्राई रन के बाद किसी दूसरे खाते ने वह ईमेल पता या उपयोगकर्ता नाम ले लिया।",
+        "partial": "आयात {created} उपयोगकर्ताओं के बाद रुक गया, {count} पंक्तियाँ नहीं लिखी गईं। इसे फिर से चलाएँ: पहले से आयात हुए उपयोगकर्ता छोड़ दिए जाते हैं।",
+        "viewUsers": "उपयोगकर्ता देखें",
+        "noFile": "आयात करने के लिए एक फ़ाइल चुनें।",
+        "changed": "ड्राई रन के बाद फ़ाइलें या विकल्प बदल गए हैं। ड्राई रन फिर से चलाएँ।",
+        "reasons": {
+          "invalidRecord": "मान्य रिकॉर्ड नहीं",
+          "missingEmail": "कोई ईमेल पता नहीं",
+          "invalidEmail": "अमान्य ईमेल पता",
+          "invalidName": "अमान्य नाम (बहुत लंबा, या कंट्रोल कैरेक्टर)",
+          "invalidUsername": "अमान्य उपयोगकर्ता नाम (3 से 30 अक्षर, अंक, _ या .)",
+          "invalidEmailVerified": "emailVerified न true है न false",
+          "invalidRole": "भूमिका न user है न admin",
+          "adminNotAllowed": "इस आयात में एडमिन भूमिका की अनुमति नहीं",
+          "unsupportedHash": "पासवर्ड हैश bcrypt नहीं है",
+          "bcryptCost": "bcrypt कॉस्ट 4 से 14 के बाहर",
+          "duplicateInFile": "किसी पिछली पंक्ति वाला ही ईमेल पता (या इनबॉक्स)",
+          "usernameTaken": "उपयोगकर्ता नाम पहले से लिया हुआ है"
+        },
+        "fileErrors": {
+          "empty": "फ़ाइल में कोई उपयोगकर्ता नहीं है।",
+          "tooLarge": "फ़ाइलें {size} MB से बड़ी हैं। एक्सपोर्ट को कई फ़ाइलों में बाँटें।",
+          "tooManyUsers": "फ़ाइल में {count} से ज़्यादा उपयोगकर्ता हैं। एक्सपोर्ट को कई फ़ाइलों में बाँटें।",
+          "invalidJson": "फ़ाइल मान्य JSON नहीं है: हर पंक्ति में एक ऑब्जेक्ट, या एक ऐरे अपेक्षित है।",
+          "csvMissingEmail": "CSV फ़ाइल में email कॉलम नहीं है।",
+          "csvUnknownColumn": "अज्ञात CSV कॉलम “{column}”। केवल प्रलेखित कॉलम पढ़े जाते हैं: इसे हटाएँ।",
+          "csvDuplicateColumn": "CSV कॉलम “{column}” दो बार आता है।",
+          "csvUnbalancedQuotes": "CSV फ़ाइल में एक उद्धरण चिह्न है जो कभी बंद नहीं होता।",
+          "invalidHashFile": "पासवर्ड हैश एक्सपोर्ट मान्य JSON नहीं है।"
+        }
+      },
       "consent": {
         "title": "सहमति",
         "description": "लोगों ने OAuth क्लाइंट को जो अनुमतियाँ दी हैं, उनके scope और वे कब दी गईं।",
@@ -1716,7 +1784,8 @@
             "reset_two_factor": "टू-फ़ैक्टर ऑथेंटिकेशन रीसेट किया",
             "export_data": "खाता डेटा एक्सपोर्ट किया",
             "self_delete": "अपना खाता हटाया",
-            "export_csv": "उपयोगकर्ताओं को CSV में एक्सपोर्ट किया"
+            "export_csv": "उपयोगकर्ताओं को CSV में एक्सपोर्ट किया",
+            "import": "उपयोगकर्ता आयात किए"
           },
           "oauth_client": {
             "create": "OAuth क्लाइंट रजिस्टर किया",
