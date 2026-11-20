@@ -99,16 +99,16 @@ export const envSchema = z
      */
     CRON_SECRET: optional(z.string().min(16)),
     /**
-     * Days sign-in events (the activity charts, failed sign-ins) are kept before the cron route
-     * deletes them. At least 30, the longest chart. Failed sign-ins lose the email or username
-     * tried and the IP address after 30 days whatever this is.
-     */
-    /**
      * Refuses a new account (or an email change) whose address reaches the inbox of an existing
      * account: "gmail" for Gmail's dots, +tags and googlemail.com; "plus" also drops the +tag on
      * every domain. Off by default. See lib/security/email-aliases.ts.
      */
     EMAIL_DEDUP: optional(z.enum(["off", "gmail", "plus"])).transform((v) => v ?? "off"),
+    /**
+     * Days sign-in events (the activity charts, failed sign-ins) are kept before the cron route
+     * deletes them. At least 30, the longest chart. Failed sign-ins lose the email or username
+     * tried and the IP address after 30 days whatever this is.
+     */
     AUTH_EVENT_RETENTION_DAYS: optional(z.coerce.number().int().min(30).max(3650)).transform((v) => v ?? 90),
     /**
      * Development only: when "true", webhook endpoints may be http://localhost (or another
