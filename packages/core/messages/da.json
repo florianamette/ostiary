@@ -477,6 +477,45 @@
             "noAccount": "Ingen konto? <link>Opret en</link>"
           }
         },
+        "claims": {
+          "title": "Token-claims",
+          "description": "Egne claims, der føjes til de tokens, <app>{client}</app> modtager. Hver værdi er fast eller læses fra den loggede bruger; der køres ingen kode.",
+          "empty": "Ingen egne claims endnu.",
+          "claimNumber": "Claim {number}",
+          "add": "Tilføj claim",
+          "remove": "Fjern claim {number}",
+          "name": "Claimnavn",
+          "nameHint": "Navne med navnerum som https://example.com/tenant undgår konflikter med standard-claims. Reserverede claims (iss, sub, aud, exp, scope, role, email, name…) kan ikke sættes.",
+          "source": "Værdi fra",
+          "sourceText": "Tekst",
+          "sourceJson": "JSON",
+          "sourceAttribute": "Brugerattribut",
+          "value": "Værdi",
+          "attribute": "Attribut",
+          "tokens": "Tokens",
+          "tokenId": "ID-token",
+          "tokenAccess": "Adgangstoken",
+          "tokenUserinfo": "UserInfo",
+          "limits": "Op til {max} claims pr. applikation, {kilobytes} KB i alt.",
+          "precedence": "Maskine-til-maskine-tokens (client credentials) får kun de faste værdier. I en API's adgangstokens vinder API'ets egne claims over et claim med samme navn.",
+          "previewTitle": "Forhåndsvisning",
+          "previewHint": "For en eksempelbruger: {username}, rolle {role}, aktiv organisation {organization}.",
+          "previewMachine": "Adgangstoken, client credentials (ingen bruger)",
+          "previewEmpty": "Ingen egne claims",
+          "jsonInvalid": "Værdien af “{name}” er ikke gyldig JSON.",
+          "save": "Gem claims",
+          "saved": "Token-claims gemt",
+          "attributes": {
+            "user_role": "Platformsrolle",
+            "user_email_verified": "E-mail bekræftet",
+            "user_username": "Brugernavn",
+            "user_two_factor_enabled": "Totrinsbekræftelse slået til",
+            "organization_id": "ID på den aktive organisation",
+            "organization_slug": "Slug på den aktive organisation",
+            "organization_role": "Rolle i den aktive organisation",
+            "organizations": "Medlemskaber af organisationer"
+          }
+        },
         "actions": {
           "registration": {
             "chooseMode": "Vælg, hvem der må registrere klienter.",
@@ -500,6 +539,11 @@
             "faintOnLight": "Accentfarven er svag på det lyse kort: knapperne vil knap skille sig ud.",
             "faintOnDark": "Accentfarven er svag på det mørke kort: knapperne vil knap skille sig ud.",
             "saveFailed": "Brandingen kunne ikke gemmes."
+          },
+          "claims": {
+            "clientGone": "Denne applikation findes ikke længere.",
+            "selfRegistered": "Selvregistrerede klienter kan ikke have egne claims.",
+            "saveFailed": "Claims kunne ikke gemmes."
           }
         },
         "register": {
@@ -542,6 +586,8 @@
           "editHint": "Navn, redirect-URI'er, enhedslogin og spring samtykke over",
           "branding": "Login-branding",
           "brandingHint": "Logo, accentfarve og tekster på loginskærmene for denne app",
+          "claims": "Token-claims",
+          "claimsHint": "Egne claims i appens ID-token, adgangstoken og UserInfo",
           "rotateSecret": "Rotér hemmelighed",
           "rotateHintPublic": "Offentlige klienter har ingen hemmelighed",
           "rotateHintDisabled": "Aktivér klienten først",
@@ -611,6 +657,18 @@
           "panelImageEmpty": "Billedet til sidepanelet er tomt.",
           "panelImageTooLarge": "Billedet til sidepanelet må højst være 1 MB.",
           "panelImageType": "Billedet til sidepanelet skal være et PNG-, JPEG-, WebP- eller AVIF-billede."
+        },
+        "claimsErrors": {
+          "invalid": "Claims har ikke det forventede format.",
+          "nameMissing": "Angiv et navn for hvert claim.",
+          "tooMany": "En applikation kan højst have {max} egne claims.",
+          "tooLarge": "De egne claims er for store (højst {kilobytes} KB): de føjes til hvert token.",
+          "nameInvalid": "“{name}” er ikke et gyldigt claimnavn: kun bogstaver, tal og _ . : / -, og det skal starte med et bogstav eller _.",
+          "nameReserved": "“{name}” er et reserveret claim: serveren sætter det.",
+          "nameDuplicate": "Claimet “{name}” er defineret to gange.",
+          "noTokens": "Vælg mindst ét token til claimet “{name}”.",
+          "valueInvalid": "Værdien af “{name}” skal være tekst, et tal, true eller false eller et JSON-array eller -objekt (ingen null, højst 4 niveauer).",
+          "attributeUnknown": "Claimet “{name}” bruger en ukendt attribut."
         },
         "cleanup": {
           "trigger": "Fjern ubrugte dubletter",
@@ -1670,6 +1728,7 @@
             "enable": "Aktiverede OAuth-klient",
             "branding_update": "Ændrede login-branding",
             "branding_reset": "Nulstillede login-branding",
+            "claims_update": "Token-claims ændret",
             "remove_duplicates": "Fjernede duplikerede OAuth-klienter"
           },
           "client_registration": {

@@ -477,6 +477,45 @@
             "noAccount": "アカウントをお持ちでない場合は<link>作成</link>"
           }
         },
+        "claims": {
+          "title": "トークンのクレーム",
+          "description": "<app>{client}</app> が受け取るトークンに追加するカスタムクレームです。各値は固定値か、サインイン中のユーザーから読み取られます。コードは実行されません。",
+          "empty": "カスタムクレームはまだありません。",
+          "claimNumber": "クレーム {number}",
+          "add": "クレームを追加",
+          "remove": "クレーム {number} を削除",
+          "name": "クレーム名",
+          "nameHint": "https://example.com/tenant のような名前空間付きの名前なら標準クレームと衝突しません。予約済みクレーム（iss、sub、aud、exp、scope、role、email、name など）は設定できません。",
+          "source": "値の取得元",
+          "sourceText": "テキスト",
+          "sourceJson": "JSON",
+          "sourceAttribute": "ユーザー属性",
+          "value": "値",
+          "attribute": "属性",
+          "tokens": "トークン",
+          "tokenId": "ID トークン",
+          "tokenAccess": "アクセストークン",
+          "tokenUserinfo": "UserInfo",
+          "limits": "アプリケーションあたり最大 {max} 個、合計 {kilobytes} KB まで。",
+          "precedence": "マシン間トークン（client credentials）には固定値のみが入ります。API のアクセストークンでは、同じ名前のクレームより API 自身のカスタムクレームが優先されます。",
+          "previewTitle": "プレビュー",
+          "previewHint": "サンプルユーザーの場合：{username}、ロール {role}、アクティブな組織 {organization}。",
+          "previewMachine": "アクセストークン、client credentials（ユーザーなし）",
+          "previewEmpty": "カスタムクレームなし",
+          "jsonInvalid": "「{name}」の値が有効な JSON ではありません。",
+          "save": "クレームを保存",
+          "saved": "トークンのクレームを保存しました",
+          "attributes": {
+            "user_role": "プラットフォームのロール",
+            "user_email_verified": "メール確認済み",
+            "user_username": "ユーザー名",
+            "user_two_factor_enabled": "2 段階認証が有効",
+            "organization_id": "アクティブな組織の ID",
+            "organization_slug": "アクティブな組織のスラッグ",
+            "organization_role": "アクティブな組織でのロール",
+            "organizations": "組織のメンバーシップ"
+          }
+        },
         "actions": {
           "registration": {
             "chooseMode": "クライアントを登録できる対象を選択してください。",
@@ -500,6 +539,11 @@
             "faintOnLight": "アクセントカラーがライトカード上で薄すぎるため、ボタンがほとんど目立ちません。",
             "faintOnDark": "アクセントカラーがダークカード上で薄すぎるため、ボタンがほとんど目立ちません。",
             "saveFailed": "ブランディングを保存できませんでした。"
+          },
+          "claims": {
+            "clientGone": "このアプリケーションはもう存在しません。",
+            "selfRegistered": "自己登録したクライアントにはカスタムクレームを設定できません。",
+            "saveFailed": "クレームを保存できませんでした。"
           }
         },
         "register": {
@@ -542,6 +586,8 @@
           "editHint": "名前、リダイレクト URI、デバイスサインイン、同意のスキップ",
           "branding": "サインインのブランディング",
           "brandingHint": "このアプリのサインイン画面のロゴ、アクセントカラー、文言",
+          "claims": "トークンのクレーム",
+          "claimsHint": "このアプリの ID トークン、アクセストークン、UserInfo のカスタムクレーム",
           "rotateSecret": "シークレットをローテーション",
           "rotateHintPublic": "パブリッククライアントにはシークレットがありません",
           "rotateHintDisabled": "先にクライアントを有効にしてください",
@@ -611,6 +657,18 @@
           "panelImageEmpty": "サイドパネルの画像が空です。",
           "panelImageTooLarge": "サイドパネルの画像は 1 MB 以下にしてください。",
           "panelImageType": "サイドパネルの画像は PNG、JPEG、WebP、AVIF のいずれかにしてください。"
+        },
+        "claimsErrors": {
+          "invalid": "クレームが想定された形式ではありません。",
+          "nameMissing": "各クレームに名前を入力してください。",
+          "tooMany": "1 つのアプリケーションに設定できるカスタムクレームは最大 {max} 個です。",
+          "tooLarge": "カスタムクレームが大きすぎます（最大 {kilobytes} KB）。すべてのトークンに追加されます。",
+          "nameInvalid": "「{name}」は有効なクレーム名ではありません。英字、数字、_ . : / - のみ使用でき、英字か _ で始める必要があります。",
+          "nameReserved": "「{name}」は予約済みクレームです。サーバーが設定します。",
+          "nameDuplicate": "クレーム「{name}」が 2 回定義されています。",
+          "noTokens": "クレーム「{name}」のトークンを 1 つ以上選んでください。",
+          "valueInvalid": "「{name}」の値は、テキスト、数値、true か false、または JSON の配列かオブジェクトである必要があります（null は不可、最大 4 階層）。",
+          "attributeUnknown": "クレーム「{name}」は不明な属性を使用しています。"
         },
         "cleanup": {
           "trigger": "未使用の重複を削除",
@@ -1670,6 +1728,7 @@
             "enable": "OAuth クライアントを有効化",
             "branding_update": "サインインのブランディングを変更",
             "branding_reset": "サインインのブランディングをリセット",
+            "claims_update": "トークンのクレームを変更",
             "remove_duplicates": "重複した OAuth クライアントを削除"
           },
           "client_registration": {

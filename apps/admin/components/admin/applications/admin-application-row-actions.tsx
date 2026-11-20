@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import {
+  BracesIcon,
   CopyIcon,
   KeyRoundIcon,
   MoreHorizontalIcon,
@@ -22,6 +23,7 @@ import {
 } from "@ostiary/core/components/ui/dropdown-menu";
 import type { RegistrationSource } from "@ostiary/core/lib/client-registration-policy";
 import { AppBrandingDialog } from "@/components/admin/applications/app-branding-dialog";
+import { ClientClaimsDialog } from "@/components/admin/applications/client-claims-dialog";
 import { ApplicationEditDialog } from "@/components/admin/applications/application-edit-dialog";
 import { ApplicationRotateSecretDialog } from "@/components/admin/applications/application-rotate-secret-dialog";
 import { routeError } from "@/lib/oauth-client-payload";
@@ -62,6 +64,7 @@ export function AdminApplicationRowActions({
   const [removeOpen, setRemoveOpen] = React.useState(false);
   const [rotateOpen, setRotateOpen] = React.useState(false);
   const [brandingOpen, setBrandingOpen] = React.useState(false);
+  const [claimsOpen, setClaimsOpen] = React.useState(false);
   const [editOpen, setEditOpen] = React.useState(false);
   const [editPending, setEditPending] = React.useState(false);
   // A new key per opening, so the edit form starts from the current row.
@@ -131,6 +134,13 @@ export function AdminApplicationRowActions({
             {t("branding")}
           </DropdownMenuItem>
           <DropdownMenuItem
+            onClick={() => setClaimsOpen(true)}
+            title={t("claimsHint")}
+          >
+            <BracesIcon />
+            {t("claims")}
+          </DropdownMenuItem>
+          <DropdownMenuItem
             disabled={!canRotateSecret}
             title={
               row.public
@@ -160,6 +170,12 @@ export function AdminApplicationRowActions({
         clientId={row.clientId}
         open={brandingOpen}
         onOpenChange={setBrandingOpen}
+      />
+
+      <ClientClaimsDialog
+        clientId={row.clientId}
+        open={claimsOpen}
+        onOpenChange={setClaimsOpen}
       />
 
       <ApplicationEditDialog

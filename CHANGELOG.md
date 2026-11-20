@@ -64,6 +64,15 @@ All notable changes are documented here. The format follows
   JSON. Rows are streamed 1,000 at a time and capped at 100,000, past which the file ends with
   a `# truncated` line. Audited as `user.export_csv` and `audit_log.export_csv`, with the
   filters and the row count.
+- **Custom claims per application.** **Applications > Token claims** adds claims to an app's
+  ID token, access token and UserInfo, the declarative equivalent of an Auth0 Action that sets
+  claims: each one is fixed text or JSON, or a user attribute from a fixed list (platform role,
+  email verified, username, two-factor, the active organization's id, slug and role, the
+  user's organizations). No scripts. Reserved claims (`iss`, `sub`, `aud`, `email`, `role`…)
+  are refused, at most 20 claims and 4 KB per app, with a preview for an example user. They
+  follow refresh token rotation; client credentials tokens get the fixed values only. Stored
+  in `oauth_client_claims` (migration `0015`), audited as `oauth_client.claims_update`. See
+  `docs/connect-an-app.md`.
 - **One client per MCP app.** Claude and other MCP clients register again on every connection,
   which filled the Applications page with identical "Claude" clients. An anonymous registration
   identical to an existing public client (same name, redirect URIs, grants, response types,

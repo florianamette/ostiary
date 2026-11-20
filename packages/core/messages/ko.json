@@ -477,6 +477,45 @@
             "noAccount": "계정이 없으신가요? <link>계정 만들기</link>"
           }
         },
+        "claims": {
+          "title": "토큰 클레임",
+          "description": "<app>{client}</app>이(가) 받는 토큰에 추가되는 사용자 지정 클레임입니다. 각 값은 고정값이거나 로그인한 사용자에게서 읽어 오며, 코드는 실행되지 않습니다.",
+          "empty": "아직 사용자 지정 클레임이 없습니다.",
+          "claimNumber": "클레임 {number}",
+          "add": "클레임 추가",
+          "remove": "클레임 {number} 삭제",
+          "name": "클레임 이름",
+          "nameHint": "https://example.com/tenant처럼 네임스페이스가 있는 이름은 표준 클레임과 충돌하지 않습니다. 예약된 클레임(iss, sub, aud, exp, scope, role, email, name 등)은 설정할 수 없습니다.",
+          "source": "값 출처",
+          "sourceText": "텍스트",
+          "sourceJson": "JSON",
+          "sourceAttribute": "사용자 속성",
+          "value": "값",
+          "attribute": "속성",
+          "tokens": "토큰",
+          "tokenId": "ID 토큰",
+          "tokenAccess": "액세스 토큰",
+          "tokenUserinfo": "UserInfo",
+          "limits": "애플리케이션당 최대 {max}개, 전체 {kilobytes}KB까지.",
+          "precedence": "머신 간 토큰(client credentials)에는 고정값만 들어갑니다. API의 액세스 토큰에서는 이름이 같은 클레임보다 API 자체의 사용자 지정 클레임이 우선합니다.",
+          "previewTitle": "미리 보기",
+          "previewHint": "예시 사용자 기준: {username}, 역할 {role}, 활성 조직 {organization}.",
+          "previewMachine": "액세스 토큰, client credentials(사용자 없음)",
+          "previewEmpty": "사용자 지정 클레임 없음",
+          "jsonInvalid": "\"{name}\"의 값이 올바른 JSON이 아닙니다.",
+          "save": "클레임 저장",
+          "saved": "토큰 클레임을 저장했습니다",
+          "attributes": {
+            "user_role": "플랫폼 역할",
+            "user_email_verified": "이메일 인증됨",
+            "user_username": "사용자 이름",
+            "user_two_factor_enabled": "2단계 인증 사용",
+            "organization_id": "활성 조직 ID",
+            "organization_slug": "활성 조직 슬러그",
+            "organization_role": "활성 조직에서의 역할",
+            "organizations": "조직 멤버십"
+          }
+        },
         "actions": {
           "registration": {
             "chooseMode": "클라이언트를 등록할 수 있는 대상을 선택하세요.",
@@ -500,6 +539,11 @@
             "faintOnLight": "강조 색상이 밝은 카드에서 흐릿합니다. 버튼이 잘 드러나지 않습니다.",
             "faintOnDark": "강조 색상이 어두운 카드에서 흐릿합니다. 버튼이 잘 드러나지 않습니다.",
             "saveFailed": "브랜딩을 저장하지 못했습니다."
+          },
+          "claims": {
+            "clientGone": "이 애플리케이션은 더 이상 존재하지 않습니다.",
+            "selfRegistered": "자체 등록된 클라이언트에는 사용자 지정 클레임을 둘 수 없습니다.",
+            "saveFailed": "클레임을 저장하지 못했습니다."
           }
         },
         "register": {
@@ -542,6 +586,8 @@
           "editHint": "이름, 리디렉션 URI, 기기 로그인, 동의 건너뛰기",
           "branding": "로그인 브랜딩",
           "brandingHint": "이 앱의 로그인 화면 로고, 강조 색상, 문구",
+          "claims": "토큰 클레임",
+          "claimsHint": "이 앱의 ID 토큰, 액세스 토큰, UserInfo에 들어가는 사용자 지정 클레임",
           "rotateSecret": "시크릿 교체",
           "rotateHintPublic": "공개 클라이언트에는 시크릿이 없습니다",
           "rotateHintDisabled": "먼저 클라이언트를 활성화하세요",
@@ -611,6 +657,18 @@
           "panelImageEmpty": "사이드 패널 이미지가 비어 있습니다.",
           "panelImageTooLarge": "사이드 패널 이미지는 1MB 이하여야 합니다.",
           "panelImageType": "사이드 패널 이미지는 PNG, JPEG, WebP 또는 AVIF 이미지여야 합니다."
+        },
+        "claimsErrors": {
+          "invalid": "클레임이 예상한 형식이 아닙니다.",
+          "nameMissing": "각 클레임의 이름을 입력하세요.",
+          "tooMany": "애플리케이션 하나에 사용자 지정 클레임은 최대 {max}개까지 둘 수 있습니다.",
+          "tooLarge": "사용자 지정 클레임이 너무 큽니다(최대 {kilobytes}KB). 모든 토큰에 추가됩니다.",
+          "nameInvalid": "\"{name}\"은(는) 올바른 클레임 이름이 아닙니다. 영문자, 숫자, _ . : / -만 사용할 수 있으며 영문자나 _로 시작해야 합니다.",
+          "nameReserved": "\"{name}\"은(는) 예약된 클레임입니다. 서버가 설정합니다.",
+          "nameDuplicate": "클레임 \"{name}\"이(가) 두 번 정의되었습니다.",
+          "noTokens": "클레임 \"{name}\"에 대해 토큰을 하나 이상 선택하세요.",
+          "valueInvalid": "\"{name}\"의 값은 텍스트, 숫자, true 또는 false, 또는 JSON 배열이나 객체여야 합니다(null 불가, 최대 4단계).",
+          "attributeUnknown": "클레임 \"{name}\"이(가) 알 수 없는 속성을 사용합니다."
         },
         "cleanup": {
           "trigger": "사용하지 않는 중복 항목 제거",
@@ -1670,6 +1728,7 @@
             "enable": "OAuth 클라이언트 활성화",
             "branding_update": "로그인 브랜딩 변경",
             "branding_reset": "로그인 브랜딩 초기화",
+            "claims_update": "토큰 클레임 변경",
             "remove_duplicates": "중복 OAuth 클라이언트 제거"
           },
           "client_registration": {

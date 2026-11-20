@@ -477,6 +477,45 @@
             "noAccount": "没有账户？<link>立即创建</link>"
           }
         },
+        "claims": {
+          "title": "令牌声明",
+          "description": "添加到 <app>{client}</app> 所获令牌中的自定义声明。每个值都是固定值，或读取自已登录的用户；不会运行任何代码。",
+          "empty": "暂无自定义声明。",
+          "claimNumber": "声明 {number}",
+          "add": "添加声明",
+          "remove": "删除声明 {number}",
+          "name": "声明名称",
+          "nameHint": "带命名空间的名称（如 https://example.com/tenant）可避免与标准声明冲突。保留声明（iss、sub、aud、exp、scope、role、email、name 等）无法设置。",
+          "source": "值来源",
+          "sourceText": "文本",
+          "sourceJson": "JSON",
+          "sourceAttribute": "用户属性",
+          "value": "值",
+          "attribute": "属性",
+          "tokens": "令牌",
+          "tokenId": "ID 令牌",
+          "tokenAccess": "访问令牌",
+          "tokenUserinfo": "UserInfo",
+          "limits": "每个应用最多 {max} 个声明，总计不超过 {kilobytes} KB。",
+          "precedence": "机器对机器令牌（client credentials）只包含固定值。在某个 API 的访问令牌中，该 API 自己的自定义声明优先于同名声明。",
+          "previewTitle": "预览",
+          "previewHint": "以示例用户为例：{username}，角色 {role}，当前组织 {organization}。",
+          "previewMachine": "访问令牌，client credentials（无用户）",
+          "previewEmpty": "无自定义声明",
+          "jsonInvalid": "“{name}”的值不是有效的 JSON。",
+          "save": "保存声明",
+          "saved": "令牌声明已保存",
+          "attributes": {
+            "user_role": "平台角色",
+            "user_email_verified": "邮箱已验证",
+            "user_username": "用户名",
+            "user_two_factor_enabled": "已启用双重验证",
+            "organization_id": "当前组织 ID",
+            "organization_slug": "当前组织标识（slug）",
+            "organization_role": "在当前组织中的角色",
+            "organizations": "所属组织"
+          }
+        },
         "actions": {
           "registration": {
             "chooseMode": "请选择谁可以注册客户端。",
@@ -500,6 +539,11 @@
             "faintOnLight": "强调色在浅色卡片上过淡：按钮几乎不显眼。",
             "faintOnDark": "强调色在深色卡片上过淡：按钮几乎不显眼。",
             "saveFailed": "无法保存品牌设置。"
+          },
+          "claims": {
+            "clientGone": "此应用已不存在。",
+            "selfRegistered": "自行注册的客户端不能设置自定义声明。",
+            "saveFailed": "无法保存声明。"
           }
         },
         "register": {
@@ -542,6 +586,8 @@
           "editHint": "名称、重定向 URI、设备登录和跳过同意",
           "branding": "登录品牌",
           "brandingHint": "此应用登录页面的标志、强调色和文案",
+          "claims": "令牌声明",
+          "claimsHint": "此应用的 ID 令牌、访问令牌和 UserInfo 中的自定义声明",
           "rotateSecret": "轮换密钥",
           "rotateHintPublic": "公开客户端没有密钥",
           "rotateHintDisabled": "请先启用客户端",
@@ -611,6 +657,18 @@
           "panelImageEmpty": "侧边面板图片为空。",
           "panelImageTooLarge": "侧边面板图片不能超过 1 MB。",
           "panelImageType": "侧边面板图片必须是 PNG、JPEG、WebP 或 AVIF 图片。"
+        },
+        "claimsErrors": {
+          "invalid": "声明的格式不符合要求。",
+          "nameMissing": "请为每个声明输入名称。",
+          "tooMany": "一个应用最多可有 {max} 个自定义声明。",
+          "tooLarge": "自定义声明过大（最多 {kilobytes} KB）：它们会添加到每个令牌中。",
+          "nameInvalid": "“{name}”不是有效的声明名称：只能使用字母、数字和 _ . : / -，并以字母或 _ 开头。",
+          "nameReserved": "“{name}”是保留声明：由服务器设置。",
+          "nameDuplicate": "声明“{name}”被定义了两次。",
+          "noTokens": "请为声明“{name}”至少选择一个令牌。",
+          "valueInvalid": "“{name}”的值必须是文本、数字、true 或 false，或 JSON 数组或对象（不能为 null，最多 4 层）。",
+          "attributeUnknown": "声明“{name}”使用了未知属性。"
         },
         "cleanup": {
           "trigger": "移除未使用的重复项",
@@ -1670,6 +1728,7 @@
             "enable": "启用了 OAuth 客户端",
             "branding_update": "更改了登录品牌",
             "branding_reset": "重置了登录品牌",
+            "claims_update": "更改了令牌声明",
             "remove_duplicates": "移除了重复的 OAuth 客户端"
           },
           "client_registration": {

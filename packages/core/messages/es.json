@@ -477,6 +477,45 @@
             "noAccount": "¿No tienes cuenta? <link>Crea una</link>"
           }
         },
+        "claims": {
+          "title": "Claims de los tokens",
+          "description": "Claims personalizados que se añaden a los tokens que recibe <app>{client}</app>. Cada valor es fijo o se lee del usuario que ha iniciado sesión; no se ejecuta código.",
+          "empty": "Todavía no hay claims personalizados.",
+          "claimNumber": "Claim {number}",
+          "add": "Añadir claim",
+          "remove": "Eliminar el claim {number}",
+          "name": "Nombre del claim",
+          "nameHint": "Los nombres con espacio de nombres, como https://example.com/tenant, evitan conflictos con los claims estándar. Los claims reservados (iss, sub, aud, exp, scope, role, email, name…) no se pueden definir.",
+          "source": "Valor de",
+          "sourceText": "Texto",
+          "sourceJson": "JSON",
+          "sourceAttribute": "Atributo del usuario",
+          "value": "Valor",
+          "attribute": "Atributo",
+          "tokens": "Tokens",
+          "tokenId": "Token de ID",
+          "tokenAccess": "Token de acceso",
+          "tokenUserinfo": "UserInfo",
+          "limits": "Hasta {max} claims por aplicación, {kilobytes} KB en total.",
+          "precedence": "Los tokens de máquina a máquina (client credentials) solo reciben los valores fijos. En los tokens de acceso de una API, los claims personalizados de la propia API prevalecen sobre un claim con el mismo nombre.",
+          "previewTitle": "Vista previa",
+          "previewHint": "Para un usuario de ejemplo: {username}, rol {role}, organización activa {organization}.",
+          "previewMachine": "Token de acceso, client credentials (sin usuario)",
+          "previewEmpty": "Sin claims personalizados",
+          "jsonInvalid": "El valor de \"{name}\" no es un JSON válido.",
+          "save": "Guardar claims",
+          "saved": "Claims de los tokens guardados",
+          "attributes": {
+            "user_role": "Rol en la plataforma",
+            "user_email_verified": "Correo verificado",
+            "user_username": "Nombre de usuario",
+            "user_two_factor_enabled": "Verificación en dos pasos activada",
+            "organization_id": "ID de la organización activa",
+            "organization_slug": "Slug de la organización activa",
+            "organization_role": "Rol en la organización activa",
+            "organizations": "Pertenencia a organizaciones"
+          }
+        },
         "actions": {
           "registration": {
             "chooseMode": "Elige quién puede registrar clientes.",
@@ -500,6 +539,11 @@
             "faintOnLight": "El color de acento es tenue sobre la tarjeta clara: los botones apenas destacarán.",
             "faintOnDark": "El color de acento es tenue sobre la tarjeta oscura: los botones apenas destacarán.",
             "saveFailed": "No se pudo guardar la personalización."
+          },
+          "claims": {
+            "clientGone": "Esta aplicación ya no existe.",
+            "selfRegistered": "Los clientes autorregistrados no pueden tener claims personalizados.",
+            "saveFailed": "No se pudieron guardar los claims."
           }
         },
         "register": {
@@ -542,6 +586,8 @@
           "editHint": "Nombre, URI de redirección, inicio de sesión en dispositivos y omisión del consentimiento",
           "branding": "Personalización del inicio de sesión",
           "brandingHint": "Logotipo, color de acento y textos de las pantallas de inicio de sesión de esta aplicación",
+          "claims": "Claims de los tokens",
+          "claimsHint": "Claims personalizados en el token de ID, el token de acceso y UserInfo de esta app",
           "rotateSecret": "Rotar secreto",
           "rotateHintPublic": "Los clientes públicos no tienen secreto",
           "rotateHintDisabled": "Activa primero el cliente",
@@ -611,6 +657,18 @@
           "panelImageEmpty": "La imagen del panel lateral está vacía.",
           "panelImageTooLarge": "La imagen del panel lateral debe ocupar 1 MB o menos.",
           "panelImageType": "La imagen del panel lateral debe ser PNG, JPEG, WebP o AVIF."
+        },
+        "claimsErrors": {
+          "invalid": "Los claims no tienen el formato esperado.",
+          "nameMissing": "Introduce un nombre para cada claim.",
+          "tooMany": "Una aplicación puede tener como máximo {max} claims personalizados.",
+          "tooLarge": "Los claims personalizados son demasiado grandes ({kilobytes} KB como máximo): se añaden a cada token.",
+          "nameInvalid": "\"{name}\" no es un nombre de claim válido: solo letras, dígitos y _ . : / -, empezando por una letra o _.",
+          "nameReserved": "\"{name}\" es un claim reservado: lo define el servidor.",
+          "nameDuplicate": "El claim \"{name}\" está definido dos veces.",
+          "noTokens": "Elige al menos un token para el claim \"{name}\".",
+          "valueInvalid": "El valor de \"{name}\" debe ser un texto, un número, true o false, o un array u objeto JSON (sin null, 4 niveles como máximo).",
+          "attributeUnknown": "El claim \"{name}\" usa un atributo desconocido."
         },
         "cleanup": {
           "trigger": "Eliminar duplicados sin usar",
@@ -1670,6 +1728,7 @@
             "enable": "Activó un cliente OAuth",
             "branding_update": "Cambió la personalización del inicio de sesión",
             "branding_reset": "Restableció la personalización del inicio de sesión",
+            "claims_update": "Claims de los tokens cambiados",
             "remove_duplicates": "Eliminó clientes OAuth duplicados"
           },
           "client_registration": {

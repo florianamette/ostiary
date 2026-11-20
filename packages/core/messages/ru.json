@@ -477,6 +477,45 @@
             "noAccount": "Нет аккаунта? <link>Создайте его</link>"
           }
         },
+        "claims": {
+          "title": "Claims токенов",
+          "description": "Собственные claims, добавляемые в токены, которые получает <app>{client}</app>. Каждое значение фиксировано или берётся у вошедшего пользователя; никакой код не выполняется.",
+          "empty": "Собственных claims пока нет.",
+          "claimNumber": "Claim {number}",
+          "add": "Добавить claim",
+          "remove": "Удалить claim {number}",
+          "name": "Имя claim",
+          "nameHint": "Имена с пространством имён, например https://example.com/tenant, не конфликтуют со стандартными claims. Зарезервированные claims (iss, sub, aud, exp, scope, role, email, name…) задать нельзя.",
+          "source": "Значение из",
+          "sourceText": "Текст",
+          "sourceJson": "JSON",
+          "sourceAttribute": "Атрибут пользователя",
+          "value": "Значение",
+          "attribute": "Атрибут",
+          "tokens": "Токены",
+          "tokenId": "ID-токен",
+          "tokenAccess": "Токен доступа",
+          "tokenUserinfo": "UserInfo",
+          "limits": "До {max} claims на приложение, всего {kilobytes} КБ.",
+          "precedence": "Межмашинные токены (client credentials) получают только фиксированные значения. В токенах доступа API собственные claims этого API имеют приоритет над claim с тем же именем.",
+          "previewTitle": "Предпросмотр",
+          "previewHint": "Для примера пользователя: {username}, роль {role}, активная организация {organization}.",
+          "previewMachine": "Токен доступа, client credentials (без пользователя)",
+          "previewEmpty": "Нет собственных claims",
+          "jsonInvalid": "Значение «{name}» — недопустимый JSON.",
+          "save": "Сохранить claims",
+          "saved": "Claims токенов сохранены",
+          "attributes": {
+            "user_role": "Роль на платформе",
+            "user_email_verified": "Email подтверждён",
+            "user_username": "Имя пользователя",
+            "user_two_factor_enabled": "Двухфакторная аутентификация включена",
+            "organization_id": "ID активной организации",
+            "organization_slug": "Slug активной организации",
+            "organization_role": "Роль в активной организации",
+            "organizations": "Членство в организациях"
+          }
+        },
         "actions": {
           "registration": {
             "chooseMode": "Выберите, кто может регистрировать клиенты.",
@@ -500,6 +539,11 @@
             "faintOnLight": "Акцентный цвет плохо виден на светлой карточке: кнопки почти не будут выделяться.",
             "faintOnDark": "Акцентный цвет плохо виден на тёмной карточке: кнопки почти не будут выделяться.",
             "saveFailed": "Не удалось сохранить оформление."
+          },
+          "claims": {
+            "clientGone": "Этого приложения больше нет.",
+            "selfRegistered": "У самостоятельно зарегистрированных клиентов не может быть собственных claims.",
+            "saveFailed": "Не удалось сохранить claims."
           }
         },
         "register": {
@@ -542,6 +586,8 @@
           "editHint": "Название, redirect URI, вход с устройства и пропуск согласия",
           "branding": "Оформление входа",
           "brandingHint": "Логотип, акцентный цвет и тексты экранов входа для этого приложения",
+          "claims": "Claims токенов",
+          "claimsHint": "Собственные claims в ID-токене, токене доступа и UserInfo этого приложения",
           "rotateSecret": "Сменить секрет",
           "rotateHintPublic": "У публичных клиентов нет секрета",
           "rotateHintDisabled": "Сначала включите клиент",
@@ -611,6 +657,18 @@
           "panelImageEmpty": "Изображение боковой панели пусто.",
           "panelImageTooLarge": "Изображение боковой панели должно быть не больше 1 МБ.",
           "panelImageType": "Изображение боковой панели должно быть в формате PNG, JPEG, WebP или AVIF."
+        },
+        "claimsErrors": {
+          "invalid": "Claims имеют неожиданный формат.",
+          "nameMissing": "Укажите имя для каждого claim.",
+          "tooMany": "У приложения может быть не больше {max} собственных claims.",
+          "tooLarge": "Собственные claims слишком велики (не больше {kilobytes} КБ): они добавляются в каждый токен.",
+          "nameInvalid": "«{name}» — недопустимое имя claim: только буквы, цифры и _ . : / -, начиная с буквы или _.",
+          "nameReserved": "«{name}» — зарезервированный claim: его задаёт сервер.",
+          "nameDuplicate": "Claim «{name}» определён дважды.",
+          "noTokens": "Выберите хотя бы один токен для claim «{name}».",
+          "valueInvalid": "Значение «{name}» должно быть текстом, числом, true или false либо массивом или объектом JSON (без null, не глубже 4 уровней).",
+          "attributeUnknown": "Claim «{name}» использует неизвестный атрибут."
         },
         "cleanup": {
           "trigger": "Удалить неиспользуемые дубликаты",
@@ -1670,6 +1728,7 @@
             "enable": "Включён OAuth-клиент",
             "branding_update": "Изменено оформление входа",
             "branding_reset": "Сброшено оформление входа",
+            "claims_update": "Изменены claims токенов",
             "remove_duplicates": "Удалены дубликаты OAuth-клиентов"
           },
           "client_registration": {

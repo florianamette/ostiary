@@ -61,6 +61,7 @@ Hosted identity platforms are great until the bill scales with your users or you
 - Self-registration for MCP clients and AI agents: Dynamic Client Registration and Client ID Metadata Documents, off by default and controlled from the admin console. Anonymous registration is limited to public PKCE clients (no secret leaves without a sign-in) — see [MCP and AI agents](docs/mcp-and-agents.md)
 - Device sign-in (RFC 8628) for CLIs, TVs and other apps without a browser
 - Protected resources: JWT access tokens scoped to your APIs, with the user's role as a claim
+- Custom claims per application in the ID token, access token and UserInfo: fixed values or user attributes (role, organization, username…), declared in the admin console, no scripts
 - Organizations with members, roles and invitations
 - SCIM 2.0 provisioning per organization: Okta, Entra ID and other identity providers create and deactivate accounts
 

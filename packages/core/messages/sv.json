@@ -477,6 +477,45 @@
             "noAccount": "Inget konto? <link>Skapa ett</link>"
           }
         },
+        "claims": {
+          "title": "Token-claims",
+          "description": "Egna claims som läggs till i de tokens som <app>{client}</app> får. Varje värde är fast eller hämtas från den inloggade användaren; ingen kod körs.",
+          "empty": "Inga egna claims ännu.",
+          "claimNumber": "Claim {number}",
+          "add": "Lägg till claim",
+          "remove": "Ta bort claim {number}",
+          "name": "Claimnamn",
+          "nameHint": "Namn med namnrymd som https://example.com/tenant undviker krockar med standard-claims. Reserverade claims (iss, sub, aud, exp, scope, role, email, name…) kan inte sättas.",
+          "source": "Värde från",
+          "sourceText": "Text",
+          "sourceJson": "JSON",
+          "sourceAttribute": "Användarattribut",
+          "value": "Värde",
+          "attribute": "Attribut",
+          "tokens": "Tokens",
+          "tokenId": "ID-token",
+          "tokenAccess": "Åtkomsttoken",
+          "tokenUserinfo": "UserInfo",
+          "limits": "Upp till {max} claims per applikation, {kilobytes} KB totalt.",
+          "precedence": "Maskin-till-maskin-tokens (client credentials) får bara de fasta värdena. I ett API:s åtkomsttokens går API:ets egna claims före ett claim med samma namn.",
+          "previewTitle": "Förhandsvisning",
+          "previewHint": "För en exempelanvändare: {username}, roll {role}, aktiv organisation {organization}.",
+          "previewMachine": "Åtkomsttoken, client credentials (ingen användare)",
+          "previewEmpty": "Inga egna claims",
+          "jsonInvalid": "Värdet för ”{name}” är inte giltig JSON.",
+          "save": "Spara claims",
+          "saved": "Token-claims sparade",
+          "attributes": {
+            "user_role": "Plattformsroll",
+            "user_email_verified": "E-post verifierad",
+            "user_username": "Användarnamn",
+            "user_two_factor_enabled": "Tvåstegsverifiering på",
+            "organization_id": "ID för aktiv organisation",
+            "organization_slug": "Slug för aktiv organisation",
+            "organization_role": "Roll i aktiv organisation",
+            "organizations": "Medlemskap i organisationer"
+          }
+        },
         "actions": {
           "registration": {
             "chooseMode": "Välj vem som får registrera klienter.",
@@ -500,6 +539,11 @@
             "faintOnLight": "Accentfärgen är svag mot det ljusa kortet: knapparna syns knappt.",
             "faintOnDark": "Accentfärgen är svag mot det mörka kortet: knapparna syns knappt.",
             "saveFailed": "Det gick inte att spara utseendet."
+          },
+          "claims": {
+            "clientGone": "Den här applikationen finns inte längre.",
+            "selfRegistered": "Självregistrerade klienter kan inte ha egna claims.",
+            "saveFailed": "Det gick inte att spara claimen."
           }
         },
         "register": {
@@ -542,6 +586,8 @@
           "editHint": "Namn, omdirigerings-URI:er, enhetsinloggning och hoppa över samtycke",
           "branding": "Inloggningsutseende",
           "brandingHint": "Logotyp, accentfärg och texter på inloggningsskärmarna för den här appen",
+          "claims": "Token-claims",
+          "claimsHint": "Egna claims i appens ID-token, åtkomsttoken och UserInfo",
           "rotateSecret": "Rotera hemlighet",
           "rotateHintPublic": "Publika klienter har ingen hemlighet",
           "rotateHintDisabled": "Aktivera klienten först",
@@ -611,6 +657,18 @@
           "panelImageEmpty": "Bilden för sidopanelen är tom.",
           "panelImageTooLarge": "Bilden för sidopanelen får vara högst 1 MB.",
           "panelImageType": "Bilden för sidopanelen måste vara en PNG-, JPEG-, WebP- eller AVIF-bild."
+        },
+        "claimsErrors": {
+          "invalid": "Claimen har inte det förväntade formatet.",
+          "nameMissing": "Ange ett namn för varje claim.",
+          "tooMany": "En applikation kan ha högst {max} egna claims.",
+          "tooLarge": "De egna claimen är för stora (högst {kilobytes} KB): de läggs till i varje token.",
+          "nameInvalid": "”{name}” är inte ett giltigt claimnamn: bara bokstäver, siffror och _ . : / -, och det ska börja med en bokstav eller _.",
+          "nameReserved": "”{name}” är ett reserverat claim: servern sätter det.",
+          "nameDuplicate": "Claimet ”{name}” är definierat två gånger.",
+          "noTokens": "Välj minst en token för claimet ”{name}”.",
+          "valueInvalid": "Värdet för ”{name}” måste vara text, ett tal, true eller false, eller en JSON-array eller ett JSON-objekt (inget null, högst 4 nivåer).",
+          "attributeUnknown": "Claimet ”{name}” använder ett okänt attribut."
         },
         "cleanup": {
           "trigger": "Ta bort oanvända dubbletter",
@@ -1670,6 +1728,7 @@
             "enable": "Aktiverade OAuth-klient",
             "branding_update": "Ändrade inloggningsutseende",
             "branding_reset": "Återställde inloggningsutseende",
+            "claims_update": "Token-claims ändrade",
             "remove_duplicates": "Tog bort duplicerade OAuth-klienter"
           },
           "client_registration": {

@@ -477,6 +477,45 @@
             "noAccount": "Eikö sinulla ole tiliä? <link>Luo tili</link>"
           }
         },
+        "claims": {
+          "title": "Tokenien claimit",
+          "description": "Omat claimit, jotka lisätään tokeneihin, joita <app>{client}</app> saa. Jokainen arvo on kiinteä tai luetaan kirjautuneelta käyttäjältä; mitään koodia ei suoriteta.",
+          "empty": "Ei vielä omia claimeja.",
+          "claimNumber": "Claim {number}",
+          "add": "Lisää claim",
+          "remove": "Poista claim {number}",
+          "name": "Claimin nimi",
+          "nameHint": "Nimiavaruudelliset nimet, kuten https://example.com/tenant, eivät törmää vakioclaimeihin. Varattuja claimeja (iss, sub, aud, exp, scope, role, email, name…) ei voi asettaa.",
+          "source": "Arvon lähde",
+          "sourceText": "Teksti",
+          "sourceJson": "JSON",
+          "sourceAttribute": "Käyttäjän ominaisuus",
+          "value": "Arvo",
+          "attribute": "Ominaisuus",
+          "tokens": "Tokenit",
+          "tokenId": "ID-token",
+          "tokenAccess": "Käyttötoken",
+          "tokenUserinfo": "UserInfo",
+          "limits": "Enintään {max} claimia sovellusta kohden, yhteensä {kilobytes} kt.",
+          "precedence": "Koneelta koneelle -tokenit (client credentials) saavat vain kiinteät arvot. API:n käyttötokeneissa API:n omat claimit voittavat samannimisen claimin.",
+          "previewTitle": "Esikatselu",
+          "previewHint": "Esimerkkikäyttäjälle: {username}, rooli {role}, aktiivinen organisaatio {organization}.",
+          "previewMachine": "Käyttötoken, client credentials (ei käyttäjää)",
+          "previewEmpty": "Ei omia claimeja",
+          "jsonInvalid": "Claimin ”{name}” arvo ei ole kelvollista JSONia.",
+          "save": "Tallenna claimit",
+          "saved": "Tokenien claimit tallennettu",
+          "attributes": {
+            "user_role": "Alustan rooli",
+            "user_email_verified": "Sähköposti vahvistettu",
+            "user_username": "Käyttäjänimi",
+            "user_two_factor_enabled": "Kaksivaiheinen tunnistautuminen käytössä",
+            "organization_id": "Aktiivisen organisaation tunnus",
+            "organization_slug": "Aktiivisen organisaation slug",
+            "organization_role": "Rooli aktiivisessa organisaatiossa",
+            "organizations": "Organisaatiojäsenyydet"
+          }
+        },
         "actions": {
           "registration": {
             "chooseMode": "Valitse, kuka voi rekisteröidä asiakkaita.",
@@ -500,6 +539,11 @@
             "faintOnLight": "Korostusväri on haalea vaalealla kortilla: painikkeet erottuvat tuskin.",
             "faintOnDark": "Korostusväri on haalea tummalla kortilla: painikkeet erottuvat tuskin.",
             "saveFailed": "Brändäystä ei voitu tallentaa."
+          },
+          "claims": {
+            "clientGone": "Tätä sovellusta ei ole enää.",
+            "selfRegistered": "Itse rekisteröityneillä asiakkailla ei voi olla omia claimeja.",
+            "saveFailed": "Claimeja ei voitu tallentaa."
           }
         },
         "register": {
@@ -542,6 +586,8 @@
           "editHint": "Nimi, uudelleenohjausosoitteet, laitekirjautuminen ja suostumuksen ohitus",
           "branding": "Kirjautumisen brändäys",
           "brandingHint": "Tämän sovelluksen kirjautumisnäkymien logo, korostusväri ja tekstit",
+          "claims": "Tokenien claimit",
+          "claimsHint": "Omat claimit tämän sovelluksen ID-tokenissa, käyttötokenissa ja UserInfossa",
           "rotateSecret": "Vaihda salaisuus",
           "rotateHintPublic": "Julkisilla asiakkailla ei ole salaisuutta",
           "rotateHintDisabled": "Ota asiakas ensin käyttöön",
@@ -611,6 +657,18 @@
           "panelImageEmpty": "Sivupaneelin kuva on tyhjä.",
           "panelImageTooLarge": "Sivupaneelin kuvan on oltava enintään 1 Mt.",
           "panelImageType": "Sivupaneelin kuvan on oltava PNG-, JPEG-, WebP- tai AVIF-kuva."
+        },
+        "claimsErrors": {
+          "invalid": "Claimit eivät ole odotetussa muodossa.",
+          "nameMissing": "Anna jokaiselle claimille nimi.",
+          "tooMany": "Sovelluksella voi olla enintään {max} omaa claimia.",
+          "tooLarge": "Omat claimit ovat liian suuret (enintään {kilobytes} kt): ne lisätään jokaiseen tokeniin.",
+          "nameInvalid": "”{name}” ei ole kelvollinen claimin nimi: vain kirjaimia, numeroita ja _ . : / -, ja alussa kirjain tai _.",
+          "nameReserved": "”{name}” on varattu claim: palvelin asettaa sen.",
+          "nameDuplicate": "Claim ”{name}” on määritetty kahdesti.",
+          "noTokens": "Valitse vähintään yksi token claimille ”{name}”.",
+          "valueInvalid": "Claimin ”{name}” arvon on oltava tekstiä, luku, true tai false tai JSON-taulukko tai -objekti (ei null-arvoa, enintään 4 tasoa).",
+          "attributeUnknown": "Claim ”{name}” käyttää tuntematonta ominaisuutta."
         },
         "cleanup": {
           "trigger": "Poista käyttämättömät kaksoiskappaleet",
@@ -1670,6 +1728,7 @@
             "enable": "Otti OAuth-asiakkaan käyttöön",
             "branding_update": "Muutti kirjautumisen brändäystä",
             "branding_reset": "Palautti kirjautumisen brändäyksen",
+            "claims_update": "Tokenien claimit muutettu",
             "remove_duplicates": "Poisti OAuth-asiakkaiden kaksoiskappaleet"
           },
           "client_registration": {
