@@ -76,7 +76,7 @@ USER node
 ENV PORT=3000
 EXPOSE 3000
 HEALTHCHECK --interval=30s --timeout=5s --start-period=20s \
-  CMD wget -q -O /dev/null http://127.0.0.1:3000/api/auth/ok || exit 1
+  CMD wget -q -O /dev/null http://127.0.0.1:3000/api/health || exit 1
 CMD ["node", "apps/auth/server.js"]
 
 FROM runtime AS admin
@@ -87,7 +87,7 @@ USER node
 ENV PORT=3001
 EXPOSE 3001
 HEALTHCHECK --interval=30s --timeout=5s --start-period=20s \
-  CMD wget -q -O /dev/null http://127.0.0.1:3001/icon || exit 1
+  CMD wget -q -O /dev/null http://127.0.0.1:3001/api/health || exit 1
 CMD ["node", "apps/admin/server.js"]
 
 # Applies the database migrations and registers the OAuth resources, then exits. Run it before

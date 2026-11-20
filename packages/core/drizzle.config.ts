@@ -1,6 +1,8 @@
 import { config } from "dotenv";
 import { defineConfig } from "drizzle-kit";
 
+import { normalizeSslMode } from "./src/db/connection";
+
 // Run from packages/core: use a local env file if present, otherwise the auth app's.
 config({ path: ".env.local" });
 config({ path: ".env" });
@@ -11,6 +13,7 @@ export default defineConfig({
   out: "./src/db/migrations",
   dialect: "postgresql",
   dbCredentials: {
-    url: process.env.DATABASE_URL!,
+    // sslmode=require written as the verify-full pg applies anyway (src/db/connection.ts).
+    url: normalizeSslMode(process.env.DATABASE_URL!),
   },
 });
