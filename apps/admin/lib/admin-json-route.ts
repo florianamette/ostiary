@@ -88,6 +88,54 @@ export function adminJsonRoute<P = Record<string, never>>(
   };
 }
 
+export type AdminDownloadContext = {
+  request: Request;
+  actor: Actor;
+  /** Records an audit entry in the admin's name, with their IP. */
+  audit: (entry: Omit<AuditEntry, "actor" | "ipAddress">) => Promise<void>;
+};
+
+/**
+ * Whether a GET may start a download with the admin's cookies: from the console itself, or
+ * typed in the address bar (`Sec-Fetch-Site` same-origin or none). A link on another site, or on
+ * a sibling subdomain under COOKIE_DOMAIN, cannot make an admin's browser run (and audit) an
+ * export. Clients that send no `Sec-Fetch-Site` (scripts, older browsers) are let through.
+ */
+function isAllowedDownloadSite(request: Request): boolean {
+  const site = request.headers.get("sec-fetch-site");
+  return site === null || site === "same-origin" || site === "none";
+}
+
+/**
+ * Wraps an admin download route (GET, a file such as a CSV export): the admin check of
+ * adminJsonRoute (adminAccess), a same-origin check on `Sec-Fetch-Site`, and errors as
+ * `{ error }` JSON with their status. The handler returns the file's Response, which always
+ * leaves with `Cache-Control: no-store` (exports hold personal data).
+ */
+export function adminDownloadRoute(handler: (context: AdminDownloadContext) => Promise<Response>) {
+  return async (request: Request): Promise<Response> => {
+    try {
+      if (!isAllowedDownloadSite(request)) return json({ error: "Cross-site request refused" }, 403);
+
+      const authz = await requireAdminApiRequest();
+      if (!authz.ok) return json({ error: authz.message }, authz.status);
+
+      const ip = clientIp(authz.requestHeaders);
+      const response = await handler({
+        request,
+        actor: authz.actor,
+        audit: (entry) => recordAudit({ ...entry, actor: authz.actor, ipAddress: ip }),
+      });
+      response.headers.set("Cache-Control", "no-store");
+      return response;
+    } catch (error) {
+      const { message, statusCode } = handleError(error);
+      if (statusCode >= 500) console.error("[admin api]", error);
+      return json({ error: message }, statusCode);
+    }
+  };
+}
+
 /** A required, non-blank route parameter. */
 export function requiredParam(value: string | undefined, name: string): string {
   if (!value?.trim()) throw new ValidationError(`Missing ${name}`);

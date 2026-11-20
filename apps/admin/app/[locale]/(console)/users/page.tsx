@@ -2,19 +2,13 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
 import { PageHeader } from "@/components/admin/common/page-header";
-import {
-  readChoice,
-  readPagination,
-  readParam,
-  type ListSearchParams,
-} from "@/components/admin/common/list-params";
+import { readPagination, type ListSearchParams } from "@/components/admin/common/list-params";
 import { AdminUsersPanel } from "@/components/admin/users/admin-users-panel";
 import { requireAdminSession } from "@/lib/require-admin-session";
-import { listUsers, type UserRoleFilter } from "@/lib/user-list";
+import { exportHref } from "@/lib/admin-csv-export";
+import { listUsers, readUserListFilters } from "@/lib/user-list";
 
 export const dynamic = "force-dynamic";
-
-const ROLE_FILTERS: readonly UserRoleFilter[] = ["all", "admin", "user"];
 
 export async function generateMetadata({
   params,
@@ -42,12 +36,8 @@ export default async function AdminUsersPage({
   const t = await getTranslations({ locale, namespace: "admin.pages.users" });
   const { pageSize, offset } = readPagination(query);
 
-  const { rows, total } = await listUsers({
-    search: readParam(query, "q"),
-    role: readChoice(query, "role", ROLE_FILTERS, "all"),
-    limit: pageSize,
-    offset,
-  });
+  const filters = readUserListFilters(query);
+  const { rows, total } = await listUsers({ ...filters, limit: pageSize, offset });
 
   return (
     <div className="space-y-6">
@@ -56,6 +46,7 @@ export default async function AdminUsersPage({
         users={rows.map((row) => ({ ...row, createdAt: row.createdAt.toISOString() }))}
         total={total}
         currentUserId={session.user.id}
+        exportHref={exportHref("/api/admin/users/export", { q: filters.search, role: filters.role })}
       />
     </div>
   );

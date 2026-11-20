@@ -1386,6 +1386,8 @@
           "searchPlaceholder": "Søk etter navn eller e-post…",
           "searchLabel": "Søk i brukere",
           "rolePlaceholder": "Rolle",
+          "exportCsv": "Eksporter CSV",
+          "exportCsvHint": "Last ned brukerne som samsvarer med gjeldende søk og filter, som en CSV-fil",
           "roleAll": "Alle roller",
           "roleAdmin": "Administrator",
           "roleUser": "Bruker",
@@ -1655,7 +1657,8 @@
             "impersonate": "Opptrådte som bruker",
             "reset_two_factor": "Tilbakestilte tofaktorautentisering",
             "export_data": "Eksporterte kontodata",
-            "self_delete": "Slettet sin egen konto"
+            "self_delete": "Slettet sin egen konto",
+            "export_csv": "Eksporterte brukere til CSV"
           },
           "oauth_client": {
             "create": "Registrerte OAuth-klient",
@@ -1735,10 +1738,15 @@
             "rotate_secret": "Genererte ny webhook-hemmelighet",
             "test": "Sendte testhendelse for webhook",
             "redeliver": "Leverte webhook-hendelse på nytt"
+          },
+          "audit_log": {
+            "export_csv": "Eksporterte revisjonsloggen til CSV"
           }
         },
         "actorPlaceholder": "Søk etter hvem som handlet (e-post)…",
         "actorLabel": "Søk etter utfører",
+        "exportCsv": "Eksporter CSV",
+        "exportCsvHint": "Last ned alle oppføringer som samsvarer med gjeldende filter og søk, som en CSV-fil",
         "pagesLabel": "Sider i revisjonsloggen",
         "newest": "Nyeste oppføringer",
         "older": "Eldre oppføringer"

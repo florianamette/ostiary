@@ -1386,6 +1386,8 @@
           "searchPlaceholder": "Szukaj po nazwie lub adresie e-mail…",
           "searchLabel": "Szukaj użytkowników",
           "rolePlaceholder": "Rola",
+          "exportCsv": "Eksportuj CSV",
+          "exportCsvHint": "Pobierz użytkowników pasujących do bieżącego wyszukiwania i filtra jako plik CSV",
           "roleAll": "Wszystkie role",
           "roleAdmin": "Administrator",
           "roleUser": "Użytkownik",
@@ -1655,7 +1657,8 @@
             "impersonate": "Zalogowano się jako użytkownik",
             "reset_two_factor": "Zresetowano uwierzytelnianie dwuskładnikowe",
             "export_data": "Wyeksportowano dane konta",
-            "self_delete": "Użytkownik usunął własne konto"
+            "self_delete": "Użytkownik usunął własne konto",
+            "export_csv": "Wyeksportowano użytkowników do CSV"
           },
           "oauth_client": {
             "create": "Zarejestrowano klienta OAuth",
@@ -1735,10 +1738,15 @@
             "rotate_secret": "Wygenerowano nowy sekret webhooka",
             "test": "Wysłano testowe zdarzenie webhooka",
             "redeliver": "Ponownie dostarczono zdarzenie webhooka"
+          },
+          "audit_log": {
+            "export_csv": "Wyeksportowano dziennik audytu do CSV"
           }
         },
         "actorPlaceholder": "Szukaj po wykonawcy (e-mail)…",
         "actorLabel": "Szukaj po wykonawcy",
+        "exportCsv": "Eksportuj CSV",
+        "exportCsvHint": "Pobierz wszystkie wpisy pasujące do bieżącego filtra i wyszukiwania jako plik CSV",
         "pagesLabel": "Strony dziennika audytu",
         "newest": "Najnowsze wpisy",
         "older": "Starsze wpisy"

@@ -1386,6 +1386,8 @@
           "searchPlaceholder": "Sök på namn eller e-post…",
           "searchLabel": "Sök användare",
           "rolePlaceholder": "Roll",
+          "exportCsv": "Exportera CSV",
+          "exportCsvHint": "Ladda ned användarna som matchar den aktuella sökningen och det aktuella filtret som en CSV-fil",
           "roleAll": "Alla roller",
           "roleAdmin": "Administratör",
           "roleUser": "Användare",
@@ -1655,7 +1657,8 @@
             "impersonate": "Agerade som användare",
             "reset_two_factor": "Återställde tvåfaktorsautentisering",
             "export_data": "Exporterade kontodata",
-            "self_delete": "Raderade sitt eget konto"
+            "self_delete": "Raderade sitt eget konto",
+            "export_csv": "Exporterade användare till CSV"
           },
           "oauth_client": {
             "create": "Registrerade OAuth-klient",
@@ -1735,10 +1738,15 @@
             "rotate_secret": "Genererade ny webhook-hemlighet",
             "test": "Skickade testhändelse för webhook",
             "redeliver": "Levererade webhook-händelse igen"
+          },
+          "audit_log": {
+            "export_csv": "Exporterade granskningsloggen till CSV"
           }
         },
         "actorPlaceholder": "Sök på vem som agerade (e-post)…",
         "actorLabel": "Sök på utförare",
+        "exportCsv": "Exportera CSV",
+        "exportCsvHint": "Ladda ned alla poster som matchar det aktuella filtret och den aktuella sökningen som en CSV-fil",
         "pagesLabel": "Sidor i granskningsloggen",
         "newest": "Senaste posterna",
         "older": "Äldre poster"

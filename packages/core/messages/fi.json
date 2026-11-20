@@ -1386,6 +1386,8 @@
           "searchPlaceholder": "Hae nimellä tai sähköpostilla…",
           "searchLabel": "Hae käyttäjiä",
           "rolePlaceholder": "Rooli",
+          "exportCsv": "Vie CSV",
+          "exportCsvHint": "Lataa nykyistä hakua ja suodatinta vastaavat käyttäjät CSV-tiedostona",
           "roleAll": "Kaikki roolit",
           "roleAdmin": "Ylläpitäjä",
           "roleUser": "Käyttäjä",
@@ -1655,7 +1657,8 @@
             "impersonate": "Kirjautui käyttäjänä",
             "reset_two_factor": "Nollasi kaksivaiheisen tunnistautumisen",
             "export_data": "Vei tilin tiedot",
-            "self_delete": "Poisti oman tilinsä"
+            "self_delete": "Poisti oman tilinsä",
+            "export_csv": "Vei käyttäjät CSV-muodossa"
           },
           "oauth_client": {
             "create": "Rekisteröi OAuth-asiakkaan",
@@ -1735,10 +1738,15 @@
             "rotate_secret": "Loi webhookin salaisuuden uudelleen",
             "test": "Lähetti webhookin testitapahtuman",
             "redeliver": "Toimitti webhook-tapahtuman uudelleen"
+          },
+          "audit_log": {
+            "export_csv": "Vei tarkastuslokin CSV-muodossa"
           }
         },
         "actorPlaceholder": "Hae tekijän mukaan (sähköposti)…",
         "actorLabel": "Hae tekijän mukaan",
+        "exportCsv": "Vie CSV",
+        "exportCsvHint": "Lataa kaikki nykyistä suodatinta ja hakua vastaavat merkinnät CSV-tiedostona",
         "pagesLabel": "Tarkastuslokin sivut",
         "newest": "Uusimmat merkinnät",
         "older": "Vanhemmat merkinnät"

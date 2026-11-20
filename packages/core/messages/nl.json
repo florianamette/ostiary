@@ -1386,6 +1386,8 @@
           "searchPlaceholder": "Zoeken op naam of e-mailadres…",
           "searchLabel": "Gebruikers zoeken",
           "rolePlaceholder": "Rol",
+          "exportCsv": "CSV exporteren",
+          "exportCsvHint": "De gebruikers die overeenkomen met de huidige zoekopdracht en het huidige filter downloaden als CSV-bestand",
           "roleAll": "Alle rollen",
           "roleAdmin": "Beheerder",
           "roleUser": "Gebruiker",
@@ -1655,7 +1657,8 @@
             "impersonate": "Ingelogd als gebruiker",
             "reset_two_factor": "Tweestapsverificatie gereset",
             "export_data": "Accountgegevens geëxporteerd",
-            "self_delete": "Eigen account verwijderd"
+            "self_delete": "Eigen account verwijderd",
+            "export_csv": "Gebruikers geëxporteerd naar CSV"
           },
           "oauth_client": {
             "create": "OAuth-client geregistreerd",
@@ -1735,10 +1738,15 @@
             "rotate_secret": "Webhookgeheim opnieuw gegenereerd",
             "test": "Webhook-testgebeurtenis verstuurd",
             "redeliver": "Webhookgebeurtenis opnieuw geleverd"
+          },
+          "audit_log": {
+            "export_csv": "Auditlogboek geëxporteerd naar CSV"
           }
         },
         "actorPlaceholder": "Zoeken op wie het deed (e-mail)…",
         "actorLabel": "Zoeken op uitvoerder",
+        "exportCsv": "CSV exporteren",
+        "exportCsvHint": "Alle items die overeenkomen met het huidige filter en de huidige zoekopdracht downloaden als CSV-bestand",
         "pagesLabel": "Pagina's van het auditlogboek",
         "newest": "Nieuwste items",
         "older": "Oudere items"

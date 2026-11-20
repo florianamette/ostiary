@@ -1386,6 +1386,8 @@
           "searchPlaceholder": "Search by name or email…",
           "searchLabel": "Search users",
           "rolePlaceholder": "Role",
+          "exportCsv": "Export CSV",
+          "exportCsvHint": "Download the users matching the current search and filter as a CSV file",
           "roleAll": "All roles",
           "roleAdmin": "Admin",
           "roleUser": "User",
@@ -1655,7 +1657,8 @@
             "impersonate": "Impersonated user",
             "reset_two_factor": "Reset two-factor authentication",
             "export_data": "Exported account data",
-            "self_delete": "Deleted their own account"
+            "self_delete": "Deleted their own account",
+            "export_csv": "Exported users to CSV"
           },
           "oauth_client": {
             "create": "Registered OAuth client",
@@ -1735,10 +1738,15 @@
             "rotate_secret": "Regenerated webhook secret",
             "test": "Sent webhook test event",
             "redeliver": "Redelivered webhook event"
+          },
+          "audit_log": {
+            "export_csv": "Exported audit log to CSV"
           }
         },
         "actorPlaceholder": "Search by who acted (email)…",
         "actorLabel": "Search by actor",
+        "exportCsv": "Export CSV",
+        "exportCsvHint": "Download every entry matching the current filter and search as a CSV file",
         "pagesLabel": "Audit log pages",
         "newest": "Newest entries",
         "older": "Older entries"

@@ -1386,6 +1386,8 @@
           "searchPlaceholder": "Pesquisar por nome ou e-mail…",
           "searchLabel": "Pesquisar usuários",
           "rolePlaceholder": "Função",
+          "exportCsv": "Exportar CSV",
+          "exportCsvHint": "Baixar os usuários que correspondem à pesquisa e ao filtro atuais como arquivo CSV",
           "roleAll": "Todas as funções",
           "roleAdmin": "Administrador",
           "roleUser": "Usuário",
@@ -1655,7 +1657,8 @@
             "impersonate": "Personificou usuário",
             "reset_two_factor": "Redefiniu a autenticação em dois fatores",
             "export_data": "Exportou os dados da conta",
-            "self_delete": "Excluiu a própria conta"
+            "self_delete": "Excluiu a própria conta",
+            "export_csv": "Exportou os usuários para CSV"
           },
           "oauth_client": {
             "create": "Registrou cliente OAuth",
@@ -1735,10 +1738,15 @@
             "rotate_secret": "Gerou novo segredo de webhook",
             "test": "Enviou evento de teste de webhook",
             "redeliver": "Reenviou evento de webhook"
+          },
+          "audit_log": {
+            "export_csv": "Exportou o log de auditoria para CSV"
           }
         },
         "actorPlaceholder": "Pesquisar por quem agiu (e-mail)…",
         "actorLabel": "Pesquisar por autor",
+        "exportCsv": "Exportar CSV",
+        "exportCsvHint": "Baixar todas as entradas que correspondem ao filtro e à pesquisa atuais como arquivo CSV",
         "pagesLabel": "Páginas do registro de auditoria",
         "newest": "Entradas mais recentes",
         "older": "Entradas mais antigas"

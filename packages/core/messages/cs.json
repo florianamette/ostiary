@@ -1386,6 +1386,8 @@
           "searchPlaceholder": "Hledat podle jména nebo e-mailu…",
           "searchLabel": "Hledat uživatele",
           "rolePlaceholder": "Role",
+          "exportCsv": "Exportovat CSV",
+          "exportCsvHint": "Stáhnout uživatele odpovídající aktuálnímu hledání a filtru jako soubor CSV",
           "roleAll": "Všechny role",
           "roleAdmin": "Administrátor",
           "roleUser": "Uživatel",
@@ -1655,7 +1657,8 @@
             "impersonate": "Přihlášení za uživatele",
             "reset_two_factor": "Reset dvoufázového ověření",
             "export_data": "Export dat účtu",
-            "self_delete": "Smazání vlastního účtu"
+            "self_delete": "Smazání vlastního účtu",
+            "export_csv": "Export uživatelů do CSV"
           },
           "oauth_client": {
             "create": "Registrace klienta OAuth",
@@ -1735,10 +1738,15 @@
             "rotate_secret": "Nový tajný klíč webhooku",
             "test": "Odeslání testovací události webhooku",
             "redeliver": "Opětovné doručení události webhooku"
+          },
+          "audit_log": {
+            "export_csv": "Export auditního protokolu do CSV"
           }
         },
         "actorPlaceholder": "Hledat podle toho, kdo akci provedl (e-mail)…",
         "actorLabel": "Hledat podle autora",
+        "exportCsv": "Exportovat CSV",
+        "exportCsvHint": "Stáhnout všechny záznamy odpovídající aktuálnímu filtru a hledání jako soubor CSV",
         "pagesLabel": "Stránky protokolu auditu",
         "newest": "Nejnovější záznamy",
         "older": "Starší záznamy"

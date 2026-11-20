@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { and, desc, ilike, inArray, like, sql } from "drizzle-orm";
 import { getTranslations } from "next-intl/server";
 
 import { UrlListSearch } from "@/components/admin/common/admin-table";
-import { containsPattern, readParam, type ListSearchParams } from "@/components/admin/common/list-params";
+import { readParam, type ListSearchParams } from "@/components/admin/common/list-params";
+import { ExportCsvButton } from "@/components/admin/common/export-csv-button";
 import { formatDateTime, PageHeader } from "@/components/admin/common/page-header";
 import { Button } from "@ostiary/core/components/ui/button";
 import { Badge } from "@ostiary/core/components/ui/badge";
@@ -16,30 +16,16 @@ import {
   TableHeader,
   TableRow,
 } from "@ostiary/core/components/ui/table";
-import { db } from "@ostiary/core/db/index";
-import { auditLog, organization, user } from "@ostiary/core/db/schema";
 import { Link } from "@/i18n/navigation";
 import { getAuditActionLabel } from "@/lib/admin-audit";
+import { exportHref } from "@/lib/admin-csv-export";
+import { AUDIT_FILTERS, auditTargetLabel, auditTargetLabels, listAuditPage, readAuditListFilters } from "@/lib/audit-list";
 import { requireAdminSession } from "@/lib/require-admin-session";
 import { cn } from "@ostiary/core/lib/utils";
 
 export const dynamic = "force-dynamic";
 
 const PAGE_SIZE = 100;
-
-const FILTERS = [
-  "all",
-  "user",
-  "organization",
-  "oauth_client",
-  "oauth_consent",
-  "oauth_resource",
-  "api_key",
-  "sso_provider",
-  "signing_key",
-  "webhook",
-  "social_provider",
-] as const;
 
 export async function generateMetadata({
   params,
@@ -78,32 +64,13 @@ export default async function AuditLogPage({
   await requireAdminSession();
   const { locale } = await params;
   const query = await searchParams;
-  const type = readParam(query, "type") || "all";
-  const actor = readParam(query, "q");
+  const filters = readAuditListFilters(query);
+  const { type: filter, actor } = filters;
   const before = readParam(query, "before");
   const t = await getTranslations({ locale, namespace: "admin.pages.audit" });
   const actionLabel = await getAuditActionLabel(locale);
-  const filter = FILTERS.some((f) => f === type) ? type : "all";
 
-  // Newest first, a page at a time: `?before=<id>` continues after that entry (keyset
-  // pagination, which stays fast however long the log gets).
-  const cursor = before
-    ? sql`(${auditLog.createdAt}, ${auditLog.id}) < (select c.created_at, c.id from ${auditLog} c where c.id = ${before})`
-    : undefined;
-  const page = await db
-    .select()
-    .from(auditLog)
-    .where(
-      and(
-        filter === "all" ? undefined : like(auditLog.action, `${filter}.%`),
-        actor ? ilike(auditLog.actorEmail, containsPattern(actor)) : undefined,
-        cursor,
-      ),
-    )
-    .orderBy(desc(auditLog.createdAt), desc(auditLog.id))
-    .limit(PAGE_SIZE + 1);
-  const rows = page.slice(0, PAGE_SIZE);
-  const older = page.length > PAGE_SIZE ? rows[rows.length - 1].id : null;
+  const { rows, older } = await listAuditPage(filters, before, PAGE_SIZE);
   const listHref = (next: { type?: string; before?: string | null }) => {
     const params = new URLSearchParams();
     const nextType = next.type ?? filter;
@@ -113,27 +80,23 @@ export default async function AuditLogPage({
     const qs = params.toString();
     return qs ? `/audit?${qs}` : "/audit";
   };
-
-  // Hook-recorded entries only carry ids; show current emails and organization names.
-  const idsOf = (type: string) => [...new Set(rows.filter((r) => r.targetType === type && r.targetId).map((r) => r.targetId!))];
-  const userIds = idsOf("user");
-  const orgIds = idsOf("organization");
-  const labels = new Map<string, string>();
-  if (userIds.length) {
-    for (const u of await db.select({ id: user.id, email: user.email }).from(user).where(inArray(user.id, userIds))) labels.set(u.id, u.email);
-  }
-  if (orgIds.length) {
-    for (const o of await db.select({ id: organization.id, name: organization.name }).from(organization).where(inArray(organization.id, orgIds))) labels.set(o.id, o.name);
-  }
+  const labels = await auditTargetLabels(rows);
 
   return (
     <div className="space-y-6">
       <PageHeader title={t("title")} description={t("description")} />
 
-      <UrlListSearch placeholder={t("actorPlaceholder")} label={t("actorLabel")} />
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <UrlListSearch placeholder={t("actorPlaceholder")} label={t("actorLabel")} />
+        <ExportCsvButton
+          href={exportHref("/api/admin/audit/export", { type: filter, q: actor })}
+          label={t("exportCsv")}
+          title={t("exportCsvHint")}
+        />
+      </div>
 
       <nav className="flex flex-wrap gap-2" aria-label={t("filterLabel")}>
-        {FILTERS.map((f) => (
+        {AUDIT_FILTERS.map((f) => (
           <Link
             key={f}
             href={listHref({ type: f })}
@@ -169,7 +132,7 @@ export default async function AuditLogPage({
               <TableBody>
                 {rows.map((row) => {
                   const href = targetHref(row.targetType, row.targetId);
-                  const label = (row.targetId && labels.get(row.targetId)) ?? row.targetLabel ?? row.targetId ?? "-";
+                  const label = auditTargetLabel(row, labels) ?? "-";
                   return (
                     <TableRow key={row.id}>
                       <TableCell className="whitespace-nowrap pl-6 text-sm text-muted-foreground">

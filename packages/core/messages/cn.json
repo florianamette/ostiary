@@ -1386,6 +1386,8 @@
           "searchPlaceholder": "按名称或邮箱搜索…",
           "searchLabel": "搜索用户",
           "rolePlaceholder": "角色",
+          "exportCsv": "导出 CSV",
+          "exportCsvHint": "将符合当前搜索和筛选条件的用户下载为 CSV 文件",
           "roleAll": "所有角色",
           "roleAdmin": "管理员",
           "roleUser": "用户",
@@ -1655,7 +1657,8 @@
             "impersonate": "模拟了用户",
             "reset_two_factor": "重置了双重身份验证",
             "export_data": "导出了账户数据",
-            "self_delete": "删除了自己的账户"
+            "self_delete": "删除了自己的账户",
+            "export_csv": "将用户导出为 CSV"
           },
           "oauth_client": {
             "create": "注册了 OAuth 客户端",
@@ -1735,10 +1738,15 @@
             "rotate_secret": "重新生成了 Webhook 密钥",
             "test": "发送了 Webhook 测试事件",
             "redeliver": "重新投递了 Webhook 事件"
+          },
+          "audit_log": {
+            "export_csv": "将审计日志导出为 CSV"
           }
         },
         "actorPlaceholder": "按操作者（邮箱）搜索…",
         "actorLabel": "按操作者搜索",
+        "exportCsv": "导出 CSV",
+        "exportCsvHint": "将符合当前筛选和搜索条件的所有条目下载为 CSV 文件",
         "pagesLabel": "审计日志分页",
         "newest": "最新记录",
         "older": "更早的记录"

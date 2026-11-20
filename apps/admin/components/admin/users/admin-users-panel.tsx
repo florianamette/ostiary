@@ -8,6 +8,7 @@ import { Link } from "@/i18n/navigation";
 import { AdminCreateUserDialog } from "@/components/admin/users/admin-create-user-dialog";
 import { AdminUserRowActions } from "@/components/admin/users/admin-user-row-actions";
 import { ListSearch, TableMessageRow, TablePagination } from "@/components/admin/common/admin-table";
+import { ExportCsvButton } from "@/components/admin/common/export-csv-button";
 import { useListParams } from "@/components/admin/common/use-list-params";
 import { usePagination } from "@/components/admin/common/use-pagination";
 import { ExternalLink } from "@/components/admin/common/external-link";
@@ -49,10 +50,13 @@ export function AdminUsersPanel({
   users,
   total,
   currentUserId,
+  exportHref,
 }: {
   users: ListUser[];
   total: number;
   currentUserId: string;
+  /** The CSV export of the users matching the URL's filters. */
+  exportHref: string;
 }) {
   const t = useTranslations("admin.pages.users");
   const tc = useTranslations("admin.common");
@@ -86,6 +90,7 @@ export function AdminUsersPanel({
               <SelectItem value="user">{t("list.roleUser")}</SelectItem>
             </SelectContent>
           </Select>
+          <ExportCsvButton href={exportHref} label={t("list.exportCsv")} title={t("list.exportCsvHint")} />
           <AdminCreateUserDialog onCreated={refresh} />
         </div>
       </div>

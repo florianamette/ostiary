@@ -1386,6 +1386,8 @@
           "searchPlaceholder": "Søg efter navn eller e-mail…",
           "searchLabel": "Søg efter brugere",
           "rolePlaceholder": "Rolle",
+          "exportCsv": "Eksportér CSV",
+          "exportCsvHint": "Download brugerne, der matcher den aktuelle søgning og det aktuelle filter, som en CSV-fil",
           "roleAll": "Alle roller",
           "roleAdmin": "Administrator",
           "roleUser": "Bruger",
@@ -1655,7 +1657,8 @@
             "impersonate": "Loggede ind som bruger",
             "reset_two_factor": "Nulstillede totrinsgodkendelse",
             "export_data": "Eksporterede kontodata",
-            "self_delete": "Slettede sin egen konto"
+            "self_delete": "Slettede sin egen konto",
+            "export_csv": "Eksporterede brugere til CSV"
           },
           "oauth_client": {
             "create": "Registrerede OAuth-klient",
@@ -1735,10 +1738,15 @@
             "rotate_secret": "Genererede ny webhook-hemmelighed",
             "test": "Sendte webhook-testhændelse",
             "redeliver": "Leverede webhook-hændelse igen"
+          },
+          "audit_log": {
+            "export_csv": "Eksporterede revisionsloggen til CSV"
           }
         },
         "actorPlaceholder": "Søg efter hvem der handlede (e-mail)…",
         "actorLabel": "Søg efter udfører",
+        "exportCsv": "Eksportér CSV",
+        "exportCsvHint": "Download alle poster, der matcher det aktuelle filter og den aktuelle søgning, som en CSV-fil",
         "pagesLabel": "Sider i revisionsloggen",
         "newest": "Nyeste poster",
         "older": "Ældre poster"
