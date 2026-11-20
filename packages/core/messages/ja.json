@@ -1463,7 +1463,8 @@
           "previous": "前へ",
           "next": "次へ",
           "pageOf": "{page} / {pages} ページ",
-          "poweredBy": "<link>Better Auth 管理プラグイン</link>の <code>listUsers</code>、<code>createUser</code>、<code>setRole</code>、<code>updateUser</code>、<code>setUserPassword</code> などのメソッドを使用しています。管理者としてサインインしている必要があります。"
+          "poweredBy": "<link>Better Auth 管理プラグイン</link>の <code>listUsers</code>、<code>createUser</code>、<code>setRole</code>、<code>updateUser</code>、<code>setUserPassword</code> などのメソッドを使用しています。管理者としてサインインしている必要があります。",
+          "import": "ユーザーをインポート"
         },
         "status": {
           "banned": "利用停止中",
@@ -1607,6 +1608,73 @@
           }
         }
       },
+      "userImport": {
+        "title": "ユーザーをインポート",
+        "description": "Auth0 または CSV ファイルからアカウントを移行します。何かを書き込む前に、ドライランで結果を確認できます。",
+        "fileTitle": "ファイル",
+        "limits": "1 回のインポートにつき最大 {size} MB、{count} ユーザーまで。大きなエクスポートは複数のファイルに分割してください。",
+        "format": "形式",
+        "formatAuth0": "Auth0 ユーザーエクスポート (JSON)",
+        "formatCsv": "CSV",
+        "usersFile": "ユーザーファイル",
+        "usersFileHelpAuth0": "Auth0 のユーザーエクスポートジョブが出力するファイル。1 行に 1 つの JSON オブジェクト、または JSON 配列。",
+        "usersFileHelpCsv": "ヘッダー行のあと、1 行に 1 ユーザー。列: <code>email</code> (必須)、<code>name</code>、<code>username</code>、<code>emailVerified</code>、<code>role</code>、<code>passwordHash</code> (bcrypt)。",
+        "hashesFile": "パスワードハッシュのエクスポート (任意)",
+        "hashesFileHelp": "Auth0 サポートに依頼すると提供される bcrypt ハッシュ。ID で、見つからなければメールアドレスでユーザーと照合します。ハッシュのないユーザーは、メールで届くコードでサインインするか、パスワードを再設定します。",
+        "allowAdmin": "admin ロールを許可",
+        "allowAdminHelp": "これがオフの場合、<code>role</code> が <code>admin</code> の行は拒否されます。",
+        "notice": "インポートされたユーザーにメールは送信されず、既存のアカウントが変更されることもありません。ソーシャルログイン、MFA、パスキーはインポートされません。ユーザーが再設定します。",
+        "check": "ドライランを実行",
+        "checking": "確認中…",
+        "dryRunTitle": "ドライラン",
+        "dryRunDescription": "{rows, plural, other {# 行を読み込みました。}}まだ何も書き込まれていません。確定時にファイルを再度確認します。",
+        "counts": {
+          "toCreate": "作成予定",
+          "skippedExisting": "スキップ: メールアドレスが使用済み",
+          "skippedAlias": "スキップ: 既存メールアドレスのエイリアス",
+          "invalid": "無効な行"
+        },
+        "details": "作成予定のユーザーのうち、パスワードあり {withPassword}、管理者 {admins}、ブロック済み {blocked} (ブロックされたまま)。",
+        "errorsTitle": "インポートされない行 ({total} 件中、最初の {shown} 件)",
+        "columns": {
+          "row": "行",
+          "email": "メールアドレス",
+          "reason": "理由"
+        },
+        "confirm": "{count, plural, other {# 人のユーザーをインポート}}",
+        "importing": "インポート中…",
+        "done": "{count, plural, other {# 人のユーザーをインポートしました。}}",
+        "doneConflicts": "{count, plural, other {# 行をスキップしました}}: ドライランのあと、別のアカウントがそのメールアドレスまたはユーザー名を使用しました。",
+        "partial": "{created} 人のユーザーのあとでインポートが停止し、{count} 行は書き込まれませんでした。もう一度実行してください。インポート済みのユーザーはスキップされます。",
+        "viewUsers": "ユーザーを表示",
+        "noFile": "インポートするファイルを選択してください。",
+        "changed": "ドライランのあとでファイルまたはオプションが変更されました。ドライランをもう一度実行してください。",
+        "reasons": {
+          "invalidRecord": "有効なレコードではありません",
+          "missingEmail": "メールアドレスがありません",
+          "invalidEmail": "無効なメールアドレス",
+          "invalidName": "無効な名前 (長すぎるか、制御文字を含む)",
+          "invalidUsername": "無効なユーザー名 (英数字、_、. の 3〜30 文字)",
+          "invalidEmailVerified": "emailVerified が true でも false でもありません",
+          "invalidRole": "ロールが user でも admin でもありません",
+          "adminNotAllowed": "このインポートでは admin ロールは許可されていません",
+          "unsupportedHash": "パスワードハッシュが bcrypt ではありません",
+          "bcryptCost": "bcrypt のコストが 4〜14 の範囲外です",
+          "duplicateInFile": "前の行と同じメールアドレス (または受信箱)",
+          "usernameTaken": "ユーザー名はすでに使われています"
+        },
+        "fileErrors": {
+          "empty": "ファイルにユーザーが含まれていません。",
+          "tooLarge": "ファイルが {size} MB を超えています。エクスポートを複数のファイルに分割してください。",
+          "tooManyUsers": "ファイルに {count} 人を超えるユーザーが含まれています。エクスポートを複数のファイルに分割してください。",
+          "invalidJson": "ファイルが有効な JSON ではありません。1 行に 1 オブジェクト、または配列が必要です。",
+          "csvMissingEmail": "CSV ファイルに email 列がありません。",
+          "csvUnknownColumn": "不明な CSV 列「{column}」。ドキュメントに記載された列のみ読み込みます。削除してください。",
+          "csvDuplicateColumn": "CSV 列「{column}」が 2 回あります。",
+          "csvUnbalancedQuotes": "CSV ファイルに閉じられていない引用符があります。",
+          "invalidHashFile": "パスワードハッシュのエクスポートが有効な JSON ではありません。"
+        }
+      },
       "consent": {
         "title": "同意",
         "description": "ユーザーが OAuth クライアントに付与した権限と、そのスコープおよび付与日時。",
@@ -1716,7 +1784,8 @@
             "reset_two_factor": "2段階認証をリセット",
             "export_data": "アカウントデータをエクスポート",
             "self_delete": "自分のアカウントを削除",
-            "export_csv": "ユーザーを CSV にエクスポート"
+            "export_csv": "ユーザーを CSV にエクスポート",
+            "import": "ユーザーをインポート"
           },
           "oauth_client": {
             "create": "OAuth クライアントを登録",

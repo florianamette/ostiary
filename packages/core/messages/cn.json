@@ -1463,7 +1463,8 @@
           "previous": "上一页",
           "next": "下一页",
           "pageOf": "第 {page} / {pages} 页",
-          "poweredBy": "基于 <link>Better Auth admin 插件</link>的 <code>listUsers</code>、<code>createUser</code>、<code>setRole</code>、<code>updateUser</code>、<code>setUserPassword</code> 等方法。你必须以管理员身份登录。"
+          "poweredBy": "基于 <link>Better Auth admin 插件</link>的 <code>listUsers</code>、<code>createUser</code>、<code>setRole</code>、<code>updateUser</code>、<code>setUserPassword</code> 等方法。你必须以管理员身份登录。",
+          "import": "导入用户"
         },
         "status": {
           "banned": "已封禁",
@@ -1607,6 +1608,73 @@
           }
         }
       },
+      "userImport": {
+        "title": "导入用户",
+        "description": "从 Auth0 或 CSV 文件迁移账户。在写入任何内容之前，试运行会先展示将发生的情况。",
+        "fileTitle": "文件",
+        "limits": "每次导入最多 {size} MB、{count} 个用户。较大的导出请拆分为多个文件。",
+        "format": "格式",
+        "formatAuth0": "Auth0 用户导出（JSON）",
+        "formatCsv": "CSV",
+        "usersFile": "用户文件",
+        "usersFileHelpAuth0": "Auth0 用户导出任务生成的文件：每行一个 JSON 对象，或一个 JSON 数组。",
+        "usersFileHelpCsv": "一行表头，之后每行一个用户。列：<code>email</code>（必填）、<code>name</code>、<code>username</code>、<code>emailVerified</code>、<code>role</code>、<code>passwordHash</code>（bcrypt）。",
+        "hashesFile": "密码哈希导出（可选）",
+        "hashesFileHelp": "Auth0 支持团队应要求提供的 bcrypt 哈希，先按 ID、再按邮箱与用户匹配。没有哈希的用户可通过邮件收到的验证码登录，或重置密码。",
+        "allowAdmin": "允许 admin 角色",
+        "allowAdminHelp": "除非开启此项，否则 <code>role</code> 为 <code>admin</code> 的行会被拒绝。",
+        "notice": "导入的用户不会收到任何邮件，现有账户也绝不会被修改。社交登录、MFA 和通行密钥不会被导入：用户需要重新设置。",
+        "check": "开始试运行",
+        "checking": "正在检查…",
+        "dryRunTitle": "试运行",
+        "dryRunDescription": "{rows, plural, other {已读取 # 行。}}尚未写入任何内容：确认时会再次检查文件。",
+        "counts": {
+          "toCreate": "将创建",
+          "skippedExisting": "已跳过：邮箱已被使用",
+          "skippedAlias": "已跳过：现有邮箱的别名",
+          "invalid": "无效行"
+        },
+        "details": "将创建的用户中：{withPassword} 个有密码，{admins} 个管理员，{blocked} 个已封禁（导入后保持封禁）。",
+        "errorsTitle": "不会导入的行（共 {total} 行，显示前 {shown} 行）",
+        "columns": {
+          "row": "行",
+          "email": "邮箱",
+          "reason": "原因"
+        },
+        "confirm": "{count, plural, other {导入 # 个用户}}",
+        "importing": "正在导入…",
+        "done": "{count, plural, other {已导入 # 个用户。}}",
+        "doneConflicts": "{count, plural, other {已跳过 # 行}}：试运行之后，其他账户占用了该邮箱地址或用户名。",
+        "partial": "导入在 {created} 个用户之后停止，有 {count} 行未写入。请重新运行：已导入的用户会被跳过。",
+        "viewUsers": "查看用户",
+        "noFile": "请选择要导入的文件。",
+        "changed": "试运行之后文件或选项已更改。请重新试运行。",
+        "reasons": {
+          "invalidRecord": "不是有效记录",
+          "missingEmail": "没有邮箱地址",
+          "invalidEmail": "邮箱地址无效",
+          "invalidName": "名称无效（过长或包含控制字符）",
+          "invalidUsername": "用户名无效（3 到 30 个字母、数字、_ 或 .）",
+          "invalidEmailVerified": "emailVerified 既不是 true 也不是 false",
+          "invalidRole": "角色既不是 user 也不是 admin",
+          "adminNotAllowed": "本次导入不允许 admin 角色",
+          "unsupportedHash": "密码哈希不是 bcrypt",
+          "bcryptCost": "bcrypt 成本不在 4 到 14 之间",
+          "duplicateInFile": "与前面某行的邮箱地址（或收件箱）相同",
+          "usernameTaken": "用户名已被占用"
+        },
+        "fileErrors": {
+          "empty": "文件中没有用户。",
+          "tooLarge": "文件超过 {size} MB。请将导出拆分为多个文件。",
+          "tooManyUsers": "文件中的用户超过 {count} 个。请将导出拆分为多个文件。",
+          "invalidJson": "文件不是有效的 JSON：应为每行一个对象，或一个数组。",
+          "csvMissingEmail": "CSV 文件没有 email 列。",
+          "csvUnknownColumn": "未知的 CSV 列“{column}”。只会读取文档中列出的列：请删除它。",
+          "csvDuplicateColumn": "CSV 列“{column}”出现了两次。",
+          "csvUnbalancedQuotes": "CSV 文件中有未闭合的引号。",
+          "invalidHashFile": "密码哈希导出不是有效的 JSON。"
+        }
+      },
       "consent": {
         "title": "授权记录",
         "description": "用户授予 OAuth 客户端的权限，包括范围和授予时间。",
@@ -1716,7 +1784,8 @@
             "reset_two_factor": "重置了双重身份验证",
             "export_data": "导出了账户数据",
             "self_delete": "删除了自己的账户",
-            "export_csv": "将用户导出为 CSV"
+            "export_csv": "将用户导出为 CSV",
+            "import": "导入了用户"
           },
           "oauth_client": {
             "create": "注册了 OAuth 客户端",

@@ -73,6 +73,17 @@ All notable changes are documented here. The format follows
   follow refresh token rotation; client credentials tokens get the fixed values only. Stored
   in `oauth_client_claims` (migration `0015`), audited as `oauth_client.claims_update`. See
   `docs/connect-an-app.md`.
+- **Import users.** **Users > Import users** in the admin console brings accounts over from an
+  Auth0 user export (with the password hash export Auth0 support provides) or a CSV file. A
+  dry run first counts the users to create, the addresses that already have an account or
+  reach the same inbox (`EMAIL_DEDUP`) and the invalid rows, with their reasons; the import
+  then writes what it showed, 500 users per transaction, each in the Public organization.
+  Existing accounts are never changed, no email is sent, and no one becomes an admin unless
+  the CSV says so and the admin allowed it (`ADMIN_EMAILS` does not promote at import).
+  Imported bcrypt hashes (`$2a$`, `$2b$`, `$2y$`) keep working and are replaced by scrypt at
+  the next successful sign-in; other hash formats are refused per row. Social identities,
+  MFA enrolments and passkeys are not imported. Audited as `user.import`. See
+  `docs/import-users.md`.
 - **One client per MCP app.** Claude and other MCP clients register again on every connection,
   which filled the Applications page with identical "Claude" clients. An anonymous registration
   identical to an existing public client (same name, redirect URIs, grants, response types,

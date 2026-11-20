@@ -1463,7 +1463,8 @@
           "previous": "Forrige",
           "next": "Næste",
           "pageOf": "Side {page} / {pages}",
-          "poweredBy": "Drevet af <code>listUsers</code>, <code>createUser</code>, <code>setRole</code>, <code>updateUser</code>, <code>setUserPassword</code> og relaterede metoder fra <link>Better Auth admin-pluginet</link>. Du skal være logget ind som administrator."
+          "poweredBy": "Drevet af <code>listUsers</code>, <code>createUser</code>, <code>setRole</code>, <code>updateUser</code>, <code>setUserPassword</code> og relaterede metoder fra <link>Better Auth admin-pluginet</link>. Du skal være logget ind som administrator.",
+          "import": "Importér brugere"
         },
         "status": {
           "banned": "Udelukket",
@@ -1607,6 +1608,73 @@
           }
         }
       },
+      "userImport": {
+        "title": "Importér brugere",
+        "description": "Flyt konti over fra Auth0 eller en CSV-fil. En prøvekørsel viser, hvad der sker, før noget skrives.",
+        "fileTitle": "Filer",
+        "limits": "Op til {size} MB og {count} brugere pr. import. Del større eksporter op i flere filer.",
+        "format": "Format",
+        "formatAuth0": "Brugereksport fra Auth0 (JSON)",
+        "formatCsv": "CSV",
+        "usersFile": "Brugerfil",
+        "usersFileHelpAuth0": "Filen fra Auth0’s job til brugereksport: ét JSON-objekt pr. linje eller et JSON-array.",
+        "usersFileHelpCsv": "En overskriftslinje, derefter én bruger pr. linje. Kolonner: <code>email</code> (påkrævet), <code>name</code>, <code>username</code>, <code>emailVerified</code>, <code>role</code>, <code>passwordHash</code> (bcrypt).",
+        "hashesFile": "Eksport af adgangskode-hashes (valgfri)",
+        "hashesFileHelp": "De bcrypt-hashes, som Auth0’s support udleverer på anmodning, knyttet til brugere via ID og ellers via e-mail. Brugere uden hash logger ind med en kode pr. e-mail eller nulstiller deres adgangskode.",
+        "allowAdmin": "Tillad admin-rollen",
+        "allowAdminHelp": "Linjer, hvor <code>role</code> er <code>admin</code>, afvises, medmindre dette er slået til.",
+        "notice": "Importerede brugere får ingen e-mail, og eksisterende konti ændres aldrig. Sociale logins, MFA og passkeys importeres ikke: brugerne sætter dem op igen.",
+        "check": "Kør prøvekørsel",
+        "checking": "Kontrollerer…",
+        "dryRunTitle": "Prøvekørsel",
+        "dryRunDescription": "{rows, plural, one {# linje læst.} other {# linjer læst.}} Intet er skrevet endnu: filerne kontrolleres igen, når du bekræfter.",
+        "counts": {
+          "toCreate": "Oprettes",
+          "skippedExisting": "Sprunget over: e-mail er allerede i brug",
+          "skippedAlias": "Sprunget over: alias for en eksisterende e-mail",
+          "invalid": "Ugyldige linjer"
+        },
+        "details": "Af de brugere, der oprettes: {withPassword} med adgangskode, {admins} administratorer, {blocked} blokerede (importeres som udelukkede).",
+        "errorsTitle": "Linjer, der ikke importeres (første {shown} af {total})",
+        "columns": {
+          "row": "Linje",
+          "email": "E-mail",
+          "reason": "Årsag"
+        },
+        "confirm": "Importér {count, plural, one {# bruger} other {# brugere}}",
+        "importing": "Importerer…",
+        "done": "{count, plural, one {# bruger importeret.} other {# brugere importeret.}}",
+        "doneConflicts": "{count, plural, one {# linje blev sprunget over} other {# linjer blev sprunget over}}: en anden konto tog e-mailadressen eller brugernavnet efter prøvekørslen.",
+        "partial": "Importen stoppede efter {created} brugere, {count} linjer blev ikke skrevet. Kør den igen: allerede importerede brugere springes over.",
+        "viewUsers": "Vis brugere",
+        "noFile": "Vælg en fil at importere.",
+        "changed": "Filerne eller indstillingerne er ændret siden prøvekørslen. Kør prøvekørslen igen.",
+        "reasons": {
+          "invalidRecord": "Ikke en gyldig post",
+          "missingEmail": "Ingen e-mailadresse",
+          "invalidEmail": "Ugyldig e-mailadresse",
+          "invalidName": "Ugyldigt navn (for langt eller kontroltegn)",
+          "invalidUsername": "Ugyldigt brugernavn (3 til 30 bogstaver, cifre, _ eller .)",
+          "invalidEmailVerified": "emailVerified er hverken true eller false",
+          "invalidRole": "Rollen er hverken user eller admin",
+          "adminNotAllowed": "Admin-rollen er ikke tilladt i denne import",
+          "unsupportedHash": "Adgangskode-hashen er ikke bcrypt",
+          "bcryptCost": "bcrypt-omkostning uden for 4 til 14",
+          "duplicateInFile": "Samme e-mailadresse (eller indbakke) som en tidligere linje",
+          "usernameTaken": "Brugernavnet er allerede taget"
+        },
+        "fileErrors": {
+          "empty": "Filen indeholder ingen brugere.",
+          "tooLarge": "Filerne er større end {size} MB. Del eksporten op i flere filer.",
+          "tooManyUsers": "Filen har mere end {count} brugere. Del eksporten op i flere filer.",
+          "invalidJson": "Filen er ikke gyldig JSON: der forventes ét objekt pr. linje eller et array.",
+          "csvMissingEmail": "CSV-filen har ingen email-kolonne.",
+          "csvUnknownColumn": "Ukendt CSV-kolonne “{column}”. Kun de dokumenterede kolonner læses: fjern den.",
+          "csvDuplicateColumn": "CSV-kolonnen “{column}” optræder to gange.",
+          "csvUnbalancedQuotes": "CSV-filen har et anførselstegn, der aldrig lukkes.",
+          "invalidHashFile": "Eksporten af adgangskode-hashes er ikke gyldig JSON."
+        }
+      },
       "consent": {
         "title": "Samtykke",
         "description": "Tilladelser, som personer har givet OAuth-klienter, med deres scopes og tidspunktet, de blev givet.",
@@ -1716,7 +1784,8 @@
             "reset_two_factor": "Nulstillede totrinsgodkendelse",
             "export_data": "Eksporterede kontodata",
             "self_delete": "Slettede sin egen konto",
-            "export_csv": "Eksporterede brugere til CSV"
+            "export_csv": "Eksporterede brugere til CSV",
+            "import": "Importerede brugere"
           },
           "oauth_client": {
             "create": "Registrerede OAuth-klient",

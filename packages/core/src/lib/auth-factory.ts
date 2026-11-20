@@ -91,6 +91,7 @@ import {
 import { auditRequests } from "@ostiary/core/lib/auth-hooks/audit-hook";
 import { adminEmailChangeUnverifies } from "@ostiary/core/lib/auth-hooks/admin-email-change";
 import { databaseHooks } from "@ostiary/core/lib/auth-hooks/database-hooks";
+import { importedPasswordVerifier, replaceImportedHash } from "@ostiary/core/lib/user-import/password-hash";
 import { revokeUserAccess } from "@ostiary/core/lib/security/user-access-revocation";
 import {
     assertAccountDeletable,
@@ -522,6 +523,12 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
             },
             sendResetPassword: async ({ user, url }) => {
                 queuePasswordResetEmail({ to: user.email, url });
+            },
+            // New passwords are hashed with Better Auth's default (scrypt). Accounts brought in by
+            // a user import may still hold a bcrypt hash: it is checked with bcrypt and replaced by
+            // a scrypt hash at the first successful sign-in (lib/user-import/password-hash.ts).
+            password: {
+                verify: importedPasswordVerifier(replaceImportedHash(db)),
             },
         },
         plugins: [

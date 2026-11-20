@@ -1463,7 +1463,8 @@
           "previous": "السابق",
           "next": "التالي",
           "pageOf": "الصفحة {page} / {pages}",
-          "poweredBy": "يعتمد على <code>listUsers</code> و<code>createUser</code> و<code>setRole</code> و<code>updateUser</code> و<code>setUserPassword</code> والدوال المرتبطة بها من <link>إضافة الإدارة في Better Auth</link>. يجب أن تكون مسجّل الدخول بصفتك مسؤولًا."
+          "poweredBy": "يعتمد على <code>listUsers</code> و<code>createUser</code> و<code>setRole</code> و<code>updateUser</code> و<code>setUserPassword</code> والدوال المرتبطة بها من <link>إضافة الإدارة في Better Auth</link>. يجب أن تكون مسجّل الدخول بصفتك مسؤولًا.",
+          "import": "استيراد المستخدمين"
         },
         "status": {
           "banned": "محظور",
@@ -1607,6 +1608,73 @@
           }
         }
       },
+      "userImport": {
+        "title": "استيراد المستخدمين",
+        "description": "انقل الحسابات من Auth0 أو من ملف CSV. يعرض التشغيل التجريبي ما سيحدث قبل كتابة أي شيء.",
+        "fileTitle": "الملفات",
+        "limits": "حتى {size} ميغابايت و{count} مستخدم في كل عملية استيراد. قسّم عمليات التصدير الأكبر إلى عدة ملفات.",
+        "format": "التنسيق",
+        "formatAuth0": "تصدير مستخدمي Auth0 ‏(JSON)",
+        "formatCsv": "CSV",
+        "usersFile": "ملف المستخدمين",
+        "usersFileHelpAuth0": "الملف الذي تنتجه مهمة تصدير المستخدمين في Auth0: كائن JSON واحد في كل سطر، أو مصفوفة JSON.",
+        "usersFileHelpCsv": "سطر عناوين، ثم مستخدم واحد في كل سطر. الأعمدة: <code>email</code> (إلزامي)، <code>name</code>، <code>username</code>، <code>emailVerified</code>، <code>role</code>، <code>passwordHash</code> ‏(bcrypt).",
+        "hashesFile": "تصدير تجزئات كلمات المرور (اختياري)",
+        "hashesFileHelp": "تجزئات bcrypt التي يقدّمها دعم Auth0 عند الطلب، وتُطابَق مع المستخدمين بالمعرّف ثم بالبريد الإلكتروني. يسجّل المستخدمون الذين لا تجزئة لهم الدخول برمز يصلهم بالبريد أو يعيدون تعيين كلمة المرور.",
+        "allowAdmin": "السماح بدور المسؤول",
+        "allowAdminHelp": "تُرفض الأسطر التي يكون فيها <code>role</code> مساويًا لـ <code>admin</code> ما لم يكن هذا الخيار مفعّلًا.",
+        "notice": "لا يتلقى المستخدمون المستوردون أي بريد إلكتروني، ولا تُعدَّل الحسابات الموجودة أبدًا. لا تُستورد تسجيلات الدخول الاجتماعية ولا المصادقة متعددة العوامل ولا مفاتيح المرور: يعيد المستخدمون إعدادها.",
+        "check": "تشغيل تجريبي",
+        "checking": "جارٍ التحقق…",
+        "dryRunTitle": "تشغيل تجريبي",
+        "dryRunDescription": "{rows, plural, zero {لم يُقرأ أي سطر.} one {قُرئ سطر واحد.} two {قُرئ سطران.} few {قُرئت # أسطر.} many {قُرئ # سطرًا.} other {قُرئ # سطر.}} لم يُكتب شيء بعد: يُعاد التحقق من الملفات عند التأكيد.",
+        "counts": {
+          "toCreate": "سيُنشأ",
+          "skippedExisting": "تم التخطي: البريد مستخدم بالفعل",
+          "skippedAlias": "تم التخطي: اسم بديل لبريد موجود",
+          "invalid": "أسطر غير صالحة"
+        },
+        "details": "من المستخدمين الذين سيُنشأون: {withPassword} بكلمة مرور، و{admins} مسؤولون، و{blocked} محظورون (يبقون محظورين).",
+        "errorsTitle": "أسطر لن تُستورد (أول {shown} من {total})",
+        "columns": {
+          "row": "السطر",
+          "email": "البريد الإلكتروني",
+          "reason": "السبب"
+        },
+        "confirm": "{count, plural, zero {استيراد # مستخدم} one {استيراد مستخدم واحد} two {استيراد مستخدمَين} few {استيراد # مستخدمين} many {استيراد # مستخدمًا} other {استيراد # مستخدم}}",
+        "importing": "جارٍ الاستيراد…",
+        "done": "{count, plural, zero {لم يُستورد أي مستخدم.} one {استُورد مستخدم واحد.} two {استُورد مستخدمان.} few {استُورد # مستخدمين.} many {استُورد # مستخدمًا.} other {استُورد # مستخدم.}}",
+        "doneConflicts": "{count, plural, zero {لم يُتخطَّ أي سطر} one {تم تخطي سطر واحد} two {تم تخطي سطرين} few {تم تخطي # أسطر} many {تم تخطي # سطرًا} other {تم تخطي # سطر}}: أخذ حساب آخر عنوان البريد أو اسم المستخدم بعد التشغيل التجريبي.",
+        "partial": "توقف الاستيراد بعد {created} مستخدم، ولم تُكتب {count} من الأسطر. شغّله مرة أخرى: يُتخطى المستخدمون المستوردون من قبل.",
+        "viewUsers": "عرض المستخدمين",
+        "noFile": "اختر ملفًا لاستيراده.",
+        "changed": "تغيّرت الملفات أو الخيارات منذ التشغيل التجريبي. أعد التشغيل التجريبي.",
+        "reasons": {
+          "invalidRecord": "سجل غير صالح",
+          "missingEmail": "لا يوجد عنوان بريد إلكتروني",
+          "invalidEmail": "عنوان بريد إلكتروني غير صالح",
+          "invalidName": "اسم غير صالح (طويل جدًا أو يحتوي على محارف تحكم)",
+          "invalidUsername": "اسم مستخدم غير صالح (من 3 إلى 30 حرفًا أو رقمًا أو _ أو .)",
+          "invalidEmailVerified": "قيمة emailVerified ليست true ولا false",
+          "invalidRole": "الدور ليس user ولا admin",
+          "adminNotAllowed": "دور المسؤول غير مسموح في هذا الاستيراد",
+          "unsupportedHash": "تجزئة كلمة المرور ليست bcrypt",
+          "bcryptCost": "كلفة bcrypt خارج النطاق من 4 إلى 14",
+          "duplicateInFile": "عنوان البريد نفسه (أو صندوق البريد نفسه) كسطر سابق",
+          "usernameTaken": "اسم المستخدم مأخوذ بالفعل"
+        },
+        "fileErrors": {
+          "empty": "لا يحتوي الملف على أي مستخدم.",
+          "tooLarge": "حجم الملفات أكبر من {size} ميغابايت. قسّم التصدير إلى عدة ملفات.",
+          "tooManyUsers": "يحتوي الملف على أكثر من {count} مستخدم. قسّم التصدير إلى عدة ملفات.",
+          "invalidJson": "الملف ليس JSON صالحًا: المتوقع كائن واحد في كل سطر، أو مصفوفة.",
+          "csvMissingEmail": "لا يحتوي ملف CSV على عمود email.",
+          "csvUnknownColumn": "عمود CSV غير معروف «{column}». تُقرأ الأعمدة الموثّقة فقط: احذفه.",
+          "csvDuplicateColumn": "يظهر عمود CSV «{column}» مرتين.",
+          "csvUnbalancedQuotes": "يحتوي ملف CSV على علامة اقتباس لا تُغلق أبدًا.",
+          "invalidHashFile": "تصدير تجزئات كلمات المرور ليس JSON صالحًا."
+        }
+      },
       "consent": {
         "title": "الموافقات",
         "description": "الأذونات التي منحها الأشخاص لعملاء OAuth، مع النطاقات وتاريخ منحها.",
@@ -1716,7 +1784,8 @@
             "reset_two_factor": "إعادة تعيين المصادقة الثنائية",
             "export_data": "تصدير بيانات الحساب",
             "self_delete": "حذف المستخدم حسابه بنفسه",
-            "export_csv": "تصدير المستخدمين إلى CSV"
+            "export_csv": "تصدير المستخدمين إلى CSV",
+            "import": "استيراد مستخدمين"
           },
           "oauth_client": {
             "create": "تسجيل عميل OAuth",

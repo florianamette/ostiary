@@ -1463,7 +1463,8 @@
           "previous": "Önceki",
           "next": "Sonraki",
           "pageOf": "Sayfa {page} / {pages}",
-          "poweredBy": "<link>Better Auth admin eklentisinin</link> <code>listUsers</code>, <code>createUser</code>, <code>setRole</code>, <code>updateUser</code>, <code>setUserPassword</code> ve ilgili yöntemleriyle çalışır. Yönetici olarak giriş yapmış olmanız gerekir."
+          "poweredBy": "<link>Better Auth admin eklentisinin</link> <code>listUsers</code>, <code>createUser</code>, <code>setRole</code>, <code>updateUser</code>, <code>setUserPassword</code> ve ilgili yöntemleriyle çalışır. Yönetici olarak giriş yapmış olmanız gerekir.",
+          "import": "Kullanıcıları içe aktar"
         },
         "status": {
           "banned": "Yasaklı",
@@ -1607,6 +1608,73 @@
           }
         }
       },
+      "userImport": {
+        "title": "Kullanıcıları içe aktar",
+        "description": "Hesapları Auth0’dan veya bir CSV dosyasından taşıyın. Deneme çalıştırması, hiçbir şey yazılmadan önce ne olacağını gösterir.",
+        "fileTitle": "Dosyalar",
+        "limits": "İçe aktarma başına en fazla {size} MB ve {count} kullanıcı. Daha büyük dışa aktarmaları birkaç dosyaya bölün.",
+        "format": "Biçim",
+        "formatAuth0": "Auth0 kullanıcı dışa aktarması (JSON)",
+        "formatCsv": "CSV",
+        "usersFile": "Kullanıcı dosyası",
+        "usersFileHelpAuth0": "Auth0’ın kullanıcı dışa aktarma işinin ürettiği dosya: satır başına bir JSON nesnesi veya bir JSON dizisi.",
+        "usersFileHelpCsv": "Bir başlık satırı, ardından satır başına bir kullanıcı. Sütunlar: <code>email</code> (zorunlu), <code>name</code>, <code>username</code>, <code>emailVerified</code>, <code>role</code>, <code>passwordHash</code> (bcrypt).",
+        "hashesFile": "Parola özeti dışa aktarması (isteğe bağlı)",
+        "hashesFileHelp": "Auth0 desteğinin istek üzerine verdiği bcrypt özetleri; kullanıcılarla önce kimliğe, sonra e-postaya göre eşleştirilir. Özeti olmayan kullanıcılar e-postayla gelen bir kodla giriş yapar veya parolasını sıfırlar.",
+        "allowAdmin": "Yönetici rolüne izin ver",
+        "allowAdminHelp": "<code>role</code> değeri <code>admin</code> olan satırlar, bu açık değilse reddedilir.",
+        "notice": "İçe aktarılan kullanıcılara e-posta gönderilmez ve mevcut hesaplar asla değiştirilmez. Sosyal girişler, MFA ve geçiş anahtarları içe aktarılmaz: kullanıcılar bunları yeniden ayarlar.",
+        "check": "Deneme çalıştır",
+        "checking": "Denetleniyor…",
+        "dryRunTitle": "Deneme çalıştırması",
+        "dryRunDescription": "{rows, plural, one {# satır okundu.} other {# satır okundu.}} Henüz hiçbir şey yazılmadı: onayladığınızda dosyalar yeniden denetlenir.",
+        "counts": {
+          "toCreate": "Oluşturulacak",
+          "skippedExisting": "Atlandı: e-posta zaten kullanımda",
+          "skippedAlias": "Atlandı: mevcut bir e-postanın takma adı",
+          "invalid": "Geçersiz satırlar"
+        },
+        "details": "Oluşturulacak kullanıcılardan: {withPassword} parolalı, {admins} yönetici, {blocked} engelli (yasaklı olarak içe aktarılır).",
+        "errorsTitle": "İçe aktarılmayacak satırlar (toplam {total} satırın ilk {shown} tanesi)",
+        "columns": {
+          "row": "Satır",
+          "email": "E-posta",
+          "reason": "Neden"
+        },
+        "confirm": "{count, plural, one {# kullanıcıyı içe aktar} other {# kullanıcıyı içe aktar}}",
+        "importing": "İçe aktarılıyor…",
+        "done": "{count, plural, one {# kullanıcı içe aktarıldı.} other {# kullanıcı içe aktarıldı.}}",
+        "doneConflicts": "{count, plural, one {# satır atlandı} other {# satır atlandı}}: deneme çalıştırmasından sonra başka bir hesap e-posta adresini veya kullanıcı adını aldı.",
+        "partial": "İçe aktarma {created} kullanıcıdan sonra durdu, {count} satır yazılmadı. Yeniden çalıştırın: zaten içe aktarılan kullanıcılar atlanır.",
+        "viewUsers": "Kullanıcıları görüntüle",
+        "noFile": "İçe aktarılacak bir dosya seçin.",
+        "changed": "Deneme çalıştırmasından bu yana dosyalar veya seçenekler değişti. Denemeyi yeniden çalıştırın.",
+        "reasons": {
+          "invalidRecord": "Geçerli bir kayıt değil",
+          "missingEmail": "E-posta adresi yok",
+          "invalidEmail": "Geçersiz e-posta adresi",
+          "invalidName": "Geçersiz ad (çok uzun veya kontrol karakterleri içeriyor)",
+          "invalidUsername": "Geçersiz kullanıcı adı (3 ile 30 arası harf, rakam, _ veya .)",
+          "invalidEmailVerified": "emailVerified ne true ne de false",
+          "invalidRole": "Rol ne user ne de admin",
+          "adminNotAllowed": "Bu içe aktarmada yönetici rolüne izin verilmiyor",
+          "unsupportedHash": "Parola özeti bcrypt değil",
+          "bcryptCost": "bcrypt maliyeti 4 ile 14 arasında değil",
+          "duplicateInFile": "Önceki bir satırla aynı e-posta adresi (veya gelen kutusu)",
+          "usernameTaken": "Kullanıcı adı zaten alınmış"
+        },
+        "fileErrors": {
+          "empty": "Dosyada kullanıcı yok.",
+          "tooLarge": "Dosyalar {size} MB’tan büyük. Dışa aktarmayı birkaç dosyaya bölün.",
+          "tooManyUsers": "Dosyada {count} kullanıcıdan fazlası var. Dışa aktarmayı birkaç dosyaya bölün.",
+          "invalidJson": "Dosya geçerli bir JSON değil: satır başına bir nesne veya bir dizi bekleniyor.",
+          "csvMissingEmail": "CSV dosyasında email sütunu yok.",
+          "csvUnknownColumn": "Bilinmeyen CSV sütunu “{column}”. Yalnızca belgelenen sütunlar okunur: bunu kaldırın.",
+          "csvDuplicateColumn": "“{column}” CSV sütunu iki kez geçiyor.",
+          "csvUnbalancedQuotes": "CSV dosyasında hiç kapanmayan bir tırnak işareti var.",
+          "invalidHashFile": "Parola özeti dışa aktarması geçerli bir JSON değil."
+        }
+      },
       "consent": {
         "title": "Onaylar",
         "description": "Kullanıcıların OAuth istemcilerine verdiği izinler, scope'ları ve ne zaman verildikleriyle birlikte.",
@@ -1716,7 +1784,8 @@
             "reset_two_factor": "İki faktörlü kimlik doğrulamayı sıfırladı",
             "export_data": "Hesap verilerini dışa aktardı",
             "self_delete": "Kendi hesabını sildi",
-            "export_csv": "Kullanıcıları CSV olarak dışa aktardı"
+            "export_csv": "Kullanıcıları CSV olarak dışa aktardı",
+            "import": "Kullanıcıları içe aktardı"
           },
           "oauth_client": {
             "create": "OAuth istemcisi kaydetti",

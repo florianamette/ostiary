@@ -1463,7 +1463,8 @@
           "previous": "Předchozí",
           "next": "Další",
           "pageOf": "Stránka {page} / {pages}",
-          "poweredBy": "Využívá <code>listUsers</code>, <code>createUser</code>, <code>setRole</code>, <code>updateUser</code>, <code>setUserPassword</code> a související metody z <link>pluginu Better Auth admin</link>. Musíte být přihlášeni jako administrátor."
+          "poweredBy": "Využívá <code>listUsers</code>, <code>createUser</code>, <code>setRole</code>, <code>updateUser</code>, <code>setUserPassword</code> a související metody z <link>pluginu Better Auth admin</link>. Musíte být přihlášeni jako administrátor.",
+          "import": "Importovat uživatele"
         },
         "status": {
           "banned": "Zablokován",
@@ -1607,6 +1608,73 @@
           }
         }
       },
+      "userImport": {
+        "title": "Importovat uživatele",
+        "description": "Převeďte účty z Auth0 nebo ze souboru CSV. Zkušební běh ukáže, co se stane, ještě než se cokoli zapíše.",
+        "fileTitle": "Soubory",
+        "limits": "Až {size} MB a {count} uživatelů na jeden import. Větší exporty rozdělte do více souborů.",
+        "format": "Formát",
+        "formatAuth0": "Export uživatelů z Auth0 (JSON)",
+        "formatCsv": "CSV",
+        "usersFile": "Soubor s uživateli",
+        "usersFileHelpAuth0": "Soubor z úlohy exportu uživatelů v Auth0: jeden objekt JSON na řádek, nebo pole JSON.",
+        "usersFileHelpCsv": "Řádek záhlaví, pak jeden uživatel na řádek. Sloupce: <code>email</code> (povinný), <code>name</code>, <code>username</code>, <code>emailVerified</code>, <code>role</code>, <code>passwordHash</code> (bcrypt).",
+        "hashesFile": "Export hashů hesel (volitelný)",
+        "hashesFileHelp": "Hashe bcrypt, které na vyžádání poskytuje podpora Auth0, přiřazené k uživatelům podle ID, jinak podle e-mailu. Uživatelé bez hashe se přihlásí kódem z e-mailu nebo si obnoví heslo.",
+        "allowAdmin": "Povolit roli admin",
+        "allowAdminHelp": "Řádky, kde je <code>role</code> rovno <code>admin</code>, se odmítnou, pokud tato volba není zapnutá.",
+        "notice": "Importovaní uživatelé nedostanou žádný e-mail a existující účty se nikdy nemění. Sociální přihlášení, MFA a přístupové klíče se neimportují: uživatelé si je nastaví znovu.",
+        "check": "Spustit zkušební běh",
+        "checking": "Kontrola…",
+        "dryRunTitle": "Zkušební běh",
+        "dryRunDescription": "{rows, plural, one {Načten # řádek.} few {Načteny # řádky.} many {Načteno # řádku.} other {Načteno # řádků.}} Zatím se nic nezapsalo: soubory se po potvrzení zkontrolují znovu.",
+        "counts": {
+          "toCreate": "K vytvoření",
+          "skippedExisting": "Přeskočeno: e-mail už je použitý",
+          "skippedAlias": "Přeskočeno: alias existujícího e-mailu",
+          "invalid": "Neplatné řádky"
+        },
+        "details": "Z uživatelů k vytvoření: s heslem {withPassword}, administrátorů {admins}, zablokovaných {blocked} (zůstanou zablokovaní).",
+        "errorsTitle": "Neimportované řádky (prvních {shown} z {total})",
+        "columns": {
+          "row": "Řádek",
+          "email": "E-mail",
+          "reason": "Důvod"
+        },
+        "confirm": "Importovat {count, plural, one {# uživatele} few {# uživatele} many {# uživatele} other {# uživatelů}}",
+        "importing": "Importování…",
+        "done": "{count, plural, one {Importován # uživatel.} few {Importováni # uživatelé.} many {Importováno # uživatele.} other {Importováno # uživatelů.}}",
+        "doneConflicts": "{count, plural, one {Přeskočen # řádek} few {Přeskočeny # řádky} many {Přeskočeno # řádku} other {Přeskočeno # řádků}}: jiný účet po zkušebním běhu obsadil e-mailovou adresu nebo uživatelské jméno.",
+        "partial": "Import se zastavil po {created} uživatelích, nezapsané řádky: {count}. Spusťte ho znovu: již importovaní uživatelé se přeskočí.",
+        "viewUsers": "Zobrazit uživatele",
+        "noFile": "Vyberte soubor k importu.",
+        "changed": "Soubory nebo volby se od zkušebního běhu změnily. Spusťte zkušební běh znovu.",
+        "reasons": {
+          "invalidRecord": "Neplatný záznam",
+          "missingEmail": "Chybí e-mailová adresa",
+          "invalidEmail": "Neplatná e-mailová adresa",
+          "invalidName": "Neplatné jméno (příliš dlouhé nebo s řídicími znaky)",
+          "invalidUsername": "Neplatné uživatelské jméno (3 až 30 písmen, číslic, _ nebo .)",
+          "invalidEmailVerified": "emailVerified není true ani false",
+          "invalidRole": "Role není user ani admin",
+          "adminNotAllowed": "Role admin není v tomto importu povolena",
+          "unsupportedHash": "Hash hesla není bcrypt",
+          "bcryptCost": "Náročnost bcrypt mimo rozsah 4 až 14",
+          "duplicateInFile": "Stejná e-mailová adresa (nebo schránka) jako na dřívějším řádku",
+          "usernameTaken": "Uživatelské jméno je už obsazené"
+        },
+        "fileErrors": {
+          "empty": "Soubor neobsahuje žádné uživatele.",
+          "tooLarge": "Soubory jsou větší než {size} MB. Rozdělte export do více souborů.",
+          "tooManyUsers": "Soubor obsahuje více než {count} uživatelů. Rozdělte export do více souborů.",
+          "invalidJson": "Soubor není platný JSON: očekává se jeden objekt na řádek, nebo pole.",
+          "csvMissingEmail": "Soubor CSV nemá sloupec email.",
+          "csvUnknownColumn": "Neznámý sloupec CSV „{column}“. Čtou se jen zdokumentované sloupce: odstraňte ho.",
+          "csvDuplicateColumn": "Sloupec CSV „{column}“ se vyskytuje dvakrát.",
+          "csvUnbalancedQuotes": "Soubor CSV obsahuje uvozovky, které se nikdy neuzavřou.",
+          "invalidHashFile": "Export hashů hesel není platný JSON."
+        }
+      },
       "consent": {
         "title": "Souhlasy",
         "description": "Oprávnění, která lidé udělili klientům OAuth, včetně scopů a data udělení.",
@@ -1716,7 +1784,8 @@
             "reset_two_factor": "Reset dvoufázového ověření",
             "export_data": "Export dat účtu",
             "self_delete": "Smazání vlastního účtu",
-            "export_csv": "Export uživatelů do CSV"
+            "export_csv": "Export uživatelů do CSV",
+            "import": "Import uživatelů"
           },
           "oauth_client": {
             "create": "Registrace klienta OAuth",

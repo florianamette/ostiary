@@ -13,6 +13,7 @@ pnpm lint && pnpm typecheck && pnpm test   # lint, types and unit tests (Vitest)
 - Authorization code with PKCE, consent (allow and deny), refresh, UserInfo, device flow
 - Per-app custom claims set in the console: in the ID token, the JWT access token and UserInfo, again after a refresh, fixed values only for client credentials, reserved claims refused
 - Webhook delivery to a local receiver (Standard Webhooks signature checked), API key creation and verification, Dynamic Client Registration, per-app branding of the login page (signed authorization only)
+- User import from an Auth0 export: dry run, import, sign-in with the exported bcrypt hash (then stored as scrypt), an existing address skipped and left alone
 - OAuth client management: closed to non-admins, console clients owned by the platform (a demoted admin loses control), self-registered clients kept within their limits (updates, device sign-in with any client authentication), API scopes bound to their API, no session JWT endpoint
 
 Run them locally with Postgres in Docker:

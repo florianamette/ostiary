@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
+import { UploadIcon } from "lucide-react";
 import { useFormatter, useTranslations } from "next-intl";
 
 import { Link } from "@/i18n/navigation";
@@ -14,6 +15,7 @@ import { usePagination } from "@/components/admin/common/use-pagination";
 import { ExternalLink } from "@/components/admin/common/external-link";
 import { formatShortDate } from "@/components/admin/common/page-header";
 import { Badge } from "@ostiary/core/components/ui/badge";
+import { Button } from "@ostiary/core/components/ui/button";
 import {
   Select,
   SelectContent,
@@ -91,6 +93,12 @@ export function AdminUsersPanel({
             </SelectContent>
           </Select>
           <ExportCsvButton href={exportHref} label={t("list.exportCsv")} title={t("list.exportCsvHint")} />
+          <Button variant="outline" size="sm" asChild>
+            <Link href="/users/import">
+              <UploadIcon aria-hidden />
+              {t("list.import")}
+            </Link>
+          </Button>
           <AdminCreateUserDialog onCreated={refresh} />
         </div>
       </div>

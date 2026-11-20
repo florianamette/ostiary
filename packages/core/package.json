@@ -21,6 +21,7 @@
     "@better-auth/sso": "catalog:",
     "@vercel/analytics": "catalog:",
     "@xmldom/xmldom": "catalog:",
+    "bcryptjs": "catalog:",
     "better-auth": "catalog:",
     "class-variance-authority": "catalog:",
     "clsx": "catalog:",
