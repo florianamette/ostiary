@@ -14,6 +14,7 @@ export default defineConfig({
   dialect: "postgresql",
   dbCredentials: {
     // sslmode=require written as the verify-full pg applies anyway (src/db/connection.ts).
-    url: normalizeSslMode(process.env.DATABASE_URL!),
+    // Unset for `generate` and `check`, which do not connect (CI runs them without a database).
+    url: process.env.DATABASE_URL ? normalizeSslMode(process.env.DATABASE_URL) : process.env.DATABASE_URL!,
   },
 });
