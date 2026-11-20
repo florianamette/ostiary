@@ -50,6 +50,10 @@ All notable changes are documented here. The format follows
 
 ### Added
 
+- **Health endpoint.** `GET /api/health` on both apps answers 200 `{"status":"ok"}` when the
+  database responds within 3 seconds and 503 otherwise, for load balancers and uptime
+  monitors. The Docker images' `HEALTHCHECK` uses it (it used `/api/auth/ok` and `/icon`).
+
 - **One client per MCP app.** Claude and other MCP clients register again on every connection,
   which filled the Applications page with identical "Claude" clients. An anonymous registration
   identical to an existing public client (same name, redirect URIs, grants, response types,
@@ -384,6 +388,14 @@ All notable changes are documented here. The format follows
   confirmation). Strings in all 20 locales.
 
 ### Fixed
+
+- **No more 500s while the database wakes up.** A new database connection that fails for a
+  transient reason (serverless Postgres such as Neon starting, a refused or dropped
+  connection, a server restarting) is retried up to 3 times within 12 seconds. Only the
+  connection is retried, never a query. Bad credentials and a full pool fail at once, as before.
+- `sslmode=require` (and `prefer`, `verify-ca`) in `DATABASE_URL` is applied as `verify-full`,
+  which is what pg already did: same certificate and host name checks, without the SECURITY
+  WARNING it printed on every start. URLs with `uselibpqcompat=true` are left as they are.
 
 - Changing the language on a sign-in page keeps its query string, so an app's sign-in, a
   password-reset link or a device code survives the switch. A failed social sign-in returns

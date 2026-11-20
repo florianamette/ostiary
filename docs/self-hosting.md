@@ -92,6 +92,6 @@ docker build --target auth  --build-arg NEXT_PUBLIC_APP_URL=https://auth.example
 docker build --target admin --build-arg NEXT_PUBLIC_APP_URL=https://auth.example.com --build-arg NEXT_PUBLIC_ADMIN_APP_URL=https://admin.example.com -t ostiary-admin .
 ```
 
-Run `ostiary-migrate` to completion with the same environment as the apps before starting or upgrading them. The auth app answers its health check on `/api/auth/ok`, the admin app on `/icon`.
+Run `ostiary-migrate` to completion with the same environment as the apps before starting or upgrading them. Both apps answer a health check on `/api/health`: 200 when the app and its database respond, 503 otherwise.
 
 Or skip Docker: `NEXT_OUTPUT=standalone pnpm build` writes a standalone server to `apps/<app>/.next/standalone` (copy `.next/static` and `public` next to it, as the `Dockerfile` does), or run `pnpm build` and `next start` in each app.

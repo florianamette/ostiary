@@ -16,6 +16,8 @@ import net from "node:net";
 import { config } from "dotenv";
 import pg from "pg";
 
+import { normalizeSslMode } from "./connection";
+
 // Same lookup as drizzle.config.ts: a local env file if present, otherwise the auth app's.
 // Vercel builds get the variables from the environment directly.
 for (const path of [".env.local", ".env", "../../apps/auth/.env.local"]) {
@@ -35,7 +37,7 @@ net.setDefaultAutoSelectFamilyAttemptTimeout(2_000);
 /** Connects with a few retries, for the same cold-start reason. */
 async function connect(connectionString: string): Promise<pg.Client> {
   for (let attempt = 1; ; attempt++) {
-    const client = new pg.Client({ connectionString, connectionTimeoutMillis: 15_000 });
+    const client = new pg.Client({ connectionString: normalizeSslMode(connectionString), connectionTimeoutMillis: 15_000 });
     try {
       await client.connect();
       return client;
