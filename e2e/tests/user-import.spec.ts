@@ -2,6 +2,7 @@ import { hashSync } from "bcryptjs";
 
 import { createUser, expectSignedInAs, newUser, signInWithPassword } from "../support/auth";
 import { query } from "../support/db";
+import { ADMIN_URL } from "../support/env";
 import { expect, test } from "../support/fixtures";
 
 /*
@@ -96,4 +97,45 @@ test("import an Auth0 export with a bcrypt hash, sign in with the old password, 
     `select metadata from audit_log where action = 'user.import' and metadata->>'sha256' is not null order by created_at desc limit 1`,
   );
   expect(audit!.metadata).toMatchObject({ format: "auth0", created: 1, skippedExisting: 1, withPassword: 1, admins: 0 });
+});
+
+test("the import route refuses other origins, oversized bodies and non-admins before reading the files", async ({ adminApi, api, playwright, clientIp }) => {
+  const multipart = { format: "csv", users: { name: "users.csv", mimeType: "text/csv", buffer: Buffer.from("email\nrefused@e2e.test\n") } };
+
+  // The admin's session, from another origin.
+  const crossOrigin = await adminApi.post("/api/admin/users/import?step=preview", { multipart, headers: { origin: "https://evil.e2e.test" } });
+  expect(crossOrigin.status()).toBe(403);
+
+  // A body declared larger than the import limit (10 MB of files plus the form) is refused unread.
+  const tooLarge = await adminApi.post("/api/admin/users/import?step=preview", {
+    multipart: { ...multipart, users: { ...multipart.users, buffer: Buffer.alloc(11 * 1024 * 1024, 0x61) } },
+  });
+  expect(tooLarge.status()).toBe(413);
+
+  // A JSON body is not an upload.
+  expect((await adminApi.post("/api/admin/users/import?step=preview", { data: { format: "csv" } })).status()).toBe(415);
+
+  // A signed-in user who is not an admin.
+  await createUser(api, "notimporter");
+  const userApi = await playwright.request.newContext({
+    baseURL: ADMIN_URL,
+    storageState: await api.storageState(),
+    extraHTTPHeaders: { origin: ADMIN_URL, "x-forwarded-for": clientIp },
+  });
+  try {
+    expect((await userApi.post("/api/admin/users/import?step=preview", { multipart })).status()).toBe(403);
+  } finally {
+    await userApi.dispose();
+  }
+
+  // The admin, from the console: a dry run, nothing written.
+  const preview = await adminApi.post("/api/admin/users/import?step=preview", { multipart });
+  expect(preview.status(), await preview.text()).toBe(200);
+  expect((await preview.json()).data).toMatchObject({ ok: true, step: "preview", summary: { toCreate: 1 } });
+  expect(await query(`select id from "user" where email = 'refused@e2e.test'`)).toHaveLength(0);
+
+  // A confirmation whose digest is not the dry run's imports nothing.
+  const wrongDigest = await adminApi.post("/api/admin/users/import?step=confirm", { multipart: { ...multipart, digest: "0".repeat(64) } });
+  expect(wrongDigest.status()).toBe(409);
+  expect(await query(`select id from "user" where email = 'refused@e2e.test'`)).toHaveLength(0);
 });

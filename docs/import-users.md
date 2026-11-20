@@ -2,7 +2,7 @@
 
 Moving from Auth0 (or anything that can write a CSV) does not mean asking everyone to sign up again. In the admin console, open **Users** > **Import users**, choose a file and run the **dry run**: it reads the whole file, checks it against the accounts already in Ostiary and shows what would happen, without writing anything. **Import** then checks the file again and creates the accounts.
 
-Up to 10 MB of files and 50,000 users per import. Split a larger export into several files and import them one after the other: users already imported are skipped.
+Up to 10 MB of files and 50,000 users per import. Split a larger export into several files and import them one after the other: users already imported are skipped. On Vercel, a request to a function is limited to 4.5 MB, so keep each import under that there.
 
 ## From Auth0
 

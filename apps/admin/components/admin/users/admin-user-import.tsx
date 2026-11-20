@@ -7,11 +7,7 @@ import { toast } from "sonner";
 
 import { Link } from "@/i18n/navigation";
 import { CheckboxField } from "@/components/admin/common/choice-field";
-import {
-  confirmUserImport,
-  previewUserImport,
-  type UserImportCounts,
-} from "@/app/[locale]/(console)/users/import/actions";
+import type { UserImportCounts, UserImportError, UserImportResponse } from "@/app/api/admin/users/import/route";
 import { Alert, AlertDescription } from "@ostiary/core/components/ui/alert";
 import { Button } from "@ostiary/core/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@ostiary/core/components/ui/card";
@@ -59,6 +55,22 @@ export function AdminUserImport() {
     setError(null);
   }, []);
 
+  /** The upload route (app/api/admin/users/import): a result, or an error already translated. */
+  async function send(step: "preview" | "confirm", data: FormData): Promise<UserImportResponse | { ok: false; message: string }> {
+    const response = await fetch(`/api/admin/users/import?step=${step}`, { method: "POST", body: data });
+    const body = (await response.json().catch(() => null)) as { data?: UserImportResponse; error?: string } | null;
+    if (body?.data) return body.data;
+    if (response.status === 413) return { ok: false, error: { code: "tooLarge" } };
+    return { ok: false, message: body?.error ?? tc("unexpectedError") };
+  }
+
+  function errorMessage(result: { ok: false; error: UserImportError } | { ok: false; message: string }): string {
+    if ("message" in result) return result.message;
+    const { code, detail } = result.error;
+    if (code === "noFile" || code === "changed") return t(code);
+    return t(`fileErrors.${code}`, { size: MAX_IMPORT_BYTES / 1024 / 1024, count: MAX_IMPORT_USERS, column: detail ?? "" });
+  }
+
   function form(): FormData | null {
     const usersFile = usersInput.current?.files?.[0] ?? null;
     const hashesFile = format === "auth0" ? (hashesInput.current?.files?.[0] ?? null) : null;
@@ -85,9 +97,9 @@ export function AdminUserImport() {
     if (!data) return;
     setPending("check");
     try {
-      const result = await previewUserImport(data);
-      if (result.ok) setSummary(result.summary);
-      else setError(result.error);
+      const result = await send("preview", data);
+      if (!result.ok) setError(errorMessage(result));
+      else if (result.step === "preview") setSummary(result.summary);
     } catch {
       setError(tc("unexpectedError"));
     } finally {
@@ -101,11 +113,13 @@ export function AdminUserImport() {
     setPending("import");
     setError(null);
     try {
-      const result = await confirmUserImport(data, summary.digest);
+      data.set("digest", summary.digest);
+      const result = await send("confirm", data);
       if (!result.ok) {
-        setError(result.error);
+        setError(errorMessage(result));
         return;
       }
+      if (result.step !== "confirm") return;
       setSummary(null);
       setCounts(result.counts);
       if (result.counts.notImported > 0) toast.error(t("partial", { created: result.counts.created, count: result.counts.notImported }));

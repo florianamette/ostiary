@@ -30,6 +30,12 @@ export function isJsonContentType(request: Request): boolean {
   return type === "application/json";
 }
 
+/** Whether a request's body is declared as `multipart/form-data` (an upload). */
+export function isMultipartContentType(request: Request): boolean {
+  const type = request.headers.get("content-type")?.split(";")[0]?.trim().toLowerCase();
+  return type === "multipart/form-data";
+}
+
 /** The origin of a configured URL (ADMIN_APP_URL...), or null when it is missing or unreadable. */
 export function originOf(url: string | undefined): string | null {
   if (!url) return null;
