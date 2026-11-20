@@ -1,14 +1,80 @@
 # Connect an app
 
-Ostiary is a standard OpenID Connect provider. Register a client in the admin console (**Applications**), then point your app at the discovery document:
+Register your app in the admin console and sign users in with any OpenID Connect library. Covers client types, redirect URIs, device sign-in and per-app branding.
 
-```
-https://<your-ostiary-domain>/api/auth/.well-known/openid-configuration
-```
+Ostiary is a standard OpenID Connect provider. Your app needs three things:
 
-For example, with [Auth.js](https://authjs.dev) in a Next.js app:
+| Setting | Value |
+| --- | --- |
+| Issuer | `https://auth.example.com/api/auth` |
+| Discovery document | `https://auth.example.com/api/auth/.well-known/openid-configuration` |
+| Client ID (and secret) | From **Applications** in the admin console |
+
+Replace `auth.example.com` with the address of your auth app (`AUTH_APP_URL`). Locally, the issuer is `http://localhost:3000/api/auth`. [Tokens and claims](tokens-and-claims.md) lists every endpoint, scope and claim.
+
+## Register the app
+
+1. In the admin console, open **Applications** and click **Register application**.
+2. Fill in the form:
+
+   | Field | What to enter |
+   | --- | --- |
+   | **Application name** | Shown on the consent screen and in users' **Connected apps**. |
+   | **Redirect URIs** | Where Ostiary sends users back after sign-in, one per line or comma-separated. See the rules below. |
+   | **Client type** | **Confidential (client secret)** or **Public (PKCE, no secret)**. See below. |
+   | **Icon URL** | Optional. See [Set the app icon](#set-the-app-icon). |
+   | **Device sign-in (CLIs, TVs)** | Adds the device code grant. See [Sign in from a CLI or a TV](#sign-in-from-a-cli-or-a-tv-device-flow). |
+   | **Skip consent (trusted client)** | Users never see the consent screen for this app. Use it only for your own first-party apps. |
+
+3. Click **Create application**. Copy the **Client ID** and, for a confidential client, the **Client secret**: it is shown once.
+
+Every registered app uses the authorization code flow with PKCE, which Ostiary requires from confidential clients too, and can get refresh tokens. It can ask for the OpenID Connect scopes (`openid`, `profile`, `email`, `offline_access`) and the scopes of your [APIs](protect-an-api.md). Ask for `offline_access` to get a refresh token.
+
+### Choose a client type
+
+| | Confidential | Public |
+| --- | --- | --- |
+| For | Apps with a server that can keep a secret: Next.js, Remix, Rails, Django | Apps that cannot keep a secret: single-page apps, mobile and desktop apps, CLIs, and local development |
+| Authenticates with | Client secret, sent with HTTP Basic (`client_secret_basic`) | PKCE only (`token_endpoint_auth_method: none`) |
+| Redirect URIs | HTTPS on a public host | HTTPS, `http://` on loopback, or a custom scheme |
+
+A confidential client cannot use `localhost` at all, even over HTTPS. For local development, register a separate public client.
+
+> [!WARNING]
+> Ostiary only accepts the authentication method a client was registered with. Clients created from the console use HTTP Basic. Some libraries send the secret in the request body (`client_secret_post`) by default, and the token request then fails with `invalid_client` ("client registered for client_secret_basic cannot use client_secret_post"). The examples below set the method explicitly.
+
+### Redirect URI rules
+
+Ostiary compares redirect URIs exactly, character for character, except for the port of a loopback address.
+
+| Redirect URI | Confidential | Public |
+| --- | --- | --- |
+| `https://app.example.com/callback` | Yes | Yes |
+| `https://localhost:3002/callback` | No | No |
+| `http://localhost:3002/callback`, `http://127.0.0.1:3002/callback`, `http://[::1]:3002/callback` | No | Yes, on any port |
+| `http://app.example.com/callback` | No | No |
+| `com.example.app:/callback` (reverse-domain custom scheme) | No | Yes |
+| Any URI with a `#fragment` or `user:password@` | No | No |
+
+For a loopback redirect URI, the app may use another port at sign-in than the one registered (RFC 8252), which suits CLIs that pick a free port.
+
+### Change or remove an app
+
+Open **Applications**, then the row's menu (**Actions for** the app):
+
+- **Edit application**: name, redirect URIs, icon, device sign-in and skip consent. The client type cannot change: register a new app instead.
+- **Rotate secret**: issues a new secret for a confidential client. The previous one stops working immediately.
+- **Delete application**: removes the client. Its tokens and consents may stop working.
+- **Sign-in branding** and **Token claims**: see [Brand the sign-in page per app](#brand-the-sign-in-page-per-app) and [Tokens and claims](tokens-and-claims.md#custom-claims).
+
+Admins can also register clients with the JSON API the console uses, `POST /api/admin/oauth-clients`, for example a machine-to-machine client. See [Protect an API](protect-an-api.md#call-an-api-from-a-server-machine-to-machine).
+
+## Sign in with Auth.js
+
+[Auth.js](https://authjs.dev) v5 (`next-auth@beta`) in a Next.js app. Its callback URL is `https://app.example.com/api/auth/callback/ostiary`: register that as the redirect URI.
 
 ```ts
+// auth.ts: a confidential client
 import NextAuth from "next-auth";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
@@ -20,93 +86,138 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       issuer: "https://auth.example.com/api/auth",
       clientId: process.env.OSTIARY_CLIENT_ID,
       clientSecret: process.env.OSTIARY_CLIENT_SECRET,
+      // Auth.js sends the secret with HTTP Basic by default, as Ostiary expects.
     },
   ],
 });
 ```
 
-Any OIDC library works the same way (Better Auth's generic OAuth, `openid-client`, AppAuth on mobile): give it the issuer, client ID and secret.
+For a public client, drop `clientSecret` and add `client: { token_endpoint_auth_method: "none" }`, as in the [Quickstart](quickstart.md#sign-in-from-your-app). Auth.js uses PKCE in both cases.
 
-To protect an API, register it in the admin console under **APIs**: its identifier (usually its URL) and the scopes clients may request for it. Clients request a token for it with the `resource` parameter, and the API verifies the JWT against Ostiary's JWKS. New scopes reach the auth server within a minute, no redeploy needed. You can also declare APIs with `OAUTH_API_AUDIENCES` and scopes with `OAUTH_API_SCOPES`, for example to provision a new instance.
+To ask for more scopes, for example a refresh token or an API scope, set them on the authorization request:
 
-Every application can get tokens for an API by default. To limit an API to some applications, open **Change** next to *Applications* and pick **Only linked applications**, then check the applications that may call it; the others get `invalid_target`. Linked applications can also introspect the API's tokens. **Change** next to *Tokens* sets the API's access and refresh token lifetimes (shorter than the defaults of 1 hour and 30 days), custom claims added to its tokens (a JSON object, e.g. `{"tenant": "acme"}`), and whether tokens must be DPoP-bound, in which case the API must check the DPoP proof.
+```ts
+authorization: { params: { scope: "openid profile email offline_access" } },
+```
 
-## Add custom claims to an app's tokens
+## Sign in with Better Auth
 
-An app often needs more in its tokens than the standard claims: a tenant, a plan, the user's
-role in an organization. In Auth0 that takes an Action (a script). In Ostiary it is a list of
-claims you declare per application: **Applications**, the row's menu, **Token claims**.
-Nothing is evaluated: no scripts, no expressions, no paths into the database.
+If your app runs [Better Auth](https://www.better-auth.com), add Ostiary with the generic OAuth plugin (Better Auth 1.7):
 
-Each claim has:
+```ts
+// lib/auth.ts
+import { betterAuth } from "better-auth";
+import { genericOAuth } from "better-auth/plugins";
 
-- **A name.** Letters, digits and `_ . : / -`, starting with a letter or `_`. Namespaced names
-  such as `https://example.com/tenant` are recommended (OIDC Core §5.1.2) but not required.
-- **A value**: fixed text, a fixed JSON value (number, boolean, array or object; no `null`, 4
-  levels at most), or one of these user attributes:
+export const auth = betterAuth({
+  // ...your database and other options
+  plugins: [
+    genericOAuth({
+      config: [
+        {
+          providerId: "ostiary",
+          discoveryUrl: "https://auth.example.com/api/auth/.well-known/openid-configuration",
+          clientId: process.env.OSTIARY_CLIENT_ID!,
+          clientSecret: process.env.OSTIARY_CLIENT_SECRET!,
+          // Better Auth sends the secret in the body by default; Ostiary's clients use HTTP Basic.
+          tokenEndpointAuth: { method: "client_secret_basic" },
+          scopes: ["openid", "profile", "email"],
+        },
+      ],
+    }),
+  ],
+});
+```
 
-  | Attribute | Value |
-  | --- | --- |
-  | `user.role` | The platform role (`user`, `admin`) |
-  | `user.email_verified` | `true` or `false` |
-  | `user.username` | The username, when the user has one |
-  | `user.two_factor_enabled` | `true` or `false` |
-  | `organization.id`, `organization.slug`, `organization.role` | The session's active organization, and the user's role in it |
-  | `organizations` | Every organization the user belongs to: `[{ "id", "slug", "role" }]` (50 at most) |
+Register `https://app.example.com/api/auth/callback/ostiary` as the redirect URI, and start the sign-in from the client:
 
-- **The tokens it goes into**: the ID token, the access token, UserInfo, or several.
+```ts
+await authClient.signIn.social({ provider: "ostiary", callbackURL: "/dashboard" });
+```
 
-The dialog previews the claims of each token for an example user, and for a machine-to-machine
-token. An application has at most 20 claims and 4 KB in all.
+> [!NOTE]
+> Before 1.7, generic OAuth providers used `authClient.signIn.oauth2({ providerId: "ostiary" })` and the callback `/api/auth/oauth2/callback/ostiary`. Check which one your version uses.
 
-**Reserved claims are refused**, whatever the token: the JWT and OIDC claims the server owns
-(`iss`, `sub`, `aud`, `exp`, `iat`, `nbf`, `jti`, `nonce`, `azp`, `auth_time`, `acr`, `amr`,
-`at_hash`, `c_hash`, `s_hash`, `sid`, `scope`, `client_id`, `cnf`, `typ`, `events`), the
-introspection fields (`active`, `token_type`), the OIDC standard claims (`name`, `email`,
-`email_verified`, `picture`, `preferred_username` and the others of §5.1) and Ostiary's `role`.
-The console refuses them on save, and the auth server skips them again when it issues a token.
+## Sign in with openid-client
 
-**When claims apply.** Only to that application's tokens, on every grant: authorization code,
-refresh (rotated tokens carry them too), device sign-in, and client credentials, where there is
-no user, so only the fixed values are added. Access token claims are in JWT access tokens
-(requested with `resource`) and in the introspection answer for opaque ones; introspection has
-no session, so the active organization claims are left out there. A claim without a value (no
-active organization, no username) is left out rather than set to `null`. In an API's access
-tokens, the API's own custom claims (**APIs**, *Tokens*) win over an application claim with the
-same name.
+[openid-client](https://github.com/panva/openid-client) v6 works in any Node.js server (Express, Fastify, Hono):
 
-Only applications registered by an admin can have claims. They live in the
-`oauth_client_claims` table (deleted with the client), are added through the oauth-provider
-plugin's claims extension (`lib/client-claims/extension.ts`), and every change is in the audit
-log (**Changed token claims**, with the claims' names, tokens and sources, not their values).
+```ts
+import * as client from "openid-client";
 
-## Signing keys and rotation
+const config = await client.discovery(
+  new URL("https://auth.example.com/api/auth"),
+  process.env.OSTIARY_CLIENT_ID!,
+  undefined,
+  // openid-client defaults to client_secret_post: use HTTP Basic, as the client was registered.
+  client.ClientSecretBasic(process.env.OSTIARY_CLIENT_SECRET!),
+);
 
-ID tokens and JWT access tokens are signed with an Ed25519 key; apps and APIs verify them against the public keys at `https://<your-ostiary-domain>/api/auth/jwks` (the `jwks_uri` of the discovery document). The admin console's **Signing keys** page lists the keys (key ID, algorithm, dates and whether each one is current, still published for verification, or expired) and never shows private keys, which are stored encrypted with `BETTER_AUTH_SECRET`.
+const redirect_uri = "https://app.example.com/callback";
 
-- **Rotate now** creates a new key that signs every token from then on. The previous key stays in the JWKS for the grace period, so tokens it signed keep verifying until they expire.
-- **Automatic rotation** (off by default) replaces the key every 30, 90, 180 or 365 days. The new key is created when the first token is signed after the current one reaches that age.
-- **Grace period** (default 30 days, as before): how long a retired key stays published. Keep it longer than your longest token lifetime (access tokens: 1 hour, ID tokens: 10 hours).
+// 1. Start the sign-in: keep codeVerifier and state in the user's session, then redirect.
+export async function startSignIn() {
+  const codeVerifier = client.randomPKCECodeVerifier();
+  const state = client.randomState();
+  const url = client.buildAuthorizationUrl(config, {
+    redirect_uri,
+    scope: "openid profile email offline_access",
+    code_challenge: await client.calculatePKCECodeChallenge(codeVerifier),
+    code_challenge_method: "S256",
+    state,
+  });
+  return { url, codeVerifier, state };
+}
 
-Settings reach the auth server within a minute. Rotation needs nothing from your apps as long as they read keys from the JWKS by `kid` and fetch it again when they meet an unknown one, as `jose`'s `createRemoteJWKSet`, `openid-client`, Auth.js and Better Auth do. Apps that pin a single public key must be updated after each rotation.
+// 2. On the redirect URI: exchange the code.
+export async function finishSignIn(currentUrl: URL, codeVerifier: string, state: string) {
+  const tokens = await client.authorizationCodeGrant(config, currentUrl, {
+    pkceCodeVerifier: codeVerifier,
+    expectedState: state,
+  });
+  return { tokens, user: tokens.claims() }; // claims(): the verified ID token's claims
+}
+```
+
+For a public client, pass `client.None()` instead of `ClientSecretBasic(...)`. Against a local `http://localhost` issuer, add `{ execute: [client.allowInsecureRequests] }` as the fifth argument of `discovery`.
+
+## Other libraries
+
+Any certified OpenID Connect relying party library works: AppAuth on iOS and Android, `oidc-client-ts` in a browser, Spring Security, `authlib` in Python, `omniauth_openid_connect` in Ruby. Give it:
+
+- the issuer or discovery URL above,
+- the client ID, and the secret for a confidential client sent with HTTP Basic (`client_secret_basic`),
+- PKCE with `S256`: Ostiary requires it from every client registered in the console, confidential ones included (`pkce is required for this client` otherwise),
+- the scopes, at least `openid`.
+
+ID tokens are signed with EdDSA (Ed25519): the library must support it, and read the keys from the JWKS. [Tokens and claims](tokens-and-claims.md#signing-keys) covers the keys and their rotation.
 
 ## Sign in from a CLI or a TV (device flow)
 
-Apps that cannot open a browser use the device authorization grant (RFC 8628). In the admin console, register the app (usually a public client) and tick **Device sign-in**. The discovery document then lists `device_authorization_endpoint`.
+Apps that cannot open a browser use the device authorization grant (RFC 8628). The user approves the app on another screen.
 
-1. The app asks for a code:
+1. Register the app, usually as a public client, and tick **Device sign-in (CLIs, TVs)**. For an existing app, turn it on in **Edit application**. Only apps registered by an admin can use device sign-in. The discovery document then lists `device_authorization_endpoint`.
+2. The app asks for a code:
 
    ```bash
    curl -s https://auth.example.com/api/auth/device/code \
      -d client_id=$CLIENT_ID \
      -d scope="openid profile email offline_access"
-   # {"device_code":"…","user_code":"WDJBMJHT","verification_uri":"https://auth.example.com/device",
-   #  "verification_uri_complete":"https://auth.example.com/device?user_code=WDJBMJHT","expires_in":600,"interval":5}
    ```
 
-2. It shows `user_code` (for example as WDJB-MJHT, the dash is optional) and `verification_uri` (or a QR code of `verification_uri_complete`). The user opens the page, signs in if needed, checks the app and the scopes, and approves.
+   ```json
+   {
+     "device_code": "...",
+     "user_code": "WDJBMJHT",
+     "verification_uri": "https://auth.example.com/device",
+     "verification_uri_complete": "https://auth.example.com/device?user_code=WDJBMJHT",
+     "expires_in": 600,
+     "interval": 5
+   }
+   ```
 
-3. Meanwhile the app polls the token endpoint every `interval` seconds:
+3. The app shows `user_code` (for example as `WDJB-MJHT`: case and dashes do not matter) and `verification_uri`, or a QR code of `verification_uri_complete`. The user opens the page, signs in if needed, checks the app and the scopes, and approves.
+4. Meanwhile the app polls the token endpoint every `interval` seconds:
 
    ```bash
    curl -s https://auth.example.com/api/auth/oauth2/token \
@@ -115,69 +226,71 @@ Apps that cannot open a browser use the device authorization grant (RFC 8628). I
      -d client_id=$CLIENT_ID
    ```
 
-   Until the user decides it gets `authorization_pending` (or `slow_down` when it polls too fast: wait 5 more seconds). Then it gets the usual tokens (access token, ID token with `openid`, refresh token with `offline_access`), or `access_denied`. After 10 minutes the code expires (`expired_token`) and the app starts again. A confidential client also sends its secret on both requests.
+   | Answer | What the app does |
+   | --- | --- |
+   | `authorization_pending` | Keep polling. |
+   | `slow_down` | Poll 5 seconds less often. |
+   | Tokens | Done: an access token, an ID token with `openid`, a refresh token with `offline_access`. |
+   | `access_denied` | The user refused. |
+   | `expired_token` | The 10 minutes are over: start again. |
 
-The user always approves on the page, even for clients with **Skip consent**.
+A confidential client also sends its secret on both requests. The user always approves on the page, even for apps with **Skip consent**.
 
-## App icon
+## Set the app icon
 
-Each application shows an icon in the admin console, on the consent screen and on users' account
-dashboard: its registered `logo_uri`, else the icon of its site (`client_uri`, else the first
-public https redirect URI), else a colored monogram. Apps that only redirect to `localhost`,
-`127.0.0.1` or a custom scheme (CLIs, desktop apps, local development) have no site, so set
-**Icon URL** when you register the app or in **Edit** (`logo_uri` in `POST` and `PATCH
-/api/admin/oauth-clients`). It must be https on a public host and the default port (PNG, JPEG,
-WebP, AVIF, GIF, ICO or SVG); Ostiary fetches it itself, as for any app icon. Empty removes it.
-For a dynamically registered client, the row's menu has **Set icon**; the consent screen still
-shows such an app's monogram and the unverified notice.
+Ostiary shows each app's icon in the admin console, on the consent screen and in users' **Connected apps**. It uses, in order:
+
+1. the registered `logo_uri` (**Icon URL**),
+2. the icon of the app's site: its `client_uri`, else the first HTTPS redirect URI on a public host,
+3. a colored monogram.
+
+Apps that only redirect to `localhost`, `127.0.0.1` or a custom scheme (CLIs, desktop apps, local development) have no site, so set **Icon URL** when you register the app or in **Edit application** (`logo_uri` in `POST` and `PATCH /api/admin/oauth-clients`). The URL must be HTTPS on a public host and the default port, and point to a PNG, JPEG, WebP, AVIF, GIF, ICO or SVG image. Ostiary fetches the image itself; browsers never load it from there. Leave the field empty to remove the icon.
+
+For a self-registered client (see [MCP and AI agents](mcp-and-agents.md)), the row's menu has **Set icon**. The consent screen still shows such an app's monogram and the **Unverified app** notice.
 
 ## Brand the sign-in page per app
 
-When someone arrives from one of your apps, the sign-in screens can show that app, like
-Auth0's per-application Universal Login: "Sign in to continue to **Cyber Library**", its logo,
-its accent color on the buttons and focus ring, and an optional tagline. On wide screens the
-dark side panel can show the app's own headline and background image. Without an app (someone
-opening `/login` directly) the screens keep the global brand from `lib/brand.ts`.
+When someone arrives from one of your apps, the sign-in screens can show that app: "Sign in to continue to **Your app**", its logo, its accent color on the buttons and focus ring, and an optional tagline. On wide screens, the dark side panel can show the app's own headline and background image. Without an app (someone opening `/login` directly), the screens keep the global brand.
 
-Set it in the admin console: **Applications**, the row's menu, **Sign-in branding**.
+### Set the branding
 
-- **Display name**: replaces the client name on the sign-in screens and the consent card.
-- **Logo**: the app's icon (as on the consent screen), an https URL, or an upload (PNG, JPEG,
-  WebP, AVIF, GIF, ICO or SVG, 256 KB). A URL is fetched by Ostiary with the same SSRF guard as
-  app icons and cached in `app_icon`; uploads are stored in the database. Browsers only ever
-  load `/api/app-branding/<client_id>/logo` from Ostiary, never from the app's servers.
-- **Accent color**: a hex color. The console shows its contrast: button labels get black or
-  white, whichever reaches WCAG AA (one always does); text in the accent is darkened or
-  lightened per color scheme until it reaches 4.5:1; and it warns when the buttons themselves
-  are below 3:1 against the light or dark card.
-- **Side panel**: a headline and an image (PNG, JPEG, WebP or AVIF, 1 MB).
-- **Social sign-in**: all enabled providers, or only some (Google One Tap follows Google). This
-  only hides buttons on that app's screens; it does not stop other sign-in methods.
+1. Open **Applications**, then the row's menu, then **Sign-in branding**.
+2. Set any of these, and check the live **Preview** in light and dark:
 
-Changes are written to the audit log (**Changed sign-in branding**, **Reset sign-in
-branding**). Settings live in the `oauth_client_branding` table, deleted with the client.
+   | Setting | Details |
+   | --- | --- |
+   | **Display name** | Replaces the application name on the sign-in screens and the consent card. |
+   | **Tagline (optional)** | A line under the title. |
+   | **Logo** | The **App icon**, an image **From a URL** (HTTPS on a public host, fetched and cached by Ostiary), or an **Upload** (PNG, JPEG, WebP, AVIF, GIF, ICO or SVG, 256 KB at most). |
+   | **Accent color** | A hex color. See the contrast checks below. |
+   | **Side panel (wide screens, optional)** | A headline and a background image (PNG, JPEG, WebP or AVIF, 1 MB at most). |
+   | **Social sign-in on this app's screens** | **All enabled** providers, or **Only these**. Google One Tap follows Google. This only hides buttons; it does not stop anyone from signing in another way. |
 
-**Which app a screen is for.** Better Auth's OAuth provider sends the browser to `/login`,
-`/consent` and `/select-account` with the authorization request in the query, signed with
-`BETTER_AUTH_SECRET` (`sig`, with `exp` and the list of signed parameters in `ba_param`).
-Ostiary checks that signature and that `client_id` is one of the signed parameters before
-showing any app; a `?client_id=` typed into a link, or a signed request with its `client_id`
-edited, shows the default screen. Sign-up, password reset and the email links get a short-lived
-app context token instead (`app=`, HMAC-signed with a key derived from the same secret, 2
-hours) plus `callbackURL` set to the authorization request, so the flow continues after the
-email step: verifying a new account or resetting a password brings the user back to the app.
-The two-factor step keeps the signed request, the email-code step is part of the login page,
-and the device page shows the app once the code names a pending request.
+3. Click **Save branding**. **Reset to default** removes it.
 
-**Anti-phishing.** Only clients registered by an admin get custom branding. A client that
-registered itself (Dynamic Client Registration or a metadata document) gets its name with an
-**Unverified app** warning and a monogram, whatever is stored. Ostiary's own mark stays at the
-top of every screen and "Secured by Ostiary" at the bottom, so people can tell which identity
-provider they are typing their password into, and the side panel keeps the Ostiary theme.
+The branding applies to login, sign-up, two-factor, password reset and consent. Browsers load the logo and side panel image from Ostiary (`/api/app-branding/<client_id>/...`), never from the app's servers. Changes are in the audit log as **Changed sign-in branding** and **Reset sign-in branding**.
 
-**Forks with their own theme.** The accent reaches the form column only, through four CSS
-variables on `[data-app-brand="accent"]` (see `styles/globals.css`): `--app-accent`,
-`--app-accent-foreground`, `--app-accent-text-light` and `--app-accent-text-dark`, mapped to
-`--primary`, `--primary-foreground` and `--ring`. Override that block to change what the accent
-reaches, or empty it to ignore app accents. Contrast is computed against Ostiary's card colors
-(`#ffffff` light, `#141311` dark); a fork with very different cards should check its own.
+**Contrast checks.** The console shows the accent's contrast. Button labels get black or white, whichever reaches WCAG AA. Text drawn in the accent is darkened or lightened per color scheme until it reaches 4.5:1. The console warns when the buttons themselves are below 3:1 against the light or dark card.
+
+### How Ostiary knows which app a screen is for
+
+Better Auth's OAuth provider sends the browser to `/login`, `/consent` and `/select-account` with the authorization request in the query, signed with `BETTER_AUTH_SECRET`. Ostiary checks that signature, and that `client_id` is one of the signed parameters, before it shows any app. A `?client_id=` typed into a link, or a signed request with its `client_id` edited, shows the default screen.
+
+Sign-up, password reset and the email links carry a short-lived app context token instead (`app=`, signed with a key derived from the same secret, valid 2 hours). The flow continues after the email step: verifying a new account or resetting a password brings the user back to the app. The two-factor step keeps the signed request, and the device page shows the app once the code names a pending request.
+
+### Anti-phishing rules
+
+- Only apps registered by an admin get custom branding. A self-registered client (Dynamic Client Registration or a metadata document) gets its name with an **Unverified app** warning and a monogram, whatever is stored.
+- Ostiary's own mark stays at the top of every screen and "Secured by Ostiary" at the bottom, so people can tell which identity provider they are typing their password into. The side panel keeps the Ostiary theme.
+
+### Forks with their own theme
+
+The accent reaches the form column only, through four CSS variables on `[data-app-brand="accent"]` in `packages/core/src/styles/globals.css`: `--app-accent`, `--app-accent-foreground`, `--app-accent-text-light` and `--app-accent-text-dark`, mapped to `--primary`, `--primary-foreground` and `--ring`. Override that block to change what the accent reaches, or empty it to ignore app accents. Contrast is computed against Ostiary's card colors (`#ffffff` light, `#141311` dark); a fork with very different cards should check its own.
+
+## Related
+
+- [Protect an API](protect-an-api.md): access tokens for your own APIs, and machine-to-machine clients.
+- [Tokens and claims](tokens-and-claims.md): endpoints, scopes, claims, [custom claims per application](tokens-and-claims.md#custom-claims) and [signing keys](tokens-and-claims.md#signing-keys).
+- [MCP and AI agents](mcp-and-agents.md): clients that register themselves.
+- [Social sign-in](social-sign-in.md): social providers and Google One Tap.
+- [Troubleshooting](troubleshooting.md): `redirect_uri` mismatches and other errors.
