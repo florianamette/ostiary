@@ -1386,6 +1386,8 @@
           "searchPlaceholder": "Ad veya e-postaya göre arayın…",
           "searchLabel": "Kullanıcılarda ara",
           "rolePlaceholder": "Rol",
+          "exportCsv": "CSV olarak dışa aktar",
+          "exportCsvHint": "Geçerli arama ve filtreyle eşleşen kullanıcıları CSV dosyası olarak indir",
           "roleAll": "Tüm roller",
           "roleAdmin": "Yönetici",
           "roleUser": "Kullanıcı",
@@ -1655,7 +1657,8 @@
             "impersonate": "Kullanıcının kimliğine büründü",
             "reset_two_factor": "İki faktörlü kimlik doğrulamayı sıfırladı",
             "export_data": "Hesap verilerini dışa aktardı",
-            "self_delete": "Kendi hesabını sildi"
+            "self_delete": "Kendi hesabını sildi",
+            "export_csv": "Kullanıcıları CSV olarak dışa aktardı"
           },
           "oauth_client": {
             "create": "OAuth istemcisi kaydetti",
@@ -1735,10 +1738,15 @@
             "rotate_secret": "Webhook gizli anahtarını yeniden oluşturdu",
             "test": "Webhook test olayı gönderdi",
             "redeliver": "Webhook olayını yeniden teslim etti"
+          },
+          "audit_log": {
+            "export_csv": "Denetim günlüğünü CSV olarak dışa aktardı"
           }
         },
         "actorPlaceholder": "İşlemi yapana göre ara (e-posta)…",
         "actorLabel": "İşlemi yapana göre ara",
+        "exportCsv": "CSV olarak dışa aktar",
+        "exportCsvHint": "Geçerli filtre ve aramayla eşleşen tüm kayıtları CSV dosyası olarak indir",
         "pagesLabel": "Denetim günlüğü sayfaları",
         "newest": "En yeni kayıtlar",
         "older": "Daha eski kayıtlar"

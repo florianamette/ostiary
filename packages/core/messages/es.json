@@ -1386,6 +1386,8 @@
           "searchPlaceholder": "Busca por nombre o correo electrónico…",
           "searchLabel": "Buscar usuarios",
           "rolePlaceholder": "Rol",
+          "exportCsv": "Exportar CSV",
+          "exportCsvHint": "Descargar los usuarios que coinciden con la búsqueda y el filtro actuales como archivo CSV",
           "roleAll": "Todos los roles",
           "roleAdmin": "Administrador",
           "roleUser": "Usuario",
@@ -1655,7 +1657,8 @@
             "impersonate": "Suplantó a un usuario",
             "reset_two_factor": "Restableció la autenticación en dos pasos",
             "export_data": "Exportó los datos de la cuenta",
-            "self_delete": "Eliminó su propia cuenta"
+            "self_delete": "Eliminó su propia cuenta",
+            "export_csv": "Exportó los usuarios a CSV"
           },
           "oauth_client": {
             "create": "Registró un cliente OAuth",
@@ -1735,10 +1738,15 @@
             "rotate_secret": "Regeneró el secreto de un webhook",
             "test": "Envió un evento de prueba de webhook",
             "redeliver": "Reenvió un evento de webhook"
+          },
+          "audit_log": {
+            "export_csv": "Exportó el registro de auditoría a CSV"
           }
         },
         "actorPlaceholder": "Buscar por quién actuó (correo)…",
         "actorLabel": "Buscar por autor",
+        "exportCsv": "Exportar CSV",
+        "exportCsvHint": "Descargar todas las entradas que coinciden con el filtro y la búsqueda actuales como archivo CSV",
         "pagesLabel": "Páginas del registro de auditoría",
         "newest": "Entradas más recientes",
         "older": "Entradas anteriores"

@@ -1386,6 +1386,8 @@
           "searchPlaceholder": "Nach Name oder E-Mail-Adresse suchen…",
           "searchLabel": "Benutzer suchen",
           "rolePlaceholder": "Rolle",
+          "exportCsv": "CSV exportieren",
+          "exportCsvHint": "Die Benutzer, die der aktuellen Suche und dem Filter entsprechen, als CSV-Datei herunterladen",
           "roleAll": "Alle Rollen",
           "roleAdmin": "Admin",
           "roleUser": "Benutzer",
@@ -1655,7 +1657,8 @@
             "impersonate": "Als Benutzer angemeldet",
             "reset_two_factor": "Zwei-Faktor-Authentifizierung zurückgesetzt",
             "export_data": "Kontodaten exportiert",
-            "self_delete": "Eigenes Konto gelöscht"
+            "self_delete": "Eigenes Konto gelöscht",
+            "export_csv": "Benutzer als CSV exportiert"
           },
           "oauth_client": {
             "create": "OAuth-Client registriert",
@@ -1735,10 +1738,15 @@
             "rotate_secret": "Webhook-Secret neu generiert",
             "test": "Webhook-Testereignis gesendet",
             "redeliver": "Webhook-Ereignis erneut zugestellt"
+          },
+          "audit_log": {
+            "export_csv": "Audit-Log als CSV exportiert"
           }
         },
         "actorPlaceholder": "Nach Ausführendem suchen (E-Mail)…",
         "actorLabel": "Nach Ausführendem suchen",
+        "exportCsv": "CSV exportieren",
+        "exportCsvHint": "Alle Einträge, die dem aktuellen Filter und der Suche entsprechen, als CSV-Datei herunterladen",
         "pagesLabel": "Seiten des Audit-Logs",
         "newest": "Neueste Einträge",
         "older": "Ältere Einträge"

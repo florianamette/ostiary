@@ -72,6 +72,7 @@ Hosted identity platforms are great until the bill scales with your users or you
 - OAuth clients with their icons, an **App usage** page (tokens, users and consents per app over 30 days), consents, organizations, SSO providers
 - API keys: turn them on, set their maximum lifetime, see and revoke every key
 - Audit log of every admin action, sign-in activity and failed sign-in monitoring
+- CSV export of the users list and the audit log, with the page's filters, for audits and migrations
 - Signing keys: automatic rotation on a schedule, or rotate now, with a grace period during which old tokens keep verifying
 - Rate limits per client IP on sign-in, codes, password reset and token endpoints, counted in Postgres so they hold on serverless
 

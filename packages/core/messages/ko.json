@@ -1386,6 +1386,8 @@
           "searchPlaceholder": "이름 또는 이메일로 검색…",
           "searchLabel": "사용자 검색",
           "rolePlaceholder": "역할",
+          "exportCsv": "CSV 내보내기",
+          "exportCsvHint": "현재 검색 및 필터와 일치하는 사용자를 CSV 파일로 다운로드합니다",
           "roleAll": "모든 역할",
           "roleAdmin": "관리자",
           "roleUser": "사용자",
@@ -1655,7 +1657,8 @@
             "impersonate": "사용자로 대리 로그인",
             "reset_two_factor": "2단계 인증 초기화",
             "export_data": "계정 데이터 내보내기",
-            "self_delete": "본인 계정 삭제"
+            "self_delete": "본인 계정 삭제",
+            "export_csv": "사용자를 CSV로 내보내기"
           },
           "oauth_client": {
             "create": "OAuth 클라이언트 등록",
@@ -1735,10 +1738,15 @@
             "rotate_secret": "웹훅 시크릿 다시 생성",
             "test": "웹훅 테스트 이벤트 전송",
             "redeliver": "웹훅 이벤트 다시 전송"
+          },
+          "audit_log": {
+            "export_csv": "감사 로그를 CSV로 내보내기"
           }
         },
         "actorPlaceholder": "수행자(이메일)로 검색…",
         "actorLabel": "수행자로 검색",
+        "exportCsv": "CSV 내보내기",
+        "exportCsvHint": "현재 필터 및 검색과 일치하는 모든 항목을 CSV 파일로 다운로드합니다",
         "pagesLabel": "감사 로그 페이지",
         "newest": "최신 항목",
         "older": "이전 항목"

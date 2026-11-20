@@ -1386,6 +1386,8 @@
           "searchPlaceholder": "名前またはメールアドレスで検索…",
           "searchLabel": "ユーザーを検索",
           "rolePlaceholder": "ロール",
+          "exportCsv": "CSV をエクスポート",
+          "exportCsvHint": "現在の検索とフィルターに一致するユーザーを CSV ファイルとしてダウンロードします",
           "roleAll": "すべてのロール",
           "roleAdmin": "管理者",
           "roleUser": "ユーザー",
@@ -1655,7 +1657,8 @@
             "impersonate": "ユーザーとして代理サインイン",
             "reset_two_factor": "2段階認証をリセット",
             "export_data": "アカウントデータをエクスポート",
-            "self_delete": "自分のアカウントを削除"
+            "self_delete": "自分のアカウントを削除",
+            "export_csv": "ユーザーを CSV にエクスポート"
           },
           "oauth_client": {
             "create": "OAuth クライアントを登録",
@@ -1735,10 +1738,15 @@
             "rotate_secret": "Webhook シークレットを再生成",
             "test": "Webhook のテストイベントを送信",
             "redeliver": "Webhook イベントを再配信"
+          },
+          "audit_log": {
+            "export_csv": "監査ログを CSV にエクスポート"
           }
         },
         "actorPlaceholder": "実行者（メール）で検索…",
         "actorLabel": "実行者で検索",
+        "exportCsv": "CSV をエクスポート",
+        "exportCsvHint": "現在のフィルターと検索に一致するすべてのエントリを CSV ファイルとしてダウンロードします",
         "pagesLabel": "監査ログのページ",
         "newest": "最新のエントリ",
         "older": "以前のエントリ"

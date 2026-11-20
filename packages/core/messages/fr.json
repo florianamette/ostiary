@@ -1386,6 +1386,8 @@
           "searchPlaceholder": "Rechercher par nom ou e-mail…",
           "searchLabel": "Rechercher des utilisateurs",
           "rolePlaceholder": "Rôle",
+          "exportCsv": "Exporter en CSV",
+          "exportCsvHint": "Télécharger les utilisateurs correspondant à la recherche et au filtre actuels dans un fichier CSV",
           "roleAll": "Tous les rôles",
           "roleAdmin": "Admin",
           "roleUser": "Utilisateur",
@@ -1655,7 +1657,8 @@
             "impersonate": "Identité de l’utilisateur empruntée",
             "reset_two_factor": "Authentification à deux facteurs réinitialisée",
             "export_data": "Données du compte exportées",
-            "self_delete": "Compte supprimé par son titulaire"
+            "self_delete": "Compte supprimé par son titulaire",
+            "export_csv": "Utilisateurs exportés en CSV"
           },
           "oauth_client": {
             "create": "Client OAuth enregistré",
@@ -1735,10 +1738,15 @@
             "rotate_secret": "Secret de webhook régénéré",
             "test": "Événement de test de webhook envoyé",
             "redeliver": "Événement de webhook renvoyé"
+          },
+          "audit_log": {
+            "export_csv": "Journal d’audit exporté en CSV"
           }
         },
         "actorPlaceholder": "Rechercher par auteur (e-mail)…",
         "actorLabel": "Rechercher par auteur",
+        "exportCsv": "Exporter en CSV",
+        "exportCsvHint": "Télécharger toutes les entrées correspondant au filtre et à la recherche actuels dans un fichier CSV",
         "pagesLabel": "Pages du journal d’audit",
         "newest": "Entrées les plus récentes",
         "older": "Entrées plus anciennes"
