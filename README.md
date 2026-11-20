@@ -157,6 +157,7 @@ The [full guide](docs/connect-an-app.md) covers protecting your APIs, signing ke
 
 | Guide | What it covers |
 | --- | --- |
+| [Quickstart](docs/quickstart.md) | Run Ostiary locally, become an admin, register an app and sign in through it |
 | [Connect an app](docs/connect-an-app.md) | OIDC setup, APIs and scopes, signing keys, device flow, per-app branding, Google One Tap |
 | [Social sign-in](docs/social-sign-in.md) | Turning on Google, Apple, GitHub and 33 more providers from the admin console |
 | [Enterprise SSO](docs/enterprise-sso.md) | OIDC and SAML 2.0 identity providers (Okta, Entra ID, Google Workspace), domain verification |
