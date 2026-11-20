@@ -477,6 +477,45 @@
             "noAccount": "खाता नहीं है? <link>खाता बनाएँ</link>"
           }
         },
+        "claims": {
+          "title": "टोकन claims",
+          "description": "<app>{client}</app> को मिलने वाले टोकन में जोड़े जाने वाले कस्टम claims. हर मान या तो तय होता है या साइन-इन किए गए उपयोगकर्ता से पढ़ा जाता है; कोई कोड नहीं चलता.",
+          "empty": "अभी कोई कस्टम claim नहीं है.",
+          "claimNumber": "Claim {number}",
+          "add": "Claim जोड़ें",
+          "remove": "Claim {number} हटाएँ",
+          "name": "Claim का नाम",
+          "nameHint": "https://example.com/tenant जैसे नेमस्पेस वाले नाम मानक claims से नहीं टकराते. आरक्षित claims (iss, sub, aud, exp, scope, role, email, name…) सेट नहीं किए जा सकते.",
+          "source": "मान का स्रोत",
+          "sourceText": "टेक्स्ट",
+          "sourceJson": "JSON",
+          "sourceAttribute": "उपयोगकर्ता विशेषता",
+          "value": "मान",
+          "attribute": "विशेषता",
+          "tokens": "टोकन",
+          "tokenId": "ID टोकन",
+          "tokenAccess": "ऐक्सेस टोकन",
+          "tokenUserinfo": "UserInfo",
+          "limits": "प्रति ऐप्लिकेशन अधिकतम {max} claims, कुल {kilobytes} KB.",
+          "precedence": "मशीन-से-मशीन टोकन (client credentials) को केवल तय मान मिलते हैं. किसी API के ऐक्सेस टोकन में, उसी नाम वाले claim पर API के अपने कस्टम claims को प्राथमिकता मिलती है.",
+          "previewTitle": "पूर्वावलोकन",
+          "previewHint": "एक उदाहरण उपयोगकर्ता के लिए: {username}, भूमिका {role}, सक्रिय संगठन {organization}.",
+          "previewMachine": "ऐक्सेस टोकन, client credentials (कोई उपयोगकर्ता नहीं)",
+          "previewEmpty": "कोई कस्टम claim नहीं",
+          "jsonInvalid": "\"{name}\" का मान मान्य JSON नहीं है.",
+          "save": "Claims सहेजें",
+          "saved": "टोकन claims सहेजे गए",
+          "attributes": {
+            "user_role": "प्लेटफ़ॉर्म भूमिका",
+            "user_email_verified": "ईमेल सत्यापित",
+            "user_username": "उपयोगकर्ता नाम",
+            "user_two_factor_enabled": "दो-चरणीय सत्यापन चालू",
+            "organization_id": "सक्रिय संगठन की ID",
+            "organization_slug": "सक्रिय संगठन का slug",
+            "organization_role": "सक्रिय संगठन में भूमिका",
+            "organizations": "संगठन सदस्यताएँ"
+          }
+        },
         "actions": {
           "registration": {
             "chooseMode": "चुनें कि कौन क्लाइंट रजिस्टर कर सकता है।",
@@ -500,6 +539,11 @@
             "faintOnLight": "हल्के कार्ड पर एक्सेंट फीका है: बटन मुश्किल से उभरेंगे।",
             "faintOnDark": "गहरे कार्ड पर एक्सेंट फीका है: बटन मुश्किल से उभरेंगे।",
             "saveFailed": "ब्रांडिंग सहेजी नहीं जा सकी।"
+          },
+          "claims": {
+            "clientGone": "यह ऐप्लिकेशन अब मौजूद नहीं है.",
+            "selfRegistered": "स्वयं पंजीकृत क्लाइंट के कस्टम claims नहीं हो सकते.",
+            "saveFailed": "Claims सहेजे नहीं जा सके."
           }
         },
         "register": {
@@ -542,6 +586,8 @@
           "editHint": "नाम, रीडायरेक्ट URI, डिवाइस साइन-इन और सहमति छोड़ना",
           "branding": "साइन-इन ब्रांडिंग",
           "brandingHint": "इस ऐप की साइन-इन स्क्रीन का लोगो, एक्सेंट रंग और शब्द",
+          "claims": "टोकन claims",
+          "claimsHint": "इस ऐप के ID टोकन, ऐक्सेस टोकन और UserInfo में कस्टम claims",
           "rotateSecret": "सीक्रेट रोटेट करें",
           "rotateHintPublic": "सार्वजनिक क्लाइंट का कोई सीक्रेट नहीं होता",
           "rotateHintDisabled": "पहले क्लाइंट सक्षम करें",
@@ -611,6 +657,18 @@
           "panelImageEmpty": "साइड पैनल इमेज खाली है।",
           "panelImageTooLarge": "साइड पैनल इमेज 1 MB या उससे छोटी होनी चाहिए।",
           "panelImageType": "साइड पैनल इमेज PNG, JPEG, WebP या AVIF होनी चाहिए।"
+        },
+        "claimsErrors": {
+          "invalid": "Claims अपेक्षित प्रारूप में नहीं हैं.",
+          "nameMissing": "हर claim के लिए नाम दर्ज करें.",
+          "tooMany": "एक ऐप्लिकेशन में अधिकतम {max} कस्टम claims हो सकते हैं.",
+          "tooLarge": "कस्टम claims बहुत बड़े हैं (अधिकतम {kilobytes} KB): ये हर टोकन में जोड़े जाते हैं.",
+          "nameInvalid": "\"{name}\" मान्य claim नाम नहीं है: केवल अक्षर, अंक और _ . : / - का उपयोग करें, और शुरुआत अक्षर या _ से करें.",
+          "nameReserved": "\"{name}\" एक आरक्षित claim है: इसे सर्वर सेट करता है.",
+          "nameDuplicate": "Claim \"{name}\" दो बार परिभाषित है.",
+          "noTokens": "Claim \"{name}\" के लिए कम से कम एक टोकन चुनें.",
+          "valueInvalid": "\"{name}\" का मान टेक्स्ट, संख्या, true या false, या JSON array या object होना चाहिए (null नहीं, अधिकतम 4 स्तर).",
+          "attributeUnknown": "Claim \"{name}\" एक अज्ञात विशेषता का उपयोग करता है."
         },
         "cleanup": {
           "trigger": "अप्रयुक्त डुप्लिकेट हटाएँ",
@@ -1670,6 +1728,7 @@
             "enable": "OAuth क्लाइंट सक्षम किया",
             "branding_update": "साइन-इन ब्रांडिंग बदली",
             "branding_reset": "साइन-इन ब्रांडिंग रीसेट की",
+            "claims_update": "टोकन claims बदले",
             "remove_duplicates": "डुप्लिकेट OAuth क्लाइंट हटाए"
           },
           "client_registration": {

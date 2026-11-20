@@ -477,6 +477,45 @@
             "noAccount": "Hesabınız yok mu? <link>Hesap oluşturun</link>"
           }
         },
+        "claims": {
+          "title": "Token claim'leri",
+          "description": "<app>{client}</app> uygulamasının aldığı token'lara eklenen özel claim'ler. Her değer sabittir ya da oturum açmış kullanıcıdan okunur; hiçbir kod çalıştırılmaz.",
+          "empty": "Henüz özel claim yok.",
+          "claimNumber": "Claim {number}",
+          "add": "Claim ekle",
+          "remove": "{number}. claim'i kaldır",
+          "name": "Claim adı",
+          "nameHint": "https://example.com/tenant gibi ad alanlı adlar standart claim'lerle çakışmaz. Ayrılmış claim'ler (iss, sub, aud, exp, scope, role, email, name…) ayarlanamaz.",
+          "source": "Değer kaynağı",
+          "sourceText": "Metin",
+          "sourceJson": "JSON",
+          "sourceAttribute": "Kullanıcı özniteliği",
+          "value": "Değer",
+          "attribute": "Öznitelik",
+          "tokens": "Token'lar",
+          "tokenId": "ID token",
+          "tokenAccess": "Erişim token'ı",
+          "tokenUserinfo": "UserInfo",
+          "limits": "Uygulama başına en fazla {max} claim, toplamda {kilobytes} KB.",
+          "precedence": "Makineden makineye token'lar (client credentials) yalnızca sabit değerleri alır. Bir API'nin erişim token'larında, API'nin kendi özel claim'leri aynı adlı bir claim'e üstün gelir.",
+          "previewTitle": "Önizleme",
+          "previewHint": "Örnek bir kullanıcı için: {username}, rol {role}, etkin kuruluş {organization}.",
+          "previewMachine": "Erişim token'ı, client credentials (kullanıcı yok)",
+          "previewEmpty": "Özel claim yok",
+          "jsonInvalid": "“{name}” değeri geçerli bir JSON değil.",
+          "save": "Claim'leri kaydet",
+          "saved": "Token claim'leri kaydedildi",
+          "attributes": {
+            "user_role": "Platform rolü",
+            "user_email_verified": "E-posta doğrulandı",
+            "user_username": "Kullanıcı adı",
+            "user_two_factor_enabled": "İki adımlı doğrulama açık",
+            "organization_id": "Etkin kuruluşun kimliği",
+            "organization_slug": "Etkin kuruluşun slug'ı",
+            "organization_role": "Etkin kuruluştaki rol",
+            "organizations": "Kuruluş üyelikleri"
+          }
+        },
         "actions": {
           "registration": {
             "chooseMode": "İstemcileri kimlerin kaydedebileceğini seçin.",
@@ -500,6 +539,11 @@
             "faintOnLight": "Vurgu rengi açık kartta soluk: düğmeler zor ayırt edilecek.",
             "faintOnDark": "Vurgu rengi koyu kartta soluk: düğmeler zor ayırt edilecek.",
             "saveFailed": "Markalama kaydedilemedi."
+          },
+          "claims": {
+            "clientGone": "Bu uygulama artık yok.",
+            "selfRegistered": "Kendi kendine kaydolan istemcilerin özel claim'leri olamaz.",
+            "saveFailed": "Claim'ler kaydedilemedi."
           }
         },
         "register": {
@@ -542,6 +586,8 @@
           "editHint": "Ad, yönlendirme URI'leri, cihazla giriş ve onayı atlama",
           "branding": "Giriş ekranı markalaması",
           "brandingHint": "Bu uygulamanın giriş ekranlarının logosu, vurgu rengi ve metinleri",
+          "claims": "Token claim'leri",
+          "claimsHint": "Bu uygulamanın ID token'ı, erişim token'ı ve UserInfo yanıtındaki özel claim'ler",
           "rotateSecret": "Gizli anahtarı yenile",
           "rotateHintPublic": "Genel istemcilerin gizli anahtarı yoktur",
           "rotateHintDisabled": "Önce istemciyi etkinleştirin",
@@ -611,6 +657,18 @@
           "panelImageEmpty": "Yan panel görseli boş.",
           "panelImageTooLarge": "Yan panel görseli en fazla 1 MB olmalıdır.",
           "panelImageType": "Yan panel görseli PNG, JPEG, WebP veya AVIF olmalıdır."
+        },
+        "claimsErrors": {
+          "invalid": "Claim'ler beklenen biçimde değil.",
+          "nameMissing": "Her claim için bir ad girin.",
+          "tooMany": "Bir uygulamanın en fazla {max} özel claim'i olabilir.",
+          "tooLarge": "Özel claim'ler çok büyük (en fazla {kilobytes} KB): her token'a eklenirler.",
+          "nameInvalid": "“{name}” geçerli bir claim adı değil: yalnızca harfler, rakamlar ve _ . : / - kullanılabilir ve bir harf ya da _ ile başlamalıdır.",
+          "nameReserved": "“{name}” ayrılmış bir claim: onu sunucu ayarlar.",
+          "nameDuplicate": "“{name}” claim'i iki kez tanımlanmış.",
+          "noTokens": "“{name}” claim'i için en az bir token seçin.",
+          "valueInvalid": "“{name}” değeri metin, sayı, true ya da false veya bir JSON dizisi ya da nesnesi olmalıdır (null olamaz, en fazla 4 düzey).",
+          "attributeUnknown": "“{name}” claim'i bilinmeyen bir öznitelik kullanıyor."
         },
         "cleanup": {
           "trigger": "Kullanılmayan yinelenenleri kaldır",
@@ -1670,6 +1728,7 @@
             "enable": "OAuth istemcisini etkinleştirdi",
             "branding_update": "Giriş ekranı markalamasını değiştirdi",
             "branding_reset": "Giriş ekranı markalamasını sıfırladı",
+            "claims_update": "Token claim'leri değiştirildi",
             "remove_duplicates": "Yinelenen OAuth istemcilerini kaldırdı"
           },
           "client_registration": {

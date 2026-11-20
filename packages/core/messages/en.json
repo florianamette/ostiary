@@ -477,6 +477,45 @@
             "noAccount": "No account? <link>Create one</link>"
           }
         },
+        "claims": {
+          "title": "Token claims",
+          "description": "Custom claims added to the tokens <app>{client}</app> receives. Each value is fixed or read from the signed-in user; no code runs.",
+          "empty": "No custom claims yet.",
+          "claimNumber": "Claim {number}",
+          "add": "Add claim",
+          "remove": "Remove claim {number}",
+          "name": "Claim name",
+          "nameHint": "Namespaced names such as https://example.com/tenant avoid clashes with standard claims. Reserved claims (iss, sub, aud, exp, scope, role, email, name…) cannot be set.",
+          "source": "Value from",
+          "sourceText": "Text",
+          "sourceJson": "JSON",
+          "sourceAttribute": "User attribute",
+          "value": "Value",
+          "attribute": "Attribute",
+          "tokens": "Tokens",
+          "tokenId": "ID token",
+          "tokenAccess": "Access token",
+          "tokenUserinfo": "UserInfo",
+          "limits": "Up to {max} claims per application, {kilobytes} KB in all.",
+          "precedence": "Machine-to-machine tokens (client credentials) get the fixed values only. In an API's access tokens, the API's own custom claims win over a claim with the same name.",
+          "previewTitle": "Preview",
+          "previewHint": "For an example user: {username}, role {role}, active organization {organization}.",
+          "previewMachine": "Access token, client credentials (no user)",
+          "previewEmpty": "No custom claims",
+          "jsonInvalid": "The value of \"{name}\" is not valid JSON.",
+          "save": "Save claims",
+          "saved": "Token claims saved",
+          "attributes": {
+            "user_role": "Platform role",
+            "user_email_verified": "Email verified",
+            "user_username": "Username",
+            "user_two_factor_enabled": "Two-factor enabled",
+            "organization_id": "Active organization ID",
+            "organization_slug": "Active organization slug",
+            "organization_role": "Role in the active organization",
+            "organizations": "Organization memberships"
+          }
+        },
         "actions": {
           "registration": {
             "chooseMode": "Choose who may register clients.",
@@ -500,6 +539,11 @@
             "faintOnLight": "The accent is faint on the light card: buttons will barely stand out.",
             "faintOnDark": "The accent is faint on the dark card: buttons will barely stand out.",
             "saveFailed": "Could not save the branding."
+          },
+          "claims": {
+            "clientGone": "This application no longer exists.",
+            "selfRegistered": "Self-registered clients cannot have custom claims.",
+            "saveFailed": "Could not save the claims."
           }
         },
         "register": {
@@ -542,6 +586,8 @@
           "editHint": "Name, redirect URIs, device sign-in and skip consent",
           "branding": "Sign-in branding",
           "brandingHint": "Logo, accent color and wording of the sign-in screens for this app",
+          "claims": "Token claims",
+          "claimsHint": "Custom claims in this app's ID token, access token and UserInfo",
           "rotateSecret": "Rotate secret",
           "rotateHintPublic": "Public clients have no secret",
           "rotateHintDisabled": "Enable the client first",
@@ -611,6 +657,18 @@
           "panelImageEmpty": "The side panel image is empty.",
           "panelImageTooLarge": "The side panel image must be 1 MB or smaller.",
           "panelImageType": "The side panel image must be a PNG, JPEG, WebP or AVIF image."
+        },
+        "claimsErrors": {
+          "invalid": "The claims are not in the expected format.",
+          "nameMissing": "Enter a name for each claim.",
+          "tooMany": "An application can have at most {max} custom claims.",
+          "tooLarge": "The custom claims are too large ({kilobytes} KB at most): they are added to every token.",
+          "nameInvalid": "\"{name}\" is not a valid claim name: use letters, digits and _ . : / -, starting with a letter or _.",
+          "nameReserved": "\"{name}\" is a reserved claim: the server sets it.",
+          "nameDuplicate": "The claim \"{name}\" is defined twice.",
+          "noTokens": "Choose at least one token for the claim \"{name}\".",
+          "valueInvalid": "The value of \"{name}\" must be text, a number, true or false, or a JSON array or object (no null, 4 levels deep at most).",
+          "attributeUnknown": "The claim \"{name}\" uses an unknown attribute."
         },
         "cleanup": {
           "trigger": "Remove unused duplicates",
@@ -1670,6 +1728,7 @@
             "enable": "Enabled OAuth client",
             "branding_update": "Changed sign-in branding",
             "branding_reset": "Reset sign-in branding",
+            "claims_update": "Changed token claims",
             "remove_duplicates": "Removed duplicate OAuth clients"
           },
           "client_registration": {

@@ -477,6 +477,45 @@
             "noAccount": "Geen account? <link>Maak er een aan</link>"
           }
         },
+        "claims": {
+          "title": "Token-claims",
+          "description": "Eigen claims die worden toegevoegd aan de tokens die <app>{client}</app> ontvangt. Elke waarde is vast of komt van de ingelogde gebruiker; er wordt geen code uitgevoerd.",
+          "empty": "Nog geen eigen claims.",
+          "claimNumber": "Claim {number}",
+          "add": "Claim toevoegen",
+          "remove": "Claim {number} verwijderen",
+          "name": "Naam van de claim",
+          "nameHint": "Namen met een namespace, zoals https://example.com/tenant, voorkomen botsingen met standaardclaims. Gereserveerde claims (iss, sub, aud, exp, scope, role, email, name…) kunnen niet worden ingesteld.",
+          "source": "Waarde uit",
+          "sourceText": "Tekst",
+          "sourceJson": "JSON",
+          "sourceAttribute": "Gebruikerskenmerk",
+          "value": "Waarde",
+          "attribute": "Kenmerk",
+          "tokens": "Tokens",
+          "tokenId": "ID-token",
+          "tokenAccess": "Access token",
+          "tokenUserinfo": "UserInfo",
+          "limits": "Maximaal {max} claims per applicatie, {kilobytes} KB in totaal.",
+          "precedence": "Machine-to-machine-tokens (client credentials) krijgen alleen de vaste waarden. In de access tokens van een API gaan de eigen claims van de API voor op een claim met dezelfde naam.",
+          "previewTitle": "Voorbeeld",
+          "previewHint": "Voor een voorbeeldgebruiker: {username}, rol {role}, actieve organisatie {organization}.",
+          "previewMachine": "Access token, client credentials (zonder gebruiker)",
+          "previewEmpty": "Geen eigen claims",
+          "jsonInvalid": "De waarde van \"{name}\" is geen geldige JSON.",
+          "save": "Claims opslaan",
+          "saved": "Token-claims opgeslagen",
+          "attributes": {
+            "user_role": "Platformrol",
+            "user_email_verified": "E-mail geverifieerd",
+            "user_username": "Gebruikersnaam",
+            "user_two_factor_enabled": "Tweestapsverificatie aan",
+            "organization_id": "ID van de actieve organisatie",
+            "organization_slug": "Slug van de actieve organisatie",
+            "organization_role": "Rol in de actieve organisatie",
+            "organizations": "Lidmaatschappen van organisaties"
+          }
+        },
         "actions": {
           "registration": {
             "chooseMode": "Kies wie clients mag registreren.",
@@ -500,6 +539,11 @@
             "faintOnLight": "De accentkleur is zwak op de lichte kaart: knoppen vallen nauwelijks op.",
             "faintOnDark": "De accentkleur is zwak op de donkere kaart: knoppen vallen nauwelijks op.",
             "saveFailed": "Kan de huisstijl niet opslaan."
+          },
+          "claims": {
+            "clientGone": "Deze applicatie bestaat niet meer.",
+            "selfRegistered": "Zelf geregistreerde clients kunnen geen eigen claims hebben.",
+            "saveFailed": "De claims konden niet worden opgeslagen."
           }
         },
         "register": {
@@ -542,6 +586,8 @@
           "editHint": "Naam, redirect-URI's, inloggen op apparaat en toestemming overslaan",
           "branding": "Huisstijl van het inloggen",
           "brandingHint": "Logo, accentkleur en teksten van de inlogschermen voor deze app",
+          "claims": "Token-claims",
+          "claimsHint": "Eigen claims in het ID-token, het access token en UserInfo van deze app",
           "rotateSecret": "Geheim roteren",
           "rotateHintPublic": "Openbare clients hebben geen geheim",
           "rotateHintDisabled": "Schakel eerst de client in",
@@ -611,6 +657,18 @@
           "panelImageEmpty": "De afbeelding van het zijpaneel is leeg.",
           "panelImageTooLarge": "De afbeelding van het zijpaneel mag maximaal 1 MB zijn.",
           "panelImageType": "De afbeelding van het zijpaneel moet een PNG-, JPEG-, WebP- of AVIF-afbeelding zijn."
+        },
+        "claimsErrors": {
+          "invalid": "De claims hebben niet het verwachte formaat.",
+          "nameMissing": "Geef elke claim een naam.",
+          "tooMany": "Een applicatie kan maximaal {max} eigen claims hebben.",
+          "tooLarge": "De eigen claims zijn te groot (maximaal {kilobytes} KB): ze worden aan elk token toegevoegd.",
+          "nameInvalid": "\"{name}\" is geen geldige claimnaam: alleen letters, cijfers en _ . : / -, beginnend met een letter of _.",
+          "nameReserved": "\"{name}\" is een gereserveerde claim: de server stelt die in.",
+          "nameDuplicate": "De claim \"{name}\" is twee keer gedefinieerd.",
+          "noTokens": "Kies ten minste één token voor de claim \"{name}\".",
+          "valueInvalid": "De waarde van \"{name}\" moet tekst, een getal, true of false, of een JSON-array of -object zijn (geen null, maximaal 4 niveaus diep).",
+          "attributeUnknown": "De claim \"{name}\" gebruikt een onbekend kenmerk."
         },
         "cleanup": {
           "trigger": "Ongebruikte duplicaten verwijderen",
@@ -1670,6 +1728,7 @@
             "enable": "OAuth-client ingeschakeld",
             "branding_update": "Huisstijl van het inloggen gewijzigd",
             "branding_reset": "Huisstijl van het inloggen teruggezet",
+            "claims_update": "Token-claims gewijzigd",
             "remove_duplicates": "Dubbele OAuth-clients verwijderd"
           },
           "client_registration": {

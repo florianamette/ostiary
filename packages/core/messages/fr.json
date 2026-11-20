@@ -477,6 +477,45 @@
             "noAccount": "Pas de compte ? <link>Créez-en un</link>"
           }
         },
+        "claims": {
+          "title": "Claims des jetons",
+          "description": "Claims personnalisés ajoutés aux jetons que reçoit <app>{client}</app>. Chaque valeur est fixe ou lue sur l’utilisateur connecté ; aucun code n’est exécuté.",
+          "empty": "Aucun claim personnalisé pour l’instant.",
+          "claimNumber": "Claim {number}",
+          "add": "Ajouter un claim",
+          "remove": "Supprimer le claim {number}",
+          "name": "Nom du claim",
+          "nameHint": "Un nom avec espace de noms, comme https://example.com/tenant, évite les conflits avec les claims standard. Les claims réservés (iss, sub, aud, exp, scope, role, email, name…) ne peuvent pas être définis.",
+          "source": "Valeur",
+          "sourceText": "Texte",
+          "sourceJson": "JSON",
+          "sourceAttribute": "Attribut de l’utilisateur",
+          "value": "Valeur",
+          "attribute": "Attribut",
+          "tokens": "Jetons",
+          "tokenId": "Jeton d’identité",
+          "tokenAccess": "Jeton d’accès",
+          "tokenUserinfo": "UserInfo",
+          "limits": "Jusqu’à {max} claims par application, {kilobytes} Ko au total.",
+          "precedence": "Les jetons machine à machine (client credentials) ne reçoivent que les valeurs fixes. Dans les jetons d’accès d’une API, les claims personnalisés de l’API l’emportent sur un claim du même nom.",
+          "previewTitle": "Aperçu",
+          "previewHint": "Pour un utilisateur exemple : {username}, rôle {role}, organisation active {organization}.",
+          "previewMachine": "Jeton d’accès, client credentials (sans utilisateur)",
+          "previewEmpty": "Aucun claim personnalisé",
+          "jsonInvalid": "La valeur de « {name} » n’est pas du JSON valide.",
+          "save": "Enregistrer les claims",
+          "saved": "Claims des jetons enregistrés",
+          "attributes": {
+            "user_role": "Rôle sur la plateforme",
+            "user_email_verified": "E-mail vérifié",
+            "user_username": "Nom d’utilisateur",
+            "user_two_factor_enabled": "Double authentification activée",
+            "organization_id": "ID de l’organisation active",
+            "organization_slug": "Slug de l’organisation active",
+            "organization_role": "Rôle dans l’organisation active",
+            "organizations": "Appartenances aux organisations"
+          }
+        },
         "actions": {
           "registration": {
             "chooseMode": "Choisissez qui peut enregistrer des clients.",
@@ -500,6 +539,11 @@
             "faintOnLight": "La couleur d’accent est pâle sur la carte claire : les boutons ressortiront à peine.",
             "faintOnDark": "La couleur d’accent est pâle sur la carte sombre : les boutons ressortiront à peine.",
             "saveFailed": "Impossible d’enregistrer la personnalisation."
+          },
+          "claims": {
+            "clientGone": "Cette application n’existe plus.",
+            "selfRegistered": "Les clients auto-enregistrés ne peuvent pas avoir de claims personnalisés.",
+            "saveFailed": "Impossible d’enregistrer les claims."
           }
         },
         "register": {
@@ -542,6 +586,8 @@
           "editHint": "Nom, URI de redirection, connexion par appareil et consentement ignoré",
           "branding": "Personnalisation de la connexion",
           "brandingHint": "Logo, couleur d’accent et textes des écrans de connexion de cette application",
+          "claims": "Claims des jetons",
+          "claimsHint": "Claims personnalisés dans le jeton d’identité, le jeton d’accès et UserInfo de cette application",
           "rotateSecret": "Renouveler le secret",
           "rotateHintPublic": "Les clients publics n’ont pas de secret",
           "rotateHintDisabled": "Activez d’abord le client",
@@ -611,6 +657,18 @@
           "panelImageEmpty": "L’image du panneau latéral est vide.",
           "panelImageTooLarge": "L’image du panneau latéral ne doit pas dépasser 1 Mo.",
           "panelImageType": "L’image du panneau latéral doit être une image PNG, JPEG, WebP ou AVIF."
+        },
+        "claimsErrors": {
+          "invalid": "Les claims ne sont pas au format attendu.",
+          "nameMissing": "Saisissez un nom pour chaque claim.",
+          "tooMany": "Une application peut avoir au plus {max} claims personnalisés.",
+          "tooLarge": "Les claims personnalisés sont trop volumineux ({kilobytes} Ko au plus) : ils sont ajoutés à chaque jeton.",
+          "nameInvalid": "« {name} » n’est pas un nom de claim valide : lettres, chiffres et _ . : / - uniquement, en commençant par une lettre ou _.",
+          "nameReserved": "« {name} » est un claim réservé : le serveur le définit.",
+          "nameDuplicate": "Le claim « {name} » est défini deux fois.",
+          "noTokens": "Choisissez au moins un jeton pour le claim « {name} ».",
+          "valueInvalid": "La valeur de « {name} » doit être un texte, un nombre, true ou false, ou un tableau ou objet JSON (pas de null, 4 niveaux au plus).",
+          "attributeUnknown": "Le claim « {name} » utilise un attribut inconnu."
         },
         "cleanup": {
           "trigger": "Supprimer les doublons inutilisés",
@@ -1670,6 +1728,7 @@
             "enable": "Client OAuth activé",
             "branding_update": "Personnalisation de la connexion modifiée",
             "branding_reset": "Personnalisation de la connexion réinitialisée",
+            "claims_update": "Claims des jetons modifiés",
             "remove_duplicates": "Clients OAuth en double supprimés"
           },
           "client_registration": {

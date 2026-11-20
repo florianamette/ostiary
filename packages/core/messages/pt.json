@@ -477,6 +477,45 @@
             "noAccount": "Não tem conta? <link>Crie uma</link>"
           }
         },
+        "claims": {
+          "title": "Claims dos tokens",
+          "description": "Claims personalizados adicionados aos tokens que <app>{client}</app> recebe. Cada valor é fixo ou lido do usuário conectado; nenhum código é executado.",
+          "empty": "Ainda não há claims personalizados.",
+          "claimNumber": "Claim {number}",
+          "add": "Adicionar claim",
+          "remove": "Remover o claim {number}",
+          "name": "Nome do claim",
+          "nameHint": "Nomes com namespace, como https://example.com/tenant, evitam conflitos com os claims padrão. Claims reservados (iss, sub, aud, exp, scope, role, email, name…) não podem ser definidos.",
+          "source": "Valor de",
+          "sourceText": "Texto",
+          "sourceJson": "JSON",
+          "sourceAttribute": "Atributo do usuário",
+          "value": "Valor",
+          "attribute": "Atributo",
+          "tokens": "Tokens",
+          "tokenId": "Token de ID",
+          "tokenAccess": "Token de acesso",
+          "tokenUserinfo": "UserInfo",
+          "limits": "Até {max} claims por aplicação, {kilobytes} KB no total.",
+          "precedence": "Tokens máquina a máquina (client credentials) recebem apenas os valores fixos. Nos tokens de acesso de uma API, os claims personalizados da própria API prevalecem sobre um claim com o mesmo nome.",
+          "previewTitle": "Prévia",
+          "previewHint": "Para um usuário de exemplo: {username}, papel {role}, organização ativa {organization}.",
+          "previewMachine": "Token de acesso, client credentials (sem usuário)",
+          "previewEmpty": "Sem claims personalizados",
+          "jsonInvalid": "O valor de \"{name}\" não é um JSON válido.",
+          "save": "Salvar claims",
+          "saved": "Claims dos tokens salvos",
+          "attributes": {
+            "user_role": "Papel na plataforma",
+            "user_email_verified": "E-mail verificado",
+            "user_username": "Nome de usuário",
+            "user_two_factor_enabled": "Verificação em duas etapas ativada",
+            "organization_id": "ID da organização ativa",
+            "organization_slug": "Slug da organização ativa",
+            "organization_role": "Papel na organização ativa",
+            "organizations": "Participação em organizações"
+          }
+        },
         "actions": {
           "registration": {
             "chooseMode": "Escolha quem pode registrar clientes.",
@@ -500,6 +539,11 @@
             "faintOnLight": "A cor de destaque é fraca no cartão claro: os botões mal se destacarão.",
             "faintOnDark": "A cor de destaque é fraca no cartão escuro: os botões mal se destacarão.",
             "saveFailed": "Não foi possível salvar a personalização."
+          },
+          "claims": {
+            "clientGone": "Esta aplicação não existe mais.",
+            "selfRegistered": "Clientes autorregistrados não podem ter claims personalizados.",
+            "saveFailed": "Não foi possível salvar os claims."
           }
         },
         "register": {
@@ -542,6 +586,8 @@
           "editHint": "Nome, URIs de redirecionamento, login em dispositivo e pular consentimento",
           "branding": "Personalização do login",
           "brandingHint": "Logotipo, cor de destaque e textos das telas de login deste app",
+          "claims": "Claims dos tokens",
+          "claimsHint": "Claims personalizados no token de ID, no token de acesso e no UserInfo deste app",
           "rotateSecret": "Renovar segredo",
           "rotateHintPublic": "Clientes públicos não têm segredo",
           "rotateHintDisabled": "Ative o cliente primeiro",
@@ -611,6 +657,18 @@
           "panelImageEmpty": "A imagem do painel lateral está vazia.",
           "panelImageTooLarge": "A imagem do painel lateral deve ter 1 MB ou menos.",
           "panelImageType": "A imagem do painel lateral deve ser uma imagem PNG, JPEG, WebP ou AVIF."
+        },
+        "claimsErrors": {
+          "invalid": "Os claims não estão no formato esperado.",
+          "nameMissing": "Informe um nome para cada claim.",
+          "tooMany": "Uma aplicação pode ter no máximo {max} claims personalizados.",
+          "tooLarge": "Os claims personalizados são grandes demais (no máximo {kilobytes} KB): eles são adicionados a cada token.",
+          "nameInvalid": "\"{name}\" não é um nome de claim válido: apenas letras, dígitos e _ . : / -, começando com uma letra ou _.",
+          "nameReserved": "\"{name}\" é um claim reservado: o servidor o define.",
+          "nameDuplicate": "O claim \"{name}\" está definido duas vezes.",
+          "noTokens": "Escolha pelo menos um token para o claim \"{name}\".",
+          "valueInvalid": "O valor de \"{name}\" deve ser um texto, um número, true ou false, ou um array ou objeto JSON (sem null, no máximo 4 níveis).",
+          "attributeUnknown": "O claim \"{name}\" usa um atributo desconhecido."
         },
         "cleanup": {
           "trigger": "Remover duplicados não usados",
@@ -1670,6 +1728,7 @@
             "enable": "Ativou cliente OAuth",
             "branding_update": "Alterou a personalização do login",
             "branding_reset": "Redefiniu a personalização do login",
+            "claims_update": "Claims dos tokens alterados",
             "remove_duplicates": "Removeu clientes OAuth duplicados"
           },
           "client_registration": {

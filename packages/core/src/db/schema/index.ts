@@ -11,3 +11,4 @@ export * from "./api-keys";
 export * from "./social";
 export * from "./app-icons";
 export * from "./app-branding";
+export * from "./client-claims";

@@ -477,6 +477,45 @@
             "noAccount": "Kein Konto? <link>Jetzt erstellen</link>"
           }
         },
+        "claims": {
+          "title": "Token-Claims",
+          "description": "Eigene Claims, die den Tokens von <app>{client}</app> hinzugefügt werden. Jeder Wert ist fest oder stammt vom angemeldeten Benutzer; es wird kein Code ausgeführt.",
+          "empty": "Noch keine eigenen Claims.",
+          "claimNumber": "Claim {number}",
+          "add": "Claim hinzufügen",
+          "remove": "Claim {number} entfernen",
+          "name": "Claim-Name",
+          "nameHint": "Namen mit Namensraum wie https://example.com/tenant vermeiden Konflikte mit Standard-Claims. Reservierte Claims (iss, sub, aud, exp, scope, role, email, name…) können nicht gesetzt werden.",
+          "source": "Wert aus",
+          "sourceText": "Text",
+          "sourceJson": "JSON",
+          "sourceAttribute": "Benutzerattribut",
+          "value": "Wert",
+          "attribute": "Attribut",
+          "tokens": "Tokens",
+          "tokenId": "ID-Token",
+          "tokenAccess": "Access-Token",
+          "tokenUserinfo": "UserInfo",
+          "limits": "Bis zu {max} Claims pro Anwendung, insgesamt {kilobytes} KB.",
+          "precedence": "Maschine-zu-Maschine-Tokens (Client Credentials) erhalten nur die festen Werte. In den Access-Tokens einer API haben die eigenen Claims der API Vorrang vor einem gleichnamigen Claim.",
+          "previewTitle": "Vorschau",
+          "previewHint": "Für einen Beispielbenutzer: {username}, Rolle {role}, aktive Organisation {organization}.",
+          "previewMachine": "Access-Token, Client Credentials (ohne Benutzer)",
+          "previewEmpty": "Keine eigenen Claims",
+          "jsonInvalid": "Der Wert von „{name}“ ist kein gültiges JSON.",
+          "save": "Claims speichern",
+          "saved": "Token-Claims gespeichert",
+          "attributes": {
+            "user_role": "Plattformrolle",
+            "user_email_verified": "E-Mail bestätigt",
+            "user_username": "Benutzername",
+            "user_two_factor_enabled": "Zwei-Faktor aktiviert",
+            "organization_id": "ID der aktiven Organisation",
+            "organization_slug": "Slug der aktiven Organisation",
+            "organization_role": "Rolle in der aktiven Organisation",
+            "organizations": "Organisationsmitgliedschaften"
+          }
+        },
         "actions": {
           "registration": {
             "chooseMode": "Wählen Sie, wer Clients registrieren darf.",
@@ -500,6 +539,11 @@
             "faintOnLight": "Die Akzentfarbe ist auf der hellen Karte blass: Schaltflächen heben sich kaum ab.",
             "faintOnDark": "Die Akzentfarbe ist auf der dunklen Karte blass: Schaltflächen heben sich kaum ab.",
             "saveFailed": "Das Branding konnte nicht gespeichert werden."
+          },
+          "claims": {
+            "clientGone": "Diese Anwendung existiert nicht mehr.",
+            "selfRegistered": "Selbst registrierte Clients können keine eigenen Claims haben.",
+            "saveFailed": "Die Claims konnten nicht gespeichert werden."
           }
         },
         "register": {
@@ -542,6 +586,8 @@
           "editHint": "Name, Weiterleitungs-URIs, Geräteanmeldung und Einwilligung überspringen",
           "branding": "Anmelde-Branding",
           "brandingHint": "Logo, Akzentfarbe und Texte der Anmeldebildschirme dieser App",
+          "claims": "Token-Claims",
+          "claimsHint": "Eigene Claims im ID-Token, Access-Token und UserInfo dieser App",
           "rotateSecret": "Secret rotieren",
           "rotateHintPublic": "Öffentliche Clients haben kein Secret",
           "rotateHintDisabled": "Aktivieren Sie zuerst den Client",
@@ -611,6 +657,18 @@
           "panelImageEmpty": "Das Bild der Seitenleiste ist leer.",
           "panelImageTooLarge": "Das Bild der Seitenleiste darf höchstens 1 MB groß sein.",
           "panelImageType": "Das Bild der Seitenleiste muss ein PNG-, JPEG-, WebP- oder AVIF-Bild sein."
+        },
+        "claimsErrors": {
+          "invalid": "Die Claims haben nicht das erwartete Format.",
+          "nameMissing": "Geben Sie jedem Claim einen Namen.",
+          "tooMany": "Eine Anwendung kann höchstens {max} eigene Claims haben.",
+          "tooLarge": "Die eigenen Claims sind zu groß (höchstens {kilobytes} KB): Sie werden jedem Token hinzugefügt.",
+          "nameInvalid": "„{name}“ ist kein gültiger Claim-Name: nur Buchstaben, Ziffern und _ . : / -, beginnend mit einem Buchstaben oder _.",
+          "nameReserved": "„{name}“ ist ein reservierter Claim: Der Server setzt ihn.",
+          "nameDuplicate": "Der Claim „{name}“ ist doppelt definiert.",
+          "noTokens": "Wählen Sie mindestens ein Token für den Claim „{name}“.",
+          "valueInvalid": "Der Wert von „{name}“ muss Text, eine Zahl, true oder false oder ein JSON-Array oder -Objekt sein (kein null, höchstens 4 Ebenen tief).",
+          "attributeUnknown": "Der Claim „{name}“ verwendet ein unbekanntes Attribut."
         },
         "cleanup": {
           "trigger": "Unbenutzte Duplikate entfernen",
@@ -1670,6 +1728,7 @@
             "enable": "OAuth-Client aktiviert",
             "branding_update": "Anmelde-Branding geändert",
             "branding_reset": "Anmelde-Branding zurückgesetzt",
+            "claims_update": "Token-Claims geändert",
             "remove_duplicates": "Doppelte OAuth-Clients entfernt"
           },
           "client_registration": {

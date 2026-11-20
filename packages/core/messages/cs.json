@@ -477,6 +477,45 @@
             "noAccount": "Nemáte účet? <link>Vytvořte si ho</link>"
           }
         },
+        "claims": {
+          "title": "Claimy tokenů",
+          "description": "Vlastní claimy přidávané do tokenů, které dostává <app>{client}</app>. Každá hodnota je pevná nebo se čte z přihlášeného uživatele; nespouští se žádný kód.",
+          "empty": "Zatím žádné vlastní claimy.",
+          "claimNumber": "Claim {number}",
+          "add": "Přidat claim",
+          "remove": "Odebrat claim {number}",
+          "name": "Název claimu",
+          "nameHint": "Názvy s jmenným prostorem, např. https://example.com/tenant, nekolidují se standardními claimy. Rezervované claimy (iss, sub, aud, exp, scope, role, email, name…) nelze nastavit.",
+          "source": "Hodnota z",
+          "sourceText": "Text",
+          "sourceJson": "JSON",
+          "sourceAttribute": "Atribut uživatele",
+          "value": "Hodnota",
+          "attribute": "Atribut",
+          "tokens": "Tokeny",
+          "tokenId": "ID token",
+          "tokenAccess": "Přístupový token",
+          "tokenUserinfo": "UserInfo",
+          "limits": "Nejvýše {max} claimů na aplikaci, celkem {kilobytes} KB.",
+          "precedence": "Tokeny stroj–stroj (client credentials) dostávají jen pevné hodnoty. V přístupových tokenech API mají vlastní claimy API přednost před claimem se stejným názvem.",
+          "previewTitle": "Náhled",
+          "previewHint": "Pro ukázkového uživatele: {username}, role {role}, aktivní organizace {organization}.",
+          "previewMachine": "Přístupový token, client credentials (bez uživatele)",
+          "previewEmpty": "Žádné vlastní claimy",
+          "jsonInvalid": "Hodnota „{name}“ není platný JSON.",
+          "save": "Uložit claimy",
+          "saved": "Claimy tokenů uloženy",
+          "attributes": {
+            "user_role": "Role na platformě",
+            "user_email_verified": "E-mail ověřen",
+            "user_username": "Uživatelské jméno",
+            "user_two_factor_enabled": "Dvoufázové ověření zapnuto",
+            "organization_id": "ID aktivní organizace",
+            "organization_slug": "Slug aktivní organizace",
+            "organization_role": "Role v aktivní organizaci",
+            "organizations": "Členství v organizacích"
+          }
+        },
         "actions": {
           "registration": {
             "chooseMode": "Zvolte, kdo smí registrovat klienty.",
@@ -500,6 +539,11 @@
             "faintOnLight": "Barva zvýraznění je na světlé kartě slabá: tlačítka téměř nevyniknou.",
             "faintOnDark": "Barva zvýraznění je na tmavé kartě slabá: tlačítka téměř nevyniknou.",
             "saveFailed": "Vzhled se nepodařilo uložit."
+          },
+          "claims": {
+            "clientGone": "Tato aplikace už neexistuje.",
+            "selfRegistered": "Samostatně registrovaní klienti nemohou mít vlastní claimy.",
+            "saveFailed": "Claimy se nepodařilo uložit."
           }
         },
         "register": {
@@ -542,6 +586,8 @@
           "editHint": "Název, URI přesměrování, přihlášení zařízení a přeskočení souhlasu",
           "branding": "Vzhled přihlášení",
           "brandingHint": "Logo, barva zvýraznění a texty přihlašovacích obrazovek této aplikace",
+          "claims": "Claimy tokenů",
+          "claimsHint": "Vlastní claimy v ID tokenu, přístupovém tokenu a UserInfo této aplikace",
           "rotateSecret": "Otočit tajný klíč",
           "rotateHintPublic": "Veřejní klienti nemají tajný klíč",
           "rotateHintDisabled": "Nejprve klienta zapněte",
@@ -611,6 +657,18 @@
           "panelImageEmpty": "Obrázek bočního panelu je prázdný.",
           "panelImageTooLarge": "Obrázek bočního panelu může mít nejvýše 1 MB.",
           "panelImageType": "Obrázek bočního panelu musí být PNG, JPEG, WebP nebo AVIF."
+        },
+        "claimsErrors": {
+          "invalid": "Claimy nemají očekávaný formát.",
+          "nameMissing": "Zadejte název každého claimu.",
+          "tooMany": "Aplikace může mít nejvýše {max} vlastních claimů.",
+          "tooLarge": "Vlastní claimy jsou příliš velké (nejvýše {kilobytes} KB): přidávají se do každého tokenu.",
+          "nameInvalid": "„{name}“ není platný název claimu: jen písmena, číslice a _ . : / -, na začátku písmeno nebo _.",
+          "nameReserved": "„{name}“ je rezervovaný claim: nastavuje ho server.",
+          "nameDuplicate": "Claim „{name}“ je definován dvakrát.",
+          "noTokens": "Vyberte aspoň jeden token pro claim „{name}“.",
+          "valueInvalid": "Hodnota „{name}“ musí být text, číslo, true nebo false, nebo pole či objekt JSON (bez null, nejvýše 4 úrovně).",
+          "attributeUnknown": "Claim „{name}“ používá neznámý atribut."
         },
         "cleanup": {
           "trigger": "Odebrat nepoužívané duplicity",
@@ -1670,6 +1728,7 @@
             "enable": "Zapnutí klienta OAuth",
             "branding_update": "Změna vzhledu přihlášení",
             "branding_reset": "Obnovení vzhledu přihlášení",
+            "claims_update": "Změněny claimy tokenů",
             "remove_duplicates": "Odebrání duplicitních klientů OAuth"
           },
           "client_registration": {

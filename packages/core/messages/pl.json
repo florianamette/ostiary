@@ -477,6 +477,45 @@
             "noAccount": "Nie masz konta? <link>Utwórz je</link>"
           }
         },
+        "claims": {
+          "title": "Claimy tokenów",
+          "description": "Własne claimy dodawane do tokenów, które otrzymuje <app>{client}</app>. Każda wartość jest stała albo odczytywana z zalogowanego użytkownika; żaden kod nie jest uruchamiany.",
+          "empty": "Brak własnych claimów.",
+          "claimNumber": "Claim {number}",
+          "add": "Dodaj claim",
+          "remove": "Usuń claim {number}",
+          "name": "Nazwa claimu",
+          "nameHint": "Nazwy z przestrzenią nazw, np. https://example.com/tenant, nie kolidują ze standardowymi claimami. Zarezerwowanych claimów (iss, sub, aud, exp, scope, role, email, name…) nie można ustawić.",
+          "source": "Wartość z",
+          "sourceText": "Tekst",
+          "sourceJson": "JSON",
+          "sourceAttribute": "Atrybut użytkownika",
+          "value": "Wartość",
+          "attribute": "Atrybut",
+          "tokens": "Tokeny",
+          "tokenId": "Token ID",
+          "tokenAccess": "Token dostępu",
+          "tokenUserinfo": "UserInfo",
+          "limits": "Do {max} claimów na aplikację, łącznie {kilobytes} KB.",
+          "precedence": "Tokeny maszyna–maszyna (client credentials) dostają tylko stałe wartości. W tokenach dostępu API własne claimy API mają pierwszeństwo przed claimem o tej samej nazwie.",
+          "previewTitle": "Podgląd",
+          "previewHint": "Dla przykładowego użytkownika: {username}, rola {role}, aktywna organizacja {organization}.",
+          "previewMachine": "Token dostępu, client credentials (bez użytkownika)",
+          "previewEmpty": "Brak własnych claimów",
+          "jsonInvalid": "Wartość „{name}” nie jest poprawnym JSON-em.",
+          "save": "Zapisz claimy",
+          "saved": "Claimy tokenów zapisane",
+          "attributes": {
+            "user_role": "Rola na platformie",
+            "user_email_verified": "E-mail zweryfikowany",
+            "user_username": "Nazwa użytkownika",
+            "user_two_factor_enabled": "Weryfikacja dwuetapowa włączona",
+            "organization_id": "ID aktywnej organizacji",
+            "organization_slug": "Slug aktywnej organizacji",
+            "organization_role": "Rola w aktywnej organizacji",
+            "organizations": "Członkostwa w organizacjach"
+          }
+        },
         "actions": {
           "registration": {
             "chooseMode": "Wybierz, kto może rejestrować klientów.",
@@ -500,6 +539,11 @@
             "faintOnLight": "Akcent jest słabo widoczny na jasnej karcie: przyciski będą się ledwo wyróżniać.",
             "faintOnDark": "Akcent jest słabo widoczny na ciemnej karcie: przyciski będą się ledwo wyróżniać.",
             "saveFailed": "Nie udało się zapisać wyglądu."
+          },
+          "claims": {
+            "clientGone": "Ta aplikacja już nie istnieje.",
+            "selfRegistered": "Samodzielnie zarejestrowani klienci nie mogą mieć własnych claimów.",
+            "saveFailed": "Nie udało się zapisać claimów."
           }
         },
         "register": {
@@ -542,6 +586,8 @@
           "editHint": "Nazwa, URI przekierowania, logowanie na urządzeniu i pomijanie zgody",
           "branding": "Wygląd logowania",
           "brandingHint": "Logo, kolor akcentu i teksty ekranów logowania tej aplikacji",
+          "claims": "Claimy tokenów",
+          "claimsHint": "Własne claimy w tokenie ID, tokenie dostępu i UserInfo tej aplikacji",
           "rotateSecret": "Zmień sekret",
           "rotateHintPublic": "Klienci publiczni nie mają sekretu",
           "rotateHintDisabled": "Najpierw włącz klienta",
@@ -611,6 +657,18 @@
           "panelImageEmpty": "Obraz panelu bocznego jest pusty.",
           "panelImageTooLarge": "Obraz panelu bocznego może mieć najwyżej 1 MB.",
           "panelImageType": "Obraz panelu bocznego musi być w formacie PNG, JPEG, WebP lub AVIF."
+        },
+        "claimsErrors": {
+          "invalid": "Claimy nie mają oczekiwanego formatu.",
+          "nameMissing": "Podaj nazwę każdego claimu.",
+          "tooMany": "Aplikacja może mieć najwyżej {max} własnych claimów.",
+          "tooLarge": "Własne claimy są za duże (najwyżej {kilobytes} KB): są dodawane do każdego tokenu.",
+          "nameInvalid": "„{name}” nie jest poprawną nazwą claimu: tylko litery, cyfry i _ . : / -, zaczynając od litery lub _.",
+          "nameReserved": "„{name}” to zarezerwowany claim: ustawia go serwer.",
+          "nameDuplicate": "Claim „{name}” jest zdefiniowany dwa razy.",
+          "noTokens": "Wybierz co najmniej jeden token dla claimu „{name}”.",
+          "valueInvalid": "Wartość „{name}” musi być tekstem, liczbą, true lub false albo tablicą lub obiektem JSON (bez null, najwyżej 4 poziomy).",
+          "attributeUnknown": "Claim „{name}” używa nieznanego atrybutu."
         },
         "cleanup": {
           "trigger": "Usuń nieużywane duplikaty",
@@ -1670,6 +1728,7 @@
             "enable": "Włączono klienta OAuth",
             "branding_update": "Zmieniono wygląd logowania",
             "branding_reset": "Zresetowano wygląd logowania",
+            "claims_update": "Zmieniono claimy tokenów",
             "remove_duplicates": "Usunięto zduplikowanych klientów OAuth"
           },
           "client_registration": {

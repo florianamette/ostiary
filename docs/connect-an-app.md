@@ -31,6 +31,55 @@ To protect an API, register it in the admin console under **APIs**: its identifi
 
 Every application can get tokens for an API by default. To limit an API to some applications, open **Change** next to *Applications* and pick **Only linked applications**, then check the applications that may call it; the others get `invalid_target`. Linked applications can also introspect the API's tokens. **Change** next to *Tokens* sets the API's access and refresh token lifetimes (shorter than the defaults of 1 hour and 30 days), custom claims added to its tokens (a JSON object, e.g. `{"tenant": "acme"}`), and whether tokens must be DPoP-bound, in which case the API must check the DPoP proof.
 
+## Add custom claims to an app's tokens
+
+An app often needs more in its tokens than the standard claims: a tenant, a plan, the user's
+role in an organization. In Auth0 that takes an Action (a script). In Ostiary it is a list of
+claims you declare per application: **Applications**, the row's menu, **Token claims**.
+Nothing is evaluated: no scripts, no expressions, no paths into the database.
+
+Each claim has:
+
+- **A name.** Letters, digits and `_ . : / -`, starting with a letter or `_`. Namespaced names
+  such as `https://example.com/tenant` are recommended (OIDC Core §5.1.2) but not required.
+- **A value**: fixed text, a fixed JSON value (number, boolean, array or object; no `null`, 4
+  levels at most), or one of these user attributes:
+
+  | Attribute | Value |
+  | --- | --- |
+  | `user.role` | The platform role (`user`, `admin`) |
+  | `user.email_verified` | `true` or `false` |
+  | `user.username` | The username, when the user has one |
+  | `user.two_factor_enabled` | `true` or `false` |
+  | `organization.id`, `organization.slug`, `organization.role` | The session's active organization, and the user's role in it |
+  | `organizations` | Every organization the user belongs to: `[{ "id", "slug", "role" }]` (50 at most) |
+
+- **The tokens it goes into**: the ID token, the access token, UserInfo, or several.
+
+The dialog previews the claims of each token for an example user, and for a machine-to-machine
+token. An application has at most 20 claims and 4 KB in all.
+
+**Reserved claims are refused**, whatever the token: the JWT and OIDC claims the server owns
+(`iss`, `sub`, `aud`, `exp`, `iat`, `nbf`, `jti`, `nonce`, `azp`, `auth_time`, `acr`, `amr`,
+`at_hash`, `c_hash`, `s_hash`, `sid`, `scope`, `client_id`, `cnf`, `typ`, `events`), the
+introspection fields (`active`, `token_type`), the OIDC standard claims (`name`, `email`,
+`email_verified`, `picture`, `preferred_username` and the others of §5.1) and Ostiary's `role`.
+The console refuses them on save, and the auth server skips them again when it issues a token.
+
+**When claims apply.** Only to that application's tokens, on every grant: authorization code,
+refresh (rotated tokens carry them too), device sign-in, and client credentials, where there is
+no user, so only the fixed values are added. Access token claims are in JWT access tokens
+(requested with `resource`) and in the introspection answer for opaque ones; introspection has
+no session, so the active organization claims are left out there. A claim without a value (no
+active organization, no username) is left out rather than set to `null`. In an API's access
+tokens, the API's own custom claims (**APIs**, *Tokens*) win over an application claim with the
+same name.
+
+Only applications registered by an admin can have claims. They live in the
+`oauth_client_claims` table (deleted with the client), are added through the oauth-provider
+plugin's claims extension (`lib/client-claims/extension.ts`), and every change is in the audit
+log (**Changed token claims**, with the claims' names, tokens and sources, not their values).
+
 ## Signing keys and rotation
 
 ID tokens and JWT access tokens are signed with an Ed25519 key; apps and APIs verify them against the public keys at `https://<your-ostiary-domain>/api/auth/jwks` (the `jwks_uri` of the discovery document). The admin console's **Signing keys** page lists the keys (key ID, algorithm, dates and whether each one is current, still published for verification, or expired) and never shows private keys, which are stored encrypted with `BETTER_AUTH_SECRET`.
