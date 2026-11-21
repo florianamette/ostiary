@@ -16,7 +16,18 @@ export type OAuthGrantType =
   | "refresh_token"
   | typeof DEVICE_CODE_GRANT_TYPE;
 
+/**
+ * A machine-to-machine client: it gets tokens for itself (client_credentials) and signs no
+ * user in (no authorization_code or device code grant), so it has no redirect URIs, device
+ * sign-in or consent screen.
+ */
+export function isMachineClient(grantTypes: readonly string[] | null | undefined): boolean {
+  if (!grantTypes?.includes("client_credentials")) return false;
+  return !grantTypes.includes("authorization_code") && !grantTypes.includes(DEVICE_CODE_GRANT_TYPE);
+}
+
 export type CreateOAuthClientAdminInput = {
+  /** Required with the authorization_code grant; empty for a client that signs no user in. */
   redirect_uris: string[];
   client_name?: string;
   token_endpoint_auth_method: TokenEndpointAuthMethod;
@@ -29,6 +40,8 @@ export type CreateOAuthClientAdminInput = {
   logo_uri?: string;
   /** Space-separated scopes the client may request. */
   scope?: string;
+  /** APIs (resource identifiers) to link the client to, as on the APIs page. */
+  resources: string[];
 };
 
 /**

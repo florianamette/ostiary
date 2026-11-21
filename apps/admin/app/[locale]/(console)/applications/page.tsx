@@ -11,7 +11,7 @@ import {
   loadClientRegistrationSettings,
 } from "@ostiary/core/lib/client-registration";
 import { env } from "@ostiary/core/lib/env";
-import { currentApiScopes, OIDC_SCOPES } from "@ostiary/core/lib/oauth-scopes";
+import { currentApiScopes, OIDC_SCOPES, resourceScopes } from "@ostiary/core/lib/oauth-scopes";
 
 import { PageHeader } from "@/components/admin/common/page-header";
 import { AdminApplicationsPanel } from "@/components/admin/applications/admin-applications-panel";
@@ -51,7 +51,7 @@ export default async function AdminApplicationsPage({
   });
 
   await requireAdminSession();
-  const [usage, links, registration, apiScopes, selfRegistered] = await Promise.all([
+  const [usage, links, registration, apiScopes, selfRegistered, resources] = await Promise.all([
     getOAuthClientUsage(),
     db
       .select({ clientId: oauthClientResource.clientId, name: oauthResource.name })
@@ -61,7 +61,25 @@ export default async function AdminApplicationsPage({
     loadClientRegistrationSettings(),
     currentApiScopes(),
     listSelfRegisteredClients(),
+    db
+      .select({
+        identifier: oauthResource.identifier,
+        name: oauthResource.name,
+        allowedScopes: oauthResource.allowedScopes,
+        metadata: oauthResource.metadata,
+        disabled: oauthResource.disabled,
+      })
+      .from(oauthResource)
+      .orderBy(asc(oauthResource.name)),
   ]);
+  // What a machine-to-machine client may be given: each enabled API's scopes, and the scopes
+  // no API declares (OAUTH_API_SCOPES).
+  const machineApis = resources
+    .filter((row) => !row.disabled)
+    .map((row) => ({ identifier: row.identifier, name: row.name, scopes: resourceScopes(row) }))
+    .filter((api) => api.scopes.length > 0);
+  const declared = new Set(machineApis.flatMap((api) => api.scopes));
+  const otherScopes = apiScopes.filter((scope) => !declared.has(scope));
   // The APIs each application is linked to (managed from the APIs page).
   const unused = countUnusedClients(usage);
   const linkedApis: Record<string, string[]> = {};
@@ -90,6 +108,7 @@ export default async function AdminApplicationsPage({
       />
       <AdminApplicationsPanel
         linkedApis={linkedApis}
+        machineScopes={{ apis: machineApis, otherScopes }}
         selfRegistered={selfRegistered.map((client) => ({
           clientId: client.clientId,
           name: client.name ?? client.clientId,

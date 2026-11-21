@@ -1,8 +1,12 @@
 import { describe, expect, it } from "vitest";
 
-import { DEVICE_CODE_GRANT_TYPE } from "@ostiary/core/lib/admin/oauth-clients/oauth-client-admin.types";
+import {
+  DEVICE_CODE_GRANT_TYPE,
+  isMachineClient,
+} from "@ostiary/core/lib/admin/oauth-clients/oauth-client-admin.types";
 import {
   createOAuthClientBodySchema,
+  deviceCodeUpdateError,
   INVALID_LOGO_URI_MESSAGE,
   parseCreateOAuthClientBody,
   parseLogoUri,
@@ -110,10 +114,92 @@ describe("parseCreateOAuthClientBody", () => {
     expect(r.ok).toBe(false);
   });
 
+  it("accepts a machine client without redirect URIs", () => {
+    for (const extra of [{}, { redirect_uris: [] }]) {
+      const r = parseCreateOAuthClientBody({
+        client_name: "Billing worker",
+        grant_types: ["client_credentials"],
+        scope: "orders:write",
+        ...extra,
+      });
+      expect(r.ok, JSON.stringify(extra)).toBe(true);
+      if (r.ok) {
+        expect(r.value.redirect_uris).toEqual([]);
+        expect(r.value.response_types).toEqual([]);
+        expect(r.value.token_endpoint_auth_method).toBe("client_secret_basic");
+      }
+    }
+  });
+
+  it("requires redirect URIs with the authorization_code grant, given or by default", () => {
+    for (const body of [
+      {},
+      { redirect_uris: [] },
+      { grant_types: ["authorization_code", "refresh_token"] },
+      { grant_types: ["authorization_code", "client_credentials"], scope: "orders:write" },
+    ]) {
+      const r = parseCreateOAuthClientBody(body);
+      expect(r.ok, JSON.stringify(body)).toBe(false);
+      if (!r.ok) expect(r.error).toMatch(/^redirect_uris:/);
+    }
+  });
+
+  it("rejects a public machine client", () => {
+    const r = parseCreateOAuthClientBody({
+      grant_types: ["client_credentials"],
+      token_endpoint_auth_method: "none",
+      scope: "orders:write",
+    });
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.error).toMatch(/^token_endpoint_auth_method:/);
+  });
+
+  it("accepts and dedupes the APIs to link the client to", () => {
+    const r = parseCreateOAuthClientBody({
+      grant_types: ["client_credentials"],
+      scope: "orders:write",
+      resources: ["https://api.example.com", " https://api.example.com "],
+    });
+    expect(r.ok && r.value.resources).toEqual(["https://api.example.com"]);
+    const none = parseCreateOAuthClientBody({ redirect_uris: ["https://x/cb"] });
+    expect(none.ok && none.value.resources).toEqual([]);
+  });
+
+  it("rejects an API that is not a URL", () => {
+    const r = parseCreateOAuthClientBody({
+      grant_types: ["client_credentials"],
+      scope: "orders:write",
+      resources: ["orders"],
+    });
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.error).toMatch(/^resources\.0:/);
+  });
+
   it("leaves user-facing clients without scope unchanged", () => {
     const r = parseCreateOAuthClientBody({ redirect_uris: ["https://x/cb"] });
     expect(r.ok).toBe(true);
     if (r.ok) expect(r.value.scope).toBeUndefined();
+  });
+});
+
+describe("isMachineClient", () => {
+  it("is a client_credentials client that signs no user in", () => {
+    expect(isMachineClient(["client_credentials"])).toBe(true);
+    expect(isMachineClient(["client_credentials", "refresh_token"])).toBe(true);
+    expect(isMachineClient(["authorization_code", "client_credentials"])).toBe(false);
+    expect(isMachineClient([DEVICE_CODE_GRANT_TYPE, "client_credentials"])).toBe(false);
+    expect(isMachineClient(["authorization_code", "refresh_token"])).toBe(false);
+    expect(isMachineClient(null)).toBe(false);
+    expect(isMachineClient([])).toBe(false);
+  });
+});
+
+describe("deviceCodeUpdateError", () => {
+  it("refuses device sign-in on a machine client only", () => {
+    expect(deviceCodeUpdateError(["client_credentials"], true)).toMatch(/machine-to-machine/);
+    expect(deviceCodeUpdateError(["client_credentials"], false)).toBeNull();
+    expect(deviceCodeUpdateError(["authorization_code", "client_credentials"], true)).toBeNull();
+    expect(deviceCodeUpdateError(null, true)).toBeNull();
   });
 });
 

@@ -4,6 +4,7 @@ import { ENV_API_SCOPES, OIDC_SCOPES } from "@ostiary/core/lib/oauth-scopes";
 
 import {
   DEVICE_CODE_GRANT_TYPE,
+  isMachineClient,
   type CreateOAuthClientAdminInput,
   type UpdateOAuthClientAdminInput,
 } from "@ostiary/core/lib/admin/oauth-clients/oauth-client-admin.types";
@@ -65,7 +66,8 @@ export const createOAuthClientBodySchema = (apiScopes: readonly string[] = ENV_A
   const allScopes: readonly string[] = [...OIDC_SCOPES, ...apiScopes];
   return z
     .object({
-      redirect_uris: z.array(z.string().min(1)).min(1),
+      // Only the authorization_code grant redirects (checked below): a machine client has none.
+      redirect_uris: z.array(z.string().min(1)).optional().default([]),
       client_name: z.string().optional(),
       token_endpoint_auth_method: tokenEndpointAuthMethodSchema.default(
         "client_secret_basic",
@@ -89,12 +91,29 @@ export const createOAuthClientBodySchema = (apiScopes: readonly string[] = ENV_A
           { message: `scope must only contain: ${allScopes.join(", ")}` },
         )
         .optional(),
+      // APIs to link the client to (Better Auth's oauth_client_resource), by identifier.
+      resources: z.array(z.string().trim().url()).max(100).optional().default([]),
     })
     .strict()
     .superRefine((v, ctx) => {
+      if (v.grant_types.includes("authorization_code") && v.redirect_uris.length === 0) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ["redirect_uris"],
+          message: "authorization_code clients need at least one redirect URI",
+        });
+      }
+      if (!v.grant_types.includes("client_credentials")) return;
+      // Better Auth gives public clients no machine scopes: their tokens would all be refused.
+      if (v.token_endpoint_auth_method === "none") {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ["token_endpoint_auth_method"],
+          message: "client_credentials clients must be confidential (client_secret_basic or client_secret_post)",
+        });
+      }
       // A client without scopes may request every server scope, so machine
       // clients must be limited to explicit API scopes.
-      if (!v.grant_types.includes("client_credentials")) return;
       const scopes = v.scope?.split(/\s+/) ?? [];
       if (scopes.length === 0 || !scopes.every((sc) => apiScopes.includes(sc))) {
         ctx.addIssue({
@@ -163,6 +182,19 @@ export function withDeviceCodeGrant(
 }
 
 /**
+ * Why a device code grant change is refused, or null. A machine-to-machine client signs no
+ * user in: it gets no device sign-in.
+ */
+export function deviceCodeUpdateError(
+  grantTypes: readonly string[] | null | undefined,
+  enabled: boolean,
+): string | null {
+  return enabled && isMachineClient(grantTypes)
+    ? "A machine-to-machine client (client_credentials only) cannot use device sign-in."
+    : null;
+}
+
+/**
  * Validates and normalizes the JSON body for POST /api/admin/oauth-clients.
  */
 export function parseCreateOAuthClientBody(
@@ -190,6 +222,7 @@ export function parseCreateOAuthClientBody(
       skip_consent: v.skip_consent,
       logo_uri: v.logo_uri || undefined,
       scope: v.scope?.split(/\s+/).join(" "),
+      resources: [...new Set(v.resources)],
     },
   };
 }

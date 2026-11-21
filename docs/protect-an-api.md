@@ -238,30 +238,27 @@ Services, cron jobs and backends call your APIs with the client credentials gran
 
 ### Register a machine client
 
-The **Register application** dialog has no option for this grant, so register the client through the admin console's JSON API, `POST /api/admin/oauth-clients`. It only accepts requests from the console's own origin, with an admin session:
+1. In the admin console, open **Applications** and click **Register application**.
+2. Enter an **Application name** and set **Client type** to **Machine-to-machine (client credentials)**. The form then has no redirect URIs, device sign-in or consent: the client signs no user in.
+3. Under **APIs and scopes**, tick the scopes the client may request. They are grouped by API; scopes from `OAUTH_API_SCOPES` are under **Other scopes**. The client is linked to each API whose scopes you tick, so it keeps access if that API is later limited to **Only linked applications**.
+4. Click **Create application**. Copy the **Client ID** and **Client secret**: the secret is not shown again; **Rotate secret** in the row's menu issues a new one.
 
-1. Open the admin console in your browser, signed in as an admin.
-2. Open the browser's developer tools, go to the **Console** tab and run:
+The client appears under **Applications** as **Machine-to-machine**. **Edit application** only changes its name and icon. The scopes are set at registration: to change them, register a new client.
 
-   ```js
-   const response = await fetch("/api/admin/oauth-clients", {
-     method: "POST",
-     headers: { "Content-Type": "application/json" },
-     body: JSON.stringify({
-       client_name: "Billing worker",
-       grant_types: ["client_credentials"],
-       // The scopes this client may request: API scopes only.
-       scope: "orders:read",
-       // Required by the API but never used by this grant: any https URL on a public host.
-       redirect_uris: ["https://billing.example.com/unused"],
-     }),
-   });
-   console.log(await response.json());
-   ```
+A machine client is confidential (it authenticates with its secret, HTTP Basic) and has the `client_credentials` grant only. It needs at least one API scope: a client without scopes could request every scope of the server, so the console refuses it.
 
-3. Copy `client_id` and `client_secret` from the answer (`{"data": {...}}`). The secret is not shown again; **Rotate secret** in the row's menu issues a new one.
+From a script, the console's JSON API does the same, from the console's own origin with an admin session (`POST /api/admin/oauth-clients`):
 
-The client then appears under **Applications**. A client that should also sign users in can list `"authorization_code", "refresh_token", "client_credentials"` in `grant_types`.
+```json
+{
+  "client_name": "Billing worker",
+  "grant_types": ["client_credentials"],
+  "scope": "orders:read",
+  "resources": ["https://api.example.com"]
+}
+```
+
+`redirect_uris` is only required with the `authorization_code` grant. `resources` (optional) links the client to those APIs. A client that should also sign users in lists `"authorization_code", "refresh_token", "client_credentials"` in `grant_types`, with `redirect_uris`.
 
 ### Get a token
 
