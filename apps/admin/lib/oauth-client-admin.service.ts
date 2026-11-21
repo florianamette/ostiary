@@ -4,7 +4,10 @@ import { auth } from "@/lib/auth";
 import { db } from "@ostiary/core/db/index";
 import { oauthClient } from "@ostiary/core/db/schema";
 import { markAdminRegisteredClient } from "@ostiary/core/lib/client-registration";
-import { withDeviceCodeGrant } from "@ostiary/core/lib/admin/oauth-clients/oauth-client-admin.validation";
+import {
+  deviceCodeUpdateError,
+  withDeviceCodeGrant,
+} from "@ostiary/core/lib/admin/oauth-clients/oauth-client-admin.validation";
 import { betterAuthErrorMessage, betterAuthErrorStatus } from "@ostiary/core/lib/api/better-auth-error";
 import {
   BadRequestError,
@@ -43,11 +46,19 @@ function machineScopes(grantTypes: readonly string[] | undefined, scope: string 
   return { client_credentials_scopes: scope.split(/\s+/).filter(Boolean) };
 }
 
+/** Deletes a client that could not be fully set up, rather than leave it half registered. */
+async function discardClient(clientId: unknown) {
+  if (typeof clientId !== "string") return;
+  await db.delete(oauthClient).where(eq(oauthClient.clientId, clientId)).catch(() => {});
+}
+
 /**
  * Creates an OAuth client using Better Auth’s server-only admin API, then marks it
- * admin-registered (`oauth_client.admin_registered`). Better Auth gives it the platform's
- * reference (see `clientReference`), so every admin, and only admins, can manage it.
- * Caller must already enforce admin session (e.g. route guard).
+ * admin-registered (`oauth_client.admin_registered`) and links it to `input.resources` (the
+ * APIs page's links). Better Auth gives it the platform's reference (see `clientReference`),
+ * so every admin, and only admins, can manage it. A client without the authorization_code
+ * grant (machine-to-machine) is sent without redirect URIs: Better Auth only requires them for
+ * that grant. Caller must already enforce admin session (e.g. route guard).
  */
 export async function createOAuthClientForAdmin(
   requestHeaders: Headers,
@@ -58,7 +69,7 @@ export async function createOAuthClientForAdmin(
     data = (await auth.api.adminCreateOAuthClient({
       headers: requestHeaders,
       body: {
-        redirect_uris: input.redirect_uris,
+        ...(input.redirect_uris.length ? { redirect_uris: input.redirect_uris } : {}),
         client_name: input.client_name,
         token_endpoint_auth_method: input.token_endpoint_auth_method,
         grant_types: input.grant_types,
@@ -79,10 +90,17 @@ export async function createOAuthClientForAdmin(
   // Unmarked, the client would pass for a self-registered one: delete it rather than leave it.
   const marked = typeof clientId === "string" && (await markAdminRegisteredClient(clientId).catch(() => false));
   if (!marked) {
-    if (typeof clientId === "string") {
-      await db.delete(oauthClient).where(eq(oauthClient.clientId, clientId)).catch(() => {});
-    }
+    await discardClient(clientId);
     throw new Error("Could not register the OAuth client");
+  }
+  try {
+    for (const identifier of input.resources) {
+      await auth.api.adminLinkClientResource({ headers: requestHeaders, params: { identifier, client_id: clientId } });
+    }
+  } catch (e) {
+    // Its links go with it (the foreign key cascades).
+    await discardClient(clientId);
+    throwFromBetterAuthCall(e);
   }
   return data;
 }
@@ -130,6 +148,8 @@ export async function updateOAuthClientForAdmin(
       .where(eq(oauthClient.clientId, clientId))
       .limit(1);
     if (!row) throw new NotFoundError("OAuth client not found");
+    const refused = deviceCodeUpdateError(row.grantTypes, deviceCode);
+    if (refused) throw new BadRequestError(refused);
     grantTypes = withDeviceCodeGrant(row.grantTypes, deviceCode);
   }
   let payload: OAuthClientAdminPayload;

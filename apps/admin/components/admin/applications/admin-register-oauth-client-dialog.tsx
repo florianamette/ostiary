@@ -21,6 +21,7 @@ import {
   FieldLabel,
 } from "@ostiary/core/components/ui/field";
 import { Input } from "@ostiary/core/components/ui/input";
+import { Label } from "@ostiary/core/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -81,9 +82,116 @@ function IssuedValue({ label, copyLabel, value }: { label: string; copyLabel: st
   );
 }
 
+/** The APIs (with their scopes) and the other API scopes a machine-to-machine client may get. */
+export type MachineScopeOptions = {
+  apis: { identifier: string; name: string; scopes: string[] }[];
+  /** API scopes no API declares (OAUTH_API_SCOPES). */
+  otherScopes: string[];
+};
+
+type ClientKind = "confidential" | "public" | "machine";
+
+/** One scope checkbox in the machine-to-machine scope picker. */
+function ScopeCheckbox({
+  id,
+  scope,
+  checked,
+  onChange,
+}: {
+  id: string;
+  scope: string;
+  checked: boolean;
+  onChange: (checked: boolean) => void;
+}) {
+  return (
+    <div className="flex items-center gap-2">
+      <input
+        id={id}
+        type="checkbox"
+        className="size-4 shrink-0 rounded border-input"
+        checked={checked}
+        onChange={(e) => onChange(e.target.checked)}
+      />
+      <Label htmlFor={id} className="cursor-pointer font-mono text-xs font-normal">
+        {scope}
+      </Label>
+    </div>
+  );
+}
+
+/**
+ * Picks the scopes of a machine-to-machine client, grouped by API. The client is linked to
+ * the APIs whose scopes are picked (see `machineRequest`).
+ */
+function MachineScopesField({
+  options,
+  selected,
+  onToggle,
+}: {
+  options: MachineScopeOptions;
+  selected: ReadonlySet<string>;
+  onToggle: (scope: string, checked: boolean) => void;
+}) {
+  const t = useTranslations("admin.pages.applications.register");
+  const groups = [
+    ...options.apis.map((api) => ({ key: api.identifier, name: api.name, detail: api.identifier, scopes: api.scopes })),
+    ...(options.otherScopes.length
+      ? [{ key: "other", name: t("otherScopes"), detail: null, scopes: options.otherScopes }]
+      : []),
+  ];
+  return (
+    <Field>
+      <FieldLabel>{t("scopesLabel")}</FieldLabel>
+      {groups.length === 0 ? (
+        <p className="text-muted-foreground text-sm">{t("noApiScopes")}</p>
+      ) : (
+        <div className="grid max-h-48 gap-2 overflow-y-auto">
+          {groups.map((group, index) => (
+            <fieldset key={group.key} className="grid gap-2 rounded-md border border-border/80 bg-muted/30 p-3">
+              <legend className="sr-only">{group.name}</legend>
+              <div className="grid gap-0.5">
+                <span className="text-sm font-medium">{group.name}</span>
+                {group.detail ? (
+                  <code className="text-muted-foreground truncate font-mono text-xs">{group.detail}</code>
+                ) : null}
+              </div>
+              <div className="flex flex-wrap gap-x-4 gap-y-2">
+                {group.scopes.map((scope) => (
+                  <ScopeCheckbox
+                    key={scope}
+                    id={`oauth-reg-scope-${index}-${scope}`}
+                    scope={scope}
+                    checked={selected.has(scope)}
+                    onChange={(checked) => onToggle(scope, checked)}
+                  />
+                ))}
+              </div>
+            </fieldset>
+          ))}
+        </div>
+      )}
+      <p className="text-muted-foreground text-xs">
+        {t.rich("scopesHint", { grant: "client_credentials", code: (c) => <code>{c}</code> })}
+      </p>
+    </Field>
+  );
+}
+
+/** The scope and the APIs (whose scopes are picked) of a new machine-to-machine client. */
+function machineRequest(options: MachineScopeOptions, selected: ReadonlySet<string>) {
+  const all = [...options.apis.flatMap((api) => api.scopes), ...options.otherScopes];
+  const scope = [...new Set(all)].filter((s) => selected.has(s)).join(" ");
+  const resources = options.apis
+    .filter((api) => api.scopes.some((s) => selected.has(s)))
+    .map((api) => api.identifier);
+  return { scope, resources };
+}
+
 export function AdminRegisterOAuthClientDialog({
+  machineScopes = { apis: [], otherScopes: [] },
   onCreated,
 }: {
+  machineScopes?: MachineScopeOptions;
   onCreated: () => void;
 }) {
   const t = useTranslations("admin.pages.applications.register");
@@ -93,9 +201,8 @@ export function AdminRegisterOAuthClientDialog({
   const [clientName, setClientName] = React.useState("");
   const [redirectUrisRaw, setRedirectUrisRaw] = React.useState("");
   const [logoUri, setLogoUri] = React.useState("");
-  const [clientKind, setClientKind] = React.useState<"confidential" | "public">(
-    "confidential"
-  );
+  const [clientKind, setClientKind] = React.useState<ClientKind>("confidential");
+  const [scopes, setScopes] = React.useState<ReadonlySet<string>>(new Set());
   const [skipConsent, setSkipConsent] = React.useState(false);
   const [deviceCode, setDeviceCode] = React.useState(false);
   const [pending, setPending] = React.useState(false);
@@ -109,6 +216,7 @@ export function AdminRegisterOAuthClientDialog({
     setRedirectUrisRaw("");
     setLogoUri("");
     setClientKind("confidential");
+    setScopes(new Set());
     setSkipConsent(false);
     setDeviceCode(false);
     setFormError(null);
@@ -119,10 +227,46 @@ export function AdminRegisterOAuthClientDialog({
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setFormError(null);
-    const redirect_uris = parseRedirectUris(redirectUrisRaw);
-    if (redirect_uris.length === 0) {
-      setFormError(t("redirectUrisRequired"));
-      return;
+    const common = {
+      client_name: clientName.trim() || undefined,
+      logo_uri: logoUri.trim() || undefined,
+    };
+    let body: Record<string, unknown>;
+    if (clientKind === "machine") {
+      // Confidential, client_credentials only: no redirect URIs, consent or device sign-in.
+      const { scope, resources } = machineRequest(machineScopes, scopes);
+      if (!scope) {
+        setFormError(t("scopesRequired"));
+        return;
+      }
+      body = {
+        ...common,
+        token_endpoint_auth_method: "client_secret_basic",
+        grant_types: ["client_credentials"],
+        type: "web",
+        scope,
+        resources,
+      };
+    } else {
+      const redirect_uris = parseRedirectUris(redirectUrisRaw);
+      if (redirect_uris.length === 0) {
+        setFormError(t("redirectUrisRequired"));
+        return;
+      }
+      body = {
+        ...common,
+        redirect_uris,
+        token_endpoint_auth_method:
+          clientKind === "public" ? "none" : "client_secret_basic",
+        grant_types: [
+          "authorization_code",
+          "refresh_token",
+          ...(deviceCode ? [DEVICE_CODE_GRANT_TYPE] : []),
+        ],
+        response_types: ["code"],
+        type: clientKind === "public" ? "native" : "web",
+        skip_consent: skipConsent,
+      };
     }
     setPending(true);
     try {
@@ -130,21 +274,7 @@ export function AdminRegisterOAuthClientDialog({
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
-        body: JSON.stringify({
-          redirect_uris,
-          client_name: clientName.trim() || undefined,
-          token_endpoint_auth_method:
-            clientKind === "public" ? "none" : "client_secret_basic",
-          grant_types: [
-            "authorization_code",
-            "refresh_token",
-            ...(deviceCode ? [DEVICE_CODE_GRANT_TYPE] : []),
-          ],
-          response_types: ["code"],
-          type: clientKind === "public" ? "native" : "web",
-          skip_consent: skipConsent,
-          logo_uri: logoUri.trim() || undefined,
-        }),
+        body: JSON.stringify(body),
       });
       const json: unknown = await res.json().catch(() => null);
       if (!res.ok) {
@@ -180,7 +310,7 @@ export function AdminRegisterOAuthClientDialog({
           {t("trigger")}
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="max-h-[calc(100dvh-2rem)] overflow-y-auto sm:max-w-md">
         {step === "form" ? (
           <form onSubmit={handleSubmit}>
             <DialogHeader>
@@ -208,35 +338,15 @@ export function AdminRegisterOAuthClientDialog({
                 />
               </Field>
               <Field>
-                <FieldLabel htmlFor="oauth-reg-redirects">
-                  {t("redirectUrisLabel")}
-                </FieldLabel>
-                <Textarea
-                  id="oauth-reg-redirects"
-                  required
-                  rows={4}
-                  placeholder={
-                    "https://app.example.com/oauth/callback\nhttp://127.0.0.1:3000/callback"
-                  }
-                  value={redirectUrisRaw}
-                  onChange={(e) => setRedirectUrisRaw(e.target.value)}
-                  className="font-mono text-sm"
-                />
-                <p className="text-muted-foreground text-xs">
-                  {clientKind === "public"
-                    ? t("redirectUrisHintPublic")
-                    : t("redirectUrisHintConfidential")}
-                </p>
-              </Field>
-              <Field>
-                <FieldLabel>{t("clientTypeLabel")}</FieldLabel>
+                <FieldLabel htmlFor="oauth-reg-type">{t("clientTypeLabel")}</FieldLabel>
                 <Select
                   value={clientKind}
-                  onValueChange={(v) =>
-                    setClientKind(v as "confidential" | "public")
-                  }
+                  onValueChange={(v) => {
+                    setClientKind(v as ClientKind);
+                    setFormError(null);
+                  }}
                 >
-                  <SelectTrigger className="w-full">
+                  <SelectTrigger id="oauth-reg-type" className="w-full">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -246,9 +356,48 @@ export function AdminRegisterOAuthClientDialog({
                     <SelectItem value="public">
                       {t("clientTypePublic")}
                     </SelectItem>
+                    <SelectItem value="machine">
+                      {t("clientTypeMachine")}
+                    </SelectItem>
                   </SelectContent>
                 </Select>
               </Field>
+              {clientKind === "machine" ? (
+                <MachineScopesField
+                  options={machineScopes}
+                  selected={scopes}
+                  onToggle={(scope, checked) =>
+                    setScopes((current) => {
+                      const next = new Set(current);
+                      if (checked) next.add(scope);
+                      else next.delete(scope);
+                      return next;
+                    })
+                  }
+                />
+              ) : (
+                <Field>
+                  <FieldLabel htmlFor="oauth-reg-redirects">
+                    {t("redirectUrisLabel")}
+                  </FieldLabel>
+                  <Textarea
+                    id="oauth-reg-redirects"
+                    required
+                    rows={4}
+                    placeholder={
+                      "https://app.example.com/oauth/callback\nhttp://127.0.0.1:3000/callback"
+                    }
+                    value={redirectUrisRaw}
+                    onChange={(e) => setRedirectUrisRaw(e.target.value)}
+                    className="font-mono text-sm"
+                  />
+                  <p className="text-muted-foreground text-xs">
+                    {clientKind === "public"
+                      ? t("redirectUrisHintPublic")
+                      : t("redirectUrisHintConfidential")}
+                  </p>
+                </Field>
+              )}
               <Field>
                 <FieldLabel htmlFor="oauth-reg-icon">{t("iconUrlLabel")}</FieldLabel>
                 <Input
@@ -260,27 +409,31 @@ export function AdminRegisterOAuthClientDialog({
                 />
                 <p className="text-muted-foreground text-xs">{t("iconUrlHint")}</p>
               </Field>
-              <Field>
-                <CheckboxField
-                  id="oauth-reg-device-code"
-                  checked={deviceCode}
-                  onChange={setDeviceCode}
-                  label={t("deviceCodeLabel")}
-                  hint={t.rich("deviceCodeHint", {
-                    path: "/device",
-                    code: (c) => <code>{c}</code>,
-                  })}
-                />
-              </Field>
-              <Field>
-                <CheckboxField
-                  id="oauth-reg-skip-consent"
-                  checked={skipConsent}
-                  onChange={setSkipConsent}
-                  label={t("skipConsentLabel")}
-                  hint={t("skipConsentHint")}
-                />
-              </Field>
+              {clientKind === "machine" ? null : (
+                <>
+                  <Field>
+                    <CheckboxField
+                      id="oauth-reg-device-code"
+                      checked={deviceCode}
+                      onChange={setDeviceCode}
+                      label={t("deviceCodeLabel")}
+                      hint={t.rich("deviceCodeHint", {
+                        path: "/device",
+                        code: (c) => <code>{c}</code>,
+                      })}
+                    />
+                  </Field>
+                  <Field>
+                    <CheckboxField
+                      id="oauth-reg-skip-consent"
+                      checked={skipConsent}
+                      onChange={setSkipConsent}
+                      label={t("skipConsentLabel")}
+                      hint={t("skipConsentHint")}
+                    />
+                  </Field>
+                </>
+              )}
               {formError ? (
                 <p className="text-destructive text-sm" role="alert">
                   {formError}
@@ -306,9 +459,11 @@ export function AdminRegisterOAuthClientDialog({
             <DialogHeader>
               <DialogTitle>{t("successTitle")}</DialogTitle>
               <DialogDescription>
-                {issuedSecret
-                  ? t("successWithSecret")
-                  : t("successPublic")}
+                {!issuedSecret
+                  ? t("successPublic")
+                  : clientKind === "machine"
+                    ? t("successMachine", { grant: "client_credentials" })
+                    : t("successWithSecret")}
               </DialogDescription>
             </DialogHeader>
             <FieldGroup className="py-4">

@@ -4,7 +4,10 @@ import * as React from "react";
 import { useTranslations } from "next-intl";
 
 import type { OAuthApplicationRow } from "@/components/admin/applications/admin-application-row-actions";
-import { AdminRegisterOAuthClientDialog } from "@/components/admin/applications/admin-register-oauth-client-dialog";
+import {
+  AdminRegisterOAuthClientDialog,
+  type MachineScopeOptions,
+} from "@/components/admin/applications/admin-register-oauth-client-dialog";
 import { ApplicationTableRow } from "@/components/admin/applications/application-table-row";
 import { RemoveDuplicatesDialog } from "@/components/admin/applications/remove-duplicates-dialog";
 import { ListSearch, TableMessageRow, TablePagination } from "@/components/admin/common/admin-table";
@@ -31,10 +34,13 @@ import {
 } from "@ostiary/core/components/ui/table";
 import { authClient } from "@/lib/auth-client";
 import { asRecord, asStringArray, normalizeGetClientsPayload } from "@/lib/oauth-client-payload";
-import { DEVICE_CODE_GRANT_TYPE } from "@ostiary/core/lib/admin/oauth-clients/oauth-client-admin.types";
+import {
+  DEVICE_CODE_GRANT_TYPE,
+  isMachineClient,
+} from "@ostiary/core/lib/admin/oauth-clients/oauth-client-admin.types";
 import type { RegistrationSource } from "@ostiary/core/lib/client-registration-policy";
 
-const KIND_FILTERS = ["all", "public", "confidential", "trusted", "device"] as const;
+const KIND_FILTERS = ["all", "public", "confidential", "machine", "trusted", "device"] as const;
 type ClientKindFilter = (typeof KIND_FILTERS)[number];
 const REGISTRATION_FILTERS = ["all", "self", "admin", "dynamic", "metadata_document"] as const;
 type RegistrationFilter = "all" | "self" | RegistrationSource;
@@ -113,7 +119,8 @@ function filterApplications(
     if (registration === "self" && r.registration === "admin") return false;
     if (registration !== "all" && registration !== "self" && r.registration !== registration) return false;
     if (kind === "public" && !r.public) return false;
-    if (kind === "confidential" && r.public) return false;
+    if (kind === "confidential" && (r.public || isMachineClient(r.grantTypes))) return false;
+    if (kind === "machine" && !isMachineClient(r.grantTypes)) return false;
     if (kind === "trusted" && !r.skipConsent) return false;
     if (kind === "device" && !r.grantTypes.includes(DEVICE_CODE_GRANT_TYPE)) return false;
     if (!q) return true;
@@ -157,12 +164,15 @@ function collapseDuplicates(rows: OAuthApplicationRow[], expanded: ReadonlySet<s
  *
  * @param linkedApis API names per client id: the APIs each application is linked to on the
  * APIs page. APIs open to every application are not listed.
+ * @param machineScopes The APIs and scopes a new machine-to-machine client may be given.
  */
 export function AdminApplicationsPanel({
   linkedApis = {},
+  machineScopes = { apis: [], otherScopes: [] },
   selfRegistered,
 }: {
   linkedApis?: Record<string, string[]>;
+  machineScopes?: MachineScopeOptions;
   selfRegistered: OAuthApplicationRow[];
 }) {
   const t = useTranslations("admin.pages.applications.panel");
@@ -238,6 +248,7 @@ export function AdminApplicationsPanel({
               <SelectItem value="all">{t("kind.all")}</SelectItem>
               <SelectItem value="public">{t("kind.public")}</SelectItem>
               <SelectItem value="confidential">{t("kind.confidential")}</SelectItem>
+              <SelectItem value="machine">{t("kind.machine")}</SelectItem>
               <SelectItem value="trusted">{t("kind.trusted")}</SelectItem>
               <SelectItem value="device">{t("kind.device")}</SelectItem>
             </SelectContent>
@@ -258,7 +269,7 @@ export function AdminApplicationsPanel({
             </SelectContent>
           </Select>
           {hasDuplicates ? <RemoveDuplicatesDialog /> : null}
-          <AdminRegisterOAuthClientDialog onCreated={refetch} />
+          <AdminRegisterOAuthClientDialog machineScopes={machineScopes} onCreated={refetch} />
           <Button
             size="sm"
             variant="outline"

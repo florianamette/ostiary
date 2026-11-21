@@ -12,7 +12,10 @@ import { AppIcon } from "@ostiary/core/components/app-icon";
 import { Badge } from "@ostiary/core/components/ui/badge";
 import { TableCell, TableRow } from "@ostiary/core/components/ui/table";
 import { adminAppIconUrl } from "@/lib/app-icon-url";
-import { DEVICE_CODE_GRANT_TYPE } from "@ostiary/core/lib/admin/oauth-clients/oauth-client-admin.types";
+import {
+  DEVICE_CODE_GRANT_TYPE,
+  isMachineClient,
+} from "@ostiary/core/lib/admin/oauth-clients/oauth-client-admin.types";
 import type { RegistrationSource } from "@ostiary/core/lib/client-registration-policy";
 
 /** Grant badge text: the device grant is a long URN, show its short name. */
@@ -43,6 +46,9 @@ function summarizeRedirects(uris: string[]) {
 
 function KindBadge({ row }: { row: OAuthApplicationRow }) {
   const t = useTranslations("admin.pages.applications.panel");
+  if (!row.public && isMachineClient(row.grantTypes)) {
+    return <Badge variant="default">{t("kind.machine")}</Badge>;
+  }
   return (
     <Badge variant={row.public ? "secondary" : "default"}>
       {row.public ? t("kind.public") : t("kind.confidential")}
@@ -81,6 +87,8 @@ export function ApplicationTableRow({
 }) {
   const t = useTranslations("admin.pages.applications.panel");
   const format = useFormatter();
+  // A machine-to-machine client signs no user in: no consent screen.
+  const machine = isMachineClient(row.grantTypes);
 
   return (
     <TableRow>
@@ -124,7 +132,7 @@ export function ApplicationTableRow({
               {row.grantTypes.includes(DEVICE_CODE_GRANT_TYPE) ? (
                 <Badge variant="outline">{t("badges.device")}</Badge>
               ) : null}
-              {row.skipConsent ? (
+              {machine ? null : row.skipConsent ? (
                 <Badge variant="outline">{t("badges.trusted")}</Badge>
               ) : (
                 <Badge variant="outline" className="font-normal">
@@ -167,7 +175,9 @@ export function ApplicationTableRow({
         </div>
       </TableCell>
       <TableCell className="hidden lg:table-cell">
-        {row.skipConsent ? (
+        {machine ? (
+          <span className="text-muted-foreground text-sm">-</span>
+        ) : row.skipConsent ? (
           <Badge variant="secondary">{t("badges.skipped")}</Badge>
         ) : (
           <Badge variant="outline" className="font-normal">

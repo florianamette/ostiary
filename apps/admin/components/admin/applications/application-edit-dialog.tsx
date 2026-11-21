@@ -16,14 +16,18 @@ import {
 import { Field, FieldGroup, FieldLabel } from "@ostiary/core/components/ui/field";
 import { Input } from "@ostiary/core/components/ui/input";
 import { Textarea } from "@ostiary/core/components/ui/textarea";
-import { DEVICE_CODE_GRANT_TYPE } from "@ostiary/core/lib/admin/oauth-clients/oauth-client-admin.types";
+import {
+  DEVICE_CODE_GRANT_TYPE,
+  isMachineClient,
+} from "@ostiary/core/lib/admin/oauth-clients/oauth-client-admin.types";
 import type { OAuthApplicationRow } from "@/components/admin/applications/admin-application-row-actions";
 import { CheckboxField } from "@/components/admin/common/choice-field";
 import { ExternalLink } from "@/components/admin/common/external-link";
 import { parseRedirectUris, routeError } from "@/lib/oauth-client-payload";
 
 /**
- * Edits an admin-registered client's name, redirect URIs, icon, device grant and consent. The fields
+ * Edits an admin-registered client's name, redirect URIs, icon, device grant and consent. A
+ * machine-to-machine client signs no user in: only its name and icon are offered. The fields
  * start from `row` when the dialog mounts: give it a new `key` each time it opens.
  */
 export function ApplicationEditDialog({
@@ -45,6 +49,7 @@ export function ApplicationEditDialog({
   const t = useTranslations("admin.pages.applications.rowActions");
   const tc = useTranslations("admin.common");
   const hasDeviceCode = row.grantTypes.includes(DEVICE_CODE_GRANT_TYPE);
+  const machine = isMachineClient(row.grantTypes);
   const [name, setName] = React.useState(row.name);
   const [redirectsRaw, setRedirectsRaw] = React.useState(row.redirectUris.join("\n"));
   const [logoUri, setLogoUri] = React.useState(row.logoUri ?? "");
@@ -58,7 +63,7 @@ export function ApplicationEditDialog({
     if (pending) return;
     setError(null);
     const redirect_uris = parseRedirectUris(redirectsRaw);
-    if (redirect_uris.length === 0) {
+    if (!machine && redirect_uris.length === 0) {
       setError(t("editDialog.redirectUrisRequired"));
       return;
     }
@@ -72,13 +77,12 @@ export function ApplicationEditDialog({
           credentials: "include",
           body: JSON.stringify({
             client_name: name,
-            redirect_uris,
-            skip_consent: skipConsent,
+            ...(machine ? {} : { redirect_uris, skip_consent: skipConsent }),
             // Empty clears the icon.
             ...(logoUri.trim() !== (row.logoUri ?? "")
               ? { logo_uri: logoUri.trim() || null }
               : {}),
-            ...(deviceCode !== hasDeviceCode
+            ...(!machine && deviceCode !== hasDeviceCode
               ? { device_code: deviceCode }
               : {}),
           }),
@@ -105,7 +109,7 @@ export function ApplicationEditDialog({
         if (!o) setError(null);
       }}
     >
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="max-h-[calc(100dvh-2rem)] overflow-y-auto sm:max-w-md">
         <form onSubmit={(ev) => void submit(ev)}>
           <DialogHeader>
             <DialogTitle>{t("editDialog.title")}</DialogTitle>
@@ -134,22 +138,28 @@ export function ApplicationEditDialog({
                 placeholder={t("editDialog.namePlaceholder")}
               />
             </Field>
-            <Field>
-              <FieldLabel htmlFor={`oauth-edit-redirects-${row.clientId}`}>
-                {t("editDialog.redirectUrisLabel")}
-              </FieldLabel>
-              <Textarea
-                id={`oauth-edit-redirects-${row.clientId}`}
-                required
-                rows={4}
-                value={redirectsRaw}
-                onChange={(e) => setRedirectsRaw(e.target.value)}
-                className="font-mono text-sm"
-              />
-              <p className="text-muted-foreground text-xs">
-                {t("editDialog.redirectUrisHint")}
+            {machine ? (
+              <p className="text-muted-foreground rounded-md border border-border/80 bg-muted/30 p-3 text-xs">
+                {t.rich("editDialog.machineHint", { grant: "client_credentials", code: (c) => <code>{c}</code> })}
               </p>
-            </Field>
+            ) : (
+              <Field>
+                <FieldLabel htmlFor={`oauth-edit-redirects-${row.clientId}`}>
+                  {t("editDialog.redirectUrisLabel")}
+                </FieldLabel>
+                <Textarea
+                  id={`oauth-edit-redirects-${row.clientId}`}
+                  required
+                  rows={4}
+                  value={redirectsRaw}
+                  onChange={(e) => setRedirectsRaw(e.target.value)}
+                  className="font-mono text-sm"
+                />
+                <p className="text-muted-foreground text-xs">
+                  {t("editDialog.redirectUrisHint")}
+                </p>
+              </Field>
+            )}
             <Field>
               <FieldLabel htmlFor={`oauth-edit-icon-${row.clientId}`}>
                 {t("editDialog.iconUrlLabel")}
@@ -165,24 +175,28 @@ export function ApplicationEditDialog({
                 {t("editDialog.iconUrlHint")}
               </p>
             </Field>
-            <Field>
-              <CheckboxField
-                id={`oauth-edit-device-code-${row.clientId}`}
-                checked={deviceCode}
-                onChange={setDeviceCode}
-                label={t("editDialog.deviceCodeLabel")}
-                hint={t("editDialog.deviceCodeHint")}
-              />
-            </Field>
-            <Field>
-              <CheckboxField
-                id={`oauth-edit-skip-consent-${row.clientId}`}
-                checked={skipConsent}
-                onChange={setSkipConsent}
-                label={t("editDialog.skipConsentLabel")}
-                hint={t("editDialog.skipConsentHint")}
-              />
-            </Field>
+            {machine ? null : (
+              <>
+                <Field>
+                  <CheckboxField
+                    id={`oauth-edit-device-code-${row.clientId}`}
+                    checked={deviceCode}
+                    onChange={setDeviceCode}
+                    label={t("editDialog.deviceCodeLabel")}
+                    hint={t("editDialog.deviceCodeHint")}
+                  />
+                </Field>
+                <Field>
+                  <CheckboxField
+                    id={`oauth-edit-skip-consent-${row.clientId}`}
+                    checked={skipConsent}
+                    onChange={setSkipConsent}
+                    label={t("editDialog.skipConsentLabel")}
+                    hint={t("editDialog.skipConsentHint")}
+                  />
+                </Field>
+              </>
+            )}
             {error ? (
               <p className="text-destructive text-sm" role="alert">
                 {error}

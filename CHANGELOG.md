@@ -54,6 +54,15 @@ All notable changes are documented here. The format follows
   database responds within 3 seconds and 503 otherwise, for load balancers and uptime
   monitors. The Docker images' `HEALTHCHECK` uses it (it used `/api/auth/ok` and `/icon`).
 
+- **Machine-to-machine applications from the console.** **Register application** has a
+  **Machine-to-machine (client credentials)** client type: a confidential client with the
+  `client_credentials` grant only, no redirect URIs, consent or device sign-in, limited to the
+  API scopes ticked in the dialog and linked to their APIs. The applications list shows the
+  type (and filters on it), and **Edit application** only offers the name and icon for such a
+  client. `POST /api/admin/oauth-clients` no longer requires `redirect_uris` without the
+  `authorization_code` grant, takes `resources` (APIs to link the client to), and refuses a
+  public `client_credentials` client; `PATCH` refuses device sign-in on a machine client. See
+  `docs/protect-an-api.md`.
 - **CSV export of users and the audit log.** An **Export CSV** button on the Users and Audit
   pages downloads what the page shows, with its search and filters, every page of it
   (`GET /api/admin/users/export`, `GET /api/admin/audit/export`; platform admins only, from the

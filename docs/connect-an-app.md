@@ -20,8 +20,8 @@ Replace `auth.example.com` with the address of your auth app (`AUTH_APP_URL`). L
    | Field | What to enter |
    | --- | --- |
    | **Application name** | Shown on the consent screen and in users' **Connected apps**. |
+   | **Client type** | **Confidential (client secret)** or **Public (PKCE, no secret)**. See below. **Machine-to-machine (client credentials)** is for a service that calls your APIs without a user: see [Protect an API](protect-an-api.md#call-an-api-from-a-server-machine-to-machine). |
    | **Redirect URIs** | Where Ostiary sends users back after sign-in, one per line or comma-separated. See the rules below. |
-   | **Client type** | **Confidential (client secret)** or **Public (PKCE, no secret)**. See below. |
    | **Icon URL** | Optional. See [Set the app icon](#set-the-app-icon). |
    | **Device sign-in (CLIs, TVs)** | Adds the device code grant. See [Sign in from a CLI or a TV](#sign-in-from-a-cli-or-a-tv-device-flow). |
    | **Skip consent (trusted client)** | Users never see the consent screen for this app. Use it only for your own first-party apps. |
@@ -62,12 +62,12 @@ For a loopback redirect URI, the app may use another port at sign-in than the on
 
 Open **Applications**, then the row's menu (**Actions for** the app):
 
-- **Edit application**: name, redirect URIs, icon, device sign-in and skip consent. The client type cannot change: register a new app instead.
+- **Edit application**: name, redirect URIs, icon, device sign-in and skip consent (name and icon only for a machine-to-machine client). The client type cannot change: register a new app instead.
 - **Rotate secret**: issues a new secret for a confidential client. The previous one stops working immediately.
 - **Delete application**: removes the client. Its tokens and consents may stop working.
 - **Sign-in branding** and **Token claims**: see [Brand the sign-in page per app](#brand-the-sign-in-page-per-app) and [Tokens and claims](tokens-and-claims.md#custom-claims).
 
-Admins can also register clients with the JSON API the console uses, `POST /api/admin/oauth-clients`, for example a machine-to-machine client. See [Protect an API](protect-an-api.md#call-an-api-from-a-server-machine-to-machine).
+Admins can also register clients with the JSON API the console uses, `POST /api/admin/oauth-clients`. See [Protect an API](protect-an-api.md#register-a-machine-client) for an example.
 
 ## Sign in with Auth.js
 

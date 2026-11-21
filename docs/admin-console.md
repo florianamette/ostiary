@@ -128,11 +128,11 @@ Every change made from the console or the admin API: who did it, to what, when, 
 
 ## Applications
 
-The OAuth clients that sign people in.
+The OAuth clients that sign people in, and the machine-to-machine clients that call your APIs.
 
-- **Register application**: a name, **Redirect URIs**, the **Client type** (**Confidential (client secret)** or **Public (PKCE, no secret)**), an optional **Icon URL**, **Device sign-in (CLIs, TVs)** and **Skip consent (trusted client)**. Copy the client secret when it is shown.
+- **Register application**: a name, the **Client type** (**Confidential (client secret)**, **Public (PKCE, no secret)** or **Machine-to-machine (client credentials)**), **Redirect URIs**, an optional **Icon URL**, **Device sign-in (CLIs, TVs)** and **Skip consent (trusted client)**. A machine-to-machine client has no redirect URIs, device sign-in or consent: you tick its scopes under **APIs and scopes** instead, and it is linked to their APIs. Copy the client secret when it is shown.
 - The row menu of each application has **Copy client ID**, **Edit application**, **Sign-in branding**, **Token claims**, **Rotate secret** (confidential clients) and **Delete application**.
-- Search and filter by client type and by who registered it.
+- Search and filter by client type (including **Machine-to-machine**) and by who registered it.
 
 The **Self-registration** card (**Edit**) controls Dynamic Client Registration and Client ID Metadata Documents for MCP clients and AI agents: who may register, the scopes they may request, the hourly cap and the reuse of identical public clients. Self-registered clients are marked **Self-registered**; their row menu can enable, disable, set an icon or delete them, and **Remove unused duplicates** cleans them up.
 
