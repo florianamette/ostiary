@@ -21,6 +21,7 @@ You need a [Vercel](https://vercel.com) account, a [Resend](https://resend.com) 
    | `BETTER_AUTH_SECRET` | 32 or more random characters: `openssl rand -base64 32`. Keep it: it also encrypts stored provider and webhook secrets. |
    | `ADMIN_EMAILS` | Your email address, so your account becomes an admin when you sign up and verify it. |
    | `RESEND_API_KEY`, `RESEND_FROM` | See [Set up email](#set-up-email). |
+   | `CRON_SECRET` | 16 or more random characters: `openssl rand -base64 24`. Protects the daily housekeeping job; see [Add the daily housekeeping job](#add-the-daily-housekeeping-job). |
 
 3. Wait for the build. It runs, from `apps/auth/vercel.json`:
 
@@ -38,11 +39,13 @@ You need a [Vercel](https://vercel.com) account, a [Resend](https://resend.com) 
 
 `apps/auth/vercel.json` declares a Vercel Cron job that calls `/api/cron/webhooks` every day at 04:00 UTC. It retries webhook deliveries that are due, deletes deliveries older than 30 days, and deletes sign-in events older than `AUTH_EVENT_RETENTION_DAYS` (90 by default).
 
-The route refuses every call until you set its secret, which the Deploy button does not ask for:
+The route answers `401` to every call without `CRON_SECRET`, which the Deploy button asks for. Vercel Cron sends `Authorization: Bearer $CRON_SECRET` by itself; there is nothing else to set up.
+
+If the project was created without it (an older version of the button, or a project created by hand):
 
 1. Generate a secret: `openssl rand -base64 24` (16 characters at least).
 2. In the auth project, open **Settings** > **Environment Variables** and add `CRON_SECRET` with that value.
-3. Redeploy. Vercel Cron sends `Authorization: Bearer $CRON_SECRET` by itself.
+3. Redeploy.
 
 ## Set up email
 

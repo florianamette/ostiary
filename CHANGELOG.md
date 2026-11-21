@@ -421,6 +421,9 @@ All notable changes are documented here. The format follows
 
 - `EMAIL_DEDUP` is listed in both apps' `.env.example` (the admin console's user import
   reads it), and the unused `SENTRY_DSN` and `LOG_REQUESTS` variables are gone (#65).
+- The **Deploy with Vercel** button asks for `CRON_SECRET`. Without it the daily cron
+  (`/api/cron/webhooks`) got `401`, so webhook retries and retention never ran on a fresh
+  deploy. Existing projects without it: add it and redeploy (docs/deploy-vercel.md).
 - **No more 500s while the database wakes up.** A new database connection that fails for a
   transient reason (serverless Postgres such as Neon starting, a refused or dropped
   connection, a server restarting) is retried up to 3 times within 12 seconds. Only the

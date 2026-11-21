@@ -240,7 +240,7 @@ See [Enterprise SSO](enterprise-sso.md).
 
 **Cause.** `CRON_SECRET` is unset on the auth app (the route then refuses every call), or the caller does not send `Authorization: Bearer $CRON_SECRET`.
 
-**Fix.** Set `CRON_SECRET` (16+ characters). Vercel Cron sends the header by itself; elsewhere, schedule a daily call with it, as the Compose `cron` service does. See [Self-hosting](self-hosting.md).
+**Fix.** Set `CRON_SECRET` (16+ characters) and redeploy. The **Deploy with Vercel** button asks for it, but projects created before it did, or by hand, may lack it. Vercel Cron sends the header by itself; elsewhere, schedule a daily call with it, as the Compose `cron` service does. See [Self-hosting](self-hosting.md).
 
 ## Related
 
