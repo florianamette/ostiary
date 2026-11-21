@@ -1376,8 +1376,8 @@
             "rotating": "Hemligheten roteras",
             "editLabel": "Redigera {label}",
             "deleteLabel": "Radera {label}",
-            "disabledNotice": "Inaktiverad efter {count, plural, one {# misslyckat försök} other {# misslyckade försök}} i rad. Åtgärda mottagaren och slå sedan på den igen: väntande händelser skickas på nytt.",
-            "disabledNoticeOn": "Inaktiverad {date} efter {count, plural, one {# misslyckat försök} other {# misslyckade försök}} i rad. Åtgärda mottagaren och slå sedan på den igen: väntande händelser skickas på nytt.",
+            "disabledNotice": "Inaktiverad efter {count, plural, one {# misslyckat försök} other {# misslyckade försök}} i rad. Väntande leveranser har getts upp. Åtgärda mottagaren, slå på den igen och använd sedan ”Leverera igen” i leveransloggen för de händelser du behöver.",
+            "disabledNoticeOn": "Inaktiverad {date} efter {count, plural, one {# misslyckat försök} other {# misslyckade försök}} i rad. Väntande leveranser har getts upp. Åtgärda mottagaren, slå på den igen och använd sedan ”Leverera igen” i leveransloggen för de händelser du behöver.",
             "lastSuccess": "Senast lyckad",
             "lastFailure": "Senast misslyckad",
             "inARow": "({count} i rad)",
@@ -1389,7 +1389,7 @@
           },
           "edit": {
             "title": "Redigera endpoint",
-            "enabledHint": "När den är inaktiverad registreras inga nya händelser för den här endpointen och nya försök väntar.",
+            "enabledHint": "När den är inaktiverad registreras inga nya händelser för den här endpointen. Att inaktivera den ger upp väntande leveranser, och de skickas inte när den slås på igen.",
             "updated": "Endpointen har uppdaterats"
           },
           "rotate": {
@@ -1416,7 +1416,7 @@
             "failed": "Misslyckad",
             "pending": "Väntar"
           },
-          "disabled": "Inaktiverad: nya försök väntar tills den slås på igen.",
+          "disabled": "Inaktiverad: väntande leveranser har getts upp. Slå på den igen för att leverera händelser på nytt.",
           "empty": "Ingen leverans än. Använd ”Skicka testhändelse” på sidan Webhooks för att testa endpointen.",
           "event": "Händelse",
           "response": "Svar",

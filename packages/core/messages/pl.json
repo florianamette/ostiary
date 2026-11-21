@@ -1376,8 +1376,8 @@
             "rotating": "Wymiana sekretu w toku",
             "editLabel": "Edytuj {label}",
             "deleteLabel": "Usuń {label}",
-            "disabledNotice": "Wyłączony po {count, plural, one {# nieudanej próbie} few {# nieudanych próbach} many {# nieudanych próbach} other {# nieudanej próby}} z rzędu. Napraw odbiorcę, a potem włącz go ponownie: oczekujące zdarzenia zostaną wysłane ponownie.",
-            "disabledNoticeOn": "Wyłączony {date} po {count, plural, one {# nieudanej próbie} few {# nieudanych próbach} many {# nieudanych próbach} other {# nieudanej próby}} z rzędu. Napraw odbiorcę, a potem włącz go ponownie: oczekujące zdarzenia zostaną wysłane ponownie.",
+            "disabledNotice": "Wyłączony po {count, plural, one {# nieudanej próbie} few {# nieudanych próbach} many {# nieudanych próbach} other {# nieudanej próby}} z rzędu. Oczekujące dostarczenia zostały porzucone. Napraw odbiorcę, włącz go ponownie, a potem użyj „Dostarcz ponownie” w dzienniku dostarczeń dla potrzebnych zdarzeń.",
+            "disabledNoticeOn": "Wyłączony {date} po {count, plural, one {# nieudanej próbie} few {# nieudanych próbach} many {# nieudanych próbach} other {# nieudanej próby}} z rzędu. Oczekujące dostarczenia zostały porzucone. Napraw odbiorcę, włącz go ponownie, a potem użyj „Dostarcz ponownie” w dzienniku dostarczeń dla potrzebnych zdarzeń.",
             "lastSuccess": "Ostatni sukces",
             "lastFailure": "Ostatni błąd",
             "inARow": "({count} z rzędu)",
@@ -1389,7 +1389,7 @@
           },
           "edit": {
             "title": "Edytuj endpoint",
-            "enabledHint": "Gdy wyłączony, nowe zdarzenia nie są rejestrowane dla tego endpointu, a ponowienia czekają.",
+            "enabledHint": "Gdy wyłączony, nowe zdarzenia nie są rejestrowane dla tego endpointu. Wyłączenie porzuca oczekujące dostarczenia, a ponowne włączenie ich nie wysyła.",
             "updated": "Endpoint zaktualizowany"
           },
           "rotate": {
@@ -1416,7 +1416,7 @@
             "failed": "Nieudane",
             "pending": "Oczekuje"
           },
-          "disabled": "Wyłączony: ponowienia czekają na ponowne włączenie.",
+          "disabled": "Wyłączony: oczekujące dostarczenia zostały porzucone. Włącz go ponownie, aby dostarczyć zdarzenia ponownie.",
           "empty": "Brak dostarczeń. Użyj „Wyślij zdarzenie testowe” na stronie Webhooki, aby wypróbować endpoint.",
           "event": "Zdarzenie",
           "response": "Odpowiedź",

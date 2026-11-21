@@ -1376,8 +1376,8 @@
             "rotating": "Hemmeligheten roteres",
             "editLabel": "Rediger {label}",
             "deleteLabel": "Slett {label}",
-            "disabledNotice": "Deaktivert etter {count, plural, one {# mislykket forsøk} other {# mislykkede forsøk}} på rad. Rett feilen hos mottakeren, og slå det på igjen: ventende hendelser sendes på nytt.",
-            "disabledNoticeOn": "Deaktivert {date} etter {count, plural, one {# mislykket forsøk} other {# mislykkede forsøk}} på rad. Rett feilen hos mottakeren, og slå det på igjen: ventende hendelser sendes på nytt.",
+            "disabledNotice": "Deaktivert etter {count, plural, one {# mislykket forsøk} other {# mislykkede forsøk}} på rad. Ventende leveranser ble forkastet. Rett feilen hos mottakeren, slå det på igjen, og bruk deretter «Lever på nytt» i leveringsloggen for hendelsene du trenger.",
+            "disabledNoticeOn": "Deaktivert {date} etter {count, plural, one {# mislykket forsøk} other {# mislykkede forsøk}} på rad. Ventende leveranser ble forkastet. Rett feilen hos mottakeren, slå det på igjen, og bruk deretter «Lever på nytt» i leveringsloggen for hendelsene du trenger.",
             "lastSuccess": "Siste vellykkede",
             "lastFailure": "Siste feil",
             "inARow": "({count} på rad)",
@@ -1389,7 +1389,7 @@
           },
           "edit": {
             "title": "Rediger endepunkt",
-            "enabledHint": "Mens det er deaktivert, registreres ingen nye hendelser for dette endepunktet, og nye forsøk venter.",
+            "enabledHint": "Mens det er deaktivert, registreres ingen nye hendelser for dette endepunktet. Deaktivering forkaster ventende leveranser, og de sendes ikke når det slås på igjen.",
             "updated": "Endepunktet er oppdatert"
           },
           "rotate": {
@@ -1416,7 +1416,7 @@
             "failed": "Mislyktes",
             "pending": "Venter"
           },
-          "disabled": "Deaktivert: nye forsøk venter til det slås på igjen.",
+          "disabled": "Deaktivert: ventende leveranser ble forkastet. Slå det på igjen for å levere hendelser på nytt.",
           "empty": "Ingen leveringer ennå. Bruk «Send testhendelse» på Webhooks-siden for å prøve endepunktet.",
           "event": "Hendelse",
           "response": "Respons",

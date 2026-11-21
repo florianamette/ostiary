@@ -1376,8 +1376,8 @@
             "rotating": "Segredo em renovação",
             "editLabel": "Editar {label}",
             "deleteLabel": "Excluir {label}",
-            "disabledNotice": "Desativado após {count, plural, one {# tentativa com falha} other {# tentativas com falha}} seguidas. Corrija o receptor e depois reative-o: os eventos pendentes são reenviados.",
-            "disabledNoticeOn": "Desativado em {date} após {count, plural, one {# tentativa com falha} other {# tentativas com falha}} seguidas. Corrija o receptor e depois reative-o: os eventos pendentes são reenviados.",
+            "disabledNotice": "Desativado após {count, plural, one {# tentativa com falha} other {# tentativas com falha}} seguidas. As entregas pendentes foram descartadas. Corrija o receptor, reative-o e use “Reenviar” no registo de entregas para os eventos de que precisa.",
+            "disabledNoticeOn": "Desativado em {date} após {count, plural, one {# tentativa com falha} other {# tentativas com falha}} seguidas. As entregas pendentes foram descartadas. Corrija o receptor, reative-o e use “Reenviar” no registo de entregas para os eventos de que precisa.",
             "lastSuccess": "Último sucesso",
             "lastFailure": "Última falha",
             "inARow": "({count} seguidas)",
@@ -1389,7 +1389,7 @@
           },
           "edit": {
             "title": "Editar endpoint",
-            "enabledHint": "Enquanto estiver desativado, novos eventos não são registrados para este endpoint e as novas tentativas aguardam.",
+            "enabledHint": "Enquanto estiver desativado, novos eventos não são registrados para este endpoint. Desativá-lo descarta as entregas pendentes, e reativá-lo não as envia.",
             "updated": "Endpoint atualizado"
           },
           "rotate": {
@@ -1416,7 +1416,7 @@
             "failed": "Falhou",
             "pending": "Pendente"
           },
-          "disabled": "Desativado: as novas tentativas aguardam até que ele seja reativado.",
+          "disabled": "Desativado: as entregas pendentes foram descartadas. Reative-o para reenviar eventos.",
           "empty": "Nenhuma entrega ainda. Use “Enviar evento de teste” na página Webhooks para testar o endpoint.",
           "event": "Evento",
           "response": "Resposta",

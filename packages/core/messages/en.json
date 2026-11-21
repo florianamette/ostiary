@@ -1376,8 +1376,8 @@
             "rotating": "Secret rotating",
             "editLabel": "Edit {label}",
             "deleteLabel": "Delete {label}",
-            "disabledNotice": "Disabled after {count, plural, one {# failed attempt} other {# failed attempts}} in a row. Fix the receiver, then turn it back on: pending events are sent again.",
-            "disabledNoticeOn": "Disabled on {date} after {count, plural, one {# failed attempt} other {# failed attempts}} in a row. Fix the receiver, then turn it back on: pending events are sent again.",
+            "disabledNotice": "Disabled after {count, plural, one {# failed attempt} other {# failed attempts}} in a row. Its pending deliveries were given up. Fix the receiver and turn it back on, then use “Redeliver” in the delivery log for the events you need.",
+            "disabledNoticeOn": "Disabled on {date} after {count, plural, one {# failed attempt} other {# failed attempts}} in a row. Its pending deliveries were given up. Fix the receiver and turn it back on, then use “Redeliver” in the delivery log for the events you need.",
             "lastSuccess": "Last success",
             "lastFailure": "Last failure",
             "inARow": "({count} in a row)",
@@ -1389,7 +1389,7 @@
           },
           "edit": {
             "title": "Edit endpoint",
-            "enabledHint": "While disabled, new events are not recorded for this endpoint and retries wait.",
+            "enabledHint": "While disabled, new events are not recorded for this endpoint. Disabling it gives up its pending deliveries, and turning it back on does not send them.",
             "updated": "Endpoint updated"
           },
           "rotate": {
@@ -1416,7 +1416,7 @@
             "failed": "Failed",
             "pending": "Pending"
           },
-          "disabled": "Disabled: retries wait until it is turned back on.",
+          "disabled": "Disabled: pending deliveries were given up. Turn it back on to redeliver events.",
           "empty": "No delivery yet. Use “Send test event” on the Webhooks page to try the endpoint.",
           "event": "Event",
           "response": "Response",

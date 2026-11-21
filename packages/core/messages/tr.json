@@ -1376,8 +1376,8 @@
             "rotating": "Gizli anahtar yenileniyor",
             "editLabel": "{label} düzenle",
             "deleteLabel": "{label} sil",
-            "disabledNotice": "Art arda {count, plural, one {# başarısız denemeden} other {# başarısız denemeden}} sonra devre dışı bırakıldı. Alıcıyı düzeltin, ardından yeniden açın: bekleyen olaylar tekrar gönderilir.",
-            "disabledNoticeOn": "{date} tarihinde art arda {count, plural, one {# başarısız denemeden} other {# başarısız denemeden}} sonra devre dışı bırakıldı. Alıcıyı düzeltin, ardından yeniden açın: bekleyen olaylar tekrar gönderilir.",
+            "disabledNotice": "Art arda {count, plural, one {# başarısız denemeden} other {# başarısız denemeden}} sonra devre dışı bırakıldı. Bekleyen teslimatlardan vazgeçildi. Alıcıyı düzeltin, yeniden açın, ardından ihtiyaç duyduğunuz olaylar için teslimat günlüğünde “Yeniden teslim et” seçeneğini kullanın.",
+            "disabledNoticeOn": "{date} tarihinde art arda {count, plural, one {# başarısız denemeden} other {# başarısız denemeden}} sonra devre dışı bırakıldı. Bekleyen teslimatlardan vazgeçildi. Alıcıyı düzeltin, yeniden açın, ardından ihtiyaç duyduğunuz olaylar için teslimat günlüğünde “Yeniden teslim et” seçeneğini kullanın.",
             "lastSuccess": "Son başarılı",
             "lastFailure": "Son başarısız",
             "inARow": "(art arda {count})",
@@ -1389,7 +1389,7 @@
           },
           "edit": {
             "title": "Uç noktayı düzenle",
-            "enabledHint": "Devre dışıyken bu uç nokta için yeni olaylar kaydedilmez ve yeniden denemeler bekler.",
+            "enabledHint": "Devre dışıyken bu uç nokta için yeni olaylar kaydedilmez. Devre dışı bırakmak bekleyen teslimatlardan vazgeçer ve yeniden açmak onları göndermez.",
             "updated": "Uç nokta güncellendi"
           },
           "rotate": {
@@ -1416,7 +1416,7 @@
             "failed": "Başarısız",
             "pending": "Bekliyor"
           },
-          "disabled": "Devre dışı: yeniden denemeler, yeniden açılana kadar bekler.",
+          "disabled": "Devre dışı: bekleyen teslimatlardan vazgeçildi. Olayları yeniden teslim etmek için yeniden açın.",
           "empty": "Henüz teslimat yok. Uç noktayı denemek için Webhook'lar sayfasında “Test olayı gönder” seçeneğini kullanın.",
           "event": "Olay",
           "response": "Yanıt",

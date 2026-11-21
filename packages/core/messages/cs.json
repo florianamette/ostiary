@@ -1376,8 +1376,8 @@
             "rotating": "Probíhá rotace tajného klíče",
             "editLabel": "Upravit {label}",
             "deleteLabel": "Smazat {label}",
-            "disabledNotice": "Vypnuto po {count, plural, one {# neúspěšném pokusu} few {# neúspěšných pokusech} many {# neúspěšného pokusu} other {# neúspěšných pokusech}} po sobě. Opravte příjemce a pak endpoint znovu zapněte: čekající události se odešlou znovu.",
-            "disabledNoticeOn": "Vypnuto {date} po {count, plural, one {# neúspěšném pokusu} few {# neúspěšných pokusech} many {# neúspěšného pokusu} other {# neúspěšných pokusech}} po sobě. Opravte příjemce a pak endpoint znovu zapněte: čekající události se odešlou znovu.",
+            "disabledNotice": "Vypnuto po {count, plural, one {# neúspěšném pokusu} few {# neúspěšných pokusech} many {# neúspěšného pokusu} other {# neúspěšných pokusech}} po sobě. Čekající doručení byla zahozena. Opravte příjemce, endpoint znovu zapněte a pak pro potřebné události použijte „Doručit znovu“ v protokolu doručení.",
+            "disabledNoticeOn": "Vypnuto {date} po {count, plural, one {# neúspěšném pokusu} few {# neúspěšných pokusech} many {# neúspěšného pokusu} other {# neúspěšných pokusech}} po sobě. Čekající doručení byla zahozena. Opravte příjemce, endpoint znovu zapněte a pak pro potřebné události použijte „Doručit znovu“ v protokolu doručení.",
             "lastSuccess": "Poslední úspěch",
             "lastFailure": "Poslední selhání",
             "inARow": "({count} po sobě)",
@@ -1389,7 +1389,7 @@
           },
           "edit": {
             "title": "Upravit endpoint",
-            "enabledHint": "Když je vypnutý, nové události se pro tento endpoint nezaznamenávají a opakované pokusy čekají.",
+            "enabledHint": "Když je vypnutý, nové události se pro tento endpoint nezaznamenávají. Vypnutím se čekající doručení zahodí a opětovné zapnutí je neodešle.",
             "updated": "Endpoint aktualizován"
           },
           "rotate": {
@@ -1416,7 +1416,7 @@
             "failed": "Selhalo",
             "pending": "Čeká"
           },
-          "disabled": "Vypnuto: opakované pokusy čekají, dokud endpoint znovu nezapnete.",
+          "disabled": "Vypnuto: čekající doručení byla zahozena. Zapněte endpoint znovu, abyste mohli události doručit znovu.",
           "empty": "Zatím žádné doručení. Endpoint vyzkoušíte tlačítkem „Odeslat testovací událost“ na stránce Webhooky.",
           "event": "Událost",
           "response": "Odpověď",

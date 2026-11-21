@@ -1376,8 +1376,8 @@
             "rotating": "Salaisuutta vaihdetaan",
             "editLabel": "Muokkaa: {label}",
             "deleteLabel": "Poista: {label}",
-            "disabledNotice": "Poistettu käytöstä {count, plural, one {# peräkkäisen epäonnistuneen yrityksen} other {# peräkkäisen epäonnistuneen yrityksen}} jälkeen. Korjaa vastaanottaja ja ota se sitten uudelleen käyttöön: odottavat tapahtumat lähetetään uudelleen.",
-            "disabledNoticeOn": "Poistettu käytöstä {date} {count, plural, one {# peräkkäisen epäonnistuneen yrityksen} other {# peräkkäisen epäonnistuneen yrityksen}} jälkeen. Korjaa vastaanottaja ja ota se sitten uudelleen käyttöön: odottavat tapahtumat lähetetään uudelleen.",
+            "disabledNotice": "Poistettu käytöstä {count, plural, one {# peräkkäisen epäonnistuneen yrityksen} other {# peräkkäisen epäonnistuneen yrityksen}} jälkeen. Sen odottavat toimitukset hylättiin. Korjaa vastaanottaja, ota se uudelleen käyttöön ja käytä sitten toimituslokin toimintoa ”Toimita uudelleen” tarvitsemillesi tapahtumille.",
+            "disabledNoticeOn": "Poistettu käytöstä {date} {count, plural, one {# peräkkäisen epäonnistuneen yrityksen} other {# peräkkäisen epäonnistuneen yrityksen}} jälkeen. Sen odottavat toimitukset hylättiin. Korjaa vastaanottaja, ota se uudelleen käyttöön ja käytä sitten toimituslokin toimintoa ”Toimita uudelleen” tarvitsemillesi tapahtumille.",
             "lastSuccess": "Viimeisin onnistuminen",
             "lastFailure": "Viimeisin virhe",
             "inARow": "({count} peräkkäin)",
@@ -1389,7 +1389,7 @@
           },
           "edit": {
             "title": "Muokkaa päätepistettä",
-            "enabledHint": "Kun päätepiste on poissa käytöstä, sille ei tallenneta uusia tapahtumia ja uudelleenyritykset odottavat.",
+            "enabledHint": "Kun päätepiste on poissa käytöstä, sille ei tallenneta uusia tapahtumia. Käytöstä poistaminen hylkää odottavat toimitukset, eikä uudelleen käyttöön ottaminen lähetä niitä.",
             "updated": "Päätepiste päivitetty"
           },
           "rotate": {
@@ -1416,7 +1416,7 @@
             "failed": "Epäonnistui",
             "pending": "Odottaa"
           },
-          "disabled": "Poissa käytöstä: uudelleenyritykset odottavat, kunnes se otetaan taas käyttöön.",
+          "disabled": "Poissa käytöstä: odottavat toimitukset hylättiin. Ota se uudelleen käyttöön, jotta voit toimittaa tapahtumia uudelleen.",
           "empty": "Ei vielä toimituksia. Kokeile päätepistettä Webhookit-sivun toiminnolla ”Lähetä testitapahtuma”.",
           "event": "Tapahtuma",
           "response": "Vastaus",

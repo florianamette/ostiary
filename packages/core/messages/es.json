@@ -1376,8 +1376,8 @@
             "rotating": "Rotación de secreto en curso",
             "editLabel": "Editar {label}",
             "deleteLabel": "Eliminar {label}",
-            "disabledNotice": "Desactivado tras {count, plural, one {# intento fallido} other {# intentos fallidos}} seguidos. Corrige el receptor y vuelve a activarlo: los eventos pendientes se volverán a enviar.",
-            "disabledNoticeOn": "Desactivado el {date} tras {count, plural, one {# intento fallido} other {# intentos fallidos}} seguidos. Corrige el receptor y vuelve a activarlo: los eventos pendientes se volverán a enviar.",
+            "disabledNotice": "Desactivado tras {count, plural, one {# intento fallido} other {# intentos fallidos}} seguidos. Sus entregas pendientes se descartaron. Corrige el receptor, vuelve a activarlo y usa “Reenviar” en el registro de entregas para los eventos que necesites.",
+            "disabledNoticeOn": "Desactivado el {date} tras {count, plural, one {# intento fallido} other {# intentos fallidos}} seguidos. Sus entregas pendientes se descartaron. Corrige el receptor, vuelve a activarlo y usa “Reenviar” en el registro de entregas para los eventos que necesites.",
             "lastSuccess": "Último éxito",
             "lastFailure": "Último fallo",
             "inARow": "({count} seguidos)",
@@ -1389,7 +1389,7 @@
           },
           "edit": {
             "title": "Editar endpoint",
-            "enabledHint": "Mientras está desactivado, no se registran eventos nuevos para este endpoint y los reintentos quedan en espera.",
+            "enabledHint": "Mientras está desactivado, no se registran eventos nuevos para este endpoint. Al desactivarlo se descartan sus entregas pendientes, y volver a activarlo no las envía.",
             "updated": "Endpoint actualizado"
           },
           "rotate": {
@@ -1416,7 +1416,7 @@
             "failed": "Fallido",
             "pending": "Pendiente"
           },
-          "disabled": "Desactivado: los reintentos esperan hasta que se vuelva a activar.",
+          "disabled": "Desactivado: las entregas pendientes se descartaron. Vuelve a activarlo para reenviar eventos.",
           "empty": "Aún no hay entregas. Usa “Enviar evento de prueba” en la página Webhooks para probar el endpoint.",
           "event": "Evento",
           "response": "Respuesta",

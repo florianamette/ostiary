@@ -424,6 +424,10 @@ All notable changes are documented here. The format follows
 - The **Deploy with Vercel** button asks for `CRON_SECRET`. Without it the daily cron
   (`/api/cron/webhooks`) got `401`, so webhook retries and retention never ran on a fresh
   deploy. Existing projects without it: add it and redeploy (docs/deploy-vercel.md).
+- The webhooks console no longer says that a disabled endpoint's pending events are sent again,
+  or wait, when it is turned back on (the endpoint notice, the **Enabled** hint and the delivery
+  log, in every language). Disabling an endpoint gives them up; the hints now say so and point
+  to **Redeliver** (#62).
 - **No more 500s while the database wakes up.** A new database connection that fails for a
   transient reason (serverless Postgres such as Neon starting, a refused or dropped
   connection, a server restarting) is retried up to 3 times within 12 seconds. Only the
