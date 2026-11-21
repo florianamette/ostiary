@@ -124,10 +124,18 @@ export async function interceptCallback(page: Page): Promise<() => Promise<URL>>
 
 /**
  * Connects the user to a new client the way a browser does: authorization request, login page,
- * consent screen, then the code exchange. Returns the client and its tokens.
+ * consent screen, then the code exchange. Returns the client and its tokens. `clientBody` adds
+ * fields to the client's registration.
  */
-export async function connectApp(page: Page, api: APIRequestContext, adminApi: APIRequestContext, user: TestUser, scope: string) {
-  const client = await createClient(adminApi, { scope });
+export async function connectApp(
+  page: Page,
+  api: APIRequestContext,
+  adminApi: APIRequestContext,
+  user: TestUser,
+  scope: string,
+  clientBody: Record<string, unknown> = {},
+) {
+  const client = await createClient(adminApi, { scope, ...clientBody });
   const { verifier, challenge } = pkce();
   const callback = await interceptCallback(page);
   await page.goto(authorizeUrl(client, { scope, challenge }));

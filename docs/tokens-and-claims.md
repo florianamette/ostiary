@@ -23,7 +23,7 @@ Most OIDC libraries only need the issuer, a client ID and (for confidential clie
 | Revocation (RFC 7009) | `/api/auth/oauth2/revoke` | Revokes an access or refresh token |
 | JWKS | `/api/auth/jwks` | Public keys for ID tokens and JWT access tokens. See [Signing keys](#signing-keys) |
 | Device authorization (RFC 8628) | `/api/auth/device/code` | The user approves the code on the auth app's `/device` page. See [Connect an app](connect-an-app.md) |
-| End session | `/api/auth/oauth2/end-session` | Advertised, but a client may only use it when it is registered with `enable_end_session`, which the admin console does not set |
+| End session | `/api/auth/oauth2/end-session` | RP-initiated logout, for apps with **Sign-out from the app (RP-initiated logout)** (`enable_end_session`). See [Connect an app](connect-an-app.md#sign-users-out-rp-initiated-logout) |
 | Dynamic client registration (RFC 7591) | `/api/auth/oauth2/register` | Only while self-registration is on. See [MCP and AI agents](mcp-and-agents.md) |
 
 The discovery documents and the `/oauth2/*` endpoints answer cross-origin requests (CORS), so single-page apps and browser-based MCP clients can call them. The discovery documents are cached for 15 seconds.
@@ -109,7 +109,7 @@ Issued with the `openid` scope, signed with the current [signing key](#signing-k
 | `acr` | Always `"0"` |
 | `nonce` | The `nonce` of the authorization request, when it had one |
 | `at_hash` | Hash of the access token issued with it |
-| `sid` | The session ID, only for applications registered for logout (`enable_end_session` or a back-channel logout URI). Admin-registered apps do not get it |
+| `sid` | The session ID, only for applications with **Sign-out from the app (RP-initiated logout)** (`enable_end_session`) or a back-channel logout URI |
 | `name`, `picture` | With `profile`. `picture` only when the user has one |
 | `email`, `email_verified` | With `email` |
 | Custom claims | The application's [custom claims](#custom-claims) for the ID token |

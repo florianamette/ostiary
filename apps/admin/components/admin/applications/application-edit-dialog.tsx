@@ -26,8 +26,8 @@ import { ExternalLink } from "@/components/admin/common/external-link";
 import { parseRedirectUris, routeError } from "@/lib/oauth-client-payload";
 
 /**
- * Edits an admin-registered client's name, redirect URIs, icon, device grant and consent. A
- * machine-to-machine client signs no user in: only its name and icon are offered. The fields
+ * Edits an admin-registered client's name, redirect URIs, icon, device grant, sign-out and consent.
+ * A machine-to-machine client signs no user in: only its name and icon are offered. The fields
  * start from `row` when the dialog mounts: give it a new `key` each time it opens.
  */
 export function ApplicationEditDialog({
@@ -55,6 +55,10 @@ export function ApplicationEditDialog({
   const [logoUri, setLogoUri] = React.useState(row.logoUri ?? "");
   const [skipConsent, setSkipConsent] = React.useState(row.skipConsent);
   const [deviceCode, setDeviceCode] = React.useState(hasDeviceCode);
+  const [endSession, setEndSession] = React.useState(row.enableEndSession ?? false);
+  const [postLogoutUrisRaw, setPostLogoutUrisRaw] = React.useState(
+    (row.postLogoutRedirectUris ?? []).join("\n"),
+  );
   const [error, setError] = React.useState<string | null>(null);
 
 
@@ -77,7 +81,17 @@ export function ApplicationEditDialog({
           credentials: "include",
           body: JSON.stringify({
             client_name: name,
-            ...(machine ? {} : { redirect_uris, skip_consent: skipConsent }),
+            ...(machine
+              ? {}
+              : {
+                  redirect_uris,
+                  skip_consent: skipConsent,
+                  enable_end_session: endSession,
+                  // Kept as they are while sign-out is off; an empty list clears them.
+                  ...(endSession
+                    ? { post_logout_redirect_uris: parseRedirectUris(postLogoutUrisRaw) }
+                    : {}),
+                }),
             // Empty clears the icon.
             ...(logoUri.trim() !== (row.logoUri ?? "")
               ? { logo_uri: logoUri.trim() || null }
@@ -186,6 +200,33 @@ export function ApplicationEditDialog({
                     hint={t("editDialog.deviceCodeHint")}
                   />
                 </Field>
+                <Field>
+                  <CheckboxField
+                    id={`oauth-edit-end-session-${row.clientId}`}
+                    checked={endSession}
+                    onChange={setEndSession}
+                    label={t("editDialog.endSessionLabel")}
+                    hint={t("editDialog.endSessionHint")}
+                  />
+                </Field>
+                {endSession ? (
+                  <Field>
+                    <FieldLabel htmlFor={`oauth-edit-post-logout-${row.clientId}`}>
+                      {t("editDialog.postLogoutUrisLabel")}
+                    </FieldLabel>
+                    <Textarea
+                      id={`oauth-edit-post-logout-${row.clientId}`}
+                      rows={2}
+                      placeholder="https://app.example.com/"
+                      value={postLogoutUrisRaw}
+                      onChange={(e) => setPostLogoutUrisRaw(e.target.value)}
+                      className="font-mono text-sm"
+                    />
+                    <p className="text-muted-foreground text-xs">
+                      {t("editDialog.postLogoutUrisHint")}
+                    </p>
+                  </Field>
+                ) : null}
                 <Field>
                   <CheckboxField
                     id={`oauth-edit-skip-consent-${row.clientId}`}
