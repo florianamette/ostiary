@@ -19,6 +19,9 @@ All notable changes are documented here. The format follows
 
 ### Security
 
+- `pnpm audit` is clean: shadcn CLI 4.23.0 (from 4.1.0) drops the vulnerable zod 3, undici,
+  hono, body-parser and other packages it pulled in, and minimatch is pinned to 11.0.1+ under
+  eslint-plugin-import. All of them were development dependencies.
 - Next.js 16.4.5 (from 16.4.0): fixes GHSA-2464-fhr4-w9xw and GHSA-673q-mjm6-r5xr (critical)
   and GHSA-p3m5-59mp-jv5r. `zod` 4.6.7 (GHSA-mrhx-c7xc-m3w5); `vite` and `vitest` patched;
   `shadcn` (build-time CSS only) moved to dev dependencies.
