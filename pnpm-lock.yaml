@@ -70,8 +70,8 @@ catalogs:
       specifier: 2.1.1
       version: 2.1.1
     dotenv:
-      specifier: 17.3.1
-      version: 17.3.1
+      specifier: 18.0.10
+      version: 18.0.10
     drizzle-kit:
       specifier: 0.31.10
       version: 0.31.10
@@ -188,7 +188,7 @@ importers:
         version: 1.7.7(drizzle-kit@0.31.10)(drizzle-orm@0.45.2(@electric-sql/pglite@0.3.15)(@types/pg@8.20.0)(kysely@0.28.17)(pg@8.20.0))(next@16.4.5(@playwright/test@1.63.0)(@types/node@22.20.5)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(pg@8.20.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(vitest@4.1.12(@types/node@22.20.5)(vite@8.3.5(@types/node@22.20.5)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)))
       dotenv:
         specifier: 'catalog:'
-        version: 17.3.1
+        version: 18.0.10
       drizzle-orm:
         specifier: 'catalog:'
         version: 0.45.2(@electric-sql/pglite@0.3.15)(@types/pg@8.20.0)(kysely@0.28.17)(pg@8.20.0)
@@ -282,7 +282,7 @@ importers:
         version: 1.7.7(drizzle-kit@0.31.10)(drizzle-orm@0.45.2(@electric-sql/pglite@0.3.15)(@types/pg@8.20.0)(kysely@0.28.17)(pg@8.20.0))(next@16.4.5(@playwright/test@1.63.0)(@types/node@22.20.5)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(pg@8.20.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(vitest@4.1.12(@types/node@22.20.5)(vite@8.3.5(@types/node@22.20.5)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)))
       dotenv:
         specifier: 'catalog:'
-        version: 17.3.1
+        version: 18.0.10
       drizzle-orm:
         specifier: 'catalog:'
         version: 0.45.2(@electric-sql/pglite@0.3.15)(@types/pg@8.20.0)(kysely@0.28.17)(pg@8.20.0)
@@ -376,7 +376,7 @@ importers:
         version: 3.0.3
       dotenv:
         specifier: 'catalog:'
-        version: 17.3.1
+        version: 18.0.10
       eslint:
         specifier: 'catalog:'
         version: 9.39.4(jiti@2.7.0)
@@ -436,7 +436,7 @@ importers:
         version: 2.1.1
       dotenv:
         specifier: 'catalog:'
-        version: 17.3.1
+        version: 18.0.10
       drizzle-orm:
         specifier: 'catalog:'
         version: 0.45.2(@electric-sql/pglite@0.3.15)(@types/pg@8.20.0)(kysely@0.28.17)(pg@8.20.0)
@@ -3516,13 +3516,14 @@ packages:
     resolution: {integrity: sha512-tE7ztYzXHIeyvc7N+hR3oi7FIbf/NIjVP9hmAt3yMXzrQ072/fpjGLx2GxNxGxUl5V73MEqYzioOMoVhGMJ5cA==}
     engines: {node: '>=10'}
 
-  dotenv@17.3.1:
-    resolution: {integrity: sha512-IO8C/dzEb6O3F9/twg6ZLXz164a2fhTnEWb95H23Dm4OuN+92NmEAlTrupP9VW6Jm3sO26tQlqyvyi4CsnY9GA==}
-    engines: {node: '>=12'}
-
   dotenv@17.4.2:
     resolution: {integrity: sha512-nI4U3TottKAcAD9LLud4Cb7b2QztQMUEfHbvhTH09bqXTxnSie8WnjPALV/WMCrJZ6UV/qHJ6L03OqO3LcdYZw==}
     engines: {node: '>=12'}
+
+  dotenv@18.0.10:
+    resolution: {integrity: sha512-89FAA1xchzK2mxVWdr5F/0rldwiueXs6zJM86rO66EzekR1iBdiXRthyG+m5GvkJaFH3C2LESzamTkgndmLT2A==}
+    engines: {node: '>=12'}
+    hasBin: true
 
   drizzle-kit@0.31.10:
     resolution: {integrity: sha512-7OZcmQUrdGI+DUNNsKBn1aW8qSoKuTH7d0mYgSP8bAzdFzKoovxEFnoGQp2dVs82EOJeYycqRtciopszwUf8bw==}
@@ -8417,9 +8418,9 @@ snapshots:
     dependencies:
       is-obj: 2.0.0
 
-  dotenv@17.3.1: {}
-
   dotenv@17.4.2: {}
+
+  dotenv@18.0.10: {}
 
   drizzle-kit@0.31.10:
     dependencies:
