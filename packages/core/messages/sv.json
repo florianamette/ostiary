@@ -510,7 +510,7 @@
             "user_role": "Plattformsroll",
             "user_email_verified": "E-post verifierad",
             "user_username": "Användarnamn",
-            "user_two_factor_enabled": "Tvåstegsverifiering på",
+            "user_two_factor_enabled": "Tvåfaktorsautentisering på",
             "organization_id": "ID för aktiv organisation",
             "organization_slug": "Slug för aktiv organisation",
             "organization_role": "Roll i aktiv organisation",
@@ -571,7 +571,7 @@
           "deviceCodeLabel": "Enhetsinloggning (CLI:er, tv-apparater)",
           "deviceCodeHint": "Lägger till device code-grant (RFC 8628): appen visar en kod och användaren godkänner den på <code>{path}</code> på en annan skärm. Oftast en publik klient.",
           "endSessionLabel": "Utloggning från appen (RP-initiated logout)",
-          "endSessionHint": "När användare loggar ut från appen kan den även avsluta deras session här, via end-session-slutpunkten (OpenID Connect RP-initiated logout). Dess ID-token innehåller sessions-ID:t (sid).",
+          "endSessionHint": "När användare loggar ut från appen kan den även avsluta deras session här, via end-session-endpointen (OpenID Connect RP-initiated logout). Appens ID-token innehåller sessions-ID:t (sid).",
           "postLogoutUrisLabel": "Omdirigerings-URI:er efter utloggning (valfritt)",
           "postLogoutUrisHint": "Vart appen får skicka tillbaka användare efter utloggning (post_logout_redirect_uri, exakt matchning). En per rad eller kommaseparerade. Utan någon ser användarna en utloggningssida.",
           "skipConsentLabel": "Hoppa över samtycke (betrodd klient)",
@@ -584,7 +584,7 @@
           "successTitle": "Applikationen har skapats",
           "successWithSecret": "Kopiera klienthemligheten nu, den kanske bara visas en gång.",
           "successPublic": "Publik klient, ingen hemlighet utfärdas. Använd PKCE mot token-endpointen.",
-          "successMachine": "Kopiera klienthemligheten nu, den kanske bara visas en gång. Appen byter den mot tokens vid token-slutpunkten med {grant}-granten.",
+          "successMachine": "Kopiera klienthemligheten nu, den kanske bara visas en gång. Appen byter den mot tokens vid token-endpointen med {grant}-granten.",
           "clientId": "Klient-id",
           "clientSecret": "Klienthemlighet",
           "copyClientId": "Kopiera klient-id",
@@ -619,7 +619,7 @@
             "deviceCodeLabel": "Enhetsinloggning (CLI:er, tv-apparater)",
             "deviceCodeHint": "Tillåter device code-grant. Om du stänger av den stoppas nya enhetsinloggningar; token som redan utfärdats fortsätter att fungera.",
             "endSessionLabel": "Utloggning från appen (RP-initiated logout)",
-            "endSessionHint": "Låter appen avsluta användarens session här via end-session-slutpunkten (OpenID Connect RP-initiated logout) och lägger till sessions-ID:t (sid) i dess nya ID-token. Avstängt nekar slutpunkten appen.",
+            "endSessionHint": "Låter appen avsluta användarens session här via end-session-endpointen (OpenID Connect RP-initiated logout) och lägger till sessions-ID:t (sid) i dess nya ID-token. När det är avstängt nekar endpointen appen.",
             "postLogoutUrisLabel": "Omdirigerings-URI:er efter utloggning (valfritt)",
             "postLogoutUrisHint": "Vart appen får skicka tillbaka användare efter utloggning (exakt matchning). En per rad eller kommaseparerade. Tomt tar bort dem: användarna ser då en utloggningssida.",
             "skipConsentLabel": "Hoppa över samtycke (betrodd klient)",
@@ -1393,8 +1393,8 @@
             "rotating": "Hemligheten roteras",
             "editLabel": "Redigera {label}",
             "deleteLabel": "Radera {label}",
-            "disabledNotice": "Inaktiverad efter {count, plural, one {# misslyckat försök} other {# misslyckade försök}} i rad. Väntande leveranser har getts upp. Åtgärda mottagaren, slå på den igen och använd sedan ”Leverera igen” i leveransloggen för de händelser du behöver.",
-            "disabledNoticeOn": "Inaktiverad {date} efter {count, plural, one {# misslyckat försök} other {# misslyckade försök}} i rad. Väntande leveranser har getts upp. Åtgärda mottagaren, slå på den igen och använd sedan ”Leverera igen” i leveransloggen för de händelser du behöver.",
+            "disabledNotice": "Inaktiverad efter {count, plural, one {# misslyckat försök} other {# misslyckade försök}} i rad. Väntande leveranser har avbrutits. Åtgärda mottagaren, slå på endpointen igen och använd sedan ”Leverera igen” i leveransloggen för de händelser du behöver.",
+            "disabledNoticeOn": "Inaktiverad {date} efter {count, plural, one {# misslyckat försök} other {# misslyckade försök}} i rad. Väntande leveranser har avbrutits. Åtgärda mottagaren, slå på endpointen igen och använd sedan ”Leverera igen” i leveransloggen för de händelser du behöver.",
             "lastSuccess": "Senast lyckad",
             "lastFailure": "Senast misslyckad",
             "inARow": "({count} i rad)",
@@ -1406,7 +1406,7 @@
           },
           "edit": {
             "title": "Redigera endpoint",
-            "enabledHint": "När den är inaktiverad registreras inga nya händelser för den här endpointen. Att inaktivera den ger upp väntande leveranser, och de skickas inte när den slås på igen.",
+            "enabledHint": "När den är inaktiverad registreras inga nya händelser för den här endpointen. Att inaktivera den avbryter väntande leveranser, och de skickas inte när den slås på igen.",
             "updated": "Endpointen har uppdaterats"
           },
           "rotate": {
@@ -1433,7 +1433,7 @@
             "failed": "Misslyckad",
             "pending": "Väntar"
           },
-          "disabled": "Inaktiverad: väntande leveranser har getts upp. Slå på den igen för att leverera händelser på nytt.",
+          "disabled": "Inaktiverad: väntande leveranser har avbrutits. Slå på den igen för att leverera händelser på nytt.",
           "empty": "Ingen leverans än. Använd ”Skicka testhändelse” på sidan Webhooks för att testa endpointen.",
           "event": "Händelse",
           "response": "Svar",
@@ -1814,7 +1814,7 @@
             "enable": "Aktiverade OAuth-klient",
             "branding_update": "Ändrade inloggningsutseende",
             "branding_reset": "Återställde inloggningsutseende",
-            "claims_update": "Token-claims ändrade",
+            "claims_update": "Ändrade token-claims",
             "remove_duplicates": "Tog bort duplicerade OAuth-klienter"
           },
           "client_registration": {
