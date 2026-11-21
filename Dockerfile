@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 #
 # Ostiary images: one target per app, plus the migration job. docker-compose.yml builds all
-# three; docs/self-hosting.md explains the variables.
+# three; https://www.ostiary.dev/docs/self-hosting explains the variables.
 #
 #   docker build --target auth    -t ostiary-auth .
 #   docker build --target admin   -t ostiary-admin .

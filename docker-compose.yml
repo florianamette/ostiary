@@ -1,5 +1,5 @@
 # Ostiary on one machine: Postgres, the migrations, the auth app, the admin console and the
-# daily housekeeping job. See docs/self-hosting.md.
+# daily housekeeping job. See https://www.ostiary.dev/docs/self-hosting.
 #
 #   cp .env.docker.example .env   # then fill it in
 #   docker compose up -d --build
@@ -22,7 +22,7 @@ x-app-env: &app-env
   REQUIRE_ADMIN_2FA: ${REQUIRE_ADMIN_2FA:-true}
   EMAIL_DEDUP: ${EMAIL_DEDUP:-}
   CRON_SECRET: ${CRON_SECRET:?set CRON_SECRET in .env}
-  # Where the client IP comes from: the header your reverse proxy sets (docs/self-hosting.md).
+  # Where the client IP comes from: the header your reverse proxy sets (https://www.ostiary.dev/docs/self-hosting).
   IP_ADDRESS_HEADERS: ${IP_ADDRESS_HEADERS:-}
   TRUSTED_PROXIES: ${TRUSTED_PROXIES:-}
   CAPTCHA_PROVIDER: ${CAPTCHA_PROVIDER:-}
@@ -31,7 +31,7 @@ x-app-env: &app-env
   OAUTH_API_SCOPES: ${OAUTH_API_SCOPES:-}
   OAUTH_API_AUDIENCES: ${OAUTH_API_AUDIENCES:-}
   API_KEY_PREFIX: ${API_KEY_PREFIX:-}
-  # Other variables from docs/configuration.md (GITHUB_CLIENT_ID, SCIM_TOKEN_SECRET, ...): add
+  # Other variables from https://www.ostiary.dev/docs/configuration (GITHUB_CLIENT_ID, SCIM_TOKEN_SECRET, ...): add
   # them here as `NAME: ${NAME}` and set them in .env.
 
 # The browser-side URLs and the captcha provider are built into the apps.

@@ -14,7 +14,7 @@ import {
 import { adminJsonRoute } from "@/lib/admin-json-route";
 
 /*
- * Bulk user import (docs/import-users.md, lib/user-import), a route rather than a server
+ * Bulk user import (https://www.ostiary.dev/docs/import-users, lib/user-import), a route rather than a server
  * action so that only this endpoint accepts a 10 MB body: the Origin, the declared size and
  * the admin session are checked before any of it is read (adminJsonRoute).
  *

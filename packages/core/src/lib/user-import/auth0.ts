@@ -3,7 +3,7 @@ import { isRowError, normalizeImportUser } from "@ostiary/core/lib/user-import/n
 import type { ImportRowError, ImportUser, ParsedImport } from "@ostiary/core/lib/user-import/types";
 
 /*
- * Auth0's exports (docs/import-users.md):
+ * Auth0's exports (https://www.ostiary.dev/docs/import-users):
  *
  * - The user export job (Management API `POST /api/v2/jobs/users-exports`, or the "User Import
  *   / Export" extension) writes one JSON object per line (NDJSON), or a JSON array with the

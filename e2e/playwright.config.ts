@@ -21,7 +21,7 @@ function nextStart(app: "auth" | "admin", url: string) {
 
 /*
  * The apps must be built first (pnpm build:apps) and the database migrated (pnpm db:setup).
- * See docs/testing.md.
+ * See https://www.ostiary.dev/docs/testing.
  */
 export default defineConfig({
   testDir: "tests",

@@ -12,7 +12,8 @@ All notable changes are documented here. The format follows
   as UTC (how Ostiary wrote them; a database whose session time zone is not UTC shifts values
   that Postgres filled with `now()` by that offset). It rewrites each table once.
 - The same migration stops, naming them, if two SSO providers claim the same email domain in
-  any letter case: keep one, then deploy again (docs/enterprise-sso.md, "Upgrading").
+  any letter case: keep one, then deploy again ([Enterprise SSO](https://www.ostiary.dev/docs/enterprise-sso#upgrading-from-before-migration-0014),
+  "Upgrading").
 - Outside Vercel, production now requires `BETTER_AUTH_URL` (or `AUTH_APP_URL`). Admin API
   writes (`/api/admin/*`) need `ADMIN_APP_URL`, and must come from the console's origin.
 - `zod` 4 (from 3.25) and Next.js 16.4.5 (from 16.4.0).
@@ -46,6 +47,8 @@ All notable changes are documented here. The format follows
 
 ### Documentation
 
+- The guides live on [ostiary.dev/docs](https://www.ostiary.dev/docs) only: the `docs/` folder
+  is gone, and the README, `.env.example` files and code comments link to the site.
 - The README is an overview again (776 → 189 lines): the guides moved to `docs/` (connect an app,
   social sign-in, enterprise SSO, SCIM, webhooks, MCP and agents, API keys, your data,
   configuration, security, testing). Both `.env.example` files say where each value comes from;

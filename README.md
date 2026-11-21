@@ -14,12 +14,12 @@
   <a href="https://www.ostiary.dev"><strong>Website</strong></a> ·
   <a href="https://demo.ostiary.dev"><strong>Live demo</strong></a> ·
   <a href="#deploy">Deploy</a> ·
-  <a href="docs/connect-an-app.md">Connect an app</a> ·
+  <a href="https://www.ostiary.dev/docs/connect-an-app">Connect an app</a> ·
   <a href="#documentation">Docs</a>
 </p>
 
 <p align="center">
-  <a href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fflorianamette%2Fostiary%2Ftree%2Fmain%2Fapps%2Fauth&project-name=ostiary&repository-name=ostiary&env=BETTER_AUTH_SECRET%2CADMIN_EMAILS%2CRESEND_API_KEY%2CRESEND_FROM%2CCRON_SECRET&envDescription=BETTER_AUTH_SECRET%3A%2032%2B%20random%20characters%20%28openssl%20rand%20-base64%2032%29.%20ADMIN_EMAILS%3A%20your%20email%2C%20to%20become%20admin%20on%20sign-up.%20RESEND_%2A%3A%20an%20API%20key%20and%20sender%20from%20resend.com%2C%20for%20verification%20emails.%20CRON_SECRET%3A%2016%2B%20random%20characters%20%28openssl%20rand%20-base64%2024%29%2C%20for%20the%20daily%20cron%20that%20retries%20webhooks%20and%20deletes%20old%20data.&envLink=https%3A%2F%2Fgithub.com%2Fflorianamette%2Fostiary%2Fblob%2Fmain%2Fdocs%2Fconfiguration.md&stores=%5B%7B%22type%22%3A%22integration%22%2C%22integrationSlug%22%3A%22neon%22%2C%22productSlug%22%3A%22neon%22%2C%22protocol%22%3A%22storage%22%7D%5D&demo-title=Ostiary&demo-description=Self-hosted%20Auth0%20alternative%20on%20Better%20Auth%3A%20OIDC%20provider%2C%20passkeys%2C%20SSO%20and%20an%20admin%20console.&demo-url=https%3A%2F%2Fdemo.ostiary.dev&demo-image=https%3A%2F%2Fraw.githubusercontent.com%2Fflorianamette%2Fostiary%2Fmain%2F.github%2Fassets%2Fbanner.png"><img src="https://vercel.com/button" alt="Deploy with Vercel"></a>
+  <a href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fflorianamette%2Fostiary%2Ftree%2Fmain%2Fapps%2Fauth&project-name=ostiary&repository-name=ostiary&env=BETTER_AUTH_SECRET%2CADMIN_EMAILS%2CRESEND_API_KEY%2CRESEND_FROM%2CCRON_SECRET&envDescription=BETTER_AUTH_SECRET%3A%2032%2B%20random%20characters%20%28openssl%20rand%20-base64%2032%29.%20ADMIN_EMAILS%3A%20your%20email%2C%20to%20become%20admin%20on%20sign-up.%20RESEND_%2A%3A%20an%20API%20key%20and%20sender%20from%20resend.com%2C%20for%20verification%20emails.%20CRON_SECRET%3A%2016%2B%20random%20characters%20%28openssl%20rand%20-base64%2024%29%2C%20for%20the%20daily%20cron%20that%20retries%20webhooks%20and%20deletes%20old%20data.&envLink=https%3A%2F%2Fwww.ostiary.dev%2Fdocs%2Fconfiguration&stores=%5B%7B%22type%22%3A%22integration%22%2C%22integrationSlug%22%3A%22neon%22%2C%22productSlug%22%3A%22neon%22%2C%22protocol%22%3A%22storage%22%7D%5D&demo-title=Ostiary&demo-description=Self-hosted%20Auth0%20alternative%20on%20Better%20Auth%3A%20OIDC%20provider%2C%20passkeys%2C%20SSO%20and%20an%20admin%20console.&demo-url=https%3A%2F%2Fdemo.ostiary.dev&demo-image=https%3A%2F%2Fraw.githubusercontent.com%2Fflorianamette%2Fostiary%2Fmain%2F.github%2Fassets%2Fbanner.png"><img src="https://vercel.com/button" alt="Deploy with Vercel"></a>
 </p>
 
 > In the Middle Ages the *ostiarius* was the doorkeeper: the one who held the keys and decided who came in.
@@ -58,7 +58,7 @@ Hosted identity platforms are great until the bill scales with your users or you
 - OAuth 2.1 / OpenID Connect provider: discovery, PKCE, refresh tokens, consent, UserInfo, introspection, JWKS
 - Machine-to-machine tokens (client credentials) with per-client scopes
 - API keys for scripts: users (or organizations) create keys for one of your APIs and some of its scopes; your API verifies them with Ostiary
-- Self-registration for MCP clients and AI agents: Dynamic Client Registration and Client ID Metadata Documents, off by default and controlled from the admin console. Anonymous registration is limited to public PKCE clients (no secret leaves without a sign-in) — see [MCP and AI agents](docs/mcp-and-agents.md)
+- Self-registration for MCP clients and AI agents: Dynamic Client Registration and Client ID Metadata Documents, off by default and controlled from the admin console. Anonymous registration is limited to public PKCE clients (no secret leaves without a sign-in) — see [MCP and AI agents](https://www.ostiary.dev/docs/mcp-and-agents)
 - Device sign-in (RFC 8628) for CLIs, TVs and other apps without a browser
 - Protected resources: JWT access tokens scoped to your APIs, with the user's role as a claim
 - Custom claims per application in the ID token, access token and UserInfo: fixed values or user attributes (role, organization, username…), declared in the admin console, no scripts
@@ -68,7 +68,7 @@ Hosted identity platforms are great until the bill scales with your users or you
 **For you (admin console)**
 
 - Users: search, roles, bans, sessions, impersonation, two-factor reset
-- User import from an Auth0 export or a CSV file, with a dry run first: Auth0 bcrypt password hashes keep working and become scrypt at the next sign-in — see [Import users](docs/import-users.md)
+- User import from an Auth0 export or a CSV file, with a dry run first: Auth0 bcrypt password hashes keep working and become scrypt at the next sign-in — see [Import users](https://www.ostiary.dev/docs/import-users)
 - Sign-in providers: turn social sign-in providers on and off, order them and paste their credentials (stored encrypted) without a redeploy
 - Sign-in branding per application: display name, logo, accent color (with WCAG contrast checks), tagline, side panel and which social buttons show, with a live preview
 - OAuth clients with their icons, an **App usage** page (tokens, users and consents per app over 30 days), consents, organizations, SSO providers
@@ -107,9 +107,9 @@ Two ways: Vercel with a Neon database (below), or your own server with Docker ([
 2. The build applies the database migrations. When it finishes, open your deployment and sign up with the email you put in `ADMIN_EMAILS`, then open the verification link sent to it: the account becomes an admin once the address is verified. (Signing up with a social provider works too when the provider reports the address as verified; SSO never grants the admin role.) The admin console asks you to turn on two-factor authentication before you use it.
 3. Optional: deploy the admin console as a second project with the same database and secret:
 
-   <a href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fflorianamette%2Fostiary%2Ftree%2Fmain%2Fapps%2Fadmin&project-name=ostiary-admin&repository-name=ostiary&env=DATABASE_URL%2CBETTER_AUTH_SECRET%2CAUTH_APP_URL%2CADMIN_APP_URL%2CRESEND_API_KEY%2CRESEND_FROM&envDescription=Use%20the%20same%20DATABASE_URL%20and%20BETTER_AUTH_SECRET%20as%20your%20Ostiary%20auth%20app.%20AUTH_APP_URL%3A%20its%20URL.%20ADMIN_APP_URL%3A%20this%20app%27s%20URL.&envLink=https%3A%2F%2Fgithub.com%2Fflorianamette%2Fostiary%2Fblob%2Fmain%2Fdocs%2Fconfiguration.md"><img src="https://vercel.com/button" alt="Deploy the admin console"></a>
+   <a href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fflorianamette%2Fostiary%2Ftree%2Fmain%2Fapps%2Fadmin&project-name=ostiary-admin&repository-name=ostiary&env=DATABASE_URL%2CBETTER_AUTH_SECRET%2CAUTH_APP_URL%2CADMIN_APP_URL%2CRESEND_API_KEY%2CRESEND_FROM&envDescription=Use%20the%20same%20DATABASE_URL%20and%20BETTER_AUTH_SECRET%20as%20your%20Ostiary%20auth%20app.%20AUTH_APP_URL%3A%20its%20URL.%20ADMIN_APP_URL%3A%20this%20app%27s%20URL.&envLink=https%3A%2F%2Fwww.ostiary.dev%2Fdocs%2Fconfiguration"><img src="https://vercel.com/button" alt="Deploy the admin console"></a>
 
-   The admin console has no sign-in page of its own: it reads the auth app's session cookie. Give the two apps subdomains of one domain (for example `auth.example.com` and `admin.example.com`, so a custom domain, not `*.vercel.app`) and set `COOKIE_DOMAIN=.example.com` on both. [Deploy on Vercel](docs/deploy-vercel.md) lists every variable each project needs. Read [COOKIE_DOMAIN](docs/security.md#cookie_domain) first: the session cookie is then sent to every subdomain of that domain.
+   The admin console has no sign-in page of its own: it reads the auth app's session cookie. Give the two apps subdomains of one domain (for example `auth.example.com` and `admin.example.com`, so a custom domain, not `*.vercel.app`) and set `COOKIE_DOMAIN=.example.com` on both. [Deploy on Vercel](https://www.ostiary.dev/docs/deploy-vercel) lists every variable each project needs. Read [COOKIE_DOMAIN](https://www.ostiary.dev/docs/security#cookie_domain) first: the session cookie is then sent to every subdomain of that domain.
 
 ### Self-host with Docker
 
@@ -120,7 +120,7 @@ cp .env.docker.example .env   # fill in the URLs, secrets and Resend key
 docker compose up -d --build
 ```
 
-Put a reverse proxy with TLS in front of ports 3000 (auth) and 3001 (admin). [Self-hosting](docs/self-hosting.md) covers the proxy, the client IP header, backups and upgrades.
+Put a reverse proxy with TLS in front of ports 3000 (auth) and 3001 (admin). [Self-hosting](https://www.ostiary.dev/docs/self-hosting) covers the proxy, the client IP header, backups and upgrades.
 
 ## Connect an app
 
@@ -151,21 +151,21 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
 Any OIDC library works the same way (Better Auth's generic OAuth, `openid-client`, AppAuth on mobile): give it the issuer, client ID and secret.
 
-The [full guide](docs/connect-an-app.md) covers protecting your APIs, signing key rotation, device sign-in for CLIs and TVs, and branding the sign-in page per app.
+The [full guide](https://www.ostiary.dev/docs/connect-an-app) covers protecting your APIs, signing key rotation, device sign-in for CLIs and TVs, and branding the sign-in page per app.
 
 ## Documentation
 
-The guides are in [`docs/`](docs) and on [ostiary.dev/docs](https://www.ostiary.dev/docs).
+The guides are on [ostiary.dev/docs](https://www.ostiary.dev/docs).
 
 | Getting started | Build with Ostiary | Users and sign-in | Operate |
 | --- | --- | --- | --- |
-| [Quickstart](docs/quickstart.md) | [Protect an API](docs/protect-an-api.md) | [Sign-in methods](docs/sign-in-methods.md) | [Admin console](docs/admin-console.md) |
-| [Deploy on Vercel](docs/deploy-vercel.md) | [Tokens and claims](docs/tokens-and-claims.md) | [Social sign-in](docs/social-sign-in.md) | [Configuration](docs/configuration.md) |
-| [Self-hosting with Docker](docs/self-hosting.md) | [MCP and AI agents](docs/mcp-and-agents.md) | [Enterprise SSO](docs/enterprise-sso.md) | [Security](docs/security.md) |
-| [Connect an app](docs/connect-an-app.md) | [API keys](docs/api-keys.md) | [SCIM provisioning](docs/scim.md) | [Troubleshooting](docs/troubleshooting.md) |
-| | [Webhooks](docs/webhooks.md) | [Organizations](docs/organizations.md) | [Testing](docs/testing.md) |
-| | | [Import users](docs/import-users.md) | |
-| | | [Your data](docs/account-data.md) | |
+| [Quickstart](https://www.ostiary.dev/docs/quickstart) | [Protect an API](https://www.ostiary.dev/docs/protect-an-api) | [Sign-in methods](https://www.ostiary.dev/docs/sign-in-methods) | [Admin console](https://www.ostiary.dev/docs/admin-console) |
+| [Deploy on Vercel](https://www.ostiary.dev/docs/deploy-vercel) | [Tokens and claims](https://www.ostiary.dev/docs/tokens-and-claims) | [Social sign-in](https://www.ostiary.dev/docs/social-sign-in) | [Configuration](https://www.ostiary.dev/docs/configuration) |
+| [Self-hosting with Docker](https://www.ostiary.dev/docs/self-hosting) | [MCP and AI agents](https://www.ostiary.dev/docs/mcp-and-agents) | [Enterprise SSO](https://www.ostiary.dev/docs/enterprise-sso) | [Security](https://www.ostiary.dev/docs/security) |
+| [Connect an app](https://www.ostiary.dev/docs/connect-an-app) | [API keys](https://www.ostiary.dev/docs/api-keys) | [SCIM provisioning](https://www.ostiary.dev/docs/scim) | [Troubleshooting](https://www.ostiary.dev/docs/troubleshooting) |
+| | [Webhooks](https://www.ostiary.dev/docs/webhooks) | [Organizations](https://www.ostiary.dev/docs/organizations) | [Testing](https://www.ostiary.dev/docs/testing) |
+| | | [Import users](https://www.ostiary.dev/docs/import-users) | |
+| | | [Your data](https://www.ostiary.dev/docs/account-data) | |
 
 ## Run locally
 
