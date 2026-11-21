@@ -251,10 +251,7 @@ export async function POST(request: Request) {
 
 A failed delivery is retried 4 times, after 5 minutes, 1 hour, 6 hours and 18 hours, then marked **Failed**. A test event is sent once and never retried.
 
-An endpoint that fails 15 times in a row (all events together) is disabled, which the console shows as **Disabled after repeated failures**. Disabling an endpoint, automatically or by an admin, gives up the deliveries still waiting for it, and turning it back on does not send them either: a re-enabled endpoint, maybe with a new URL, never receives old events. Use **Redeliver** in the log for the events you need.
-
-> [!NOTE]
-> The console's hints say that pending events are sent again, or wait, when you turn an endpoint back on. The code gives them up instead, as described here.
+An endpoint that fails 15 times in a row (all events together) is disabled, which the console shows as **Disabled after repeated failures**. Disabling an endpoint, automatically or by an admin, gives up the deliveries still waiting for it, and turning it back on does not send them either: a re-enabled endpoint, maybe with a new URL, never receives old events. Those deliveries show as **Failed** in the **Delivery log**, with the answer *Not sent: the endpoint was disabled.* Use **Redeliver** in the log for the events you need once the endpoint is back on.
 
 ### How retries run
 
@@ -285,7 +282,7 @@ For 24 hours, each delivery carries two signatures in `webhook-signature`, one w
 
 ## Disable or delete an endpoint
 
-- To pause an endpoint, edit it and untick **Enabled**. While it is disabled, new events are not recorded for it, and pending deliveries are given up.
+- To pause an endpoint, edit it and untick **Enabled**. While it is disabled, new events are not recorded for it. Its pending deliveries are given up, and ticking **Enabled** again does not send them: use **Redeliver** in the **Delivery log** for the events you need.
 - **Delete** stops the endpoint and deletes its delivery log and pending retries.
 
 ## Related

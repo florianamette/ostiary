@@ -1376,8 +1376,8 @@
             "rotating": "Secret wird rotiert",
             "editLabel": "{label} bearbeiten",
             "deleteLabel": "{label} löschen",
-            "disabledNotice": "Nach {count, plural, one {# fehlgeschlagenen Versuch} other {# fehlgeschlagenen Versuchen}} in Folge deaktiviert. Beheben Sie das Problem beim Empfänger und schalten Sie den Endpunkt dann wieder ein: Ausstehende Ereignisse werden erneut gesendet.",
-            "disabledNoticeOn": "Am {date} nach {count, plural, one {# fehlgeschlagenen Versuch} other {# fehlgeschlagenen Versuchen}} in Folge deaktiviert. Beheben Sie das Problem beim Empfänger und schalten Sie den Endpunkt dann wieder ein: Ausstehende Ereignisse werden erneut gesendet.",
+            "disabledNotice": "Nach {count, plural, one {# fehlgeschlagenen Versuch} other {# fehlgeschlagenen Versuchen}} in Folge deaktiviert. Ausstehende Zustellungen wurden verworfen. Beheben Sie das Problem beim Empfänger, schalten Sie den Endpunkt wieder ein und nutzen Sie dann „Erneut zustellen“ im Zustellprotokoll für die Ereignisse, die Sie brauchen.",
+            "disabledNoticeOn": "Am {date} nach {count, plural, one {# fehlgeschlagenen Versuch} other {# fehlgeschlagenen Versuchen}} in Folge deaktiviert. Ausstehende Zustellungen wurden verworfen. Beheben Sie das Problem beim Empfänger, schalten Sie den Endpunkt wieder ein und nutzen Sie dann „Erneut zustellen“ im Zustellprotokoll für die Ereignisse, die Sie brauchen.",
             "lastSuccess": "Letzter Erfolg",
             "lastFailure": "Letzter Fehler",
             "inARow": "({count} in Folge)",
@@ -1389,7 +1389,7 @@
           },
           "edit": {
             "title": "Endpunkt bearbeiten",
-            "enabledHint": "Solange er deaktiviert ist, werden für diesen Endpunkt keine neuen Ereignisse erfasst und Wiederholungen warten.",
+            "enabledHint": "Solange er deaktiviert ist, werden für diesen Endpunkt keine neuen Ereignisse erfasst. Beim Deaktivieren werden ausstehende Zustellungen verworfen, und beim Wiedereinschalten werden sie nicht gesendet.",
             "updated": "Endpunkt aktualisiert"
           },
           "rotate": {
@@ -1416,7 +1416,7 @@
             "failed": "Fehlgeschlagen",
             "pending": "Ausstehend"
           },
-          "disabled": "Deaktiviert: Wiederholungen warten, bis er wieder eingeschaltet wird.",
+          "disabled": "Deaktiviert: Ausstehende Zustellungen wurden verworfen. Schalten Sie ihn wieder ein, um Ereignisse erneut zuzustellen.",
           "empty": "Noch keine Zustellung. Verwenden Sie „Testereignis senden“ auf der Webhooks-Seite, um den Endpunkt zu testen.",
           "event": "Ereignis",
           "response": "Antwort",

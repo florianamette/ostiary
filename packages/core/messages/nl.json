@@ -1376,8 +1376,8 @@
             "rotating": "Geheim wordt geroteerd",
             "editLabel": "{label} bewerken",
             "deleteLabel": "{label} verwijderen",
-            "disabledNotice": "Uitgeschakeld na {count, plural, one {# mislukte poging} other {# mislukte pogingen}} achter elkaar. Herstel de ontvanger en schakel het endpoint weer in: wachtende gebeurtenissen worden opnieuw verstuurd.",
-            "disabledNoticeOn": "Uitgeschakeld op {date} na {count, plural, one {# mislukte poging} other {# mislukte pogingen}} achter elkaar. Herstel de ontvanger en schakel het endpoint weer in: wachtende gebeurtenissen worden opnieuw verstuurd.",
+            "disabledNotice": "Uitgeschakeld na {count, plural, one {# mislukte poging} other {# mislukte pogingen}} achter elkaar. Wachtende leveringen zijn opgegeven. Herstel de ontvanger, schakel het endpoint weer in en gebruik daarna “Opnieuw leveren” in het bezorglogboek voor de gebeurtenissen die nodig zijn.",
+            "disabledNoticeOn": "Uitgeschakeld op {date} na {count, plural, one {# mislukte poging} other {# mislukte pogingen}} achter elkaar. Wachtende leveringen zijn opgegeven. Herstel de ontvanger, schakel het endpoint weer in en gebruik daarna “Opnieuw leveren” in het bezorglogboek voor de gebeurtenissen die nodig zijn.",
             "lastSuccess": "Laatste succes",
             "lastFailure": "Laatste fout",
             "inARow": "({count} achter elkaar)",
@@ -1389,7 +1389,7 @@
           },
           "edit": {
             "title": "Endpoint bewerken",
-            "enabledHint": "Zolang het is uitgeschakeld, worden nieuwe gebeurtenissen voor dit endpoint niet vastgelegd en wachten nieuwe pogingen.",
+            "enabledHint": "Zolang het is uitgeschakeld, worden nieuwe gebeurtenissen voor dit endpoint niet vastgelegd. Uitschakelen geeft wachtende leveringen op, en weer inschakelen verstuurt ze niet.",
             "updated": "Endpoint bijgewerkt"
           },
           "rotate": {
@@ -1416,7 +1416,7 @@
             "failed": "Mislukt",
             "pending": "In behandeling"
           },
-          "disabled": "Uitgeschakeld: nieuwe pogingen wachten tot het weer is ingeschakeld.",
+          "disabled": "Uitgeschakeld: wachtende leveringen zijn opgegeven. Schakel het weer in om gebeurtenissen opnieuw te leveren.",
           "empty": "Nog geen levering. Gebruik “Testgebeurtenis versturen” op de pagina Webhooks om het endpoint te testen.",
           "event": "Gebeurtenis",
           "response": "Respons",

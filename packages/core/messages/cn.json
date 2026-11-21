@@ -1376,8 +1376,8 @@
             "rotating": "密钥轮换中",
             "editLabel": "编辑 {label}",
             "deleteLabel": "删除 {label}",
-            "disabledNotice": "因连续 {count, plural, other {# 次尝试失败}}已停用。请修复接收端后重新开启：待处理的事件会重新发送。",
-            "disabledNoticeOn": "已于 {date} 因连续 {count, plural, other {# 次尝试失败}}而停用。请修复接收端后重新开启：待处理的事件会重新发送。",
+            "disabledNotice": "因连续 {count, plural, other {# 次尝试失败}}已停用。待处理的投递已放弃。请修复接收端并重新开启，然后在投递日志中对需要的事件使用“重新投递”。",
+            "disabledNoticeOn": "已于 {date} 因连续 {count, plural, other {# 次尝试失败}}而停用。待处理的投递已放弃。请修复接收端并重新开启，然后在投递日志中对需要的事件使用“重新投递”。",
             "lastSuccess": "上次成功",
             "lastFailure": "上次失败",
             "inARow": "（连续 {count} 次）",
@@ -1389,7 +1389,7 @@
           },
           "edit": {
             "title": "编辑端点",
-            "enabledHint": "停用期间，不会为此端点记录新事件，重试也会暂停。",
+            "enabledHint": "停用期间，不会为此端点记录新事件。停用会放弃待处理的投递，重新开启也不会发送它们。",
             "updated": "端点已更新"
           },
           "rotate": {
@@ -1416,7 +1416,7 @@
             "failed": "失败",
             "pending": "待处理"
           },
-          "disabled": "已停用：重试会等到重新开启后再进行。",
+          "disabled": "已停用：待处理的投递已放弃。重新开启后即可重新投递事件。",
           "empty": "还没有投递。可在 Webhook 页面使用“发送测试事件”测试此端点。",
           "event": "事件",
           "response": "响应",

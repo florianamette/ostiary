@@ -125,6 +125,16 @@ describe("webhook delivery", () => {
     expect((await delivery(done)).status).toBe("succeeded");
   });
 
+  it("does not send given-up deliveries once the endpoint is turned back on", async () => {
+    const id = await pending();
+    await testDb.update(schema.webhookEndpoint).set({ enabled: false });
+    await outbox.failPendingDeliveries("wh_1");
+    await testDb.update(schema.webhookEndpoint).set({ enabled: true });
+    answers.push(200);
+    expect(await outbox.processDueDeliveries({ purge: false })).toMatchObject({ attempted: 0 });
+    expect(await delivery(id)).toMatchObject({ status: "failed", attempts: 0, responseExcerpt: "Not sent: the endpoint was disabled." });
+  });
+
   it("never sends to a disabled endpoint", async () => {
     await testDb.update(schema.webhookEndpoint).set({ enabled: false });
     const id = await pending();

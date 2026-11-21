@@ -1376,8 +1376,8 @@
             "rotating": "Hemmelighed roteres",
             "editLabel": "Rediger {label}",
             "deleteLabel": "Slet {label}",
-            "disabledNotice": "Deaktiveret efter {count, plural, one {# mislykket forsøg} other {# mislykkede forsøg}} i træk. Ret modtageren, og slå det derefter til igen: Ventende hændelser sendes igen.",
-            "disabledNoticeOn": "Deaktiveret den {date} efter {count, plural, one {# mislykket forsøg} other {# mislykkede forsøg}} i træk. Ret modtageren, og slå det derefter til igen: Ventende hændelser sendes igen.",
+            "disabledNotice": "Deaktiveret efter {count, plural, one {# mislykket forsøg} other {# mislykkede forsøg}} i træk. Ventende leveringer blev opgivet. Ret modtageren, slå det til igen, og brug derefter “Lever igen” i leveringsloggen til de hændelser, du har brug for.",
+            "disabledNoticeOn": "Deaktiveret den {date} efter {count, plural, one {# mislykket forsøg} other {# mislykkede forsøg}} i træk. Ventende leveringer blev opgivet. Ret modtageren, slå det til igen, og brug derefter “Lever igen” i leveringsloggen til de hændelser, du har brug for.",
             "lastSuccess": "Seneste succes",
             "lastFailure": "Seneste fejl",
             "inARow": "({count} i træk)",
@@ -1389,7 +1389,7 @@
           },
           "edit": {
             "title": "Rediger endpoint",
-            "enabledHint": "Mens det er deaktiveret, registreres nye hændelser ikke for dette endpoint, og genforsøg venter.",
+            "enabledHint": "Mens det er deaktiveret, registreres nye hændelser ikke for dette endpoint. Deaktivering opgiver ventende leveringer, og når det slås til igen, sendes de ikke.",
             "updated": "Endpoint opdateret"
           },
           "rotate": {
@@ -1416,7 +1416,7 @@
             "failed": "Mislykkedes",
             "pending": "Venter"
           },
-          "disabled": "Deaktiveret: Genforsøg venter, til det slås til igen.",
+          "disabled": "Deaktiveret: Ventende leveringer blev opgivet. Slå det til igen for at levere hændelser igen.",
           "empty": "Ingen leveringer endnu. Brug “Send testhændelse” på siden Webhooks for at afprøve endpointet.",
           "event": "Hændelse",
           "response": "Svar",

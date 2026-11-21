@@ -1376,8 +1376,8 @@
             "rotating": "Renouvellement du secret en cours",
             "editLabel": "Modifier {label}",
             "deleteLabel": "Supprimer {label}",
-            "disabledNotice": "Désactivé après {count, plural, one {# tentative échouée} other {# tentatives échouées}} de suite. Corrigez le récepteur, puis réactivez-le : les événements en attente seront renvoyés.",
-            "disabledNoticeOn": "Désactivé le {date} après {count, plural, one {# tentative échouée} other {# tentatives échouées}} de suite. Corrigez le récepteur, puis réactivez-le : les événements en attente seront renvoyés.",
+            "disabledNotice": "Désactivé après {count, plural, one {# tentative échouée} other {# tentatives échouées}} de suite. Ses envois en attente ont été abandonnés. Corrigez le récepteur, réactivez-le, puis utilisez « Renvoyer » dans le journal des envois pour les événements dont vous avez besoin.",
+            "disabledNoticeOn": "Désactivé le {date} après {count, plural, one {# tentative échouée} other {# tentatives échouées}} de suite. Ses envois en attente ont été abandonnés. Corrigez le récepteur, réactivez-le, puis utilisez « Renvoyer » dans le journal des envois pour les événements dont vous avez besoin.",
             "lastSuccess": "Dernier succès",
             "lastFailure": "Dernier échec",
             "inARow": "({count} de suite)",
@@ -1389,7 +1389,7 @@
           },
           "edit": {
             "title": "Modifier le point de terminaison",
-            "enabledHint": "Tant qu’il est désactivé, les nouveaux événements ne sont pas enregistrés pour ce point de terminaison et les relances sont suspendues.",
+            "enabledHint": "Tant qu’il est désactivé, les nouveaux événements ne sont pas enregistrés pour ce point de terminaison. Le désactiver abandonne ses envois en attente, et le réactiver ne les envoie pas.",
             "updated": "Point de terminaison mis à jour"
           },
           "rotate": {
@@ -1416,7 +1416,7 @@
             "failed": "Échec",
             "pending": "En attente"
           },
-          "disabled": "Désactivé : les relances attendent sa réactivation.",
+          "disabled": "Désactivé : les envois en attente ont été abandonnés. Réactivez-le pour renvoyer des événements.",
           "empty": "Aucun envoi pour l’instant. Utilisez « Envoyer un événement de test » sur la page Webhooks pour essayer le point de terminaison.",
           "event": "Événement",
           "response": "Réponse",

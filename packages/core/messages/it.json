@@ -1376,8 +1376,8 @@
             "rotating": "Rotazione del secret in corso",
             "editLabel": "Modifica {label}",
             "deleteLabel": "Elimina {label}",
-            "disabledNotice": "Disattivato dopo {count, plural, one {# tentativo non riuscito} other {# tentativi non riusciti}} di fila. Correggi il ricevitore, poi riattivalo: gli eventi in sospeso vengono inviati di nuovo.",
-            "disabledNoticeOn": "Disattivato il {date} dopo {count, plural, one {# tentativo non riuscito} other {# tentativi non riusciti}} di fila. Correggi il ricevitore, poi riattivalo: gli eventi in sospeso vengono inviati di nuovo.",
+            "disabledNotice": "Disattivato dopo {count, plural, one {# tentativo non riuscito} other {# tentativi non riusciti}} di fila. Le consegne in sospeso sono state abbandonate. Correggi il ricevitore, riattivalo, poi usa “Consegna di nuovo” nel registro delle consegne per gli eventi che ti servono.",
+            "disabledNoticeOn": "Disattivato il {date} dopo {count, plural, one {# tentativo non riuscito} other {# tentativi non riusciti}} di fila. Le consegne in sospeso sono state abbandonate. Correggi il ricevitore, riattivalo, poi usa “Consegna di nuovo” nel registro delle consegne per gli eventi che ti servono.",
             "lastSuccess": "Ultimo successo",
             "lastFailure": "Ultimo errore",
             "inARow": "({count} di fila)",
@@ -1389,7 +1389,7 @@
           },
           "edit": {
             "title": "Modifica endpoint",
-            "enabledHint": "Mentre è disattivato, i nuovi eventi non vengono registrati per questo endpoint e i nuovi tentativi restano in attesa.",
+            "enabledHint": "Mentre è disattivato, i nuovi eventi non vengono registrati per questo endpoint. Disattivarlo abbandona le consegne in sospeso, e riattivarlo non le invia.",
             "updated": "Endpoint aggiornato"
           },
           "rotate": {
@@ -1416,7 +1416,7 @@
             "failed": "Non riuscito",
             "pending": "In sospeso"
           },
-          "disabled": "Disattivato: i nuovi tentativi attendono finché non viene riattivato.",
+          "disabled": "Disattivato: le consegne in sospeso sono state abbandonate. Riattivalo per consegnare di nuovo gli eventi.",
           "empty": "Ancora nessuna consegna. Usa “Invia evento di prova” nella pagina Webhook per provare l’endpoint.",
           "event": "Evento",
           "response": "Risposta",
