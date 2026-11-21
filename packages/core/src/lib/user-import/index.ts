@@ -9,7 +9,7 @@ import { planImport, type ImportPlan } from "@ostiary/core/lib/user-import/plan"
 import type { ImportFileError, ImportRowError, ParsedImport } from "@ostiary/core/lib/user-import/types";
 
 /*
- * Bulk user import from the admin console (docs/import-users.md): a dry run (previewImport)
+ * Bulk user import from the admin console (https://www.ostiary.dev/docs/import-users): a dry run (previewImport)
  * shows what would happen, then the import itself (commit.ts) writes the users the dry run
  * planned, checked again against the database at that moment.
  */

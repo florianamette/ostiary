@@ -6,7 +6,7 @@ import { ADMIN_URL } from "../support/env";
 import { expect, test } from "../support/fixtures";
 
 /*
- * Bulk import from an Auth0 export (docs/import-users.md): the dry run, the import, a sign-in
+ * Bulk import from an Auth0 export (https://www.ostiary.dev/docs/import-users): the dry run, the import, a sign-in
  * with the bcrypt hash Auth0 exported, which then becomes a scrypt hash, and an address that
  * already has an account, which is skipped and left alone.
  */

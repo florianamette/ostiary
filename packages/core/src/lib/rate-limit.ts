@@ -107,7 +107,7 @@ let untrustedIpWarned = false;
  *   trusted: a client reaching the app directly could otherwise put any address in
  *   `x-forwarded-for` and get a fresh rate-limit counter on every request. Rate limits then
  *   count every client in one shared bucket per endpoint, and sessions and the audit log
- *   carry no IP, until one of the two is set (docs/security.md, Client IP).
+ *   carry no IP, until one of the two is set (https://www.ostiary.dev/docs/security, Client IP).
  *
  * A header with several addresses is ignored unless TRUSTED_PROXIES says which of them are
  * your proxies.
@@ -121,7 +121,7 @@ export function ipAddressOptions(env: RateLimitEnv): NonNullable<BetterAuthAdvan
             untrustedIpWarned = true;
             console.warn(
                 "[ip] Not on Vercel and neither IP_ADDRESS_HEADERS nor TRUSTED_PROXIES is set: x-forwarded-for is not trusted, " +
-                    "so every client shares one rate-limit counter per endpoint and no IP is recorded. Set one of them (docs/security.md, Client IP).",
+                    "so every client shares one rate-limit counter per endpoint and no IP is recorded. Set one of them (https://www.ostiary.dev/docs/security, Client IP).",
             );
         }
         // No header at all: Better Auth reads none (an empty list is not replaced by its default).
