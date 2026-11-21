@@ -419,6 +419,8 @@ All notable changes are documented here. The format follows
 
 ### Fixed
 
+- `EMAIL_DEDUP` is listed in both apps' `.env.example` (the admin console's user import
+  reads it), and the unused `SENTRY_DSN` and `LOG_REQUESTS` variables are gone (#65).
 - **No more 500s while the database wakes up.** A new database connection that fails for a
   transient reason (serverless Postgres such as Neon starting, a refused or dropped
   connection, a server restarting) is retried up to 3 times within 12 seconds. Only the
