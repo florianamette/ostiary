@@ -75,6 +75,8 @@ function mapApiClientToRow(raw: unknown): OAuthApplicationRow | null {
   const publicClient = o.public === true || tokenEndpointAuthMethod === "none";
   const grantTypes = asStringArray(o.grant_types ?? o.grantTypes);
   const redirectUris = asStringArray(o.redirect_uris ?? o.redirectUris);
+  const enableEndSession = o.enable_end_session === true || o.enableEndSession === true;
+  const postLogoutRedirectUris = asStringArray(o.post_logout_redirect_uris ?? o.postLogoutRedirectUris);
   const logoUri = typeof o.logo_uri === "string" && o.logo_uri ? o.logo_uri : null;
   const issuedAt = o.client_id_issued_at ?? o.clientIdIssuedAt;
   let createdAt: string;
@@ -101,6 +103,8 @@ function mapApiClientToRow(raw: unknown): OAuthApplicationRow | null {
       : normalizeAuthMethod(tokenEndpointAuthMethod),
     grantTypes,
     redirectUris,
+    enableEndSession,
+    postLogoutRedirectUris,
     logoUri,
     createdAt,
     // Dynamic clients carry the marker in their metadata, which Better Auth returns inline.

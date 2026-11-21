@@ -50,6 +50,16 @@ All notable changes are documented here. The format follows
 
 ### Added
 
+- **Sign-out from the app (RP-initiated logout).** **Register application** and **Edit
+  application** have a **Sign-out from the app (RP-initiated logout)** option and optional
+  **Post-logout redirect URIs**: the app may then send the user to the advertised
+  end-session endpoint (`/api/auth/oauth2/end-session`) to end the Ostiary session, and its ID
+  tokens carry `sid`. Before, admin-registered apps could never use it (#63). Ticked by default
+  for apps registered in the console; existing apps, and clients created with the JSON API
+  without `enable_end_session`, keep it off. `POST` and `PATCH /api/admin/oauth-clients` take
+  `enable_end_session` and `post_logout_redirect_uris` (an empty list clears them; URIs without
+  `enable_end_session` are refused). Changes are audited in `oauth_client.update`'s fields. See
+  `docs/connect-an-app.md`.
 - **Health endpoint.** `GET /api/health` on both apps answers 200 `{"status":"ok"}` when the
   database responds within 3 seconds and 503 otherwise, for load balancers and uptime
   monitors. The Docker images' `HEALTHCHECK` uses it (it used `/api/auth/ok` and `/icon`).

@@ -1,6 +1,6 @@
 # Connect an app
 
-Register your app in the admin console and sign users in with any OpenID Connect library. Covers client types, redirect URIs, device sign-in and per-app branding.
+Register your app in the admin console and sign users in with any OpenID Connect library. Covers client types, redirect URIs, device sign-in, sign-out and per-app branding.
 
 Ostiary is a standard OpenID Connect provider. Your app needs three things:
 
@@ -24,6 +24,8 @@ Replace `auth.example.com` with the address of your auth app (`AUTH_APP_URL`). L
    | **Redirect URIs** | Where Ostiary sends users back after sign-in, one per line or comma-separated. See the rules below. |
    | **Icon URL** | Optional. See [Set the app icon](#set-the-app-icon). |
    | **Device sign-in (CLIs, TVs)** | Adds the device code grant. See [Sign in from a CLI or a TV](#sign-in-from-a-cli-or-a-tv-device-flow). |
+   | **Sign-out from the app (RP-initiated logout)** | Ticked by default. Lets the app end the user's Ostiary session when they sign out of it. See [Sign users out](#sign-users-out-rp-initiated-logout). |
+   | **Post-logout redirect URIs (optional)** | Shown while sign-out is ticked. Where Ostiary may send users back after sign-out, one per line or comma-separated. |
    | **Skip consent (trusted client)** | Users never see the consent screen for this app. Use it only for your own first-party apps. |
 
 3. Click **Create application**. Copy the **Client ID** and, for a confidential client, the **Client secret**: it is shown once.
@@ -62,7 +64,7 @@ For a loopback redirect URI, the app may use another port at sign-in than the on
 
 Open **Applications**, then the row's menu (**Actions for** the app):
 
-- **Edit application**: name, redirect URIs, icon, device sign-in and skip consent (name and icon only for a machine-to-machine client). The client type cannot change: register a new app instead.
+- **Edit application**: name, redirect URIs, icon, device sign-in, sign-out and skip consent (name and icon only for a machine-to-machine client). The client type cannot change: register a new app instead.
 - **Rotate secret**: issues a new secret for a confidential client. The previous one stops working immediately.
 - **Delete application**: removes the client. Its tokens and consents may stop working.
 - **Sign-in branding** and **Token claims**: see [Brand the sign-in page per app](#brand-the-sign-in-page-per-app) and [Tokens and claims](tokens-and-claims.md#custom-claims).
@@ -235,6 +237,27 @@ Apps that cannot open a browser use the device authorization grant (RFC 8628). T
    | `expired_token` | The 10 minutes are over: start again. |
 
 A confidential client also sends its secret on both requests. The user always approves on the page, even for apps with **Skip consent**.
+
+## Sign users out (RP-initiated logout)
+
+Signing out of your app only clears your app's own session: the user stays signed in to Ostiary, and the next sign-in goes through without a password. To end the Ostiary session too, the app sends the user to the end-session endpoint (OpenID Connect RP-Initiated Logout 1.0).
+
+1. Tick **Sign-out from the app (RP-initiated logout)** when you register the app, or turn it on in **Edit application**. Apps registered before this option existed have it off.
+2. Add the page to come back to under **Post-logout redirect URIs (optional)**, for example `https://app.example.com/`. Ostiary compares it exactly, like redirect URIs.
+3. When the user signs out, clear your app's session, then redirect the browser to:
+
+   ```text
+   https://auth.example.com/api/auth/oauth2/end-session
+     ?id_token_hint=<the ID token from sign-in>
+     &post_logout_redirect_uri=https://app.example.com/
+     &state=<optional, returned as is>
+   ```
+
+With a valid `id_token_hint` for the session in that browser, Ostiary ends the session at once and redirects to `post_logout_redirect_uri` (with `state` when you sent one). Without a hint, or with a hint for another session, the user confirms on an Ostiary page first. A `post_logout_redirect_uri` that is not registered is ignored: the user sees a signed-out page instead.
+
+Ending the session also revokes the access tokens issued on it, and its refresh tokens unless they were issued for `offline_access`. The ID tokens of an app with sign-out carry the session ID (`sid`).
+
+An app without sign-out gets `401 invalid_client` ("The client is not allowed to initiate logout"). Most libraries read `end_session_endpoint` from the discovery document: Auth.js and Better Auth leave the call to you, openid-client builds the URL with `client.buildEndSessionUrl(config, { id_token_hint, post_logout_redirect_uri })`.
 
 ## Set the app icon
 

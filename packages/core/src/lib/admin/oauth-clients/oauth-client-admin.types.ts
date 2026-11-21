@@ -36,6 +36,13 @@ export type CreateOAuthClientAdminInput = {
   response_types: "code"[];
   type?: OAuthClientApplicationType;
   skip_consent: boolean;
+  /**
+   * RP-initiated logout: the app may call the end-session endpoint, and its ID tokens carry
+   * `sid`. Off unless asked for.
+   */
+  enable_end_session: boolean;
+  /** Where the end-session endpoint may send the user back to; only with `enable_end_session`. */
+  post_logout_redirect_uris?: string[];
   /** The app's icon (https, public host); see `appIconSource`. */
   logo_uri?: string;
   /** Space-separated scopes the client may request. */
@@ -52,6 +59,10 @@ export type UpdateOAuthClientAdminInput = {
   client_name?: string;
   redirect_uris?: string[];
   skip_consent?: boolean;
+  /** Turns RP-initiated logout (the end-session endpoint, `sid` in ID tokens) on or off. */
+  enable_end_session?: boolean;
+  /** Post-logout redirect URIs; an empty list clears them. */
+  post_logout_redirect_uris?: string[];
   /** Adds or removes the device code grant, other grants unchanged. */
   device_code?: boolean;
   /** The app's icon; null clears it (back to the site's icon or a monogram). */

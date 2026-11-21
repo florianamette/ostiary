@@ -205,6 +205,9 @@ export function AdminRegisterOAuthClientDialog({
   const [scopes, setScopes] = React.useState<ReadonlySet<string>>(new Set());
   const [skipConsent, setSkipConsent] = React.useState(false);
   const [deviceCode, setDeviceCode] = React.useState(false);
+  // On for new apps: signing out of the app can then end the Ostiary session too.
+  const [endSession, setEndSession] = React.useState(true);
+  const [postLogoutUrisRaw, setPostLogoutUrisRaw] = React.useState("");
   const [pending, setPending] = React.useState(false);
   const [formError, setFormError] = React.useState<string | null>(null);
   const [issuedClientId, setIssuedClientId] = React.useState("");
@@ -219,6 +222,8 @@ export function AdminRegisterOAuthClientDialog({
     setScopes(new Set());
     setSkipConsent(false);
     setDeviceCode(false);
+    setEndSession(true);
+    setPostLogoutUrisRaw("");
     setFormError(null);
     setIssuedClientId("");
     setIssuedSecret(null);
@@ -253,6 +258,7 @@ export function AdminRegisterOAuthClientDialog({
         setFormError(t("redirectUrisRequired"));
         return;
       }
+      const post_logout_redirect_uris = parseRedirectUris(postLogoutUrisRaw);
       body = {
         ...common,
         redirect_uris,
@@ -266,6 +272,10 @@ export function AdminRegisterOAuthClientDialog({
         response_types: ["code"],
         type: clientKind === "public" ? "native" : "web",
         skip_consent: skipConsent,
+        enable_end_session: endSession,
+        ...(endSession && post_logout_redirect_uris.length
+          ? { post_logout_redirect_uris }
+          : {}),
       };
     }
     setPending(true);
@@ -423,6 +433,31 @@ export function AdminRegisterOAuthClientDialog({
                       })}
                     />
                   </Field>
+                  <Field>
+                    <CheckboxField
+                      id="oauth-reg-end-session"
+                      checked={endSession}
+                      onChange={setEndSession}
+                      label={t("endSessionLabel")}
+                      hint={t("endSessionHint")}
+                    />
+                  </Field>
+                  {endSession ? (
+                    <Field>
+                      <FieldLabel htmlFor="oauth-reg-post-logout">
+                        {t("postLogoutUrisLabel")}
+                      </FieldLabel>
+                      <Textarea
+                        id="oauth-reg-post-logout"
+                        rows={2}
+                        placeholder="https://app.example.com/"
+                        value={postLogoutUrisRaw}
+                        onChange={(e) => setPostLogoutUrisRaw(e.target.value)}
+                        className="font-mono text-sm"
+                      />
+                      <p className="text-muted-foreground text-xs">{t("postLogoutUrisHint")}</p>
+                    </Field>
+                  ) : null}
                   <Field>
                     <CheckboxField
                       id="oauth-reg-skip-consent"

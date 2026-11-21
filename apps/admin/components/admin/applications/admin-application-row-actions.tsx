@@ -43,6 +43,10 @@ export type OAuthApplicationRow = {
     | "private_key_jwt";
   grantTypes: string[];
   redirectUris: string[];
+  /** RP-initiated logout (`enable_end_session`); set for admin-registered rows, which can be edited. */
+  enableEndSession?: boolean;
+  /** Where the end-session endpoint may send the user back to. */
+  postLogoutRedirectUris?: string[];
   /** The registered icon (`logo_uri`), or null when the app uses its site's icon or a monogram. */
   logoUri: string | null;
   createdAt: string;

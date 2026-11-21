@@ -78,6 +78,10 @@ export async function createOAuthClientForAdmin(
         // public through token_endpoint_auth_method "none".
         ...(input.type ? { application_type: input.type === "native" ? "native" : "web" } : {}),
         skip_consent: input.skip_consent,
+        enable_end_session: input.enable_end_session,
+        ...(input.post_logout_redirect_uris?.length
+          ? { post_logout_redirect_uris: input.post_logout_redirect_uris }
+          : {}),
         ...(input.logo_uri ? { logo_uri: input.logo_uri } : {}),
         scope: input.scope,
         ...machineScopes(input.grant_types, input.scope),
@@ -129,16 +133,22 @@ export async function rotateOAuthClientSecretForAdmin(
 
 /**
  * Updates an OAuth client using Better Auth’s server-only admin API. A null `logo_uri` clears
- * the icon: Better Auth only takes strings (it would store ""), so the column is set to null
- * here once Better Auth has accepted the update.
+ * the icon and an empty `post_logout_redirect_uris` clears those URIs: Better Auth only takes a
+ * string and a non-empty list, so the columns are set to null here once Better Auth has
+ * accepted the rest of the update.
  */
 export async function updateOAuthClientForAdmin(
   requestHeaders: Headers,
   clientId: string,
   input: UpdateOAuthClientAdminInput,
 ): Promise<OAuthClientAdminPayload> {
-  const { device_code: deviceCode, logo_uri: logoUri, ...rest } = input;
-  const update = { ...rest, ...(logoUri ? { logo_uri: logoUri } : {}) };
+  const { device_code: deviceCode, logo_uri: logoUri, post_logout_redirect_uris: postLogoutUris, ...rest } = input;
+  const clearPostLogoutUris = postLogoutUris !== undefined && postLogoutUris.length === 0;
+  const update = {
+    ...rest,
+    ...(logoUri ? { logo_uri: logoUri } : {}),
+    ...(postLogoutUris?.length ? { post_logout_redirect_uris: postLogoutUris } : {}),
+  };
   let grantTypes: string[] | undefined;
   if (deviceCode !== undefined) {
     // Better Auth replaces the whole grant list, so start from the stored one.
@@ -165,12 +175,17 @@ export async function updateOAuthClientForAdmin(
   } catch (e) {
     throwFromBetterAuthCall(e);
   }
-  if (logoUri === null) {
+  if (logoUri === null || clearPostLogoutUris) {
     await db
       .update(oauthClient)
-      .set({ icon: null, updatedAt: new Date() })
+      .set({
+        ...(logoUri === null ? { icon: null } : {}),
+        ...(clearPostLogoutUris ? { postLogoutRedirectUris: null } : {}),
+        updatedAt: new Date(),
+      })
       .where(eq(oauthClient.clientId, clientId));
-    delete payload.logo_uri;
+    if (logoUri === null) delete payload.logo_uri;
+    if (clearPostLogoutUris) delete payload.post_logout_redirect_uris;
   }
   return payload;
 }

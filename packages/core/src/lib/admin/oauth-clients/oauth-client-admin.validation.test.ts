@@ -11,6 +11,7 @@ import {
   parseCreateOAuthClientBody,
   parseLogoUri,
   parseUpdateOAuthClientBody,
+  POST_LOGOUT_WITHOUT_END_SESSION_MESSAGE,
   withDeviceCodeGrant,
 } from "@ostiary/core/lib/admin/oauth-clients/oauth-client-admin.validation";
 
@@ -291,6 +292,59 @@ describe("API scopes registered at runtime", () => {
     };
     expect(parseCreateOAuthClientBody(body).ok).toBe(false);
     expect(parseCreateOAuthClientBody(body, ["labs:publish"]).ok).toBe(true);
+  });
+});
+
+describe("enable_end_session (RP-initiated logout)", () => {
+  it("is off when not asked for, as for clients registered before it existed", () => {
+    const r = parseCreateOAuthClientBody({ redirect_uris: ["https://x/cb"] });
+    expect(r.ok && r.value.enable_end_session).toBe(false);
+    expect(r.ok && "post_logout_redirect_uris" in r.value).toBe(false);
+  });
+
+  it("creates a client with sign-out and its post-logout redirect URIs", () => {
+    const r = parseCreateOAuthClientBody({
+      redirect_uris: ["https://x/cb"],
+      enable_end_session: true,
+      post_logout_redirect_uris: [" https://x/ ", "https://x/signed-out"],
+    });
+    expect(r.ok && r.value).toMatchObject({
+      enable_end_session: true,
+      post_logout_redirect_uris: ["https://x/", "https://x/signed-out"],
+    });
+  });
+
+  it("drops an empty post-logout list when creating", () => {
+    const r = parseCreateOAuthClientBody({ redirect_uris: ["https://x/cb"], enable_end_session: true, post_logout_redirect_uris: [] });
+    expect(r.ok && "post_logout_redirect_uris" in r.value).toBe(false);
+  });
+
+  it("refuses post-logout redirect URIs without sign-out", () => {
+    const r = parseCreateOAuthClientBody({ redirect_uris: ["https://x/cb"], post_logout_redirect_uris: ["https://x/"] });
+    expect(r).toEqual({ ok: false, error: `post_logout_redirect_uris: ${POST_LOGOUT_WITHOUT_END_SESSION_MESSAGE}` });
+  });
+
+  it("rejects non-boolean values and empty URIs", () => {
+    expect(parseCreateOAuthClientBody({ redirect_uris: ["https://x/cb"], enable_end_session: "yes" }).ok).toBe(false);
+    expect(parseUpdateOAuthClientBody({ enable_end_session: 1 }).ok).toBe(false);
+    expect(parseUpdateOAuthClientBody({ post_logout_redirect_uris: [" "] }).ok).toBe(false);
+  });
+
+  it("turns it on or off on update, on its own", () => {
+    expect(parseUpdateOAuthClientBody({ enable_end_session: true })).toEqual({ ok: true, value: { enable_end_session: true } });
+    expect(parseUpdateOAuthClientBody({ enable_end_session: false })).toEqual({ ok: true, value: { enable_end_session: false } });
+  });
+
+  it("sets or clears the post-logout redirect URIs on update", () => {
+    expect(parseUpdateOAuthClientBody({ post_logout_redirect_uris: ["https://x/"] })).toEqual({
+      ok: true,
+      value: { post_logout_redirect_uris: ["https://x/"] },
+    });
+    expect(parseUpdateOAuthClientBody({ post_logout_redirect_uris: [] })).toEqual({
+      ok: true,
+      value: { post_logout_redirect_uris: [] },
+    });
+    expect(parseUpdateOAuthClientBody({ enable_end_session: false, post_logout_redirect_uris: ["https://x/"] }).ok).toBe(false);
   });
 });
 
