@@ -8,9 +8,8 @@ All notable changes are documented here. The format follows
 
 ### Upgrading
 
-- Email-change codes and email verification links sent before the upgrade stop working:
-  Better Auth now binds them to the account (and the new address) they were sent for.
-  Users ask for a new one.
+- Email-change codes sent before the upgrade stop working: Better Auth now binds each code to
+  the account and the new address it was sent for. Users ask for a new one.
 
 ### Security
 
