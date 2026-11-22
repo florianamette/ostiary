@@ -6,6 +6,8 @@ All notable changes are documented here. The format follows
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-11-22
+
 ### Upgrading
 
 - Migration `0014` converts every timestamp column to `timestamptz`, reading existing values
@@ -45,14 +47,120 @@ All notable changes are documented here. The format follows
 - drizzle-kit's migration loader (`@esbuild-kit/core-utils`) now runs esbuild 0.25.12 instead of
   0.18.20 (GHSA-67mh-4wv8-2f99, development server only; dev dependency).
 
+- **Dependency upgrades for published advisories.** Next.js 16.2.1 to 16.4.0 (and
+  `eslint-config-next`): fixes the critical remote code execution advisories in image
+  optimization (GHSA-2xp9-vwfh-vxw4), `next/og` (GHSA-vcvr-r3jv-pc5j, used for the
+  Open Graph images) and GHSA-p293-qw3h-jr36, plus the high and moderate middleware/proxy
+  bypass, cache poisoning, SSRF and denial of service advisories; it also brings PostCSS
+  8.5.23. sharp 0.34.5 to 0.35.5 (libvips, libheif and librsvg advisories). next-intl
+  4.8.3 to 4.14.9 (open redirect GHSA-8f24-v5vv-gm5j, prototype pollution
+  GHSA-4c35-wcg5-mm9h). Resend 6.9.4 to 6.32.1, which drops `svix` and its vulnerable
+  `uuid`. Development only: Vitest 4.1.11 and tsx 4.23.15. No code or configuration change.
+  The new `eslint-config-next` warns about `window.location` navigations to internal pages
+  (warnings only; those full reloads are intended).
+- **Open redirect after sign-in.** `callbackURL` values such as `/\evil.com` or `/<tab>/evil.com`
+  passed the "starts with `/`, not `//`" check, then URL parsing turned them into another
+  host: a signed-in visit to `/login` (proxy) and the passkey, two-factor and sign-in code
+  paths (client) followed them. One shared check (`packages/core/src/lib/safe-redirect.ts`)
+  now refuses backslashes, control characters and surrounding whitespace, resolves the value
+  and requires this app's origin or a trusted app's (http/https, no credentials). Also used
+  for the app context's resume path.
+- **The auth server recovers from a database outage at startup.** Better Auth initialises
+  once (the OAuth provider plugin queries the database then) and kept the failed attempt, so
+  a database unreachable when the server started meant a 500 on every request until a
+  restart. Both apps now rebuild the instance on a later request (at most every 5 seconds)
+  and log the failure instead of an unhandled rejection.
+- **Client IP off Vercel.** Without `IP_ADDRESS_HEADERS` or `TRUSTED_PROXIES`, a
+  single-address `x-forwarded-for` was trusted everywhere, so a client reaching the app
+  directly could pick a new IP per request (fresh rate-limit counters, made-up IPs in the
+  audit log). It is now trusted by default on Vercel only (`VERCEL=1`). **Upgrading off
+  Vercel: set `IP_ADDRESS_HEADERS` or `TRUSTED_PROXIES`** (README, Client IP); without them
+  every client shares one rate-limit counter per endpoint, no IP is recorded, and the apps
+  log a warning at startup.
+- **Stricter Content Security Policy.** Pages of both apps get a per-request nonce from the
+  proxy, with `'strict-dynamic'`: no `'unsafe-inline'` or `'unsafe-eval'` for scripts in
+  production (`'unsafe-eval'` stays in `next dev` only), plus `object-src 'none'`. Google One
+  Tap's sources stay limited to the sign-in and sign-up pages, the captcha's are added as
+  before. Every page is now rendered per request (a nonce needs it). API routes and static
+  files keep a fixed policy without inline scripts. The `X-Powered-By` header is gone.
+- **Invitation emails.** The inviter's and the organization's names are chosen by users;
+  they are now cleaned before going into the subject and body: no line breaks, control,
+  invisible or bidirectional characters, link-like text broken up (`evil[.]example`), at most
+  60 characters, and the organization name quoted. The footnote says the names come from the
+  inviter.
+- README: what `COOKIE_DOMAIN` implies (the session cookie reaches every subdomain) and how to
+  choose the domain; `.env.example` warns too.
+- **OAuth client management is for platform admins only.** Better Auth's client endpoints
+  (`/oauth2/create-client`, `/oauth2/update-client`, `/oauth2/client/rotate-secret`,
+  `/oauth2/delete-client`) are closed over HTTP, and `clientPrivileges` refuses every client
+  action (create, read, list, update, rotate, delete) to anyone but a platform admin, also
+  for server-side calls. Ordinary users can still register through Dynamic Client
+  Registration when it is turned on, with its own limits. The admin console deletes and
+  rotates secrets through new routes (`DELETE /api/admin/oauth-clients/<id>`,
+  `POST /api/admin/oauth-clients/<id>/rotate-secret`) after its admin check.
+- **Admin-registered is an explicit mark (fails closed).** A new
+  `oauth_client.admin_registered` column, set by the admin console after it creates a
+  client; any client without it is treated as self-registered (consent screen warning, no
+  device sign-in, no skipped consent, limited scopes). **Migration
+  `0013_oauth_client_admin_registered`** marks existing clients that are not dynamic or
+  metadata-document clients and were made by an admin (logged `oauth_client.create` in the
+  audit log, owned by a current admin, or without owner); clients ordinary users created
+  through Better Auth's endpoints stay self-registered and now show on the Applications page
+  with the other self-registered clients, where they can be disabled or deleted.
+- **Console-registered clients belong to the platform, not to the admin who created them.**
+  They are owned through Better Auth's `clientReference` (`ostiary:platform`, which every
+  admin maps to, and nobody else): any admin can edit, rotate or delete them, and an admin
+  who loses the role no longer can. The migration moves existing ones (owner cleared).
+- **Self-registered clients stay within the self-registration policy.** Updates may not add
+  scopes outside the allowed list, grants other than authorization code and refresh token,
+  client credentials scopes or skipped consent, whoever makes them.
+- **Device sign-in refused to self-registered clients however they authenticate.** The
+  check now covers every client named by the request (`client_id`, HTTP Basic, client
+  assertion) and runs again when a device code is exchanged.
+- **API scopes are bound to their API.** A token for an API that is not restricted could
+  carry another API's scopes (`resource=B&scope=apiA:write`). Such scopes are now dropped
+  (or the request refused with `invalid_scope`); scopes no API declares, such as
+  `OAUTH_API_SCOPES`, are still issued. Restricted APIs are unchanged.
+- **The jwt plugin's session JWT is off.** `GET /api/auth/token` is closed and
+  `/get-session` no longer sends `set-auth-jwt`: nothing used them, and the session JWT was
+  signed with the access tokens' key. `/jwks`, ID tokens and JWT access tokens are unchanged.
+
+- **Accounts, sessions and SSO hardening** (security review of 2026-10-09).
+  - `ADMIN_EMAILS` grants the admin role only once the address is verified: a password sign-up
+    becomes admin when its verification link (or a sign-in code) is used, a social sign-up only
+    when the provider reports the address as verified, and SSO or SCIM never. **Operators:** the
+    first sign-up still ends up admin, after opening the verification email.
+  - The two-factor step now applies to social sign-ins (including Google One Tap and ID token
+    sign-in), SSO (OIDC and SAML) and the sign-in that follows an email verification link, not
+    only passwords and sign-in codes, so `REQUIRE_ADMIN_2FA` holds whatever the sign-in method.
+    A pending app authorization continues after the code.
+  - Implicit account linking (a provider's verified email matching an existing account) is
+    refused for accounts with two-factor authentication and for platform admins; they connect
+    providers from the account page. **Behavior change** for those accounts: "Continue with
+    <provider>" shows "isn't connected yet" until they connect it.
+  - Banning an account and resetting its password revoke its OAuth access and refresh tokens
+    (audited as `oauth_token.revoke_all`), as SCIM deactivation already did.
+  - SSO domains must be one plain hostname, checked with one parser on registration (OIDC and
+    SAML) and on edits in the console; a provider whose stored domain is anything else is refused
+    at sign-in (edit it and verify it again). The plugin's provider management endpoints
+    (`/sso/providers`, `/sso/get-provider`, `/sso/update-provider`, `/sso/delete-provider`,
+    `/sso/request-domain-verification`, `/sso/verify-domain`) and the unused shared
+    `/sso/callback` are closed: the admin console manages providers.
+  - The Public organization's members, invitations, teams and roles are no longer readable or
+    changeable by its members (every account); platform admins keep access.
+  - Platform roles are limited to `admin` and `user` (`set-role` and `create-user` refuse others,
+    such as `"user, admin"`).
+  - An impersonating admin can no longer add a passkey to the account or connect a provider.
+  - Turnstile and reCAPTCHA tokens are only accepted when solved on the auth app's host.
+  - Stored provider secrets require the full 16-byte GCM tag; Amazon Cognito's `email_verified`
+    is read strictly (the string `"false"` no longer counts as verified).
+
 ### Documentation
 
 - The guides live on [ostiary.dev/docs](https://www.ostiary.dev/docs) only: the `docs/` folder
   is gone, and the README, `.env.example` files and code comments link to the site.
-- The README is an overview again (776 → 189 lines): the guides moved to `docs/` (connect an app,
-  social sign-in, enterprise SSO, SCIM, webhooks, MCP and agents, API keys, your data,
-  configuration, security, testing). Both `.env.example` files say where each value comes from;
-  the admin one was ignored by git and is now in the repository.
+- The README is an overview again (776 → 189 lines). Both `.env.example` files say where each
+  value comes from; the admin one was ignored by git and is now in the repository.
 
 ### Added
 
@@ -544,116 +652,6 @@ All notable changes are documented here. The format follows
 - Admin console: the redirect URI hint now says that confidential (web) clients need
   HTTPS everywhere, localhost included, and only public clients may use http on
   localhost.
-
-### Security
-
-- **Dependency upgrades for published advisories.** Next.js 16.2.1 to 16.4.0 (and
-  `eslint-config-next`): fixes the critical remote code execution advisories in image
-  optimization (GHSA-2xp9-vwfh-vxw4), `next/og` (GHSA-vcvr-r3jv-pc5j, used for the
-  Open Graph images) and GHSA-p293-qw3h-jr36, plus the high and moderate middleware/proxy
-  bypass, cache poisoning, SSRF and denial of service advisories; it also brings PostCSS
-  8.5.23. sharp 0.34.5 to 0.35.5 (libvips, libheif and librsvg advisories). next-intl
-  4.8.3 to 4.14.9 (open redirect GHSA-8f24-v5vv-gm5j, prototype pollution
-  GHSA-4c35-wcg5-mm9h). Resend 6.9.4 to 6.32.1, which drops `svix` and its vulnerable
-  `uuid`. Development only: Vitest 4.1.11 and tsx 4.23.15. No code or configuration change.
-  The new `eslint-config-next` warns about `window.location` navigations to internal pages
-  (warnings only; those full reloads are intended).
-- **Open redirect after sign-in.** `callbackURL` values such as `/\evil.com` or `/<tab>/evil.com`
-  passed the "starts with `/`, not `//`" check, then URL parsing turned them into another
-  host: a signed-in visit to `/login` (proxy) and the passkey, two-factor and sign-in code
-  paths (client) followed them. One shared check (`packages/core/src/lib/safe-redirect.ts`)
-  now refuses backslashes, control characters and surrounding whitespace, resolves the value
-  and requires this app's origin or a trusted app's (http/https, no credentials). Also used
-  for the app context's resume path.
-- **The auth server recovers from a database outage at startup.** Better Auth initialises
-  once (the OAuth provider plugin queries the database then) and kept the failed attempt, so
-  a database unreachable when the server started meant a 500 on every request until a
-  restart. Both apps now rebuild the instance on a later request (at most every 5 seconds)
-  and log the failure instead of an unhandled rejection.
-- **Client IP off Vercel.** Without `IP_ADDRESS_HEADERS` or `TRUSTED_PROXIES`, a
-  single-address `x-forwarded-for` was trusted everywhere, so a client reaching the app
-  directly could pick a new IP per request (fresh rate-limit counters, made-up IPs in the
-  audit log). It is now trusted by default on Vercel only (`VERCEL=1`). **Upgrading off
-  Vercel: set `IP_ADDRESS_HEADERS` or `TRUSTED_PROXIES`** (README, Client IP); without them
-  every client shares one rate-limit counter per endpoint, no IP is recorded, and the apps
-  log a warning at startup.
-- **Stricter Content Security Policy.** Pages of both apps get a per-request nonce from the
-  proxy, with `'strict-dynamic'`: no `'unsafe-inline'` or `'unsafe-eval'` for scripts in
-  production (`'unsafe-eval'` stays in `next dev` only), plus `object-src 'none'`. Google One
-  Tap's sources stay limited to the sign-in and sign-up pages, the captcha's are added as
-  before. Every page is now rendered per request (a nonce needs it). API routes and static
-  files keep a fixed policy without inline scripts. The `X-Powered-By` header is gone.
-- **Invitation emails.** The inviter's and the organization's names are chosen by users;
-  they are now cleaned before going into the subject and body: no line breaks, control,
-  invisible or bidirectional characters, link-like text broken up (`evil[.]example`), at most
-  60 characters, and the organization name quoted. The footnote says the names come from the
-  inviter.
-- README: what `COOKIE_DOMAIN` implies (the session cookie reaches every subdomain) and how to
-  choose the domain; `.env.example` warns too.
-- **OAuth client management is for platform admins only.** Better Auth's client endpoints
-  (`/oauth2/create-client`, `/oauth2/update-client`, `/oauth2/client/rotate-secret`,
-  `/oauth2/delete-client`) are closed over HTTP, and `clientPrivileges` refuses every client
-  action (create, read, list, update, rotate, delete) to anyone but a platform admin, also
-  for server-side calls. Ordinary users can still register through Dynamic Client
-  Registration when it is turned on, with its own limits. The admin console deletes and
-  rotates secrets through new routes (`DELETE /api/admin/oauth-clients/<id>`,
-  `POST /api/admin/oauth-clients/<id>/rotate-secret`) after its admin check.
-- **Admin-registered is an explicit mark (fails closed).** A new
-  `oauth_client.admin_registered` column, set by the admin console after it creates a
-  client; any client without it is treated as self-registered (consent screen warning, no
-  device sign-in, no skipped consent, limited scopes). **Migration
-  `0013_oauth_client_admin_registered`** marks existing clients that are not dynamic or
-  metadata-document clients and were made by an admin (logged `oauth_client.create` in the
-  audit log, owned by a current admin, or without owner); clients ordinary users created
-  through Better Auth's endpoints stay self-registered and now show on the Applications page
-  with the other self-registered clients, where they can be disabled or deleted.
-- **Console-registered clients belong to the platform, not to the admin who created them.**
-  They are owned through Better Auth's `clientReference` (`ostiary:platform`, which every
-  admin maps to, and nobody else): any admin can edit, rotate or delete them, and an admin
-  who loses the role no longer can. The migration moves existing ones (owner cleared).
-- **Self-registered clients stay within the self-registration policy.** Updates may not add
-  scopes outside the allowed list, grants other than authorization code and refresh token,
-  client credentials scopes or skipped consent, whoever makes them.
-- **Device sign-in refused to self-registered clients however they authenticate.** The
-  check now covers every client named by the request (`client_id`, HTTP Basic, client
-  assertion) and runs again when a device code is exchanged.
-- **API scopes are bound to their API.** A token for an API that is not restricted could
-  carry another API's scopes (`resource=B&scope=apiA:write`). Such scopes are now dropped
-  (or the request refused with `invalid_scope`); scopes no API declares, such as
-  `OAUTH_API_SCOPES`, are still issued. Restricted APIs are unchanged.
-- **The jwt plugin's session JWT is off.** `GET /api/auth/token` is closed and
-  `/get-session` no longer sends `set-auth-jwt`: nothing used them, and the session JWT was
-  signed with the access tokens' key. `/jwks`, ID tokens and JWT access tokens are unchanged.
-
-- **Accounts, sessions and SSO hardening** (security review of 2026-10-09).
-  - `ADMIN_EMAILS` grants the admin role only once the address is verified: a password sign-up
-    becomes admin when its verification link (or a sign-in code) is used, a social sign-up only
-    when the provider reports the address as verified, and SSO or SCIM never. **Operators:** the
-    first sign-up still ends up admin, after opening the verification email.
-  - The two-factor step now applies to social sign-ins (including Google One Tap and ID token
-    sign-in), SSO (OIDC and SAML) and the sign-in that follows an email verification link, not
-    only passwords and sign-in codes, so `REQUIRE_ADMIN_2FA` holds whatever the sign-in method.
-    A pending app authorization continues after the code.
-  - Implicit account linking (a provider's verified email matching an existing account) is
-    refused for accounts with two-factor authentication and for platform admins; they connect
-    providers from the account page. **Behavior change** for those accounts: "Continue with
-    <provider>" shows "isn't connected yet" until they connect it.
-  - Banning an account and resetting its password revoke its OAuth access and refresh tokens
-    (audited as `oauth_token.revoke_all`), as SCIM deactivation already did.
-  - SSO domains must be one plain hostname, checked with one parser on registration (OIDC and
-    SAML) and on edits in the console; a provider whose stored domain is anything else is refused
-    at sign-in (edit it and verify it again). The plugin's provider management endpoints
-    (`/sso/providers`, `/sso/get-provider`, `/sso/update-provider`, `/sso/delete-provider`,
-    `/sso/request-domain-verification`, `/sso/verify-domain`) and the unused shared
-    `/sso/callback` are closed: the admin console manages providers.
-  - The Public organization's members, invitations, teams and roles are no longer readable or
-    changeable by its members (every account); platform admins keep access.
-  - Platform roles are limited to `admin` and `user` (`set-role` and `create-user` refuse others,
-    such as `"user, admin"`).
-  - An impersonating admin can no longer add a passkey to the account or connect a provider.
-  - Turnstile and reCAPTCHA tokens are only accepted when solved on the auth app's host.
-  - Stored provider secrets require the full 16-byte GCM tag; Amazon Cognito's `email_verified`
-    is read strictly (the string `"false"` no longer counts as verified).
 
 ## [0.1.1] - 2026-10-07
 
