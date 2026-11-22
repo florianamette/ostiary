@@ -1952,7 +1952,7 @@
           "dialogTitle": "Rotazione automatica",
           "dialogDescription": "Quando la chiave attuale raggiunge l’intervallo viene creata una nuova chiave. Le app che mettono in cache il JWKS lo scaricano di nuovo quando vedono il nuovo ID chiave.",
           "intervalHint": "Il nuovo intervallo vale anche per la chiave attuale: viene ritirata quando raggiunge la nuova età, o al prossimo token se è già più vecchia.",
-          "graceHint": "Per quanto tempo una chiave ritirata resta pubblicata. Impostalo più a lungo della durata massima dei tuoi token (access token: 1 ora, ID token: 10 ore).",
+          "graceHint": "Per quanto tempo una chiave ritirata resta pubblicata. Impostalo più a lungo della durata massima dei tuoi token (access token: 1 ora, ID token: 1 ora).",
           "save": "Salva",
           "cancel": "Annulla",
           "saved": "Impostazioni salvate. Il server di autenticazione le applica entro un minuto."

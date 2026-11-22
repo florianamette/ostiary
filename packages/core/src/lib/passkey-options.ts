@@ -1,4 +1,7 @@
-const RP_NAME = "OAuth Provider";
+import { brand } from "@ostiary/core/lib/brand";
+
+/** Shown by password managers and the OS next to the saved passkey. */
+const RP_NAME = brand.name;
 
 /**
  * WebAuthn options derived from the same base URL as Better Auth (`BETTER_AUTH_URL`, etc.).

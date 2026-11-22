@@ -55,7 +55,11 @@ import { oauthResourceIdentifiers } from "@ostiary/core/lib/oauth-resources";
 import { withApiScopeBinding, withOpenApiLinks } from "@ostiary/core/lib/oauth-resource-access";
 import { CLIENT_MANAGEMENT_HTTP_PATHS, oauthClientGuard } from "@ostiary/core/lib/oauth-client-guard";
 import { withWebhookEvents } from "@ostiary/core/lib/webhooks/adapter";
-import { ACCESS_TOKEN_EXPIRES_IN, REFRESH_TOKEN_EXPIRES_IN } from "@ostiary/core/lib/oauth-resource-policy";
+import {
+    ACCESS_TOKEN_EXPIRES_IN,
+    ID_TOKEN_EXPIRES_IN,
+    REFRESH_TOKEN_EXPIRES_IN,
+} from "@ostiary/core/lib/oauth-resource-policy";
 import { clientClaimsExtension } from "@ostiary/core/lib/client-claims/extension";
 import { SAML_CLOCK_SKEW_MS, samlResponseRejection } from "@ostiary/core/lib/saml";
 import {
@@ -194,6 +198,17 @@ const DELETE_USER_LINK_PATH = "/delete-user/callback";
 
 /** Prefix of new API keys. */
 const API_KEY_PREFIX = env.API_KEY_PREFIX ?? "ost_";
+
+/**
+ * Prefixes of OAuth client secrets, refresh tokens and opaque access tokens. Fixed (unlike
+ * API_KEY_PREFIX): apps hold secrets and refresh tokens with the prefix, and Better Auth only
+ * strips the current one, so changing it would break every secret and refresh token issued.
+ */
+const OAUTH_TOKEN_PREFIXES = {
+    clientSecret: "ost_cs_",
+    refreshToken: "ost_rt_",
+    opaqueAccessToken: "ost_at_",
+} as const;
 
 /**
  * Client ID Metadata Documents (the client_id is an HTTPS URL to the client's JSON metadata,
@@ -366,6 +381,11 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
         accessTokenExpiresIn: ACCESS_TOKEN_EXPIRES_IN,
         // Better Auth's default, explicit because per-API lifetimes can only be shorter.
         refreshTokenExpiresIn: REFRESH_TOKEN_EXPIRES_IN,
+        idTokenExpiresIn: ID_TOKEN_EXPIRES_IN,
+        // Lets secret scanners (GitHub, GitGuardian, TruffleHog) recognise a leaked secret or
+        // token. Not stored: Better Auth adds the prefix when it hands one out and strips it
+        // when one comes back, so values issued before (without it) keep working.
+        prefix: OAUTH_TOKEN_PREFIXES,
         // Resource servers authorize on the admin plugin's role (e.g. "admin" or "admin,user").
         customAccessTokenClaims: ({ user }) =>
             typeof user?.role === "string" ? { role: user.role } : {},

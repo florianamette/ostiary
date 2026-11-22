@@ -1952,7 +1952,7 @@
           "dialogTitle": "Otomatik döndürme",
           "dialogDescription": "Geçerli anahtar aralığa ulaştığında yeni bir anahtar oluşturulur. JWKS’i önbelleğe alan uygulamalar, yeni anahtar kimliğini gördüklerinde onu yeniden alır.",
           "intervalHint": "Yeni aralık geçerli anahtara da uygulanır: yeni yaşa ulaştığında ya da zaten daha eskiyse bir sonraki token’da kullanımdan kalkar.",
-          "graceHint": "Kullanımdan kalkan anahtarın ne kadar süre yayımda kalacağı. En uzun token ömründen daha uzun tutun (erişim token’ları: 1 saat, ID token’lar: 10 saat).",
+          "graceHint": "Kullanımdan kalkan anahtarın ne kadar süre yayımda kalacağı. En uzun token ömründen daha uzun tutun (erişim token’ları: 1 saat, ID token’lar: 1 saat).",
           "save": "Kaydet",
           "cancel": "İptal",
           "saved": "Ayarlar kaydedildi. Kimlik doğrulama sunucusu bunları bir dakika içinde uygular."

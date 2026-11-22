@@ -21,7 +21,7 @@ const DAY_SECONDS = 24 * 60 * 60;
 /** Choices offered in the admin console. 0 = no automatic rotation (Better Auth's default). */
 export const ROTATION_INTERVAL_DAYS = [0, 30, 90, 180, 365] as const;
 /**
- * Longer than any token Ostiary signs (access tokens 1 hour, ID tokens 10 hours, the jwt
+ * Longer than any token Ostiary signs (access tokens 1 hour, ID tokens 1 hour, the jwt
  * plugin's /token 15 minutes), so a token never outlives the key that verifies it.
  */
 export const GRACE_PERIOD_DAYS = [1, 7, 30, 90] as const;

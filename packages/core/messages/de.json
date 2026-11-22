@@ -1952,7 +1952,7 @@
           "dialogTitle": "Automatische Rotation",
           "dialogDescription": "Sobald der aktuelle Schlüssel das Intervall erreicht, wird ein neuer erstellt. Apps, die das JWKS zwischenspeichern, laden es neu, wenn sie die neue Schlüssel-ID sehen.",
           "intervalHint": "Das Intervall gilt auch für den aktuellen Schlüssel: Er wird ausgemustert, sobald er das neue Alter erreicht, oder beim nächsten Token, falls er schon älter ist.",
-          "graceHint": "Wie lange ein ausgemusterter Schlüssel veröffentlicht bleibt. Wähle mehr als die längste Token-Lebensdauer (Access-Tokens: 1 Stunde, ID-Tokens: 10 Stunden).",
+          "graceHint": "Wie lange ein ausgemusterter Schlüssel veröffentlicht bleibt. Wähle mehr als die längste Token-Lebensdauer (Access-Tokens: 1 Stunde, ID-Tokens: 1 Stunde).",
           "save": "Speichern",
           "cancel": "Abbrechen",
           "saved": "Einstellungen gespeichert. Der Auth-Server übernimmt sie innerhalb einer Minute."

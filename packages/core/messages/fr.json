@@ -1952,7 +1952,7 @@
           "dialogTitle": "Rotation automatique",
           "dialogDescription": "Une nouvelle clé est créée quand la clé actuelle atteint l’intervalle. Les applications qui mettent le JWKS en cache le récupèrent à nouveau quand elles voient le nouvel ID de clé.",
           "intervalHint": "Le nouvel intervalle s’applique aussi à la clé actuelle : elle est retirée quand elle atteint le nouvel âge, ou au prochain jeton si elle est déjà plus ancienne.",
-          "graceHint": "Durée pendant laquelle une clé retirée reste publiée. Prévoyez plus que la durée de vie de jeton la plus longue (jetons d’accès : 1 heure, jetons d’ID : 10 heures).",
+          "graceHint": "Durée pendant laquelle une clé retirée reste publiée. Prévoyez plus que la durée de vie de jeton la plus longue (jetons d’accès : 1 heure, jetons d’ID : 1 heure).",
           "save": "Enregistrer",
           "cancel": "Annuler",
           "saved": "Paramètres enregistrés. Le serveur d’authentification les applique en moins d’une minute."
