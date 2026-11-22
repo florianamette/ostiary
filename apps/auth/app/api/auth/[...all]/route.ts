@@ -1,5 +1,6 @@
 import { auth } from "@/lib/auth";
 import { withRateLimitHeaders } from "@ostiary/core/lib/rate-limit";
+import { withTokenPrefixFallback } from "@ostiary/core/lib/oauth-token-prefixes";
 import { toNextJsHandler } from "better-auth/next-js";
 
 const handlers = withRateLimitHeaders(toNextJsHandler(auth));
@@ -23,7 +24,8 @@ function corsify(handler: (request: Request) => Promise<Response>) {
 }
 
 export const GET = corsify(handlers.GET);
-export const POST = corsify(handlers.POST);
+// Client secrets and refresh tokens issued before the prefixes get theirs added (oauth-token-prefixes.ts).
+export const POST = corsify(withTokenPrefixFallback(handlers.POST));
 export const { PUT, PATCH, DELETE } = handlers;
 
 // Preflight for the cross-origin OAuth2 requests; other paths get a bare 204.

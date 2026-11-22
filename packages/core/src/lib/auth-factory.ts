@@ -45,6 +45,7 @@ import { MAX_DEVICE_SESSIONS } from "@ostiary/core/lib/device-accounts";
 import { isPlatformAdmin } from "@ostiary/core/lib/admin/user-has-admin-role";
 import { implicitLinkRefusal } from "@ostiary/core/lib/security/account-linking-policy";
 import { isStrictSsoDomain, SSO_DOMAIN_TOKEN_PREFIX } from "@ostiary/core/lib/security/sso-domain";
+import { OAUTH_TOKEN_PREFIXES } from "@ostiary/core/lib/oauth-token-prefixes";
 import { brand } from "@ostiary/core/lib/brand";
 import { getPasskeyWebAuthnOptions } from "@ostiary/core/lib/passkey-options";
 import { env } from "@ostiary/core/lib/env";
@@ -375,8 +376,9 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
         // refusal that revokes its tokens. The value @better-auth/mcp uses.
         refreshTokenReuseInterval: 30,
         idTokenExpiresIn: ID_TOKEN_EXPIRES_IN,
-        // No `prefix`: Better Auth refuses a client secret, refresh token or opaque access token
-        // without the configured prefix, so adding one would break every value issued before.
+        // Better Auth refuses a value without its prefix: the auth app's route handler adds it to
+        // values issued before (withTokenPrefixFallback).
+        prefix: OAUTH_TOKEN_PREFIXES,
         // Resource servers authorize on the admin plugin's role (e.g. "admin" or "admin,user").
         customAccessTokenClaims: ({ user }) =>
             typeof user?.role === "string" ? { role: user.role } : {},
