@@ -1,6 +1,6 @@
 "use client";
 
-import { usePathname } from "next/navigation";
+import { usePathname } from "@ostiary/core/i18n/navigation";
 
 import {
   SidebarGroup,
@@ -13,18 +13,20 @@ import type { NavMainItem } from "./types";
 
 export type { NavMainItem } from "./types";
 
+/** One group of sidebar links. Without `groupLabel`, the group has no heading. */
 export function NavMain({
   items,
-  groupLabel = "Platform",
+  groupLabel,
 }: {
   groupLabel?: string;
   items: NavMainItem[];
 }) {
+  // Without the locale prefix ("/users", not "/en/users"), like the items' urls.
   const pathname = usePathname();
 
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>{groupLabel}</SidebarGroupLabel>
+      {groupLabel ? <SidebarGroupLabel>{groupLabel}</SidebarGroupLabel> : null}
       <SidebarMenu>
         {items.map((item) => {
           const active = item.exact

@@ -228,8 +228,10 @@
       "label": "Teema"
     },
     "nav": {
-      "groupAdmin": "Ylläpito",
-      "groupOAuth": "OAuth",
+      "groupDirectory": "Hakemisto",
+      "groupSignIn": "Kirjautuminen",
+      "groupDevelopers": "Kehittäjät",
+      "groupMonitoring": "Valvonta",
       "overview": "Yleiskatsaus",
       "users": "Käyttäjät",
       "applications": "Sovellukset",

@@ -228,8 +228,10 @@
       "label": "المظهر"
     },
     "nav": {
-      "groupAdmin": "الإدارة",
-      "groupOAuth": "OAuth",
+      "groupDirectory": "الدليل",
+      "groupSignIn": "تسجيل الدخول",
+      "groupDevelopers": "المطورون",
+      "groupMonitoring": "المراقبة",
       "overview": "نظرة عامة",
       "users": "المستخدمون",
       "applications": "التطبيقات",

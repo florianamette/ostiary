@@ -228,8 +228,10 @@
       "label": "Тема"
     },
     "nav": {
-      "groupAdmin": "Администрирование",
-      "groupOAuth": "OAuth",
+      "groupDirectory": "Каталог",
+      "groupSignIn": "Вход",
+      "groupDevelopers": "Разработчикам",
+      "groupMonitoring": "Мониторинг",
       "overview": "Обзор",
       "users": "Пользователи",
       "applications": "Приложения",

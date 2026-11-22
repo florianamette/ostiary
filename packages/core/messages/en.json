@@ -228,8 +228,10 @@
       "label": "Theme"
     },
     "nav": {
-      "groupAdmin": "Admin",
-      "groupOAuth": "OAuth",
+      "groupDirectory": "Directory",
+      "groupSignIn": "Sign-in",
+      "groupDevelopers": "Developers",
+      "groupMonitoring": "Monitoring",
       "overview": "Overview",
       "users": "Users",
       "applications": "Applications",

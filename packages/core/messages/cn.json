@@ -228,8 +228,10 @@
       "label": "主题"
     },
     "nav": {
-      "groupAdmin": "管理",
-      "groupOAuth": "OAuth",
+      "groupDirectory": "目录",
+      "groupSignIn": "登录",
+      "groupDevelopers": "开发者",
+      "groupMonitoring": "监控",
       "overview": "概览",
       "users": "用户",
       "applications": "应用",

@@ -228,8 +228,10 @@
       "label": "테마"
     },
     "nav": {
-      "groupAdmin": "관리",
-      "groupOAuth": "OAuth",
+      "groupDirectory": "디렉터리",
+      "groupSignIn": "로그인",
+      "groupDevelopers": "개발자",
+      "groupMonitoring": "모니터링",
       "overview": "개요",
       "users": "사용자",
       "applications": "애플리케이션",

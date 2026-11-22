@@ -228,8 +228,10 @@
       "label": "テーマ"
     },
     "nav": {
-      "groupAdmin": "管理",
-      "groupOAuth": "OAuth",
+      "groupDirectory": "ディレクトリ",
+      "groupSignIn": "サインイン",
+      "groupDevelopers": "開発者",
+      "groupMonitoring": "モニタリング",
       "overview": "概要",
       "users": "ユーザー",
       "applications": "アプリケーション",

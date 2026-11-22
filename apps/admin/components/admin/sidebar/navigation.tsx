@@ -1,17 +1,17 @@
 "use client";
 
 import {
+  Activity,
   Boxes,
   Building2,
   FileKey,
   History,
-  KeyRound,
+  IdCard,
   KeySquare,
-  Network,
   LayoutDashboard,
   LogIn,
+  Network,
   ScrollText,
-  Activity,
   ShieldAlert,
   Users,
   Webhook,
@@ -20,85 +20,51 @@ import { useTranslations } from "next-intl";
 
 import type { NavMainItem } from "@ostiary/core/components/sidebar/nav-main";
 
-export function useAdminSectionNavItems(): NavMainItem[] {
-  const t = useTranslations("admin.nav");
-  return [
-    {
-      title: t("overview"),
-      url: "/",
-      icon: <LayoutDashboard />,
-      exact: true,
-    },
-    {
-      title: t("users"),
-      url: "/users",
-      icon: <Users />,
-    },
-    {
-      title: t("organizations"),
-      url: "/organizations",
-      icon: <Building2 />,
-    },
-    {
-      title: t("sso"),
-      url: "/sso",
-      icon: <KeyRound />,
-    },
-    {
-      title: t("signInProviders"),
-      url: "/sign-in-providers",
-      icon: <LogIn />,
-    },
-    {
-      title: t("webhooks"),
-      url: "/webhooks",
-      icon: <Webhook />,
-    },
-    {
-      title: t("security"),
-      url: "/security",
-      icon: <ShieldAlert />,
-    },
-    {
-      title: t("usage"),
-      url: "/usage",
-      icon: <Activity />,
-    },
-    {
-      title: t("audit"),
-      url: "/audit",
-      icon: <History />,
-    },
-  ];
-}
+export type AdminNavSection = {
+  /** Heading of the group; none for the first one (Overview). */
+  label?: string;
+  items: NavMainItem[];
+};
 
-export function useOauthSectionNavItems(): NavMainItem[] {
+/** The console's pages, grouped by what an admin is trying to do. */
+export function useAdminNavSections(): AdminNavSection[] {
   const t = useTranslations("admin.nav");
   return [
     {
-      title: t("applications"),
-      url: "/applications",
-      icon: <Boxes />,
+      items: [{ title: t("overview"), url: "/", icon: <LayoutDashboard />, exact: true }],
     },
     {
-      title: t("apis"),
-      url: "/apis",
-      icon: <Network />,
+      label: t("groupDirectory"),
+      items: [
+        { title: t("users"), url: "/users", icon: <Users /> },
+        { title: t("organizations"), url: "/organizations", icon: <Building2 /> },
+      ],
     },
     {
-      title: t("apiKeys"),
-      url: "/api-keys",
-      icon: <KeySquare />,
+      label: t("groupSignIn"),
+      items: [
+        { title: t("signInProviders"), url: "/sign-in-providers", icon: <LogIn /> },
+        { title: t("sso"), url: "/sso", icon: <IdCard /> },
+        { title: t("security"), url: "/security", icon: <ShieldAlert /> },
+      ],
     },
     {
-      title: t("consent"),
-      url: "/consent",
-      icon: <ScrollText />,
+      label: t("groupDevelopers"),
+      items: [
+        { title: t("applications"), url: "/applications", icon: <Boxes /> },
+        { title: t("apis"), url: "/apis", icon: <Network /> },
+        { title: t("apiKeys"), url: "/api-keys", icon: <KeySquare /> },
+        { title: t("consent"), url: "/consent", icon: <ScrollText /> },
+        { title: t("signingKeys"), url: "/signing-keys", icon: <FileKey /> },
+        { title: t("webhooks"), url: "/webhooks", icon: <Webhook /> },
+      ],
     },
     {
-      title: t("signingKeys"),
-      url: "/signing-keys",
-      icon: <FileKey />,
+      label: t("groupMonitoring"),
+      items: [
+        { title: t("usage"), url: "/usage", icon: <Activity /> },
+        { title: t("audit"), url: "/audit", icon: <History /> },
+      ],
     },
   ];
 }
