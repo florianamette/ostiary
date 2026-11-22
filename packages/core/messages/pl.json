@@ -1954,7 +1954,7 @@
           "dialogTitle": "Automatyczna rotacja",
           "dialogDescription": "Nowy klucz powstaje, gdy bieżący osiągnie ustalony odstęp. Aplikacje buforujące JWKS pobierają go ponownie, gdy zobaczą nowy identyfikator klucza.",
           "intervalHint": "Nowy odstęp dotyczy też bieżącego klucza: zostanie wycofany po osiągnięciu nowego wieku albo przy następnym tokenie, jeśli jest już starszy.",
-          "graceHint": "Jak długo wycofany klucz pozostaje opublikowany. Ustaw dłużej niż najdłuższy czas życia tokenów (tokeny dostępu: 1 godzina, tokeny ID: 10 godzin).",
+          "graceHint": "Jak długo wycofany klucz pozostaje opublikowany. Ustaw dłużej niż najdłuższy czas życia tokenów (tokeny dostępu: 1 godzina, tokeny ID: 1 godzina).",
           "save": "Zapisz",
           "cancel": "Anuluj",
           "saved": "Ustawienia zapisane. Serwer uwierzytelniania zastosuje je w ciągu minuty."

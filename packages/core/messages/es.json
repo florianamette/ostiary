@@ -1954,7 +1954,7 @@
           "dialogTitle": "Rotación automática",
           "dialogDescription": "Se crea una clave nueva cuando la actual alcanza el intervalo. Las aplicaciones que guardan el JWKS en caché lo vuelven a descargar al ver el nuevo ID de clave.",
           "intervalHint": "El nuevo intervalo también se aplica a la clave actual: se retira al alcanzar la nueva antigüedad, o en el siguiente token si ya es más antigua.",
-          "graceHint": "Cuánto tiempo sigue publicada una clave retirada. Debe ser mayor que la vida útil más larga de tus tokens (tokens de acceso: 1 hora, tokens de ID: 10 horas).",
+          "graceHint": "Cuánto tiempo sigue publicada una clave retirada. Debe ser mayor que la vida útil más larga de tus tokens (tokens de acceso: 1 hora, tokens de ID: 1 hora).",
           "save": "Guardar",
           "cancel": "Cancelar",
           "saved": "Ajustes guardados. El servidor de autenticación los aplica en menos de un minuto."

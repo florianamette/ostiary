@@ -1954,7 +1954,7 @@
           "dialogTitle": "Automaattinen kierrätys",
           "dialogDescription": "Uusi avain luodaan, kun nykyinen saavuttaa aikavälin. JWKS:ää välimuistissa pitävät sovellukset hakevat sen uudelleen, kun ne näkevät uuden avaintunnuksen.",
           "intervalHint": "Uusi aikaväli koskee myös nykyistä avainta: se poistetaan, kun se saavuttaa uuden iän, tai seuraavan tokenin kohdalla, jos se on jo vanhempi.",
-          "graceHint": "Kuinka kauan poistettu avain pysyy julkaistuna. Valitse pidempi kuin pisin tokenin elinaika (käyttötokenit: 1 tunti, ID-tokenit: 10 tuntia).",
+          "graceHint": "Kuinka kauan poistettu avain pysyy julkaistuna. Valitse pidempi kuin pisin tokenin elinaika (käyttötokenit: 1 tunti, ID-tokenit: 1 tunti).",
           "save": "Tallenna",
           "cancel": "Peruuta",
           "saved": "Asetukset tallennettu. Todennuspalvelin ottaa ne käyttöön minuutissa."

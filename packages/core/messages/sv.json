@@ -1954,7 +1954,7 @@
           "dialogTitle": "Automatisk rotation",
           "dialogDescription": "En ny nyckel skapas när den nuvarande når intervallet. Appar som cachar JWKS hämtar den igen när de ser det nya nyckel-id:t.",
           "intervalHint": "Ett nytt intervall gäller även den nuvarande nyckeln: den dras tillbaka när den når den nya åldern, eller vid nästa token om den redan är äldre.",
-          "graceHint": "Hur länge en tillbakadragen nyckel förblir publicerad. Välj längre än din längsta token-livslängd (åtkomsttoken: 1 timme, ID-token: 10 timmar).",
+          "graceHint": "Hur länge en tillbakadragen nyckel förblir publicerad. Välj längre än din längsta token-livslängd (åtkomsttoken: 1 timme, ID-token: 1 timme).",
           "save": "Spara",
           "cancel": "Avbryt",
           "saved": "Inställningarna sparades. Autentiseringsservern tillämpar dem inom en minut."

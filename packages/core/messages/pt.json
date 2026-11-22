@@ -1954,7 +1954,7 @@
           "dialogTitle": "Rotação automática",
           "dialogDescription": "Uma nova chave é criada quando a atual atinge o intervalo. As aplicações que guardam o JWKS em cache voltam a obtê-lo quando veem o novo ID de chave.",
           "intervalHint": "O novo intervalo também se aplica à chave atual: ela é retirada ao atingir a nova idade, ou no próximo token se já for mais antiga.",
-          "graceHint": "Quanto tempo uma chave retirada continua publicada. Mantenha-o acima da duração máxima dos seus tokens (tokens de acesso: 1 hora, tokens de ID: 10 horas).",
+          "graceHint": "Quanto tempo uma chave retirada continua publicada. Mantenha-o acima da duração máxima dos seus tokens (tokens de acesso: 1 hora, tokens de ID: 1 hora).",
           "save": "Guardar",
           "cancel": "Cancelar",
           "saved": "Definições guardadas. O servidor de autenticação aplica-as em menos de um minuto."

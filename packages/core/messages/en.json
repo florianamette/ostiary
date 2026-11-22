@@ -1954,7 +1954,7 @@
           "dialogTitle": "Automatic rotation",
           "dialogDescription": "A new key is created when the current one reaches the interval. Apps that cache the JWKS fetch it again when they see the new key id.",
           "intervalHint": "Changing the interval also applies to the current key: it retires when it reaches the new age, or at the next token if it is already older.",
-          "graceHint": "How long a retired key stays published. Keep it longer than your longest token lifetime (access tokens: 1 hour, ID tokens: 10 hours).",
+          "graceHint": "How long a retired key stays published. Keep it longer than your longest token lifetime (access tokens: 1 hour, ID tokens: 1 hour).",
           "save": "Save",
           "cancel": "Cancel",
           "saved": "Settings saved. The auth server applies them within a minute."

@@ -1954,7 +1954,7 @@
           "dialogTitle": "Automatisk rotation",
           "dialogDescription": "Der oprettes en ny nøgle, når den nuværende når intervallet. Apps, der cacher JWKS’et, henter det igen, når de ser det nye nøgle-id.",
           "intervalHint": "Et nyt interval gælder også for den nuværende nøgle: Den udgår, når den når den nye alder, eller ved næste token, hvis den allerede er ældre.",
-          "graceHint": "Hvor længe en udgået nøgle forbliver publiceret. Vælg længere end din længste token-levetid (adgangstokens: 1 time, ID-tokens: 10 timer).",
+          "graceHint": "Hvor længe en udgået nøgle forbliver publiceret. Vælg længere end din længste token-levetid (adgangstokens: 1 time, ID-tokens: 1 time).",
           "save": "Gem",
           "cancel": "Annuller",
           "saved": "Indstillinger gemt. Godkendelsesserveren anvender dem inden for et minut."

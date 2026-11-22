@@ -1954,7 +1954,7 @@
           "dialogTitle": "Automatická rotace",
           "dialogDescription": "Nový klíč se vytvoří, když ten současný dosáhne intervalu. Aplikace, které JWKS ukládají do mezipaměti, ho načtou znovu, jakmile uvidí nové ID klíče.",
           "intervalHint": "Nový interval platí i pro současný klíč: bude vyřazen, až dosáhne nového stáří, nebo u dalšího tokenu, pokud je už starší.",
-          "graceHint": "Jak dlouho zůstane vyřazený klíč zveřejněný. Nastavte víc, než je nejdelší životnost tokenů (přístupové tokeny: 1 hodina, tokeny ID: 10 hodin).",
+          "graceHint": "Jak dlouho zůstane vyřazený klíč zveřejněný. Nastavte víc, než je nejdelší životnost tokenů (přístupové tokeny: 1 hodina, tokeny ID: 1 hodina).",
           "save": "Uložit",
           "cancel": "Zrušit",
           "saved": "Nastavení uloženo. Autentizační server ho použije do minuty."

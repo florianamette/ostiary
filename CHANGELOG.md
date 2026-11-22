@@ -20,6 +20,9 @@ All notable changes are documented here. The format follows
 
 ### Security
 
+- New client secrets, refresh tokens and opaque access tokens start with `ost_cs_`, `ost_rt_`
+  and `ost_at_`, so secret scanners (GitHub, GitGuardian, TruffleHog) can recognise a leaked one.
+  Values issued before keep working.
 - `pnpm audit` is clean: shadcn CLI 4.23.0 (from 4.1.0) drops the vulnerable zod 3, undici,
   hono, body-parser and other packages it pulled in, and minimatch is pinned to 11.0.1+ under
   eslint-plugin-import. All of them were development dependencies.
@@ -422,6 +425,8 @@ All notable changes are documented here. The format follows
 - Admin console sidebar: the product's mark and name at the top (just the mark when
   collapsed), and the pages in four labelled groups (Directory, Sign-in, Developers,
   Monitoring) instead of "Admin" and "OAuth". SSO has its own icon instead of a third key.
+- ID tokens are valid 1 hour (from 10 hours), like access tokens. Apps keep their own
+  session after reading one, so this only shortens how long a copied ID token is accepted.
 - Database: new indexes for the queries the console, account export, erasure, rate caps and
   retention purges run; `sso_provider.organization_id` is a foreign key (`ON DELETE SET
   NULL`); a webhook event is queued at most once per endpoint (migration
@@ -449,6 +454,8 @@ All notable changes are documented here. The format follows
 
 - The admin sidebar highlights the current page: it compared paths that still had the
   locale prefix (`/en/users`), so no item was ever marked active.
+- Passkeys are saved under the product name (`brand.name`) in password managers, instead
+  of "OAuth Provider".
 - `EMAIL_DEDUP` is listed in both apps' `.env.example` (the admin console's user import
   reads it), and the unused `SENTRY_DSN` and `LOG_REQUESTS` variables are gone (#65).
 - The **Deploy with Vercel** button asks for `CRON_SECRET`. Without it the daily cron
