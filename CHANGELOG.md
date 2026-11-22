@@ -6,6 +6,30 @@ All notable changes are documented here. The format follows
 
 ## [Unreleased]
 
+### Upgrading
+
+- Email-change codes sent before the upgrade stop working: Better Auth now binds each code to
+  the account and the new address it was sent for. Users ask for a new one.
+
+### Security
+
+- Better Auth 1.7.27 (from 1.7.7), with all its packages. The fixes that apply to Ostiary:
+  a token request with a wrong PKCE verifier or redirect URI no longer uses up the
+  authorization code or device code; the `refresh_token` grant no longer issues tokens for an
+  expired or deleted session, and refresh tokens without `offline_access` stop working when
+  their session ends; revoking another app's already revoked refresh token no longer deletes
+  the caller's own tokens; two uses of one refresh token at the same moment no longer give a
+  500; denying consent only redirects to an app that is still enabled; a failed password
+  reset no longer uses up the link or code; email verification and change-email links only
+  work for the account they were sent to.
+
+### Changed
+
+- An app that sends the same refresh token again within 30 seconds gets the same tokens back.
+  Before, the retry counted as a stolen-token replay and revoked the app's tokens, which broke
+  MCP clients that retry after a dropped connection (`refreshTokenReuseInterval`, as in
+  `@better-auth/mcp`).
+
 ## [0.2.0] - 2026-11-22
 
 ### Upgrading
