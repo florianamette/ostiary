@@ -10,6 +10,13 @@
  */
 export const ACCESS_TOKEN_EXPIRES_IN = 60 * 60;
 
+/**
+ * ID token lifetime (`oauthProvider({ idTokenExpiresIn })`), in seconds: one hour, like access
+ * tokens, instead of Better Auth's 10 hours. An ID token proves a sign-in to the app that asked;
+ * the app keeps its own session after reading it.
+ */
+export const ID_TOKEN_EXPIRES_IN = 60 * 60;
+
 /** Refresh token lifetime: Better Auth's default `refreshTokenExpiresIn`, in seconds (30 days). */
 export const REFRESH_TOKEN_EXPIRES_IN = 30 * 24 * 60 * 60;
 

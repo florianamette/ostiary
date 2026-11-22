@@ -1952,7 +1952,7 @@
           "dialogTitle": "Automatische rotatie",
           "dialogDescription": "Er wordt een nieuwe sleutel aangemaakt zodra de huidige het interval bereikt. Apps die de JWKS cachen, halen hem opnieuw op wanneer ze de nieuwe sleutel-ID zien.",
           "intervalHint": "Een nieuw interval geldt ook voor de huidige sleutel: die wordt ingetrokken zodra hij de nieuwe leeftijd bereikt, of bij het volgende token als hij al ouder is.",
-          "graceHint": "Hoe lang een ingetrokken sleutel gepubliceerd blijft. Kies een periode die langer is dan je langste tokengeldigheid (toegangstokens: 1 uur, ID-tokens: 10 uur).",
+          "graceHint": "Hoe lang een ingetrokken sleutel gepubliceerd blijft. Kies een periode die langer is dan je langste tokengeldigheid (toegangstokens: 1 uur, ID-tokens: 1 uur).",
           "save": "Opslaan",
           "cancel": "Annuleren",
           "saved": "Instellingen opgeslagen. De authenticatieserver past ze binnen een minuut toe."
