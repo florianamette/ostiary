@@ -53,6 +53,32 @@ export function parseLogoUri(raw: unknown): BodyParseResult<string | null> {
   return { ok: true, value: parsed.data || null };
 }
 
+export const INVALID_LINK_URI_MESSAGE = "Policy and terms links must be https URLs.";
+
+/** `policy_uri` and `tos_uri`: an https URL, or empty or null for none. */
+const linkUriSchema = z
+  .string()
+  .trim()
+  .max(2048)
+  .nullable()
+  .optional()
+  .refine((v) => !v || (/^https:\/\/\S+$/i.test(v) && URL.canParse(v)), { message: INVALID_LINK_URI_MESSAGE });
+
+/**
+ * A space-separated scope list made only of `allScopes`, normalized to single spaces and
+ * without repeats.
+ */
+const scopeListSchema = (allScopes: readonly string[]) =>
+  z
+    .string()
+    .trim()
+    .min(1)
+    .refine(
+      (s) => s.split(/\s+/).every((sc) => allScopes.includes(sc)),
+      { message: `scope must only contain: ${allScopes.join(", ")}` },
+    )
+    .transform((s) => [...new Set(s.split(/\s+/))].join(" "));
+
 export const POST_LOGOUT_WITHOUT_END_SESSION_MESSAGE =
   "post-logout redirect URIs need enable_end_session (RP-initiated logout)";
 
@@ -94,15 +120,9 @@ export const createOAuthClientBodySchema = (apiScopes: readonly string[] = ENV_A
       enable_end_session: z.boolean().optional().default(false),
       post_logout_redirect_uris: postLogoutRedirectUrisSchema,
       logo_uri: logoUriSchema,
-      scope: z
-        .string()
-        .trim()
-        .min(1)
-        .refine(
-          (s) => s.split(/\s+/).every((sc) => allScopes.includes(sc)),
-          { message: `scope must only contain: ${allScopes.join(", ")}` },
-        )
-        .optional(),
+      policy_uri: linkUriSchema,
+      tos_uri: linkUriSchema,
+      scope: scopeListSchema(allScopes).optional(),
       // APIs to link the client to (Better Auth's oauth_client_resource), by identifier.
       resources: z.array(z.string().trim().url()).max(100).optional().default([]),
     })
@@ -148,7 +168,10 @@ export type CreateOAuthClientBodyInput = z.input<
   ReturnType<typeof createOAuthClientBodySchema>
 >;
 
-const updateOAuthClientBodyTransformSchema = z
+/**
+ * Body schema for updating a client. `apiScopes` as for `createOAuthClientBodySchema`.
+ */
+const updateOAuthClientBodySchema = (apiScopes: readonly string[] = ENV_API_SCOPES) => z
   .object({
     client_name: z.string().optional(),
     redirect_uris: z.array(z.string().min(1)).min(1).optional(),
@@ -158,17 +181,16 @@ const updateOAuthClientBodyTransformSchema = z
     device_code: z.boolean().optional(),
     // Empty or null clears it.
     logo_uri: logoUriSchema,
+    // Null lifts the limit.
+    scope: scopeListSchema([...OIDC_SCOPES, ...apiScopes]).nullable().optional(),
+    resources: z.array(z.string().trim().url()).max(100).optional(),
+    // Empty or null clears them.
+    policy_uri: linkUriSchema,
+    tos_uri: linkUriSchema,
   })
   .strict()
   .refine(
-    (data) =>
-      data.client_name !== undefined ||
-      data.redirect_uris !== undefined ||
-      data.skip_consent !== undefined ||
-      data.enable_end_session !== undefined ||
-      data.post_logout_redirect_uris !== undefined ||
-      data.device_code !== undefined ||
-      data.logo_uri !== undefined,
+    (data) => Object.entries(data).some(([key, value]) => key !== "resources" && value !== undefined),
     { message: "No updatable fields provided" },
   )
   .refine(
@@ -197,6 +219,18 @@ const updateOAuthClientBodyTransformSchema = z
     }
     if (data.logo_uri !== undefined) {
       out.logo_uri = data.logo_uri || null;
+    }
+    if (data.scope !== undefined) {
+      out.scope = data.scope;
+    }
+    if (data.resources?.length) {
+      out.resources = [...new Set(data.resources)];
+    }
+    if (data.policy_uri !== undefined) {
+      out.policy_uri = data.policy_uri || null;
+    }
+    if (data.tos_uri !== undefined) {
+      out.tos_uri = data.tos_uri || null;
     }
     return out;
   });
@@ -258,8 +292,10 @@ export function parseCreateOAuthClientBody(
         ? { post_logout_redirect_uris: v.post_logout_redirect_uris }
         : {}),
       logo_uri: v.logo_uri || undefined,
-      scope: v.scope?.split(/\s+/).join(" "),
+      scope: v.scope,
       resources: [...new Set(v.resources)],
+      ...(v.policy_uri ? { policy_uri: v.policy_uri } : {}),
+      ...(v.tos_uri ? { tos_uri: v.tos_uri } : {}),
     },
   };
 }
@@ -269,8 +305,9 @@ export function parseCreateOAuthClientBody(
  */
 export function parseUpdateOAuthClientBody(
   raw: unknown,
+  apiScopes?: readonly string[],
 ): BodyParseResult<UpdateOAuthClientAdminInput> {
-  const parsed = updateOAuthClientBodyTransformSchema.safeParse(raw);
+  const parsed = updateOAuthClientBodySchema(apiScopes).safeParse(raw);
   if (!parsed.success) {
     const first = parsed.error.issues[0];
     const msg = first

@@ -21,13 +21,20 @@ import {
   isMachineClient,
 } from "@ostiary/core/lib/admin/oauth-clients/oauth-client-admin.types";
 import type { OAuthApplicationRow } from "@/components/admin/applications/admin-application-row-actions";
+import {
+  ScopeOptionsContext,
+  ScopePickerField,
+  scopeRequest,
+  toggleScope,
+} from "@/components/admin/applications/scope-picker";
 import { CheckboxField } from "@/components/admin/common/choice-field";
 import { ExternalLink } from "@/components/admin/common/external-link";
 import { parseRedirectUris, routeError } from "@/lib/oauth-client-payload";
 
 /**
- * Edits an admin-registered client's name, redirect URIs, icon, device grant, sign-out and consent.
- * A machine-to-machine client signs no user in: only its name and icon are offered. The fields
+ * Edits an admin-registered client's name, redirect URIs, icon, scopes, device grant, sign-out,
+ * consent and policy links. A machine-to-machine client signs no user in: only its name, icon
+ * and API scopes are offered. The fields
  * start from `row` when the dialog mounts: give it a new `key` each time it opens.
  */
 export function ApplicationEditDialog({
@@ -59,8 +66,26 @@ export function ApplicationEditDialog({
   const [postLogoutUrisRaw, setPostLogoutUrisRaw] = React.useState(
     (row.postLogoutRedirectUris ?? []).join("\n"),
   );
+  const scopeOptions = React.useContext(ScopeOptionsContext);
+  const storedScopes = row.scopes ?? [];
+  const [scopes, setScopes] = React.useState<ReadonlySet<string>>(new Set(storedScopes));
+  const [limitScopes, setLimitScopes] = React.useState(storedScopes.length > 0);
+  const [policyUri, setPolicyUri] = React.useState(row.policyUri ?? "");
+  const [tosUri, setTosUri] = React.useState(row.tosUri ?? "");
   const [error, setError] = React.useState<string | null>(null);
 
+  /** The scope change to send: a scope string, null (no limit), or undefined (unchanged). */
+  function scopeChange(): { scope?: string | null; resources?: string[]; error?: string } {
+    if (!machine && !limitScopes) return storedScopes.length ? { scope: null } : {};
+    const { scope, resources } = scopeRequest(
+      machine ? { ...scopeOptions, oidcScopes: [] } : scopeOptions,
+      scopes,
+    );
+    if (!scope) return { error: machine ? t("editDialog.machineScopesRequired") : t("editDialog.limitScopesRequired") };
+    if (scope === storedScopes.join(" ")) return {};
+    // A machine-to-machine client is linked to the APIs of its scopes, as when it was created.
+    return machine ? { scope, resources } : { scope };
+  }
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -69,6 +94,11 @@ export function ApplicationEditDialog({
     const redirect_uris = parseRedirectUris(redirectsRaw);
     if (!machine && redirect_uris.length === 0) {
       setError(t("editDialog.redirectUrisRequired"));
+      return;
+    }
+    const { error: scopeError, ...scopeUpdate } = scopeChange();
+    if (scopeError) {
+      setError(scopeError);
       return;
     }
     onPendingChange(true);
@@ -98,6 +128,14 @@ export function ApplicationEditDialog({
               : {}),
             ...(!machine && deviceCode !== hasDeviceCode
               ? { device_code: deviceCode }
+              : {}),
+            ...scopeUpdate,
+            // Empty clears them.
+            ...(!machine && policyUri.trim() !== (row.policyUri ?? "")
+              ? { policy_uri: policyUri.trim() || null }
+              : {}),
+            ...(!machine && tosUri.trim() !== (row.tosUri ?? "")
+              ? { tos_uri: tosUri.trim() || null }
               : {}),
           }),
         },
@@ -189,6 +227,40 @@ export function ApplicationEditDialog({
                 {t("editDialog.iconUrlHint")}
               </p>
             </Field>
+            {machine ? (
+              <ScopePickerField
+                idPrefix={`oauth-edit-scope-${row.clientId}`}
+                options={scopeOptions}
+                apiOnly
+                selected={scopes}
+                onToggle={(scope, checked) => setScopes((current) => toggleScope(current, scope, checked))}
+                label={t("editDialog.scopesLabel")}
+                hint={t("editDialog.machineScopesHint")}
+              />
+            ) : (
+              <>
+                <Field>
+                  <CheckboxField
+                    id={`oauth-edit-limit-scopes-${row.clientId}`}
+                    checked={limitScopes}
+                    onChange={setLimitScopes}
+                    label={t("editDialog.limitScopesLabel")}
+                    hint={t("editDialog.limitScopesHint")}
+                  />
+                </Field>
+                {limitScopes ? (
+                  <ScopePickerField
+                    idPrefix={`oauth-edit-limit-scope-${row.clientId}`}
+                    options={scopeOptions}
+                    apiOnly={false}
+                    selected={scopes}
+                    onToggle={(scope, checked) => setScopes((current) => toggleScope(current, scope, checked))}
+                    label={t("editDialog.allowedScopesLabel")}
+                    hint={t("editDialog.allowedScopesHint")}
+                  />
+                ) : null}
+              </>
+            )}
             {machine ? null : (
               <>
                 <Field>
@@ -235,6 +307,33 @@ export function ApplicationEditDialog({
                     label={t("editDialog.skipConsentLabel")}
                     hint={t("editDialog.skipConsentHint")}
                   />
+                </Field>
+                <Field>
+                  <FieldLabel htmlFor={`oauth-edit-policy-${row.clientId}`}>
+                    {t("editDialog.policyUriLabel")}
+                  </FieldLabel>
+                  <Input
+                    id={`oauth-edit-policy-${row.clientId}`}
+                    type="url"
+                    value={policyUri}
+                    onChange={(e) => setPolicyUri(e.target.value)}
+                    placeholder="https://example.com/privacy"
+                  />
+                </Field>
+                <Field>
+                  <FieldLabel htmlFor={`oauth-edit-tos-${row.clientId}`}>
+                    {t("editDialog.tosUriLabel")}
+                  </FieldLabel>
+                  <Input
+                    id={`oauth-edit-tos-${row.clientId}`}
+                    type="url"
+                    value={tosUri}
+                    onChange={(e) => setTosUri(e.target.value)}
+                    placeholder="https://example.com/terms"
+                  />
+                  <p className="text-muted-foreground text-xs">
+                    {t("editDialog.policyLinksHint")}
+                  </p>
                 </Field>
               </>
             )}

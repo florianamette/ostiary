@@ -1,6 +1,7 @@
 import { parseUpdateOAuthClientBody } from "@ostiary/core/lib/admin/oauth-clients/oauth-client-admin.validation";
 import { clientRegistrationSource } from "@ostiary/core/lib/client-registration";
 import { ValidationError } from "@ostiary/core/lib/errors";
+import { currentApiScopes } from "@ostiary/core/lib/oauth-scopes";
 import { adminJsonRoute, requiredParam } from "@/lib/admin-json-route";
 import { deleteOAuthClientForAdmin, updateOAuthClientForAdmin } from "@/lib/oauth-client-admin.service";
 
@@ -8,7 +9,7 @@ type Params = { clientId: string };
 
 export const PATCH = adminJsonRoute<Params>({ body: true }, async ({ params, body, requestHeaders, audit }) => {
   const clientId = requiredParam(params.clientId, "client id");
-  const parsed = parseUpdateOAuthClientBody(body);
+  const parsed = parseUpdateOAuthClientBody(body, await currentApiScopes());
   if (!parsed.ok) throw new ValidationError(parsed.error);
 
   // Self-registered clients are unreviewed: they always show the consent screen.

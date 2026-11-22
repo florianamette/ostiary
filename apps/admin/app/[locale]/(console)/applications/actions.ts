@@ -32,7 +32,8 @@ import type { ActionResult } from "@/lib/action-result";
 /*
  * Self-registration settings and the clients registered that way. Those clients have no
  * owner, so Better Auth's client endpoints (scoped to the signed-in user) cannot change
- * them: these actions write the rows directly, and only ever self-registered ones.
+ * them: these actions write the rows directly, and only ever self-registered ones (except
+ * `setClientDisabled`, for every client).
  */
 
 type ClientRegistrationInput = {
@@ -123,23 +124,30 @@ async function selfRegisteredClient(clientId: string) {
 
 const disabledInput = z.tuple([input.id, z.boolean()]);
 
-export async function setSelfRegisteredClientDisabled(clientId: string, disabled: boolean): Promise<ActionResult> {
-  return adminAction(disabledInput, [clientId, disabled], ([clientId, disabled], actor) => setSelfRegisteredClientDisabledRun(clientId, disabled, actor));
+/**
+ * Disables or enables any client, admin-registered or self-registered. Better Auth refuses a
+ * disabled client at authorization, token, refresh and introspection; JWT access tokens it was
+ * issued stay valid until they expire (an hour at most).
+ */
+export async function setClientDisabled(clientId: string, disabled: boolean): Promise<ActionResult> {
+  return adminAction(disabledInput, [clientId, disabled], ([clientId, disabled], actor) => setClientDisabledRun(clientId, disabled, actor));
 }
 
-async function setSelfRegisteredClientDisabledRun(clientId: string, disabled: boolean, actor: AdminActor): Promise<ActionResult> {
+async function setClientDisabledRun(clientId: string, disabled: boolean, actor: AdminActor): Promise<ActionResult> {
   const { audit } = actor;
-  const client = await selfRegisteredClient(clientId);
-  if (!client.ok) return client;
-  // Better Auth refuses disabled clients at authorization, token and introspection.
-  await db
+  const t = await getTranslations("admin.pages.applications.actions.registration");
+  const source = await clientRegistrationSource(clientId);
+  if (source === null) return { ok: false, error: t("clientGone") };
+  const [row] = await db
     .update(oauthClient)
     .set({ disabled, updatedAt: new Date() })
-    .where(eq(oauthClient.clientId, clientId));
+    .where(eq(oauthClient.clientId, clientId))
+    .returning({ name: oauthClient.name });
+  if (!row) return { ok: false, error: t("clientGone") };
   await audit({
     action: disabled ? "oauth_client.disable" : "oauth_client.enable",
-    target: { type: "oauth_client", id: clientId, label: client.name },
-    metadata: { source: client.source },
+    target: { type: "oauth_client", id: clientId, label: row.name },
+    metadata: { source },
   });
   return { ok: true };
 }

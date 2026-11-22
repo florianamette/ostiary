@@ -23,7 +23,7 @@ import { Field, FieldGroup, FieldLabel } from "@ostiary/core/components/ui/field
 import { Input } from "@ostiary/core/components/ui/input";
 import {
   deleteSelfRegisteredClient,
-  setSelfRegisteredClientDisabled,
+  setClientDisabled,
   setSelfRegisteredClientIcon,
 } from "@/app/[locale]/(console)/applications/actions";
 import type { OAuthApplicationRow } from "@/components/admin/applications/admin-application-row-actions";
@@ -63,7 +63,7 @@ export function SelfRegisteredRowActions({ row }: { row: OAuthApplicationRow }) 
           {row.disabled ? (
             <DropdownMenuItem
               disabled={busy}
-              onSelect={() => void run(() => setSelfRegisteredClientDisabled(row.clientId, false), t("enabled"))}
+              onSelect={() => void run(() => setClientDisabled(row.clientId, false), t("enabled"))}
             >
               <CheckCircle2Icon />
               {tc("enable")}
@@ -127,7 +127,7 @@ export function SelfRegisteredRowActions({ row }: { row: OAuthApplicationRow }) 
               <DialogActions
                 busy={busy}
                 onCancel={() => setConfirm(null)}
-                onConfirm={() => void run(() => setSelfRegisteredClientDisabled(row.clientId, true), t("disabled"))}
+                onConfirm={() => void run(() => setClientDisabled(row.clientId, true), t("disabled"))}
                 confirmLabel={tc("disable")}
                 destructive
               />

@@ -197,3 +197,48 @@ test("an admin sets and clears an app's icon URL", async ({ adminApi }) => {
   expect(((await cleared.json()) as { data: { logo_uri?: string } }).data.logo_uri).toBeUndefined();
   expect(await icon(client.client_id)).toBeNull();
 });
+
+test("an admin limits, changes and lifts a sign-in app's scopes, and sets its policy links", async ({ adminApi }) => {
+  type Row = { scopes: string[] | null; policy: string | null; tos: string | null };
+  const row = async (clientId: string) =>
+    (await query<Row>("select scopes, policy, tos from oauth_client where client_id = $1", [clientId]))[0];
+  const client = await createClient(adminApi, { token_endpoint_auth_method: "client_secret_basic", scope: "openid email" });
+  expect((await row(client.client_id))?.scopes).toEqual(["openid", "email"]);
+  const id = encodeURIComponent(client.client_id);
+  const patch = (data: Record<string, unknown>) => adminApi.patch(`/api/admin/oauth-clients/${id}`, { data });
+
+  const unknown = await patch({ scope: "openid admin:everything" });
+  expect(unknown.status()).toBe(400);
+  const changed = await patch({ scope: `openid ${ENV_API.scopes[0]}` });
+  expect(changed.status(), await changed.text()).toBe(200);
+  expect((await row(client.client_id))?.scopes).toEqual(["openid", ENV_API.scopes[0]]);
+  const lifted = await patch({ scope: null });
+  expect(lifted.status(), await lifted.text()).toBe(200);
+  expect((await row(client.client_id))?.scopes).toBeNull();
+
+  const insecure = await patch({ policy_uri: "http://app.e2e.test/privacy" });
+  expect(insecure.status()).toBe(400);
+  const links = await patch({ policy_uri: "https://app.e2e.test/privacy", tos_uri: "https://app.e2e.test/terms" });
+  expect(links.status(), await links.text()).toBe(200);
+  expect(await row(client.client_id)).toMatchObject({ policy: "https://app.e2e.test/privacy", tos: "https://app.e2e.test/terms" });
+  const cleared = await patch({ policy_uri: "", tos_uri: null });
+  expect(cleared.status(), await cleared.text()).toBe(200);
+  expect(await row(client.client_id)).toMatchObject({ policy: null, tos: null });
+});
+
+test("a machine-to-machine client's API scopes can be changed, never lifted", async ({ adminApi, api }) => {
+  const [read, write] = ENV_API.scopes;
+  const client = await createClient(adminApi, { grant_types: ["client_credentials"], scope: read });
+  const id = encodeURIComponent(client.client_id);
+  const patch = (data: Record<string, unknown>) => adminApi.patch(`/api/admin/oauth-clients/${id}`, { data });
+
+  expect((await patch({ scope: null })).status()).toBe(400);
+  expect((await patch({ scope: "openid" })).status()).toBe(400);
+  expect((await clientCredentials(api, client, write!, ENV_API.identifier)).status()).toBe(400);
+
+  const widened = await patch({ scope: `${read} ${write}`, resources: [ENV_API.identifier] });
+  expect(widened.status(), await widened.text()).toBe(200);
+  const token = await clientCredentials(api, client, write!, ENV_API.identifier);
+  expect(token.status(), await token.text()).toBe(200);
+  expect(((await token.json()) as { scope: string }).scope).toBe(write);
+});

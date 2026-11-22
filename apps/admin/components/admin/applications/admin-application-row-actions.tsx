@@ -2,7 +2,9 @@
 
 import * as React from "react";
 import {
+  BanIcon,
   BracesIcon,
+  CheckCircle2Icon,
   CopyIcon,
   KeyRoundIcon,
   MoreHorizontalIcon,
@@ -26,6 +28,7 @@ import { AppBrandingDialog } from "@/components/admin/applications/app-branding-
 import { ClientClaimsDialog } from "@/components/admin/applications/client-claims-dialog";
 import { ApplicationEditDialog } from "@/components/admin/applications/application-edit-dialog";
 import { ApplicationRotateSecretDialog } from "@/components/admin/applications/application-rotate-secret-dialog";
+import { setClientDisabled } from "@/app/[locale]/(console)/applications/actions";
 import { routeError } from "@/lib/oauth-client-payload";
 import { ConfirmRemoveDialog } from "@/components/admin/common/confirm-remove-dialog";
 import { useAdminAction } from "@/components/admin/common/use-admin-action";
@@ -47,6 +50,11 @@ export type OAuthApplicationRow = {
   enableEndSession?: boolean;
   /** Where the end-session endpoint may send the user back to. */
   postLogoutRedirectUris?: string[];
+  /** The scopes it may request; empty: every scope (set for admin-registered rows). */
+  scopes?: string[];
+  /** Privacy policy and terms of service links shown on the consent screen. */
+  policyUri?: string | null;
+  tosUri?: string | null;
   /** The registered icon (`logo_uri`), or null when the app uses its site's icon or a monogram. */
   logoUri: string | null;
   createdAt: string;
@@ -64,8 +72,10 @@ export function AdminApplicationRowActions({
   onChanged: () => void;
 }) {
   const t = useTranslations("admin.pages.applications.rowActions");
+  const ts = useTranslations("admin.pages.applications.selfRegistered");
   const tc = useTranslations("admin.common");
   const [removeOpen, setRemoveOpen] = React.useState(false);
+  const [disableOpen, setDisableOpen] = React.useState(false);
   const [rotateOpen, setRotateOpen] = React.useState(false);
   const [brandingOpen, setBrandingOpen] = React.useState(false);
   const [claimsOpen, setClaimsOpen] = React.useState(false);
@@ -82,6 +92,7 @@ export function AdminApplicationRowActions({
   }
 
   const remove = useAdminAction(() => setRemoveOpen(false), { refresh: onChanged });
+  const toggle = useAdminAction(() => setDisableOpen(false), { refresh: onChanged });
 
   function removeClient() {
     void remove.run(
@@ -159,9 +170,22 @@ export function AdminApplicationRowActions({
             {t("rotateSecret")}
           </DropdownMenuItem>
           <DropdownMenuSeparator />
+          {row.disabled ? (
+            <DropdownMenuItem
+              disabled={toggle.busy}
+              onClick={() => void toggle.run(() => setClientDisabled(row.clientId, false), ts("enabled"))}
+            >
+              <CheckCircle2Icon />
+              {tc("enable")}
+            </DropdownMenuItem>
+          ) : (
+            <DropdownMenuItem onClick={() => setDisableOpen(true)}>
+              <BanIcon />
+              {tc("disable")}
+            </DropdownMenuItem>
+          )}
           <DropdownMenuItem
             variant="destructive"
-            disabled={row.disabled}
             onClick={() => setRemoveOpen(true)}
           >
             <Trash2Icon />
@@ -205,6 +229,16 @@ export function AdminApplicationRowActions({
         pending={remove.busy}
         onConfirm={removeClient}
         confirmLabel={tc("delete")}
+      />
+
+      <ConfirmRemoveDialog
+        open={disableOpen}
+        onOpenChange={setDisableOpen}
+        title={ts("disableTitle", { name: row.name })}
+        description={ts("disableDescription")}
+        pending={toggle.busy}
+        onConfirm={() => void toggle.run(() => setClientDisabled(row.clientId, true), ts("disabled"))}
+        confirmLabel={tc("disable")}
       />
 
       <ApplicationRotateSecretDialog

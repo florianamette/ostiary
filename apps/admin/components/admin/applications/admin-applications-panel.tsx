@@ -9,6 +9,7 @@ import {
   type MachineScopeOptions,
 } from "@/components/admin/applications/admin-register-oauth-client-dialog";
 import { ApplicationTableRow } from "@/components/admin/applications/application-table-row";
+import { EMPTY_SCOPE_OPTIONS, ScopeOptionsContext } from "@/components/admin/applications/scope-picker";
 import { RemoveDuplicatesDialog } from "@/components/admin/applications/remove-duplicates-dialog";
 import { ListSearch, TableMessageRow, TablePagination } from "@/components/admin/common/admin-table";
 import { readChoice } from "@/components/admin/common/list-params";
@@ -78,6 +79,9 @@ function mapApiClientToRow(raw: unknown): OAuthApplicationRow | null {
   const enableEndSession = o.enable_end_session === true || o.enableEndSession === true;
   const postLogoutRedirectUris = asStringArray(o.post_logout_redirect_uris ?? o.postLogoutRedirectUris);
   const logoUri = typeof o.logo_uri === "string" && o.logo_uri ? o.logo_uri : null;
+  const scopes = typeof o.scope === "string" ? o.scope.split(/\s+/).filter(Boolean) : [];
+  const policyUri = typeof o.policy_uri === "string" && o.policy_uri ? o.policy_uri : null;
+  const tosUri = typeof o.tos_uri === "string" && o.tos_uri ? o.tos_uri : null;
   const issuedAt = o.client_id_issued_at ?? o.clientIdIssuedAt;
   let createdAt: string;
   if (typeof issuedAt === "number" && Number.isFinite(issuedAt)) {
@@ -106,6 +110,9 @@ function mapApiClientToRow(raw: unknown): OAuthApplicationRow | null {
     enableEndSession,
     postLogoutRedirectUris,
     logoUri,
+    scopes,
+    policyUri,
+    tosUri,
     createdAt,
     // Dynamic clients carry the marker in their metadata, which Better Auth returns inline.
     registration: o.ostiary_registration === "dynamic" ? "dynamic" : "admin",
@@ -168,11 +175,12 @@ function collapseDuplicates(rows: OAuthApplicationRow[], expanded: ReadonlySet<s
  *
  * @param linkedApis API names per client id: the APIs each application is linked to on the
  * APIs page. APIs open to every application are not listed.
- * @param machineScopes The APIs and scopes a new machine-to-machine client may be given.
+ * @param machineScopes The scopes an application may be limited to (a machine-to-machine client
+ * must be), grouped by API.
  */
 export function AdminApplicationsPanel({
   linkedApis = {},
-  machineScopes = { apis: [], otherScopes: [] },
+  machineScopes = EMPTY_SCOPE_OPTIONS,
   selfRegistered,
 }: {
   linkedApis?: Record<string, string[]>;
@@ -237,6 +245,7 @@ export function AdminApplicationsPanel({
   const pageRows = visible.slice(pageStart, pageStart + pageSize);
 
   return (
+    <ScopeOptionsContext.Provider value={machineScopes}>
     <div className="space-y-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <ListSearch list={list} placeholder={t("searchPlaceholder")} label={t("searchLabel")} />
@@ -372,5 +381,6 @@ export function AdminApplicationsPanel({
         })}
       </p>
     </div>
+    </ScopeOptionsContext.Provider>
   );
 }

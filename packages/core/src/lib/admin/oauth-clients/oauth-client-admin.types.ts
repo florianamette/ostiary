@@ -45,10 +45,16 @@ export type CreateOAuthClientAdminInput = {
   post_logout_redirect_uris?: string[];
   /** The app's icon (https, public host); see `appIconSource`. */
   logo_uri?: string;
-  /** Space-separated scopes the client may request. */
+  /**
+   * Space-separated scopes the client may request. Required for a machine-to-machine client;
+   * left out, an app that signs users in may request every scope.
+   */
   scope?: string;
   /** APIs (resource identifiers) to link the client to, as on the APIs page. */
   resources: string[];
+  /** Privacy policy and terms of service, linked from the consent screen. */
+  policy_uri?: string;
+  tos_uri?: string;
 };
 
 /**
@@ -67,6 +73,16 @@ export type UpdateOAuthClientAdminInput = {
   device_code?: boolean;
   /** The app's icon; null clears it (back to the site's icon or a monogram). */
   logo_uri?: string | null;
+  /**
+   * Space-separated scopes the client may request; null lifts the limit (not for a
+   * machine-to-machine client, which must keep explicit API scopes).
+   */
+  scope?: string | null;
+  /** APIs to link the client to (added to its links, none removed): those of its new scopes. */
+  resources?: string[];
+  /** Privacy policy and terms of service links; null clears one. */
+  policy_uri?: string | null;
+  tos_uri?: string | null;
 };
 
 export type OAuthClientAdminPayload = Record<string, unknown>;

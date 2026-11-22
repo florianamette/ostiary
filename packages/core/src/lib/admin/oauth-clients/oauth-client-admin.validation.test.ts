@@ -369,3 +369,45 @@ describe("withDeviceCodeGrant", () => {
     expect(withDeviceCodeGrant([], false)).toEqual(["authorization_code"]);
   });
 });
+
+describe("scopes and policy links", () => {
+  const apiScopes = ["orders:read", "orders:write"];
+
+  it("limits a sign-in app to known scopes, normalized and without repeats", () => {
+    const r = parseCreateOAuthClientBody(
+      { redirect_uris: ["https://x/cb"], scope: " openid  orders:read openid " },
+      apiScopes,
+    );
+    expect(r.ok && r.value.scope).toBe("openid orders:read");
+    expect(parseCreateOAuthClientBody({ redirect_uris: ["https://x/cb"], scope: "admin" }, apiScopes).ok).toBe(false);
+  });
+
+  it("changes, lifts or keeps scopes on update", () => {
+    const set = parseUpdateOAuthClientBody({ scope: "openid email" }, apiScopes);
+    expect(set.ok && set.value.scope).toBe("openid email");
+    const lifted = parseUpdateOAuthClientBody({ scope: null }, apiScopes);
+    expect(lifted.ok && lifted.value.scope).toBeNull();
+    expect(parseUpdateOAuthClientBody({ scope: "orders:delete" }, apiScopes).ok).toBe(false);
+    expect(parseUpdateOAuthClientBody({ scope: "" }, apiScopes).ok).toBe(false);
+  });
+
+  it("refuses an update that only links APIs", () => {
+    expect(parseUpdateOAuthClientBody({ resources: ["https://api.test"] }, apiScopes).ok).toBe(false);
+    const r = parseUpdateOAuthClientBody({ scope: "orders:read", resources: ["https://api.test", "https://api.test"] }, apiScopes);
+    expect(r.ok && r.value.resources).toEqual(["https://api.test"]);
+  });
+
+  it("takes https policy and terms links, and clears them when empty", () => {
+    const created = parseCreateOAuthClientBody({
+      redirect_uris: ["https://x/cb"],
+      policy_uri: "https://x/privacy",
+      tos_uri: "",
+    });
+    expect(created.ok && created.value.policy_uri).toBe("https://x/privacy");
+    expect(created.ok && "tos_uri" in created.value).toBe(false);
+    const cleared = parseUpdateOAuthClientBody({ policy_uri: "", tos_uri: null });
+    expect(cleared.ok && cleared.value).toEqual({ policy_uri: null, tos_uri: null });
+    expect(parseUpdateOAuthClientBody({ policy_uri: "http://x/privacy" }).ok).toBe(false);
+    expect(parseUpdateOAuthClientBody({ tos_uri: "javascript:alert(1)" }).ok).toBe(false);
+  });
+});

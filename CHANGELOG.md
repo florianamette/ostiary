@@ -56,6 +56,16 @@ All notable changes are documented here. The format follows
 
 ### Added
 
+- **Disable any application.** Admin-registered apps can be disabled and enabled again from
+  their menu, like self-registered ones: Better Auth refuses a disabled app at sign-in, token,
+  refresh and introspection, and keeps its ID and secret. Deleting a disabled app is allowed.
+- **Scopes for apps that sign users in.** **Register application** and **Edit application** have
+  **Limit the scopes this app may request**: off (the default), an app may request every scope;
+  on, it is refused the scopes not picked. A machine-to-machine app's API scopes can now be
+  changed after creation (`PATCH /api/admin/oauth-clients/[clientId]` takes `scope`, `null` lifts
+  the limit for a sign-in app), and it is linked to the APIs of new scopes.
+- **Privacy policy and terms links.** **Edit application** sets `policy_uri` and `tos_uri`
+  (https), which the consent screen links to.
 - **Sign-out from the app (RP-initiated logout).** **Register application** and **Edit
   application** have a **Sign-out from the app (RP-initiated logout)** option and optional
   **Post-logout redirect URIs**: the app may then send the user to the advertised

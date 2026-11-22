@@ -108,7 +108,7 @@ export default async function AdminApplicationsPage({
       />
       <AdminApplicationsPanel
         linkedApis={linkedApis}
-        machineScopes={{ apis: machineApis, otherScopes }}
+        machineScopes={{ oidcScopes: [...OIDC_SCOPES], apis: machineApis, otherScopes }}
         selfRegistered={selfRegistered.map((client) => ({
           clientId: client.clientId,
           name: client.name ?? client.clientId,
