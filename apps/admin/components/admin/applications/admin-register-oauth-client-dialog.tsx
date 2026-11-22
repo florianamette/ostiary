@@ -21,7 +21,6 @@ import {
   FieldLabel,
 } from "@ostiary/core/components/ui/field";
 import { Input } from "@ostiary/core/components/ui/input";
-import { Label } from "@ostiary/core/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -32,6 +31,13 @@ import {
 import { Textarea } from "@ostiary/core/components/ui/textarea";
 import { MotionPanel } from "@ostiary/core/components/motion/motion-panel";
 import { DEVICE_CODE_GRANT_TYPE } from "@ostiary/core/lib/admin/oauth-clients/oauth-client-admin.types";
+import {
+  EMPTY_SCOPE_OPTIONS,
+  ScopePickerField,
+  scopeRequest,
+  toggleScope,
+  type ScopeOptions,
+} from "@/components/admin/applications/scope-picker";
 import { CheckboxField } from "@/components/admin/common/choice-field";
 import { ExternalLink } from "@/components/admin/common/external-link";
 import { asRecord, parseRedirectUris, routeError } from "@/lib/oauth-client-payload";
@@ -82,113 +88,13 @@ function IssuedValue({ label, copyLabel, value }: { label: string; copyLabel: st
   );
 }
 
-/** The APIs (with their scopes) and the other API scopes a machine-to-machine client may get. */
-export type MachineScopeOptions = {
-  apis: { identifier: string; name: string; scopes: string[] }[];
-  /** API scopes no API declares (OAUTH_API_SCOPES). */
-  otherScopes: string[];
-};
+/** The APIs and scopes a new client may be limited to (machine-to-machine clients must be). */
+export type MachineScopeOptions = ScopeOptions;
 
 type ClientKind = "confidential" | "public" | "machine";
 
-/** One scope checkbox in the machine-to-machine scope picker. */
-function ScopeCheckbox({
-  id,
-  scope,
-  checked,
-  onChange,
-}: {
-  id: string;
-  scope: string;
-  checked: boolean;
-  onChange: (checked: boolean) => void;
-}) {
-  return (
-    <div className="flex items-center gap-2">
-      <input
-        id={id}
-        type="checkbox"
-        className="size-4 shrink-0 rounded border-input"
-        checked={checked}
-        onChange={(e) => onChange(e.target.checked)}
-      />
-      <Label htmlFor={id} className="cursor-pointer font-mono text-xs font-normal">
-        {scope}
-      </Label>
-    </div>
-  );
-}
-
-/**
- * Picks the scopes of a machine-to-machine client, grouped by API. The client is linked to
- * the APIs whose scopes are picked (see `machineRequest`).
- */
-function MachineScopesField({
-  options,
-  selected,
-  onToggle,
-}: {
-  options: MachineScopeOptions;
-  selected: ReadonlySet<string>;
-  onToggle: (scope: string, checked: boolean) => void;
-}) {
-  const t = useTranslations("admin.pages.applications.register");
-  const groups = [
-    ...options.apis.map((api) => ({ key: api.identifier, name: api.name, detail: api.identifier, scopes: api.scopes })),
-    ...(options.otherScopes.length
-      ? [{ key: "other", name: t("otherScopes"), detail: null, scopes: options.otherScopes }]
-      : []),
-  ];
-  return (
-    <Field>
-      <FieldLabel>{t("scopesLabel")}</FieldLabel>
-      {groups.length === 0 ? (
-        <p className="text-muted-foreground text-sm">{t("noApiScopes")}</p>
-      ) : (
-        <div className="grid max-h-48 gap-2 overflow-y-auto">
-          {groups.map((group, index) => (
-            <fieldset key={group.key} className="grid gap-2 rounded-md border border-border/80 bg-muted/30 p-3">
-              <legend className="sr-only">{group.name}</legend>
-              <div className="grid gap-0.5">
-                <span className="text-sm font-medium">{group.name}</span>
-                {group.detail ? (
-                  <code className="text-muted-foreground truncate font-mono text-xs">{group.detail}</code>
-                ) : null}
-              </div>
-              <div className="flex flex-wrap gap-x-4 gap-y-2">
-                {group.scopes.map((scope) => (
-                  <ScopeCheckbox
-                    key={scope}
-                    id={`oauth-reg-scope-${index}-${scope}`}
-                    scope={scope}
-                    checked={selected.has(scope)}
-                    onChange={(checked) => onToggle(scope, checked)}
-                  />
-                ))}
-              </div>
-            </fieldset>
-          ))}
-        </div>
-      )}
-      <p className="text-muted-foreground text-xs">
-        {t.rich("scopesHint", { grant: "client_credentials", code: (c) => <code>{c}</code> })}
-      </p>
-    </Field>
-  );
-}
-
-/** The scope and the APIs (whose scopes are picked) of a new machine-to-machine client. */
-function machineRequest(options: MachineScopeOptions, selected: ReadonlySet<string>) {
-  const all = [...options.apis.flatMap((api) => api.scopes), ...options.otherScopes];
-  const scope = [...new Set(all)].filter((s) => selected.has(s)).join(" ");
-  const resources = options.apis
-    .filter((api) => api.scopes.some((s) => selected.has(s)))
-    .map((api) => api.identifier);
-  return { scope, resources };
-}
-
 export function AdminRegisterOAuthClientDialog({
-  machineScopes = { apis: [], otherScopes: [] },
+  machineScopes = EMPTY_SCOPE_OPTIONS,
   onCreated,
 }: {
   machineScopes?: MachineScopeOptions;
@@ -203,6 +109,8 @@ export function AdminRegisterOAuthClientDialog({
   const [logoUri, setLogoUri] = React.useState("");
   const [clientKind, setClientKind] = React.useState<ClientKind>("confidential");
   const [scopes, setScopes] = React.useState<ReadonlySet<string>>(new Set());
+  // Off: an app that signs users in may request every scope.
+  const [limitScopes, setLimitScopes] = React.useState(false);
   const [skipConsent, setSkipConsent] = React.useState(false);
   const [deviceCode, setDeviceCode] = React.useState(false);
   // On for new apps: signing out of the app can then end the Ostiary session too.
@@ -220,6 +128,7 @@ export function AdminRegisterOAuthClientDialog({
     setLogoUri("");
     setClientKind("confidential");
     setScopes(new Set());
+    setLimitScopes(false);
     setSkipConsent(false);
     setDeviceCode(false);
     setEndSession(true);
@@ -239,7 +148,7 @@ export function AdminRegisterOAuthClientDialog({
     let body: Record<string, unknown>;
     if (clientKind === "machine") {
       // Confidential, client_credentials only: no redirect URIs, consent or device sign-in.
-      const { scope, resources } = machineRequest(machineScopes, scopes);
+      const { scope, resources } = scopeRequest({ ...machineScopes, oidcScopes: [] }, scopes);
       if (!scope) {
         setFormError(t("scopesRequired"));
         return;
@@ -259,6 +168,12 @@ export function AdminRegisterOAuthClientDialog({
         return;
       }
       const post_logout_redirect_uris = parseRedirectUris(postLogoutUrisRaw);
+      // API access still needs a link to the API (APIs page), unless the API is open to every app.
+      const { scope } = limitScopes ? scopeRequest(machineScopes, scopes) : { scope: "" };
+      if (limitScopes && !scope) {
+        setFormError(t("limitScopesRequired"));
+        return;
+      }
       body = {
         ...common,
         redirect_uris,
@@ -276,6 +191,7 @@ export function AdminRegisterOAuthClientDialog({
         ...(endSession && post_logout_redirect_uris.length
           ? { post_logout_redirect_uris }
           : {}),
+        ...(scope ? { scope } : {}),
       };
     }
     setPending(true);
@@ -353,6 +269,7 @@ export function AdminRegisterOAuthClientDialog({
                   value={clientKind}
                   onValueChange={(v) => {
                     setClientKind(v as ClientKind);
+                    setScopes(new Set());
                     setFormError(null);
                   }}
                 >
@@ -373,17 +290,14 @@ export function AdminRegisterOAuthClientDialog({
                 </Select>
               </Field>
               {clientKind === "machine" ? (
-                <MachineScopesField
+                <ScopePickerField
+                  idPrefix="oauth-reg-scope"
                   options={machineScopes}
+                  apiOnly
                   selected={scopes}
-                  onToggle={(scope, checked) =>
-                    setScopes((current) => {
-                      const next = new Set(current);
-                      if (checked) next.add(scope);
-                      else next.delete(scope);
-                      return next;
-                    })
-                  }
+                  onToggle={(scope, checked) => setScopes((current) => toggleScope(current, scope, checked))}
+                  label={t("scopesLabel")}
+                  hint={t.rich("scopesHint", { grant: "client_credentials", code: (c) => <code>{c}</code> })}
                 />
               ) : (
                 <Field>
@@ -457,6 +371,26 @@ export function AdminRegisterOAuthClientDialog({
                       />
                       <p className="text-muted-foreground text-xs">{t("postLogoutUrisHint")}</p>
                     </Field>
+                  ) : null}
+                  <Field>
+                    <CheckboxField
+                      id="oauth-reg-limit-scopes"
+                      checked={limitScopes}
+                      onChange={setLimitScopes}
+                      label={t("limitScopesLabel")}
+                      hint={t("limitScopesHint")}
+                    />
+                  </Field>
+                  {limitScopes ? (
+                    <ScopePickerField
+                      idPrefix="oauth-reg-limit-scope"
+                      options={machineScopes}
+                      apiOnly={false}
+                      selected={scopes}
+                      onToggle={(scope, checked) => setScopes((current) => toggleScope(current, scope, checked))}
+                      label={t("allowedScopesLabel")}
+                      hint={t("allowedScopesHint")}
+                    />
                   ) : null}
                   <Field>
                     <CheckboxField
