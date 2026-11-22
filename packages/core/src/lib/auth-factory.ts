@@ -200,17 +200,6 @@ const DELETE_USER_LINK_PATH = "/delete-user/callback";
 const API_KEY_PREFIX = env.API_KEY_PREFIX ?? "ost_";
 
 /**
- * Prefixes of OAuth client secrets, refresh tokens and opaque access tokens. Fixed (unlike
- * API_KEY_PREFIX): apps hold secrets and refresh tokens with the prefix, and Better Auth only
- * strips the current one, so changing it would break every secret and refresh token issued.
- */
-const OAUTH_TOKEN_PREFIXES = {
-    clientSecret: "ost_cs_",
-    refreshToken: "ost_rt_",
-    opaqueAccessToken: "ost_at_",
-} as const;
-
-/**
  * Client ID Metadata Documents (the client_id is an HTTPS URL to the client's JSON metadata,
  * as MCP clients use). Added to the provider only while an admin has turned it on, see
  * syncClientRegistration. Better Auth's Node transport resolves the host once, refuses private
@@ -382,10 +371,8 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
         // Better Auth's default, explicit because per-API lifetimes can only be shorter.
         refreshTokenExpiresIn: REFRESH_TOKEN_EXPIRES_IN,
         idTokenExpiresIn: ID_TOKEN_EXPIRES_IN,
-        // Lets secret scanners (GitHub, GitGuardian, TruffleHog) recognise a leaked secret or
-        // token. Not stored: Better Auth adds the prefix when it hands one out and strips it
-        // when one comes back, so values issued before (without it) keep working.
-        prefix: OAUTH_TOKEN_PREFIXES,
+        // No `prefix`: Better Auth refuses a client secret, refresh token or opaque access token
+        // without the configured prefix, so adding one would break every value issued before.
         // Resource servers authorize on the admin plugin's role (e.g. "admin" or "admin,user").
         customAccessTokenClaims: ({ user }) =>
             typeof user?.role === "string" ? { role: user.role } : {},

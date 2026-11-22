@@ -20,9 +20,6 @@ All notable changes are documented here. The format follows
 
 ### Security
 
-- New client secrets, refresh tokens and opaque access tokens start with `ost_cs_`, `ost_rt_`
-  and `ost_at_`, so secret scanners (GitHub, GitGuardian, TruffleHog) can recognise a leaked one.
-  Values issued before keep working.
 - `pnpm audit` is clean: shadcn CLI 4.23.0 (from 4.1.0) drops the vulnerable zod 3, undici,
   hono, body-parser and other packages it pulled in, and minimatch is pinned to 11.0.1+ under
   eslint-plugin-import. All of them were development dependencies.
