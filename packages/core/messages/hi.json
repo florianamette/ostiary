@@ -228,8 +228,10 @@
       "label": "थीम"
     },
     "nav": {
-      "groupAdmin": "एडमिन",
-      "groupOAuth": "OAuth",
+      "groupDirectory": "डायरेक्टरी",
+      "groupSignIn": "साइन-इन",
+      "groupDevelopers": "डेवलपर",
+      "groupMonitoring": "निगरानी",
       "overview": "अवलोकन",
       "users": "उपयोगकर्ता",
       "applications": "ऐप्लिकेशन",

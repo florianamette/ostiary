@@ -228,8 +228,10 @@
       "label": "Motyw"
     },
     "nav": {
-      "groupAdmin": "Administracja",
-      "groupOAuth": "OAuth",
+      "groupDirectory": "Katalog",
+      "groupSignIn": "Logowanie",
+      "groupDevelopers": "Deweloperzy",
+      "groupMonitoring": "Monitorowanie",
       "overview": "Przegląd",
       "users": "Użytkownicy",
       "applications": "Aplikacje",

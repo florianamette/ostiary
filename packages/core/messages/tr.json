@@ -228,8 +228,10 @@
       "label": "Tema"
     },
     "nav": {
-      "groupAdmin": "Yönetim",
-      "groupOAuth": "OAuth",
+      "groupDirectory": "Dizin",
+      "groupSignIn": "Oturum açma",
+      "groupDevelopers": "Geliştiriciler",
+      "groupMonitoring": "İzleme",
       "overview": "Genel bakış",
       "users": "Kullanıcılar",
       "applications": "Uygulamalar",

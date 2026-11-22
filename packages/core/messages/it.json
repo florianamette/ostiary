@@ -228,8 +228,10 @@
       "label": "Tema"
     },
     "nav": {
-      "groupAdmin": "Amministrazione",
-      "groupOAuth": "OAuth",
+      "groupDirectory": "Directory",
+      "groupSignIn": "Accesso",
+      "groupDevelopers": "Sviluppatori",
+      "groupMonitoring": "Monitoraggio",
       "overview": "Panoramica",
       "users": "Utenti",
       "applications": "Applicazioni",

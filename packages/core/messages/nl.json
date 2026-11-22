@@ -228,8 +228,10 @@
       "label": "Thema"
     },
     "nav": {
-      "groupAdmin": "Beheer",
-      "groupOAuth": "OAuth",
+      "groupDirectory": "Gebruikers",
+      "groupSignIn": "Inloggen",
+      "groupDevelopers": "Ontwikkelaars",
+      "groupMonitoring": "Monitoring",
       "overview": "Overzicht",
       "users": "Gebruikers",
       "applications": "Applicaties",

@@ -228,8 +228,10 @@
       "label": "Design"
     },
     "nav": {
-      "groupAdmin": "Verwaltung",
-      "groupOAuth": "OAuth",
+      "groupDirectory": "Verzeichnis",
+      "groupSignIn": "Anmeldung",
+      "groupDevelopers": "Entwickler",
+      "groupMonitoring": "Überwachung",
       "overview": "Übersicht",
       "users": "Benutzer",
       "applications": "Anwendungen",

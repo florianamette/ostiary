@@ -228,8 +228,10 @@
       "label": "Tema"
     },
     "nav": {
-      "groupAdmin": "Administrasjon",
-      "groupOAuth": "OAuth",
+      "groupDirectory": "Katalog",
+      "groupSignIn": "Pålogging",
+      "groupDevelopers": "Utviklere",
+      "groupMonitoring": "Overvåking",
       "overview": "Oversikt",
       "users": "Brukere",
       "applications": "Applikasjoner",

@@ -419,6 +419,9 @@ All notable changes are documented here. The format follows
 
 ### Changed
 
+- Admin console sidebar: the product's mark and name at the top (just the mark when
+  collapsed), and the pages in four labelled groups (Directory, Sign-in, Developers,
+  Monitoring) instead of "Admin" and "OAuth". SSO has its own icon instead of a third key.
 - Database: new indexes for the queries the console, account export, erasure, rate caps and
   retention purges run; `sso_provider.organization_id` is a foreign key (`ON DELETE SET
   NULL`); a webhook event is queued at most once per endpoint (migration
@@ -444,6 +447,8 @@ All notable changes are documented here. The format follows
 
 ### Fixed
 
+- The admin sidebar highlights the current page: it compared paths that still had the
+  locale prefix (`/en/users`), so no item was ever marked active.
 - `EMAIL_DEDUP` is listed in both apps' `.env.example` (the admin console's user import
   reads it), and the unused `SENTRY_DSN` and `LOG_REQUESTS` variables are gone (#65).
 - The **Deploy with Vercel** button asks for `CRON_SECRET`. Without it the daily cron

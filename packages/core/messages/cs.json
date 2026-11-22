@@ -228,8 +228,10 @@
       "label": "Motiv"
     },
     "nav": {
-      "groupAdmin": "Administrace",
-      "groupOAuth": "OAuth",
+      "groupDirectory": "Adresář",
+      "groupSignIn": "Přihlášení",
+      "groupDevelopers": "Vývojáři",
+      "groupMonitoring": "Monitorování",
       "overview": "Přehled",
       "users": "Uživatelé",
       "applications": "Aplikace",
