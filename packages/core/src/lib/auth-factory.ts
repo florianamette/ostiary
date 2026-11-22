@@ -370,6 +370,10 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
         accessTokenExpiresIn: ACCESS_TOKEN_EXPIRES_IN,
         // Better Auth's default, explicit because per-API lifetimes can only be shorter.
         refreshTokenExpiresIn: REFRESH_TOKEN_EXPIRES_IN,
+        // A client that retries a refresh within 30 seconds (its first answer was lost, as MCP
+        // clients do on a dropped connection) gets that same answer back instead of a replay
+        // refusal that revokes its tokens. The value @better-auth/mcp uses.
+        refreshTokenReuseInterval: 30,
         idTokenExpiresIn: ID_TOKEN_EXPIRES_IN,
         // No `prefix`: Better Auth refuses a client secret, refresh token or opaque access token
         // without the configured prefix, so adding one would break every value issued before.

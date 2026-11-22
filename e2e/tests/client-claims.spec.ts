@@ -166,6 +166,14 @@ test("claims set in the console reach the ID token, access token and UserInfo, a
   expect(refreshed.status(), await refreshed.text()).toBe(200);
   const next = (await refreshed.json()) as TokenResponse;
   expect(next.refresh_token).not.toBe(tokens.refresh_token);
+  // A retry of the same refresh within 30 seconds (refreshTokenReuseInterval) gets the same answer.
+  const retried = await tokenRequest(api, client, {
+    grant_type: "refresh_token",
+    refresh_token: tokens.refresh_token!,
+    resource: ENV_API.identifier,
+  });
+  expect(retried.status(), await retried.text()).toBe(200);
+  expect(((await retried.json()) as TokenResponse).refresh_token).toBe(next.refresh_token);
   expect(await verifyJwt(api, next.access_token, ENV_API.identifier)).toMatchObject({
     "https://e2e.test/tenant": "acme",
     handle: user.username,

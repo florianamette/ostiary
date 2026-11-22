@@ -23,6 +23,13 @@ All notable changes are documented here. The format follows
   reset no longer uses up the link or code; email verification and change-email links only
   work for the account they were sent to.
 
+### Changed
+
+- An app that sends the same refresh token again within 30 seconds gets the same tokens back.
+  Before, the retry counted as a stolen-token replay and revoked the app's tokens, which broke
+  MCP clients that retry after a dropped connection (`refreshTokenReuseInterval`, as in
+  `@better-auth/mcp`).
+
 ## [0.2.0] - 2026-11-22
 
 ### Upgrading
