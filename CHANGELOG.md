@@ -6,6 +6,15 @@ All notable changes are documented here. The format follows
 
 ## [Unreleased]
 
+### Added
+
+- OpenAPI schema of the auth endpoints (Better Auth's `openAPI` plugin), committed as
+  `apps/auth/openapi.json` for the API reference on ostiary.dev and served at
+  `/api/auth/open-api/generate-schema` outside production, or with
+  `OPENAPI_SCHEMA_ENABLED=true`. The plugin's Scalar page is off: it loads an unpinned script
+  from a CDN. Regenerate the file with `pnpm --filter @ostiary/core openapi`; CI fails when it
+  is out of date.
+
 ### Upgrading
 
 - Email-change codes sent before the upgrade stop working: Better Auth now binds each code to

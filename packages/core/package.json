@@ -8,7 +8,8 @@
     "test": "vitest run",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
-    "db:seed": "tsx src/db/seed-resources.ts"
+    "db:seed": "tsx src/db/seed-resources.ts",
+    "openapi": "tsx scripts/generate-openapi.mts"
   },
   "dependencies": {
     "@better-auth/api-key": "catalog:",
