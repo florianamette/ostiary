@@ -13,6 +13,11 @@ All notable changes are documented here. The format follows
 
 ### Security
 
+- New client secrets start with `ost_cs_` and new refresh tokens with `ost_rt_`, so secret
+  scanners (GitHub, GitGuardian, TruffleHog) can recognise a leaked one. Secrets and refresh
+  tokens issued before keep working: the auth app adds the missing prefix before Better Auth
+  checks them (HTTP Basic and `client_secret`, `refresh_token`, and introspection and
+  revocation with or without `token_type_hint`). Opaque access tokens get no prefix.
 - Better Auth 1.7.27 (from 1.7.7), with all its packages. The fixes that apply to Ostiary:
   a token request with a wrong PKCE verifier or redirect URI no longer uses up the
   authorization code or device code; the `refresh_token` grant no longer issues tokens for an
