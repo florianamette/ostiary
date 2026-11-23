@@ -79,6 +79,12 @@ export const envSchema = z
      */
     RATE_LIMIT_ENABLED: optional(z.enum(["true", "false"])),
     /**
+     * The OpenAPI schema of the auth endpoints, at /api/auth/open-api/generate-schema. Unset: on
+     * in development, off in production. The schema of a full configuration is published on
+     * ostiary.dev/docs/api.
+     */
+    OPENAPI_SCHEMA_ENABLED: optional(z.enum(["true", "false"])),
+    /**
      * Comma-separated request headers holding the client IP, tried in order. On Vercel the
      * default is `x-forwarded-for`, which Vercel overwrites with the real client address.
      * Elsewhere no header is trusted unless this or TRUSTED_PROXIES is set: name a header your

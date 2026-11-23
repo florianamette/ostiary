@@ -24,6 +24,7 @@ import {
 import { findReusablePublicClient, registrationResponse } from "@ostiary/core/lib/client-dedupe";
 import { ACCOUNT_DELETION_BLOCKED, accountDeletionBlockers } from "@ostiary/core/lib/account-data/blockers";
 import type { Bag } from "@ostiary/core/lib/auth-hooks/values";
+import { OPENAPI_SCHEMA_PATH } from "@ostiary/core/lib/openapi";
 
 type Ctx = Parameters<Parameters<typeof createAuthMiddleware>[0]>[0];
 
@@ -260,6 +261,9 @@ export function guardRequests({
     metadataDocuments: unknown;
 }) {
     return createAuthMiddleware(async (ctx) => {
+        // The OpenAPI schema reads no setting (and is generated without a database, see
+        // scripts/generate-openapi.mts).
+        if (ctx.path === OPENAPI_SCHEMA_PATH) return;
         // APIs registered from the admin console add scopes without a redeploy.
         await syncProviderScopes(provider.options);
         // Signing key rotation interval and grace period, from the admin console.

@@ -41,6 +41,10 @@ jobs:
             exit 1
           fi
 
+      # apps/auth/openapi.json (the API reference on ostiary.dev) must match the auth config.
+      - name: OpenAPI schema is up to date
+        run: pnpm --filter @ostiary/core openapi --check
+
       - name: Lint
         run: pnpm lint
 
