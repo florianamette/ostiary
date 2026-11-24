@@ -600,7 +600,18 @@
           "clientId": "Client-ID",
           "clientSecret": "Clientgeheim",
           "copyClientId": "Client-ID kopiëren",
-          "copyClientSecret": "Clientgeheim kopiëren"
+          "copyClientSecret": "Clientgeheim kopiëren",
+          "authMethodLabel": "Clientauthenticatie",
+          "authMethodSecret": "Clientgeheim",
+          "authMethodPrivateKey": "Private key-JWT (publieke sleutels)",
+          "jwksLabel": "Publieke sleutels (JWKS)",
+          "jwksHint": "De publieke sleutels van de app als JSON Web Key Set. De app ondertekent bij het tokenendpoint een client-assertion met haar privésleutel (private_key_jwt). Wijzig ze door de app te bewerken, of laat de app /api/auth/oauth2/client/rotate-keys aanroepen.",
+          "jwksInvalidJson": "De JWKS is geen geldige JSON.",
+          "backchannelUriLabel": "Back-channel-uitlog-URI (optioneel)",
+          "backchannelUriHint": "Wanneer de sessie van een gebruiker eindigt, stuurt Ostiary een ondertekend uitlogtoken naar deze https-URL, zodat de app de gebruiker ook uitlogt.",
+          "backchannelSessionLabel": "De app heeft de sessie-ID (sid) nodig",
+          "backchannelSessionHint": "Laat Ostiary sid in het uitlogtoken opnemen: de app gebruikt die om de te beëindigen sessie te vinden.",
+          "successPrivateKey": "Er wordt geen geheim uitgegeven: de app authenticeert zich met een client-assertion die is ondertekend met een van haar geregistreerde sleutels."
         },
         "rowActions": {
           "menuLabel": "Acties voor {name}",
@@ -666,7 +677,8 @@
             "rotateFailed": "Kan het geheim niet roteren",
             "newSecretIssued": "Nieuw clientgeheim uitgegeven, kopieer het nu",
             "rotated": "Geheim geroteerd"
-          }
+          },
+          "rotateHintPrivateKey": "Deze app authenticeert zich met haar sleutels, niet met een geheim"
         },
         "selfRegistered": {
           "menuLabel": "Acties voor {name}",

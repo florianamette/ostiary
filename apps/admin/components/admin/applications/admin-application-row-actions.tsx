@@ -55,6 +55,11 @@ export type OAuthApplicationRow = {
   /** Privacy policy and terms of service links shown on the consent screen. */
   policyUri?: string | null;
   tosUri?: string | null;
+  /** OpenID Connect Back-Channel Logout URI, and whether the logout token must carry `sid`. */
+  backchannelLogoutUri?: string | null;
+  backchannelLogoutSessionRequired?: boolean;
+  /** The public keys of a private_key_jwt app, as formatted JSON. */
+  jwks?: string | null;
   /** The registered icon (`logo_uri`), or null when the app uses its site's icon or a monogram. */
   logoUri: string | null;
   createdAt: string;
@@ -84,7 +89,8 @@ export function AdminApplicationRowActions({
   // A new key per opening, so the edit form starts from the current row.
   const [editKey, setEditKey] = React.useState(0);
 
-  const canRotateSecret = !row.public && !row.disabled;
+  const keyAuth = row.tokenEndpointAuthMethod === "private_key_jwt";
+  const canRotateSecret = !row.public && !keyAuth && !row.disabled;
 
   function openEdit() {
     setEditKey((key) => key + 1);
@@ -160,6 +166,8 @@ export function AdminApplicationRowActions({
             title={
               row.public
                 ? t("rotateHintPublic")
+                : keyAuth
+                ? t("rotateHintPrivateKey")
                 : row.disabled
                   ? t("rotateHintDisabled")
                   : t("rotateHint")

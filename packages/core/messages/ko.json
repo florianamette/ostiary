@@ -600,7 +600,18 @@
           "clientId": "클라이언트 ID",
           "clientSecret": "클라이언트 시크릿",
           "copyClientId": "클라이언트 ID 복사",
-          "copyClientSecret": "클라이언트 시크릿 복사"
+          "copyClientSecret": "클라이언트 시크릿 복사",
+          "authMethodLabel": "클라이언트 인증",
+          "authMethodSecret": "클라이언트 시크릿",
+          "authMethodPrivateKey": "개인 키 JWT(공개 키)",
+          "jwksLabel": "공개 키(JWKS)",
+          "jwksHint": "앱의 공개 키(JSON Web Key Set)입니다. 앱은 토큰 엔드포인트에서 개인 키로 클라이언트 어설션에 서명합니다(private_key_jwt). 바꾸려면 앱을 편집하거나 앱이 /api/auth/oauth2/client/rotate-keys를 호출하게 하세요.",
+          "jwksInvalidJson": "JWKS가 올바른 JSON이 아닙니다.",
+          "backchannelUriLabel": "백채널 로그아웃 URI(선택)",
+          "backchannelUriHint": "사용자의 세션이 끝나면 Ostiary가 이 https URL로 서명된 로그아웃 토큰을 보내 앱에서도 로그아웃할 수 있게 합니다.",
+          "backchannelSessionLabel": "앱에 세션 ID(sid)가 필요함",
+          "backchannelSessionHint": "로그아웃 토큰에 sid를 넣습니다. 앱은 이를 사용해 종료할 세션을 찾습니다.",
+          "successPrivateKey": "시크릿이 발급되지 않습니다. 앱은 등록된 키 중 하나로 서명한 클라이언트 어설션으로 인증합니다."
         },
         "rowActions": {
           "menuLabel": "{name} 작업",
@@ -666,7 +677,8 @@
             "rotateFailed": "시크릿을 교체할 수 없습니다",
             "newSecretIssued": "새 클라이언트 시크릿이 발급되었습니다. 지금 복사하세요",
             "rotated": "시크릿을 교체했습니다"
-          }
+          },
+          "rotateHintPrivateKey": "이 앱은 시크릿이 아니라 키로 인증합니다"
         },
         "selfRegistered": {
           "menuLabel": "{name} 작업",

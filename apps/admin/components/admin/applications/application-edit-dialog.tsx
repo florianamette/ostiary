@@ -72,6 +72,11 @@ export function ApplicationEditDialog({
   const [limitScopes, setLimitScopes] = React.useState(storedScopes.length > 0);
   const [policyUri, setPolicyUri] = React.useState(row.policyUri ?? "");
   const [tosUri, setTosUri] = React.useState(row.tosUri ?? "");
+  const [backchannelUri, setBackchannelUri] = React.useState(row.backchannelLogoutUri ?? "");
+  const [backchannelSession, setBackchannelSession] = React.useState(row.backchannelLogoutSessionRequired ?? false);
+  const keyAuth = row.tokenEndpointAuthMethod === "private_key_jwt";
+  const [jwksRaw, setJwksRaw] = React.useState(row.jwks ?? "");
+  const tr = useTranslations("admin.pages.applications.register");
   const [error, setError] = React.useState<string | null>(null);
 
   /** The scope change to send: a scope string, null (no limit), or undefined (unchanged). */
@@ -101,6 +106,25 @@ export function ApplicationEditDialog({
       setError(scopeError);
       return;
     }
+    let jwksUpdate: { jwks?: unknown } = {};
+    if (keyAuth && jwksRaw.trim() !== (row.jwks ?? "")) {
+      try {
+        jwksUpdate = { jwks: JSON.parse(jwksRaw) };
+      } catch {
+        setError(tr("jwksInvalidJson"));
+        return;
+      }
+    }
+    const storedBackchannel = row.backchannelLogoutUri ?? "";
+    const backchannelUpdate =
+      machine
+        ? {}
+        : backchannelUri.trim() !== storedBackchannel ||
+            (backchannelUri.trim() && backchannelSession !== (row.backchannelLogoutSessionRequired ?? false))
+          ? backchannelUri.trim()
+            ? { backchannel_logout_uri: backchannelUri.trim(), backchannel_logout_session_required: backchannelSession }
+            : { backchannel_logout_uri: null }
+          : {};
     onPendingChange(true);
     try {
       const res = await fetch(
@@ -137,6 +161,8 @@ export function ApplicationEditDialog({
             ...(!machine && tosUri.trim() !== (row.tosUri ?? "")
               ? { tos_uri: tosUri.trim() || null }
               : {}),
+            ...backchannelUpdate,
+            ...jwksUpdate,
           }),
         },
       );
@@ -300,6 +326,28 @@ export function ApplicationEditDialog({
                   </Field>
                 ) : null}
                 <Field>
+                  <FieldLabel htmlFor={`oauth-edit-backchannel-${row.clientId}`}>{tr("backchannelUriLabel")}</FieldLabel>
+                  <Input
+                    id={`oauth-edit-backchannel-${row.clientId}`}
+                    type="url"
+                    placeholder="https://app.example.com/backchannel-logout"
+                    value={backchannelUri}
+                    onChange={(e) => setBackchannelUri(e.target.value)}
+                  />
+                  <p className="text-muted-foreground text-xs">{tr("backchannelUriHint")}</p>
+                </Field>
+                {backchannelUri.trim() ? (
+                  <Field>
+                    <CheckboxField
+                      id={`oauth-edit-backchannel-session-${row.clientId}`}
+                      checked={backchannelSession}
+                      onChange={setBackchannelSession}
+                      label={tr("backchannelSessionLabel")}
+                      hint={tr("backchannelSessionHint")}
+                    />
+                  </Field>
+                ) : null}
+                <Field>
                   <CheckboxField
                     id={`oauth-edit-skip-consent-${row.clientId}`}
                     checked={skipConsent}
@@ -337,6 +385,20 @@ export function ApplicationEditDialog({
                 </Field>
               </>
             )}
+            {keyAuth ? (
+              <Field>
+                <FieldLabel htmlFor={`oauth-edit-jwks-${row.clientId}`}>{tr("jwksLabel")}</FieldLabel>
+                <Textarea
+                  id={`oauth-edit-jwks-${row.clientId}`}
+                  rows={6}
+                  spellCheck={false}
+                  className="font-mono text-xs"
+                  value={jwksRaw}
+                  onChange={(e) => setJwksRaw(e.target.value)}
+                />
+                <p className="text-muted-foreground text-xs">{tr("jwksHint")}</p>
+              </Field>
+            ) : null}
             {error ? (
               <p className="text-destructive text-sm" role="alert">
                 {error}

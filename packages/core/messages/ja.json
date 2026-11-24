@@ -600,7 +600,18 @@
           "clientId": "クライアント ID",
           "clientSecret": "クライアントシークレット",
           "copyClientId": "クライアント ID をコピー",
-          "copyClientSecret": "クライアントシークレットをコピー"
+          "copyClientSecret": "クライアントシークレットをコピー",
+          "authMethodLabel": "クライアント認証",
+          "authMethodSecret": "クライアントシークレット",
+          "authMethodPrivateKey": "秘密鍵 JWT（公開鍵）",
+          "jwksLabel": "公開鍵（JWKS）",
+          "jwksHint": "アプリの公開鍵（JSON Web Key Set）。アプリはトークンエンドポイントで秘密鍵を使ってクライアントアサーションに署名します（private_key_jwt）。変更するにはアプリを編集するか、アプリから /api/auth/oauth2/client/rotate-keys を呼び出します。",
+          "jwksInvalidJson": "JWKS が有効な JSON ではありません。",
+          "backchannelUriLabel": "バックチャネルログアウト URI（任意）",
+          "backchannelUriHint": "ユーザーのセッションが終了すると、Ostiary はこの https URL に署名付きログアウトトークンを送信し、アプリ側でもサインアウトできるようにします。",
+          "backchannelSessionLabel": "アプリにセッション ID（sid）が必要",
+          "backchannelSessionHint": "ログアウトトークンに sid を含めます。アプリはこれで終了するセッションを特定します。",
+          "successPrivateKey": "シークレットは発行されません。アプリは登録済みの鍵で署名したクライアントアサーションで認証します。"
         },
         "rowActions": {
           "menuLabel": "{name} の操作",
@@ -666,7 +677,8 @@
             "rotateFailed": "シークレットをローテーションできませんでした",
             "newSecretIssued": "新しいクライアントシークレットを発行しました。今すぐコピーしてください",
             "rotated": "シークレットをローテーションしました"
-          }
+          },
+          "rotateHintPrivateKey": "このアプリはシークレットではなく鍵で認証します"
         },
         "selfRegistered": {
           "menuLabel": "{name} の操作",

@@ -600,7 +600,18 @@
           "clientId": "Klient-id",
           "clientSecret": "Klienthemmelighed",
           "copyClientId": "Kopiér klient-id",
-          "copyClientSecret": "Kopiér klienthemmelighed"
+          "copyClientSecret": "Kopiér klienthemmelighed",
+          "authMethodLabel": "Klientgodkendelse",
+          "authMethodSecret": "Klienthemmelighed",
+          "authMethodPrivateKey": "Private key-JWT (offentlige nøgler)",
+          "jwksLabel": "Offentlige nøgler (JWKS)",
+          "jwksHint": "Appens offentlige nøgler som et JSON Web Key Set. Appen signerer en klientpåstand med sin private nøgle ved tokenendpointet (private_key_jwt). Ret dem ved at redigere appen, eller lad appen kalde /api/auth/oauth2/client/rotate-keys.",
+          "jwksInvalidJson": "JWKS er ikke gyldig JSON.",
+          "backchannelUriLabel": "URI til back-channel-logout (valgfrit)",
+          "backchannelUriHint": "Når en brugers session slutter, sender Ostiary et signeret logout-token til denne https-URL, så appen også kan logge brugeren ud.",
+          "backchannelSessionLabel": "Appen har brug for sessions-id (sid)",
+          "backchannelSessionHint": "Beder Ostiary om at tage sid med i logout-tokenet: appen bruger det til at finde den session, der skal afsluttes.",
+          "successPrivateKey": "Der udstedes ingen hemmelighed: appen godkender sig med en klientpåstand signeret med en af dens registrerede nøgler."
         },
         "rowActions": {
           "menuLabel": "Handlinger for {name}",
@@ -666,7 +677,8 @@
             "rotateFailed": "Hemmeligheden kunne ikke roteres",
             "newSecretIssued": "Ny klienthemmelighed udstedt, kopiér den nu",
             "rotated": "Hemmelighed roteret"
-          }
+          },
+          "rotateHintPrivateKey": "Denne app godkender sig med sine nøgler, ikke med en hemmelighed"
         },
         "selfRegistered": {
           "menuLabel": "Handlinger for {name}",

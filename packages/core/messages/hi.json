@@ -600,7 +600,18 @@
           "clientId": "क्लाइंट ID",
           "clientSecret": "क्लाइंट सीक्रेट",
           "copyClientId": "क्लाइंट ID कॉपी करें",
-          "copyClientSecret": "क्लाइंट सीक्रेट कॉपी करें"
+          "copyClientSecret": "क्लाइंट सीक्रेट कॉपी करें",
+          "authMethodLabel": "क्लाइंट प्रमाणीकरण",
+          "authMethodSecret": "क्लाइंट सीक्रेट",
+          "authMethodPrivateKey": "प्राइवेट की JWT (पब्लिक कीज़)",
+          "jwksLabel": "पब्लिक कीज़ (JWKS)",
+          "jwksHint": "ऐप की पब्लिक कीज़, JSON Web Key Set के रूप में। ऐप टोकन एंडपॉइंट पर अपनी प्राइवेट की से क्लाइंट असर्शन साइन करता है (private_key_jwt)। इन्हें बदलने के लिए ऐप संपादित करें, या ऐप को /api/auth/oauth2/client/rotate-keys कॉल करने दें।",
+          "jwksInvalidJson": "JWKS मान्य JSON नहीं है।",
+          "backchannelUriLabel": "बैक-चैनल लॉगआउट URI (वैकल्पिक)",
+          "backchannelUriHint": "जब किसी यूज़र का सेशन ख़त्म होता है, Ostiary इस https URL पर एक साइन किया हुआ लॉगआउट टोकन भेजता है, ताकि ऐप भी उसे साइन आउट कर सके।",
+          "backchannelSessionLabel": "ऐप को सेशन ID (sid) चाहिए",
+          "backchannelSessionHint": "Ostiary लॉगआउट टोकन में sid डालता है: ऐप इससे वह सेशन ढूँढता है जिसे ख़त्म करना है।",
+          "successPrivateKey": "कोई सीक्रेट जारी नहीं होता: ऐप अपनी रजिस्टर की गई किसी की से साइन किए गए क्लाइंट असर्शन से प्रमाणित होता है।"
         },
         "rowActions": {
           "menuLabel": "{name} के लिए कार्रवाइयाँ",
@@ -666,7 +677,8 @@
             "rotateFailed": "सीक्रेट रोटेट नहीं हो सका",
             "newSecretIssued": "नया क्लाइंट सीक्रेट जारी हुआ, अभी कॉपी करें",
             "rotated": "सीक्रेट रोटेट हो गया"
-          }
+          },
+          "rotateHintPrivateKey": "यह ऐप सीक्रेट से नहीं, अपनी कीज़ से प्रमाणित होता है"
         },
         "selfRegistered": {
           "menuLabel": "{name} के लिए कार्रवाइयाँ",

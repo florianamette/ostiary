@@ -8,6 +8,16 @@ All notable changes are documented here. The format follows
 
 ### Added
 
+- The admin console sets two more things on the apps it registers:
+  - **Client authentication: Private key JWT**: the app signs client assertions with its own
+    key instead of a shared secret (`private_key_jwt`), and the console stores its public keys
+    (JWKS, public keys only). Change them when editing the app, or let the app replace them
+    itself at `/api/auth/oauth2/client/rotate-keys` with an assertion signed by a current key
+    (Better Auth's `allowClientKeyRotation`, now on). No `jwks_uri`: Better Auth only fetches
+    one from Ostiary's own origins.
+  - **Back-channel logout URI**: OpenID Connect Back-Channel Logout, so the app is told when
+    the user's session ends, optionally with `sid` required. Can be changed or removed when
+    editing the app. For apps that sign users in.
 - An app's client ID can be chosen when it is registered in the admin console (**Client ID**,
   optional), so an app moved from Auth0, Keycloak, Cognito or another provider keeps its ID:
   3 to 128 letters, digits, `.`, `_` or `-`, unique. Left empty, Better Auth generates one as

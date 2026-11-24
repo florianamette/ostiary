@@ -600,7 +600,18 @@
           "clientId": "İstemci kimliği",
           "clientSecret": "İstemci gizli anahtarı",
           "copyClientId": "İstemci kimliğini kopyala",
-          "copyClientSecret": "İstemci gizli anahtarını kopyala"
+          "copyClientSecret": "İstemci gizli anahtarını kopyala",
+          "authMethodLabel": "İstemci kimlik doğrulaması",
+          "authMethodSecret": "İstemci gizli anahtarı",
+          "authMethodPrivateKey": "Özel anahtarlı JWT (açık anahtarlar)",
+          "jwksLabel": "Açık anahtarlar (JWKS)",
+          "jwksHint": "Uygulamanın açık anahtarları, JSON Web Key Set olarak. Uygulama, belirteç uç noktasında özel anahtarıyla bir istemci onaylaması imzalar (private_key_jwt). Değiştirmek için uygulamayı düzenleyin ya da uygulamanın /api/auth/oauth2/client/rotate-keys adresini çağırmasına izin verin.",
+          "jwksInvalidJson": "JWKS geçerli bir JSON değil.",
+          "backchannelUriLabel": "Back-channel oturum kapatma URI'si (isteğe bağlı)",
+          "backchannelUriHint": "Bir kullanıcının oturumu bittiğinde Ostiary bu https adresine imzalı bir oturum kapatma belirteci gönderir; böylece uygulama da kullanıcının oturumunu kapatabilir.",
+          "backchannelSessionLabel": "Uygulamanın oturum kimliğine (sid) ihtiyacı var",
+          "backchannelSessionHint": "Ostiary oturum kapatma belirtecine sid ekler: uygulama kapatılacak oturumu bununla bulur.",
+          "successPrivateKey": "Gizli anahtar verilmez: uygulama, kayıtlı anahtarlarından biriyle imzalanmış bir istemci onaylamasıyla kimliğini doğrular."
         },
         "rowActions": {
           "menuLabel": "{name} için işlemler",
@@ -666,7 +677,8 @@
             "rotateFailed": "Gizli anahtar yenilenemedi",
             "newSecretIssued": "Yeni istemci gizli anahtarı oluşturuldu, şimdi kopyalayın",
             "rotated": "Gizli anahtar yenilendi"
-          }
+          },
+          "rotateHintPrivateKey": "Bu uygulama gizli anahtarla değil, anahtarlarıyla kimlik doğrular"
         },
         "selfRegistered": {
           "menuLabel": "{name} için işlemler",

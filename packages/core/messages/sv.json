@@ -600,7 +600,18 @@
           "clientId": "Klient-id",
           "clientSecret": "Klienthemlighet",
           "copyClientId": "Kopiera klient-id",
-          "copyClientSecret": "Kopiera klienthemlighet"
+          "copyClientSecret": "Kopiera klienthemlighet",
+          "authMethodLabel": "Klientautentisering",
+          "authMethodSecret": "Klienthemlighet",
+          "authMethodPrivateKey": "Private key-JWT (publika nycklar)",
+          "jwksLabel": "Publika nycklar (JWKS)",
+          "jwksHint": "Appens publika nycklar som en JSON Web Key Set. Appen signerar ett klientpåstående med sin privata nyckel vid tokenslutpunkten (private_key_jwt). Ändra dem genom att redigera appen, eller låt appen anropa /api/auth/oauth2/client/rotate-keys.",
+          "jwksInvalidJson": "JWKS är inte giltig JSON.",
+          "backchannelUriLabel": "URI för back-channel-utloggning (valfritt)",
+          "backchannelUriHint": "När en användares session tar slut skickar Ostiary en signerad utloggningstoken till denna https-URL så att appen också kan logga ut användaren.",
+          "backchannelSessionLabel": "Appen behöver sessions-ID (sid)",
+          "backchannelSessionHint": "Ber Ostiary att ta med sid i utloggningstoken: appen använder det för att hitta sessionen som ska avslutas.",
+          "successPrivateKey": "Ingen hemlighet utfärdas: appen autentiserar sig med ett klientpåstående signerat med en av dess registrerade nycklar."
         },
         "rowActions": {
           "menuLabel": "Åtgärder för {name}",
@@ -666,7 +677,8 @@
             "rotateFailed": "Det gick inte att rotera hemligheten",
             "newSecretIssued": "Ny klienthemlighet utfärdad, kopiera den nu",
             "rotated": "Hemligheten har roterats"
-          }
+          },
+          "rotateHintPrivateKey": "Den här appen autentiserar sig med sina nycklar, inte med en hemlighet"
         },
         "selfRegistered": {
           "menuLabel": "Åtgärder för {name}",

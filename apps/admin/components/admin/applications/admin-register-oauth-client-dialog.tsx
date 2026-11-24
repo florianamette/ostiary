@@ -118,6 +118,11 @@ export function AdminRegisterOAuthClientDialog({
   const [limitScopes, setLimitScopes] = React.useState(false);
   const [skipConsent, setSkipConsent] = React.useState(false);
   const [pairwise, setPairwise] = React.useState(false);
+  // Confidential and machine apps: a client secret, or private_key_jwt with the app's public keys.
+  const [privateKeyJwt, setPrivateKeyJwt] = React.useState(false);
+  const [jwksRaw, setJwksRaw] = React.useState("");
+  const [backchannelUri, setBackchannelUri] = React.useState("");
+  const [backchannelSession, setBackchannelSession] = React.useState(false);
   const [deviceCode, setDeviceCode] = React.useState(false);
   // On for new apps: signing out of the app can then end the Ostiary session too.
   const [endSession, setEndSession] = React.useState(true);
@@ -138,6 +143,10 @@ export function AdminRegisterOAuthClientDialog({
     setLimitScopes(false);
     setSkipConsent(false);
     setPairwise(false);
+    setPrivateKeyJwt(false);
+    setJwksRaw("");
+    setBackchannelUri("");
+    setBackchannelSession(false);
     setDeviceCode(false);
     setEndSession(true);
     setPostLogoutUrisRaw("");
@@ -154,6 +163,17 @@ export function AdminRegisterOAuthClientDialog({
       client_id: customClientId.trim() || undefined,
       logo_uri: logoUri.trim() || undefined,
     };
+    let auth: Record<string, unknown> = { token_endpoint_auth_method: "client_secret_basic" };
+    if (clientKind !== "public" && privateKeyJwt) {
+      let jwks: unknown;
+      try {
+        jwks = JSON.parse(jwksRaw);
+      } catch {
+        setFormError(t("jwksInvalidJson"));
+        return;
+      }
+      auth = { token_endpoint_auth_method: "private_key_jwt", jwks };
+    }
     let body: Record<string, unknown>;
     if (clientKind === "machine") {
       // Confidential, client_credentials only: no redirect URIs, consent or device sign-in.
@@ -164,7 +184,7 @@ export function AdminRegisterOAuthClientDialog({
       }
       body = {
         ...common,
-        token_endpoint_auth_method: "client_secret_basic",
+        ...auth,
         grant_types: ["client_credentials"],
         type: "web",
         scope,
@@ -186,8 +206,7 @@ export function AdminRegisterOAuthClientDialog({
       body = {
         ...common,
         redirect_uris,
-        token_endpoint_auth_method:
-          clientKind === "public" ? "none" : "client_secret_basic",
+        ...(clientKind === "public" ? { token_endpoint_auth_method: "none" } : auth),
         grant_types: [
           "authorization_code",
           "refresh_token",
@@ -197,6 +216,9 @@ export function AdminRegisterOAuthClientDialog({
         type: clientKind === "public" ? "native" : "web",
         skip_consent: skipConsent,
         ...(pairwise ? { subject_type: "pairwise" } : {}),
+        ...(backchannelUri.trim()
+          ? { backchannel_logout_uri: backchannelUri.trim(), backchannel_logout_session_required: backchannelSession }
+          : {}),
         enable_end_session: endSession,
         ...(endSession && post_logout_redirect_uris.length
           ? { post_logout_redirect_uris }
@@ -299,6 +321,39 @@ export function AdminRegisterOAuthClientDialog({
                   </SelectContent>
                 </Select>
               </Field>
+              {clientKind === "public" ? null : (
+                <Field>
+                  <FieldLabel htmlFor="oauth-reg-auth-method">{t("authMethodLabel")}</FieldLabel>
+                  <Select
+                    value={privateKeyJwt ? "private_key_jwt" : "client_secret"}
+                    onValueChange={(v) => setPrivateKeyJwt(v === "private_key_jwt")}
+                  >
+                    <SelectTrigger id="oauth-reg-auth-method" className="w-full">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="client_secret">{t("authMethodSecret")}</SelectItem>
+                      <SelectItem value="private_key_jwt">{t("authMethodPrivateKey")}</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </Field>
+              )}
+              {clientKind !== "public" && privateKeyJwt ? (
+                <Field>
+                  <FieldLabel htmlFor="oauth-reg-jwks">{t("jwksLabel")}</FieldLabel>
+                  <Textarea
+                    id="oauth-reg-jwks"
+                    required
+                    rows={5}
+                    className="font-mono text-xs"
+                    spellCheck={false}
+                    placeholder='{"keys": [{"kty": "EC", "crv": "P-256", "x": "…", "y": "…", "kid": "…"}]}'
+                    value={jwksRaw}
+                    onChange={(e) => setJwksRaw(e.target.value)}
+                  />
+                  <p className="text-muted-foreground text-xs">{t("jwksHint")}</p>
+                </Field>
+              ) : null}
               {clientKind === "machine" ? (
                 <ScopePickerField
                   idPrefix="oauth-reg-scope"
@@ -415,6 +470,28 @@ export function AdminRegisterOAuthClientDialog({
                     />
                   ) : null}
                   <Field>
+                    <FieldLabel htmlFor="oauth-reg-backchannel">{t("backchannelUriLabel")}</FieldLabel>
+                    <Input
+                      id="oauth-reg-backchannel"
+                      type="url"
+                      placeholder="https://app.example.com/backchannel-logout"
+                      value={backchannelUri}
+                      onChange={(e) => setBackchannelUri(e.target.value)}
+                    />
+                    <p className="text-muted-foreground text-xs">{t("backchannelUriHint")}</p>
+                  </Field>
+                  {backchannelUri.trim() ? (
+                    <Field>
+                      <CheckboxField
+                        id="oauth-reg-backchannel-session"
+                        checked={backchannelSession}
+                        onChange={setBackchannelSession}
+                        label={t("backchannelSessionLabel")}
+                        hint={t("backchannelSessionHint")}
+                      />
+                    </Field>
+                  ) : null}
+                  <Field>
                     <CheckboxField
                       id="oauth-reg-skip-consent"
                       checked={skipConsent}
@@ -461,7 +538,9 @@ export function AdminRegisterOAuthClientDialog({
             <DialogHeader>
               <DialogTitle>{t("successTitle")}</DialogTitle>
               <DialogDescription>
-                {!issuedSecret
+                {privateKeyJwt && clientKind !== "public"
+                  ? t("successPrivateKey")
+                  : !issuedSecret
                   ? t("successPublic")
                   : clientKind === "machine"
                     ? t("successMachine", { grant: "client_credentials" })

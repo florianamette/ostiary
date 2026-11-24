@@ -82,6 +82,10 @@ function mapApiClientToRow(raw: unknown): OAuthApplicationRow | null {
   const scopes = typeof o.scope === "string" ? o.scope.split(/\s+/).filter(Boolean) : [];
   const policyUri = typeof o.policy_uri === "string" && o.policy_uri ? o.policy_uri : null;
   const tosUri = typeof o.tos_uri === "string" && o.tos_uri ? o.tos_uri : null;
+  const backchannelLogoutUri =
+    typeof o.backchannel_logout_uri === "string" && o.backchannel_logout_uri ? o.backchannel_logout_uri : null;
+  const backchannelLogoutSessionRequired = o.backchannel_logout_session_required === true;
+  const jwks = o.jwks && typeof o.jwks === "object" ? JSON.stringify(o.jwks, null, 2) : null;
   const issuedAt = o.client_id_issued_at ?? o.clientIdIssuedAt;
   let createdAt: string;
   if (typeof issuedAt === "number" && Number.isFinite(issuedAt)) {
@@ -113,6 +117,9 @@ function mapApiClientToRow(raw: unknown): OAuthApplicationRow | null {
     scopes,
     policyUri,
     tosUri,
+    backchannelLogoutUri,
+    backchannelLogoutSessionRequired,
+    jwks,
     createdAt,
     // Dynamic clients carry the marker in their metadata, which Better Auth returns inline.
     registration: o.ostiary_registration === "dynamic" ? "dynamic" : "admin",

@@ -600,7 +600,18 @@
           "clientId": "معرّف العميل",
           "clientSecret": "سر العميل",
           "copyClientId": "نسخ معرّف العميل",
-          "copyClientSecret": "نسخ سر العميل"
+          "copyClientSecret": "نسخ سر العميل",
+          "authMethodLabel": "مصادقة العميل",
+          "authMethodSecret": "سرّ العميل",
+          "authMethodPrivateKey": "JWT بمفتاح خاص (مفاتيح عامة)",
+          "jwksLabel": "المفاتيح العامة (JWKS)",
+          "jwksHint": "المفاتيح العامة للتطبيق بصيغة JSON Web Key Set. يوقّع التطبيق تأكيد العميل بمفتاحه الخاص عند نقطة نهاية الرموز (private_key_jwt). لتغييرها، عدّل التطبيق، أو دع التطبيق يستدعي /api/auth/oauth2/client/rotate-keys.",
+          "jwksInvalidJson": "JWKS ليس JSON صالحًا.",
+          "backchannelUriLabel": "عنوان URI لتسجيل الخروج عبر القناة الخلفية (اختياري)",
+          "backchannelUriHint": "عند انتهاء جلسة المستخدم، يرسل Ostiary رمز تسجيل خروج موقّعًا إلى عنوان https هذا ليتمكن التطبيق من تسجيل خروجه أيضًا.",
+          "backchannelSessionLabel": "يحتاج التطبيق إلى معرّف الجلسة (sid)",
+          "backchannelSessionHint": "يطلب من Ostiary وضع sid في رمز تسجيل الخروج: يستخدمه التطبيق للعثور على الجلسة التي ينهيها.",
+          "successPrivateKey": "لا يُصدر أي سرّ: يصادق التطبيق بتأكيد عميل موقّع بأحد مفاتيحه المسجّلة."
         },
         "rowActions": {
           "menuLabel": "إجراءات {name}",
@@ -666,7 +677,8 @@
             "rotateFailed": "تعذّر تدوير السر",
             "newSecretIssued": "تم إصدار سر عميل جديد، انسخه الآن",
             "rotated": "تم تدوير السر"
-          }
+          },
+          "rotateHintPrivateKey": "يصادق هذا التطبيق بمفاتيحه، لا بسرّ"
         },
         "selfRegistered": {
           "menuLabel": "إجراءات {name}",

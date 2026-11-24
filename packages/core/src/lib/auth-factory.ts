@@ -332,6 +332,9 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
         consentPage: "/consent",
         // Better Auth's default, or the ID an admin chose for an app moved from another provider.
         generateClientId,
+        // An app that authenticates with private_key_jwt and inline keys may replace them itself
+        // at /oauth2/client/rotate-keys, with a client assertion signed by a current key.
+        allowClientKeyRotation: true,
         // Per-app `sub` for apps registered with subject_type "pairwise" (PAIRWISE_SECRET).
         // Discovery then lists "pairwise" in subject_types_supported.
         ...(env.PAIRWISE_SECRET ? { pairwiseSecret: env.PAIRWISE_SECRET } : {}),
