@@ -332,6 +332,9 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
         consentPage: "/consent",
         // Better Auth's default, or the ID an admin chose for an app moved from another provider.
         generateClientId,
+        // Per-app `sub` for apps registered with subject_type "pairwise" (PAIRWISE_SECRET).
+        // Discovery then lists "pairwise" in subject_types_supported.
+        ...(env.PAIRWISE_SECRET ? { pairwiseSecret: env.PAIRWISE_SECRET } : {}),
         // Self-registration (Dynamic Client Registration / MCP, metadata documents) is off here and
         // set from the admin console's settings before each request, see syncClientRegistration.
         // The discovery documents are served (from these options) before that first per-request

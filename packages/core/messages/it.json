@@ -586,6 +586,8 @@
           "postLogoutUrisHint": "Dove l’app può riportare l’utente dopo la disconnessione (post_logout_redirect_uri, corrispondenza esatta). Uno per riga o separati da virgole. Senza URI, l’utente vede una pagina di disconnessione.",
           "skipConsentLabel": "Salta il consenso (client attendibile)",
           "skipConsentHint": "Gli utenti non vedranno la schermata di consenso per questa applicazione. Usalo solo per integrazioni proprie o del tutto attendibili.",
+          "pairwiseLabel": "ID utente per app",
+          "pairwiseHint": "Gli utenti hanno qui un ID (sub) diverso da quello delle app su altri host, che quindi non possono collegare i loro utenti a questa. Tutti gli URI di reindirizzamento devono essere sullo stesso host. Non modificabile in seguito.",
           "registerFailed": "Impossibile registrare l’applicazione",
           "missingClientId": "Il server non ha restituito un {field}.",
           "registered": "Applicazione OAuth registrata",

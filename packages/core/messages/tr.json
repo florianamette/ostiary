@@ -586,6 +586,8 @@
           "postLogoutUrisHint": "Uygulamanın çıkıştan sonra kullanıcıları geri gönderebileceği adresler (post_logout_redirect_uri, birebir eşleşme). Her satıra bir tane veya virgülle ayrılmış. Hiçbiri yoksa kullanıcılar bir çıkış sayfası görür.",
           "skipConsentLabel": "Onayı atla (güvenilir istemci)",
           "skipConsentHint": "Kullanıcılar bu uygulama için onay ekranını görmez. Yalnızca birinci taraf veya tamamen güvenilir entegrasyonlar için kullanın.",
+          "pairwiseLabel": "Uygulamaya özel kullanıcı kimlikleri",
+          "pairwiseHint": "Kullanıcılar burada başka ana makinelerdeki uygulamalardan farklı bir kimlik (sub) alır; bu uygulamalar kullanıcılarını bununla eşleştiremez. Tüm yönlendirme URI'leri aynı ana makinede olmalıdır. Sonradan değiştirilemez.",
           "registerFailed": "Uygulama kaydedilemedi",
           "missingClientId": "Sunucu bir {field} döndürmedi.",
           "registered": "OAuth uygulaması kaydedildi",

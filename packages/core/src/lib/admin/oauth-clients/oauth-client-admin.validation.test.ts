@@ -11,6 +11,7 @@ import {
   parseCreateOAuthClientBody,
   parseLogoUri,
   parseUpdateOAuthClientBody,
+  PAIRWISE_WITHOUT_USERS_MESSAGE,
   POST_LOGOUT_WITHOUT_END_SESSION_MESSAGE,
   withDeviceCodeGrant,
 } from "@ostiary/core/lib/admin/oauth-clients/oauth-client-admin.validation";
@@ -432,5 +433,22 @@ describe("client_id on create", () => {
       const result = parseCreateOAuthClientBody({ ...base, client_id: id });
       expect(result.ok, id).toBe(false);
     }
+  });
+});
+
+describe("subject_type on create", () => {
+  it("passes pairwise on for an app that signs users in, and leaves public out", () => {
+    const pairwise = parseCreateOAuthClientBody({ redirect_uris: ["https://app.example.com/cb"], subject_type: "pairwise" });
+    expect(pairwise.ok && pairwise.value.subject_type).toBe("pairwise");
+    const pub = parseCreateOAuthClientBody({ redirect_uris: ["https://app.example.com/cb"], subject_type: "public" });
+    expect(pub.ok && "subject_type" in pub.value).toBe(false);
+  });
+
+  it("refuses pairwise for a machine client", () => {
+    const result = parseCreateOAuthClientBody(
+      { subject_type: "pairwise", grant_types: ["client_credentials"], scope: "api:read" },
+      ["api:read"],
+    );
+    expect(result).toEqual({ ok: false, error: `subject_type: ${PAIRWISE_WITHOUT_USERS_MESSAGE}` });
   });
 });

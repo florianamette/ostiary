@@ -586,6 +586,8 @@
           "postLogoutUrisHint": "Where the app may send users back after sign-out (post_logout_redirect_uri, exact match). One per line or comma-separated. Without one, users see a signed-out page.",
           "skipConsentLabel": "Skip consent (trusted client)",
           "skipConsentHint": "Users will not see the consent screen for this application. Use only for first-party or fully trusted integrations.",
+          "pairwiseLabel": "Pairwise user IDs",
+          "pairwiseHint": "Users get a different ID (sub) here than in apps on other hosts, so those apps cannot match their users with this one. All redirect URIs must be on one host. Cannot be changed later.",
           "registerFailed": "Could not register application",
           "missingClientId": "Server did not return a {field}.",
           "registered": "OAuth application registered",

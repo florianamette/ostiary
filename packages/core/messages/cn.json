@@ -586,6 +586,8 @@
           "postLogoutUrisHint": "退出登录后应用可将用户送回的地址（post_logout_redirect_uri，精确匹配）。每行一个或用逗号分隔。未设置时，用户会看到已退出页面。",
           "skipConsentLabel": "跳过同意（受信任的客户端）",
           "skipConsentHint": "用户将不会看到此应用的同意页面。仅用于自有或完全受信任的集成。",
+          "pairwiseLabel": "按应用区分的用户 ID",
+          "pairwiseHint": "用户在此获得的 ID（sub）与其他主机上的应用不同，因此那些应用无法将其用户与此应用关联。所有重定向 URI 必须位于同一主机。创建后无法更改。",
           "registerFailed": "无法注册应用",
           "missingClientId": "服务器未返回 {field}。",
           "registered": "OAuth 应用已注册",

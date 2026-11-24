@@ -38,6 +38,8 @@ export type CreateOAuthClientAdminInput = {
   response_types: "code"[];
   type?: OAuthClientApplicationType;
   skip_consent: boolean;
+  /** The app gets a `sub` of its own for each user (PAIRWISE_SECRET). Fixed once created. */
+  subject_type?: "pairwise";
   /**
    * RP-initiated logout: the app may call the end-session endpoint, and its ID tokens carry
    * `sid`. Off unless asked for.

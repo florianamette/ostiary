@@ -108,6 +108,7 @@ export default async function AdminApplicationsPage({
       />
       <AdminApplicationsPanel
         linkedApis={linkedApis}
+        pairwiseAvailable={Boolean(env.PAIRWISE_SECRET)}
         machineScopes={{ oidcScopes: [...OIDC_SCOPES], apis: machineApis, otherScopes }}
         selfRegistered={selfRegistered.map((client) => ({
           clientId: client.clientId,

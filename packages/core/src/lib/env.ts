@@ -67,6 +67,12 @@ export const envSchema = z
      */
     SCIM_TOKEN_SECRET: optional(z.string().min(32)),
     /**
+     * Key (32+ characters) for pairwise subject identifiers: apps registered with "pairwise user
+     * IDs" get a `sub` of their own for each user, derived from this key. Unset: no app can turn
+     * them on. Changing it changes every pairwise `sub`. Set the same value in both apps.
+     */
+    PAIRWISE_SECRET: optional(z.string().min(32)),
+    /**
      * Optional captcha on sign-up, password sign-in, password reset and sign-in codes.
      * Off unless all three are set: the provider, its public site key and its secret key.
      */

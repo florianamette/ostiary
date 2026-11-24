@@ -90,6 +90,7 @@ export async function createOAuthClientForAdmin(
         // public through token_endpoint_auth_method "none".
         ...(input.type ? { application_type: input.type === "native" ? "native" : "web" } : {}),
         skip_consent: input.skip_consent,
+        ...(input.subject_type ? { subject_type: input.subject_type } : {}),
         enable_end_session: input.enable_end_session,
         ...(input.post_logout_redirect_uris?.length
           ? { post_logout_redirect_uris: input.post_logout_redirect_uris }

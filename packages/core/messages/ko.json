@@ -586,6 +586,8 @@
           "postLogoutUrisHint": "로그아웃 후 앱이 사용자를 돌려보낼 수 있는 주소(post_logout_redirect_uri, 정확히 일치). 한 줄에 하나씩 또는 쉼표로 구분합니다. 없으면 사용자에게 로그아웃 완료 페이지가 표시됩니다.",
           "skipConsentLabel": "동의 건너뛰기(신뢰할 수 있는 클라이언트)",
           "skipConsentHint": "사용자에게 이 애플리케이션의 동의 화면이 표시되지 않습니다. 자사 또는 완전히 신뢰할 수 있는 통합에만 사용하세요.",
+          "pairwiseLabel": "앱별 사용자 ID",
+          "pairwiseHint": "사용자는 다른 호스트의 앱과 다른 ID(sub)를 받으므로 그 앱들은 이 앱과 사용자를 대조할 수 없습니다. 모든 리디렉션 URI는 같은 호스트에 있어야 합니다. 나중에 변경할 수 없습니다.",
           "registerFailed": "애플리케이션을 등록할 수 없습니다",
           "missingClientId": "서버가 {field}을(를) 반환하지 않았습니다.",
           "registered": "OAuth 애플리케이션이 등록되었습니다",

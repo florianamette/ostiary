@@ -586,6 +586,8 @@
           "postLogoutUrisHint": "Hvor appen må sende brugere tilbage til efter log ud (post_logout_redirect_uri, eksakt match). Én pr. linje eller kommasepareret. Uden en ser brugerne en log ud-side.",
           "skipConsentLabel": "Spring samtykke over (betroet klient)",
           "skipConsentHint": "Brugere ser ikke samtykkeskærmen for denne applikation. Brug kun til egne eller fuldt betroede integrationer.",
+          "pairwiseLabel": "Bruger-id'er pr. app",
+          "pairwiseHint": "Brugere får her et andet id (sub) end i apps på andre værter, som derfor ikke kan matche deres brugere med denne app. Alle omdirigerings-URI'er skal ligge på samme vært. Kan ikke ændres senere.",
           "registerFailed": "Applikationen kunne ikke registreres",
           "missingClientId": "Serveren returnerede ikke et {field}.",
           "registered": "OAuth-applikation registreret",

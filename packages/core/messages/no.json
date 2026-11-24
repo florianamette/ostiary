@@ -586,6 +586,8 @@
           "postLogoutUrisHint": "Hvor appen kan sende brukere tilbake etter utlogging (post_logout_redirect_uri, eksakt samsvar). Én per linje eller kommaseparert. Uten noen ser brukerne en utloggingsside.",
           "skipConsentLabel": "Hopp over samtykke (klarert klient)",
           "skipConsentHint": "Brukere ser ikke samtykkeskjermen for denne applikasjonen. Bruk bare for egne eller fullt klarerte integrasjoner.",
+          "pairwiseLabel": "Bruker-ID per app",
+          "pairwiseHint": "Brukere får her en annen ID (sub) enn i apper på andre verter, som derfor ikke kan koble brukerne sine til denne appen. Alle omdirigerings-URI-er må ligge på samme vert. Kan ikke endres senere.",
           "registerFailed": "Kunne ikke registrere applikasjonen",
           "missingClientId": "Serveren returnerte ikke {field}.",
           "registered": "OAuth-applikasjonen er registrert",
