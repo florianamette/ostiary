@@ -3,12 +3,13 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
 import { PageHeader } from "@/components/admin/common/page-header";
+import { CustomProvidersCard } from "@/components/admin/sign-in-providers/custom-providers-card";
 import { AdminSignInProvidersPanel } from "@/components/admin/sign-in-providers/admin-sign-in-providers-panel";
 import { db } from "@ostiary/core/db/index";
 import { account } from "@ostiary/core/db/schema";
 import { brand } from "@ostiary/core/lib/brand";
 import { env } from "@ostiary/core/lib/env";
-import { listSocialProviderSettings } from "@ostiary/core/lib/social-providers";
+import { listCustomProviders, listSocialProviderSettings } from "@ostiary/core/lib/social-providers";
 import { requireAdminSession } from "@/lib/require-admin-session";
 
 export const dynamic = "force-dynamic";
@@ -27,8 +28,9 @@ export default async function AdminSignInProvidersPage({ params }: { params: Pro
   await requireAdminSession();
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "admin.pages.signInProviders" });
-  const [providers, linked] = await Promise.all([
+  const [providers, custom, linked] = await Promise.all([
     listSocialProviderSettings(),
+    listCustomProviders(),
     db
       .select({ providerId: account.providerId, count: sql<number>`count(*)::int` })
       .from(account)
@@ -43,6 +45,22 @@ export default async function AdminSignInProvidersPage({ params }: { params: Pro
         providers={providers.map((p) => ({
           ...p,
           updatedAt: p.updatedAt?.toISOString() ?? null,
+          linkedAccounts: linked.find((l) => l.providerId === p.id)?.count ?? 0,
+        }))}
+      />
+      <CustomProvidersCard
+        authAppUrl={env.AUTH_APP_URL ?? ""}
+        providers={custom.map((p) => ({
+          id: p.id,
+          enabled: p.enabled,
+          allowSignUp: p.allowSignUp,
+          name: p.name,
+          discoveryUrl: p.discoveryUrl,
+          clientId: p.clientId,
+          scopes: p.scopes,
+          secretSet: p.secretSet,
+          secretUnreadable: p.secretUnreadable,
+          callbackUrl: p.callbackUrl,
           linkedAccounts: linked.find((l) => l.providerId === p.id)?.count ?? 0,
         }))}
       />

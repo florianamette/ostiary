@@ -7,12 +7,16 @@ import { z } from "zod";
 import { adminAction, input, type AdminActor } from "@/lib/admin-action";
 import { isSocialProvider, SOCIAL_PROVIDER_META, type SocialProvider } from "@ostiary/core/lib/social-provider-meta";
 import {
+  deleteCustomProvider,
   deleteSocialProvider,
   reorderSocialProviders,
+  saveCustomProvider,
   saveSocialProvider,
+  type CustomProviderInput,
   type SaveResult,
   type SocialProviderInput,
 } from "@ostiary/core/lib/social-providers";
+import { isCustomProviderId } from "@ostiary/core/lib/custom-oauth-providers";
 import type { ActionResult } from "@/lib/action-result";
 
 /*
@@ -125,4 +129,44 @@ async function removeProviderRun(id: string, actor: AdminActor): Promise<ActionR
   if (!isSocialProvider(id)) return { ok: false, error: (await getTranslations("admin.pages.signInProviders"))("errors.unknownProvider") };
   if (await deleteSocialProvider(id)) await audit({ action: "social_provider.delete", target: target(id) });
   return { ok: true };
+}
+
+// --- Custom OpenID Connect providers ---------------------------------------------------------
+
+const customInput = z.tuple([
+  input.id.nullable(),
+  z.object({
+    slug: z.string().max(64).optional(),
+    name: z.string().max(200),
+    discoveryUrl: z.string().max(2_000),
+    clientId: z.string().max(1_000),
+    clientSecret: z.string().max(10_000).nullable().optional(),
+    scopes: z.string().max(1_000).optional(),
+    enabled: z.boolean(),
+    allowSignUp: z.boolean(),
+  }).strict(),
+]);
+
+/** Adds (`id` null) or updates a custom OpenID Connect provider. */
+export async function saveCustomProviderAction(id: string | null, provider: CustomProviderInput): Promise<ActionResult<{ id: string }>> {
+  return adminAction(customInput, [id, provider], async ([id, provider], { session, audit }): Promise<ActionResult<{ id: string }>> => {
+    const result = await saveCustomProvider(id, provider, session.user.id);
+    if (!result.ok) return { ok: false, error: result.error };
+    if (result.changed.length) {
+      await audit({
+        action: result.created ? "social_provider.create" : "social_provider.update",
+        target: { type: "social_provider", id: result.id, label: provider.name.trim() },
+        metadata: { changed: result.changed, enabled: provider.enabled, custom: true },
+      });
+    }
+    return { ok: true, id: result.id };
+  });
+}
+
+export async function removeCustomProviderAction(id: string): Promise<ActionResult> {
+  return adminAction(providerInput, [id], async ([id], { audit }): Promise<ActionResult> => {
+    if (!isCustomProviderId(id)) return { ok: false, error: (await getTranslations("admin.pages.signInProviders"))("errors.unknownProvider") };
+    if (await deleteCustomProvider(id)) await audit({ action: "social_provider.delete", target: { type: "social_provider", id, label: id } });
+    return { ok: true };
+  });
 }
