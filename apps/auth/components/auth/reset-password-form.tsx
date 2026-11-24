@@ -22,8 +22,11 @@ import { useAuthErrorMessage } from "@/lib/auth-error-message";
 export function ResetPasswordForm({
   className,
   appLink = null,
+  minPasswordLength = 8,
   ...props
 }: React.ComponentProps<"div"> & {
+  /** The policy's minimum (admin console, Security). */
+  minPasswordLength?: number;
   /** Set when the reset started from an app's sign-in: back to that app's login. */
   appLink?: AppLink;
 }) {
@@ -115,7 +118,7 @@ export function ResetPasswordForm({
               disabled={isSubmitting}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <FieldDescription>{t("passwordHint")}</FieldDescription>
+            <FieldDescription>{t("passwordHint", { min: minPasswordLength })}</FieldDescription>
           </Field>
           <Field>
             <FieldLabel htmlFor="reset-password-confirm">

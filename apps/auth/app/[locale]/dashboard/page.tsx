@@ -1,5 +1,6 @@
 import { ShieldAlert } from "lucide-react";
 import { getTranslations } from "next-intl/server";
+import { currentAuthPolicy } from "@ostiary/core/lib/auth-policy";
 
 import { DashboardAccountSummary } from "@/components/dashboard/dashboard-account-summary";
 import { DashboardApiKeysSection } from "@/components/dashboard/dashboard-api-keys-section";
@@ -30,11 +31,12 @@ export default async function DashboardPage({
   // Read here rather than by each section after it renders: the sections show at once. A read
   // that fails leaves null, and the section tries again in the browser (or says it could not).
   const orNull = <T,>(promise: Promise<T>) => promise.catch(() => null);
-  const [socialProviders, connectedApps, apiKeys, deletionStatus] = await Promise.all([
+  const [socialProviders, connectedApps, apiKeys, deletionStatus, policy] = await Promise.all([
     enabledSocialProviders(),
     orNull(getMyConnectedApps()),
     showApiKeys ? orNull(getMyApiKeys()) : null,
     orNull(getDeletionStatus()),
+    currentAuthPolicy(),
   ]);
 
   return (
@@ -66,6 +68,8 @@ export default async function DashboardPage({
         <DashboardSecuritySection
           socialProviders={socialProviders}
           adminConsoleUrl={twoFactorRequired ? env.ADMIN_APP_URL : undefined}
+          minPasswordLength={policy.minPasswordLength}
+          signOutOnPasswordChange={policy.signOutOnPasswordChange}
         />
         <DashboardAppsSection initialApps={connectedApps} />
         {showApiKeys ? <DashboardApiKeysSection initialKeys={apiKeys} /> : null}

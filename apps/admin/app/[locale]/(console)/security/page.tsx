@@ -22,6 +22,8 @@ import {
 import { Link } from "@/i18n/navigation";
 import { requireAdminSession } from "@/lib/require-admin-session";
 import { getSecurityStats } from "@/lib/security-stats";
+import { AuthPolicyCard } from "@/components/admin/security/auth-policy-card";
+import { loadAuthPolicy } from "@ostiary/core/lib/auth-policy";
 
 export const dynamic = "force-dynamic";
 
@@ -35,11 +37,13 @@ export default async function SecurityPage({ params }: { params: Promise<{ local
   await requireAdminSession();
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "admin.pages.security" });
-  const stats = await getSecurityStats();
+  const [stats, policy] = await Promise.all([getSecurityStats(), loadAuthPolicy()]);
 
   return (
     <div className="space-y-6">
       <PageHeader title={t("title")} description={t("description")} />
+
+      <AuthPolicyCard policy={policy} />
 
       <StatTiles
         locale={locale}

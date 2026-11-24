@@ -120,7 +120,7 @@
       "backToLogin": "Zpět na přihlášení",
       "newPasswordLabel": "Nové heslo",
       "confirmPasswordLabel": "Potvrzení hesla",
-      "passwordHint": "Musí mít alespoň 8 znaků.",
+      "passwordHint": "Musí mít alespoň {min} znaků.",
       "passwordMismatch": "Hesla se neshodují",
       "submit": "Změnit heslo",
       "submitting": "Ukládání…",
@@ -146,7 +146,7 @@
       "emailDescription": "Použijeme ho, abychom vás mohli kontaktovat. Váš e-mail nikomu dalšímu neposkytneme.",
       "passwordLabel": "Heslo",
       "confirmPasswordLabel": "Potvrzení hesla",
-      "passwordHint": "Musí mít alespoň 8 znaků.",
+      "passwordHint": "Musí mít alespoň {min} znaků.",
       "confirmPasswordHint": "Potvrďte prosím heslo.",
       "passwordMismatch": "Hesla se neshodují",
       "submit": "Vytvořit účet",
@@ -161,7 +161,9 @@
         "usernameTooShort": "Uživatelské jméno musí mít alespoň 3 znaky.",
         "usernameInvalid": "Toto uživatelské jméno není platné.",
         "usernameTaken": "Toto uživatelské jméno je už obsazené. Zkuste jiné."
-      }
+      },
+      "passwordSignUpOff": "Registrace s heslem je vypnutá. Vytvořte si účet pomocí jednoho z těchto:",
+      "signUpClosed": "Zde nelze vytvářet nové účty. Požádejte správce o účet."
     },
     "screen": {
       "headline": "Jeden účet pro <accent>všechny vaše aplikace</accent>.",
@@ -1932,6 +1934,9 @@
           },
           "audit_log": {
             "export_csv": "Export auditního protokolu do CSV"
+          },
+          "security": {
+            "update_policy": "Změněny zásady relací a hesel"
           }
         },
         "actorPlaceholder": "Hledat podle toho, kdo akci provedl (e-mail)…",
@@ -1977,6 +1982,33 @@
           "noReason": "Bez uvedení důvodu",
           "until": "do {date}",
           "permanent": "trvale"
+        },
+        "policy": {
+          "title": "Relace a hesla",
+          "description": "Jak dlouho zůstávají lidé přihlášeni k ověřovací aplikaci a jak se volí hesla. Aplikace si ponechávají vlastní tokeny a obnovovací tokeny.",
+          "edit": "Upravit",
+          "on": "Zapnuto",
+          "off": "Vypnuto",
+          "days": "{count, plural, one {# den} few {# dny} many {# dne} other {# dní}}",
+          "characters": "{count, plural, one {# znak} few {# znaky} many {# znaku} other {# znaků}}",
+          "sessionDays": "Doba platnosti relace",
+          "sessionDaysHint": "Jak dlouho přihlášení platí. Relace vytvořené před změnou si ponechají své vypršení; při dalším prodloužení se řídí novou dobou.",
+          "extendSessions": "Prodlužovat používané relace",
+          "extendSessionsHint": "Zapnuto: relace platí {count, plural, one {# den} few {# dny} many {# dne} other {# dní}} od posledního použití. Vypnuto: skončí {count, plural, one {# den} few {# dny} many {# dne} other {# dní}} po přihlášení, ať se používá, nebo ne.",
+          "signOutOnPasswordChange": "Odhlásit všude při změně hesla",
+          "signOutOnPasswordChangeHint": "Změna hesla ukončí ostatní relace účtu a zruší tokeny jeho aplikací, stejně jako obnovení hesla. Vypnuto: každý si vybere.",
+          "minPasswordLength": "Minimální délka hesla",
+          "minPasswordLengthHint": "Platí pro nová hesla (registrace, obnovení, změna). Stávající hesla fungují dál.",
+          "passwordSignUp": "Registrace s heslem",
+          "passwordSignUpHint": "Vypnuto: účet už nelze vytvořit e-mailem a heslem, jen přes sociálního poskytovatele nebo SSO organizace. Správci mohou účty dál vytvářet a stávající hesla fungují dál.",
+          "dialogDescription": "Ověřovací aplikace je použije do minuty.",
+          "save": "Uložit",
+          "cancel": "Zrušit",
+          "saved": "Zásady uloženy. Ověřovací aplikace je použije do minuty.",
+          "errors": {
+            "invalid": "Zvolte jednu z nabízených hodnot.",
+            "save": "Zásady se nepodařilo uložit."
+          }
         }
       },
       "signingKeys": {

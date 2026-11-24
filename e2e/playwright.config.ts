@@ -44,6 +44,16 @@ export default defineConfig({
       name: "chromium",
       use: { ...devices["Desktop Chrome"] },
       dependencies: ["setup"],
+      testIgnore: /.*\.platform\.spec\.ts/,
+    },
+    // Tests that change platform-wide settings (sign-up, password rules) other tests rely on:
+    // they run alone, after every other test.
+    {
+      name: "platform-settings",
+      use: { ...devices["Desktop Chrome"] },
+      dependencies: ["chromium"],
+      testMatch: /.*\.platform\.spec\.ts/,
+      fullyParallel: false,
     },
   ],
   webServer: [

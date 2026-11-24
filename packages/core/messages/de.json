@@ -120,7 +120,7 @@
       "backToLogin": "Zurück zur Anmeldung",
       "newPasswordLabel": "Neues Passwort",
       "confirmPasswordLabel": "Passwort bestätigen",
-      "passwordHint": "Mindestens 8 Zeichen lang.",
+      "passwordHint": "Mindestens {min} Zeichen lang.",
       "passwordMismatch": "Die Passwörter stimmen nicht überein",
       "submit": "Passwort ändern",
       "submitting": "Wird geändert…",
@@ -146,7 +146,7 @@
       "emailDescription": "Wir verwenden sie, um Sie zu kontaktieren. Wir geben Ihre E-Mail-Adresse nicht an Dritte weiter.",
       "passwordLabel": "Passwort",
       "confirmPasswordLabel": "Passwort bestätigen",
-      "passwordHint": "Mindestens 8 Zeichen lang.",
+      "passwordHint": "Mindestens {min} Zeichen lang.",
       "confirmPasswordHint": "Bitte bestätigen Sie Ihr Passwort.",
       "passwordMismatch": "Die Passwörter stimmen nicht überein",
       "submit": "Konto erstellen",
@@ -161,7 +161,9 @@
         "usernameTooShort": "Der Benutzername muss mindestens 3 Zeichen lang sein.",
         "usernameInvalid": "Dieser Benutzername ist ungültig.",
         "usernameTaken": "Dieser Benutzername ist bereits vergeben. Versuchen Sie einen anderen."
-      }
+      },
+      "passwordSignUpOff": "Die Registrierung mit Passwort ist deaktiviert. Erstelle dein Konto mit einem dieser Anbieter:",
+      "signUpClosed": "Hier können keine neuen Konten erstellt werden. Bitte einen Administrator um ein Konto."
     },
     "screen": {
       "headline": "Ein Konto für <accent>alle Ihre Apps</accent>.",
@@ -1932,6 +1934,9 @@
           },
           "audit_log": {
             "export_csv": "Audit-Log als CSV exportiert"
+          },
+          "security": {
+            "update_policy": "Sitzungs- und Passwortrichtlinie geändert"
           }
         },
         "actorPlaceholder": "Nach Ausführendem suchen (E-Mail)…",
@@ -1977,6 +1982,33 @@
           "noReason": "Kein Grund angegeben",
           "until": "bis {date}",
           "permanent": "dauerhaft"
+        },
+        "policy": {
+          "title": "Sitzungen und Passwörter",
+          "description": "Wie lange man in der Auth-App angemeldet bleibt und wie Passwörter gewählt werden. Apps behalten ihre eigenen Tokens und Refresh-Tokens.",
+          "edit": "Bearbeiten",
+          "on": "An",
+          "off": "Aus",
+          "days": "{count, plural, one {# Tag} other {# Tage}}",
+          "characters": "{count, plural, one {# Zeichen} other {# Zeichen}}",
+          "sessionDays": "Sitzungsdauer",
+          "sessionDaysHint": "Wie lange eine Anmeldung gilt. Vor einer Änderung erstellte Sitzungen behalten ihr Ablaufdatum; bei der nächsten Verlängerung gilt die neue Dauer.",
+          "extendSessions": "Sitzungen bei Nutzung verlängern",
+          "extendSessionsHint": "An: Eine Sitzung gilt {count, plural, one {# Tag} other {# Tage}} nach der letzten Nutzung. Aus: Sie endet {count, plural, one {# Tag} other {# Tage}} nach der Anmeldung, ob genutzt oder nicht.",
+          "signOutOnPasswordChange": "Bei Passwortänderung überall abmelden",
+          "signOutOnPasswordChangeHint": "Eine Passwortänderung beendet die anderen Sitzungen des Kontos und widerruft die Tokens seiner Apps, wie ein Zurücksetzen. Aus: Jede Person entscheidet selbst.",
+          "minPasswordLength": "Mindestlänge des Passworts",
+          "minPasswordLengthHint": "Gilt für neue Passwörter (Registrierung, Zurücksetzen, Änderung). Bestehende Passwörter funktionieren weiter.",
+          "passwordSignUp": "Registrierung mit Passwort",
+          "passwordSignUpHint": "Aus: Konten können nicht mehr mit E-Mail und Passwort erstellt werden, nur mit einem Social-Anbieter oder dem SSO der Organisation. Admins können weiterhin Konten anlegen, und bestehende Passwörter funktionieren weiter.",
+          "dialogDescription": "Die Auth-App übernimmt sie innerhalb einer Minute.",
+          "save": "Speichern",
+          "cancel": "Abbrechen",
+          "saved": "Richtlinie gespeichert. Die Auth-App übernimmt sie innerhalb einer Minute.",
+          "errors": {
+            "invalid": "Wähle einen der angebotenen Werte.",
+            "save": "Die Richtlinie konnte nicht gespeichert werden."
+          }
         }
       },
       "signingKeys": {

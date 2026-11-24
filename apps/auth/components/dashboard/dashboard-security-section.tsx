@@ -71,7 +71,12 @@ async function listSessions(): Promise<SessionRow[]> {
 export function DashboardSecuritySection({
   socialProviders = [],
   adminConsoleUrl,
+  minPasswordLength,
+  signOutOnPasswordChange,
 }: {
+  /** From the session and password policy (admin console, Security). */
+  minPasswordLength?: number;
+  signOutOnPasswordChange?: boolean;
   /** Sign-in providers configured on the server; the section is hidden when empty. */
   socialProviders?: SocialProviderOption[];
   /** Set when this admin must turn on 2FA before using the admin console. */
@@ -124,7 +129,11 @@ export function DashboardSecuritySection({
         <CardDescription>{t("description")}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-8">
-        <DashboardChangePasswordForm onPasswordChanged={() => void sessionsResource.reload()} />
+        <DashboardChangePasswordForm
+          onPasswordChanged={() => void sessionsResource.reload()}
+          minPasswordLength={minPasswordLength}
+          signOutForced={signOutOnPasswordChange}
+        />
 
         <Separator />
 

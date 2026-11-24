@@ -120,7 +120,7 @@
       "backToLogin": "Voltar para o login",
       "newPasswordLabel": "Nova senha",
       "confirmPasswordLabel": "Confirmar senha",
-      "passwordHint": "Deve ter pelo menos 8 caracteres.",
+      "passwordHint": "Deve ter pelo menos {min} caracteres.",
       "passwordMismatch": "As senhas não coincidem",
       "submit": "Atualizar senha",
       "submitting": "Atualizando…",
@@ -146,7 +146,7 @@
       "emailDescription": "Usaremos este endereço para entrar em contato com você. Não compartilharemos seu e-mail com mais ninguém.",
       "passwordLabel": "Senha",
       "confirmPasswordLabel": "Confirmar senha",
-      "passwordHint": "Deve ter pelo menos 8 caracteres.",
+      "passwordHint": "Deve ter pelo menos {min} caracteres.",
       "confirmPasswordHint": "Confirme sua senha.",
       "passwordMismatch": "As senhas não coincidem",
       "submit": "Criar conta",
@@ -161,7 +161,9 @@
         "usernameTooShort": "O nome de usuário deve ter pelo menos 3 caracteres.",
         "usernameInvalid": "Esse nome de usuário não é válido.",
         "usernameTaken": "Esse nome de usuário já está em uso. Tente outro."
-      }
+      },
+      "passwordSignUpOff": "O registo com palavra-passe está desativado. Crie a sua conta com uma destas:",
+      "signUpClosed": "Não é possível criar contas aqui. Peça uma conta a um administrador."
     },
     "screen": {
       "headline": "Uma conta para <accent>todos os seus apps</accent>.",
@@ -1932,6 +1934,9 @@
           },
           "audit_log": {
             "export_csv": "Exportou o log de auditoria para CSV"
+          },
+          "security": {
+            "update_policy": "Alterou a política de sessões e palavras-passe"
           }
         },
         "actorPlaceholder": "Pesquisar por quem agiu (e-mail)…",
@@ -1977,6 +1982,33 @@
           "noReason": "Nenhum motivo informado",
           "until": "até {date}",
           "permanent": "permanente"
+        },
+        "policy": {
+          "title": "Sessões e palavras-passe",
+          "description": "Quanto tempo se fica com sessão iniciada na aplicação de autenticação e como se escolhem as palavras-passe. As aplicações mantêm os seus próprios tokens e tokens de atualização.",
+          "edit": "Editar",
+          "on": "Ativado",
+          "off": "Desativado",
+          "days": "{count, plural, one {# dia} other {# dias}}",
+          "characters": "{count, plural, one {# carácter} other {# caracteres}}",
+          "sessionDays": "Duração da sessão",
+          "sessionDaysHint": "Quanto dura um início de sessão. As sessões criadas antes de uma alteração mantêm a sua expiração; seguem a nova duração quando forem prolongadas.",
+          "extendSessions": "Prolongar sessões em uso",
+          "extendSessionsHint": "Ativado: uma sessão dura {count, plural, one {# dia} other {# dias}} após a última utilização. Desativado: termina {count, plural, one {# dia} other {# dias}} após o início de sessão, usada ou não.",
+          "signOutOnPasswordChange": "Terminar sessão em todo o lado ao mudar a palavra-passe",
+          "signOutOnPasswordChangeHint": "Mudar a palavra-passe termina as outras sessões da conta e revoga os tokens das suas aplicações, como uma reposição. Desativado: cada pessoa escolhe.",
+          "minPasswordLength": "Comprimento mínimo da palavra-passe",
+          "minPasswordLengthHint": "Aplica-se a novas palavras-passe (registo, reposição, alteração). As palavras-passe existentes continuam a funcionar.",
+          "passwordSignUp": "Registo com palavra-passe",
+          "passwordSignUpHint": "Desativado: já não é possível criar uma conta com email e palavra-passe, apenas com um fornecedor social ou o SSO da organização. Os administradores podem continuar a criar contas e as palavras-passe existentes continuam a funcionar.",
+          "dialogDescription": "A aplicação de autenticação aplica-as em menos de um minuto.",
+          "save": "Guardar",
+          "cancel": "Cancelar",
+          "saved": "Política guardada. A aplicação de autenticação aplica-a em menos de um minuto.",
+          "errors": {
+            "invalid": "Escolha um dos valores disponíveis.",
+            "save": "Não foi possível guardar a política."
+          }
         }
       },
       "signingKeys": {

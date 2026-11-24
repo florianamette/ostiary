@@ -120,7 +120,7 @@
       "backToLogin": "Retour à la connexion",
       "newPasswordLabel": "Nouveau mot de passe",
       "confirmPasswordLabel": "Confirmer le mot de passe",
-      "passwordHint": "Au moins 8 caractères.",
+      "passwordHint": "Au moins {min} caractères.",
       "passwordMismatch": "Les mots de passe ne correspondent pas",
       "submit": "Mettre à jour le mot de passe",
       "submitting": "Mise à jour…",
@@ -146,7 +146,7 @@
       "emailDescription": "Nous l'utiliserons pour vous contacter. Nous ne partagerons pas votre e-mail.",
       "passwordLabel": "Mot de passe",
       "confirmPasswordLabel": "Confirmer le mot de passe",
-      "passwordHint": "Au moins 8 caractères.",
+      "passwordHint": "Au moins {min} caractères.",
       "confirmPasswordHint": "Veuillez confirmer votre mot de passe.",
       "passwordMismatch": "Les mots de passe ne correspondent pas",
       "submit": "Créer le compte",
@@ -161,7 +161,9 @@
         "usernameTooShort": "Le nom d’utilisateur doit contenir au moins 3 caractères.",
         "usernameInvalid": "Ce nom d’utilisateur n’est pas valide.",
         "usernameTaken": "Ce nom d’utilisateur est déjà pris. Essayez un autre."
-      }
+      },
+      "passwordSignUpOff": "L'inscription par mot de passe est désactivée. Créez votre compte avec l'un de ces comptes :",
+      "signUpClosed": "Impossible de créer un compte ici. Demandez un compte à un administrateur."
     },
     "screen": {
       "headline": "Un seul compte pour <accent>toutes vos applications</accent>.",
@@ -1932,6 +1934,9 @@
           },
           "audit_log": {
             "export_csv": "Journal d’audit exporté en CSV"
+          },
+          "security": {
+            "update_policy": "Politique de sessions et de mots de passe modifiée"
           }
         },
         "actorPlaceholder": "Rechercher par auteur (e-mail)…",
@@ -1977,6 +1982,33 @@
           "noReason": "Aucun motif indiqué",
           "until": "jusqu’au {date}",
           "permanent": "définitif"
+        },
+        "policy": {
+          "title": "Sessions et mots de passe",
+          "description": "Durée pendant laquelle on reste connecté à l'application d'authentification, et choix des mots de passe. Les applications gardent leurs propres jetons et jetons de rafraîchissement.",
+          "edit": "Modifier",
+          "on": "Activé",
+          "off": "Désactivé",
+          "days": "{count, plural, one {# jour} other {# jours}}",
+          "characters": "{count, plural, one {# caractère} other {# caractères}}",
+          "sessionDays": "Durée de session",
+          "sessionDaysHint": "Durée d'une connexion. Les sessions ouvertes avant un changement gardent leur expiration ; elles suivent la nouvelle durée à leur prochaine prolongation.",
+          "extendSessions": "Prolonger les sessions utilisées",
+          "extendSessionsHint": "Activé : une session dure {count, plural, one {# jour} other {# jours}} après sa dernière utilisation. Désactivé : elle se termine {count, plural, one {# jour} other {# jours}} après la connexion, utilisée ou non.",
+          "signOutOnPasswordChange": "Déconnecter partout au changement de mot de passe",
+          "signOutOnPasswordChangeHint": "Un changement de mot de passe ferme les autres sessions du compte et révoque les jetons de ses applications, comme une réinitialisation. Désactivé : chacun choisit.",
+          "minPasswordLength": "Longueur minimale du mot de passe",
+          "minPasswordLengthHint": "S'applique aux nouveaux mots de passe (inscription, réinitialisation, changement). Les mots de passe existants continuent de fonctionner.",
+          "passwordSignUp": "Inscription par mot de passe",
+          "passwordSignUpHint": "Désactivé : on ne peut plus créer de compte avec un e-mail et un mot de passe, seulement avec un fournisseur social ou le SSO de son organisation. Les admins peuvent toujours créer des comptes, et les mots de passe existants continuent de fonctionner.",
+          "dialogDescription": "L'application d'authentification les applique en moins d'une minute.",
+          "save": "Enregistrer",
+          "cancel": "Annuler",
+          "saved": "Politique enregistrée. L'application d'authentification l'applique en moins d'une minute.",
+          "errors": {
+            "invalid": "Choisissez l'une des valeurs proposées.",
+            "save": "Impossible d'enregistrer la politique."
+          }
         }
       },
       "signingKeys": {

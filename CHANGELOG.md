@@ -8,6 +8,12 @@ All notable changes are documented here. The format follows
 
 ### Added
 
+- Session and password policy on the admin console's **Security** page: session lifetime
+  (1 to 90 days, 7 by default), whether sessions are extended while in use, signing out
+  everywhere on a password change (other sessions and the apps' tokens, as a password reset
+  does), the minimum password length (8 to 16) and password sign-up (off: social sign-in and
+  SSO only). The auth app applies a change within a minute; the sign-up, reset and change
+  password forms show the minimum. Sessions created before a change keep their expiry.
 - Signing algorithm on the **Signing keys** page: EdDSA (Ed25519, the default), ES256 or
   RS256, for APIs and gateways that only verify ES256 or RS256 (AWS API Gateway, Azure API
   Management). Changing it creates a key with the new algorithm at once; the previous key stays

@@ -1,5 +1,6 @@
 import { APIError, createAuthMiddleware } from "better-auth/api";
 import { eq } from "drizzle-orm";
+import { revokeUserAccess } from "@ostiary/core/lib/security/user-access-revocation";
 
 import { db } from "@ostiary/core/db/index";
 import * as schema from "@ostiary/core/db/schema";
@@ -91,6 +92,13 @@ export function auditRequests() {
             const identifier = typeof body.email === "string" ? body.email : typeof body.username === "string" ? body.username : null;
             await recordAuthEvent("sign_in_failed", null, { identifier, ipAddress: clientIp(ctx.headers) });
             return;
+        }
+
+        // Signing out everywhere on a password change (the person's choice, or the policy's) also
+        // ends the apps' tokens, as a password reset does.
+        if (ctx.path === "/change-password" && !failed && body.revokeOtherSessions === true) {
+            const user = ctx.context.session?.user;
+            if (user) await revokeUserAccess(user, "password_change", null, clientIp(ctx.headers));
         }
 
         if (ctx.path === "/oauth2/register" && !failed) {

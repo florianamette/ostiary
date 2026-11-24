@@ -25,6 +25,7 @@ import { findReusablePublicClient, registrationResponse } from "@ostiary/core/li
 import { ACCOUNT_DELETION_BLOCKED, accountDeletionBlockers } from "@ostiary/core/lib/account-data/blockers";
 import type { Bag } from "@ostiary/core/lib/auth-hooks/values";
 import { OPENAPI_SCHEMA_PATH } from "@ostiary/core/lib/openapi";
+import { syncAuthPolicy, type PolicyContext } from "@ostiary/core/lib/auth-policy";
 
 type Ctx = Parameters<Parameters<typeof createAuthMiddleware>[0]>[0];
 
@@ -270,6 +271,11 @@ export function guardRequests({
         await syncSigningKeys(jwtOptions);
         // Sign-in providers enabled from the admin console, without a restart.
         await syncSocialProviders(ctx.context);
+        // Session lifetime, minimum password length and password sign-up (admin console, Security).
+        const policy = await syncAuthPolicy(ctx.context as unknown as PolicyContext);
+        if (ctx.path === "/change-password" && policy.signOutOnPasswordChange && ctx.body && typeof ctx.body === "object") {
+            (ctx.body as Bag).revokeOtherSessions = true;
+        }
         // Google One Tap answers only while the admin console has it on (and Google too).
         if (ctx.path === "/one-tap/callback" && !(await googleOneTap())) {
             throw new APIError("NOT_FOUND", { message: "Google One Tap is not enabled." });

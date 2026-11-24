@@ -120,7 +120,7 @@
       "backToLogin": "Tilbage til login",
       "newPasswordLabel": "Ny adgangskode",
       "confirmPasswordLabel": "Bekræft adgangskode",
-      "passwordHint": "Skal være på mindst 8 tegn.",
+      "passwordHint": "Skal være på mindst {min} tegn.",
       "passwordMismatch": "Adgangskoderne er ikke ens",
       "submit": "Opdater adgangskode",
       "submitting": "Opdaterer…",
@@ -146,7 +146,7 @@
       "emailDescription": "Vi bruger den til at kontakte dig. Vi deler ikke din e-mail med andre.",
       "passwordLabel": "Adgangskode",
       "confirmPasswordLabel": "Bekræft adgangskode",
-      "passwordHint": "Skal være på mindst 8 tegn.",
+      "passwordHint": "Skal være på mindst {min} tegn.",
       "confirmPasswordHint": "Bekræft din adgangskode.",
       "passwordMismatch": "Adgangskoderne er ikke ens",
       "submit": "Opret konto",
@@ -161,7 +161,9 @@
         "usernameTooShort": "Brugernavnet skal være på mindst 3 tegn.",
         "usernameInvalid": "Brugernavnet er ikke gyldigt.",
         "usernameTaken": "Brugernavnet er allerede taget. Prøv et andet."
-      }
+      },
+      "passwordSignUpOff": "Oprettelse med adgangskode er slået fra. Opret din konto med en af disse:",
+      "signUpClosed": "Der kan ikke oprettes nye konti her. Bed en administrator om en konto."
     },
     "screen": {
       "headline": "Én konto til <accent>alle dine apps</accent>.",
@@ -1932,6 +1934,9 @@
           },
           "audit_log": {
             "export_csv": "Eksporterede revisionsloggen til CSV"
+          },
+          "security": {
+            "update_policy": "Ændrede politikken for sessioner og adgangskoder"
           }
         },
         "actorPlaceholder": "Søg efter hvem der handlede (e-mail)…",
@@ -1977,6 +1982,33 @@
           "noReason": "Ingen begrundelse angivet",
           "until": "indtil {date}",
           "permanent": "permanent"
+        },
+        "policy": {
+          "title": "Sessioner og adgangskoder",
+          "description": "Hvor længe man forbliver logget ind i godkendelsesappen, og hvordan adgangskoder vælges. Apps beholder deres egne tokens og opdateringstokens.",
+          "edit": "Rediger",
+          "on": "Til",
+          "off": "Fra",
+          "days": "{count, plural, one {# dag} other {# dage}}",
+          "characters": "{count, plural, one {# tegn} other {# tegn}}",
+          "sessionDays": "Sessionens levetid",
+          "sessionDaysHint": "Hvor længe et login varer. Sessioner oprettet før en ændring beholder deres udløb; de følger den nye levetid, næste gang de forlænges.",
+          "extendSessions": "Forlæng sessioner i brug",
+          "extendSessionsHint": "Til: en session varer {count, plural, one {# dag} other {# dage}} efter sidste brug. Fra: den slutter {count, plural, one {# dag} other {# dage}} efter login, brugt eller ej.",
+          "signOutOnPasswordChange": "Log ud overalt ved skift af adgangskode",
+          "signOutOnPasswordChangeHint": "Et skift af adgangskode afslutter kontoens andre sessioner og tilbagekalder dens apps' tokens, som en nulstilling. Fra: den enkelte vælger.",
+          "minPasswordLength": "Mindste længde på adgangskode",
+          "minPasswordLengthHint": "Gælder nye adgangskoder (oprettelse, nulstilling, skift). Eksisterende adgangskoder virker fortsat.",
+          "passwordSignUp": "Oprettelse med adgangskode",
+          "passwordSignUpHint": "Fra: man kan ikke længere oprette en konto med e-mail og adgangskode, kun med en social udbyder eller organisationens SSO. Administratorer kan stadig oprette konti, og eksisterende adgangskoder virker fortsat.",
+          "dialogDescription": "Godkendelsesappen anvender dem inden for et minut.",
+          "save": "Gem",
+          "cancel": "Annuller",
+          "saved": "Politikken er gemt. Godkendelsesappen anvender den inden for et minut.",
+          "errors": {
+            "invalid": "Vælg en af de tilbudte værdier.",
+            "save": "Politikken kunne ikke gemmes."
+          }
         }
       },
       "signingKeys": {

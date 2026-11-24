@@ -120,7 +120,7 @@
       "backToLogin": "Wróć do logowania",
       "newPasswordLabel": "Nowe hasło",
       "confirmPasswordLabel": "Potwierdź hasło",
-      "passwordHint": "Musi mieć co najmniej 8 znaków.",
+      "passwordHint": "Musi mieć co najmniej {min} znaków.",
       "passwordMismatch": "Hasła nie są zgodne",
       "submit": "Zmień hasło",
       "submitting": "Zmienianie…",
@@ -146,7 +146,7 @@
       "emailDescription": "Użyjemy go do kontaktu z Tobą. Nie udostępnimy Twojego adresu e-mail nikomu innemu.",
       "passwordLabel": "Hasło",
       "confirmPasswordLabel": "Potwierdź hasło",
-      "passwordHint": "Musi mieć co najmniej 8 znaków.",
+      "passwordHint": "Musi mieć co najmniej {min} znaków.",
       "confirmPasswordHint": "Potwierdź hasło.",
       "passwordMismatch": "Hasła nie są zgodne",
       "submit": "Utwórz konto",
@@ -161,7 +161,9 @@
         "usernameTooShort": "Nazwa użytkownika musi mieć co najmniej 3 znaki.",
         "usernameInvalid": "Ta nazwa użytkownika jest nieprawidłowa.",
         "usernameTaken": "Ta nazwa użytkownika jest już zajęta. Wybierz inną."
-      }
+      },
+      "passwordSignUpOff": "Rejestracja z hasłem jest wyłączona. Załóż konto za pomocą jednego z tych kont:",
+      "signUpClosed": "Nie można tu tworzyć nowych kont. Poproś administratora o konto."
     },
     "screen": {
       "headline": "Jedno konto dla <accent>wszystkich Twoich aplikacji</accent>.",
@@ -1932,6 +1934,9 @@
           },
           "audit_log": {
             "export_csv": "Wyeksportowano dziennik audytu do CSV"
+          },
+          "security": {
+            "update_policy": "Zmieniono zasady sesji i haseł"
           }
         },
         "actorPlaceholder": "Szukaj po wykonawcy (e-mail)…",
@@ -1977,6 +1982,33 @@
           "noReason": "Nie podano powodu",
           "until": "do {date}",
           "permanent": "na stałe"
+        },
+        "policy": {
+          "title": "Sesje i hasła",
+          "description": "Jak długo użytkownicy pozostają zalogowani w aplikacji uwierzytelniania i jak wybierają hasła. Aplikacje zachowują własne tokeny i tokeny odświeżania.",
+          "edit": "Edytuj",
+          "on": "Włączone",
+          "off": "Wyłączone",
+          "days": "{count, plural, one {# dzień} few {# dni} many {# dni} other {# dnia}}",
+          "characters": "{count, plural, one {# znak} few {# znaki} many {# znaków} other {# znaku}}",
+          "sessionDays": "Czas trwania sesji",
+          "sessionDaysHint": "Jak długo trwa logowanie. Sesje utworzone przed zmianą zachowują swój termin wygaśnięcia; przy następnym przedłużeniu obowiązuje nowy czas.",
+          "extendSessions": "Przedłużaj używane sesje",
+          "extendSessionsHint": "Włączone: sesja trwa {count, plural, one {# dzień} few {# dni} many {# dni} other {# dnia}} od ostatniego użycia. Wyłączone: kończy się {count, plural, one {# dzień} few {# dni} many {# dni} other {# dnia}} po zalogowaniu, niezależnie od użycia.",
+          "signOutOnPasswordChange": "Wyloguj wszędzie po zmianie hasła",
+          "signOutOnPasswordChangeHint": "Zmiana hasła kończy pozostałe sesje konta i unieważnia tokeny jego aplikacji, jak reset hasła. Wyłączone: każdy wybiera sam.",
+          "minPasswordLength": "Minimalna długość hasła",
+          "minPasswordLengthHint": "Dotyczy nowych haseł (rejestracja, reset, zmiana). Istniejące hasła nadal działają.",
+          "passwordSignUp": "Rejestracja z hasłem",
+          "passwordSignUpHint": "Wyłączone: nie można już założyć konta za pomocą e-maila i hasła, tylko przez dostawcę społecznościowego lub SSO organizacji. Administratorzy nadal mogą tworzyć konta, a istniejące hasła nadal działają.",
+          "dialogDescription": "Aplikacja uwierzytelniania stosuje je w ciągu minuty.",
+          "save": "Zapisz",
+          "cancel": "Anuluj",
+          "saved": "Zasady zapisane. Aplikacja uwierzytelniania zastosuje je w ciągu minuty.",
+          "errors": {
+            "invalid": "Wybierz jedną z oferowanych wartości.",
+            "save": "Nie udało się zapisać zasad."
+          }
         }
       },
       "signingKeys": {

@@ -120,7 +120,7 @@
       "backToLogin": "Takaisin kirjautumiseen",
       "newPasswordLabel": "Uusi salasana",
       "confirmPasswordLabel": "Vahvista salasana",
-      "passwordHint": "Vähintään 8 merkkiä.",
+      "passwordHint": "Vähintään {min} merkkiä.",
       "passwordMismatch": "Salasanat eivät täsmää",
       "submit": "Päivitä salasana",
       "submitting": "Päivitetään…",
@@ -146,7 +146,7 @@
       "emailDescription": "Käytämme tätä ottaaksemme sinuun yhteyttä. Emme jaa sähköpostiosoitettasi kenellekään muulle.",
       "passwordLabel": "Salasana",
       "confirmPasswordLabel": "Vahvista salasana",
-      "passwordHint": "Vähintään 8 merkkiä.",
+      "passwordHint": "Vähintään {min} merkkiä.",
       "confirmPasswordHint": "Vahvista salasanasi.",
       "passwordMismatch": "Salasanat eivät täsmää",
       "submit": "Luo tili",
@@ -161,7 +161,9 @@
         "usernameTooShort": "Käyttäjänimen on oltava vähintään 3 merkkiä.",
         "usernameInvalid": "Käyttäjänimi ei kelpaa.",
         "usernameTaken": "Käyttäjänimi on jo varattu. Kokeile toista."
-      }
+      },
+      "passwordSignUpOff": "Rekisteröinti salasanalla on poistettu käytöstä. Luo tilisi jollakin näistä:",
+      "signUpClosed": "Uusia tilejä ei voi luoda täällä. Pyydä tiliä ylläpitäjältä."
     },
     "screen": {
       "headline": "Yksi tili <accent>kaikkiin sovelluksiisi</accent>.",
@@ -1932,6 +1934,9 @@
           },
           "audit_log": {
             "export_csv": "Vei tarkastuslokin CSV-muodossa"
+          },
+          "security": {
+            "update_policy": "Muutti istunto- ja salasanakäytäntöä"
           }
         },
         "actorPlaceholder": "Hae tekijän mukaan (sähköposti)…",
@@ -1977,6 +1982,33 @@
           "noReason": "Syytä ei annettu",
           "until": "{date} asti",
           "permanent": "pysyvä"
+        },
+        "policy": {
+          "title": "Istunnot ja salasanat",
+          "description": "Kuinka kauan todennussovellukseen pysytään kirjautuneena ja miten salasanat valitaan. Sovellukset säilyttävät omat tunnisteensa ja päivitystunnisteensa.",
+          "edit": "Muokkaa",
+          "on": "Päällä",
+          "off": "Pois",
+          "days": "{count, plural, one {# päivä} other {# päivää}}",
+          "characters": "{count, plural, one {# merkki} other {# merkkiä}}",
+          "sessionDays": "Istunnon kesto",
+          "sessionDaysHint": "Kuinka kauan kirjautuminen kestää. Ennen muutosta luodut istunnot säilyttävät vanhenemisaikansa; ne noudattavat uutta kestoa seuraavalla jatkokerralla.",
+          "extendSessions": "Jatka käytössä olevia istuntoja",
+          "extendSessionsHint": "Päällä: istunto kestää {count, plural, one {# päivän} other {# päivää}} viimeisestä käytöstä. Pois: se päättyy {count, plural, one {# päivän} other {# päivää}} kirjautumisesta, käytettiin sitä tai ei.",
+          "signOutOnPasswordChange": "Kirjaa ulos kaikkialta salasanan vaihtuessa",
+          "signOutOnPasswordChangeHint": "Salasanan vaihto päättää tilin muut istunnot ja peruu sen sovellusten tunnisteet, kuten palautus. Pois: kukin valitsee itse.",
+          "minPasswordLength": "Salasanan vähimmäispituus",
+          "minPasswordLengthHint": "Koskee uusia salasanoja (rekisteröinti, palautus, vaihto). Nykyiset salasanat toimivat edelleen.",
+          "passwordSignUp": "Rekisteröinti salasanalla",
+          "passwordSignUpHint": "Pois: tiliä ei voi enää luoda sähköpostilla ja salasanalla, vain sosiaalisen palvelun tai organisaation SSO:n kautta. Ylläpitäjät voivat yhä luoda tilejä, ja nykyiset salasanat toimivat edelleen.",
+          "dialogDescription": "Todennussovellus ottaa ne käyttöön minuutin kuluessa.",
+          "save": "Tallenna",
+          "cancel": "Peruuta",
+          "saved": "Käytäntö tallennettu. Todennussovellus ottaa sen käyttöön minuutin kuluessa.",
+          "errors": {
+            "invalid": "Valitse jokin tarjotuista arvoista.",
+            "save": "Käytäntöä ei voitu tallentaa."
+          }
         }
       },
       "signingKeys": {

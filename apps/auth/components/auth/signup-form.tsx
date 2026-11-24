@@ -43,8 +43,13 @@ export function SignupForm({
   captcha: captchaConfig = null,
   oneTap = null,
   appLink = null,
+  passwordSignUp = true,
+  minPasswordLength = 8,
   ...props
 }: React.ComponentProps<typeof Card> & {
+  /** Sign-up with an email and a password is on (admin console, Security). Off: social only. */
+  passwordSignUp?: boolean
+  minPasswordLength?: number
   socialProviders?: SocialProviderOption[]
   captcha?: CaptchaConfig | null
   oneTap?: GoogleOneTapConfig | null
@@ -158,102 +163,113 @@ export function SignupForm({
       <CardContent>
         <form onSubmit={handleSubmit}>
           <FieldGroup>
-            <Field>
-              <FieldLabel htmlFor="name">{t("fullNameLabel")}</FieldLabel>
-              <Input
-                id="name"
-                type="text"
-                autoComplete="name"
-                placeholder={t("namePlaceholder")}
-                required
-                disabled={isSubmitting}
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-            </Field>
-            <Field>
-              <FieldLabel htmlFor="username">{t("usernameLabel")}</FieldLabel>
-              <Input
-                id="username"
-                type="text"
-                placeholder={t("usernamePlaceholder")}
-                autoComplete="username"
-                required
-                disabled={isSubmitting}
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-              />
-              <FieldDescription>{t("usernameHint")}</FieldDescription>
-              {username.trim().length >= USERNAME_MIN_LENGTH ? (
-                <UsernameStatusHint
-                  status={usernameStatus}
-                  messages={{
-                    checking: t("usernameChecking"),
-                    available: t("usernameAvailable"),
-                    taken: t("usernameTaken"),
-                    invalid: t("usernameInvalidHint"),
+            {passwordSignUp ? (
+              <>
+              <Field>
+                <FieldLabel htmlFor="name">{t("fullNameLabel")}</FieldLabel>
+                <Input
+                  id="name"
+                  type="text"
+                  autoComplete="name"
+                  placeholder={t("namePlaceholder")}
+                  required
+                  disabled={isSubmitting}
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </Field>
+              <Field>
+                <FieldLabel htmlFor="username">{t("usernameLabel")}</FieldLabel>
+                <Input
+                  id="username"
+                  type="text"
+                  placeholder={t("usernamePlaceholder")}
+                  autoComplete="username"
+                  required
+                  disabled={isSubmitting}
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                />
+                <FieldDescription>{t("usernameHint")}</FieldDescription>
+                {username.trim().length >= USERNAME_MIN_LENGTH ? (
+                  <UsernameStatusHint
+                    status={usernameStatus}
+                    messages={{
+                      checking: t("usernameChecking"),
+                      available: t("usernameAvailable"),
+                      taken: t("usernameTaken"),
+                      invalid: t("usernameInvalidHint"),
+                    }}
+                  />
+                ) : null}
+              </Field>
+              <Field>
+                <FieldLabel htmlFor="email">{t("emailLabel")}</FieldLabel>
+                <Input
+                  id="email"
+                  type="email"
+                  autoComplete="email"
+                  placeholder={t("emailPlaceholder")}
+                  required
+                  disabled={isSubmitting}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <FieldDescription>{t("emailDescription")}</FieldDescription>
+              </Field>
+              <Field>
+                <FieldLabel htmlFor="password">{t("passwordLabel")}</FieldLabel>
+                <Input
+                  id="password"
+                  type="password"
+                  autoComplete="new-password"
+                  required
+                  minLength={minPasswordLength}
+                  disabled={isSubmitting}
+                  value={password}
+                  onChange={(e) => {
+                    setPassword(e.target.value)
+                    setPasswordMismatch(false)
                   }}
                 />
+                <FieldDescription>{t("passwordHint", { min: minPasswordLength })}</FieldDescription>
+              </Field>
+              <Field>
+                <FieldLabel htmlFor="confirm-password">
+                  {t("confirmPasswordLabel")}
+                </FieldLabel>
+                <Input
+                  id="confirm-password"
+                  type="password"
+                  autoComplete="new-password"
+                  required
+                  aria-invalid={passwordMismatch || undefined}
+                  aria-describedby={passwordMismatch ? "confirm-password-error" : undefined}
+                  disabled={isSubmitting}
+                  value={confirmPassword}
+                  onChange={(e) => {
+                    setConfirmPassword(e.target.value)
+                    setPasswordMismatch(false)
+                  }}
+                />
+                <FieldDescription>{t("confirmPasswordHint")}</FieldDescription>
+                {passwordMismatch ? (
+                  <FieldError id="confirm-password-error">{t("passwordMismatch")}</FieldError>
+                ) : null}
+              </Field>
+              {captcha.widget}
+              </>
+            ) : (
+              <FieldDescription>
+                {socialProviders.length > 0 ? t("passwordSignUpOff") : t("signUpClosed")}
+              </FieldDescription>
+            )}
+            <Field>
+              {passwordSignUp ? (
+                <Button type="submit" loading={isSubmitting} className="w-full sm:w-auto">
+                  {isSubmitting ? t("submitting") : t("submit")}
+                </Button>
               ) : null}
-            </Field>
-            <Field>
-              <FieldLabel htmlFor="email">{t("emailLabel")}</FieldLabel>
-              <Input
-                id="email"
-                type="email"
-                autoComplete="email"
-                placeholder={t("emailPlaceholder")}
-                required
-                disabled={isSubmitting}
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <FieldDescription>{t("emailDescription")}</FieldDescription>
-            </Field>
-            <Field>
-              <FieldLabel htmlFor="password">{t("passwordLabel")}</FieldLabel>
-              <Input
-                id="password"
-                type="password"
-                autoComplete="new-password"
-                required
-                disabled={isSubmitting}
-                value={password}
-                onChange={(e) => {
-                  setPassword(e.target.value)
-                  setPasswordMismatch(false)
-                }}
-              />
-              <FieldDescription>{t("passwordHint")}</FieldDescription>
-            </Field>
-            <Field>
-              <FieldLabel htmlFor="confirm-password">
-                {t("confirmPasswordLabel")}
-              </FieldLabel>
-              <Input
-                id="confirm-password"
-                type="password"
-                autoComplete="new-password"
-                required
-                aria-invalid={passwordMismatch || undefined}
-                aria-describedby={passwordMismatch ? "confirm-password-error" : undefined}
-                disabled={isSubmitting}
-                value={confirmPassword}
-                onChange={(e) => {
-                  setConfirmPassword(e.target.value)
-                  setPasswordMismatch(false)
-                }}
-              />
-              <FieldDescription>{t("confirmPasswordHint")}</FieldDescription>
-              {passwordMismatch ? (
-                <FieldError id="confirm-password-error">{t("passwordMismatch")}</FieldError>
-              ) : null}
-            </Field>
-            {captcha.widget}
-            <Field>
-              <Button type="submit" loading={isSubmitting} className="w-full sm:w-auto">
-                {isSubmitting ? t("submitting") : t("submit")}
-              </Button>
               <SocialSignInButtons
                 providers={socialProviders}
                 callbackURL={socialCallbackURL}
