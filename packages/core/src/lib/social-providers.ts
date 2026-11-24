@@ -183,7 +183,7 @@ async function loadCustomProviders(rows: Row[]) {
     if (!instance) {
       const secrets = decryptSecrets(row);
       if (!secrets) {
-        console.error(`Sign-in provider ${row.id}: its secret cannot be decrypted (was BETTER_AUTH_SECRET changed?). Skipped.`);
+        console.error("Sign-in provider %s: its secret cannot be decrypted (was BETTER_AUTH_SECRET changed?). Skipped.", row.id.replace(/[\r\n]/g, ""));
         continue;
       }
       try {
@@ -192,7 +192,7 @@ async function loadCustomProviders(rows: Row[]) {
           logger: { error: (message) => console.error(message), warn: (message) => console.warn(message) },
         });
       } catch (error) {
-        console.error(`Sign-in provider ${row.id} cannot be used; skipped.`, error);
+        console.error("Sign-in provider %s cannot be used; skipped.", row.id.replace(/[\r\n]/g, ""), error);
       }
       if (!instance) continue;
       customBuilt.set(row.id, { version, instance });
@@ -612,7 +612,8 @@ export async function saveCustomProvider(
       baseURL: env.AUTH_APP_URL ?? getBaseURL(),
       logger: { error: (message) => console.error(message), warn: (message) => console.warn(message) },
     }).catch((error: unknown) => {
-      console.error(`Sign-in provider ${id} cannot be used`, error);
+      // The id is checked (CUSTOM_PROVIDER_SLUG); a constant format string all the same.
+      console.error("Sign-in provider %s cannot be used", id.replace(/[\r\n]/g, ""), error);
       return null;
     });
     if (!built) return { ok: false, error: "These settings cannot be used: the provider's discovery document did not give a usable OpenID Connect configuration." };
