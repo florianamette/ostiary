@@ -62,7 +62,9 @@ jobs:
     timeout-minutes: 20
     services:
       postgres:
-        image: public.ecr.aws/docker/library/postgres:17 # Docker Hub rate-limits anonymous pulls
+        # Docker Hub rate-limits anonymous pulls, and AWS's public registry refuses them past a data
+        # limit ("Data limit exceeded"). Google's mirror of Docker Hub serves the same official image.
+        image: mirror.gcr.io/library/postgres:17
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
