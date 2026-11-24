@@ -576,6 +576,8 @@
           "allowedScopesHint": "Incluye openid para el inicio de sesión y offline_access para los tokens de actualización.",
           "iconUrlLabel": "URL del icono",
           "iconUrlHint": "Se muestra para la aplicación en la consola, en la pantalla de consentimiento y en las cuentas de los usuarios. Útil para aplicaciones que solo redirigen a localhost. https, PNG/JPEG/WebP/AVIF/GIF/ICO/SVG.",
+          "clientIdLabel": "ID de cliente (opcional)",
+          "clientIdHint": "Déjalo vacío para generar uno. Para una aplicación que viene de otro proveedor, introduce su ID de cliente actual para que siga funcionando sin cambios: de 3 a 128 letras, dígitos, puntos, guiones bajos o guiones.",
           "deviceCodeLabel": "Inicio de sesión en dispositivos (CLI, televisores)",
           "deviceCodeHint": "Añade la concesión de código de dispositivo (RFC 8628): la aplicación muestra un código y el usuario lo aprueba en <code>{path}</code> desde otra pantalla. Normalmente es un cliente público.",
           "endSessionLabel": "Cierre de sesión desde la aplicación (RP-initiated logout)",

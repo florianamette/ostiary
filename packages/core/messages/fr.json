@@ -576,6 +576,8 @@
           "allowedScopesHint": "Incluez openid pour la connexion, et offline_access pour les jetons d’actualisation.",
           "iconUrlLabel": "URL de l’icône",
           "iconUrlHint": "Affichée pour l’application dans la console, sur l’écran de consentement et dans les comptes des utilisateurs. Utile pour les applications qui ne redirigent que vers localhost. https, PNG/JPEG/WebP/AVIF/GIF/ICO/SVG.",
+          "clientIdLabel": "ID client (facultatif)",
+          "clientIdHint": "Laissez vide pour en générer un. Pour une application venue d'un autre fournisseur, saisissez son ID client actuel pour qu'elle fonctionne sans changement : 3 à 128 lettres, chiffres, points, tirets bas ou tirets.",
           "deviceCodeLabel": "Connexion par appareil (CLI, TV)",
           "deviceCodeHint": "Ajoute le type d’autorisation device code (RFC 8628) : l’application affiche un code et l’utilisateur l’approuve sur <code>{path}</code> depuis un autre écran. Généralement un client public.",
           "endSessionLabel": "Déconnexion depuis l’application (RP-initiated logout)",

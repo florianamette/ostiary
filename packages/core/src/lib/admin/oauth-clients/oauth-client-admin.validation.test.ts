@@ -411,3 +411,26 @@ describe("scopes and policy links", () => {
     expect(parseUpdateOAuthClientBody({ tos_uri: "javascript:alert(1)" }).ok).toBe(false);
   });
 });
+
+describe("client_id on create", () => {
+  const base = { redirect_uris: ["https://app.example.com/callback"] };
+
+  it("keeps an ID moved from another provider", () => {
+    for (const id of ["my-app", "0oa1b2c3d4E5f6G7h8i9", "4f6d2c1e.apps.example", "legacy_app_01"]) {
+      const result = parseCreateOAuthClientBody({ ...base, client_id: ` ${id} ` });
+      expect(result.ok && result.value.client_id).toBe(id);
+    }
+  });
+
+  it("leaves it out when empty, so Better Auth generates one", () => {
+    const result = parseCreateOAuthClientBody({ ...base, client_id: "  " });
+    expect(result.ok && "client_id" in result.value).toBe(false);
+  });
+
+  it("refuses unsafe characters, URLs and lengths outside 3 to 128", () => {
+    for (const id of ["ab", "a".repeat(129), "https://app.example.com/client", "my app", "app:1", "app/1", "é-app"]) {
+      const result = parseCreateOAuthClientBody({ ...base, client_id: id });
+      expect(result.ok, id).toBe(false);
+    }
+  });
+});

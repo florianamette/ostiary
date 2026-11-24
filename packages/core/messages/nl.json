@@ -576,6 +576,8 @@
           "allowedScopesHint": "Neem openid op voor inloggen en offline_access voor refresh tokens.",
           "iconUrlLabel": "Pictogram-URL",
           "iconUrlHint": "Wordt voor de app getoond in de console, op het toestemmingsscherm en in de accounts van gebruikers. Handig voor apps die alleen naar localhost doorsturen. https, PNG/JPEG/WebP/AVIF/GIF/ICO/SVG.",
+          "clientIdLabel": "Client-ID (optioneel)",
+          "clientIdHint": "Laat leeg om er een te genereren. Voor een app van een andere provider vult u de huidige client-ID in, zodat de app ongewijzigd blijft werken: 3 tot 128 letters, cijfers, punten, underscores of koppeltekens.",
           "deviceCodeLabel": "Inloggen op apparaat (CLI's, tv's)",
           "deviceCodeHint": "Voegt de device code grant toe (RFC 8628): de app toont een code en de gebruiker keurt die goed op <code>{path}</code> op een ander scherm. Meestal een openbare client.",
           "endSessionLabel": "Uitloggen vanuit de app (RP-initiated logout)",

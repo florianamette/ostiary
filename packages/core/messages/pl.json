@@ -576,6 +576,8 @@
           "allowedScopesHint": "Uwzględnij openid do logowania i offline_access do tokenów odświeżania.",
           "iconUrlLabel": "URL ikony",
           "iconUrlHint": "Wyświetlana dla aplikacji w konsoli, na ekranie zgody i na kontach użytkowników. Przydatne dla aplikacji, które przekierowują tylko na localhost. https, PNG/JPEG/WebP/AVIF/GIF/ICO/SVG.",
+          "clientIdLabel": "Identyfikator klienta (opcjonalnie)",
+          "clientIdHint": "Pozostaw puste, aby wygenerować identyfikator. Dla aplikacji przenoszonej od innego dostawcy wpisz jej obecny identyfikator klienta, aby działała bez zmian: od 3 do 128 liter, cyfr, kropek, podkreśleń lub łączników.",
           "deviceCodeLabel": "Logowanie na urządzeniu (CLI, telewizory)",
           "deviceCodeHint": "Dodaje grant device code (RFC 8628): aplikacja wyświetla kod, a użytkownik zatwierdza go pod <code>{path}</code> na innym ekranie. Zwykle klient publiczny.",
           "endSessionLabel": "Wylogowanie z aplikacji (RP-initiated logout)",

@@ -576,6 +576,8 @@
           "allowedScopesHint": "登录需包含 openid，刷新令牌需包含 offline_access。",
           "iconUrlLabel": "图标 URL",
           "iconUrlHint": "在控制台、授权同意页面和用户账户中为该应用显示。适用于只重定向到 localhost 的应用。https，PNG/JPEG/WebP/AVIF/GIF/ICO/SVG。",
+          "clientIdLabel": "客户端 ID（可选）",
+          "clientIdHint": "留空则自动生成。对于从其他提供商迁移过来的应用，请输入其当前的客户端 ID，使其无需修改即可继续使用：3 到 128 个字母、数字、点、下划线或连字符。",
           "deviceCodeLabel": "设备登录（CLI、电视）",
           "deviceCodeHint": "添加设备码授权（RFC 8628）：应用显示一个代码，用户在另一块屏幕上的 <code>{path}</code> 处批准。通常为公开客户端。",
           "endSessionLabel": "从应用退出登录（RP-initiated logout）",

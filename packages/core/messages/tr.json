@@ -576,6 +576,8 @@
           "allowedScopesHint": "Giriş için openid, yenileme token’ları için offline_access ekleyin.",
           "iconUrlLabel": "Simge URL’si",
           "iconUrlHint": "Uygulama için konsolda, onay ekranında ve kullanıcıların hesaplarında gösterilir. Yalnızca localhost’a yönlendiren uygulamalar için kullanışlıdır. https, PNG/JPEG/WebP/AVIF/GIF/ICO/SVG.",
+          "clientIdLabel": "İstemci kimliği (isteğe bağlı)",
+          "clientIdHint": "Oluşturulması için boş bırakın. Başka bir sağlayıcıdan taşınan bir uygulama için, değişmeden çalışmaya devam etmesi amacıyla mevcut istemci kimliğini girin: 3 ile 128 arasında harf, rakam, nokta, alt çizgi veya kısa çizgi.",
           "deviceCodeLabel": "Cihazla giriş (CLI'lar, TV'ler)",
           "deviceCodeHint": "Cihaz kodu grant'ını (RFC 8628) ekler: uygulama bir kod gösterir ve kullanıcı bunu başka bir ekranda <code>{path}</code> adresinde onaylar. Genellikle genel bir istemcidir.",
           "endSessionLabel": "Uygulamadan oturumu kapatma (RP-initiated logout)",

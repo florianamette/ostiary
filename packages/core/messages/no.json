@@ -576,6 +576,8 @@
           "allowedScopesHint": "Ta med openid for innlogging og offline_access for oppdateringstokens.",
           "iconUrlLabel": "Ikon-URL",
           "iconUrlHint": "Vises for appen i konsollen, på samtykkeskjermen og i brukernes kontoer. Nyttig for apper som bare videresender til localhost. https, PNG/JPEG/WebP/AVIF/GIF/ICO/SVG.",
+          "clientIdLabel": "Klient-ID (valgfritt)",
+          "clientIdHint": "La feltet stå tomt for å generere en. For en app som flyttes fra en annen leverandør, skriver du inn den nåværende klient-ID-en slik at den fungerer uendret: 3 til 128 bokstaver, sifre, punktum, understreker eller bindestreker.",
           "deviceCodeLabel": "Enhetsinnlogging (CLI-er, TV-er)",
           "deviceCodeHint": "Legger til device code-granten (RFC 8628): appen viser en kode, og brukeren godkjenner den på <code>{path}</code> på en annen skjerm. Vanligvis en offentlig klient.",
           "endSessionLabel": "Utlogging fra appen (RP-initiated logout)",

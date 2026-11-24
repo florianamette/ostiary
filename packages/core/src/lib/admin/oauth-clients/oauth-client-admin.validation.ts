@@ -94,6 +94,15 @@ const DEFAULT_GRANT_TYPES = [
 ] as const;
 
 /**
+ * A client ID chosen by an admin: 3 to 128 letters, digits, `.`, `_` or `-`, enough for the IDs
+ * of Auth0, Keycloak, Cognito, Okta or Entra. No `:` or `/`, which a client ID that is a URL
+ * (a Client ID Metadata Document) has.
+ */
+export const CUSTOM_CLIENT_ID_PATTERN = /^[A-Za-z0-9._-]{3,128}$/;
+export const INVALID_CLIENT_ID_MESSAGE =
+  "A client ID has 3 to 128 letters, digits, dots, underscores or hyphens.";
+
+/**
  * Body schema for creating a client. `apiScopes` are the API scopes currently registered
  * (`currentApiScopes()`); they change at runtime, so the schema is built per request.
  */
@@ -104,6 +113,13 @@ export const createOAuthClientBodySchema = (apiScopes: readonly string[] = ENV_A
       // Only the authorization_code grant redirects (checked below): a machine client has none.
       redirect_uris: z.array(z.string().min(1)).optional().default([]),
       client_name: z.string().optional(),
+      // Empty or left out: Better Auth generates one.
+      client_id: z
+        .string()
+        .trim()
+        .transform((id) => id || undefined)
+        .pipe(z.string().regex(CUSTOM_CLIENT_ID_PATTERN, INVALID_CLIENT_ID_MESSAGE).optional())
+        .optional(),
       token_endpoint_auth_method: tokenEndpointAuthMethodSchema.default(
         "client_secret_basic",
       ),
@@ -282,6 +298,7 @@ export function parseCreateOAuthClientBody(
     value: {
       redirect_uris: v.redirect_uris,
       client_name: v.client_name,
+      ...(v.client_id ? { client_id: v.client_id } : {}),
       token_endpoint_auth_method: v.token_endpoint_auth_method,
       grant_types: v.grant_types,
       response_types: v.grant_types.includes("authorization_code") ? ["code"] : [],
