@@ -2001,7 +2001,10 @@
           "graceHint": "Jak dlouho zůstane vyřazený klíč zveřejněný. Nastavte víc, než je nejdelší životnost tokenů (přístupové tokeny: 1 hodina, tokeny ID: 1 hodina).",
           "save": "Uložit",
           "cancel": "Zrušit",
-          "saved": "Nastavení uloženo. Autentizační server ho použije do minuty."
+          "saved": "Nastavení uloženo. Autentizační server ho použije do minuty.",
+          "algorithm": "Podpisový algoritmus",
+          "algorithmHint": "Výchozí je EdDSA (Ed25519). Zvolte ES256 nebo RS256 pro API a brány, které ověřují jen tyto, například AWS API Gateway nebo Azure API Management. Změna hned vytvoří klíč s novým algoritmem; současný klíč zůstane zveřejněný po přechodnou dobu.",
+          "savedAlgorithm": "Nastavení uloženo. Nové tokeny se podepisují algoritmem {alg} (klíč {kid})."
         },
         "keys": {
           "title": "Klíče",
@@ -2033,7 +2036,8 @@
           "interval": "Vyberte jeden z nabízených intervalů rotace.",
           "grace": "Vyberte jednu z nabízených dob odkladu.",
           "save": "Nastavení se nepodařilo uložit.",
-          "rotate": "Klíč se nepodařilo otočit."
+          "rotate": "Klíč se nepodařilo otočit.",
+          "algorithm": "Zvolte jeden z nabízených algoritmů."
         }
       },
       "organizations": {

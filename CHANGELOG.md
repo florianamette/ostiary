@@ -8,6 +8,11 @@ All notable changes are documented here. The format follows
 
 ### Added
 
+- Signing algorithm on the **Signing keys** page: EdDSA (Ed25519, the default), ES256 or
+  RS256, for APIs and gateways that only verify ES256 or RS256 (AWS API Gateway, Azure API
+  Management). Changing it creates a key with the new algorithm at once; the previous key stays
+  published for the grace period. Discovery's `id_token_signing_alg_values_supported` follows
+  within a minute.
 - Grace period when rotating a client secret: **Rotate client secret** asks how long the
   current secret keeps working (no, 1 hour, 24 hours or 7 days), so the app can switch to the
   new one without failing. The app's row shows until when the previous secret works, and

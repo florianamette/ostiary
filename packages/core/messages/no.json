@@ -2001,7 +2001,10 @@
           "graceHint": "Hvor lenge en utgått nøkkel forblir publisert. Velg lenger enn den lengste levetiden til tokens (tilgangstokens: 1 time, ID-tokens: 1 time).",
           "save": "Lagre",
           "cancel": "Avbryt",
-          "saved": "Innstillingene er lagret. Autentiseringsserveren bruker dem innen et minutt."
+          "saved": "Innstillingene er lagret. Autentiseringsserveren bruker dem innen et minutt.",
+          "algorithm": "Signeringsalgoritme",
+          "algorithmHint": "Standard er EdDSA (Ed25519). Velg ES256 eller RS256 for API-er og gatewayer som bare verifiserer disse, som AWS API Gateway eller Azure API Management. En endring lager straks en nøkkel med den nye algoritmen; den nåværende nøkkelen forblir publisert i overgangsperioden.",
+          "savedAlgorithm": "Innstillingene er lagret. Nye tokener signeres med {alg} (nøkkel {kid})."
         },
         "keys": {
           "title": "Nøkler",
@@ -2033,7 +2036,8 @@
           "interval": "Velg et av de tilbudte rotasjonsintervallene.",
           "grace": "Velg en av de tilbudte utsettelsesperiodene.",
           "save": "Kunne ikke lagre innstillingene.",
-          "rotate": "Kunne ikke rotere nøkkelen."
+          "rotate": "Kunne ikke rotere nøkkelen.",
+          "algorithm": "Velg en av algoritmene som tilbys."
         }
       },
       "organizations": {

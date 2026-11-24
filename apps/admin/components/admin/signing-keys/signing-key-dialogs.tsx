@@ -22,8 +22,17 @@ import {
 import {
   GRACE_PERIOD_DAYS,
   ROTATION_INTERVAL_DAYS,
+  SIGNING_ALGORITHMS,
+  type SigningAlgorithm,
   type SigningKeySettings,
 } from "@ostiary/core/lib/signing-keys-policy";
+
+/** How each algorithm is shown (not translated: these are the names in the specs). */
+export const ALGORITHM_LABELS: Record<SigningAlgorithm, string> = {
+  EdDSA: "EdDSA (Ed25519)",
+  ES256: "ES256 (ECDSA P-256)",
+  RS256: "RS256 (RSA 2048)",
+};
 import { rotateSigningKeyNow, updateSigningKeySettings } from "@/app/[locale]/(console)/signing-keys/actions";
 import { DialogActions } from "@/components/admin/common/dialog-actions";
 import { useAdminAction } from "@/components/admin/common/use-admin-action";
@@ -34,6 +43,7 @@ export function RotationDialog({ settings, onClose }: { settings: SigningKeySett
   const { busy, run } = useAdminAction(onClose);
   const [intervalDays, setIntervalDays] = React.useState(String(settings.rotationIntervalDays));
   const [graceDays, setGraceDays] = React.useState(String(settings.gracePeriodDays));
+  const [algorithm, setAlgorithm] = React.useState<SigningAlgorithm>(settings.algorithm);
   // A stored value outside the offered choices (written by another version) stays selectable.
   const intervals = [...new Set<number>([...ROTATION_INTERVAL_DAYS, settings.rotationIntervalDays])].sort((a, b) => a - b);
   const graces = [...new Set<number>([...GRACE_PERIOD_DAYS, settings.gracePeriodDays])].sort((a, b) => a - b);
@@ -44,9 +54,14 @@ export function RotationDialog({ settings, onClose }: { settings: SigningKeySett
       const res = await updateSigningKeySettings({
         rotationIntervalDays: Number(intervalDays),
         gracePeriodDays: Number(graceDays),
+        algorithm,
       });
-      return res.ok ? res : { ok: false, error: t(`errors.${res.error}`) };
-    }, t("rotation.saved"));
+      if (!res.ok) return { ok: false, error: t(`errors.${res.error}`) };
+      toast.success(
+        res.keyId ? t("rotation.savedAlgorithm", { alg: algorithm, kid: res.keyId }) : t("rotation.saved"),
+      );
+      return res;
+    });
   }
 
   return (
@@ -89,6 +104,22 @@ export function RotationDialog({ settings, onClose }: { settings: SigningKeySett
                 </SelectContent>
               </Select>
               <FieldDescription>{t("rotation.graceHint")}</FieldDescription>
+            </Field>
+            <Field>
+              <FieldLabel htmlFor="signing-key-algorithm">{t("rotation.algorithm")}</FieldLabel>
+              <Select value={algorithm} onValueChange={(v) => setAlgorithm(v as SigningAlgorithm)} disabled={busy}>
+                <SelectTrigger id="signing-key-algorithm" className="w-full">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {SIGNING_ALGORITHMS.map((alg) => (
+                    <SelectItem key={alg} value={alg}>
+                      {ALGORITHM_LABELS[alg]}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <FieldDescription>{t("rotation.algorithmHint")}</FieldDescription>
             </Field>
           </FieldGroup>
           <DialogActions busy={busy} onCancel={onClose} cancelLabel={t("rotation.cancel")} confirmLabel={t("rotation.save")} />
