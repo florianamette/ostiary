@@ -289,7 +289,13 @@ export function guardRequests({
         if (ctx.path === "/sso/register") return guardSsoRegistration(ctx);
         if (ctx.path.startsWith("/organization/")) return guardOrganizationRequest(ctx);
         if (RECENT_SIGN_IN_PATHS.has(ctx.path)) return requireRecentSignIn(ctx);
+        // Adding a phone number adds a way to sign in (texted codes), like a passkey.
+        if (ctx.path === "/phone-number/verify" && (ctx.body as Bag | undefined)?.updatePhoneNumber === true) return requireRecentSignIn(ctx);
         if (ctx.path === "/delete-user") return guardAccountDeletion(ctx);
+        // A phone number is set only by verifying a texted code (/phone-number/verify).
+        if (ctx.path === "/update-user" && ctx.body && typeof ctx.body === "object" && ("phoneNumber" in ctx.body || "phoneNumberVerified" in ctx.body)) {
+            throw new APIError("BAD_REQUEST", { message: "Verify a phone number with the code texted to it.", code: "PHONE_NUMBER_NEEDS_VERIFICATION" });
+        }
         if (ctx.path === "/change-email") return guardEmailChange(ctx);
         if (ctx.path === "/multi-session/revoke") return recordAccountSignOut(ctx);
         if (ctx.path === "/sign-out") return recordSignOut(ctx);

@@ -73,7 +73,11 @@ export function emailCodeTwoFactor(twoFactorPlugin: TwoFactorPlugin) {
         hooks: {
             after: twoFactorPlugin.hooks.after.map((hook) => ({
                 ...hook,
-                matcher: (ctx: { path?: string }) => ctx.path === "/sign-in/email-otp",
+                // Codes by email, and by text message (phone-number plugin) when they sign in rather
+                // than add a number to the signed-in account.
+                matcher: (ctx: { path?: string; body?: unknown }) =>
+                    ctx.path === "/sign-in/email-otp" ||
+                    (ctx.path === "/phone-number/verify" && (ctx.body as { updatePhoneNumber?: unknown } | undefined)?.updatePhoneNumber !== true),
             })),
         },
     } satisfies BetterAuthPlugin;

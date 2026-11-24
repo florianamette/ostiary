@@ -42,7 +42,8 @@
         "invalidEmail": "Voer een geldig e-mailadres in.",
         "error": "De e-mail kon niet worden verstuurd. Probeer het over een minuut opnieuw."
       },
-      "addAccountDescription": "Accounts die al zijn aangemeld in deze browser blijven aangemeld."
+      "addAccountDescription": "Accounts die al zijn aangemeld in deze browser blijven aangemeld.",
+      "phoneCode": "Sms me een inlogcode"
     },
     "emailCode": {
       "title": "Inloggen met een code",
@@ -200,6 +201,30 @@
       "setUp": "Tweestapsverificatie instellen",
       "later": "Herinner me later",
       "continue": "Doorgaan"
+    },
+    "phoneCode": {
+      "title": "Inloggen via sms",
+      "description": "We sturen een 6-cijferige code per sms naar het telefoonnummer van je account.",
+      "phoneLabel": "Telefoonnummer",
+      "phoneHint": "Internationaal formaat, met + en de landcode.",
+      "send": "Code versturen",
+      "sending": "Versturen…",
+      "sentTitle": "Kijk op je telefoon",
+      "sent": "Als een account {phone} gebruikt, is er een 6-cijferige code onderweg. Hij verloopt over {minutes} minuten.",
+      "codeLabel": "Inlogcode",
+      "verify": "Inloggen",
+      "verifying": "Inloggen…",
+      "newCode": "Niets ontvangen? Stuur een nieuwe code",
+      "usePassword": "Je wachtwoord gebruiken",
+      "errors": {
+        "invalidPhone": "Vul het nummer in internationaal formaat in, zoals +31612345678.",
+        "invalidCode": "Die code klopt niet. Controleer hem en probeer het opnieuw.",
+        "expired": "Deze code is verlopen. Vraag een nieuwe aan.",
+        "tooManyAttempts": "Te veel verkeerde codes. Vraag een nieuwe aan.",
+        "rateLimited": "Te veel pogingen. Wacht een paar minuten en probeer het opnieuw.",
+        "sendFailed": "De code kon niet worden verstuurd. Probeer het over een paar minuten opnieuw.",
+        "signInFailed": "Inloggen mislukt. Probeer het opnieuw."
+      }
     }
   },
   "consent": {
@@ -1904,7 +1929,8 @@
             "export_data": "Accountgegevens geëxporteerd",
             "self_delete": "Eigen account verwijderd",
             "export_csv": "Gebruikers geëxporteerd naar CSV",
-            "import": "Gebruikers geïmporteerd"
+            "import": "Gebruikers geïmporteerd",
+            "remove_phone_number": "Heeft het telefoonnummer verwijderd"
           },
           "oauth_client": {
             "create": "OAuth-client geregistreerd",
@@ -2747,6 +2773,27 @@
     "impersonation": {
       "viewingAs": "Je bekijkt dit account als <strong>{email}</strong>.",
       "stop": "Stoppen met meekijken"
+    },
+    "phone": {
+      "title": "Telefoonnummer",
+      "description": "Log in met een code die per sms naar dit nummer wordt gestuurd.",
+      "none": "Geen telefoonnummer",
+      "add": "Nummer toevoegen",
+      "change": "Wijzigen",
+      "remove": "Verwijderen",
+      "phoneLabel": "Telefoonnummer",
+      "phoneHint": "Internationaal formaat, met + en de landcode. We sturen een code per sms om het te controleren.",
+      "send": "Code versturen",
+      "cancel": "Annuleren",
+      "codeLabel": "Code verstuurd naar {phone}",
+      "verify": "Nummer opslaan",
+      "invalidPhone": "Vul het nummer in internationaal formaat in, zoals +31612345678.",
+      "sendFailed": "De code kon niet worden verstuurd. Probeer het over een paar minuten opnieuw.",
+      "verifyFailed": "Die code klopt niet of is verlopen.",
+      "taken": "Een ander account gebruikt dit nummer al.",
+      "saved": "Nummer opgeslagen.",
+      "removeFailed": "Het nummer kon niet worden verwijderd.",
+      "removed": "Nummer verwijderd."
     }
   },
   "acceptInvitation": {

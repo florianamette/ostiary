@@ -42,7 +42,8 @@
         "invalidEmail": "Anna kelvollinen sähköpostiosoite.",
         "error": "Sähköpostia ei voitu lähettää. Yritä uudelleen hetken kuluttua."
       },
-      "addAccountDescription": "Tässä selaimessa jo kirjautuneet tilit pysyvät kirjautuneina."
+      "addAccountDescription": "Tässä selaimessa jo kirjautuneet tilit pysyvät kirjautuneina.",
+      "phoneCode": "Lähetä kirjautumiskoodi tekstiviestillä"
     },
     "emailCode": {
       "title": "Kirjaudu koodilla",
@@ -200,6 +201,30 @@
       "setUp": "Määritä kaksivaiheinen tunnistautuminen",
       "later": "Muistuta myöhemmin",
       "continue": "Jatka"
+    },
+    "phoneCode": {
+      "title": "Kirjaudu tekstiviestillä",
+      "description": "Lähetämme 6-numeroisen koodin tekstiviestillä tilisi puhelinnumeroon.",
+      "phoneLabel": "Puhelinnumero",
+      "phoneHint": "Kansainvälisessä muodossa, alussa + ja maatunnus.",
+      "send": "Lähetä koodi",
+      "sending": "Lähetetään…",
+      "sentTitle": "Katso puhelimesi",
+      "sent": "Jos jokin tili käyttää numeroa {phone}, 6-numeroinen koodi on tulossa. Se vanhenee {minutes} minuutissa.",
+      "codeLabel": "Kirjautumiskoodi",
+      "verify": "Kirjaudu",
+      "verifying": "Kirjaudutaan…",
+      "newCode": "Etkö saanut sitä? Lähetä uusi koodi",
+      "usePassword": "Käytä mieluummin salasanaa",
+      "errors": {
+        "invalidPhone": "Anna numero kansainvälisessä muodossa, esimerkiksi +358401234567.",
+        "invalidCode": "Koodi ei ole oikein. Tarkista se ja yritä uudelleen.",
+        "expired": "Koodi on vanhentunut. Pyydä uusi.",
+        "tooManyAttempts": "Liian monta väärää koodia. Pyydä uusi.",
+        "rateLimited": "Liian monta yritystä. Odota muutama minuutti ja yritä uudelleen.",
+        "sendFailed": "Koodia ei voitu lähettää. Yritä muutaman minuutin päästä uudelleen.",
+        "signInFailed": "Kirjautuminen epäonnistui. Yritä uudelleen."
+      }
     }
   },
   "consent": {
@@ -1904,7 +1929,8 @@
             "export_data": "Vei tilin tiedot",
             "self_delete": "Poisti oman tilinsä",
             "export_csv": "Vei käyttäjät CSV-muodossa",
-            "import": "Toi käyttäjiä"
+            "import": "Toi käyttäjiä",
+            "remove_phone_number": "Poisti puhelinnumeronsa"
           },
           "oauth_client": {
             "create": "Rekisteröi OAuth-asiakkaan",
@@ -2747,6 +2773,27 @@
     "impersonation": {
       "viewingAs": "Tarkastelet tätä tiliä käyttäjänä <strong>{email}</strong>.",
       "stop": "Lopeta käyttäjänä toimiminen"
+    },
+    "phone": {
+      "title": "Puhelinnumero",
+      "description": "Kirjaudu koodilla, joka lähetetään tekstiviestillä tähän numeroon.",
+      "none": "Ei puhelinnumeroa",
+      "add": "Lisää numero",
+      "change": "Vaihda",
+      "remove": "Poista",
+      "phoneLabel": "Puhelinnumero",
+      "phoneHint": "Kansainvälisessä muodossa, alussa + ja maatunnus. Lähetämme tarkistuskoodin tekstiviestillä.",
+      "send": "Lähetä koodi",
+      "cancel": "Peruuta",
+      "codeLabel": "Koodi lähetetty numeroon {phone}",
+      "verify": "Tallenna numero",
+      "invalidPhone": "Anna numero kansainvälisessä muodossa, esimerkiksi +358401234567.",
+      "sendFailed": "Koodia ei voitu lähettää. Yritä muutaman minuutin päästä uudelleen.",
+      "verifyFailed": "Koodi ei ole oikein tai se on vanhentunut.",
+      "taken": "Toinen tili käyttää jo tätä numeroa.",
+      "saved": "Numero tallennettu.",
+      "removeFailed": "Numeroa ei voitu poistaa.",
+      "removed": "Numero poistettu."
     }
   },
   "acceptInvitation": {

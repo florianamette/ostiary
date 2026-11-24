@@ -28,6 +28,9 @@ export const user = pgTable("user", {
   banReason: text("ban_reason"),
   banExpires: timestamp("ban_expires", { withTimezone: true }),
   twoFactorEnabled: boolean("two_factor_enabled").default(false),
+  /** Better Auth's phone-number plugin: set only once verified by a texted code (E.164). */
+  phoneNumber: text("phone_number").unique(),
+  phoneNumberVerified: boolean("phone_number_verified"),
 });
 
 export const organization = pgTable("organization", {

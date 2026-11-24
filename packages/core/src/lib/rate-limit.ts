@@ -36,6 +36,9 @@ export const RATE_LIMIT_RULES = {
     "/two-factor/verify-backup-code": { window: 60, max: 5 },
     "/two-factor/verify-otp": { window: 60, max: 5 },
     "/two-factor/send-otp": { window: 60, max: 3 },
+    // Text messages cost money and reach someone's phone: fewer still. Codes: as above.
+    "/phone-number/send-otp": { window: 600, max: 3 },
+    "/phone-number/verify": { window: 60, max: 5 },
     // Approving a device code (signed-in user). The code lookup (/device) keeps the device
     // plugin's 5 per 10 minutes.
     "/device/approve": { window: 60, max: 10 },

@@ -25,6 +25,8 @@ export const CAPTCHA_PROTECTED_PATHS = [
   "/sign-in/username",
   "/request-password-reset",
   "/email-otp/send-verification-otp",
+  // Each texts a code, which costs money: no bots.
+  "/phone-number/send-otp",
 ];
 
 /** Header Better Auth's captcha plugin reads the widget's token from. */

@@ -8,6 +8,8 @@ import { DashboardAppsSection } from "@/components/dashboard/dashboard-apps-sect
 import { DashboardDataSection } from "@/components/dashboard/dashboard-data-section";
 import { DashboardOrganizationsSection } from "@/components/dashboard/dashboard-organizations-section";
 import { DashboardProfileSection } from "@/components/dashboard/dashboard-profile-section";
+import { DashboardPhoneSection } from "@/components/dashboard/dashboard-phone-section";
+import { smsConfigured } from "@ostiary/core/lib/sms";
 import { DashboardSecuritySection } from "@/components/dashboard/dashboard-security-section";
 import { getDashboardContext } from "@/lib/dashboard-context";
 import { getDeletionStatus } from "@/lib/account-data-actions";
@@ -70,6 +72,9 @@ export default async function DashboardPage({
       </section>
       <div className="space-y-10">
         <DashboardProfileSection />
+        {smsConfigured() ? (
+          <DashboardPhoneSection phoneNumber={(session?.user as { phoneNumber?: string | null } | undefined)?.phoneNumber ?? null} />
+        ) : null}
         {hasOrganizations ? <DashboardOrganizationsSection /> : null}
         <DashboardSecuritySection
           socialProviders={socialProviders}

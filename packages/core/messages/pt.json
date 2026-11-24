@@ -42,7 +42,8 @@
         "invalidEmail": "Digite um endereço de e-mail válido.",
         "error": "Não foi possível enviar o e-mail. Tente novamente em um minuto."
       },
-      "addAccountDescription": "As contas com sessão iniciada neste navegador continuam com sessão iniciada."
+      "addAccountDescription": "As contas com sessão iniciada neste navegador continuam com sessão iniciada.",
+      "phoneCode": "Enviar-me um código por SMS"
     },
     "emailCode": {
       "title": "Entrar com um código",
@@ -200,6 +201,30 @@
       "setUp": "Configurar a autenticação de dois fatores",
       "later": "Lembrar-me mais tarde",
       "continue": "Continuar"
+    },
+    "phoneCode": {
+      "title": "Iniciar sessão por SMS",
+      "description": "Enviaremos um código de 6 dígitos por SMS para o número da sua conta.",
+      "phoneLabel": "Número de telefone",
+      "phoneHint": "Formato internacional, com + e o indicativo do país.",
+      "send": "Enviar código",
+      "sending": "A enviar…",
+      "sentTitle": "Veja o seu telemóvel",
+      "sent": "Se uma conta usar {phone}, vai a caminho um código de 6 dígitos. Expira em {minutes} minutos.",
+      "codeLabel": "Código de início de sessão",
+      "verify": "Iniciar sessão",
+      "verifying": "A iniciar sessão…",
+      "newCode": "Não recebeu? Enviar um novo código",
+      "usePassword": "Usar a palavra-passe",
+      "errors": {
+        "invalidPhone": "Introduza o número em formato internacional, por exemplo +351912345678.",
+        "invalidCode": "Esse código não está certo. Verifique-o e tente de novo.",
+        "expired": "Este código expirou. Peça um novo.",
+        "tooManyAttempts": "Demasiados códigos errados. Peça um novo.",
+        "rateLimited": "Demasiadas tentativas. Aguarde alguns minutos e tente de novo.",
+        "sendFailed": "Não foi possível enviar o código. Tente dentro de alguns minutos.",
+        "signInFailed": "Não foi possível iniciar sessão. Tente de novo."
+      }
     }
   },
   "consent": {
@@ -1904,7 +1929,8 @@
             "export_data": "Exportou os dados da conta",
             "self_delete": "Excluiu a própria conta",
             "export_csv": "Exportou os usuários para CSV",
-            "import": "Importou usuários"
+            "import": "Importou usuários",
+            "remove_phone_number": "Removeu o seu número de telefone"
           },
           "oauth_client": {
             "create": "Registrou cliente OAuth",
@@ -2747,6 +2773,27 @@
     "impersonation": {
       "viewingAs": "Você está vendo esta conta como <strong>{email}</strong>.",
       "stop": "Parar de personificar"
+    },
+    "phone": {
+      "title": "Número de telefone",
+      "description": "Inicie sessão com um código enviado por SMS para este número.",
+      "none": "Sem número de telefone",
+      "add": "Adicionar um número",
+      "change": "Alterar",
+      "remove": "Remover",
+      "phoneLabel": "Número de telefone",
+      "phoneHint": "Formato internacional, com + e o indicativo do país. Enviaremos um código por SMS para o confirmar.",
+      "send": "Enviar código",
+      "cancel": "Cancelar",
+      "codeLabel": "Código enviado para {phone}",
+      "verify": "Guardar número",
+      "invalidPhone": "Introduza o número em formato internacional, por exemplo +351912345678.",
+      "sendFailed": "Não foi possível enviar o código. Tente dentro de alguns minutos.",
+      "verifyFailed": "Esse código não está certo ou expirou.",
+      "taken": "Outra conta já usa este número.",
+      "saved": "Número guardado.",
+      "removeFailed": "Não foi possível remover o número.",
+      "removed": "Número removido."
     }
   },
   "acceptInvitation": {

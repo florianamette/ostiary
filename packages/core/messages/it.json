@@ -42,7 +42,8 @@
         "invalidEmail": "Inserisci un indirizzo email valido.",
         "error": "Impossibile inviare l’email. Riprova tra un minuto."
       },
-      "addAccountDescription": "Gli account già connessi su questo browser restano connessi."
+      "addAccountDescription": "Gli account già connessi su questo browser restano connessi.",
+      "phoneCode": "Inviami un codice via SMS"
     },
     "emailCode": {
       "title": "Accedi con un codice",
@@ -200,6 +201,30 @@
       "setUp": "Configura l'autenticazione a due fattori",
       "later": "Ricordamelo più tardi",
       "continue": "Continua"
+    },
+    "phoneCode": {
+      "title": "Accedi via SMS",
+      "description": "Invieremo via SMS un codice di 6 cifre al numero del tuo account.",
+      "phoneLabel": "Numero di telefono",
+      "phoneHint": "Formato internazionale, con + e il prefisso del paese.",
+      "send": "Invia codice",
+      "sending": "Invio…",
+      "sentTitle": "Controlla il telefono",
+      "sent": "Se un account usa {phone}, un codice di 6 cifre è in arrivo. Scade tra {minutes} minuti.",
+      "codeLabel": "Codice di accesso",
+      "verify": "Accedi",
+      "verifying": "Accesso…",
+      "newCode": "Non è arrivato? Invia un nuovo codice",
+      "usePassword": "Usa invece la password",
+      "errors": {
+        "invalidPhone": "Inserisci il numero in formato internazionale, ad esempio +393123456789.",
+        "invalidCode": "Il codice non è corretto. Controllalo e riprova.",
+        "expired": "Il codice è scaduto. Richiedine uno nuovo.",
+        "tooManyAttempts": "Troppi codici errati. Richiedine uno nuovo.",
+        "rateLimited": "Troppi tentativi. Attendi qualche minuto e riprova.",
+        "sendFailed": "Impossibile inviare il codice. Riprova tra qualche minuto.",
+        "signInFailed": "Impossibile accedere. Riprova."
+      }
     }
   },
   "consent": {
@@ -1904,7 +1929,8 @@
             "export_data": "Dati dell’account esportati",
             "self_delete": "Ha eliminato il proprio account",
             "export_csv": "Utenti esportati in CSV",
-            "import": "Utenti importati"
+            "import": "Utenti importati",
+            "remove_phone_number": "Ha rimosso il proprio numero di telefono"
           },
           "oauth_client": {
             "create": "Client OAuth registrato",
@@ -2747,6 +2773,27 @@
     "impersonation": {
       "viewingAs": "Stai visualizzando questo account come <strong>{email}</strong>.",
       "stop": "Termina accesso come utente"
+    },
+    "phone": {
+      "title": "Numero di telefono",
+      "description": "Accedi con un codice inviato via SMS a questo numero.",
+      "none": "Nessun numero di telefono",
+      "add": "Aggiungi un numero",
+      "change": "Cambia",
+      "remove": "Rimuovi",
+      "phoneLabel": "Numero di telefono",
+      "phoneHint": "Formato internazionale, con + e il prefisso del paese. Invieremo un codice via SMS per verificarlo.",
+      "send": "Invia codice",
+      "cancel": "Annulla",
+      "codeLabel": "Codice inviato al {phone}",
+      "verify": "Salva numero",
+      "invalidPhone": "Inserisci il numero in formato internazionale, ad esempio +393123456789.",
+      "sendFailed": "Impossibile inviare il codice. Riprova tra qualche minuto.",
+      "verifyFailed": "Il codice non è corretto o è scaduto.",
+      "taken": "Un altro account usa già questo numero.",
+      "saved": "Numero salvato.",
+      "removeFailed": "Impossibile rimuovere il numero.",
+      "removed": "Numero rimosso."
     }
   },
   "acceptInvitation": {

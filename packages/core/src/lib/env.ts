@@ -80,6 +80,14 @@ export const envSchema = z
     CAPTCHA_SITE_KEY: optional(z.string().min(1)),
     CAPTCHA_SECRET_KEY: optional(z.string().min(1)),
     /**
+     * Sign-in with a code sent by text message (Better Auth's phone-number plugin), through
+     * Twilio. Off unless TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN and TWILIO_FROM are all set.
+     * TWILIO_FROM: the sending number (E.164, +15551234567) or a Messaging Service SID (MG…).
+     */
+    TWILIO_ACCOUNT_SID: optional(z.string().regex(/^AC[0-9a-fA-F]{32}$/, "TWILIO_ACCOUNT_SID starts with AC and has 34 characters")),
+    TWILIO_AUTH_TOKEN: optional(z.string().min(16)),
+    TWILIO_FROM: optional(z.string().regex(/^(\+[1-9]\d{6,14}|MG[0-9a-fA-F]{32})$/, "TWILIO_FROM is an E.164 number or a Messaging Service SID")),
+    /**
      * Rate limiting of the auth endpoints, counted in the database (table `rate_limit`) so
      * every instance shares the counts. Unset: on in production, off in development.
      */
@@ -140,6 +148,12 @@ export const envSchema = z
           message: `${key} is required when any CAPTCHA_* variable is set`,
           path: [key],
         });
+      }
+    }
+    const twilio = ["TWILIO_ACCOUNT_SID", "TWILIO_AUTH_TOKEN", "TWILIO_FROM"] as const;
+    if (twilio.some((key) => data[key])) {
+      for (const key of twilio.filter((k) => !data[k])) {
+        ctx.addIssue({ code: z.ZodIssueCode.custom, message: `${key} is required when any TWILIO_* variable is set`, path: [key] });
       }
     }
     if (data.NODE_ENV !== "production") return;

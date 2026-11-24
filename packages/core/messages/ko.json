@@ -42,7 +42,8 @@
         "invalidEmail": "올바른 이메일 주소를 입력하세요.",
         "error": "이메일을 보낼 수 없습니다. 잠시 후 다시 시도하세요."
       },
-      "addAccountDescription": "이 브라우저에 이미 로그인된 계정은 로그인 상태로 유지됩니다."
+      "addAccountDescription": "이 브라우저에 이미 로그인된 계정은 로그인 상태로 유지됩니다.",
+      "phoneCode": "문자로 로그인 코드 받기"
     },
     "emailCode": {
       "title": "코드로 로그인",
@@ -200,6 +201,30 @@
       "setUp": "2단계 인증 설정",
       "later": "나중에 알림",
       "continue": "계속"
+    },
+    "phoneCode": {
+      "title": "문자로 로그인",
+      "description": "계정의 전화번호로 6자리 코드를 문자로 보내 드립니다.",
+      "phoneLabel": "전화번호",
+      "phoneHint": "국제 형식(+와 국가 번호로 시작).",
+      "send": "코드 보내기",
+      "sending": "보내는 중…",
+      "sentTitle": "휴대폰을 확인하세요",
+      "sent": "{phone}을(를) 사용하는 계정이 있으면 6자리 코드가 전송되었습니다. {minutes}분 후에 만료됩니다.",
+      "codeLabel": "로그인 코드",
+      "verify": "로그인",
+      "verifying": "로그인 중…",
+      "newCode": "받지 못했나요? 새 코드 보내기",
+      "usePassword": "비밀번호로 로그인",
+      "errors": {
+        "invalidPhone": "+821012345678처럼 국제 형식으로 입력하세요.",
+        "invalidCode": "코드가 올바르지 않습니다. 확인 후 다시 시도하세요.",
+        "expired": "코드가 만료되었습니다. 새 코드를 요청하세요.",
+        "tooManyAttempts": "잘못된 코드가 너무 많습니다. 새 코드를 요청하세요.",
+        "rateLimited": "시도가 너무 많습니다. 몇 분 후 다시 시도하세요.",
+        "sendFailed": "코드를 보내지 못했습니다. 몇 분 후 다시 시도하세요.",
+        "signInFailed": "로그인하지 못했습니다. 다시 시도하세요."
+      }
     }
   },
   "consent": {
@@ -1904,7 +1929,8 @@
             "export_data": "계정 데이터 내보내기",
             "self_delete": "본인 계정 삭제",
             "export_csv": "사용자를 CSV로 내보내기",
-            "import": "사용자 가져오기"
+            "import": "사용자 가져오기",
+            "remove_phone_number": "전화번호 삭제"
           },
           "oauth_client": {
             "create": "OAuth 클라이언트 등록",
@@ -2747,6 +2773,27 @@
     "impersonation": {
       "viewingAs": "<strong>{email}</strong>(으)로 이 계정을 보고 있습니다.",
       "stop": "대리 로그인 중지"
+    },
+    "phone": {
+      "title": "전화번호",
+      "description": "이 번호로 문자로 받은 코드로 로그인합니다.",
+      "none": "전화번호 없음",
+      "add": "번호 추가",
+      "change": "변경",
+      "remove": "삭제",
+      "phoneLabel": "전화번호",
+      "phoneHint": "국제 형식(+와 국가 번호로 시작). 확인을 위해 문자로 코드를 보냅니다.",
+      "send": "코드 보내기",
+      "cancel": "취소",
+      "codeLabel": "{phone}(으)로 보낸 코드",
+      "verify": "번호 저장",
+      "invalidPhone": "+821012345678처럼 국제 형식으로 입력하세요.",
+      "sendFailed": "코드를 보내지 못했습니다. 몇 분 후 다시 시도하세요.",
+      "verifyFailed": "코드가 올바르지 않거나 만료되었습니다.",
+      "taken": "다른 계정이 이미 이 번호를 사용합니다.",
+      "saved": "번호를 저장했습니다.",
+      "removeFailed": "번호를 삭제하지 못했습니다.",
+      "removed": "번호를 삭제했습니다."
     }
   },
   "acceptInvitation": {

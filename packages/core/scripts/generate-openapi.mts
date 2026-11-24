@@ -23,6 +23,9 @@ Object.assign(process.env, {
     CAPTCHA_SITE_KEY: "site-key",
     CAPTCHA_SECRET_KEY: "secret-key",
     RESEND_API_KEY: "re_reference",
+    TWILIO_ACCOUNT_SID: "AC00000000000000000000000000000000",
+    TWILIO_AUTH_TOKEN: "reference-auth-token",
+    TWILIO_FROM: "+15550000000",
     RESEND_FROM: "Ostiary <auth@example.com>",
     OPENAPI_SCHEMA_ENABLED: "false",
 });
@@ -48,6 +51,7 @@ const TAGS: [string, string, string][] = [
     ["Two-factor", "Two-factor", "Authenticator app (TOTP), email codes and backup codes as a second step."],
     ["One-tap", "Google One Tap", "Sign-in with Google One Tap, when it is on in the admin console."],
     ["Multi-session", "Multiple accounts", "Several signed-in accounts in one browser."],
+    ["Phone-number", "Text messages", "Sign-in with a code texted to a phone number the account verified (TWILIO_* set), and adding one."],
     ["Oauth-provider", "OAuth and OpenID Connect", "The authorization server: authorization, tokens, introspection, revocation, UserInfo, consents and client registration."],
     ["Device-authorization", "Device sign-in", "RFC 8628 device authorization grant for CLIs and TVs."],
     ["Jwt", "Signing keys", "The JSON Web Key Set that verifies ID tokens and JWT access tokens."],
