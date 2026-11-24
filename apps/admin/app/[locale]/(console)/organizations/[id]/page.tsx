@@ -44,6 +44,8 @@ import { scimBaseUrl } from "@ostiary/core/lib/scim";
 import { Link } from "@/i18n/navigation";
 import { getAuditActionLabel } from "@/lib/admin-audit";
 import { requireAdminSession } from "@/lib/require-admin-session";
+import { OrganizationRoles, OrganizationTeams } from "@/components/admin/organizations/organization-roles-teams";
+import { listOrganizationRoles, listTeams } from "@ostiary/core/lib/admin/organization-roles-teams";
 import { OrganizationTwoFactor } from "@/components/admin/organizations/organization-two-factor";
 import { organizationRequiresTwoFactor } from "@ostiary/core/lib/two-factor-policy";
 
@@ -62,6 +64,7 @@ export default async function AdminOrganizationPage({
   const t = await getTranslations({ locale, namespace: "admin.pages.organizations.detail" });
   const tRoles = await getTranslations({ locale, namespace: "admin.pages.organizations.controls.roles" });
   const tc = await getTranslations({ locale, namespace: "admin.common" });
+  const tRT = await getTranslations({ locale, namespace: "admin.pages.organizations.rolesTeams" });
   const actionLabel = await getAuditActionLabel(locale);
   const roleLabel = (role: string) => (role === "owner" || role === "admin" || role === "member" ? tRoles(role) : role);
 
@@ -77,6 +80,8 @@ export default async function AdminOrganizationPage({
       .from(scimUser)
       .where(and(eq(scimUser.userId, user.id), eq(scimUser.provisioningDomainId, id))),
   );
+  const [customRoles, teams] = await Promise.all([listOrganizationRoles(id), listTeams(id)]);
+  const customRoleNames = customRoles.map((r) => r.role);
   const [members, [{ memberTotal }], invites, providers, audits, scimTokens, scimUsers, apiKeys] = await Promise.all([
     db
       .select({
@@ -151,6 +156,16 @@ export default async function AdminOrganizationPage({
       <div className="grid items-start gap-6 lg:grid-cols-[2fr_1fr]">
         <div className="min-w-0 space-y-6">
           {isPublic ? null : (
+            <>
+              <Section title={tRT("rolesTitle")}>
+                <OrganizationRoles orgId={id} roles={customRoles} />
+              </Section>
+              <Section title={tRT("teamsTitle")}>
+                <OrganizationTeams orgId={id} teams={teams} />
+              </Section>
+            </>
+          )}
+          {isPublic ? null : (
             <Section title={t("twoFactor.title")}>
               <OrganizationTwoFactor orgId={id} required={await organizationRequiresTwoFactor(id)} />
             </Section>
@@ -189,7 +204,7 @@ export default async function AdminOrganizationPage({
                       </TableCell>
                       <TableCell className="hidden text-sm text-muted-foreground sm:table-cell">{formatDateTime(m.joined, locale)}</TableCell>
                       <TableCell>
-                        {isPublic ? <Badge variant="secondary">{roleLabel(m.role)}</Badge> : <MemberRoleSelect orgId={id} memberId={m.id} role={m.role} />}
+                        {isPublic ? <Badge variant="secondary">{roleLabel(m.role)}</Badge> : <MemberRoleSelect orgId={id} memberId={m.id} role={m.role} customRoles={customRoleNames} />}
                       </TableCell>
                       {isPublic ? null : (
                         <TableCell className="text-right">
@@ -205,7 +220,7 @@ export default async function AdminOrganizationPage({
 
             {isPublic ? null : (
               <div className="space-y-3 border-t border-border/60 pt-6">
-                <InviteMemberForm orgId={id} />
+                <InviteMemberForm orgId={id} customRoles={customRoleNames} />
                 {invites.length ? (
                   <ul className="space-y-2">
                     {invites.map((inv) => (

@@ -30,6 +30,8 @@ export const CLAIM_ATTRIBUTES = [
   "organization.id",
   "organization.slug",
   "organization.role",
+  "organization.permissions",
+  "organization.teams",
   "organizations",
 ] as const;
 export type ClaimAttribute = (typeof CLAIM_ATTRIBUTES)[number];
@@ -220,7 +222,15 @@ export function validateClientClaims(input: unknown): ClientClaimsResult {
 }
 
 /** One organization the user belongs to. */
-export type ClaimOrganization = { id: string; slug: string; role: string };
+export type ClaimOrganization = {
+  id: string;
+  slug: string;
+  role: string;
+  /** The role's permissions (resource -> actions), for the active organization when asked for. */
+  permissions?: Record<string, string[]>;
+  /** The user's teams in it, when asked for. */
+  teams?: { id: string; name: string }[];
+};
 
 /**
  * What attribute claims are read from. `user` is null for a token without a user (client
@@ -257,6 +267,10 @@ export function attributeValue(attribute: ClaimAttribute, context: ClaimContext)
       return context.organization?.slug;
     case "organization.role":
       return context.organization?.role;
+    case "organization.permissions":
+      return context.organization?.permissions;
+    case "organization.teams":
+      return context.organization?.teams;
     case "organizations":
       return context.organizations
         ?.slice(0, CLIENT_CLAIMS_LIMITS.maxOrganizations)
@@ -272,6 +286,8 @@ export function claimNeeds(claims: readonly ClientClaim[], token: ClaimToken) {
   return {
     user: attributes.size > 0,
     organization: [...attributes].some((attribute) => attribute.startsWith("organization.")),
+    organizationPermissions: attributes.has("organization.permissions"),
+    organizationTeams: attributes.has("organization.teams"),
     organizations: attributes.has("organizations"),
   };
 }

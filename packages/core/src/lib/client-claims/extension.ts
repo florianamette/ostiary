@@ -47,7 +47,10 @@ async function claimsFor(
           twoFactorEnabled: user?.twoFactorEnabled === true,
         }
       : null,
-    organization: userId && needs.organization ? await activeOrganizationFor(sessionId, userId) : null,
+    organization:
+      userId && needs.organization
+        ? await activeOrganizationFor(sessionId, userId, { permissions: needs.organizationPermissions, teams: needs.organizationTeams })
+        : null,
     organizations: userId && needs.organizations ? await organizationsOf(userId) : null,
   };
   return buildClientClaims(claims, token, context);

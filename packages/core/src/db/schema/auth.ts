@@ -78,6 +78,8 @@ export const invitation = pgTable(
     inviterId: text("inviter_id")
       .notNull()
       .references(() => user.id, { onDelete: "cascade" }),
+    /** The team the invitee joins with the organization (Better Auth teams). */
+    teamId: text("team_id"),
     expiresAt: timestamp("expires_at", { withTimezone: true }).notNull(),
     createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
   },
@@ -85,6 +87,64 @@ export const invitation = pgTable(
     index("invitation_organizationId_idx").on(table.organizationId),
     // Invitations are looked up by the invitee's email, compared lowercased.
     index("invitation_email_lower_idx").on(sql`lower(${table.email})`),
+  ],
+);
+
+/**
+ * Teams inside an organization (Better Auth's organization plugin, `teams`). Managed from the
+ * admin console's organization page, or by the organization's owners and admins.
+ */
+export const team = pgTable(
+  "team",
+  {
+    id: text("id").primaryKey(),
+    name: text("name").notNull(),
+    memberCount: integer("member_count").default(0).notNull(),
+    organizationId: text("organization_id")
+      .notNull()
+      .references(() => organization.id, { onDelete: "cascade" }),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).$onUpdate(() => new Date()),
+  },
+  (table) => [index("team_organizationId_idx").on(table.organizationId)],
+);
+
+export const teamMember = pgTable(
+  "team_member",
+  {
+    id: text("id").primaryKey(),
+    teamId: text("team_id")
+      .notNull()
+      .references(() => team.id, { onDelete: "cascade" }),
+    userId: text("user_id")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    /** Better Auth's `teamId:userId` key, so a person is in a team once. */
+    membershipKey: text("membership_key").unique(),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
+  },
+  (table) => [index("teamMember_teamId_idx").on(table.teamId), index("teamMember_userId_idx").on(table.userId)],
+);
+
+/**
+ * An organization's own roles (Better Auth's `dynamicAccessControl`): a name and its
+ * permissions, a JSON object of resource to actions, like the built-in roles' statements.
+ */
+export const organizationRole = pgTable(
+  "organization_role",
+  {
+    id: text("id").primaryKey(),
+    organizationId: text("organization_id")
+      .notNull()
+      .references(() => organization.id, { onDelete: "cascade" }),
+    role: text("role").notNull(),
+    permission: text("permission").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).$onUpdate(() => new Date()),
+  },
+  (table) => [
+    index("organizationRole_organizationId_idx").on(table.organizationId),
+    uniqueIndex("organizationRole_organizationId_role_uidx").on(table.organizationId, table.role),
   ],
 );
 
@@ -104,6 +164,8 @@ export const session = pgTable(
       .notNull()
       .references(() => user.id, { onDelete: "cascade" }),
     impersonatedBy: text("impersonated_by"),
+    /** Better Auth teams: the team the session acts for, inside the active organization. */
+    activeTeamId: text("active_team_id"),
     activeOrganizationId: text("active_organization_id").references(
       () => organization.id,
       { onDelete: "set null" },

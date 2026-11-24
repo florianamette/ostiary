@@ -25,9 +25,8 @@ import {
     username,
 } from "better-auth/plugins";
 import { twoFactor } from "better-auth/plugins/two-factor";
-import { createAccessControl } from "better-auth/plugins/access";
 import { defaultRoles as platformRoles } from "better-auth/plugins/admin/access";
-import { adminAc, defaultStatements, memberAc, ownerAc } from "better-auth/plugins/organization/access";
+import { organizationAc, organizationRoles } from "@ostiary/core/lib/organization-access";
 
 import { db } from "@ostiary/core/db/index";
 import * as schema from "@ostiary/core/db/schema";
@@ -172,20 +171,6 @@ const UNUSED_EMAIL_OTP_PATHS = [
     "/email-otp/change-email",
 ];
 
-/**
- * Better Auth's default organization roles, unchanged, plus the API key plugin's `apiKey`
- * resource: owners and admins manage the organization's keys, members do not.
- */
-const API_KEY_ACTIONS = ["create", "read", "update", "delete"] as const;
-const organizationAc = createAccessControl({
-    ...defaultStatements,
-    apiKey: API_KEY_ACTIONS,
-});
-const organizationRoles = {
-    owner: organizationAc.newRole({ ...ownerAc.statements, apiKey: API_KEY_ACTIONS }),
-    admin: organizationAc.newRole({ ...adminAc.statements, apiKey: API_KEY_ACTIONS }),
-    member: organizationAc.newRole({ ...memberAc.statements }),
-};
 
 /**
  * The API key plugin's HTTP endpoints. Keys are created, listed and revoked only through the
@@ -646,6 +631,13 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
                 // Only platform admins can create organizations. The check runs on the
                 // server, so the UI is not the only gate.
                 allowUserToCreateOrganization: (user) => isPlatformAdmin(user.role),
+                // An organization's own roles (organization_role), on top of owner, admin and
+                // member, managed by those whose role has the `ac` permissions (owners and admins)
+                // or from the admin console. Their names are what `member.role` holds.
+                dynamicAccessControl: { enabled: true, maximumRolesPerOrganization: 50 },
+                // Teams inside an organization (team, team_member), with an active team per
+                // session. No default team: an organization starts with none.
+                teams: { enabled: true, defaultTeam: { enabled: false }, maximumTeams: 100 },
                 sendInvitationEmail: async (data) => {
                     const inviteUrl = `${baseURL}/${routing.defaultLocale}/accept-invitation/${data.id}`;
                     queueOrganizationInviteEmail({
