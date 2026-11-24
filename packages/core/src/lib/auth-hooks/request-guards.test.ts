@@ -32,6 +32,10 @@ vi.mock("@ostiary/core/lib/oauth-scopes", async (importOriginal) => ({
   syncProviderScopes: async () => {},
 }));
 vi.mock("@ostiary/core/lib/signing-keys", () => ({ syncSigningKeys: async () => {} }));
+vi.mock("@ostiary/core/lib/auth-policy", async () => {
+  const { DEFAULT_AUTH_POLICY } = await import("@ostiary/core/lib/auth-policy-options");
+  return { syncAuthPolicy: async () => DEFAULT_AUTH_POLICY };
+});
 vi.mock("@ostiary/core/lib/social-providers", () => ({ syncSocialProviders: async () => {}, googleOneTap: async () => null }));
 vi.mock("@ostiary/core/lib/client-registration", () => ({
   syncClientRegistration: async () => ({ dynamic: "off" }),
