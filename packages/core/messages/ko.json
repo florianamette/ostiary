@@ -372,7 +372,8 @@
           "duplicates": "×{count}",
           "duplicatesHint": "동일한 자체 등록 클라이언트 {count}개",
           "showDuplicates": "{count}개 모두 보기",
-          "hideDuplicates": "동일 항목 숨기기"
+          "hideDuplicates": "동일 항목 숨기기",
+          "previousSecretUntil": "이전 시크릿 유효 기간: {date}까지"
         },
         "registration": {
           "title": "자체 등록",
@@ -669,16 +670,25 @@
           },
           "rotateDialog": {
             "title": "클라이언트 시크릿을 교체할까요?",
-            "description": "이전 시크릿은 즉시 작동을 멈춥니다. 새 시크릿을 안전한 곳에 보관하세요. 한 번만 표시될 수 있습니다.",
+            "description": "새 시크릿을 안전한 곳에 보관하세요. 한 번만 표시될 수 있습니다. 현재 시크릿은 지금 바로, 또는 선택한 유예 기간이 끝나면 더 이상 작동하지 않으므로 앱이 먼저 전환할 수 있습니다.",
             "newSecretLabel": "새 클라이언트 시크릿",
             "copySecret": "시크릿 복사",
             "secretCopied": "시크릿을 복사했습니다",
             "rotating": "교체 중…",
             "rotateFailed": "시크릿을 교체할 수 없습니다",
             "newSecretIssued": "새 클라이언트 시크릿이 발급되었습니다. 지금 복사하세요",
-            "rotated": "시크릿을 교체했습니다"
+            "rotated": "시크릿을 교체했습니다",
+            "graceLabel": "현재 시크릿 계속 사용",
+            "graceNone": "아니요, 지금 바로 중지",
+            "grace1h": "1시간 동안",
+            "grace24h": "24시간 동안",
+            "grace7d": "7일 동안",
+            "graceReplaces": "이전 교체에서 남겨 둔 시크릿은 지금 바로 작동을 멈춥니다."
           },
-          "rotateHintPrivateKey": "이 앱은 시크릿이 아니라 키로 인증합니다"
+          "rotateHintPrivateKey": "이 앱은 시크릿이 아니라 키로 인증합니다",
+          "revokePreviousSecret": "이전 시크릿 지금 폐기",
+          "revokePreviousFailed": "이전 시크릿을 폐기하지 못했습니다",
+          "previousSecretRevoked": "이전 시크릿을 폐기했습니다"
         },
         "selfRegistered": {
           "menuLabel": "{name} 작업",
@@ -1850,7 +1860,8 @@
             "branding_update": "로그인 브랜딩 변경",
             "branding_reset": "로그인 브랜딩 초기화",
             "claims_update": "토큰 클레임 변경",
-            "remove_duplicates": "중복 OAuth 클라이언트 제거"
+            "remove_duplicates": "중복 OAuth 클라이언트 제거",
+            "revoke_previous_secret": "이전 클라이언트 시크릿 폐기"
           },
           "client_registration": {
             "update": "클라이언트 자체 등록 설정 변경"

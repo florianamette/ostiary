@@ -372,7 +372,8 @@
           "duplicates": "×{count}",
           "duplicatesHint": "{count} identieke zelf geregistreerde clients",
           "showDuplicates": "Alle {count} tonen",
-          "hideDuplicates": "Identieke verbergen"
+          "hideDuplicates": "Identieke verbergen",
+          "previousSecretUntil": "Vorig geheim geldig tot {date}"
         },
         "registration": {
           "title": "Zelfregistratie",
@@ -669,16 +670,25 @@
           },
           "rotateDialog": {
             "title": "Clientgeheim roteren?",
-            "description": "Het vorige geheim werkt meteen niet meer. Bewaar het nieuwe geheim op een veilige plek, het wordt mogelijk maar één keer getoond.",
+            "description": "Bewaar het nieuwe geheim veilig, het wordt mogelijk maar één keer getoond. Het huidige geheim werkt meteen niet meer, of pas aan het einde van de gekozen overgangsperiode, zodat de app eerst kan overstappen.",
             "newSecretLabel": "Nieuw clientgeheim",
             "copySecret": "Geheim kopiëren",
             "secretCopied": "Geheim gekopieerd",
             "rotating": "Roteren…",
             "rotateFailed": "Kan het geheim niet roteren",
             "newSecretIssued": "Nieuw clientgeheim uitgegeven, kopieer het nu",
-            "rotated": "Geheim geroteerd"
+            "rotated": "Geheim geroteerd",
+            "graceLabel": "Huidig geheim blijft werken",
+            "graceNone": "Nee, het werkt meteen niet meer",
+            "grace1h": "1 uur",
+            "grace24h": "24 uur",
+            "grace7d": "7 dagen",
+            "graceReplaces": "Het geheim dat bij de vorige rotatie is bewaard, werkt vanaf nu niet meer."
           },
-          "rotateHintPrivateKey": "Deze app authenticeert zich met haar sleutels, niet met een geheim"
+          "rotateHintPrivateKey": "Deze app authenticeert zich met haar sleutels, niet met een geheim",
+          "revokePreviousSecret": "Vorig geheim nu intrekken",
+          "revokePreviousFailed": "Het vorige geheim kon niet worden ingetrokken",
+          "previousSecretRevoked": "Vorig geheim ingetrokken"
         },
         "selfRegistered": {
           "menuLabel": "Acties voor {name}",
@@ -1850,7 +1860,8 @@
             "branding_update": "Huisstijl van het inloggen gewijzigd",
             "branding_reset": "Huisstijl van het inloggen teruggezet",
             "claims_update": "Token-claims gewijzigd",
-            "remove_duplicates": "Dubbele OAuth-clients verwijderd"
+            "remove_duplicates": "Dubbele OAuth-clients verwijderd",
+            "revoke_previous_secret": "Vorig clientgeheim ingetrokken"
           },
           "client_registration": {
             "update": "Zelfregistratie van clients gewijzigd"

@@ -372,7 +372,8 @@
           "duplicates": "×{count}",
           "duplicatesHint": "Identycznych klientów zarejestrowanych samodzielnie: {count}",
           "showDuplicates": "Pokaż wszystkie ({count})",
-          "hideDuplicates": "Ukryj identyczne"
+          "hideDuplicates": "Ukryj identyczne",
+          "previousSecretUntil": "Poprzedni sekret ważny do {date}"
         },
         "registration": {
           "title": "Samorejestracja",
@@ -669,16 +670,25 @@
           },
           "rotateDialog": {
             "title": "Zmienić sekret klienta?",
-            "description": "Poprzedni sekret natychmiast przestanie działać. Zapisz nowy sekret w bezpiecznym miejscu, może zostać pokazany tylko raz.",
+            "description": "Zapisz nowy sekret w bezpiecznym miejscu, może zostać pokazany tylko raz. Obecny sekret przestaje działać od razu albo po wybranym okresie przejściowym, aby aplikacja mogła się najpierw przełączyć.",
             "newSecretLabel": "Nowy sekret klienta",
             "copySecret": "Kopiuj sekret",
             "secretCopied": "Skopiowano sekret",
             "rotating": "Zmienianie…",
             "rotateFailed": "Nie udało się zmienić sekretu",
             "newSecretIssued": "Wydano nowy sekret klienta, skopiuj go teraz",
-            "rotated": "Sekret zmieniony"
+            "rotated": "Sekret zmieniony",
+            "graceLabel": "Obecny sekret nadal działa",
+            "graceNone": "Nie, przestaje działać od razu",
+            "grace1h": "Przez 1 godzinę",
+            "grace24h": "Przez 24 godziny",
+            "grace7d": "Przez 7 dni",
+            "graceReplaces": "Sekret zachowany przy poprzedniej rotacji przestaje działać od razu."
           },
-          "rotateHintPrivateKey": "Ta aplikacja uwierzytelnia się kluczami, a nie sekretem"
+          "rotateHintPrivateKey": "Ta aplikacja uwierzytelnia się kluczami, a nie sekretem",
+          "revokePreviousSecret": "Unieważnij teraz poprzedni sekret",
+          "revokePreviousFailed": "Nie udało się unieważnić poprzedniego sekretu",
+          "previousSecretRevoked": "Poprzedni sekret unieważniony"
         },
         "selfRegistered": {
           "menuLabel": "Działania dla {name}",
@@ -1850,7 +1860,8 @@
             "branding_update": "Zmieniono wygląd logowania",
             "branding_reset": "Zresetowano wygląd logowania",
             "claims_update": "Zmieniono claimy tokenów",
-            "remove_duplicates": "Usunięto zduplikowanych klientów OAuth"
+            "remove_duplicates": "Usunięto zduplikowanych klientów OAuth",
+            "revoke_previous_secret": "Unieważniono poprzedni sekret klienta"
           },
           "client_registration": {
             "update": "Zmieniono samorejestrację klientów"

@@ -49,6 +49,7 @@ import { isStrictSsoDomain, SSO_DOMAIN_TOKEN_PREFIX } from "@ostiary/core/lib/se
 import { OAUTH_TOKEN_PREFIXES } from "@ostiary/core/lib/oauth-token-prefixes";
 import { OPENAPI_SCHEMA_PATH, openApiSchemaEnabled } from "@ostiary/core/lib/openapi";
 import { generateClientId } from "@ostiary/core/lib/admin/oauth-clients/requested-client-id";
+import { clientSecretStorage } from "@ostiary/core/lib/client-secret-grace";
 import { brand } from "@ostiary/core/lib/brand";
 import { getPasskeyWebAuthnOptions } from "@ostiary/core/lib/passkey-options";
 import { env } from "@ostiary/core/lib/env";
@@ -335,6 +336,8 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
         // An app that authenticates with private_key_jwt and inline keys may replace them itself
         // at /oauth2/client/rotate-keys, with a client assertion signed by a current key.
         allowClientKeyRotation: true,
+        // Better Auth's hash, plus the previous secret during a rotation's grace period.
+        storeClientSecret: clientSecretStorage,
         // Per-app `sub` for apps registered with subject_type "pairwise" (PAIRWISE_SECRET).
         // Discovery then lists "pairwise" in subject_types_supported.
         ...(env.PAIRWISE_SECRET ? { pairwiseSecret: env.PAIRWISE_SECRET } : {}),

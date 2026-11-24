@@ -372,7 +372,8 @@
           "duplicates": "×{count}",
           "duplicatesHint": "{count} identical self-registered clients",
           "showDuplicates": "Show all {count}",
-          "hideDuplicates": "Hide identical"
+          "hideDuplicates": "Hide identical",
+          "previousSecretUntil": "Previous secret valid until {date}"
         },
         "registration": {
           "title": "Self-registration",
@@ -669,16 +670,25 @@
           },
           "rotateDialog": {
             "title": "Rotate client secret?",
-            "description": "The previous secret stops working immediately. Save the new secret somewhere safe, it may only be shown once.",
+            "description": "Save the new secret somewhere safe, it may only be shown once. The current secret stops working now, or at the end of the grace period you choose, so the app can switch over first.",
             "newSecretLabel": "New client secret",
             "copySecret": "Copy secret",
             "secretCopied": "Secret copied",
             "rotating": "Rotating…",
             "rotateFailed": "Could not rotate secret",
             "newSecretIssued": "New client secret issued, copy it now",
-            "rotated": "Secret rotated"
+            "rotated": "Secret rotated",
+            "graceLabel": "Current secret keeps working",
+            "graceNone": "No, it stops working now",
+            "grace1h": "For 1 hour",
+            "grace24h": "For 24 hours",
+            "grace7d": "For 7 days",
+            "graceReplaces": "The secret kept from the previous rotation stops working now."
           },
-          "rotateHintPrivateKey": "This app authenticates with its keys, not a secret"
+          "rotateHintPrivateKey": "This app authenticates with its keys, not a secret",
+          "revokePreviousSecret": "Revoke previous secret now",
+          "revokePreviousFailed": "Could not revoke the previous secret",
+          "previousSecretRevoked": "Previous secret revoked"
         },
         "selfRegistered": {
           "menuLabel": "Actions for {name}",
@@ -1850,7 +1860,8 @@
             "branding_update": "Changed sign-in branding",
             "branding_reset": "Reset sign-in branding",
             "claims_update": "Changed token claims",
-            "remove_duplicates": "Removed duplicate OAuth clients"
+            "remove_duplicates": "Removed duplicate OAuth clients",
+            "revoke_previous_secret": "Revoked previous client secret"
           },
           "client_registration": {
             "update": "Changed client self-registration"

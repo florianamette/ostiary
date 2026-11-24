@@ -8,6 +8,12 @@ All notable changes are documented here. The format follows
 
 ### Added
 
+- Grace period when rotating a client secret: **Rotate client secret** asks how long the
+  current secret keeps working (no, 1 hour, 24 hours or 7 days), so the app can switch to the
+  new one without failing. The app's row shows until when the previous secret works, and
+  **Revoke previous secret now** ends it early. Ostiary stores the previous secret's hash next
+  to the current one (`storeClientSecret`, the same SHA-256 hash Better Auth uses, so existing
+  secrets are unchanged).
 - The admin console sets two more things on the apps it registers:
   - **Client authentication: Private key JWT**: the app signs client assertions with its own
     key instead of a shared secret (`private_key_jwt`), and the console stores its public keys

@@ -372,7 +372,8 @@
           "duplicates": "×{count}",
           "duplicatesHint": "{count} identische selbst registrierte Clients",
           "showDuplicates": "Alle {count} anzeigen",
-          "hideDuplicates": "Identische ausblenden"
+          "hideDuplicates": "Identische ausblenden",
+          "previousSecretUntil": "Vorheriges Secret gültig bis {date}"
         },
         "registration": {
           "title": "Selbstregistrierung",
@@ -669,16 +670,25 @@
           },
           "rotateDialog": {
             "title": "Client-Secret rotieren?",
-            "description": "Das bisherige Secret funktioniert sofort nicht mehr. Bewahren Sie das neue Secret sicher auf, es wird möglicherweise nur einmal angezeigt.",
+            "description": "Speichere das neue Secret sicher, es wird eventuell nur einmal angezeigt. Das aktuelle Secret funktioniert sofort nicht mehr oder erst am Ende der gewählten Übergangsfrist, damit die App vorher umstellen kann.",
             "newSecretLabel": "Neues Client-Secret",
             "copySecret": "Secret kopieren",
             "secretCopied": "Secret kopiert",
             "rotating": "Wird rotiert…",
             "rotateFailed": "Secret konnte nicht rotiert werden",
             "newSecretIssued": "Neues Client-Secret ausgestellt, kopieren Sie es jetzt",
-            "rotated": "Secret rotiert"
+            "rotated": "Secret rotiert",
+            "graceLabel": "Aktuelles Secret funktioniert weiter",
+            "graceNone": "Nein, es funktioniert sofort nicht mehr",
+            "grace1h": "1 Stunde",
+            "grace24h": "24 Stunden",
+            "grace7d": "7 Tage",
+            "graceReplaces": "Das bei der vorherigen Rotation behaltene Secret funktioniert ab sofort nicht mehr."
           },
-          "rotateHintPrivateKey": "Diese App authentifiziert sich mit ihren Schlüsseln, nicht mit einem Secret"
+          "rotateHintPrivateKey": "Diese App authentifiziert sich mit ihren Schlüsseln, nicht mit einem Secret",
+          "revokePreviousSecret": "Vorheriges Secret jetzt widerrufen",
+          "revokePreviousFailed": "Das vorherige Secret konnte nicht widerrufen werden",
+          "previousSecretRevoked": "Vorheriges Secret widerrufen"
         },
         "selfRegistered": {
           "menuLabel": "Aktionen für {name}",
@@ -1850,7 +1860,8 @@
             "branding_update": "Anmelde-Branding geändert",
             "branding_reset": "Anmelde-Branding zurückgesetzt",
             "claims_update": "Token-Claims geändert",
-            "remove_duplicates": "Doppelte OAuth-Clients entfernt"
+            "remove_duplicates": "Doppelte OAuth-Clients entfernt",
+            "revoke_previous_secret": "Vorheriges Client-Secret widerrufen"
           },
           "client_registration": {
             "update": "Client-Selbstregistrierung geändert"

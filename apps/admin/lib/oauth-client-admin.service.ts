@@ -1,10 +1,17 @@
-import { and, eq, inArray } from "drizzle-orm";
+import { and, eq, inArray, like } from "drizzle-orm";
 
 import { auth } from "@/lib/auth";
 import { db } from "@ostiary/core/db/index";
 import { oauthClient, oauthClientResource, oauthResource } from "@ostiary/core/db/schema";
 import { markAdminRegisteredClient } from "@ostiary/core/lib/client-registration";
 import { withRequestedClientId } from "@ostiary/core/lib/admin/oauth-clients/requested-client-id";
+import {
+  parseStoredClientSecret,
+  previousSecretExpiry,
+  SECRET_GRACE_PERIODS,
+  withPreviousSecret,
+  type SecretGracePeriod,
+} from "@ostiary/core/lib/client-secret-grace";
 import {
   BACKCHANNEL_WITHOUT_USERS_MESSAGE,
   deviceCodeUpdateError,
@@ -139,17 +146,68 @@ export async function deleteOAuthClientForAdmin(requestHeaders: Headers, clientI
   }
 }
 
-/** Issues a new secret for an admin-registered confidential client; returns it once. */
+async function storedClientSecret(clientId: string): Promise<string | null> {
+  const [row] = await db
+    .select({ clientSecret: oauthClient.clientSecret })
+    .from(oauthClient)
+    .where(eq(oauthClient.clientId, clientId))
+    .limit(1);
+  if (!row) throw new NotFoundError("OAuth client not found");
+  return row.clientSecret;
+}
+
+/**
+ * Issues a new secret for an admin-registered confidential client; returns it once. With a
+ * grace period, the previous secret keeps working until it ends (client-secret-grace.ts), and
+ * the payload says when (`previous_secret_expires_at`, Unix seconds).
+ */
 export async function rotateOAuthClientSecretForAdmin(
   requestHeaders: Headers,
   clientId: string,
+  grace: SecretGracePeriod = "none",
 ): Promise<OAuthClientAdminPayload> {
+  const previous = SECRET_GRACE_PERIODS[grace] > 0 ? await storedClientSecret(clientId) : null;
+  let data: OAuthClientAdminPayload;
   try {
-    const data = await auth.api.rotateClientSecret({ headers: requestHeaders, body: { client_id: clientId } });
-    return data as unknown as OAuthClientAdminPayload;
+    data = (await auth.api.rotateClientSecret({ headers: requestHeaders, body: { client_id: clientId } })) as unknown as OAuthClientAdminPayload;
   } catch (e) {
     throwFromBetterAuthCall(e);
   }
+  if (!previous) return data;
+  const expiresAt = new Date(Date.now() + SECRET_GRACE_PERIODS[grace] * 1000);
+  const rotated = await storedClientSecret(clientId);
+  if (!rotated) return data;
+  await db
+    .update(oauthClient)
+    .set({ clientSecret: withPreviousSecret(rotated, previous, expiresAt) })
+    .where(and(eq(oauthClient.clientId, clientId), eq(oauthClient.clientSecret, rotated)));
+  return { ...data, previous_secret_expires_at: Math.floor(expiresAt.getTime() / 1000) };
+}
+
+/** Ends a rotation's grace period now: only the current secret works. */
+export async function revokePreviousClientSecret(clientId: string): Promise<void> {
+  const stored = await storedClientSecret(clientId);
+  if (!stored) throw new BadRequestError("This app has no client secret.");
+  const { current } = parseStoredClientSecret(stored);
+  if (current === stored) return;
+  await db
+    .update(oauthClient)
+    .set({ clientSecret: current, updatedAt: new Date() })
+    .where(and(eq(oauthClient.clientId, clientId), eq(oauthClient.clientSecret, stored)));
+}
+
+/** Admin-registered clients whose previous secret still works, and until when. */
+export async function previousSecretExpiries(): Promise<Record<string, string>> {
+  const rows = await db
+    .select({ clientId: oauthClient.clientId, clientSecret: oauthClient.clientSecret })
+    .from(oauthClient)
+    .where(like(oauthClient.clientSecret, "%:%"));
+  const out: Record<string, string> = {};
+  for (const row of rows) {
+    const expiry = previousSecretExpiry(row.clientSecret);
+    if (expiry) out[row.clientId] = expiry.toISOString();
+  }
+  return out;
 }
 
 /** Links a client to the APIs in `identifiers` it is not linked to yet. */

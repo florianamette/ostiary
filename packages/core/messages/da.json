@@ -372,7 +372,8 @@
           "duplicates": "×{count}",
           "duplicatesHint": "{count} identiske selvregistrerede klienter",
           "showDuplicates": "Vis alle {count}",
-          "hideDuplicates": "Skjul identiske"
+          "hideDuplicates": "Skjul identiske",
+          "previousSecretUntil": "Forrige hemmelighed gyldig til {date}"
         },
         "registration": {
           "title": "Selvregistrering",
@@ -669,16 +670,25 @@
           },
           "rotateDialog": {
             "title": "Rotér klienthemmelighed?",
-            "description": "Den tidligere hemmelighed holder op med at virke med det samme. Gem den nye hemmelighed et sikkert sted, den vises muligvis kun én gang.",
+            "description": "Gem den nye hemmelighed et sikkert sted, den vises måske kun én gang. Den nuværende hemmelighed holder op med at virke nu, eller når den valgte overgangsperiode slutter, så appen kan skifte først.",
             "newSecretLabel": "Ny klienthemmelighed",
             "copySecret": "Kopiér hemmelighed",
             "secretCopied": "Hemmelighed kopieret",
             "rotating": "Roterer…",
             "rotateFailed": "Hemmeligheden kunne ikke roteres",
             "newSecretIssued": "Ny klienthemmelighed udstedt, kopiér den nu",
-            "rotated": "Hemmelighed roteret"
+            "rotated": "Hemmelighed roteret",
+            "graceLabel": "Nuværende hemmelighed virker fortsat",
+            "graceNone": "Nej, den holder op med at virke nu",
+            "grace1h": "I 1 time",
+            "grace24h": "I 24 timer",
+            "grace7d": "I 7 dage",
+            "graceReplaces": "Hemmeligheden, der blev beholdt ved forrige rotation, holder op med at virke nu."
           },
-          "rotateHintPrivateKey": "Denne app godkender sig med sine nøgler, ikke med en hemmelighed"
+          "rotateHintPrivateKey": "Denne app godkender sig med sine nøgler, ikke med en hemmelighed",
+          "revokePreviousSecret": "Tilbagekald forrige hemmelighed nu",
+          "revokePreviousFailed": "Den forrige hemmelighed kunne ikke tilbagekaldes",
+          "previousSecretRevoked": "Forrige hemmelighed tilbagekaldt"
         },
         "selfRegistered": {
           "menuLabel": "Handlinger for {name}",
@@ -1850,7 +1860,8 @@
             "branding_update": "Ændrede login-branding",
             "branding_reset": "Nulstillede login-branding",
             "claims_update": "Ændrede token-claims",
-            "remove_duplicates": "Fjernede duplikerede OAuth-klienter"
+            "remove_duplicates": "Fjernede duplikerede OAuth-klienter",
+            "revoke_previous_secret": "Tilbagekaldte forrige klienthemmelighed"
           },
           "client_registration": {
             "update": "Ændrede selvregistrering af klienter"

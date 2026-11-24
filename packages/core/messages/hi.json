@@ -372,7 +372,8 @@
           "duplicates": "×{count}",
           "duplicatesHint": "{count} एक जैसे स्व-रजिस्टर्ड क्लाइंट",
           "showDuplicates": "सभी {count} दिखाएँ",
-          "hideDuplicates": "एक जैसे छिपाएँ"
+          "hideDuplicates": "एक जैसे छिपाएँ",
+          "previousSecretUntil": "पिछला सीक्रेट {date} तक मान्य"
         },
         "registration": {
           "title": "स्व-रजिस्ट्रेशन",
@@ -669,16 +670,25 @@
           },
           "rotateDialog": {
             "title": "क्लाइंट सीक्रेट रोटेट करें?",
-            "description": "पिछला सीक्रेट तुरंत काम करना बंद कर देता है। नया सीक्रेट किसी सुरक्षित जगह सहेजें, यह शायद केवल एक बार दिखेगा।",
+            "description": "नया सीक्रेट किसी सुरक्षित जगह सहेजें, यह शायद सिर्फ़ एक बार दिखे। मौजूदा सीक्रेट अभी काम करना बंद कर देता है, या आपकी चुनी हुई ग्रेस अवधि के अंत में, ताकि ऐप पहले बदल सके।",
             "newSecretLabel": "नया क्लाइंट सीक्रेट",
             "copySecret": "सीक्रेट कॉपी करें",
             "secretCopied": "सीक्रेट कॉपी हो गया",
             "rotating": "रोटेट हो रहा है…",
             "rotateFailed": "सीक्रेट रोटेट नहीं हो सका",
             "newSecretIssued": "नया क्लाइंट सीक्रेट जारी हुआ, अभी कॉपी करें",
-            "rotated": "सीक्रेट रोटेट हो गया"
+            "rotated": "सीक्रेट रोटेट हो गया",
+            "graceLabel": "मौजूदा सीक्रेट काम करता रहे",
+            "graceNone": "नहीं, अभी काम करना बंद कर दे",
+            "grace1h": "1 घंटे के लिए",
+            "grace24h": "24 घंटे के लिए",
+            "grace7d": "7 दिन के लिए",
+            "graceReplaces": "पिछले रोटेशन से रखा गया सीक्रेट अभी काम करना बंद कर देता है।"
           },
-          "rotateHintPrivateKey": "यह ऐप सीक्रेट से नहीं, अपनी कीज़ से प्रमाणित होता है"
+          "rotateHintPrivateKey": "यह ऐप सीक्रेट से नहीं, अपनी कीज़ से प्रमाणित होता है",
+          "revokePreviousSecret": "पिछला सीक्रेट अभी रद्द करें",
+          "revokePreviousFailed": "पिछला सीक्रेट रद्द नहीं हो सका",
+          "previousSecretRevoked": "पिछला सीक्रेट रद्द किया गया"
         },
         "selfRegistered": {
           "menuLabel": "{name} के लिए कार्रवाइयाँ",
@@ -1850,7 +1860,8 @@
             "branding_update": "साइन-इन ब्रांडिंग बदली",
             "branding_reset": "साइन-इन ब्रांडिंग रीसेट की",
             "claims_update": "टोकन क्लेम बदले",
-            "remove_duplicates": "डुप्लिकेट OAuth क्लाइंट हटाए"
+            "remove_duplicates": "डुप्लिकेट OAuth क्लाइंट हटाए",
+            "revoke_previous_secret": "पिछला क्लाइंट सीक्रेट रद्द किया"
           },
           "client_registration": {
             "update": "क्लाइंट स्व-रजिस्ट्रेशन बदला"

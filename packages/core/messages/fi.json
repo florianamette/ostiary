@@ -372,7 +372,8 @@
           "duplicates": "×{count}",
           "duplicatesHint": "{count} identtistä itse rekisteröitynyttä asiakasta",
           "showDuplicates": "Näytä kaikki {count}",
-          "hideDuplicates": "Piilota identtiset"
+          "hideDuplicates": "Piilota identtiset",
+          "previousSecretUntil": "Edellinen salaisuus voimassa {date} asti"
         },
         "registration": {
           "title": "Itserekisteröinti",
@@ -669,16 +670,25 @@
           },
           "rotateDialog": {
             "title": "Vaihdetaanko asiakkaan salaisuus?",
-            "description": "Edellinen salaisuus lakkaa toimimasta heti. Tallenna uusi salaisuus turvalliseen paikkaan, se voidaan näyttää vain kerran.",
+            "description": "Tallenna uusi salaisuus turvaan, se näytetään ehkä vain kerran. Nykyinen salaisuus lakkaa toimimasta heti tai valitsemasi siirtymäajan lopussa, jotta sovellus ehtii vaihtaa ensin.",
             "newSecretLabel": "Uusi asiakkaan salaisuus",
             "copySecret": "Kopioi salaisuus",
             "secretCopied": "Salaisuus kopioitu",
             "rotating": "Vaihdetaan…",
             "rotateFailed": "Salaisuutta ei voitu vaihtaa",
             "newSecretIssued": "Uusi asiakkaan salaisuus myönnetty, kopioi se nyt",
-            "rotated": "Salaisuus vaihdettu"
+            "rotated": "Salaisuus vaihdettu",
+            "graceLabel": "Nykyinen salaisuus toimii edelleen",
+            "graceNone": "Ei, se lakkaa toimimasta heti",
+            "grace1h": "1 tunnin",
+            "grace24h": "24 tuntia",
+            "grace7d": "7 päivää",
+            "graceReplaces": "Edellisessä vaihdossa säilytetty salaisuus lakkaa toimimasta heti."
           },
-          "rotateHintPrivateKey": "Tämä sovellus todentaa itsensä avaimillaan, ei salaisuudella"
+          "rotateHintPrivateKey": "Tämä sovellus todentaa itsensä avaimillaan, ei salaisuudella",
+          "revokePreviousSecret": "Peru edellinen salaisuus nyt",
+          "revokePreviousFailed": "Edellistä salaisuutta ei voitu perua",
+          "previousSecretRevoked": "Edellinen salaisuus peruttu"
         },
         "selfRegistered": {
           "menuLabel": "Toiminnot: {name}",
@@ -1850,7 +1860,8 @@
             "branding_update": "Muutti kirjautumisen brändäystä",
             "branding_reset": "Palautti kirjautumisen brändäyksen",
             "claims_update": "Muutti tokenien claimeja",
-            "remove_duplicates": "Poisti OAuth-asiakkaiden kaksoiskappaleet"
+            "remove_duplicates": "Poisti OAuth-asiakkaiden kaksoiskappaleet",
+            "revoke_previous_secret": "Peruttiin edellinen asiakassalaisuus"
           },
           "client_registration": {
             "update": "Muutti asiakkaiden itserekisteröintiä"

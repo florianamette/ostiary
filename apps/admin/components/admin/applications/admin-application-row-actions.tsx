@@ -60,6 +60,8 @@ export type OAuthApplicationRow = {
   backchannelLogoutSessionRequired?: boolean;
   /** The public keys of a private_key_jwt app, as formatted JSON. */
   jwks?: string | null;
+  /** After a rotation with a grace period: when the previous secret stops working (ISO date). */
+  previousSecretExpiresAt?: string | null;
   /** The registered icon (`logo_uri`), or null when the app uses its site's icon or a monogram. */
   logoUri: string | null;
   createdAt: string;
@@ -99,6 +101,23 @@ export function AdminApplicationRowActions({
 
   const remove = useAdminAction(() => setRemoveOpen(false), { refresh: onChanged });
   const toggle = useAdminAction(() => setDisableOpen(false), { refresh: onChanged });
+  const revokeAction = useAdminAction(undefined, { refresh: onChanged });
+  const revokePrevious = {
+    busy: revokeAction.busy,
+    run: () =>
+      revokeAction.run(
+        async () => {
+          const res = await fetch(`/api/admin/oauth-clients/${encodeURIComponent(row.clientId)}/previous-secret`, {
+            method: "DELETE",
+            credentials: "include",
+          });
+          if (res.ok) return { ok: true };
+          const json: unknown = await res.json().catch(() => null);
+          return { ok: false, error: routeError(json) ?? t("revokePreviousFailed") };
+        },
+        t("previousSecretRevoked"),
+      ),
+  };
 
   function removeClient() {
     void remove.run(
@@ -177,6 +196,12 @@ export function AdminApplicationRowActions({
             <KeyRoundIcon />
             {t("rotateSecret")}
           </DropdownMenuItem>
+          {row.previousSecretExpiresAt ? (
+            <DropdownMenuItem disabled={revokePrevious.busy} onClick={() => void revokePrevious.run()}>
+              <KeyRoundIcon />
+              {t("revokePreviousSecret")}
+            </DropdownMenuItem>
+          ) : null}
           <DropdownMenuSeparator />
           {row.disabled ? (
             <DropdownMenuItem
