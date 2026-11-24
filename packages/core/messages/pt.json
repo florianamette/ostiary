@@ -600,7 +600,18 @@
           "clientId": "ID do cliente",
           "clientSecret": "Segredo do cliente",
           "copyClientId": "Copiar ID do cliente",
-          "copyClientSecret": "Copiar segredo do cliente"
+          "copyClientSecret": "Copiar segredo do cliente",
+          "authMethodLabel": "Autenticação do cliente",
+          "authMethodSecret": "Segredo do cliente",
+          "authMethodPrivateKey": "JWT com chave privada (chaves públicas)",
+          "jwksLabel": "Chaves públicas (JWKS)",
+          "jwksHint": "As chaves públicas da aplicação como JSON Web Key Set. A aplicação assina uma asserção de cliente com a sua chave privada no endpoint de tokens (private_key_jwt). Para as alterar, edite a aplicação ou deixe-a chamar /api/auth/oauth2/client/rotate-keys.",
+          "jwksInvalidJson": "O JWKS não é um JSON válido.",
+          "backchannelUriLabel": "URI de logout back-channel (opcional)",
+          "backchannelUriHint": "Quando a sessão de um utilizador termina, o Ostiary envia um token de logout assinado para este URL https, para que a aplicação também termine a sessão.",
+          "backchannelSessionLabel": "A aplicação precisa do ID da sessão (sid)",
+          "backchannelSessionHint": "Pede ao Ostiary que inclua sid no token de logout: a aplicação usa-o para encontrar a sessão a terminar.",
+          "successPrivateKey": "Não é emitido nenhum segredo: a aplicação autentica-se com uma asserção de cliente assinada por uma das suas chaves registadas."
         },
         "rowActions": {
           "menuLabel": "Ações para {name}",
@@ -666,7 +677,8 @@
             "rotateFailed": "Não foi possível renovar o segredo",
             "newSecretIssued": "Novo segredo do cliente emitido, copie-o agora",
             "rotated": "Segredo renovado"
-          }
+          },
+          "rotateHintPrivateKey": "Esta aplicação autentica-se com as suas chaves, não com um segredo"
         },
         "selfRegistered": {
           "menuLabel": "Ações para {name}",

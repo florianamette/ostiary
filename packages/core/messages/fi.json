@@ -600,7 +600,18 @@
           "clientId": "Asiakastunnus (Client ID)",
           "clientSecret": "Asiakkaan salaisuus",
           "copyClientId": "Kopioi asiakastunnus",
-          "copyClientSecret": "Kopioi asiakkaan salaisuus"
+          "copyClientSecret": "Kopioi asiakkaan salaisuus",
+          "authMethodLabel": "Asiakkaan todennus",
+          "authMethodSecret": "Asiakassalaisuus",
+          "authMethodPrivateKey": "Yksityisen avaimen JWT (julkiset avaimet)",
+          "jwksLabel": "Julkiset avaimet (JWKS)",
+          "jwksHint": "Sovelluksen julkiset avaimet JSON Web Key Set -muodossa. Sovellus allekirjoittaa asiakasväitteen yksityisellä avaimellaan tunnuspisteessä (private_key_jwt). Vaihda ne muokkaamalla sovellusta tai anna sovelluksen kutsua osoitetta /api/auth/oauth2/client/rotate-keys.",
+          "jwksInvalidJson": "JWKS ei ole kelvollista JSONia.",
+          "backchannelUriLabel": "Back-channel-uloskirjautumisen URI (valinnainen)",
+          "backchannelUriHint": "Kun käyttäjän istunto päättyy, Ostiary lähettää allekirjoitetun uloskirjautumistunnuksen tähän https-osoitteeseen, jotta sovellus voi kirjata käyttäjän myös ulos.",
+          "backchannelSessionLabel": "Sovellus tarvitsee istuntotunnuksen (sid)",
+          "backchannelSessionHint": "Pyytää Ostiarya lisäämään sid-arvon uloskirjautumistunnukseen: sovellus löytää sen avulla päätettävän istunnon.",
+          "successPrivateKey": "Salaisuutta ei anneta: sovellus todentaa itsensä asiakasväitteellä, joka on allekirjoitettu jollakin sen rekisteröidyistä avaimista."
         },
         "rowActions": {
           "menuLabel": "Toiminnot: {name}",
@@ -666,7 +677,8 @@
             "rotateFailed": "Salaisuutta ei voitu vaihtaa",
             "newSecretIssued": "Uusi asiakkaan salaisuus myönnetty, kopioi se nyt",
             "rotated": "Salaisuus vaihdettu"
-          }
+          },
+          "rotateHintPrivateKey": "Tämä sovellus todentaa itsensä avaimillaan, ei salaisuudella"
         },
         "selfRegistered": {
           "menuLabel": "Toiminnot: {name}",

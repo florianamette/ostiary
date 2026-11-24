@@ -600,7 +600,18 @@
           "clientId": "ID de cliente",
           "clientSecret": "Secreto de cliente",
           "copyClientId": "Copiar ID de cliente",
-          "copyClientSecret": "Copiar secreto de cliente"
+          "copyClientSecret": "Copiar secreto de cliente",
+          "authMethodLabel": "Autenticación del cliente",
+          "authMethodSecret": "Secreto de cliente",
+          "authMethodPrivateKey": "JWT con clave privada (claves públicas)",
+          "jwksLabel": "Claves públicas (JWKS)",
+          "jwksHint": "Las claves públicas de la aplicación como JSON Web Key Set. La aplicación firma una aserción de cliente con su clave privada en el endpoint de tokens (private_key_jwt). Para cambiarlas, edita la aplicación o deja que llame a /api/auth/oauth2/client/rotate-keys.",
+          "jwksInvalidJson": "El JWKS no es un JSON válido.",
+          "backchannelUriLabel": "URI de cierre de sesión back-channel (opcional)",
+          "backchannelUriHint": "Cuando termina la sesión de un usuario, Ostiary envía un token de cierre de sesión firmado a esta URL https para que la aplicación también cierre su sesión.",
+          "backchannelSessionLabel": "La aplicación necesita el ID de sesión (sid)",
+          "backchannelSessionHint": "Pide a Ostiary que incluya sid en el token de cierre de sesión: la aplicación lo usa para encontrar la sesión que debe cerrar.",
+          "successPrivateKey": "No se emite ningún secreto: la aplicación se autentica con una aserción de cliente firmada con una de sus claves registradas."
         },
         "rowActions": {
           "menuLabel": "Acciones de {name}",
@@ -666,7 +677,8 @@
             "rotateFailed": "No se pudo rotar el secreto",
             "newSecretIssued": "Nuevo secreto de cliente emitido: cópialo ahora",
             "rotated": "Secreto rotado"
-          }
+          },
+          "rotateHintPrivateKey": "Esta aplicación se autentica con sus claves, no con un secreto"
         },
         "selfRegistered": {
           "menuLabel": "Acciones de {name}",

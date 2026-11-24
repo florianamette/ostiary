@@ -600,7 +600,18 @@
           "clientId": "ID klienta",
           "clientSecret": "Tajný klíč klienta",
           "copyClientId": "Kopírovat ID klienta",
-          "copyClientSecret": "Kopírovat tajný klíč klienta"
+          "copyClientSecret": "Kopírovat tajný klíč klienta",
+          "authMethodLabel": "Ověření klienta",
+          "authMethodSecret": "Tajný klíč klienta",
+          "authMethodPrivateKey": "JWT se soukromým klíčem (veřejné klíče)",
+          "jwksLabel": "Veřejné klíče (JWKS)",
+          "jwksHint": "Veřejné klíče aplikace jako JSON Web Key Set. Aplikace podepisuje na koncovém bodě tokenů klientské tvrzení svým soukromým klíčem (private_key_jwt). Změníte je úpravou aplikace, nebo je aplikace změní voláním /api/auth/oauth2/client/rotate-keys.",
+          "jwksInvalidJson": "JWKS není platný JSON.",
+          "backchannelUriLabel": "URI pro back-channel odhlášení (volitelné)",
+          "backchannelUriHint": "Když relace uživatele skončí, Ostiary pošle na tuto https adresu podepsaný odhlašovací token, aby jej aplikace také odhlásila.",
+          "backchannelSessionLabel": "Aplikace potřebuje ID relace (sid)",
+          "backchannelSessionHint": "Ostiary vloží sid do odhlašovacího tokenu: aplikace podle něj najde relaci, kterou má ukončit.",
+          "successPrivateKey": "Nevydává se žádný tajný klíč: aplikace se ověřuje klientským tvrzením podepsaným jedním z jejích registrovaných klíčů."
         },
         "rowActions": {
           "menuLabel": "Akce pro {name}",
@@ -666,7 +677,8 @@
             "rotateFailed": "Tajný klíč se nepodařilo otočit",
             "newSecretIssued": "Nový tajný klíč klienta byl vydán, zkopírujte si ho hned",
             "rotated": "Tajný klíč otočen"
-          }
+          },
+          "rotateHintPrivateKey": "Tato aplikace se ověřuje svými klíči, ne tajným klíčem"
         },
         "selfRegistered": {
           "menuLabel": "Akce pro {name}",

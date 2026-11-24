@@ -600,7 +600,18 @@
           "clientId": "ID client",
           "clientSecret": "Secret client",
           "copyClientId": "Copier l’ID client",
-          "copyClientSecret": "Copier le secret client"
+          "copyClientSecret": "Copier le secret client",
+          "authMethodLabel": "Authentification du client",
+          "authMethodSecret": "Secret client",
+          "authMethodPrivateKey": "JWT à clé privée (clés publiques)",
+          "jwksLabel": "Clés publiques (JWKS)",
+          "jwksHint": "Les clés publiques de l'application, sous forme de JSON Web Key Set. L'application signe une assertion client avec sa clé privée au point de terminaison des jetons (private_key_jwt). Pour les changer, modifiez l'application, ou laissez-la appeler /api/auth/oauth2/client/rotate-keys.",
+          "jwksInvalidJson": "Le JWKS n'est pas un JSON valide.",
+          "backchannelUriLabel": "URI de déconnexion back-channel (facultatif)",
+          "backchannelUriHint": "Quand la session d'un utilisateur se termine, Ostiary envoie un jeton de déconnexion signé à cette URL https pour que l'application le déconnecte aussi.",
+          "backchannelSessionLabel": "L'application a besoin de l'ID de session (sid)",
+          "backchannelSessionHint": "Demande à Ostiary d'inclure sid dans le jeton de déconnexion : l'application s'en sert pour trouver la session à fermer.",
+          "successPrivateKey": "Aucun secret n'est émis : l'application s'authentifie avec une assertion client signée par l'une de ses clés enregistrées."
         },
         "rowActions": {
           "menuLabel": "Actions pour {name}",
@@ -666,7 +677,8 @@
             "rotateFailed": "Impossible de renouveler le secret",
             "newSecretIssued": "Nouveau secret client émis, copiez-le maintenant",
             "rotated": "Secret renouvelé"
-          }
+          },
+          "rotateHintPrivateKey": "Cette application s'authentifie avec ses clés, pas avec un secret"
         },
         "selfRegistered": {
           "menuLabel": "Actions pour {name}",

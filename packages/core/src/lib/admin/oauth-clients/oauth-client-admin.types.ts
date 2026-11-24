@@ -3,7 +3,8 @@
 export type TokenEndpointAuthMethod =
   | "none"
   | "client_secret_basic"
-  | "client_secret_post";
+  | "client_secret_post"
+  | "private_key_jwt";
 
 export type OAuthClientApplicationType = "web" | "native" | "user-agent-based";
 
@@ -26,6 +27,9 @@ export function isMachineClient(grantTypes: readonly string[] | null | undefined
   return !grantTypes.includes("authorization_code") && !grantTypes.includes(DEVICE_CODE_GRANT_TYPE);
 }
 
+/** An app's public keys (JWKS) for private_key_jwt client authentication. */
+export type ClientJwks = { keys: Record<string, unknown>[] };
+
 export type CreateOAuthClientAdminInput = {
   /** Required with the authorization_code grant; empty for a client that signs no user in. */
   redirect_uris: string[];
@@ -40,6 +44,12 @@ export type CreateOAuthClientAdminInput = {
   skip_consent: boolean;
   /** The app gets a `sub` of its own for each user (PAIRWISE_SECRET). Fixed once created. */
   subject_type?: "pairwise";
+  /** OpenID Connect Back-Channel Logout: where Ostiary posts a logout token. */
+  backchannel_logout_uri?: string;
+  /** The logout token must carry `sid`. */
+  backchannel_logout_session_required?: boolean;
+  /** Public keys, with token_endpoint_auth_method "private_key_jwt". */
+  jwks?: ClientJwks;
   /**
    * RP-initiated logout: the app may call the end-session endpoint, and its ID tokens carry
    * `sid`. Off unless asked for.
@@ -87,6 +97,11 @@ export type UpdateOAuthClientAdminInput = {
   /** Privacy policy and terms of service links; null clears one. */
   policy_uri?: string | null;
   tos_uri?: string | null;
+  /** Back-channel logout URI; null turns it off. */
+  backchannel_logout_uri?: string | null;
+  backchannel_logout_session_required?: boolean;
+  /** New public keys of a private_key_jwt app. */
+  jwks?: ClientJwks;
 };
 
 export type OAuthClientAdminPayload = Record<string, unknown>;

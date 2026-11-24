@@ -600,7 +600,18 @@
           "clientId": "ID klienta",
           "clientSecret": "Sekret klienta",
           "copyClientId": "Kopiuj ID klienta",
-          "copyClientSecret": "Kopiuj sekret klienta"
+          "copyClientSecret": "Kopiuj sekret klienta",
+          "authMethodLabel": "Uwierzytelnianie klienta",
+          "authMethodSecret": "Sekret klienta",
+          "authMethodPrivateKey": "JWT z kluczem prywatnym (klucze publiczne)",
+          "jwksLabel": "Klucze publiczne (JWKS)",
+          "jwksHint": "Klucze publiczne aplikacji jako JSON Web Key Set. Aplikacja podpisuje asercję klienta swoim kluczem prywatnym w punkcie końcowym tokenów (private_key_jwt). Aby je zmienić, edytuj aplikację albo pozwól jej wywołać /api/auth/oauth2/client/rotate-keys.",
+          "jwksInvalidJson": "JWKS nie jest poprawnym JSON-em.",
+          "backchannelUriLabel": "URI wylogowania back-channel (opcjonalnie)",
+          "backchannelUriHint": "Gdy sesja użytkownika się kończy, Ostiary wysyła podpisany token wylogowania na ten adres https, aby aplikacja też mogła go wylogować.",
+          "backchannelSessionLabel": "Aplikacja potrzebuje identyfikatora sesji (sid)",
+          "backchannelSessionHint": "Ostiary dołącza sid do tokenu wylogowania: aplikacja używa go, by znaleźć sesję do zakończenia.",
+          "successPrivateKey": "Nie jest wydawany żaden sekret: aplikacja uwierzytelnia się asercją klienta podpisaną jednym z zarejestrowanych kluczy."
         },
         "rowActions": {
           "menuLabel": "Działania dla {name}",
@@ -666,7 +677,8 @@
             "rotateFailed": "Nie udało się zmienić sekretu",
             "newSecretIssued": "Wydano nowy sekret klienta, skopiuj go teraz",
             "rotated": "Sekret zmieniony"
-          }
+          },
+          "rotateHintPrivateKey": "Ta aplikacja uwierzytelnia się kluczami, a nie sekretem"
         },
         "selfRegistered": {
           "menuLabel": "Działania dla {name}",

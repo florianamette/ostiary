@@ -600,7 +600,18 @@
           "clientId": "ID клиента",
           "clientSecret": "Секрет клиента",
           "copyClientId": "Копировать ID клиента",
-          "copyClientSecret": "Копировать секрет клиента"
+          "copyClientSecret": "Копировать секрет клиента",
+          "authMethodLabel": "Аутентификация клиента",
+          "authMethodSecret": "Секрет клиента",
+          "authMethodPrivateKey": "JWT с закрытым ключом (открытые ключи)",
+          "jwksLabel": "Открытые ключи (JWKS)",
+          "jwksHint": "Открытые ключи приложения в виде JSON Web Key Set. Приложение подписывает утверждение клиента своим закрытым ключом на конечной точке токенов (private_key_jwt). Чтобы сменить их, измените приложение или позвольте ему вызвать /api/auth/oauth2/client/rotate-keys.",
+          "jwksInvalidJson": "JWKS не является корректным JSON.",
+          "backchannelUriLabel": "URI back-channel выхода (необязательно)",
+          "backchannelUriHint": "Когда сеанс пользователя заканчивается, Ostiary отправляет подписанный токен выхода на этот https-адрес, чтобы приложение тоже завершило его сеанс.",
+          "backchannelSessionLabel": "Приложению нужен ID сеанса (sid)",
+          "backchannelSessionHint": "Ostiary добавляет sid в токен выхода: по нему приложение находит сеанс, который нужно завершить.",
+          "successPrivateKey": "Секрет не выдаётся: приложение проходит аутентификацию утверждением клиента, подписанным одним из его зарегистрированных ключей."
         },
         "rowActions": {
           "menuLabel": "Действия для {name}",
@@ -666,7 +677,8 @@
             "rotateFailed": "Не удалось сменить секрет",
             "newSecretIssued": "Выдан новый секрет клиента, скопируйте его сейчас",
             "rotated": "Секрет сменён"
-          }
+          },
+          "rotateHintPrivateKey": "Это приложение проходит аутентификацию своими ключами, а не секретом"
         },
         "selfRegistered": {
           "menuLabel": "Действия для {name}",

@@ -600,7 +600,18 @@
           "clientId": "客户端 ID",
           "clientSecret": "客户端密钥",
           "copyClientId": "复制客户端 ID",
-          "copyClientSecret": "复制客户端密钥"
+          "copyClientSecret": "复制客户端密钥",
+          "authMethodLabel": "客户端认证",
+          "authMethodSecret": "客户端密钥",
+          "authMethodPrivateKey": "私钥 JWT（公钥）",
+          "jwksLabel": "公钥（JWKS）",
+          "jwksHint": "应用的公钥，格式为 JSON Web Key Set。应用在令牌端点用其私钥签署客户端断言（private_key_jwt）。如需更换，请编辑应用，或让应用调用 /api/auth/oauth2/client/rotate-keys。",
+          "jwksInvalidJson": "JWKS 不是有效的 JSON。",
+          "backchannelUriLabel": "后端通道注销 URI（可选）",
+          "backchannelUriHint": "用户的会话结束时，Ostiary 会向此 https 地址发送已签名的注销令牌，以便应用也让该用户退出登录。",
+          "backchannelSessionLabel": "应用需要会话 ID（sid）",
+          "backchannelSessionHint": "让 Ostiary 在注销令牌中加入 sid：应用据此找到要结束的会话。",
+          "successPrivateKey": "不会签发密钥：应用使用由其已注册密钥之一签名的客户端断言进行认证。"
         },
         "rowActions": {
           "menuLabel": "{name} 的操作",
@@ -666,7 +677,8 @@
             "rotateFailed": "无法轮换密钥",
             "newSecretIssued": "已签发新的客户端密钥，请立即复制",
             "rotated": "密钥已轮换"
-          }
+          },
+          "rotateHintPrivateKey": "此应用使用自己的密钥对认证，而不是客户端密钥"
         },
         "selfRegistered": {
           "menuLabel": "{name} 的操作",

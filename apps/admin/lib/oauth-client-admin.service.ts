@@ -6,6 +6,7 @@ import { oauthClient, oauthClientResource, oauthResource } from "@ostiary/core/d
 import { markAdminRegisteredClient } from "@ostiary/core/lib/client-registration";
 import { withRequestedClientId } from "@ostiary/core/lib/admin/oauth-clients/requested-client-id";
 import {
+  BACKCHANNEL_WITHOUT_USERS_MESSAGE,
   deviceCodeUpdateError,
   withDeviceCodeGrant,
 } from "@ostiary/core/lib/admin/oauth-clients/oauth-client-admin.validation";
@@ -91,6 +92,11 @@ export async function createOAuthClientForAdmin(
         ...(input.type ? { application_type: input.type === "native" ? "native" : "web" } : {}),
         skip_consent: input.skip_consent,
         ...(input.subject_type ? { subject_type: input.subject_type } : {}),
+        ...(input.backchannel_logout_uri ? { backchannel_logout_uri: input.backchannel_logout_uri } : {}),
+        ...(input.backchannel_logout_session_required !== undefined
+          ? { backchannel_logout_session_required: input.backchannel_logout_session_required }
+          : {}),
+        ...(input.jwks ? { jwks: input.jwks } : {}),
         enable_end_session: input.enable_end_session,
         ...(input.post_logout_redirect_uris?.length
           ? { post_logout_redirect_uris: input.post_logout_redirect_uris }
@@ -191,19 +197,28 @@ export async function updateOAuthClientForAdmin(
     resources = [],
     policy_uri: policyUri,
     tos_uri: tosUri,
+    backchannel_logout_uri: backchannelLogoutUri,
+    jwks,
     ...rest
   } = input;
   const clearPostLogoutUris = postLogoutUris !== undefined && postLogoutUris.length === 0;
   let grantTypes: string[] | undefined;
   let storedGrantTypes: string[] | null = null;
-  if (deviceCode !== undefined || scope !== undefined) {
+  const backchannel = backchannelLogoutUri !== undefined || rest.backchannel_logout_session_required !== undefined;
+  if (deviceCode !== undefined || scope !== undefined || jwks !== undefined || backchannel) {
     const [row] = await db
-      .select({ grantTypes: oauthClient.grantTypes })
+      .select({ grantTypes: oauthClient.grantTypes, authMethod: oauthClient.tokenEndpointAuthMethod })
       .from(oauthClient)
       .where(eq(oauthClient.clientId, clientId))
       .limit(1);
     if (!row) throw new NotFoundError("OAuth client not found");
     storedGrantTypes = row.grantTypes;
+    if (jwks !== undefined && row.authMethod !== "private_key_jwt") {
+      throw new BadRequestError("Only an app that authenticates with private_key_jwt has keys to replace.");
+    }
+    if (backchannel && isMachineClient(row.grantTypes)) {
+      throw new BadRequestError(BACKCHANNEL_WITHOUT_USERS_MESSAGE);
+    }
   }
   if (deviceCode !== undefined) {
     // Better Auth replaces the whole grant list, so start from the stored one.
@@ -221,6 +236,7 @@ export async function updateOAuthClientForAdmin(
     ...(postLogoutUris?.length ? { post_logout_redirect_uris: postLogoutUris } : {}),
     ...(policyUri ? { policy_uri: policyUri } : {}),
     ...(tosUri ? { tos_uri: tosUri } : {}),
+    ...(backchannelLogoutUri ? { backchannel_logout_uri: backchannelLogoutUri } : {}),
     ...(scope ? { scope, ...machineScopes(grantTypes ?? storedGrantTypes ?? undefined, scope) } : {}),
   };
   const clears = {
@@ -230,6 +246,9 @@ export async function updateOAuthClientForAdmin(
     ...(scope === null ? { scopes: null } : {}),
     ...(policyUri === null ? { policy: null } : {}),
     ...(tosUri === null ? { tos: null } : {}),
+    ...(backchannelLogoutUri === null ? { backchannelLogoutUri: null, backchannelLogoutSessionRequired: null } : {}),
+    // Better Auth's update takes no keys: they are written here, checked by clientJwksError.
+    ...(jwks ? { jwks: JSON.stringify(jwks) } : {}),
   };
   let payload: OAuthClientAdminPayload;
   try {
@@ -257,6 +276,11 @@ export async function updateOAuthClientForAdmin(
     if (scope === null) delete payload.scope;
     if (policyUri === null) delete payload.policy_uri;
     if (tosUri === null) delete payload.tos_uri;
+    if (backchannelLogoutUri === null) {
+      delete payload.backchannel_logout_uri;
+      delete payload.backchannel_logout_session_required;
+    }
+    if (jwks) payload.jwks = jwks;
   }
   return payload;
 }

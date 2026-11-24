@@ -600,7 +600,18 @@
           "clientId": "Client ID",
           "clientSecret": "Client secret",
           "copyClientId": "Copia client ID",
-          "copyClientSecret": "Copia client secret"
+          "copyClientSecret": "Copia client secret",
+          "authMethodLabel": "Autenticazione del client",
+          "authMethodSecret": "Segreto client",
+          "authMethodPrivateKey": "JWT con chiave privata (chiavi pubbliche)",
+          "jwksLabel": "Chiavi pubbliche (JWKS)",
+          "jwksHint": "Le chiavi pubbliche dell'app come JSON Web Key Set. L'app firma un'asserzione client con la sua chiave privata all'endpoint dei token (private_key_jwt). Per cambiarle, modifica l'app oppure lascia che chiami /api/auth/oauth2/client/rotate-keys.",
+          "jwksInvalidJson": "Il JWKS non è un JSON valido.",
+          "backchannelUriLabel": "URI di logout back-channel (facoltativo)",
+          "backchannelUriHint": "Quando termina la sessione di un utente, Ostiary invia un token di logout firmato a questo URL https, così l'app può disconnetterlo a sua volta.",
+          "backchannelSessionLabel": "L'app ha bisogno dell'ID di sessione (sid)",
+          "backchannelSessionHint": "Chiede a Ostiary di inserire sid nel token di logout: l'app lo usa per trovare la sessione da chiudere.",
+          "successPrivateKey": "Nessun segreto emesso: l'app si autentica con un'asserzione client firmata con una delle sue chiavi registrate."
         },
         "rowActions": {
           "menuLabel": "Azioni per {name}",
@@ -666,7 +677,8 @@
             "rotateFailed": "Impossibile ruotare il secret",
             "newSecretIssued": "Nuovo client secret emesso, copialo ora",
             "rotated": "Secret ruotato"
-          }
+          },
+          "rotateHintPrivateKey": "Questa app si autentica con le sue chiavi, non con un segreto"
         },
         "selfRegistered": {
           "menuLabel": "Azioni per {name}",
