@@ -16,6 +16,8 @@ import {
 } from "@ostiary/core/components/ui/dialog";
 import { Input } from "@ostiary/core/components/ui/input";
 import { Label } from "@ostiary/core/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@ostiary/core/components/ui/select";
+import type { SecretGracePeriod } from "@ostiary/core/lib/client-secret-grace";
 import type { OAuthApplicationRow } from "@/components/admin/applications/admin-application-row-actions";
 import { asRecord, routeError } from "@/lib/oauth-client-payload";
 
@@ -35,6 +37,8 @@ export function ApplicationRotateSecretDialog({
   const tc = useTranslations("admin.common");
   const [pending, setPending] = React.useState(false);
   const [newSecret, setNewSecret] = React.useState<string | null>(null);
+  // How long the current secret keeps working after the rotation.
+  const [grace, setGrace] = React.useState<SecretGracePeriod>("none");
 
   async function rotateSecret() {
     setPending(true);
@@ -42,7 +46,12 @@ export function ApplicationRotateSecretDialog({
     try {
       const res = await fetch(
         `/api/admin/oauth-clients/${encodeURIComponent(row.clientId)}/rotate-secret`,
-        { method: "POST", credentials: "include" },
+        {
+          method: "POST",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ grace }),
+        },
       );
       const json: unknown = await res.json().catch(() => null);
       if (!res.ok) {
@@ -66,6 +75,7 @@ export function ApplicationRotateSecretDialog({
   function close() {
     onOpenChange(false);
     setNewSecret(null);
+    setGrace("none");
     onChanged();
   }
 
@@ -84,6 +94,25 @@ export function ApplicationRotateSecretDialog({
             {t("rotateDialog.description")}
           </DialogDescription>
         </DialogHeader>
+        {newSecret ? null : (
+          <div className="grid gap-2 py-2">
+            <Label htmlFor={`rotate-grace-${row.clientId}`}>{t("rotateDialog.graceLabel")}</Label>
+            <Select value={grace} onValueChange={(v) => setGrace(v as SecretGracePeriod)}>
+              <SelectTrigger id={`rotate-grace-${row.clientId}`} className="w-full">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="none">{t("rotateDialog.graceNone")}</SelectItem>
+                <SelectItem value="1h">{t("rotateDialog.grace1h")}</SelectItem>
+                <SelectItem value="24h">{t("rotateDialog.grace24h")}</SelectItem>
+                <SelectItem value="7d">{t("rotateDialog.grace7d")}</SelectItem>
+              </SelectContent>
+            </Select>
+            {row.previousSecretExpiresAt ? (
+              <p className="text-muted-foreground text-xs">{t("rotateDialog.graceReplaces")}</p>
+            ) : null}
+          </div>
+        )}
         {newSecret ? (
           <div className="grid gap-2 py-2">
             <Label>{t("rotateDialog.newSecretLabel")}</Label>

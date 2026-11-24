@@ -372,7 +372,8 @@
           "duplicates": "×{count}",
           "duplicatesHint": "同一の自己登録クライアント {count} 件",
           "showDuplicates": "{count} 件すべて表示",
-          "hideDuplicates": "同一のものを非表示"
+          "hideDuplicates": "同一のものを非表示",
+          "previousSecretUntil": "以前のシークレットの有効期限：{date}"
         },
         "registration": {
           "title": "自己登録",
@@ -669,16 +670,25 @@
           },
           "rotateDialog": {
             "title": "クライアントシークレットをローテーションしますか？",
-            "description": "以前のシークレットはすぐに使えなくなります。新しいシークレットは一度しか表示されない場合があるため、安全な場所に保存してください。",
+            "description": "新しいシークレットは安全な場所に保存してください。表示されるのは一度だけの場合があります。現在のシークレットはすぐに、または選んだ猶予期間の終わりに使えなくなるので、その前にアプリを切り替えられます。",
             "newSecretLabel": "新しいクライアントシークレット",
             "copySecret": "シークレットをコピー",
             "secretCopied": "シークレットをコピーしました",
             "rotating": "ローテーション中…",
             "rotateFailed": "シークレットをローテーションできませんでした",
             "newSecretIssued": "新しいクライアントシークレットを発行しました。今すぐコピーしてください",
-            "rotated": "シークレットをローテーションしました"
+            "rotated": "シークレットをローテーションしました",
+            "graceLabel": "現在のシークレットを引き続き有効にする",
+            "graceNone": "いいえ、すぐに使えなくする",
+            "grace1h": "1 時間",
+            "grace24h": "24 時間",
+            "grace7d": "7 日間",
+            "graceReplaces": "前回のローテーションで残したシークレットはすぐに使えなくなります。"
           },
-          "rotateHintPrivateKey": "このアプリはシークレットではなく鍵で認証します"
+          "rotateHintPrivateKey": "このアプリはシークレットではなく鍵で認証します",
+          "revokePreviousSecret": "以前のシークレットを今すぐ失効",
+          "revokePreviousFailed": "以前のシークレットを失効できませんでした",
+          "previousSecretRevoked": "以前のシークレットを失効しました"
         },
         "selfRegistered": {
           "menuLabel": "{name} の操作",
@@ -1850,7 +1860,8 @@
             "branding_update": "サインインのブランディングを変更",
             "branding_reset": "サインインのブランディングをリセット",
             "claims_update": "トークンのクレームを変更",
-            "remove_duplicates": "重複した OAuth クライアントを削除"
+            "remove_duplicates": "重複した OAuth クライアントを削除",
+            "revoke_previous_secret": "以前のクライアントシークレットを失効"
           },
           "client_registration": {
             "update": "クライアントの自己登録設定を変更"

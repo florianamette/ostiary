@@ -372,7 +372,8 @@
           "duplicates": "×{count}",
           "duplicatesHint": "{count} özdeş kendini kaydeden istemci",
           "showDuplicates": "{count} istemcinin tümünü göster",
-          "hideDuplicates": "Özdeşleri gizle"
+          "hideDuplicates": "Özdeşleri gizle",
+          "previousSecretUntil": "Önceki gizli anahtar {date} tarihine kadar geçerli"
         },
         "registration": {
           "title": "Kendi kendine kayıt",
@@ -669,16 +670,25 @@
           },
           "rotateDialog": {
             "title": "İstemci gizli anahtarı yenilensin mi?",
-            "description": "Önceki gizli anahtar hemen çalışmayı durdurur. Yeni gizli anahtarı güvenli bir yere kaydedin, yalnızca bir kez gösterilebilir.",
+            "description": "Yeni gizli anahtarı güvenli bir yerde saklayın, yalnızca bir kez gösterilebilir. Geçerli gizli anahtar hemen ya da seçtiğiniz geçiş süresinin sonunda çalışmayı bırakır; böylece uygulama önce geçiş yapabilir.",
             "newSecretLabel": "Yeni istemci gizli anahtarı",
             "copySecret": "Gizli anahtarı kopyala",
             "secretCopied": "Gizli anahtar kopyalandı",
             "rotating": "Yenileniyor…",
             "rotateFailed": "Gizli anahtar yenilenemedi",
             "newSecretIssued": "Yeni istemci gizli anahtarı oluşturuldu, şimdi kopyalayın",
-            "rotated": "Gizli anahtar yenilendi"
+            "rotated": "Gizli anahtar yenilendi",
+            "graceLabel": "Geçerli gizli anahtar çalışmaya devam eder",
+            "graceNone": "Hayır, hemen çalışmayı bırakır",
+            "grace1h": "1 saat",
+            "grace24h": "24 saat",
+            "grace7d": "7 gün",
+            "graceReplaces": "Önceki rotasyondan saklanan gizli anahtar hemen çalışmayı bırakır."
           },
-          "rotateHintPrivateKey": "Bu uygulama gizli anahtarla değil, anahtarlarıyla kimlik doğrular"
+          "rotateHintPrivateKey": "Bu uygulama gizli anahtarla değil, anahtarlarıyla kimlik doğrular",
+          "revokePreviousSecret": "Önceki gizli anahtarı şimdi iptal et",
+          "revokePreviousFailed": "Önceki gizli anahtar iptal edilemedi",
+          "previousSecretRevoked": "Önceki gizli anahtar iptal edildi"
         },
         "selfRegistered": {
           "menuLabel": "{name} için işlemler",
@@ -1850,7 +1860,8 @@
             "branding_update": "Giriş ekranı markalamasını değiştirdi",
             "branding_reset": "Giriş ekranı markalamasını sıfırladı",
             "claims_update": "Token claim'lerini değiştirdi",
-            "remove_duplicates": "Yinelenen OAuth istemcilerini kaldırdı"
+            "remove_duplicates": "Yinelenen OAuth istemcilerini kaldırdı",
+            "revoke_previous_secret": "Önceki istemci gizli anahtarı iptal edildi"
           },
           "client_registration": {
             "update": "İstemcilerin kendi kendine kaydını değiştirdi"

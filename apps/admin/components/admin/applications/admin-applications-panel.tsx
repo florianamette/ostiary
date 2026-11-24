@@ -211,11 +211,22 @@ export function AdminApplicationsPanel({
   );
 
   const loadClients = React.useCallback(async () => {
-    const res = await authClient.oauth2.getClients();
+    const [res, grace] = await Promise.all([
+      authClient.oauth2.getClients(),
+      // Previous secrets still valid after a rotation (client-secret-grace.ts); none if it fails.
+      fetch("/api/admin/oauth-client-secrets", { credentials: "include" })
+        .then((r) => (r.ok ? r.json() : null))
+        .then((json: unknown) => (asRecord(asRecord(json)?.data) ?? {}) as Record<string, unknown>)
+        .catch(() => ({}) as Record<string, unknown>),
+    ]);
     if (res.error) throw new Error(res.error.message || t("loadFailed"));
     return normalizeGetClientsPayload(res.data)
       .map(mapApiClientToRow)
-      .filter((r): r is OAuthApplicationRow => r !== null);
+      .filter((r): r is OAuthApplicationRow => r !== null)
+      .map((r) => {
+        const until = grace[r.clientId];
+        return typeof until === "string" ? { ...r, previousSecretExpiresAt: until } : r;
+      });
   }, [t]);
   const { data: rows, loading, error: listError, reload: refetch } = useAdminList(loadClients, []);
 

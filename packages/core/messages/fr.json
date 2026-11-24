@@ -372,7 +372,8 @@
           "duplicates": "×{count}",
           "duplicatesHint": "{count} clients auto-enregistrés identiques",
           "showDuplicates": "Afficher les {count}",
-          "hideDuplicates": "Masquer les identiques"
+          "hideDuplicates": "Masquer les identiques",
+          "previousSecretUntil": "Ancien secret valable jusqu'au {date}"
         },
         "registration": {
           "title": "Auto-enregistrement",
@@ -669,16 +670,25 @@
           },
           "rotateDialog": {
             "title": "Renouveler le secret client ?",
-            "description": "L’ancien secret cesse de fonctionner immédiatement. Conservez le nouveau secret en lieu sûr : il ne sera peut-être affiché qu’une seule fois.",
+            "description": "Conservez le nouveau secret en lieu sûr, il ne sera peut-être affiché qu'une fois. Le secret actuel cesse de fonctionner tout de suite, ou à la fin du délai de grâce choisi, pour que l'application ait le temps de basculer.",
             "newSecretLabel": "Nouveau secret client",
             "copySecret": "Copier le secret",
             "secretCopied": "Secret copié",
             "rotating": "Renouvellement…",
             "rotateFailed": "Impossible de renouveler le secret",
             "newSecretIssued": "Nouveau secret client émis, copiez-le maintenant",
-            "rotated": "Secret renouvelé"
+            "rotated": "Secret renouvelé",
+            "graceLabel": "Le secret actuel reste valable",
+            "graceNone": "Non, il cesse de fonctionner tout de suite",
+            "grace1h": "Pendant 1 heure",
+            "grace24h": "Pendant 24 heures",
+            "grace7d": "Pendant 7 jours",
+            "graceReplaces": "Le secret conservé lors de la rotation précédente cesse de fonctionner tout de suite."
           },
-          "rotateHintPrivateKey": "Cette application s'authentifie avec ses clés, pas avec un secret"
+          "rotateHintPrivateKey": "Cette application s'authentifie avec ses clés, pas avec un secret",
+          "revokePreviousSecret": "Révoquer l'ancien secret maintenant",
+          "revokePreviousFailed": "Impossible de révoquer l'ancien secret",
+          "previousSecretRevoked": "Ancien secret révoqué"
         },
         "selfRegistered": {
           "menuLabel": "Actions pour {name}",
@@ -1850,7 +1860,8 @@
             "branding_update": "Personnalisation de la connexion modifiée",
             "branding_reset": "Personnalisation de la connexion réinitialisée",
             "claims_update": "Claims des jetons modifiés",
-            "remove_duplicates": "Clients OAuth en double supprimés"
+            "remove_duplicates": "Clients OAuth en double supprimés",
+            "revoke_previous_secret": "Ancien secret client révoqué"
           },
           "client_registration": {
             "update": "Auto-enregistrement des clients modifié"

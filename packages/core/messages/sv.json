@@ -372,7 +372,8 @@
           "duplicates": "×{count}",
           "duplicatesHint": "{count} identiska självregistrerade klienter",
           "showDuplicates": "Visa alla {count}",
-          "hideDuplicates": "Dölj identiska"
+          "hideDuplicates": "Dölj identiska",
+          "previousSecretUntil": "Föregående hemlighet giltig till {date}"
         },
         "registration": {
           "title": "Självregistrering",
@@ -669,16 +670,25 @@
           },
           "rotateDialog": {
             "title": "Rotera klienthemligheten?",
-            "description": "Den tidigare hemligheten slutar fungera direkt. Spara den nya hemligheten på ett säkert ställe, den kanske bara visas en gång.",
+            "description": "Spara den nya hemligheten säkert, den kanske bara visas en gång. Den nuvarande hemligheten slutar fungera nu, eller när den valda övergångsperioden är slut, så att appen hinner byta först.",
             "newSecretLabel": "Ny klienthemlighet",
             "copySecret": "Kopiera hemlighet",
             "secretCopied": "Hemligheten har kopierats",
             "rotating": "Roterar…",
             "rotateFailed": "Det gick inte att rotera hemligheten",
             "newSecretIssued": "Ny klienthemlighet utfärdad, kopiera den nu",
-            "rotated": "Hemligheten har roterats"
+            "rotated": "Hemligheten har roterats",
+            "graceLabel": "Nuvarande hemlighet fortsätter att fungera",
+            "graceNone": "Nej, den slutar fungera nu",
+            "grace1h": "I 1 timme",
+            "grace24h": "I 24 timmar",
+            "grace7d": "I 7 dagar",
+            "graceReplaces": "Hemligheten som sparades vid föregående rotation slutar fungera nu."
           },
-          "rotateHintPrivateKey": "Den här appen autentiserar sig med sina nycklar, inte med en hemlighet"
+          "rotateHintPrivateKey": "Den här appen autentiserar sig med sina nycklar, inte med en hemlighet",
+          "revokePreviousSecret": "Återkalla föregående hemlighet nu",
+          "revokePreviousFailed": "Det gick inte att återkalla föregående hemlighet",
+          "previousSecretRevoked": "Föregående hemlighet återkallad"
         },
         "selfRegistered": {
           "menuLabel": "Åtgärder för {name}",
@@ -1850,7 +1860,8 @@
             "branding_update": "Ändrade inloggningsutseende",
             "branding_reset": "Återställde inloggningsutseende",
             "claims_update": "Ändrade token-claims",
-            "remove_duplicates": "Tog bort duplicerade OAuth-klienter"
+            "remove_duplicates": "Tog bort duplicerade OAuth-klienter",
+            "revoke_previous_secret": "Återkallade föregående klienthemlighet"
           },
           "client_registration": {
             "update": "Ändrade självregistrering av klienter"

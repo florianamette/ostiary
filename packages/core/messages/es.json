@@ -372,7 +372,8 @@
           "duplicates": "×{count}",
           "duplicatesHint": "{count} clientes autorregistrados idénticos",
           "showDuplicates": "Mostrar los {count}",
-          "hideDuplicates": "Ocultar idénticos"
+          "hideDuplicates": "Ocultar idénticos",
+          "previousSecretUntil": "Secreto anterior válido hasta el {date}"
         },
         "registration": {
           "title": "Autorregistro",
@@ -669,16 +670,25 @@
           },
           "rotateDialog": {
             "title": "¿Rotar el secreto de cliente?",
-            "description": "El secreto anterior deja de funcionar de inmediato. Guarda el nuevo secreto en un lugar seguro: puede que solo se muestre una vez.",
+            "description": "Guarda el nuevo secreto en un lugar seguro, puede que solo se muestre una vez. El secreto actual deja de funcionar ahora, o al final del periodo de gracia que elijas, para que la aplicación pueda cambiar antes.",
             "newSecretLabel": "Nuevo secreto de cliente",
             "copySecret": "Copiar secreto",
             "secretCopied": "Secreto copiado",
             "rotating": "Rotando…",
             "rotateFailed": "No se pudo rotar el secreto",
             "newSecretIssued": "Nuevo secreto de cliente emitido: cópialo ahora",
-            "rotated": "Secreto rotado"
+            "rotated": "Secreto rotado",
+            "graceLabel": "El secreto actual sigue funcionando",
+            "graceNone": "No, deja de funcionar ahora",
+            "grace1h": "Durante 1 hora",
+            "grace24h": "Durante 24 horas",
+            "grace7d": "Durante 7 días",
+            "graceReplaces": "El secreto conservado en la rotación anterior deja de funcionar ahora."
           },
-          "rotateHintPrivateKey": "Esta aplicación se autentica con sus claves, no con un secreto"
+          "rotateHintPrivateKey": "Esta aplicación se autentica con sus claves, no con un secreto",
+          "revokePreviousSecret": "Revocar el secreto anterior ahora",
+          "revokePreviousFailed": "No se pudo revocar el secreto anterior",
+          "previousSecretRevoked": "Secreto anterior revocado"
         },
         "selfRegistered": {
           "menuLabel": "Acciones de {name}",
@@ -1850,7 +1860,8 @@
             "branding_update": "Cambió la personalización del inicio de sesión",
             "branding_reset": "Restableció la personalización del inicio de sesión",
             "claims_update": "Cambió los claims de los tokens",
-            "remove_duplicates": "Eliminó clientes OAuth duplicados"
+            "remove_duplicates": "Eliminó clientes OAuth duplicados",
+            "revoke_previous_secret": "Secreto de cliente anterior revocado"
           },
           "client_registration": {
             "update": "Cambió el autorregistro de clientes"

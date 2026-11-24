@@ -372,7 +372,8 @@
           "duplicates": "×{count}",
           "duplicatesHint": "عملاء مسجّلون ذاتيًا متطابقون: {count}",
           "showDuplicates": "عرض الكل ({count})",
-          "hideDuplicates": "إخفاء المتطابقين"
+          "hideDuplicates": "إخفاء المتطابقين",
+          "previousSecretUntil": "السرّ السابق صالح حتى {date}"
         },
         "registration": {
           "title": "التسجيل الذاتي",
@@ -669,16 +670,25 @@
           },
           "rotateDialog": {
             "title": "تدوير سر العميل؟",
-            "description": "يتوقف السر السابق عن العمل فورًا. احفظ السر الجديد في مكان آمن، فقد لا يُعرض إلا مرة واحدة.",
+            "description": "احفظ السرّ الجديد في مكان آمن، فقد لا يُعرض إلا مرة واحدة. يتوقف السرّ الحالي عن العمل الآن، أو في نهاية فترة السماح التي تختارها، ليتمكن التطبيق من التحويل أولًا.",
             "newSecretLabel": "سر العميل الجديد",
             "copySecret": "نسخ السر",
             "secretCopied": "تم نسخ السر",
             "rotating": "جارٍ التدوير…",
             "rotateFailed": "تعذّر تدوير السر",
             "newSecretIssued": "تم إصدار سر عميل جديد، انسخه الآن",
-            "rotated": "تم تدوير السر"
+            "rotated": "تم تدوير السر",
+            "graceLabel": "يستمر السرّ الحالي في العمل",
+            "graceNone": "لا، يتوقف عن العمل الآن",
+            "grace1h": "لمدة ساعة",
+            "grace24h": "لمدة 24 ساعة",
+            "grace7d": "لمدة 7 أيام",
+            "graceReplaces": "يتوقف السرّ المحتفظ به من التدوير السابق عن العمل الآن."
           },
-          "rotateHintPrivateKey": "يصادق هذا التطبيق بمفاتيحه، لا بسرّ"
+          "rotateHintPrivateKey": "يصادق هذا التطبيق بمفاتيحه، لا بسرّ",
+          "revokePreviousSecret": "إلغاء السرّ السابق الآن",
+          "revokePreviousFailed": "تعذّر إلغاء السرّ السابق",
+          "previousSecretRevoked": "تم إلغاء السرّ السابق"
         },
         "selfRegistered": {
           "menuLabel": "إجراءات {name}",
@@ -1850,7 +1860,8 @@
             "branding_update": "تغيير هوية تسجيل الدخول",
             "branding_reset": "إعادة تعيين هوية تسجيل الدخول",
             "claims_update": "تغيير مطالبات الرموز",
-            "remove_duplicates": "إزالة عملاء OAuth المكررين"
+            "remove_duplicates": "إزالة عملاء OAuth المكررين",
+            "revoke_previous_secret": "تم إلغاء سرّ العميل السابق"
           },
           "client_registration": {
             "update": "تغيير التسجيل الذاتي للعملاء"

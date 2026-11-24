@@ -112,6 +112,13 @@ export function ApplicationTableRow({
             <code className="text-muted-foreground max-w-[min(100%,320px)] truncate font-mono text-xs">
               {row.clientId}
             </code>
+            {row.previousSecretExpiresAt ? (
+              <span className="text-muted-foreground text-xs">
+                {t("previousSecretUntil", {
+                  date: format.dateTime(new Date(row.previousSecretExpiresAt), { dateStyle: "medium", timeStyle: "short" }),
+                })}
+              </span>
+            ) : null}
             {duplicates ? (
               <button
                 type="button"

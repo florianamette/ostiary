@@ -372,7 +372,8 @@
           "duplicates": "×{count}",
           "duplicatesHint": "Identických samoregistrovaných klientů: {count}",
           "showDuplicates": "Zobrazit všechny ({count})",
-          "hideDuplicates": "Skrýt identické"
+          "hideDuplicates": "Skrýt identické",
+          "previousSecretUntil": "Předchozí tajný klíč platí do {date}"
         },
         "registration": {
           "title": "Samoregistrace",
@@ -669,16 +670,25 @@
           },
           "rotateDialog": {
             "title": "Otočit tajný klíč klienta?",
-            "description": "Předchozí tajný klíč okamžitě přestane fungovat. Uložte nový tajný klíč na bezpečné místo, může se zobrazit jen jednou.",
+            "description": "Uložte nový tajný klíč na bezpečné místo, může se zobrazit jen jednou. Současný tajný klíč přestane fungovat hned, nebo na konci zvolené přechodné doby, aby aplikace stihla přejít.",
             "newSecretLabel": "Nový tajný klíč klienta",
             "copySecret": "Kopírovat tajný klíč",
             "secretCopied": "Tajný klíč zkopírován",
             "rotating": "Otáčení…",
             "rotateFailed": "Tajný klíč se nepodařilo otočit",
             "newSecretIssued": "Nový tajný klíč klienta byl vydán, zkopírujte si ho hned",
-            "rotated": "Tajný klíč otočen"
+            "rotated": "Tajný klíč otočen",
+            "graceLabel": "Současný tajný klíč dál funguje",
+            "graceNone": "Ne, přestane fungovat hned",
+            "grace1h": "1 hodinu",
+            "grace24h": "24 hodin",
+            "grace7d": "7 dní",
+            "graceReplaces": "Tajný klíč ponechaný z předchozí rotace přestane fungovat hned."
           },
-          "rotateHintPrivateKey": "Tato aplikace se ověřuje svými klíči, ne tajným klíčem"
+          "rotateHintPrivateKey": "Tato aplikace se ověřuje svými klíči, ne tajným klíčem",
+          "revokePreviousSecret": "Zrušit předchozí tajný klíč hned",
+          "revokePreviousFailed": "Předchozí tajný klíč se nepodařilo zrušit",
+          "previousSecretRevoked": "Předchozí tajný klíč zrušen"
         },
         "selfRegistered": {
           "menuLabel": "Akce pro {name}",
@@ -1850,7 +1860,8 @@
             "branding_update": "Změna vzhledu přihlášení",
             "branding_reset": "Obnovení vzhledu přihlášení",
             "claims_update": "Změna claimů tokenů",
-            "remove_duplicates": "Odebrání duplicitních klientů OAuth"
+            "remove_duplicates": "Odebrání duplicitních klientů OAuth",
+            "revoke_previous_secret": "Zrušen předchozí tajný klíč klienta"
           },
           "client_registration": {
             "update": "Změna samoregistrace klientů"

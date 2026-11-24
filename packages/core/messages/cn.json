@@ -372,7 +372,8 @@
           "duplicates": "×{count}",
           "duplicatesHint": "{count} 个相同的自行注册客户端",
           "showDuplicates": "显示全部 {count} 个",
-          "hideDuplicates": "隐藏相同项"
+          "hideDuplicates": "隐藏相同项",
+          "previousSecretUntil": "旧密钥有效期至 {date}"
         },
         "registration": {
           "title": "自行注册",
@@ -669,16 +670,25 @@
           },
           "rotateDialog": {
             "title": "轮换客户端密钥？",
-            "description": "旧密钥会立即失效。请将新密钥保存在安全的地方，它可能只显示这一次。",
+            "description": "请将新密钥保存在安全的地方，它可能只显示一次。当前密钥会立即失效，或在你选择的宽限期结束时失效，以便应用先完成切换。",
             "newSecretLabel": "新的客户端密钥",
             "copySecret": "复制密钥",
             "secretCopied": "密钥已复制",
             "rotating": "正在轮换…",
             "rotateFailed": "无法轮换密钥",
             "newSecretIssued": "已签发新的客户端密钥，请立即复制",
-            "rotated": "密钥已轮换"
+            "rotated": "密钥已轮换",
+            "graceLabel": "当前密钥继续有效",
+            "graceNone": "否，立即失效",
+            "grace1h": "1 小时",
+            "grace24h": "24 小时",
+            "grace7d": "7 天",
+            "graceReplaces": "上次轮换时保留的密钥将立即失效。"
           },
-          "rotateHintPrivateKey": "此应用使用自己的密钥对认证，而不是客户端密钥"
+          "rotateHintPrivateKey": "此应用使用自己的密钥对认证，而不是客户端密钥",
+          "revokePreviousSecret": "立即吊销旧密钥",
+          "revokePreviousFailed": "无法吊销旧密钥",
+          "previousSecretRevoked": "已吊销旧密钥"
         },
         "selfRegistered": {
           "menuLabel": "{name} 的操作",
@@ -1850,7 +1860,8 @@
             "branding_update": "更改了登录品牌",
             "branding_reset": "重置了登录品牌",
             "claims_update": "更改了令牌声明",
-            "remove_duplicates": "移除了重复的 OAuth 客户端"
+            "remove_duplicates": "移除了重复的 OAuth 客户端",
+            "revoke_previous_secret": "已吊销旧客户端密钥"
           },
           "client_registration": {
             "update": "更改了客户端自行注册设置"
