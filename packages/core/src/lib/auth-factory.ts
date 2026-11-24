@@ -50,6 +50,7 @@ import { OAUTH_TOKEN_PREFIXES } from "@ostiary/core/lib/oauth-token-prefixes";
 import { OPENAPI_SCHEMA_PATH, openApiSchemaEnabled } from "@ostiary/core/lib/openapi";
 import { generateClientId } from "@ostiary/core/lib/admin/oauth-clients/requested-client-id";
 import { clientSecretStorage } from "@ostiary/core/lib/client-secret-grace";
+import { shouldPromptForTwoFactor } from "@ostiary/core/lib/two-factor-policy";
 import { brand } from "@ostiary/core/lib/brand";
 import { getPasskeyWebAuthnOptions } from "@ostiary/core/lib/passkey-options";
 import { env } from "@ostiary/core/lib/env";
@@ -357,6 +358,13 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
         // Only for clients that ask with prompt=select_account (e.g. a native app signing in
         // through the system browser, whose session may belong to someone else).
         selectAccount: { page: "/select-account", shouldRedirect: () => false },
+        // After sign-in, before consent: two-factor authentication required by the policy or an
+        // organization (two-factor-policy.ts). The page resumes with /oauth2/continue.
+        postLogin: {
+            page: "/two-factor/required",
+            consentReferenceId: () => undefined,
+            shouldRedirect: ({ user, isContinuation }) => shouldPromptForTwoFactor(user, isContinuation),
+        },
         // Replaced from the database before each request, see syncProviderScopes.
         scopes: [...OIDC_SCOPES, ...ENV_API_SCOPES],
         // Protected resources (1.7 replaces `validAudiences`): the auth server, then the APIs in

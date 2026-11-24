@@ -21,6 +21,7 @@ export {
   MIN_PASSWORD_LENGTHS,
   parseAuthPolicy,
   SESSION_DAYS,
+  TWO_FACTOR_GRACE_DAYS,
   type AuthPolicy,
 } from "@ostiary/core/lib/auth-policy-options";
 
@@ -43,9 +44,24 @@ export function currentAuthPolicy(): Promise<AuthPolicy> {
   return policyCache.get();
 }
 
-export async function saveAuthPolicy(policy: AuthPolicy, updatedBy: string | null): Promise<void> {
-  await writeAppSetting(SETTINGS_KEY, policy, updatedBy);
+/**
+ * Saves the policy. Turning "two-factor for everyone" on starts its grace period now; keeping it
+ * on keeps the start.
+ */
+export async function saveAuthPolicy(
+  policy: Omit<AuthPolicy, "twoFactorRequiredSince">,
+  updatedBy: string | null,
+  previous: AuthPolicy = DEFAULT_AUTH_POLICY,
+): Promise<AuthPolicy> {
+  const saved: AuthPolicy = {
+    ...policy,
+    twoFactorRequiredSince: policy.twoFactorEveryone
+      ? (previous.twoFactorEveryone && previous.twoFactorRequiredSince) || new Date().toISOString()
+      : null,
+  };
+  await writeAppSetting(SETTINGS_KEY, saved, updatedBy);
   policyCache.invalidate();
+  return saved;
 }
 
 /** The parts of Better Auth's context the policy changes. */

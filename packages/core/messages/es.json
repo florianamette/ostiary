@@ -188,6 +188,18 @@
       "continue": "Continuar en <app>{name}</app>",
       "unverified": "Aplicación no verificada.",
       "unverifiedHint": "{name} no la ha revisado: continúa solo si confías en ella."
+    },
+    "twoFactorRequired": {
+      "metaTitle": "Autenticación en dos pasos obligatoria",
+      "title": "Activa la autenticación en dos pasos",
+      "byOrganization": "Los administradores de tu organización exigen la autenticación en dos pasos para iniciar sesión en las aplicaciones.",
+      "byPlatform": "La autenticación en dos pasos es obligatoria para iniciar sesión en las aplicaciones.",
+      "until": "Actívala antes del {date}.",
+      "now": "Actívala para continuar.",
+      "how": "Usa una aplicación de autenticación (como Google Authenticator o 1Password) o añade una llave de acceso en la página de tu cuenta.",
+      "setUp": "Configurar la autenticación en dos pasos",
+      "later": "Recordármelo más tarde",
+      "continue": "Continuar"
     }
   },
   "consent": {
@@ -2049,7 +2061,12 @@
           "errors": {
             "invalid": "Elige uno de los valores ofrecidos.",
             "save": "No se pudo guardar la política."
-          }
+          },
+          "twoFactorEveryone": "Dos pasos para todos",
+          "twoFactorEveryoneHint": "Todos deben usar una aplicación de autenticación o una llave de acceso para iniciar sesión en las aplicaciones. Administradores: REQUIRE_ADMIN_2FA. Las organizaciones pueden exigirla a sus miembros desde su página.",
+          "twoFactorGraceDays": "Plazo para activarla",
+          "twoFactorGraceDaysHint": "A quien no la tenga se le pide en cada inicio de sesión en una aplicación y puede continuar hasta entonces. Empieza cuando activas esto, o al crear la cuenta.",
+          "noGrace": "Ninguno: obligatoria de inmediato"
         }
       },
       "signingKeys": {
@@ -2196,7 +2213,14 @@
           "scimCounts": "{active} aprovisionadas, {inactive} desactivadas.",
           "recentActions": "Acciones de administración recientes",
           "noActions": "Ninguna todavía.",
-          "system": "sistema"
+          "system": "sistema",
+          "twoFactor": {
+            "title": "Autenticación en dos pasos",
+            "label": "Exigir la autenticación en dos pasos a los miembros",
+            "hint": "Los miembros deben usar una aplicación de autenticación o una llave de acceso para iniciar sesión en las aplicaciones, tras el plazo fijado en la página Seguridad.",
+            "on": "La autenticación en dos pasos ahora es obligatoria para los miembros de esta organización.",
+            "off": "La autenticación en dos pasos ya no es obligatoria para los miembros de esta organización."
+          }
         },
         "errors": {
           "invalidNameSlug": "Introduce un nombre y un slug formado por letras, números y guiones.",
@@ -2405,7 +2429,8 @@
         "invalidCode": "El código no es válido. Comprueba que la hora de tu dispositivo sea correcta e inténtalo de nuevo.",
         "rateLimited": "Demasiados intentos. Espera unos segundos y vuelve a intentarlo.",
         "generic": "Algo salió mal. Inténtalo de nuevo."
-      }
+      },
+      "doneContinue": "Continuar a la aplicación"
     },
     "organizations": {
       "title": "Organizaciones",

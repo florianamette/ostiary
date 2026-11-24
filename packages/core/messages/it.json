@@ -188,6 +188,18 @@
       "continue": "Continua su <app>{name}</app>",
       "unverified": "App non verificata.",
       "unverifiedHint": "{name} non l’ha verificata: continua solo se ti fidi."
+    },
+    "twoFactorRequired": {
+      "metaTitle": "Autenticazione a due fattori richiesta",
+      "title": "Attiva l'autenticazione a due fattori",
+      "byOrganization": "Gli amministratori della tua organizzazione richiedono l'autenticazione a due fattori per accedere alle app.",
+      "byPlatform": "Per accedere alle app è richiesta l'autenticazione a due fattori.",
+      "until": "Attivala entro il {date}.",
+      "now": "Attivala per continuare.",
+      "how": "Usa un'app di autenticazione (come Google Authenticator o 1Password) oppure aggiungi una passkey nella pagina del tuo account.",
+      "setUp": "Configura l'autenticazione a due fattori",
+      "later": "Ricordamelo più tardi",
+      "continue": "Continua"
     }
   },
   "consent": {
@@ -2049,7 +2061,12 @@
           "errors": {
             "invalid": "Scegli uno dei valori proposti.",
             "save": "Impossibile salvare il criterio."
-          }
+          },
+          "twoFactorEveryone": "Due fattori per tutti",
+          "twoFactorEveryoneHint": "Tutti devono usare un'app di autenticazione o una passkey per accedere alle app. Admin: REQUIRE_ADMIN_2FA. Le organizzazioni possono richiederla ai propri membri dalla loro pagina.",
+          "twoFactorGraceDays": "Tempo per attivarla",
+          "twoFactorGraceDaysHint": "Chi non ha i due fattori riceve la richiesta a ogni accesso a un'app e può continuare fino ad allora. Il periodo parte quando attivi questa opzione, o dalla creazione dell'account.",
+          "noGrace": "Nessuno: richiesta subito"
         }
       },
       "signingKeys": {
@@ -2196,7 +2213,14 @@
           "scimCounts": "{active} creati tramite provisioning, {inactive} disattivati.",
           "recentActions": "Azioni amministrative recenti",
           "noActions": "Ancora nessuna.",
-          "system": "sistema"
+          "system": "sistema",
+          "twoFactor": {
+            "title": "Autenticazione a due fattori",
+            "label": "Richiedi l'autenticazione a due fattori ai membri",
+            "hint": "I membri devono usare un'app di autenticazione o una passkey per accedere alle app, dopo il periodo impostato nella pagina Sicurezza.",
+            "on": "L'autenticazione a due fattori è ora richiesta per i membri di questa organizzazione.",
+            "off": "L'autenticazione a due fattori non è più richiesta per i membri di questa organizzazione."
+          }
         },
         "errors": {
           "invalidNameSlug": "Inserisci un nome e uno slug composto da lettere, numeri e trattini.",
@@ -2405,7 +2429,8 @@
         "invalidCode": "Il codice non è valido. Controlla che l’orologio del dispositivo sia corretto e riprova.",
         "rateLimited": "Troppi tentativi. Attendi qualche secondo e riprova.",
         "generic": "Si è verificato un errore. Riprova."
-      }
+      },
+      "doneContinue": "Continua all'app"
     },
     "organizations": {
       "title": "Organizzazioni",

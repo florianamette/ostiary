@@ -28,7 +28,7 @@ describe("parseAuthPolicy", () => {
 describe("applyAuthPolicy", () => {
   it("writes the lifetime, refresh age, password length and sign-up into Better Auth's context", () => {
     const ctx = context();
-    applyAuthPolicy(ctx, { sessionDays: 30, extendSessions: true, signOutOnPasswordChange: false, minPasswordLength: 12, passwordSignUp: false });
+    applyAuthPolicy(ctx, { ...DEFAULT_AUTH_POLICY, sessionDays: 30, minPasswordLength: 12, passwordSignUp: false });
     expect(ctx).toEqual({
       sessionConfig: { expiresIn: 30 * DAY, updateAge: DAY },
       password: { config: { minPasswordLength: 12 } },

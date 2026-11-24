@@ -188,6 +188,18 @@
       "continue": "Fortsæt til <app>{name}</app>",
       "unverified": "Ikke-verificeret app.",
       "unverifiedHint": "{name} har ikke gennemgået den: fortsæt kun, hvis du stoler på den."
+    },
+    "twoFactorRequired": {
+      "metaTitle": "Totrinsgodkendelse påkrævet",
+      "title": "Slå totrinsgodkendelse til",
+      "byOrganization": "Din organisations administratorer kræver totrinsgodkendelse for at logge ind i apps.",
+      "byPlatform": "Totrinsgodkendelse er påkrævet for at logge ind i apps.",
+      "until": "Slå den til før {date}.",
+      "now": "Slå den til for at fortsætte.",
+      "how": "Brug en godkendelsesapp (som Google Authenticator eller 1Password), eller tilføj en adgangsnøgle på din kontoside.",
+      "setUp": "Konfigurer totrinsgodkendelse",
+      "later": "Påmind mig senere",
+      "continue": "Fortsæt"
     }
   },
   "consent": {
@@ -2049,7 +2061,12 @@
           "errors": {
             "invalid": "Vælg en af de tilbudte værdier.",
             "save": "Politikken kunne ikke gemmes."
-          }
+          },
+          "twoFactorEveryone": "Totrinsgodkendelse for alle",
+          "twoFactorEveryoneHint": "Alle skal bruge en godkendelsesapp eller en adgangsnøgle for at logge ind i apps. Administratorer: REQUIRE_ADMIN_2FA. Organisationer kan kræve det af deres medlemmer på deres side.",
+          "twoFactorGraceDays": "Frist til at slå den til",
+          "twoFactorGraceDaysHint": "Personer uden totrinsgodkendelse bliver spurgt ved hvert app-login og kan fortsætte indtil da. Fristen starter, når du slår dette til, eller når kontoen oprettes.",
+          "noGrace": "Ingen: påkrævet straks"
         }
       },
       "signingKeys": {
@@ -2196,7 +2213,14 @@
           "scimCounts": "{active} klargjort, {inactive} deaktiveret.",
           "recentActions": "Seneste administratorhandlinger",
           "noActions": "Ingen endnu.",
-          "system": "system"
+          "system": "system",
+          "twoFactor": {
+            "title": "Totrinsgodkendelse",
+            "label": "Kræv totrinsgodkendelse af medlemmer",
+            "hint": "Medlemmer skal bruge en godkendelsesapp eller en adgangsnøgle for at logge ind i apps efter fristen på siden Sikkerhed.",
+            "on": "Totrinsgodkendelse er nu påkrævet for denne organisations medlemmer.",
+            "off": "Totrinsgodkendelse er ikke længere påkrævet for denne organisations medlemmer."
+          }
         },
         "errors": {
           "invalidNameSlug": "Indtast et navn og en slug bestående af bogstaver, tal og bindestreger.",
@@ -2405,7 +2429,8 @@
         "invalidCode": "Koden er ugyldig. Tjek, at enhedens ur går rigtigt, og prøv igen.",
         "rateLimited": "For mange forsøg. Vent et par sekunder, og prøv igen.",
         "generic": "Noget gik galt. Prøv igen."
-      }
+      },
+      "doneContinue": "Fortsæt til appen"
     },
     "organizations": {
       "title": "Organisationer",

@@ -188,6 +188,18 @@
       "continue": "<app>{name}</app> uygulamasına devam edin",
       "unverified": "Doğrulanmamış uygulama.",
       "unverifiedHint": "{name} bu uygulamayı incelemedi: yalnızca güveniyorsanız devam edin."
+    },
+    "twoFactorRequired": {
+      "metaTitle": "İki adımlı doğrulama gerekli",
+      "title": "İki adımlı doğrulamayı açın",
+      "byOrganization": "Kuruluşunuzun yöneticileri uygulamalarda oturum açmak için iki adımlı doğrulama istiyor.",
+      "byPlatform": "Uygulamalarda oturum açmak için iki adımlı doğrulama gerekli.",
+      "until": "{date} tarihinden önce açın.",
+      "now": "Devam etmek için açın.",
+      "how": "Bir doğrulama uygulaması (Google Authenticator veya 1Password gibi) kullanın ya da hesap sayfanızdan bir geçiş anahtarı ekleyin.",
+      "setUp": "İki adımlı doğrulamayı ayarla",
+      "later": "Sonra hatırlat",
+      "continue": "Devam et"
     }
   },
   "consent": {
@@ -2049,7 +2061,12 @@
           "errors": {
             "invalid": "Sunulan değerlerden birini seçin.",
             "save": "İlke kaydedilemedi."
-          }
+          },
+          "twoFactorEveryone": "Herkes için iki adımlı doğrulama",
+          "twoFactorEveryoneHint": "Herkes uygulamalarda oturum açmak için bir doğrulama uygulaması veya geçiş anahtarı kullanmalıdır. Yöneticiler: REQUIRE_ADMIN_2FA. Kuruluşlar kendi sayfalarından üyeleri için zorunlu kılabilir.",
+          "twoFactorGraceDays": "Açmak için süre",
+          "twoFactorGraceDaysHint": "İki adımlı doğrulaması olmayanlara her uygulama oturum açışında sorulur ve o zamana kadar devam edebilirler. Süre bunu açtığınızda ya da hesap oluşturulduğunda başlar.",
+          "noGrace": "Yok: hemen gerekli"
         }
       },
       "signingKeys": {
@@ -2196,7 +2213,14 @@
           "scimCounts": "{active} sağlandı, {inactive} devre dışı.",
           "recentActions": "Son yönetici işlemleri",
           "noActions": "Henüz yok.",
-          "system": "sistem"
+          "system": "sistem",
+          "twoFactor": {
+            "title": "İki adımlı doğrulama",
+            "label": "Üyeler için iki adımlı doğrulamayı zorunlu kıl",
+            "hint": "Üyeler, Güvenlik sayfasındaki süreden sonra uygulamalarda oturum açmak için bir doğrulama uygulaması veya geçiş anahtarı kullanmalıdır.",
+            "on": "İki adımlı doğrulama artık bu kuruluşun üyeleri için gerekli.",
+            "off": "İki adımlı doğrulama artık bu kuruluşun üyeleri için gerekli değil."
+          }
         },
         "errors": {
           "invalidNameSlug": "Bir ad ve harf, rakam ve tirelerden oluşan bir slug girin.",
@@ -2405,7 +2429,8 @@
         "invalidCode": "Bu kod geçerli değil. Cihazınızın saatinin doğru olduğunu kontrol edip yeniden deneyin.",
         "rateLimited": "Çok fazla deneme. Birkaç saniye bekleyip yeniden deneyin.",
         "generic": "Bir şeyler ters gitti. Yeniden deneyin."
-      }
+      },
+      "doneContinue": "Uygulamaya devam et"
     },
     "organizations": {
       "title": "Kuruluşlar",

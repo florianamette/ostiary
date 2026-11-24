@@ -8,6 +8,14 @@ All notable changes are documented here. The format follows
 
 ### Added
 
+- Two-factor authentication required for everyone, or for an organization's members: **Security**
+  › Sessions and passwords has "Two-factor authentication for everyone" and a grace period (none,
+  7, 14 or 30 days), and each organization's page has "Require two-factor authentication for
+  members". An app sign-in by an account without it (an authenticator app, or a passkey) stops
+  at a new prompt, after sign-in and before consent (Better Auth's `postLogin` step): during the
+  grace period people can go on and are asked again at the next app sign-in; after it they turn
+  it on first, and the account page brings them back to the app. Admins keep REQUIRE_ADMIN_2FA.
+  New table `organization_policy` (migration 0016).
 - Custom OpenID Connect sign-in providers (Keycloak, Okta, Authentik, a company's own): the
   **Sign-in providers** page has a "Custom OpenID Connect providers" card to add one with its
   discovery URL, client ID and secret, scopes and button name, turn it on or off, and choose

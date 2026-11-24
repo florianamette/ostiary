@@ -188,6 +188,18 @@
       "continue": "Continuer vers <app>{name}</app>",
       "unverified": "Application non vérifiée.",
       "unverifiedHint": "{name} ne l’a pas examinée : ne continuez que si vous lui faites confiance."
+    },
+    "twoFactorRequired": {
+      "metaTitle": "Authentification à deux facteurs requise",
+      "title": "Activez l'authentification à deux facteurs",
+      "byOrganization": "Les administrateurs de votre organisation exigent l'authentification à deux facteurs pour se connecter aux applications.",
+      "byPlatform": "L'authentification à deux facteurs est requise pour se connecter aux applications.",
+      "until": "Activez-la avant le {date}.",
+      "now": "Activez-la pour continuer.",
+      "how": "Utilisez une application d'authentification (Google Authenticator, 1Password…) ou ajoutez une clé d'accès depuis la page de votre compte.",
+      "setUp": "Configurer l'authentification à deux facteurs",
+      "later": "Me le rappeler plus tard",
+      "continue": "Continuer"
     }
   },
   "consent": {
@@ -2049,7 +2061,12 @@
           "errors": {
             "invalid": "Choisissez l'une des valeurs proposées.",
             "save": "Impossible d'enregistrer la politique."
-          }
+          },
+          "twoFactorEveryone": "Deux facteurs pour tout le monde",
+          "twoFactorEveryoneHint": "Tout le monde doit utiliser une application d'authentification ou une clé d'accès pour se connecter aux applications. Admins : REQUIRE_ADMIN_2FA. Les organisations peuvent l'exiger de leurs membres depuis leur page.",
+          "twoFactorGraceDays": "Délai pour l'activer",
+          "twoFactorGraceDaysHint": "Les personnes sans deux facteurs sont invitées à chaque connexion à une application et peuvent continuer jusque-là. Le délai démarre quand vous activez ceci, ou à la création du compte.",
+          "noGrace": "Aucun : requis tout de suite"
         }
       },
       "signingKeys": {
@@ -2196,7 +2213,14 @@
           "scimCounts": "{active} provisionnés, {inactive} désactivés.",
           "recentActions": "Actions d’administration récentes",
           "noActions": "Aucune pour l’instant.",
-          "system": "système"
+          "system": "système",
+          "twoFactor": {
+            "title": "Authentification à deux facteurs",
+            "label": "Exiger l'authentification à deux facteurs des membres",
+            "hint": "Les membres doivent utiliser une application d'authentification ou une clé d'accès pour se connecter aux applications, après le délai fixé sur la page Sécurité.",
+            "on": "L'authentification à deux facteurs est désormais requise pour les membres de cette organisation.",
+            "off": "L'authentification à deux facteurs n'est plus requise pour les membres de cette organisation."
+          }
         },
         "errors": {
           "invalidNameSlug": "Saisissez un nom et un slug composé de lettres, de chiffres et de tirets.",
@@ -2405,7 +2429,8 @@
         "invalidCode": "Ce code n’est pas valide. Vérifiez que l’horloge de votre appareil est à l’heure et réessayez.",
         "rateLimited": "Trop de tentatives. Patientez quelques secondes et réessayez.",
         "generic": "Une erreur s’est produite. Réessayez."
-      }
+      },
+      "doneContinue": "Continuer vers l'application"
     },
     "organizations": {
       "title": "Organisations",

@@ -188,6 +188,18 @@
       "continue": "Continue to <app>{name}</app>",
       "unverified": "Unverified app.",
       "unverifiedHint": "{name} has not reviewed it: only continue if you trust it."
+    },
+    "twoFactorRequired": {
+      "metaTitle": "Two-factor authentication required",
+      "title": "Turn on two-factor authentication",
+      "byOrganization": "Your organization's administrators require two-factor authentication to sign in to apps.",
+      "byPlatform": "Two-factor authentication is required to sign in to apps.",
+      "until": "Turn it on before {date}.",
+      "now": "Turn it on to continue.",
+      "how": "Use an authenticator app (such as Google Authenticator or 1Password), or add a passkey on your account page.",
+      "setUp": "Set up two-factor authentication",
+      "later": "Remind me later",
+      "continue": "Continue"
     }
   },
   "consent": {
@@ -2049,7 +2061,12 @@
           "errors": {
             "invalid": "Choose one of the values offered.",
             "save": "Could not save the policy."
-          }
+          },
+          "twoFactorEveryone": "Two-factor authentication for everyone",
+          "twoFactorEveryoneHint": "Everyone must use an authenticator app or a passkey to sign in to apps. Admins: REQUIRE_ADMIN_2FA. Organizations can require it for their members on their page.",
+          "twoFactorGraceDays": "Time to turn it on",
+          "twoFactorGraceDaysHint": "People without two-factor authentication are asked at each app sign-in and can continue until then. It starts when you turn this on, or when the account is created.",
+          "noGrace": "None: required at once"
         }
       },
       "signingKeys": {
@@ -2196,7 +2213,14 @@
           "scimCounts": "{active} provisioned, {inactive} deactivated.",
           "recentActions": "Recent admin actions",
           "noActions": "None yet.",
-          "system": "system"
+          "system": "system",
+          "twoFactor": {
+            "title": "Two-factor authentication",
+            "label": "Require two-factor authentication for members",
+            "hint": "Members must use an authenticator app or a passkey to sign in to apps, after the grace period set on the Security page.",
+            "on": "Two-factor authentication is now required for this organization's members.",
+            "off": "Two-factor authentication is no longer required for this organization's members."
+          }
         },
         "errors": {
           "invalidNameSlug": "Enter a name and a slug made of letters, numbers and dashes.",
@@ -2405,7 +2429,8 @@
         "invalidCode": "That code is not valid. Check that your device's clock is correct and try again.",
         "rateLimited": "Too many attempts. Wait a few seconds and try again.",
         "generic": "Something went wrong. Try again."
-      }
+      },
+      "doneContinue": "Continue to the app"
     },
     "organizations": {
       "title": "Organizations",
