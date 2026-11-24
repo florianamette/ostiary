@@ -120,7 +120,7 @@
       "backToLogin": "Tilbake til innlogging",
       "newPasswordLabel": "Nytt passord",
       "confirmPasswordLabel": "Bekreft passord",
-      "passwordHint": "Må være minst 8 tegn langt.",
+      "passwordHint": "Må være minst {min} tegn langt.",
       "passwordMismatch": "Passordene samsvarer ikke",
       "submit": "Oppdater passord",
       "submitting": "Oppdaterer…",
@@ -146,7 +146,7 @@
       "emailDescription": "Vi bruker denne for å kontakte deg. Vi deler ikke e-postadressen din med andre.",
       "passwordLabel": "Passord",
       "confirmPasswordLabel": "Bekreft passord",
-      "passwordHint": "Må være minst 8 tegn langt.",
+      "passwordHint": "Må være minst {min} tegn langt.",
       "confirmPasswordHint": "Bekreft passordet ditt.",
       "passwordMismatch": "Passordene samsvarer ikke",
       "submit": "Opprett konto",
@@ -161,7 +161,9 @@
         "usernameTooShort": "Brukernavnet må ha minst 3 tegn.",
         "usernameInvalid": "Det brukernavnet er ikke gyldig.",
         "usernameTaken": "Det brukernavnet er allerede tatt. Prøv et annet."
-      }
+      },
+      "passwordSignUpOff": "Registrering med passord er slått av. Opprett kontoen din med en av disse:",
+      "signUpClosed": "Nye kontoer kan ikke opprettes her. Be en administrator om en konto."
     },
     "screen": {
       "headline": "Én konto for <accent>alle appene dine</accent>.",
@@ -1932,6 +1934,9 @@
           },
           "audit_log": {
             "export_csv": "Eksporterte revisjonsloggen til CSV"
+          },
+          "security": {
+            "update_policy": "Endret retningslinjene for økter og passord"
           }
         },
         "actorPlaceholder": "Søk etter hvem som handlet (e-post)…",
@@ -1977,6 +1982,33 @@
           "noReason": "Ingen grunn oppgitt",
           "until": "til {date}",
           "permanent": "permanent"
+        },
+        "policy": {
+          "title": "Økter og passord",
+          "description": "Hvor lenge man forblir innlogget i autentiseringsappen, og hvordan passord velges. Apper beholder sine egne tokener og oppdateringstokener.",
+          "edit": "Rediger",
+          "on": "På",
+          "off": "Av",
+          "days": "{count, plural, one {# dag} other {# dager}}",
+          "characters": "{count, plural, one {# tegn} other {# tegn}}",
+          "sessionDays": "Øktens levetid",
+          "sessionDaysHint": "Hvor lenge en innlogging varer. Økter opprettet før en endring beholder utløpet sitt; de følger den nye levetiden neste gang de forlenges.",
+          "extendSessions": "Forleng økter som brukes",
+          "extendSessionsHint": "På: en økt varer {count, plural, one {# dag} other {# dager}} etter siste bruk. Av: den avsluttes {count, plural, one {# dag} other {# dager}} etter innlogging, brukt eller ikke.",
+          "signOutOnPasswordChange": "Logg ut overalt ved passordbytte",
+          "signOutOnPasswordChangeHint": "Et passordbytte avslutter kontoens andre økter og trekker tilbake tokenene til appene, som ved tilbakestilling. Av: hver enkelt velger.",
+          "minPasswordLength": "Minste passordlengde",
+          "minPasswordLengthHint": "Gjelder nye passord (registrering, tilbakestilling, bytte). Eksisterende passord fortsetter å virke.",
+          "passwordSignUp": "Registrering med passord",
+          "passwordSignUpHint": "Av: man kan ikke lenger opprette konto med e-post og passord, bare med en sosial leverandør eller organisasjonens SSO. Administratorer kan fortsatt opprette kontoer, og eksisterende passord fortsetter å virke.",
+          "dialogDescription": "Autentiseringsappen tar dem i bruk innen ett minutt.",
+          "save": "Lagre",
+          "cancel": "Avbryt",
+          "saved": "Retningslinjene er lagret. Autentiseringsappen tar dem i bruk innen ett minutt.",
+          "errors": {
+            "invalid": "Velg en av verdiene som tilbys.",
+            "save": "Kunne ikke lagre retningslinjene."
+          }
         }
       },
       "signingKeys": {

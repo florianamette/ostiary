@@ -120,7 +120,7 @@
       "backToLogin": "Girişe dön",
       "newPasswordLabel": "Yeni parola",
       "confirmPasswordLabel": "Parolayı onaylayın",
-      "passwordHint": "En az 8 karakter uzunluğunda olmalıdır.",
+      "passwordHint": "En az {min} karakter uzunluğunda olmalıdır.",
       "passwordMismatch": "Parolalar eşleşmiyor",
       "submit": "Parolayı güncelle",
       "submitting": "Güncelleniyor…",
@@ -146,7 +146,7 @@
       "emailDescription": "Bunu sizinle iletişim kurmak için kullanacağız. E-posta adresinizi kimseyle paylaşmayız.",
       "passwordLabel": "Parola",
       "confirmPasswordLabel": "Parolayı Onaylayın",
-      "passwordHint": "En az 8 karakter uzunluğunda olmalıdır.",
+      "passwordHint": "En az {min} karakter uzunluğunda olmalıdır.",
       "confirmPasswordHint": "Lütfen parolanızı onaylayın.",
       "passwordMismatch": "Parolalar eşleşmiyor",
       "submit": "Hesap Oluştur",
@@ -161,7 +161,9 @@
         "usernameTooShort": "Kullanıcı adı en az 3 karakter olmalıdır.",
         "usernameInvalid": "Bu kullanıcı adı geçerli değil.",
         "usernameTaken": "Bu kullanıcı adı zaten alınmış. Başka bir tane deneyin."
-      }
+      },
+      "passwordSignUpOff": "Parolayla kayıt kapalı. Hesabınızı bunlardan biriyle oluşturun:",
+      "signUpClosed": "Burada yeni hesap oluşturulamaz. Bir yöneticiden hesap isteyin."
     },
     "screen": {
       "headline": "<accent>Tüm uygulamalarınız</accent> için tek hesap.",
@@ -1932,6 +1934,9 @@
           },
           "audit_log": {
             "export_csv": "Denetim günlüğünü CSV olarak dışa aktardı"
+          },
+          "security": {
+            "update_policy": "Oturum ve parola ilkesi değiştirildi"
           }
         },
         "actorPlaceholder": "İşlemi yapana göre ara (e-posta)…",
@@ -1977,6 +1982,33 @@
           "noReason": "Neden belirtilmedi",
           "until": "{date} tarihine kadar",
           "permanent": "kalıcı"
+        },
+        "policy": {
+          "title": "Oturumlar ve parolalar",
+          "description": "Kimlik doğrulama uygulamasında ne kadar süre oturum açık kalınacağı ve parolaların nasıl seçileceği. Uygulamalar kendi belirteçlerini ve yenileme belirteçlerini korur.",
+          "edit": "Düzenle",
+          "on": "Açık",
+          "off": "Kapalı",
+          "days": "{count, plural, one {# gün} other {# gün}}",
+          "characters": "{count, plural, one {# karakter} other {# karakter}}",
+          "sessionDays": "Oturum süresi",
+          "sessionDaysHint": "Bir oturum açmanın ne kadar sürdüğü. Değişiklikten önce açılan oturumlar bitiş tarihlerini korur; bir sonraki uzatmada yeni süreyi izler.",
+          "extendSessions": "Kullanılan oturumları uzat",
+          "extendSessionsHint": "Açık: oturum son kullanımdan sonra {count, plural, one {# gün} other {# gün}} sürer. Kapalı: kullanılsın ya da kullanılmasın oturum açmadan {count, plural, one {# gün} other {# gün}} sonra biter.",
+          "signOutOnPasswordChange": "Parola değişince her yerden çıkış yap",
+          "signOutOnPasswordChangeHint": "Parola değişikliği, hesabın diğer oturumlarını sonlandırır ve uygulamalarının belirteçlerini iptal eder; tıpkı parola sıfırlamada olduğu gibi. Kapalı: herkes kendi seçer.",
+          "minPasswordLength": "En kısa parola uzunluğu",
+          "minPasswordLengthHint": "Yeni parolalar için geçerlidir (kayıt, sıfırlama, değişiklik). Mevcut parolalar çalışmaya devam eder.",
+          "passwordSignUp": "Parolayla kayıt",
+          "passwordSignUpHint": "Kapalı: artık e-posta ve parolayla hesap oluşturulamaz; yalnızca bir sosyal sağlayıcıyla veya kuruluşun SSO'suyla. Yöneticiler hesap oluşturmaya devam edebilir ve mevcut parolalar çalışmaya devam eder.",
+          "dialogDescription": "Kimlik doğrulama uygulaması bunları bir dakika içinde uygular.",
+          "save": "Kaydet",
+          "cancel": "İptal",
+          "saved": "İlke kaydedildi. Kimlik doğrulama uygulaması bir dakika içinde uygular.",
+          "errors": {
+            "invalid": "Sunulan değerlerden birini seçin.",
+            "save": "İlke kaydedilemedi."
+          }
         }
       },
       "signingKeys": {

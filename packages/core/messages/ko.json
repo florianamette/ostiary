@@ -120,7 +120,7 @@
       "backToLogin": "로그인으로 돌아가기",
       "newPasswordLabel": "새 비밀번호",
       "confirmPasswordLabel": "비밀번호 확인",
-      "passwordHint": "8자 이상이어야 합니다.",
+      "passwordHint": "{min}자 이상이어야 합니다.",
       "passwordMismatch": "비밀번호가 일치하지 않습니다",
       "submit": "비밀번호 변경",
       "submitting": "변경 중…",
@@ -146,7 +146,7 @@
       "emailDescription": "연락을 드릴 때 사용합니다. 이메일은 다른 사람과 공유하지 않습니다.",
       "passwordLabel": "비밀번호",
       "confirmPasswordLabel": "비밀번호 확인",
-      "passwordHint": "8자 이상이어야 합니다.",
+      "passwordHint": "{min}자 이상이어야 합니다.",
       "confirmPasswordHint": "비밀번호를 한 번 더 입력하세요.",
       "passwordMismatch": "비밀번호가 일치하지 않습니다",
       "submit": "계정 만들기",
@@ -161,7 +161,9 @@
         "usernameTooShort": "사용자 이름은 3자 이상이어야 합니다.",
         "usernameInvalid": "유효하지 않은 사용자 이름입니다.",
         "usernameTaken": "이미 사용 중인 사용자 이름입니다. 다른 이름을 입력하세요."
-      }
+      },
+      "passwordSignUpOff": "비밀번호로 가입은 꺼져 있습니다. 다음 중 하나로 계정을 만드세요:",
+      "signUpClosed": "여기서는 새 계정을 만들 수 없습니다. 관리자에게 계정을 요청하세요."
     },
     "screen": {
       "headline": "<accent>모든 앱</accent>을 하나의 계정으로.",
@@ -1932,6 +1934,9 @@
           },
           "audit_log": {
             "export_csv": "감사 로그를 CSV로 내보내기"
+          },
+          "security": {
+            "update_policy": "세션 및 비밀번호 정책 변경"
           }
         },
         "actorPlaceholder": "수행자(이메일)로 검색…",
@@ -1977,6 +1982,33 @@
           "noReason": "사유 없음",
           "until": "{date}까지",
           "permanent": "영구"
+        },
+        "policy": {
+          "title": "세션 및 비밀번호",
+          "description": "인증 앱에 로그인 상태가 유지되는 기간과 비밀번호를 정하는 방식입니다. 앱은 자체 토큰과 새로고침 토큰을 유지합니다.",
+          "edit": "편집",
+          "on": "켜짐",
+          "off": "꺼짐",
+          "days": "{count}일",
+          "characters": "{count}자",
+          "sessionDays": "세션 유효 기간",
+          "sessionDaysHint": "로그인이 유지되는 기간입니다. 변경 전에 만든 세션은 만료 시점을 유지하며, 다음에 연장될 때 새 기간을 따릅니다.",
+          "extendSessions": "사용 중인 세션 연장",
+          "extendSessionsHint": "켜짐: 마지막 사용 후 {count}일 동안 유지됩니다. 꺼짐: 사용 여부와 관계없이 로그인 {count}일 후 종료됩니다.",
+          "signOutOnPasswordChange": "비밀번호 변경 시 모든 곳에서 로그아웃",
+          "signOutOnPasswordChangeHint": "비밀번호를 바꾸면 재설정과 마찬가지로 계정의 다른 세션을 끝내고 앱의 토큰을 폐기합니다. 꺼짐: 각자 선택합니다.",
+          "minPasswordLength": "최소 비밀번호 길이",
+          "minPasswordLengthHint": "새 비밀번호(가입, 재설정, 변경)에 적용됩니다. 기존 비밀번호는 계속 사용할 수 있습니다.",
+          "passwordSignUp": "비밀번호로 가입",
+          "passwordSignUpHint": "꺼짐: 더 이상 이메일과 비밀번호로 계정을 만들 수 없고, 소셜 제공자나 조직의 SSO로만 가능합니다. 관리자는 계속 계정을 만들 수 있으며 기존 비밀번호도 계속 사용할 수 있습니다.",
+          "dialogDescription": "인증 앱은 1분 이내에 적용합니다.",
+          "save": "저장",
+          "cancel": "취소",
+          "saved": "정책을 저장했습니다. 인증 앱은 1분 이내에 적용합니다.",
+          "errors": {
+            "invalid": "제공된 값 중 하나를 선택하세요.",
+            "save": "정책을 저장하지 못했습니다."
+          }
         }
       },
       "signingKeys": {

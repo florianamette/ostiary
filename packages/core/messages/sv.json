@@ -120,7 +120,7 @@
       "backToLogin": "Tillbaka till inloggningen",
       "newPasswordLabel": "Nytt lösenord",
       "confirmPasswordLabel": "Bekräfta lösenord",
-      "passwordHint": "Måste vara minst 8 tecken långt.",
+      "passwordHint": "Måste vara minst {min} tecken långt.",
       "passwordMismatch": "Lösenorden matchar inte",
       "submit": "Uppdatera lösenord",
       "submitting": "Uppdaterar…",
@@ -146,7 +146,7 @@
       "emailDescription": "Vi använder den för att kontakta dig. Vi delar inte din e-postadress med någon annan.",
       "passwordLabel": "Lösenord",
       "confirmPasswordLabel": "Bekräfta lösenord",
-      "passwordHint": "Måste vara minst 8 tecken långt.",
+      "passwordHint": "Måste vara minst {min} tecken långt.",
       "confirmPasswordHint": "Bekräfta ditt lösenord.",
       "passwordMismatch": "Lösenorden matchar inte",
       "submit": "Skapa konto",
@@ -161,7 +161,9 @@
         "usernameTooShort": "Användarnamnet måste vara minst 3 tecken.",
         "usernameInvalid": "Användarnamnet är inte giltigt.",
         "usernameTaken": "Användarnamnet är redan upptaget. Prova ett annat."
-      }
+      },
+      "passwordSignUpOff": "Registrering med lösenord är avstängd. Skapa ditt konto med något av dessa:",
+      "signUpClosed": "Nya konton kan inte skapas här. Be en administratör om ett konto."
     },
     "screen": {
       "headline": "Ett konto för <accent>alla dina appar</accent>.",
@@ -1932,6 +1934,9 @@
           },
           "audit_log": {
             "export_csv": "Exporterade granskningsloggen till CSV"
+          },
+          "security": {
+            "update_policy": "Ändrade policyn för sessioner och lösenord"
           }
         },
         "actorPlaceholder": "Sök på vem som agerade (e-post)…",
@@ -1977,6 +1982,33 @@
           "noReason": "Ingen anledning angiven",
           "until": "till {date}",
           "permanent": "permanent"
+        },
+        "policy": {
+          "title": "Sessioner och lösenord",
+          "description": "Hur länge man förblir inloggad i autentiseringsappen och hur lösenord väljs. Appar behåller sina egna token och uppdateringstoken.",
+          "edit": "Redigera",
+          "on": "På",
+          "off": "Av",
+          "days": "{count, plural, one {# dag} other {# dagar}}",
+          "characters": "{count, plural, one {# tecken} other {# tecken}}",
+          "sessionDays": "Sessionens livslängd",
+          "sessionDaysHint": "Hur länge en inloggning varar. Sessioner som skapats före en ändring behåller sitt utgångsdatum; de följer den nya livslängden när de förlängs nästa gång.",
+          "extendSessions": "Förläng sessioner som används",
+          "extendSessionsHint": "På: en session varar {count, plural, one {# dag} other {# dagar}} efter senaste användning. Av: den upphör {count, plural, one {# dag} other {# dagar}} efter inloggningen, använd eller inte.",
+          "signOutOnPasswordChange": "Logga ut överallt vid lösenordsbyte",
+          "signOutOnPasswordChangeHint": "Ett lösenordsbyte avslutar kontots andra sessioner och återkallar dess appars token, precis som en återställning. Av: var och en väljer.",
+          "minPasswordLength": "Minsta lösenordslängd",
+          "minPasswordLengthHint": "Gäller nya lösenord (registrering, återställning, byte). Befintliga lösenord fortsätter att fungera.",
+          "passwordSignUp": "Registrering med lösenord",
+          "passwordSignUpHint": "Av: det går inte längre att skapa ett konto med e-post och lösenord, bara med en social leverantör eller organisationens SSO. Administratörer kan fortfarande skapa konton och befintliga lösenord fortsätter att fungera.",
+          "dialogDescription": "Autentiseringsappen tillämpar dem inom en minut.",
+          "save": "Spara",
+          "cancel": "Avbryt",
+          "saved": "Policyn sparades. Autentiseringsappen tillämpar den inom en minut.",
+          "errors": {
+            "invalid": "Välj ett av de värden som erbjuds.",
+            "save": "Det gick inte att spara policyn."
+          }
         }
       },
       "signingKeys": {

@@ -120,7 +120,7 @@
       "backToLogin": "Volver a iniciar sesión",
       "newPasswordLabel": "Nueva contraseña",
       "confirmPasswordLabel": "Confirmar contraseña",
-      "passwordHint": "Debe tener al menos 8 caracteres.",
+      "passwordHint": "Debe tener al menos {min} caracteres.",
       "passwordMismatch": "Las contraseñas no coinciden",
       "submit": "Actualizar contraseña",
       "submitting": "Actualizando…",
@@ -146,7 +146,7 @@
       "emailDescription": "Lo usaremos para contactarte. No compartiremos tu correo electrónico con nadie.",
       "passwordLabel": "Contraseña",
       "confirmPasswordLabel": "Confirmar contraseña",
-      "passwordHint": "Debe tener al menos 8 caracteres.",
+      "passwordHint": "Debe tener al menos {min} caracteres.",
       "confirmPasswordHint": "Confirma tu contraseña.",
       "passwordMismatch": "Las contraseñas no coinciden",
       "submit": "Crear cuenta",
@@ -161,7 +161,9 @@
         "usernameTooShort": "El nombre de usuario debe tener al menos 3 caracteres.",
         "usernameInvalid": "Ese nombre de usuario no es válido.",
         "usernameTaken": "Ese nombre de usuario ya está en uso. Prueba con otro."
-      }
+      },
+      "passwordSignUpOff": "El registro con contraseña está desactivado. Crea tu cuenta con una de estas:",
+      "signUpClosed": "Aquí no se pueden crear cuentas nuevas. Pide una cuenta a un administrador."
     },
     "screen": {
       "headline": "Una cuenta para <accent>todas tus aplicaciones</accent>.",
@@ -1932,6 +1934,9 @@
           },
           "audit_log": {
             "export_csv": "Exportó el registro de auditoría a CSV"
+          },
+          "security": {
+            "update_policy": "Cambió la política de sesiones y contraseñas"
           }
         },
         "actorPlaceholder": "Buscar por quién actuó (correo)…",
@@ -1977,6 +1982,33 @@
           "noReason": "Sin motivo indicado",
           "until": "hasta el {date}",
           "permanent": "permanente"
+        },
+        "policy": {
+          "title": "Sesiones y contraseñas",
+          "description": "Cuánto tiempo sigue iniciada la sesión en la aplicación de autenticación y cómo se eligen las contraseñas. Las aplicaciones conservan sus propios tokens y tokens de actualización.",
+          "edit": "Editar",
+          "on": "Activado",
+          "off": "Desactivado",
+          "days": "{count, plural, one {# día} other {# días}}",
+          "characters": "{count, plural, one {# carácter} other {# caracteres}}",
+          "sessionDays": "Duración de la sesión",
+          "sessionDaysHint": "Cuánto dura un inicio de sesión. Las sesiones creadas antes de un cambio conservan su caducidad; siguen la nueva duración cuando se prolongan.",
+          "extendSessions": "Prolongar las sesiones en uso",
+          "extendSessionsHint": "Activado: una sesión dura {count, plural, one {# día} other {# días}} desde su último uso. Desactivado: termina {count, plural, one {# día} other {# días}} después del inicio de sesión, se use o no.",
+          "signOutOnPasswordChange": "Cerrar sesión en todas partes al cambiar la contraseña",
+          "signOutOnPasswordChangeHint": "Un cambio de contraseña cierra las demás sesiones de la cuenta y revoca los tokens de sus aplicaciones, como un restablecimiento. Desactivado: cada persona elige.",
+          "minPasswordLength": "Longitud mínima de la contraseña",
+          "minPasswordLengthHint": "Se aplica a las contraseñas nuevas (registro, restablecimiento, cambio). Las contraseñas existentes siguen funcionando.",
+          "passwordSignUp": "Registro con contraseña",
+          "passwordSignUpHint": "Desactivado: ya no se puede crear una cuenta con un correo y una contraseña, solo con un proveedor social o el SSO de la organización. Los administradores pueden seguir creando cuentas y las contraseñas existentes siguen funcionando.",
+          "dialogDescription": "La aplicación de autenticación los aplica en menos de un minuto.",
+          "save": "Guardar",
+          "cancel": "Cancelar",
+          "saved": "Política guardada. La aplicación de autenticación la aplica en menos de un minuto.",
+          "errors": {
+            "invalid": "Elige uno de los valores ofrecidos.",
+            "save": "No se pudo guardar la política."
+          }
         }
       },
       "signingKeys": {

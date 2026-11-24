@@ -5,6 +5,7 @@ import { and, eq } from "drizzle-orm";
 import { db } from "@ostiary/core/db/index";
 import * as schema from "@ostiary/core/db/schema";
 import { recordAudit } from "@ostiary/core/lib/audit";
+import { currentAuthPolicy, policySessionExpiry } from "@ostiary/core/lib/auth-policy";
 import { clientIp, recordAuthEvent } from "@ostiary/core/lib/auth-events";
 import { adminOnSignUp, adminOnVerification, fromIdentityProvider, parseAdminEmails } from "@ostiary/core/lib/admin/admin-emails";
 import { emailAliasTaken } from "@ostiary/core/lib/security/email-aliases";
@@ -122,11 +123,13 @@ export function databaseHooks() {
         session: {
             create: {
                 before: async (sess) => {
-                    if (sess.activeOrganizationId) return;
+                    // The policy's session lifetime (Better Auth only reads its own at start-up).
+                    const expiresAt = policySessionExpiry(new Date(sess.expiresAt), await currentAuthPolicy());
                     return {
                         data: {
                             ...sess,
-                            activeOrganizationId: PUBLIC_ORGANIZATION_ID,
+                            expiresAt,
+                            activeOrganizationId: sess.activeOrganizationId ?? PUBLIC_ORGANIZATION_ID,
                         },
                     };
                 },

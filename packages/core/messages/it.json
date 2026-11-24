@@ -120,7 +120,7 @@
       "backToLogin": "Torna all’accesso",
       "newPasswordLabel": "Nuova password",
       "confirmPasswordLabel": "Conferma password",
-      "passwordHint": "Deve contenere almeno 8 caratteri.",
+      "passwordHint": "Deve contenere almeno {min} caratteri.",
       "passwordMismatch": "Le password non corrispondono",
       "submit": "Aggiorna password",
       "submitting": "Aggiornamento…",
@@ -146,7 +146,7 @@
       "emailDescription": "La useremo per contattarti. Non condivideremo la tua email con nessun altro.",
       "passwordLabel": "Password",
       "confirmPasswordLabel": "Conferma password",
-      "passwordHint": "Deve contenere almeno 8 caratteri.",
+      "passwordHint": "Deve contenere almeno {min} caratteri.",
       "confirmPasswordHint": "Conferma la tua password.",
       "passwordMismatch": "Le password non corrispondono",
       "submit": "Crea account",
@@ -161,7 +161,9 @@
         "usernameTooShort": "Il nome utente deve contenere almeno 3 caratteri.",
         "usernameInvalid": "Questo nome utente non è valido.",
         "usernameTaken": "Questo nome utente è già in uso. Provane un altro."
-      }
+      },
+      "passwordSignUpOff": "La registrazione con password è disattivata. Crea il tuo account con uno di questi:",
+      "signUpClosed": "Qui non si possono creare nuovi account. Chiedi un account a un amministratore."
     },
     "screen": {
       "headline": "Un solo account per <accent>tutte le tue app</accent>.",
@@ -1932,6 +1934,9 @@
           },
           "audit_log": {
             "export_csv": "Registro di audit esportato in CSV"
+          },
+          "security": {
+            "update_policy": "Criterio di sessioni e password modificato"
           }
         },
         "actorPlaceholder": "Cerca per autore (email)…",
@@ -1977,6 +1982,33 @@
           "noReason": "Nessun motivo indicato",
           "until": "fino al {date}",
           "permanent": "permanente"
+        },
+        "policy": {
+          "title": "Sessioni e password",
+          "description": "Per quanto tempo si resta connessi all'app di autenticazione e come si scelgono le password. Le app conservano i propri token e token di aggiornamento.",
+          "edit": "Modifica",
+          "on": "Attivo",
+          "off": "Disattivo",
+          "days": "{count, plural, one {# giorno} other {# giorni}}",
+          "characters": "{count, plural, one {# carattere} other {# caratteri}}",
+          "sessionDays": "Durata della sessione",
+          "sessionDaysHint": "Quanto dura un accesso. Le sessioni create prima di una modifica mantengono la loro scadenza; seguono la nuova durata alla prossima proroga.",
+          "extendSessions": "Prolunga le sessioni in uso",
+          "extendSessionsHint": "Attivo: una sessione dura {count, plural, one {# giorno} other {# giorni}} dall'ultimo utilizzo. Disattivo: termina {count, plural, one {# giorno} other {# giorni}} dopo l'accesso, usata o no.",
+          "signOutOnPasswordChange": "Disconnetti ovunque al cambio password",
+          "signOutOnPasswordChangeHint": "Un cambio di password chiude le altre sessioni dell'account e revoca i token delle sue app, come un ripristino. Disattivo: sceglie ciascuno.",
+          "minPasswordLength": "Lunghezza minima della password",
+          "minPasswordLengthHint": "Si applica alle nuove password (registrazione, ripristino, modifica). Le password esistenti continuano a funzionare.",
+          "passwordSignUp": "Registrazione con password",
+          "passwordSignUpHint": "Disattivo: non si può più creare un account con email e password, solo con un provider social o con l'SSO della propria organizzazione. Gli admin possono ancora creare account e le password esistenti continuano a funzionare.",
+          "dialogDescription": "L'app di autenticazione le applica entro un minuto.",
+          "save": "Salva",
+          "cancel": "Annulla",
+          "saved": "Criterio salvato. L'app di autenticazione lo applica entro un minuto.",
+          "errors": {
+            "invalid": "Scegli uno dei valori proposti.",
+            "save": "Impossibile salvare il criterio."
+          }
         }
       },
       "signingKeys": {

@@ -120,7 +120,7 @@
       "backToLogin": "ログインに戻る",
       "newPasswordLabel": "新しいパスワード",
       "confirmPasswordLabel": "パスワードの確認",
-      "passwordHint": "8 文字以上で入力してください。",
+      "passwordHint": "{min} 文字以上で入力してください。",
       "passwordMismatch": "パスワードが一致しません",
       "submit": "パスワードを更新",
       "submitting": "更新中…",
@@ -146,7 +146,7 @@
       "emailDescription": "ご連絡のために使用します。メールアドレスを第三者と共有することはありません。",
       "passwordLabel": "パスワード",
       "confirmPasswordLabel": "パスワードの確認",
-      "passwordHint": "8 文字以上で入力してください。",
+      "passwordHint": "{min} 文字以上で入力してください。",
       "confirmPasswordHint": "確認のためパスワードをもう一度入力してください。",
       "passwordMismatch": "パスワードが一致しません",
       "submit": "アカウントを作成",
@@ -161,7 +161,9 @@
         "usernameTooShort": "ユーザー名は 3 文字以上で入力してください。",
         "usernameInvalid": "このユーザー名は無効です。",
         "usernameTaken": "このユーザー名はすでに使用されています。別のユーザー名をお試しください。"
-      }
+      },
+      "passwordSignUpOff": "パスワードでの登録はオフです。次のいずれかでアカウントを作成してください：",
+      "signUpClosed": "ここでは新しいアカウントを作成できません。管理者にアカウントを依頼してください。"
     },
     "screen": {
       "headline": "<accent>すべてのアプリ</accent>をひとつのアカウントで。",
@@ -1932,6 +1934,9 @@
           },
           "audit_log": {
             "export_csv": "監査ログを CSV にエクスポート"
+          },
+          "security": {
+            "update_policy": "セッションとパスワードのポリシーを変更"
           }
         },
         "actorPlaceholder": "実行者（メール）で検索…",
@@ -1977,6 +1982,33 @@
           "noReason": "理由なし",
           "until": "{date} まで",
           "permanent": "無期限"
+        },
+        "policy": {
+          "title": "セッションとパスワード",
+          "description": "認証アプリにサインインしたままでいられる期間と、パスワードの決め方。アプリは独自のトークンとリフレッシュトークンを保持します。",
+          "edit": "編集",
+          "on": "オン",
+          "off": "オフ",
+          "days": "{count} 日",
+          "characters": "{count} 文字",
+          "sessionDays": "セッションの有効期間",
+          "sessionDaysHint": "サインインが続く期間。変更前に作成されたセッションは有効期限を保持し、次回の延長時に新しい期間に従います。",
+          "extendSessions": "使用中のセッションを延長",
+          "extendSessionsHint": "オン：最後に使用してから {count} 日間有効です。オフ：使用の有無にかかわらず、サインインから {count} 日で終了します。",
+          "signOutOnPasswordChange": "パスワード変更時にすべてサインアウト",
+          "signOutOnPasswordChangeHint": "パスワードを変更すると、リセット時と同様に、アカウントの他のセッションを終了し、アプリのトークンを失効させます。オフ：各自が選びます。",
+          "minPasswordLength": "パスワードの最小文字数",
+          "minPasswordLengthHint": "新しいパスワード（登録・リセット・変更）に適用されます。既存のパスワードは引き続き使えます。",
+          "passwordSignUp": "パスワードでの登録",
+          "passwordSignUpHint": "オフ：メールアドレスとパスワードではアカウントを作成できなくなり、ソーシャルプロバイダーか組織の SSO のみになります。管理者は引き続きアカウントを作成でき、既存のパスワードも使えます。",
+          "dialogDescription": "認証アプリは 1 分以内に適用します。",
+          "save": "保存",
+          "cancel": "キャンセル",
+          "saved": "ポリシーを保存しました。認証アプリは 1 分以内に適用します。",
+          "errors": {
+            "invalid": "表示されている値から選んでください。",
+            "save": "ポリシーを保存できませんでした。"
+          }
         }
       },
       "signingKeys": {

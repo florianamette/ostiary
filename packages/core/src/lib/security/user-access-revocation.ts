@@ -4,7 +4,7 @@ import { recordAudit } from "@ostiary/core/lib/audit";
 import { revokeUserOAuthTokens } from "@ostiary/core/lib/security/oauth-token-revocation";
 
 /** Why an account's access to apps is ended. */
-export type AccessRevocationReason = "banned" | "scim_deactivated" | "password_reset";
+export type AccessRevocationReason = "banned" | "scim_deactivated" | "password_reset" | "password_change";
 
 /**
  * Ends what an account's apps and scripts hold once it is banned, deactivated by SCIM or its
@@ -24,7 +24,7 @@ export async function revokeUserAccess(
   if (tokens.accessTokens + tokens.refreshTokens > 0) {
     await recordAudit({ actor, action: "oauth_token.revoke_all", target, metadata: { reason, ...tokens }, ipAddress });
   }
-  if (reason === "password_reset") return { ...tokens, apiKeys: 0 };
+  if (reason === "password_reset" || reason === "password_change") return { ...tokens, apiKeys: 0 };
   // Only the person's own keys: their organizations' keys belong to the organizations.
   const apiKeys = await deleteUserApiKeys(user.id);
   if (apiKeys > 0) {

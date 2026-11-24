@@ -16,14 +16,19 @@ import { Input } from "@ostiary/core/components/ui/input";
 import { authClient } from "@/lib/auth-client";
 import { useAuthErrorMessage } from "@/lib/auth-error-message";
 
-const MIN_PASSWORD_LENGTH = 8;
 
 type DashboardChangePasswordFormProps = {
   onPasswordChanged?: () => void;
+  /** The policy's minimum (admin console, Security). */
+  minPasswordLength?: number;
+  /** The policy signs the account out everywhere on a password change: the box is ticked and fixed. */
+  signOutForced?: boolean;
 };
 
 export function DashboardChangePasswordForm({
   onPasswordChanged,
+  minPasswordLength: MIN_PASSWORD_LENGTH = 8,
+  signOutForced = false,
 }: DashboardChangePasswordFormProps) {
   const t = useTranslations("dashboard.security");
   const errorMessage = useAuthErrorMessage();
@@ -31,7 +36,8 @@ export function DashboardChangePasswordForm({
   const [currentPassword, setCurrentPassword] = React.useState("");
   const [newPassword, setNewPassword] = React.useState("");
   const [confirmPassword, setConfirmPassword] = React.useState("");
-  const [revokeOtherSessions, setRevokeOtherSessions] = React.useState(false);
+  const [revokeOthersChoice, setRevokeOtherSessions] = React.useState(false);
+  const revokeOtherSessions = signOutForced || revokeOthersChoice;
   const [passwordPending, setPasswordPending] = React.useState(false);
 
   async function handleSubmit(e: React.FormEvent) {
@@ -151,7 +157,7 @@ export function DashboardChangePasswordForm({
               className="mt-1 size-4 shrink-0 rounded border border-input accent-primary"
               checked={revokeOtherSessions}
               onChange={(e) => setRevokeOtherSessions(e.target.checked)}
-              disabled={passwordPending}
+              disabled={passwordPending || signOutForced}
             />
             <div className="min-w-0 space-y-1">
               <FieldLabel

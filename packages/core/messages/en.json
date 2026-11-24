@@ -120,7 +120,7 @@
       "backToLogin": "Back to login",
       "newPasswordLabel": "New password",
       "confirmPasswordLabel": "Confirm password",
-      "passwordHint": "Must be at least 8 characters long.",
+      "passwordHint": "Must be at least {min} characters long.",
       "passwordMismatch": "Passwords do not match",
       "submit": "Update password",
       "submitting": "Updating…",
@@ -146,7 +146,7 @@
       "emailDescription": "We'll use this to contact you. We will not share your email with anyone else.",
       "passwordLabel": "Password",
       "confirmPasswordLabel": "Confirm Password",
-      "passwordHint": "Must be at least 8 characters long.",
+      "passwordHint": "Must be at least {min} characters long.",
       "confirmPasswordHint": "Please confirm your password.",
       "passwordMismatch": "Passwords do not match",
       "submit": "Create Account",
@@ -161,7 +161,9 @@
         "usernameTooShort": "Username must be at least 3 characters.",
         "usernameInvalid": "That username is not valid.",
         "usernameTaken": "That username is already taken. Try another."
-      }
+      },
+      "passwordSignUpOff": "Sign-up with a password is off. Create your account with one of these:",
+      "signUpClosed": "New accounts cannot be created here. Ask an administrator for an account."
     },
     "screen": {
       "headline": "One account for <accent>all your apps</accent>.",
@@ -1932,6 +1934,9 @@
           },
           "audit_log": {
             "export_csv": "Exported audit log to CSV"
+          },
+          "security": {
+            "update_policy": "Changed the session and password policy"
           }
         },
         "actorPlaceholder": "Search by who acted (email)…",
@@ -1977,6 +1982,33 @@
           "noReason": "No reason given",
           "until": "until {date}",
           "permanent": "permanent"
+        },
+        "policy": {
+          "title": "Sessions and passwords",
+          "description": "How long people stay signed in to the auth app and how passwords are chosen. Apps keep their own tokens and refresh tokens.",
+          "edit": "Edit",
+          "on": "On",
+          "off": "Off",
+          "days": "{count, plural, one {# day} other {# days}}",
+          "characters": "{count, plural, one {# character} other {# characters}}",
+          "sessionDays": "Session lifetime",
+          "sessionDaysHint": "How long a sign-in lasts. Sessions created before a change keep their expiry; they follow the new lifetime when next extended.",
+          "extendSessions": "Extend sessions while in use",
+          "extendSessionsHint": "On: a session lasts {count, plural, one {# day} other {# days}} after it was last used. Off: it ends {count, plural, one {# day} other {# days}} after sign-in, used or not.",
+          "signOutOnPasswordChange": "Sign out everywhere on a password change",
+          "signOutOnPasswordChangeHint": "A password change ends the account's other sessions and revokes its apps' tokens, as a password reset does. Off: people choose.",
+          "minPasswordLength": "Minimum password length",
+          "minPasswordLengthHint": "Applies to new passwords (sign-up, reset, change). Existing passwords keep working.",
+          "passwordSignUp": "Password sign-up",
+          "passwordSignUpHint": "Off: people can no longer create an account with an email and a password, only with a social provider or their organization's SSO. Admins can still create accounts, and existing passwords keep working.",
+          "dialogDescription": "The auth app applies these within a minute.",
+          "save": "Save",
+          "cancel": "Cancel",
+          "saved": "Policy saved. The auth app applies it within a minute.",
+          "errors": {
+            "invalid": "Choose one of the values offered.",
+            "save": "Could not save the policy."
+          }
         }
       },
       "signingKeys": {

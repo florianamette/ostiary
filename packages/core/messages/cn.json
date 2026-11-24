@@ -120,7 +120,7 @@
       "backToLogin": "返回登录",
       "newPasswordLabel": "新密码",
       "confirmPasswordLabel": "确认密码",
-      "passwordHint": "至少 8 个字符。",
+      "passwordHint": "至少 {min} 个字符。",
       "passwordMismatch": "两次密码不一致",
       "submit": "更新密码",
       "submitting": "正在更新…",
@@ -146,7 +146,7 @@
       "emailDescription": "我们将用此邮箱联系您，不会与他人共享。",
       "passwordLabel": "密码",
       "confirmPasswordLabel": "确认密码",
-      "passwordHint": "至少 8 个字符。",
+      "passwordHint": "至少 {min} 个字符。",
       "confirmPasswordHint": "请再次输入密码。",
       "passwordMismatch": "两次密码不一致",
       "submit": "创建账户",
@@ -161,7 +161,9 @@
         "usernameTooShort": "用户名至少需要 3 个字符。",
         "usernameInvalid": "用户名无效。",
         "usernameTaken": "该用户名已被占用，请换一个。"
-      }
+      },
+      "passwordSignUpOff": "已关闭使用密码注册。请使用以下方式之一创建账户：",
+      "signUpClosed": "此处无法创建新账户。请向管理员申请账户。"
     },
     "screen": {
       "headline": "一个账户，<accent>畅通所有应用</accent>。",
@@ -1932,6 +1934,9 @@
           },
           "audit_log": {
             "export_csv": "将审计日志导出为 CSV"
+          },
+          "security": {
+            "update_policy": "更改了会话与密码策略"
           }
         },
         "actorPlaceholder": "按操作者（邮箱）搜索…",
@@ -1977,6 +1982,33 @@
           "noReason": "未提供原因",
           "until": "至 {date}",
           "permanent": "永久"
+        },
+        "policy": {
+          "title": "会话与密码",
+          "description": "用户在认证应用中保持登录的时长，以及密码的设置规则。各应用保留自己的令牌和刷新令牌。",
+          "edit": "编辑",
+          "on": "开启",
+          "off": "关闭",
+          "days": "{count} 天",
+          "characters": "{count} 个字符",
+          "sessionDays": "会话有效期",
+          "sessionDaysHint": "一次登录持续多久。更改前创建的会话保留其到期时间；下次续期时按新的有效期计算。",
+          "extendSessions": "使用中的会话自动续期",
+          "extendSessionsHint": "开启：会话在最后一次使用后持续 {count} 天。关闭：无论是否使用，会话在登录 {count} 天后结束。",
+          "signOutOnPasswordChange": "更改密码时在所有设备上退出",
+          "signOutOnPasswordChangeHint": "更改密码会结束该账户的其他会话并吊销其应用的令牌，与重置密码相同。关闭：由用户自行选择。",
+          "minPasswordLength": "最短密码长度",
+          "minPasswordLengthHint": "适用于新密码（注册、重置、更改）。现有密码继续有效。",
+          "passwordSignUp": "使用密码注册",
+          "passwordSignUpHint": "关闭：不能再用邮箱和密码创建账户，只能通过社交登录或组织的 SSO。管理员仍可创建账户，现有密码继续有效。",
+          "dialogDescription": "认证应用会在一分钟内应用这些设置。",
+          "save": "保存",
+          "cancel": "取消",
+          "saved": "策略已保存。认证应用会在一分钟内应用。",
+          "errors": {
+            "invalid": "请选择提供的值之一。",
+            "save": "无法保存策略。"
+          }
         }
       },
       "signingKeys": {

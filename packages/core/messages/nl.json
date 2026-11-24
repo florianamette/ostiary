@@ -120,7 +120,7 @@
       "backToLogin": "Terug naar inloggen",
       "newPasswordLabel": "Nieuw wachtwoord",
       "confirmPasswordLabel": "Wachtwoord bevestigen",
-      "passwordHint": "Moet minimaal 8 tekens lang zijn.",
+      "passwordHint": "Moet minimaal {min} tekens lang zijn.",
       "passwordMismatch": "Wachtwoorden komen niet overeen",
       "submit": "Wachtwoord bijwerken",
       "submitting": "Bijwerken…",
@@ -146,7 +146,7 @@
       "emailDescription": "We gebruiken dit om contact met je op te nemen. We delen je e-mailadres met niemand anders.",
       "passwordLabel": "Wachtwoord",
       "confirmPasswordLabel": "Wachtwoord bevestigen",
-      "passwordHint": "Moet minimaal 8 tekens lang zijn.",
+      "passwordHint": "Moet minimaal {min} tekens lang zijn.",
       "confirmPasswordHint": "Bevestig je wachtwoord.",
       "passwordMismatch": "Wachtwoorden komen niet overeen",
       "submit": "Account aanmaken",
@@ -161,7 +161,9 @@
         "usernameTooShort": "Gebruikersnaam moet minimaal 3 tekens lang zijn.",
         "usernameInvalid": "Die gebruikersnaam is niet geldig.",
         "usernameTaken": "Die gebruikersnaam is al in gebruik. Probeer een andere."
-      }
+      },
+      "passwordSignUpOff": "Registreren met een wachtwoord staat uit. Maak je account aan met een van deze:",
+      "signUpClosed": "Hier kunnen geen nieuwe accounts worden aangemaakt. Vraag een beheerder om een account."
     },
     "screen": {
       "headline": "Eén account voor <accent>al je apps</accent>.",
@@ -1932,6 +1934,9 @@
           },
           "audit_log": {
             "export_csv": "Auditlogboek geëxporteerd naar CSV"
+          },
+          "security": {
+            "update_policy": "Sessie- en wachtwoordbeleid gewijzigd"
           }
         },
         "actorPlaceholder": "Zoeken op wie het deed (e-mail)…",
@@ -1977,6 +1982,33 @@
           "noReason": "Geen reden opgegeven",
           "until": "tot {date}",
           "permanent": "permanent"
+        },
+        "policy": {
+          "title": "Sessies en wachtwoorden",
+          "description": "Hoe lang mensen aangemeld blijven bij de auth-app en hoe wachtwoorden worden gekozen. Apps houden hun eigen tokens en refresh-tokens.",
+          "edit": "Bewerken",
+          "on": "Aan",
+          "off": "Uit",
+          "days": "{count, plural, one {# dag} other {# dagen}}",
+          "characters": "{count, plural, one {# teken} other {# tekens}}",
+          "sessionDays": "Sessieduur",
+          "sessionDaysHint": "Hoe lang een aanmelding geldig is. Sessies van vóór een wijziging houden hun vervaldatum; bij de volgende verlenging geldt de nieuwe duur.",
+          "extendSessions": "Sessies verlengen bij gebruik",
+          "extendSessionsHint": "Aan: een sessie duurt {count, plural, one {# dag} other {# dagen}} na het laatste gebruik. Uit: ze eindigt {count, plural, one {# dag} other {# dagen}} na de aanmelding, gebruikt of niet.",
+          "signOutOnPasswordChange": "Overal afmelden bij wachtwoordwijziging",
+          "signOutOnPasswordChangeHint": "Een wachtwoordwijziging beëindigt de andere sessies van het account en trekt de tokens van zijn apps in, zoals een reset. Uit: ieder kiest zelf.",
+          "minPasswordLength": "Minimale wachtwoordlengte",
+          "minPasswordLengthHint": "Geldt voor nieuwe wachtwoorden (registratie, reset, wijziging). Bestaande wachtwoorden blijven werken.",
+          "passwordSignUp": "Registratie met wachtwoord",
+          "passwordSignUpHint": "Uit: een account kan niet meer worden aangemaakt met e-mail en wachtwoord, alleen met een sociale provider of de SSO van de organisatie. Beheerders kunnen nog steeds accounts aanmaken en bestaande wachtwoorden blijven werken.",
+          "dialogDescription": "De auth-app past ze binnen een minuut toe.",
+          "save": "Opslaan",
+          "cancel": "Annuleren",
+          "saved": "Beleid opgeslagen. De auth-app past het binnen een minuut toe.",
+          "errors": {
+            "invalid": "Kies een van de aangeboden waarden.",
+            "save": "Het beleid kon niet worden opgeslagen."
+          }
         }
       },
       "signingKeys": {
