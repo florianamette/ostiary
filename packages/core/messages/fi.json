@@ -576,6 +576,8 @@
           "allowedScopesHint": "Lisää openid kirjautumista varten ja offline_access päivitystokeneita varten.",
           "iconUrlLabel": "Kuvakkeen URL",
           "iconUrlHint": "Näytetään sovellukselle konsolissa, suostumusnäkymässä ja käyttäjien tileillä. Hyödyllinen sovelluksille, jotka ohjaavat vain localhostiin. https, PNG/JPEG/WebP/AVIF/GIF/ICO/SVG.",
+          "clientIdLabel": "Asiakastunnus (valinnainen)",
+          "clientIdHint": "Jätä tyhjäksi, niin tunnus luodaan. Jos sovellus siirretään toiselta palveluntarjoajalta, anna sen nykyinen asiakastunnus, jotta se toimii ennallaan: 3–128 kirjainta, numeroa, pistettä, alaviivaa tai yhdysmerkkiä.",
           "deviceCodeLabel": "Laitekirjautuminen (CLI:t, televisiot)",
           "deviceCodeHint": "Lisää device code -grantin (RFC 8628): sovellus näyttää koodin, ja käyttäjä hyväksyy sen osoitteessa <code>{path}</code> toisella näytöllä. Yleensä julkinen asiakas.",
           "endSessionLabel": "Uloskirjautuminen sovelluksesta (RP-initiated logout)",

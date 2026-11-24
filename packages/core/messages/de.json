@@ -576,6 +576,8 @@
           "allowedScopesHint": "Für die Anmeldung openid einschließen, für Refresh-Tokens offline_access.",
           "iconUrlLabel": "Symbol-URL",
           "iconUrlHint": "Wird für die App in der Konsole, auf dem Zustimmungsbildschirm und in den Konten der Nutzer angezeigt. Nützlich für Apps, die nur auf localhost weiterleiten. https, PNG/JPEG/WebP/AVIF/GIF/ICO/SVG.",
+          "clientIdLabel": "Client-ID (optional)",
+          "clientIdHint": "Leer lassen, um eine zu erzeugen. Für eine App von einem anderen Anbieter ihre bisherige Client-ID eingeben, damit sie unverändert weiterläuft: 3 bis 128 Buchstaben, Ziffern, Punkte, Unterstriche oder Bindestriche.",
           "deviceCodeLabel": "Geräteanmeldung (CLIs, TVs)",
           "deviceCodeHint": "Fügt den Device-Code-Grant hinzu (RFC 8628): Die App zeigt einen Code an, und der Benutzer bestätigt ihn unter <code>{path}</code> auf einem anderen Bildschirm. Meist ein öffentlicher Client.",
           "endSessionLabel": "Abmeldung aus der App (RP-initiated Logout)",

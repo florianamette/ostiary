@@ -8,6 +8,10 @@ All notable changes are documented here. The format follows
 
 ### Added
 
+- An app's client ID can be chosen when it is registered in the admin console (**Client ID**,
+  optional), so an app moved from Auth0, Keycloak, Cognito or another provider keeps its ID:
+  3 to 128 letters, digits, `.`, `_` or `-`, unique. Left empty, Better Auth generates one as
+  before. Only the admin console can choose it, not Dynamic Client Registration.
 - OpenAPI schema of the auth endpoints (Better Auth's `openAPI` plugin), committed as
   `apps/auth/openapi.json` for the API reference on ostiary.dev and served at
   `/api/auth/open-api/generate-schema` outside production, or with

@@ -4,6 +4,7 @@ import { auth } from "@/lib/auth";
 import { db } from "@ostiary/core/db/index";
 import { oauthClient, oauthClientResource, oauthResource } from "@ostiary/core/db/schema";
 import { markAdminRegisteredClient } from "@ostiary/core/lib/client-registration";
+import { withRequestedClientId } from "@ostiary/core/lib/admin/oauth-clients/requested-client-id";
 import {
   deviceCodeUpdateError,
   withDeviceCodeGrant,
@@ -60,15 +61,24 @@ async function discardClient(clientId: unknown) {
  * APIs page's links). Better Auth gives it the platform's reference (see `clientReference`),
  * so every admin, and only admins, can manage it. A client without the authorization_code
  * grant (machine-to-machine) is sent without redirect URIs: Better Auth only requires them for
- * that grant. Caller must already enforce admin session (e.g. route guard).
+ * that grant. `input.client_id`, when set, becomes the client's ID (see requested-client-id.ts).
+ * Caller must already enforce admin session (e.g. route guard).
  */
 export async function createOAuthClientForAdmin(
   requestHeaders: Headers,
   input: CreateOAuthClientAdminInput,
 ): Promise<OAuthClientAdminPayload> {
+  if (input.client_id) {
+    const [taken] = await db
+      .select({ clientId: oauthClient.clientId })
+      .from(oauthClient)
+      .where(eq(oauthClient.clientId, input.client_id))
+      .limit(1);
+    if (taken) throw new BadRequestError("An app already has this client ID.");
+  }
   let data: OAuthClientAdminPayload;
   try {
-    data = (await auth.api.adminCreateOAuthClient({
+    data = (await withRequestedClientId(input.client_id, () => auth.api.adminCreateOAuthClient({
       headers: requestHeaders,
       body: {
         ...(input.redirect_uris.length ? { redirect_uris: input.redirect_uris } : {}),
@@ -90,7 +100,7 @@ export async function createOAuthClientForAdmin(
         ...(input.policy_uri ? { policy_uri: input.policy_uri } : {}),
         ...(input.tos_uri ? { tos_uri: input.tos_uri } : {}),
       },
-    })) as unknown as OAuthClientAdminPayload;
+    }))) as unknown as OAuthClientAdminPayload;
   } catch (e) {
     throwFromBetterAuthCall(e);
   }

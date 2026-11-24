@@ -576,6 +576,8 @@
           "allowedScopesHint": "Includi openid per l’accesso e offline_access per i refresh token.",
           "iconUrlLabel": "URL dell’icona",
           "iconUrlHint": "Mostrata per l’app nella console, nella schermata di consenso e negli account degli utenti. Utile per le app che reindirizzano solo a localhost. https, PNG/JPEG/WebP/AVIF/GIF/ICO/SVG.",
+          "clientIdLabel": "ID client (facoltativo)",
+          "clientIdHint": "Lascia vuoto per generarne uno. Per un'app proveniente da un altro provider, inserisci il suo ID client attuale perché continui a funzionare senza modifiche: da 3 a 128 lettere, cifre, punti, trattini bassi o trattini.",
           "deviceCodeLabel": "Accesso da dispositivo (CLI, TV)",
           "deviceCodeHint": "Aggiunge il grant device code (RFC 8628): l’app mostra un codice e l’utente lo approva su <code>{path}</code> da un altro schermo. Di solito un client pubblico.",
           "endSessionLabel": "Disconnessione dall’app (RP-initiated logout)",

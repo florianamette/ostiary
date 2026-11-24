@@ -576,6 +576,8 @@
           "allowedScopesHint": "Include openid for sign-in, and offline_access for refresh tokens.",
           "iconUrlLabel": "Icon URL",
           "iconUrlHint": "Shown for the app in the console, on the consent screen and in users' accounts. Useful for apps that only redirect to localhost. https, PNG/JPEG/WebP/AVIF/GIF/ICO/SVG.",
+          "clientIdLabel": "Client ID (optional)",
+          "clientIdHint": "Leave empty to generate one. For an app moved from another provider, enter its current client ID so it keeps working unchanged: 3 to 128 letters, digits, dots, underscores or hyphens.",
           "deviceCodeLabel": "Device sign-in (CLIs, TVs)",
           "deviceCodeHint": "Adds the device code grant (RFC 8628): the app shows a code and the user approves it at <code>{path}</code> on another screen. Usually a public client.",
           "endSessionLabel": "Sign-out from the app (RP-initiated logout)",

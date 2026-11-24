@@ -576,6 +576,8 @@
           "allowedScopesHint": "Pro přihlášení zahrňte openid a pro obnovovací tokeny offline_access.",
           "iconUrlLabel": "URL ikony",
           "iconUrlHint": "Zobrazuje se u aplikace v konzoli, na obrazovce souhlasu a v účtech uživatelů. Užitečné pro aplikace, které přesměrovávají jen na localhost. https, PNG/JPEG/WebP/AVIF/GIF/ICO/SVG.",
+          "clientIdLabel": "ID klienta (volitelné)",
+          "clientIdHint": "Ponechte prázdné a vygeneruje se. U aplikace převáděné od jiného poskytovatele zadejte její současné ID klienta, aby fungovala beze změn: 3 až 128 písmen, číslic, teček, podtržítek nebo pomlček.",
           "deviceCodeLabel": "Přihlášení zařízení (CLI, televize)",
           "deviceCodeHint": "Přidá grant device code (RFC 8628): aplikace zobrazí kód a uživatel ho schválí na <code>{path}</code> na jiné obrazovce. Obvykle veřejný klient.",
           "endSessionLabel": "Odhlášení z aplikace (RP-initiated logout)",

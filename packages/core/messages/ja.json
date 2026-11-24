@@ -576,6 +576,8 @@
           "allowedScopesHint": "サインインには openid、リフレッシュトークンには offline_access を含めてください。",
           "iconUrlLabel": "アイコンの URL",
           "iconUrlHint": "コンソール、同意画面、ユーザーのアカウントでこのアプリに表示されます。localhost にのみリダイレクトするアプリに便利です。https、PNG/JPEG/WebP/AVIF/GIF/ICO/SVG。",
+          "clientIdLabel": "クライアント ID（任意）",
+          "clientIdHint": "空欄にすると自動で生成されます。別のプロバイダーから移行するアプリでは、現在のクライアント ID を入力すると変更なしで動作し続けます。英数字、ドット、アンダースコア、ハイフンで 3〜128 文字。",
           "deviceCodeLabel": "デバイスサインイン（CLI、テレビ）",
           "deviceCodeHint": "デバイスコードグラント（RFC 8628）を追加します。アプリがコードを表示し、ユーザーが別の画面の <code>{path}</code> で承認します。通常はパブリッククライアントです。",
           "endSessionLabel": "アプリからのサインアウト（RP-initiated logout）",

@@ -105,6 +105,8 @@ export function AdminRegisterOAuthClientDialog({
   const [open, setOpen] = React.useState(false);
   const [step, setStep] = React.useState<"form" | "success">("form");
   const [clientName, setClientName] = React.useState("");
+  // Empty: Better Auth generates one. Set for an app moved from another provider.
+  const [customClientId, setCustomClientId] = React.useState("");
   const [redirectUrisRaw, setRedirectUrisRaw] = React.useState("");
   const [logoUri, setLogoUri] = React.useState("");
   const [clientKind, setClientKind] = React.useState<ClientKind>("confidential");
@@ -124,6 +126,7 @@ export function AdminRegisterOAuthClientDialog({
   function reset() {
     setStep("form");
     setClientName("");
+    setCustomClientId("");
     setRedirectUrisRaw("");
     setLogoUri("");
     setClientKind("confidential");
@@ -143,6 +146,7 @@ export function AdminRegisterOAuthClientDialog({
     setFormError(null);
     const common = {
       client_name: clientName.trim() || undefined,
+      client_id: customClientId.trim() || undefined,
       logo_uri: logoUri.trim() || undefined,
     };
     let body: Record<string, unknown>;
@@ -332,6 +336,18 @@ export function AdminRegisterOAuthClientDialog({
                   onChange={(e) => setLogoUri(e.target.value)}
                 />
                 <p className="text-muted-foreground text-xs">{t("iconUrlHint")}</p>
+              </Field>
+              <Field>
+                <FieldLabel htmlFor="oauth-reg-client-id">{t("clientIdLabel")}</FieldLabel>
+                <Input
+                  id="oauth-reg-client-id"
+                  autoComplete="off"
+                  spellCheck={false}
+                  maxLength={128}
+                  value={customClientId}
+                  onChange={(e) => setCustomClientId(e.target.value)}
+                />
+                <p className="text-muted-foreground text-xs">{t("clientIdHint")}</p>
               </Field>
               {clientKind === "machine" ? null : (
                 <>

@@ -30,6 +30,8 @@ export type CreateOAuthClientAdminInput = {
   /** Required with the authorization_code grant; empty for a client that signs no user in. */
   redirect_uris: string[];
   client_name?: string;
+  /** Chosen by the admin, for an app moved from another provider; generated when left out. */
+  client_id?: string;
   token_endpoint_auth_method: TokenEndpointAuthMethod;
   grant_types: OAuthGrantType[];
   /** ["code"] with the authorization_code grant, [] for machine-only clients. */

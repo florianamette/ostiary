@@ -48,6 +48,7 @@ import { implicitLinkRefusal } from "@ostiary/core/lib/security/account-linking-
 import { isStrictSsoDomain, SSO_DOMAIN_TOKEN_PREFIX } from "@ostiary/core/lib/security/sso-domain";
 import { OAUTH_TOKEN_PREFIXES } from "@ostiary/core/lib/oauth-token-prefixes";
 import { OPENAPI_SCHEMA_PATH, openApiSchemaEnabled } from "@ostiary/core/lib/openapi";
+import { generateClientId } from "@ostiary/core/lib/admin/oauth-clients/requested-client-id";
 import { brand } from "@ostiary/core/lib/brand";
 import { getPasskeyWebAuthnOptions } from "@ostiary/core/lib/passkey-options";
 import { env } from "@ostiary/core/lib/env";
@@ -329,6 +330,8 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
     const provider = oauthProvider({
         loginPage: "/login",
         consentPage: "/consent",
+        // Better Auth's default, or the ID an admin chose for an app moved from another provider.
+        generateClientId,
         // Self-registration (Dynamic Client Registration / MCP, metadata documents) is off here and
         // set from the admin console's settings before each request, see syncClientRegistration.
         // The discovery documents are served (from these options) before that first per-request

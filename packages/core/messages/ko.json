@@ -576,6 +576,8 @@
           "allowedScopesHint": "로그인에는 openid를, 리프레시 토큰에는 offline_access를 포함하세요.",
           "iconUrlLabel": "아이콘 URL",
           "iconUrlHint": "콘솔, 동의 화면, 사용자 계정에서 앱에 표시됩니다. localhost로만 리디렉션하는 앱에 유용합니다. https, PNG/JPEG/WebP/AVIF/GIF/ICO/SVG.",
+          "clientIdLabel": "클라이언트 ID(선택)",
+          "clientIdHint": "비워 두면 자동으로 생성됩니다. 다른 제공자에서 옮겨 오는 앱이라면 현재 클라이언트 ID를 입력해 변경 없이 계속 작동하게 하세요. 영문자, 숫자, 점, 밑줄 또는 하이픈 3~128자.",
           "deviceCodeLabel": "기기 로그인(CLI, TV)",
           "deviceCodeHint": "기기 코드 그랜트(RFC 8628)를 추가합니다. 앱이 코드를 표시하면 사용자가 다른 화면의 <code>{path}</code>에서 승인합니다. 보통 공개 클라이언트입니다.",
           "endSessionLabel": "앱에서 로그아웃 (RP-initiated logout)",
