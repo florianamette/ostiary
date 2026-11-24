@@ -2001,7 +2001,10 @@
           "graceHint": "Quanto tempo uma chave retirada continua publicada. Mantenha-o acima da duração máxima dos seus tokens (tokens de acesso: 1 hora, tokens de ID: 1 hora).",
           "save": "Guardar",
           "cancel": "Cancelar",
-          "saved": "Definições guardadas. O servidor de autenticação aplica-as em menos de um minuto."
+          "saved": "Definições guardadas. O servidor de autenticação aplica-as em menos de um minuto.",
+          "algorithm": "Algoritmo de assinatura",
+          "algorithmHint": "O predefinido é EdDSA (Ed25519). Escolha ES256 ou RS256 para APIs e gateways que só verificam esses, como o AWS API Gateway ou o Azure API Management. Alterá-lo cria já uma chave com o novo algoritmo; a chave atual continua publicada durante o período de tolerância.",
+          "savedAlgorithm": "Definições guardadas. Os novos tokens são assinados com {alg} (chave {kid})."
         },
         "keys": {
           "title": "Chaves",
@@ -2033,7 +2036,8 @@
           "interval": "Escolha um dos intervalos de rotação disponíveis.",
           "grace": "Escolha um dos períodos de tolerância disponíveis.",
           "save": "Não foi possível guardar as definições.",
-          "rotate": "Não foi possível rodar a chave."
+          "rotate": "Não foi possível rodar a chave.",
+          "algorithm": "Escolha um dos algoritmos disponíveis."
         }
       },
       "organizations": {

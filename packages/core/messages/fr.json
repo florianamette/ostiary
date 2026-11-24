@@ -2001,7 +2001,10 @@
           "graceHint": "Durée pendant laquelle une clé retirée reste publiée. Prévoyez plus que la durée de vie de jeton la plus longue (jetons d’accès : 1 heure, jetons d’ID : 1 heure).",
           "save": "Enregistrer",
           "cancel": "Annuler",
-          "saved": "Paramètres enregistrés. Le serveur d’authentification les applique en moins d’une minute."
+          "saved": "Paramètres enregistrés. Le serveur d’authentification les applique en moins d’une minute.",
+          "algorithm": "Algorithme de signature",
+          "algorithmHint": "EdDSA (Ed25519) par défaut. Choisissez ES256 ou RS256 pour les API et passerelles qui ne vérifient que ceux-là, comme AWS API Gateway ou Azure API Management. Le changer crée tout de suite une clé avec le nouvel algorithme ; la clé actuelle reste publiée pendant le délai de grâce.",
+          "savedAlgorithm": "Paramètres enregistrés. Les nouveaux jetons sont signés en {alg} (clé {kid})."
         },
         "keys": {
           "title": "Clés",
@@ -2033,7 +2036,8 @@
           "interval": "Choisissez l’un des intervalles de rotation proposés.",
           "grace": "Choisissez l’un des délais de grâce proposés.",
           "save": "Impossible d’enregistrer les paramètres.",
-          "rotate": "Impossible de renouveler la clé."
+          "rotate": "Impossible de renouveler la clé.",
+          "algorithm": "Choisissez l'un des algorithmes proposés."
         }
       },
       "organizations": {

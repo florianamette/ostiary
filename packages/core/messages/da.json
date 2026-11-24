@@ -2001,7 +2001,10 @@
           "graceHint": "Hvor længe en udgået nøgle forbliver publiceret. Vælg længere end din længste token-levetid (adgangstokens: 1 time, ID-tokens: 1 time).",
           "save": "Gem",
           "cancel": "Annuller",
-          "saved": "Indstillinger gemt. Godkendelsesserveren anvender dem inden for et minut."
+          "saved": "Indstillinger gemt. Godkendelsesserveren anvender dem inden for et minut.",
+          "algorithm": "Signeringsalgoritme",
+          "algorithmHint": "Standard er EdDSA (Ed25519). Vælg ES256 eller RS256 til API'er og gateways, der kun verificerer dem, som AWS API Gateway eller Azure API Management. En ændring opretter straks en nøgle med den nye algoritme; den nuværende nøgle forbliver offentliggjort i overgangsperioden.",
+          "savedAlgorithm": "Indstillingerne er gemt. Nye tokens signeres med {alg} (nøgle {kid})."
         },
         "keys": {
           "title": "Nøgler",
@@ -2033,7 +2036,8 @@
           "interval": "Vælg et af de tilbudte rotationsintervaller.",
           "grace": "Vælg en af de tilbudte udsættelsesperioder.",
           "save": "Indstillingerne kunne ikke gemmes.",
-          "rotate": "Nøglen kunne ikke roteres."
+          "rotate": "Nøglen kunne ikke roteres.",
+          "algorithm": "Vælg en af de tilbudte algoritmer."
         }
       },
       "organizations": {

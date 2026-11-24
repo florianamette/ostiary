@@ -2001,7 +2001,10 @@
           "graceHint": "Cuánto tiempo sigue publicada una clave retirada. Debe ser mayor que la vida útil más larga de tus tokens (tokens de acceso: 1 hora, tokens de ID: 1 hora).",
           "save": "Guardar",
           "cancel": "Cancelar",
-          "saved": "Ajustes guardados. El servidor de autenticación los aplica en menos de un minuto."
+          "saved": "Ajustes guardados. El servidor de autenticación los aplica en menos de un minuto.",
+          "algorithm": "Algoritmo de firma",
+          "algorithmHint": "EdDSA (Ed25519) es el predeterminado. Elige ES256 o RS256 para las API y pasarelas que solo verifican esos, como AWS API Gateway o Azure API Management. Al cambiarlo se crea ya una clave con el nuevo algoritmo; la clave actual sigue publicada durante el periodo de gracia.",
+          "savedAlgorithm": "Ajustes guardados. Los nuevos tokens se firman con {alg} (clave {kid})."
         },
         "keys": {
           "title": "Claves",
@@ -2033,7 +2036,8 @@
           "interval": "Elige uno de los intervalos de rotación disponibles.",
           "grace": "Elige uno de los periodos de gracia disponibles.",
           "save": "No se pudieron guardar los ajustes.",
-          "rotate": "No se pudo rotar la clave."
+          "rotate": "No se pudo rotar la clave.",
+          "algorithm": "Elige uno de los algoritmos ofrecidos."
         }
       },
       "organizations": {

@@ -62,13 +62,13 @@ describe("signing key rotation", () => {
       { id: "key_b", publicKey: "p", privateKey: "s", createdAt: old, expiresAt: new Date(Date.now() + DAY) },
       { id: "key_gone", publicKey: "p", privateKey: "s", createdAt: old, expiresAt: new Date(Date.now() - DAY) },
     ]);
-    const { keyId, retired } = await signingKeys.rotateSigningKey(context, { rotationIntervalDays: 0, gracePeriodDays: 30 });
+    const { keyId, retired } = await signingKeys.rotateSigningKey(context, { rotationIntervalDays: 0, gracePeriodDays: 30, algorithm: "EdDSA" as const });
     expect(retired.sort()).toEqual(["key_a", "key_b"]);
     expect(await liveKeys()).toEqual([keyId]);
   });
 
   it("leaves exactly one live key after rotations in a row", async () => {
-    for (let i = 0; i < 3; i++) await signingKeys.rotateSigningKey(context, { rotationIntervalDays: 0, gracePeriodDays: 30 });
+    for (let i = 0; i < 3; i++) await signingKeys.rotateSigningKey(context, { rotationIntervalDays: 0, gracePeriodDays: 30, algorithm: "EdDSA" as const });
     expect(await liveKeys()).toHaveLength(1);
   });
 
@@ -77,10 +77,10 @@ describe("signing key rotation", () => {
     // A creates its key; B rotates completely before A retires the others.
     duringCreate = async () => {
       await new Promise((resolve) => setTimeout(resolve, 5));
-      other = signingKeys.rotateSigningKey(context, { rotationIntervalDays: 0, gracePeriodDays: 30 });
+      other = signingKeys.rotateSigningKey(context, { rotationIntervalDays: 0, gracePeriodDays: 30, algorithm: "EdDSA" as const });
       await other;
     };
-    await signingKeys.rotateSigningKey(context, { rotationIntervalDays: 0, gracePeriodDays: 30 });
+    await signingKeys.rotateSigningKey(context, { rotationIntervalDays: 0, gracePeriodDays: 30, algorithm: "EdDSA" as const });
     const newest = (await other!).keyId;
     expect(await liveKeys()).toEqual([newest]);
   });
@@ -88,10 +88,10 @@ describe("signing key rotation", () => {
   it("gives live keys the expiry a new interval implies, and clears it when rotation is turned off", async () => {
     const createdAt = new Date(Date.now() - 10 * DAY);
     await testDb.insert(schema.jwks).values({ id: "key_live", publicKey: "p", privateKey: "s", createdAt });
-    await signingKeys.saveSigningKeySettings({ rotationIntervalDays: 30, gracePeriodDays: 7 }, null);
+    await signingKeys.saveSigningKeySettings({ rotationIntervalDays: 30, gracePeriodDays: 7, algorithm: "EdDSA" as const }, null);
     const [withInterval] = await testDb.select().from(schema.jwks);
     expect(withInterval!.expiresAt!.getTime()).toBe(createdAt.getTime() + 30 * DAY);
-    await signingKeys.saveSigningKeySettings({ rotationIntervalDays: 0, gracePeriodDays: 7 }, null);
+    await signingKeys.saveSigningKeySettings({ rotationIntervalDays: 0, gracePeriodDays: 7, algorithm: "EdDSA" as const }, null);
     const [without] = await testDb.select().from(schema.jwks);
     expect(without!.expiresAt).toBeNull();
   });

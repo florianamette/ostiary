@@ -2001,7 +2001,10 @@
           "graceHint": "已退役的密钥继续公开的时间。请设置得比最长的令牌有效期更长（访问令牌：1 小时，ID 令牌：1 小时）。",
           "save": "保存",
           "cancel": "取消",
-          "saved": "设置已保存。认证服务器会在一分钟内生效。"
+          "saved": "设置已保存。认证服务器会在一分钟内生效。",
+          "algorithm": "签名算法",
+          "algorithmHint": "默认为 EdDSA（Ed25519）。对于只验证 ES256 或 RS256 的 API 和网关（如 AWS API Gateway 或 Azure API Management），请选择相应算法。更改后会立即创建使用新算法的密钥；当前密钥会在宽限期内继续发布。",
+          "savedAlgorithm": "设置已保存。新令牌使用 {alg} 签名（密钥 {kid}）。"
         },
         "keys": {
           "title": "密钥",
@@ -2033,7 +2036,8 @@
           "interval": "请选择提供的轮换间隔之一。",
           "grace": "请选择提供的宽限期之一。",
           "save": "无法保存设置。",
-          "rotate": "无法轮换密钥。"
+          "rotate": "无法轮换密钥。",
+          "algorithm": "请选择提供的算法之一。"
         }
       },
       "organizations": {

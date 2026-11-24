@@ -2001,7 +2001,10 @@
           "graceHint": "How long a retired key stays published. Keep it longer than your longest token lifetime (access tokens: 1 hour, ID tokens: 1 hour).",
           "save": "Save",
           "cancel": "Cancel",
-          "saved": "Settings saved. The auth server applies them within a minute."
+          "saved": "Settings saved. The auth server applies them within a minute.",
+          "algorithm": "Signing algorithm",
+          "algorithmHint": "EdDSA (Ed25519) is the default. Choose ES256 or RS256 for APIs and gateways that only verify those, such as AWS API Gateway or Azure API Management. Changing it creates a key with the new algorithm now; the current key stays published for the grace period.",
+          "savedAlgorithm": "Settings saved. New tokens are signed with {alg} (key {kid})."
         },
         "keys": {
           "title": "Keys",
@@ -2033,7 +2036,8 @@
           "interval": "Choose one of the rotation intervals offered.",
           "grace": "Choose one of the grace periods offered.",
           "save": "Could not save the settings.",
-          "rotate": "Could not rotate the key."
+          "rotate": "Could not rotate the key.",
+          "algorithm": "Choose one of the algorithms offered."
         }
       },
       "organizations": {

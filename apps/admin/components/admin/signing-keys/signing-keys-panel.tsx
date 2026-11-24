@@ -24,7 +24,7 @@ import {
 } from "@ostiary/core/components/ui/table";
 import type { SigningKeySettings, SigningKeyStatus } from "@ostiary/core/lib/signing-keys-policy";
 import { formatDateTime } from "@/components/admin/common/page-header";
-import { RotateDialog, RotationDialog } from "@/components/admin/signing-keys/signing-key-dialogs";
+import { RotateDialog, RotationDialog, ALGORITHM_LABELS } from "@/components/admin/signing-keys/signing-key-dialogs";
 
 type SigningKeyItem = {
   id: string;
@@ -84,7 +84,7 @@ export function SigningKeysPanel({
           </CardAction>
         </CardHeader>
         <CardContent>
-          <dl className="grid gap-4 text-sm sm:grid-cols-2">
+          <dl className="grid gap-4 text-sm sm:grid-cols-3">
             <div className="space-y-1">
               <dt className="text-muted-foreground text-xs">{t("rotation.interval")}</dt>
               <dd className="font-medium">
@@ -94,6 +94,10 @@ export function SigningKeysPanel({
             <div className="space-y-1">
               <dt className="text-muted-foreground text-xs">{t("rotation.grace")}</dt>
               <dd className="font-medium">{t("rotation.graceValue", { count: settings.gracePeriodDays })}</dd>
+            </div>
+            <div className="space-y-1">
+              <dt className="text-muted-foreground text-xs">{t("rotation.algorithm")}</dt>
+              <dd className="font-medium">{ALGORITHM_LABELS[settings.algorithm]}</dd>
             </div>
           </dl>
           {jwksUrl ? (

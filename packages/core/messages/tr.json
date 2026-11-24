@@ -2001,7 +2001,10 @@
           "graceHint": "Kullanımdan kalkan anahtarın ne kadar süre yayımda kalacağı. En uzun token ömründen daha uzun tutun (erişim token’ları: 1 saat, ID token’lar: 1 saat).",
           "save": "Kaydet",
           "cancel": "İptal",
-          "saved": "Ayarlar kaydedildi. Kimlik doğrulama sunucusu bunları bir dakika içinde uygular."
+          "saved": "Ayarlar kaydedildi. Kimlik doğrulama sunucusu bunları bir dakika içinde uygular.",
+          "algorithm": "İmzalama algoritması",
+          "algorithmHint": "Varsayılan EdDSA (Ed25519). Yalnızca bunları doğrulayan API ve ağ geçitleri için ES256 veya RS256 seçin; örneğin AWS API Gateway veya Azure API Management. Değiştirmek hemen yeni algoritmayla bir anahtar oluşturur; geçerli anahtar geçiş süresi boyunca yayımlanmaya devam eder.",
+          "savedAlgorithm": "Ayarlar kaydedildi. Yeni belirteçler {alg} ile imzalanıyor (anahtar {kid})."
         },
         "keys": {
           "title": "Anahtarlar",
@@ -2033,7 +2036,8 @@
           "interval": "Sunulan döndürme aralıklarından birini seçin.",
           "grace": "Sunulan ek sürelerden birini seçin.",
           "save": "Ayarlar kaydedilemedi.",
-          "rotate": "Anahtar döndürülemedi."
+          "rotate": "Anahtar döndürülemedi.",
+          "algorithm": "Sunulan algoritmalardan birini seçin."
         }
       },
       "organizations": {

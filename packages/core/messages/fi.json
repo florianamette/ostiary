@@ -2001,7 +2001,10 @@
           "graceHint": "Kuinka kauan poistettu avain pysyy julkaistuna. Valitse pidempi kuin pisin tokenin elinaika (käyttötokenit: 1 tunti, ID-tokenit: 1 tunti).",
           "save": "Tallenna",
           "cancel": "Peruuta",
-          "saved": "Asetukset tallennettu. Todennuspalvelin ottaa ne käyttöön minuutissa."
+          "saved": "Asetukset tallennettu. Todennuspalvelin ottaa ne käyttöön minuutissa.",
+          "algorithm": "Allekirjoitusalgoritmi",
+          "algorithmHint": "Oletus on EdDSA (Ed25519). Valitse ES256 tai RS256 rajapinnoille ja yhdyskäytäville, jotka tarkistavat vain ne, kuten AWS API Gateway tai Azure API Management. Muutos luo heti avaimen uudella algoritmilla; nykyinen avain pysyy julkaistuna siirtymäajan.",
+          "savedAlgorithm": "Asetukset tallennettu. Uudet tunnisteet allekirjoitetaan algoritmilla {alg} (avain {kid})."
         },
         "keys": {
           "title": "Avaimet",
@@ -2033,7 +2036,8 @@
           "interval": "Valitse jokin tarjotuista kierrätysväleistä.",
           "grace": "Valitse jokin tarjotuista siirtymäajoista.",
           "save": "Asetusten tallennus epäonnistui.",
-          "rotate": "Avaimen kierrätys epäonnistui."
+          "rotate": "Avaimen kierrätys epäonnistui.",
+          "algorithm": "Valitse jokin tarjotuista algoritmeista."
         }
       },
       "organizations": {

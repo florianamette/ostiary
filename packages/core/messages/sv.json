@@ -2001,7 +2001,10 @@
           "graceHint": "Hur länge en tillbakadragen nyckel förblir publicerad. Välj längre än din längsta token-livslängd (åtkomsttoken: 1 timme, ID-token: 1 timme).",
           "save": "Spara",
           "cancel": "Avbryt",
-          "saved": "Inställningarna sparades. Autentiseringsservern tillämpar dem inom en minut."
+          "saved": "Inställningarna sparades. Autentiseringsservern tillämpar dem inom en minut.",
+          "algorithm": "Signeringsalgoritm",
+          "algorithmHint": "Standard är EdDSA (Ed25519). Välj ES256 eller RS256 för API:er och gateways som bara verifierar dem, till exempel AWS API Gateway eller Azure API Management. En ändring skapar direkt en nyckel med den nya algoritmen; den nuvarande nyckeln förblir publicerad under övergångsperioden.",
+          "savedAlgorithm": "Inställningarna sparades. Nya token signeras med {alg} (nyckel {kid})."
         },
         "keys": {
           "title": "Nycklar",
@@ -2033,7 +2036,8 @@
           "interval": "Välj ett av de erbjudna rotationsintervallen.",
           "grace": "Välj en av de erbjudna respitperioderna.",
           "save": "Det gick inte att spara inställningarna.",
-          "rotate": "Det gick inte att rotera nyckeln."
+          "rotate": "Det gick inte att rotera nyckeln.",
+          "algorithm": "Välj en av de algoritmer som erbjuds."
         }
       },
       "organizations": {

@@ -23,11 +23,13 @@ describe("parseSigningKeySettings", () => {
   });
 
   it("reads valid values and falls back field by field", () => {
-    expect(parseSigningKeySettings({ rotationIntervalDays: 90, gracePeriodDays: 7 })).toEqual({
+    expect(parseSigningKeySettings({ rotationIntervalDays: 90, gracePeriodDays: 7, algorithm: "RS256" })).toEqual({
       rotationIntervalDays: 90,
       gracePeriodDays: 7,
+      algorithm: "RS256",
     });
-    expect(parseSigningKeySettings({ rotationIntervalDays: -1, gracePeriodDays: 0 })).toEqual(DEFAULT_SIGNING_KEY_SETTINGS);
+    expect(parseSigningKeySettings({ rotationIntervalDays: 90, gracePeriodDays: 7, algorithm: "HS256" }).algorithm).toBe("EdDSA");
+    expect(parseSigningKeySettings({ rotationIntervalDays: -1, gracePeriodDays: 0, algorithm: "EdDSA" as const })).toEqual(DEFAULT_SIGNING_KEY_SETTINGS);
     expect(parseSigningKeySettings({ rotationIntervalDays: 1.5, gracePeriodDays: "7" })).toEqual(DEFAULT_SIGNING_KEY_SETTINGS);
     expect(parseSigningKeySettings({ rotationIntervalDays: 30 }).gracePeriodDays).toBe(30);
   });
@@ -36,11 +38,23 @@ describe("parseSigningKeySettings", () => {
 describe("applySigningKeySettings", () => {
   it("writes seconds into the jwt plugin options, and no interval when rotation is off", () => {
     const options: JwtOptions = {};
-    applySigningKeySettings(options, { rotationIntervalDays: 90, gracePeriodDays: 7 });
-    expect(options.jwks).toEqual({ rotationInterval: 90 * 86400, gracePeriod: 7 * 86400 });
-    applySigningKeySettings(options, { rotationIntervalDays: 0, gracePeriodDays: 30 });
+    applySigningKeySettings(options, { rotationIntervalDays: 90, gracePeriodDays: 7, algorithm: "EdDSA" as const });
+    expect(options.jwks).toEqual({
+      rotationInterval: 90 * 86400,
+      gracePeriod: 7 * 86400,
+      keyPairConfig: { alg: "EdDSA", crv: "Ed25519" },
+    });
+    applySigningKeySettings(options, { rotationIntervalDays: 0, gracePeriodDays: 30, algorithm: "EdDSA" as const });
     expect(options.jwks?.rotationInterval).toBeUndefined();
     expect(options.jwks?.gracePeriod).toBe(30 * 86400);
+  });
+
+  it("sets the algorithm of new keys", () => {
+    const options: JwtOptions = {};
+    applySigningKeySettings(options, { rotationIntervalDays: 0, gracePeriodDays: 30, algorithm: "ES256" });
+    expect(options.jwks?.keyPairConfig).toEqual({ alg: "ES256" });
+    applySigningKeySettings(options, { rotationIntervalDays: 0, gracePeriodDays: 30, algorithm: "RS256" });
+    expect(options.jwks?.keyPairConfig).toEqual({ alg: "RS256", modulusLength: 2048 });
   });
 
   it("keeps the other jwks options", () => {
@@ -52,22 +66,22 @@ describe("applySigningKeySettings", () => {
 
 describe("liveKeyExpiry", () => {
   it("is created + interval", () => {
-    expect(liveKeyExpiry(daysAgo(10), { rotationIntervalDays: 30, gracePeriodDays: 30 }, now)).toEqual(
+    expect(liveKeyExpiry(daysAgo(10), { rotationIntervalDays: 30, gracePeriodDays: 30, algorithm: "EdDSA" as const }, now)).toEqual(
       new Date(now.getTime() + 20 * DAY),
     );
   });
 
   it("is never in the past, so a key older than the interval keeps its grace period", () => {
-    expect(liveKeyExpiry(daysAgo(200), { rotationIntervalDays: 30, gracePeriodDays: 30 }, now)).toEqual(now);
+    expect(liveKeyExpiry(daysAgo(200), { rotationIntervalDays: 30, gracePeriodDays: 30, algorithm: "EdDSA" as const }, now)).toEqual(now);
   });
 
   it("is none when rotation is off", () => {
-    expect(liveKeyExpiry(daysAgo(200), { rotationIntervalDays: 0, gracePeriodDays: 30 }, now)).toBeNull();
+    expect(liveKeyExpiry(daysAgo(200), { rotationIntervalDays: 0, gracePeriodDays: 30, algorithm: "EdDSA" as const }, now)).toBeNull();
   });
 });
 
 describe("describeSigningKeys", () => {
-  const settings = { rotationIntervalDays: 90, gracePeriodDays: 30 };
+  const settings = { rotationIntervalDays: 90, gracePeriodDays: 30, algorithm: "EdDSA" as const };
   const key = (id: string, created: number, expires: number | null, alg: string | null = "EdDSA"): SigningKeyRow => ({
     id,
     alg,

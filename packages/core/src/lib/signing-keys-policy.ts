@@ -26,17 +26,34 @@ export const ROTATION_INTERVAL_DAYS = [0, 30, 90, 180, 365] as const;
  */
 export const GRACE_PERIOD_DAYS = [1, 7, 30, 90] as const;
 
+/**
+ * Algorithms new keys can use. EdDSA (Ed25519) is Better Auth's default; ES256 and RS256 are for
+ * verifiers that know nothing else (AWS API Gateway, Azure API Management, older JWT libraries).
+ */
+export const SIGNING_ALGORITHMS = ["EdDSA", "ES256", "RS256"] as const;
+export type SigningAlgorithm = (typeof SIGNING_ALGORITHMS)[number];
+
+/** The key Better Auth's jwt plugin generates for each algorithm (`jwks.keyPairConfig`). */
+const KEY_PAIR_CONFIGS = {
+  EdDSA: { alg: "EdDSA", crv: "Ed25519" },
+  ES256: { alg: "ES256" },
+  RS256: { alg: "RS256", modulusLength: 2048 },
+} as const;
+
 export type SigningKeySettings = {
   /** Days a key signs tokens before a new one replaces it. 0: never (until rotated by hand). */
   rotationIntervalDays: number;
   /** Days a retired key stays in the JWKS, so tokens it signed keep verifying. */
   gracePeriodDays: number;
+  /** Algorithm of the keys created from now on. Changing it rotates the key (see actions). */
+  algorithm: SigningAlgorithm;
 };
 
-/** Rotation off and Better Auth's 30-day grace period: what deployments had before. */
+/** Rotation off, Better Auth's 30-day grace period and EdDSA: what deployments had before. */
 export const DEFAULT_SIGNING_KEY_SETTINGS: SigningKeySettings = {
   rotationIntervalDays: 0,
   gracePeriodDays: 30,
+  algorithm: "EdDSA",
 };
 
 const MAX_ROTATION_DAYS = 3650;
@@ -56,12 +73,21 @@ export function parseSigningKeySettings(raw: unknown): SigningKeySettings {
   return {
     rotationIntervalDays: wholeDays(value.rotationIntervalDays, 0, MAX_ROTATION_DAYS) ?? defaults.rotationIntervalDays,
     gracePeriodDays: wholeDays(value.gracePeriodDays, 1, MAX_GRACE_DAYS) ?? defaults.gracePeriodDays,
+    algorithm: (SIGNING_ALGORITHMS as readonly unknown[]).includes(value.algorithm)
+      ? (value.algorithm as SigningAlgorithm)
+      : defaults.algorithm,
   };
 }
 
-/** Writes the settings into the jwt plugin's options, in seconds as Better Auth expects. */
+/**
+ * Writes the settings into the jwt plugin's options, in seconds as Better Auth expects. The
+ * algorithm is the one of new keys, and the one discovery lists in
+ * `id_token_signing_alg_values_supported`. Better Auth keeps signing with the newest live key
+ * whatever its algorithm, so a change of algorithm takes a rotation to apply.
+ */
 export function applySigningKeySettings(options: JwtOptions, settings: SigningKeySettings) {
   const jwks = (options.jwks ??= {});
+  jwks.keyPairConfig = { ...KEY_PAIR_CONFIGS[settings.algorithm] } as NonNullable<typeof jwks.keyPairConfig>;
   jwks.rotationInterval = settings.rotationIntervalDays > 0 ? settings.rotationIntervalDays * DAY_SECONDS : undefined;
   jwks.gracePeriod = settings.gracePeriodDays * DAY_SECONDS;
 }

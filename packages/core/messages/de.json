@@ -2001,7 +2001,10 @@
           "graceHint": "Wie lange ein ausgemusterter Schlüssel veröffentlicht bleibt. Wähle mehr als die längste Token-Lebensdauer (Access-Tokens: 1 Stunde, ID-Tokens: 1 Stunde).",
           "save": "Speichern",
           "cancel": "Abbrechen",
-          "saved": "Einstellungen gespeichert. Der Auth-Server übernimmt sie innerhalb einer Minute."
+          "saved": "Einstellungen gespeichert. Der Auth-Server übernimmt sie innerhalb einer Minute.",
+          "algorithm": "Signaturalgorithmus",
+          "algorithmHint": "Standard ist EdDSA (Ed25519). Wähle ES256 oder RS256 für APIs und Gateways, die nur diese prüfen, etwa AWS API Gateway oder Azure API Management. Eine Änderung erzeugt sofort einen Schlüssel mit dem neuen Algorithmus; der aktuelle Schlüssel bleibt während der Übergangsfrist veröffentlicht.",
+          "savedAlgorithm": "Einstellungen gespeichert. Neue Tokens werden mit {alg} signiert (Schlüssel {kid})."
         },
         "keys": {
           "title": "Schlüssel",
@@ -2033,7 +2036,8 @@
           "interval": "Wähle eines der angebotenen Rotationsintervalle.",
           "grace": "Wähle eine der angebotenen Übergangsfristen.",
           "save": "Einstellungen konnten nicht gespeichert werden.",
-          "rotate": "Schlüssel konnte nicht rotiert werden."
+          "rotate": "Schlüssel konnte nicht rotiert werden.",
+          "algorithm": "Wähle einen der angebotenen Algorithmen."
         }
       },
       "organizations": {

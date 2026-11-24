@@ -8,6 +8,7 @@ import {
 import {
   GRACE_PERIOD_DAYS,
   ROTATION_INTERVAL_DAYS,
+  SIGNING_ALGORITHMS,
   type SigningKeySettings,
 } from "@ostiary/core/lib/signing-keys-policy";
 import { z } from "zod";
@@ -16,13 +17,24 @@ import { adminAction, type AdminActor } from "@/lib/admin-action";
 import { auth } from "@/lib/auth";
 
 /** Errors are keys of admin.pages.signingKeys.errors, translated by the page. */
-type Result<T = object> = ({ ok: true } & T) | { ok: false; error: "interval" | "grace" | "save" | "rotate" };
+type Result<T = object> =
+  | ({ ok: true } & T)
+  | { ok: false; error: "interval" | "grace" | "algorithm" | "save" | "rotate" };
 
-export async function updateSigningKeySettings(input: SigningKeySettings): Promise<Result> {
-  return adminAction(z.tuple([z.object({ rotationIntervalDays: z.number(), gracePeriodDays: z.number() })]), [input], ([input], actor) => updateSigningKeySettingsRun(input, actor), (): Result => ({ ok: false, error: "interval" }));
+/**
+ * Saves the settings. A new algorithm applies at once: a key with it is created and signs every
+ * token from then on (`keyId`), and the previous key stays published for the grace period.
+ */
+export async function updateSigningKeySettings(input: SigningKeySettings): Promise<Result<{ keyId?: string }>> {
+  return adminAction(
+    z.tuple([z.object({ rotationIntervalDays: z.number(), gracePeriodDays: z.number(), algorithm: z.string() })]),
+    [input],
+    ([input], actor) => updateSigningKeySettingsRun(input as SigningKeySettings, actor),
+    (): Result => ({ ok: false, error: "interval" }),
+  );
 }
 
-async function updateSigningKeySettingsRun(input: SigningKeySettings, actor: AdminActor): Promise<Result> {
+async function updateSigningKeySettingsRun(input: SigningKeySettings, actor: AdminActor): Promise<Result<{ keyId?: string }>> {
   const { session, audit } = actor;
   if (!(ROTATION_INTERVAL_DAYS as readonly number[]).includes(input.rotationIntervalDays)) {
     return { ok: false, error: "interval" };
@@ -30,9 +42,13 @@ async function updateSigningKeySettingsRun(input: SigningKeySettings, actor: Adm
   if (!(GRACE_PERIOD_DAYS as readonly number[]).includes(input.gracePeriodDays)) {
     return { ok: false, error: "grace" };
   }
+  if (!(SIGNING_ALGORITHMS as readonly string[]).includes(input.algorithm)) {
+    return { ok: false, error: "algorithm" };
+  }
   const settings: SigningKeySettings = {
     rotationIntervalDays: input.rotationIntervalDays,
     gracePeriodDays: input.gracePeriodDays,
+    algorithm: input.algorithm,
   };
   let previous: SigningKeySettings;
   try {
@@ -46,18 +62,19 @@ async function updateSigningKeySettingsRun(input: SigningKeySettings, actor: Adm
     action: "signing_key.update_settings",
     metadata: { ...settings, previous },
   });
-  return { ok: true };
+  if (settings.algorithm === previous.algorithm) return { ok: true };
+  return rotateSigningKeyNowRun(actor, settings);
 }
 
 export async function rotateSigningKeyNow(): Promise<Result<{ keyId: string }>> {
   return adminAction(z.tuple([]), [], (_, actor) => rotateSigningKeyNowRun(actor), (): Result<{ keyId: string }> => ({ ok: false, error: "rotate" }));
 }
 
-async function rotateSigningKeyNowRun(actor: AdminActor): Promise<Result<{ keyId: string }>> {
+async function rotateSigningKeyNowRun(actor: AdminActor, settings?: SigningKeySettings): Promise<Result<{ keyId: string }>> {
   const { audit } = actor;
   let rotated: { keyId: string; retired: string[] };
   try {
-    rotated = await rotateSigningKey(await auth.$context, await loadSigningKeySettings());
+    rotated = await rotateSigningKey(await auth.$context, settings ?? (await loadSigningKeySettings()));
   } catch (error) {
     console.error("Could not rotate the signing key", error);
     return { ok: false, error: "rotate" };

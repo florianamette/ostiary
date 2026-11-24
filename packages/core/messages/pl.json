@@ -2001,7 +2001,10 @@
           "graceHint": "Jak długo wycofany klucz pozostaje opublikowany. Ustaw dłużej niż najdłuższy czas życia tokenów (tokeny dostępu: 1 godzina, tokeny ID: 1 godzina).",
           "save": "Zapisz",
           "cancel": "Anuluj",
-          "saved": "Ustawienia zapisane. Serwer uwierzytelniania zastosuje je w ciągu minuty."
+          "saved": "Ustawienia zapisane. Serwer uwierzytelniania zastosuje je w ciągu minuty.",
+          "algorithm": "Algorytm podpisu",
+          "algorithmHint": "Domyślnie EdDSA (Ed25519). Wybierz ES256 lub RS256 dla API i bramek, które weryfikują tylko te algorytmy, np. AWS API Gateway lub Azure API Management. Zmiana od razu tworzy klucz z nowym algorytmem; obecny klucz pozostaje opublikowany przez okres przejściowy.",
+          "savedAlgorithm": "Ustawienia zapisane. Nowe tokeny są podpisywane algorytmem {alg} (klucz {kid})."
         },
         "keys": {
           "title": "Klucze",
@@ -2033,7 +2036,8 @@
           "interval": "Wybierz jeden z dostępnych odstępów rotacji.",
           "grace": "Wybierz jeden z dostępnych okresów karencji.",
           "save": "Nie udało się zapisać ustawień.",
-          "rotate": "Nie udało się obrócić klucza."
+          "rotate": "Nie udało się obrócić klucza.",
+          "algorithm": "Wybierz jeden z oferowanych algorytmów."
         }
       },
       "organizations": {
