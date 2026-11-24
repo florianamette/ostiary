@@ -29,8 +29,8 @@ test("a rotated secret keeps working during its grace period, then stops", async
   // The console shows it, and the list endpoint says until when.
   const grace = (await (await adminApi.get("/api/admin/oauth-client-secrets")).json()) as { data: Record<string, string> };
   expect(new Date(grace.data[old.client_id]!).getTime()).toBe(first.previous_secret_expires_at! * 1000);
-  await adminPage.goto(`/en/applications?q=${encodeURIComponent(old.client_id)}`);
-  await expect(adminPage.getByText(/Previous secret valid until/)).toBeVisible();
+  await adminPage.goto(`/en/applications?q=${encodeURIComponent(old.client_name!)}`);
+  await expect(adminPage.getByRole("row").filter({ hasText: old.client_name! }).getByText(/Previous secret valid until/)).toBeVisible();
 
   // Once the grace period is over, the previous secret is refused.
   await query(`update oauth_client set client_secret = regexp_replace(client_secret, ':[0-9]+$', ':' || (extract(epoch from now())::bigint - 1)) where client_id = $1`, [old.client_id]);

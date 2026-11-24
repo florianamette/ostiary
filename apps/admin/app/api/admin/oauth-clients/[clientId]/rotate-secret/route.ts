@@ -11,10 +11,11 @@ const bodySchema = z
 
 /**
  * Issues a new secret for an admin-registered confidential client and returns it once.
- * `grace` keeps the previous secret working for a while (none, 1h, 24h or 7d; none by default).
+ * An optional JSON body's `grace` keeps the previous secret working for a while (none, 1h, 24h
+ * or 7d; none by default, and without a body).
  * Audited by the auth server's hook (`oauth_client.rotate_secret`).
  */
-export const POST = adminJsonRoute<{ clientId: string }>({ body: true }, async ({ params, body, requestHeaders }) => {
+export const POST = adminJsonRoute<{ clientId: string }>({ body: "optional" }, async ({ params, body, requestHeaders }) => {
   const clientId = requiredParam(params.clientId, "client id");
   const parsed = bodySchema.safeParse(body ?? {});
   if (!parsed.success) throw new ValidationError("grace must be none, 1h, 24h or 7d");
