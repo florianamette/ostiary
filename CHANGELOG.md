@@ -12,6 +12,12 @@ All notable changes are documented here. The format follows
   optional), so an app moved from Auth0, Keycloak, Cognito or another provider keeps its ID:
   3 to 128 letters, digits, `.`, `_` or `-`, unique. Left empty, Better Auth generates one as
   before. Only the admin console can choose it, not Dynamic Client Registration.
+- Pairwise subject identifiers: with `PAIRWISE_SECRET` set (32+ characters, both apps), an
+  app registered with **Pairwise user IDs** gets a `sub` derived from the user and its
+  redirect host in ID tokens, UserInfo, introspection and back-channel logout, so apps on
+  other hosts cannot match their users with it. Discovery then lists `pairwise` in
+  `subject_types_supported`. Set when the app is created, for apps that sign users in. JWT
+  access tokens for your APIs keep the user's ID.
 - OpenAPI schema of the auth endpoints (Better Auth's `openAPI` plugin), committed as
   `apps/auth/openapi.json` for the API reference on ostiary.dev and served at
   `/api/auth/open-api/generate-schema` outside production, or with

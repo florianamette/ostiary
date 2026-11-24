@@ -95,9 +95,12 @@ type ClientKind = "confidential" | "public" | "machine";
 
 export function AdminRegisterOAuthClientDialog({
   machineScopes = EMPTY_SCOPE_OPTIONS,
+  pairwiseAvailable = false,
   onCreated,
 }: {
   machineScopes?: MachineScopeOptions;
+  /** PAIRWISE_SECRET is set: offer pairwise user IDs. */
+  pairwiseAvailable?: boolean;
   onCreated: () => void;
 }) {
   const t = useTranslations("admin.pages.applications.register");
@@ -114,6 +117,7 @@ export function AdminRegisterOAuthClientDialog({
   // Off: an app that signs users in may request every scope.
   const [limitScopes, setLimitScopes] = React.useState(false);
   const [skipConsent, setSkipConsent] = React.useState(false);
+  const [pairwise, setPairwise] = React.useState(false);
   const [deviceCode, setDeviceCode] = React.useState(false);
   // On for new apps: signing out of the app can then end the Ostiary session too.
   const [endSession, setEndSession] = React.useState(true);
@@ -133,6 +137,7 @@ export function AdminRegisterOAuthClientDialog({
     setScopes(new Set());
     setLimitScopes(false);
     setSkipConsent(false);
+    setPairwise(false);
     setDeviceCode(false);
     setEndSession(true);
     setPostLogoutUrisRaw("");
@@ -191,6 +196,7 @@ export function AdminRegisterOAuthClientDialog({
         response_types: ["code"],
         type: clientKind === "public" ? "native" : "web",
         skip_consent: skipConsent,
+        ...(pairwise ? { subject_type: "pairwise" } : {}),
         enable_end_session: endSession,
         ...(endSession && post_logout_redirect_uris.length
           ? { post_logout_redirect_uris }
@@ -417,6 +423,17 @@ export function AdminRegisterOAuthClientDialog({
                       hint={t("skipConsentHint")}
                     />
                   </Field>
+                  {pairwiseAvailable ? (
+                    <Field>
+                      <CheckboxField
+                        id="oauth-reg-pairwise"
+                        checked={pairwise}
+                        onChange={setPairwise}
+                        label={t("pairwiseLabel")}
+                        hint={t("pairwiseHint")}
+                      />
+                    </Field>
+                  ) : null}
                 </>
               )}
               {formError ? (

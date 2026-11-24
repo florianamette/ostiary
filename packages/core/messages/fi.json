@@ -586,6 +586,8 @@
           "postLogoutUrisHint": "Minne sovellus voi palauttaa käyttäjän uloskirjautumisen jälkeen (post_logout_redirect_uri, tarkka vastaavuus). Yksi riviä kohden tai pilkuilla erotettuina. Ilman osoitetta käyttäjä näkee uloskirjautumissivun.",
           "skipConsentLabel": "Ohita suostumus (luotettu asiakas)",
           "skipConsentHint": "Käyttäjät eivät näe suostumusnäkymää tälle sovellukselle. Käytä vain omille tai täysin luotetuille integraatioille.",
+          "pairwiseLabel": "Sovelluskohtaiset käyttäjätunnukset",
+          "pairwiseHint": "Käyttäjät saavat tässä eri tunnuksen (sub) kuin muiden palvelinten sovelluksissa, joten ne eivät voi yhdistää käyttäjiään tähän sovellukseen. Kaikkien uudelleenohjaus-URI:en on oltava samassa palvelimessa. Ei voi muuttaa myöhemmin.",
           "registerFailed": "Sovellusta ei voitu rekisteröidä",
           "missingClientId": "Palvelin ei palauttanut kenttää {field}.",
           "registered": "OAuth-sovellus rekisteröity",

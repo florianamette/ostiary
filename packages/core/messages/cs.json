@@ -586,6 +586,8 @@
           "postLogoutUrisHint": "Kam může aplikace uživatele po odhlášení vrátit (post_logout_redirect_uri, přesná shoda). Jedno na řádek nebo oddělené čárkami. Bez nich uživatel uvidí stránku o odhlášení.",
           "skipConsentLabel": "Přeskočit souhlas (důvěryhodný klient)",
           "skipConsentHint": "Uživatelé neuvidí u této aplikace obrazovku souhlasu. Používejte jen pro vlastní nebo plně důvěryhodné integrace.",
+          "pairwiseLabel": "ID uživatelů pro aplikaci",
+          "pairwiseHint": "Uživatelé zde mají jiné ID (sub) než v aplikacích na jiných hostitelích, které tak nemohou párovat své uživatele s touto aplikací. Všechny URI přesměrování musí být na stejném hostiteli. Později nelze změnit.",
           "registerFailed": "Aplikaci se nepodařilo zaregistrovat",
           "missingClientId": "Server nevrátil {field}.",
           "registered": "Aplikace OAuth zaregistrována",

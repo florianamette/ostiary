@@ -586,6 +586,8 @@
           "postLogoutUrisHint": "Dokąd aplikacja może odesłać użytkownika po wylogowaniu (post_logout_redirect_uri, dokładne dopasowanie). Jeden na wiersz lub rozdzielone przecinkami. Bez nich użytkownik zobaczy stronę wylogowania.",
           "skipConsentLabel": "Pomiń zgodę (zaufany klient)",
           "skipConsentHint": "Użytkownicy nie zobaczą ekranu zgody dla tej aplikacji. Używaj tylko dla własnych lub w pełni zaufanych integracji.",
+          "pairwiseLabel": "Identyfikatory użytkowników dla aplikacji",
+          "pairwiseHint": "Użytkownicy mają tu inny identyfikator (sub) niż w aplikacjach na innych hostach, które nie mogą więc powiązać swoich użytkowników z tą aplikacją. Wszystkie adresy URI przekierowania muszą być na tym samym hoście. Nie można tego później zmienić.",
           "registerFailed": "Nie udało się zarejestrować aplikacji",
           "missingClientId": "Serwer nie zwrócił {field}.",
           "registered": "Aplikacja OAuth zarejestrowana",

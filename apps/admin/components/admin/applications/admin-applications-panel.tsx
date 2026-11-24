@@ -177,14 +177,17 @@ function collapseDuplicates(rows: OAuthApplicationRow[], expanded: ReadonlySet<s
  * APIs page. APIs open to every application are not listed.
  * @param machineScopes The scopes an application may be limited to (a machine-to-machine client
  * must be), grouped by API.
+ * @param pairwiseAvailable PAIRWISE_SECRET is set: new apps may use pairwise user IDs.
  */
 export function AdminApplicationsPanel({
   linkedApis = {},
   machineScopes = EMPTY_SCOPE_OPTIONS,
+  pairwiseAvailable = false,
   selfRegistered,
 }: {
   linkedApis?: Record<string, string[]>;
   machineScopes?: MachineScopeOptions;
+  pairwiseAvailable?: boolean;
   selfRegistered: OAuthApplicationRow[];
 }) {
   const t = useTranslations("admin.pages.applications.panel");
@@ -282,7 +285,11 @@ export function AdminApplicationsPanel({
             </SelectContent>
           </Select>
           {hasDuplicates ? <RemoveDuplicatesDialog /> : null}
-          <AdminRegisterOAuthClientDialog machineScopes={machineScopes} onCreated={refetch} />
+          <AdminRegisterOAuthClientDialog
+            machineScopes={machineScopes}
+            pairwiseAvailable={pairwiseAvailable}
+            onCreated={refetch}
+          />
           <Button
             size="sm"
             variant="outline"

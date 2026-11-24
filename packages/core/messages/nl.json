@@ -586,6 +586,8 @@
           "postLogoutUrisHint": "Waarheen de app gebruikers na het uitloggen mag terugsturen (post_logout_redirect_uri, exacte overeenkomst). Eén per regel of gescheiden door komma's. Zonder URI zien gebruikers een uitlogpagina.",
           "skipConsentLabel": "Toestemming overslaan (vertrouwde client)",
           "skipConsentHint": "Gebruikers zien het toestemmingsscherm voor deze applicatie niet. Gebruik dit alleen voor eigen of volledig vertrouwde integraties.",
+          "pairwiseLabel": "Gebruikers-ID's per app",
+          "pairwiseHint": "Gebruikers krijgen hier een andere ID (sub) dan in apps op andere hosts, die hun gebruikers dus niet aan deze app kunnen koppelen. Alle omleidings-URI's moeten op dezelfde host staan. Kan later niet worden gewijzigd.",
           "registerFailed": "Kan de applicatie niet registreren",
           "missingClientId": "De server heeft geen {field} teruggegeven.",
           "registered": "OAuth-applicatie geregistreerd",

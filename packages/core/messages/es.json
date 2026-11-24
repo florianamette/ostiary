@@ -586,6 +586,8 @@
           "postLogoutUrisHint": "Adónde puede devolver la aplicación al usuario tras cerrar sesión (post_logout_redirect_uri, coincidencia exacta). Una por línea o separadas por comas. Sin ninguna, el usuario ve una página de sesión cerrada.",
           "skipConsentLabel": "Omitir consentimiento (cliente de confianza)",
           "skipConsentHint": "Los usuarios no verán la pantalla de consentimiento de esta aplicación. Úsalo solo para integraciones propias o de total confianza.",
+          "pairwiseLabel": "ID de usuario por aplicación",
+          "pairwiseHint": "Los usuarios tienen aquí un ID (sub) distinto del de las aplicaciones en otros hosts, que por tanto no pueden cruzar sus usuarios con esta. Todas las URI de redirección deben estar en el mismo host. No se puede cambiar después.",
           "registerFailed": "No se pudo registrar la aplicación",
           "missingClientId": "El servidor no devolvió ningún {field}.",
           "registered": "Aplicación OAuth registrada",

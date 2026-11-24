@@ -93,6 +93,9 @@ const DEFAULT_GRANT_TYPES = [
   "refresh_token",
 ] as const;
 
+export const PAIRWISE_WITHOUT_USERS_MESSAGE =
+  "Pairwise user IDs are for apps that sign users in (authorization_code).";
+
 /**
  * A client ID chosen by an admin: 3 to 128 letters, digits, `.`, `_` or `-`, enough for the IDs
  * of Auth0, Keycloak, Cognito, Okta or Entra. No `:` or `/`, which a client ID that is a URL
@@ -132,6 +135,8 @@ export const createOAuthClientBodySchema = (apiScopes: readonly string[] = ENV_A
       response_types: z.array(z.literal("code")).optional(),
       type: oauthClientApplicationTypeSchema.optional(),
       skip_consent: z.boolean().optional().default(false),
+      // "pairwise": the app gets a `sub` of its own (PAIRWISE_SECRET). Set on create only.
+      subject_type: z.enum(["public", "pairwise"]).optional(),
       // Off unless asked for, as in Better Auth: the console's dialog asks for it explicitly.
       enable_end_session: z.boolean().optional().default(false),
       post_logout_redirect_uris: postLogoutRedirectUrisSchema,
@@ -149,6 +154,13 @@ export const createOAuthClientBodySchema = (apiScopes: readonly string[] = ENV_A
           code: z.ZodIssueCode.custom,
           path: ["post_logout_redirect_uris"],
           message: POST_LOGOUT_WITHOUT_END_SESSION_MESSAGE,
+        });
+      }
+      if (v.subject_type === "pairwise" && !v.grant_types.includes("authorization_code")) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ["subject_type"],
+          message: PAIRWISE_WITHOUT_USERS_MESSAGE,
         });
       }
       if (v.grant_types.includes("authorization_code") && v.redirect_uris.length === 0) {
@@ -304,6 +316,7 @@ export function parseCreateOAuthClientBody(
       response_types: v.grant_types.includes("authorization_code") ? ["code"] : [],
       type: v.type,
       skip_consent: v.skip_consent,
+      ...(v.subject_type === "pairwise" ? { subject_type: "pairwise" as const } : {}),
       enable_end_session: v.enable_end_session,
       ...(v.post_logout_redirect_uris?.length
         ? { post_logout_redirect_uris: v.post_logout_redirect_uris }

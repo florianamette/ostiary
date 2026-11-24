@@ -586,6 +586,8 @@
           "postLogoutUrisHint": "Vart appen får skicka tillbaka användare efter utloggning (post_logout_redirect_uri, exakt matchning). En per rad eller kommaseparerade. Utan någon ser användarna en utloggningssida.",
           "skipConsentLabel": "Hoppa över samtycke (betrodd klient)",
           "skipConsentHint": "Användarna ser inte samtyckesskärmen för den här applikationen. Använd bara för egna eller helt betrodda integrationer.",
+          "pairwiseLabel": "Användar-ID per app",
+          "pairwiseHint": "Användare får här ett annat ID (sub) än i appar på andra värdar, som därför inte kan matcha sina användare mot den här appen. Alla omdirigerings-URI:er måste ligga på samma värd. Kan inte ändras senare.",
           "registerFailed": "Det gick inte att registrera applikationen",
           "missingClientId": "Servern returnerade inget {field}.",
           "registered": "OAuth-applikationen har registrerats",
