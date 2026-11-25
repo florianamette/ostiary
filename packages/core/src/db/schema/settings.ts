@@ -1,6 +1,6 @@
-import { jsonb, pgTable, text, timestamp } from "drizzle-orm/pg-core";
+import { boolean, jsonb, pgTable, text, timestamp } from "drizzle-orm/pg-core";
 
-import { user } from "./auth";
+import { organization, user } from "./auth";
 
 /**
  * Instance settings changed from the admin console, one JSON document per key (for example
@@ -9,6 +9,21 @@ import { user } from "./auth";
 export const appSetting = pgTable("app_setting", {
   key: text("key").primaryKey(),
   value: jsonb("value").notNull(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
+  updatedBy: text("updated_by").references(() => user.id, { onDelete: "set null" }),
+});
+
+/**
+ * An organization's own security settings, set by platform admins. Two-factor authentication
+ * required for its members (see lib/two-factor-policy.ts); `requireTwoFactorSince` starts
+ * their grace period.
+ */
+export const organizationPolicy = pgTable("organization_policy", {
+  organizationId: text("organization_id")
+    .primaryKey()
+    .references(() => organization.id, { onDelete: "cascade" }),
+  requireTwoFactor: boolean("require_two_factor").default(false).notNull(),
+  requireTwoFactorSince: timestamp("require_two_factor_since", { withTimezone: true }),
   updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
   updatedBy: text("updated_by").references(() => user.id, { onDelete: "set null" }),
 });

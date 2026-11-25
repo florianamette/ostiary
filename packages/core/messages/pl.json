@@ -188,6 +188,18 @@
       "continue": "Przejdź do <app>{name}</app>",
       "unverified": "Niezweryfikowana aplikacja.",
       "unverifiedHint": "{name} jej nie sprawdził: kontynuuj tylko, jeśli jej ufasz."
+    },
+    "twoFactorRequired": {
+      "metaTitle": "Wymagane uwierzytelnianie dwuskładnikowe",
+      "title": "Włącz uwierzytelnianie dwuskładnikowe",
+      "byOrganization": "Administratorzy Twojej organizacji wymagają uwierzytelniania dwuskładnikowego przy logowaniu do aplikacji.",
+      "byPlatform": "Logowanie do aplikacji wymaga uwierzytelniania dwuskładnikowego.",
+      "until": "Włącz je przed {date}.",
+      "now": "Włącz je, aby kontynuować.",
+      "how": "Użyj aplikacji uwierzytelniającej (np. Google Authenticator lub 1Password) albo dodaj klucz dostępu na stronie konta.",
+      "setUp": "Skonfiguruj uwierzytelnianie dwuskładnikowe",
+      "later": "Przypomnij później",
+      "continue": "Kontynuuj"
     }
   },
   "consent": {
@@ -2049,7 +2061,12 @@
           "errors": {
             "invalid": "Wybierz jedną z oferowanych wartości.",
             "save": "Nie udało się zapisać zasad."
-          }
+          },
+          "twoFactorEveryone": "Dwa składniki dla wszystkich",
+          "twoFactorEveryoneHint": "Wszyscy muszą logować się do aplikacji przez aplikację uwierzytelniającą lub klucz dostępu. Administratorzy: REQUIRE_ADMIN_2FA. Organizacje mogą tego wymagać od członków na swojej stronie.",
+          "twoFactorGraceDays": "Czas na włączenie",
+          "twoFactorGraceDaysHint": "Osoby bez dwóch składników są pytane przy każdym logowaniu do aplikacji i mogą kontynuować do tego czasu. Liczy się od włączenia tej opcji albo od utworzenia konta.",
+          "noGrace": "Brak: wymagane od razu"
         }
       },
       "signingKeys": {
@@ -2196,7 +2213,14 @@
           "scimCounts": "Utworzone: {active}, dezaktywowane: {inactive}.",
           "recentActions": "Ostatnie działania administratorów",
           "noActions": "Brak.",
-          "system": "system"
+          "system": "system",
+          "twoFactor": {
+            "title": "Uwierzytelnianie dwuskładnikowe",
+            "label": "Wymagaj uwierzytelniania dwuskładnikowego od członków",
+            "hint": "Członkowie muszą logować się do aplikacji przez aplikację uwierzytelniającą lub klucz dostępu po czasie ustawionym na stronie Bezpieczeństwo.",
+            "on": "Uwierzytelnianie dwuskładnikowe jest teraz wymagane od członków tej organizacji.",
+            "off": "Uwierzytelnianie dwuskładnikowe nie jest już wymagane od członków tej organizacji."
+          }
         },
         "errors": {
           "invalidNameSlug": "Wpisz nazwę i slug złożony z liter, cyfr i myślników.",
@@ -2405,7 +2429,8 @@
         "invalidCode": "Ten kod jest nieprawidłowy. Sprawdź, czy zegar urządzenia jest ustawiony poprawnie, i spróbuj ponownie.",
         "rateLimited": "Zbyt wiele prób. Odczekaj kilka sekund i spróbuj ponownie.",
         "generic": "Coś poszło nie tak. Spróbuj ponownie."
-      }
+      },
+      "doneContinue": "Przejdź do aplikacji"
     },
     "organizations": {
       "title": "Organizacje",

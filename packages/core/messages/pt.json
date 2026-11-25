@@ -188,6 +188,18 @@
       "continue": "Continuar para <app>{name}</app>",
       "unverified": "Aplicação não verificada.",
       "unverifiedHint": "{name} não a analisou: continue apenas se confiar nela."
+    },
+    "twoFactorRequired": {
+      "metaTitle": "Autenticação de dois fatores obrigatória",
+      "title": "Ative a autenticação de dois fatores",
+      "byOrganization": "Os administradores da sua organização exigem a autenticação de dois fatores para iniciar sessão nas aplicações.",
+      "byPlatform": "A autenticação de dois fatores é obrigatória para iniciar sessão nas aplicações.",
+      "until": "Ative-a antes de {date}.",
+      "now": "Ative-a para continuar.",
+      "how": "Use uma aplicação de autenticação (como o Google Authenticator ou o 1Password) ou adicione uma chave de acesso na página da sua conta.",
+      "setUp": "Configurar a autenticação de dois fatores",
+      "later": "Lembrar-me mais tarde",
+      "continue": "Continuar"
     }
   },
   "consent": {
@@ -2049,7 +2061,12 @@
           "errors": {
             "invalid": "Escolha um dos valores disponíveis.",
             "save": "Não foi possível guardar a política."
-          }
+          },
+          "twoFactorEveryone": "Dois fatores para todos",
+          "twoFactorEveryoneHint": "Todos têm de usar uma aplicação de autenticação ou uma chave de acesso para iniciar sessão nas aplicações. Administradores: REQUIRE_ADMIN_2FA. As organizações podem exigi-la aos seus membros na página delas.",
+          "twoFactorGraceDays": "Prazo para a ativar",
+          "twoFactorGraceDaysHint": "Quem não a tem é avisado em cada início de sessão numa aplicação e pode continuar até lá. O prazo começa quando ativa isto, ou na criação da conta.",
+          "noGrace": "Nenhum: obrigatória de imediato"
         }
       },
       "signingKeys": {
@@ -2196,7 +2213,14 @@
           "scimCounts": "{active} provisionadas, {inactive} desativadas.",
           "recentActions": "Ações administrativas recentes",
           "noActions": "Nenhuma ainda.",
-          "system": "sistema"
+          "system": "sistema",
+          "twoFactor": {
+            "title": "Autenticação de dois fatores",
+            "label": "Exigir a autenticação de dois fatores aos membros",
+            "hint": "Os membros têm de usar uma aplicação de autenticação ou uma chave de acesso para iniciar sessão nas aplicações, após o prazo definido na página Segurança.",
+            "on": "A autenticação de dois fatores passa a ser obrigatória para os membros desta organização.",
+            "off": "A autenticação de dois fatores deixa de ser obrigatória para os membros desta organização."
+          }
         },
         "errors": {
           "invalidNameSlug": "Insira um nome e um slug com letras, números e hifens.",
@@ -2405,7 +2429,8 @@
         "invalidCode": "Este código não é válido. Verifique se o relógio do seu dispositivo está certo e tente novamente.",
         "rateLimited": "Tentativas demais. Aguarde alguns segundos e tente novamente.",
         "generic": "Algo deu errado. Tente novamente."
-      }
+      },
+      "doneContinue": "Continuar para a aplicação"
     },
     "organizations": {
       "title": "Organizações",

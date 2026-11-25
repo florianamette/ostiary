@@ -188,6 +188,18 @@
       "continue": "Pokračovat do <app>{name}</app>",
       "unverified": "Neověřená aplikace.",
       "unverifiedHint": "{name} ji nezkontroloval: pokračujte, jen pokud jí důvěřujete."
+    },
+    "twoFactorRequired": {
+      "metaTitle": "Vyžadováno dvoufázové ověření",
+      "title": "Zapněte dvoufázové ověření",
+      "byOrganization": "Správci vaší organizace vyžadují pro přihlášení do aplikací dvoufázové ověření.",
+      "byPlatform": "Přihlášení do aplikací vyžaduje dvoufázové ověření.",
+      "until": "Zapněte ho před {date}.",
+      "now": "Zapněte ho, abyste mohli pokračovat.",
+      "how": "Použijte ověřovací aplikaci (třeba Google Authenticator nebo 1Password), nebo si na stránce účtu přidejte přístupový klíč.",
+      "setUp": "Nastavit dvoufázové ověření",
+      "later": "Připomenout později",
+      "continue": "Pokračovat"
     }
   },
   "consent": {
@@ -2049,7 +2061,12 @@
           "errors": {
             "invalid": "Zvolte jednu z nabízených hodnot.",
             "save": "Zásady se nepodařilo uložit."
-          }
+          },
+          "twoFactorEveryone": "Dvoufázové ověření pro všechny",
+          "twoFactorEveryoneHint": "Všichni se musí do aplikací přihlašovat ověřovací aplikací nebo přístupovým klíčem. Správci: REQUIRE_ADMIN_2FA. Organizace to mohou vyžadovat od svých členů na své stránce.",
+          "twoFactorGraceDays": "Lhůta na zapnutí",
+          "twoFactorGraceDaysHint": "Kdo dvoufázové ověření nemá, dostane výzvu při každém přihlášení do aplikace a může do té doby pokračovat. Lhůta začíná zapnutím této volby, nebo vytvořením účtu.",
+          "noGrace": "Žádná: vyžadováno hned"
         }
       },
       "signingKeys": {
@@ -2196,7 +2213,14 @@
           "scimCounts": "Zřízeno: {active}, deaktivováno: {inactive}.",
           "recentActions": "Nedávné akce administrátorů",
           "noActions": "Zatím žádné.",
-          "system": "systém"
+          "system": "systém",
+          "twoFactor": {
+            "title": "Dvoufázové ověření",
+            "label": "Vyžadovat od členů dvoufázové ověření",
+            "hint": "Členové se musí po lhůtě nastavené na stránce Zabezpečení přihlašovat do aplikací ověřovací aplikací nebo přístupovým klíčem.",
+            "on": "Dvoufázové ověření je nyní vyžadováno od členů této organizace.",
+            "off": "Dvoufázové ověření už od členů této organizace vyžadováno není."
+          }
         },
         "errors": {
           "invalidNameSlug": "Zadejte název a slug složený z písmen, číslic a pomlček.",
@@ -2405,7 +2429,8 @@
         "invalidCode": "Kód není platný. Zkontrolujte, zda máte na zařízení správný čas, a zkuste to znovu.",
         "rateLimited": "Příliš mnoho pokusů. Počkejte několik sekund a zkuste to znovu.",
         "generic": "Něco se pokazilo. Zkuste to znovu."
-      }
+      },
+      "doneContinue": "Pokračovat do aplikace"
     },
     "organizations": {
       "title": "Organizace",

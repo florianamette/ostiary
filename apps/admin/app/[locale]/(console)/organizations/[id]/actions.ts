@@ -4,6 +4,7 @@ import { randomUUID } from "node:crypto";
 import { and, count, eq, ne } from "drizzle-orm";
 import { getTranslations } from "next-intl/server";
 import { z } from "zod";
+import { setOrganizationTwoFactor } from "@ostiary/core/lib/two-factor-policy";
 
 import { db } from "@ostiary/core/db/index";
 import { invitation, member, organization, user } from "@ostiary/core/db/schema";
@@ -175,6 +176,23 @@ export async function cancelInvitation(orgId: string, invitationId: string): Pro
       .returning({ email: invitation.email });
     if (!row) return { ok: false, error: (await errors())("invitationNotFound") };
     await audit({ action: "organization.cancel_invitation", target: { type: "organization", id: orgId, label: await orgName(orgId) }, metadata: { email: row.email } });
+    return { ok: true };
+  });
+}
+
+const twoFactorInput = z.tuple([input.id, z.boolean()]);
+
+/** Requires (or stops requiring) two-factor authentication for the organization's members. */
+export async function setOrganizationTwoFactorAction(orgId: string, required: boolean): Promise<ActionResult> {
+  return adminAction(twoFactorInput, [orgId, required], async ([orgId, required], { session, audit }) => {
+    const name = await orgName(orgId);
+    if (name === null) return { ok: false, error: (await errors())("organizationNotFound") };
+    await setOrganizationTwoFactor(orgId, required, session.user.id);
+    await audit({
+      action: "organization.update",
+      target: { type: "organization", id: orgId, label: name },
+      metadata: { requireTwoFactor: required },
+    });
     return { ok: true };
   });
 }

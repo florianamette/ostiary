@@ -16,14 +16,20 @@ import { getMyConnectedApps } from "@/lib/connected-apps-actions";
 import { Alert, AlertDescription, AlertTitle } from "@ostiary/core/components/ui/alert";
 import { adminNeedsTwoFactor } from "@ostiary/core/lib/admin/admin-two-factor";
 import { env } from "@ostiary/core/lib/env";
+import { promptToResume } from "@ostiary/core/lib/two-factor-policy";
 import { enabledSocialProviders } from "@ostiary/core/lib/social-providers";
 
 export default async function DashboardPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const { locale } = await params;
+  // Sent here by the two-factor prompt: turning it on resumes the app's sign-in.
+  const resume = (await searchParams).continue;
+  const returnUrl = promptToResume(typeof resume === "string" ? resume : null) ?? undefined;
   const t = await getTranslations({ locale, namespace: "dashboard" });
   const { session, hasOrganizations, showApiKeys } = await getDashboardContext();
   // The admin console sends admins here until they turn on two-factor authentication.
@@ -70,6 +76,7 @@ export default async function DashboardPage({
           adminConsoleUrl={twoFactorRequired ? env.ADMIN_APP_URL : undefined}
           minPasswordLength={policy.minPasswordLength}
           signOutOnPasswordChange={policy.signOutOnPasswordChange}
+          returnUrl={returnUrl}
         />
         <DashboardAppsSection initialApps={connectedApps} />
         {showApiKeys ? <DashboardApiKeysSection initialKeys={apiKeys} /> : null}

@@ -188,6 +188,18 @@
       "continue": "Doorgaan naar <app>{name}</app>",
       "unverified": "Niet-geverifieerde app.",
       "unverifiedHint": "{name} heeft deze niet beoordeeld: ga alleen door als je de app vertrouwt."
+    },
+    "twoFactorRequired": {
+      "metaTitle": "Tweestapsverificatie vereist",
+      "title": "Zet tweestapsverificatie aan",
+      "byOrganization": "De beheerders van je organisatie vereisen tweestapsverificatie om bij apps aan te melden.",
+      "byPlatform": "Tweestapsverificatie is vereist om bij apps aan te melden.",
+      "until": "Zet het aan vóór {date}.",
+      "now": "Zet het aan om door te gaan.",
+      "how": "Gebruik een authenticator-app (zoals Google Authenticator of 1Password) of voeg een passkey toe op je accountpagina.",
+      "setUp": "Tweestapsverificatie instellen",
+      "later": "Herinner me later",
+      "continue": "Doorgaan"
     }
   },
   "consent": {
@@ -2049,7 +2061,12 @@
           "errors": {
             "invalid": "Kies een van de aangeboden waarden.",
             "save": "Het beleid kon niet worden opgeslagen."
-          }
+          },
+          "twoFactorEveryone": "Tweestapsverificatie voor iedereen",
+          "twoFactorEveryoneHint": "Iedereen moet een authenticator-app of passkey gebruiken om bij apps aan te melden. Beheerders: REQUIRE_ADMIN_2FA. Organisaties kunnen het op hun pagina van hun leden vereisen.",
+          "twoFactorGraceDays": "Tijd om het aan te zetten",
+          "twoFactorGraceDaysHint": "Wie het niet heeft, krijgt bij elke app-aanmelding de vraag en kan tot dan doorgaan. De termijn begint als je dit aanzet, of bij het aanmaken van het account.",
+          "noGrace": "Geen: meteen vereist"
         }
       },
       "signingKeys": {
@@ -2196,7 +2213,14 @@
           "scimCounts": "{active} ingericht, {inactive} gedeactiveerd.",
           "recentActions": "Recente beheeracties",
           "noActions": "Nog geen.",
-          "system": "systeem"
+          "system": "systeem",
+          "twoFactor": {
+            "title": "Tweestapsverificatie",
+            "label": "Tweestapsverificatie vereisen van leden",
+            "hint": "Leden moeten na de termijn op de pagina Beveiliging een authenticator-app of passkey gebruiken om bij apps aan te melden.",
+            "on": "Tweestapsverificatie is nu vereist voor de leden van deze organisatie.",
+            "off": "Tweestapsverificatie is niet langer vereist voor de leden van deze organisatie."
+          }
         },
         "errors": {
           "invalidNameSlug": "Voer een naam in en een slug van letters, cijfers en streepjes.",
@@ -2405,7 +2429,8 @@
         "invalidCode": "Deze code is ongeldig. Controleer of de klok van je apparaat klopt en probeer het opnieuw.",
         "rateLimited": "Te veel pogingen. Wacht een paar seconden en probeer het opnieuw.",
         "generic": "Er is iets misgegaan. Probeer het opnieuw."
-      }
+      },
+      "doneContinue": "Doorgaan naar de app"
     },
     "organizations": {
       "title": "Organisaties",

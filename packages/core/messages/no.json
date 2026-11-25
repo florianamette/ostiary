@@ -188,6 +188,18 @@
       "continue": "Fortsett til <app>{name}</app>",
       "unverified": "Ubekreftet app.",
       "unverifiedHint": "{name} har ikke gjennomgått den: fortsett bare hvis du stoler på den."
+    },
+    "twoFactorRequired": {
+      "metaTitle": "Tofaktorautentisering kreves",
+      "title": "Slå på tofaktorautentisering",
+      "byOrganization": "Organisasjonens administratorer krever tofaktorautentisering for å logge på apper.",
+      "byPlatform": "Tofaktorautentisering kreves for å logge på apper.",
+      "until": "Slå den på før {date}.",
+      "now": "Slå den på for å fortsette.",
+      "how": "Bruk en autentiseringsapp (som Google Authenticator eller 1Password), eller legg til en tilgangsnøkkel på kontosiden din.",
+      "setUp": "Konfigurer tofaktorautentisering",
+      "later": "Minn meg på det senere",
+      "continue": "Fortsett"
     }
   },
   "consent": {
@@ -2049,7 +2061,12 @@
           "errors": {
             "invalid": "Velg en av verdiene som tilbys.",
             "save": "Kunne ikke lagre retningslinjene."
-          }
+          },
+          "twoFactorEveryone": "Tofaktor for alle",
+          "twoFactorEveryoneHint": "Alle må bruke en autentiseringsapp eller en tilgangsnøkkel for å logge på apper. Administratorer: REQUIRE_ADMIN_2FA. Organisasjoner kan kreve det av medlemmene på sin side.",
+          "twoFactorGraceDays": "Frist for å slå den på",
+          "twoFactorGraceDaysHint": "De som mangler tofaktor, blir spurt ved hver app-pålogging og kan fortsette til da. Fristen starter når du slår på dette, eller når kontoen opprettes.",
+          "noGrace": "Ingen: kreves med en gang"
         }
       },
       "signingKeys": {
@@ -2196,7 +2213,14 @@
           "scimCounts": "{active} klargjort, {inactive} deaktivert.",
           "recentActions": "Nylige administratorhandlinger",
           "noActions": "Ingen ennå.",
-          "system": "systemet"
+          "system": "systemet",
+          "twoFactor": {
+            "title": "Tofaktorautentisering",
+            "label": "Krev tofaktorautentisering av medlemmer",
+            "hint": "Medlemmer må bruke en autentiseringsapp eller en tilgangsnøkkel for å logge på apper etter fristen på Sikkerhet-siden.",
+            "on": "Tofaktorautentisering kreves nå for denne organisasjonens medlemmer.",
+            "off": "Tofaktorautentisering kreves ikke lenger for denne organisasjonens medlemmer."
+          }
         },
         "errors": {
           "invalidNameSlug": "Skriv inn et navn og en slug med bokstaver, tall og bindestreker.",
@@ -2405,7 +2429,8 @@
         "invalidCode": "Koden er ugyldig. Sjekk at klokken på enheten er riktig, og prøv igjen.",
         "rateLimited": "For mange forsøk. Vent noen sekunder og prøv igjen.",
         "generic": "Noe gikk galt. Prøv igjen."
-      }
+      },
+      "doneContinue": "Fortsett til appen"
     },
     "organizations": {
       "title": "Organisasjoner",

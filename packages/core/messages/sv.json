@@ -188,6 +188,18 @@
       "continue": "Fortsätt till <app>{name}</app>",
       "unverified": "Overifierad app.",
       "unverifiedHint": "{name} har inte granskat den: fortsätt bara om du litar på den."
+    },
+    "twoFactorRequired": {
+      "metaTitle": "Tvåfaktorsautentisering krävs",
+      "title": "Aktivera tvåfaktorsautentisering",
+      "byOrganization": "Din organisations administratörer kräver tvåfaktorsautentisering för att logga in i appar.",
+      "byPlatform": "Tvåfaktorsautentisering krävs för att logga in i appar.",
+      "until": "Aktivera den före {date}.",
+      "now": "Aktivera den för att fortsätta.",
+      "how": "Använd en autentiseringsapp (till exempel Google Authenticator eller 1Password) eller lägg till en nyckel på din kontosida.",
+      "setUp": "Konfigurera tvåfaktorsautentisering",
+      "later": "Påminn mig senare",
+      "continue": "Fortsätt"
     }
   },
   "consent": {
@@ -2049,7 +2061,12 @@
           "errors": {
             "invalid": "Välj ett av de värden som erbjuds.",
             "save": "Det gick inte att spara policyn."
-          }
+          },
+          "twoFactorEveryone": "Tvåfaktor för alla",
+          "twoFactorEveryoneHint": "Alla måste använda en autentiseringsapp eller en nyckel för att logga in i appar. Administratörer: REQUIRE_ADMIN_2FA. Organisationer kan kräva det av sina medlemmar på sin sida.",
+          "twoFactorGraceDays": "Tid att aktivera den",
+          "twoFactorGraceDaysHint": "Den som saknar tvåfaktor tillfrågas vid varje appinloggning och kan fortsätta tills dess. Tiden börjar när du aktiverar detta, eller när kontot skapas.",
+          "noGrace": "Ingen: krävs direkt"
         }
       },
       "signingKeys": {
@@ -2196,7 +2213,14 @@
           "scimCounts": "{active} etablerade, {inactive} inaktiverade.",
           "recentActions": "Senaste administratörsåtgärder",
           "noActions": "Inga än.",
-          "system": "systemet"
+          "system": "systemet",
+          "twoFactor": {
+            "title": "Tvåfaktorsautentisering",
+            "label": "Kräv tvåfaktorsautentisering av medlemmar",
+            "hint": "Medlemmar måste använda en autentiseringsapp eller en nyckel för att logga in i appar, efter tiden som anges på sidan Säkerhet.",
+            "on": "Tvåfaktorsautentisering krävs nu för den här organisationens medlemmar.",
+            "off": "Tvåfaktorsautentisering krävs inte längre för den här organisationens medlemmar."
+          }
         },
         "errors": {
           "invalidNameSlug": "Ange ett namn och en slug som består av bokstäver, siffror och bindestreck.",
@@ -2405,7 +2429,8 @@
         "invalidCode": "Koden är ogiltig. Kontrollera att enhetens klocka går rätt och försök igen.",
         "rateLimited": "För många försök. Vänta några sekunder och försök igen.",
         "generic": "Något gick fel. Försök igen."
-      }
+      },
+      "doneContinue": "Fortsätt till appen"
     },
     "organizations": {
       "title": "Organisationer",

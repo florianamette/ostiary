@@ -8,7 +8,7 @@ import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle }
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@ostiary/core/components/ui/dialog";
 import { Field, FieldDescription, FieldGroup, FieldLabel } from "@ostiary/core/components/ui/field";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@ostiary/core/components/ui/select";
-import { MIN_PASSWORD_LENGTHS, SESSION_DAYS, type AuthPolicy } from "@ostiary/core/lib/auth-policy-options";
+import { MIN_PASSWORD_LENGTHS, SESSION_DAYS, TWO_FACTOR_GRACE_DAYS, type AuthPolicy } from "@ostiary/core/lib/auth-policy-options";
 
 import { updateAuthPolicy } from "@/app/[locale]/(console)/security/actions";
 import { CheckboxField } from "@/components/admin/common/choice-field";
@@ -26,6 +26,8 @@ export function AuthPolicyCard({ policy }: { policy: AuthPolicy }) {
     [t("signOutOnPasswordChange"), yesNo(policy.signOutOnPasswordChange)],
     [t("minPasswordLength"), t("characters", { count: policy.minPasswordLength })],
     [t("passwordSignUp"), yesNo(policy.passwordSignUp)],
+    [t("twoFactorEveryone"), yesNo(policy.twoFactorEveryone)],
+    [t("twoFactorGraceDays"), t("days", { count: policy.twoFactorGraceDays })],
   ];
 
   return (
@@ -78,14 +80,17 @@ function AuthPolicyDialog({ policy, onClose }: { policy: AuthPolicy; onClose: ()
   function save(e: React.FormEvent) {
     e.preventDefault();
     void run(async () => {
-      const res = await updateAuthPolicy(draft);
+      // The server sets when "everyone" started.
+      const policy: Partial<AuthPolicy> = { ...draft };
+      delete policy.twoFactorRequiredSince;
+      const res = await updateAuthPolicy(policy as Omit<AuthPolicy, "twoFactorRequiredSince">);
       return res.ok ? res : { ok: false, error: t(`errors.${res.error}`) };
     }, t("saved"));
   }
 
   return (
     <Dialog open onOpenChange={(next) => !next && !busy && onClose()}>
-      <DialogContent className="sm:max-w-lg">
+      <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-lg">
         <form onSubmit={save} className="grid gap-6">
           <DialogHeader>
             <DialogTitle>{t("title")}</DialogTitle>
@@ -148,6 +153,30 @@ function AuthPolicyDialog({ policy, onClose }: { policy: AuthPolicy; onClose: ()
               onChange={(v) => set("passwordSignUp", v)}
               disabled={busy}
             />
+            <SwitchField
+              id="policy-two-factor"
+              label={t("twoFactorEveryone")}
+              hint={t("twoFactorEveryoneHint")}
+              checked={draft.twoFactorEveryone}
+              onChange={(v) => set("twoFactorEveryone", v)}
+              disabled={busy}
+            />
+            <Field>
+              <FieldLabel htmlFor="policy-two-factor-grace">{t("twoFactorGraceDays")}</FieldLabel>
+              <Select value={String(draft.twoFactorGraceDays)} onValueChange={(v) => set("twoFactorGraceDays", Number(v))} disabled={busy}>
+                <SelectTrigger id="policy-two-factor-grace" className="w-full">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {TWO_FACTOR_GRACE_DAYS.map((days) => (
+                    <SelectItem key={days} value={String(days)}>
+                      {days === 0 ? t("noGrace") : t("days", { count: days })}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <FieldDescription>{t("twoFactorGraceDaysHint")}</FieldDescription>
+            </Field>
           </FieldGroup>
           <DialogActions busy={busy} onCancel={onClose} cancelLabel={t("cancel")} confirmLabel={t("save")} />
         </form>

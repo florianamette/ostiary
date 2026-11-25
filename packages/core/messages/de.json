@@ -188,6 +188,18 @@
       "continue": "Weiter zu <app>{name}</app>",
       "unverified": "Nicht verifizierte App.",
       "unverifiedHint": "{name} hat sie nicht geprüft: Fahren Sie nur fort, wenn Sie ihr vertrauen."
+    },
+    "twoFactorRequired": {
+      "metaTitle": "Zwei-Faktor-Authentifizierung erforderlich",
+      "title": "Zwei-Faktor-Authentifizierung einschalten",
+      "byOrganization": "Die Administratoren deiner Organisation verlangen Zwei-Faktor-Authentifizierung für die Anmeldung bei Apps.",
+      "byPlatform": "Für die Anmeldung bei Apps ist Zwei-Faktor-Authentifizierung erforderlich.",
+      "until": "Schalte sie vor dem {date} ein.",
+      "now": "Schalte sie ein, um fortzufahren.",
+      "how": "Nutze eine Authenticator-App (etwa Google Authenticator oder 1Password) oder füge auf deiner Kontoseite einen Passkey hinzu.",
+      "setUp": "Zwei-Faktor-Authentifizierung einrichten",
+      "later": "Später erinnern",
+      "continue": "Weiter"
     }
   },
   "consent": {
@@ -2049,7 +2061,12 @@
           "errors": {
             "invalid": "Wähle einen der angebotenen Werte.",
             "save": "Die Richtlinie konnte nicht gespeichert werden."
-          }
+          },
+          "twoFactorEveryone": "Zwei Faktoren für alle",
+          "twoFactorEveryoneHint": "Alle müssen sich mit einer Authenticator-App oder einem Passkey bei Apps anmelden. Admins: REQUIRE_ADMIN_2FA. Organisationen können es auf ihrer Seite für ihre Mitglieder verlangen.",
+          "twoFactorGraceDays": "Frist zum Einschalten",
+          "twoFactorGraceDaysHint": "Wer keine zwei Faktoren hat, wird bei jeder App-Anmeldung gefragt und kann bis dahin weitermachen. Die Frist beginnt mit dem Einschalten oder mit der Kontoerstellung.",
+          "noGrace": "Keine: sofort erforderlich"
         }
       },
       "signingKeys": {
@@ -2196,7 +2213,14 @@
           "scimCounts": "{active} bereitgestellt, {inactive} deaktiviert.",
           "recentActions": "Letzte Admin-Aktionen",
           "noActions": "Noch keine.",
-          "system": "System"
+          "system": "System",
+          "twoFactor": {
+            "title": "Zwei-Faktor-Authentifizierung",
+            "label": "Zwei-Faktor-Authentifizierung für Mitglieder verlangen",
+            "hint": "Mitglieder müssen sich nach der auf der Sicherheitsseite festgelegten Frist mit einer Authenticator-App oder einem Passkey bei Apps anmelden.",
+            "on": "Zwei-Faktor-Authentifizierung ist jetzt für die Mitglieder dieser Organisation erforderlich.",
+            "off": "Zwei-Faktor-Authentifizierung ist für die Mitglieder dieser Organisation nicht mehr erforderlich."
+          }
         },
         "errors": {
           "invalidNameSlug": "Geben Sie einen Namen und einen Slug aus Buchstaben, Ziffern und Bindestrichen ein.",
@@ -2405,7 +2429,8 @@
         "invalidCode": "Dieser Code ist ungültig. Prüfen Sie, ob die Uhrzeit Ihres Geräts stimmt, und versuchen Sie es erneut.",
         "rateLimited": "Zu viele Versuche. Warten Sie einige Sekunden und versuchen Sie es erneut.",
         "generic": "Etwas ist schiefgelaufen. Versuchen Sie es erneut."
-      }
+      },
+      "doneContinue": "Weiter zur App"
     },
     "organizations": {
       "title": "Organisationen",

@@ -53,9 +53,12 @@ function DialogFormFooter({
 
 export function DashboardTwoFactorSection({
   adminConsoleUrl,
+  returnUrl,
 }: {
   /** Set when this admin was sent here to turn on 2FA: "Done" then returns to the console. */
   adminConsoleUrl?: string;
+  /** Set when an app sign-in sent the person here (two-factor required): "Done" resumes it. */
+  returnUrl?: string;
 }) {
   const t = useTranslations("dashboard.twoFactor");
   const { data: current } = useDashboardSession();
@@ -180,7 +183,11 @@ export function DashboardTwoFactorSection({
           <BackupCodes codes={flow.backupCodes} />
         </div>
         <DialogFooter>
-          {finishingSetup && adminConsoleUrl ? (
+          {finishingSetup && returnUrl ? (
+            <Button type="button" onClick={() => window.location.assign(returnUrl)}>
+              {t("doneContinue")}
+            </Button>
+          ) : finishingSetup && adminConsoleUrl ? (
             <Button type="button" onClick={() => window.location.assign(adminConsoleUrl)}>
               {t("doneAdmin")}
             </Button>

@@ -8,6 +8,8 @@ export const DAY_SECONDS = 24 * 60 * 60;
 /** Choices offered in the console. */
 export const SESSION_DAYS = [1, 7, 14, 30, 90] as const;
 export const MIN_PASSWORD_LENGTHS = [8, 10, 12, 14, 16] as const;
+/** Days people have to turn on two-factor authentication once it is required. */
+export const TWO_FACTOR_GRACE_DAYS = [0, 7, 14, 30] as const;
 
 export type AuthPolicy = {
   /** Days a session lasts: without use (sessions extended while used), or in all. */
@@ -19,6 +21,15 @@ export type AuthPolicy = {
   minPasswordLength: number;
   /** People may sign up with an email and a password. Off: social sign-in and SSO only. */
   passwordSignUp: boolean;
+  /**
+   * Everyone must use two-factor authentication (an authenticator app, or a passkey) to sign in
+   * to apps. Admins: REQUIRE_ADMIN_2FA. Organizations can require it for their members.
+   */
+  twoFactorEveryone: boolean;
+  /** Days to turn it on, from when it became required (or the account was created, if later). */
+  twoFactorGraceDays: number;
+  /** When `twoFactorEveryone` was turned on (ISO date), set by the save. */
+  twoFactorRequiredSince: string | null;
 };
 
 /** Better Auth's defaults, and Ostiary's behaviour before the policy existed. */
@@ -28,6 +39,9 @@ export const DEFAULT_AUTH_POLICY: AuthPolicy = {
   signOutOnPasswordChange: false,
   minPasswordLength: 8,
   passwordSignUp: true,
+  twoFactorEveryone: false,
+  twoFactorGraceDays: 14,
+  twoFactorRequiredSince: null,
 };
 
 /** Better Auth refreshes a used session once a day (its default `updateAge`). */
@@ -50,5 +64,11 @@ export function parseAuthPolicy(raw: unknown): AuthPolicy {
     signOutOnPasswordChange: bool("signOutOnPasswordChange"),
     minPasswordLength: oneOf<number>(MIN_PASSWORD_LENGTHS, value.minPasswordLength, DEFAULT_AUTH_POLICY.minPasswordLength),
     passwordSignUp: bool("passwordSignUp"),
+    twoFactorEveryone: bool("twoFactorEveryone"),
+    twoFactorGraceDays: oneOf<number>(TWO_FACTOR_GRACE_DAYS, value.twoFactorGraceDays, DEFAULT_AUTH_POLICY.twoFactorGraceDays),
+    twoFactorRequiredSince:
+      typeof value.twoFactorRequiredSince === "string" && !Number.isNaN(Date.parse(value.twoFactorRequiredSince))
+        ? value.twoFactorRequiredSince
+        : null,
   };
 }

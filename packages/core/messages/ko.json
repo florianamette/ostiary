@@ -188,6 +188,18 @@
       "continue": "<app>{name}</app>(으)로 계속",
       "unverified": "확인되지 않은 앱입니다.",
       "unverifiedHint": "{name}에서 검토하지 않은 앱입니다. 신뢰하는 경우에만 계속하세요."
+    },
+    "twoFactorRequired": {
+      "metaTitle": "2단계 인증 필요",
+      "title": "2단계 인증을 켜세요",
+      "byOrganization": "조직 관리자가 앱 로그인에 2단계 인증을 요구합니다.",
+      "byPlatform": "앱에 로그인하려면 2단계 인증이 필요합니다.",
+      "until": "{date} 전에 켜세요.",
+      "now": "계속하려면 켜세요.",
+      "how": "인증 앱(Google Authenticator, 1Password 등)을 사용하거나 계정 페이지에서 패스키를 추가하세요.",
+      "setUp": "2단계 인증 설정",
+      "later": "나중에 알림",
+      "continue": "계속"
     }
   },
   "consent": {
@@ -2049,7 +2061,12 @@
           "errors": {
             "invalid": "제공된 값 중 하나를 선택하세요.",
             "save": "정책을 저장하지 못했습니다."
-          }
+          },
+          "twoFactorEveryone": "모두에게 2단계 인증",
+          "twoFactorEveryoneHint": "모든 사람이 앱 로그인에 인증 앱이나 패스키를 사용해야 합니다. 관리자: REQUIRE_ADMIN_2FA. 조직은 자체 페이지에서 구성원에게 요구할 수 있습니다.",
+          "twoFactorGraceDays": "켜기까지의 기간",
+          "twoFactorGraceDaysHint": "2단계 인증이 없는 사람은 앱에 로그인할 때마다 안내를 받고 그때까지 계속할 수 있습니다. 기간은 이 설정을 켠 시점 또는 계정을 만든 시점부터 시작됩니다.",
+          "noGrace": "없음: 즉시 필요"
         }
       },
       "signingKeys": {
@@ -2196,7 +2213,14 @@
           "scimCounts": "프로비저닝됨 {active}개, 비활성화됨 {inactive}개.",
           "recentActions": "최근 관리 작업",
           "noActions": "아직 없습니다.",
-          "system": "시스템"
+          "system": "시스템",
+          "twoFactor": {
+            "title": "2단계 인증",
+            "label": "구성원에게 2단계 인증 요구",
+            "hint": "구성원은 보안 페이지에서 정한 기간이 지나면 앱 로그인에 인증 앱이나 패스키를 사용해야 합니다.",
+            "on": "이제 이 조직의 구성원에게 2단계 인증이 필요합니다.",
+            "off": "이제 이 조직의 구성원에게 2단계 인증이 필요하지 않습니다."
+          }
         },
         "errors": {
           "invalidNameSlug": "이름과 영문자, 숫자, 하이픈으로 된 슬러그를 입력하세요.",
@@ -2405,7 +2429,8 @@
         "invalidCode": "코드가 올바르지 않습니다. 기기의 시간이 정확한지 확인한 후 다시 시도하세요.",
         "rateLimited": "시도 횟수가 너무 많습니다. 몇 초 후에 다시 시도하세요.",
         "generic": "문제가 발생했습니다. 다시 시도하세요."
-      }
+      },
+      "doneContinue": "앱으로 계속"
     },
     "organizations": {
       "title": "조직",

@@ -188,6 +188,18 @@
       "continue": "继续前往 <app>{name}</app>",
       "unverified": "未经验证的应用。",
       "unverifiedHint": "{name} 未审核此应用：仅在您信任它时继续。"
+    },
+    "twoFactorRequired": {
+      "metaTitle": "需要双重验证",
+      "title": "请开启双重验证",
+      "byOrganization": "你所在组织的管理员要求登录应用时使用双重验证。",
+      "byPlatform": "登录应用需要双重验证。",
+      "until": "请在 {date} 之前开启。",
+      "now": "请开启后继续。",
+      "how": "使用身份验证器应用（如 Google Authenticator 或 1Password），或在账户页面添加通行密钥。",
+      "setUp": "设置双重验证",
+      "later": "稍后提醒我",
+      "continue": "继续"
     }
   },
   "consent": {
@@ -2049,7 +2061,12 @@
           "errors": {
             "invalid": "请选择提供的值之一。",
             "save": "无法保存策略。"
-          }
+          },
+          "twoFactorEveryone": "所有人启用双重验证",
+          "twoFactorEveryoneHint": "所有人登录应用时都必须使用身份验证器应用或通行密钥。管理员：REQUIRE_ADMIN_2FA。组织可以在其页面上要求成员启用。",
+          "twoFactorGraceDays": "开启期限",
+          "twoFactorGraceDaysHint": "未开启双重验证的人在每次登录应用时都会收到提示，并可在期限前继续。期限从开启此项或创建账户时开始计算。",
+          "noGrace": "无：立即要求"
         }
       },
       "signingKeys": {
@@ -2196,7 +2213,14 @@
           "scimCounts": "已预配 {active} 个，已停用 {inactive} 个。",
           "recentActions": "最近的管理员操作",
           "noActions": "暂无。",
-          "system": "系统"
+          "system": "系统",
+          "twoFactor": {
+            "title": "双重验证",
+            "label": "要求成员开启双重验证",
+            "hint": "在安全页面设定的期限过后，成员登录应用必须使用身份验证器应用或通行密钥。",
+            "on": "现在要求此组织的成员开启双重验证。",
+            "off": "不再要求此组织的成员开启双重验证。"
+          }
         },
         "errors": {
           "invalidNameSlug": "请输入名称，以及由字母、数字和连字符组成的 slug。",
@@ -2405,7 +2429,8 @@
         "invalidCode": "验证码无效。请检查设备时间是否正确，然后重试。",
         "rateLimited": "尝试次数过多。请稍等几秒后重试。",
         "generic": "出错了，请重试。"
-      }
+      },
+      "doneContinue": "继续前往应用"
     },
     "organizations": {
       "title": "组织",

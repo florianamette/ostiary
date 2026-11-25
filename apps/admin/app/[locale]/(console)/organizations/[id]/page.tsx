@@ -44,6 +44,8 @@ import { scimBaseUrl } from "@ostiary/core/lib/scim";
 import { Link } from "@/i18n/navigation";
 import { getAuditActionLabel } from "@/lib/admin-audit";
 import { requireAdminSession } from "@/lib/require-admin-session";
+import { OrganizationTwoFactor } from "@/components/admin/organizations/organization-two-factor";
+import { organizationRequiresTwoFactor } from "@ostiary/core/lib/two-factor-policy";
 
 export const dynamic = "force-dynamic";
 
@@ -148,6 +150,11 @@ export default async function AdminOrganizationPage({
 
       <div className="grid items-start gap-6 lg:grid-cols-[2fr_1fr]">
         <div className="min-w-0 space-y-6">
+          {isPublic ? null : (
+            <Section title={t("twoFactor.title")}>
+              <OrganizationTwoFactor orgId={id} required={await organizationRequiresTwoFactor(id)} />
+            </Section>
+          )}
           <Section
             title={t("members")}
             contentClassName="space-y-6"

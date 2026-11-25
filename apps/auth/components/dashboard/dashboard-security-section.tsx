@@ -73,7 +73,10 @@ export function DashboardSecuritySection({
   adminConsoleUrl,
   minPasswordLength,
   signOutOnPasswordChange,
+  returnUrl,
 }: {
+  /** An app sign-in to resume once two-factor is on (two-factor-policy.ts). */
+  returnUrl?: string;
   /** From the session and password policy (admin console, Security). */
   minPasswordLength?: number;
   signOutOnPasswordChange?: boolean;
@@ -137,7 +140,7 @@ export function DashboardSecuritySection({
 
         <Separator />
 
-        <DashboardTwoFactorSection adminConsoleUrl={adminConsoleUrl} />
+        <DashboardTwoFactorSection adminConsoleUrl={adminConsoleUrl} returnUrl={returnUrl} />
 
         <Separator />
 

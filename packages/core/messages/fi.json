@@ -188,6 +188,18 @@
       "continue": "Jatka palveluun <app>{name}</app>",
       "unverified": "Vahvistamaton sovellus.",
       "unverifiedHint": "{name} ei ole tarkistanut sitä: jatka vain, jos luotat siihen."
+    },
+    "twoFactorRequired": {
+      "metaTitle": "Kaksivaiheinen tunnistautuminen vaaditaan",
+      "title": "Ota kaksivaiheinen tunnistautuminen käyttöön",
+      "byOrganization": "Organisaatiosi ylläpitäjät vaativat kaksivaiheisen tunnistautumisen sovelluksiin kirjautumiseen.",
+      "byPlatform": "Sovelluksiin kirjautuminen vaatii kaksivaiheisen tunnistautumisen.",
+      "until": "Ota se käyttöön ennen {date}.",
+      "now": "Ota se käyttöön jatkaaksesi.",
+      "how": "Käytä todennussovellusta (kuten Google Authenticator tai 1Password) tai lisää pääsyavain tilisivullasi.",
+      "setUp": "Määritä kaksivaiheinen tunnistautuminen",
+      "later": "Muistuta myöhemmin",
+      "continue": "Jatka"
     }
   },
   "consent": {
@@ -2049,7 +2061,12 @@
           "errors": {
             "invalid": "Valitse jokin tarjotuista arvoista.",
             "save": "Käytäntöä ei voitu tallentaa."
-          }
+          },
+          "twoFactorEveryone": "Kaksivaiheinen kaikille",
+          "twoFactorEveryoneHint": "Kaikkien on käytettävä todennussovellusta tai pääsyavainta kirjautuessaan sovelluksiin. Ylläpitäjät: REQUIRE_ADMIN_2FA. Organisaatiot voivat vaatia sitä jäseniltään omalla sivullaan.",
+          "twoFactorGraceDays": "Aikaa ottaa käyttöön",
+          "twoFactorGraceDaysHint": "Ilman kaksivaiheista tunnistautumista olevilta kysytään jokaisella sovelluskirjautumisella, ja he voivat jatkaa siihen asti. Aika alkaa, kun otat tämän käyttöön, tai tilin luonnista.",
+          "noGrace": "Ei aikaa: vaaditaan heti"
         }
       },
       "signingKeys": {
@@ -2196,7 +2213,14 @@
           "scimCounts": "{active} provisioitu, {inactive} poistettu käytöstä.",
           "recentActions": "Viimeaikaiset ylläpitotoimet",
           "noActions": "Ei vielä yhtään.",
-          "system": "järjestelmä"
+          "system": "järjestelmä",
+          "twoFactor": {
+            "title": "Kaksivaiheinen tunnistautuminen",
+            "label": "Vaadi jäseniltä kaksivaiheinen tunnistautuminen",
+            "hint": "Jäsenten on käytettävä todennussovellusta tai pääsyavainta kirjautuessaan sovelluksiin Suojaus-sivulla asetetun ajan jälkeen.",
+            "on": "Kaksivaiheinen tunnistautuminen vaaditaan nyt tämän organisaation jäseniltä.",
+            "off": "Kaksivaiheista tunnistautumista ei enää vaadita tämän organisaation jäseniltä."
+          }
         },
         "errors": {
           "invalidNameSlug": "Anna nimi ja URL-tunniste, joka koostuu kirjaimista, numeroista ja yhdysmerkeistä.",
@@ -2405,7 +2429,8 @@
         "invalidCode": "Koodi ei kelpaa. Tarkista, että laitteesi kello on oikeassa ajassa, ja yritä uudelleen.",
         "rateLimited": "Liian monta yritystä. Odota hetki ja yritä uudelleen.",
         "generic": "Jokin meni vikaan. Yritä uudelleen."
-      }
+      },
+      "doneContinue": "Jatka sovellukseen"
     },
     "organizations": {
       "title": "Organisaatiot",
