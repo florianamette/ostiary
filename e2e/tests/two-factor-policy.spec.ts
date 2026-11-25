@@ -41,6 +41,8 @@ test("an organization requires two-factor: a reminder during the grace period, t
   await page.waitForURL(/\/consent/);
   await page.getByRole("button", { name: "Allow" }).click();
   expect((await callback()).searchParams.get("code")).toBeTruthy();
+  // Let that redirect finish loading, or it interrupts the next sign-in's navigation.
+  await page.waitForURL(/\/callback\?/);
 
   // After the grace period (it runs from the requirement, or the account's creation if later).
   await query(`update organization_policy set require_two_factor_since = now() - interval '30 days' where organization_id = $1`, [orgId]);
