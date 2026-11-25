@@ -280,4 +280,5 @@ export function socialCallbackUrl(authAppUrl: string, provider: SocialProvider):
 }
 
 /** A provider offered on the sign-in page: its id and the name on its button. */
-export type SocialProviderOption = { id: SocialProvider; name: string };
+/** A provider offered on the sign-in pages: built-in, or a custom one (`oidc-<slug>`). */
+export type SocialProviderOption = { id: string; name: string };

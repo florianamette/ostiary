@@ -2,9 +2,14 @@
 //
 // - /gitlab/*: a GitLab-compatible OAuth provider (authorize, token, /api/v4/user), so social
 //   sign-in runs end to end. Tests choose who signs in with POST /gitlab/next-profile.
+// - /oidc/*: an OpenID Connect provider (discovery, authorize, token with a signed ID token,
+//   UserInfo, JWKS), for custom sign-in providers. Tests choose who signs in with
+//   POST /oidc/next-profile.
 // - /webhooks/:name: a webhook receiver that records every delivery (GET lists them).
-import { randomBytes } from "node:crypto";
+import { createHash, randomBytes } from "node:crypto";
 import http from "node:http";
+
+import { exportJWK, generateKeyPair, SignJWT } from "jose";
 
 const port = Number(process.env.E2E_MOCK_PORT ?? 3229);
 
@@ -18,6 +23,18 @@ const accessTokens = new Map();
 const deliveries = new Map();
 
 const token = () => randomBytes(16).toString("hex");
+
+// --- OpenID Connect provider state ---
+const oidcKeys = await generateKeyPair("ES256");
+const oidcJwk = { ...(await exportJWK(oidcKeys.publicKey)), kid: "mock-oidc", alg: "ES256", use: "sig" };
+/** @type {Record<string, unknown> | null} */
+let oidcNextProfile = null;
+/** @type {Map<string, { profile: Record<string, unknown>, redirectUri: string, clientId: string, nonce: string | null, challenge: string | null }>} */
+const oidcCodes = new Map();
+/** @type {Map<string, Record<string, unknown>>} */
+const oidcTokens = new Map();
+/** Replaces fields of the discovery document (a provider that changes it after being added). */
+let oidcDiscoveryOverride = {};
 
 async function readBody(req) {
   const chunks = [];
@@ -90,6 +107,86 @@ const server = http.createServer(async (req, res) => {
       const profile = bearer ? accessTokens.get(bearer) : undefined;
       if (!profile) return json(res, 401, { message: "401 Unauthorized" });
       return json(res, 200, { state: "active", locked: false, avatar_url: null, ...profile });
+    }
+
+    // --- OpenID Connect provider ---------------------------------------------------------------
+    const issuer = `http://127.0.0.1:${port}/oidc`;
+    if (path === "/oidc/discovery-override" && req.method === "POST") {
+      oidcDiscoveryOverride = JSON.parse(await readBody(req));
+      return json(res, 200, { ok: true });
+    }
+    if (path === "/oidc/.well-known/openid-configuration") {
+      return json(res, 200, {
+        issuer,
+        authorization_endpoint: `${issuer}/authorize`,
+        token_endpoint: `${issuer}/token`,
+        userinfo_endpoint: `${issuer}/userinfo`,
+        jwks_uri: `${issuer}/jwks`,
+        response_types_supported: ["code"],
+        subject_types_supported: ["public"],
+        id_token_signing_alg_values_supported: ["ES256"],
+        code_challenge_methods_supported: ["S256"],
+        ...oidcDiscoveryOverride,
+      });
+    }
+    if (path === "/oidc/jwks") return json(res, 200, { keys: [oidcJwk] });
+    if (path === "/oidc/next-profile" && req.method === "POST") {
+      oidcNextProfile = JSON.parse(await readBody(req));
+      return json(res, 200, { ok: true });
+    }
+    if (path === "/oidc/authorize") {
+      const redirectUri = url.searchParams.get("redirect_uri");
+      const state = url.searchParams.get("state");
+      const clientId = url.searchParams.get("client_id");
+      if (!redirectUri || !state || !clientId || !oidcNextProfile) {
+        return json(res, 400, { error: "invalid_request", nextProfile: Boolean(oidcNextProfile) });
+      }
+      const code = token();
+      oidcCodes.set(code, {
+        profile: oidcNextProfile,
+        redirectUri,
+        clientId,
+        nonce: url.searchParams.get("nonce"),
+        challenge: url.searchParams.get("code_challenge"),
+      });
+      oidcNextProfile = null;
+      const target = new URL(redirectUri);
+      target.searchParams.set("code", code);
+      target.searchParams.set("state", state);
+      target.searchParams.set("iss", issuer);
+      res.writeHead(302, { location: target.toString() });
+      return res.end();
+    }
+    if (path === "/oidc/token" && req.method === "POST") {
+      const form = parseForm(await readBody(req), req.headers["content-type"]);
+      const grant = oidcCodes.get(form.code);
+      const client = clientCredentials(req, form);
+      if (!grant || form.grant_type !== "authorization_code" || client.id !== grant.clientId || !client.secret) {
+        return json(res, 400, { error: "invalid_grant" });
+      }
+      if (form.redirect_uri !== grant.redirectUri) return json(res, 400, { error: "invalid_grant", error_description: "redirect_uri" });
+      const verifier = form.code_verifier ?? "";
+      if (grant.challenge && createHash("sha256").update(verifier).digest("base64url") !== grant.challenge) {
+        return json(res, 400, { error: "invalid_grant", error_description: "code_verifier" });
+      }
+      oidcCodes.delete(form.code);
+      const accessToken = token();
+      oidcTokens.set(accessToken, grant.profile);
+      const idToken = await new SignJWT({ ...grant.profile, ...(grant.nonce ? { nonce: grant.nonce } : {}) })
+        .setProtectedHeader({ alg: "ES256", kid: oidcJwk.kid })
+        .setIssuer(issuer)
+        .setAudience(grant.clientId)
+        .setSubject(String(grant.profile.sub))
+        .setIssuedAt()
+        .setExpirationTime("5m")
+        .sign(oidcKeys.privateKey);
+      return json(res, 200, { access_token: accessToken, token_type: "Bearer", expires_in: 3600, id_token: idToken, scope: "openid email profile" });
+    }
+    if (path === "/oidc/userinfo") {
+      const bearer = req.headers.authorization?.replace(/^Bearer /, "");
+      const profile = bearer ? oidcTokens.get(bearer) : undefined;
+      if (!profile) return json(res, 401, { error: "invalid_token" });
+      return json(res, 200, profile);
     }
 
     // --- Webhook receiver --------------------------------------------------------------------

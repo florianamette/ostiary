@@ -77,7 +77,7 @@ export function SocialSignInButtons({
   if (providers.length === 0) return null;
 
   const label = (provider: SocialProviderOption) =>
-    SOCIAL_PROVIDER_META[provider.id]?.button === "signIn"
+    (SOCIAL_PROVIDER_META as Partial<Record<string, { button?: string }>>)[provider.id]?.button === "signIn"
       ? t("signInWith", { provider: provider.name })
       : t("continueWith", { provider: provider.name });
 

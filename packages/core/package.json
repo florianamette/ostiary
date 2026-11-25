@@ -29,6 +29,7 @@
     "dotenv": "catalog:",
     "drizzle-orm": "catalog:",
     "framer-motion": "catalog:",
+    "jose": "catalog:",
     "lucide-react": "catalog:",
     "next": "catalog:",
     "next-intl": "catalog:",

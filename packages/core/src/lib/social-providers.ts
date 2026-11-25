@@ -6,6 +6,16 @@ import { socialProvider } from "@ostiary/core/db/schema";
 import { env } from "@ostiary/core/lib/env";
 import { refreshingCache } from "@ostiary/core/lib/refreshing-cache";
 import { openSecret, sealSecret } from "@ostiary/core/lib/secret-box";
+import { getBaseURL } from "@ostiary/core/lib/url";
+import {
+  buildCustomProvider,
+  checkDiscovery,
+  CUSTOM_PROVIDER_PREFIX,
+  CUSTOM_PROVIDER_SLUG,
+  DEFAULT_CUSTOM_SCOPES,
+  isCustomProviderId,
+  type CustomProviderConfig,
+} from "@ostiary/core/lib/custom-oauth-providers";
 import {
   buildProviderOptions,
   providerFieldIssue,
@@ -135,22 +145,71 @@ async function loadSocialProviders(): Promise<Loaded> {
       console.error(`Social provider ${row.id} is enabled but cannot be used; skipped.`, error);
     }
   }
-  entries.sort((a, b) => a.position - b.position || a.id.localeCompare(b.id));
-  const instances: ProviderInstance[] = [];
-  const enabled: SocialProviderOption[] = [];
+  const built: { id: string; name: string; position: number; instance: ProviderInstance }[] = [];
   const options: Loaded["options"] = {};
   let oneTap: GoogleOneTapConfig | null = null;
   for (const entry of entries) {
     try {
-      instances.push(instantiate(entry.id, entry.options));
-      enabled.push({ id: entry.id, name: entry.name });
+      built.push({ id: entry.id, name: entry.name, position: entry.position, instance: instantiate(entry.id, entry.options) });
       options[entry.id] = entry.options;
       if (entry.oneTap) oneTap = googleOneTapConfig(entry.options);
     } catch (error) {
       console.error(`Social provider ${entry.id} could not be set up; skipped.`, error);
     }
   }
-  return { enabled, instances, options, oneTap };
+  built.push(...(await loadCustomProviders(rows)));
+  built.sort((a, b) => a.position - b.position || a.id.localeCompare(b.id));
+  return {
+    enabled: built.map(({ id, name }) => ({ id, name })),
+    instances: built.map(({ instance }) => instance),
+    options,
+    oneTap,
+  };
+}
+
+/**
+ * Custom OpenID Connect providers (custom-oauth-providers.ts). Building one fetches its
+ * discovery document, so a built provider is kept until its row changes; one whose discovery
+ * failed is tried again at the next reload.
+ */
+const customBuilt = new Map<string, { version: string; instance: ProviderInstance }>();
+
+async function loadCustomProviders(rows: Row[]) {
+  const out: { id: string; name: string; position: number; instance: ProviderInstance }[] = [];
+  for (const row of rows) {
+    if (!row.enabled || !isCustomProviderId(row.id)) continue;
+    const version = `${row.updatedAt.toISOString()}:${row.allowSignUp}`;
+    let instance = customBuilt.get(row.id)?.version === version ? customBuilt.get(row.id)!.instance : null;
+    if (!instance) {
+      const secrets = decryptSecrets(row);
+      if (!secrets) {
+        console.error("Sign-in provider %s: its secret cannot be decrypted (was BETTER_AUTH_SECRET changed?). Skipped.", row.id.replace(/[\r\n]/g, ""));
+        continue;
+      }
+      try {
+        instance = await buildCustomProvider(row.id, customConfig(row), secrets.clientSecret, { allowSignUp: row.allowSignUp }, {
+          baseURL: env.AUTH_APP_URL ?? getBaseURL(),
+          logger: { error: (message) => console.error(message), warn: (message) => console.warn(message) },
+        });
+      } catch (error) {
+        console.error("Sign-in provider %s cannot be used; skipped.", row.id.replace(/[\r\n]/g, ""), error);
+      }
+      if (!instance) continue;
+      customBuilt.set(row.id, { version, instance });
+    }
+    out.push({ id: row.id, name: customConfig(row).name, position: row.position, instance });
+  }
+  return out;
+}
+
+function customConfig(row: Pick<Row, "id" | "config">): CustomProviderConfig {
+  const { name, discoveryUrl, clientId, scopes } = row.config;
+  return {
+    name: name?.trim() || row.id.slice(CUSTOM_PROVIDER_PREFIX.length),
+    discoveryUrl: discoveryUrl ?? "",
+    clientId: clientId ?? "",
+    scopes: scopes?.trim() || DEFAULT_CUSTOM_SCOPES,
+  };
 }
 
 /** One Tap takes Google's client ID (the first one, when several are listed for other platforms). */
@@ -225,7 +284,7 @@ export async function syncSocialProviders(context: SyncedContext) {
   const { instances, options } = await currentSocialProviders();
   syncProviderOptions(context.options, options);
   const list = context.socialProviders as ProviderInstance[];
-  const others = list.filter((p) => !BUILT_IN.has(p.id));
+  const others = list.filter((p) => !BUILT_IN.has(p.id) && !isCustomProviderId(p.id));
   const next = [...instances, ...others];
   if (next.length === list.length && next.every((p, i) => p === list[i])) return;
   list.splice(0, list.length, ...next);
@@ -439,6 +498,151 @@ export async function reorderSocialProviders(ids: SocialProvider[], updatedBy: s
 
 /** Forgets a provider's settings (and turns it off). Returns whether there was a row. */
 export async function deleteSocialProvider(id: SocialProvider): Promise<boolean> {
+  const deleted = await db.delete(socialProvider).where(eq(socialProvider.id, id)).returning({ id: socialProvider.id });
+  invalidateSocialProviders();
+  return deleted.length > 0;
+}
+
+// --- Custom OpenID Connect providers (admin console) ----------------------------------------
+
+export type CustomProviderAdminView = {
+  id: string;
+  enabled: boolean;
+  allowSignUp: boolean;
+  position: number;
+  name: string;
+  discoveryUrl: string;
+  clientId: string;
+  scopes: string;
+  /** A client secret is stored. Its value never leaves the server. */
+  secretSet: boolean;
+  /** The secret cannot be decrypted (BETTER_AUTH_SECRET changed): enter it again. */
+  secretUnreadable: boolean;
+  /** The redirect URI to register at the provider. */
+  callbackUrl: string;
+  updatedAt: Date;
+};
+
+function callbackUrl(id: string): string {
+  return `${env.AUTH_APP_URL ?? getBaseURL()}/api/auth/callback/${id}`;
+}
+
+/** The custom providers, in display order. No secret values. */
+export async function listCustomProviders(): Promise<CustomProviderAdminView[]> {
+  const rows = await db.select().from(socialProvider).orderBy(asc(socialProvider.position), asc(socialProvider.id));
+  return rows
+    .filter((row) => isCustomProviderId(row.id))
+    .map((row) => {
+      const secrets = decryptSecrets(row);
+      return {
+        id: row.id,
+        enabled: row.enabled,
+        allowSignUp: row.allowSignUp,
+        position: row.position,
+        ...customConfig(row),
+        secretSet: Boolean(secrets?.clientSecret),
+        secretUnreadable: secrets === null,
+        callbackUrl: callbackUrl(row.id),
+        updatedAt: row.updatedAt,
+      };
+    });
+}
+
+/** The callback URL a new provider with this slug would have, for the add dialog. */
+export function customProviderCallbackUrl(slug: string): string {
+  return callbackUrl(`${CUSTOM_PROVIDER_PREFIX}${slug}`);
+}
+
+export type CustomProviderInput = {
+  /** New provider: its slug (the id is `oidc-<slug>`). Ignored when updating. */
+  slug?: string;
+  name: string;
+  discoveryUrl: string;
+  clientId: string;
+  /** A value replaces the stored secret, `null` clears it, undefined keeps it. */
+  clientSecret?: string | null;
+  scopes?: string;
+  enabled: boolean;
+  allowSignUp: boolean;
+};
+
+export type CustomProviderSaveResult = { ok: true; id: string; changed: string[]; created: boolean } | { ok: false; error: string };
+
+/**
+ * Creates (`id` null) or updates a custom provider. Turning one on checks its discovery
+ * document (custom-oauth-providers.ts) and builds it with Better Auth first.
+ */
+export async function saveCustomProvider(
+  id: string | null,
+  input: CustomProviderInput,
+  updatedBy: string | null,
+): Promise<CustomProviderSaveResult> {
+  if (id === null) {
+    const slug = input.slug?.trim().toLowerCase() ?? "";
+    if (!CUSTOM_PROVIDER_SLUG.test(slug)) {
+      return { ok: false, error: "The ID must be 1 to 32 lowercase letters, digits or hyphens, starting and ending with a letter or digit." };
+    }
+    id = `${CUSTOM_PROVIDER_PREFIX}${slug}`;
+  } else if (!isCustomProviderId(id)) {
+    return { ok: false, error: "Not a custom provider." };
+  }
+  const [row] = await db.select().from(socialProvider).where(eq(socialProvider.id, id)).limit(1);
+  if (!row && input.slug === undefined) return { ok: false, error: "Provider not found." };
+  if (row && input.slug !== undefined) return { ok: false, error: "A provider with this ID already exists." };
+
+  const config: CustomProviderConfig = {
+    name: input.name.trim(),
+    discoveryUrl: input.discoveryUrl.trim(),
+    clientId: input.clientId.trim(),
+    scopes: input.scopes?.trim().split(/\s+/).filter(Boolean).join(" ") || DEFAULT_CUSTOM_SCOPES,
+  };
+  if (!config.name || config.name.length > 40) return { ok: false, error: "Enter a button name of at most 40 characters." };
+  if (!config.clientId) return { ok: false, error: "Enter the client ID." };
+  if (!config.scopes.split(" ").includes("openid")) return { ok: false, error: "The scopes must include openid." };
+
+  const stored = row ? decryptSecrets(row) ?? {} : {};
+  const secrets: Record<string, string> = { ...stored };
+  if (input.clientSecret === null) delete secrets.clientSecret;
+  else if (input.clientSecret?.trim()) secrets.clientSecret = input.clientSecret.trim();
+
+  if (input.enabled) {
+    const discovery = await checkDiscovery(config.discoveryUrl);
+    if (!discovery.ok) return { ok: false, error: discovery.error };
+    const built = await buildCustomProvider(id, config, secrets.clientSecret, { allowSignUp: input.allowSignUp }, {
+      baseURL: env.AUTH_APP_URL ?? getBaseURL(),
+      logger: { error: (message) => console.error(message), warn: (message) => console.warn(message) },
+    }).catch((error: unknown) => {
+      // The id is checked (CUSTOM_PROVIDER_SLUG); a constant format string all the same.
+      console.error("Sign-in provider %s cannot be used", id.replace(/[\r\n]/g, ""), error);
+      return null;
+    });
+    if (!built) return { ok: false, error: "These settings cannot be used: the provider's discovery document did not give a usable OpenID Connect configuration." };
+  }
+
+  const before: Partial<CustomProviderConfig> = row ? customConfig(row) : {};
+  const changed = [
+    ...(Object.keys(config) as (keyof CustomProviderConfig)[]).filter((key) => before[key] !== config[key]),
+    ...((stored.clientSecret ?? "") !== (secrets.clientSecret ?? "") ? ["clientSecret"] : []),
+    ...(Boolean(row?.enabled) !== input.enabled ? ["enabled"] : []),
+    ...((row?.allowSignUp ?? true) !== input.allowSignUp ? ["allowSignUp"] : []),
+  ];
+  const sealed = secrets.clientSecret ? sealSecret(JSON.stringify(secrets), env.BETTER_AUTH_SECRET, SECRETS_PURPOSE) : null;
+  const now = new Date();
+  const fields = { config, secrets: sealed, enabled: input.enabled, allowSignUp: input.allowSignUp, oneTap: false, updatedAt: now, updatedBy };
+  if (row) {
+    await db.update(socialProvider).set(fields).where(eq(socialProvider.id, id));
+  } else {
+    const rows = await db.select({ position: socialProvider.position }).from(socialProvider);
+    const position = rows.reduce((max, r) => Math.max(max, r.position + 1), 0);
+    await db.insert(socialProvider).values({ id, position, ...fields, createdAt: now });
+  }
+  invalidateSocialProviders();
+  return { ok: true, id, changed, created: !row };
+}
+
+/** Removes a custom provider. Accounts linked through it stay, but can no longer sign in with it. */
+export async function deleteCustomProvider(id: string): Promise<boolean> {
+  if (!isCustomProviderId(id)) return false;
   const deleted = await db.delete(socialProvider).where(eq(socialProvider.id, id)).returning({ id: socialProvider.id });
   invalidateSocialProviders();
   return deleted.length > 0;

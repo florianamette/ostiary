@@ -8,6 +8,15 @@ All notable changes are documented here. The format follows
 
 ### Added
 
+- Custom OpenID Connect sign-in providers (Keycloak, Okta, Authentik, a company's own): the
+  **Sign-in providers** page has a "Custom OpenID Connect providers" card to add one with its
+  discovery URL, client ID and secret, scopes and button name, turn it on or off, and choose
+  whether it creates accounts. Better Auth's generic-oauth plugin builds them (discovery, PKCE,
+  ID tokens checked against the provider's keys); the redirect URI is
+  `/api/auth/callback/oidc-<id>`. Every request Ostiary's server makes to the provider
+  (discovery, token, UserInfo, signing keys, refresh) goes through the webhook URL guard
+  (https, public addresses, connection pinned to the checked addresses), and the discovery
+  document is checked again each time the provider is built.
 - Session and password policy on the admin console's **Security** page: session lifetime
   (1 to 90 days, 7 by default), whether sessions are extended while in use, signing out
   everywhere on a password change (other sessions and the apps' tokens, as a password reset
