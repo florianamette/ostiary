@@ -58,7 +58,14 @@ test("an admin adds an OpenID Connect provider, and people sign up and in with i
     const [row] = await query<{ allow_sign_up: boolean; secrets: string | null }>(`select allow_sign_up, secrets from social_provider where id = $1`, [id]);
     expect(row?.allow_sign_up).toBe(false);
     expect(row?.secrets).toBeTruthy();
+
+    // The provider later points its token endpoint at the private network: the next build of
+    // the provider checks the discovery document again and leaves it out.
+    await request.post(`${MOCK_URL}/oidc/discovery-override`, { data: { token_endpoint: "https://10.0.0.1/token" } });
+    await query(`update social_provider set updated_at = now() where id = $1`, [id]);
+    await waitForSocialProvider(api, id, false);
   } finally {
+    await request.post(`${MOCK_URL}/oidc/discovery-override`, { data: {} });
     await query(`delete from social_provider where id = $1`, [id]);
   }
   await waitForSocialProvider(api, id, false);

@@ -33,6 +33,8 @@ let oidcNextProfile = null;
 const oidcCodes = new Map();
 /** @type {Map<string, Record<string, unknown>>} */
 const oidcTokens = new Map();
+/** Replaces fields of the discovery document (a provider that changes it after being added). */
+let oidcDiscoveryOverride = {};
 
 async function readBody(req) {
   const chunks = [];
@@ -109,6 +111,10 @@ const server = http.createServer(async (req, res) => {
 
     // --- OpenID Connect provider ---------------------------------------------------------------
     const issuer = `http://127.0.0.1:${port}/oidc`;
+    if (path === "/oidc/discovery-override" && req.method === "POST") {
+      oidcDiscoveryOverride = JSON.parse(await readBody(req));
+      return json(res, 200, { ok: true });
+    }
     if (path === "/oidc/.well-known/openid-configuration") {
       return json(res, 200, {
         issuer,
@@ -120,6 +126,7 @@ const server = http.createServer(async (req, res) => {
         subject_types_supported: ["public"],
         id_token_signing_alg_values_supported: ["ES256"],
         code_challenge_methods_supported: ["S256"],
+        ...oidcDiscoveryOverride,
       });
     }
     if (path === "/oidc/jwks") return json(res, 200, { keys: [oidcJwk] });

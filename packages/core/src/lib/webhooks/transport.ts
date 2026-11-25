@@ -117,6 +117,20 @@ export function getPinned(
   url: URL,
   addresses: ResolvedAddress[],
   headers: Record<string, string>,
+  limits: { maxBytes: number; timeoutMs: number },
+): Promise<GetResult> {
+  return requestPinned(url, addresses, { method: "GET", headers }, limits);
+}
+
+/**
+ * A request like getPinned's (pinned addresses, no redirects followed, decoded and capped
+ * answer), with any method and an optional body: the token and UserInfo requests to custom
+ * sign-in providers (custom-oauth-providers.ts).
+ */
+export function requestPinned(
+  url: URL,
+  addresses: ResolvedAddress[],
+  { method, headers, body }: { method: string; headers: Record<string, string>; body?: string },
   { maxBytes, timeoutMs }: { maxBytes: number; timeoutMs: number },
 ): Promise<GetResult> {
   const request = url.protocol === "http:" ? httpRequest : httpsRequest;
@@ -133,9 +147,14 @@ export function getPinned(
     const req = request(
       url,
       {
-        method: "GET",
+        method,
         agent: false,
-        headers: { "accept-encoding": "gzip, deflate, br", ...headers, host: url.host },
+        headers: {
+          "accept-encoding": "gzip, deflate, br",
+          ...headers,
+          ...(body === undefined ? {} : { "content-length": Buffer.byteLength(body).toString() }),
+          host: url.host,
+        },
         servername: isIP(hostname) === 0 ? hostname : undefined,
         lookup: (_hostname, options, callback) => {
           if ((options as { all?: boolean }).all) {
@@ -182,6 +201,6 @@ export function getPinned(
       finish({ ok: false, error: `No answer within ${Math.round(timeoutMs / 1000)} s` });
     }, timeoutMs);
     req.on("error", (error: Error) => finish({ ok: false, error: error.message }));
-    req.end();
+    req.end(body);
   });
 }

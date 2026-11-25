@@ -87,6 +87,9 @@ catalogs:
     framer-motion:
       specifier: 12.38.0
       version: 12.38.0
+    jose:
+      specifier: 6.2.12
+      version: 6.2.12
     lucide-react:
       specifier: 0.577.0
       version: 0.577.0
@@ -443,6 +446,9 @@ importers:
       framer-motion:
         specifier: 'catalog:'
         version: 12.38.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      jose:
+        specifier: 'catalog:'
+        version: 6.2.12
       lucide-react:
         specifier: 'catalog:'
         version: 0.577.0(react@19.2.4)
