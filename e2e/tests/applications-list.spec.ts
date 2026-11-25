@@ -11,8 +11,9 @@ test("the Applications page lists every app, past Better Auth's 100", async ({ a
   // API's write limit), then one registered from the console to look for.
   const prefix = `e2e-list-${Date.now()}`;
   await query(
-    `insert into oauth_client (id, client_id, name, reference_id, redirect_uris, created_at)
-     select $1 || '-' || i, $1 || '-' || i, 'e2e filler ' || i, 'ostiary:platform', '{}', now() from generate_series(1, 101) as i`,
+    // Admin-registered, so they do not count against the hourly self-registration limit.
+    `insert into oauth_client (id, client_id, name, reference_id, redirect_uris, admin_registered, created_at)
+     select $1 || '-' || i, $1 || '-' || i, 'e2e filler ' || i, 'ostiary:platform', '{}', true, now() from generate_series(1, 101) as i`,
     [prefix],
   );
   const last = await createClient(adminApi, {});
@@ -26,4 +27,6 @@ test("the Applications page lists every app, past Better Auth's 100", async ({ a
 
   await adminPage.goto(`/en/applications?q=${encodeURIComponent(last.client_name!)}`);
   await expect(adminPage.getByRole("row").filter({ hasText: last.client_name! })).toHaveCount(1);
+
+  await query(`delete from oauth_client where client_id like $1 || '-%'`, [prefix]);
 });
