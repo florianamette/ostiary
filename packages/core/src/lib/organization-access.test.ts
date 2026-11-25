@@ -16,6 +16,8 @@ describe("normalizeRolePermissions", () => {
     expect(normalizeRolePermissions({ member: "create" })).toBeNull();
     expect(normalizeRolePermissions(["member"])).toBeNull();
     expect(normalizeRolePermissions(null)).toBeNull();
+    expect(normalizeRolePermissions(JSON.parse('{"__proto__": ["read"]}'))).toBeNull();
+    expect(normalizeRolePermissions({ constructor: ["read"] })).toBeNull();
   });
 
   it("reads stored permissions, and nothing from a broken value", () => {

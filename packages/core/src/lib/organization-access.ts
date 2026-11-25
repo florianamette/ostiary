@@ -45,12 +45,18 @@ export function builtInRolePermissions(role: (typeof BUILT_IN_ORGANIZATION_ROLES
  */
 export function normalizeRolePermissions(raw: unknown): RolePermissions | null {
   if (!raw || typeof raw !== "object" || Array.isArray(raw)) return null;
+  const sent = raw as Record<string, unknown>;
+  const resources = Object.keys(ORGANIZATION_STATEMENTS) as OrganizationResource[];
+  // Own keys only, so "__proto__" or "constructor" is refused like any unknown resource.
+  if (Object.keys(sent).some((key) => !(resources as string[]).includes(key))) return null;
   const out: RolePermissions = {};
-  for (const [resource, actions] of Object.entries(raw as Record<string, unknown>)) {
-    const allowed = ORGANIZATION_STATEMENTS[resource as OrganizationResource] as readonly string[] | undefined;
-    if (!allowed || !Array.isArray(actions) || !actions.every((a) => typeof a === "string" && allowed.includes(a))) return null;
+  for (const resource of resources) {
+    if (!Object.hasOwn(sent, resource)) continue;
+    const actions = sent[resource];
+    const allowed = ORGANIZATION_STATEMENTS[resource] as readonly string[];
+    if (!Array.isArray(actions) || !actions.every((a) => typeof a === "string" && allowed.includes(a))) return null;
     const picked = allowed.filter((action) => actions.includes(action));
-    if (picked.length) out[resource as OrganizationResource] = picked;
+    if (picked.length) out[resource] = picked;
   }
   return out;
 }
