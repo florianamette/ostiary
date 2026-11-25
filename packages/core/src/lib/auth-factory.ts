@@ -1,12 +1,12 @@
 import { betterAuth, type BetterAuthOptions, type BetterAuthPlugin } from "better-auth";
-import { APIError, createAuthMiddleware, getOAuthState } from "better-auth/api";
+import { APIError, createAuthMiddleware, getOAuthState, getSessionFromCtx } from "better-auth/api";
 import { tryGetCurrentAuthEndpointContext } from "@better-auth/core/context";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { apiKey } from "@better-auth/api-key";
 import { createCimdClientDiscovery } from "@better-auth/cimd";
 import { fetchClientMetadataResource } from "@better-auth/cimd/node";
 import { oauthDeviceAuthorization, oauthProvider } from "@better-auth/oauth-provider";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { passkey } from "@better-auth/passkey";
 import { scim } from "@better-auth/scim";
 import { sso } from "@better-auth/sso";
@@ -21,6 +21,7 @@ import {
     multiSession,
     oneTap,
     openAPI,
+    phoneNumber,
     organization,
     username,
 } from "better-auth/plugins";
@@ -50,6 +51,7 @@ import { OPENAPI_SCHEMA_PATH, openApiSchemaEnabled } from "@ostiary/core/lib/ope
 import { generateClientId } from "@ostiary/core/lib/admin/oauth-clients/requested-client-id";
 import { clientSecretStorage } from "@ostiary/core/lib/client-secret-grace";
 import { shouldPromptForTwoFactor } from "@ostiary/core/lib/two-factor-policy";
+import { PHONE_NUMBER_PATTERN, queueSms, smsConfigured } from "@ostiary/core/lib/sms";
 import { brand } from "@ostiary/core/lib/brand";
 import { getPasskeyWebAuthnOptions } from "@ostiary/core/lib/passkey-options";
 import { env } from "@ostiary/core/lib/env";
@@ -280,6 +282,16 @@ const validateUserInfo: NonNullable<NonNullable<BetterAuthOptions["user"]>["vali
     if (refusal) return { error: "account_not_linked", errorDescription: refusal };
 };
 
+/** Whether an account has verified this number (texted sign-in codes go only there). */
+async function verifiedPhoneExists(phone: string): Promise<boolean> {
+    const [row] = await db
+        .select({ id: schema.user.id })
+        .from(schema.user)
+        .where(and(eq(schema.user.phoneNumber, phone), eq(schema.user.phoneNumberVerified, true)))
+        .limit(1);
+    return Boolean(row);
+}
+
 export type AuthFactoryOptions = {
     /**
      * Canonical URL of the auth app. Every instance uses it, even when served from another
@@ -436,6 +448,11 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
             ...UNUSED_EMAIL_OTP_PATHS,
             ...API_KEY_PLUGIN_PATHS,
             DELETE_USER_LINK_PATH,
+            // The phone-number plugin's password sign-in and texted password reset: a phone only
+            // signs in with a code, and passwords are reset by email.
+            "/sign-in/phone-number",
+            "/phone-number/request-password-reset",
+            "/phone-number/reset-password",
             ...SSO_MANAGEMENT_PATHS,
             ...CLIENT_MANAGEMENT_HTTP_PATHS,
             // The jwt plugin's session JWT, see jwtOptions.
@@ -571,6 +588,9 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
                     if (ctx.path.includes("sign-in/username")) return "username";
                     // A One Tap sign-in is a Google sign-in (the "last used" hint and button).
                     if (ctx.path === "/one-tap/callback") return "google";
+                    if (ctx.path === "/phone-number/verify" && (ctx.body as { updatePhoneNumber?: unknown } | undefined)?.updatePhoneNumber !== true) {
+                        return "phone-number";
+                    }
                     return null;
                 },
             }),
@@ -608,6 +628,25 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
                     queueSignInCodeEmail({ to: email, code: otp, locale });
                 },
             }),
+            // Sign-in with a texted code, for accounts that verified a number (sms.ts, Twilio). Off
+            // unless the TWILIO_* variables are set. No sign-up by phone: accounts start with an
+            // email. A code goes only to a number already verified on an account (unless the
+            // signed-in person is adding one), so the endpoint cannot be used to text anyone.
+            ...(smsConfigured()
+                ? [
+                      phoneNumber({
+                          otpLength: SIGN_IN_CODE_LENGTH,
+                          expiresIn: SIGN_IN_CODE_MINUTES * 60,
+                          allowedAttempts: 3,
+                          phoneNumberValidator: (value) => PHONE_NUMBER_PATTERN.test(value),
+                          sendOTP: async ({ phoneNumber: to, code }, ctx) => {
+                              const adding = ctx ? Boolean(await getSessionFromCtx(ctx).catch(() => null)) : false;
+                              if (!adding && !(await verifiedPhoneExists(to))) return;
+                              queueSms("sign-in-code", to, `${code} is your ${brand.name} code. It expires in ${SIGN_IN_CODE_MINUTES} minutes.`, code);
+                          },
+                      }),
+                  ]
+                : []),
             // Optional: off unless CAPTCHA_PROVIDER, CAPTCHA_SITE_KEY and CAPTCHA_SECRET_KEY are set.
             ...(captchaOptions ? [captcha(captchaOptions)] : []),
             // Google One Tap on the sign-in and sign-up pages, off unless turned on for Google in the

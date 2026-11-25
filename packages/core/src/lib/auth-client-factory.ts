@@ -6,6 +6,7 @@ import {
     multiSessionClient,
     oneTapClient,
     organizationClient,
+    phoneNumberClient,
     twoFactorClient,
     usernameClient,
 } from "better-auth/client/plugins";
@@ -26,6 +27,7 @@ export function createAppAuthClient(baseURL: string | undefined) {
             lastLoginMethodClient(),
             usernameClient(),
             emailOTPClient(),
+            phoneNumberClient(),
             passkeyClient(),
             // No redirect option: the login form reads `twoFactorRedirect` and opens the code step.
             twoFactorClient(),

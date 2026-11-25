@@ -42,7 +42,8 @@
         "invalidEmail": "Wpisz prawidłowy adres e-mail.",
         "error": "Nie udało się wysłać wiadomości. Spróbuj ponownie za minutę."
       },
-      "addAccountDescription": "Konta zalogowane już w tej przeglądarce pozostaną zalogowane."
+      "addAccountDescription": "Konta zalogowane już w tej przeglądarce pozostaną zalogowane.",
+      "phoneCode": "Wyślij mi kod logowania SMS-em"
     },
     "emailCode": {
       "title": "Zaloguj się kodem",
@@ -200,6 +201,30 @@
       "setUp": "Skonfiguruj uwierzytelnianie dwuskładnikowe",
       "later": "Przypomnij później",
       "continue": "Kontynuuj"
+    },
+    "phoneCode": {
+      "title": "Zaloguj się SMS-em",
+      "description": "Wyślemy SMS-em 6-cyfrowy kod na numer telefonu z Twojego konta.",
+      "phoneLabel": "Numer telefonu",
+      "phoneHint": "Format międzynarodowy, z + i numerem kierunkowym kraju.",
+      "send": "Wyślij kod",
+      "sending": "Wysyłanie…",
+      "sentTitle": "Sprawdź telefon",
+      "sent": "Jeśli jakieś konto używa numeru {phone}, 6-cyfrowy kod jest w drodze. Wygaśnie za {minutes} min.",
+      "codeLabel": "Kod logowania",
+      "verify": "Zaloguj się",
+      "verifying": "Logowanie…",
+      "newCode": "Nie dotarł? Wyślij nowy kod",
+      "usePassword": "Użyj hasła",
+      "errors": {
+        "invalidPhone": "Wpisz numer w formacie międzynarodowym, np. +48512345678.",
+        "invalidCode": "Ten kod jest nieprawidłowy. Sprawdź go i spróbuj ponownie.",
+        "expired": "Ten kod wygasł. Poproś o nowy.",
+        "tooManyAttempts": "Za dużo błędnych kodów. Poproś o nowy.",
+        "rateLimited": "Za dużo prób. Odczekaj kilka minut i spróbuj ponownie.",
+        "sendFailed": "Nie udało się wysłać kodu. Spróbuj za kilka minut.",
+        "signInFailed": "Nie udało się zalogować. Spróbuj ponownie."
+      }
     }
   },
   "consent": {
@@ -1904,7 +1929,8 @@
             "export_data": "Wyeksportowano dane konta",
             "self_delete": "Użytkownik usunął własne konto",
             "export_csv": "Wyeksportowano użytkowników do CSV",
-            "import": "Zaimportowano użytkowników"
+            "import": "Zaimportowano użytkowników",
+            "remove_phone_number": "Usunął(-ęła) swój numer telefonu"
           },
           "oauth_client": {
             "create": "Zarejestrowano klienta OAuth",
@@ -2747,6 +2773,27 @@
     "impersonation": {
       "viewingAs": "Przeglądasz to konto jako <strong>{email}</strong>.",
       "stop": "Zakończ podszywanie się"
+    },
+    "phone": {
+      "title": "Numer telefonu",
+      "description": "Loguj się kodem wysyłanym SMS-em na ten numer.",
+      "none": "Brak numeru telefonu",
+      "add": "Dodaj numer",
+      "change": "Zmień",
+      "remove": "Usuń",
+      "phoneLabel": "Numer telefonu",
+      "phoneHint": "Format międzynarodowy, z + i numerem kierunkowym kraju. Wyślemy SMS-em kod, aby go sprawdzić.",
+      "send": "Wyślij kod",
+      "cancel": "Anuluj",
+      "codeLabel": "Kod wysłany na {phone}",
+      "verify": "Zapisz numer",
+      "invalidPhone": "Wpisz numer w formacie międzynarodowym, np. +48512345678.",
+      "sendFailed": "Nie udało się wysłać kodu. Spróbuj za kilka minut.",
+      "verifyFailed": "Ten kod jest nieprawidłowy lub wygasł.",
+      "taken": "Inne konto już używa tego numeru.",
+      "saved": "Numer zapisany.",
+      "removeFailed": "Nie udało się usunąć numeru.",
+      "removed": "Numer usunięty."
     }
   },
   "acceptInvitation": {

@@ -42,7 +42,8 @@
         "invalidEmail": "Geçerli bir e-posta adresi girin.",
         "error": "E-posta gönderilemedi. Bir dakika sonra tekrar deneyin."
       },
-      "addAccountDescription": "Bu tarayıcıda oturumu açık olan hesaplar açık kalır."
+      "addAccountDescription": "Bu tarayıcıda oturumu açık olan hesaplar açık kalır.",
+      "phoneCode": "Bana SMS ile giriş kodu gönder"
     },
     "emailCode": {
       "title": "Kodla giriş yap",
@@ -200,6 +201,30 @@
       "setUp": "İki adımlı doğrulamayı ayarla",
       "later": "Sonra hatırlat",
       "continue": "Devam et"
+    },
+    "phoneCode": {
+      "title": "SMS ile oturum aç",
+      "description": "Hesabınızdaki telefon numarasına SMS ile 6 haneli bir kod göndereceğiz.",
+      "phoneLabel": "Telefon numarası",
+      "phoneHint": "Uluslararası biçim, + ve ülke koduyla.",
+      "send": "Kod gönder",
+      "sending": "Gönderiliyor…",
+      "sentTitle": "Telefonunuza bakın",
+      "sent": "{phone} numarasını kullanan bir hesap varsa 6 haneli kod yolda. {minutes} dakika içinde geçerliliğini yitirir.",
+      "codeLabel": "Giriş kodu",
+      "verify": "Oturum aç",
+      "verifying": "Oturum açılıyor…",
+      "newCode": "Gelmedi mi? Yeni kod gönder",
+      "usePassword": "Bunun yerine parolanızı kullanın",
+      "errors": {
+        "invalidPhone": "Numarayı uluslararası biçimde girin, örneğin +905321234567.",
+        "invalidCode": "Kod doğru değil. Kontrol edip yeniden deneyin.",
+        "expired": "Kodun süresi doldu. Yenisini isteyin.",
+        "tooManyAttempts": "Çok fazla yanlış kod. Yenisini isteyin.",
+        "rateLimited": "Çok fazla deneme. Birkaç dakika bekleyip yeniden deneyin.",
+        "sendFailed": "Kod gönderilemedi. Birkaç dakika sonra yeniden deneyin.",
+        "signInFailed": "Oturum açılamadı. Yeniden deneyin."
+      }
     }
   },
   "consent": {
@@ -1904,7 +1929,8 @@
             "export_data": "Hesap verilerini dışa aktardı",
             "self_delete": "Kendi hesabını sildi",
             "export_csv": "Kullanıcıları CSV olarak dışa aktardı",
-            "import": "Kullanıcıları içe aktardı"
+            "import": "Kullanıcıları içe aktardı",
+            "remove_phone_number": "Telefon numarasını kaldırdı"
           },
           "oauth_client": {
             "create": "OAuth istemcisi kaydetti",
@@ -2747,6 +2773,27 @@
     "impersonation": {
       "viewingAs": "Bu hesabı <strong>{email}</strong> olarak görüntülüyorsunuz.",
       "stop": "Kimliğe bürünmeyi durdur"
+    },
+    "phone": {
+      "title": "Telefon numarası",
+      "description": "Bu numaraya SMS ile gönderilen bir kodla oturum açın.",
+      "none": "Telefon numarası yok",
+      "add": "Numara ekle",
+      "change": "Değiştir",
+      "remove": "Kaldır",
+      "phoneLabel": "Telefon numarası",
+      "phoneHint": "Uluslararası biçim, + ve ülke koduyla. Doğrulamak için SMS ile kod göndereceğiz.",
+      "send": "Kod gönder",
+      "cancel": "İptal",
+      "codeLabel": "{phone} numarasına gönderilen kod",
+      "verify": "Numarayı kaydet",
+      "invalidPhone": "Numarayı uluslararası biçimde girin, örneğin +905321234567.",
+      "sendFailed": "Kod gönderilemedi. Birkaç dakika sonra yeniden deneyin.",
+      "verifyFailed": "Kod doğru değil ya da süresi doldu.",
+      "taken": "Bu numarayı başka bir hesap kullanıyor.",
+      "saved": "Numara kaydedildi.",
+      "removeFailed": "Numara kaldırılamadı.",
+      "removed": "Numara kaldırıldı."
     }
   },
   "acceptInvitation": {

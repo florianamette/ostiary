@@ -8,6 +8,15 @@ All notable changes are documented here. The format follows
 
 ### Added
 
+- Sign-in with a code sent by text message (Better Auth's `phone-number` plugin), through
+  Twilio: set `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN` and `TWILIO_FROM`. People add and
+  verify a phone number on their account page (a recent sign-in, like adding a passkey), then
+  "Text me a sign-in code" on the sign-in page sends a 6-digit code. Codes go only to numbers an
+  account verified, behind the captcha and a rate limit (3 texts per 10 minutes per IP), so the
+  endpoint cannot be used to text anyone. Accounts with two-factor authentication still get their
+  second step. No sign-up by phone, no password sign-in or reset by phone, and a profile update
+  cannot set a number. New columns `user.phone_number` and `user.phone_number_verified`
+  (migration 0018).
 - Organization custom roles and teams (Better Auth's `dynamicAccessControl` and `teams`). An
   organization's page in the admin console adds roles with their own permissions (any of the
   built-in roles' resources and actions, API keys included), offers them in the member role

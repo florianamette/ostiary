@@ -42,7 +42,8 @@
         "invalidEmail": "Zadejte platnou e-mailovou adresu.",
         "error": "E-mail se nepodařilo odeslat. Zkuste to znovu za minutu."
       },
-      "addAccountDescription": "Účty, které jsou v tomto prohlížeči už přihlášené, zůstanou přihlášené."
+      "addAccountDescription": "Účty, které jsou v tomto prohlížeči už přihlášené, zůstanou přihlášené.",
+      "phoneCode": "Poslat přihlašovací kód SMS"
     },
     "emailCode": {
       "title": "Přihlášení kódem",
@@ -200,6 +201,30 @@
       "setUp": "Nastavit dvoufázové ověření",
       "later": "Připomenout později",
       "continue": "Pokračovat"
+    },
+    "phoneCode": {
+      "title": "Přihlásit se přes SMS",
+      "description": "Pošleme 6místný kód SMS na telefonní číslo vašeho účtu.",
+      "phoneLabel": "Telefonní číslo",
+      "phoneHint": "Mezinárodní formát, s + a předvolbou země.",
+      "send": "Poslat kód",
+      "sending": "Odesílání…",
+      "sentTitle": "Podívejte se do telefonu",
+      "sent": "Pokud nějaký účet používá {phone}, 6místný kód je na cestě. Platí {minutes} minut.",
+      "codeLabel": "Přihlašovací kód",
+      "verify": "Přihlásit se",
+      "verifying": "Přihlašování…",
+      "newCode": "Nedorazil? Poslat nový kód",
+      "usePassword": "Použít raději heslo",
+      "errors": {
+        "invalidPhone": "Zadejte číslo v mezinárodním formátu, třeba +420601234567.",
+        "invalidCode": "Kód není správný. Zkontrolujte ho a zkuste to znovu.",
+        "expired": "Platnost kódu vypršela. Vyžádejte si nový.",
+        "tooManyAttempts": "Příliš mnoho špatných kódů. Vyžádejte si nový.",
+        "rateLimited": "Příliš mnoho pokusů. Počkejte pár minut a zkuste to znovu.",
+        "sendFailed": "Kód se nepodařilo odeslat. Zkuste to za pár minut.",
+        "signInFailed": "Přihlášení se nezdařilo. Zkuste to znovu."
+      }
     }
   },
   "consent": {
@@ -1904,7 +1929,8 @@
             "export_data": "Export dat účtu",
             "self_delete": "Smazání vlastního účtu",
             "export_csv": "Export uživatelů do CSV",
-            "import": "Import uživatelů"
+            "import": "Import uživatelů",
+            "remove_phone_number": "Odebral(a) své telefonní číslo"
           },
           "oauth_client": {
             "create": "Registrace klienta OAuth",
@@ -2747,6 +2773,27 @@
     "impersonation": {
       "viewingAs": "Prohlížíte tento účet jako <strong>{email}</strong>.",
       "stop": "Ukončit přihlášení za uživatele"
+    },
+    "phone": {
+      "title": "Telefonní číslo",
+      "description": "Přihlaste se kódem zaslaným SMS na toto číslo.",
+      "none": "Žádné telefonní číslo",
+      "add": "Přidat číslo",
+      "change": "Změnit",
+      "remove": "Odebrat",
+      "phoneLabel": "Telefonní číslo",
+      "phoneHint": "Mezinárodní formát, s + a předvolbou země. Pro ověření pošleme kód SMS.",
+      "send": "Poslat kód",
+      "cancel": "Zrušit",
+      "codeLabel": "Kód zaslaný na {phone}",
+      "verify": "Uložit číslo",
+      "invalidPhone": "Zadejte číslo v mezinárodním formátu, třeba +420601234567.",
+      "sendFailed": "Kód se nepodařilo odeslat. Zkuste to za pár minut.",
+      "verifyFailed": "Kód není správný nebo vypršel.",
+      "taken": "Toto číslo už používá jiný účet.",
+      "saved": "Číslo uloženo.",
+      "removeFailed": "Číslo se nepodařilo odebrat.",
+      "removed": "Číslo odebráno."
     }
   },
   "acceptInvitation": {

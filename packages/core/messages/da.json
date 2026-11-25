@@ -42,7 +42,8 @@
         "invalidEmail": "Indtast en gyldig e-mailadresse.",
         "error": "E-mailen kunne ikke sendes. Prøv igen om et minut."
       },
-      "addAccountDescription": "Konti, der allerede er logget ind i denne browser, forbliver logget ind."
+      "addAccountDescription": "Konti, der allerede er logget ind i denne browser, forbliver logget ind.",
+      "phoneCode": "Send mig en loginkode på sms"
     },
     "emailCode": {
       "title": "Log ind med en kode",
@@ -200,6 +201,30 @@
       "setUp": "Konfigurer totrinsgodkendelse",
       "later": "Påmind mig senere",
       "continue": "Fortsæt"
+    },
+    "phoneCode": {
+      "title": "Log ind med sms",
+      "description": "Vi sender en 6-cifret kode på sms til telefonnummeret på din konto.",
+      "phoneLabel": "Telefonnummer",
+      "phoneHint": "Internationalt format, med + og landekode.",
+      "send": "Send kode",
+      "sending": "Sender…",
+      "sentTitle": "Tjek din telefon",
+      "sent": "Hvis en konto bruger {phone}, er en 6-cifret kode på vej. Den udløber om {minutes} minutter.",
+      "codeLabel": "Loginkode",
+      "verify": "Log ind",
+      "verifying": "Logger ind…",
+      "newCode": "Fik du den ikke? Send en ny kode",
+      "usePassword": "Brug din adgangskode i stedet",
+      "errors": {
+        "invalidPhone": "Indtast nummeret i internationalt format, fx +4512345678.",
+        "invalidCode": "Koden er forkert. Tjek den, og prøv igen.",
+        "expired": "Koden er udløbet. Bed om en ny.",
+        "tooManyAttempts": "For mange forkerte koder. Bed om en ny.",
+        "rateLimited": "For mange forsøg. Vent et par minutter, og prøv igen.",
+        "sendFailed": "Koden kunne ikke sendes. Prøv igen om et par minutter.",
+        "signInFailed": "Kunne ikke logge ind. Prøv igen."
+      }
     }
   },
   "consent": {
@@ -1904,7 +1929,8 @@
             "export_data": "Eksporterede kontodata",
             "self_delete": "Slettede sin egen konto",
             "export_csv": "Eksporterede brugere til CSV",
-            "import": "Importerede brugere"
+            "import": "Importerede brugere",
+            "remove_phone_number": "Fjernede sit telefonnummer"
           },
           "oauth_client": {
             "create": "Registrerede OAuth-klient",
@@ -2747,6 +2773,27 @@
     "impersonation": {
       "viewingAs": "Du ser denne konto som <strong>{email}</strong>.",
       "stop": "Stop med at logge ind som bruger"
+    },
+    "phone": {
+      "title": "Telefonnummer",
+      "description": "Log ind med en kode sendt på sms til dette nummer.",
+      "none": "Intet telefonnummer",
+      "add": "Tilføj et nummer",
+      "change": "Skift",
+      "remove": "Fjern",
+      "phoneLabel": "Telefonnummer",
+      "phoneHint": "Internationalt format, med + og landekode. Vi sender en kode på sms for at bekræfte det.",
+      "send": "Send kode",
+      "cancel": "Annuller",
+      "codeLabel": "Kode sendt til {phone}",
+      "verify": "Gem nummer",
+      "invalidPhone": "Indtast nummeret i internationalt format, fx +4512345678.",
+      "sendFailed": "Koden kunne ikke sendes. Prøv igen om et par minutter.",
+      "verifyFailed": "Koden er forkert eller udløbet.",
+      "taken": "En anden konto bruger allerede dette nummer.",
+      "saved": "Nummeret er gemt.",
+      "removeFailed": "Nummeret kunne ikke fjernes.",
+      "removed": "Nummeret er fjernet."
     }
   },
   "acceptInvitation": {

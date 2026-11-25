@@ -7,6 +7,7 @@ import { LoginForm } from "@/components/auth/login-form";
 import { authScreenApp } from "@/lib/app-context";
 import { appLinkOf, appShowsProvider, appSocialProviders } from "@/lib/app-links";
 import { enabledSocialProviders, googleOneTap } from "@ostiary/core/lib/social-providers";
+import { smsConfigured } from "@ostiary/core/lib/sms";
 
 // Providers enabled from the admin console are read at request time.
 export const dynamic = "force-dynamic";
@@ -31,6 +32,7 @@ export default async function Page({
           captcha={captchaConfig()}
           oneTap={oneTap}
           appLink={appLinkOf(app)}
+          sms={smsConfigured()}
         />
       </Suspense>
     </AuthScreen>

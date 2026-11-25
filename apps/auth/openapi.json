@@ -64,6 +64,13 @@
             "type": "boolean",
             "default": false,
             "readOnly": true
+          },
+          "phoneNumber": {
+            "type": "string"
+          },
+          "phoneNumberVerified": {
+            "type": "boolean",
+            "readOnly": true
           }
         },
         "required": [
@@ -1786,6 +1793,11 @@
       "description": "Several signed-in accounts in one browser."
     },
     {
+      "name": "Text messages",
+      "x-displayName": "Text messages",
+      "description": "Sign-in with a code texted to a phone number the account verified (TWILIO_* set), and adding one."
+    },
+    {
       "name": "OAuth and OpenID Connect",
       "x-displayName": "OAuth and OpenID Connect",
       "description": "The authorization server: authorization, tokens, introspection, revocation, UserInfo, consents and client registration."
@@ -2986,6 +2998,9 @@
                     "type": "string"
                   },
                   "displayUsername": {
+                    "type": "string"
+                  },
+                  "phoneNumber": {
                     "type": "string"
                   }
                 },
@@ -4480,6 +4495,9 @@
                     "type": "string"
                   },
                   "displayUsername": {
+                    "type": "string"
+                  },
+                  "phoneNumber": {
                     "type": "string"
                   }
                 }
@@ -11248,6 +11266,360 @@
               }
             },
             "description": "Bad Request. Usually due to missing parameters, or invalid parameters."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            },
+            "description": "Unauthorized. Due to missing or invalid authentication."
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Forbidden. You do not have permission to access this resource or to perform this action."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Not Found. The requested resource was not found."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Too Many Requests. You have exceeded the rate limit. Try again later."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Internal Server Error. This is a problem with the server that you cannot fix."
+          }
+        }
+      }
+    },
+    "/phone-number/send-otp": {
+      "post": {
+        "tags": [
+          "Text messages"
+        ],
+        "description": "Use this endpoint to send OTP to phone number",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "phoneNumber": {
+                    "type": "string",
+                    "description": "Phone number to send OTP. Eg: \"+1234567890\""
+                  }
+                },
+                "required": [
+                  "phoneNumber"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            },
+            "description": "Bad Request. Usually due to missing parameters, or invalid parameters."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            },
+            "description": "Unauthorized. Due to missing or invalid authentication."
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Forbidden. You do not have permission to access this resource or to perform this action."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Not Found. The requested resource was not found."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Too Many Requests. You have exceeded the rate limit. Try again later."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Internal Server Error. This is a problem with the server that you cannot fix."
+          }
+        }
+      }
+    },
+    "/phone-number/verify": {
+      "post": {
+        "tags": [
+          "Text messages"
+        ],
+        "description": "Use this endpoint to verify phone number",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "phoneNumber": {
+                    "type": "string",
+                    "description": "Phone number to verify. Eg: \"+1234567890\""
+                  },
+                  "code": {
+                    "type": "string",
+                    "description": "OTP code. Eg: \"123456\""
+                  },
+                  "disableSession": {
+                    "type": "boolean",
+                    "description": "Disable session creation after verification. Eg: false"
+                  },
+                  "updatePhoneNumber": {
+                    "type": "boolean",
+                    "description": "Check if there is a session and update the phone number. Eg: true"
+                  }
+                },
+                "required": [
+                  "phoneNumber",
+                  "code"
+                ],
+                "additionalProperties": {},
+                "propertyNames": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Phone number verified successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "description": "Indicates if the verification was successful",
+                      "enum": [
+                        true
+                      ]
+                    },
+                    "token": {
+                      "type": "string",
+                      "nullable": true,
+                      "description": "Session token if session is created, null if disableSession is true or no session is created"
+                    },
+                    "user": {
+                      "type": "object",
+                      "nullable": true,
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "Unique identifier of the user"
+                        },
+                        "email": {
+                          "type": "string",
+                          "format": "email",
+                          "nullable": true,
+                          "description": "User's email address"
+                        },
+                        "emailVerified": {
+                          "type": "boolean",
+                          "nullable": true,
+                          "description": "Whether the email is verified"
+                        },
+                        "name": {
+                          "type": "string",
+                          "nullable": true,
+                          "description": "User's name"
+                        },
+                        "image": {
+                          "type": "string",
+                          "format": "uri",
+                          "nullable": true,
+                          "description": "User's profile image URL"
+                        },
+                        "phoneNumber": {
+                          "type": "string",
+                          "description": "User's phone number"
+                        },
+                        "phoneNumberVerified": {
+                          "type": "boolean",
+                          "description": "Whether the phone number is verified"
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "Timestamp when the user was created"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "Timestamp when the user was last updated"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "phoneNumber",
+                        "phoneNumberVerified",
+                        "createdAt",
+                        "updatedAt"
+                      ],
+                      "description": "User object with phone number details, null if no user is created or found"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid OTP"
           },
           "401": {
             "content": {

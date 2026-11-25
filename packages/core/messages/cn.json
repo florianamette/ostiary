@@ -42,7 +42,8 @@
         "invalidEmail": "请输入有效的邮箱地址。",
         "error": "无法发送邮件。请稍后再试。"
       },
-      "addAccountDescription": "此浏览器上已登录的账户将保持登录。"
+      "addAccountDescription": "此浏览器上已登录的账户将保持登录。",
+      "phoneCode": "用短信发送登录码"
     },
     "emailCode": {
       "title": "使用验证码登录",
@@ -200,6 +201,30 @@
       "setUp": "设置双重验证",
       "later": "稍后提醒我",
       "continue": "继续"
+    },
+    "phoneCode": {
+      "title": "通过短信登录",
+      "description": "我们会通过短信向你账户的手机号发送 6 位验证码。",
+      "phoneLabel": "手机号",
+      "phoneHint": "国际格式，以 + 和国家代码开头。",
+      "send": "发送验证码",
+      "sending": "正在发送…",
+      "sentTitle": "请查看手机",
+      "sent": "如果有账户使用 {phone}，6 位验证码已发出，{minutes} 分钟后过期。",
+      "codeLabel": "登录码",
+      "verify": "登录",
+      "verifying": "正在登录…",
+      "newCode": "没收到？重新发送",
+      "usePassword": "改用密码登录",
+      "errors": {
+        "invalidPhone": "请按国际格式输入号码，例如 +8613812345678。",
+        "invalidCode": "验证码不正确，请检查后重试。",
+        "expired": "验证码已过期，请重新获取。",
+        "tooManyAttempts": "错误次数过多，请重新获取验证码。",
+        "rateLimited": "尝试次数过多，请等几分钟再试。",
+        "sendFailed": "无法发送验证码，请几分钟后再试。",
+        "signInFailed": "无法登录，请重试。"
+      }
     }
   },
   "consent": {
@@ -1904,7 +1929,8 @@
             "export_data": "导出了账户数据",
             "self_delete": "删除了自己的账户",
             "export_csv": "将用户导出为 CSV",
-            "import": "导入了用户"
+            "import": "导入了用户",
+            "remove_phone_number": "移除了自己的手机号"
           },
           "oauth_client": {
             "create": "注册了 OAuth 客户端",
@@ -2747,6 +2773,27 @@
     "impersonation": {
       "viewingAs": "你正在以 <strong>{email}</strong> 的身份查看此账户。",
       "stop": "停止模拟"
+    },
+    "phone": {
+      "title": "手机号",
+      "description": "使用发送到此号码的短信验证码登录。",
+      "none": "未设置手机号",
+      "add": "添加号码",
+      "change": "更改",
+      "remove": "移除",
+      "phoneLabel": "手机号",
+      "phoneHint": "国际格式，以 + 和国家代码开头。我们会发送短信验证码进行确认。",
+      "send": "发送验证码",
+      "cancel": "取消",
+      "codeLabel": "发送到 {phone} 的验证码",
+      "verify": "保存号码",
+      "invalidPhone": "请按国际格式输入号码，例如 +8613812345678。",
+      "sendFailed": "无法发送验证码，请几分钟后再试。",
+      "verifyFailed": "验证码不正确或已过期。",
+      "taken": "其他账户已在使用此号码。",
+      "saved": "号码已保存。",
+      "removeFailed": "无法移除号码。",
+      "removed": "号码已移除。"
     }
   },
   "acceptInvitation": {

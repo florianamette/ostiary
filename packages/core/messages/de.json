@@ -42,7 +42,8 @@
         "invalidEmail": "Geben Sie eine gültige E-Mail-Adresse ein.",
         "error": "Die E-Mail konnte nicht gesendet werden. Versuchen Sie es in einer Minute erneut."
       },
-      "addAccountDescription": "Bereits in diesem Browser angemeldete Konten bleiben angemeldet."
+      "addAccountDescription": "Bereits in diesem Browser angemeldete Konten bleiben angemeldet.",
+      "phoneCode": "Anmeldecode per SMS senden"
     },
     "emailCode": {
       "title": "Mit einem Code anmelden",
@@ -200,6 +201,30 @@
       "setUp": "Zwei-Faktor-Authentifizierung einrichten",
       "later": "Später erinnern",
       "continue": "Weiter"
+    },
+    "phoneCode": {
+      "title": "Per SMS anmelden",
+      "description": "Wir senden einen 6-stelligen Code per SMS an die Telefonnummer deines Kontos.",
+      "phoneLabel": "Telefonnummer",
+      "phoneHint": "Internationales Format, mit + und Ländervorwahl.",
+      "send": "Code senden",
+      "sending": "Wird gesendet…",
+      "sentTitle": "Sieh auf dein Telefon",
+      "sent": "Wenn ein Konto {phone} verwendet, ist ein 6-stelliger Code unterwegs. Er läuft in {minutes} Minuten ab.",
+      "codeLabel": "Anmeldecode",
+      "verify": "Anmelden",
+      "verifying": "Anmeldung…",
+      "newCode": "Nichts erhalten? Neuen Code senden",
+      "usePassword": "Stattdessen Passwort verwenden",
+      "errors": {
+        "invalidPhone": "Gib die Nummer im internationalen Format ein, etwa +4915112345678.",
+        "invalidCode": "Der Code stimmt nicht. Prüfe ihn und versuche es erneut.",
+        "expired": "Der Code ist abgelaufen. Fordere einen neuen an.",
+        "tooManyAttempts": "Zu viele falsche Codes. Fordere einen neuen an.",
+        "rateLimited": "Zu viele Versuche. Warte ein paar Minuten und versuche es erneut.",
+        "sendFailed": "Der Code konnte nicht gesendet werden. Versuche es in ein paar Minuten erneut.",
+        "signInFailed": "Anmeldung fehlgeschlagen. Versuche es erneut."
+      }
     }
   },
   "consent": {
@@ -1904,7 +1929,8 @@
             "export_data": "Kontodaten exportiert",
             "self_delete": "Eigenes Konto gelöscht",
             "export_csv": "Benutzer als CSV exportiert",
-            "import": "Benutzer importiert"
+            "import": "Benutzer importiert",
+            "remove_phone_number": "Hat die Telefonnummer entfernt"
           },
           "oauth_client": {
             "create": "OAuth-Client registriert",
@@ -2747,6 +2773,27 @@
     "impersonation": {
       "viewingAs": "Sie sehen dieses Konto als <strong>{email}</strong>.",
       "stop": "Ansicht beenden"
+    },
+    "phone": {
+      "title": "Telefonnummer",
+      "description": "Melde dich mit einem per SMS an diese Nummer gesendeten Code an.",
+      "none": "Keine Telefonnummer",
+      "add": "Nummer hinzufügen",
+      "change": "Ändern",
+      "remove": "Entfernen",
+      "phoneLabel": "Telefonnummer",
+      "phoneHint": "Internationales Format, mit + und Ländervorwahl. Wir senden zur Prüfung einen Code per SMS.",
+      "send": "Code senden",
+      "cancel": "Abbrechen",
+      "codeLabel": "An {phone} gesendeter Code",
+      "verify": "Nummer speichern",
+      "invalidPhone": "Gib die Nummer im internationalen Format ein, etwa +4915112345678.",
+      "sendFailed": "Der Code konnte nicht gesendet werden. Versuche es in ein paar Minuten erneut.",
+      "verifyFailed": "Der Code stimmt nicht oder ist abgelaufen.",
+      "taken": "Ein anderes Konto verwendet diese Nummer bereits.",
+      "saved": "Nummer gespeichert.",
+      "removeFailed": "Die Nummer konnte nicht entfernt werden.",
+      "removed": "Nummer entfernt."
     }
   },
   "acceptInvitation": {

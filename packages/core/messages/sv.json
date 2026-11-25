@@ -42,7 +42,8 @@
         "invalidEmail": "Ange en giltig e-postadress.",
         "error": "Det gick inte att skicka mejlet. Försök igen om en minut."
       },
-      "addAccountDescription": "Konton som redan är inloggade i den här webbläsaren förblir inloggade."
+      "addAccountDescription": "Konton som redan är inloggade i den här webbläsaren förblir inloggade.",
+      "phoneCode": "Sms:a mig en inloggningskod"
     },
     "emailCode": {
       "title": "Logga in med en kod",
@@ -200,6 +201,30 @@
       "setUp": "Konfigurera tvåfaktorsautentisering",
       "later": "Påminn mig senare",
       "continue": "Fortsätt"
+    },
+    "phoneCode": {
+      "title": "Logga in med sms",
+      "description": "Vi sms:ar en 6-siffrig kod till telefonnumret på ditt konto.",
+      "phoneLabel": "Telefonnummer",
+      "phoneHint": "Internationellt format, med + och landsnummer.",
+      "send": "Skicka kod",
+      "sending": "Skickar…",
+      "sentTitle": "Titta i telefonen",
+      "sent": "Om ett konto använder {phone} är en 6-siffrig kod på väg. Den gäller i {minutes} minuter.",
+      "codeLabel": "Inloggningskod",
+      "verify": "Logga in",
+      "verifying": "Loggar in…",
+      "newCode": "Fick du ingen? Skicka en ny kod",
+      "usePassword": "Använd ditt lösenord i stället",
+      "errors": {
+        "invalidPhone": "Ange numret i internationellt format, till exempel +46701234567.",
+        "invalidCode": "Koden stämmer inte. Kontrollera den och försök igen.",
+        "expired": "Koden har gått ut. Be om en ny.",
+        "tooManyAttempts": "För många felaktiga koder. Be om en ny.",
+        "rateLimited": "För många försök. Vänta några minuter och försök igen.",
+        "sendFailed": "Det gick inte att skicka koden. Försök igen om några minuter.",
+        "signInFailed": "Det gick inte att logga in. Försök igen."
+      }
     }
   },
   "consent": {
@@ -1904,7 +1929,8 @@
             "export_data": "Exporterade kontodata",
             "self_delete": "Raderade sitt eget konto",
             "export_csv": "Exporterade användare till CSV",
-            "import": "Importerade användare"
+            "import": "Importerade användare",
+            "remove_phone_number": "Tog bort sitt telefonnummer"
           },
           "oauth_client": {
             "create": "Registrerade OAuth-klient",
@@ -2747,6 +2773,27 @@
     "impersonation": {
       "viewingAs": "Du visar det här kontot som <strong>{email}</strong>.",
       "stop": "Sluta agera som användaren"
+    },
+    "phone": {
+      "title": "Telefonnummer",
+      "description": "Logga in med en kod som sms:as till det här numret.",
+      "none": "Inget telefonnummer",
+      "add": "Lägg till ett nummer",
+      "change": "Ändra",
+      "remove": "Ta bort",
+      "phoneLabel": "Telefonnummer",
+      "phoneHint": "Internationellt format, med + och landsnummer. Vi sms:ar en kod för att kontrollera det.",
+      "send": "Skicka kod",
+      "cancel": "Avbryt",
+      "codeLabel": "Kod skickad till {phone}",
+      "verify": "Spara nummer",
+      "invalidPhone": "Ange numret i internationellt format, till exempel +46701234567.",
+      "sendFailed": "Det gick inte att skicka koden. Försök igen om några minuter.",
+      "verifyFailed": "Koden stämmer inte eller har gått ut.",
+      "taken": "Ett annat konto använder redan det här numret.",
+      "saved": "Numret sparades.",
+      "removeFailed": "Det gick inte att ta bort numret.",
+      "removed": "Numret togs bort."
     }
   },
   "acceptInvitation": {
