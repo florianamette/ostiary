@@ -8,6 +8,15 @@ All notable changes are documented here. The format follows
 
 ### Added
 
+- Organization custom roles and teams (Better Auth's `dynamicAccessControl` and `teams`). An
+  organization's page in the admin console adds roles with their own permissions (any of the
+  built-in roles' resources and actions, API keys included), offers them in the member role
+  and invitation lists, and manages teams and their members. Better Auth enforces a custom
+  role's permissions; owners and admins of an organization can also manage roles and teams
+  through Better Auth's endpoints. Token claims gain `organization.permissions` (the role's
+  permissions) and `organization.teams` (the member's teams in the active organization).
+  New tables `organization_role`, `team` and `team_member`, and `session.active_team_id` and
+  `invitation.team_id` (migration 0017).
 - Two-factor authentication required for everyone, or for an organization's members: **Security**
   › Sessions and passwords has "Two-factor authentication for everyone" and a grace period (none,
   7, 14 or 30 days), and each organization's page has "Require two-factor authentication for

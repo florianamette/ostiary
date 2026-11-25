@@ -1,13 +1,25 @@
 "use server";
 
 import { randomUUID } from "node:crypto";
-import { and, count, eq, ne } from "drizzle-orm";
+import { and, count, eq, inArray, ne } from "drizzle-orm";
 import { getTranslations } from "next-intl/server";
 import { z } from "zod";
 import { setOrganizationTwoFactor } from "@ostiary/core/lib/two-factor-policy";
+import {
+  addTeamMemberByEmail,
+  createOrganizationRole,
+  createTeam,
+  deleteOrganizationRole,
+  deleteTeam,
+  organizationRoleNames,
+  removeTeamMember,
+  renameTeam,
+  updateOrganizationRole,
+  type Refusal,
+} from "@ostiary/core/lib/admin/organization-roles-teams";
 
 import { db } from "@ostiary/core/db/index";
-import { invitation, member, organization, user } from "@ostiary/core/db/schema";
+import { invitation, member, organization, team, teamMember, user } from "@ostiary/core/db/schema";
 import { leavesNoOwner, roleIncludesOwner } from "@ostiary/core/lib/admin/organization-owners";
 import { queueOrganizationInviteEmail } from "@ostiary/core/lib/email/queue-organization-invite-email";
 import { env } from "@ostiary/core/lib/env";
@@ -25,8 +37,8 @@ import type { ActionResult } from "@/lib/action-result";
  * Writing past Better Auth's adapter, they also send the membership webhook events themselves.
  */
 
-const ROLES = ["owner", "admin", "member"] as const;
-type Role = (typeof ROLES)[number];
+/** Built-in roles, and the organization's own (organization_role), checked per organization. */
+type Role = string;
 /** An unknown role gets its own message, so it is checked by the action, not the schema. */
 const role = z.string().max(64);
 
@@ -84,7 +96,7 @@ const memberRoleInput = z.tuple([input.id, input.id, role]);
 /** Changes a member's role. The organization keeps at least one owner. */
 export async function updateMemberRole(orgId: string, memberId: string, newRole: Role): Promise<ActionResult> {
   return adminAction(memberRoleInput, [orgId, memberId, newRole], async ([orgId, memberId, newRole], { audit }) => {
-    if (!(ROLES as readonly string[]).includes(newRole)) return { ok: false, error: (await errors())("unknownRole") };
+    if (!(await organizationRoleNames(orgId)).includes(newRole)) return { ok: false, error: (await errors())("unknownRole") };
     const outcome = await db.transaction(async (tx) => {
       await lockOrganization(tx, orgId);
       const row = await findMember(tx, orgId, memberId);
@@ -119,6 +131,11 @@ export async function removeMember(orgId: string, memberId: string): Promise<Act
       if (!row) return "memberNotFound" as const;
       if (leavesNoOwner(row.member.role, null, await otherOwners(tx, orgId, memberId))) return "lastOwner" as const;
       await tx.delete(member).where(eq(member.id, memberId));
+      // Their places in the organization's teams go with the membership (as Better Auth does).
+      const teamIds = (await tx.select({ id: team.id }).from(team).where(eq(team.organizationId, orgId))).map((t) => t.id);
+      if (teamIds.length) {
+        await tx.delete(teamMember).where(and(eq(teamMember.userId, row.member.userId), inArray(teamMember.teamId, teamIds)));
+      }
       await enqueueWebhookEvents(tx, [makeEvent("organization.member.removed", { member: memberSnapshot(row.member) })]);
       return row;
     });
@@ -134,7 +151,7 @@ export async function inviteMember(orgId: string, email: string, inviteRole: Rol
   return adminAction(inviteInput, [orgId, email, inviteRole], async ([orgId, email, inviteRole], { audit, session }) => {
     const target = email.trim().toLowerCase();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(target)) return { ok: false, error: (await errors())("invalidEmail") };
-    if (!(ROLES as readonly string[]).includes(inviteRole)) return { ok: false, error: (await errors())("unknownRole") };
+    if (!(await organizationRoleNames(orgId)).includes(inviteRole)) return { ok: false, error: (await errors())("unknownRole") };
     const name = await orgName(orgId);
     if (!name || orgId === PUBLIC_ORGANIZATION_ID) return { ok: false, error: (await errors())("noInvitations") };
     const [already] = await db
@@ -193,6 +210,86 @@ export async function setOrganizationTwoFactorAction(orgId: string, required: bo
       target: { type: "organization", id: orgId, label: name },
       metadata: { requireTwoFactor: required },
     });
+    return { ok: true };
+  });
+}
+
+// --- Custom roles and teams ------------------------------------------------------------------
+
+const refused = async (result: Refusal) => ({ ok: false as const, error: (await getTranslations("admin.pages.organizations.rolesTeams.errors"))(result.code) });
+const target = async (orgId: string) => ({ type: "organization", id: orgId, label: await orgName(orgId) });
+const permissions = z.record(z.string().max(64), z.array(z.string().max(64)).max(20));
+
+export async function createRoleAction(orgId: string, name: string, granted: Record<string, string[]>): Promise<ActionResult> {
+  return adminAction(z.tuple([input.id, z.string().max(64), permissions]), [orgId, name, granted], async ([orgId, name, granted], { audit }) => {
+    if (orgId === PUBLIC_ORGANIZATION_ID) return { ok: false, error: (await errors())("publicMembers") };
+    const result = await createOrganizationRole(orgId, name, granted);
+    if (!result.ok) return refused(result);
+    await audit({ action: "organization.create_role", target: await target(orgId), metadata: { role: name.trim().toLowerCase(), permissions: granted } });
+    return { ok: true };
+  });
+}
+
+export async function updateRoleAction(orgId: string, roleId: string, granted: Record<string, string[]>): Promise<ActionResult> {
+  return adminAction(z.tuple([input.id, input.id, permissions]), [orgId, roleId, granted], async ([orgId, roleId, granted], { audit }) => {
+    const result = await updateOrganizationRole(orgId, roleId, granted);
+    if (!result.ok) return refused(result);
+    await audit({ action: "organization.update_role", target: await target(orgId), metadata: { roleId, permissions: granted } });
+    return { ok: true };
+  });
+}
+
+export async function deleteRoleAction(orgId: string, roleId: string): Promise<ActionResult> {
+  return adminAction(z.tuple([input.id, input.id]), [orgId, roleId], async ([orgId, roleId], { audit }) => {
+    const result = await deleteOrganizationRole(orgId, roleId);
+    if (!result.ok) return refused(result);
+    await audit({ action: "organization.delete_role", target: await target(orgId), metadata: { role: result.role } });
+    return { ok: true };
+  });
+}
+
+export async function createTeamAction(orgId: string, name: string): Promise<ActionResult> {
+  return adminAction(z.tuple([input.id, z.string().max(200)]), [orgId, name], async ([orgId, name], { audit }) => {
+    if (orgId === PUBLIC_ORGANIZATION_ID) return { ok: false, error: (await errors())("publicMembers") };
+    const result = await createTeam(orgId, name);
+    if (!result.ok) return refused(result);
+    await audit({ action: "organization.create_team", target: await target(orgId), metadata: { team: name.trim(), teamId: result.id } });
+    return { ok: true };
+  });
+}
+
+export async function renameTeamAction(orgId: string, teamId: string, name: string): Promise<ActionResult> {
+  return adminAction(z.tuple([input.id, input.id, z.string().max(200)]), [orgId, teamId, name], async ([orgId, teamId, name], { audit }) => {
+    const result = await renameTeam(orgId, teamId, name);
+    if (!result.ok) return refused(result);
+    await audit({ action: "organization.update_team", target: await target(orgId), metadata: { teamId, team: name.trim() } });
+    return { ok: true };
+  });
+}
+
+export async function deleteTeamAction(orgId: string, teamId: string): Promise<ActionResult> {
+  return adminAction(z.tuple([input.id, input.id]), [orgId, teamId], async ([orgId, teamId], { audit }) => {
+    const result = await deleteTeam(orgId, teamId);
+    if (!result.ok) return refused(result);
+    await audit({ action: "organization.delete_team", target: await target(orgId), metadata: { teamId, team: result.name } });
+    return { ok: true };
+  });
+}
+
+export async function addTeamMemberAction(orgId: string, teamId: string, email: string): Promise<ActionResult> {
+  return adminAction(z.tuple([input.id, input.id, z.string().max(320)]), [orgId, teamId, email], async ([orgId, teamId, email], { audit }) => {
+    const result = await addTeamMemberByEmail(orgId, teamId, email);
+    if (!result.ok) return refused(result);
+    await audit({ action: "organization.add_team_member", target: await target(orgId), metadata: { teamId, userId: result.userId, email: email.trim().toLowerCase() } });
+    return { ok: true };
+  });
+}
+
+export async function removeTeamMemberAction(orgId: string, teamId: string, userId: string): Promise<ActionResult> {
+  return adminAction(z.tuple([input.id, input.id, input.id]), [orgId, teamId, userId], async ([orgId, teamId, userId], { audit }) => {
+    const result = await removeTeamMember(orgId, teamId, userId);
+    if (!result.ok) return refused(result);
+    await audit({ action: "organization.remove_team_member", target: await target(orgId), metadata: { teamId, userId } });
     return { ok: true };
   });
 }

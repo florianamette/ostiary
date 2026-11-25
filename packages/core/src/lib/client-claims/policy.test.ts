@@ -171,9 +171,19 @@ describe("buildClientClaims", () => {
   });
 
   it("says which context a token needs", () => {
-    expect(claimNeeds(claims, "userinfo")).toEqual({ user: true, organization: false, organizations: false });
-    expect(claimNeeds(claims, "access_token")).toEqual({ user: true, organization: true, organizations: false });
-    expect(claimNeeds(claims, "id_token")).toEqual({ user: true, organization: false, organizations: true });
-    expect(claimNeeds([claims[0]!], "access_token")).toEqual({ user: false, organization: false, organizations: false });
+    const none = { organizationPermissions: false, organizationTeams: false };
+    expect(claimNeeds(claims, "userinfo")).toEqual({ user: true, organization: false, organizations: false, ...none });
+    expect(claimNeeds(claims, "access_token")).toEqual({ user: true, organization: true, organizations: false, ...none });
+    expect(claimNeeds(claims, "id_token")).toEqual({ user: true, organization: false, organizations: true, ...none });
+    expect(claimNeeds([claims[0]!], "access_token")).toEqual({ user: false, organization: false, organizations: false, ...none });
+    expect(
+      claimNeeds(
+        [
+          { name: "p", source: "attribute", attribute: "organization.permissions", tokens: ["id_token"] },
+          { name: "t", source: "attribute", attribute: "organization.teams", tokens: ["id_token"] },
+        ],
+        "id_token",
+      ),
+    ).toEqual({ user: true, organization: true, organizations: false, organizationPermissions: true, organizationTeams: true });
   });
 });

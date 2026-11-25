@@ -24,8 +24,9 @@ import {
 import { ConfirmRemoveDialog } from "@/components/admin/common/confirm-remove-dialog";
 import { useAdminAction } from "@/components/admin/common/use-admin-action";
 
-type Role = "owner" | "admin" | "member";
-const ROLES: Role[] = ["owner", "admin", "member"];
+/** A built-in role (translated) or one of the organization's own (shown by its name). */
+type Role = string;
+const ROLES = ["owner", "admin", "member"] as const;
 
 export function RenameOrganizationForm({ id, name, slug }: { id: string; name: string; slug: string }) {
   const t = useTranslations("admin.pages.organizations.controls");
@@ -60,22 +61,28 @@ export function RenameOrganizationForm({ id, name, slug }: { id: string; name: s
   );
 }
 
-export function MemberRoleSelect({ orgId, memberId, role }: { orgId: string; memberId: string; role: string }) {
+function roleOptions(customRoles: readonly string[], current?: string): string[] {
+  const all = [...ROLES, ...customRoles];
+  return current && !all.includes(current) ? [...all, current] : all;
+}
+
+export function MemberRoleSelect({ orgId, memberId, role, customRoles = [] }: { orgId: string; memberId: string; role: string; customRoles?: string[] }) {
   const t = useTranslations("admin.pages.organizations.controls");
   const { busy, run } = useAdminAction();
+  const label = (r: string) => ((ROLES as readonly string[]).includes(r) ? t(`roles.${r}`) : r);
   return (
     <Select
-      value={ROLES.includes(role as Role) ? role : "member"}
+      value={role}
       disabled={busy}
       onValueChange={(next) => void run(() => updateMemberRole(orgId, memberId, next as Role), t("roleUpdated"))}
     >
-      <SelectTrigger size="sm" className="w-28" aria-label={t("role")}>
+      <SelectTrigger size="sm" className="w-32" aria-label={t("role")}>
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
-        {ROLES.map((r) => (
+        {roleOptions(customRoles, role).map((r) => (
           <SelectItem key={r} value={r}>
-            {t(`roles.${r}`)}
+            {label(r)}
           </SelectItem>
         ))}
       </SelectContent>
@@ -154,8 +161,9 @@ export function CancelInvitationButton({ orgId, invitationId, email }: { orgId: 
   );
 }
 
-export function InviteMemberForm({ orgId }: { orgId: string }) {
+export function InviteMemberForm({ orgId, customRoles = [] }: { orgId: string; customRoles?: string[] }) {
   const t = useTranslations("admin.pages.organizations.controls");
+  const label = (r: string) => ((ROLES as readonly string[]).includes(r) ? t(`roles.${r}`) : r);
   const [email, setEmail] = React.useState("");
   const [role, setRole] = React.useState<Role>("member");
   const { busy, run } = useAdminAction();
@@ -176,9 +184,9 @@ export function InviteMemberForm({ orgId }: { orgId: string }) {
           <SelectValue />
         </SelectTrigger>
         <SelectContent>
-          {ROLES.map((r) => (
+          {roleOptions(customRoles).map((r) => (
             <SelectItem key={r} value={r}>
-              {t(`roles.${r}`)}
+              {label(r)}
             </SelectItem>
           ))}
         </SelectContent>
