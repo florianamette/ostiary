@@ -1,9 +1,10 @@
-import { and, eq, inArray, like } from "drizzle-orm";
+import { and, asc, eq, inArray, like } from "drizzle-orm";
 
 import { auth } from "@/lib/auth";
 import { db } from "@ostiary/core/db/index";
 import { oauthClient, oauthClientResource, oauthResource } from "@ostiary/core/db/schema";
 import { markAdminRegisteredClient } from "@ostiary/core/lib/client-registration";
+import { PLATFORM_CLIENT_REFERENCE } from "@ostiary/core/lib/client-registration-policy";
 import { withRequestedClientId } from "@ostiary/core/lib/admin/oauth-clients/requested-client-id";
 import {
   parseStoredClientSecret,
@@ -341,4 +342,55 @@ export async function updateOAuthClientForAdmin(
     if (jwks) payload.jwks = jwks;
   }
   return payload;
+}
+
+/** A stored client in the OAuth metadata form Better Auth's /oauth2/get-clients answers with. */
+function toOAuthMetadata(row: typeof oauthClient.$inferSelect): OAuthClientAdminPayload {
+  let metadata: Record<string, unknown> = {};
+  try {
+    const parsed: unknown = typeof row.metadata === "string" ? JSON.parse(row.metadata) : row.metadata;
+    if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) metadata = parsed as Record<string, unknown>;
+  } catch {
+    // Unreadable metadata: the client is listed without it.
+  }
+  const seconds = (date: Date | null) => (date ? Math.round(date.getTime() / 1000) : undefined);
+  const out: Record<string, unknown> = {
+    ...metadata,
+    client_id: row.clientId,
+    client_name: row.name ?? undefined,
+    client_id_issued_at: seconds(row.createdAt),
+    scope: row.scopes?.join(" ") ?? undefined,
+    logo_uri: row.icon ?? undefined,
+    policy_uri: row.policy ?? undefined,
+    tos_uri: row.tos ?? undefined,
+    redirect_uris: row.redirectUris ?? [],
+    post_logout_redirect_uris: row.postLogoutRedirectUris ?? undefined,
+    token_endpoint_auth_method: row.tokenEndpointAuthMethod ?? undefined,
+    grant_types: row.grantTypes ?? undefined,
+    response_types: row.responseTypes ?? undefined,
+    application_type: row.applicationType ?? undefined,
+    backchannel_logout_uri: row.backchannelLogoutUri ?? undefined,
+    backchannel_logout_session_required: row.backchannelLogoutSessionRequired ?? undefined,
+    jwks: row.jwks ? (JSON.parse(row.jwks) as unknown) : undefined,
+    subject_type: row.subjectType ?? undefined,
+    disabled: row.disabled ?? undefined,
+    skip_consent: row.skipConsent ?? undefined,
+    enable_end_session: row.enableEndSession ?? undefined,
+    reference_id: row.referenceId ?? undefined,
+  };
+  return Object.fromEntries(Object.entries(out).filter(([, value]) => value !== undefined));
+}
+
+/**
+ * Every client the platform's admins manage (`reference_id` = the platform), for the
+ * Applications page. Better Auth's /oauth2/get-clients returns at most 100 (its adapter's
+ * default limit), so the console reads them here.
+ */
+export async function listPlatformClients(): Promise<OAuthClientAdminPayload[]> {
+  const rows = await db
+    .select()
+    .from(oauthClient)
+    .where(eq(oauthClient.referenceId, PLATFORM_CLIENT_REFERENCE))
+    .orderBy(asc(oauthClient.createdAt));
+  return rows.map(toOAuthMetadata);
 }

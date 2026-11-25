@@ -90,6 +90,12 @@ All notable changes are documented here. The format follows
   MCP clients that retry after a dropped connection (`refreshTokenReuseInterval`, as in
   `@better-auth/mcp`).
 
+### Fixed
+
+- The admin console's **Applications** page listed at most 100 apps: Better Auth's
+  `/oauth2/get-clients` stops there (its adapter's default limit). It now reads every
+  admin-registered app from `GET /api/admin/oauth-clients`.
+
 ## [0.2.0] - 2026-11-22
 
 ### Upgrading

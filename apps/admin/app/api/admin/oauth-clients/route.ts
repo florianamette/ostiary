@@ -2,7 +2,7 @@ import { parseCreateOAuthClientBody } from "@ostiary/core/lib/admin/oauth-client
 import { ValidationError } from "@ostiary/core/lib/errors";
 import { currentApiScopes } from "@ostiary/core/lib/oauth-scopes";
 import { adminJsonRoute } from "@/lib/admin-json-route";
-import { createOAuthClientForAdmin } from "@/lib/oauth-client-admin.service";
+import { createOAuthClientForAdmin, listPlatformClients } from "@/lib/oauth-client-admin.service";
 
 /**
  * Registers an OAuth client. The response carries its secret, once. A machine-to-machine
@@ -27,3 +27,6 @@ export const POST = adminJsonRoute({ body: true }, async ({ body, requestHeaders
   });
   return { data, status: 201 };
 });
+
+/** Every application the platform's admins manage (the Applications page), without secrets. */
+export const GET = adminJsonRoute({}, async () => ({ data: await listPlatformClients() }));

@@ -33,8 +33,7 @@ import {
   TableHeader,
   TableRow,
 } from "@ostiary/core/components/ui/table";
-import { authClient } from "@/lib/auth-client";
-import { asRecord, asStringArray, normalizeGetClientsPayload } from "@/lib/oauth-client-payload";
+import { asRecord, asStringArray, normalizeGetClientsPayload, routeError } from "@/lib/oauth-client-payload";
 import {
   DEVICE_CODE_GRANT_TYPE,
   isMachineClient,
@@ -211,16 +210,20 @@ export function AdminApplicationsPanel({
   );
 
   const loadClients = React.useCallback(async () => {
-    const [res, grace] = await Promise.all([
-      authClient.oauth2.getClients(),
+    const [list, grace] = await Promise.all([
+      // The admin route, not Better Auth's /oauth2/get-clients: that one stops at 100 clients.
+      fetch("/api/admin/oauth-clients", { credentials: "include" }).then(async (r) => ({
+        ok: r.ok,
+        json: (await r.json().catch(() => null)) as unknown,
+      })),
       // Previous secrets still valid after a rotation (client-secret-grace.ts); none if it fails.
       fetch("/api/admin/oauth-client-secrets", { credentials: "include" })
         .then((r) => (r.ok ? r.json() : null))
         .then((json: unknown) => (asRecord(asRecord(json)?.data) ?? {}) as Record<string, unknown>)
         .catch(() => ({}) as Record<string, unknown>),
     ]);
-    if (res.error) throw new Error(res.error.message || t("loadFailed"));
-    return normalizeGetClientsPayload(res.data)
+    if (!list.ok) throw new Error(routeError(list.json) ?? t("loadFailed"));
+    return normalizeGetClientsPayload(asRecord(list.json)?.data)
       .map(mapApiClientToRow)
       .filter((r): r is OAuthApplicationRow => r !== null)
       .map((r) => {
@@ -392,7 +395,7 @@ export function AdminApplicationsPanel({
 
       <p className="text-muted-foreground text-xs">
         {t.rich("footnote", {
-          getClients: "authClient.oauth2.getClients()",
+          getClients: "GET /api/admin/oauth-clients",
           skipConsent: "skip_consent",
           create: "POST /api/admin/oauth-clients",
           update: "PATCH /api/admin/oauth-clients/[clientId]",
