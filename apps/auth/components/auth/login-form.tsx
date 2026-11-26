@@ -97,7 +97,12 @@ export function LoginForm({
   const tSso = useTranslations("sso");
   const locale = useLocale()
   const searchParams = useSearchParams()
-  const callbackURL = safeCallbackURL(searchParams.get("callbackURL"), `/${locale}`)
+  // An app's signed OAuth request carries no callbackURL: after sign-in the flow resumes
+  // through the path that restarts it, like sign-up and social sign-in already do.
+  const callbackURL = safeCallbackURL(
+    searchParams.get("callbackURL"),
+    appLink?.resumePath ?? `/${locale}`,
+  )
   const showPostRegisterHint = searchParams.get("registered") === "1"
   // Signing in one more account (account menu, select-account page): the others stay signed in.
   const addingAccount = searchParams.get("addAccount") === "1"
