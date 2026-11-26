@@ -118,6 +118,9 @@ All notable changes are documented here. The format follows
 
 ### Fixed
 
+- A passkey sign-in on the login page an app sent the person to opened their dashboard instead of
+  going on to the app (consent, then back to the app). It resumes the app's sign-in now, as a
+  password sign-in does (#110).
 - The admin console's **Applications** page listed at most 100 apps: Better Auth's
   `/oauth2/get-clients` stops there (its adapter's default limit). It now reads every
   admin-registered app from `GET /api/admin/oauth-clients`.
