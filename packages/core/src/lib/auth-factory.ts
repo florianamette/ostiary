@@ -21,6 +21,7 @@ import {
     jwt,
     type JwtOptions,
     lastLoginMethod,
+    magicLink,
     multiSession,
     oneTap,
     openAPI,
@@ -39,6 +40,7 @@ import { queueChangeEmailConfirmation } from "@ostiary/core/lib/email/queue-chan
 import { queuePasswordResetEmail } from "@ostiary/core/lib/email/queue-password-reset-email";
 import { queueVerificationEmail } from "@ostiary/core/lib/email/queue-verification-email";
 import { queueSignInCodeEmail } from "@ostiary/core/lib/email/queue-sign-in-code-email";
+import { createSignInLink, hashSignInLinkToken } from "@ostiary/core/lib/sign-in-link";
 import { SIGN_IN_CODE_LENGTH, SIGN_IN_CODE_MINUTES } from "@ostiary/core/lib/sign-in-code";
 import { emailLocale } from "@ostiary/core/lib/email/email-locale";
 import { captchaPluginOptions } from "@ostiary/core/lib/captcha";
@@ -178,6 +180,8 @@ const UNUSED_EMAIL_OTP_PATHS = [
     "/email-otp/reset-password",
     "/email-otp/request-email-change",
     "/email-otp/change-email",
+    // Sign-in links go out only inside the sign-in code email (sign-in-link.ts).
+    "/sign-in/magic-link",
 ];
 
 
@@ -643,8 +647,18 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
                 sendVerificationOTP: async ({ email, otp, type }, ctx) => {
                     if (type !== "sign-in") return;
                     const locale = emailLocale(ctx?.headers ?? ctx?.request?.headers);
-                    queueSignInCodeEmail({ to: email, code: otp, locale });
+                    // With a button that signs in on the device that opens it (sign-in-link.ts).
+                    const link = ctx ? await createSignInLink(ctx, email, locale) : undefined;
+                    queueSignInCodeEmail({ to: email, code: otp, locale, link });
                 },
+            }),
+            // Verifies the sign-in code email's link (/magic-link/verify): existing accounts only,
+            // the code's lifetime, one use. Its tokens are created by sendVerificationOTP above.
+            magicLink({
+                disableSignUp: true,
+                expiresIn: SIGN_IN_CODE_MINUTES * 60,
+                storeToken: { type: "custom-hasher", hash: hashSignInLinkToken },
+                sendMagicLink: async () => {},
             }),
             // Sign-in with a texted code, for accounts that verified a number (sms.ts, Twilio). Off
             // unless the TWILIO_* variables are set. No sign-up by phone: accounts start with an

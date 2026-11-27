@@ -3147,7 +3147,10 @@
       "heading": "Tu código de acceso",
       "body": "Introduce este código en la página de inicio de sesión de {brand} para terminar de iniciar sesión.",
       "note": "El código caduca en {minutes} minutos y solo funciona una vez.",
-      "footnote": "¿No has pedido un código? Ignora este correo: nadie puede iniciar sesión sin él. No lo compartas nunca con nadie."
+      "footnote": "¿No has pedido un código? Ignora este correo: nadie puede iniciar sesión sin él. No lo compartas nunca con nadie.",
+      "button": "Iniciar sesión en {brand}",
+      "linkBody": "O usa este botón para iniciar sesión en este dispositivo.",
+      "noteWithLink": "El código y el botón caducan en {minutes} minutos y solo funcionan una vez."
     },
     "deleteAccount": {
       "subject": "Confirma la eliminación de tu cuenta de {brand}",
@@ -3217,5 +3220,14 @@
     "doneBody": "Tu nueva contraseña está guardada y se cerraron tus demás sesiones.",
     "continue": "Continuar",
     "toAccount": "Ir a tu cuenta"
+  },
+  "signInLink": {
+    "title": "Iniciar sesión",
+    "description": "Iniciar sesión como {email}",
+    "note": "Iniciarás sesión en este dispositivo y volverás a donde empezaste.",
+    "signIn": "Iniciar sesión",
+    "invalidTitle": "Este enlace ya no funciona",
+    "invalidBody": "Caducó o ya se usó. Pide un código nuevo en la página de inicio de sesión.",
+    "toSignIn": "Ir a iniciar sesión"
   }
 }

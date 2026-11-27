@@ -3147,7 +3147,10 @@
       "heading": "Ihr Anmeldecode",
       "body": "Geben Sie diesen Code auf der {brand}-Anmeldeseite ein, um die Anmeldung abzuschließen.",
       "note": "Der Code läuft in {minutes} Minuten ab und funktioniert nur einmal.",
-      "footnote": "Sie haben keinen Code angefordert? Ignorieren Sie diese E-Mail: Ohne den Code kann sich niemand anmelden. Geben Sie ihn niemals weiter."
+      "footnote": "Sie haben keinen Code angefordert? Ignorieren Sie diese E-Mail: Ohne den Code kann sich niemand anmelden. Geben Sie ihn niemals weiter.",
+      "button": "Bei {brand} anmelden",
+      "linkBody": "Oder melden Sie sich mit dieser Schaltfläche auf diesem Gerät an.",
+      "noteWithLink": "Code und Schaltfläche laufen in {minutes} Minuten ab und funktionieren nur einmal."
     },
     "deleteAccount": {
       "subject": "Bestätigen Sie die Löschung Ihres {brand}-Kontos",
@@ -3217,5 +3220,14 @@
     "doneBody": "Ihr neues Passwort ist gesetzt und Ihre anderen Sitzungen wurden abgemeldet.",
     "continue": "Weiter",
     "toAccount": "Zu Ihrem Konto"
+  },
+  "signInLink": {
+    "title": "Anmelden",
+    "description": "Als {email} anmelden",
+    "note": "Sie werden auf diesem Gerät angemeldet und dorthin zurückgebracht, wo Sie begonnen haben.",
+    "signIn": "Anmelden",
+    "invalidTitle": "Dieser Link funktioniert nicht mehr",
+    "invalidBody": "Er ist abgelaufen oder wurde bereits verwendet. Fordern Sie auf der Anmeldeseite einen neuen Code an.",
+    "toSignIn": "Zur Anmeldung"
   }
 }

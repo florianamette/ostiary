@@ -12,7 +12,7 @@ import type en from "../../../messages/en.json";
 type Messages = typeof en;
 
 /** Subject and content of the sign-in code email, in the given locale's messages. */
-export function signInCodeEmail(locale: AppLocale, messages: Messages, code: string): { subject: string; content: EmailContent } {
+export function signInCodeEmail(locale: AppLocale, messages: Messages, code: string, link?: string): { subject: string; content: EmailContent } {
   const t = createTranslator({ locale, messages, namespace: "emails.signInCode" });
   const values = { brand: brand.name, minutes: SIGN_IN_CODE_MINUTES };
   return {
@@ -20,9 +20,11 @@ export function signInCodeEmail(locale: AppLocale, messages: Messages, code: str
     content: {
       preheader: t("preheader", values),
       heading: t("heading", values),
-      body: [t("body", values)],
+      body: link ? [t("body", values), t("linkBody", values)] : [t("body", values)],
       code,
-      note: t("note", values),
+      // The link signs in on the device that opens it; the code works anywhere.
+      ...(link ? { button: { label: t("button", values), url: link } } : {}),
+      note: t(link ? "noteWithLink" : "note", values),
       footnote: t("footnote", values),
       lang: getHtmlLang(locale),
     },
@@ -34,9 +36,9 @@ export function signInCodeEmail(locale: AppLocale, messages: Messages, code: str
  * the code was asked from. Sent after the response (see send.ts): an unknown address sends
  * nothing, so waiting for this would make known addresses slower to answer.
  */
-export function queueSignInCodeEmail(input: { to: string; code: string; locale: AppLocale }): void {
+export function queueSignInCodeEmail(input: { to: string; code: string; locale: AppLocale; link?: string }): void {
   queueEmail("sign-in", input.to, async () => {
     const messages = (await import(`../../../messages/${input.locale}.json`)).default as Messages;
-    return signInCodeEmail(input.locale, messages, input.code);
+    return signInCodeEmail(input.locale, messages, input.code, input.link);
   });
 }

@@ -3147,7 +3147,10 @@
       "heading": "Giriş kodunuz",
       "body": "Girişi tamamlamak için bu kodu {brand} giriş sayfasına girin.",
       "note": "Kodun süresi {minutes} dakika içinde dolar ve yalnızca bir kez çalışır.",
-      "footnote": "Kod istemediniz mi? Bu e-postayı yok sayın: kod olmadan kimse giriş yapamaz. Kodu asla kimseyle paylaşmayın."
+      "footnote": "Kod istemediniz mi? Bu e-postayı yok sayın: kod olmadan kimse giriş yapamaz. Kodu asla kimseyle paylaşmayın.",
+      "button": "{brand} hesabında oturum aç",
+      "linkBody": "Ya da bu cihazda oturum açmak için bu düğmeyi kullanın.",
+      "noteWithLink": "Kod ve düğme {minutes} dakika içinde geçersiz olur ve yalnızca bir kez çalışır."
     },
     "deleteAccount": {
       "subject": "{brand} hesabınızın silinmesini onaylayın",
@@ -3217,5 +3220,14 @@
     "doneBody": "Yeni parolanız ayarlandı ve diğer oturumlarınız kapatıldı.",
     "continue": "Devam et",
     "toAccount": "Hesabınıza gidin"
+  },
+  "signInLink": {
+    "title": "Oturum aç",
+    "description": "{email} olarak oturum aç",
+    "note": "Bu cihazda oturum açılır ve başladığınız yere geri dönersiniz.",
+    "signIn": "Oturum aç",
+    "invalidTitle": "Bu bağlantı artık çalışmıyor",
+    "invalidBody": "Süresi dolmuş veya zaten kullanılmış. Oturum açma sayfasından yeni bir kod isteyin.",
+    "toSignIn": "Oturum açmaya git"
   }
 }

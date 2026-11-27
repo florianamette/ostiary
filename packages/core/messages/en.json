@@ -3147,7 +3147,10 @@
       "heading": "Your sign-in code",
       "body": "Enter this code on the {brand} sign-in page to finish signing in.",
       "note": "The code expires in {minutes} minutes and works only once.",
-      "footnote": "Didn't ask for a code? Ignore this email: no one can sign in without it. Never share it with anyone."
+      "footnote": "Didn't ask for a code? Ignore this email: no one can sign in without it. Never share it with anyone.",
+      "button": "Sign in to {brand}",
+      "linkBody": "Or use this button to sign in on this device.",
+      "noteWithLink": "The code and the button expire in {minutes} minutes and work only once."
     },
     "deleteAccount": {
       "subject": "Confirm the deletion of your {brand} account",
@@ -3217,5 +3220,14 @@
     "doneBody": "Your new password is set and your other sessions were signed out.",
     "continue": "Continue",
     "toAccount": "Go to your account"
+  },
+  "signInLink": {
+    "title": "Sign in",
+    "description": "Sign in as {email}",
+    "note": "You'll be signed in on this device and taken back to where you started.",
+    "signIn": "Sign in",
+    "invalidTitle": "This link no longer works",
+    "invalidBody": "It has expired or was already used. Ask for a new code on the sign-in page.",
+    "toSignIn": "Go to sign-in"
   }
 }

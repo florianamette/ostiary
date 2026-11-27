@@ -3147,7 +3147,10 @@
       "heading": "Váš přihlašovací kód",
       "body": "Zadejte tento kód na přihlašovací stránce {brand} a dokončete přihlášení.",
       "note": "Platnost kódu vyprší za {minutes} minut a lze ho použít jen jednou.",
-      "footnote": "Nežádali jste o kód? Tento e-mail ignorujte: bez kódu se nikdo nepřihlásí. Nikdy ho nikomu nesdělujte."
+      "footnote": "Nežádali jste o kód? Tento e-mail ignorujte: bez kódu se nikdo nepřihlásí. Nikdy ho nikomu nesdělujte.",
+      "button": "Přihlásit se do {brand}",
+      "linkBody": "Nebo se tímto tlačítkem přihlaste na tomto zařízení.",
+      "noteWithLink": "Kód i tlačítko vyprší za {minutes} min a fungují jen jednou."
     },
     "deleteAccount": {
       "subject": "Potvrďte smazání svého účtu {brand}",
@@ -3217,5 +3220,14 @@
     "doneBody": "Nové heslo je nastaveno a ostatní relace byly odhlášeny.",
     "continue": "Pokračovat",
     "toAccount": "Přejít na účet"
+  },
+  "signInLink": {
+    "title": "Přihlásit se",
+    "description": "Přihlásit se jako {email}",
+    "note": "Budete přihlášeni na tomto zařízení a vrátíte se tam, kde jste začali.",
+    "signIn": "Přihlásit se",
+    "invalidTitle": "Tento odkaz už nefunguje",
+    "invalidBody": "Vypršel nebo už byl použit. Požádejte o nový kód na přihlašovací stránce.",
+    "toSignIn": "Přejít na přihlášení"
   }
 }

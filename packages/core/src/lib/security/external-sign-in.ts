@@ -1,15 +1,15 @@
 /*
  * Sign-ins that start a session without the password step: social providers (redirect, ID
- * token, Google One Tap), enterprise SSO (OIDC and SAML) and the email verification link that
- * signs in. For an account with two-factor authentication these stop at the same second step
- * as a password, see auth-hooks/sign-in-plugins.ts (externalSignInTwoFactor). Passkeys are
+ * token, Google One Tap), enterprise SSO (OIDC and SAML), the email verification link that
+ * signs in and the sign-in code email's link (sign-in-link.ts). For an account with two-factor
+ * authentication these stop at the same second step as a password, see auth-hooks/sign-in-plugins.ts (externalSignInTwoFactor). Passkeys are
  * already two factors; password and sign-in code endpoints are handled by the two-factor
  * plugin itself.
  */
 
 import { resolveSafeRedirect } from "@ostiary/core/lib/safe-redirect";
 
-const EXACT = new Set(["/sign-in/social", "/one-tap/callback", "/sso/callback", "/verify-email"]);
+const EXACT = new Set(["/sign-in/social", "/one-tap/callback", "/sso/callback", "/verify-email", "/magic-link/verify"]);
 const PREFIXES = ["/callback/", "/oauth2/callback/", "/sso/callback/", "/sso/saml2/sp/acs/", "/sso/saml2/callback/"];
 
 export function isExternalSignInPath(path: string | undefined): boolean {

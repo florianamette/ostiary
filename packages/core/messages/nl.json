@@ -3147,7 +3147,10 @@
       "heading": "Je inlogcode",
       "body": "Voer deze code in op de inlogpagina van {brand} om het inloggen af te ronden.",
       "note": "De code verloopt over {minutes} minuten en werkt maar één keer.",
-      "footnote": "Geen code aangevraagd? Negeer deze e-mail: zonder de code kan niemand inloggen. Deel hem nooit met iemand."
+      "footnote": "Geen code aangevraagd? Negeer deze e-mail: zonder de code kan niemand inloggen. Deel hem nooit met iemand.",
+      "button": "Aanmelden bij {brand}",
+      "linkBody": "Of gebruik deze knop om op dit apparaat aan te melden.",
+      "noteWithLink": "De code en de knop verlopen over {minutes} minuten en werken maar één keer."
     },
     "deleteAccount": {
       "subject": "Bevestig het verwijderen van je {brand}-account",
@@ -3217,5 +3220,14 @@
     "doneBody": "Je nieuwe wachtwoord is ingesteld en je andere sessies zijn afgemeld.",
     "continue": "Doorgaan",
     "toAccount": "Naar je account"
+  },
+  "signInLink": {
+    "title": "Aanmelden",
+    "description": "Aanmelden als {email}",
+    "note": "Je wordt op dit apparaat aangemeld en teruggebracht naar waar je begon.",
+    "signIn": "Aanmelden",
+    "invalidTitle": "Deze link werkt niet meer",
+    "invalidBody": "Hij is verlopen of al gebruikt. Vraag een nieuwe code aan op de aanmeldpagina.",
+    "toSignIn": "Naar aanmelden"
   }
 }
