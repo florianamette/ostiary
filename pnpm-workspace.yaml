@@ -48,7 +48,7 @@ catalog:
   "dotenv": "18.0.10"
   "drizzle-kit": "0.31.10"
   "drizzle-orm": "0.45.2"
-  "eslint": "9.39.4"
+  "eslint": "10.15.0"
   "eslint-config-next": "16.4.5"
   "framer-motion": "12.38.0"
   "lucide-react": "0.577.0"
