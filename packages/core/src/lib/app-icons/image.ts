@@ -1,5 +1,3 @@
-import { stripRepeatedly } from "@ostiary/core/lib/app-icons/strip";
-
 /*
  * What kind of image a downloaded icon really is, from its first bytes. The type sent to the
  * browser is the sniffed one, never the remote server's: a page or script labelled image/png
@@ -34,9 +32,14 @@ function looksLikeSvg(bytes: Uint8Array): boolean {
   const start = new TextDecoder("utf-8", { fatal: false }).decode(bytes.subarray(0, 1024)).replace(/^﻿/, "").trimStart();
   if (!start.startsWith("<")) return false;
   // An XML prolog, comments or a doctype may come first; the root element must be <svg>.
-  const withoutProlog = stripRepeatedly(start.replace(/^<\?xml[\s\S]*?\?>/, ""), (text) =>
-    text.replace(/<!--[\s\S]*?-->/g, "").replace(/<!DOCTYPE\s+svg\b[^>]*>/i, ""),
-  ).trimStart();
+  // Until nothing changes, so removing one cannot leave another behind.
+  let rest = start.replace(/^<\?xml[\s\S]*?\?>/, "");
+  let previous: string;
+  do {
+    previous = rest;
+    rest = rest.replace(/<!--[\s\S]*?-->/g, "").replace(/<!DOCTYPE\s+svg\b[^>]*>/i, "");
+  } while (rest !== previous);
+  const withoutProlog = rest.trimStart();
   return /^<svg[\s>]/i.test(withoutProlog);
 }
 

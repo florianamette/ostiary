@@ -1,5 +1,3 @@
-import { stripRepeatedly } from "@ostiary/core/lib/app-icons/strip";
-
 /*
  * Finds the icons a home page declares (`<link rel="icon">`, `apple-touch-icon`...) with a
  * small tag scanner: no DOM, no scripts, only the `<head>` part of the page matters.
@@ -67,9 +65,13 @@ export function findIconLinks(html: string, pageUrl: string): IconCandidate[] {
   // The icons are in the head; don't scan a whole long page.
   const headEnd = html.search(/<\/head\s*>|<body[\s>]/i);
   const head = headEnd > 0 ? html.slice(0, headEnd) : html.slice(0, 256 * 1024);
-  const withoutComments = stripRepeatedly(head, (text) =>
-    text.replace(/<!--[\s\S]*?-->/g, "").replace(/<(script|style)\b[\s\S]*?<\/\1\s*>/gi, ""),
-  );
+  // Until nothing changes, so removing one cannot leave another behind.
+  let withoutComments = head;
+  let previous: string;
+  do {
+    previous = withoutComments;
+    withoutComments = withoutComments.replace(/<!--[\s\S]*?-->/g, "").replace(/<(script|style)\b[\s\S]*?<\/\1\s*>/gi, "");
+  } while (withoutComments !== previous);
 
   let base = pageUrl;
   const baseTag = /<base\b[^>]*>/i.exec(withoutComments);
