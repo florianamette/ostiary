@@ -2409,7 +2409,8 @@
         "next": "Næste",
         "pageOf": "Side {page} / {pages}",
         "showing": "Viser {from}-{to} af {total}"
-      }
+      },
+      "passwordCompromised": "Adgangskoden er dukket op i et datalæk. Vælg en anden."
     },
     "urlCheck": {
       "tooLong": "URL'en er for lang.",

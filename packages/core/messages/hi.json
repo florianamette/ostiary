@@ -2409,7 +2409,8 @@
         "next": "अगला",
         "pageOf": "पेज {page} / {pages}",
         "showing": "{total} में से {from}-{to} दिखाए जा रहे हैं"
-      }
+      },
+      "passwordCompromised": "यह पासवर्ड किसी डेटा लीक में पाया गया है। कोई दूसरा चुनें।"
     },
     "urlCheck": {
       "tooLong": "URL बहुत लंबा है।",

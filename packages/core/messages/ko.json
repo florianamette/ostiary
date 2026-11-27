@@ -2409,7 +2409,8 @@
         "next": "다음",
         "pageOf": "{page} / {pages} 페이지",
         "showing": "{total}명 중 {from}-{to}"
-      }
+      },
+      "passwordCompromised": "이 비밀번호는 데이터 유출에서 발견되었습니다. 다른 비밀번호를 선택하세요."
     },
     "urlCheck": {
       "tooLong": "URL이 너무 깁니다.",

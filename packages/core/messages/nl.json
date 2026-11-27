@@ -2409,7 +2409,8 @@
         "next": "Volgende",
         "pageOf": "Pagina {page} / {pages}",
         "showing": "{from}-{to} van {total} weergegeven"
-      }
+      },
+      "passwordCompromised": "Dit wachtwoord is in een datalek opgedoken. Kies een ander."
     },
     "urlCheck": {
       "tooLong": "De URL is te lang.",

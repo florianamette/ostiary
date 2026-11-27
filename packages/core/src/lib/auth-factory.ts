@@ -595,8 +595,10 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
                 },
             }),
             username(),
-            // Skipped in end-to-end tests only (an external HTTP call), see lib/e2e-test-mode.ts.
-            haveIBeenPwned({ enabled: !e2eTestMode() }),
+            // Breached passwords refused at sign-up, change, reset and when an admin sets one (the
+            // plugin's default paths). Off with PASSWORD_BREACH_CHECK=off (no outbound access),
+            // and in end-to-end tests (an external HTTP call), see lib/e2e-test-mode.ts.
+            haveIBeenPwned({ enabled: env.PASSWORD_BREACH_CHECK !== "off" && !e2eTestMode() }),
             // Authenticator app (TOTP) and backup codes. The second step applies to every sign-in
             // except passkeys (already two factors): passwords, emailed codes (emailCodeTwoFactor),
             // social, One Tap, SSO and verification links (externalSignInTwoFactor). Must come before

@@ -2409,7 +2409,8 @@
         "next": "التالي",
         "pageOf": "الصفحة {page} / {pages}",
         "showing": "عرض {from}-{to} من {total}"
-      }
+      },
+      "passwordCompromised": "ظهرت كلمة المرور هذه في تسريب بيانات. اختر كلمة مرور أخرى."
     },
     "urlCheck": {
       "tooLong": "عنوان URL طويل جدًا.",

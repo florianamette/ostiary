@@ -2409,7 +2409,8 @@
         "next": "次へ",
         "pageOf": "{page} / {pages} ページ",
         "showing": "{total} 件中 {from}-{to} 件を表示"
-      }
+      },
+      "passwordCompromised": "このパスワードはデータ漏えいで見つかっています。別のパスワードを選んでください。"
     },
     "urlCheck": {
       "tooLong": "URL が長すぎます。",

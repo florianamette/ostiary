@@ -8,6 +8,11 @@ All notable changes are documented here. The format follows
 
 ### Added
 
+- `PASSWORD_BREACH_CHECK=off` turns off the Have I Been Pwned check of new passwords, for a
+  server that cannot reach `api.pwnedpasswords.com`: there, every sign-up, password change,
+  reset and admin-set password failed with "Failed to check password". On by default; set the
+  same value on the auth app and the admin console. The console now says in the admin's
+  language when a password it sets appeared in a breach.
 - Email domain policy (admin console, **Security** > **Email domains**): who can create an
   account, by email domain. Any address (the default), only listed domains (an Ostiary for one
   company or school), or any address except listed domains, optionally also refusing about 9,000

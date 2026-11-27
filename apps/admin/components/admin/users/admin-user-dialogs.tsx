@@ -135,7 +135,10 @@ export function UserPasswordDialog({ user, open, onOpenChange, onChanged }: Dial
       return;
     }
     await run(
-      () => authClient.admin.setUserPassword({ userId: user.id, newPassword }),
+      async () => {
+        const result = await authClient.admin.setUserPassword({ userId: user.id, newPassword });
+        return result.error?.code === "PASSWORD_COMPROMISED" ? { ok: false, error: tc("passwordCompromised") } : result;
+      },
       t("passwordUpdated"),
       t("passwordError"),
     );

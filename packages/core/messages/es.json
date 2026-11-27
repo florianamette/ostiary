@@ -2409,7 +2409,8 @@
         "next": "Siguiente",
         "pageOf": "Página {page} / {pages}",
         "showing": "Mostrando {from}-{to} de {total}"
-      }
+      },
+      "passwordCompromised": "Esta contraseña apareció en una filtración de datos. Elige otra."
     },
     "urlCheck": {
       "tooLong": "La URL es demasiado larga.",

@@ -2409,7 +2409,8 @@
         "next": "Далее",
         "pageOf": "Страница {page} / {pages}",
         "showing": "Показано {from}–{to} из {total}"
-      }
+      },
+      "passwordCompromised": "Этот пароль обнаружен в утечке данных. Выберите другой."
     },
     "urlCheck": {
       "tooLong": "URL слишком длинный.",
