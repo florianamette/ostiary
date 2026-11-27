@@ -2409,7 +2409,8 @@
         "next": "Seuraava",
         "pageOf": "Sivu {page} / {pages}",
         "showing": "Näytetään {from}–{to} / {total}"
-      }
+      },
+      "passwordCompromised": "Tämä salasana on löytynyt tietovuodosta. Valitse toinen."
     },
     "urlCheck": {
       "tooLong": "URL-osoite on liian pitkä.",

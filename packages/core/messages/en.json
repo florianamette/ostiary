@@ -2409,7 +2409,8 @@
         "next": "Next",
         "pageOf": "Page {page} / {pages}",
         "showing": "Showing {from}-{to} of {total}"
-      }
+      },
+      "passwordCompromised": "This password appeared in a data breach. Choose a different one."
     },
     "urlCheck": {
       "tooLong": "The URL is too long.",

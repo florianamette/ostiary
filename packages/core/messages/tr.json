@@ -2409,7 +2409,8 @@
         "next": "Sonraki",
         "pageOf": "Sayfa {page} / {pages}",
         "showing": "{total} kayıttan {from}-{to} arası gösteriliyor"
-      }
+      },
+      "passwordCompromised": "Bu parola bir veri sızıntısında görüldü. Başka bir parola seçin."
     },
     "urlCheck": {
       "tooLong": "URL çok uzun.",

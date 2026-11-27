@@ -2409,7 +2409,8 @@
         "next": "Nästa",
         "pageOf": "Sida {page} / {pages}",
         "showing": "Visar {from}–{to} av {total}"
-      }
+      },
+      "passwordCompromised": "Lösenordet har förekommit i ett dataläckage. Välj ett annat."
     },
     "urlCheck": {
       "tooLong": "URL:en är för lång.",

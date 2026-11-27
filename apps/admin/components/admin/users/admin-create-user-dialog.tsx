@@ -62,7 +62,7 @@ export function AdminCreateUserDialog({ onCreated }: { onCreated: () => void }) 
         data: { emailVerified: true },
       });
       if (error) {
-        setFormError(error.message ?? t("error"));
+        setFormError(error.code === "PASSWORD_COMPROMISED" ? tc("passwordCompromised") : (error.message ?? t("error")));
         return;
       }
       toast.success(t("created"));

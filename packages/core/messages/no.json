@@ -2409,7 +2409,8 @@
         "next": "Neste",
         "pageOf": "Side {page} / {pages}",
         "showing": "Viser {from}–{to} av {total}"
-      }
+      },
+      "passwordCompromised": "Passordet har dukket opp i en datalekkasje. Velg et annet."
     },
     "urlCheck": {
       "tooLong": "URL-en er for lang.",

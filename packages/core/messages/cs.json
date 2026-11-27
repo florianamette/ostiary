@@ -2409,7 +2409,8 @@
         "next": "Další",
         "pageOf": "Stránka {page} / {pages}",
         "showing": "Zobrazeno {from}–{to} z {total}"
-      }
+      },
+      "passwordCompromised": "Toto heslo se objevilo v úniku dat. Zvolte jiné."
     },
     "urlCheck": {
       "tooLong": "URL je příliš dlouhá.",

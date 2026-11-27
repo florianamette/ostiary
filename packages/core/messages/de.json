@@ -2409,7 +2409,8 @@
         "next": "Weiter",
         "pageOf": "Seite {page} / {pages}",
         "showing": "{from}–{to} von {total}"
-      }
+      },
+      "passwordCompromised": "Dieses Passwort ist in einem Datenleck aufgetaucht. Wähle ein anderes."
     },
     "urlCheck": {
       "tooLong": "Die URL ist zu lang.",

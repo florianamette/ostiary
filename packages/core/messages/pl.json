@@ -2409,7 +2409,8 @@
         "next": "Następna",
         "pageOf": "Strona {page} / {pages}",
         "showing": "Wyświetlono {from}-{to} z {total}"
-      }
+      },
+      "passwordCompromised": "To hasło pojawiło się w wycieku danych. Wybierz inne."
     },
     "urlCheck": {
       "tooLong": "URL jest za długi.",

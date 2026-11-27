@@ -123,6 +123,13 @@ export const envSchema = z
      */
     EMAIL_DEDUP: optional(z.enum(["off", "gmail", "plus"])).transform((v) => v ?? "off"),
     /**
+     * New passwords are checked against Have I Been Pwned (only the first five characters of
+     * their SHA-1 hash are sent) at sign-up, change, reset and when an admin sets one. "off"
+     * for a server that cannot reach api.pwnedpasswords.com: there, every such request would
+     * fail. On by default.
+     */
+    PASSWORD_BREACH_CHECK: optional(z.enum(["on", "off"])).transform((v) => v ?? "on"),
+    /**
      * Days sign-in events (the activity charts, failed sign-ins) are kept before the cron route
      * deletes them. At least 30, the longest chart. Failed sign-ins lose the email or username
      * tried and the IP address after 30 days whatever this is.
