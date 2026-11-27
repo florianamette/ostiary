@@ -20,6 +20,7 @@ import { emitWebhookEvents } from "@ostiary/core/lib/webhooks/outbox";
 import { makeEvent, memberSnapshot } from "@ostiary/core/lib/webhooks/events";
 import { auditActor } from "@ostiary/core/lib/auth-hooks/audit-hook";
 import { TWO_STEP_SIGN_IN_PATHS } from "@ostiary/core/lib/auth-hooks/sign-in-plugins";
+import { noticeSignIn } from "@ostiary/core/lib/security/new-device";
 
 /** First-run setup: these addresses get the admin role once proven, see admin/admin-emails.ts. */
 const adminEmails = parseAdminEmails(env.ADMIN_EMAILS);
@@ -152,6 +153,7 @@ export function databaseHooks() {
                     // Turning 2FA on or off replaces the current session: not a new sign-in.
                     if (ctx?.path.startsWith("/two-factor/") && ctx.context.session) return;
                     await recordAuthEvent("sign_in", createdSession.userId);
+                    await noticeSignIn(ctx, createdSession);
                 },
             },
         },

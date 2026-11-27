@@ -28,6 +28,7 @@ export function AuthPolicyCard({ policy }: { policy: AuthPolicy }) {
     [t("passwordSignUp"), yesNo(policy.passwordSignUp)],
     [t("twoFactorEveryone"), yesNo(policy.twoFactorEveryone)],
     [t("twoFactorGraceDays"), t("days", { count: policy.twoFactorGraceDays })],
+    [t("newDeviceEmail"), yesNo(policy.newDeviceEmail)],
   ];
 
   return (
@@ -177,6 +178,14 @@ function AuthPolicyDialog({ policy, onClose }: { policy: AuthPolicy; onClose: ()
               </Select>
               <FieldDescription>{t("twoFactorGraceDaysHint")}</FieldDescription>
             </Field>
+            <SwitchField
+              id="policy-new-device-email"
+              label={t("newDeviceEmail")}
+              hint={t("newDeviceEmailHint")}
+              checked={draft.newDeviceEmail}
+              onChange={(v) => set("newDeviceEmail", v)}
+              disabled={busy}
+            />
           </FieldGroup>
           <DialogActions busy={busy} onCancel={onClose} cancelLabel={t("cancel")} confirmLabel={t("save")} />
         </form>

@@ -30,6 +30,8 @@ export type AuthPolicy = {
   twoFactorGraceDays: number;
   /** When `twoFactorEveryone` was turned on (ISO date), set by the save. */
   twoFactorRequiredSince: string | null;
+  /** Email people when their account signs in from a browser it has not used before. */
+  newDeviceEmail: boolean;
 };
 
 /** Better Auth's defaults, and Ostiary's behaviour before the policy existed. */
@@ -42,6 +44,7 @@ export const DEFAULT_AUTH_POLICY: AuthPolicy = {
   twoFactorEveryone: false,
   twoFactorGraceDays: 14,
   twoFactorRequiredSince: null,
+  newDeviceEmail: true,
 };
 
 /** Better Auth refreshes a used session once a day (its default `updateAge`). */
@@ -70,5 +73,6 @@ export function parseAuthPolicy(raw: unknown): AuthPolicy {
       typeof value.twoFactorRequiredSince === "string" && !Number.isNaN(Date.parse(value.twoFactorRequiredSince))
         ? value.twoFactorRequiredSince
         : null,
+    newDeviceEmail: bool("newDeviceEmail"),
   };
 }

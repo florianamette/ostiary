@@ -1931,7 +1931,9 @@
             "self_delete": "Slettede sin egen konto",
             "export_csv": "Eksporterede brugere til CSV",
             "import": "Importerede brugere",
-            "remove_phone_number": "Fjernede sit telefonnummer"
+            "remove_phone_number": "Fjernede sit telefonnummer",
+            "new_device_sign_in": "Loggede ind fra en ny enhed",
+            "secure_account": "Beskyttede sin konto (Det var ikke mig)"
           },
           "oauth_client": {
             "create": "Registrerede OAuth-klient",
@@ -2104,7 +2106,9 @@
           "twoFactorEveryoneHint": "Alle skal bruge en godkendelsesapp eller en adgangsnøgle for at logge ind i apps. Administratorer: REQUIRE_ADMIN_2FA. Organisationer kan kræve det af deres medlemmer på deres side.",
           "twoFactorGraceDays": "Frist til at slå den til",
           "twoFactorGraceDaysHint": "Personer uden totrinsgodkendelse bliver spurgt ved hvert app-login og kan fortsætte indtil da. Fristen starter, når du slår dette til, eller når kontoen oprettes.",
-          "noGrace": "Ingen: påkrævet straks"
+          "noGrace": "Ingen: påkrævet straks",
+          "newDeviceEmail": "Mail ved login fra ny enhed",
+          "newDeviceEmailHint": "Personer får en mail, når deres konto logger ind fra en browser, den ikke har brugt før, med en knap til at logge ud overalt og nulstille adgangskoden. Login via en organisations SSO sender ingen mail."
         },
         "emailDomains": {
           "title": "E-maildomæner",
@@ -3124,6 +3128,22 @@
       "button": "Gennemse og slet",
       "note": "Linket udløber om {minutes} minutter og virker kun én gang.",
       "footnote": "Har du ikke bedt om dette? Ignorer denne e-mail: din konto forbliver, som den er. Overvej at skifte din adgangskode, da anmodningen kom fra en session, der var logget ind."
+    },
+    "newDevice": {
+      "subject": "Nyt login på din {brand}-konto",
+      "preheader": "Der blev logget ind på din konto fra en enhed, den ikke har brugt før.",
+      "heading": "Nyt login fra en anden enhed",
+      "body": "Der blev netop logget ind på {brand}-kontoen {email} fra en browser eller enhed, den ikke har brugt før.",
+      "when": "Hvornår: {when}",
+      "device": "Enhed: {device}",
+      "deviceOn": "{browser} på {system}",
+      "unknownDevice": "Ukendt browser",
+      "ipAddress": "IP-adresse: {ip}",
+      "unknownIp": "ukendt",
+      "ifYou": "Hvis det var dig, skal du ikke gøre noget.",
+      "button": "Det var ikke mig",
+      "note": "Knappen virker én gang inden for {days} dage. Den logger dig ud overalt og mailer dig et link til at vælge en ny adgangskode.",
+      "footnote": "Du får denne mail, når din konto logger ind fra en ny enhed. Del aldrig din adgangskode eller dine loginkoder."
     }
   },
   "authErrors": {
@@ -3144,5 +3164,20 @@
     "invalidToken": "Linket er ugyldigt eller udløbet.",
     "publicOrganization": "Medlemmerne af organisationen Public administreres kun af platformens administratorer.",
     "emailDomainNotAllowed": "Konti med dette e-maildomæne kan ikke oprettes her. Brug en anden adresse."
+  },
+  "secureAccount": {
+    "title": "Beskyt din konto",
+    "description": "Nogen kan have logget ind på din konto. Bekræft for at lukke personen ude:",
+    "stepSignOut": "Du bliver logget ud på alle enheder, også denne.",
+    "stepApps": "Apps mister den adgang, de havde via din konto, indtil du logger ind igen.",
+    "stepReset": "Vi mailer dig et link til at vælge en ny adgangskode.",
+    "confirm": "Log ud overalt og nulstil min adgangskode",
+    "toSignIn": "Gå til login",
+    "doneTitle": "Tjek din indbakke",
+    "doneBody": "Din konto blev logget ud overalt. Åbn den mail, vi lige har sendt, for at vælge en ny adgangskode. Hvis du bruger totrinsgodkendelse, så tjek, at din godkendelsesapp og dine adgangsnøgler stadig er dine.",
+    "errors": {
+      "invalid": "Linket er udløbet eller allerede brugt. Nulstil for en sikkerheds skyld din adgangskode fra loginsiden.",
+      "failed": "Noget gik galt. Prøv igen."
+    }
   }
 }

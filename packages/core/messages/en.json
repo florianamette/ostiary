@@ -1931,7 +1931,9 @@
             "self_delete": "Deleted their own account",
             "export_csv": "Exported users to CSV",
             "import": "Imported users",
-            "remove_phone_number": "Removed their phone number"
+            "remove_phone_number": "Removed their phone number",
+            "new_device_sign_in": "Signed in from a new device",
+            "secure_account": "Secured their account (This wasn't me)"
           },
           "oauth_client": {
             "create": "Registered OAuth client",
@@ -2104,7 +2106,9 @@
           "twoFactorEveryoneHint": "Everyone must use an authenticator app or a passkey to sign in to apps. Admins: REQUIRE_ADMIN_2FA. Organizations can require it for their members on their page.",
           "twoFactorGraceDays": "Time to turn it on",
           "twoFactorGraceDaysHint": "People without two-factor authentication are asked at each app sign-in and can continue until then. It starts when you turn this on, or when the account is created.",
-          "noGrace": "None: required at once"
+          "noGrace": "None: required at once",
+          "newDeviceEmail": "Email on new-device sign-in",
+          "newDeviceEmailHint": "People get an email when their account signs in from a browser it hasn't used before, with a button to sign out everywhere and reset the password. Sign-ins through an organization's SSO are not emailed."
         },
         "emailDomains": {
           "title": "Email domains",
@@ -3124,6 +3128,22 @@
       "button": "Review and delete",
       "note": "The link expires in {minutes} minutes and works only once.",
       "footnote": "If you didn't ask for this, ignore this email: your account stays as it is. Consider changing your password, since the request came from a signed-in session."
+    },
+    "newDevice": {
+      "subject": "New sign-in to your {brand} account",
+      "preheader": "Your account was signed in to from a device it hasn't used before.",
+      "heading": "New sign-in from another device",
+      "body": "The {brand} account {email} was just signed in to from a browser or device it hasn't used before.",
+      "when": "When: {when}",
+      "device": "Device: {device}",
+      "deviceOn": "{browser} on {system}",
+      "unknownDevice": "Unknown browser",
+      "ipAddress": "IP address: {ip}",
+      "unknownIp": "unknown",
+      "ifYou": "If this was you, there's nothing to do.",
+      "button": "This wasn't me",
+      "note": "The button works once within {days} days. It signs you out everywhere and emails you a link to choose a new password.",
+      "footnote": "You get this email when your account signs in from a new device. Never share your password or sign-in codes."
     }
   },
   "authErrors": {
@@ -3144,5 +3164,20 @@
     "invalidToken": "This link is invalid or has expired.",
     "publicOrganization": "The Public organization's members are managed by platform admins only.",
     "emailDomainNotAllowed": "Accounts with this email domain can't be created here. Use another address."
+  },
+  "secureAccount": {
+    "title": "Secure your account",
+    "description": "Someone may have signed in to your account. Confirm to lock them out:",
+    "stepSignOut": "You are signed out on every device, including this one.",
+    "stepApps": "Apps lose the access they had through your account until you sign in again.",
+    "stepReset": "We email you a link to choose a new password.",
+    "confirm": "Sign out everywhere and reset my password",
+    "toSignIn": "Go to sign-in",
+    "doneTitle": "Check your inbox",
+    "doneBody": "Your account was signed out everywhere. Open the email we just sent to choose a new password. If you use two-factor authentication, check that your authenticator and passkeys are still yours.",
+    "errors": {
+      "invalid": "This link has expired or was already used. To be safe, reset your password from the sign-in page.",
+      "failed": "Something went wrong. Try again."
+    }
   }
 }

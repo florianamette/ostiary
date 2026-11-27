@@ -30,6 +30,7 @@ const policySchema = z
     passwordSignUp: z.boolean(),
     twoFactorEveryone: z.boolean(),
     twoFactorGraceDays: z.number().refine((v) => (TWO_FACTOR_GRACE_DAYS as readonly number[]).includes(v)),
+    newDeviceEmail: z.boolean(),
   })
   .strict();
 

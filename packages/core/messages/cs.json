@@ -1931,7 +1931,9 @@
             "self_delete": "Smazání vlastního účtu",
             "export_csv": "Export uživatelů do CSV",
             "import": "Import uživatelů",
-            "remove_phone_number": "Odebral(a) své telefonní číslo"
+            "remove_phone_number": "Odebral(a) své telefonní číslo",
+            "new_device_sign_in": "Přihlášení z nového zařízení",
+            "secure_account": "Zabezpečil(a) svůj účet (Nebyl(a) jsem to já)"
           },
           "oauth_client": {
             "create": "Registrace klienta OAuth",
@@ -2104,7 +2106,9 @@
           "twoFactorEveryoneHint": "Všichni se musí do aplikací přihlašovat ověřovací aplikací nebo přístupovým klíčem. Správci: REQUIRE_ADMIN_2FA. Organizace to mohou vyžadovat od svých členů na své stránce.",
           "twoFactorGraceDays": "Lhůta na zapnutí",
           "twoFactorGraceDaysHint": "Kdo dvoufázové ověření nemá, dostane výzvu při každém přihlášení do aplikace a může do té doby pokračovat. Lhůta začíná zapnutím této volby, nebo vytvořením účtu.",
-          "noGrace": "Žádná: vyžadováno hned"
+          "noGrace": "Žádná: vyžadováno hned",
+          "newDeviceEmail": "E-mail při přihlášení z nového zařízení",
+          "newDeviceEmailHint": "Lidé dostanou e-mail, když se jejich účet přihlásí z prohlížeče, který dosud nepoužíval, s tlačítkem pro odhlášení všude a obnovení hesla. Přihlášení přes SSO organizace e-mail neposílají."
         },
         "emailDomains": {
           "title": "E-mailové domény",
@@ -3124,6 +3128,22 @@
       "button": "Zkontrolovat a smazat",
       "note": "Platnost odkazu vyprší za {minutes} minut a lze ho použít jen jednou.",
       "footnote": "Pokud jste o to nežádali, tento e-mail ignorujte: váš účet zůstane beze změny. Zvažte změnu hesla, protože žádost přišla z přihlášené relace."
+    },
+    "newDevice": {
+      "subject": "Nové přihlášení k vašemu účtu {brand}",
+      "preheader": "K vašemu účtu se někdo přihlásil ze zařízení, které dosud nepoužíval.",
+      "heading": "Nové přihlášení z jiného zařízení",
+      "body": "K účtu {brand} {email} se právě někdo přihlásil z prohlížeče nebo zařízení, které dosud nepoužíval.",
+      "when": "Kdy: {when}",
+      "device": "Zařízení: {device}",
+      "deviceOn": "{browser} v systému {system}",
+      "unknownDevice": "Neznámý prohlížeč",
+      "ipAddress": "IP adresa: {ip}",
+      "unknownIp": "neznámá",
+      "ifYou": "Pokud jste to byli vy, nemusíte nic dělat.",
+      "button": "Nebyl(a) jsem to já",
+      "note": "Tlačítko funguje jednou během {days} dnů. Odhlásí vás všude a pošle vám odkaz pro nastavení nového hesla.",
+      "footnote": "Tento e-mail dostáváte, když se váš účet přihlásí z nového zařízení. Nikdy nesdílejte své heslo ani přihlašovací kódy."
     }
   },
   "authErrors": {
@@ -3144,5 +3164,20 @@
     "invalidToken": "Tento odkaz je neplatný nebo vypršel.",
     "publicOrganization": "Členy organizace Public spravují pouze správci platformy.",
     "emailDomainNotAllowed": "S touto e-mailovou doménou zde nelze vytvořit účet. Použijte jinou adresu."
+  },
+  "secureAccount": {
+    "title": "Zabezpečte svůj účet",
+    "description": "Někdo se možná přihlásil k vašemu účtu. Potvrďte, abyste ho odstřihli:",
+    "stepSignOut": "Budete odhlášeni na všech zařízeních včetně tohoto.",
+    "stepApps": "Aplikace ztratí přístup získaný přes váš účet, dokud se znovu nepřihlásíte.",
+    "stepReset": "Pošleme vám odkaz pro nastavení nového hesla.",
+    "confirm": "Odhlásit mě všude a obnovit heslo",
+    "toSignIn": "Přejít na přihlášení",
+    "doneTitle": "Zkontrolujte svou schránku",
+    "doneBody": "Váš účet byl všude odhlášen. Otevřete e-mail, který jsme právě poslali, a nastavte nové heslo. Pokud používáte dvoufázové ověření, zkontrolujte, že ověřovací aplikace a přístupové klíče jsou stále vaše.",
+    "errors": {
+      "invalid": "Platnost odkazu vypršela nebo už byl použit. Pro jistotu si obnovte heslo na přihlašovací stránce.",
+      "failed": "Něco se pokazilo. Zkuste to znovu."
+    }
   }
 }

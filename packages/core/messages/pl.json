@@ -1931,7 +1931,9 @@
             "self_delete": "Użytkownik usunął własne konto",
             "export_csv": "Wyeksportowano użytkowników do CSV",
             "import": "Zaimportowano użytkowników",
-            "remove_phone_number": "Usunął(-ęła) swój numer telefonu"
+            "remove_phone_number": "Usunął(-ęła) swój numer telefonu",
+            "new_device_sign_in": "Zalogowano z nowego urządzenia",
+            "secure_account": "Zabezpieczył(a) konto (To nie ja)"
           },
           "oauth_client": {
             "create": "Zarejestrowano klienta OAuth",
@@ -2104,7 +2106,9 @@
           "twoFactorEveryoneHint": "Wszyscy muszą logować się do aplikacji przez aplikację uwierzytelniającą lub klucz dostępu. Administratorzy: REQUIRE_ADMIN_2FA. Organizacje mogą tego wymagać od członków na swojej stronie.",
           "twoFactorGraceDays": "Czas na włączenie",
           "twoFactorGraceDaysHint": "Osoby bez dwóch składników są pytane przy każdym logowaniu do aplikacji i mogą kontynuować do tego czasu. Liczy się od włączenia tej opcji albo od utworzenia konta.",
-          "noGrace": "Brak: wymagane od razu"
+          "noGrace": "Brak: wymagane od razu",
+          "newDeviceEmail": "E-mail przy logowaniu z nowego urządzenia",
+          "newDeviceEmailHint": "Użytkownicy dostają e-mail, gdy ich konto loguje się z przeglądarki, której wcześniej nie używało, z przyciskiem do wylogowania wszędzie i zresetowania hasła. Logowania przez SSO organizacji nie wysyłają wiadomości."
         },
         "emailDomains": {
           "title": "Domeny e-mail",
@@ -3124,6 +3128,22 @@
       "button": "Sprawdź i usuń",
       "note": "Link wygaśnie za {minutes} minut i działa tylko raz.",
       "footnote": "Jeśli to nie Ty, zignoruj tę wiadomość: Twoje konto pozostanie bez zmian. Rozważ zmianę hasła, ponieważ prośba została wysłana z zalogowanej sesji."
+    },
+    "newDevice": {
+      "subject": "Nowe logowanie na Twoje konto {brand}",
+      "preheader": "Na Twoje konto zalogowano się z urządzenia, którego wcześniej nie używało.",
+      "heading": "Nowe logowanie z innego urządzenia",
+      "body": "Na konto {brand} {email} właśnie zalogowano się z przeglądarki lub urządzenia, którego wcześniej nie używało.",
+      "when": "Kiedy: {when}",
+      "device": "Urządzenie: {device}",
+      "deviceOn": "{browser} w systemie {system}",
+      "unknownDevice": "Nieznana przeglądarka",
+      "ipAddress": "Adres IP: {ip}",
+      "unknownIp": "nieznany",
+      "ifYou": "Jeśli to Ty, nie musisz nic robić.",
+      "button": "To nie ja",
+      "note": "Przycisk działa raz przez {days} dni. Wylogowuje Cię wszędzie i wysyła link do ustawienia nowego hasła.",
+      "footnote": "Otrzymujesz tę wiadomość, gdy Twoje konto loguje się z nowego urządzenia. Nigdy nie udostępniaj hasła ani kodów logowania."
     }
   },
   "authErrors": {
@@ -3144,5 +3164,20 @@
     "invalidToken": "Ten link jest nieprawidłowy lub wygasł.",
     "publicOrganization": "Członkami organizacji Public zarządzają wyłącznie administratorzy platformy.",
     "emailDomainNotAllowed": "Nie można tu utworzyć konta z tą domeną e-mail. Użyj innego adresu."
+  },
+  "secureAccount": {
+    "title": "Zabezpiecz swoje konto",
+    "description": "Ktoś mógł zalogować się na Twoje konto. Potwierdź, aby odciąć mu dostęp:",
+    "stepSignOut": "Zostaniesz wylogowany na wszystkich urządzeniach, także na tym.",
+    "stepApps": "Aplikacje tracą dostęp uzyskany przez Twoje konto, dopóki nie zalogujesz się ponownie.",
+    "stepReset": "Wyślemy Ci link do ustawienia nowego hasła.",
+    "confirm": "Wyloguj mnie wszędzie i zresetuj hasło",
+    "toSignIn": "Przejdź do logowania",
+    "doneTitle": "Sprawdź skrzynkę odbiorczą",
+    "doneBody": "Twoje konto zostało wszędzie wylogowane. Otwórz wiadomość, którą właśnie wysłaliśmy, aby ustawić nowe hasło. Jeśli korzystasz z uwierzytelniania dwuskładnikowego, sprawdź, czy aplikacja uwierzytelniająca i klucze dostępu nadal należą do Ciebie.",
+    "errors": {
+      "invalid": "Ten link wygasł lub został już użyty. Dla bezpieczeństwa zresetuj hasło na stronie logowania.",
+      "failed": "Coś poszło nie tak. Spróbuj ponownie."
+    }
   }
 }

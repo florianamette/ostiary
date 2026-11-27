@@ -1931,7 +1931,9 @@
             "self_delete": "Slettet sin egen konto",
             "export_csv": "Eksporterte brukere til CSV",
             "import": "Importerte brukere",
-            "remove_phone_number": "Fjernet telefonnummeret sitt"
+            "remove_phone_number": "Fjernet telefonnummeret sitt",
+            "new_device_sign_in": "Logget på fra en ny enhet",
+            "secure_account": "Sikret kontoen sin (Det var ikke meg)"
           },
           "oauth_client": {
             "create": "Registrerte OAuth-klient",
@@ -2104,7 +2106,9 @@
           "twoFactorEveryoneHint": "Alle må bruke en autentiseringsapp eller en tilgangsnøkkel for å logge på apper. Administratorer: REQUIRE_ADMIN_2FA. Organisasjoner kan kreve det av medlemmene på sin side.",
           "twoFactorGraceDays": "Frist for å slå den på",
           "twoFactorGraceDaysHint": "De som mangler tofaktor, blir spurt ved hver app-pålogging og kan fortsette til da. Fristen starter når du slår på dette, eller når kontoen opprettes.",
-          "noGrace": "Ingen: kreves med en gang"
+          "noGrace": "Ingen: kreves med en gang",
+          "newDeviceEmail": "E-post ved pålogging fra ny enhet",
+          "newDeviceEmailHint": "Folk får en e-post når kontoen logges på fra en nettleser den ikke har brukt før, med en knapp for å logge ut overalt og tilbakestille passordet. Pålogginger via en organisasjons SSO sender ingen e-post."
         },
         "emailDomains": {
           "title": "E-postdomener",
@@ -3124,6 +3128,22 @@
       "button": "Se gjennom og slett",
       "note": "Lenken utløper om {minutes} minutter og fungerer bare én gang.",
       "footnote": "Har du ikke bedt om dette? Se bort fra denne e-posten: kontoen din forblir som den er. Vurder å bytte passord, siden forespørselen kom fra en innlogget økt."
+    },
+    "newDevice": {
+      "subject": "Ny pålogging på {brand}-kontoen din",
+      "preheader": "Kontoen din ble logget på fra en enhet den ikke har brukt før.",
+      "heading": "Ny pålogging fra en annen enhet",
+      "body": "{brand}-kontoen {email} ble nettopp logget på fra en nettleser eller enhet den ikke har brukt før.",
+      "when": "Når: {when}",
+      "device": "Enhet: {device}",
+      "deviceOn": "{browser} på {system}",
+      "unknownDevice": "Ukjent nettleser",
+      "ipAddress": "IP-adresse: {ip}",
+      "unknownIp": "ukjent",
+      "ifYou": "Hvis det var deg, trenger du ikke gjøre noe.",
+      "button": "Det var ikke meg",
+      "note": "Knappen fungerer én gang innen {days} dager. Den logger deg ut overalt og sender deg en lenke for å velge et nytt passord.",
+      "footnote": "Du får denne e-posten når kontoen din logges på fra en ny enhet. Del aldri passordet eller påloggingskodene dine."
     }
   },
   "authErrors": {
@@ -3144,5 +3164,20 @@
     "invalidToken": "Lenken er ugyldig eller utløpt.",
     "publicOrganization": "Medlemmene i organisasjonen Public administreres bare av plattformadministratorer.",
     "emailDomainNotAllowed": "Kontoer med dette e-postdomenet kan ikke opprettes her. Bruk en annen adresse."
+  },
+  "secureAccount": {
+    "title": "Sikre kontoen din",
+    "description": "Noen kan ha logget på kontoen din. Bekreft for å stenge dem ute:",
+    "stepSignOut": "Du logges ut på alle enheter, også denne.",
+    "stepApps": "Apper mister tilgangen de hadde via kontoen din til du logger på igjen.",
+    "stepReset": "Vi sender deg en lenke for å velge et nytt passord.",
+    "confirm": "Logg ut overalt og tilbakestill passordet mitt",
+    "toSignIn": "Gå til pålogging",
+    "doneTitle": "Sjekk innboksen din",
+    "doneBody": "Kontoen din ble logget ut overalt. Åpne e-posten vi nettopp sendte for å velge et nytt passord. Hvis du bruker tofaktorautentisering, sjekk at autentiseringsappen og tilgangsnøklene dine fortsatt er dine.",
+    "errors": {
+      "invalid": "Denne lenken er utløpt eller allerede brukt. Tilbakestill passordet fra påloggingssiden for sikkerhets skyld.",
+      "failed": "Noe gikk galt. Prøv igjen."
+    }
   }
 }

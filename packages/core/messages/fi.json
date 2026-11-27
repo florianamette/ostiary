@@ -1931,7 +1931,9 @@
             "self_delete": "Poisti oman tilinsä",
             "export_csv": "Vei käyttäjät CSV-muodossa",
             "import": "Toi käyttäjiä",
-            "remove_phone_number": "Poisti puhelinnumeronsa"
+            "remove_phone_number": "Poisti puhelinnumeronsa",
+            "new_device_sign_in": "Kirjautui uudelta laitteelta",
+            "secure_account": "Suojasi tilinsä (Se en ollut minä)"
           },
           "oauth_client": {
             "create": "Rekisteröi OAuth-asiakkaan",
@@ -2104,7 +2106,9 @@
           "twoFactorEveryoneHint": "Kaikkien on käytettävä todennussovellusta tai pääsyavainta kirjautuessaan sovelluksiin. Ylläpitäjät: REQUIRE_ADMIN_2FA. Organisaatiot voivat vaatia sitä jäseniltään omalla sivullaan.",
           "twoFactorGraceDays": "Aikaa ottaa käyttöön",
           "twoFactorGraceDaysHint": "Ilman kaksivaiheista tunnistautumista olevilta kysytään jokaisella sovelluskirjautumisella, ja he voivat jatkaa siihen asti. Aika alkaa, kun otat tämän käyttöön, tai tilin luonnista.",
-          "noGrace": "Ei aikaa: vaaditaan heti"
+          "noGrace": "Ei aikaa: vaaditaan heti",
+          "newDeviceEmail": "Sähköposti kirjautumisesta uudelta laitteelta",
+          "newDeviceEmailHint": "Käyttäjät saavat sähköpostin, kun heidän tililleen kirjaudutaan selaimelta, jota se ei ole aiemmin käyttänyt, ja painikkeen, jolla voi kirjautua ulos kaikkialta ja nollata salasanan. Organisaation SSO:n kautta tehdyistä kirjautumisista ei lähetetä viestiä."
         },
         "emailDomains": {
           "title": "Sähköpostiverkkotunnukset",
@@ -3124,6 +3128,22 @@
       "button": "Tarkista ja poista",
       "note": "Linkki vanhenee {minutes} minuutissa ja toimii vain kerran.",
       "footnote": "Etkö pyytänyt tätä? Voit ohittaa tämän viestin: tilisi pysyy ennallaan. Harkitse salasanasi vaihtamista, sillä pyyntö tuli kirjautuneesta istunnosta."
+    },
+    "newDevice": {
+      "subject": "Uusi kirjautuminen {brand}-tilillesi",
+      "preheader": "Tilillesi kirjauduttiin laitteelta, jota se ei ole aiemmin käyttänyt.",
+      "heading": "Uusi kirjautuminen toiselta laitteelta",
+      "body": "{brand}-tilille {email} kirjauduttiin juuri selaimelta tai laitteelta, jota se ei ole aiemmin käyttänyt.",
+      "when": "Milloin: {when}",
+      "device": "Laite: {device}",
+      "deviceOn": "{browser}, {system}",
+      "unknownDevice": "Tuntematon selain",
+      "ipAddress": "IP-osoite: {ip}",
+      "unknownIp": "tuntematon",
+      "ifYou": "Jos se olit sinä, sinun ei tarvitse tehdä mitään.",
+      "button": "Se en ollut minä",
+      "note": "Painike toimii kerran {days} päivän ajan. Se kirjaa sinut ulos kaikkialta ja lähettää linkin uuden salasanan valitsemiseen.",
+      "footnote": "Saat tämän viestin, kun tilillesi kirjaudutaan uudelta laitteelta. Älä koskaan jaa salasanaasi tai kirjautumiskoodejasi."
     }
   },
   "authErrors": {
@@ -3144,5 +3164,20 @@
     "invalidToken": "Linkki on virheellinen tai vanhentunut.",
     "publicOrganization": "Public-organisaation jäseniä hallitsevat vain alustan ylläpitäjät.",
     "emailDomainNotAllowed": "Tällä sähköpostiverkkotunnuksella ei voi luoda tiliä täällä. Käytä toista osoitetta."
+  },
+  "secureAccount": {
+    "title": "Suojaa tilisi",
+    "description": "Joku on saattanut kirjautua tilillesi. Vahvista estääksesi pääsyn:",
+    "stepSignOut": "Sinut kirjataan ulos kaikilta laitteilta, myös tältä.",
+    "stepApps": "Sovellukset menettävät tilisi kautta saamansa pääsyn, kunnes kirjaudut uudelleen.",
+    "stepReset": "Lähetämme sinulle linkin uuden salasanan valitsemiseen.",
+    "confirm": "Kirjaudu ulos kaikkialta ja nollaa salasanani",
+    "toSignIn": "Siirry kirjautumiseen",
+    "doneTitle": "Tarkista sähköpostisi",
+    "doneBody": "Tilisi kirjattiin ulos kaikkialta. Avaa juuri lähettämämme viesti ja valitse uusi salasana. Jos käytät kaksivaiheista tunnistautumista, tarkista, että todennussovellus ja pääsyavaimet ovat yhä sinun.",
+    "errors": {
+      "invalid": "Linkki on vanhentunut tai jo käytetty. Nollaa varmuuden vuoksi salasanasi kirjautumissivulta.",
+      "failed": "Jokin meni pieleen. Yritä uudelleen."
+    }
   }
 }

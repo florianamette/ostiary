@@ -1931,7 +1931,9 @@
             "self_delete": "Ha eliminato il proprio account",
             "export_csv": "Utenti esportati in CSV",
             "import": "Utenti importati",
-            "remove_phone_number": "Ha rimosso il proprio numero di telefono"
+            "remove_phone_number": "Ha rimosso il proprio numero di telefono",
+            "new_device_sign_in": "Accesso da un nuovo dispositivo",
+            "secure_account": "Ha protetto il proprio account (Non sono stato io)"
           },
           "oauth_client": {
             "create": "Client OAuth registrato",
@@ -2104,7 +2106,9 @@
           "twoFactorEveryoneHint": "Tutti devono usare un'app di autenticazione o una passkey per accedere alle app. Admin: REQUIRE_ADMIN_2FA. Le organizzazioni possono richiederla ai propri membri dalla loro pagina.",
           "twoFactorGraceDays": "Tempo per attivarla",
           "twoFactorGraceDaysHint": "Chi non ha i due fattori riceve la richiesta a ogni accesso a un'app e può continuare fino ad allora. Il periodo parte quando attivi questa opzione, o dalla creazione dell'account.",
-          "noGrace": "Nessuno: richiesta subito"
+          "noGrace": "Nessuno: richiesta subito",
+          "newDeviceEmail": "Email per accesso da nuovo dispositivo",
+          "newDeviceEmailHint": "Le persone ricevono un’email quando il loro account accede da un browser mai usato prima, con un pulsante per disconnettersi ovunque e reimpostare la password. Gli accessi tramite il SSO di un’organizzazione non inviano email."
         },
         "emailDomains": {
           "title": "Domini email",
@@ -3124,6 +3128,22 @@
       "button": "Rivedi ed elimina",
       "note": "Il link scade tra {minutes} minuti e funziona una sola volta.",
       "footnote": "Se non l’hai richiesto tu, ignora questa email: il tuo account resta com’è. Valuta di cambiare la password, perché la richiesta proviene da una sessione con accesso effettuato."
+    },
+    "newDevice": {
+      "subject": "Nuovo accesso al tuo account {brand}",
+      "preheader": "È stato effettuato l’accesso al tuo account da un dispositivo mai usato prima.",
+      "heading": "Nuovo accesso da un altro dispositivo",
+      "body": "È appena stato effettuato l’accesso all’account {brand} {email} da un browser o dispositivo mai usato prima.",
+      "when": "Quando: {when}",
+      "device": "Dispositivo: {device}",
+      "deviceOn": "{browser} su {system}",
+      "unknownDevice": "Browser sconosciuto",
+      "ipAddress": "Indirizzo IP: {ip}",
+      "unknownIp": "sconosciuto",
+      "ifYou": "Se sei stato tu, non devi fare nulla.",
+      "button": "Non sono stato io",
+      "note": "Il pulsante funziona una sola volta entro {days} giorni. Ti disconnette ovunque e ti invia un link per scegliere una nuova password.",
+      "footnote": "Ricevi questa email quando il tuo account accede da un nuovo dispositivo. Non condividere mai la tua password o i codici di accesso."
     }
   },
   "authErrors": {
@@ -3144,5 +3164,20 @@
     "invalidToken": "Questo link non è valido o è scaduto.",
     "publicOrganization": "I membri dell'organizzazione Public sono gestiti solo dagli amministratori della piattaforma.",
     "emailDomainNotAllowed": "Qui non è possibile creare account con questo dominio email. Usa un altro indirizzo."
+  },
+  "secureAccount": {
+    "title": "Proteggi il tuo account",
+    "description": "Qualcuno potrebbe aver effettuato l’accesso al tuo account. Conferma per escluderlo:",
+    "stepSignOut": "Vieni disconnesso da tutti i dispositivi, compreso questo.",
+    "stepApps": "Le app perdono l’accesso ottenuto tramite il tuo account finché non accedi di nuovo.",
+    "stepReset": "Ti inviamo un link per scegliere una nuova password.",
+    "confirm": "Disconnettimi ovunque e reimposta la password",
+    "toSignIn": "Vai all’accesso",
+    "doneTitle": "Controlla la posta in arrivo",
+    "doneBody": "Il tuo account è stato disconnesso ovunque. Apri l’email che ti abbiamo appena inviato per scegliere una nuova password. Se usi l’autenticazione a due fattori, verifica che la tua app di autenticazione e le passkey siano ancora tue.",
+    "errors": {
+      "invalid": "Questo link è scaduto o è già stato usato. Per sicurezza, reimposta la password dalla pagina di accesso.",
+      "failed": "Qualcosa è andato storto. Riprova."
+    }
   }
 }

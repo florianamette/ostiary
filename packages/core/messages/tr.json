@@ -1931,7 +1931,9 @@
             "self_delete": "Kendi hesabını sildi",
             "export_csv": "Kullanıcıları CSV olarak dışa aktardı",
             "import": "Kullanıcıları içe aktardı",
-            "remove_phone_number": "Telefon numarasını kaldırdı"
+            "remove_phone_number": "Telefon numarasını kaldırdı",
+            "new_device_sign_in": "Yeni bir cihazdan oturum açtı",
+            "secure_account": "Hesabını güvenceye aldı (Bu ben değildim)"
           },
           "oauth_client": {
             "create": "OAuth istemcisi kaydetti",
@@ -2104,7 +2106,9 @@
           "twoFactorEveryoneHint": "Herkes uygulamalarda oturum açmak için bir doğrulama uygulaması veya geçiş anahtarı kullanmalıdır. Yöneticiler: REQUIRE_ADMIN_2FA. Kuruluşlar kendi sayfalarından üyeleri için zorunlu kılabilir.",
           "twoFactorGraceDays": "Açmak için süre",
           "twoFactorGraceDaysHint": "İki adımlı doğrulaması olmayanlara her uygulama oturum açışında sorulur ve o zamana kadar devam edebilirler. Süre bunu açtığınızda ya da hesap oluşturulduğunda başlar.",
-          "noGrace": "Yok: hemen gerekli"
+          "noGrace": "Yok: hemen gerekli",
+          "newDeviceEmail": "Yeni cihazdan oturum açılınca e-posta",
+          "newDeviceEmailHint": "Kişiler, hesaplarında daha önce kullanılmamış bir tarayıcıdan oturum açıldığında, her yerde oturumu kapatıp parolayı sıfırlamaya yarayan bir düğmeyle e-posta alır. Bir kuruluşun SSO'su üzerinden yapılan girişler e-posta göndermez."
         },
         "emailDomains": {
           "title": "E-posta alan adları",
@@ -3124,6 +3128,22 @@
       "button": "İncele ve sil",
       "note": "Bağlantının süresi {minutes} dakika içinde dolar ve yalnızca bir kez çalışır.",
       "footnote": "Bunu siz istemediyseniz bu e-postayı yok sayın: hesabınız olduğu gibi kalır. İstek, giriş yapılmış bir oturumdan geldiği için parolanızı değiştirmeyi düşünün."
+    },
+    "newDevice": {
+      "subject": "{brand} hesabınızda yeni oturum açma",
+      "preheader": "Hesabınızda daha önce kullanılmamış bir cihazdan oturum açıldı.",
+      "heading": "Başka bir cihazdan yeni oturum açma",
+      "body": "{brand} hesabı {email} üzerinde az önce daha önce kullanılmamış bir tarayıcı veya cihazdan oturum açıldı.",
+      "when": "Ne zaman: {when}",
+      "device": "Cihaz: {device}",
+      "deviceOn": "{system} üzerinde {browser}",
+      "unknownDevice": "Bilinmeyen tarayıcı",
+      "ipAddress": "IP adresi: {ip}",
+      "unknownIp": "bilinmiyor",
+      "ifYou": "Bu sizseniz bir şey yapmanıza gerek yok.",
+      "button": "Bu ben değildim",
+      "note": "Düğme {days} gün içinde bir kez çalışır. Her yerde oturumunuzu kapatır ve yeni bir parola seçmeniz için size bir bağlantı gönderir.",
+      "footnote": "Hesabınızda yeni bir cihazdan oturum açıldığında bu e-postayı alırsınız. Parolanızı veya giriş kodlarınızı asla paylaşmayın."
     }
   },
   "authErrors": {
@@ -3144,5 +3164,20 @@
     "invalidToken": "Bu bağlantı geçersiz veya süresi dolmuş.",
     "publicOrganization": "Public kuruluşunun üyelerini yalnızca platform yöneticileri yönetir.",
     "emailDomainNotAllowed": "Bu e-posta alan adıyla burada hesap oluşturulamaz. Başka bir adres kullanın."
+  },
+  "secureAccount": {
+    "title": "Hesabınızı güvenceye alın",
+    "description": "Hesabınızda başka biri oturum açmış olabilir. Erişimini kesmek için onaylayın:",
+    "stepSignOut": "Bu cihaz dahil tüm cihazlarda oturumunuz kapatılır.",
+    "stepApps": "Uygulamalar, tekrar oturum açana kadar hesabınız üzerinden sahip oldukları erişimi kaybeder.",
+    "stepReset": "Yeni bir parola seçmeniz için size bir bağlantı göndeririz.",
+    "confirm": "Her yerde oturumu kapat ve parolamı sıfırla",
+    "toSignIn": "Oturum açmaya git",
+    "doneTitle": "Gelen kutunuzu kontrol edin",
+    "doneBody": "Hesabınızın tüm oturumları kapatıldı. Yeni bir parola seçmek için az önce gönderdiğimiz e-postayı açın. İki adımlı doğrulama kullanıyorsanız, kimlik doğrulama uygulamanızın ve geçiş anahtarlarınızın hâlâ size ait olduğunu kontrol edin.",
+    "errors": {
+      "invalid": "Bu bağlantının süresi dolmuş veya zaten kullanılmış. Güvenlik için parolanızı oturum açma sayfasından sıfırlayın.",
+      "failed": "Bir şeyler ters gitti. Tekrar deneyin."
+    }
   }
 }

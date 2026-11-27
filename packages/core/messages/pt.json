@@ -1931,7 +1931,9 @@
             "self_delete": "Excluiu a própria conta",
             "export_csv": "Exportou os usuários para CSV",
             "import": "Importou usuários",
-            "remove_phone_number": "Removeu o seu número de telefone"
+            "remove_phone_number": "Removeu o seu número de telefone",
+            "new_device_sign_in": "Iniciou sessão num novo dispositivo",
+            "secure_account": "Protegeu a sua conta (Não fui eu)"
           },
           "oauth_client": {
             "create": "Registrou cliente OAuth",
@@ -2104,7 +2106,9 @@
           "twoFactorEveryoneHint": "Todos têm de usar uma aplicação de autenticação ou uma chave de acesso para iniciar sessão nas aplicações. Administradores: REQUIRE_ADMIN_2FA. As organizações podem exigi-la aos seus membros na página delas.",
           "twoFactorGraceDays": "Prazo para a ativar",
           "twoFactorGraceDaysHint": "Quem não a tem é avisado em cada início de sessão numa aplicação e pode continuar até lá. O prazo começa quando ativa isto, ou na criação da conta.",
-          "noGrace": "Nenhum: obrigatória de imediato"
+          "noGrace": "Nenhum: obrigatória de imediato",
+          "newDeviceEmail": "Email ao iniciar sessão num novo dispositivo",
+          "newDeviceEmailHint": "As pessoas recebem um email quando a conta inicia sessão num navegador que nunca usou, com um botão para terminar sessão em todo o lado e repor a palavra-passe. Inícios de sessão pelo SSO de uma organização não enviam email."
         },
         "emailDomains": {
           "title": "Domínios de e-mail",
@@ -3124,6 +3128,22 @@
       "button": "Revisar e excluir",
       "note": "O link expira em {minutes} minutos e só funciona uma vez.",
       "footnote": "Se não foi você quem pediu, ignore este e-mail: sua conta continua como está. Considere alterar sua senha, já que o pedido veio de uma sessão conectada."
+    },
+    "newDevice": {
+      "subject": "Novo início de sessão na sua conta {brand}",
+      "preheader": "A sua conta iniciou sessão num dispositivo que nunca tinha usado.",
+      "heading": "Novo início de sessão noutro dispositivo",
+      "body": "A conta {brand} {email} acabou de iniciar sessão num navegador ou dispositivo que nunca tinha usado.",
+      "when": "Quando: {when}",
+      "device": "Dispositivo: {device}",
+      "deviceOn": "{browser} em {system}",
+      "unknownDevice": "Navegador desconhecido",
+      "ipAddress": "Endereço IP: {ip}",
+      "unknownIp": "desconhecido",
+      "ifYou": "Se foi você, não precisa de fazer nada.",
+      "button": "Não fui eu",
+      "note": "O botão funciona uma vez durante {days} dias. Termina a sua sessão em todo o lado e envia-lhe um link para escolher uma nova palavra-passe.",
+      "footnote": "Recebe este email quando a sua conta inicia sessão num novo dispositivo. Nunca partilhe a sua palavra-passe nem os seus códigos de início de sessão."
     }
   },
   "authErrors": {
@@ -3144,5 +3164,20 @@
     "invalidToken": "Este link é inválido ou expirou.",
     "publicOrganization": "Os membros da organização Public são geridos apenas pelos administradores da plataforma.",
     "emailDomainNotAllowed": "Não é possível criar contas com este domínio de e-mail aqui. Use outro endereço."
+  },
+  "secureAccount": {
+    "title": "Proteja a sua conta",
+    "description": "Alguém pode ter iniciado sessão na sua conta. Confirme para o impedir:",
+    "stepSignOut": "A sua sessão é terminada em todos os dispositivos, incluindo este.",
+    "stepApps": "As aplicações perdem o acesso que tinham através da sua conta até voltar a iniciar sessão.",
+    "stepReset": "Enviamos-lhe um link para escolher uma nova palavra-passe.",
+    "confirm": "Terminar sessão em todo o lado e repor a palavra-passe",
+    "toSignIn": "Ir para o início de sessão",
+    "doneTitle": "Verifique a sua caixa de entrada",
+    "doneBody": "A sessão da sua conta foi terminada em todo o lado. Abra o email que acabámos de enviar para escolher uma nova palavra-passe. Se usa a autenticação de dois fatores, confirme que a sua aplicação de autenticação e as suas chaves de acesso continuam a ser suas.",
+    "errors": {
+      "invalid": "Este link expirou ou já foi usado. Por segurança, reponha a palavra-passe a partir da página de início de sessão.",
+      "failed": "Algo correu mal. Tente novamente."
+    }
   }
 }
