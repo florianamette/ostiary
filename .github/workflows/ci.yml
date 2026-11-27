@@ -26,6 +26,11 @@ jobs:
       - name: Install
         run: pnpm install --frozen-lockfile
 
+      # Two copies of one package (better-auth with different peer resolutions) break its
+      # types in ways that read like unrelated errors; this names the problem instead.
+      - name: No duplicate packages
+        run: pnpm dedupe --check
+
       # A schema change committed without its migration (or a hand-edited snapshot) fails here.
       # Neither command connects to a database.
       - name: Migrations match the schema
