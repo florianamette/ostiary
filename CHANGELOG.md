@@ -124,6 +124,11 @@ All notable changes are documented here. The format follows
 
 ### Changed
 
+- Better Auth's deferred work (rate-limit cleanup, timing padding) runs after the response
+  through Next.js `after()` (`advanced.backgroundTasks`), so a request no longer waits for it
+  and Vercel keeps it running. Better Auth is loaded from `better-auth/minimal`: Ostiary uses the
+  Drizzle adapter and drizzle-kit, so the Kysely layer is left out (about 750 KB less server
+  JavaScript per app).
 - An app that sends the same refresh token again within 30 seconds gets the same tokens back.
   Before, the retry counted as a stolen-token replay and revoked the app's tokens, which broke
   MCP clients that retry after a dropped connection (`refreshTokenReuseInterval`, as in

@@ -1,4 +1,7 @@
-import { betterAuth, type BetterAuthOptions, type BetterAuthPlugin } from "better-auth";
+// Minimal mode: Ostiary talks to the database through the Drizzle adapter and migrates with
+// drizzle-kit, so Better Auth's Kysely layer (its built-in migrations) is never needed.
+import { betterAuth } from "better-auth/minimal";
+import type { BetterAuthOptions, BetterAuthPlugin } from "better-auth";
 import { APIError, createAuthMiddleware, getOAuthState, getSessionFromCtx } from "better-auth/api";
 import { tryGetCurrentAuthEndpointContext } from "@better-auth/core/context";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
@@ -55,6 +58,7 @@ import { PHONE_NUMBER_PATTERN, queueSms, smsConfigured } from "@ostiary/core/lib
 import { brand } from "@ostiary/core/lib/brand";
 import { getPasskeyWebAuthnOptions } from "@ostiary/core/lib/passkey-options";
 import { env } from "@ostiary/core/lib/env";
+import { betterAuthBackgroundTask } from "@ostiary/core/lib/background";
 import { e2eTestMode } from "@ostiary/core/lib/e2e-test-mode";
 import { ipAddressOptions, rateLimitOptions } from "@ostiary/core/lib/rate-limit";
 import { ENV_API_SCOPES, OIDC_SCOPES } from "@ostiary/core/lib/oauth-scopes";
@@ -467,6 +471,8 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
         advanced: {
             // Client IP for rate limits and sessions: IP_ADDRESS_HEADERS and TRUSTED_PROXIES.
             ipAddress: ipAddressOptions(env),
+            // Better Auth's deferred work runs after the response (Next.js after()).
+            backgroundTasks: { handler: betterAuthBackgroundTask },
             ...(cookieDomain
                 ? { crossSubDomainCookies: { enabled: true, domain: cookieDomain } }
                 : {}),
