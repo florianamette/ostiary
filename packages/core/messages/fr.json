@@ -181,7 +181,8 @@
       "error": "Connexion impossible avec ce compte. Réessayez ou utilisez une autre méthode.",
       "notLinked": "Ce compte n’est pas encore relié à un compte {name}. Connectez-vous autrement, puis reliez-le depuis vos paramètres de sécurité.",
       "noEmail": "Ce compte n'a pas communiqué d'adresse e-mail. Réessayez plus tard ou connectez-vous autrement.",
-      "signUpDisabled": "Aucun compte n'existe encore pour cette adresse, et ce moyen de connexion ne peut pas en créer. Connectez-vous autrement."
+      "signUpDisabled": "Aucun compte n'existe encore pour cette adresse, et ce moyen de connexion ne peut pas en créer. Connectez-vous autrement.",
+      "createFailed": "Impossible de créer un compte avec cette connexion. Votre adresse e-mail n'est peut-être pas autorisée ici : essayez une autre adresse ou connectez-vous autrement."
     },
     "app": {
       "signIn": "Connectez-vous pour continuer vers <app>{name}</app>",
@@ -2025,7 +2026,8 @@
             "export_csv": "Journal d’audit exporté en CSV"
           },
           "security": {
-            "update_policy": "Politique de sessions et de mots de passe modifiée"
+            "update_policy": "Politique de sessions et de mots de passe modifiée",
+            "update_email_domains": "Domaines d'e-mail autorisés modifiés"
           }
         },
         "actorPlaceholder": "Rechercher par auteur (e-mail)…",
@@ -2103,6 +2105,40 @@
           "twoFactorGraceDays": "Délai pour l'activer",
           "twoFactorGraceDaysHint": "Les personnes sans deux facteurs sont invitées à chaque connexion à une application et peuvent continuer jusque-là. Le délai démarre quand vous activez ceci, ou à la création du compte.",
           "noGrace": "Aucun : requis tout de suite"
+        },
+        "emailDomains": {
+          "title": "Domaines d'e-mail",
+          "description": "Quelles adresses e-mail peuvent créer un compte. S'applique à toutes les méthodes d'inscription et aux changements d'adresse ; les comptes existants continuent de fonctionner.",
+          "edit": "Modifier",
+          "mode": "Qui peut s'inscrire",
+          "modes": {
+            "any": "Toute adresse e-mail",
+            "allow": "Uniquement ces domaines",
+            "block": "Toute adresse sauf ces domaines"
+          },
+          "modeHints": {
+            "any": "Aucune restriction de domaine.",
+            "allow": "Pour un Ostiary utilisé par une seule entreprise ou école : les autres adresses ne peuvent pas créer de compte.",
+            "block": "Les adresses des domaines listés ne peuvent pas créer de compte."
+          },
+          "allowed": "Domaines autorisés",
+          "blocked": "Domaines bloqués",
+          "none": "Aucun",
+          "domainsHint": "Un par ligne. Un domaine couvre aussi ses sous-domaines (acme.com couvre eu.acme.com).",
+          "blockDisposable": "Bloquer les adresses e-mail jetables",
+          "blockDisposableHint": "Refuse environ 9 000 services d'e-mail jetable connus, comme Mailinator, d'après une liste fournie avec Ostiary.",
+          "on": "Activé",
+          "off": "Désactivé",
+          "dialogDescription": "Les admins, le SSO et SCIM peuvent toujours créer des comptes avec n'importe quelle adresse. L'application d'authentification l'applique en moins d'une minute.",
+          "save": "Enregistrer",
+          "cancel": "Annuler",
+          "saved": "Domaines d'e-mail enregistrés. L'application d'authentification les applique en moins d'une minute.",
+          "errors": {
+            "invalid": "Choisissez l'une des options proposées.",
+            "invalidDomain": "L'une des entrées n'est pas un nom de domaine, comme example.com.",
+            "noDomains": "Indiquez au moins un domaine.",
+            "save": "Impossible d'enregistrer les domaines d'e-mail."
+          }
         }
       },
       "signingKeys": {
@@ -3105,6 +3141,7 @@
     "impersonating": "Impossible pendant qu'un administrateur consulte le compte.",
     "emailNotVerified": "Vérifiez d'abord votre adresse e-mail.",
     "invalidToken": "Ce lien est invalide ou a expiré.",
-    "publicOrganization": "Les membres de l'organisation Public sont gérés uniquement par les administrateurs de la plateforme."
+    "publicOrganization": "Les membres de l'organisation Public sont gérés uniquement par les administrateurs de la plateforme.",
+    "emailDomainNotAllowed": "Impossible de créer un compte avec ce domaine d'e-mail ici. Utilisez une autre adresse."
   }
 }

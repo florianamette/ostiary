@@ -54,6 +54,8 @@ export default defineConfig({
       dependencies: ["chromium"],
       testMatch: /.*\.platform\.spec\.ts/,
       fullyParallel: false,
+      // One file at a time: each changes a setting every sign-up depends on.
+      workers: 1,
     },
   ],
   webServer: [

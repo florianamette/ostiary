@@ -1,4 +1,7 @@
+import { normalizeHost } from "@ostiary/core/lib/dns-name";
 import { OIDC_SCOPES } from "@ostiary/core/lib/oauth-scopes";
+
+export { normalizeHost } from "@ostiary/core/lib/dns-name";
 
 /*
  * Self-registration of OAuth clients, as MCP clients and AI agents expect:
@@ -56,25 +59,10 @@ const REGISTRATION_METADATA_KEY = "ostiary_registration";
 const METADATA_DOCUMENT_DISCOVERY_ID = "cimd";
 
 const SCOPE_TOKEN = /^[\x21\x23-\x5B\x5D-\x7E]+$/;
-const HOST = /^(?=.{1,253}$)(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,63}$/;
 
 function uniqueStrings(value: unknown): string[] {
   if (!Array.isArray(value)) return [];
   return [...new Set(value.filter((item): item is string => typeof item === "string").map((item) => item.trim()).filter(Boolean))];
-}
-
-/** Lower-cases a host and strips a scheme or path pasted with it. Null when it is not a DNS name. */
-export function normalizeHost(raw: string): string | null {
-  let host = raw.trim().toLowerCase();
-  if (host.includes("://")) {
-    try {
-      host = new URL(host).hostname;
-    } catch {
-      return null;
-    }
-  }
-  host = host.replace(/\/.*$/, "").replace(/\.$/, "");
-  return HOST.test(host) ? host : null;
 }
 
 /**

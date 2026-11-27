@@ -42,6 +42,7 @@ const COMMON_CODES: Record<string, string> = {
   EMAIL_NOT_VERIFIED: "emailNotVerified",
   INVALID_TOKEN: "invalidToken",
   PUBLIC_ORGANIZATION_RESTRICTED: "publicOrganization",
+  EMAIL_DOMAIN_NOT_ALLOWED: "emailDomainNotAllowed",
 };
 
 type Translate = (key: string) => string;

@@ -181,7 +181,8 @@
       "error": "无法使用该账户登录。请重试或改用其他方式。",
       "notLinked": "该账户尚未关联到 {name} 账户。请先用其他方式登录，再在安全设置中关联。",
       "noEmail": "该账户未提供电子邮件地址。请稍后重试，或使用其他方式登录。",
-      "signUpDisabled": "该地址尚无账户，且此登录方式无法创建账户。请使用其他方式登录。"
+      "signUpDisabled": "该地址尚无账户，且此登录方式无法创建账户。请使用其他方式登录。",
+      "createFailed": "无法通过此登录方式创建账户。你的邮箱地址可能不被允许：请尝试其他地址或用其他方式登录。"
     },
     "app": {
       "signIn": "登录以继续前往 <app>{name}</app>",
@@ -2025,7 +2026,8 @@
             "export_csv": "将审计日志导出为 CSV"
           },
           "security": {
-            "update_policy": "更改了会话与密码策略"
+            "update_policy": "更改了会话与密码策略",
+            "update_email_domains": "更改了允许的邮箱域名"
           }
         },
         "actorPlaceholder": "按操作者（邮箱）搜索…",
@@ -2103,6 +2105,40 @@
           "twoFactorGraceDays": "开启期限",
           "twoFactorGraceDaysHint": "未开启双重验证的人在每次登录应用时都会收到提示，并可在期限前继续。期限从开启此项或创建账户时开始计算。",
           "noGrace": "无：立即要求"
+        },
+        "emailDomains": {
+          "title": "邮箱域名",
+          "description": "哪些邮箱地址可以创建账户。适用于所有注册方式和地址变更；现有账户继续可用。",
+          "edit": "编辑",
+          "mode": "谁可以注册",
+          "modes": {
+            "any": "任何邮箱地址",
+            "allow": "仅限这些域名",
+            "block": "除这些域名外的任何地址"
+          },
+          "modeHints": {
+            "any": "不限制域名。",
+            "allow": "适用于单个公司或学校使用的 Ostiary：其他地址无法创建账户。",
+            "block": "所列域名的地址无法创建账户。"
+          },
+          "allowed": "允许的域名",
+          "blocked": "屏蔽的域名",
+          "none": "无",
+          "domainsHint": "每行一个。域名也包括其子域名（acme.com 包括 eu.acme.com）。",
+          "blockDisposable": "屏蔽一次性邮箱地址",
+          "blockDisposableHint": "根据 Ostiary 自带的列表，拒绝约 9,000 个已知的一次性邮箱服务，例如 Mailinator。",
+          "on": "开",
+          "off": "关",
+          "dialogDescription": "管理员、SSO 和 SCIM 仍可使用任何地址创建账户。认证应用会在一分钟内生效。",
+          "save": "保存",
+          "cancel": "取消",
+          "saved": "邮箱域名已保存。认证应用会在一分钟内生效。",
+          "errors": {
+            "invalid": "请选择提供的选项之一。",
+            "invalidDomain": "其中一项不是域名，例如 example.com。",
+            "noDomains": "请至少填写一个域名。",
+            "save": "无法保存邮箱域名。"
+          }
         }
       },
       "signingKeys": {
@@ -3105,6 +3141,7 @@
     "impersonating": "管理员查看此账户期间无法执行此操作。",
     "emailNotVerified": "请先验证您的邮箱地址。",
     "invalidToken": "此链接无效或已过期。",
-    "publicOrganization": "Public 组织的成员仅由平台管理员管理。"
+    "publicOrganization": "Public 组织的成员仅由平台管理员管理。",
+    "emailDomainNotAllowed": "无法在此使用该邮箱域名创建账户。请使用其他地址。"
   }
 }

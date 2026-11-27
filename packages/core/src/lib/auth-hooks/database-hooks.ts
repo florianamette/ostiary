@@ -9,6 +9,7 @@ import { currentAuthPolicy, policySessionExpiry } from "@ostiary/core/lib/auth-p
 import { clientIp, recordAuthEvent } from "@ostiary/core/lib/auth-events";
 import { adminOnSignUp, adminOnVerification, fromIdentityProvider, parseAdminEmails } from "@ostiary/core/lib/admin/admin-emails";
 import { emailAliasTaken } from "@ostiary/core/lib/security/email-aliases";
+import { assertEmailDomainAllowed } from "@ostiary/core/lib/email-domain-policy";
 import { revokeUserAccess } from "@ostiary/core/lib/security/user-access-revocation";
 import { isExternalSignInPath } from "@ostiary/core/lib/security/external-sign-in";
 import { PUBLIC_ORGANIZATION_ID } from "@ostiary/core/lib/organization-public";
@@ -68,12 +69,23 @@ async function refuseEmailAlias(email: string, path: string | undefined) {
     throw new APIError("FORBIDDEN", { message: "An account already uses this email address.", code: "EMAIL_ALIAS_TAKEN" });
 }
 
+/**
+ * The email domain policy (email-domain-policy.ts), for accounts people create themselves.
+ * Accounts an admin, an SSO provider or SCIM creates, and server calls without a request,
+ * are not checked.
+ */
+async function refuseEmailDomain(email: string, path: string | undefined) {
+    if (!path || path.startsWith("/admin/") || fromIdentityProvider(path)) return;
+    await assertEmailDomainAllowed(email);
+}
+
 /** Better Auth's database hooks: admin promotion, the Public organization, bans, deletions and sign-in events. */
 export function databaseHooks() {
     return {
         user: {
             create: {
                 before: async (newUser, context) => {
+                    await refuseEmailDomain(newUser.email, context?.path);
                     await refuseEmailAlias(newUser.email, context?.path);
                     // Only with an address the provider verified, never through SSO or SCIM. A
                     // password sign-up is promoted when its address is verified (update hook).

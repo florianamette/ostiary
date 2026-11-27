@@ -181,7 +181,8 @@
       "error": "Nie udało się zalogować tym kontem. Spróbuj ponownie lub użyj innej metody.",
       "notLinked": "To konto nie jest jeszcze połączone z kontem {name}. Zaloguj się w inny sposób, a potem połącz je w ustawieniach bezpieczeństwa.",
       "noEmail": "To konto nie udostępniło adresu e-mail. Spróbuj później lub zaloguj się w inny sposób.",
-      "signUpDisabled": "Dla tego adresu nie ma jeszcze konta, a ta metoda logowania nie może go utworzyć. Zaloguj się w inny sposób."
+      "signUpDisabled": "Dla tego adresu nie ma jeszcze konta, a ta metoda logowania nie może go utworzyć. Zaloguj się w inny sposób.",
+      "createFailed": "Nie udało się utworzyć konta przy tym logowaniu. Twój adres e-mail może nie być tu dozwolony: spróbuj innego adresu lub zaloguj się inaczej."
     },
     "app": {
       "signIn": "Zaloguj się, aby przejść do <app>{name}</app>",
@@ -2025,7 +2026,8 @@
             "export_csv": "Wyeksportowano dziennik audytu do CSV"
           },
           "security": {
-            "update_policy": "Zmieniono zasady sesji i haseł"
+            "update_policy": "Zmieniono zasady sesji i haseł",
+            "update_email_domains": "Zmieniono dozwolone domeny e-mail"
           }
         },
         "actorPlaceholder": "Szukaj po wykonawcy (e-mail)…",
@@ -2103,6 +2105,40 @@
           "twoFactorGraceDays": "Czas na włączenie",
           "twoFactorGraceDaysHint": "Osoby bez dwóch składników są pytane przy każdym logowaniu do aplikacji i mogą kontynuować do tego czasu. Liczy się od włączenia tej opcji albo od utworzenia konta.",
           "noGrace": "Brak: wymagane od razu"
+        },
+        "emailDomains": {
+          "title": "Domeny e-mail",
+          "description": "Które adresy e-mail mogą założyć konto. Dotyczy każdego sposobu rejestracji i zmian adresu; istniejące konta działają dalej.",
+          "edit": "Edytuj",
+          "mode": "Kto może się zarejestrować",
+          "modes": {
+            "any": "Dowolny adres e-mail",
+            "allow": "Tylko te domeny",
+            "block": "Dowolny adres oprócz tych domen"
+          },
+          "modeHints": {
+            "any": "Bez ograniczeń domeny.",
+            "allow": "Dla Ostiary używanego przez jedną firmę lub szkołę: inne adresy nie mogą założyć konta.",
+            "block": "Adresy z wymienionych domen nie mogą założyć konta."
+          },
+          "allowed": "Dozwolone domeny",
+          "blocked": "Zablokowane domeny",
+          "none": "Brak",
+          "domainsHint": "Jedna w wierszu. Domena obejmuje też swoje subdomeny (acme.com obejmuje eu.acme.com).",
+          "blockDisposable": "Blokuj jednorazowe adresy e-mail",
+          "blockDisposableHint": "Odrzuca około 9000 znanych usług jednorazowej poczty, takich jak Mailinator, na podstawie listy dołączonej do Ostiary.",
+          "on": "Wł.",
+          "off": "Wył.",
+          "dialogDescription": "Administratorzy, SSO i SCIM nadal mogą tworzyć konta z dowolnym adresem. Aplikacja logowania stosuje to w ciągu minuty.",
+          "save": "Zapisz",
+          "cancel": "Anuluj",
+          "saved": "Zapisano domeny e-mail. Aplikacja logowania stosuje je w ciągu minuty.",
+          "errors": {
+            "invalid": "Wybierz jedną z oferowanych opcji.",
+            "invalidDomain": "Jeden z wpisów nie jest nazwą domeny, taką jak example.com.",
+            "noDomains": "Podaj co najmniej jedną domenę.",
+            "save": "Nie udało się zapisać domen e-mail."
+          }
         }
       },
       "signingKeys": {
@@ -3105,6 +3141,7 @@
     "impersonating": "Nie można tego zrobić, gdy administrator przegląda konto.",
     "emailNotVerified": "Najpierw zweryfikuj swój adres e-mail.",
     "invalidToken": "Ten link jest nieprawidłowy lub wygasł.",
-    "publicOrganization": "Członkami organizacji Public zarządzają wyłącznie administratorzy platformy."
+    "publicOrganization": "Członkami organizacji Public zarządzają wyłącznie administratorzy platformy.",
+    "emailDomainNotAllowed": "Nie można tu utworzyć konta z tą domeną e-mail. Użyj innego adresu."
   }
 }

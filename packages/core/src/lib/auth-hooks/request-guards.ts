@@ -11,6 +11,7 @@ import { publicOrganizationRequestRefused } from "@ostiary/core/lib/security/pub
 import { parseSsoDomain } from "@ostiary/core/lib/security/sso-domain";
 import { ssoDomainClaimed } from "@ostiary/core/lib/security/sso-domain-claims";
 import { emailAliasTaken } from "@ostiary/core/lib/security/email-aliases";
+import { assertEmailDomainAllowed } from "@ostiary/core/lib/email-domain-policy";
 import { env } from "@ostiary/core/lib/env";
 import { syncProviderScopes } from "@ostiary/core/lib/oauth-scopes";
 import { syncSigningKeys } from "@ostiary/core/lib/signing-keys";
@@ -227,6 +228,8 @@ async function guardEmailChange(ctx: Ctx) {
     // EMAIL_DEDUP: an alias of another account's address answers as Better Auth does for a
     // taken address (success, nothing sent), so the change cannot test which addresses exist.
     const newEmail = (ctx.body as { newEmail?: unknown } | undefined)?.newEmail;
+    // The email domain policy applies to a new address as to a new account.
+    if (typeof newEmail === "string") await assertEmailDomainAllowed(newEmail);
     if (current && typeof newEmail === "string" && (await emailAliasTaken(db, newEmail, env.EMAIL_DEDUP, current.user.id))) {
         return ctx.json({ status: true });
     }

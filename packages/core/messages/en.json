@@ -181,7 +181,8 @@
       "error": "Could not sign in with that account. Try again or use another method.",
       "notLinked": "That account isn't connected to a {name} account yet. Sign in another way, then connect it from your security settings.",
       "noEmail": "That account didn't share an email address. Try again later or sign in another way.",
-      "signUpDisabled": "There's no account for that address yet, and this sign-in method can't create one. Sign in another way."
+      "signUpDisabled": "There's no account for that address yet, and this sign-in method can't create one. Sign in another way.",
+      "createFailed": "Could not create an account with that sign-in. Your email address may not be allowed here: try another address or sign in another way."
     },
     "app": {
       "signIn": "Sign in to continue to <app>{name}</app>",
@@ -2025,7 +2026,8 @@
             "export_csv": "Exported audit log to CSV"
           },
           "security": {
-            "update_policy": "Changed the session and password policy"
+            "update_policy": "Changed the session and password policy",
+            "update_email_domains": "Changed the allowed email domains"
           }
         },
         "actorPlaceholder": "Search by who acted (email)…",
@@ -2103,6 +2105,40 @@
           "twoFactorGraceDays": "Time to turn it on",
           "twoFactorGraceDaysHint": "People without two-factor authentication are asked at each app sign-in and can continue until then. It starts when you turn this on, or when the account is created.",
           "noGrace": "None: required at once"
+        },
+        "emailDomains": {
+          "title": "Email domains",
+          "description": "Which email addresses can create an account. Applies to every way of signing up and to address changes; existing accounts keep working.",
+          "edit": "Edit",
+          "mode": "Who can sign up",
+          "modes": {
+            "any": "Any email address",
+            "allow": "Only these domains",
+            "block": "Any address except these domains"
+          },
+          "modeHints": {
+            "any": "No restriction on the domain.",
+            "allow": "For an Ostiary used by one company or school: other addresses can't create an account.",
+            "block": "Addresses at the listed domains can't create an account."
+          },
+          "allowed": "Allowed domains",
+          "blocked": "Blocked domains",
+          "none": "None",
+          "domainsHint": "One per line. A domain also covers its subdomains (acme.com covers eu.acme.com).",
+          "blockDisposable": "Block throwaway email addresses",
+          "blockDisposableHint": "Refuses about 9,000 known disposable-email services, such as Mailinator, from a list bundled with Ostiary.",
+          "on": "On",
+          "off": "Off",
+          "dialogDescription": "Admins, SSO and SCIM can still create accounts with any address. The auth app applies this within a minute.",
+          "save": "Save",
+          "cancel": "Cancel",
+          "saved": "Email domains saved. The auth app applies them within a minute.",
+          "errors": {
+            "invalid": "Choose one of the options offered.",
+            "invalidDomain": "One of the entries isn't a domain name, such as example.com.",
+            "noDomains": "List at least one domain.",
+            "save": "Could not save the email domains."
+          }
         }
       },
       "signingKeys": {
@@ -3105,6 +3141,7 @@
     "impersonating": "This can't be done while an administrator is viewing the account.",
     "emailNotVerified": "Verify your email address first.",
     "invalidToken": "This link is invalid or has expired.",
-    "publicOrganization": "The Public organization's members are managed by platform admins only."
+    "publicOrganization": "The Public organization's members are managed by platform admins only.",
+    "emailDomainNotAllowed": "Accounts with this email domain can't be created here. Use another address."
   }
 }

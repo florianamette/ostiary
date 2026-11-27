@@ -181,7 +181,8 @@
       "error": "Inloggen met dat account is mislukt. Probeer het opnieuw of gebruik een andere methode.",
       "notLinked": "Dat account is nog niet gekoppeld aan een {name}-account. Log op een andere manier in en koppel het daarna via je beveiligingsinstellingen.",
       "noEmail": "Dat account heeft geen e-mailadres gedeeld. Probeer het later opnieuw of meld je op een andere manier aan.",
-      "signUpDisabled": "Er is nog geen account voor dat adres en met deze aanmeldmethode kan er geen worden aangemaakt. Meld je op een andere manier aan."
+      "signUpDisabled": "Er is nog geen account voor dat adres en met deze aanmeldmethode kan er geen worden aangemaakt. Meld je op een andere manier aan.",
+      "createFailed": "Er kon geen account worden aangemaakt met deze aanmelding. Je e-mailadres is hier mogelijk niet toegestaan: probeer een ander adres of meld je op een andere manier aan."
     },
     "app": {
       "signIn": "Log in om door te gaan naar <app>{name}</app>",
@@ -2025,7 +2026,8 @@
             "export_csv": "Auditlogboek geëxporteerd naar CSV"
           },
           "security": {
-            "update_policy": "Sessie- en wachtwoordbeleid gewijzigd"
+            "update_policy": "Sessie- en wachtwoordbeleid gewijzigd",
+            "update_email_domains": "Toegestane e-maildomeinen gewijzigd"
           }
         },
         "actorPlaceholder": "Zoeken op wie het deed (e-mail)…",
@@ -2103,6 +2105,40 @@
           "twoFactorGraceDays": "Tijd om het aan te zetten",
           "twoFactorGraceDaysHint": "Wie het niet heeft, krijgt bij elke app-aanmelding de vraag en kan tot dan doorgaan. De termijn begint als je dit aanzet, of bij het aanmaken van het account.",
           "noGrace": "Geen: meteen vereist"
+        },
+        "emailDomains": {
+          "title": "E-maildomeinen",
+          "description": "Welke e-mailadressen een account kunnen aanmaken. Geldt voor elke manier van registreren en voor adreswijzigingen; bestaande accounts blijven werken.",
+          "edit": "Bewerken",
+          "mode": "Wie zich kan registreren",
+          "modes": {
+            "any": "Elk e-mailadres",
+            "allow": "Alleen deze domeinen",
+            "block": "Elk adres behalve deze domeinen"
+          },
+          "modeHints": {
+            "any": "Geen beperking op het domein.",
+            "allow": "Voor een Ostiary dat door één bedrijf of school wordt gebruikt: andere adressen kunnen geen account aanmaken.",
+            "block": "Adressen op de vermelde domeinen kunnen geen account aanmaken."
+          },
+          "allowed": "Toegestane domeinen",
+          "blocked": "Geblokkeerde domeinen",
+          "none": "Geen",
+          "domainsHint": "Eén per regel. Een domein omvat ook zijn subdomeinen (acme.com omvat eu.acme.com).",
+          "blockDisposable": "Wegwerp-e-mailadressen blokkeren",
+          "blockDisposableHint": "Weigert zo'n 9.000 bekende wegwerp-e-maildiensten, zoals Mailinator, uit een lijst die met Ostiary wordt meegeleverd.",
+          "on": "Aan",
+          "off": "Uit",
+          "dialogDescription": "Beheerders, SSO en SCIM kunnen nog steeds accounts met elk adres aanmaken. De auth-app past dit binnen een minuut toe.",
+          "save": "Opslaan",
+          "cancel": "Annuleren",
+          "saved": "E-maildomeinen opgeslagen. De auth-app past ze binnen een minuut toe.",
+          "errors": {
+            "invalid": "Kies een van de aangeboden opties.",
+            "invalidDomain": "Een van de items is geen domeinnaam, zoals example.com.",
+            "noDomains": "Geef minstens één domein op.",
+            "save": "De e-maildomeinen konden niet worden opgeslagen."
+          }
         }
       },
       "signingKeys": {
@@ -3105,6 +3141,7 @@
     "impersonating": "Dit kan niet terwijl een beheerder het account bekijkt.",
     "emailNotVerified": "Bevestig eerst je e-mailadres.",
     "invalidToken": "Deze link is ongeldig of verlopen.",
-    "publicOrganization": "De leden van de organisatie Public worden alleen door platformbeheerders beheerd."
+    "publicOrganization": "De leden van de organisatie Public worden alleen door platformbeheerders beheerd.",
+    "emailDomainNotAllowed": "Met dit e-maildomein kan hier geen account worden aangemaakt. Gebruik een ander adres."
   }
 }

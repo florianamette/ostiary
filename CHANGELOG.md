@@ -8,6 +8,14 @@ All notable changes are documented here. The format follows
 
 ### Added
 
+- Email domain policy (admin console, **Security** > **Email domains**): who can create an
+  account, by email domain. Any address (the default), only listed domains (an Ostiary for one
+  company or school), or any address except listed domains, optionally also refusing about 9,000
+  known throwaway-email services (`disposable-email-domains-js`). A domain covers its subdomains.
+  It applies to every way people create an account themselves (password, social and custom
+  providers, One Tap, emailed or texted codes) and to email changes; accounts an admin, SSO or
+  SCIM creates are not checked, and existing accounts keep working. A refused sign-up gets
+  `EMAIL_DOMAIN_NOT_ALLOWED`, translated on the sign-up page.
 - Sign-in with a code sent by text message (Better Auth's `phone-number` plugin), through
   Twilio: set `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN` and `TWILIO_FROM`. People add and
   verify a phone number on their account page (a recent sign-in, like adding a passkey), then
