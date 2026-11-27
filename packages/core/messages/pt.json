@@ -1933,7 +1933,8 @@
             "import": "Importou usuários",
             "remove_phone_number": "Removeu o seu número de telefone",
             "new_device_sign_in": "Iniciou sessão num novo dispositivo",
-            "secure_account": "Protegeu a sua conta (Não fui eu)"
+            "secure_account": "Protegeu a sua conta (Não fui eu)",
+            "password_breached": "Palavra-passe encontrada numa fuga de dados"
           },
           "oauth_client": {
             "create": "Registrou cliente OAuth",
@@ -2861,7 +2862,8 @@
         "passkey_removed": "Chave de acesso removida",
         "session_revoked": "Uma sessão terminada",
         "sessions_revoked": "Sessão terminada nas outras sessões",
-        "account_secured": "Sessão terminada em todo o lado (Não fui eu)"
+        "account_secured": "Sessão terminada em todo o lado (Não fui eu)",
+        "password_breached": "Palavra-passe encontrada numa fuga de dados"
       }
     }
   },
@@ -3207,5 +3209,13 @@
       "invalid": "Este link expirou ou já foi usado. Por segurança, reponha a palavra-passe a partir da página de início de sessão.",
       "failed": "Algo correu mal. Tente novamente."
     }
+  },
+  "breachedPassword": {
+    "title": "Altere a sua palavra-passe",
+    "description": "A palavra-passe com que acabou de iniciar sessão aparece numa fuga de dados pública, por isso outras pessoas podem conhecê-la. Escolha uma nova para continuar. As suas outras sessões serão terminadas.",
+    "doneTitle": "Palavra-passe alterada",
+    "doneBody": "A nova palavra-passe está definida e as suas outras sessões foram terminadas.",
+    "continue": "Continuar",
+    "toAccount": "Ir para a sua conta"
   }
 }

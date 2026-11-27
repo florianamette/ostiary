@@ -5,6 +5,7 @@ import { getFormatter, getTranslations } from "next-intl/server";
 import { Button } from "@ostiary/core/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@ostiary/core/components/ui/card";
 import { currentAuthPolicy } from "@ostiary/core/lib/auth-policy";
+import { passwordBreachPending } from "@ostiary/core/lib/security/password-breach";
 import { TWO_FACTOR_PROMPT_PATH, twoFactorRequirement } from "@ostiary/core/lib/two-factor-policy";
 
 import { AuthScreen } from "@/components/auth/auth-screen";
@@ -35,6 +36,8 @@ export default async function Page({
   }
   const session = await auth.api.getSession({ headers: await headers() });
   if (!session) redirect(`/${locale}/login`);
+  // A password found in a breach is changed first; that page resumes the sign-in afterwards.
+  if (await passwordBreachPending(session.user.id)) redirect(`/${locale}/change-password?${query.toString()}`);
   const t = await getTranslations({ locale, namespace: "auth.twoFactorRequired" });
   const requirement = await twoFactorRequirement(session.user, await currentAuthPolicy());
 

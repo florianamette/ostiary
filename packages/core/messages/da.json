@@ -1933,7 +1933,8 @@
             "import": "Importerede brugere",
             "remove_phone_number": "Fjernede sit telefonnummer",
             "new_device_sign_in": "Loggede ind fra en ny enhed",
-            "secure_account": "Beskyttede sin konto (Det var ikke mig)"
+            "secure_account": "Beskyttede sin konto (Det var ikke mig)",
+            "password_breached": "Adgangskode fundet i et datalæk"
           },
           "oauth_client": {
             "create": "Registrerede OAuth-klient",
@@ -2861,7 +2862,8 @@
         "passkey_removed": "Adgangsnøgle fjernet",
         "session_revoked": "En session logget ud",
         "sessions_revoked": "Logget ud af andre sessioner",
-        "account_secured": "Logget ud overalt (Det var ikke mig)"
+        "account_secured": "Logget ud overalt (Det var ikke mig)",
+        "password_breached": "Adgangskode fundet i et datalæk"
       }
     }
   },
@@ -3207,5 +3209,13 @@
       "invalid": "Linket er udløbet eller allerede brugt. Nulstil for en sikkerheds skyld din adgangskode fra loginsiden.",
       "failed": "Noget gik galt. Prøv igen."
     }
+  },
+  "breachedPassword": {
+    "title": "Skift din adgangskode",
+    "description": "Den adgangskode, du lige loggede ind med, findes i et offentligt datalæk, så andre kan kende den. Vælg en ny for at fortsætte. Dine andre sessioner bliver logget ud.",
+    "doneTitle": "Adgangskoden er ændret",
+    "doneBody": "Din nye adgangskode er gemt, og dine andre sessioner er logget ud.",
+    "continue": "Fortsæt",
+    "toAccount": "Gå til din konto"
   }
 }

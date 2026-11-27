@@ -4,3 +4,5 @@ process.env.BETTER_AUTH_SECRET ??=
 process.env.BETTER_AUTH_URL ??= "http://localhost:3000";
 process.env.NEXT_PUBLIC_APP_URL ??= "http://localhost:3000";
 process.env.OAUTH_API_SCOPES ??= "orders:write";
+// Unit tests never call Have I Been Pwned; password-breach.test.ts turns it on with a fake lookup.
+process.env.PASSWORD_BREACH_CHECK ??= "off";

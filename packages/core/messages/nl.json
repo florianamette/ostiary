@@ -1933,7 +1933,8 @@
             "import": "Gebruikers geïmporteerd",
             "remove_phone_number": "Heeft het telefoonnummer verwijderd",
             "new_device_sign_in": "Aangemeld vanaf een nieuw apparaat",
-            "secure_account": "Heeft het account beveiligd (Dit was ik niet)"
+            "secure_account": "Heeft het account beveiligd (Dit was ik niet)",
+            "password_breached": "Wachtwoord gevonden in een datalek"
           },
           "oauth_client": {
             "create": "OAuth-client geregistreerd",
@@ -2861,7 +2862,8 @@
         "passkey_removed": "Passkey verwijderd",
         "session_revoked": "Een sessie afgemeld",
         "sessions_revoked": "Afgemeld bij andere sessies",
-        "account_secured": "Overal afgemeld (Dit was ik niet)"
+        "account_secured": "Overal afgemeld (Dit was ik niet)",
+        "password_breached": "Wachtwoord gevonden in een datalek"
       }
     }
   },
@@ -3207,5 +3209,13 @@
       "invalid": "Deze link is verlopen of al gebruikt. Herstel voor de zekerheid je wachtwoord via de aanmeldpagina.",
       "failed": "Er ging iets mis. Probeer het opnieuw."
     }
+  },
+  "breachedPassword": {
+    "title": "Wijzig je wachtwoord",
+    "description": "Het wachtwoord waarmee je net hebt aangemeld staat in een openbaar datalek, dus anderen kunnen het kennen. Kies een nieuw wachtwoord om verder te gaan. Je andere sessies worden afgemeld.",
+    "doneTitle": "Wachtwoord gewijzigd",
+    "doneBody": "Je nieuwe wachtwoord is ingesteld en je andere sessies zijn afgemeld.",
+    "continue": "Doorgaan",
+    "toAccount": "Naar je account"
   }
 }

@@ -1933,7 +1933,8 @@
             "import": "Utenti importati",
             "remove_phone_number": "Ha rimosso il proprio numero di telefono",
             "new_device_sign_in": "Accesso da un nuovo dispositivo",
-            "secure_account": "Ha protetto il proprio account (Non sono stato io)"
+            "secure_account": "Ha protetto il proprio account (Non sono stato io)",
+            "password_breached": "Password trovata in una violazione"
           },
           "oauth_client": {
             "create": "Client OAuth registrato",
@@ -2861,7 +2862,8 @@
         "passkey_removed": "Passkey rimossa",
         "session_revoked": "Una sessione disconnessa",
         "sessions_revoked": "Disconnesso dalle altre sessioni",
-        "account_secured": "Disconnesso ovunque (Non sono stato io)"
+        "account_secured": "Disconnesso ovunque (Non sono stato io)",
+        "password_breached": "Password trovata in una violazione"
       }
     }
   },
@@ -3207,5 +3209,13 @@
       "invalid": "Questo link è scaduto o è già stato usato. Per sicurezza, reimposta la password dalla pagina di accesso.",
       "failed": "Qualcosa è andato storto. Riprova."
     }
+  },
+  "breachedPassword": {
+    "title": "Cambia la password",
+    "description": "La password con cui hai appena effettuato l’accesso compare in una violazione di dati pubblica, quindi altri potrebbero conoscerla. Scegline una nuova per continuare. Le altre sessioni verranno disconnesse.",
+    "doneTitle": "Password modificata",
+    "doneBody": "La nuova password è impostata e le altre sessioni sono state disconnesse.",
+    "continue": "Continua",
+    "toAccount": "Vai al tuo account"
   }
 }

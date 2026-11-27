@@ -1933,7 +1933,8 @@
             "import": "Kullanıcıları içe aktardı",
             "remove_phone_number": "Telefon numarasını kaldırdı",
             "new_device_sign_in": "Yeni bir cihazdan oturum açtı",
-            "secure_account": "Hesabını güvenceye aldı (Bu ben değildim)"
+            "secure_account": "Hesabını güvenceye aldı (Bu ben değildim)",
+            "password_breached": "Parola bir veri sızıntısında bulundu"
           },
           "oauth_client": {
             "create": "OAuth istemcisi kaydetti",
@@ -2861,7 +2862,8 @@
         "passkey_removed": "Geçiş anahtarı kaldırıldı",
         "session_revoked": "Bir oturum kapatıldı",
         "sessions_revoked": "Diğer oturumlar kapatıldı",
-        "account_secured": "Her yerde oturum kapatıldı (Bu ben değildim)"
+        "account_secured": "Her yerde oturum kapatıldı (Bu ben değildim)",
+        "password_breached": "Parola bir veri sızıntısında bulundu"
       }
     }
   },
@@ -3207,5 +3209,13 @@
       "invalid": "Bu bağlantının süresi dolmuş veya zaten kullanılmış. Güvenlik için parolanızı oturum açma sayfasından sıfırlayın.",
       "failed": "Bir şeyler ters gitti. Tekrar deneyin."
     }
+  },
+  "breachedPassword": {
+    "title": "Parolanızı değiştirin",
+    "description": "Az önce oturum açtığınız parola herkese açık bir veri sızıntısında yer alıyor, yani başkaları da biliyor olabilir. Devam etmek için yeni bir parola seçin. Diğer oturumlarınız kapatılacak.",
+    "doneTitle": "Parola değiştirildi",
+    "doneBody": "Yeni parolanız ayarlandı ve diğer oturumlarınız kapatıldı.",
+    "continue": "Devam et",
+    "toAccount": "Hesabınıza gidin"
   }
 }

@@ -1933,7 +1933,8 @@
             "import": "Utilisateurs importés",
             "remove_phone_number": "A supprimé son numéro de téléphone",
             "new_device_sign_in": "Connexion depuis un nouvel appareil",
-            "secure_account": "A sécurisé son compte (Ce n’était pas moi)"
+            "secure_account": "A sécurisé son compte (Ce n’était pas moi)",
+            "password_breached": "Mot de passe trouvé dans une fuite"
           },
           "oauth_client": {
             "create": "Client OAuth enregistré",
@@ -2861,7 +2862,8 @@
         "passkey_removed": "Clé d’accès supprimée",
         "session_revoked": "Une session déconnectée",
         "sessions_revoked": "Déconnexion des autres sessions",
-        "account_secured": "Déconnexion partout (Ce n’était pas moi)"
+        "account_secured": "Déconnexion partout (Ce n’était pas moi)",
+        "password_breached": "Mot de passe trouvé dans une fuite"
       }
     }
   },
@@ -3207,5 +3209,13 @@
       "invalid": "Ce lien a expiré ou a déjà été utilisé. Par précaution, réinitialisez votre mot de passe depuis la page de connexion.",
       "failed": "Une erreur s’est produite. Réessayez."
     }
+  },
+  "breachedPassword": {
+    "title": "Changez votre mot de passe",
+    "description": "Le mot de passe avec lequel vous venez de vous connecter figure dans une fuite de données publique : d’autres peuvent le connaître. Choisissez-en un nouveau pour continuer. Vos autres sessions seront déconnectées.",
+    "doneTitle": "Mot de passe modifié",
+    "doneBody": "Votre nouveau mot de passe est enregistré et vos autres sessions ont été déconnectées.",
+    "continue": "Continuer",
+    "toAccount": "Aller à votre compte"
   }
 }

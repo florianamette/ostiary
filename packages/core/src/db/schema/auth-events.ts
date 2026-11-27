@@ -79,3 +79,15 @@ export const accountEvent = pgTable(
     index("account_event_created_at_idx").on(table.createdAt),
   ],
 );
+
+/**
+ * Accounts whose password turned up in a breach (Have I Been Pwned) when they signed in with it,
+ * lib/security/password-breach.ts. Until the password changes, app sign-ins and the account page
+ * stop at a "Change your password" step. Deleted by any password change or reset.
+ */
+export const passwordBreach = pgTable("password_breach", {
+  userId: text("user_id")
+    .primaryKey()
+    .references(() => user.id, { onDelete: "cascade" }),
+  detectedAt: timestamp("detected_at", { withTimezone: true }).defaultNow().notNull(),
+});
