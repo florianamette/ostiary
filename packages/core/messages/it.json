@@ -181,7 +181,8 @@
       "error": "Impossibile accedere con questo account. Riprova o usa un altro metodo.",
       "notLinked": "Questo account non è ancora collegato a un account {name}. Accedi in un altro modo, poi collegalo dalle impostazioni di sicurezza.",
       "noEmail": "Quell'account non ha condiviso un indirizzo email. Riprova più tardi o accedi in un altro modo.",
-      "signUpDisabled": "Non esiste ancora un account per questo indirizzo e questo metodo di accesso non può crearne uno. Accedi in un altro modo."
+      "signUpDisabled": "Non esiste ancora un account per questo indirizzo e questo metodo di accesso non può crearne uno. Accedi in un altro modo.",
+      "createFailed": "Impossibile creare un account con questo accesso. Il tuo indirizzo email potrebbe non essere consentito qui: prova un altro indirizzo o accedi in un altro modo."
     },
     "app": {
       "signIn": "Accedi per continuare su <app>{name}</app>",
@@ -2025,7 +2026,8 @@
             "export_csv": "Registro di audit esportato in CSV"
           },
           "security": {
-            "update_policy": "Criterio di sessioni e password modificato"
+            "update_policy": "Criterio di sessioni e password modificato",
+            "update_email_domains": "Domini email consentiti modificati"
           }
         },
         "actorPlaceholder": "Cerca per autore (email)…",
@@ -2103,6 +2105,40 @@
           "twoFactorGraceDays": "Tempo per attivarla",
           "twoFactorGraceDaysHint": "Chi non ha i due fattori riceve la richiesta a ogni accesso a un'app e può continuare fino ad allora. Il periodo parte quando attivi questa opzione, o dalla creazione dell'account.",
           "noGrace": "Nessuno: richiesta subito"
+        },
+        "emailDomains": {
+          "title": "Domini email",
+          "description": "Quali indirizzi email possono creare un account. Vale per ogni modalità di registrazione e per i cambi di indirizzo; gli account esistenti continuano a funzionare.",
+          "edit": "Modifica",
+          "mode": "Chi può registrarsi",
+          "modes": {
+            "any": "Qualsiasi indirizzo email",
+            "allow": "Solo questi domini",
+            "block": "Qualsiasi indirizzo tranne questi domini"
+          },
+          "modeHints": {
+            "any": "Nessuna restrizione sul dominio.",
+            "allow": "Per un Ostiary usato da una sola azienda o scuola: gli altri indirizzi non possono creare un account.",
+            "block": "Gli indirizzi dei domini elencati non possono creare un account."
+          },
+          "allowed": "Domini consentiti",
+          "blocked": "Domini bloccati",
+          "none": "Nessuno",
+          "domainsHint": "Uno per riga. Un dominio include anche i suoi sottodomini (acme.com include eu.acme.com).",
+          "blockDisposable": "Blocca gli indirizzi email usa e getta",
+          "blockDisposableHint": "Rifiuta circa 9.000 servizi di email usa e getta noti, come Mailinator, da un elenco incluso in Ostiary.",
+          "on": "Attivo",
+          "off": "Disattivo",
+          "dialogDescription": "Admin, SSO e SCIM possono comunque creare account con qualsiasi indirizzo. L'app di autenticazione lo applica entro un minuto.",
+          "save": "Salva",
+          "cancel": "Annulla",
+          "saved": "Domini email salvati. L'app di autenticazione li applica entro un minuto.",
+          "errors": {
+            "invalid": "Scegli una delle opzioni proposte.",
+            "invalidDomain": "Una delle voci non è un nome di dominio, come example.com.",
+            "noDomains": "Indica almeno un dominio.",
+            "save": "Impossibile salvare i domini email."
+          }
         }
       },
       "signingKeys": {
@@ -3105,6 +3141,7 @@
     "impersonating": "Non è possibile mentre un amministratore sta visualizzando l'account.",
     "emailNotVerified": "Verifica prima il tuo indirizzo email.",
     "invalidToken": "Questo link non è valido o è scaduto.",
-    "publicOrganization": "I membri dell'organizzazione Public sono gestiti solo dagli amministratori della piattaforma."
+    "publicOrganization": "I membri dell'organizzazione Public sono gestiti solo dagli amministratori della piattaforma.",
+    "emailDomainNotAllowed": "Qui non è possibile creare account con questo dominio email. Usa un altro indirizzo."
   }
 }

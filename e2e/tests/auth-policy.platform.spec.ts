@@ -14,7 +14,7 @@ test("the session and password policy applies to sign-up, passwords and new sess
   const user = await createUser(api, "policy");
   try {
     await adminPage.goto("/en/security");
-    await adminPage.getByRole("button", { name: "Edit" }).click();
+    await adminPage.locator('[data-slot="card"]').filter({ hasText: "Sessions and passwords" }).getByRole("button", { name: "Edit" }).click();
     const dialog = adminPage.getByRole("dialog");
     await dialog.getByRole("combobox", { name: "Session lifetime" }).click();
     await adminPage.getByRole("option", { name: "1 day", exact: true }).click();

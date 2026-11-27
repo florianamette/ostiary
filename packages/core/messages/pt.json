@@ -181,7 +181,8 @@
       "error": "Não foi possível entrar com essa conta. Tente novamente ou use outro método.",
       "notLinked": "Essa conta ainda não está conectada a uma conta {name}. Entre de outra forma e depois conecte-a nas suas configurações de segurança.",
       "noEmail": "Essa conta não partilhou um endereço de email. Tente mais tarde ou entre de outra forma.",
-      "signUpDisabled": "Ainda não existe uma conta para esse endereço e este método de início de sessão não pode criá-la. Inicie sessão de outra forma."
+      "signUpDisabled": "Ainda não existe uma conta para esse endereço e este método de início de sessão não pode criá-la. Inicie sessão de outra forma.",
+      "createFailed": "Não foi possível criar uma conta com esse início de sessão. O seu endereço de e-mail pode não ser permitido aqui: tente outro endereço ou entre de outra forma."
     },
     "app": {
       "signIn": "Inicie sessão para continuar para <app>{name}</app>",
@@ -2025,7 +2026,8 @@
             "export_csv": "Exportou o log de auditoria para CSV"
           },
           "security": {
-            "update_policy": "Alterou a política de sessões e palavras-passe"
+            "update_policy": "Alterou a política de sessões e palavras-passe",
+            "update_email_domains": "Alterou os domínios de e-mail permitidos"
           }
         },
         "actorPlaceholder": "Pesquisar por quem agiu (e-mail)…",
@@ -2103,6 +2105,40 @@
           "twoFactorGraceDays": "Prazo para a ativar",
           "twoFactorGraceDaysHint": "Quem não a tem é avisado em cada início de sessão numa aplicação e pode continuar até lá. O prazo começa quando ativa isto, ou na criação da conta.",
           "noGrace": "Nenhum: obrigatória de imediato"
+        },
+        "emailDomains": {
+          "title": "Domínios de e-mail",
+          "description": "Quais endereços de e-mail podem criar uma conta. Aplica-se a todas as formas de registo e às alterações de endereço; as contas existentes continuam a funcionar.",
+          "edit": "Editar",
+          "mode": "Quem pode registar-se",
+          "modes": {
+            "any": "Qualquer endereço de e-mail",
+            "allow": "Apenas estes domínios",
+            "block": "Qualquer endereço exceto estes domínios"
+          },
+          "modeHints": {
+            "any": "Sem restrição de domínio.",
+            "allow": "Para um Ostiary usado por uma única empresa ou escola: os outros endereços não podem criar conta.",
+            "block": "Os endereços dos domínios indicados não podem criar conta."
+          },
+          "allowed": "Domínios permitidos",
+          "blocked": "Domínios bloqueados",
+          "none": "Nenhum",
+          "domainsHint": "Um por linha. Um domínio inclui também os seus subdomínios (acme.com inclui eu.acme.com).",
+          "blockDisposable": "Bloquear endereços de e-mail descartáveis",
+          "blockDisposableHint": "Recusa cerca de 9000 serviços de e-mail descartável conhecidos, como o Mailinator, a partir de uma lista incluída no Ostiary.",
+          "on": "Ativado",
+          "off": "Desativado",
+          "dialogDescription": "Admins, SSO e SCIM continuam a poder criar contas com qualquer endereço. A app de autenticação aplica isto em menos de um minuto.",
+          "save": "Guardar",
+          "cancel": "Cancelar",
+          "saved": "Domínios de e-mail guardados. A app de autenticação aplica-os em menos de um minuto.",
+          "errors": {
+            "invalid": "Escolha uma das opções apresentadas.",
+            "invalidDomain": "Uma das entradas não é um nome de domínio, como example.com.",
+            "noDomains": "Indique pelo menos um domínio.",
+            "save": "Não foi possível guardar os domínios de e-mail."
+          }
         }
       },
       "signingKeys": {
@@ -3105,6 +3141,7 @@
     "impersonating": "Não é possível enquanto um administrador está a ver a conta.",
     "emailNotVerified": "Verifique primeiro o seu endereço de e-mail.",
     "invalidToken": "Este link é inválido ou expirou.",
-    "publicOrganization": "Os membros da organização Public são geridos apenas pelos administradores da plataforma."
+    "publicOrganization": "Os membros da organização Public são geridos apenas pelos administradores da plataforma.",
+    "emailDomainNotAllowed": "Não é possível criar contas com este domínio de e-mail aqui. Use outro endereço."
   }
 }

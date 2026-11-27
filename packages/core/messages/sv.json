@@ -181,7 +181,8 @@
       "error": "Det gick inte att logga in med det kontot. Försök igen eller använd en annan metod.",
       "notLinked": "Det kontot är inte anslutet till något {name}-konto än. Logga in på ett annat sätt och anslut det sedan från dina säkerhetsinställningar.",
       "noEmail": "Kontot delade ingen e-postadress. Försök igen senare eller logga in på ett annat sätt.",
-      "signUpDisabled": "Det finns inget konto för den adressen än, och den här inloggningsmetoden kan inte skapa ett. Logga in på ett annat sätt."
+      "signUpDisabled": "Det finns inget konto för den adressen än, och den här inloggningsmetoden kan inte skapa ett. Logga in på ett annat sätt.",
+      "createFailed": "Det gick inte att skapa ett konto med den inloggningen. Din e-postadress kanske inte är tillåten här: prova en annan adress eller logga in på ett annat sätt."
     },
     "app": {
       "signIn": "Logga in för att fortsätta till <app>{name}</app>",
@@ -2025,7 +2026,8 @@
             "export_csv": "Exporterade granskningsloggen till CSV"
           },
           "security": {
-            "update_policy": "Ändrade policyn för sessioner och lösenord"
+            "update_policy": "Ändrade policyn för sessioner och lösenord",
+            "update_email_domains": "Ändrade tillåtna e-postdomäner"
           }
         },
         "actorPlaceholder": "Sök på vem som agerade (e-post)…",
@@ -2103,6 +2105,40 @@
           "twoFactorGraceDays": "Tid att aktivera den",
           "twoFactorGraceDaysHint": "Den som saknar tvåfaktor tillfrågas vid varje appinloggning och kan fortsätta tills dess. Tiden börjar när du aktiverar detta, eller när kontot skapas.",
           "noGrace": "Ingen: krävs direkt"
+        },
+        "emailDomains": {
+          "title": "E-postdomäner",
+          "description": "Vilka e-postadresser som kan skapa ett konto. Gäller alla sätt att registrera sig och adressbyten; befintliga konton fortsätter att fungera.",
+          "edit": "Redigera",
+          "mode": "Vem som kan registrera sig",
+          "modes": {
+            "any": "Alla e-postadresser",
+            "allow": "Endast dessa domäner",
+            "block": "Alla adresser utom dessa domäner"
+          },
+          "modeHints": {
+            "any": "Ingen begränsning av domänen.",
+            "allow": "För ett Ostiary som används av ett företag eller en skola: andra adresser kan inte skapa konto.",
+            "block": "Adresser på de angivna domänerna kan inte skapa konto."
+          },
+          "allowed": "Tillåtna domäner",
+          "blocked": "Blockerade domäner",
+          "none": "Inga",
+          "domainsHint": "En per rad. En domän omfattar även sina underdomäner (acme.com omfattar eu.acme.com).",
+          "blockDisposable": "Blockera engångsadresser",
+          "blockDisposableHint": "Nekar cirka 9 000 kända tjänster för engångs-e-post, som Mailinator, från en lista som följer med Ostiary.",
+          "on": "På",
+          "off": "Av",
+          "dialogDescription": "Administratörer, SSO och SCIM kan fortfarande skapa konton med vilken adress som helst. Auth-appen tillämpar detta inom en minut.",
+          "save": "Spara",
+          "cancel": "Avbryt",
+          "saved": "E-postdomänerna har sparats. Auth-appen tillämpar dem inom en minut.",
+          "errors": {
+            "invalid": "Välj ett av de erbjudna alternativen.",
+            "invalidDomain": "En av posterna är inte ett domännamn, som example.com.",
+            "noDomains": "Ange minst en domän.",
+            "save": "Det gick inte att spara e-postdomänerna."
+          }
         }
       },
       "signingKeys": {
@@ -3105,6 +3141,7 @@
     "impersonating": "Det går inte medan en administratör visar kontot.",
     "emailNotVerified": "Verifiera din e-postadress först.",
     "invalidToken": "Länken är ogiltig eller har gått ut.",
-    "publicOrganization": "Medlemmarna i organisationen Public hanteras bara av plattformens administratörer."
+    "publicOrganization": "Medlemmarna i organisationen Public hanteras bara av plattformens administratörer.",
+    "emailDomainNotAllowed": "Konton med den här e-postdomänen kan inte skapas här. Använd en annan adress."
   }
 }

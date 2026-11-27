@@ -181,7 +181,8 @@
       "error": "No se pudo iniciar sesión con esa cuenta. Inténtalo de nuevo o usa otro método.",
       "notLinked": "Esa cuenta aún no está conectada a una cuenta de {name}. Inicia sesión de otra forma y conéctala desde tu configuración de seguridad.",
       "noEmail": "Esa cuenta no compartió una dirección de correo. Inténtalo más tarde o inicia sesión de otra forma.",
-      "signUpDisabled": "Todavía no hay ninguna cuenta para esa dirección y este método de inicio de sesión no puede crearla. Inicia sesión de otra forma."
+      "signUpDisabled": "Todavía no hay ninguna cuenta para esa dirección y este método de inicio de sesión no puede crearla. Inicia sesión de otra forma.",
+      "createFailed": "No se pudo crear una cuenta con ese inicio de sesión. Es posible que tu dirección de correo no esté permitida aquí: prueba con otra dirección o inicia sesión de otra forma."
     },
     "app": {
       "signIn": "Inicia sesión para continuar en <app>{name}</app>",
@@ -2025,7 +2026,8 @@
             "export_csv": "Exportó el registro de auditoría a CSV"
           },
           "security": {
-            "update_policy": "Cambió la política de sesiones y contraseñas"
+            "update_policy": "Cambió la política de sesiones y contraseñas",
+            "update_email_domains": "Cambió los dominios de correo permitidos"
           }
         },
         "actorPlaceholder": "Buscar por quién actuó (correo)…",
@@ -2103,6 +2105,40 @@
           "twoFactorGraceDays": "Plazo para activarla",
           "twoFactorGraceDaysHint": "A quien no la tenga se le pide en cada inicio de sesión en una aplicación y puede continuar hasta entonces. Empieza cuando activas esto, o al crear la cuenta.",
           "noGrace": "Ninguno: obligatoria de inmediato"
+        },
+        "emailDomains": {
+          "title": "Dominios de correo",
+          "description": "Qué direcciones de correo pueden crear una cuenta. Se aplica a todas las formas de registro y a los cambios de dirección; las cuentas existentes siguen funcionando.",
+          "edit": "Editar",
+          "mode": "Quién puede registrarse",
+          "modes": {
+            "any": "Cualquier dirección de correo",
+            "allow": "Solo estos dominios",
+            "block": "Cualquier dirección excepto estos dominios"
+          },
+          "modeHints": {
+            "any": "Sin restricción de dominio.",
+            "allow": "Para un Ostiary usado por una sola empresa o escuela: las demás direcciones no pueden crear una cuenta.",
+            "block": "Las direcciones de los dominios indicados no pueden crear una cuenta."
+          },
+          "allowed": "Dominios permitidos",
+          "blocked": "Dominios bloqueados",
+          "none": "Ninguno",
+          "domainsHint": "Uno por línea. Un dominio también abarca sus subdominios (acme.com abarca eu.acme.com).",
+          "blockDisposable": "Bloquear direcciones de correo desechables",
+          "blockDisposableHint": "Rechaza unos 9000 servicios de correo desechable conocidos, como Mailinator, según una lista incluida con Ostiary.",
+          "on": "Activado",
+          "off": "Desactivado",
+          "dialogDescription": "Los administradores, el SSO y SCIM pueden seguir creando cuentas con cualquier dirección. La app de autenticación lo aplica en menos de un minuto.",
+          "save": "Guardar",
+          "cancel": "Cancelar",
+          "saved": "Dominios de correo guardados. La app de autenticación los aplica en menos de un minuto.",
+          "errors": {
+            "invalid": "Elige una de las opciones ofrecidas.",
+            "invalidDomain": "Una de las entradas no es un nombre de dominio, como example.com.",
+            "noDomains": "Indica al menos un dominio.",
+            "save": "No se pudieron guardar los dominios de correo."
+          }
         }
       },
       "signingKeys": {
@@ -3105,6 +3141,7 @@
     "impersonating": "No se puede hacer mientras un administrador está viendo la cuenta.",
     "emailNotVerified": "Verifica primero tu dirección de correo.",
     "invalidToken": "Este enlace no es válido o ha caducado.",
-    "publicOrganization": "Los miembros de la organización Public solo los gestionan los administradores de la plataforma."
+    "publicOrganization": "Los miembros de la organización Public solo los gestionan los administradores de la plataforma.",
+    "emailDomainNotAllowed": "No se pueden crear cuentas con este dominio de correo aquí. Usa otra dirección."
   }
 }

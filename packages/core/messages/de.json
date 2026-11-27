@@ -181,7 +181,8 @@
       "error": "Anmeldung mit diesem Konto fehlgeschlagen. Versuchen Sie es erneut oder wählen Sie eine andere Methode.",
       "notLinked": "Dieses Konto ist noch nicht mit einem {name}-Konto verbunden. Melden Sie sich auf andere Weise an und verbinden Sie es dann in Ihren Sicherheitseinstellungen.",
       "noEmail": "Dieses Konto hat keine E-Mail-Adresse übermittelt. Versuche es später erneut oder melde dich anders an.",
-      "signUpDisabled": "Für diese Adresse gibt es noch kein Konto, und mit dieser Anmeldemethode kann keines erstellt werden. Melde dich auf andere Weise an."
+      "signUpDisabled": "Für diese Adresse gibt es noch kein Konto, und mit dieser Anmeldemethode kann keines erstellt werden. Melde dich auf andere Weise an.",
+      "createFailed": "Mit dieser Anmeldung konnte kein Konto erstellt werden. Deine E-Mail-Adresse ist hier möglicherweise nicht erlaubt: Versuche eine andere Adresse oder melde dich anders an."
     },
     "app": {
       "signIn": "Melden Sie sich an, um zu <app>{name}</app> fortzufahren",
@@ -2025,7 +2026,8 @@
             "export_csv": "Audit-Log als CSV exportiert"
           },
           "security": {
-            "update_policy": "Sitzungs- und Passwortrichtlinie geändert"
+            "update_policy": "Sitzungs- und Passwortrichtlinie geändert",
+            "update_email_domains": "Erlaubte E-Mail-Domains geändert"
           }
         },
         "actorPlaceholder": "Nach Ausführendem suchen (E-Mail)…",
@@ -2103,6 +2105,40 @@
           "twoFactorGraceDays": "Frist zum Einschalten",
           "twoFactorGraceDaysHint": "Wer keine zwei Faktoren hat, wird bei jeder App-Anmeldung gefragt und kann bis dahin weitermachen. Die Frist beginnt mit dem Einschalten oder mit der Kontoerstellung.",
           "noGrace": "Keine: sofort erforderlich"
+        },
+        "emailDomains": {
+          "title": "E-Mail-Domains",
+          "description": "Welche E-Mail-Adressen ein Konto erstellen können. Gilt für jede Art der Registrierung und für Adressänderungen; bestehende Konten funktionieren weiter.",
+          "edit": "Bearbeiten",
+          "mode": "Wer sich registrieren kann",
+          "modes": {
+            "any": "Jede E-Mail-Adresse",
+            "allow": "Nur diese Domains",
+            "block": "Jede Adresse außer diesen Domains"
+          },
+          "modeHints": {
+            "any": "Keine Einschränkung der Domain.",
+            "allow": "Für ein Ostiary, das von einem Unternehmen oder einer Schule genutzt wird: Andere Adressen können kein Konto erstellen.",
+            "block": "Adressen der aufgeführten Domains können kein Konto erstellen."
+          },
+          "allowed": "Erlaubte Domains",
+          "blocked": "Gesperrte Domains",
+          "none": "Keine",
+          "domainsHint": "Eine pro Zeile. Eine Domain umfasst auch ihre Subdomains (acme.com umfasst eu.acme.com).",
+          "blockDisposable": "Wegwerf-E-Mail-Adressen sperren",
+          "blockDisposableHint": "Lehnt rund 9.000 bekannte Wegwerf-E-Mail-Dienste wie Mailinator ab, aus einer mit Ostiary gelieferten Liste.",
+          "on": "An",
+          "off": "Aus",
+          "dialogDescription": "Admins, SSO und SCIM können weiterhin Konten mit jeder Adresse erstellen. Die Auth-App übernimmt dies innerhalb einer Minute.",
+          "save": "Speichern",
+          "cancel": "Abbrechen",
+          "saved": "E-Mail-Domains gespeichert. Die Auth-App übernimmt sie innerhalb einer Minute.",
+          "errors": {
+            "invalid": "Wähle eine der angebotenen Optionen.",
+            "invalidDomain": "Einer der Einträge ist kein Domainname wie example.com.",
+            "noDomains": "Gib mindestens eine Domain an.",
+            "save": "Die E-Mail-Domains konnten nicht gespeichert werden."
+          }
         }
       },
       "signingKeys": {
@@ -3105,6 +3141,7 @@
     "impersonating": "Das ist nicht möglich, während ein Administrator das Konto ansieht.",
     "emailNotVerified": "Bestätige zuerst deine E-Mail-Adresse.",
     "invalidToken": "Dieser Link ist ungültig oder abgelaufen.",
-    "publicOrganization": "Die Mitglieder der Organisation Public werden nur von Plattform-Administratoren verwaltet."
+    "publicOrganization": "Die Mitglieder der Organisation Public werden nur von Plattform-Administratoren verwaltet.",
+    "emailDomainNotAllowed": "Mit dieser E-Mail-Domain kann hier kein Konto erstellt werden. Verwende eine andere Adresse."
   }
 }

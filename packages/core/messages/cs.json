@@ -181,7 +181,8 @@
       "error": "Tímto účtem se nepodařilo přihlásit. Zkuste to znovu nebo použijte jiný způsob.",
       "notLinked": "Tento účet zatím není propojen s účtem {name}. Přihlaste se jinak a pak ho propojte v nastavení zabezpečení.",
       "noEmail": "Tento účet nesdílel e-mailovou adresu. Zkuste to později nebo se přihlaste jinak.",
-      "signUpDisabled": "Pro tuto adresu zatím neexistuje účet a tímto způsobem přihlášení ho nelze vytvořit. Přihlaste se jinak."
+      "signUpDisabled": "Pro tuto adresu zatím neexistuje účet a tímto způsobem přihlášení ho nelze vytvořit. Přihlaste se jinak.",
+      "createFailed": "S tímto přihlášením se nepodařilo vytvořit účet. Vaše e-mailová adresa zde možná není povolena: zkuste jinou adresu nebo se přihlaste jinak."
     },
     "app": {
       "signIn": "Přihlaste se a pokračujte do <app>{name}</app>",
@@ -2025,7 +2026,8 @@
             "export_csv": "Export auditního protokolu do CSV"
           },
           "security": {
-            "update_policy": "Změněny zásady relací a hesel"
+            "update_policy": "Změněny zásady relací a hesel",
+            "update_email_domains": "Změněny povolené e-mailové domény"
           }
         },
         "actorPlaceholder": "Hledat podle toho, kdo akci provedl (e-mail)…",
@@ -2103,6 +2105,40 @@
           "twoFactorGraceDays": "Lhůta na zapnutí",
           "twoFactorGraceDaysHint": "Kdo dvoufázové ověření nemá, dostane výzvu při každém přihlášení do aplikace a může do té doby pokračovat. Lhůta začíná zapnutím této volby, nebo vytvořením účtu.",
           "noGrace": "Žádná: vyžadováno hned"
+        },
+        "emailDomains": {
+          "title": "E-mailové domény",
+          "description": "Které e-mailové adresy mohou vytvořit účet. Platí pro všechny způsoby registrace i pro změny adresy; stávající účty fungují dál.",
+          "edit": "Upravit",
+          "mode": "Kdo se může registrovat",
+          "modes": {
+            "any": "Jakákoli e-mailová adresa",
+            "allow": "Pouze tyto domény",
+            "block": "Jakákoli adresa kromě těchto domén"
+          },
+          "modeHints": {
+            "any": "Bez omezení domény.",
+            "allow": "Pro Ostiary používané jednou firmou nebo školou: ostatní adresy nemohou vytvořit účet.",
+            "block": "Adresy v uvedených doménách nemohou vytvořit účet."
+          },
+          "allowed": "Povolené domény",
+          "blocked": "Blokované domény",
+          "none": "Žádné",
+          "domainsHint": "Jedna na řádek. Doména zahrnuje i své subdomény (acme.com zahrnuje eu.acme.com).",
+          "blockDisposable": "Blokovat jednorázové e-mailové adresy",
+          "blockDisposableHint": "Odmítá přibližně 9 000 známých služeb jednorázového e-mailu, například Mailinator, podle seznamu dodávaného s Ostiary.",
+          "on": "Zapnuto",
+          "off": "Vypnuto",
+          "dialogDescription": "Administrátoři, SSO a SCIM mohou stále vytvářet účty s jakoukoli adresou. Přihlašovací aplikace to použije do minuty.",
+          "save": "Uložit",
+          "cancel": "Zrušit",
+          "saved": "E-mailové domény uloženy. Přihlašovací aplikace je použije do minuty.",
+          "errors": {
+            "invalid": "Vyberte jednu z nabízených možností.",
+            "invalidDomain": "Jedna z položek není název domény, například example.com.",
+            "noDomains": "Uveďte alespoň jednu doménu.",
+            "save": "E-mailové domény se nepodařilo uložit."
+          }
         }
       },
       "signingKeys": {
@@ -3105,6 +3141,7 @@
     "impersonating": "Toto nelze provést, když si účet prohlíží administrátor.",
     "emailNotVerified": "Nejprve ověřte svou e-mailovou adresu.",
     "invalidToken": "Tento odkaz je neplatný nebo vypršel.",
-    "publicOrganization": "Členy organizace Public spravují pouze správci platformy."
+    "publicOrganization": "Členy organizace Public spravují pouze správci platformy.",
+    "emailDomainNotAllowed": "S touto e-mailovou doménou zde nelze vytvořit účet. Použijte jinou adresu."
   }
 }

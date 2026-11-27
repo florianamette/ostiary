@@ -181,7 +181,8 @@
       "error": "Kirjautuminen tällä tilillä epäonnistui. Yritä uudelleen tai käytä toista tapaa.",
       "notLinked": "Tätä tiliä ei ole vielä yhdistetty {name}-tiliin. Kirjaudu toisella tavalla ja yhdistä se sitten turvallisuusasetuksistasi.",
       "noEmail": "Tili ei jakanut sähköpostiosoitetta. Yritä myöhemmin uudelleen tai kirjaudu toisella tavalla.",
-      "signUpDisabled": "Tälle osoitteelle ei ole vielä tiliä, eikä tällä kirjautumistavalla voi luoda sellaista. Kirjaudu sisään toisella tavalla."
+      "signUpDisabled": "Tälle osoitteelle ei ole vielä tiliä, eikä tällä kirjautumistavalla voi luoda sellaista. Kirjaudu sisään toisella tavalla.",
+      "createFailed": "Tiliä ei voitu luoda tällä kirjautumisella. Sähköpostiosoitettasi ei ehkä sallita täällä: kokeile toista osoitetta tai kirjaudu toisella tavalla."
     },
     "app": {
       "signIn": "Kirjaudu sisään jatkaaksesi palveluun <app>{name}</app>",
@@ -2025,7 +2026,8 @@
             "export_csv": "Vei tarkastuslokin CSV-muodossa"
           },
           "security": {
-            "update_policy": "Muutti istunto- ja salasanakäytäntöä"
+            "update_policy": "Muutti istunto- ja salasanakäytäntöä",
+            "update_email_domains": "Muutti sallittuja sähköpostiverkkotunnuksia"
           }
         },
         "actorPlaceholder": "Hae tekijän mukaan (sähköposti)…",
@@ -2103,6 +2105,40 @@
           "twoFactorGraceDays": "Aikaa ottaa käyttöön",
           "twoFactorGraceDaysHint": "Ilman kaksivaiheista tunnistautumista olevilta kysytään jokaisella sovelluskirjautumisella, ja he voivat jatkaa siihen asti. Aika alkaa, kun otat tämän käyttöön, tai tilin luonnista.",
           "noGrace": "Ei aikaa: vaaditaan heti"
+        },
+        "emailDomains": {
+          "title": "Sähköpostiverkkotunnukset",
+          "description": "Millä sähköpostiosoitteilla voi luoda tilin. Koskee kaikkia rekisteröitymistapoja ja osoitteen vaihtoja; olemassa olevat tilit toimivat edelleen.",
+          "edit": "Muokkaa",
+          "mode": "Kuka voi rekisteröityä",
+          "modes": {
+            "any": "Mikä tahansa sähköpostiosoite",
+            "allow": "Vain nämä verkkotunnukset",
+            "block": "Mikä tahansa osoite paitsi nämä verkkotunnukset"
+          },
+          "modeHints": {
+            "any": "Ei rajoitusta verkkotunnukselle.",
+            "allow": "Yhden yrityksen tai koulun käyttämälle Ostiarylle: muilla osoitteilla ei voi luoda tiliä.",
+            "block": "Luetelluissa verkkotunnuksissa olevilla osoitteilla ei voi luoda tiliä."
+          },
+          "allowed": "Sallitut verkkotunnukset",
+          "blocked": "Estetyt verkkotunnukset",
+          "none": "Ei mitään",
+          "domainsHint": "Yksi riviä kohden. Verkkotunnus kattaa myös aliverkkotunnuksensa (acme.com kattaa eu.acme.com).",
+          "blockDisposable": "Estä kertakäyttöiset sähköpostiosoitteet",
+          "blockDisposableHint": "Hylkää noin 9 000 tunnettua kertakäyttösähköpostipalvelua, kuten Mailinatorin, Ostiaryn mukana tulevan luettelon perusteella.",
+          "on": "Päällä",
+          "off": "Pois",
+          "dialogDescription": "Ylläpitäjät, SSO ja SCIM voivat edelleen luoda tilejä millä tahansa osoitteella. Kirjautumissovellus ottaa tämän käyttöön minuutin kuluessa.",
+          "save": "Tallenna",
+          "cancel": "Peruuta",
+          "saved": "Sähköpostiverkkotunnukset tallennettu. Kirjautumissovellus ottaa ne käyttöön minuutin kuluessa.",
+          "errors": {
+            "invalid": "Valitse jokin tarjotuista vaihtoehdoista.",
+            "invalidDomain": "Jokin merkinnöistä ei ole verkkotunnus, kuten example.com.",
+            "noDomains": "Anna vähintään yksi verkkotunnus.",
+            "save": "Sähköpostiverkkotunnuksia ei voitu tallentaa."
+          }
         }
       },
       "signingKeys": {
@@ -3105,6 +3141,7 @@
     "impersonating": "Tätä ei voi tehdä, kun ylläpitäjä tarkastelee tiliä.",
     "emailNotVerified": "Vahvista ensin sähköpostiosoitteesi.",
     "invalidToken": "Linkki on virheellinen tai vanhentunut.",
-    "publicOrganization": "Public-organisaation jäseniä hallitsevat vain alustan ylläpitäjät."
+    "publicOrganization": "Public-organisaation jäseniä hallitsevat vain alustan ylläpitäjät.",
+    "emailDomainNotAllowed": "Tällä sähköpostiverkkotunnuksella ei voi luoda tiliä täällä. Käytä toista osoitetta."
   }
 }

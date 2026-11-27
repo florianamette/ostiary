@@ -22,6 +22,7 @@ overrides:
 
 catalog:
   "jose": "6.2.12"
+  "disposable-email-domains-js": "1.26.0"
   "@vercel/analytics": "2.0.1"
   "@better-auth/api-key": "1.7.27"
   "@electric-sql/pglite": "0.3.15"

@@ -70,6 +70,9 @@ function socialErrorKey(error: string) {
       return "noEmail"
     case "signup_disabled":
       return "signUpDisabled"
+    // A refused sign-up (the email domain policy, among others).
+    case "unable_to_create_user":
+      return "createFailed"
     default:
       return "error"
   }

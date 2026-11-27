@@ -181,7 +181,8 @@
       "error": "해당 계정으로 로그인할 수 없습니다. 다시 시도하거나 다른 방법을 사용하세요.",
       "notLinked": "이 계정은 아직 {name} 계정에 연결되지 않았습니다. 다른 방법으로 로그인한 다음 보안 설정에서 연결하세요.",
       "noEmail": "이 계정에서 이메일 주소를 공유하지 않았습니다. 나중에 다시 시도하거나 다른 방법으로 로그인하세요.",
-      "signUpDisabled": "이 주소로 된 계정이 아직 없으며 이 로그인 방법으로는 계정을 만들 수 없습니다. 다른 방법으로 로그인하세요."
+      "signUpDisabled": "이 주소로 된 계정이 아직 없으며 이 로그인 방법으로는 계정을 만들 수 없습니다. 다른 방법으로 로그인하세요.",
+      "createFailed": "이 로그인으로 계정을 만들 수 없습니다. 이메일 주소가 여기에서 허용되지 않을 수 있습니다. 다른 주소를 시도하거나 다른 방법으로 로그인하세요."
     },
     "app": {
       "signIn": "로그인하고 <app>{name}</app>(으)로 계속",
@@ -2025,7 +2026,8 @@
             "export_csv": "감사 로그를 CSV로 내보내기"
           },
           "security": {
-            "update_policy": "세션 및 비밀번호 정책 변경"
+            "update_policy": "세션 및 비밀번호 정책 변경",
+            "update_email_domains": "허용 이메일 도메인 변경"
           }
         },
         "actorPlaceholder": "수행자(이메일)로 검색…",
@@ -2103,6 +2105,40 @@
           "twoFactorGraceDays": "켜기까지의 기간",
           "twoFactorGraceDaysHint": "2단계 인증이 없는 사람은 앱에 로그인할 때마다 안내를 받고 그때까지 계속할 수 있습니다. 기간은 이 설정을 켠 시점 또는 계정을 만든 시점부터 시작됩니다.",
           "noGrace": "없음: 즉시 필요"
+        },
+        "emailDomains": {
+          "title": "이메일 도메인",
+          "description": "계정을 만들 수 있는 이메일 주소입니다. 모든 가입 방법과 주소 변경에 적용되며, 기존 계정은 계속 사용할 수 있습니다.",
+          "edit": "편집",
+          "mode": "가입할 수 있는 사람",
+          "modes": {
+            "any": "모든 이메일 주소",
+            "allow": "이 도메인만",
+            "block": "이 도메인을 제외한 모든 주소"
+          },
+          "modeHints": {
+            "any": "도메인 제한 없음.",
+            "allow": "한 회사나 학교에서 쓰는 Ostiary용: 다른 주소로는 계정을 만들 수 없습니다.",
+            "block": "목록의 도메인 주소로는 계정을 만들 수 없습니다."
+          },
+          "allowed": "허용 도메인",
+          "blocked": "차단 도메인",
+          "none": "없음",
+          "domainsHint": "한 줄에 하나씩. 도메인에는 하위 도메인도 포함됩니다(acme.com에는 eu.acme.com이 포함).",
+          "blockDisposable": "일회용 이메일 주소 차단",
+          "blockDisposableHint": "Ostiary에 포함된 목록을 기준으로 Mailinator 같은 알려진 일회용 이메일 서비스 약 9,000개를 거부합니다.",
+          "on": "켜짐",
+          "off": "꺼짐",
+          "dialogDescription": "관리자, SSO, SCIM은 여전히 어떤 주소로든 계정을 만들 수 있습니다. 인증 앱에 1분 안에 적용됩니다.",
+          "save": "저장",
+          "cancel": "취소",
+          "saved": "이메일 도메인을 저장했습니다. 인증 앱에 1분 안에 적용됩니다.",
+          "errors": {
+            "invalid": "제공된 옵션 중 하나를 선택하세요.",
+            "invalidDomain": "항목 중 하나가 example.com 같은 도메인 이름이 아닙니다.",
+            "noDomains": "도메인을 하나 이상 입력하세요.",
+            "save": "이메일 도메인을 저장할 수 없습니다."
+          }
         }
       },
       "signingKeys": {
@@ -3105,6 +3141,7 @@
     "impersonating": "관리자가 계정을 보고 있는 동안에는 이 작업을 할 수 없습니다.",
     "emailNotVerified": "먼저 이메일 주소를 인증하세요.",
     "invalidToken": "이 링크는 유효하지 않거나 만료되었습니다.",
-    "publicOrganization": "Public 조직의 멤버는 플랫폼 관리자만 관리합니다."
+    "publicOrganization": "Public 조직의 멤버는 플랫폼 관리자만 관리합니다.",
+    "emailDomainNotAllowed": "이 이메일 도메인으로는 여기에서 계정을 만들 수 없습니다. 다른 주소를 사용하세요."
   }
 }
