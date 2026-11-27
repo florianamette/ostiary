@@ -11,13 +11,13 @@
     "lint": "eslint"
   },
   "devDependencies": {
-    "@playwright/test": "1.63.0",
+    "@playwright/test": "1.65.1",
     "@types/node": "catalog:",
     "@types/pg": "catalog:",
     "bcryptjs": "catalog:",
     "dotenv": "catalog:",
     "eslint": "catalog:",
-    "jose": "6.2.12",
+    "jose": "6.2.18",
     "pg": "catalog:",
     "typescript": "catalog:"
   }
