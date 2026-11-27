@@ -1,3 +1,5 @@
+import { removeHtmlComments } from "@ostiary/core/lib/app-icons/html-comments";
+
 /*
  * What kind of image a downloaded icon really is, from its first bytes. The type sent to the
  * browser is the sniffed one, never the remote server's: a page or script labelled image/png
@@ -32,9 +34,7 @@ function looksLikeSvg(bytes: Uint8Array): boolean {
   const start = new TextDecoder("utf-8", { fatal: false }).decode(bytes.subarray(0, 1024)).replace(/^﻿/, "").trimStart();
   if (!start.startsWith("<")) return false;
   // An XML prolog, comments or a doctype may come first; the root element must be <svg>.
-  const withoutProlog = start
-    .replace(/^<\?xml[\s\S]*?\?>/, "")
-    .replace(/<!--[\s\S]*?-->/g, "")
+  const withoutProlog = removeHtmlComments(start.replace(/^<\?xml[\s\S]*?\?>/, ""))
     .replace(/<!DOCTYPE\s+svg\b[^>]*>/i, "")
     .trimStart();
   return /^<svg[\s>]/i.test(withoutProlog);

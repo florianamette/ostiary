@@ -79,7 +79,7 @@ test("two-factor authentication asks for a TOTP code after the password", async 
   expect(await (await page.request.get("/api/auth/get-session")).json()).toBeNull();
   await page.getByLabel("Code").fill(await freshTotp(secret));
   await page.getByRole("button", { name: "Verify" }).click();
-  await page.waitForURL(/\/dashboard|\/en$/);
+  await page.waitForURL(/(?:\/dashboard|\/en)(?:[?#]|$)/);
   await expectSignedInAs(page.request, user.email);
 });
 
