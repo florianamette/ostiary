@@ -1931,7 +1931,9 @@
             "self_delete": "Compte supprimé par son titulaire",
             "export_csv": "Utilisateurs exportés en CSV",
             "import": "Utilisateurs importés",
-            "remove_phone_number": "A supprimé son numéro de téléphone"
+            "remove_phone_number": "A supprimé son numéro de téléphone",
+            "new_device_sign_in": "Connexion depuis un nouvel appareil",
+            "secure_account": "A sécurisé son compte (Ce n’était pas moi)"
           },
           "oauth_client": {
             "create": "Client OAuth enregistré",
@@ -2104,7 +2106,9 @@
           "twoFactorEveryoneHint": "Tout le monde doit utiliser une application d'authentification ou une clé d'accès pour se connecter aux applications. Admins : REQUIRE_ADMIN_2FA. Les organisations peuvent l'exiger de leurs membres depuis leur page.",
           "twoFactorGraceDays": "Délai pour l'activer",
           "twoFactorGraceDaysHint": "Les personnes sans deux facteurs sont invitées à chaque connexion à une application et peuvent continuer jusque-là. Le délai démarre quand vous activez ceci, ou à la création du compte.",
-          "noGrace": "Aucun : requis tout de suite"
+          "noGrace": "Aucun : requis tout de suite",
+          "newDeviceEmail": "E-mail lors d’une connexion depuis un nouvel appareil",
+          "newDeviceEmailHint": "Les personnes reçoivent un e-mail quand leur compte se connecte depuis un navigateur jamais utilisé, avec un bouton pour se déconnecter partout et réinitialiser le mot de passe. Les connexions via le SSO d’une organisation ne déclenchent pas d’e-mail."
         },
         "emailDomains": {
           "title": "Domaines d'e-mail",
@@ -3124,6 +3128,22 @@
       "button": "Vérifier et supprimer",
       "note": "Le lien expire dans {minutes} minutes et ne fonctionne qu’une seule fois.",
       "footnote": "Si vous n’êtes pas à l’origine de cette demande, ignorez cet e-mail : votre compte reste inchangé. Pensez à changer votre mot de passe, car la demande provient d’une session connectée."
+    },
+    "newDevice": {
+      "subject": "Nouvelle connexion à votre compte {brand}",
+      "preheader": "Votre compte a été utilisé depuis un appareil inconnu.",
+      "heading": "Nouvelle connexion depuis un autre appareil",
+      "body": "Le compte {brand} {email} vient d’être utilisé pour se connecter depuis un navigateur ou un appareil qu’il n’avait jamais utilisé.",
+      "when": "Date : {when}",
+      "device": "Appareil : {device}",
+      "deviceOn": "{browser} sur {system}",
+      "unknownDevice": "Navigateur inconnu",
+      "ipAddress": "Adresse IP : {ip}",
+      "unknownIp": "inconnue",
+      "ifYou": "Si c’était vous, vous n’avez rien à faire.",
+      "button": "Ce n’était pas moi",
+      "note": "Le bouton fonctionne une fois pendant {days} jours. Il vous déconnecte partout et vous envoie un lien pour choisir un nouveau mot de passe.",
+      "footnote": "Vous recevez cet e-mail quand votre compte se connecte depuis un nouvel appareil. Ne communiquez jamais votre mot de passe ni vos codes de connexion."
     }
   },
   "authErrors": {
@@ -3144,5 +3164,20 @@
     "invalidToken": "Ce lien est invalide ou a expiré.",
     "publicOrganization": "Les membres de l'organisation Public sont gérés uniquement par les administrateurs de la plateforme.",
     "emailDomainNotAllowed": "Impossible de créer un compte avec ce domaine d'e-mail ici. Utilisez une autre adresse."
+  },
+  "secureAccount": {
+    "title": "Sécurisez votre compte",
+    "description": "Quelqu’un s’est peut-être connecté à votre compte. Confirmez pour l’en exclure :",
+    "stepSignOut": "Vous êtes déconnecté sur tous les appareils, y compris celui-ci.",
+    "stepApps": "Les applications perdent l’accès obtenu via votre compte jusqu’à votre prochaine connexion.",
+    "stepReset": "Nous vous envoyons un lien pour choisir un nouveau mot de passe.",
+    "confirm": "Me déconnecter partout et réinitialiser mon mot de passe",
+    "toSignIn": "Aller à la connexion",
+    "doneTitle": "Consultez votre boîte de réception",
+    "doneBody": "Votre compte a été déconnecté partout. Ouvrez l’e-mail que nous venons d’envoyer pour choisir un nouveau mot de passe. Si vous utilisez la double authentification, vérifiez que votre application d’authentification et vos clés d’accès vous appartiennent toujours.",
+    "errors": {
+      "invalid": "Ce lien a expiré ou a déjà été utilisé. Par précaution, réinitialisez votre mot de passe depuis la page de connexion.",
+      "failed": "Une erreur s’est produite. Réessayez."
+    }
   }
 }

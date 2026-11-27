@@ -5,6 +5,7 @@ import {
   apikey,
   auditLog,
   authEvent,
+  knownDevice,
   invitation,
   member,
   oauthAccessToken,
@@ -90,6 +91,7 @@ async function collect(db: Database, u: typeof user.$inferSelect, options: { ins
     [subject],
     audits,
     events,
+    devices,
   ] = await Promise.all([
     db
       .select({
@@ -305,6 +307,17 @@ async function collect(db: Database, u: typeof user.$inferSelect, options: { ins
       )
       .orderBy(desc(authEvent.createdAt))
       .limit(EXPORT_HISTORY_LIMIT),
+    db
+      .select({
+        userAgent: knownDevice.userAgent,
+        ipAddress: knownDevice.ipAddress,
+        createdAt: knownDevice.createdAt,
+        lastSeenAt: knownDevice.lastSeenAt,
+      })
+      .from(knownDevice)
+      .where(eq(knownDevice.userId, userId))
+      .orderBy(desc(knownDevice.lastSeenAt))
+      .limit(EXPORT_HISTORY_LIMIT),
   ]);
 
   // Names of the apps this account is connected to.
@@ -497,6 +510,13 @@ async function collect(db: Database, u: typeof user.$inferSelect, options: { ins
       // A failed sign-in with your email or username may come from someone else, whose address
       // is not yours to receive: only the time is exported.
       ipAddress: e.type === "sign_in_failed" ? null : e.ipAddress,
+    })),
+    // Browsers this account signed in from, for the new-device email (the cookie id is not kept).
+    knownDevices: devices.map((d) => ({
+      userAgent: d.userAgent,
+      ipAddress: d.ipAddress,
+      firstSeenAt: iso(d.createdAt),
+      lastSeenAt: iso(d.lastSeenAt),
     })),
   };
 }

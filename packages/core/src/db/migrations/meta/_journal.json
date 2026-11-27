@@ -134,6 +134,13 @@
       "when": 1795563415550,
       "tag": "0018_user_phone_number",
       "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "7",
+      "when": 1795818997880,
+      "tag": "0019_known_devices",
+      "breakpoints": true
     }
   ]
 }

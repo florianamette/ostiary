@@ -2,11 +2,13 @@ import { createHash, timingSafeEqual } from "node:crypto";
 
 import { purgeAuthEvents } from "@ostiary/core/lib/auth-events";
 import { env } from "@ostiary/core/lib/env";
+import { purgeKnownDevices } from "@ostiary/core/lib/security/new-device";
 import { processDueDeliveries } from "@ostiary/core/lib/webhooks/outbox";
 
 /*
  * Daily housekeeping. Retries webhook deliveries that are due, then deletes deliveries older
- * than 30 days, and applies the sign-in event retention (lib/auth-events.ts).
+ * than 30 days, and applies the sign-in event retention (lib/auth-events.ts) and the known
+ * device retention (lib/security/new-device.ts).
  * Called by Vercel Cron (apps/auth/vercel.json), which sends `Authorization: Bearer
  * $CRON_SECRET`; any other scheduler can call it the same way. Without CRON_SECRET it refuses.
  */
@@ -31,5 +33,6 @@ export async function GET(request: Request) {
   }
   const counts = await processDueDeliveries();
   const authEvents = await purgeAuthEvents();
-  return Response.json({ ...counts, authEvents });
+  const knownDevices = await purgeKnownDevices();
+  return Response.json({ ...counts, authEvents, knownDevices });
 }

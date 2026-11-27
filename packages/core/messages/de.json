@@ -1931,7 +1931,9 @@
             "self_delete": "Eigenes Konto gelöscht",
             "export_csv": "Benutzer als CSV exportiert",
             "import": "Benutzer importiert",
-            "remove_phone_number": "Hat die Telefonnummer entfernt"
+            "remove_phone_number": "Hat die Telefonnummer entfernt",
+            "new_device_sign_in": "Von neuem Gerät angemeldet",
+            "secure_account": "Konto abgesichert (Das war ich nicht)"
           },
           "oauth_client": {
             "create": "OAuth-Client registriert",
@@ -2104,7 +2106,9 @@
           "twoFactorEveryoneHint": "Alle müssen sich mit einer Authenticator-App oder einem Passkey bei Apps anmelden. Admins: REQUIRE_ADMIN_2FA. Organisationen können es auf ihrer Seite für ihre Mitglieder verlangen.",
           "twoFactorGraceDays": "Frist zum Einschalten",
           "twoFactorGraceDaysHint": "Wer keine zwei Faktoren hat, wird bei jeder App-Anmeldung gefragt und kann bis dahin weitermachen. Die Frist beginnt mit dem Einschalten oder mit der Kontoerstellung.",
-          "noGrace": "Keine: sofort erforderlich"
+          "noGrace": "Keine: sofort erforderlich",
+          "newDeviceEmail": "E-Mail bei Anmeldung von neuem Gerät",
+          "newDeviceEmailHint": "Personen erhalten eine E-Mail, wenn sich ihr Konto von einem noch nie verwendeten Browser anmeldet, mit einer Schaltfläche, um sich überall abzumelden und das Passwort zurückzusetzen. Anmeldungen über das SSO einer Organisation lösen keine E-Mail aus."
         },
         "emailDomains": {
           "title": "E-Mail-Domains",
@@ -3124,6 +3128,22 @@
       "button": "Prüfen und löschen",
       "note": "Der Link läuft in {minutes} Minuten ab und funktioniert nur einmal.",
       "footnote": "Wenn Sie das nicht angefordert haben, ignorieren Sie diese E-Mail: Ihr Konto bleibt unverändert. Ändern Sie am besten Ihr Passwort, da die Anfrage aus einer angemeldeten Sitzung kam."
+    },
+    "newDevice": {
+      "subject": "Neue Anmeldung bei Ihrem {brand}-Konto",
+      "preheader": "Ihr Konto wurde auf einem Gerät angemeldet, das es noch nie verwendet hat.",
+      "heading": "Neue Anmeldung von einem anderen Gerät",
+      "body": "Beim {brand}-Konto {email} hat gerade eine Anmeldung von einem Browser oder Gerät stattgefunden, das es noch nie verwendet hat.",
+      "when": "Wann: {when}",
+      "device": "Gerät: {device}",
+      "deviceOn": "{browser} unter {system}",
+      "unknownDevice": "Unbekannter Browser",
+      "ipAddress": "IP-Adresse: {ip}",
+      "unknownIp": "unbekannt",
+      "ifYou": "Wenn Sie das waren, müssen Sie nichts tun.",
+      "button": "Das war ich nicht",
+      "note": "Die Schaltfläche funktioniert einmal innerhalb von {days} Tagen. Sie meldet Sie überall ab und sendet Ihnen einen Link, um ein neues Passwort festzulegen.",
+      "footnote": "Sie erhalten diese E-Mail, wenn sich Ihr Konto auf einem neuen Gerät anmeldet. Geben Sie Ihr Passwort oder Anmeldecodes niemals weiter."
     }
   },
   "authErrors": {
@@ -3144,5 +3164,20 @@
     "invalidToken": "Dieser Link ist ungültig oder abgelaufen.",
     "publicOrganization": "Die Mitglieder der Organisation Public werden nur von Plattform-Administratoren verwaltet.",
     "emailDomainNotAllowed": "Mit dieser E-Mail-Domain kann hier kein Konto erstellt werden. Verwende eine andere Adresse."
+  },
+  "secureAccount": {
+    "title": "Konto absichern",
+    "description": "Möglicherweise hat sich jemand bei Ihrem Konto angemeldet. Bestätigen Sie, um diese Person auszusperren:",
+    "stepSignOut": "Sie werden auf allen Geräten abgemeldet, auch auf diesem.",
+    "stepApps": "Apps verlieren den Zugriff über Ihr Konto, bis Sie sich wieder anmelden.",
+    "stepReset": "Wir senden Ihnen einen Link, um ein neues Passwort festzulegen.",
+    "confirm": "Überall abmelden und Passwort zurücksetzen",
+    "toSignIn": "Zur Anmeldung",
+    "doneTitle": "Prüfen Sie Ihr Postfach",
+    "doneBody": "Ihr Konto wurde überall abgemeldet. Öffnen Sie die soeben gesendete E-Mail, um ein neues Passwort festzulegen. Wenn Sie die Zwei-Faktor-Authentifizierung nutzen, prüfen Sie, ob Ihre Authenticator-App und Passkeys noch Ihnen gehören.",
+    "errors": {
+      "invalid": "Dieser Link ist abgelaufen oder wurde bereits verwendet. Setzen Sie Ihr Passwort sicherheitshalber über die Anmeldeseite zurück.",
+      "failed": "Etwas ist schiefgelaufen. Versuchen Sie es erneut."
+    }
   }
 }

@@ -1931,7 +1931,9 @@
             "self_delete": "删除了自己的账户",
             "export_csv": "将用户导出为 CSV",
             "import": "导入了用户",
-            "remove_phone_number": "移除了自己的手机号"
+            "remove_phone_number": "移除了自己的手机号",
+            "new_device_sign_in": "在新设备上登录",
+            "secure_account": "保护了自己的账户（不是我）"
           },
           "oauth_client": {
             "create": "注册了 OAuth 客户端",
@@ -2104,7 +2106,9 @@
           "twoFactorEveryoneHint": "所有人登录应用时都必须使用身份验证器应用或通行密钥。管理员：REQUIRE_ADMIN_2FA。组织可以在其页面上要求成员启用。",
           "twoFactorGraceDays": "开启期限",
           "twoFactorGraceDaysHint": "未开启双重验证的人在每次登录应用时都会收到提示，并可在期限前继续。期限从开启此项或创建账户时开始计算。",
-          "noGrace": "无：立即要求"
+          "noGrace": "无：立即要求",
+          "newDeviceEmail": "新设备登录时发送邮件",
+          "newDeviceEmailHint": "当账户在从未使用过的浏览器上登录时，用户会收到一封邮件，其中有在所有地方退出并重置密码的按钮。通过组织 SSO 的登录不会发送邮件。"
         },
         "emailDomains": {
           "title": "邮箱域名",
@@ -3124,6 +3128,22 @@
       "button": "查看并删除",
       "note": "此链接将在 {minutes} 分钟后失效，且只能使用一次。",
       "footnote": "如果这不是你本人的操作，请忽略此邮件：你的账户将保持不变。由于该请求来自一个已登录的会话，建议你修改密码。"
+    },
+    "newDevice": {
+      "subject": "你的 {brand} 账户有新的登录",
+      "preheader": "你的账户在一台从未使用过的设备上登录。",
+      "heading": "来自其他设备的新登录",
+      "body": "{brand} 账户 {email} 刚刚在一个从未使用过的浏览器或设备上登录。",
+      "when": "时间：{when}",
+      "device": "设备：{device}",
+      "deviceOn": "{system} 上的 {browser}",
+      "unknownDevice": "未知浏览器",
+      "ipAddress": "IP 地址：{ip}",
+      "unknownIp": "未知",
+      "ifYou": "如果是你本人，无需任何操作。",
+      "button": "不是我",
+      "note": "此按钮在 {days} 天内可使用一次。它会让你在所有地方退出登录，并通过邮件发送设置新密码的链接。",
+      "footnote": "当你的账户在新设备上登录时，你会收到这封邮件。切勿与任何人分享你的密码或登录码。"
     }
   },
   "authErrors": {
@@ -3144,5 +3164,20 @@
     "invalidToken": "此链接无效或已过期。",
     "publicOrganization": "Public 组织的成员仅由平台管理员管理。",
     "emailDomainNotAllowed": "无法在此使用该邮箱域名创建账户。请使用其他地址。"
+  },
+  "secureAccount": {
+    "title": "保护你的账户",
+    "description": "可能有人登录了你的账户。确认后即可将其踢出：",
+    "stepSignOut": "你会在所有设备上退出登录，包括这台设备。",
+    "stepApps": "在你重新登录之前，应用将失去通过你的账户获得的访问权限。",
+    "stepReset": "我们会通过邮件发送设置新密码的链接。",
+    "confirm": "在所有地方退出并重置密码",
+    "toSignIn": "前往登录",
+    "doneTitle": "请查看收件箱",
+    "doneBody": "你的账户已在所有地方退出登录。打开我们刚发送的邮件来设置新密码。如果你使用双重验证，请确认你的身份验证器和通行密钥仍归你所有。",
+    "errors": {
+      "invalid": "此链接已过期或已被使用。为安全起见，请在登录页面重置密码。",
+      "failed": "出了点问题，请重试。"
+    }
   }
 }

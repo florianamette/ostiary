@@ -3,6 +3,7 @@ import { createAuthMiddleware, getOAuthState } from "better-auth/api";
 import type { twoFactor } from "better-auth/plugins/two-factor";
 
 import { recordAuthEvent } from "@ostiary/core/lib/auth-events";
+import { noticeSignIn } from "@ostiary/core/lib/security/new-device";
 import { isExternalSignInPath, twoFactorStepURL } from "@ostiary/core/lib/security/external-sign-in";
 import { type Bag, str } from "@ostiary/core/lib/auth-hooks/values";
 
@@ -55,7 +56,9 @@ export const passwordSignInEvents = {
                 matcher: (ctx) => TWO_STEP_SIGN_IN_PATHS.has(ctx.path ?? "") || (isExternalSignInPath(ctx.path) && startedNewSession(ctx)),
                 handler: createAuthMiddleware(async (ctx) => {
                     const created = ctx.context.newSession;
-                    if (created) await recordAuthEvent("sign_in", created.user.id);
+                    if (!created) return;
+                    await recordAuthEvent("sign_in", created.user.id);
+                    await noticeSignIn(ctx, created.session);
                 }),
             },
         ],

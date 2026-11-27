@@ -1931,7 +1931,9 @@
             "self_delete": "Eigen account verwijderd",
             "export_csv": "Gebruikers geëxporteerd naar CSV",
             "import": "Gebruikers geïmporteerd",
-            "remove_phone_number": "Heeft het telefoonnummer verwijderd"
+            "remove_phone_number": "Heeft het telefoonnummer verwijderd",
+            "new_device_sign_in": "Aangemeld vanaf een nieuw apparaat",
+            "secure_account": "Heeft het account beveiligd (Dit was ik niet)"
           },
           "oauth_client": {
             "create": "OAuth-client geregistreerd",
@@ -2104,7 +2106,9 @@
           "twoFactorEveryoneHint": "Iedereen moet een authenticator-app of passkey gebruiken om bij apps aan te melden. Beheerders: REQUIRE_ADMIN_2FA. Organisaties kunnen het op hun pagina van hun leden vereisen.",
           "twoFactorGraceDays": "Tijd om het aan te zetten",
           "twoFactorGraceDaysHint": "Wie het niet heeft, krijgt bij elke app-aanmelding de vraag en kan tot dan doorgaan. De termijn begint als je dit aanzet, of bij het aanmaken van het account.",
-          "noGrace": "Geen: meteen vereist"
+          "noGrace": "Geen: meteen vereist",
+          "newDeviceEmail": "E-mail bij aanmelding vanaf nieuw apparaat",
+          "newDeviceEmailHint": "Mensen krijgen een e-mail wanneer hun account aanmeldt vanaf een browser die het nog niet eerder gebruikte, met een knop om overal af te melden en het wachtwoord te herstellen. Aanmeldingen via de SSO van een organisatie sturen geen e-mail."
         },
         "emailDomains": {
           "title": "E-maildomeinen",
@@ -3124,6 +3128,22 @@
       "button": "Bekijken en verwijderen",
       "note": "De link verloopt over {minutes} minuten en werkt maar één keer.",
       "footnote": "Heb je dit niet aangevraagd? Negeer dan deze e-mail: je account blijft zoals het is. Overweeg wel je wachtwoord te wijzigen, want het verzoek kwam vanuit een ingelogde sessie."
+    },
+    "newDevice": {
+      "subject": "Nieuwe aanmelding bij je {brand}-account",
+      "preheader": "Er is aangemeld bij je account vanaf een apparaat dat het nog niet eerder gebruikte.",
+      "heading": "Nieuwe aanmelding vanaf een ander apparaat",
+      "body": "Er is zojuist aangemeld bij het {brand}-account {email} vanaf een browser of apparaat dat het nog niet eerder gebruikte.",
+      "when": "Wanneer: {when}",
+      "device": "Apparaat: {device}",
+      "deviceOn": "{browser} op {system}",
+      "unknownDevice": "Onbekende browser",
+      "ipAddress": "IP-adres: {ip}",
+      "unknownIp": "onbekend",
+      "ifYou": "Was jij dit, dan hoef je niets te doen.",
+      "button": "Dit was ik niet",
+      "note": "De knop werkt één keer binnen {days} dagen. Hij meldt je overal af en mailt je een link om een nieuw wachtwoord te kiezen.",
+      "footnote": "Je krijgt deze e-mail wanneer je account aanmeldt vanaf een nieuw apparaat. Deel nooit je wachtwoord of aanmeldcodes."
     }
   },
   "authErrors": {
@@ -3144,5 +3164,20 @@
     "invalidToken": "Deze link is ongeldig of verlopen.",
     "publicOrganization": "De leden van de organisatie Public worden alleen door platformbeheerders beheerd.",
     "emailDomainNotAllowed": "Met dit e-maildomein kan hier geen account worden aangemaakt. Gebruik een ander adres."
+  },
+  "secureAccount": {
+    "title": "Beveilig je account",
+    "description": "Mogelijk heeft iemand zich bij je account aangemeld. Bevestig om diegene buiten te sluiten:",
+    "stepSignOut": "Je wordt op elk apparaat afgemeld, ook op dit apparaat.",
+    "stepApps": "Apps verliezen de toegang via je account totdat je je opnieuw aanmeldt.",
+    "stepReset": "We mailen je een link om een nieuw wachtwoord te kiezen.",
+    "confirm": "Overal afmelden en mijn wachtwoord herstellen",
+    "toSignIn": "Naar aanmelden",
+    "doneTitle": "Controleer je inbox",
+    "doneBody": "Je account is overal afgemeld. Open de e-mail die we net hebben gestuurd om een nieuw wachtwoord te kiezen. Gebruik je tweestapsverificatie, controleer dan of je authenticator en passkeys nog van jou zijn.",
+    "errors": {
+      "invalid": "Deze link is verlopen of al gebruikt. Herstel voor de zekerheid je wachtwoord via de aanmeldpagina.",
+      "failed": "Er ging iets mis. Probeer het opnieuw."
+    }
   }
 }

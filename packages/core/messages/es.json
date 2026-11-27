@@ -1931,7 +1931,9 @@
             "self_delete": "Eliminó su propia cuenta",
             "export_csv": "Exportó los usuarios a CSV",
             "import": "Importó usuarios",
-            "remove_phone_number": "Quitó su número de teléfono"
+            "remove_phone_number": "Quitó su número de teléfono",
+            "new_device_sign_in": "Inició sesión desde un dispositivo nuevo",
+            "secure_account": "Protegió su cuenta (No fui yo)"
           },
           "oauth_client": {
             "create": "Registró un cliente OAuth",
@@ -2104,7 +2106,9 @@
           "twoFactorEveryoneHint": "Todos deben usar una aplicación de autenticación o una llave de acceso para iniciar sesión en las aplicaciones. Administradores: REQUIRE_ADMIN_2FA. Las organizaciones pueden exigirla a sus miembros desde su página.",
           "twoFactorGraceDays": "Plazo para activarla",
           "twoFactorGraceDaysHint": "A quien no la tenga se le pide en cada inicio de sesión en una aplicación y puede continuar hasta entonces. Empieza cuando activas esto, o al crear la cuenta.",
-          "noGrace": "Ninguno: obligatoria de inmediato"
+          "noGrace": "Ninguno: obligatoria de inmediato",
+          "newDeviceEmail": "Correo al iniciar sesión desde un dispositivo nuevo",
+          "newDeviceEmailHint": "Las personas reciben un correo cuando su cuenta inicia sesión desde un navegador que no había usado antes, con un botón para cerrar sesión en todas partes y restablecer la contraseña. Los inicios de sesión mediante el SSO de una organización no envían correo."
         },
         "emailDomains": {
           "title": "Dominios de correo",
@@ -3124,6 +3128,22 @@
       "button": "Revisar y eliminar",
       "note": "El enlace caduca en {minutes} minutos y solo funciona una vez.",
       "footnote": "Si no lo has pedido tú, ignora este correo: tu cuenta se queda como está. Te recomendamos cambiar tu contraseña, ya que la solicitud vino de una sesión iniciada."
+    },
+    "newDevice": {
+      "subject": "Nuevo inicio de sesión en tu cuenta de {brand}",
+      "preheader": "Se inició sesión en tu cuenta desde un dispositivo que no había usado antes.",
+      "heading": "Nuevo inicio de sesión desde otro dispositivo",
+      "body": "Se acaba de iniciar sesión en la cuenta de {brand} {email} desde un navegador o dispositivo que no había usado antes.",
+      "when": "Cuándo: {when}",
+      "device": "Dispositivo: {device}",
+      "deviceOn": "{browser} en {system}",
+      "unknownDevice": "Navegador desconocido",
+      "ipAddress": "Dirección IP: {ip}",
+      "unknownIp": "desconocida",
+      "ifYou": "Si fuiste tú, no tienes que hacer nada.",
+      "button": "No fui yo",
+      "note": "El botón funciona una vez durante {days} días. Cierra tu sesión en todas partes y te envía un enlace para elegir una contraseña nueva.",
+      "footnote": "Recibes este correo cuando tu cuenta inicia sesión desde un dispositivo nuevo. Nunca compartas tu contraseña ni tus códigos de inicio de sesión."
     }
   },
   "authErrors": {
@@ -3144,5 +3164,20 @@
     "invalidToken": "Este enlace no es válido o ha caducado.",
     "publicOrganization": "Los miembros de la organización Public solo los gestionan los administradores de la plataforma.",
     "emailDomainNotAllowed": "No se pueden crear cuentas con este dominio de correo aquí. Usa otra dirección."
+  },
+  "secureAccount": {
+    "title": "Protege tu cuenta",
+    "description": "Es posible que alguien haya iniciado sesión en tu cuenta. Confirma para dejarlo fuera:",
+    "stepSignOut": "Se cierra tu sesión en todos los dispositivos, incluido este.",
+    "stepApps": "Las aplicaciones pierden el acceso que tenían a través de tu cuenta hasta que vuelvas a iniciar sesión.",
+    "stepReset": "Te enviamos un enlace para elegir una contraseña nueva.",
+    "confirm": "Cerrar sesión en todas partes y restablecer mi contraseña",
+    "toSignIn": "Ir a iniciar sesión",
+    "doneTitle": "Revisa tu bandeja de entrada",
+    "doneBody": "Se cerró la sesión de tu cuenta en todas partes. Abre el correo que acabamos de enviarte para elegir una contraseña nueva. Si usas la autenticación en dos pasos, comprueba que tu aplicación de autenticación y tus llaves de acceso siguen siendo tuyas.",
+    "errors": {
+      "invalid": "Este enlace caducó o ya se usó. Por seguridad, restablece tu contraseña desde la página de inicio de sesión.",
+      "failed": "Algo salió mal. Inténtalo de nuevo."
+    }
   }
 }

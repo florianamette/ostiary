@@ -1931,7 +1931,9 @@
             "self_delete": "Raderade sitt eget konto",
             "export_csv": "Exporterade användare till CSV",
             "import": "Importerade användare",
-            "remove_phone_number": "Tog bort sitt telefonnummer"
+            "remove_phone_number": "Tog bort sitt telefonnummer",
+            "new_device_sign_in": "Loggade in från en ny enhet",
+            "secure_account": "Skyddade sitt konto (Det var inte jag)"
           },
           "oauth_client": {
             "create": "Registrerade OAuth-klient",
@@ -2104,7 +2106,9 @@
           "twoFactorEveryoneHint": "Alla måste använda en autentiseringsapp eller en nyckel för att logga in i appar. Administratörer: REQUIRE_ADMIN_2FA. Organisationer kan kräva det av sina medlemmar på sin sida.",
           "twoFactorGraceDays": "Tid att aktivera den",
           "twoFactorGraceDaysHint": "Den som saknar tvåfaktor tillfrågas vid varje appinloggning och kan fortsätta tills dess. Tiden börjar när du aktiverar detta, eller när kontot skapas.",
-          "noGrace": "Ingen: krävs direkt"
+          "noGrace": "Ingen: krävs direkt",
+          "newDeviceEmail": "Mejl vid inloggning från ny enhet",
+          "newDeviceEmailHint": "Personer får ett mejl när kontot loggar in från en webbläsare som det inte har använt tidigare, med en knapp för att logga ut överallt och återställa lösenordet. Inloggningar via en organisations SSO skickar inget mejl."
         },
         "emailDomains": {
           "title": "E-postdomäner",
@@ -3124,6 +3128,22 @@
       "button": "Granska och radera",
       "note": "Länken går ut om {minutes} minuter och fungerar bara en gång.",
       "footnote": "Har du inte bett om det här? Ignorera det här mejlet: ditt konto förblir som det är. Överväg att byta lösenord, eftersom begäran kom från en inloggad session."
+    },
+    "newDevice": {
+      "subject": "Ny inloggning på ditt {brand}-konto",
+      "preheader": "Ditt konto loggades in från en enhet som det inte har använt tidigare.",
+      "heading": "Ny inloggning från en annan enhet",
+      "body": "{brand}-kontot {email} loggades just in från en webbläsare eller enhet som det inte har använt tidigare.",
+      "when": "När: {when}",
+      "device": "Enhet: {device}",
+      "deviceOn": "{browser} på {system}",
+      "unknownDevice": "Okänd webbläsare",
+      "ipAddress": "IP-adress: {ip}",
+      "unknownIp": "okänd",
+      "ifYou": "Om det var du behöver du inte göra något.",
+      "button": "Det var inte jag",
+      "note": "Knappen fungerar en gång inom {days} dagar. Den loggar ut dig överallt och mejlar dig en länk för att välja ett nytt lösenord.",
+      "footnote": "Du får det här mejlet när ditt konto loggar in från en ny enhet. Dela aldrig ditt lösenord eller dina inloggningskoder."
     }
   },
   "authErrors": {
@@ -3144,5 +3164,20 @@
     "invalidToken": "Länken är ogiltig eller har gått ut.",
     "publicOrganization": "Medlemmarna i organisationen Public hanteras bara av plattformens administratörer.",
     "emailDomainNotAllowed": "Konton med den här e-postdomänen kan inte skapas här. Använd en annan adress."
+  },
+  "secureAccount": {
+    "title": "Skydda ditt konto",
+    "description": "Någon kan ha loggat in på ditt konto. Bekräfta för att stänga ute personen:",
+    "stepSignOut": "Du loggas ut på alla enheter, även den här.",
+    "stepApps": "Appar förlorar åtkomsten via ditt konto tills du loggar in igen.",
+    "stepReset": "Vi mejlar dig en länk för att välja ett nytt lösenord.",
+    "confirm": "Logga ut överallt och återställ mitt lösenord",
+    "toSignIn": "Till inloggningen",
+    "doneTitle": "Kolla din inkorg",
+    "doneBody": "Ditt konto loggades ut överallt. Öppna mejlet vi just skickade för att välja ett nytt lösenord. Om du använder tvåfaktorsautentisering, kontrollera att din autentiseringsapp och dina nycklar fortfarande är dina.",
+    "errors": {
+      "invalid": "Länken har gått ut eller har redan använts. Återställ för säkerhets skull lösenordet från inloggningssidan.",
+      "failed": "Något gick fel. Försök igen."
+    }
   }
 }
