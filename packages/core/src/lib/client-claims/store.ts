@@ -26,7 +26,7 @@ export async function getClientClaims(clientId: string): Promise<StoredClientCla
   if (!row) return { claims: [], updatedAt: null };
   const parsed = validateClientClaims(row.claims);
   if (!parsed.ok) {
-    console.error(`Ignoring the custom claims of client ${clientId}: ${parsed.error}`);
+    console.error("Ignoring the custom claims of client %s: %s", clientId.replace(/[\r\n]/g, ""), parsed.error);
     return { claims: [], updatedAt: row.updatedAt.toISOString() };
   }
   return { claims: parsed.value, updatedAt: row.updatedAt.toISOString() };

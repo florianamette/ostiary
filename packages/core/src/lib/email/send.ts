@@ -33,8 +33,13 @@ async function sendEmail(kind: string, to: string, subject: string, content: Ema
 
   if (!key || !from) {
     if (env.NODE_ENV === "development") {
-      const what = content.code ? `code for ${to}: ${content.code}` : `link for ${to}: ${content.button?.url}`;
-      console.info(`[email] Resend not configured; ${kind} ${what}`);
+      console.info(
+        "[email] Resend not configured; %s %s for %s: %s",
+        kind,
+        content.code ? "code" : "link",
+        to.replace(/[\r\n]/g, ""),
+        (content.code ?? content.button?.url ?? "").replace(/[\r\n]/g, ""),
+      );
     }
     return;
   }
