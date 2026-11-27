@@ -2450,7 +2450,8 @@
       "admin": "Administration",
       "marketingHome": "Om",
       "signOut": "Logga ut",
-      "data": "Dina data"
+      "data": "Dina data",
+      "activity": "Senaste aktivitet"
     },
     "profile": {
       "title": "Profil",
@@ -2835,6 +2836,33 @@
       "saved": "Numret sparades.",
       "removeFailed": "Det gick inte att ta bort numret.",
       "removed": "Numret togs bort."
+    },
+    "activity": {
+      "title": "Senaste aktivitet",
+      "description": "Inloggningar och säkerhetsändringar på ditt konto de senaste 30 dagarna. Känner du inte igen något? Logga ut den sessionen och byt lösenord.",
+      "empty": "Ingen aktivitet de senaste 30 dagarna.",
+      "loadError": "Det gick inte att läsa in din aktivitet.",
+      "more": "Visa fler",
+      "signOut": "Logga ut",
+      "signedOut": "Sessionen loggades ut.",
+      "signOutError": "Det gick inte att logga ut sessionen.",
+      "current": "Den här webbläsaren",
+      "newDevice": "Ny enhet",
+      "deviceOn": "{browser} på {system}",
+      "unknownDevice": "Okänd webbläsare",
+      "types": {
+        "sign_in": "Inloggning",
+        "password_changed": "Lösenordet ändrat",
+        "password_reset": "Lösenordet återställt",
+        "email_changed": "E-postadressen ändrad",
+        "two_factor_enabled": "Tvåfaktorsautentisering aktiverad",
+        "two_factor_disabled": "Tvåfaktorsautentisering inaktiverad",
+        "passkey_added": "Nyckel tillagd",
+        "passkey_removed": "Nyckel borttagen",
+        "session_revoked": "En session utloggad",
+        "sessions_revoked": "Utloggad från andra sessioner",
+        "account_secured": "Utloggad överallt (Det var inte jag)"
+      }
     }
   },
   "acceptInvitation": {

@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { index, pgTable, text, timestamp, uniqueIndex } from "drizzle-orm/pg-core";
+import { boolean, index, pgTable, text, timestamp, uniqueIndex } from "drizzle-orm/pg-core";
 
 import { user } from "./auth";
 
@@ -49,5 +49,33 @@ export const knownDevice = pgTable(
   (table) => [
     uniqueIndex("known_device_user_device_idx").on(table.userId, table.deviceHash),
     index("known_device_last_seen_at_idx").on(table.lastSeenAt),
+  ],
+);
+
+/**
+ * A person's own security history, for "Recent activity" on their account page
+ * (lib/account-activity.ts): sign-ins, password, email, two-factor and passkey changes, and
+ * sessions signed out. Separate from auth_event, which counts for the admin charts. Kept as long
+ * as sign-in events (AUTH_EVENT_RETENTION_DAYS), deleted with the account.
+ */
+export const accountEvent = pgTable(
+  "account_event",
+  {
+    id: text("id").primaryKey(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    type: text("type").notNull(),
+    ipAddress: text("ip_address"),
+    userAgent: text("user_agent"),
+    /** For a sign-in: the session it started, to sign it out while it is open. */
+    sessionId: text("session_id"),
+    /** For a sign-in: from a browser the account had not used (lib/security/new-device.ts). */
+    newDevice: boolean("new_device").default(false).notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => [
+    index("account_event_user_id_created_at_idx").on(table.userId, table.createdAt),
+    index("account_event_created_at_idx").on(table.createdAt),
   ],
 );

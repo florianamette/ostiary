@@ -2450,7 +2450,8 @@
       "admin": "Administration",
       "marketingHome": "Om",
       "signOut": "Log ud",
-      "data": "Dine data"
+      "data": "Dine data",
+      "activity": "Seneste aktivitet"
     },
     "profile": {
       "title": "Profil",
@@ -2835,6 +2836,33 @@
       "saved": "Nummeret er gemt.",
       "removeFailed": "Nummeret kunne ikke fjernes.",
       "removed": "Nummeret er fjernet."
+    },
+    "activity": {
+      "title": "Seneste aktivitet",
+      "description": "Login og sikkerhedsændringer på din konto de seneste 30 dage. Kan du ikke genkende noget? Log den session ud, og skift din adgangskode.",
+      "empty": "Ingen aktivitet de seneste 30 dage.",
+      "loadError": "Din aktivitet kunne ikke indlæses.",
+      "more": "Vis flere",
+      "signOut": "Log ud",
+      "signedOut": "Sessionen er logget ud.",
+      "signOutError": "Sessionen kunne ikke logges ud.",
+      "current": "Denne browser",
+      "newDevice": "Ny enhed",
+      "deviceOn": "{browser} på {system}",
+      "unknownDevice": "Ukendt browser",
+      "types": {
+        "sign_in": "Logget ind",
+        "password_changed": "Adgangskode ændret",
+        "password_reset": "Adgangskode nulstillet",
+        "email_changed": "E-mailadresse ændret",
+        "two_factor_enabled": "Totrinsgodkendelse slået til",
+        "two_factor_disabled": "Totrinsgodkendelse slået fra",
+        "passkey_added": "Adgangsnøgle tilføjet",
+        "passkey_removed": "Adgangsnøgle fjernet",
+        "session_revoked": "En session logget ud",
+        "sessions_revoked": "Logget ud af andre sessioner",
+        "account_secured": "Logget ud overalt (Det var ikke mig)"
+      }
     }
   },
   "acceptInvitation": {

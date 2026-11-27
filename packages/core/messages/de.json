@@ -2450,7 +2450,8 @@
       "admin": "Verwaltung",
       "marketingHome": "Über uns",
       "signOut": "Abmelden",
-      "data": "Ihre Daten"
+      "data": "Ihre Daten",
+      "activity": "Letzte Aktivität"
     },
     "profile": {
       "title": "Profil",
@@ -2835,6 +2836,33 @@
       "saved": "Nummer gespeichert.",
       "removeFailed": "Die Nummer konnte nicht entfernt werden.",
       "removed": "Nummer entfernt."
+    },
+    "activity": {
+      "title": "Letzte Aktivität",
+      "description": "Anmeldungen und Sicherheitsänderungen an Ihrem Konto in den letzten 30 Tagen. Etwas kommt Ihnen unbekannt vor? Melden Sie diese Sitzung ab und ändern Sie Ihr Passwort.",
+      "empty": "Keine Aktivität in den letzten 30 Tagen.",
+      "loadError": "Ihre Aktivität konnte nicht geladen werden.",
+      "more": "Mehr anzeigen",
+      "signOut": "Abmelden",
+      "signedOut": "Sitzung abgemeldet.",
+      "signOutError": "Diese Sitzung konnte nicht abgemeldet werden.",
+      "current": "Dieser Browser",
+      "newDevice": "Neues Gerät",
+      "deviceOn": "{browser} unter {system}",
+      "unknownDevice": "Unbekannter Browser",
+      "types": {
+        "sign_in": "Angemeldet",
+        "password_changed": "Passwort geändert",
+        "password_reset": "Passwort zurückgesetzt",
+        "email_changed": "E-Mail-Adresse geändert",
+        "two_factor_enabled": "Zwei-Faktor-Authentifizierung aktiviert",
+        "two_factor_disabled": "Zwei-Faktor-Authentifizierung deaktiviert",
+        "passkey_added": "Passkey hinzugefügt",
+        "passkey_removed": "Passkey entfernt",
+        "session_revoked": "Eine Sitzung abgemeldet",
+        "sessions_revoked": "Von anderen Sitzungen abgemeldet",
+        "account_secured": "Überall abgemeldet (Das war ich nicht)"
+      }
     }
   },
   "acceptInvitation": {

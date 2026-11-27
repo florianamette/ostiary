@@ -6,6 +6,7 @@ import {
   auditLog,
   authEvent,
   knownDevice,
+  accountEvent,
   invitation,
   member,
   oauthAccessToken,
@@ -92,6 +93,7 @@ async function collect(db: Database, u: typeof user.$inferSelect, options: { ins
     audits,
     events,
     devices,
+    activity,
   ] = await Promise.all([
     db
       .select({
@@ -318,6 +320,18 @@ async function collect(db: Database, u: typeof user.$inferSelect, options: { ins
       .where(eq(knownDevice.userId, userId))
       .orderBy(desc(knownDevice.lastSeenAt))
       .limit(EXPORT_HISTORY_LIMIT),
+    db
+      .select({
+        type: accountEvent.type,
+        ipAddress: accountEvent.ipAddress,
+        userAgent: accountEvent.userAgent,
+        newDevice: accountEvent.newDevice,
+        createdAt: accountEvent.createdAt,
+      })
+      .from(accountEvent)
+      .where(eq(accountEvent.userId, userId))
+      .orderBy(desc(accountEvent.createdAt))
+      .limit(EXPORT_HISTORY_LIMIT),
   ]);
 
   // Names of the apps this account is connected to.
@@ -517,6 +531,14 @@ async function collect(db: Database, u: typeof user.$inferSelect, options: { ins
       ipAddress: d.ipAddress,
       firstSeenAt: iso(d.createdAt),
       lastSeenAt: iso(d.lastSeenAt),
+    })),
+    // "Recent activity" on the account page.
+    accountActivity: activity.map((a) => ({
+      type: a.type,
+      at: iso(a.createdAt),
+      ipAddress: a.ipAddress,
+      userAgent: a.userAgent,
+      newDevice: a.newDevice,
     })),
   };
 }

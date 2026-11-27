@@ -2450,7 +2450,8 @@
       "admin": "Administração",
       "marketingHome": "Sobre",
       "signOut": "Sair",
-      "data": "Seus dados"
+      "data": "Seus dados",
+      "activity": "Atividade recente"
     },
     "profile": {
       "title": "Perfil",
@@ -2835,6 +2836,33 @@
       "saved": "Número guardado.",
       "removeFailed": "Não foi possível remover o número.",
       "removed": "Número removido."
+    },
+    "activity": {
+      "title": "Atividade recente",
+      "description": "Inícios de sessão e alterações de segurança da sua conta nos últimos 30 dias. Algo que não reconhece? Termine essa sessão e altere a palavra-passe.",
+      "empty": "Sem atividade nos últimos 30 dias.",
+      "loadError": "Não foi possível carregar a sua atividade.",
+      "more": "Mostrar mais",
+      "signOut": "Terminar sessão",
+      "signedOut": "Sessão terminada.",
+      "signOutError": "Não foi possível terminar esta sessão.",
+      "current": "Este navegador",
+      "newDevice": "Novo dispositivo",
+      "deviceOn": "{browser} em {system}",
+      "unknownDevice": "Navegador desconhecido",
+      "types": {
+        "sign_in": "Início de sessão",
+        "password_changed": "Palavra-passe alterada",
+        "password_reset": "Palavra-passe reposta",
+        "email_changed": "Endereço de email alterado",
+        "two_factor_enabled": "Autenticação de dois fatores ativada",
+        "two_factor_disabled": "Autenticação de dois fatores desativada",
+        "passkey_added": "Chave de acesso adicionada",
+        "passkey_removed": "Chave de acesso removida",
+        "session_revoked": "Uma sessão terminada",
+        "sessions_revoked": "Sessão terminada nas outras sessões",
+        "account_secured": "Sessão terminada em todo o lado (Não fui eu)"
+      }
     }
   },
   "acceptInvitation": {

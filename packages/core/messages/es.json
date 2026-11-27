@@ -2450,7 +2450,8 @@
       "admin": "Administración",
       "marketingHome": "Acerca de",
       "signOut": "Cerrar sesión",
-      "data": "Tus datos"
+      "data": "Tus datos",
+      "activity": "Actividad reciente"
     },
     "profile": {
       "title": "Perfil",
@@ -2835,6 +2836,33 @@
       "saved": "Número guardado.",
       "removeFailed": "No se pudo quitar el número.",
       "removed": "Número quitado."
+    },
+    "activity": {
+      "title": "Actividad reciente",
+      "description": "Inicios de sesión y cambios de seguridad de tu cuenta en los últimos 30 días. ¿Hay algo que no reconoces? Cierra esa sesión y cambia tu contraseña.",
+      "empty": "No hay actividad en los últimos 30 días.",
+      "loadError": "No se pudo cargar tu actividad.",
+      "more": "Mostrar más",
+      "signOut": "Cerrar sesión",
+      "signedOut": "Sesión cerrada.",
+      "signOutError": "No se pudo cerrar esta sesión.",
+      "current": "Este navegador",
+      "newDevice": "Dispositivo nuevo",
+      "deviceOn": "{browser} en {system}",
+      "unknownDevice": "Navegador desconocido",
+      "types": {
+        "sign_in": "Inicio de sesión",
+        "password_changed": "Contraseña cambiada",
+        "password_reset": "Contraseña restablecida",
+        "email_changed": "Correo electrónico cambiado",
+        "two_factor_enabled": "Autenticación en dos pasos activada",
+        "two_factor_disabled": "Autenticación en dos pasos desactivada",
+        "passkey_added": "Llave de acceso añadida",
+        "passkey_removed": "Llave de acceso eliminada",
+        "session_revoked": "Se cerró una sesión",
+        "sessions_revoked": "Se cerraron las demás sesiones",
+        "account_secured": "Sesión cerrada en todas partes (No fui yo)"
+      }
     }
   },
   "acceptInvitation": {

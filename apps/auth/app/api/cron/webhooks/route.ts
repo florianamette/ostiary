@@ -2,6 +2,7 @@ import { createHash, timingSafeEqual } from "node:crypto";
 
 import { purgeAuthEvents } from "@ostiary/core/lib/auth-events";
 import { env } from "@ostiary/core/lib/env";
+import { purgeAccountEvents } from "@ostiary/core/lib/account-activity";
 import { purgeKnownDevices } from "@ostiary/core/lib/security/new-device";
 import { processDueDeliveries } from "@ostiary/core/lib/webhooks/outbox";
 
@@ -34,5 +35,6 @@ export async function GET(request: Request) {
   const counts = await processDueDeliveries();
   const authEvents = await purgeAuthEvents();
   const knownDevices = await purgeKnownDevices();
-  return Response.json({ ...counts, authEvents, knownDevices });
+  const accountEvents = await purgeAccountEvents();
+  return Response.json({ ...counts, authEvents, knownDevices, accountEvents });
 }

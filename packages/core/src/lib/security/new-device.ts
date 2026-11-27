@@ -5,6 +5,7 @@ import { and, eq, gt, like, lt, ne } from "drizzle-orm";
 import { db } from "@ostiary/core/db/index";
 import { knownDevice, session as sessionTable, user as userTable, verification } from "@ostiary/core/db/schema";
 import { recordAudit } from "@ostiary/core/lib/audit";
+import { recordAccountEvent } from "@ostiary/core/lib/account-activity";
 import { clientIp } from "@ostiary/core/lib/auth-events";
 import { currentAuthPolicy } from "@ostiary/core/lib/auth-policy";
 import { emailLocale } from "@ostiary/core/lib/email/email-locale";
@@ -86,6 +87,12 @@ export async function noticeSignIn(ctx: GenericEndpointContext | null | undefine
             .values({ id: randomUUID(), userId: signedIn.userId, deviceHash, userAgent, ipAddress, createdAt: now, lastSeenAt: now })
             .onConflictDoUpdate({ target: [knownDevice.userId, knownDevice.deviceHash], set: { userAgent, ipAddress, lastSeenAt: now } });
         await ctx.setSignedCookie(cookie.name, deviceId, ctx.context.secret, cookie.attributes);
+        await recordAccountEvent("sign_in", signedIn.userId, {
+            ipAddress,
+            userAgent,
+            sessionId: signedIn.id,
+            newDevice: !known && !firstDevice,
+        });
 
         if (known || firstDevice || !emailedPath(ctx.path)) return;
         if (!(await currentAuthPolicy()).newDeviceEmail) return;

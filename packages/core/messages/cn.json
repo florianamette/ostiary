@@ -2450,7 +2450,8 @@
       "admin": "管理后台",
       "marketingHome": "关于",
       "signOut": "退出登录",
-      "data": "你的数据"
+      "data": "你的数据",
+      "activity": "最近活动"
     },
     "profile": {
       "title": "个人资料",
@@ -2835,6 +2836,33 @@
       "saved": "号码已保存。",
       "removeFailed": "无法移除号码。",
       "removed": "号码已移除。"
+    },
+    "activity": {
+      "title": "最近活动",
+      "description": "过去 30 天内你账户的登录和安全变更。有不认识的记录？请退出该会话并修改密码。",
+      "empty": "过去 30 天内没有活动。",
+      "loadError": "无法加载你的活动。",
+      "more": "显示更多",
+      "signOut": "退出",
+      "signedOut": "会话已退出。",
+      "signOutError": "无法退出此会话。",
+      "current": "此浏览器",
+      "newDevice": "新设备",
+      "deviceOn": "{system} 上的 {browser}",
+      "unknownDevice": "未知浏览器",
+      "types": {
+        "sign_in": "登录",
+        "password_changed": "已修改密码",
+        "password_reset": "已重置密码",
+        "email_changed": "已修改邮箱地址",
+        "two_factor_enabled": "已开启双重验证",
+        "two_factor_disabled": "已关闭双重验证",
+        "passkey_added": "已添加通行密钥",
+        "passkey_removed": "已移除通行密钥",
+        "session_revoked": "已退出一个会话",
+        "sessions_revoked": "已退出其他会话",
+        "account_secured": "已在所有地方退出（不是我）"
+      }
     }
   },
   "acceptInvitation": {

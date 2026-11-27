@@ -2,6 +2,7 @@
 
 import { headers } from "next/headers";
 
+import { recordAccountEvent } from "@ostiary/core/lib/account-activity";
 import { recordAudit } from "@ostiary/core/lib/audit";
 import { clientIp } from "@ostiary/core/lib/auth-events";
 import { env } from "@ostiary/core/lib/env";
@@ -35,6 +36,7 @@ export async function secureMyAccount(token: string, locale: string): Promise<Se
       metadata: { sessions },
       ipAddress,
     });
+    await recordAccountEvent("account_secured", account.id, { headers: requestHeaders });
     const lang: AppLocale = (locales as readonly string[]).includes(locale) ? (locale as AppLocale) : routing.defaultLocale;
     await auth.api.requestPasswordReset({
       body: { email: account.email, redirectTo: `${env.AUTH_APP_URL ?? getBaseURL()}/${lang}/reset-password` },

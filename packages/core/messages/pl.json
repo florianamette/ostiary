@@ -2450,7 +2450,8 @@
       "admin": "Administracja",
       "marketingHome": "O usłudze",
       "signOut": "Wyloguj się",
-      "data": "Twoje dane"
+      "data": "Twoje dane",
+      "activity": "Ostatnia aktywność"
     },
     "profile": {
       "title": "Profil",
@@ -2835,6 +2836,33 @@
       "saved": "Numer zapisany.",
       "removeFailed": "Nie udało się usunąć numeru.",
       "removed": "Numer usunięty."
+    },
+    "activity": {
+      "title": "Ostatnia aktywność",
+      "description": "Logowania i zmiany zabezpieczeń konta z ostatnich 30 dni. Coś wygląda obco? Wyloguj tę sesję i zmień hasło.",
+      "empty": "Brak aktywności w ostatnich 30 dniach.",
+      "loadError": "Nie udało się wczytać aktywności.",
+      "more": "Pokaż więcej",
+      "signOut": "Wyloguj",
+      "signedOut": "Sesja wylogowana.",
+      "signOutError": "Nie udało się wylogować tej sesji.",
+      "current": "Ta przeglądarka",
+      "newDevice": "Nowe urządzenie",
+      "deviceOn": "{browser} w systemie {system}",
+      "unknownDevice": "Nieznana przeglądarka",
+      "types": {
+        "sign_in": "Logowanie",
+        "password_changed": "Zmieniono hasło",
+        "password_reset": "Zresetowano hasło",
+        "email_changed": "Zmieniono adres e-mail",
+        "two_factor_enabled": "Włączono uwierzytelnianie dwuskładnikowe",
+        "two_factor_disabled": "Wyłączono uwierzytelnianie dwuskładnikowe",
+        "passkey_added": "Dodano klucz dostępu",
+        "passkey_removed": "Usunięto klucz dostępu",
+        "session_revoked": "Wylogowano sesję",
+        "sessions_revoked": "Wylogowano inne sesje",
+        "account_secured": "Wylogowano wszędzie (To nie ja)"
+      }
     }
   },
   "acceptInvitation": {
