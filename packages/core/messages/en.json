@@ -1485,7 +1485,17 @@
           "user_role_changed": "An account's platform role changes.",
           "organization_member_added": "Someone joins an organization.",
           "organization_member_removed": "Someone leaves or is removed from an organization.",
-          "organization_member_role_changed": "A member's role in an organization changes."
+          "organization_member_role_changed": "A member's role in an organization changes.",
+          "user_signed_in": "Someone signs in, with whether it is a new device.",
+          "user_sign_in_locked": "Password sign-in is paused after repeated wrong passwords.",
+          "user_password_changed": "A password is changed.",
+          "user_password_reset": "A password is reset from an emailed link or code.",
+          "user_password_breached": "A password used to sign in appears in a data breach.",
+          "user_two_factor_enabled": "Two-factor authentication is turned on.",
+          "user_two_factor_disabled": "Two-factor authentication is turned off.",
+          "user_passkey_added": "A passkey is added.",
+          "user_passkey_removed": "A passkey is removed.",
+          "user_account_secured": "Someone signs out everywhere from a new-device or security email (This wasn't me)."
         },
         "panel": {
           "events": "Events",

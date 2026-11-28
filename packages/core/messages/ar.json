@@ -1485,7 +1485,17 @@
           "user_role_changed": "يتغيّر دور الحساب على المنصة.",
           "organization_member_added": "ينضم شخص إلى مؤسسة.",
           "organization_member_removed": "يغادر شخص مؤسسة أو يُزال منها.",
-          "organization_member_role_changed": "يتغيّر دور عضو في مؤسسة."
+          "organization_member_role_changed": "يتغيّر دور عضو في مؤسسة.",
+          "user_signed_in": "يسجّل أحدهم الدخول، مع بيان ما إذا كان جهازًا جديدًا.",
+          "user_sign_in_locked": "يتوقف تسجيل الدخول بكلمة المرور مؤقتًا بعد تكرار كلمات مرور خاطئة.",
+          "user_password_changed": "تُغيَّر كلمة مرور.",
+          "user_password_reset": "يُعاد تعيين كلمة مرور من رابط أو رمز مُرسل بالبريد الإلكتروني.",
+          "user_password_breached": "تظهر كلمة مرور استُخدمت لتسجيل الدخول في تسريب بيانات.",
+          "user_two_factor_enabled": "يُفعَّل التحقق بخطوتين.",
+          "user_two_factor_disabled": "يُعطَّل التحقق بخطوتين.",
+          "user_passkey_added": "يُضاف مفتاح مرور.",
+          "user_passkey_removed": "يُزال مفتاح مرور.",
+          "user_account_secured": "يسجّل أحدهم الخروج من كل مكان عبر بريد جهاز جديد أو بريد أمان (لم أكن أنا)."
         },
         "panel": {
           "events": "الأحداث",

@@ -1485,7 +1485,17 @@
           "user_role_changed": "En kontos platformsrolle ændres.",
           "organization_member_added": "Nogen bliver medlem af en organisation.",
           "organization_member_removed": "Nogen forlader eller fjernes fra en organisation.",
-          "organization_member_role_changed": "Et medlems rolle i en organisation ændres."
+          "organization_member_role_changed": "Et medlems rolle i en organisation ændres.",
+          "user_signed_in": "Nogen logger ind, med angivelse af om det er en ny enhed.",
+          "user_sign_in_locked": "Login med adgangskode sættes på pause efter gentagne forkerte adgangskoder.",
+          "user_password_changed": "En adgangskode ændres.",
+          "user_password_reset": "En adgangskode nulstilles fra et link eller en kode sendt på e-mail.",
+          "user_password_breached": "En adgangskode brugt til login optræder i et datalæk.",
+          "user_two_factor_enabled": "Totrinsbekræftelse slås til.",
+          "user_two_factor_disabled": "Totrinsbekræftelse slås fra.",
+          "user_passkey_added": "En adgangsnøgle tilføjes.",
+          "user_passkey_removed": "En adgangsnøgle fjernes.",
+          "user_account_secured": "Nogen logger ud overalt fra en e-mail om ny enhed eller sikkerhed (Det var ikke mig)."
         },
         "panel": {
           "events": "Hændelser",

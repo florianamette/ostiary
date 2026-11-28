@@ -1485,7 +1485,17 @@
           "user_role_changed": "Die Plattformrolle eines Kontos ändert sich.",
           "organization_member_added": "Jemand tritt einer Organisation bei.",
           "organization_member_removed": "Jemand verlässt eine Organisation oder wird daraus entfernt.",
-          "organization_member_role_changed": "Die Rolle eines Mitglieds in einer Organisation ändert sich."
+          "organization_member_role_changed": "Die Rolle eines Mitglieds in einer Organisation ändert sich.",
+          "user_signed_in": "Jemand meldet sich an, mit Angabe, ob es ein neues Gerät ist.",
+          "user_sign_in_locked": "Die Anmeldung mit Passwort wird nach wiederholt falschen Passwörtern pausiert.",
+          "user_password_changed": "Ein Passwort wird geändert.",
+          "user_password_reset": "Ein Passwort wird über einen per E-Mail gesendeten Link oder Code zurückgesetzt.",
+          "user_password_breached": "Ein zur Anmeldung verwendetes Passwort taucht in einem Datenleck auf.",
+          "user_two_factor_enabled": "Die Zwei-Faktor-Authentifizierung wird aktiviert.",
+          "user_two_factor_disabled": "Die Zwei-Faktor-Authentifizierung wird deaktiviert.",
+          "user_passkey_added": "Ein Passkey wird hinzugefügt.",
+          "user_passkey_removed": "Ein Passkey wird entfernt.",
+          "user_account_secured": "Jemand meldet sich über eine Neues-Gerät- oder Sicherheits-E-Mail überall ab (Das war ich nicht)."
         },
         "panel": {
           "events": "Ereignisse",

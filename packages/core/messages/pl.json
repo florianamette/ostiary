@@ -1485,7 +1485,17 @@
           "user_role_changed": "Zmieniła się rola konta na platformie.",
           "organization_member_added": "Ktoś dołącza do organizacji.",
           "organization_member_removed": "Ktoś opuszcza organizację lub zostaje z niej usunięty.",
-          "organization_member_role_changed": "Zmienia się rola członka w organizacji."
+          "organization_member_role_changed": "Zmienia się rola członka w organizacji.",
+          "user_signed_in": "Ktoś się loguje, z informacją, czy to nowe urządzenie.",
+          "user_sign_in_locked": "Logowanie hasłem zostaje wstrzymane po wielokrotnym podaniu złego hasła.",
+          "user_password_changed": "Hasło zostaje zmienione.",
+          "user_password_reset": "Hasło zostaje zresetowane za pomocą linku lub kodu z e-maila.",
+          "user_password_breached": "Hasło użyte do logowania pojawia się w wycieku danych.",
+          "user_two_factor_enabled": "Uwierzytelnianie dwuskładnikowe zostaje włączone.",
+          "user_two_factor_disabled": "Uwierzytelnianie dwuskładnikowe zostaje wyłączone.",
+          "user_passkey_added": "Dodano klucz dostępu.",
+          "user_passkey_removed": "Usunięto klucz dostępu.",
+          "user_account_secured": "Ktoś wylogowuje się wszędzie z e-maila o nowym urządzeniu lub bezpieczeństwie (To nie ja)."
         },
         "panel": {
           "events": "Zdarzenia",

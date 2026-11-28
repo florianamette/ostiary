@@ -1485,7 +1485,17 @@
           "user_role_changed": "किसी खाते की प्लेटफ़ॉर्म भूमिका बदलती है।",
           "organization_member_added": "कोई संगठन से जुड़ता है।",
           "organization_member_removed": "कोई संगठन छोड़ता है या उससे हटाया जाता है।",
-          "organization_member_role_changed": "संगठन में किसी सदस्य की भूमिका बदलती है।"
+          "organization_member_role_changed": "संगठन में किसी सदस्य की भूमिका बदलती है।",
+          "user_signed_in": "कोई साइन इन करता है, साथ में यह भी कि डिवाइस नया है या नहीं।",
+          "user_sign_in_locked": "बार-बार गलत पासवर्ड के बाद पासवर्ड से साइन इन रोक दिया जाता है।",
+          "user_password_changed": "पासवर्ड बदला जाता है।",
+          "user_password_reset": "ईमेल से भेजे गए लिंक या कोड से पासवर्ड रीसेट किया जाता है।",
+          "user_password_breached": "साइन इन में इस्तेमाल हुआ पासवर्ड किसी डेटा लीक में मिलता है।",
+          "user_two_factor_enabled": "दो-चरणीय प्रमाणीकरण चालू किया जाता है।",
+          "user_two_factor_disabled": "दो-चरणीय प्रमाणीकरण बंद किया जाता है।",
+          "user_passkey_added": "पासकी जोड़ी जाती है।",
+          "user_passkey_removed": "पासकी हटाई जाती है।",
+          "user_account_secured": "कोई नए डिवाइस या सुरक्षा ईमेल से हर जगह साइन आउट करता है (यह मैं नहीं था)।"
         },
         "panel": {
           "events": "इवेंट",

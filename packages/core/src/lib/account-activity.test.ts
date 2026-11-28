@@ -31,6 +31,8 @@ import * as schema from "@ostiary/core/db/schema";
 import { createAuth } from "@ostiary/core/lib/auth-factory";
 import { listAccountActivity, purgeAccountEvents, recordAccountEvent, signOutOwnSession } from "@ostiary/core/lib/account-activity";
 import { userUpdateEvents } from "@ostiary/core/lib/auth-hooks/account-activity-hook";
+import { encryptSecret } from "@ostiary/core/lib/webhooks/secret-box";
+import { generateWebhookSecret } from "@ostiary/core/lib/webhooks/signing";
 
 const { db } = dbModule;
 const pglite = (dbModule as unknown as { client: PGlite }).client;
@@ -92,6 +94,32 @@ describe("account activity", () => {
         expect(firstSignIn).toMatchObject({ openSessionId: null, current: false, newDevice: false, country: null });
         expect(page.items.find((i) => i.type === "password_changed")?.country).toBe("FR");
         expect(first.cookie).toBeTruthy();
+    });
+
+    it("sends security events to the webhooks subscribed to them", async () => {
+        await db.insert(schema.webhookEndpoint).values({
+            id: "wh_security",
+            url: "https://hooks.invalid/in",
+            events: ["user.signed_in", "user.password_changed"],
+            secretEncrypted: encryptSecret(generateWebhookSecret(), process.env.BETTER_AUTH_SECRET!),
+        });
+        const who = await account();
+        const signIn = await call("/sign-in/email", { email: who.email, password: who.password }, undefined, "203.0.113.31", "DE");
+        await call("/change-password", { currentPassword: who.password, newPassword: `${who.password}-new` }, signIn.cookie, "203.0.113.31", "DE");
+        await recordAccountEvent("passkey_added", who.id);
+
+        const deliveries = await db.select().from(schema.webhookDelivery).where(eq(schema.webhookDelivery.endpointId, "wh_security"));
+        await db.delete(schema.webhookEndpoint).where(eq(schema.webhookEndpoint.id, "wh_security"));
+        const payloads = deliveries.map((d) => JSON.parse(d.payload) as { type: string; data: Record<string, unknown> });
+        const mine = payloads.filter((p) => (p.data.user as { id: string }).id === who.id);
+        expect(mine.map((p) => p.type).sort()).toEqual(["user.password_changed", "user.signed_in"]);
+        expect(mine.find((p) => p.type === "user.signed_in")?.data).toMatchObject({
+            user: { id: who.id, email: who.email },
+            ipAddress: "203.0.113.31",
+            userAgent: FIREFOX,
+            country: "DE",
+            newDevice: false,
+        });
     });
 
     it("pages back through the last 30 days only", async () => {

@@ -1485,7 +1485,17 @@
           "user_role_changed": "账户的平台角色发生变化。",
           "organization_member_added": "有人加入组织。",
           "organization_member_removed": "有人离开组织或被移出组织。",
-          "organization_member_role_changed": "成员在组织中的角色发生变化。"
+          "organization_member_role_changed": "成员在组织中的角色发生变化。",
+          "user_signed_in": "有人登录时（包括是否为新设备）。",
+          "user_sign_in_locked": "多次输入错误密码后，密码登录被暂停。",
+          "user_password_changed": "密码被更改。",
+          "user_password_reset": "通过邮件中的链接或验证码重置密码。",
+          "user_password_breached": "用于登录的密码出现在数据泄露中。",
+          "user_two_factor_enabled": "开启双重身份验证。",
+          "user_two_factor_disabled": "关闭双重身份验证。",
+          "user_passkey_added": "添加了通行密钥。",
+          "user_passkey_removed": "移除了通行密钥。",
+          "user_account_secured": "有人通过新设备或安全邮件在所有位置退出登录（不是我本人）。"
         },
         "panel": {
           "events": "事件",

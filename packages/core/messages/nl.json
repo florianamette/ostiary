@@ -1485,7 +1485,17 @@
           "user_role_changed": "De platformrol van een account wijzigt.",
           "organization_member_added": "Iemand wordt lid van een organisatie.",
           "organization_member_removed": "Iemand verlaat een organisatie of wordt eruit verwijderd.",
-          "organization_member_role_changed": "De rol van een lid in een organisatie wijzigt."
+          "organization_member_role_changed": "De rol van een lid in een organisatie wijzigt.",
+          "user_signed_in": "Iemand meldt zich aan, met of het een nieuw apparaat is.",
+          "user_sign_in_locked": "Aanmelden met wachtwoord wordt gepauzeerd na herhaaldelijk verkeerde wachtwoorden.",
+          "user_password_changed": "Een wachtwoord wordt gewijzigd.",
+          "user_password_reset": "Een wachtwoord wordt opnieuw ingesteld via een gemailde link of code.",
+          "user_password_breached": "Een wachtwoord waarmee is aangemeld, komt voor in een datalek.",
+          "user_two_factor_enabled": "Tweestapsverificatie wordt ingeschakeld.",
+          "user_two_factor_disabled": "Tweestapsverificatie wordt uitgeschakeld.",
+          "user_passkey_added": "Er wordt een passkey toegevoegd.",
+          "user_passkey_removed": "Er wordt een passkey verwijderd.",
+          "user_account_secured": "Iemand meldt zich overal af vanuit een nieuw-apparaat- of beveiligingsmail (Dit was ik niet)."
         },
         "panel": {
           "events": "Gebeurtenissen",

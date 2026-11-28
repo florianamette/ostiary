@@ -1485,7 +1485,17 @@
           "user_role_changed": "A função de uma conta na plataforma muda.",
           "organization_member_added": "Alguém entra em uma organização.",
           "organization_member_removed": "Alguém sai ou é removido de uma organização.",
-          "organization_member_role_changed": "A função de um membro em uma organização muda."
+          "organization_member_role_changed": "A função de um membro em uma organização muda.",
+          "user_signed_in": "Alguém entra, indicando se é um novo dispositivo.",
+          "user_sign_in_locked": "O início de sessão com senha é suspenso após várias senhas erradas.",
+          "user_password_changed": "Uma senha é alterada.",
+          "user_password_reset": "Uma senha é redefinida a partir de um link ou código enviado por email.",
+          "user_password_breached": "Uma senha usada para entrar aparece numa fuga de dados.",
+          "user_two_factor_enabled": "A autenticação de dois fatores é ativada.",
+          "user_two_factor_disabled": "A autenticação de dois fatores é desativada.",
+          "user_passkey_added": "É adicionada uma chave de acesso.",
+          "user_passkey_removed": "É removida uma chave de acesso.",
+          "user_account_secured": "Alguém termina sessão em todo o lado a partir de um email de novo dispositivo ou de segurança (Não fui eu)."
         },
         "panel": {
           "events": "Eventos",

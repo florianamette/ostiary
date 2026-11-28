@@ -1485,7 +1485,17 @@
           "user_role_changed": "Bir hesabın platform rolü değişir.",
           "organization_member_added": "Biri bir kuruluşa katılır.",
           "organization_member_removed": "Biri bir kuruluştan ayrılır veya çıkarılır.",
-          "organization_member_role_changed": "Bir üyenin kuruluştaki rolü değişir."
+          "organization_member_role_changed": "Bir üyenin kuruluştaki rolü değişir.",
+          "user_signed_in": "Biri oturum açar; yeni bir cihaz olup olmadığı da belirtilir.",
+          "user_sign_in_locked": "Tekrarlanan yanlış parolalardan sonra parolayla giriş duraklatılır.",
+          "user_password_changed": "Bir parola değiştirilir.",
+          "user_password_reset": "Bir parola e-postayla gönderilen bağlantı veya kodla sıfırlanır.",
+          "user_password_breached": "Giriş için kullanılan bir parola veri sızıntısında görünür.",
+          "user_two_factor_enabled": "İki adımlı doğrulama açılır.",
+          "user_two_factor_disabled": "İki adımlı doğrulama kapatılır.",
+          "user_passkey_added": "Bir geçiş anahtarı eklenir.",
+          "user_passkey_removed": "Bir geçiş anahtarı kaldırılır.",
+          "user_account_secured": "Biri yeni cihaz veya güvenlik e-postasından her yerde oturumu kapatır (Bu ben değildim)."
         },
         "panel": {
           "events": "Olaylar",
