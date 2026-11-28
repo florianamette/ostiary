@@ -19,7 +19,17 @@ export type NewDeviceEmailInput = {
     at: Date;
     device: DeviceName;
     ipAddress: string | null;
+    /** ISO 3166-1 alpha-2, when known (country.ts). */
+    country?: string | null;
 };
+
+function countryName(lang: string, code: string): string {
+    try {
+        return new Intl.DisplayNames([lang], { type: "region" }).of(code) ?? code;
+    } catch {
+        return code;
+    }
+}
 
 /** Subject and content of the new-device sign-in email, in the given locale's messages. */
 export function newDeviceEmail(locale: AppLocale, messages: Messages, input: NewDeviceEmailInput): { subject: string; content: EmailContent } {
@@ -41,6 +51,7 @@ export function newDeviceEmail(locale: AppLocale, messages: Messages, input: New
                 t("when", { when }),
                 t("device", { device }),
                 t("ipAddress", { ip: input.ipAddress ?? t("unknownIp") }),
+                ...(input.country ? [t("location", { country: countryName(lang, input.country) })] : []),
                 t("ifYou", values),
             ],
             button: { label: t("button", values), url: input.url },

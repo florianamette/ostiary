@@ -182,7 +182,8 @@
       "notLinked": "Tätä tiliä ei ole vielä yhdistetty {name}-tiliin. Kirjaudu toisella tavalla ja yhdistä se sitten turvallisuusasetuksistasi.",
       "noEmail": "Tili ei jakanut sähköpostiosoitetta. Yritä myöhemmin uudelleen tai kirjaudu toisella tavalla.",
       "signUpDisabled": "Tälle osoitteelle ei ole vielä tiliä, eikä tällä kirjautumistavalla voi luoda sellaista. Kirjaudu sisään toisella tavalla.",
-      "createFailed": "Tiliä ei voitu luoda tällä kirjautumisella. Sähköpostiosoitettasi ei ehkä sallita täällä: kokeile toista osoitetta tai kirjaudu toisella tavalla."
+      "createFailed": "Tiliä ei voitu luoda tällä kirjautumisella. Sähköpostiosoitettasi ei ehkä sallita täällä: kokeile toista osoitetta tai kirjaudu toisella tavalla.",
+      "sessionRefused": "Kirjautuminen hylättiin. Jos uskot tämän olevan virhe, ota yhteyttä ylläpitäjään."
     },
     "app": {
       "signIn": "Kirjaudu sisään jatkaaksesi palveluun <app>{name}</app>",
@@ -2030,7 +2031,9 @@
           },
           "security": {
             "update_policy": "Muutti istunto- ja salasanakäytäntöä",
-            "update_email_domains": "Muutti sallittuja sähköpostiverkkotunnuksia"
+            "update_email_domains": "Muutti sallittuja sähköpostiverkkotunnuksia",
+            "update_countries": "Muutti maita",
+            "country_refused": "Hylkäsi kirjautumisen maasta"
           }
         },
         "actorPlaceholder": "Hae tekijän mukaan (sähköposti)…",
@@ -2143,6 +2146,37 @@
             "invalidDomain": "Jokin merkinnöistä ei ole verkkotunnus, kuten example.com.",
             "noDomains": "Anna vähintään yksi verkkotunnus.",
             "save": "Sähköpostiverkkotunnuksia ei voitu tallentaa."
+          }
+        },
+        "countries": {
+          "title": "Maat",
+          "description": "Mistä maista voi kirjautua ja rekisteröityä. Alustan ylläpitäjät voivat aina kirjautua; pyyntö tuntemattomasta maasta sallitaan.",
+          "notConfigured": "Ota käyttöön asettamalla molempiin sovelluksiin COUNTRY_HEADER (välityspalvelimen asettama otsake, kuten cf-ipcountry) tai GEOIP_DATABASE (MaxMind GeoLite2 Country -tiedosto). Vercelissä se toimii ilman niitä.",
+          "edit": "Muokkaa",
+          "mode": "Kuka voi kirjautua",
+          "modes": {
+            "any": "Mikä tahansa maa",
+            "allow": "Vain nämä maat",
+            "block": "Mikä tahansa maa paitsi nämä"
+          },
+          "modeHints": {
+            "any": "Ei maarajoitusta.",
+            "allow": "Kirjautumiset ja rekisteröitymiset muista maista hylätään.",
+            "block": "Kirjautumiset ja rekisteröitymiset luetelluista maista hylätään."
+          },
+          "allowed": "Sallitut maat",
+          "blocked": "Estetyt maat",
+          "none": "Ei mitään",
+          "countriesHint": "Kaksikirjaimiset maakoodit (ISO 3166-1) pilkuilla tai välilyönneillä erotettuina: FR, DE, US.",
+          "dialogDescription": "Ylläpitäjät voivat yhä kirjautua mistä tahansa. Tunnistautumissovellus ottaa tämän käyttöön minuutin kuluessa.",
+          "save": "Tallenna",
+          "cancel": "Peruuta",
+          "saved": "Maat tallennettu. Tunnistautumissovellus ottaa ne käyttöön minuutin kuluessa.",
+          "errors": {
+            "invalid": "Valitse jokin tarjotuista vaihtoehdoista.",
+            "invalidCountry": "Jokin merkinnöistä ei ole kaksikirjaiminen maakoodi, kuten FR.",
+            "noCountries": "Anna vähintään yksi maa.",
+            "save": "Maita ei voitu tallentaa."
           }
         }
       },
@@ -3176,7 +3210,8 @@
       "ifYou": "Jos se olit sinä, sinun ei tarvitse tehdä mitään.",
       "button": "Se en ollut minä",
       "note": "Painike toimii kerran {days} päivän ajan. Se kirjaa sinut ulos kaikkialta ja lähettää linkin uuden salasanan valitsemiseen.",
-      "footnote": "Saat tämän viestin, kun tilillesi kirjaudutaan uudelta laitteelta. Älä koskaan jaa salasanaasi tai kirjautumiskoodejasi."
+      "footnote": "Saat tämän viestin, kun tilillesi kirjaudutaan uudelta laitteelta. Älä koskaan jaa salasanaasi tai kirjautumiskoodejasi.",
+      "location": "Sijainti: {country}"
     }
   },
   "authErrors": {
@@ -3196,7 +3231,8 @@
     "emailNotVerified": "Vahvista ensin sähköpostiosoitteesi.",
     "invalidToken": "Linkki on virheellinen tai vanhentunut.",
     "publicOrganization": "Public-organisaation jäseniä hallitsevat vain alustan ylläpitäjät.",
-    "emailDomainNotAllowed": "Tällä sähköpostiverkkotunnuksella ei voi luoda tiliä täällä. Käytä toista osoitetta."
+    "emailDomainNotAllowed": "Tällä sähköpostiverkkotunnuksella ei voi luoda tiliä täällä. Käytä toista osoitetta.",
+    "countryNotAllowed": "Kirjautuminen maastasi ei ole täällä sallittu."
   },
   "secureAccount": {
     "title": "Suojaa tilisi",

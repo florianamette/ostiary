@@ -182,7 +182,8 @@
       "notLinked": "Den kontoen er ikke koblet til en {name}-konto ennå. Logg inn på en annen måte, og koble den til fra sikkerhetsinnstillingene dine.",
       "noEmail": "Kontoen delte ingen e-postadresse. Prøv igjen senere, eller logg inn på en annen måte.",
       "signUpDisabled": "Det finnes ingen konto for den adressen ennå, og denne innloggingsmetoden kan ikke opprette en. Logg inn på en annen måte.",
-      "createFailed": "Kunne ikke opprette en konto med den påloggingen. E-postadressen din er kanskje ikke tillatt her: prøv en annen adresse eller logg på en annen måte."
+      "createFailed": "Kunne ikke opprette en konto med den påloggingen. E-postadressen din er kanskje ikke tillatt her: prøv en annen adresse eller logg på en annen måte.",
+      "sessionRefused": "Påloggingen ble avvist. Hvis du tror det er en feil, kontakt administratoren din."
     },
     "app": {
       "signIn": "Logg inn for å fortsette til <app>{name}</app>",
@@ -2030,7 +2031,9 @@
           },
           "security": {
             "update_policy": "Endret retningslinjene for økter og passord",
-            "update_email_domains": "Endret de tillatte e-postdomenene"
+            "update_email_domains": "Endret de tillatte e-postdomenene",
+            "update_countries": "Endret landene",
+            "country_refused": "Avviste en pålogging fra et land"
           }
         },
         "actorPlaceholder": "Søk etter hvem som handlet (e-post)…",
@@ -2143,6 +2146,37 @@
             "invalidDomain": "En av oppføringene er ikke et domenenavn, som example.com.",
             "noDomains": "Oppgi minst ett domene.",
             "save": "Kunne ikke lagre e-postdomenene."
+          }
+        },
+        "countries": {
+          "title": "Land",
+          "description": "Fra hvilke land man kan logge på og registrere seg. Plattformadministratorer kan alltid logge på; en forespørsel fra ukjent land tillates.",
+          "notConfigured": "Angi COUNTRY_HEADER (en header proxyen din setter, f.eks. cf-ipcountry) eller GEOIP_DATABASE (en MaxMind GeoLite2 Country-fil) i begge appene for å slå det på. På Vercel fungerer det uten.",
+          "edit": "Rediger",
+          "mode": "Hvem kan logge på",
+          "modes": {
+            "any": "Alle land",
+            "allow": "Bare disse landene",
+            "block": "Alle land unntatt disse"
+          },
+          "modeHints": {
+            "any": "Ingen begrensning på land.",
+            "allow": "Pålogginger og registreringer fra andre land avvises.",
+            "block": "Pålogginger og registreringer fra de oppførte landene avvises."
+          },
+          "allowed": "Tillatte land",
+          "blocked": "Blokkerte land",
+          "none": "Ingen",
+          "countriesHint": "Landkoder på to bokstaver (ISO 3166-1), skilt med komma eller mellomrom: FR, DE, US.",
+          "dialogDescription": "Administratorer kan fortsatt logge på fra hvor som helst. Autentiseringsappen tar det i bruk innen ett minutt.",
+          "save": "Lagre",
+          "cancel": "Avbryt",
+          "saved": "Landene er lagret. Autentiseringsappen tar dem i bruk innen ett minutt.",
+          "errors": {
+            "invalid": "Velg ett av alternativene.",
+            "invalidCountry": "En av oppføringene er ikke en landkode på to bokstaver, som FR.",
+            "noCountries": "Oppgi minst ett land.",
+            "save": "Kunne ikke lagre landene."
           }
         }
       },
@@ -3176,7 +3210,8 @@
       "ifYou": "Hvis det var deg, trenger du ikke gjøre noe.",
       "button": "Det var ikke meg",
       "note": "Knappen fungerer én gang innen {days} dager. Den logger deg ut overalt og sender deg en lenke for å velge et nytt passord.",
-      "footnote": "Du får denne e-posten når kontoen din logges på fra en ny enhet. Del aldri passordet eller påloggingskodene dine."
+      "footnote": "Du får denne e-posten når kontoen din logges på fra en ny enhet. Del aldri passordet eller påloggingskodene dine.",
+      "location": "Sted: {country}"
     }
   },
   "authErrors": {
@@ -3196,7 +3231,8 @@
     "emailNotVerified": "Bekreft e-postadressen din først.",
     "invalidToken": "Lenken er ugyldig eller utløpt.",
     "publicOrganization": "Medlemmene i organisasjonen Public administreres bare av plattformadministratorer.",
-    "emailDomainNotAllowed": "Kontoer med dette e-postdomenet kan ikke opprettes her. Bruk en annen adresse."
+    "emailDomainNotAllowed": "Kontoer med dette e-postdomenet kan ikke opprettes her. Bruk en annen adresse.",
+    "countryNotAllowed": "Pålogging fra landet ditt er ikke tillatt her."
   },
   "secureAccount": {
     "title": "Sikre kontoen din",

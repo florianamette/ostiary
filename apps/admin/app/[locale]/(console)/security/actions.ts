@@ -19,6 +19,15 @@ import {
   type EmailDomainPolicy,
 } from "@ostiary/core/lib/email-domain-policy";
 
+import {
+  COUNTRY_MODES,
+  loadCountryPolicy,
+  MAX_COUNTRIES,
+  normalizeCountryList,
+  saveCountryPolicy,
+  type CountryPolicy,
+} from "@ostiary/core/lib/country-policy";
+
 import { adminAction } from "@/lib/admin-action";
 
 const policySchema = z
@@ -91,5 +100,39 @@ export async function updateEmailDomainPolicy(input: EmailDomainPolicy): Promise
       return { ok: true };
     },
     (): DomainResult => ({ ok: false, error: "invalid" }),
+  );
+}
+
+const countryPolicySchema = z
+  .object({
+    mode: z.enum(COUNTRY_MODES),
+    countries: z.array(z.string().max(10)).max(MAX_COUNTRIES),
+  })
+  .strict();
+
+type CountryResult = { ok: true } | { ok: false; error: "invalid" | "invalidCountry" | "noCountries" | "save" };
+
+/** Saves which countries may sign in and sign up. The auth app applies it within a minute. */
+export async function updateCountryPolicy(input: CountryPolicy): Promise<CountryResult> {
+  return adminAction(
+    z.tuple([countryPolicySchema]),
+    [input],
+    async ([raw], { session, audit }): Promise<CountryResult> => {
+      const countries = normalizeCountryList(raw.countries);
+      if (!countries) return { ok: false, error: "invalidCountry" };
+      if (raw.mode !== "any" && countries.length === 0) return { ok: false, error: "noCountries" };
+      let previous: CountryPolicy;
+      let saved: CountryPolicy;
+      try {
+        previous = await loadCountryPolicy();
+        saved = await saveCountryPolicy({ mode: raw.mode, countries: raw.mode === "any" ? [] : countries }, session.user.id);
+      } catch (error) {
+        console.error("Could not save the country policy", error);
+        return { ok: false, error: "save" };
+      }
+      await audit({ action: "security.update_countries", metadata: { ...saved, previous } });
+      return { ok: true };
+    },
+    (): CountryResult => ({ ok: false, error: "invalid" }),
   );
 }

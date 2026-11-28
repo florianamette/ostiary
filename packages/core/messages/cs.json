@@ -182,7 +182,8 @@
       "notLinked": "Tento účet zatím není propojen s účtem {name}. Přihlaste se jinak a pak ho propojte v nastavení zabezpečení.",
       "noEmail": "Tento účet nesdílel e-mailovou adresu. Zkuste to později nebo se přihlaste jinak.",
       "signUpDisabled": "Pro tuto adresu zatím neexistuje účet a tímto způsobem přihlášení ho nelze vytvořit. Přihlaste se jinak.",
-      "createFailed": "S tímto přihlášením se nepodařilo vytvořit účet. Vaše e-mailová adresa zde možná není povolena: zkuste jinou adresu nebo se přihlaste jinak."
+      "createFailed": "S tímto přihlášením se nepodařilo vytvořit účet. Vaše e-mailová adresa zde možná není povolena: zkuste jinou adresu nebo se přihlaste jinak.",
+      "sessionRefused": "Přihlášení bylo odmítnuto. Pokud si myslíte, že jde o chybu, kontaktujte správce."
     },
     "app": {
       "signIn": "Přihlaste se a pokračujte do <app>{name}</app>",
@@ -2030,7 +2031,9 @@
           },
           "security": {
             "update_policy": "Změněny zásady relací a hesel",
-            "update_email_domains": "Změněny povolené e-mailové domény"
+            "update_email_domains": "Změněny povolené e-mailové domény",
+            "update_countries": "Změnil(a) země",
+            "country_refused": "Odmítnuto přihlášení ze země"
           }
         },
         "actorPlaceholder": "Hledat podle toho, kdo akci provedl (e-mail)…",
@@ -2143,6 +2146,37 @@
             "invalidDomain": "Jedna z položek není název domény, například example.com.",
             "noDomains": "Uveďte alespoň jednu doménu.",
             "save": "E-mailové domény se nepodařilo uložit."
+          }
+        },
+        "countries": {
+          "title": "Země",
+          "description": "Ze kterých zemí se lze přihlásit a registrovat. Správci platformy se mohou přihlásit vždy; požadavek z neznámé země je povolen.",
+          "notConfigured": "Pro zapnutí nastavte v obou aplikacích COUNTRY_HEADER (hlavičku nastavovanou vaší proxy, např. cf-ipcountry) nebo GEOIP_DATABASE (soubor MaxMind GeoLite2 Country). Na Vercelu to funguje i bez nich.",
+          "edit": "Upravit",
+          "mode": "Kdo se může přihlásit",
+          "modes": {
+            "any": "Jakákoli země",
+            "allow": "Pouze tyto země",
+            "block": "Jakákoli země kromě těchto"
+          },
+          "modeHints": {
+            "any": "Bez omezení podle země.",
+            "allow": "Přihlášení a registrace z jiných zemí jsou odmítnuty.",
+            "block": "Přihlášení a registrace z uvedených zemí jsou odmítnuty."
+          },
+          "allowed": "Povolené země",
+          "blocked": "Blokované země",
+          "none": "Žádné",
+          "countriesHint": "Dvoupísmenné kódy zemí (ISO 3166-1) oddělené čárkami nebo mezerami: FR, DE, US.",
+          "dialogDescription": "Správci se mohou dál přihlašovat odkudkoli. Ověřovací aplikace to použije do minuty.",
+          "save": "Uložit",
+          "cancel": "Zrušit",
+          "saved": "Země uloženy. Ověřovací aplikace je použije do minuty.",
+          "errors": {
+            "invalid": "Vyberte jednu z nabízených možností.",
+            "invalidCountry": "Jedna z položek není dvoupísmenný kód země, například FR.",
+            "noCountries": "Uveďte alespoň jednu zemi.",
+            "save": "Země se nepodařilo uložit."
           }
         }
       },
@@ -3176,7 +3210,8 @@
       "ifYou": "Pokud jste to byli vy, nemusíte nic dělat.",
       "button": "Nebyl(a) jsem to já",
       "note": "Tlačítko funguje jednou během {days} dnů. Odhlásí vás všude a pošle vám odkaz pro nastavení nového hesla.",
-      "footnote": "Tento e-mail dostáváte, když se váš účet přihlásí z nového zařízení. Nikdy nesdílejte své heslo ani přihlašovací kódy."
+      "footnote": "Tento e-mail dostáváte, když se váš účet přihlásí z nového zařízení. Nikdy nesdílejte své heslo ani přihlašovací kódy.",
+      "location": "Místo: {country}"
     }
   },
   "authErrors": {
@@ -3196,7 +3231,8 @@
     "emailNotVerified": "Nejprve ověřte svou e-mailovou adresu.",
     "invalidToken": "Tento odkaz je neplatný nebo vypršel.",
     "publicOrganization": "Členy organizace Public spravují pouze správci platformy.",
-    "emailDomainNotAllowed": "S touto e-mailovou doménou zde nelze vytvořit účet. Použijte jinou adresu."
+    "emailDomainNotAllowed": "S touto e-mailovou doménou zde nelze vytvořit účet. Použijte jinou adresu.",
+    "countryNotAllowed": "Přihlášení z vaší země zde není povoleno."
   },
   "secureAccount": {
     "title": "Zabezpečte svůj účet",

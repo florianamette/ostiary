@@ -23,6 +23,13 @@ describe("newDeviceEmail", () => {
     expect(content.button).toEqual({ label: "This wasn't me", url: input.url });
   });
 
+  it("names the country when it is known", async () => {
+    const messages = (await import("../../../messages/en.json")).default;
+    expect(newDeviceEmail("en", messages, { ...input, country: "FR" }).content.body).toContain("Location: France");
+    const fr = (await import("../../../messages/fr.json")).default;
+    expect(newDeviceEmail("fr", fr, { ...input, country: "DE" }).content.body).toContain("Lieu : Allemagne");
+  });
+
   it("builds in every locale, also without a known device or address", async () => {
     for (const locale of locales as readonly AppLocale[]) {
       const messages = (await import(`../../../messages/${locale}.json`)).default;

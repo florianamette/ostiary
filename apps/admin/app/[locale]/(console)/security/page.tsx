@@ -26,6 +26,9 @@ import { AuthPolicyCard } from "@/components/admin/security/auth-policy-card";
 import { loadAuthPolicy } from "@ostiary/core/lib/auth-policy";
 import { EmailDomainPolicyCard } from "@/components/admin/security/email-domain-policy-card";
 import { loadEmailDomainPolicy } from "@ostiary/core/lib/email-domain-policy";
+import { CountryPolicyCard } from "@/components/admin/security/country-policy-card";
+import { loadCountryPolicy } from "@ostiary/core/lib/country-policy";
+import { countrySourceConfigured } from "@ostiary/core/lib/country";
 
 export const dynamic = "force-dynamic";
 
@@ -39,7 +42,12 @@ export default async function SecurityPage({ params }: { params: Promise<{ local
   await requireAdminSession();
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "admin.pages.security" });
-  const [stats, policy, domainPolicy] = await Promise.all([getSecurityStats(), loadAuthPolicy(), loadEmailDomainPolicy()]);
+  const [stats, policy, domainPolicy, countryPolicy] = await Promise.all([
+    getSecurityStats(),
+    loadAuthPolicy(),
+    loadEmailDomainPolicy(),
+    loadCountryPolicy(),
+  ]);
 
   return (
     <div className="space-y-6">
@@ -48,6 +56,8 @@ export default async function SecurityPage({ params }: { params: Promise<{ local
       <AuthPolicyCard policy={policy} />
 
       <EmailDomainPolicyCard policy={domainPolicy} />
+
+      <CountryPolicyCard policy={countryPolicy} configured={countrySourceConfigured()} />
 
       <StatTiles
         locale={locale}

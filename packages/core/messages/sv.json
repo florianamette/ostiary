@@ -182,7 +182,8 @@
       "notLinked": "Det kontot är inte anslutet till något {name}-konto än. Logga in på ett annat sätt och anslut det sedan från dina säkerhetsinställningar.",
       "noEmail": "Kontot delade ingen e-postadress. Försök igen senare eller logga in på ett annat sätt.",
       "signUpDisabled": "Det finns inget konto för den adressen än, och den här inloggningsmetoden kan inte skapa ett. Logga in på ett annat sätt.",
-      "createFailed": "Det gick inte att skapa ett konto med den inloggningen. Din e-postadress kanske inte är tillåten här: prova en annan adress eller logga in på ett annat sätt."
+      "createFailed": "Det gick inte att skapa ett konto med den inloggningen. Din e-postadress kanske inte är tillåten här: prova en annan adress eller logga in på ett annat sätt.",
+      "sessionRefused": "Inloggningen nekades. Om du tror att det är fel, kontakta din administratör."
     },
     "app": {
       "signIn": "Logga in för att fortsätta till <app>{name}</app>",
@@ -2030,7 +2031,9 @@
           },
           "security": {
             "update_policy": "Ändrade policyn för sessioner och lösenord",
-            "update_email_domains": "Ändrade tillåtna e-postdomäner"
+            "update_email_domains": "Ändrade tillåtna e-postdomäner",
+            "update_countries": "Ändrade länderna",
+            "country_refused": "Nekade en inloggning från ett land"
           }
         },
         "actorPlaceholder": "Sök på vem som agerade (e-post)…",
@@ -2143,6 +2146,37 @@
             "invalidDomain": "En av posterna är inte ett domännamn, som example.com.",
             "noDomains": "Ange minst en domän.",
             "save": "Det gick inte att spara e-postdomänerna."
+          }
+        },
+        "countries": {
+          "title": "Länder",
+          "description": "Från vilka länder man kan logga in och registrera sig. Plattformsadministratörer kan alltid logga in; en begäran från okänt land tillåts.",
+          "notConfigured": "Ange COUNTRY_HEADER (en rubrik som din proxy sätter, t.ex. cf-ipcountry) eller GEOIP_DATABASE (en MaxMind GeoLite2 Country-fil) i båda apparna för att aktivera. På Vercel fungerar det utan dem.",
+          "edit": "Redigera",
+          "mode": "Vem kan logga in",
+          "modes": {
+            "any": "Alla länder",
+            "allow": "Endast dessa länder",
+            "block": "Alla länder utom dessa"
+          },
+          "modeHints": {
+            "any": "Ingen begränsning per land.",
+            "allow": "Inloggningar och registreringar från andra länder nekas.",
+            "block": "Inloggningar och registreringar från de angivna länderna nekas."
+          },
+          "allowed": "Tillåtna länder",
+          "blocked": "Blockerade länder",
+          "none": "Inga",
+          "countriesHint": "Landskoder med två bokstäver (ISO 3166-1), åtskilda av kommatecken eller mellanslag: FR, DE, US.",
+          "dialogDescription": "Administratörer kan fortfarande logga in var som helst ifrån. Autentiseringsappen tillämpar detta inom en minut.",
+          "save": "Spara",
+          "cancel": "Avbryt",
+          "saved": "Länderna har sparats. Autentiseringsappen tillämpar dem inom en minut.",
+          "errors": {
+            "invalid": "Välj ett av alternativen.",
+            "invalidCountry": "En av posterna är inte en landskod med två bokstäver, som FR.",
+            "noCountries": "Ange minst ett land.",
+            "save": "Det gick inte att spara länderna."
           }
         }
       },
@@ -3176,7 +3210,8 @@
       "ifYou": "Om det var du behöver du inte göra något.",
       "button": "Det var inte jag",
       "note": "Knappen fungerar en gång inom {days} dagar. Den loggar ut dig överallt och mejlar dig en länk för att välja ett nytt lösenord.",
-      "footnote": "Du får det här mejlet när ditt konto loggar in från en ny enhet. Dela aldrig ditt lösenord eller dina inloggningskoder."
+      "footnote": "Du får det här mejlet när ditt konto loggar in från en ny enhet. Dela aldrig ditt lösenord eller dina inloggningskoder.",
+      "location": "Plats: {country}"
     }
   },
   "authErrors": {
@@ -3196,7 +3231,8 @@
     "emailNotVerified": "Verifiera din e-postadress först.",
     "invalidToken": "Länken är ogiltig eller har gått ut.",
     "publicOrganization": "Medlemmarna i organisationen Public hanteras bara av plattformens administratörer.",
-    "emailDomainNotAllowed": "Konton med den här e-postdomänen kan inte skapas här. Använd en annan adress."
+    "emailDomainNotAllowed": "Konton med den här e-postdomänen kan inte skapas här. Använd en annan adress.",
+    "countryNotAllowed": "Inloggning från ditt land är inte tillåten här."
   },
   "secureAccount": {
     "title": "Skydda ditt konto",

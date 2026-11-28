@@ -182,7 +182,8 @@
       "notLinked": "Questo account non è ancora collegato a un account {name}. Accedi in un altro modo, poi collegalo dalle impostazioni di sicurezza.",
       "noEmail": "Quell'account non ha condiviso un indirizzo email. Riprova più tardi o accedi in un altro modo.",
       "signUpDisabled": "Non esiste ancora un account per questo indirizzo e questo metodo di accesso non può crearne uno. Accedi in un altro modo.",
-      "createFailed": "Impossibile creare un account con questo accesso. Il tuo indirizzo email potrebbe non essere consentito qui: prova un altro indirizzo o accedi in un altro modo."
+      "createFailed": "Impossibile creare un account con questo accesso. Il tuo indirizzo email potrebbe non essere consentito qui: prova un altro indirizzo o accedi in un altro modo.",
+      "sessionRefused": "L’accesso è stato rifiutato. Se pensi che sia un errore, contatta il tuo amministratore."
     },
     "app": {
       "signIn": "Accedi per continuare su <app>{name}</app>",
@@ -2030,7 +2031,9 @@
           },
           "security": {
             "update_policy": "Criterio di sessioni e password modificato",
-            "update_email_domains": "Domini email consentiti modificati"
+            "update_email_domains": "Domini email consentiti modificati",
+            "update_countries": "Ha modificato i paesi",
+            "country_refused": "Ha rifiutato un accesso da un paese"
           }
         },
         "actorPlaceholder": "Cerca per autore (email)…",
@@ -2143,6 +2146,37 @@
             "invalidDomain": "Una delle voci non è un nome di dominio, come example.com.",
             "noDomains": "Indica almeno un dominio.",
             "save": "Impossibile salvare i domini email."
+          }
+        },
+        "countries": {
+          "title": "Paesi",
+          "description": "Da quali paesi si può accedere e registrarsi. Gli amministratori della piattaforma possono sempre accedere; una richiesta di paese sconosciuto è consentita.",
+          "notConfigured": "Imposta COUNTRY_HEADER (un’intestazione impostata dal tuo proxy, come cf-ipcountry) o GEOIP_DATABASE (un file MaxMind GeoLite2 Country) su entrambe le app per attivarlo. Su Vercel funziona senza.",
+          "edit": "Modifica",
+          "mode": "Chi può accedere",
+          "modes": {
+            "any": "Qualsiasi paese",
+            "allow": "Solo questi paesi",
+            "block": "Qualsiasi paese tranne questi"
+          },
+          "modeHints": {
+            "any": "Nessuna limitazione per paese.",
+            "allow": "Accessi e registrazioni da altri paesi vengono rifiutati.",
+            "block": "Accessi e registrazioni dai paesi elencati vengono rifiutati."
+          },
+          "allowed": "Paesi consentiti",
+          "blocked": "Paesi bloccati",
+          "none": "Nessuno",
+          "countriesHint": "Codici paese di due lettere (ISO 3166-1), separati da virgole o spazi: FR, DE, US.",
+          "dialogDescription": "Gli amministratori possono comunque accedere da ovunque. L’app di autenticazione lo applica entro un minuto.",
+          "save": "Salva",
+          "cancel": "Annulla",
+          "saved": "Paesi salvati. L’app di autenticazione li applica entro un minuto.",
+          "errors": {
+            "invalid": "Scegli una delle opzioni proposte.",
+            "invalidCountry": "Una delle voci non è un codice paese di due lettere, come FR.",
+            "noCountries": "Indica almeno un paese.",
+            "save": "Impossibile salvare i paesi."
           }
         }
       },
@@ -3176,7 +3210,8 @@
       "ifYou": "Se sei stato tu, non devi fare nulla.",
       "button": "Non sono stato io",
       "note": "Il pulsante funziona una sola volta entro {days} giorni. Ti disconnette ovunque e ti invia un link per scegliere una nuova password.",
-      "footnote": "Ricevi questa email quando il tuo account accede da un nuovo dispositivo. Non condividere mai la tua password o i codici di accesso."
+      "footnote": "Ricevi questa email quando il tuo account accede da un nuovo dispositivo. Non condividere mai la tua password o i codici di accesso.",
+      "location": "Luogo: {country}"
     }
   },
   "authErrors": {
@@ -3196,7 +3231,8 @@
     "emailNotVerified": "Verifica prima il tuo indirizzo email.",
     "invalidToken": "Questo link non è valido o è scaduto.",
     "publicOrganization": "I membri dell'organizzazione Public sono gestiti solo dagli amministratori della piattaforma.",
-    "emailDomainNotAllowed": "Qui non è possibile creare account con questo dominio email. Usa un altro indirizzo."
+    "emailDomainNotAllowed": "Qui non è possibile creare account con questo dominio email. Usa un altro indirizzo.",
+    "countryNotAllowed": "L’accesso dal tuo paese non è consentito qui."
   },
   "secureAccount": {
     "title": "Proteggi il tuo account",

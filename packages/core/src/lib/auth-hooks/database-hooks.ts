@@ -21,6 +21,9 @@ import { makeEvent, memberSnapshot } from "@ostiary/core/lib/webhooks/events";
 import { auditActor } from "@ostiary/core/lib/auth-hooks/audit-hook";
 import { TWO_STEP_SIGN_IN_PATHS } from "@ostiary/core/lib/auth-hooks/sign-in-plugins";
 import { noticeSignIn } from "@ostiary/core/lib/security/new-device";
+import { countryRefusal, refusedCountry } from "@ostiary/core/lib/country-policy";
+import { isPlatformAdmin } from "@ostiary/core/lib/admin/user-has-admin-role";
+import { runAfterResponse } from "@ostiary/core/lib/background";
 import { userUpdateEvents } from "@ostiary/core/lib/auth-hooks/account-activity-hook";
 import { recordAccountEvent, type AccountEventType } from "@ostiary/core/lib/account-activity";
 
@@ -88,6 +91,37 @@ async function refuseEmailDomain(email: string, path: string | undefined) {
     await assertEmailDomainAllowed(email);
 }
 
+/**
+ * The country policy (country-policy.ts): a session started, or an account created, from a
+ * refused country. Admin endpoints (an admin creating an account, impersonation) and SCIM are
+ * not checked; a platform admin's own sign-in never is, so the console stays reachable.
+ */
+async function refuseCountry(
+    context: { path?: string; headers?: Headers } | null | undefined,
+    account: { id?: string; email?: string },
+) {
+    const path = context?.path;
+    if (!context?.headers || !path || path.startsWith("/admin/") || path.startsWith("/scim/")) return;
+    const country = await refusedCountry(context.headers);
+    if (!country) return;
+    if (account.id) {
+        const [found] = await db.select({ role: schema.user.role }).from(schema.user).where(eq(schema.user.id, account.id)).limit(1);
+        if (isPlatformAdmin(found?.role)) return;
+    }
+    // After the response: a sign-up runs in a transaction this refusal rolls back.
+    const ipAddress = clientIp(context.headers);
+    runAfterResponse("country refusal audit", () =>
+        recordAudit({
+            actor: null,
+            action: "security.country_refused",
+            target: account.id ? { type: "user", id: account.id, label: account.email } : undefined,
+            metadata: { country, path, ...(account.id ? {} : { signUp: account.email ?? null }) },
+            ipAddress,
+        }),
+    );
+    throw countryRefusal();
+}
+
 /** Better Auth's database hooks: admin promotion, the Public organization, bans, deletions and sign-in events. */
 export function databaseHooks() {
     return {
@@ -96,6 +130,7 @@ export function databaseHooks() {
                 before: async (newUser, context) => {
                     await refuseEmailDomain(newUser.email, context?.path);
                     await refuseEmailAlias(newUser.email, context?.path);
+                    await refuseCountry(context, { email: newUser.email });
                     // Only with an address the provider verified, never through SSO or SCIM. A
                     // password sign-up is promoted when its address is verified (update hook).
                     if (!adminOnSignUp(newUser, context?.path, adminEmails)) return;
@@ -152,7 +187,8 @@ export function databaseHooks() {
         },
         session: {
             create: {
-                before: async (sess) => {
+                before: async (sess, context) => {
+                    await refuseCountry(context, { id: sess.userId });
                     // The policy's session lifetime (Better Auth only reads its own at start-up).
                     const expiresAt = policySessionExpiry(new Date(sess.expiresAt), await currentAuthPolicy());
                     return {

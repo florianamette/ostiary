@@ -182,7 +182,8 @@
       "notLinked": "Bu hesap henüz bir {name} hesabına bağlı değil. Başka bir yolla giriş yapın, ardından güvenlik ayarlarınızdan bağlayın.",
       "noEmail": "Bu hesap bir e-posta adresi paylaşmadı. Daha sonra tekrar deneyin veya başka bir yolla giriş yapın.",
       "signUpDisabled": "Bu adres için henüz bir hesap yok ve bu oturum açma yöntemi hesap oluşturamaz. Başka bir yolla oturum açın.",
-      "createFailed": "Bu oturum açmayla hesap oluşturulamadı. E-posta adresinize burada izin verilmiyor olabilir: başka bir adres deneyin veya başka bir yolla oturum açın."
+      "createFailed": "Bu oturum açmayla hesap oluşturulamadı. E-posta adresinize burada izin verilmiyor olabilir: başka bir adres deneyin veya başka bir yolla oturum açın.",
+      "sessionRefused": "Oturum açma reddedildi. Bunun bir hata olduğunu düşünüyorsanız yöneticinize başvurun."
     },
     "app": {
       "signIn": "<app>{name}</app> uygulamasına devam etmek için oturum açın",
@@ -2030,7 +2031,9 @@
           },
           "security": {
             "update_policy": "Oturum ve parola ilkesi değiştirildi",
-            "update_email_domains": "İzin verilen e-posta alan adları değiştirildi"
+            "update_email_domains": "İzin verilen e-posta alan adları değiştirildi",
+            "update_countries": "Ülkeleri değiştirdi",
+            "country_refused": "Bir ülkeden oturum açma reddedildi"
           }
         },
         "actorPlaceholder": "İşlemi yapana göre ara (e-posta)…",
@@ -2143,6 +2146,37 @@
             "invalidDomain": "Girdilerden biri example.com gibi bir alan adı değil.",
             "noDomains": "En az bir alan adı girin.",
             "save": "E-posta alan adları kaydedilemedi."
+          }
+        },
+        "countries": {
+          "title": "Ülkeler",
+          "description": "Hangi ülkelerden oturum açılıp kaydolunabileceği. Platform yöneticileri her zaman oturum açabilir; ülkesi bilinmeyen bir isteğe izin verilir.",
+          "notConfigured": "Etkinleştirmek için iki uygulamada da COUNTRY_HEADER (proxy'nizin ayarladığı bir başlık, ör. cf-ipcountry) veya GEOIP_DATABASE (bir MaxMind GeoLite2 Country dosyası) ayarlayın. Vercel'de bunlar olmadan çalışır.",
+          "edit": "Düzenle",
+          "mode": "Kim oturum açabilir",
+          "modes": {
+            "any": "Herhangi bir ülke",
+            "allow": "Yalnızca bu ülkeler",
+            "block": "Bunlar dışındaki tüm ülkeler"
+          },
+          "modeHints": {
+            "any": "Ülkeye göre kısıtlama yok.",
+            "allow": "Diğer ülkelerden oturum açma ve kayıtlar reddedilir.",
+            "block": "Listelenen ülkelerden oturum açma ve kayıtlar reddedilir."
+          },
+          "allowed": "İzin verilen ülkeler",
+          "blocked": "Engellenen ülkeler",
+          "none": "Yok",
+          "countriesHint": "İki harfli ülke kodları (ISO 3166-1), virgül veya boşlukla ayrılmış: FR, DE, US.",
+          "dialogDescription": "Yöneticiler her yerden oturum açmaya devam edebilir. Kimlik doğrulama uygulaması bunu bir dakika içinde uygular.",
+          "save": "Kaydet",
+          "cancel": "İptal",
+          "saved": "Ülkeler kaydedildi. Kimlik doğrulama uygulaması bunları bir dakika içinde uygular.",
+          "errors": {
+            "invalid": "Sunulan seçeneklerden birini seçin.",
+            "invalidCountry": "Girdilerden biri FR gibi iki harfli bir ülke kodu değil.",
+            "noCountries": "En az bir ülke girin.",
+            "save": "Ülkeler kaydedilemedi."
           }
         }
       },
@@ -3176,7 +3210,8 @@
       "ifYou": "Bu sizseniz bir şey yapmanıza gerek yok.",
       "button": "Bu ben değildim",
       "note": "Düğme {days} gün içinde bir kez çalışır. Her yerde oturumunuzu kapatır ve yeni bir parola seçmeniz için size bir bağlantı gönderir.",
-      "footnote": "Hesabınızda yeni bir cihazdan oturum açıldığında bu e-postayı alırsınız. Parolanızı veya giriş kodlarınızı asla paylaşmayın."
+      "footnote": "Hesabınızda yeni bir cihazdan oturum açıldığında bu e-postayı alırsınız. Parolanızı veya giriş kodlarınızı asla paylaşmayın.",
+      "location": "Konum: {country}"
     }
   },
   "authErrors": {
@@ -3196,7 +3231,8 @@
     "emailNotVerified": "Önce e-posta adresinizi doğrulayın.",
     "invalidToken": "Bu bağlantı geçersiz veya süresi dolmuş.",
     "publicOrganization": "Public kuruluşunun üyelerini yalnızca platform yöneticileri yönetir.",
-    "emailDomainNotAllowed": "Bu e-posta alan adıyla burada hesap oluşturulamaz. Başka bir adres kullanın."
+    "emailDomainNotAllowed": "Bu e-posta alan adıyla burada hesap oluşturulamaz. Başka bir adres kullanın.",
+    "countryNotAllowed": "Ülkenizden oturum açmaya burada izin verilmiyor."
   },
   "secureAccount": {
     "title": "Hesabınızı güvenceye alın",
