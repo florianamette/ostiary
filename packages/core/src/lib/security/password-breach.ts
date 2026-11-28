@@ -20,7 +20,12 @@ import { env } from "@ostiary/core/lib/env";
  * is recorded in password_breach: the app sign-in (the OAuth provider's post-login step) and the
  * account page then stop at /change-password until it changes. A lookup that fails or takes too
  * long never blocks the sign-in. Off with PASSWORD_BREACH_CHECK=off, and in e2e test mode.
+ *
+ * An admin can ask for the same step ("Require a password change" on the user page): the record
+ * then has the reason "admin", and the step says so.
  */
+
+export type PasswordChangeReason = "breached" | "admin";
 
 /** The sign-in waits this long for Have I Been Pwned at most. */
 const LOOKUP_TIMEOUT_MS = 2_500;
@@ -75,9 +80,24 @@ export async function markPasswordBreached(account: { id: string; email: string 
     await recordAccountEvent("password_breached", account.id, { headers });
 }
 
+/** Why the person must change their password before going on, or null when they need not. */
+export async function passwordChangeRequired(userId: string): Promise<PasswordChangeReason | null> {
+    const [row] = await db.select({ reason: passwordBreach.reason }).from(passwordBreach).where(eq(passwordBreach.userId, userId)).limit(1);
+    if (!row) return null;
+    return row.reason === "admin" ? "admin" : "breached";
+}
+
 export async function passwordBreachPending(userId: string): Promise<boolean> {
-    const [row] = await db.select({ userId: passwordBreach.userId }).from(passwordBreach).where(eq(passwordBreach.userId, userId)).limit(1);
-    return Boolean(row);
+    return (await passwordChangeRequired(userId)) !== null;
+}
+
+/** An admin's request: the next sign-in (or open session) stops at /change-password. */
+export async function requirePasswordChange(userId: string): Promise<void> {
+    await db
+        .insert(passwordBreach)
+        .values({ userId, reason: "admin" })
+        // Already required (a breached password stays "breached", so the admin cannot cancel it).
+        .onConflictDoNothing();
 }
 
 export async function clearPasswordBreach(userId: string): Promise<void> {

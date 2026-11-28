@@ -22,6 +22,7 @@ import {
   exportUserData,
   resetUserTwoFactor,
   revokeAllUserSessions,
+  setPasswordChangeRequired,
   revokeUserSession,
 } from "@/app/[locale]/(console)/users/[id]/actions";
 
@@ -197,6 +198,49 @@ export function ResetTwoFactorButton({ userId, email }: { userId: string; email:
             </DialogDescription>
           </DialogHeader>
           <DialogActions busy={busy} onCancel={() => setOpen(false)} onConfirm={() => void reset()} confirmLabel={t("reset")} destructive />
+        </DialogContent>
+      </Dialog>
+    </>
+  );
+}
+
+/** "Require a password change" for an account with a password, or cancel it. */
+export function RequirePasswordChangeButton({ userId, email, required }: { userId: string; email: string; required: boolean }) {
+  const t = useTranslations("admin.pages.users.detailActions");
+  const [open, setOpen] = React.useState(false);
+  const { busy, run } = useAdminAction(() => setOpen(false));
+
+  if (required) {
+    return (
+      <Button
+        type="button"
+        variant="ghost"
+        size="sm"
+        loading={busy}
+        onClick={() => void run(() => setPasswordChangeRequired(userId, false), t("passwordChangeCancelled"), t("passwordChangeError"))}
+      >
+        {t("cancelPasswordChange")}
+      </Button>
+    );
+  }
+
+  return (
+    <>
+      <Button type="button" variant="outline" size="sm" onClick={() => setOpen(true)}>
+        {t("requirePasswordChange")}
+      </Button>
+      <Dialog open={open} onOpenChange={(next) => !next && !busy && setOpen(false)}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>{t("requirePasswordChangeTitle", { email })}</DialogTitle>
+            <DialogDescription>{t("requirePasswordChangeDescription")}</DialogDescription>
+          </DialogHeader>
+          <DialogActions
+            busy={busy}
+            onCancel={() => setOpen(false)}
+            onConfirm={() => void run(() => setPasswordChangeRequired(userId, true), t("passwordChangeRequired"), t("passwordChangeError"))}
+            confirmLabel={t("requirePasswordChange")}
+          />
         </DialogContent>
       </Dialog>
     </>

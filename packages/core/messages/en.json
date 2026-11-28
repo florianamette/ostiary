@@ -1689,7 +1689,14 @@
           "twoFactorReset": "Two-factor authentication turned off",
           "reset": "Reset",
           "resetTwoFactorTitle": "Reset two-factor authentication for {email}?",
-          "resetTwoFactorDescription": "Their authenticator app, backup codes and trusted devices stop working, and they sign in with their password alone until they set it up again. Only do this once you have confirmed who is asking. This is recorded in the audit log."
+          "resetTwoFactorDescription": "Their authenticator app, backup codes and trusted devices stop working, and they sign in with their password alone until they set it up again. Only do this once you have confirmed who is asking. This is recorded in the audit log.",
+          "requirePasswordChange": "Require a password change",
+          "cancelPasswordChange": "Cancel password change",
+          "requirePasswordChangeTitle": "Require a new password for {email}?",
+          "requirePasswordChangeDescription": "The next time they sign in or open their account, they must choose a new password before going on. Their other sessions are signed out when they change it. This is recorded in the audit log.",
+          "passwordChangeRequired": "Password change required",
+          "passwordChangeCancelled": "Password change cancelled",
+          "passwordChangeError": "Could not update the password change request."
         },
         "detail": {
           "emailVerified": "Email verified",
@@ -1730,7 +1737,9 @@
             "unnamed": "Unnamed",
             "empty": "No sign-in methods.",
             "twoFactor": "Two-factor authentication <muted>(authenticator app)</muted>",
-            "managedByYou": "Managed from your account"
+            "managedByYou": "Managed from your account",
+            "changeRequired": "Change required",
+            "breached": "Breached"
           },
           "organizations": {
             "title": "Organizations",
@@ -1936,7 +1945,9 @@
             "new_device_sign_in": "Signed in from a new device",
             "secure_account": "Secured their account (This wasn't me)",
             "password_breached": "Password found in a breach",
-            "sign_in_locked": "Password sign-in locked after wrong passwords"
+            "sign_in_locked": "Password sign-in locked after wrong passwords",
+            "require_password_change": "Required a password change",
+            "cancel_password_change": "Cancelled a password change"
           },
           "oauth_client": {
             "create": "Registered OAuth client",
@@ -3291,7 +3302,8 @@
     "doneTitle": "Password changed",
     "doneBody": "Your new password is set and your other sessions were signed out.",
     "continue": "Continue",
-    "toAccount": "Go to your account"
+    "toAccount": "Go to your account",
+    "adminDescription": "An administrator asked you to choose a new password. Choose one to continue. Your other sessions will be signed out."
   },
   "signInLink": {
     "title": "Sign in",

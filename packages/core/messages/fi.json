@@ -1689,7 +1689,14 @@
           "twoFactorReset": "Kaksivaiheinen tunnistautuminen poistettu käytöstä",
           "reset": "Nollaa",
           "resetTwoFactorTitle": "Nollataanko käyttäjän {email} kaksivaiheinen tunnistautuminen?",
-          "resetTwoFactorDescription": "Käyttäjän todennussovellus, varakoodit ja luotetut laitteet lakkaavat toimimasta, ja hän kirjautuu pelkällä salasanalla, kunnes ottaa sen uudelleen käyttöön. Tee tämä vain, kun olet varmistanut pyytäjän henkilöllisyyden. Tämä kirjataan tarkastuslokiin."
+          "resetTwoFactorDescription": "Käyttäjän todennussovellus, varakoodit ja luotetut laitteet lakkaavat toimimasta, ja hän kirjautuu pelkällä salasanalla, kunnes ottaa sen uudelleen käyttöön. Tee tämä vain, kun olet varmistanut pyytäjän henkilöllisyyden. Tämä kirjataan tarkastuslokiin.",
+          "requirePasswordChange": "Vaadi salasanan vaihto",
+          "cancelPasswordChange": "Peru salasanan vaihto",
+          "requirePasswordChangeTitle": "Vaaditaanko käyttäjältä {email} uusi salasana?",
+          "requirePasswordChangeDescription": "Seuraavalla kirjautumiskerralla tai tiliä avatessaan hänen on valittava uusi salasana ennen jatkamista. Hänen muut istuntonsa kirjataan ulos vaihdon yhteydessä. Tämä tallennetaan tarkastuslokiin.",
+          "passwordChangeRequired": "Salasanan vaihto vaaditaan",
+          "passwordChangeCancelled": "Salasanan vaihto peruttu",
+          "passwordChangeError": "Salasanan vaihtopyyntöä ei voitu päivittää."
         },
         "detail": {
           "emailVerified": "Sähköposti vahvistettu",
@@ -1730,7 +1737,9 @@
             "unnamed": "Nimetön",
             "empty": "Ei kirjautumistapoja.",
             "twoFactor": "Kaksivaiheinen tunnistautuminen <muted>(todennussovellus)</muted>",
-            "managedByYou": "Hallitaan omalta tililtäsi"
+            "managedByYou": "Hallitaan omalta tililtäsi",
+            "changeRequired": "Vaihto vaaditaan",
+            "breached": "Vuotanut"
           },
           "organizations": {
             "title": "Organisaatiot",
@@ -1936,7 +1945,9 @@
             "new_device_sign_in": "Kirjautui uudelta laitteelta",
             "secure_account": "Suojasi tilinsä (Se en ollut minä)",
             "password_breached": "Salasana löytyi tietovuodosta",
-            "sign_in_locked": "Salasanakirjautuminen lukittu väärien salasanojen jälkeen"
+            "sign_in_locked": "Salasanakirjautuminen lukittu väärien salasanojen jälkeen",
+            "require_password_change": "Vaati salasanan vaihdon",
+            "cancel_password_change": "Perui salasanan vaihdon"
           },
           "oauth_client": {
             "create": "Rekisteröi OAuth-asiakkaan",
@@ -3291,7 +3302,8 @@
     "doneTitle": "Salasana vaihdettu",
     "doneBody": "Uusi salasanasi on asetettu ja muut istuntosi kirjattiin ulos.",
     "continue": "Jatka",
-    "toAccount": "Siirry tiliisi"
+    "toAccount": "Siirry tiliisi",
+    "adminDescription": "Ylläpitäjä pyytää sinua valitsemaan uuden salasanan. Valitse se jatkaaksesi. Muut istuntosi kirjataan ulos."
   },
   "signInLink": {
     "title": "Kirjaudu",

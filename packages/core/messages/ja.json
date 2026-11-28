@@ -1689,7 +1689,14 @@
           "twoFactorReset": "2段階認証をオフにしました",
           "reset": "リセット",
           "resetTwoFactorTitle": "{email} の2段階認証をリセットしますか？",
-          "resetTwoFactorDescription": "認証アプリ、バックアップコード、信頼済みデバイスは使えなくなり、再設定するまではパスワードのみでサインインすることになります。依頼者の本人確認が済んでから実行してください。この操作は監査ログに記録されます。"
+          "resetTwoFactorDescription": "認証アプリ、バックアップコード、信頼済みデバイスは使えなくなり、再設定するまではパスワードのみでサインインすることになります。依頼者の本人確認が済んでから実行してください。この操作は監査ログに記録されます。",
+          "requirePasswordChange": "パスワード変更を要求",
+          "cancelPasswordChange": "パスワード変更の要求を取り消す",
+          "requirePasswordChangeTitle": "{email} に新しいパスワードを要求しますか？",
+          "requirePasswordChangeDescription": "次回のサインイン時またはアカウントを開いたときに、続行する前に新しいパスワードを選ぶ必要があります。変更すると他のセッションはサインアウトされます。この操作は監査ログに記録されます。",
+          "passwordChangeRequired": "パスワード変更を要求しました",
+          "passwordChangeCancelled": "パスワード変更の要求を取り消しました",
+          "passwordChangeError": "パスワード変更の要求を更新できませんでした。"
         },
         "detail": {
           "emailVerified": "メール確認済み",
@@ -1730,7 +1737,9 @@
             "unnamed": "名前なし",
             "empty": "サインイン方法はありません。",
             "twoFactor": "2段階認証 <muted>（認証アプリ）</muted>",
-            "managedByYou": "あなたのアカウントから管理"
+            "managedByYou": "あなたのアカウントから管理",
+            "changeRequired": "変更が必要",
+            "breached": "漏えい"
           },
           "organizations": {
             "title": "組織",
@@ -1936,7 +1945,9 @@
             "new_device_sign_in": "新しいデバイスからサインイン",
             "secure_account": "アカウントを保護 (心当たりがない)",
             "password_breached": "漏えいしたパスワードを検出",
-            "sign_in_locked": "誤ったパスワードの後にパスワードでのサインインをロック"
+            "sign_in_locked": "誤ったパスワードの後にパスワードでのサインインをロック",
+            "require_password_change": "パスワード変更を要求",
+            "cancel_password_change": "パスワード変更の要求を取り消し"
           },
           "oauth_client": {
             "create": "OAuth クライアントを登録",
@@ -3291,7 +3302,8 @@
     "doneTitle": "パスワードを変更しました",
     "doneBody": "新しいパスワードが設定され、他のセッションはサインアウトされました。",
     "continue": "続行",
-    "toAccount": "アカウントへ"
+    "toAccount": "アカウントへ",
+    "adminDescription": "管理者から新しいパスワードを選ぶよう求められています。続行するにはパスワードを選んでください。他のセッションはサインアウトされます。"
   },
   "signInLink": {
     "title": "サインイン",

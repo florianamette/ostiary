@@ -1689,7 +1689,14 @@
           "twoFactorReset": "Autenticación en dos pasos desactivada",
           "reset": "Restablecer",
           "resetTwoFactorTitle": "¿Restablecer la autenticación en dos pasos de {email}?",
-          "resetTwoFactorDescription": "Su aplicación de autenticación, sus códigos de respaldo y sus dispositivos de confianza dejan de funcionar, e iniciará sesión solo con su contraseña hasta que vuelva a configurarla. Hazlo solo después de confirmar quién lo solicita. Esto queda registrado en el registro de auditoría."
+          "resetTwoFactorDescription": "Su aplicación de autenticación, sus códigos de respaldo y sus dispositivos de confianza dejan de funcionar, e iniciará sesión solo con su contraseña hasta que vuelva a configurarla. Hazlo solo después de confirmar quién lo solicita. Esto queda registrado en el registro de auditoría.",
+          "requirePasswordChange": "Exigir un cambio de contraseña",
+          "cancelPasswordChange": "Cancelar el cambio de contraseña",
+          "requirePasswordChangeTitle": "¿Exigir una nueva contraseña a {email}?",
+          "requirePasswordChangeDescription": "La próxima vez que inicie sesión o abra su cuenta, deberá elegir una nueva contraseña para continuar. Sus otras sesiones se cerrarán al cambiarla. Esto queda registrado en el registro de auditoría.",
+          "passwordChangeRequired": "Cambio de contraseña exigido",
+          "passwordChangeCancelled": "Cambio de contraseña cancelado",
+          "passwordChangeError": "No se pudo actualizar la solicitud de cambio de contraseña."
         },
         "detail": {
           "emailVerified": "Correo verificado",
@@ -1730,7 +1737,9 @@
             "unnamed": "Sin nombre",
             "empty": "No hay métodos de inicio de sesión.",
             "twoFactor": "Autenticación en dos pasos <muted>(aplicación de autenticación)</muted>",
-            "managedByYou": "Se gestiona desde tu cuenta"
+            "managedByYou": "Se gestiona desde tu cuenta",
+            "changeRequired": "Cambio exigido",
+            "breached": "Filtrada"
           },
           "organizations": {
             "title": "Organizaciones",
@@ -1936,7 +1945,9 @@
             "new_device_sign_in": "Inició sesión desde un dispositivo nuevo",
             "secure_account": "Protegió su cuenta (No fui yo)",
             "password_breached": "Contraseña encontrada en una filtración",
-            "sign_in_locked": "Inicio de sesión con contraseña bloqueado tras contraseñas incorrectas"
+            "sign_in_locked": "Inicio de sesión con contraseña bloqueado tras contraseñas incorrectas",
+            "require_password_change": "Exigió un cambio de contraseña",
+            "cancel_password_change": "Canceló un cambio de contraseña"
           },
           "oauth_client": {
             "create": "Registró un cliente OAuth",
@@ -3291,7 +3302,8 @@
     "doneTitle": "Contraseña cambiada",
     "doneBody": "Tu nueva contraseña está guardada y se cerraron tus demás sesiones.",
     "continue": "Continuar",
-    "toAccount": "Ir a tu cuenta"
+    "toAccount": "Ir a tu cuenta",
+    "adminDescription": "Un administrador te pide que elijas una nueva contraseña. Elige una para continuar. Tus otras sesiones se cerrarán."
   },
   "signInLink": {
     "title": "Iniciar sesión",

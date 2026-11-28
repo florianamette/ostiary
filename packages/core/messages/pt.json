@@ -1689,7 +1689,14 @@
           "twoFactorReset": "Autenticação em dois fatores desativada",
           "reset": "Redefinir",
           "resetTwoFactorTitle": "Redefinir a autenticação em dois fatores de {email}?",
-          "resetTwoFactorDescription": "O app autenticador, os códigos de backup e os dispositivos confiáveis dele deixam de funcionar, e ele entra apenas com a senha até configurá-la novamente. Faça isso somente depois de confirmar quem está pedindo. Isso fica registrado no log de auditoria."
+          "resetTwoFactorDescription": "O app autenticador, os códigos de backup e os dispositivos confiáveis dele deixam de funcionar, e ele entra apenas com a senha até configurá-la novamente. Faça isso somente depois de confirmar quem está pedindo. Isso fica registrado no log de auditoria.",
+          "requirePasswordChange": "Exigir alteração de senha",
+          "cancelPasswordChange": "Cancelar alteração de senha",
+          "requirePasswordChangeTitle": "Exigir uma nova senha para {email}?",
+          "requirePasswordChangeDescription": "Na próxima vez que entrar ou abrir a conta, a pessoa terá de escolher uma nova senha antes de continuar. As outras sessões serão encerradas quando a alterar. Isto fica registado no registo de auditoria.",
+          "passwordChangeRequired": "Alteração de senha exigida",
+          "passwordChangeCancelled": "Alteração de senha cancelada",
+          "passwordChangeError": "Não foi possível atualizar o pedido de alteração de senha."
         },
         "detail": {
           "emailVerified": "E-mail verificado",
@@ -1730,7 +1737,9 @@
             "unnamed": "Sem nome",
             "empty": "Nenhum método de login.",
             "twoFactor": "Autenticação em dois fatores <muted>(app autenticador)</muted>",
-            "managedByYou": "Gerenciado pela sua conta"
+            "managedByYou": "Gerenciado pela sua conta",
+            "changeRequired": "Alteração exigida",
+            "breached": "Comprometida"
           },
           "organizations": {
             "title": "Organizações",
@@ -1936,7 +1945,9 @@
             "new_device_sign_in": "Iniciou sessão num novo dispositivo",
             "secure_account": "Protegeu a sua conta (Não fui eu)",
             "password_breached": "Palavra-passe encontrada numa fuga de dados",
-            "sign_in_locked": "Login com senha bloqueado após senhas erradas"
+            "sign_in_locked": "Login com senha bloqueado após senhas erradas",
+            "require_password_change": "Exigiu uma alteração de senha",
+            "cancel_password_change": "Cancelou uma alteração de senha"
           },
           "oauth_client": {
             "create": "Registrou cliente OAuth",
@@ -3291,7 +3302,8 @@
     "doneTitle": "Palavra-passe alterada",
     "doneBody": "A nova palavra-passe está definida e as suas outras sessões foram terminadas.",
     "continue": "Continuar",
-    "toAccount": "Ir para a sua conta"
+    "toAccount": "Ir para a sua conta",
+    "adminDescription": "Um administrador pediu que escolha uma nova senha. Escolha uma para continuar. As suas outras sessões serão encerradas."
   },
   "signInLink": {
     "title": "Iniciar sessão",

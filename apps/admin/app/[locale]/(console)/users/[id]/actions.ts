@@ -3,14 +3,16 @@
 import { and, eq, like } from "drizzle-orm";
 
 import { db } from "@ostiary/core/db/index";
-import { session, twoFactor, user, verification } from "@ostiary/core/db/schema";
+import { account, session, twoFactor, user, verification } from "@ostiary/core/db/schema";
 import { accountExportFileName, buildAccountExport } from "@ostiary/core/lib/account-data/export";
 import { env } from "@ostiary/core/lib/env";
+import { clearPasswordBreach, passwordChangeRequired, requirePasswordChange } from "@ostiary/core/lib/security/password-breach";
 import { z } from "zod";
 
 import { adminAction, input, type AdminActor } from "@/lib/admin-action";
 
 const userInput = z.tuple([input.id]);
+const requireInput = z.tuple([input.id, z.boolean()]);
 
 async function userLabel(userId: string) {
   const [row] = await db.select({ email: user.email }).from(user).where(eq(user.id, userId));
@@ -106,4 +108,36 @@ async function exportUserDataRun(userId: string, actor: AdminActor): Promise<{ o
     metadata: { by: "admin" },
   });
   return { ok: true, fileName: accountExportFileName(userId, now), json: JSON.stringify(data, null, 2) };
+}
+
+/**
+ * "Require a password change": the user's next sign-in, and any page of the account they have
+ * open, stops at /change-password until they choose a new password (security/password-breach.ts).
+ * `required: false` cancels an admin's request (not a breached password). Only for accounts with a password, and not the admin's own.
+ */
+export async function setPasswordChangeRequired(userId: string, required: boolean): Promise<{ ok: boolean }> {
+  return adminAction(requireInput, [userId, required], ([userId, required], actor) => setPasswordChangeRequiredRun(userId, required, actor));
+}
+
+async function setPasswordChangeRequiredRun(userId: string, required: boolean, actor: AdminActor): Promise<{ ok: boolean }> {
+  const { audit, session: adminSession } = actor;
+  if (userId === adminSession.user.id) return { ok: false };
+  const [credential] = await db
+    .select({ id: account.id })
+    .from(account)
+    .where(and(eq(account.userId, userId), eq(account.providerId, "credential")))
+    .limit(1);
+  if (!credential) return { ok: false };
+  if (required) {
+    await requirePasswordChange(userId);
+  } else {
+    // A breached password must still change; only an admin's own request is cancelled.
+    if ((await passwordChangeRequired(userId)) !== "admin") return { ok: false };
+    await clearPasswordBreach(userId);
+  }
+  await audit({
+    action: required ? "user.require_password_change" : "user.cancel_password_change",
+    target: { type: "user", id: userId, label: await userLabel(userId) },
+  });
+  return { ok: true };
 }
