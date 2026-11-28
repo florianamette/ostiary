@@ -2450,7 +2450,8 @@
       "admin": "Beheer",
       "marketingHome": "Over",
       "signOut": "Uitloggen",
-      "data": "Je gegevens"
+      "data": "Je gegevens",
+      "activity": "Recente activiteit"
     },
     "profile": {
       "title": "Profiel",
@@ -2835,6 +2836,33 @@
       "saved": "Nummer opgeslagen.",
       "removeFailed": "Het nummer kon niet worden verwijderd.",
       "removed": "Nummer verwijderd."
+    },
+    "activity": {
+      "title": "Recente activiteit",
+      "description": "Aanmeldingen en beveiligingswijzigingen van je account in de afgelopen 30 dagen. Herken je iets niet? Meld die sessie af en wijzig je wachtwoord.",
+      "empty": "Geen activiteit in de afgelopen 30 dagen.",
+      "loadError": "Je activiteit kon niet worden geladen.",
+      "more": "Meer tonen",
+      "signOut": "Afmelden",
+      "signedOut": "Sessie afgemeld.",
+      "signOutError": "Deze sessie kon niet worden afgemeld.",
+      "current": "Deze browser",
+      "newDevice": "Nieuw apparaat",
+      "deviceOn": "{browser} op {system}",
+      "unknownDevice": "Onbekende browser",
+      "types": {
+        "sign_in": "Aangemeld",
+        "password_changed": "Wachtwoord gewijzigd",
+        "password_reset": "Wachtwoord hersteld",
+        "email_changed": "E-mailadres gewijzigd",
+        "two_factor_enabled": "Tweestapsverificatie ingeschakeld",
+        "two_factor_disabled": "Tweestapsverificatie uitgeschakeld",
+        "passkey_added": "Passkey toegevoegd",
+        "passkey_removed": "Passkey verwijderd",
+        "session_revoked": "Een sessie afgemeld",
+        "sessions_revoked": "Afgemeld bij andere sessies",
+        "account_secured": "Overal afgemeld (Dit was ik niet)"
+      }
     }
   },
   "acceptInvitation": {

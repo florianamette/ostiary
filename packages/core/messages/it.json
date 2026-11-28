@@ -2450,7 +2450,8 @@
       "admin": "Amministrazione",
       "marketingHome": "Informazioni",
       "signOut": "Esci",
-      "data": "I tuoi dati"
+      "data": "I tuoi dati",
+      "activity": "Attività recente"
     },
     "profile": {
       "title": "Profilo",
@@ -2835,6 +2836,33 @@
       "saved": "Numero salvato.",
       "removeFailed": "Impossibile rimuovere il numero.",
       "removed": "Numero rimosso."
+    },
+    "activity": {
+      "title": "Attività recente",
+      "description": "Accessi e modifiche di sicurezza del tuo account negli ultimi 30 giorni. Qualcosa che non riconosci? Disconnetti quella sessione e cambia la password.",
+      "empty": "Nessuna attività negli ultimi 30 giorni.",
+      "loadError": "Impossibile caricare la tua attività.",
+      "more": "Mostra altro",
+      "signOut": "Disconnetti",
+      "signedOut": "Sessione disconnessa.",
+      "signOutError": "Impossibile disconnettere questa sessione.",
+      "current": "Questo browser",
+      "newDevice": "Nuovo dispositivo",
+      "deviceOn": "{browser} su {system}",
+      "unknownDevice": "Browser sconosciuto",
+      "types": {
+        "sign_in": "Accesso",
+        "password_changed": "Password modificata",
+        "password_reset": "Password reimpostata",
+        "email_changed": "Indirizzo email modificato",
+        "two_factor_enabled": "Autenticazione a due fattori attivata",
+        "two_factor_disabled": "Autenticazione a due fattori disattivata",
+        "passkey_added": "Passkey aggiunta",
+        "passkey_removed": "Passkey rimossa",
+        "session_revoked": "Una sessione disconnessa",
+        "sessions_revoked": "Disconnesso dalle altre sessioni",
+        "account_secured": "Disconnesso ovunque (Non sono stato io)"
+      }
     }
   },
   "acceptInvitation": {

@@ -2450,7 +2450,8 @@
       "admin": "관리",
       "marketingHome": "소개",
       "signOut": "로그아웃",
-      "data": "내 데이터"
+      "data": "내 데이터",
+      "activity": "최근 활동"
     },
     "profile": {
       "title": "프로필",
@@ -2835,6 +2836,33 @@
       "saved": "번호를 저장했습니다.",
       "removeFailed": "번호를 삭제하지 못했습니다.",
       "removed": "번호를 삭제했습니다."
+    },
+    "activity": {
+      "title": "최근 활동",
+      "description": "지난 30일 동안의 로그인과 계정 보안 변경 내역입니다. 모르는 항목이 있나요? 해당 세션을 로그아웃하고 비밀번호를 변경하세요.",
+      "empty": "지난 30일 동안 활동이 없습니다.",
+      "loadError": "활동을 불러올 수 없습니다.",
+      "more": "더 보기",
+      "signOut": "로그아웃",
+      "signedOut": "세션을 로그아웃했습니다.",
+      "signOutError": "이 세션을 로그아웃할 수 없습니다.",
+      "current": "이 브라우저",
+      "newDevice": "새 기기",
+      "deviceOn": "{system}의 {browser}",
+      "unknownDevice": "알 수 없는 브라우저",
+      "types": {
+        "sign_in": "로그인",
+        "password_changed": "비밀번호 변경",
+        "password_reset": "비밀번호 재설정",
+        "email_changed": "이메일 주소 변경",
+        "two_factor_enabled": "2단계 인증 켜짐",
+        "two_factor_disabled": "2단계 인증 꺼짐",
+        "passkey_added": "패스키 추가",
+        "passkey_removed": "패스키 삭제",
+        "session_revoked": "세션 로그아웃",
+        "sessions_revoked": "다른 세션에서 로그아웃",
+        "account_secured": "모든 곳에서 로그아웃 (본인이 아닙니다)"
+      }
     }
   },
   "acceptInvitation": {

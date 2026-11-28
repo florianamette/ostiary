@@ -2450,7 +2450,8 @@
       "admin": "Ylläpito",
       "marketingHome": "Tietoja",
       "signOut": "Kirjaudu ulos",
-      "data": "Tietosi"
+      "data": "Tietosi",
+      "activity": "Viimeaikainen toiminta"
     },
     "profile": {
       "title": "Profiili",
@@ -2835,6 +2836,33 @@
       "saved": "Numero tallennettu.",
       "removeFailed": "Numeroa ei voitu poistaa.",
       "removed": "Numero poistettu."
+    },
+    "activity": {
+      "title": "Viimeaikainen toiminta",
+      "description": "Tilisi kirjautumiset ja tietoturvamuutokset viimeisten 30 päivän ajalta. Etkö tunnista jotain? Kirjaa istunto ulos ja vaihda salasanasi.",
+      "empty": "Ei toimintaa viimeisten 30 päivän aikana.",
+      "loadError": "Toimintaa ei voitu ladata.",
+      "more": "Näytä lisää",
+      "signOut": "Kirjaa ulos",
+      "signedOut": "Istunto kirjattiin ulos.",
+      "signOutError": "Istuntoa ei voitu kirjata ulos.",
+      "current": "Tämä selain",
+      "newDevice": "Uusi laite",
+      "deviceOn": "{browser}, {system}",
+      "unknownDevice": "Tuntematon selain",
+      "types": {
+        "sign_in": "Kirjautuminen",
+        "password_changed": "Salasana vaihdettu",
+        "password_reset": "Salasana nollattu",
+        "email_changed": "Sähköpostiosoite vaihdettu",
+        "two_factor_enabled": "Kaksivaiheinen tunnistautuminen otettu käyttöön",
+        "two_factor_disabled": "Kaksivaiheinen tunnistautuminen poistettu käytöstä",
+        "passkey_added": "Pääsyavain lisätty",
+        "passkey_removed": "Pääsyavain poistettu",
+        "session_revoked": "Istunto kirjattu ulos",
+        "sessions_revoked": "Kirjauduttu ulos muista istunnoista",
+        "account_secured": "Kirjauduttu ulos kaikkialta (Se en ollut minä)"
+      }
     }
   },
   "acceptInvitation": {

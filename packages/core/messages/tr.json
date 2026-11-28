@@ -2450,7 +2450,8 @@
       "admin": "Yönetim",
       "marketingHome": "Hakkında",
       "signOut": "Çıkış yap",
-      "data": "Verileriniz"
+      "data": "Verileriniz",
+      "activity": "Son etkinlik"
     },
     "profile": {
       "title": "Profil",
@@ -2835,6 +2836,33 @@
       "saved": "Numara kaydedildi.",
       "removeFailed": "Numara kaldırılamadı.",
       "removed": "Numara kaldırıldı."
+    },
+    "activity": {
+      "title": "Son etkinlik",
+      "description": "Son 30 gündeki oturum açmalar ve hesabınızın güvenlik değişiklikleri. Tanımadığınız bir şey mi var? O oturumu kapatın ve parolanızı değiştirin.",
+      "empty": "Son 30 günde etkinlik yok.",
+      "loadError": "Etkinliğiniz yüklenemedi.",
+      "more": "Daha fazla göster",
+      "signOut": "Oturumu kapat",
+      "signedOut": "Oturum kapatıldı.",
+      "signOutError": "Bu oturum kapatılamadı.",
+      "current": "Bu tarayıcı",
+      "newDevice": "Yeni cihaz",
+      "deviceOn": "{system} üzerinde {browser}",
+      "unknownDevice": "Bilinmeyen tarayıcı",
+      "types": {
+        "sign_in": "Oturum açıldı",
+        "password_changed": "Parola değiştirildi",
+        "password_reset": "Parola sıfırlandı",
+        "email_changed": "E-posta adresi değiştirildi",
+        "two_factor_enabled": "İki adımlı doğrulama açıldı",
+        "two_factor_disabled": "İki adımlı doğrulama kapatıldı",
+        "passkey_added": "Geçiş anahtarı eklendi",
+        "passkey_removed": "Geçiş anahtarı kaldırıldı",
+        "session_revoked": "Bir oturum kapatıldı",
+        "sessions_revoked": "Diğer oturumlar kapatıldı",
+        "account_secured": "Her yerde oturum kapatıldı (Bu ben değildim)"
+      }
     }
   },
   "acceptInvitation": {

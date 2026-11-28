@@ -2450,7 +2450,8 @@
       "admin": "Administrasjon",
       "marketingHome": "Om",
       "signOut": "Logg ut",
-      "data": "Dataene dine"
+      "data": "Dataene dine",
+      "activity": "Nylig aktivitet"
     },
     "profile": {
       "title": "Profil",
@@ -2835,6 +2836,33 @@
       "saved": "Nummeret er lagret.",
       "removeFailed": "Kunne ikke fjerne nummeret.",
       "removed": "Nummeret er fjernet."
+    },
+    "activity": {
+      "title": "Nylig aktivitet",
+      "description": "Pålogginger og sikkerhetsendringer på kontoen din de siste 30 dagene. Kjenner du ikke igjen noe? Logg ut den økten og bytt passord.",
+      "empty": "Ingen aktivitet de siste 30 dagene.",
+      "loadError": "Kunne ikke laste inn aktiviteten din.",
+      "more": "Vis flere",
+      "signOut": "Logg ut",
+      "signedOut": "Økten er logget ut.",
+      "signOutError": "Kunne ikke logge ut denne økten.",
+      "current": "Denne nettleseren",
+      "newDevice": "Ny enhet",
+      "deviceOn": "{browser} på {system}",
+      "unknownDevice": "Ukjent nettleser",
+      "types": {
+        "sign_in": "Logget på",
+        "password_changed": "Passord endret",
+        "password_reset": "Passord tilbakestilt",
+        "email_changed": "E-postadresse endret",
+        "two_factor_enabled": "Tofaktorautentisering slått på",
+        "two_factor_disabled": "Tofaktorautentisering slått av",
+        "passkey_added": "Tilgangsnøkkel lagt til",
+        "passkey_removed": "Tilgangsnøkkel fjernet",
+        "session_revoked": "En økt logget ut",
+        "sessions_revoked": "Logget ut av andre økter",
+        "account_secured": "Logget ut overalt (Det var ikke meg)"
+      }
     }
   },
   "acceptInvitation": {

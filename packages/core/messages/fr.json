@@ -2450,7 +2450,8 @@
       "admin": "Administration",
       "marketingHome": "À propos",
       "signOut": "Déconnexion",
-      "data": "Vos données"
+      "data": "Vos données",
+      "activity": "Activité récente"
     },
     "profile": {
       "title": "Profil",
@@ -2835,6 +2836,33 @@
       "saved": "Numéro enregistré.",
       "removeFailed": "Impossible de supprimer le numéro.",
       "removed": "Numéro supprimé."
+    },
+    "activity": {
+      "title": "Activité récente",
+      "description": "Connexions et changements de sécurité de votre compte au cours des 30 derniers jours. Quelque chose vous est inconnu ? Déconnectez cette session et changez votre mot de passe.",
+      "empty": "Aucune activité au cours des 30 derniers jours.",
+      "loadError": "Impossible de charger votre activité.",
+      "more": "Afficher plus",
+      "signOut": "Déconnecter",
+      "signedOut": "Session déconnectée.",
+      "signOutError": "Impossible de déconnecter cette session.",
+      "current": "Ce navigateur",
+      "newDevice": "Nouvel appareil",
+      "deviceOn": "{browser} sur {system}",
+      "unknownDevice": "Navigateur inconnu",
+      "types": {
+        "sign_in": "Connexion",
+        "password_changed": "Mot de passe modifié",
+        "password_reset": "Mot de passe réinitialisé",
+        "email_changed": "Adresse e-mail modifiée",
+        "two_factor_enabled": "Double authentification activée",
+        "two_factor_disabled": "Double authentification désactivée",
+        "passkey_added": "Clé d’accès ajoutée",
+        "passkey_removed": "Clé d’accès supprimée",
+        "session_revoked": "Une session déconnectée",
+        "sessions_revoked": "Déconnexion des autres sessions",
+        "account_secured": "Déconnexion partout (Ce n’était pas moi)"
+      }
     }
   },
   "acceptInvitation": {

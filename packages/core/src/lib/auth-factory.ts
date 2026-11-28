@@ -118,6 +118,8 @@ import {
     externalSignInTwoFactor,
     passwordSignInEvents,
 } from "@ostiary/core/lib/auth-hooks/sign-in-plugins";
+import { accountActivityEvents } from "@ostiary/core/lib/auth-hooks/account-activity-hook";
+import { recordAccountEvent } from "@ostiary/core/lib/account-activity";
 
 export { RECENT_SIGN_IN_SECONDS };
 
@@ -566,6 +568,7 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
             // Whoever had the old password may also hold apps' refresh tokens: revoke those too.
             onPasswordReset: async ({ user }, request) => {
                 await revokeUserAccess(user, "password_reset", null, request ? clientIp(request.headers) : null);
+                await recordAccountEvent("password_reset", user.id, { headers: request?.headers });
             },
             sendResetPassword: async ({ user, url }) => {
                 queuePasswordResetEmail({ to: user.email, url });
@@ -613,6 +616,7 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
             emailCodeTwoFactor(twoFactorPlugin),
             externalSignInTwoFactor(twoFactorPlugin, baseURL),
             passwordSignInEvents,
+            accountActivityEvents,
             adminEmailChangeUnverifies,
             // "Email me a sign-in code": a 6-digit code, typed on the sign-in page that asked for
             // it, so an OAuth sign-in carries on in that tab even when the email is read on a phone.

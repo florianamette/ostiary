@@ -21,6 +21,8 @@ import { makeEvent, memberSnapshot } from "@ostiary/core/lib/webhooks/events";
 import { auditActor } from "@ostiary/core/lib/auth-hooks/audit-hook";
 import { TWO_STEP_SIGN_IN_PATHS } from "@ostiary/core/lib/auth-hooks/sign-in-plugins";
 import { noticeSignIn } from "@ostiary/core/lib/security/new-device";
+import { userUpdateEvents } from "@ostiary/core/lib/auth-hooks/account-activity-hook";
+import { recordAccountEvent, type AccountEventType } from "@ostiary/core/lib/account-activity";
 
 /** First-run setup: these addresses get the admin role once proven, see admin/admin-emails.ts. */
 const adminEmails = parseAdminEmails(env.ADMIN_EMAILS);
@@ -30,6 +32,12 @@ const adminEmails = parseAdminEmails(env.ADMIN_EMAILS);
  * and carried out once it is done. Keyed by account id. A plan whose delete failed is never
  * picked up: it is dropped after PLAN_TTL_MS so the map cannot grow.
  */
+/**
+ * Account history entries a user update stands for, worked out from its data before the update
+ * (the hook after it only sees the result) and written once it is done. Keyed by the request.
+ */
+const pendingUpdateEvents = new WeakMap<object, AccountEventType[]>();
+
 const pendingErasures = new Map<string, { plan: ErasurePlan; at: number }>();
 const PLAN_TTL_MS = 10 * 60_000;
 
@@ -99,11 +107,20 @@ export function databaseHooks() {
                 },
             },
             update: {
+                before: async (data, context) => {
+                    const events = userUpdateEvents(data as Record<string, unknown>, context?.path);
+                    if (context && events.length) pendingUpdateEvents.set(context, events);
+                },
                 // A banned account loses its API keys (admin ban; a ban written elsewhere, such
                 // as SCIM deactivation, is also refused at verification). Deleting an account
                 // deletes its keys with it (foreign key).
                 after: async (updatedUser, context) => {
                     const ipAddress = context ? clientIp(context.headers) : null;
+                    const events = context ? pendingUpdateEvents.get(context) : undefined;
+                    if (context && events) {
+                        pendingUpdateEvents.delete(context);
+                        for (const type of events) await recordAccountEvent(type, updatedUser.id, { headers: context.headers });
+                    }
                     const role = (updatedUser as { role?: string | null }).role;
                     if (adminOnVerification({ ...updatedUser, role }, context?.path, adminEmails)) {
                         await promoteVerifiedAdmin(updatedUser, ipAddress);

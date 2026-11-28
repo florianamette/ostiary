@@ -2450,7 +2450,8 @@
       "admin": "Administrace",
       "marketingHome": "O službě",
       "signOut": "Odhlásit se",
-      "data": "Vaše data"
+      "data": "Vaše data",
+      "activity": "Nedávná aktivita"
     },
     "profile": {
       "title": "Profil",
@@ -2835,6 +2836,33 @@
       "saved": "Číslo uloženo.",
       "removeFailed": "Číslo se nepodařilo odebrat.",
       "removed": "Číslo odebráno."
+    },
+    "activity": {
+      "title": "Nedávná aktivita",
+      "description": "Přihlášení a změny zabezpečení účtu za posledních 30 dní. Něco nepoznáváte? Odhlaste tu relaci a změňte heslo.",
+      "empty": "Za posledních 30 dní žádná aktivita.",
+      "loadError": "Aktivitu se nepodařilo načíst.",
+      "more": "Zobrazit další",
+      "signOut": "Odhlásit",
+      "signedOut": "Relace odhlášena.",
+      "signOutError": "Tuto relaci se nepodařilo odhlásit.",
+      "current": "Tento prohlížeč",
+      "newDevice": "Nové zařízení",
+      "deviceOn": "{browser} v systému {system}",
+      "unknownDevice": "Neznámý prohlížeč",
+      "types": {
+        "sign_in": "Přihlášení",
+        "password_changed": "Heslo změněno",
+        "password_reset": "Heslo obnoveno",
+        "email_changed": "E-mailová adresa změněna",
+        "two_factor_enabled": "Dvoufázové ověření zapnuto",
+        "two_factor_disabled": "Dvoufázové ověření vypnuto",
+        "passkey_added": "Přístupový klíč přidán",
+        "passkey_removed": "Přístupový klíč odebrán",
+        "session_revoked": "Relace odhlášena",
+        "sessions_revoked": "Odhlášeno z ostatních relací",
+        "account_secured": "Odhlášeno všude (Nebyl(a) jsem to já)"
+      }
     }
   },
   "acceptInvitation": {

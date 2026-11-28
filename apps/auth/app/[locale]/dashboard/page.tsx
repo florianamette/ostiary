@@ -3,6 +3,8 @@ import { getTranslations } from "next-intl/server";
 import { currentAuthPolicy } from "@ostiary/core/lib/auth-policy";
 
 import { DashboardAccountSummary } from "@/components/dashboard/dashboard-account-summary";
+import { DashboardActivitySection } from "@/components/dashboard/dashboard-activity-section";
+import { getMyActivity } from "@/lib/account-activity-actions";
 import { DashboardApiKeysSection } from "@/components/dashboard/dashboard-api-keys-section";
 import { DashboardAppsSection } from "@/components/dashboard/dashboard-apps-section";
 import { DashboardDataSection } from "@/components/dashboard/dashboard-data-section";
@@ -39,12 +41,13 @@ export default async function DashboardPage({
   // Read here rather than by each section after it renders: the sections show at once. A read
   // that fails leaves null, and the section tries again in the browser (or says it could not).
   const orNull = <T,>(promise: Promise<T>) => promise.catch(() => null);
-  const [socialProviders, connectedApps, apiKeys, deletionStatus, policy] = await Promise.all([
+  const [socialProviders, connectedApps, apiKeys, deletionStatus, policy, activity] = await Promise.all([
     enabledSocialProviders(),
     orNull(getMyConnectedApps()),
     showApiKeys ? orNull(getMyApiKeys()) : null,
     orNull(getDeletionStatus()),
     currentAuthPolicy(),
+    orNull(getMyActivity(null)),
   ]);
 
   return (
@@ -83,6 +86,7 @@ export default async function DashboardPage({
           signOutOnPasswordChange={policy.signOutOnPasswordChange}
           returnUrl={returnUrl}
         />
+        <DashboardActivitySection initialPage={activity} />
         <DashboardAppsSection initialApps={connectedApps} />
         {showApiKeys ? <DashboardApiKeysSection initialKeys={apiKeys} /> : null}
         <DashboardDataSection status={deletionStatus} />

@@ -2450,7 +2450,8 @@
       "admin": "Admin",
       "marketingHome": "About",
       "signOut": "Sign out",
-      "data": "Your data"
+      "data": "Your data",
+      "activity": "Recent activity"
     },
     "profile": {
       "title": "Profile",
@@ -2835,6 +2836,33 @@
       "saved": "Phone number saved.",
       "removeFailed": "Could not remove the phone number.",
       "removed": "Phone number removed."
+    },
+    "activity": {
+      "title": "Recent activity",
+      "description": "Sign-ins and changes to your account's security over the last 30 days. Something you don't recognize? Sign out that session and change your password.",
+      "empty": "No activity in the last 30 days.",
+      "loadError": "Could not load your activity.",
+      "more": "Show more",
+      "signOut": "Sign out",
+      "signedOut": "Session signed out.",
+      "signOutError": "Could not sign out this session.",
+      "current": "This browser",
+      "newDevice": "New device",
+      "deviceOn": "{browser} on {system}",
+      "unknownDevice": "Unknown browser",
+      "types": {
+        "sign_in": "Signed in",
+        "password_changed": "Password changed",
+        "password_reset": "Password reset",
+        "email_changed": "Email address changed",
+        "two_factor_enabled": "Two-factor authentication turned on",
+        "two_factor_disabled": "Two-factor authentication turned off",
+        "passkey_added": "Passkey added",
+        "passkey_removed": "Passkey removed",
+        "session_revoked": "A session signed out",
+        "sessions_revoked": "Signed out of other sessions",
+        "account_secured": "Signed out everywhere (This wasn't me)"
+      }
     }
   },
   "acceptInvitation": {

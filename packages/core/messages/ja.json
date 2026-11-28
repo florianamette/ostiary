@@ -2450,7 +2450,8 @@
       "admin": "管理",
       "marketingHome": "このサービスについて",
       "signOut": "サインアウト",
-      "data": "あなたのデータ"
+      "data": "あなたのデータ",
+      "activity": "最近のアクティビティ"
     },
     "profile": {
       "title": "プロフィール",
@@ -2835,6 +2836,33 @@
       "saved": "番号を保存しました。",
       "removeFailed": "番号を削除できませんでした。",
       "removed": "番号を削除しました。"
+    },
+    "activity": {
+      "title": "最近のアクティビティ",
+      "description": "過去 30 日間のサインインとアカウントのセキュリティ変更です。心当たりのないものがあれば、そのセッションをサインアウトしてパスワードを変更してください。",
+      "empty": "過去 30 日間のアクティビティはありません。",
+      "loadError": "アクティビティを読み込めませんでした。",
+      "more": "さらに表示",
+      "signOut": "サインアウト",
+      "signedOut": "セッションをサインアウトしました。",
+      "signOutError": "このセッションをサインアウトできませんでした。",
+      "current": "このブラウザ",
+      "newDevice": "新しいデバイス",
+      "deviceOn": "{system} の {browser}",
+      "unknownDevice": "不明なブラウザ",
+      "types": {
+        "sign_in": "サインイン",
+        "password_changed": "パスワードを変更",
+        "password_reset": "パスワードをリセット",
+        "email_changed": "メールアドレスを変更",
+        "two_factor_enabled": "2 段階認証をオン",
+        "two_factor_disabled": "2 段階認証をオフ",
+        "passkey_added": "パスキーを追加",
+        "passkey_removed": "パスキーを削除",
+        "session_revoked": "セッションをサインアウト",
+        "sessions_revoked": "他のセッションからサインアウト",
+        "account_secured": "すべてからサインアウト (心当たりがない)"
+      }
     }
   },
   "acceptInvitation": {
