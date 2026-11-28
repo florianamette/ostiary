@@ -1935,7 +1935,8 @@
             "remove_phone_number": "Hat die Telefonnummer entfernt",
             "new_device_sign_in": "Von neuem Gerät angemeldet",
             "secure_account": "Konto abgesichert (Das war ich nicht)",
-            "password_breached": "Passwort in einem Datenleck gefunden"
+            "password_breached": "Passwort in einem Datenleck gefunden",
+            "sign_in_locked": "Passwort-Anmeldung nach falschen Passwörtern gesperrt"
           },
           "oauth_client": {
             "create": "OAuth-Client registriert",
@@ -2114,7 +2115,11 @@
           "newDeviceEmail": "E-Mail bei Anmeldung von neuem Gerät",
           "newDeviceEmailHint": "Personen erhalten eine E-Mail, wenn sich ihr Konto von einem noch nie verwendeten Browser anmeldet, mit einer Schaltfläche, um sich überall abzumelden und das Passwort zurückzusetzen. Anmeldungen über das SSO einer Organisation lösen keine E-Mail aus.",
           "securityChangeEmail": "E-Mail bei Sicherheitsänderungen",
-          "securityChangeEmailHint": "Personen erhalten eine E-Mail, wenn sich ihr Passwort, ihre Zwei-Faktor-Authentifizierung oder ihre Passkeys ändern, mit einer Schaltfläche, um sich überall abzumelden und das Passwort zurückzusetzen. Änderungen durch einen Admin lösen keine E-Mail aus."
+          "securityChangeEmailHint": "Personen erhalten eine E-Mail, wenn sich ihr Passwort, ihre Zwei-Faktor-Authentifizierung oder ihre Passkeys ändern, mit einer Schaltfläche, um sich überall abzumelden und das Passwort zurückzusetzen. Änderungen durch einen Admin lösen keine E-Mail aus.",
+          "lockoutAttempts": "Passwort-Anmeldung sperren nach",
+          "lockoutAttemptsHint": "Falsche Passwörter für dieselbe E-Mail-Adresse oder denselben Benutzernamen innerhalb von {minutes} Minuten. Die Passwort-Anmeldung dafür ist dann {minutes} Minuten gesperrt, ob ein Konto existiert oder nicht. Passkeys, Anmeldecodes und -links, soziale Anmeldung und SSO funktionieren weiter.",
+          "lockoutNever": "Nie",
+          "wrongPasswords": "{count, plural, one {# falsches Passwort} other {# falschen Passwörtern}}"
         },
         "emailDomains": {
           "title": "E-Mail-Domains",
@@ -2899,7 +2904,8 @@
         "session_revoked": "Eine Sitzung abgemeldet",
         "sessions_revoked": "Von anderen Sitzungen abgemeldet",
         "account_secured": "Überall abgemeldet (Das war ich nicht)",
-        "password_breached": "Passwort in einem Datenleck gefunden"
+        "password_breached": "Passwort in einem Datenleck gefunden",
+        "sign_in_locked": "Passwort-Anmeldung nach falschen Passwörtern pausiert"
       }
     }
   },

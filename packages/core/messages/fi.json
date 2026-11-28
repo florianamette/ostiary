@@ -1935,7 +1935,8 @@
             "remove_phone_number": "Poisti puhelinnumeronsa",
             "new_device_sign_in": "Kirjautui uudelta laitteelta",
             "secure_account": "Suojasi tilinsä (Se en ollut minä)",
-            "password_breached": "Salasana löytyi tietovuodosta"
+            "password_breached": "Salasana löytyi tietovuodosta",
+            "sign_in_locked": "Salasanakirjautuminen lukittu väärien salasanojen jälkeen"
           },
           "oauth_client": {
             "create": "Rekisteröi OAuth-asiakkaan",
@@ -2114,7 +2115,11 @@
           "newDeviceEmail": "Sähköposti kirjautumisesta uudelta laitteelta",
           "newDeviceEmailHint": "Käyttäjät saavat sähköpostin, kun heidän tililleen kirjaudutaan selaimelta, jota se ei ole aiemmin käyttänyt, ja painikkeen, jolla voi kirjautua ulos kaikkialta ja nollata salasanan. Organisaation SSO:n kautta tehdyistä kirjautumisista ei lähetetä viestiä.",
           "securityChangeEmail": "Sähköposti tietoturvamuutoksista",
-          "securityChangeEmailHint": "Käyttäjät saavat sähköpostin, kun heidän salasanansa, kaksivaiheinen tunnistautumisensa tai pääsyavaimensa muuttuvat, ja siinä on painike, jolla voi kirjautua ulos kaikkialta ja nollata salasanan. Ylläpitäjän tekemistä muutoksista ei lähetetä sähköpostia."
+          "securityChangeEmailHint": "Käyttäjät saavat sähköpostin, kun heidän salasanansa, kaksivaiheinen tunnistautumisensa tai pääsyavaimensa muuttuvat, ja siinä on painike, jolla voi kirjautua ulos kaikkialta ja nollata salasanan. Ylläpitäjän tekemistä muutoksista ei lähetetä sähköpostia.",
+          "lockoutAttempts": "Lukitse salasanakirjautuminen",
+          "lockoutAttemptsHint": "Väärät salasanat samalle sähköpostiosoitteelle tai käyttäjänimelle {minutes} minuutin sisällä. Salasanakirjautuminen pysähtyy sitten {minutes} minuutiksi, oli tiliä tai ei. Pääsyavaimet, kirjautumiskoodit ja -linkit, sosiaalinen kirjautuminen ja SSO toimivat edelleen.",
+          "lockoutNever": "Ei koskaan",
+          "wrongPasswords": "{count, plural, one {# väärän salasanan jälkeen} other {# väärän salasanan jälkeen}}"
         },
         "emailDomains": {
           "title": "Sähköpostiverkkotunnukset",
@@ -2899,7 +2904,8 @@
         "session_revoked": "Istunto kirjattu ulos",
         "sessions_revoked": "Kirjauduttu ulos muista istunnoista",
         "account_secured": "Kirjauduttu ulos kaikkialta (Se en ollut minä)",
-        "password_breached": "Salasana löytyi tietovuodosta"
+        "password_breached": "Salasana löytyi tietovuodosta",
+        "sign_in_locked": "Salasanakirjautuminen keskeytetty väärien salasanojen jälkeen"
       }
     }
   },

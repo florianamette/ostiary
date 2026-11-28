@@ -8,6 +8,7 @@ import {
   saveAuthPolicy,
   SESSION_DAYS,
   TWO_FACTOR_GRACE_DAYS,
+  LOCKOUT_ATTEMPTS,
   type AuthPolicy,
 } from "@ostiary/core/lib/auth-policy";
 import {
@@ -41,6 +42,7 @@ const policySchema = z
     twoFactorGraceDays: z.number().refine((v) => (TWO_FACTOR_GRACE_DAYS as readonly number[]).includes(v)),
     newDeviceEmail: z.boolean(),
     securityChangeEmail: z.boolean(),
+    lockoutAttempts: z.number().refine((v) => (LOCKOUT_ATTEMPTS as readonly number[]).includes(v)),
   })
   .strict();
 

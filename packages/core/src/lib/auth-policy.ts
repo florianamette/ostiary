@@ -18,6 +18,7 @@ import {
 
 export {
   DEFAULT_AUTH_POLICY,
+  LOCKOUT_ATTEMPTS,
   MIN_PASSWORD_LENGTHS,
   parseAuthPolicy,
   SESSION_DAYS,

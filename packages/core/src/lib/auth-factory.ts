@@ -123,6 +123,7 @@ import {
 import { accountActivityEvents } from "@ostiary/core/lib/auth-hooks/account-activity-hook";
 import { recordSecurityEvent } from "@ostiary/core/lib/security/security-change";
 import { clearPasswordBreach, passwordBreachPending, passwordBreachSignInCheck } from "@ostiary/core/lib/security/password-breach";
+import { signInLockout } from "@ostiary/core/lib/security/sign-in-lockout";
 
 export { RECENT_SIGN_IN_SECONDS };
 
@@ -627,6 +628,7 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
             passwordSignInEvents,
             accountActivityEvents,
             passwordBreachSignInCheck(),
+            signInLockout,
             adminEmailChangeUnverifies,
             // "Email me a sign-in code": a 6-digit code, typed on the sign-in page that asked for
             // it, so an OAuth sign-in carries on in that tab even when the email is read on a phone.

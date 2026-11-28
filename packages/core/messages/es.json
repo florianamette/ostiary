@@ -1935,7 +1935,8 @@
             "remove_phone_number": "Quitó su número de teléfono",
             "new_device_sign_in": "Inició sesión desde un dispositivo nuevo",
             "secure_account": "Protegió su cuenta (No fui yo)",
-            "password_breached": "Contraseña encontrada en una filtración"
+            "password_breached": "Contraseña encontrada en una filtración",
+            "sign_in_locked": "Inicio de sesión con contraseña bloqueado tras contraseñas incorrectas"
           },
           "oauth_client": {
             "create": "Registró un cliente OAuth",
@@ -2114,7 +2115,11 @@
           "newDeviceEmail": "Correo al iniciar sesión desde un dispositivo nuevo",
           "newDeviceEmailHint": "Las personas reciben un correo cuando su cuenta inicia sesión desde un navegador que no había usado antes, con un botón para cerrar sesión en todas partes y restablecer la contraseña. Los inicios de sesión mediante el SSO de una organización no envían correo.",
           "securityChangeEmail": "Correo en cambios de seguridad",
-          "securityChangeEmailHint": "Las personas reciben un correo cuando cambian su contraseña, su autenticación en dos pasos o sus llaves de acceso, con un botón para cerrar sesión en todas partes y restablecer la contraseña. Los cambios hechos por un admin no envían correo."
+          "securityChangeEmailHint": "Las personas reciben un correo cuando cambian su contraseña, su autenticación en dos pasos o sus llaves de acceso, con un botón para cerrar sesión en todas partes y restablecer la contraseña. Los cambios hechos por un admin no envían correo.",
+          "lockoutAttempts": "Bloquear el inicio con contraseña tras",
+          "lockoutAttemptsHint": "Contraseñas incorrectas para el mismo correo o nombre de usuario en {minutes} minutos. El inicio de sesión con contraseña se detiene entonces {minutes} minutos, exista o no una cuenta. Las llaves de acceso, los códigos y enlaces de inicio, el inicio social y el SSO siguen funcionando.",
+          "lockoutNever": "Nunca",
+          "wrongPasswords": "{count, plural, one {# contraseña incorrecta} other {# contraseñas incorrectas}}"
         },
         "emailDomains": {
           "title": "Dominios de correo",
@@ -2899,7 +2904,8 @@
         "session_revoked": "Se cerró una sesión",
         "sessions_revoked": "Se cerraron las demás sesiones",
         "account_secured": "Sesión cerrada en todas partes (No fui yo)",
-        "password_breached": "Contraseña encontrada en una filtración"
+        "password_breached": "Contraseña encontrada en una filtración",
+        "sign_in_locked": "Inicio de sesión con contraseña pausado tras contraseñas incorrectas"
       }
     }
   },

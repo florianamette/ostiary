@@ -1935,7 +1935,8 @@
             "remove_phone_number": "Usunął(-ęła) swój numer telefonu",
             "new_device_sign_in": "Zalogowano z nowego urządzenia",
             "secure_account": "Zabezpieczył(a) konto (To nie ja)",
-            "password_breached": "Hasło znalezione w wycieku"
+            "password_breached": "Hasło znalezione w wycieku",
+            "sign_in_locked": "Logowanie hasłem zablokowane po błędnych hasłach"
           },
           "oauth_client": {
             "create": "Zarejestrowano klienta OAuth",
@@ -2114,7 +2115,11 @@
           "newDeviceEmail": "E-mail przy logowaniu z nowego urządzenia",
           "newDeviceEmailHint": "Użytkownicy dostają e-mail, gdy ich konto loguje się z przeglądarki, której wcześniej nie używało, z przyciskiem do wylogowania wszędzie i zresetowania hasła. Logowania przez SSO organizacji nie wysyłają wiadomości.",
           "securityChangeEmail": "E-mail przy zmianach zabezpieczeń",
-          "securityChangeEmailHint": "Użytkownicy dostają e-mail, gdy zmienia się ich hasło, uwierzytelnianie dwuskładnikowe lub klucze dostępu, z przyciskiem do wylogowania wszędzie i zresetowania hasła. Zmiany wprowadzone przez admina nie wysyłają e-maila."
+          "securityChangeEmailHint": "Użytkownicy dostają e-mail, gdy zmienia się ich hasło, uwierzytelnianie dwuskładnikowe lub klucze dostępu, z przyciskiem do wylogowania wszędzie i zresetowania hasła. Zmiany wprowadzone przez admina nie wysyłają e-maila.",
+          "lockoutAttempts": "Blokuj logowanie hasłem po",
+          "lockoutAttemptsHint": "Błędne hasła dla tego samego e-maila lub nazwy użytkownika w ciągu {minutes} minut. Logowanie hasłem zostaje wtedy wstrzymane na {minutes} minut, niezależnie od tego, czy konto istnieje. Klucze dostępu, kody i linki logowania, logowanie społecznościowe i SSO nadal działają.",
+          "lockoutNever": "Nigdy",
+          "wrongPasswords": "{count, plural, one {# błędnym haśle} few {# błędnych hasłach} many {# błędnych hasłach} other {# błędnego hasła}}"
         },
         "emailDomains": {
           "title": "Domeny e-mail",
@@ -2899,7 +2904,8 @@
         "session_revoked": "Wylogowano sesję",
         "sessions_revoked": "Wylogowano inne sesje",
         "account_secured": "Wylogowano wszędzie (To nie ja)",
-        "password_breached": "Hasło znalezione w wycieku"
+        "password_breached": "Hasło znalezione w wycieku",
+        "sign_in_locked": "Logowanie hasłem wstrzymane po błędnych hasłach"
       }
     }
   },

@@ -1935,7 +1935,8 @@
             "remove_phone_number": "A supprimé son numéro de téléphone",
             "new_device_sign_in": "Connexion depuis un nouvel appareil",
             "secure_account": "A sécurisé son compte (Ce n’était pas moi)",
-            "password_breached": "Mot de passe trouvé dans une fuite"
+            "password_breached": "Mot de passe trouvé dans une fuite",
+            "sign_in_locked": "Connexion par mot de passe bloquée après des mots de passe erronés"
           },
           "oauth_client": {
             "create": "Client OAuth enregistré",
@@ -2114,7 +2115,11 @@
           "newDeviceEmail": "E-mail lors d’une connexion depuis un nouvel appareil",
           "newDeviceEmailHint": "Les personnes reçoivent un e-mail quand leur compte se connecte depuis un navigateur jamais utilisé, avec un bouton pour se déconnecter partout et réinitialiser le mot de passe. Les connexions via le SSO d’une organisation ne déclenchent pas d’e-mail.",
           "securityChangeEmail": "E-mail lors d’un changement de sécurité",
-          "securityChangeEmailHint": "Les personnes reçoivent un e-mail quand leur mot de passe, leur authentification à deux facteurs ou leurs clés d’accès changent, avec un bouton pour se déconnecter partout et réinitialiser le mot de passe. Les changements faits par un admin ne déclenchent pas d’e-mail."
+          "securityChangeEmailHint": "Les personnes reçoivent un e-mail quand leur mot de passe, leur authentification à deux facteurs ou leurs clés d’accès changent, avec un bouton pour se déconnecter partout et réinitialiser le mot de passe. Les changements faits par un admin ne déclenchent pas d’e-mail.",
+          "lockoutAttempts": "Bloquer la connexion par mot de passe après",
+          "lockoutAttemptsHint": "Mots de passe erronés pour la même adresse e-mail ou le même nom d’utilisateur en {minutes} minutes. La connexion par mot de passe est alors bloquée {minutes} minutes, qu’un compte existe ou non. Les clés d’accès, les codes et liens de connexion, la connexion sociale et le SSO continuent de fonctionner.",
+          "lockoutNever": "Jamais",
+          "wrongPasswords": "{count, plural, one {# mot de passe erroné} other {# mots de passe erronés}}"
         },
         "emailDomains": {
           "title": "Domaines d'e-mail",
@@ -2899,7 +2904,8 @@
         "session_revoked": "Une session déconnectée",
         "sessions_revoked": "Déconnexion des autres sessions",
         "account_secured": "Déconnexion partout (Ce n’était pas moi)",
-        "password_breached": "Mot de passe trouvé dans une fuite"
+        "password_breached": "Mot de passe trouvé dans une fuite",
+        "sign_in_locked": "Connexion par mot de passe suspendue après des mots de passe erronés"
       }
     }
   },

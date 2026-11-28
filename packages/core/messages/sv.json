@@ -1935,7 +1935,8 @@
             "remove_phone_number": "Tog bort sitt telefonnummer",
             "new_device_sign_in": "Loggade in från en ny enhet",
             "secure_account": "Skyddade sitt konto (Det var inte jag)",
-            "password_breached": "Lösenordet hittades i en dataläcka"
+            "password_breached": "Lösenordet hittades i en dataläcka",
+            "sign_in_locked": "Inloggning med lösenord låst efter fel lösenord"
           },
           "oauth_client": {
             "create": "Registrerade OAuth-klient",
@@ -2114,7 +2115,11 @@
           "newDeviceEmail": "Mejl vid inloggning från ny enhet",
           "newDeviceEmailHint": "Personer får ett mejl när kontot loggar in från en webbläsare som det inte har använt tidigare, med en knapp för att logga ut överallt och återställa lösenordet. Inloggningar via en organisations SSO skickar inget mejl.",
           "securityChangeEmail": "Mejl vid säkerhetsändringar",
-          "securityChangeEmailHint": "Personer får ett mejl när deras lösenord, tvåfaktorsautentisering eller nycklar ändras, med en knapp för att logga ut överallt och återställa lösenordet. Ändringar som en admin gör skickar inget mejl."
+          "securityChangeEmailHint": "Personer får ett mejl när deras lösenord, tvåfaktorsautentisering eller nycklar ändras, med en knapp för att logga ut överallt och återställa lösenordet. Ändringar som en admin gör skickar inget mejl.",
+          "lockoutAttempts": "Lås inloggning med lösenord efter",
+          "lockoutAttemptsHint": "Fel lösenord för samma e-postadress eller användarnamn inom {minutes} minuter. Inloggning med lösenord stoppas då i {minutes} minuter, oavsett om ett konto finns. Nycklar, inloggningskoder och -länkar, social inloggning och SSO fungerar fortfarande.",
+          "lockoutNever": "Aldrig",
+          "wrongPasswords": "{count, plural, one {# fel lösenord} other {# fel lösenord}}"
         },
         "emailDomains": {
           "title": "E-postdomäner",
@@ -2899,7 +2904,8 @@
         "session_revoked": "En session utloggad",
         "sessions_revoked": "Utloggad från andra sessioner",
         "account_secured": "Utloggad överallt (Det var inte jag)",
-        "password_breached": "Lösenordet hittades i en dataläcka"
+        "password_breached": "Lösenordet hittades i en dataläcka",
+        "sign_in_locked": "Inloggning med lösenord pausad efter fel lösenord"
       }
     }
   },

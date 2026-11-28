@@ -1935,7 +1935,8 @@
             "remove_phone_number": "Fjernede sit telefonnummer",
             "new_device_sign_in": "Loggede ind fra en ny enhed",
             "secure_account": "Beskyttede sin konto (Det var ikke mig)",
-            "password_breached": "Adgangskode fundet i et datalæk"
+            "password_breached": "Adgangskode fundet i et datalæk",
+            "sign_in_locked": "Login med adgangskode låst efter forkerte adgangskoder"
           },
           "oauth_client": {
             "create": "Registrerede OAuth-klient",
@@ -2114,7 +2115,11 @@
           "newDeviceEmail": "Mail ved login fra ny enhed",
           "newDeviceEmailHint": "Personer får en mail, når deres konto logger ind fra en browser, den ikke har brugt før, med en knap til at logge ud overalt og nulstille adgangskoden. Login via en organisations SSO sender ingen mail.",
           "securityChangeEmail": "E-mail ved sikkerhedsændringer",
-          "securityChangeEmailHint": "Folk får en e-mail, når deres adgangskode, totrinsgodkendelse eller adgangsnøgler ændres, med en knap til at logge ud overalt og nulstille adgangskoden. Ændringer foretaget af en admin sender ingen e-mail."
+          "securityChangeEmailHint": "Folk får en e-mail, når deres adgangskode, totrinsgodkendelse eller adgangsnøgler ændres, med en knap til at logge ud overalt og nulstille adgangskoden. Ændringer foretaget af en admin sender ingen e-mail.",
+          "lockoutAttempts": "Lås login med adgangskode efter",
+          "lockoutAttemptsHint": "Forkerte adgangskoder for samme e-mail eller brugernavn inden for {minutes} minutter. Login med adgangskode stoppes så i {minutes} minutter, uanset om der findes en konto. Adgangsnøgler, loginkoder og -links, socialt login og SSO virker stadig.",
+          "lockoutNever": "Aldrig",
+          "wrongPasswords": "{count, plural, one {# forkert adgangskode} other {# forkerte adgangskoder}}"
         },
         "emailDomains": {
           "title": "E-maildomæner",
@@ -2899,7 +2904,8 @@
         "session_revoked": "En session logget ud",
         "sessions_revoked": "Logget ud af andre sessioner",
         "account_secured": "Logget ud overalt (Det var ikke mig)",
-        "password_breached": "Adgangskode fundet i et datalæk"
+        "password_breached": "Adgangskode fundet i et datalæk",
+        "sign_in_locked": "Login med adgangskode sat på pause efter forkerte adgangskoder"
       }
     }
   },

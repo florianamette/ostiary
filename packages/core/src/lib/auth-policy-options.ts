@@ -10,6 +10,10 @@ export const SESSION_DAYS = [1, 7, 14, 30, 90] as const;
 export const MIN_PASSWORD_LENGTHS = [8, 10, 12, 14, 16] as const;
 /** Days people have to turn on two-factor authentication once it is required. */
 export const TWO_FACTOR_GRACE_DAYS = [0, 7, 14, 30] as const;
+/** Wrong passwords for one email or username that lock its password sign-in (0: never). */
+export const LOCKOUT_ATTEMPTS = [0, 5, 10, 20] as const;
+/** The wrong passwords count over this many minutes, and the lock lasts as long. */
+export const LOCKOUT_MINUTES = 15;
 
 export type AuthPolicy = {
   /** Days a session lasts: without use (sessions extended while used), or in all. */
@@ -34,6 +38,8 @@ export type AuthPolicy = {
   newDeviceEmail: boolean;
   /** Email people when their password, two-factor authentication or passkeys change. */
   securityChangeEmail: boolean;
+  /** Wrong passwords within LOCKOUT_MINUTES that lock password sign-in for that email or username, 0: never (security/sign-in-lockout.ts). */
+  lockoutAttempts: number;
 };
 
 /** Better Auth's defaults, and Ostiary's behaviour before the policy existed. */
@@ -48,6 +54,7 @@ export const DEFAULT_AUTH_POLICY: AuthPolicy = {
   twoFactorRequiredSince: null,
   newDeviceEmail: true,
   securityChangeEmail: true,
+  lockoutAttempts: 10,
 };
 
 /** Better Auth refreshes a used session once a day (its default `updateAge`). */
@@ -78,5 +85,6 @@ export function parseAuthPolicy(raw: unknown): AuthPolicy {
         : null,
     newDeviceEmail: bool("newDeviceEmail"),
     securityChangeEmail: bool("securityChangeEmail"),
+    lockoutAttempts: oneOf<number>(LOCKOUT_ATTEMPTS, value.lockoutAttempts, DEFAULT_AUTH_POLICY.lockoutAttempts),
   };
 }

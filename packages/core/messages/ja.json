@@ -1935,7 +1935,8 @@
             "remove_phone_number": "電話番号を削除",
             "new_device_sign_in": "新しいデバイスからサインイン",
             "secure_account": "アカウントを保護 (心当たりがない)",
-            "password_breached": "漏えいしたパスワードを検出"
+            "password_breached": "漏えいしたパスワードを検出",
+            "sign_in_locked": "誤ったパスワードの後にパスワードでのサインインをロック"
           },
           "oauth_client": {
             "create": "OAuth クライアントを登録",
@@ -2114,7 +2115,11 @@
           "newDeviceEmail": "新しいデバイスからのサインイン時にメール",
           "newDeviceEmailHint": "これまで使われていないブラウザからアカウントにサインインがあると、すべてからサインアウトしてパスワードをリセットするボタン付きのメールが届きます。組織の SSO 経由のサインインではメールは送信されません。",
           "securityChangeEmail": "セキュリティ変更時にメール",
-          "securityChangeEmailHint": "パスワード、2 要素認証、パスキーが変更されると、すべてからサインアウトしてパスワードをリセットするボタン付きのメールが届きます。管理者による変更ではメールは送信されません。"
+          "securityChangeEmailHint": "パスワード、2 要素認証、パスキーが変更されると、すべてからサインアウトしてパスワードをリセットするボタン付きのメールが届きます。管理者による変更ではメールは送信されません。",
+          "lockoutAttempts": "パスワードでのサインインをロックする回数",
+          "lockoutAttemptsHint": "{minutes} 分以内に同じメールアドレスまたはユーザー名で誤ったパスワードが入力された回数です。その後 {minutes} 分間、アカウントの有無にかかわらず、パスワードでのサインインが停止されます。パスキー、サインインコードとリンク、ソーシャルサインイン、SSO は引き続き使えます。",
+          "lockoutNever": "しない",
+          "wrongPasswords": "{count, plural, other {誤ったパスワード # 回}}"
         },
         "emailDomains": {
           "title": "メールドメイン",
@@ -2899,7 +2904,8 @@
         "session_revoked": "セッションをサインアウト",
         "sessions_revoked": "他のセッションからサインアウト",
         "account_secured": "すべてからサインアウト (心当たりがない)",
-        "password_breached": "漏えいしたパスワードを検出"
+        "password_breached": "漏えいしたパスワードを検出",
+        "sign_in_locked": "誤ったパスワードの後にパスワードでのサインインを一時停止"
       }
     }
   },
