@@ -5,6 +5,7 @@ import { env } from "@ostiary/core/lib/env";
 import { getDashboardContext } from "@/lib/dashboard-context";
 import { redirect } from "@/i18n/navigation";
 import { noIndexMetadata } from "@/lib/page-metadata";
+import { passwordBreachPending } from "@ostiary/core/lib/security/password-breach";
 
 export const generateMetadata = noIndexMetadata("dashboard", "title", { follow: true });
 
@@ -25,6 +26,13 @@ export default async function DashboardLayout({
       href: `/login?callbackURL=${encodeURIComponent(`/${locale}/dashboard`)}`,
       locale,
     });
+    return null;
+  }
+
+  // A password to change (found in a breach, or an admin's request) comes first, on every tab;
+  // not for an admin viewing the account by impersonation.
+  if (!session.session.impersonatedBy && (await passwordBreachPending(sessionUser.id))) {
+    redirect({ href: "/change-password", locale });
     return null;
   }
 

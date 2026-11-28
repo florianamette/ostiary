@@ -70,7 +70,7 @@ export default async function Page({
         <CardContent className="grid gap-3">
           <p className="text-muted-foreground text-sm">{t("how")}</p>
           <Button asChild>
-            <Link href={`/dashboard?continue=${encodeURIComponent(back)}#two-factor`}>{t("setUp")}</Link>
+            <Link href={`/dashboard/security?continue=${encodeURIComponent(back)}#two-factor`}>{t("setUp")}</Link>
           </Button>
           {inGrace ? <ContinueSignIn label={t("later")} /> : null}
         </CardContent>

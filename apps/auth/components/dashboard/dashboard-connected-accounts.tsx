@@ -59,8 +59,8 @@ export function DashboardConnectedAccounts({ providers }: { providers: SocialPro
     try {
       const { error } = await authClient.linkSocial({
         provider: provider.id,
-        callbackURL: `/${locale}/dashboard#security`,
-        errorCallbackURL: `/${locale}/dashboard#security`,
+        callbackURL: `/${locale}/dashboard/security`,
+        errorCallbackURL: `/${locale}/dashboard/security`,
       });
       if (error) {
         setConnecting(null);

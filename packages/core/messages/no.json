@@ -2725,7 +2725,9 @@
       "expires": "Utløper",
       "none": "Ingen",
       "startedAt": "Startet: {date}",
-      "expiresAt": "Utløper: {date}"
+      "expiresAt": "Utløper: {date}",
+      "openPasswordForm": "Endre passord",
+      "closePasswordForm": "Avbryt"
     },
     "apps": {
       "title": "Tilkoblede apper",
@@ -2938,6 +2940,24 @@
         "password_breached": "Passord funnet i en datalekkasje",
         "sign_in_locked": "Pålogging med passord satt på pause etter feil passord"
       }
+    },
+    "checklist": {
+      "title": "Sikkerhetssjekkliste",
+      "description": "Noen steg som gjør kontoen din vanskeligere å ta over.",
+      "allDone": "Kontoen din er godt beskyttet.",
+      "emailVerified": "E-postadresse bekreftet",
+      "emailUnverified": "Bekreft e-postadressen din",
+      "twoFactorOn": "Totrinnsbekreftelse er på",
+      "twoFactorOff": "Slå på totrinnsbekreftelse",
+      "passkeys": "{count, plural, one {# tilgangsnøkkel satt opp} other {# tilgangsnøkler satt opp}}",
+      "noPasskey": "Legg til en tilgangsnøkkel for å logge på uten passord",
+      "thisDeviceOnly": "Bare pålogget på denne enheten",
+      "otherSessions": "{count, plural, one {Pålogget på # annen enhet} other {Pålogget på # andre enheter}}",
+      "verify": "Bekreft",
+      "turnOn": "Slå på",
+      "addPasskey": "Legg til tilgangsnøkkel",
+      "review": "Se over",
+      "manage": "Administrer"
     }
   },
   "acceptInvitation": {

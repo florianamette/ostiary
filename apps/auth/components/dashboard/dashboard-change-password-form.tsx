@@ -23,12 +23,15 @@ type DashboardChangePasswordFormProps = {
   minPasswordLength?: number;
   /** The policy signs the account out everywhere on a password change: the box is ticked and fixed. */
   signOutForced?: boolean;
+  /** On the account page: closed behind a "Change password" button until wanted. */
+  collapsible?: boolean;
 };
 
 export function DashboardChangePasswordForm({
   onPasswordChanged,
   minPasswordLength: MIN_PASSWORD_LENGTH = 8,
   signOutForced = false,
+  collapsible = false,
 }: DashboardChangePasswordFormProps) {
   const t = useTranslations("dashboard.security");
   const errorMessage = useAuthErrorMessage();
@@ -39,6 +42,7 @@ export function DashboardChangePasswordForm({
   const [revokeOthersChoice, setRevokeOtherSessions] = React.useState(false);
   const revokeOtherSessions = signOutForced || revokeOthersChoice;
   const [passwordPending, setPasswordPending] = React.useState(false);
+  const [open, setOpen] = React.useState(!collapsible);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -85,6 +89,7 @@ export function DashboardChangePasswordForm({
       setConfirmPassword("");
       setRevokeOtherSessions(false);
       toast.success(t("passwordChanged"));
+      if (collapsible) setOpen(false);
 
       await authClient.getSession();
 
@@ -97,6 +102,28 @@ export function DashboardChangePasswordForm({
   }
 
   const mismatch = confirmPassword.length > 0 && newPassword !== confirmPassword;
+
+  if (!open) {
+    return (
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h3 className="text-sm font-medium">{t("passwordHeading")}</h3>
+          <FieldDescription className="text-pretty">{t("passwordHint", { min: MIN_PASSWORD_LENGTH })}</FieldDescription>
+        </div>
+        <Button type="button" variant="outline" size="sm" className="shrink-0" onClick={() => setOpen(true)}>
+          {t("openPasswordForm")}
+        </Button>
+      </div>
+    );
+  }
+
+  function close() {
+    setCurrentPassword("");
+    setNewPassword("");
+    setConfirmPassword("");
+    setRevokeOtherSessions(false);
+    setOpen(false);
+  }
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
@@ -112,6 +139,8 @@ export function DashboardChangePasswordForm({
           <Input
             id="change-pw-current"
             type="password"
+            // Opened from "Change password": straight to the first field.
+            autoFocus={collapsible}
             autoComplete="current-password"
             value={currentPassword}
             onChange={(e) => setCurrentPassword(e.target.value)}
@@ -172,7 +201,7 @@ export function DashboardChangePasswordForm({
             </div>
           </div>
         </Field>
-        <Field>
+        <Field className="flex-row flex-wrap gap-2">
           <Button
             type="submit"
             loading={passwordPending}
@@ -185,6 +214,11 @@ export function DashboardChangePasswordForm({
           >
             {passwordPending ? t("changing") : t("changePassword")}
           </Button>
+          {collapsible ? (
+            <Button type="button" variant="ghost" disabled={passwordPending} onClick={close}>
+              {t("closePasswordForm")}
+            </Button>
+          ) : null}
         </Field>
       </FieldGroup>
     </form>

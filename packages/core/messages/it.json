@@ -2725,7 +2725,9 @@
       "expires": "Scade",
       "none": "Nessuna",
       "startedAt": "Iniziata: {date}",
-      "expiresAt": "Scade: {date}"
+      "expiresAt": "Scade: {date}",
+      "openPasswordForm": "Cambia password",
+      "closePasswordForm": "Annulla"
     },
     "apps": {
       "title": "Applicazioni collegate",
@@ -2938,6 +2940,24 @@
         "password_breached": "Password trovata in una violazione",
         "sign_in_locked": "Accesso con password sospeso dopo password errate"
       }
+    },
+    "checklist": {
+      "title": "Lista di sicurezza",
+      "description": "Alcuni passaggi che rendono il tuo account più difficile da violare.",
+      "allDone": "Il tuo account è ben protetto.",
+      "emailVerified": "Indirizzo email verificato",
+      "emailUnverified": "Verifica il tuo indirizzo email",
+      "twoFactorOn": "L’autenticazione a due fattori è attiva",
+      "twoFactorOff": "Attiva l’autenticazione a due fattori",
+      "passkeys": "{count, plural, one {# passkey configurata} other {# passkey configurate}}",
+      "noPasskey": "Aggiungi una passkey per accedere senza password",
+      "thisDeviceOnly": "Accesso solo su questo dispositivo",
+      "otherSessions": "{count, plural, one {Accesso su # altro dispositivo} other {Accesso su altri # dispositivi}}",
+      "verify": "Verifica",
+      "turnOn": "Attiva",
+      "addPasskey": "Aggiungi una passkey",
+      "review": "Controlla",
+      "manage": "Gestisci"
     }
   },
   "acceptInvitation": {

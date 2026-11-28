@@ -13,8 +13,7 @@ test("recent activity lists sign-ins and changes, and signs out another session"
   });
   expect(changed.status(), await changed.text()).toBe(200);
 
-  // A fresh load (the page is already on the dashboard: a hash change alone would not read it).
-  await page.reload();
+  await page.goto("/en/dashboard/activity");
   const activity = page.getByRole("list", { name: "Recent activity" });
   await expect(activity.getByText("Password changed")).toBeVisible();
   await expect(activity.getByText("Signed in")).toHaveCount(2);

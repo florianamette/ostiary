@@ -2725,7 +2725,9 @@
       "expires": "Udløber",
       "none": "Ingen",
       "startedAt": "Startet: {date}",
-      "expiresAt": "Udløber: {date}"
+      "expiresAt": "Udløber: {date}",
+      "openPasswordForm": "Skift adgangskode",
+      "closePasswordForm": "Annuller"
     },
     "apps": {
       "title": "Forbundne apps",
@@ -2938,6 +2940,24 @@
         "password_breached": "Adgangskode fundet i et datalæk",
         "sign_in_locked": "Login med adgangskode sat på pause efter forkerte adgangskoder"
       }
+    },
+    "checklist": {
+      "title": "Sikkerhedstjekliste",
+      "description": "Et par trin, der gør din konto sværere at overtage.",
+      "allDone": "Din konto er godt beskyttet.",
+      "emailVerified": "E-mailadresse bekræftet",
+      "emailUnverified": "Bekræft din e-mailadresse",
+      "twoFactorOn": "Totrinsbekræftelse er slået til",
+      "twoFactorOff": "Slå totrinsbekræftelse til",
+      "passkeys": "{count, plural, one {# adgangsnøgle oprettet} other {# adgangsnøgler oprettet}}",
+      "noPasskey": "Tilføj en adgangsnøgle for at logge ind uden adgangskode",
+      "thisDeviceOnly": "Kun logget ind på denne enhed",
+      "otherSessions": "{count, plural, one {Logget ind på # anden enhed} other {Logget ind på # andre enheder}}",
+      "verify": "Bekræft",
+      "turnOn": "Slå til",
+      "addPasskey": "Tilføj adgangsnøgle",
+      "review": "Gennemgå",
+      "manage": "Administrer"
     }
   },
   "acceptInvitation": {

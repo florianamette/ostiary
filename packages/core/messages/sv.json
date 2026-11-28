@@ -2725,7 +2725,9 @@
       "expires": "Går ut",
       "none": "Ingen",
       "startedAt": "Startad: {date}",
-      "expiresAt": "Går ut: {date}"
+      "expiresAt": "Går ut: {date}",
+      "openPasswordForm": "Byt lösenord",
+      "closePasswordForm": "Avbryt"
     },
     "apps": {
       "title": "Anslutna appar",
@@ -2938,6 +2940,24 @@
         "password_breached": "Lösenordet hittades i en dataläcka",
         "sign_in_locked": "Inloggning med lösenord pausad efter fel lösenord"
       }
+    },
+    "checklist": {
+      "title": "Säkerhetschecklista",
+      "description": "Några steg som gör ditt konto svårare att ta över.",
+      "allDone": "Ditt konto är väl skyddat.",
+      "emailVerified": "E-postadress verifierad",
+      "emailUnverified": "Verifiera din e-postadress",
+      "twoFactorOn": "Tvåstegsverifiering är på",
+      "twoFactorOff": "Slå på tvåstegsverifiering",
+      "passkeys": "{count, plural, one {# nyckel konfigurerad} other {# nycklar konfigurerade}}",
+      "noPasskey": "Lägg till en nyckel för att logga in utan lösenord",
+      "thisDeviceOnly": "Inloggad endast på den här enheten",
+      "otherSessions": "{count, plural, one {Inloggad på # annan enhet} other {Inloggad på # andra enheter}}",
+      "verify": "Verifiera",
+      "turnOn": "Slå på",
+      "addPasskey": "Lägg till nyckel",
+      "review": "Granska",
+      "manage": "Hantera"
     }
   },
   "acceptInvitation": {

@@ -26,7 +26,7 @@ test("a user creates an API key and a linked application verifies it", async ({ 
   // The auth app reloads the API key settings within a minute.
   const create = page.getByRole("button", { name: "Create API key" });
   await expect(async () => {
-    await page.goto("/en/dashboard");
+    await page.goto("/en/dashboard/api-keys");
     await expect(create).toBeVisible({ timeout: 3_000 });
   }).toPass({ timeout: 80_000, intervals: [3_000] });
   await create.click();

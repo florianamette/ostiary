@@ -28,7 +28,7 @@ test("sign up, verify the email and sign in with the password", async ({ page, b
 
   // The link verifies the address and signs in.
   await page.goto(mail.url!);
-  await page.goto("/en/dashboard");
+  await page.goto("/en/dashboard/profile");
   await expect(page.getByText(user.email).first()).toBeVisible();
 
   // A new browser: password sign-in on the login page.

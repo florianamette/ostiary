@@ -2725,7 +2725,9 @@
       "expires": "Vanhenee",
       "none": "Ei mitään",
       "startedAt": "Aloitettu: {date}",
-      "expiresAt": "Vanhenee: {date}"
+      "expiresAt": "Vanhenee: {date}",
+      "openPasswordForm": "Vaihda salasana",
+      "closePasswordForm": "Peruuta"
     },
     "apps": {
       "title": "Yhdistetyt sovellukset",
@@ -2938,6 +2940,24 @@
         "password_breached": "Salasana löytyi tietovuodosta",
         "sign_in_locked": "Salasanakirjautuminen keskeytetty väärien salasanojen jälkeen"
       }
+    },
+    "checklist": {
+      "title": "Tietoturvan tarkistuslista",
+      "description": "Muutama askel, joka tekee tilisi kaappaamisesta vaikeampaa.",
+      "allDone": "Tilisi on hyvin suojattu.",
+      "emailVerified": "Sähköpostiosoite vahvistettu",
+      "emailUnverified": "Vahvista sähköpostiosoitteesi",
+      "twoFactorOn": "Kaksivaiheinen tunnistautuminen on käytössä",
+      "twoFactorOff": "Ota kaksivaiheinen tunnistautuminen käyttöön",
+      "passkeys": "{count, plural, one {# pääsyavain otettu käyttöön} other {# pääsyavainta otettu käyttöön}}",
+      "noPasskey": "Lisää pääsyavain kirjautuaksesi ilman salasanaa",
+      "thisDeviceOnly": "Kirjautuneena vain tällä laitteella",
+      "otherSessions": "{count, plural, one {Kirjautuneena # muulla laitteella} other {Kirjautuneena # muulla laitteella}}",
+      "verify": "Vahvista",
+      "turnOn": "Ota käyttöön",
+      "addPasskey": "Lisää pääsyavain",
+      "review": "Tarkista",
+      "manage": "Hallitse"
     }
   },
   "acceptInvitation": {

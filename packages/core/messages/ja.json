@@ -2725,7 +2725,9 @@
       "expires": "有効期限",
       "none": "なし",
       "startedAt": "開始: {date}",
-      "expiresAt": "有効期限: {date}"
+      "expiresAt": "有効期限: {date}",
+      "openPasswordForm": "パスワードを変更",
+      "closePasswordForm": "キャンセル"
     },
     "apps": {
       "title": "連携中のアプリ",
@@ -2938,6 +2940,24 @@
         "password_breached": "漏えいしたパスワードを検出",
         "sign_in_locked": "誤ったパスワードの後にパスワードでのサインインを一時停止"
       }
+    },
+    "checklist": {
+      "title": "セキュリティチェックリスト",
+      "description": "アカウントを乗っ取られにくくするための手順です。",
+      "allDone": "アカウントは十分に保護されています。",
+      "emailVerified": "メールアドレスは確認済み",
+      "emailUnverified": "メールアドレスを確認してください",
+      "twoFactorOn": "2 段階認証は有効です",
+      "twoFactorOff": "2 段階認証を有効にしましょう",
+      "passkeys": "{count, plural, other {パスキーを # 件設定済み}}",
+      "noPasskey": "パスワードなしでサインインできるパスキーを追加しましょう",
+      "thisDeviceOnly": "このデバイスでのみサインイン中",
+      "otherSessions": "{count, plural, other {ほかの # 台のデバイスでサインイン中}}",
+      "verify": "確認する",
+      "turnOn": "有効にする",
+      "addPasskey": "パスキーを追加",
+      "review": "確認",
+      "manage": "管理"
     }
   },
   "acceptInvitation": {

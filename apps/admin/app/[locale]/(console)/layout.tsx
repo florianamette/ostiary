@@ -36,7 +36,7 @@ export default async function AdminLayout({
 
   // Admins must turn on two-factor authentication first (REQUIRE_ADMIN_2FA), on the auth app.
   if (access === "needs_2fa") {
-    redirect(`${env.AUTH_APP_URL}/${locale}/dashboard#two-factor`);
+    redirect(`${env.AUTH_APP_URL}/${locale}/dashboard/security#two-factor`);
   }
 
   const t = await getTranslations({ locale, namespace: "admin.shell" });

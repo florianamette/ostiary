@@ -146,6 +146,7 @@ export function DashboardSecuritySection({
       </CardHeader>
       <CardContent className="space-y-8">
         <DashboardChangePasswordForm
+          collapsible
           onPasswordChanged={() => void sessionsResource.reload()}
           minPasswordLength={minPasswordLength}
           signOutForced={signOutOnPasswordChange}
@@ -168,7 +169,7 @@ export function DashboardSecuritySection({
           </>
         ) : null}
 
-        <div className="space-y-3">
+        <div id="sessions" className="scroll-mt-32 space-y-3">
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <h3 className="text-sm font-medium">{t("sessionsTitle")}</h3>

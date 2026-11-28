@@ -2725,7 +2725,9 @@
       "expires": "Läuft ab",
       "none": "Keine",
       "startedAt": "Gestartet: {date}",
-      "expiresAt": "Läuft ab: {date}"
+      "expiresAt": "Läuft ab: {date}",
+      "openPasswordForm": "Passwort ändern",
+      "closePasswordForm": "Abbrechen"
     },
     "apps": {
       "title": "Verbundene Anwendungen",
@@ -2938,6 +2940,24 @@
         "password_breached": "Passwort in einem Datenleck gefunden",
         "sign_in_locked": "Passwort-Anmeldung nach falschen Passwörtern pausiert"
       }
+    },
+    "checklist": {
+      "title": "Sicherheits-Checkliste",
+      "description": "Ein paar Schritte, die Ihr Konto schwerer angreifbar machen.",
+      "allDone": "Ihr Konto ist gut geschützt.",
+      "emailVerified": "E-Mail-Adresse bestätigt",
+      "emailUnverified": "Bestätigen Sie Ihre E-Mail-Adresse",
+      "twoFactorOn": "Zwei-Faktor-Authentifizierung ist aktiv",
+      "twoFactorOff": "Zwei-Faktor-Authentifizierung aktivieren",
+      "passkeys": "{count, plural, one {# Passkey eingerichtet} other {# Passkeys eingerichtet}}",
+      "noPasskey": "Fügen Sie einen Passkey hinzu, um sich ohne Passwort anzumelden",
+      "thisDeviceOnly": "Nur auf diesem Gerät angemeldet",
+      "otherSessions": "{count, plural, one {Auf # weiteren Gerät angemeldet} other {Auf # weiteren Geräten angemeldet}}",
+      "verify": "Bestätigen",
+      "turnOn": "Aktivieren",
+      "addPasskey": "Passkey hinzufügen",
+      "review": "Prüfen",
+      "manage": "Verwalten"
     }
   },
   "acceptInvitation": {

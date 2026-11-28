@@ -2725,7 +2725,9 @@
       "expires": "Expires",
       "none": "None",
       "startedAt": "Started: {date}",
-      "expiresAt": "Expires: {date}"
+      "expiresAt": "Expires: {date}",
+      "openPasswordForm": "Change password",
+      "closePasswordForm": "Cancel"
     },
     "apps": {
       "title": "Connected applications",
@@ -2938,6 +2940,24 @@
         "password_breached": "Password found in a breach",
         "sign_in_locked": "Password sign-in paused after wrong passwords"
       }
+    },
+    "checklist": {
+      "title": "Security checklist",
+      "description": "A few steps that make your account harder to take over.",
+      "allDone": "Your account is well protected.",
+      "emailVerified": "Email address verified",
+      "emailUnverified": "Verify your email address",
+      "twoFactorOn": "Two-factor authentication is on",
+      "twoFactorOff": "Turn on two-factor authentication",
+      "passkeys": "{count, plural, one {# passkey} other {# passkeys}} set up",
+      "noPasskey": "Add a passkey to sign in without a password",
+      "thisDeviceOnly": "Signed in on this device only",
+      "otherSessions": "{count, plural, one {Signed in on # other device} other {Signed in on # other devices}}",
+      "verify": "Verify",
+      "turnOn": "Turn on",
+      "addPasskey": "Add a passkey",
+      "review": "Review",
+      "manage": "Manage"
     }
   },
   "acceptInvitation": {
