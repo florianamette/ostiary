@@ -1957,7 +1957,9 @@
             "password_breached": "Heslo nalezeno v úniku dat",
             "sign_in_locked": "Přihlášení heslem zablokováno po chybných heslech",
             "require_password_change": "Vyžádal změnu hesla",
-            "cancel_password_change": "Zrušil změnu hesla"
+            "cancel_password_change": "Zrušil změnu hesla",
+            "inactive_disabled": "Deaktivováno kvůli neaktivitě",
+            "inactive_deleted": "Smazáno kvůli neaktivitě"
           },
           "oauth_client": {
             "create": "Registrace klienta OAuth",
@@ -2140,7 +2142,16 @@
           "lockoutAttempts": "Zablokovat přihlášení heslem po",
           "lockoutAttemptsHint": "Chybná hesla pro stejný e-mail nebo uživatelské jméno během {minutes} minut. Přihlášení heslem se pak na {minutes} minut zastaví, ať účet existuje, nebo ne. Přístupové klíče, přihlašovací kódy a odkazy, sociální přihlášení a SSO fungují dál.",
           "lockoutNever": "Nikdy",
-          "wrongPasswords": "{count, plural, one {# chybném heslu} few {# chybných heslech} many {# chybného hesla} other {# chybných heslech}}"
+          "wrongPasswords": "{count, plural, one {# chybném heslu} few {# chybných heslech} many {# chybného hesla} other {# chybných heslech}}",
+          "inactiveDays": "Neaktivní účty",
+          "inactiveDaysHint": "Dny bez přihlášení či použití účtu. Lidé dostanou e-mail {warning} dní předem a přihlášení účet zachová. Nikdy se netýká administrátorů ani účtů spravovaných adresářem SCIM. Počítá se od zapnutí.",
+          "inactiveNever": "Nikdy",
+          "inactiveAction": "Poté",
+          "inactiveActionHint": "Deaktivovaný účet se nemůže přihlásit, dokud administrátor nezruší zákaz. Smazaný účet se vymaže se vším, co k němu patří.",
+          "inactiveDisable": "Deaktivovat účet",
+          "inactiveDelete": "Smazat účet",
+          "inactiveDisableAfter": "Deaktivovat po {count, plural, one {# dni} other {# dnech}}",
+          "inactiveDeleteAfter": "Smazat po {count, plural, one {# dni} other {# dnech}}"
         },
         "emailDomains": {
           "title": "E-mailové domény",
@@ -3269,6 +3280,19 @@
       "button": "Nebyl(a) jsem to já",
       "note": "Tlačítko funguje jednou během {days} dnů. Odhlásí vás všude a pošle vám odkaz pro nastavení nového hesla.",
       "footnote": "Tento e-mail dostáváte, když se změní heslo, dvoufázové ověření nebo přístupové klíče vašeho účtu. Nikdy nesdílejte své heslo ani přihlašovací kódy."
+    },
+    "inactiveAccount": {
+      "subjects": {
+        "disable": "Váš účet {brand} bude {date} deaktivován",
+        "delete": "Váš účet {brand} bude {date} smazán"
+      },
+      "bodies": {
+        "disable": "Účet {brand} {email} se dlouho nepoužíval. {date} bude deaktivován a nebude se moci přihlásit.",
+        "delete": "Účet {brand} {email} se dlouho nepoužíval. {date} bude smazán se vším, co k němu patří."
+      },
+      "keep": "Chcete-li ho zachovat, přihlaste se do té doby. Nic dalšího není potřeba.",
+      "button": "Přihlásit se a zachovat účet",
+      "footnote": "Tento e-mail dostáváte, protože dlouho nepoužívané účty se v této službě ruší."
     }
   },
   "authErrors": {
@@ -3289,7 +3313,8 @@
     "invalidToken": "Tento odkaz je neplatný nebo vypršel.",
     "publicOrganization": "Členy organizace Public spravují pouze správci platformy.",
     "emailDomainNotAllowed": "S touto e-mailovou doménou zde nelze vytvořit účet. Použijte jinou adresu.",
-    "countryNotAllowed": "Přihlášení z vaší země zde není povoleno."
+    "countryNotAllowed": "Přihlášení z vaší země zde není povoleno.",
+    "inactive": "Tento účet byl deaktivován po dlouhé době bez použití. Pro obnovení kontaktujte podporu."
   },
   "secureAccount": {
     "title": "Zabezpečte svůj účet",

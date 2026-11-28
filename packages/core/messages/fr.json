@@ -1957,7 +1957,9 @@
             "password_breached": "Mot de passe trouvé dans une fuite",
             "sign_in_locked": "Connexion par mot de passe bloquée après des mots de passe erronés",
             "require_password_change": "A exigé un changement de mot de passe",
-            "cancel_password_change": "A annulé un changement de mot de passe"
+            "cancel_password_change": "A annulé un changement de mot de passe",
+            "inactive_disabled": "Désactivé après inactivité",
+            "inactive_deleted": "Supprimé après inactivité"
           },
           "oauth_client": {
             "create": "Client OAuth enregistré",
@@ -2140,7 +2142,16 @@
           "lockoutAttempts": "Bloquer la connexion par mot de passe après",
           "lockoutAttemptsHint": "Mots de passe erronés pour la même adresse e-mail ou le même nom d’utilisateur en {minutes} minutes. La connexion par mot de passe est alors bloquée {minutes} minutes, qu’un compte existe ou non. Les clés d’accès, les codes et liens de connexion, la connexion sociale et le SSO continuent de fonctionner.",
           "lockoutNever": "Jamais",
-          "wrongPasswords": "{count, plural, one {# mot de passe erroné} other {# mots de passe erronés}}"
+          "wrongPasswords": "{count, plural, one {# mot de passe erroné} other {# mots de passe erronés}}",
+          "inactiveDays": "Comptes inactifs",
+          "inactiveDaysHint": "Jours sans connexion ni utilisation du compte. Les personnes reçoivent un e-mail {warning} jours avant, et se connecter conserve le compte. Les administrateurs et les comptes gérés par un annuaire SCIM ne sont jamais concernés. Compté à partir de l’activation.",
+          "inactiveNever": "Jamais",
+          "inactiveAction": "Ensuite",
+          "inactiveActionHint": "Un compte désactivé ne peut plus se connecter jusqu’à ce qu’un administrateur lève le bannissement. Un compte supprimé est effacé avec tout ce qui y est lié.",
+          "inactiveDisable": "Désactiver le compte",
+          "inactiveDelete": "Supprimer le compte",
+          "inactiveDisableAfter": "Désactiver après {count, plural, one {# jour} other {# jours}}",
+          "inactiveDeleteAfter": "Supprimer après {count, plural, one {# jour} other {# jours}}"
         },
         "emailDomains": {
           "title": "Domaines d'e-mail",
@@ -3269,6 +3280,19 @@
       "button": "Ce n’était pas moi",
       "note": "Le bouton fonctionne une fois pendant {days} jours. Il vous déconnecte partout et vous envoie un lien pour choisir un nouveau mot de passe.",
       "footnote": "Vous recevez cet e-mail quand le mot de passe, l’authentification à deux facteurs ou les clés d’accès de votre compte changent. Ne communiquez jamais votre mot de passe ni vos codes de connexion."
+    },
+    "inactiveAccount": {
+      "subjects": {
+        "disable": "Votre compte {brand} sera désactivé le {date}",
+        "delete": "Votre compte {brand} sera supprimé le {date}"
+      },
+      "bodies": {
+        "disable": "Le compte {brand} {email} n’a pas été utilisé depuis longtemps. Il sera désactivé le {date} et ne pourra plus se connecter.",
+        "delete": "Le compte {brand} {email} n’a pas été utilisé depuis longtemps. Il sera supprimé le {date}, avec tout ce qui y est lié."
+      },
+      "keep": "Pour le conserver, connectez-vous d’ici là. Rien d’autre à faire.",
+      "button": "Me connecter pour garder mon compte",
+      "footnote": "Vous recevez cet e-mail car les comptes inutilisés depuis longtemps sont fermés sur ce service."
     }
   },
   "authErrors": {
@@ -3289,7 +3313,8 @@
     "invalidToken": "Ce lien est invalide ou a expiré.",
     "publicOrganization": "Les membres de l'organisation Public sont gérés uniquement par les administrateurs de la plateforme.",
     "emailDomainNotAllowed": "Impossible de créer un compte avec ce domaine d'e-mail ici. Utilisez une autre adresse.",
-    "countryNotAllowed": "La connexion depuis votre pays n’est pas autorisée ici."
+    "countryNotAllowed": "La connexion depuis votre pays n’est pas autorisée ici.",
+    "inactive": "Ce compte a été désactivé après une longue période sans utilisation. Contactez le support pour le rétablir."
   },
   "secureAccount": {
     "title": "Sécurisez votre compte",

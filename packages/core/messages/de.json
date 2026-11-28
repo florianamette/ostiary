@@ -1957,7 +1957,9 @@
             "password_breached": "Passwort in einem Datenleck gefunden",
             "sign_in_locked": "Passwort-Anmeldung nach falschen Passwörtern gesperrt",
             "require_password_change": "Hat eine Passwortänderung verlangt",
-            "cancel_password_change": "Hat eine Passwortänderung aufgehoben"
+            "cancel_password_change": "Hat eine Passwortänderung aufgehoben",
+            "inactive_disabled": "Wegen Inaktivität deaktiviert",
+            "inactive_deleted": "Wegen Inaktivität gelöscht"
           },
           "oauth_client": {
             "create": "OAuth-Client registriert",
@@ -2140,7 +2142,16 @@
           "lockoutAttempts": "Passwort-Anmeldung sperren nach",
           "lockoutAttemptsHint": "Falsche Passwörter für dieselbe E-Mail-Adresse oder denselben Benutzernamen innerhalb von {minutes} Minuten. Die Passwort-Anmeldung dafür ist dann {minutes} Minuten gesperrt, ob ein Konto existiert oder nicht. Passkeys, Anmeldecodes und -links, soziale Anmeldung und SSO funktionieren weiter.",
           "lockoutNever": "Nie",
-          "wrongPasswords": "{count, plural, one {# falsches Passwort} other {# falschen Passwörtern}}"
+          "wrongPasswords": "{count, plural, one {# falsches Passwort} other {# falschen Passwörtern}}",
+          "inactiveDays": "Inaktive Konten",
+          "inactiveDaysHint": "Tage ohne Anmeldung oder Nutzung des Kontos. Personen erhalten {warning} Tage vorher eine E-Mail, und eine Anmeldung erhält das Konto. Administratoren und von einem SCIM-Verzeichnis verwaltete Konten sind nie betroffen. Gezählt ab dem Einschalten.",
+          "inactiveNever": "Nie",
+          "inactiveAction": "Danach",
+          "inactiveActionHint": "Deaktivierte Konten können sich nicht mehr anmelden, bis ein Administrator die Sperre aufhebt. Gelöschte Konten werden mit allem Verknüpften entfernt.",
+          "inactiveDisable": "Konto deaktivieren",
+          "inactiveDelete": "Konto löschen",
+          "inactiveDisableAfter": "Nach {count, plural, one {# Tag} other {# Tagen}} deaktivieren",
+          "inactiveDeleteAfter": "Nach {count, plural, one {# Tag} other {# Tagen}} löschen"
         },
         "emailDomains": {
           "title": "E-Mail-Domains",
@@ -3269,6 +3280,19 @@
       "button": "Das war ich nicht",
       "note": "Die Schaltfläche funktioniert einmal innerhalb von {days} Tagen. Sie meldet Sie überall ab und sendet Ihnen einen Link, um ein neues Passwort festzulegen.",
       "footnote": "Sie erhalten diese E-Mail, wenn sich Passwort, Zwei-Faktor-Authentifizierung oder Passkeys Ihres Kontos ändern. Geben Sie Ihr Passwort oder Anmeldecodes niemals weiter."
+    },
+    "inactiveAccount": {
+      "subjects": {
+        "disable": "Ihr {brand}-Konto wird am {date} deaktiviert",
+        "delete": "Ihr {brand}-Konto wird am {date} gelöscht"
+      },
+      "bodies": {
+        "disable": "Das {brand}-Konto {email} wurde lange nicht genutzt. Es wird am {date} deaktiviert und kann sich dann nicht mehr anmelden.",
+        "delete": "Das {brand}-Konto {email} wurde lange nicht genutzt. Es wird am {date} mit allem Verknüpften gelöscht."
+      },
+      "keep": "Um es zu behalten, melden Sie sich vorher an. Sonst ist nichts zu tun.",
+      "button": "Anmelden und Konto behalten",
+      "footnote": "Sie erhalten diese E-Mail, weil lange ungenutzte Konten bei diesem Dienst geschlossen werden."
     }
   },
   "authErrors": {
@@ -3289,7 +3313,8 @@
     "invalidToken": "Dieser Link ist ungültig oder abgelaufen.",
     "publicOrganization": "Die Mitglieder der Organisation Public werden nur von Plattform-Administratoren verwaltet.",
     "emailDomainNotAllowed": "Mit dieser E-Mail-Domain kann hier kein Konto erstellt werden. Verwende eine andere Adresse.",
-    "countryNotAllowed": "Die Anmeldung aus Ihrem Land ist hier nicht erlaubt."
+    "countryNotAllowed": "Die Anmeldung aus Ihrem Land ist hier nicht erlaubt.",
+    "inactive": "Dieses Konto wurde nach langer Nichtnutzung deaktiviert. Wenden Sie sich an den Support, um es wiederherzustellen."
   },
   "secureAccount": {
     "title": "Konto absichern",

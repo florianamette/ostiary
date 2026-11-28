@@ -1,5 +1,6 @@
 import { randomUUID } from "node:crypto";
 
+import { INACTIVE_REASON } from "@ostiary/core/lib/auth-policy-options";
 import { SCIM_DEACTIVATED_REASON } from "@ostiary/core/lib/scim";
 
 /*
@@ -129,7 +130,7 @@ export function userUpdateEvents(before: Row, after: Row, now = new Date()): Web
           {
             user,
             // Who banned the account, not why: the reason is an admin's private note.
-            source: after.banReason === SCIM_DEACTIVATED_REASON ? "scim" : "admin",
+            source: after.banReason === SCIM_DEACTIVATED_REASON ? "scim" : after.banReason === INACTIVE_REASON ? "inactivity" : "admin",
             expiresAt: after.banExpires ? new Date(after.banExpires as Date).toISOString() : null,
           },
           now,

@@ -1957,7 +1957,9 @@
             "password_breached": "密码出现在泄露数据中",
             "sign_in_locked": "多次密码错误后已锁定密码登录",
             "require_password_change": "要求更改密码",
-            "cancel_password_change": "取消了密码更改要求"
+            "cancel_password_change": "取消了密码更改要求",
+            "inactive_disabled": "因不活跃被停用",
+            "inactive_deleted": "因不活跃被删除"
           },
           "oauth_client": {
             "create": "注册了 OAuth 客户端",
@@ -2140,7 +2142,16 @@
           "lockoutAttempts": "密码登录锁定条件",
           "lockoutAttemptsHint": "{minutes} 分钟内同一邮箱或用户名输入错误密码的次数。之后无论账户是否存在，该邮箱或用户名的密码登录都会停止 {minutes} 分钟。通行密钥、登录验证码和链接、社交登录和 SSO 仍可使用。",
           "lockoutNever": "从不",
-          "wrongPasswords": "{count, plural, other {# 次密码错误}}"
+          "wrongPasswords": "{count, plural, other {# 次密码错误}}",
+          "inactiveDays": "不活跃账户",
+          "inactiveDaysHint": "未登录也未使用账户的天数。会在 {warning} 天前发送邮件，登录即可保留账户。管理员和由 SCIM 目录管理的账户不受影响。从开启时开始计算。",
+          "inactiveNever": "从不",
+          "inactiveAction": "然后",
+          "inactiveActionHint": "被停用的账户在管理员解除封禁前无法登录。被删除的账户会连同所有相关内容一起清除。",
+          "inactiveDisable": "停用账户",
+          "inactiveDelete": "删除账户",
+          "inactiveDisableAfter": "{count, plural, other {# 天}}后停用",
+          "inactiveDeleteAfter": "{count, plural, other {# 天}}后删除"
         },
         "emailDomains": {
           "title": "邮箱域名",
@@ -3269,6 +3280,19 @@
       "button": "不是我",
       "note": "此按钮在 {days} 天内可使用一次。它会让你在所有地方退出登录，并通过邮件发送设置新密码的链接。",
       "footnote": "当你账户的密码、双重验证或通行密钥发生变化时，你会收到此邮件。切勿与他人分享你的密码或登录验证码。"
+    },
+    "inactiveAccount": {
+      "subjects": {
+        "disable": "你的 {brand} 账户将于 {date} 停用",
+        "delete": "你的 {brand} 账户将于 {date} 删除"
+      },
+      "bodies": {
+        "disable": "{brand} 账户 {email} 已长时间未使用。它将于 {date} 停用，之后无法登录。",
+        "delete": "{brand} 账户 {email} 已长时间未使用。它将于 {date} 连同所有相关内容一起删除。"
+      },
+      "keep": "如需保留，请在此之前登录。无需其他操作。",
+      "button": "登录并保留我的账户",
+      "footnote": "你收到此邮件是因为本服务会关闭长时间未使用的账户。"
     }
   },
   "authErrors": {
@@ -3289,7 +3313,8 @@
     "invalidToken": "此链接无效或已过期。",
     "publicOrganization": "Public 组织的成员仅由平台管理员管理。",
     "emailDomainNotAllowed": "无法在此使用该邮箱域名创建账户。请使用其他地址。",
-    "countryNotAllowed": "此处不允许从你所在的国家/地区登录。"
+    "countryNotAllowed": "此处不允许从你所在的国家/地区登录。",
+    "inactive": "此账户因长时间未使用已被停用。请联系支持以恢复。"
   },
   "secureAccount": {
     "title": "保护你的账户",

@@ -1957,7 +1957,9 @@
             "password_breached": "Palavra-passe encontrada numa fuga de dados",
             "sign_in_locked": "Login com senha bloqueado após senhas erradas",
             "require_password_change": "Exigiu uma alteração de senha",
-            "cancel_password_change": "Cancelou uma alteração de senha"
+            "cancel_password_change": "Cancelou uma alteração de senha",
+            "inactive_disabled": "Desativada por inatividade",
+            "inactive_deleted": "Eliminada por inatividade"
           },
           "oauth_client": {
             "create": "Registrou cliente OAuth",
@@ -2140,7 +2142,16 @@
           "lockoutAttempts": "Bloquear o login com senha após",
           "lockoutAttemptsHint": "Senhas erradas para o mesmo e-mail ou nome de usuário em {minutes} minutos. O login com senha para ele é então interrompido por {minutes} minutos, exista ou não uma conta. Chaves de acesso, códigos e links de login, login social e SSO continuam funcionando.",
           "lockoutNever": "Nunca",
-          "wrongPasswords": "{count, plural, one {# senha errada} other {# senhas erradas}}"
+          "wrongPasswords": "{count, plural, one {# senha errada} other {# senhas erradas}}",
+          "inactiveDays": "Contas inativas",
+          "inactiveDaysHint": "Dias sem iniciar sessão nem usar a conta. As pessoas recebem um email {warning} dias antes, e iniciar sessão mantém a conta. Administradores e contas geridas por um diretório SCIM nunca são afetados. Contado a partir da ativação.",
+          "inactiveNever": "Nunca",
+          "inactiveAction": "Depois",
+          "inactiveActionHint": "Uma conta desativada deixa de poder entrar até um administrador levantar o bloqueio. Uma conta eliminada é apagada com tudo o que lhe está ligado.",
+          "inactiveDisable": "Desativar a conta",
+          "inactiveDelete": "Eliminar a conta",
+          "inactiveDisableAfter": "Desativar após {count, plural, one {# dia} other {# dias}}",
+          "inactiveDeleteAfter": "Eliminar após {count, plural, one {# dia} other {# dias}}"
         },
         "emailDomains": {
           "title": "Domínios de e-mail",
@@ -3269,6 +3280,19 @@
       "button": "Não fui eu",
       "note": "O botão funciona uma vez durante {days} dias. Termina a sua sessão em todo o lado e envia-lhe um link para escolher uma nova palavra-passe.",
       "footnote": "Você recebe este e-mail quando a senha, a autenticação em dois fatores ou as chaves de acesso da sua conta mudam. Nunca compartilhe sua senha nem seus códigos de login."
+    },
+    "inactiveAccount": {
+      "subjects": {
+        "disable": "A sua conta {brand} será desativada a {date}",
+        "delete": "A sua conta {brand} será eliminada a {date}"
+      },
+      "bodies": {
+        "disable": "A conta {brand} {email} não é usada há muito tempo. Será desativada a {date} e deixará de poder entrar.",
+        "delete": "A conta {brand} {email} não é usada há muito tempo. Será eliminada a {date}, com tudo o que lhe está ligado."
+      },
+      "keep": "Para a manter, inicie sessão antes disso. Não há mais nada a fazer.",
+      "button": "Entrar e manter a minha conta",
+      "footnote": "Recebe este email porque as contas sem uso há muito tempo são encerradas neste serviço."
     }
   },
   "authErrors": {
@@ -3289,7 +3313,8 @@
     "invalidToken": "Este link é inválido ou expirou.",
     "publicOrganization": "Os membros da organização Public são geridos apenas pelos administradores da plataforma.",
     "emailDomainNotAllowed": "Não é possível criar contas com este domínio de e-mail aqui. Use outro endereço.",
-    "countryNotAllowed": "Não é permitido iniciar sessão a partir do seu país aqui."
+    "countryNotAllowed": "Não é permitido iniciar sessão a partir do seu país aqui.",
+    "inactive": "Esta conta foi desativada após muito tempo sem uso. Contacte o suporte para a recuperar."
   },
   "secureAccount": {
     "title": "Proteja a sua conta",

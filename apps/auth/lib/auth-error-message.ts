@@ -16,6 +16,8 @@ export type AuthClientError =
  * @ostiary/core/lib/scim, a server module this client file cannot import).
  */
 const SCIM_DEACTIVATED_MESSAGE = "Your organization has deactivated this account.";
+/** INACTIVE_MESSAGE in @ostiary/core/lib/security/inactive-accounts, for the same reason. */
+const INACTIVE_MESSAGE = "This account was disabled after a long time without use.";
 
 /** Translated messages, keyed by Better Auth (or Ostiary) error code. */
 export type ErrorCodeMessages = Partial<Record<string, string>>;
@@ -66,6 +68,9 @@ export function authErrorMessage(
   if (limited) return limited;
   if (code === "BANNED_USER" && error?.message === SCIM_DEACTIVATED_MESSAGE) {
     return translate.common("deactivated");
+  }
+  if (code === "BANNED_USER" && error?.message === INACTIVE_MESSAGE) {
+    return translate.common("inactive");
   }
   const common = code ? COMMON_CODES[code] : undefined;
   return common ? translate.common(common) : fallback;

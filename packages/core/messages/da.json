@@ -1957,7 +1957,9 @@
             "password_breached": "Adgangskode fundet i et datalæk",
             "sign_in_locked": "Login med adgangskode låst efter forkerte adgangskoder",
             "require_password_change": "Krævede et adgangskodeskift",
-            "cancel_password_change": "Annullerede et adgangskodeskift"
+            "cancel_password_change": "Annullerede et adgangskodeskift",
+            "inactive_disabled": "Deaktiveret efter inaktivitet",
+            "inactive_deleted": "Slettet efter inaktivitet"
           },
           "oauth_client": {
             "create": "Registrerede OAuth-klient",
@@ -2140,7 +2142,16 @@
           "lockoutAttempts": "Lås login med adgangskode efter",
           "lockoutAttemptsHint": "Forkerte adgangskoder for samme e-mail eller brugernavn inden for {minutes} minutter. Login med adgangskode stoppes så i {minutes} minutter, uanset om der findes en konto. Adgangsnøgler, loginkoder og -links, socialt login og SSO virker stadig.",
           "lockoutNever": "Aldrig",
-          "wrongPasswords": "{count, plural, one {# forkert adgangskode} other {# forkerte adgangskoder}}"
+          "wrongPasswords": "{count, plural, one {# forkert adgangskode} other {# forkerte adgangskoder}}",
+          "inactiveDays": "Inaktive konti",
+          "inactiveDaysHint": "Dage uden login eller brug af kontoen. Personer får en e-mail {warning} dage før, og et login bevarer kontoen. Administratorer og konti, som et SCIM-katalog styrer, berøres aldrig. Tælles fra, når det slås til.",
+          "inactiveNever": "Aldrig",
+          "inactiveAction": "Derefter",
+          "inactiveActionHint": "En deaktiveret konto kan ikke logge ind, før en administrator ophæver spærringen. En slettet konto fjernes med alt, der er knyttet til den.",
+          "inactiveDisable": "Deaktiver kontoen",
+          "inactiveDelete": "Slet kontoen",
+          "inactiveDisableAfter": "Deaktiver efter {count, plural, one {# dag} other {# dage}}",
+          "inactiveDeleteAfter": "Slet efter {count, plural, one {# dag} other {# dage}}"
         },
         "emailDomains": {
           "title": "E-maildomæner",
@@ -3269,6 +3280,19 @@
       "button": "Det var ikke mig",
       "note": "Knappen virker én gang inden for {days} dage. Den logger dig ud overalt og mailer dig et link til at vælge en ny adgangskode.",
       "footnote": "Du får denne e-mail, når adgangskoden, totrinsgodkendelsen eller adgangsnøglerne til din konto ændres. Del aldrig din adgangskode eller dine loginkoder."
+    },
+    "inactiveAccount": {
+      "subjects": {
+        "disable": "Din {brand}-konto deaktiveres den {date}",
+        "delete": "Din {brand}-konto slettes den {date}"
+      },
+      "bodies": {
+        "disable": "{brand}-kontoen {email} har ikke været brugt i lang tid. Den deaktiveres den {date} og kan derefter ikke logge ind.",
+        "delete": "{brand}-kontoen {email} har ikke været brugt i lang tid. Den slettes den {date} med alt, der er knyttet til den."
+      },
+      "keep": "Log ind inden da for at beholde den. Der er ikke andet at gøre.",
+      "button": "Log ind og behold min konto",
+      "footnote": "Du får denne e-mail, fordi konti, der ikke har været brugt længe, lukkes på denne tjeneste."
     }
   },
   "authErrors": {
@@ -3289,7 +3313,8 @@
     "invalidToken": "Linket er ugyldigt eller udløbet.",
     "publicOrganization": "Medlemmerne af organisationen Public administreres kun af platformens administratorer.",
     "emailDomainNotAllowed": "Konti med dette e-maildomæne kan ikke oprettes her. Brug en anden adresse.",
-    "countryNotAllowed": "Login fra dit land er ikke tilladt her."
+    "countryNotAllowed": "Login fra dit land er ikke tilladt her.",
+    "inactive": "Denne konto blev deaktiveret efter lang tid uden brug. Kontakt support for at gendanne den."
   },
   "secureAccount": {
     "title": "Beskyt din konto",

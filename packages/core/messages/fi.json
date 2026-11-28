@@ -1957,7 +1957,9 @@
             "password_breached": "Salasana löytyi tietovuodosta",
             "sign_in_locked": "Salasanakirjautuminen lukittu väärien salasanojen jälkeen",
             "require_password_change": "Vaati salasanan vaihdon",
-            "cancel_password_change": "Perui salasanan vaihdon"
+            "cancel_password_change": "Perui salasanan vaihdon",
+            "inactive_disabled": "Poistettu käytöstä passiivisuuden vuoksi",
+            "inactive_deleted": "Poistettu passiivisuuden vuoksi"
           },
           "oauth_client": {
             "create": "Rekisteröi OAuth-asiakkaan",
@@ -2140,7 +2142,16 @@
           "lockoutAttempts": "Lukitse salasanakirjautuminen",
           "lockoutAttemptsHint": "Väärät salasanat samalle sähköpostiosoitteelle tai käyttäjänimelle {minutes} minuutin sisällä. Salasanakirjautuminen pysähtyy sitten {minutes} minuutiksi, oli tiliä tai ei. Pääsyavaimet, kirjautumiskoodit ja -linkit, sosiaalinen kirjautuminen ja SSO toimivat edelleen.",
           "lockoutNever": "Ei koskaan",
-          "wrongPasswords": "{count, plural, one {# väärän salasanan jälkeen} other {# väärän salasanan jälkeen}}"
+          "wrongPasswords": "{count, plural, one {# väärän salasanan jälkeen} other {# väärän salasanan jälkeen}}",
+          "inactiveDays": "Passiiviset tilit",
+          "inactiveDaysHint": "Päiviä ilman kirjautumista tai tilin käyttöä. Henkilö saa sähköpostin {warning} päivää ennen, ja kirjautuminen säilyttää tilin. Ylläpitäjiin ja SCIM-hakemiston hallitsemiin tileihin tämä ei koskaan vaikuta. Lasketaan käyttöönotosta.",
+          "inactiveNever": "Ei koskaan",
+          "inactiveAction": "Sen jälkeen",
+          "inactiveActionHint": "Poistettu käytöstä -tilillä ei voi kirjautua, ennen kuin ylläpitäjä poistaa eston. Poistettu tili pyyhitään kaikkine siihen liittyvine tietoineen.",
+          "inactiveDisable": "Poista tili käytöstä",
+          "inactiveDelete": "Poista tili",
+          "inactiveDisableAfter": "Poista käytöstä {count, plural, one {# päivän} other {# päivän}} jälkeen",
+          "inactiveDeleteAfter": "Poista {count, plural, one {# päivän} other {# päivän}} jälkeen"
         },
         "emailDomains": {
           "title": "Sähköpostiverkkotunnukset",
@@ -3269,6 +3280,19 @@
       "button": "Se en ollut minä",
       "note": "Painike toimii kerran {days} päivän ajan. Se kirjaa sinut ulos kaikkialta ja lähettää linkin uuden salasanan valitsemiseen.",
       "footnote": "Saat tämän sähköpostin, kun tilisi salasana, kaksivaiheinen tunnistautuminen tai pääsyavaimet muuttuvat. Älä koskaan jaa salasanaasi tai kirjautumiskoodejasi."
+    },
+    "inactiveAccount": {
+      "subjects": {
+        "disable": "{brand}-tilisi poistetaan käytöstä {date}",
+        "delete": "{brand}-tilisi poistetaan {date}"
+      },
+      "bodies": {
+        "disable": "{brand}-tiliä {email} ei ole käytetty pitkään aikaan. Se poistetaan käytöstä {date}, eikä sillä voi sen jälkeen kirjautua.",
+        "delete": "{brand}-tiliä {email} ei ole käytetty pitkään aikaan. Se poistetaan {date} kaikkine siihen liittyvine tietoineen."
+      },
+      "keep": "Säilyttääksesi sen kirjaudu sisään ennen sitä. Muuta ei tarvitse tehdä.",
+      "button": "Kirjaudu ja säilytä tilini",
+      "footnote": "Saat tämän viestin, koska pitkään käyttämättömät tilit suljetaan tässä palvelussa."
     }
   },
   "authErrors": {
@@ -3289,7 +3313,8 @@
     "invalidToken": "Linkki on virheellinen tai vanhentunut.",
     "publicOrganization": "Public-organisaation jäseniä hallitsevat vain alustan ylläpitäjät.",
     "emailDomainNotAllowed": "Tällä sähköpostiverkkotunnuksella ei voi luoda tiliä täällä. Käytä toista osoitetta.",
-    "countryNotAllowed": "Kirjautuminen maastasi ei ole täällä sallittu."
+    "countryNotAllowed": "Kirjautuminen maastasi ei ole täällä sallittu.",
+    "inactive": "Tämä tili poistettiin käytöstä pitkän käyttämättömyyden jälkeen. Ota yhteyttä tukeen palauttaaksesi sen."
   },
   "secureAccount": {
     "title": "Suojaa tilisi",

@@ -7,6 +7,7 @@ import {
   SHORT_SESSION_SECONDS,
   UPDATE_AGE_SECONDS,
   type AuthPolicy,
+  type AuthPolicyInput,
 } from "@ostiary/core/lib/auth-policy-options";
 
 /*
@@ -18,12 +19,15 @@ import {
 
 export {
   DEFAULT_AUTH_POLICY,
+  INACTIVE_ACTIONS,
+  INACTIVE_DAYS,
   LOCKOUT_ATTEMPTS,
   MIN_PASSWORD_LENGTHS,
   parseAuthPolicy,
   SESSION_DAYS,
   TWO_FACTOR_GRACE_DAYS,
   type AuthPolicy,
+  type AuthPolicyInput,
 } from "@ostiary/core/lib/auth-policy-options";
 
 const SETTINGS_KEY = "auth_policy";
@@ -47,10 +51,10 @@ export function currentAuthPolicy(): Promise<AuthPolicy> {
 
 /**
  * Saves the policy. Turning "two-factor for everyone" on starts its grace period now; keeping it
- * on keeps the start.
+ * on keeps the start. The same for the inactive account rule.
  */
 export async function saveAuthPolicy(
-  policy: Omit<AuthPolicy, "twoFactorRequiredSince">,
+  policy: AuthPolicyInput,
   updatedBy: string | null,
   previous: AuthPolicy = DEFAULT_AUTH_POLICY,
 ): Promise<AuthPolicy> {
@@ -59,6 +63,7 @@ export async function saveAuthPolicy(
     twoFactorRequiredSince: policy.twoFactorEveryone
       ? (previous.twoFactorEveryone && previous.twoFactorRequiredSince) || new Date().toISOString()
       : null,
+    inactiveSince: policy.inactiveDays ? (previous.inactiveDays && previous.inactiveSince) || new Date().toISOString() : null,
   };
   await writeAppSetting(SETTINGS_KEY, saved, updatedBy);
   policyCache.invalidate();

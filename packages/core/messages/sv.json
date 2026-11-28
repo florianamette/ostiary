@@ -1957,7 +1957,9 @@
             "password_breached": "Lösenordet hittades i en dataläcka",
             "sign_in_locked": "Inloggning med lösenord låst efter fel lösenord",
             "require_password_change": "Krävde ett lösenordsbyte",
-            "cancel_password_change": "Avbröt ett lösenordsbyte"
+            "cancel_password_change": "Avbröt ett lösenordsbyte",
+            "inactive_disabled": "Inaktiverat efter inaktivitet",
+            "inactive_deleted": "Raderat efter inaktivitet"
           },
           "oauth_client": {
             "create": "Registrerade OAuth-klient",
@@ -2140,7 +2142,16 @@
           "lockoutAttempts": "Lås inloggning med lösenord efter",
           "lockoutAttemptsHint": "Fel lösenord för samma e-postadress eller användarnamn inom {minutes} minuter. Inloggning med lösenord stoppas då i {minutes} minuter, oavsett om ett konto finns. Nycklar, inloggningskoder och -länkar, social inloggning och SSO fungerar fortfarande.",
           "lockoutNever": "Aldrig",
-          "wrongPasswords": "{count, plural, one {# fel lösenord} other {# fel lösenord}}"
+          "wrongPasswords": "{count, plural, one {# fel lösenord} other {# fel lösenord}}",
+          "inactiveDays": "Inaktiva konton",
+          "inactiveDaysHint": "Dagar utan inloggning eller användning av kontot. Personer får ett e-postmeddelande {warning} dagar innan, och en inloggning behåller kontot. Administratörer och konton som en SCIM-katalog hanterar påverkas aldrig. Räknas från när det slås på.",
+          "inactiveNever": "Aldrig",
+          "inactiveAction": "Därefter",
+          "inactiveActionHint": "Ett inaktiverat konto kan inte logga in förrän en administratör häver spärren. Ett raderat konto tas bort med allt som hör till det.",
+          "inactiveDisable": "Inaktivera kontot",
+          "inactiveDelete": "Radera kontot",
+          "inactiveDisableAfter": "Inaktivera efter {count, plural, one {# dag} other {# dagar}}",
+          "inactiveDeleteAfter": "Radera efter {count, plural, one {# dag} other {# dagar}}"
         },
         "emailDomains": {
           "title": "E-postdomäner",
@@ -3269,6 +3280,19 @@
       "button": "Det var inte jag",
       "note": "Knappen fungerar en gång inom {days} dagar. Den loggar ut dig överallt och mejlar dig en länk för att välja ett nytt lösenord.",
       "footnote": "Du får det här mejlet när lösenordet, tvåfaktorsautentiseringen eller nycklarna för ditt konto ändras. Dela aldrig ditt lösenord eller dina inloggningskoder."
+    },
+    "inactiveAccount": {
+      "subjects": {
+        "disable": "Ditt {brand}-konto inaktiveras den {date}",
+        "delete": "Ditt {brand}-konto raderas den {date}"
+      },
+      "bodies": {
+        "disable": "{brand}-kontot {email} har inte använts på länge. Det inaktiveras den {date} och kan sedan inte logga in.",
+        "delete": "{brand}-kontot {email} har inte använts på länge. Det raderas den {date} med allt som hör till det."
+      },
+      "keep": "Logga in innan dess för att behålla det. Inget annat behövs.",
+      "button": "Logga in och behåll mitt konto",
+      "footnote": "Du får det här meddelandet eftersom konton som inte använts på länge stängs på den här tjänsten."
     }
   },
   "authErrors": {
@@ -3289,7 +3313,8 @@
     "invalidToken": "Länken är ogiltig eller har gått ut.",
     "publicOrganization": "Medlemmarna i organisationen Public hanteras bara av plattformens administratörer.",
     "emailDomainNotAllowed": "Konton med den här e-postdomänen kan inte skapas här. Använd en annan adress.",
-    "countryNotAllowed": "Inloggning från ditt land är inte tillåten här."
+    "countryNotAllowed": "Inloggning från ditt land är inte tillåten här.",
+    "inactive": "Det här kontot inaktiverades efter lång tid utan användning. Kontakta supporten för att återställa det."
   },
   "secureAccount": {
     "title": "Skydda ditt konto",

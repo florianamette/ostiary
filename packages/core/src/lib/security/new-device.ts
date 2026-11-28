@@ -14,6 +14,7 @@ import { env } from "@ostiary/core/lib/env";
 import { describeUserAgent } from "@ostiary/core/lib/security/user-agent";
 import { requestCountry } from "@ostiary/core/lib/country";
 import { getBaseURL } from "@ostiary/core/lib/url";
+import { noteSignIn } from "@ostiary/core/lib/security/inactive-accounts";
 
 /*
  * New-device sign-in emails. Each browser that signs in gets a random id in a signed cookie
@@ -88,6 +89,7 @@ export async function noticeSignIn(ctx: GenericEndpointContext | null | undefine
             .values({ id: randomUUID(), userId: signedIn.userId, deviceHash, userAgent, ipAddress, createdAt: now, lastSeenAt: now })
             .onConflictDoUpdate({ target: [knownDevice.userId, knownDevice.deviceHash], set: { userAgent, ipAddress, lastSeenAt: now } });
         await ctx.setSignedCookie(cookie.name, deviceId, ctx.context.secret, cookie.attributes);
+        await noteSignIn(signedIn.userId, ctx.headers);
         const country = await requestCountry(ctx.headers);
         await recordAccountEvent("sign_in", signedIn.userId, {
             ipAddress,

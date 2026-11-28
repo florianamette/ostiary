@@ -95,3 +95,23 @@ export const passwordBreach = pgTable("password_breach", {
   /** "breached": found in a breach at sign-in. "admin": an admin asked for a new password. */
   reason: text("reason").default("breached").notNull(),
 });
+
+/**
+ * When the account last signed in, kept as long as the account (account events are purged
+ * after the retention), for the inactive account rule (lib/security/inactive-accounts.ts). The
+ * locale is the sign-in page's, for the warning email.
+ */
+export const userLastSignIn = pgTable(
+  "user_last_sign_in",
+  {
+    userId: text("user_id")
+      .primaryKey()
+      .references(() => user.id, { onDelete: "cascade" }),
+    /** Null when the row only holds a warning to an account that never signed in since. */
+    signedInAt: timestamp("signed_in_at", { withTimezone: true }),
+    locale: text("locale"),
+    /** The warning email about this inactivity went out; a sign-in clears it. */
+    warnedAt: timestamp("warned_at", { withTimezone: true }),
+  },
+  (table) => [index("user_last_sign_in_signed_in_at_idx").on(table.signedInAt)],
+);

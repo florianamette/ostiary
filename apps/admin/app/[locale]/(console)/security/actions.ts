@@ -9,8 +9,11 @@ import {
   SESSION_DAYS,
   TWO_FACTOR_GRACE_DAYS,
   LOCKOUT_ATTEMPTS,
+  INACTIVE_ACTIONS,
+  INACTIVE_DAYS,
   type AuthPolicy,
 } from "@ostiary/core/lib/auth-policy";
+import type { AuthPolicyInput } from "@ostiary/core/lib/auth-policy-options";
 import {
   EMAIL_DOMAIN_MODES,
   loadEmailDomainPolicy,
@@ -43,13 +46,15 @@ const policySchema = z
     newDeviceEmail: z.boolean(),
     securityChangeEmail: z.boolean(),
     lockoutAttempts: z.number().refine((v) => (LOCKOUT_ATTEMPTS as readonly number[]).includes(v)),
+    inactiveDays: z.number().refine((v) => (INACTIVE_DAYS as readonly number[]).includes(v)),
+    inactiveAction: z.enum(INACTIVE_ACTIONS),
   })
   .strict();
 
 type Result = { ok: true } | { ok: false; error: "invalid" | "save" };
 
 /** Saves the session and password policy. The auth app applies it within a minute. */
-export async function updateAuthPolicy(input: Omit<AuthPolicy, "twoFactorRequiredSince">): Promise<Result> {
+export async function updateAuthPolicy(input: AuthPolicyInput): Promise<Result> {
   return adminAction(
     z.tuple([policySchema]),
     [input],

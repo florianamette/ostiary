@@ -169,6 +169,13 @@
       "when": 1795869843493,
       "tag": "0023_password_change_reason",
       "breakpoints": true
+    },
+    {
+      "idx": 24,
+      "version": "7",
+      "when": 1795871503136,
+      "tag": "0024_user_last_sign_in",
+      "breakpoints": true
     }
   ]
 }

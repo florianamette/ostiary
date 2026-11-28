@@ -1957,7 +1957,9 @@
             "password_breached": "Contraseña encontrada en una filtración",
             "sign_in_locked": "Inicio de sesión con contraseña bloqueado tras contraseñas incorrectas",
             "require_password_change": "Exigió un cambio de contraseña",
-            "cancel_password_change": "Canceló un cambio de contraseña"
+            "cancel_password_change": "Canceló un cambio de contraseña",
+            "inactive_disabled": "Desactivada por inactividad",
+            "inactive_deleted": "Eliminada por inactividad"
           },
           "oauth_client": {
             "create": "Registró un cliente OAuth",
@@ -2140,7 +2142,16 @@
           "lockoutAttempts": "Bloquear el inicio con contraseña tras",
           "lockoutAttemptsHint": "Contraseñas incorrectas para el mismo correo o nombre de usuario en {minutes} minutos. El inicio de sesión con contraseña se detiene entonces {minutes} minutos, exista o no una cuenta. Las llaves de acceso, los códigos y enlaces de inicio, el inicio social y el SSO siguen funcionando.",
           "lockoutNever": "Nunca",
-          "wrongPasswords": "{count, plural, one {# contraseña incorrecta} other {# contraseñas incorrectas}}"
+          "wrongPasswords": "{count, plural, one {# contraseña incorrecta} other {# contraseñas incorrectas}}",
+          "inactiveDays": "Cuentas inactivas",
+          "inactiveDaysHint": "Días sin iniciar sesión ni usar la cuenta. Se avisa por correo {warning} días antes, e iniciar sesión conserva la cuenta. Nunca afecta a administradores ni a cuentas gestionadas por un directorio SCIM. Se cuenta desde que se activa.",
+          "inactiveNever": "Nunca",
+          "inactiveAction": "Después",
+          "inactiveActionHint": "Una cuenta desactivada no puede iniciar sesión hasta que un administrador levante el bloqueo. Una cuenta eliminada se borra con todo lo vinculado.",
+          "inactiveDisable": "Desactivar la cuenta",
+          "inactiveDelete": "Eliminar la cuenta",
+          "inactiveDisableAfter": "Desactivar tras {count, plural, one {# día} other {# días}}",
+          "inactiveDeleteAfter": "Eliminar tras {count, plural, one {# día} other {# días}}"
         },
         "emailDomains": {
           "title": "Dominios de correo",
@@ -3269,6 +3280,19 @@
       "button": "No fui yo",
       "note": "El botón funciona una vez durante {days} días. Cierra tu sesión en todas partes y te envía un enlace para elegir una contraseña nueva.",
       "footnote": "Recibes este correo cuando cambian la contraseña, la autenticación en dos pasos o las llaves de acceso de tu cuenta. Nunca compartas tu contraseña ni tus códigos de inicio de sesión."
+    },
+    "inactiveAccount": {
+      "subjects": {
+        "disable": "Tu cuenta de {brand} se desactivará el {date}",
+        "delete": "Tu cuenta de {brand} se eliminará el {date}"
+      },
+      "bodies": {
+        "disable": "La cuenta de {brand} {email} lleva mucho tiempo sin usarse. Se desactivará el {date} y ya no podrá iniciar sesión.",
+        "delete": "La cuenta de {brand} {email} lleva mucho tiempo sin usarse. Se eliminará el {date}, con todo lo vinculado."
+      },
+      "keep": "Para conservarla, inicia sesión antes. No hay que hacer nada más.",
+      "button": "Iniciar sesión y conservar mi cuenta",
+      "footnote": "Recibes este correo porque las cuentas sin uso durante mucho tiempo se cierran en este servicio."
     }
   },
   "authErrors": {
@@ -3289,7 +3313,8 @@
     "invalidToken": "Este enlace no es válido o ha caducado.",
     "publicOrganization": "Los miembros de la organización Public solo los gestionan los administradores de la plataforma.",
     "emailDomainNotAllowed": "No se pueden crear cuentas con este dominio de correo aquí. Usa otra dirección.",
-    "countryNotAllowed": "No se permite iniciar sesión desde tu país aquí."
+    "countryNotAllowed": "No se permite iniciar sesión desde tu país aquí.",
+    "inactive": "Esta cuenta se desactivó tras mucho tiempo sin uso. Contacta con soporte para recuperarla."
   },
   "secureAccount": {
     "title": "Protege tu cuenta",
