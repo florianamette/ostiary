@@ -1957,7 +1957,9 @@
             "password_breached": "Password trovata in una violazione",
             "sign_in_locked": "Accesso con password bloccato dopo password errate",
             "require_password_change": "Ha richiesto un cambio di password",
-            "cancel_password_change": "Ha annullato un cambio di password"
+            "cancel_password_change": "Ha annullato un cambio di password",
+            "inactive_disabled": "Disattivato per inattività",
+            "inactive_deleted": "Eliminato per inattività"
           },
           "oauth_client": {
             "create": "Client OAuth registrato",
@@ -2140,7 +2142,16 @@
           "lockoutAttempts": "Blocca l’accesso con password dopo",
           "lockoutAttemptsHint": "Password errate per la stessa email o lo stesso nome utente in {minutes} minuti. L’accesso con password si ferma poi per {minutes} minuti, che esista o no un account. Passkey, codici e link di accesso, accesso social e SSO continuano a funzionare.",
           "lockoutNever": "Mai",
-          "wrongPasswords": "{count, plural, one {# password errata} other {# password errate}}"
+          "wrongPasswords": "{count, plural, one {# password errata} other {# password errate}}",
+          "inactiveDays": "Account inattivi",
+          "inactiveDaysHint": "Giorni senza accessi né uso dell’account. Le persone ricevono un’email {warning} giorni prima, e accedere mantiene l’account. Amministratori e account gestiti da una directory SCIM non sono mai interessati. Conteggiato da quando viene attivato.",
+          "inactiveNever": "Mai",
+          "inactiveAction": "Poi",
+          "inactiveActionHint": "Un account disattivato non può più accedere finché un amministratore non revoca il blocco. Un account eliminato viene cancellato con tutto ciò che vi è collegato.",
+          "inactiveDisable": "Disattiva l’account",
+          "inactiveDelete": "Elimina l’account",
+          "inactiveDisableAfter": "Disattiva dopo {count, plural, one {# giorno} other {# giorni}}",
+          "inactiveDeleteAfter": "Elimina dopo {count, plural, one {# giorno} other {# giorni}}"
         },
         "emailDomains": {
           "title": "Domini email",
@@ -3269,6 +3280,19 @@
       "button": "Non sono stato io",
       "note": "Il pulsante funziona una sola volta entro {days} giorni. Ti disconnette ovunque e ti invia un link per scegliere una nuova password.",
       "footnote": "Ricevi questa email quando cambiano la password, l’autenticazione a due fattori o le passkey del tuo account. Non condividere mai la password o i codici di accesso."
+    },
+    "inactiveAccount": {
+      "subjects": {
+        "disable": "Il tuo account {brand} verrà disattivato il {date}",
+        "delete": "Il tuo account {brand} verrà eliminato il {date}"
+      },
+      "bodies": {
+        "disable": "L’account {brand} {email} non viene usato da molto tempo. Verrà disattivato il {date} e non potrà più accedere.",
+        "delete": "L’account {brand} {email} non viene usato da molto tempo. Verrà eliminato il {date}, con tutto ciò che vi è collegato."
+      },
+      "keep": "Per mantenerlo, accedi prima di allora. Non c’è altro da fare.",
+      "button": "Accedi per mantenere l’account",
+      "footnote": "Ricevi questa email perché gli account inutilizzati da molto tempo vengono chiusi su questo servizio."
     }
   },
   "authErrors": {
@@ -3289,7 +3313,8 @@
     "invalidToken": "Questo link non è valido o è scaduto.",
     "publicOrganization": "I membri dell'organizzazione Public sono gestiti solo dagli amministratori della piattaforma.",
     "emailDomainNotAllowed": "Qui non è possibile creare account con questo dominio email. Usa un altro indirizzo.",
-    "countryNotAllowed": "L’accesso dal tuo paese non è consentito qui."
+    "countryNotAllowed": "L’accesso dal tuo paese non è consentito qui.",
+    "inactive": "Questo account è stato disattivato dopo un lungo periodo di inutilizzo. Contatta l’assistenza per ripristinarlo."
   },
   "secureAccount": {
     "title": "Proteggi il tuo account",

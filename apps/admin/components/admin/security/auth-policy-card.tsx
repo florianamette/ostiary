@@ -8,7 +8,18 @@ import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle }
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@ostiary/core/components/ui/dialog";
 import { Field, FieldDescription, FieldGroup, FieldLabel } from "@ostiary/core/components/ui/field";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@ostiary/core/components/ui/select";
-import { LOCKOUT_ATTEMPTS, LOCKOUT_MINUTES, MIN_PASSWORD_LENGTHS, SESSION_DAYS, TWO_FACTOR_GRACE_DAYS, type AuthPolicy } from "@ostiary/core/lib/auth-policy-options";
+import {
+  INACTIVE_ACTIONS,
+  INACTIVE_DAYS,
+  INACTIVE_WARNING_DAYS,
+  LOCKOUT_ATTEMPTS,
+  LOCKOUT_MINUTES,
+  MIN_PASSWORD_LENGTHS,
+  SESSION_DAYS,
+  TWO_FACTOR_GRACE_DAYS,
+  type AuthPolicy,
+  type AuthPolicyInput,
+} from "@ostiary/core/lib/auth-policy-options";
 
 import { updateAuthPolicy } from "@/app/[locale]/(console)/security/actions";
 import { CheckboxField } from "@/components/admin/common/choice-field";
@@ -31,6 +42,12 @@ export function AuthPolicyCard({ policy }: { policy: AuthPolicy }) {
     [t("newDeviceEmail"), yesNo(policy.newDeviceEmail)],
     [t("securityChangeEmail"), yesNo(policy.securityChangeEmail)],
     [t("lockoutAttempts"), policy.lockoutAttempts === 0 ? t("lockoutNever") : t("wrongPasswords", { count: policy.lockoutAttempts })],
+    [
+      t("inactiveDays"),
+      policy.inactiveDays === 0
+        ? t("inactiveNever")
+        : t(policy.inactiveAction === "delete" ? "inactiveDeleteAfter" : "inactiveDisableAfter", { count: policy.inactiveDays }),
+    ],
   ];
 
   return (
@@ -83,10 +100,11 @@ function AuthPolicyDialog({ policy, onClose }: { policy: AuthPolicy; onClose: ()
   function save(e: React.FormEvent) {
     e.preventDefault();
     void run(async () => {
-      // The server sets when "everyone" started.
+      // The server sets when "everyone" and the inactive account rule started.
       const policy: Partial<AuthPolicy> = { ...draft };
       delete policy.twoFactorRequiredSince;
-      const res = await updateAuthPolicy(policy as Omit<AuthPolicy, "twoFactorRequiredSince">);
+      delete policy.inactiveSince;
+      const res = await updateAuthPolicy(policy as AuthPolicyInput);
       return res.ok ? res : { ok: false, error: t(`errors.${res.error}`) };
     }, t("saved"));
   }
@@ -212,6 +230,40 @@ function AuthPolicyDialog({ policy, onClose }: { policy: AuthPolicy; onClose: ()
               </Select>
               <FieldDescription>{t("lockoutAttemptsHint", { minutes: LOCKOUT_MINUTES })}</FieldDescription>
             </Field>
+            <Field>
+              <FieldLabel htmlFor="policy-inactive-days">{t("inactiveDays")}</FieldLabel>
+              <Select value={String(draft.inactiveDays)} onValueChange={(v) => set("inactiveDays", Number(v))} disabled={busy}>
+                <SelectTrigger id="policy-inactive-days" className="w-full">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {INACTIVE_DAYS.map((days) => (
+                    <SelectItem key={days} value={String(days)}>
+                      {days === 0 ? t("inactiveNever") : t("days", { count: days })}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <FieldDescription>{t("inactiveDaysHint", { warning: INACTIVE_WARNING_DAYS })}</FieldDescription>
+            </Field>
+            {draft.inactiveDays ? (
+              <Field>
+                <FieldLabel htmlFor="policy-inactive-action">{t("inactiveAction")}</FieldLabel>
+                <Select value={draft.inactiveAction} onValueChange={(v) => set("inactiveAction", v as AuthPolicy["inactiveAction"])} disabled={busy}>
+                  <SelectTrigger id="policy-inactive-action" className="w-full">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {INACTIVE_ACTIONS.map((action) => (
+                      <SelectItem key={action} value={action}>
+                        {t(action === "delete" ? "inactiveDelete" : "inactiveDisable")}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FieldDescription>{t("inactiveActionHint")}</FieldDescription>
+              </Field>
+            ) : null}
           </FieldGroup>
           <DialogActions busy={busy} onCancel={onClose} cancelLabel={t("cancel")} confirmLabel={t("save")} />
         </form>

@@ -1957,7 +1957,9 @@
             "password_breached": "Passord funnet i en datalekkasje",
             "sign_in_locked": "Pålogging med passord låst etter feil passord",
             "require_password_change": "Krevde et passordbytte",
-            "cancel_password_change": "Avbrøt et passordbytte"
+            "cancel_password_change": "Avbrøt et passordbytte",
+            "inactive_disabled": "Deaktivert etter inaktivitet",
+            "inactive_deleted": "Slettet etter inaktivitet"
           },
           "oauth_client": {
             "create": "Registrerte OAuth-klient",
@@ -2140,7 +2142,16 @@
           "lockoutAttempts": "Lås pålogging med passord etter",
           "lockoutAttemptsHint": "Feil passord for samme e-post eller brukernavn innen {minutes} minutter. Pålogging med passord stoppes da i {minutes} minutter, enten en konto finnes eller ikke. Tilgangsnøkler, påloggingskoder og -lenker, sosial pålogging og SSO virker fortsatt.",
           "lockoutNever": "Aldri",
-          "wrongPasswords": "{count, plural, one {# feil passord} other {# feil passord}}"
+          "wrongPasswords": "{count, plural, one {# feil passord} other {# feil passord}}",
+          "inactiveDays": "Inaktive kontoer",
+          "inactiveDaysHint": "Dager uten pålogging eller bruk av kontoen. Personer får en e-post {warning} dager før, og en pålogging beholder kontoen. Administratorer og kontoer en SCIM-katalog styrer, berøres aldri. Telles fra når det slås på.",
+          "inactiveNever": "Aldri",
+          "inactiveAction": "Deretter",
+          "inactiveActionHint": "En deaktivert konto kan ikke logge på før en administrator opphever utestengelsen. En slettet konto fjernes med alt som er knyttet til den.",
+          "inactiveDisable": "Deaktiver kontoen",
+          "inactiveDelete": "Slett kontoen",
+          "inactiveDisableAfter": "Deaktiver etter {count, plural, one {# dag} other {# dager}}",
+          "inactiveDeleteAfter": "Slett etter {count, plural, one {# dag} other {# dager}}"
         },
         "emailDomains": {
           "title": "E-postdomener",
@@ -3269,6 +3280,19 @@
       "button": "Det var ikke meg",
       "note": "Knappen fungerer én gang innen {days} dager. Den logger deg ut overalt og sender deg en lenke for å velge et nytt passord.",
       "footnote": "Du får denne e-posten når passordet, tofaktorautentiseringen eller tilgangsnøklene til kontoen din endres. Del aldri passordet eller påloggingskodene dine."
+    },
+    "inactiveAccount": {
+      "subjects": {
+        "disable": "{brand}-kontoen din deaktiveres {date}",
+        "delete": "{brand}-kontoen din slettes {date}"
+      },
+      "bodies": {
+        "disable": "{brand}-kontoen {email} har ikke vært brukt på lenge. Den deaktiveres {date} og kan deretter ikke logge på.",
+        "delete": "{brand}-kontoen {email} har ikke vært brukt på lenge. Den slettes {date} med alt som er knyttet til den."
+      },
+      "keep": "Logg på før da for å beholde den. Det er ikke noe annet å gjøre.",
+      "button": "Logg på og behold kontoen min",
+      "footnote": "Du får denne e-posten fordi kontoer som ikke har vært brukt på lenge, stenges på denne tjenesten."
     }
   },
   "authErrors": {
@@ -3289,7 +3313,8 @@
     "invalidToken": "Lenken er ugyldig eller utløpt.",
     "publicOrganization": "Medlemmene i organisasjonen Public administreres bare av plattformadministratorer.",
     "emailDomainNotAllowed": "Kontoer med dette e-postdomenet kan ikke opprettes her. Bruk en annen adresse.",
-    "countryNotAllowed": "Pålogging fra landet ditt er ikke tillatt her."
+    "countryNotAllowed": "Pålogging fra landet ditt er ikke tillatt her.",
+    "inactive": "Denne kontoen ble deaktivert etter lang tid uten bruk. Kontakt brukerstøtte for å gjenopprette den."
   },
   "secureAccount": {
     "title": "Sikre kontoen din",

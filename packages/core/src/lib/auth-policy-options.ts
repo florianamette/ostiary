@@ -14,6 +14,14 @@ export const TWO_FACTOR_GRACE_DAYS = [0, 7, 14, 30] as const;
 export const LOCKOUT_ATTEMPTS = [0, 5, 10, 20] as const;
 /** The wrong passwords count over this many minutes, and the lock lasts as long. */
 export const LOCKOUT_MINUTES = 15;
+/** Days without a sign-in after which an account is disabled or deleted (0: never). */
+export const INACTIVE_DAYS = [0, 180, 365, 730] as const;
+export const INACTIVE_ACTIONS = ["disable", "delete"] as const;
+export type InactiveAction = (typeof INACTIVE_ACTIONS)[number];
+/** The warning email goes this many days before. */
+export const INACTIVE_WARNING_DAYS = 14;
+/** The ban reason of an account disabled for inactivity (security/inactive-accounts.ts). */
+export const INACTIVE_REASON = "Disabled after inactivity";
 
 export type AuthPolicy = {
   /** Days a session lasts: without use (sessions extended while used), or in all. */
@@ -40,7 +48,15 @@ export type AuthPolicy = {
   securityChangeEmail: boolean;
   /** Wrong passwords within LOCKOUT_MINUTES that lock password sign-in for that email or username, 0: never (security/sign-in-lockout.ts). */
   lockoutAttempts: number;
+  /** Days without a sign-in before `inactiveAction` (security/inactive-accounts.ts), 0: never. */
+  inactiveDays: number;
+  inactiveAction: InactiveAction;
+  /** When `inactiveDays` was turned on (ISO date), set by the save: nobody counts as inactive from before. */
+  inactiveSince: string | null;
 };
+
+/** What the console sends: the dates are set by the save. */
+export type AuthPolicyInput = Omit<AuthPolicy, "twoFactorRequiredSince" | "inactiveSince">;
 
 /** Better Auth's defaults, and Ostiary's behaviour before the policy existed. */
 export const DEFAULT_AUTH_POLICY: AuthPolicy = {
@@ -55,6 +71,9 @@ export const DEFAULT_AUTH_POLICY: AuthPolicy = {
   newDeviceEmail: true,
   securityChangeEmail: true,
   lockoutAttempts: 10,
+  inactiveDays: 0,
+  inactiveAction: "disable",
+  inactiveSince: null,
 };
 
 /** Better Auth refreshes a used session once a day (its default `updateAge`). */
@@ -64,6 +83,10 @@ export const SHORT_SESSION_SECONDS = DAY_SECONDS;
 
 function oneOf<T>(choices: readonly T[], value: unknown, fallback: T): T {
   return choices.includes(value as T) ? (value as T) : fallback;
+}
+
+function isoDate(value: unknown): string | null {
+  return typeof value === "string" && !Number.isNaN(Date.parse(value)) ? value : null;
 }
 
 /** The stored policy, field by field, falling back to the defaults. */
@@ -79,12 +102,12 @@ export function parseAuthPolicy(raw: unknown): AuthPolicy {
     passwordSignUp: bool("passwordSignUp"),
     twoFactorEveryone: bool("twoFactorEveryone"),
     twoFactorGraceDays: oneOf<number>(TWO_FACTOR_GRACE_DAYS, value.twoFactorGraceDays, DEFAULT_AUTH_POLICY.twoFactorGraceDays),
-    twoFactorRequiredSince:
-      typeof value.twoFactorRequiredSince === "string" && !Number.isNaN(Date.parse(value.twoFactorRequiredSince))
-        ? value.twoFactorRequiredSince
-        : null,
+    twoFactorRequiredSince: isoDate(value.twoFactorRequiredSince),
     newDeviceEmail: bool("newDeviceEmail"),
     securityChangeEmail: bool("securityChangeEmail"),
     lockoutAttempts: oneOf<number>(LOCKOUT_ATTEMPTS, value.lockoutAttempts, DEFAULT_AUTH_POLICY.lockoutAttempts),
+    inactiveDays: oneOf<number>(INACTIVE_DAYS, value.inactiveDays, DEFAULT_AUTH_POLICY.inactiveDays),
+    inactiveAction: oneOf<InactiveAction>(INACTIVE_ACTIONS, value.inactiveAction, DEFAULT_AUTH_POLICY.inactiveAction),
+    inactiveSince: isoDate(value.inactiveSince),
   };
 }

@@ -1957,7 +1957,9 @@
             "password_breached": "Hasło znalezione w wycieku",
             "sign_in_locked": "Logowanie hasłem zablokowane po błędnych hasłach",
             "require_password_change": "Wymagał zmiany hasła",
-            "cancel_password_change": "Anulował zmianę hasła"
+            "cancel_password_change": "Anulował zmianę hasła",
+            "inactive_disabled": "Wyłączone z powodu nieaktywności",
+            "inactive_deleted": "Usunięte z powodu nieaktywności"
           },
           "oauth_client": {
             "create": "Zarejestrowano klienta OAuth",
@@ -2140,7 +2142,16 @@
           "lockoutAttempts": "Blokuj logowanie hasłem po",
           "lockoutAttemptsHint": "Błędne hasła dla tego samego e-maila lub nazwy użytkownika w ciągu {minutes} minut. Logowanie hasłem zostaje wtedy wstrzymane na {minutes} minut, niezależnie od tego, czy konto istnieje. Klucze dostępu, kody i linki logowania, logowanie społecznościowe i SSO nadal działają.",
           "lockoutNever": "Nigdy",
-          "wrongPasswords": "{count, plural, one {# błędnym haśle} few {# błędnych hasłach} many {# błędnych hasłach} other {# błędnego hasła}}"
+          "wrongPasswords": "{count, plural, one {# błędnym haśle} few {# błędnych hasłach} many {# błędnych hasłach} other {# błędnego hasła}}",
+          "inactiveDays": "Nieaktywne konta",
+          "inactiveDaysHint": "Dni bez logowania ani używania konta. Osoby dostają e-mail {warning} dni wcześniej, a zalogowanie się zachowuje konto. Nigdy nie dotyczy administratorów ani kont zarządzanych przez katalog SCIM. Liczone od włączenia.",
+          "inactiveNever": "Nigdy",
+          "inactiveAction": "Następnie",
+          "inactiveActionHint": "Wyłączone konto nie może się logować, dopóki administrator nie zdejmie blokady. Usunięte konto jest kasowane wraz ze wszystkim, co z nim powiązane.",
+          "inactiveDisable": "Wyłącz konto",
+          "inactiveDelete": "Usuń konto",
+          "inactiveDisableAfter": "Wyłącz po {count, plural, one {# dniu} other {# dniach}}",
+          "inactiveDeleteAfter": "Usuń po {count, plural, one {# dniu} other {# dniach}}"
         },
         "emailDomains": {
           "title": "Domeny e-mail",
@@ -3269,6 +3280,19 @@
       "button": "To nie ja",
       "note": "Przycisk działa raz przez {days} dni. Wylogowuje Cię wszędzie i wysyła link do ustawienia nowego hasła.",
       "footnote": "Otrzymujesz tę wiadomość, gdy zmienia się hasło, uwierzytelnianie dwuskładnikowe lub klucze dostępu Twojego konta. Nigdy nie udostępniaj hasła ani kodów logowania."
+    },
+    "inactiveAccount": {
+      "subjects": {
+        "disable": "Twoje konto {brand} zostanie wyłączone {date}",
+        "delete": "Twoje konto {brand} zostanie usunięte {date}"
+      },
+      "bodies": {
+        "disable": "Konto {brand} {email} od dawna nie było używane. Zostanie wyłączone {date} i nie będzie można się na nie zalogować.",
+        "delete": "Konto {brand} {email} od dawna nie było używane. Zostanie usunięte {date} wraz ze wszystkim, co z nim powiązane."
+      },
+      "keep": "Aby je zachować, zaloguj się przed tą datą. Nic więcej nie trzeba robić.",
+      "button": "Zaloguj się i zachowaj konto",
+      "footnote": "Otrzymujesz ten e-mail, ponieważ długo nieużywane konta są w tym serwisie zamykane."
     }
   },
   "authErrors": {
@@ -3289,7 +3313,8 @@
     "invalidToken": "Ten link jest nieprawidłowy lub wygasł.",
     "publicOrganization": "Członkami organizacji Public zarządzają wyłącznie administratorzy platformy.",
     "emailDomainNotAllowed": "Nie można tu utworzyć konta z tą domeną e-mail. Użyj innego adresu.",
-    "countryNotAllowed": "Logowanie z Twojego kraju nie jest tu dozwolone."
+    "countryNotAllowed": "Logowanie z Twojego kraju nie jest tu dozwolone.",
+    "inactive": "To konto zostało wyłączone po długim okresie nieużywania. Skontaktuj się z pomocą techniczną, aby je przywrócić."
   },
   "secureAccount": {
     "title": "Zabezpiecz swoje konto",

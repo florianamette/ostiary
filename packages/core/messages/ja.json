@@ -1957,7 +1957,9 @@
             "password_breached": "漏えいしたパスワードを検出",
             "sign_in_locked": "誤ったパスワードの後にパスワードでのサインインをロック",
             "require_password_change": "パスワード変更を要求",
-            "cancel_password_change": "パスワード変更の要求を取り消し"
+            "cancel_password_change": "パスワード変更の要求を取り消し",
+            "inactive_disabled": "非アクティブのため無効化",
+            "inactive_deleted": "非アクティブのため削除"
           },
           "oauth_client": {
             "create": "OAuth クライアントを登録",
@@ -2140,7 +2142,16 @@
           "lockoutAttempts": "パスワードでのサインインをロックする回数",
           "lockoutAttemptsHint": "{minutes} 分以内に同じメールアドレスまたはユーザー名で誤ったパスワードが入力された回数です。その後 {minutes} 分間、アカウントの有無にかかわらず、パスワードでのサインインが停止されます。パスキー、サインインコードとリンク、ソーシャルサインイン、SSO は引き続き使えます。",
           "lockoutNever": "しない",
-          "wrongPasswords": "{count, plural, other {誤ったパスワード # 回}}"
+          "wrongPasswords": "{count, plural, other {誤ったパスワード # 回}}",
+          "inactiveDays": "非アクティブなアカウント",
+          "inactiveDaysHint": "サインインもアカウントの利用もない日数。{warning} 日前にメールが届き、サインインすればアカウントは保持されます。管理者と SCIM ディレクトリが管理するアカウントは対象外です。有効にした時点から数えます。",
+          "inactiveNever": "しない",
+          "inactiveAction": "その後",
+          "inactiveActionHint": "無効化されたアカウントは、管理者が利用停止を解除するまでサインインできません。削除されたアカウントは関連するすべてと一緒に消去されます。",
+          "inactiveDisable": "アカウントを無効化",
+          "inactiveDelete": "アカウントを削除",
+          "inactiveDisableAfter": "{count, plural, other {# 日}}後に無効化",
+          "inactiveDeleteAfter": "{count, plural, other {# 日}}後に削除"
         },
         "emailDomains": {
           "title": "メールドメイン",
@@ -3269,6 +3280,19 @@
       "button": "心当たりがない",
       "note": "このボタンは {days} 日以内に 1 回だけ使えます。すべての場所からサインアウトし、新しいパスワードを設定するリンクをメールでお送りします。",
       "footnote": "このメールは、アカウントのパスワード、2 要素認証、パスキーが変更されたときに届きます。パスワードやサインインコードは誰にも教えないでください。"
+    },
+    "inactiveAccount": {
+      "subjects": {
+        "disable": "{brand} アカウントは {date} に無効化されます",
+        "delete": "{brand} アカウントは {date} に削除されます"
+      },
+      "bodies": {
+        "disable": "{brand} アカウント {email} は長期間使われていません。{date} に無効化され、その後はサインインできなくなります。",
+        "delete": "{brand} アカウント {email} は長期間使われていません。{date} に、関連するすべてと一緒に削除されます。"
+      },
+      "keep": "保持するには、それまでにサインインしてください。ほかに必要な操作はありません。",
+      "button": "サインインしてアカウントを保持",
+      "footnote": "このサービスでは長期間使われていないアカウントが閉鎖されるため、このメールをお送りしています。"
     }
   },
   "authErrors": {
@@ -3289,7 +3313,8 @@
     "invalidToken": "このリンクは無効か、有効期限が切れています。",
     "publicOrganization": "Public 組織のメンバーはプラットフォーム管理者のみが管理します。",
     "emailDomainNotAllowed": "このメールドメインではここでアカウントを作成できません。別のアドレスを使用してください。",
-    "countryNotAllowed": "お住まいの国からのサインインは許可されていません。"
+    "countryNotAllowed": "お住まいの国からのサインインは許可されていません。",
+    "inactive": "このアカウントは長期間使われなかったため無効化されました。復元するにはサポートにお問い合わせください。"
   },
   "secureAccount": {
     "title": "アカウントを保護",

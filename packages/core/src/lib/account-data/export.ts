@@ -24,6 +24,7 @@ import {
   ssoProvider,
   twoFactor,
   user,
+  userLastSignIn,
 } from "@ostiary/core/db/schema";
 import type { Database } from "@ostiary/core/lib/account-data/database";
 import { parseKeyGrant } from "@ostiary/core/lib/api-key-policy";
@@ -94,6 +95,7 @@ async function collect(db: Database, u: typeof user.$inferSelect, options: { ins
     events,
     devices,
     activity,
+    [lastSignIn],
   ] = await Promise.all([
     db
       .select({
@@ -334,6 +336,10 @@ async function collect(db: Database, u: typeof user.$inferSelect, options: { ins
       .where(eq(accountEvent.userId, userId))
       .orderBy(desc(accountEvent.createdAt))
       .limit(EXPORT_HISTORY_LIMIT),
+    db
+      .select({ signedInAt: userLastSignIn.signedInAt, warnedAt: userLastSignIn.warnedAt })
+      .from(userLastSignIn)
+      .where(eq(userLastSignIn.userId, userId)),
   ]);
 
   // Names of the apps this account is connected to.
@@ -413,6 +419,8 @@ async function collect(db: Database, u: typeof user.$inferSelect, options: { ins
       banExpires: iso(u.banExpires),
       createdAt: iso(u.createdAt),
       updatedAt: iso(u.updatedAt),
+      lastSignInAt: iso(lastSignIn?.signedInAt ?? null),
+      inactivityWarningAt: iso(lastSignIn?.warnedAt ?? null),
     },
     emails: [{ address: u.email, primary: true, verified: u.emailVerified }],
     signInMethods,

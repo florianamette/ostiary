@@ -1957,7 +1957,9 @@
             "password_breached": "Password found in a breach",
             "sign_in_locked": "Password sign-in locked after wrong passwords",
             "require_password_change": "Required a password change",
-            "cancel_password_change": "Cancelled a password change"
+            "cancel_password_change": "Cancelled a password change",
+            "inactive_disabled": "Disabled after inactivity",
+            "inactive_deleted": "Deleted after inactivity"
           },
           "oauth_client": {
             "create": "Registered OAuth client",
@@ -2140,7 +2142,16 @@
           "lockoutAttempts": "Lock password sign-in after",
           "lockoutAttemptsHint": "Wrong passwords for the same email or username within {minutes} minutes. Password sign-in for it then stops for {minutes} minutes, whether or not an account has it. Passkeys, sign-in codes and links, social sign-in and SSO keep working.",
           "lockoutNever": "Never",
-          "wrongPasswords": "{count, plural, one {# wrong password} other {# wrong passwords}}"
+          "wrongPasswords": "{count, plural, one {# wrong password} other {# wrong passwords}}",
+          "inactiveDays": "Inactive accounts",
+          "inactiveDaysHint": "Days without a sign-in or use of the account. People are emailed {warning} days before, and signing in keeps the account. Admins and accounts a SCIM directory manages are never affected. Counted from when this is turned on.",
+          "inactiveNever": "Never",
+          "inactiveAction": "Then",
+          "inactiveActionHint": "Disabled accounts can no longer sign in until an admin lifts the ban. Deleted accounts are erased with everything linked to them.",
+          "inactiveDisable": "Disable the account",
+          "inactiveDelete": "Delete the account",
+          "inactiveDisableAfter": "Disable after {count, plural, one {# day} other {# days}}",
+          "inactiveDeleteAfter": "Delete after {count, plural, one {# day} other {# days}}"
         },
         "emailDomains": {
           "title": "Email domains",
@@ -3269,6 +3280,19 @@
       "button": "This wasn't me",
       "note": "The button works once within {days} days. It signs you out everywhere and emails you a link to choose a new password.",
       "footnote": "You get this email when your account's password, two-factor authentication or passkeys change. Never share your password or sign-in codes."
+    },
+    "inactiveAccount": {
+      "subjects": {
+        "disable": "Your {brand} account will be disabled on {date}",
+        "delete": "Your {brand} account will be deleted on {date}"
+      },
+      "bodies": {
+        "disable": "The {brand} account {email} has not been used for a long time. It will be disabled on {date}, and then can no longer sign in.",
+        "delete": "The {brand} account {email} has not been used for a long time. It will be deleted on {date}, with everything linked to it."
+      },
+      "keep": "To keep it, sign in before then. There is nothing else to do.",
+      "button": "Sign in to keep my account",
+      "footnote": "You get this email because accounts unused for a long time are closed on this service."
     }
   },
   "authErrors": {
@@ -3289,7 +3313,8 @@
     "invalidToken": "This link is invalid or has expired.",
     "publicOrganization": "The Public organization's members are managed by platform admins only.",
     "emailDomainNotAllowed": "Accounts with this email domain can't be created here. Use another address.",
-    "countryNotAllowed": "Signing in from your country is not allowed here."
+    "countryNotAllowed": "Signing in from your country is not allowed here.",
+    "inactive": "This account was disabled after a long time without use. Contact support to restore it."
   },
   "secureAccount": {
     "title": "Secure your account",

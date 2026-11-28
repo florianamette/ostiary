@@ -23,6 +23,19 @@ describe("parseAuthPolicy", () => {
       passwordSignUp: false,
     });
   });
+
+  it("takes only the offered inactive account choices", () => {
+    expect(parseAuthPolicy({ inactiveDays: 365, inactiveAction: "delete", inactiveSince: "2027-01-01T00:00:00.000Z" })).toMatchObject({
+      inactiveDays: 365,
+      inactiveAction: "delete",
+      inactiveSince: "2027-01-01T00:00:00.000Z",
+    });
+    expect(parseAuthPolicy({ inactiveDays: 30, inactiveAction: "archive", inactiveSince: "soon" })).toMatchObject({
+      inactiveDays: 0,
+      inactiveAction: "disable",
+      inactiveSince: null,
+    });
+  });
 });
 
 describe("applyAuthPolicy", () => {

@@ -1957,7 +1957,9 @@
             "password_breached": "Wachtwoord gevonden in een datalek",
             "sign_in_locked": "Inloggen met wachtwoord geblokkeerd na verkeerde wachtwoorden",
             "require_password_change": "Heeft een wachtwoordwijziging vereist",
-            "cancel_password_change": "Heeft een wachtwoordwijziging geannuleerd"
+            "cancel_password_change": "Heeft een wachtwoordwijziging geannuleerd",
+            "inactive_disabled": "Uitgeschakeld na inactiviteit",
+            "inactive_deleted": "Verwijderd na inactiviteit"
           },
           "oauth_client": {
             "create": "OAuth-client geregistreerd",
@@ -2140,7 +2142,16 @@
           "lockoutAttempts": "Inloggen met wachtwoord blokkeren na",
           "lockoutAttemptsHint": "Verkeerde wachtwoorden voor hetzelfde e-mailadres of dezelfde gebruikersnaam binnen {minutes} minuten. Inloggen met wachtwoord stopt dan {minutes} minuten, of er nu een account bestaat of niet. Passkeys, inlogcodes en -links, sociale login en SSO blijven werken.",
           "lockoutNever": "Nooit",
-          "wrongPasswords": "{count, plural, one {# verkeerd wachtwoord} other {# verkeerde wachtwoorden}}"
+          "wrongPasswords": "{count, plural, one {# verkeerd wachtwoord} other {# verkeerde wachtwoorden}}",
+          "inactiveDays": "Inactieve accounts",
+          "inactiveDaysHint": "Dagen zonder aanmelding of gebruik van het account. Mensen krijgen {warning} dagen vooraf een e-mail, en aanmelden houdt het account. Beheerders en accounts die een SCIM-directory beheert, worden nooit geraakt. Geteld vanaf het inschakelen.",
+          "inactiveNever": "Nooit",
+          "inactiveAction": "Daarna",
+          "inactiveActionHint": "Een uitgeschakeld account kan zich niet meer aanmelden tot een beheerder de blokkade opheft. Een verwijderd account wordt gewist met alles wat eraan gekoppeld is.",
+          "inactiveDisable": "Account uitschakelen",
+          "inactiveDelete": "Account verwijderen",
+          "inactiveDisableAfter": "Uitschakelen na {count, plural, one {# dag} other {# dagen}}",
+          "inactiveDeleteAfter": "Verwijderen na {count, plural, one {# dag} other {# dagen}}"
         },
         "emailDomains": {
           "title": "E-maildomeinen",
@@ -3269,6 +3280,19 @@
       "button": "Dit was ik niet",
       "note": "De knop werkt één keer binnen {days} dagen. Hij meldt je overal af en mailt je een link om een nieuw wachtwoord te kiezen.",
       "footnote": "Je krijgt deze e-mail wanneer het wachtwoord, de tweestapsverificatie of de passkeys van je account veranderen. Deel nooit je wachtwoord of inlogcodes."
+    },
+    "inactiveAccount": {
+      "subjects": {
+        "disable": "Je {brand}-account wordt op {date} uitgeschakeld",
+        "delete": "Je {brand}-account wordt op {date} verwijderd"
+      },
+      "bodies": {
+        "disable": "Het {brand}-account {email} is lang niet gebruikt. Het wordt op {date} uitgeschakeld en kan zich dan niet meer aanmelden.",
+        "delete": "Het {brand}-account {email} is lang niet gebruikt. Het wordt op {date} verwijderd, met alles wat eraan gekoppeld is."
+      },
+      "keep": "Meld je vóór die datum aan om het te houden. Verder hoef je niets te doen.",
+      "button": "Aanmelden en mijn account houden",
+      "footnote": "Je krijgt deze e-mail omdat accounts die lang niet gebruikt zijn op deze dienst worden gesloten."
     }
   },
   "authErrors": {
@@ -3289,7 +3313,8 @@
     "invalidToken": "Deze link is ongeldig of verlopen.",
     "publicOrganization": "De leden van de organisatie Public worden alleen door platformbeheerders beheerd.",
     "emailDomainNotAllowed": "Met dit e-maildomein kan hier geen account worden aangemaakt. Gebruik een ander adres.",
-    "countryNotAllowed": "Aanmelden vanuit je land is hier niet toegestaan."
+    "countryNotAllowed": "Aanmelden vanuit je land is hier niet toegestaan.",
+    "inactive": "Dit account is uitgeschakeld na lange tijd zonder gebruik. Neem contact op met support om het te herstellen."
   },
   "secureAccount": {
     "title": "Beveilig je account",
