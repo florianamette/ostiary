@@ -124,6 +124,10 @@
           "activeTeamId": {
             "type": "string",
             "readOnly": true
+          },
+          "country": {
+            "type": "string",
+            "readOnly": true
           }
         },
         "required": [
