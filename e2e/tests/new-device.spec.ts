@@ -30,10 +30,10 @@ test("a sign-in from another browser emails the person, and 'This wasn't me' loc
   // Opening the link changes nothing until the button is pressed.
   const resetSince = Date.now() - 1000;
   await page.goto(mail.url!);
-  await expect(page.getByText("Secure your account")).toBeVisible();
+  await expect(page.getByRole("main").getByText("Secure your account")).toBeVisible();
   expect(await getSession(api)).not.toBeNull();
   await page.getByRole("button", { name: "Sign out everywhere and reset my password" }).click();
-  await expect(page.getByText("Check your inbox")).toBeVisible();
+  await expect(page.getByRole("main").getByText("Check your inbox")).toBeVisible();
 
   // Every session is gone, and a password reset link is on its way.
   expect(await getSession(api)).toBeNull();
@@ -41,7 +41,7 @@ test("a sign-in from another browser emails the person, and 'This wasn't me' loc
 
   // The link works once.
   await page.goto(mail.url!);
-  await expect(page.getByText("This link has expired or was already used.")).toBeVisible();
+  await expect(page.getByRole("main").getByText("This link has expired or was already used.")).toBeVisible();
   await expect(page.getByRole("button", { name: "Sign out everywhere and reset my password" })).toHaveCount(0);
   await context.close();
 });

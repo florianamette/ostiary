@@ -1,5 +1,7 @@
 "use client";
 
+import "@ostiary/core/lib/zod-browser";
+
 import * as React from "react";
 import { useTheme } from "next-themes";
 

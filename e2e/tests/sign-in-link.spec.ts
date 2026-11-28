@@ -9,7 +9,7 @@ async function askForCode(page: import("@playwright/test").Page, email: string) 
   await page.getByRole("button", { name: "Email me a sign-in code" }).click();
   await page.getByRole("textbox", { name: "Email" }).fill(email);
   await page.getByRole("button", { name: "Send code" }).click();
-  await expect(page.getByText("Check your email")).toBeVisible();
+  await expect(page.getByRole("main").getByText("Check your email")).toBeVisible();
 }
 
 test("the link in the sign-in code email signs in, and only once", async ({ api, browser, page }) => {
@@ -25,13 +25,13 @@ test("the link in the sign-in code email signs in, and only once", async ({ api,
   const phone = await browser.newContext();
   const other = await phone.newPage();
   await other.goto(mail.url!);
-  await expect(other.getByText(`Sign in as ${user.email}`)).toBeVisible();
+  await expect(other.getByRole("main").getByText(`Sign in as ${user.email}`)).toBeVisible();
   expect((await phone.cookies()).some((c) => c.name.endsWith("session_token"))).toBe(false);
   await other.getByRole("button", { name: "Sign in" }).click();
   await other.waitForURL(/\/en\/dashboard/);
 
   await other.goto(mail.url!);
-  await expect(other.getByText("This link no longer works")).toBeVisible();
+  await expect(other.getByRole("main").getByText("This link no longer works")).toBeVisible();
   await phone.close();
 });
 
