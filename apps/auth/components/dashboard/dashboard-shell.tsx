@@ -6,44 +6,10 @@ import { useLocale, useTranslations } from "next-intl";
 import { Logo } from "@ostiary/core/components/brand/logo";
 import { Button } from "@ostiary/core/components/ui/button";
 import { AccountMenu } from "@/components/dashboard/account-menu";
-import { Link } from "@/i18n/navigation";
+import { Link, usePathname } from "@/i18n/navigation";
+import { dashboardHref, dashboardTabOf, type DashboardTab } from "@/lib/dashboard-tabs";
 import { authClient } from "@/lib/auth-client";
 import { cn } from "@ostiary/core/lib/utils";
-
-const SECTION_IDS = ["overview", "profile", "organizations", "security", "activity", "apps", "api-keys", "data"];
-
-/**
- * Tracks which dashboard section is in the reading band near the top of the
- * viewport, so the tab bar can highlight the section the user is looking at.
- */
-function useActiveSection(ids: string[]) {
-  const [activeId, setActiveId] = React.useState(ids[0]);
-
-  React.useEffect(() => {
-    const elements = ids
-      .map((id) => document.getElementById(id))
-      .filter((el): el is HTMLElement => el !== null);
-    if (elements.length === 0) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort(
-            (a, b) =>
-              a.boundingClientRect.top - b.boundingClientRect.top,
-          );
-        if (visible[0]) setActiveId(visible[0].target.id);
-      },
-      { rootMargin: "-120px 0px -60% 0px" },
-    );
-
-    elements.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, [ids]);
-
-  return activeId;
-}
 
 function ImpersonationBanner({ email, returnUrl }: { email: string; returnUrl: string }) {
   const t = useTranslations("dashboard.impersonation");
@@ -100,35 +66,25 @@ export function DashboardShell({
   const t = useTranslations("dashboard");
   const locale = useLocale();
 
-  const sectionIds = React.useMemo(
-    () =>
-      SECTION_IDS.filter(
-        (id) => (showOrganizations || id !== "organizations") && (showApiKeys || id !== "api-keys"),
-      ),
-    [showOrganizations, showApiKeys],
-  );
-  const activeId = useActiveSection(sectionIds);
+  // Each tab is its own page (lib/dashboard-tabs.ts): the URL says which one is open.
+  const activeId = dashboardTabOf(usePathname());
   const navRef = React.useRef<HTMLUListElement>(null);
   // On a narrow screen the tabs scroll sideways: keep the current one in view.
   React.useEffect(() => {
-    const active = navRef.current?.querySelector<HTMLElement>('[aria-current="true"]');
+    const active = navRef.current?.querySelector<HTMLElement>('[aria-current="page"]');
     active?.scrollIntoView({ block: "nearest", inline: "nearest" });
   }, [activeId]);
 
-  const sections = [
-    { id: "overview", href: "/dashboard", label: t("nav.overview") },
-    { id: "profile", href: "/dashboard#profile", label: t("nav.profile") },
-    {
-      id: "organizations",
-      href: "/dashboard#organizations",
-      label: t("nav.organizations"),
-    },
-    { id: "security", href: "/dashboard#security", label: t("nav.security") },
-    { id: "activity", href: "/dashboard#activity", label: t("nav.activity") },
-    { id: "apps", href: "/dashboard#apps", label: t("nav.apps") },
-    { id: "api-keys", href: "/dashboard#api-keys", label: t("nav.apiKeys") },
-    { id: "data", href: "/dashboard#data", label: t("nav.data") },
-  ].filter((item) => sectionIds.includes(item.id));
+  const tabs: { id: DashboardTab; label: string }[] = [
+    { id: "overview", label: t("nav.overview") },
+    { id: "profile", label: t("nav.profile") },
+    ...(showOrganizations ? [{ id: "organizations" as const, label: t("nav.organizations") }] : []),
+    { id: "security", label: t("nav.security") },
+    { id: "activity", label: t("nav.activity") },
+    { id: "apps", label: t("nav.apps") },
+    ...(showApiKeys ? [{ id: "api-keys" as const, label: t("nav.apiKeys") }] : []),
+    { id: "data", label: t("nav.data") },
+  ];
 
   return (
     <div className="flex min-h-svh flex-col bg-background">
@@ -163,13 +119,13 @@ export function DashboardShell({
             ref={navRef}
             className="mx-auto flex max-w-4xl gap-1 overflow-x-auto px-2 pr-8 text-sm [mask-image:linear-gradient(to_right,black_calc(100%-2.5rem),transparent)] [scrollbar-width:none] md:px-4 md:[mask-image:none] [&::-webkit-scrollbar]:hidden"
           >
-            {sections.map((item) => {
+            {tabs.map((item) => {
               const isActive = item.id === activeId;
               return (
                 <li key={item.id} className="shrink-0">
                   <Link
-                    href={item.href}
-                    aria-current={isActive ? "true" : undefined}
+                    href={dashboardHref(item.id)}
+                    aria-current={isActive ? "page" : undefined}
                     className={cn(
                       "relative block whitespace-nowrap rounded-md px-2.5 py-2.5 text-muted-foreground transition-colors hover:text-foreground",
                       isActive && "font-medium text-foreground",

@@ -15,7 +15,7 @@ test("the export holds every section and no secret", async ({ api, adminApi, pag
   const { client, tokens } = await connectApp(page, api, adminApi, user, SCOPE);
   const totpSecret = await enableTotp(api, user.password);
 
-  await page.goto("/en/dashboard#data");
+  await page.goto("/en/dashboard/data");
   const [download] = await Promise.all([
     page.waitForEvent("download"),
     page.getByRole("button", { name: "Download my data" }).click(),
@@ -42,7 +42,7 @@ test("an account is deleted from the emailed link, and its tokens stop working",
   const user = await createUser(api, "erase");
   const { tokens } = await connectApp(page, api, adminApi, user, SCOPE);
 
-  await page.goto("/en/dashboard#data");
+  await page.goto("/en/dashboard/data");
   await page.getByRole("button", { name: "Delete my account" }).click();
   const dialog = page.getByRole("dialog");
   await dialog.getByRole("textbox", { name: `Type ${user.email} to confirm` }).fill(user.email);

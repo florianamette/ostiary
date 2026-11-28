@@ -2725,7 +2725,9 @@
       "expires": "Caduca",
       "none": "Ninguna",
       "startedAt": "Iniciada: {date}",
-      "expiresAt": "Caduca: {date}"
+      "expiresAt": "Caduca: {date}",
+      "openPasswordForm": "Cambiar contraseña",
+      "closePasswordForm": "Cancelar"
     },
     "apps": {
       "title": "Aplicaciones conectadas",
@@ -2938,6 +2940,24 @@
         "password_breached": "Contraseña encontrada en una filtración",
         "sign_in_locked": "Inicio de sesión con contraseña pausado tras contraseñas incorrectas"
       }
+    },
+    "checklist": {
+      "title": "Lista de seguridad",
+      "description": "Unos pasos que hacen tu cuenta más difícil de robar.",
+      "allDone": "Tu cuenta está bien protegida.",
+      "emailVerified": "Correo electrónico verificado",
+      "emailUnverified": "Verifica tu correo electrónico",
+      "twoFactorOn": "La autenticación en dos pasos está activada",
+      "twoFactorOff": "Activa la autenticación en dos pasos",
+      "passkeys": "{count, plural, one {# llave de acceso configurada} other {# llaves de acceso configuradas}}",
+      "noPasskey": "Añade una llave de acceso para entrar sin contraseña",
+      "thisDeviceOnly": "Sesión iniciada solo en este dispositivo",
+      "otherSessions": "{count, plural, one {Sesión iniciada en # dispositivo más} other {Sesión iniciada en # dispositivos más}}",
+      "verify": "Verificar",
+      "turnOn": "Activar",
+      "addPasskey": "Añadir una llave de acceso",
+      "review": "Revisar",
+      "manage": "Gestionar"
     }
   },
   "acceptInvitation": {

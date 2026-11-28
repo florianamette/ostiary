@@ -2725,7 +2725,9 @@
       "expires": "Bitiş",
       "none": "Yok",
       "startedAt": "Başlangıç: {date}",
-      "expiresAt": "Bitiş: {date}"
+      "expiresAt": "Bitiş: {date}",
+      "openPasswordForm": "Parolayı değiştir",
+      "closePasswordForm": "İptal"
     },
     "apps": {
       "title": "Bağlı uygulamalar",
@@ -2938,6 +2940,24 @@
         "password_breached": "Parola bir veri sızıntısında bulundu",
         "sign_in_locked": "Yanlış şifrelerden sonra şifreyle giriş duraklatıldı"
       }
+    },
+    "checklist": {
+      "title": "Güvenlik kontrol listesi",
+      "description": "Hesabınızın ele geçirilmesini zorlaştıran birkaç adım.",
+      "allDone": "Hesabınız iyi korunuyor.",
+      "emailVerified": "E-posta adresi doğrulandı",
+      "emailUnverified": "E-posta adresinizi doğrulayın",
+      "twoFactorOn": "İki adımlı doğrulama açık",
+      "twoFactorOff": "İki adımlı doğrulamayı açın",
+      "passkeys": "{count, plural, one {# geçiş anahtarı ayarlandı} other {# geçiş anahtarı ayarlandı}}",
+      "noPasskey": "Parolasız giriş için bir geçiş anahtarı ekleyin",
+      "thisDeviceOnly": "Yalnızca bu cihazda oturum açık",
+      "otherSessions": "{count, plural, one {# başka cihazda oturum açık} other {# başka cihazda oturum açık}}",
+      "verify": "Doğrula",
+      "turnOn": "Aç",
+      "addPasskey": "Geçiş anahtarı ekle",
+      "review": "İncele",
+      "manage": "Yönet"
     }
   },
   "acceptInvitation": {

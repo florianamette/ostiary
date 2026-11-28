@@ -2725,7 +2725,9 @@
       "expires": "Vyprší",
       "none": "Žádné",
       "startedAt": "Zahájeno: {date}",
-      "expiresAt": "Vyprší: {date}"
+      "expiresAt": "Vyprší: {date}",
+      "openPasswordForm": "Změnit heslo",
+      "closePasswordForm": "Zrušit"
     },
     "apps": {
       "title": "Připojené aplikace",
@@ -2938,6 +2940,24 @@
         "password_breached": "Heslo nalezeno v úniku dat",
         "sign_in_locked": "Přihlášení heslem pozastaveno po chybných heslech"
       }
+    },
+    "checklist": {
+      "title": "Bezpečnostní kontrola",
+      "description": "Několik kroků, které ztíží převzetí vašeho účtu.",
+      "allDone": "Váš účet je dobře chráněný.",
+      "emailVerified": "E-mailová adresa ověřena",
+      "emailUnverified": "Ověřte svou e-mailovou adresu",
+      "twoFactorOn": "Dvoufázové ověření je zapnuté",
+      "twoFactorOff": "Zapněte dvoufázové ověření",
+      "passkeys": "{count, plural, one {# přístupový klíč nastaven} few {# přístupové klíče nastaveny} other {# přístupových klíčů nastaveno}}",
+      "noPasskey": "Přidejte přístupový klíč a přihlašujte se bez hesla",
+      "thisDeviceOnly": "Přihlášeno jen na tomto zařízení",
+      "otherSessions": "{count, plural, one {Přihlášeno na # dalším zařízení} other {Přihlášeno na # dalších zařízeních}}",
+      "verify": "Ověřit",
+      "turnOn": "Zapnout",
+      "addPasskey": "Přidat přístupový klíč",
+      "review": "Zkontrolovat",
+      "manage": "Spravovat"
     }
   },
   "acceptInvitation": {

@@ -2725,7 +2725,9 @@
       "expires": "Verloopt",
       "none": "Geen",
       "startedAt": "Gestart: {date}",
-      "expiresAt": "Verloopt: {date}"
+      "expiresAt": "Verloopt: {date}",
+      "openPasswordForm": "Wachtwoord wijzigen",
+      "closePasswordForm": "Annuleren"
     },
     "apps": {
       "title": "Verbonden applicaties",
@@ -2938,6 +2940,24 @@
         "password_breached": "Wachtwoord gevonden in een datalek",
         "sign_in_locked": "Inloggen met wachtwoord gepauzeerd na verkeerde wachtwoorden"
       }
+    },
+    "checklist": {
+      "title": "Beveiligingschecklist",
+      "description": "Een paar stappen die je account moeilijker over te nemen maken.",
+      "allDone": "Je account is goed beveiligd.",
+      "emailVerified": "E-mailadres bevestigd",
+      "emailUnverified": "Bevestig je e-mailadres",
+      "twoFactorOn": "Tweestapsverificatie staat aan",
+      "twoFactorOff": "Zet tweestapsverificatie aan",
+      "passkeys": "{count, plural, one {# passkey ingesteld} other {# passkeys ingesteld}}",
+      "noPasskey": "Voeg een passkey toe om zonder wachtwoord in te loggen",
+      "thisDeviceOnly": "Alleen op dit apparaat ingelogd",
+      "otherSessions": "{count, plural, one {Ingelogd op # ander apparaat} other {Ingelogd op # andere apparaten}}",
+      "verify": "Bevestigen",
+      "turnOn": "Aanzetten",
+      "addPasskey": "Passkey toevoegen",
+      "review": "Bekijken",
+      "manage": "Beheren"
     }
   },
   "acceptInvitation": {

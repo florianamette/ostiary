@@ -2725,7 +2725,9 @@
       "expires": "Expiration",
       "none": "Aucun",
       "startedAt": "Début : {date}",
-      "expiresAt": "Expiration : {date}"
+      "expiresAt": "Expiration : {date}",
+      "openPasswordForm": "Changer le mot de passe",
+      "closePasswordForm": "Annuler"
     },
     "apps": {
       "title": "Applications connectées",
@@ -2938,6 +2940,24 @@
         "password_breached": "Mot de passe trouvé dans une fuite",
         "sign_in_locked": "Connexion par mot de passe suspendue après des mots de passe erronés"
       }
+    },
+    "checklist": {
+      "title": "Liste de sécurité",
+      "description": "Quelques étapes qui rendent votre compte plus difficile à pirater.",
+      "allDone": "Votre compte est bien protégé.",
+      "emailVerified": "Adresse e-mail vérifiée",
+      "emailUnverified": "Vérifiez votre adresse e-mail",
+      "twoFactorOn": "L’authentification à deux facteurs est activée",
+      "twoFactorOff": "Activez l’authentification à deux facteurs",
+      "passkeys": "{count, plural, one {# clé d’accès configurée} other {# clés d’accès configurées}}",
+      "noPasskey": "Ajoutez une clé d’accès pour vous connecter sans mot de passe",
+      "thisDeviceOnly": "Connecté sur cet appareil uniquement",
+      "otherSessions": "{count, plural, one {Connecté sur # autre appareil} other {Connecté sur # autres appareils}}",
+      "verify": "Vérifier",
+      "turnOn": "Activer",
+      "addPasskey": "Ajouter une clé d’accès",
+      "review": "Vérifier",
+      "manage": "Gérer"
     }
   },
   "acceptInvitation": {

@@ -49,5 +49,6 @@ test("the account page sends a breached password to the change step", async ({ a
   await expect(page.getByRole("main").getByText("Password changed", { exact: true })).toBeVisible();
   await page.getByRole("link", { name: "Go to your account" }).click();
   await page.waitForURL(/\/dashboard/);
+  await page.goto("/en/dashboard/activity");
   await expect(page.getByRole("list", { name: "Recent activity" }).getByText("Password changed")).toBeVisible();
 });

@@ -2725,7 +2725,9 @@
       "expires": "Wygasa",
       "none": "Brak",
       "startedAt": "Rozpoczęto: {date}",
-      "expiresAt": "Wygasa: {date}"
+      "expiresAt": "Wygasa: {date}",
+      "openPasswordForm": "Zmień hasło",
+      "closePasswordForm": "Anuluj"
     },
     "apps": {
       "title": "Połączone aplikacje",
@@ -2938,6 +2940,24 @@
         "password_breached": "Hasło znalezione w wycieku",
         "sign_in_locked": "Logowanie hasłem wstrzymane po błędnych hasłach"
       }
+    },
+    "checklist": {
+      "title": "Lista bezpieczeństwa",
+      "description": "Kilka kroków, które utrudniają przejęcie konta.",
+      "allDone": "Twoje konto jest dobrze chronione.",
+      "emailVerified": "Adres e-mail zweryfikowany",
+      "emailUnverified": "Zweryfikuj adres e-mail",
+      "twoFactorOn": "Uwierzytelnianie dwuskładnikowe jest włączone",
+      "twoFactorOff": "Włącz uwierzytelnianie dwuskładnikowe",
+      "passkeys": "{count, plural, one {# klucz dostępu skonfigurowany} few {# klucze dostępu skonfigurowane} many {# kluczy dostępu skonfigurowanych} other {# klucza dostępu skonfigurowane}}",
+      "noPasskey": "Dodaj klucz dostępu, aby logować się bez hasła",
+      "thisDeviceOnly": "Zalogowano tylko na tym urządzeniu",
+      "otherSessions": "{count, plural, one {Zalogowano na # innym urządzeniu} other {Zalogowano na # innych urządzeniach}}",
+      "verify": "Zweryfikuj",
+      "turnOn": "Włącz",
+      "addPasskey": "Dodaj klucz dostępu",
+      "review": "Sprawdź",
+      "manage": "Zarządzaj"
     }
   },
   "acceptInvitation": {

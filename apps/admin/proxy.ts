@@ -35,7 +35,7 @@ async function route(request: NextRequest): Promise<NextResponse> {
     case "not_admin":
       return NextResponse.redirect(localizedUrl(authAppUrl, locale, "/dashboard"));
     case "needs_2fa":
-      return NextResponse.redirect(localizedUrl(authAppUrl, locale, "/dashboard#two-factor"));
+      return NextResponse.redirect(localizedUrl(authAppUrl, locale, "/dashboard/security#two-factor"));
     case "ok":
       return intlResponse;
   }

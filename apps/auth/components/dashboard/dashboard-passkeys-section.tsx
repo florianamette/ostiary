@@ -137,7 +137,7 @@ export function DashboardPasskeysSection() {
   }
 
   return (
-    <div className="space-y-3">
+    <div id="passkeys" className="scroll-mt-32 space-y-3">
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h3 className="text-sm font-medium">{t("title")}</h3>

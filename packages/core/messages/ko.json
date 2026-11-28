@@ -2725,7 +2725,9 @@
       "expires": "만료",
       "none": "없음",
       "startedAt": "시작: {date}",
-      "expiresAt": "만료: {date}"
+      "expiresAt": "만료: {date}",
+      "openPasswordForm": "비밀번호 변경",
+      "closePasswordForm": "취소"
     },
     "apps": {
       "title": "연결된 애플리케이션",
@@ -2938,6 +2940,24 @@
         "password_breached": "유출된 비밀번호 발견",
         "sign_in_locked": "잘못된 비밀번호 입력 후 비밀번호 로그인 일시 중지"
       }
+    },
+    "checklist": {
+      "title": "보안 체크리스트",
+      "description": "계정을 탈취하기 어렵게 만드는 몇 가지 단계입니다.",
+      "allDone": "계정이 잘 보호되고 있습니다.",
+      "emailVerified": "이메일 주소 인증됨",
+      "emailUnverified": "이메일 주소를 인증하세요",
+      "twoFactorOn": "2단계 인증이 켜져 있습니다",
+      "twoFactorOff": "2단계 인증을 켜세요",
+      "passkeys": "{count, plural, other {패스키 #개 설정됨}}",
+      "noPasskey": "비밀번호 없이 로그인하려면 패스키를 추가하세요",
+      "thisDeviceOnly": "이 기기에서만 로그인됨",
+      "otherSessions": "{count, plural, other {다른 기기 #대에서 로그인됨}}",
+      "verify": "인증",
+      "turnOn": "켜기",
+      "addPasskey": "패스키 추가",
+      "review": "검토",
+      "manage": "관리"
     }
   },
   "acceptInvitation": {

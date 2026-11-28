@@ -52,7 +52,7 @@ test("an organization requires two-factor: a reminder during the grace period, t
   await expect(page.getByText("Turn it on to continue.")).toBeVisible();
   await expect(page.getByRole("button", { name: "Remind me later" })).toHaveCount(0);
   await page.getByRole("link", { name: "Set up two-factor authentication" }).click();
-  await page.waitForURL(/\/dashboard\?continue=/);
+  await page.waitForURL(/\/dashboard\/security\?continue=/);
 
   // Once it is on, coming back to the prompt resumes the sign-in (consent was given above).
   const origin = { origin: AUTH_URL };

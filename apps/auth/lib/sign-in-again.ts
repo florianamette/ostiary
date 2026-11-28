@@ -2,14 +2,16 @@
 
 import { addAccountHref } from "@ostiary/core/lib/device-accounts";
 
+import { dashboardHref, type DashboardTab } from "@/lib/dashboard-tabs";
+
 /**
  * Sensitive actions (adding a passkey, connecting an account, exporting or deleting the account)
- * need a recent sign-in. Sends the user to the login page, returning to that dashboard section.
+ * need a recent sign-in. Sends the user to the login page, returning to that dashboard tab.
  * The new sign-in replaces this account's session; other accounts signed in on this browser
  * stay signed in.
  */
-export function signInAgain(locale: string, section = "security") {
-  const back = `/${locale}/dashboard#${section}`;
+export function signInAgain(locale: string, tab: DashboardTab = "security") {
+  const back = `/${locale}${dashboardHref(tab)}`;
   window.location.href = addAccountHref(locale, new URLSearchParams({ callbackURL: back }));
 }
 

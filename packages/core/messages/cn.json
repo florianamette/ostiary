@@ -2725,7 +2725,9 @@
       "expires": "过期时间",
       "none": "无",
       "startedAt": "开始时间：{date}",
-      "expiresAt": "过期时间：{date}"
+      "expiresAt": "过期时间：{date}",
+      "openPasswordForm": "更改密码",
+      "closePasswordForm": "取消"
     },
     "apps": {
       "title": "已连接应用",
@@ -2938,6 +2940,24 @@
         "password_breached": "密码出现在泄露数据中",
         "sign_in_locked": "多次密码错误后已暂停密码登录"
       }
+    },
+    "checklist": {
+      "title": "安全检查清单",
+      "description": "几个步骤，让你的账户更难被盗。",
+      "allDone": "你的账户已得到良好保护。",
+      "emailVerified": "邮箱已验证",
+      "emailUnverified": "请验证你的邮箱",
+      "twoFactorOn": "双重身份验证已开启",
+      "twoFactorOff": "开启双重身份验证",
+      "passkeys": "{count, plural, other {已设置 # 个通行密钥}}",
+      "noPasskey": "添加通行密钥，无需密码即可登录",
+      "thisDeviceOnly": "仅在此设备上登录",
+      "otherSessions": "{count, plural, other {还在另外 # 台设备上登录}}",
+      "verify": "验证",
+      "turnOn": "开启",
+      "addPasskey": "添加通行密钥",
+      "review": "查看",
+      "manage": "管理"
     }
   },
   "acceptInvitation": {

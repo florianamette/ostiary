@@ -22,7 +22,7 @@ async function passkeyAccountAtAppSignIn(page: Page, api: Parameters<typeof crea
   });
   await loginViaUi(page, user.email, user.password);
   await page.waitForURL(/\/en(\/dashboard)?$/);
-  await page.goto("/en/dashboard");
+  await page.goto("/en/dashboard/security");
   await page.getByRole("button", { name: "Add passkey (this device)" }).click();
   await expect(page.getByText("Passkey added")).toBeVisible();
 

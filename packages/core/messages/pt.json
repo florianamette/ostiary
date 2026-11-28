@@ -2725,7 +2725,9 @@
       "expires": "Expira",
       "none": "Nenhuma",
       "startedAt": "Iniciada em: {date}",
-      "expiresAt": "Expira em: {date}"
+      "expiresAt": "Expira em: {date}",
+      "openPasswordForm": "Alterar senha",
+      "closePasswordForm": "Cancelar"
     },
     "apps": {
       "title": "Aplicações conectadas",
@@ -2938,6 +2940,24 @@
         "password_breached": "Palavra-passe encontrada numa fuga de dados",
         "sign_in_locked": "Login com senha pausado após senhas erradas"
       }
+    },
+    "checklist": {
+      "title": "Lista de segurança",
+      "description": "Alguns passos que tornam a sua conta mais difícil de invadir.",
+      "allDone": "A sua conta está bem protegida.",
+      "emailVerified": "Endereço de email verificado",
+      "emailUnverified": "Verifique o seu endereço de email",
+      "twoFactorOn": "A autenticação de dois fatores está ativada",
+      "twoFactorOff": "Ative a autenticação de dois fatores",
+      "passkeys": "{count, plural, one {# chave de acesso configurada} other {# chaves de acesso configuradas}}",
+      "noPasskey": "Adicione uma chave de acesso para entrar sem senha",
+      "thisDeviceOnly": "Sessão iniciada apenas neste dispositivo",
+      "otherSessions": "{count, plural, one {Sessão iniciada em mais # dispositivo} other {Sessão iniciada em mais # dispositivos}}",
+      "verify": "Verificar",
+      "turnOn": "Ativar",
+      "addPasskey": "Adicionar chave de acesso",
+      "review": "Rever",
+      "manage": "Gerir"
     }
   },
   "acceptInvitation": {

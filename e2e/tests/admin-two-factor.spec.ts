@@ -24,7 +24,7 @@ test("admins must turn on two-factor authentication before using the console", a
   expect(await blocked.json()).toMatchObject({ code: "TWO_FACTOR_REQUIRED" });
 
   const refused = await openUsersPage();
-  await expect(refused.page).toHaveURL(`${AUTH_URL}/en/dashboard#two-factor`);
+  await expect(refused.page).toHaveURL(`${AUTH_URL}/en/dashboard/security#two-factor`);
   await refused.context.close();
 
   await enableTotp(api, admin.password);

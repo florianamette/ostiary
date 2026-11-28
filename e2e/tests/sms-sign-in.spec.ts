@@ -20,6 +20,7 @@ test("a person adds a phone number from the account page, then signs in with a t
   // The account page texts a code to the new number and saves it once typed.
   await loginViaUi(page, user.email, user.password);
   await page.waitForURL(/\/dashboard/);
+  await page.goto("/en/dashboard/profile");
   await page.getByRole("button", { name: "Add a phone number" }).click();
   await page.getByRole("textbox", { name: "Phone number" }).fill(phone);
   const sentAt = Date.now() - 1000;

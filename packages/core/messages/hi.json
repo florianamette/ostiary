@@ -2725,7 +2725,9 @@
       "expires": "समाप्ति",
       "none": "कोई नहीं",
       "startedAt": "शुरू हुआ: {date}",
-      "expiresAt": "समाप्ति: {date}"
+      "expiresAt": "समाप्ति: {date}",
+      "openPasswordForm": "पासवर्ड बदलें",
+      "closePasswordForm": "रद्द करें"
     },
     "apps": {
       "title": "कनेक्ट किए गए ऐप्लिकेशन",
@@ -2938,6 +2940,24 @@
         "password_breached": "पासवर्ड डेटा लीक में मिला",
         "sign_in_locked": "गलत पासवर्ड के बाद पासवर्ड से साइन इन रोका गया"
       }
+    },
+    "checklist": {
+      "title": "सुरक्षा चेकलिस्ट",
+      "description": "कुछ कदम जो आपके खाते पर कब्ज़ा करना कठिन बनाते हैं।",
+      "allDone": "आपका खाता अच्छी तरह सुरक्षित है।",
+      "emailVerified": "ईमेल पता सत्यापित",
+      "emailUnverified": "अपना ईमेल पता सत्यापित करें",
+      "twoFactorOn": "दो-चरणीय प्रमाणीकरण चालू है",
+      "twoFactorOff": "दो-चरणीय प्रमाणीकरण चालू करें",
+      "passkeys": "{count, plural, one {# पासकी सेट की गई} other {# पासकी सेट की गईं}}",
+      "noPasskey": "बिना पासवर्ड साइन इन के लिए पासकी जोड़ें",
+      "thisDeviceOnly": "केवल इस डिवाइस पर साइन इन",
+      "otherSessions": "{count, plural, one {# अन्य डिवाइस पर साइन इन} other {# अन्य डिवाइस पर साइन इन}}",
+      "verify": "सत्यापित करें",
+      "turnOn": "चालू करें",
+      "addPasskey": "पासकी जोड़ें",
+      "review": "देखें",
+      "manage": "प्रबंधित करें"
     }
   },
   "acceptInvitation": {

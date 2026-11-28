@@ -101,7 +101,7 @@ export function DeleteAccountConfirm({ token, email }: { token: string | null; e
           </Button>
         ) : null}
         <Button asChild variant="outline">
-          <Link href="/dashboard#data">{t("keep")}</Link>
+          <Link href="/dashboard/data">{t("keep")}</Link>
         </Button>
       </CardFooter>
     </Card>
