@@ -2112,7 +2112,9 @@
           "twoFactorGraceDaysHint": "De som mangler tofaktor, blir spurt ved hver app-pålogging og kan fortsette til da. Fristen starter når du slår på dette, eller når kontoen opprettes.",
           "noGrace": "Ingen: kreves med en gang",
           "newDeviceEmail": "E-post ved pålogging fra ny enhet",
-          "newDeviceEmailHint": "Folk får en e-post når kontoen logges på fra en nettleser den ikke har brukt før, med en knapp for å logge ut overalt og tilbakestille passordet. Pålogginger via en organisasjons SSO sender ingen e-post."
+          "newDeviceEmailHint": "Folk får en e-post når kontoen logges på fra en nettleser den ikke har brukt før, med en knapp for å logge ut overalt og tilbakestille passordet. Pålogginger via en organisasjons SSO sender ingen e-post.",
+          "securityChangeEmail": "E-post ved sikkerhetsendringer",
+          "securityChangeEmailHint": "Folk får en e-post når passordet, tofaktorautentiseringen eller tilgangsnøklene deres endres, med en knapp for å logge ut overalt og tilbakestille passordet. Endringer gjort av en admin sender ingen e-post."
         },
         "emailDomains": {
           "title": "E-postdomener",
@@ -3212,6 +3214,34 @@
       "note": "Knappen fungerer én gang innen {days} dager. Den logger deg ut overalt og sender deg en lenke for å velge et nytt passord.",
       "footnote": "Du får denne e-posten når kontoen din logges på fra en ny enhet. Del aldri passordet eller påloggingskodene dine.",
       "location": "Sted: {country}"
+    },
+    "securityChange": {
+      "subjects": {
+        "password_changed": "{brand}-passordet ditt er endret",
+        "password_reset": "{brand}-passordet ditt er tilbakestilt",
+        "two_factor_enabled": "Tofaktorautentisering er slått på",
+        "two_factor_disabled": "Tofaktorautentisering er slått av",
+        "passkey_added": "En tilgangsnøkkel er lagt til i {brand}-kontoen din",
+        "passkey_removed": "En tilgangsnøkkel er fjernet fra {brand}-kontoen din"
+      },
+      "bodies": {
+        "password_changed": "Passordet til {brand}-kontoen {email} ble nettopp endret.",
+        "password_reset": "Passordet til {brand}-kontoen {email} ble nettopp tilbakestilt med en lenke sendt til denne adressen. Alle enheter ble logget ut.",
+        "two_factor_enabled": "Tofaktorautentisering ble nettopp slått på for {brand}-kontoen {email}.",
+        "two_factor_disabled": "Tofaktorautentisering ble nettopp slått av for {brand}-kontoen {email}. Nå holder det med passordet for å logge på.",
+        "passkey_added": "En tilgangsnøkkel ble nettopp lagt til i {brand}-kontoen {email}. Den kan brukes til å logge på uten passord.",
+        "passkey_removed": "En tilgangsnøkkel ble nettopp fjernet fra {brand}-kontoen {email}."
+      },
+      "when": "Når: {when}",
+      "device": "Enhet: {device}",
+      "deviceOn": "{browser} på {system}",
+      "unknownDevice": "Ukjent nettleser",
+      "ipAddress": "IP-adresse: {ip}",
+      "unknownIp": "ukjent",
+      "ifYou": "Hvis det var deg, trenger du ikke gjøre noe.",
+      "button": "Det var ikke meg",
+      "note": "Knappen fungerer én gang innen {days} dager. Den logger deg ut overalt og sender deg en lenke for å velge et nytt passord.",
+      "footnote": "Du får denne e-posten når passordet, tofaktorautentiseringen eller tilgangsnøklene til kontoen din endres. Del aldri passordet eller påloggingskodene dine."
     }
   },
   "authErrors": {

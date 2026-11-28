@@ -2112,7 +2112,9 @@
           "twoFactorGraceDaysHint": "Wie het niet heeft, krijgt bij elke app-aanmelding de vraag en kan tot dan doorgaan. De termijn begint als je dit aanzet, of bij het aanmaken van het account.",
           "noGrace": "Geen: meteen vereist",
           "newDeviceEmail": "E-mail bij aanmelding vanaf nieuw apparaat",
-          "newDeviceEmailHint": "Mensen krijgen een e-mail wanneer hun account aanmeldt vanaf een browser die het nog niet eerder gebruikte, met een knop om overal af te melden en het wachtwoord te herstellen. Aanmeldingen via de SSO van een organisatie sturen geen e-mail."
+          "newDeviceEmailHint": "Mensen krijgen een e-mail wanneer hun account aanmeldt vanaf een browser die het nog niet eerder gebruikte, met een knop om overal af te melden en het wachtwoord te herstellen. Aanmeldingen via de SSO van een organisatie sturen geen e-mail.",
+          "securityChangeEmail": "E-mail bij beveiligingswijzigingen",
+          "securityChangeEmailHint": "Mensen krijgen een e-mail wanneer hun wachtwoord, tweestapsverificatie of passkeys veranderen, met een knop om overal uit te loggen en het wachtwoord opnieuw in te stellen. Wijzigingen door een admin sturen geen e-mail."
         },
         "emailDomains": {
           "title": "E-maildomeinen",
@@ -3212,6 +3214,34 @@
       "note": "De knop werkt één keer binnen {days} dagen. Hij meldt je overal af en mailt je een link om een nieuw wachtwoord te kiezen.",
       "footnote": "Je krijgt deze e-mail wanneer je account aanmeldt vanaf een nieuw apparaat. Deel nooit je wachtwoord of aanmeldcodes.",
       "location": "Locatie: {country}"
+    },
+    "securityChange": {
+      "subjects": {
+        "password_changed": "Je {brand}-wachtwoord is gewijzigd",
+        "password_reset": "Je {brand}-wachtwoord is opnieuw ingesteld",
+        "two_factor_enabled": "Tweestapsverificatie is ingeschakeld",
+        "two_factor_disabled": "Tweestapsverificatie is uitgeschakeld",
+        "passkey_added": "Er is een passkey toegevoegd aan je {brand}-account",
+        "passkey_removed": "Er is een passkey verwijderd uit je {brand}-account"
+      },
+      "bodies": {
+        "password_changed": "Het wachtwoord van het {brand}-account {email} is zojuist gewijzigd.",
+        "password_reset": "Het wachtwoord van het {brand}-account {email} is zojuist opnieuw ingesteld met een link die naar dit adres is gestuurd. Alle apparaten zijn afgemeld.",
+        "two_factor_enabled": "Tweestapsverificatie is zojuist ingeschakeld voor het {brand}-account {email}.",
+        "two_factor_disabled": "Tweestapsverificatie is zojuist uitgeschakeld voor het {brand}-account {email}. Inloggen vraagt nu alleen het wachtwoord.",
+        "passkey_added": "Er is zojuist een passkey toegevoegd aan het {brand}-account {email}. Daarmee kun je zonder wachtwoord inloggen.",
+        "passkey_removed": "Er is zojuist een passkey verwijderd uit het {brand}-account {email}."
+      },
+      "when": "Wanneer: {when}",
+      "device": "Apparaat: {device}",
+      "deviceOn": "{browser} op {system}",
+      "unknownDevice": "Onbekende browser",
+      "ipAddress": "IP-adres: {ip}",
+      "unknownIp": "onbekend",
+      "ifYou": "Was jij dit, dan hoef je niets te doen.",
+      "button": "Dit was ik niet",
+      "note": "De knop werkt één keer binnen {days} dagen. Hij meldt je overal af en mailt je een link om een nieuw wachtwoord te kiezen.",
+      "footnote": "Je krijgt deze e-mail wanneer het wachtwoord, de tweestapsverificatie of de passkeys van je account veranderen. Deel nooit je wachtwoord of inlogcodes."
     }
   },
   "authErrors": {

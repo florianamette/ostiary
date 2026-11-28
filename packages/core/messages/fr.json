@@ -2112,7 +2112,9 @@
           "twoFactorGraceDaysHint": "Les personnes sans deux facteurs sont invitées à chaque connexion à une application et peuvent continuer jusque-là. Le délai démarre quand vous activez ceci, ou à la création du compte.",
           "noGrace": "Aucun : requis tout de suite",
           "newDeviceEmail": "E-mail lors d’une connexion depuis un nouvel appareil",
-          "newDeviceEmailHint": "Les personnes reçoivent un e-mail quand leur compte se connecte depuis un navigateur jamais utilisé, avec un bouton pour se déconnecter partout et réinitialiser le mot de passe. Les connexions via le SSO d’une organisation ne déclenchent pas d’e-mail."
+          "newDeviceEmailHint": "Les personnes reçoivent un e-mail quand leur compte se connecte depuis un navigateur jamais utilisé, avec un bouton pour se déconnecter partout et réinitialiser le mot de passe. Les connexions via le SSO d’une organisation ne déclenchent pas d’e-mail.",
+          "securityChangeEmail": "E-mail lors d’un changement de sécurité",
+          "securityChangeEmailHint": "Les personnes reçoivent un e-mail quand leur mot de passe, leur authentification à deux facteurs ou leurs clés d’accès changent, avec un bouton pour se déconnecter partout et réinitialiser le mot de passe. Les changements faits par un admin ne déclenchent pas d’e-mail."
         },
         "emailDomains": {
           "title": "Domaines d'e-mail",
@@ -3212,6 +3214,34 @@
       "note": "Le bouton fonctionne une fois pendant {days} jours. Il vous déconnecte partout et vous envoie un lien pour choisir un nouveau mot de passe.",
       "footnote": "Vous recevez cet e-mail quand votre compte se connecte depuis un nouvel appareil. Ne communiquez jamais votre mot de passe ni vos codes de connexion.",
       "location": "Lieu : {country}"
+    },
+    "securityChange": {
+      "subjects": {
+        "password_changed": "Votre mot de passe {brand} a été modifié",
+        "password_reset": "Votre mot de passe {brand} a été réinitialisé",
+        "two_factor_enabled": "L’authentification à deux facteurs a été activée",
+        "two_factor_disabled": "L’authentification à deux facteurs a été désactivée",
+        "passkey_added": "Une clé d’accès a été ajoutée à votre compte {brand}",
+        "passkey_removed": "Une clé d’accès a été retirée de votre compte {brand}"
+      },
+      "bodies": {
+        "password_changed": "Le mot de passe du compte {brand} {email} vient d’être modifié.",
+        "password_reset": "Le mot de passe du compte {brand} {email} vient d’être réinitialisé avec un lien envoyé à cette adresse. Tous les appareils ont été déconnectés.",
+        "two_factor_enabled": "L’authentification à deux facteurs vient d’être activée pour le compte {brand} {email}.",
+        "two_factor_disabled": "L’authentification à deux facteurs vient d’être désactivée pour le compte {brand} {email}. La connexion ne demande plus que le mot de passe.",
+        "passkey_added": "Une clé d’accès vient d’être ajoutée au compte {brand} {email}. Elle permet de se connecter sans mot de passe.",
+        "passkey_removed": "Une clé d’accès vient d’être retirée du compte {brand} {email}."
+      },
+      "when": "Date : {when}",
+      "device": "Appareil : {device}",
+      "deviceOn": "{browser} sur {system}",
+      "unknownDevice": "Navigateur inconnu",
+      "ipAddress": "Adresse IP : {ip}",
+      "unknownIp": "inconnue",
+      "ifYou": "Si c’était vous, vous n’avez rien à faire.",
+      "button": "Ce n’était pas moi",
+      "note": "Le bouton fonctionne une fois pendant {days} jours. Il vous déconnecte partout et vous envoie un lien pour choisir un nouveau mot de passe.",
+      "footnote": "Vous recevez cet e-mail quand le mot de passe, l’authentification à deux facteurs ou les clés d’accès de votre compte changent. Ne communiquez jamais votre mot de passe ni vos codes de connexion."
     }
   },
   "authErrors": {

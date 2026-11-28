@@ -25,7 +25,8 @@ import { countryRefusal, refusedCountry } from "@ostiary/core/lib/country-policy
 import { isPlatformAdmin } from "@ostiary/core/lib/admin/user-has-admin-role";
 import { runAfterResponse } from "@ostiary/core/lib/background";
 import { userUpdateEvents } from "@ostiary/core/lib/auth-hooks/account-activity-hook";
-import { recordAccountEvent, type AccountEventType } from "@ostiary/core/lib/account-activity";
+import type { AccountEventType } from "@ostiary/core/lib/account-activity";
+import { recordSecurityEvent } from "@ostiary/core/lib/security/security-change";
 
 /** First-run setup: these addresses get the admin role once proven, see admin/admin-emails.ts. */
 const adminEmails = parseAdminEmails(env.ADMIN_EMAILS);
@@ -154,7 +155,7 @@ export function databaseHooks() {
                     const events = context ? pendingUpdateEvents.get(context) : undefined;
                     if (context && events) {
                         pendingUpdateEvents.delete(context);
-                        for (const type of events) await recordAccountEvent(type, updatedUser.id, { headers: context.headers });
+                        for (const type of events) await recordSecurityEvent(type, updatedUser.id, context.headers);
                     }
                     const role = (updatedUser as { role?: string | null }).role;
                     if (adminOnVerification({ ...updatedUser, role }, context?.path, adminEmails)) {

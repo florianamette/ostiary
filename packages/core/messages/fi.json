@@ -2112,7 +2112,9 @@
           "twoFactorGraceDaysHint": "Ilman kaksivaiheista tunnistautumista olevilta kysytään jokaisella sovelluskirjautumisella, ja he voivat jatkaa siihen asti. Aika alkaa, kun otat tämän käyttöön, tai tilin luonnista.",
           "noGrace": "Ei aikaa: vaaditaan heti",
           "newDeviceEmail": "Sähköposti kirjautumisesta uudelta laitteelta",
-          "newDeviceEmailHint": "Käyttäjät saavat sähköpostin, kun heidän tililleen kirjaudutaan selaimelta, jota se ei ole aiemmin käyttänyt, ja painikkeen, jolla voi kirjautua ulos kaikkialta ja nollata salasanan. Organisaation SSO:n kautta tehdyistä kirjautumisista ei lähetetä viestiä."
+          "newDeviceEmailHint": "Käyttäjät saavat sähköpostin, kun heidän tililleen kirjaudutaan selaimelta, jota se ei ole aiemmin käyttänyt, ja painikkeen, jolla voi kirjautua ulos kaikkialta ja nollata salasanan. Organisaation SSO:n kautta tehdyistä kirjautumisista ei lähetetä viestiä.",
+          "securityChangeEmail": "Sähköposti tietoturvamuutoksista",
+          "securityChangeEmailHint": "Käyttäjät saavat sähköpostin, kun heidän salasanansa, kaksivaiheinen tunnistautumisensa tai pääsyavaimensa muuttuvat, ja siinä on painike, jolla voi kirjautua ulos kaikkialta ja nollata salasanan. Ylläpitäjän tekemistä muutoksista ei lähetetä sähköpostia."
         },
         "emailDomains": {
           "title": "Sähköpostiverkkotunnukset",
@@ -3212,6 +3214,34 @@
       "note": "Painike toimii kerran {days} päivän ajan. Se kirjaa sinut ulos kaikkialta ja lähettää linkin uuden salasanan valitsemiseen.",
       "footnote": "Saat tämän viestin, kun tilillesi kirjaudutaan uudelta laitteelta. Älä koskaan jaa salasanaasi tai kirjautumiskoodejasi.",
       "location": "Sijainti: {country}"
+    },
+    "securityChange": {
+      "subjects": {
+        "password_changed": "{brand}-salasanasi vaihdettiin",
+        "password_reset": "{brand}-salasanasi nollattiin",
+        "two_factor_enabled": "Kaksivaiheinen tunnistautuminen otettiin käyttöön",
+        "two_factor_disabled": "Kaksivaiheinen tunnistautuminen poistettiin käytöstä",
+        "passkey_added": "{brand}-tiliisi lisättiin pääsyavain",
+        "passkey_removed": "{brand}-tililtäsi poistettiin pääsyavain"
+      },
+      "bodies": {
+        "password_changed": "{brand}-tilin {email} salasana vaihdettiin juuri.",
+        "password_reset": "{brand}-tilin {email} salasana nollattiin juuri tähän osoitteeseen lähetetyllä linkillä. Kaikki laitteet kirjattiin ulos.",
+        "two_factor_enabled": "Kaksivaiheinen tunnistautuminen otettiin juuri käyttöön {brand}-tilillä {email}.",
+        "two_factor_disabled": "Kaksivaiheinen tunnistautuminen poistettiin juuri käytöstä {brand}-tililtä {email}. Kirjautumiseen riittää nyt salasana.",
+        "passkey_added": "{brand}-tiliin {email} lisättiin juuri pääsyavain. Sillä voi kirjautua ilman salasanaa.",
+        "passkey_removed": "{brand}-tililtä {email} poistettiin juuri pääsyavain."
+      },
+      "when": "Milloin: {when}",
+      "device": "Laite: {device}",
+      "deviceOn": "{browser}, {system}",
+      "unknownDevice": "Tuntematon selain",
+      "ipAddress": "IP-osoite: {ip}",
+      "unknownIp": "tuntematon",
+      "ifYou": "Jos se olit sinä, sinun ei tarvitse tehdä mitään.",
+      "button": "Se en ollut minä",
+      "note": "Painike toimii kerran {days} päivän ajan. Se kirjaa sinut ulos kaikkialta ja lähettää linkin uuden salasanan valitsemiseen.",
+      "footnote": "Saat tämän sähköpostin, kun tilisi salasana, kaksivaiheinen tunnistautuminen tai pääsyavaimet muuttuvat. Älä koskaan jaa salasanaasi tai kirjautumiskoodejasi."
     }
   },
   "authErrors": {

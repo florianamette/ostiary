@@ -121,7 +121,7 @@ import {
     passwordSignInEvents,
 } from "@ostiary/core/lib/auth-hooks/sign-in-plugins";
 import { accountActivityEvents } from "@ostiary/core/lib/auth-hooks/account-activity-hook";
-import { recordAccountEvent } from "@ostiary/core/lib/account-activity";
+import { recordSecurityEvent } from "@ostiary/core/lib/security/security-change";
 import { clearPasswordBreach, passwordBreachPending, passwordBreachSignInCheck } from "@ostiary/core/lib/security/password-breach";
 
 export { RECENT_SIGN_IN_SECONDS };
@@ -576,7 +576,7 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
             // Whoever had the old password may also hold apps' refresh tokens: revoke those too.
             onPasswordReset: async ({ user }, request) => {
                 await revokeUserAccess(user, "password_reset", null, request ? clientIp(request.headers) : null);
-                await recordAccountEvent("password_reset", user.id, { headers: request?.headers });
+                await recordSecurityEvent("password_reset", user.id, request?.headers);
                 await clearPasswordBreach(user.id);
             },
             sendResetPassword: async ({ user, url }) => {

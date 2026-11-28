@@ -32,6 +32,8 @@ export type AuthPolicy = {
   twoFactorRequiredSince: string | null;
   /** Email people when their account signs in from a browser it has not used before. */
   newDeviceEmail: boolean;
+  /** Email people when their password, two-factor authentication or passkeys change. */
+  securityChangeEmail: boolean;
 };
 
 /** Better Auth's defaults, and Ostiary's behaviour before the policy existed. */
@@ -45,6 +47,7 @@ export const DEFAULT_AUTH_POLICY: AuthPolicy = {
   twoFactorGraceDays: 14,
   twoFactorRequiredSince: null,
   newDeviceEmail: true,
+  securityChangeEmail: true,
 };
 
 /** Better Auth refreshes a used session once a day (its default `updateAge`). */
@@ -74,5 +77,6 @@ export function parseAuthPolicy(raw: unknown): AuthPolicy {
         ? value.twoFactorRequiredSince
         : null,
     newDeviceEmail: bool("newDeviceEmail"),
+    securityChangeEmail: bool("securityChangeEmail"),
   };
 }

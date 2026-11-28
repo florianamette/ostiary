@@ -2112,7 +2112,9 @@
           "twoFactorGraceDaysHint": "Wer keine zwei Faktoren hat, wird bei jeder App-Anmeldung gefragt und kann bis dahin weitermachen. Die Frist beginnt mit dem Einschalten oder mit der Kontoerstellung.",
           "noGrace": "Keine: sofort erforderlich",
           "newDeviceEmail": "E-Mail bei Anmeldung von neuem Gerät",
-          "newDeviceEmailHint": "Personen erhalten eine E-Mail, wenn sich ihr Konto von einem noch nie verwendeten Browser anmeldet, mit einer Schaltfläche, um sich überall abzumelden und das Passwort zurückzusetzen. Anmeldungen über das SSO einer Organisation lösen keine E-Mail aus."
+          "newDeviceEmailHint": "Personen erhalten eine E-Mail, wenn sich ihr Konto von einem noch nie verwendeten Browser anmeldet, mit einer Schaltfläche, um sich überall abzumelden und das Passwort zurückzusetzen. Anmeldungen über das SSO einer Organisation lösen keine E-Mail aus.",
+          "securityChangeEmail": "E-Mail bei Sicherheitsänderungen",
+          "securityChangeEmailHint": "Personen erhalten eine E-Mail, wenn sich ihr Passwort, ihre Zwei-Faktor-Authentifizierung oder ihre Passkeys ändern, mit einer Schaltfläche, um sich überall abzumelden und das Passwort zurückzusetzen. Änderungen durch einen Admin lösen keine E-Mail aus."
         },
         "emailDomains": {
           "title": "E-Mail-Domains",
@@ -3212,6 +3214,34 @@
       "note": "Die Schaltfläche funktioniert einmal innerhalb von {days} Tagen. Sie meldet Sie überall ab und sendet Ihnen einen Link, um ein neues Passwort festzulegen.",
       "footnote": "Sie erhalten diese E-Mail, wenn sich Ihr Konto auf einem neuen Gerät anmeldet. Geben Sie Ihr Passwort oder Anmeldecodes niemals weiter.",
       "location": "Ort: {country}"
+    },
+    "securityChange": {
+      "subjects": {
+        "password_changed": "Ihr {brand}-Passwort wurde geändert",
+        "password_reset": "Ihr {brand}-Passwort wurde zurückgesetzt",
+        "two_factor_enabled": "Die Zwei-Faktor-Authentifizierung wurde aktiviert",
+        "two_factor_disabled": "Die Zwei-Faktor-Authentifizierung wurde deaktiviert",
+        "passkey_added": "Ihrem {brand}-Konto wurde ein Passkey hinzugefügt",
+        "passkey_removed": "Aus Ihrem {brand}-Konto wurde ein Passkey entfernt"
+      },
+      "bodies": {
+        "password_changed": "Das Passwort des {brand}-Kontos {email} wurde soeben geändert.",
+        "password_reset": "Das Passwort des {brand}-Kontos {email} wurde soeben über einen an diese Adresse gesendeten Link zurückgesetzt. Alle Geräte wurden abgemeldet.",
+        "two_factor_enabled": "Für das {brand}-Konto {email} wurde soeben die Zwei-Faktor-Authentifizierung aktiviert.",
+        "two_factor_disabled": "Für das {brand}-Konto {email} wurde soeben die Zwei-Faktor-Authentifizierung deaktiviert. Zum Anmelden genügt jetzt das Passwort.",
+        "passkey_added": "Dem {brand}-Konto {email} wurde soeben ein Passkey hinzugefügt. Damit kann man sich ohne Passwort anmelden.",
+        "passkey_removed": "Aus dem {brand}-Konto {email} wurde soeben ein Passkey entfernt."
+      },
+      "when": "Wann: {when}",
+      "device": "Gerät: {device}",
+      "deviceOn": "{browser} unter {system}",
+      "unknownDevice": "Unbekannter Browser",
+      "ipAddress": "IP-Adresse: {ip}",
+      "unknownIp": "unbekannt",
+      "ifYou": "Wenn Sie das waren, müssen Sie nichts tun.",
+      "button": "Das war ich nicht",
+      "note": "Die Schaltfläche funktioniert einmal innerhalb von {days} Tagen. Sie meldet Sie überall ab und sendet Ihnen einen Link, um ein neues Passwort festzulegen.",
+      "footnote": "Sie erhalten diese E-Mail, wenn sich Passwort, Zwei-Faktor-Authentifizierung oder Passkeys Ihres Kontos ändern. Geben Sie Ihr Passwort oder Anmeldecodes niemals weiter."
     }
   },
   "authErrors": {

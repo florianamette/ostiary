@@ -2112,7 +2112,9 @@
           "twoFactorGraceDaysHint": "未开启双重验证的人在每次登录应用时都会收到提示，并可在期限前继续。期限从开启此项或创建账户时开始计算。",
           "noGrace": "无：立即要求",
           "newDeviceEmail": "新设备登录时发送邮件",
-          "newDeviceEmailHint": "当账户在从未使用过的浏览器上登录时，用户会收到一封邮件，其中有在所有地方退出并重置密码的按钮。通过组织 SSO 的登录不会发送邮件。"
+          "newDeviceEmailHint": "当账户在从未使用过的浏览器上登录时，用户会收到一封邮件，其中有在所有地方退出并重置密码的按钮。通过组织 SSO 的登录不会发送邮件。",
+          "securityChangeEmail": "安全变更时发送邮件",
+          "securityChangeEmailHint": "当用户的密码、双重验证或通行密钥发生变化时，会收到一封邮件，其中有一个按钮可在所有设备上退出登录并重置密码。管理员所做的更改不会发送邮件。"
         },
         "emailDomains": {
           "title": "邮箱域名",
@@ -3212,6 +3214,34 @@
       "note": "此按钮在 {days} 天内可使用一次。它会让你在所有地方退出登录，并通过邮件发送设置新密码的链接。",
       "footnote": "当你的账户在新设备上登录时，你会收到这封邮件。切勿与任何人分享你的密码或登录码。",
       "location": "位置：{country}"
+    },
+    "securityChange": {
+      "subjects": {
+        "password_changed": "你的 {brand} 密码已更改",
+        "password_reset": "你的 {brand} 密码已重置",
+        "two_factor_enabled": "已开启双重验证",
+        "two_factor_disabled": "已关闭双重验证",
+        "passkey_added": "你的 {brand} 账户已添加通行密钥",
+        "passkey_removed": "你的 {brand} 账户已移除通行密钥"
+      },
+      "bodies": {
+        "password_changed": "{brand} 账户 {email} 的密码刚刚已更改。",
+        "password_reset": "{brand} 账户 {email} 的密码刚刚通过发送到此地址的链接重置。所有设备均已退出登录。",
+        "two_factor_enabled": "{brand} 账户 {email} 刚刚开启了双重验证。",
+        "two_factor_disabled": "{brand} 账户 {email} 刚刚关闭了双重验证。现在只需密码即可登录。",
+        "passkey_added": "{brand} 账户 {email} 刚刚添加了通行密钥。它可用于无密码登录。",
+        "passkey_removed": "{brand} 账户 {email} 刚刚移除了通行密钥。"
+      },
+      "when": "时间：{when}",
+      "device": "设备：{device}",
+      "deviceOn": "{system} 上的 {browser}",
+      "unknownDevice": "未知浏览器",
+      "ipAddress": "IP 地址：{ip}",
+      "unknownIp": "未知",
+      "ifYou": "如果是你本人，无需任何操作。",
+      "button": "不是我",
+      "note": "此按钮在 {days} 天内可使用一次。它会让你在所有地方退出登录，并通过邮件发送设置新密码的链接。",
+      "footnote": "当你账户的密码、双重验证或通行密钥发生变化时，你会收到此邮件。切勿与他人分享你的密码或登录验证码。"
     }
   },
   "authErrors": {

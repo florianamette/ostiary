@@ -2112,7 +2112,9 @@
           "twoFactorGraceDaysHint": "Quem não a tem é avisado em cada início de sessão numa aplicação e pode continuar até lá. O prazo começa quando ativa isto, ou na criação da conta.",
           "noGrace": "Nenhum: obrigatória de imediato",
           "newDeviceEmail": "Email ao iniciar sessão num novo dispositivo",
-          "newDeviceEmailHint": "As pessoas recebem um email quando a conta inicia sessão num navegador que nunca usou, com um botão para terminar sessão em todo o lado e repor a palavra-passe. Inícios de sessão pelo SSO de uma organização não enviam email."
+          "newDeviceEmailHint": "As pessoas recebem um email quando a conta inicia sessão num navegador que nunca usou, com um botão para terminar sessão em todo o lado e repor a palavra-passe. Inícios de sessão pelo SSO de uma organização não enviam email.",
+          "securityChangeEmail": "E-mail em alterações de segurança",
+          "securityChangeEmailHint": "As pessoas recebem um e-mail quando a senha, a autenticação em dois fatores ou as chaves de acesso mudam, com um botão para sair de todos os lugares e redefinir a senha. Alterações feitas por um admin não enviam e-mail."
         },
         "emailDomains": {
           "title": "Domínios de e-mail",
@@ -3212,6 +3214,34 @@
       "note": "O botão funciona uma vez durante {days} dias. Termina a sua sessão em todo o lado e envia-lhe um link para escolher uma nova palavra-passe.",
       "footnote": "Recebe este email quando a sua conta inicia sessão num novo dispositivo. Nunca partilhe a sua palavra-passe nem os seus códigos de início de sessão.",
       "location": "Localização: {country}"
+    },
+    "securityChange": {
+      "subjects": {
+        "password_changed": "Sua senha do {brand} foi alterada",
+        "password_reset": "Sua senha do {brand} foi redefinida",
+        "two_factor_enabled": "A autenticação em dois fatores foi ativada",
+        "two_factor_disabled": "A autenticação em dois fatores foi desativada",
+        "passkey_added": "Uma chave de acesso foi adicionada à sua conta {brand}",
+        "passkey_removed": "Uma chave de acesso foi removida da sua conta {brand}"
+      },
+      "bodies": {
+        "password_changed": "A senha da conta {brand} {email} acabou de ser alterada.",
+        "password_reset": "A senha da conta {brand} {email} acabou de ser redefinida com um link enviado para este endereço. Todos os dispositivos foram desconectados.",
+        "two_factor_enabled": "A autenticação em dois fatores acabou de ser ativada na conta {brand} {email}.",
+        "two_factor_disabled": "A autenticação em dois fatores acabou de ser desativada na conta {brand} {email}. Agora basta a senha para entrar.",
+        "passkey_added": "Uma chave de acesso acabou de ser adicionada à conta {brand} {email}. Ela permite entrar sem senha.",
+        "passkey_removed": "Uma chave de acesso acabou de ser removida da conta {brand} {email}."
+      },
+      "when": "Quando: {when}",
+      "device": "Dispositivo: {device}",
+      "deviceOn": "{browser} em {system}",
+      "unknownDevice": "Navegador desconhecido",
+      "ipAddress": "Endereço IP: {ip}",
+      "unknownIp": "desconhecido",
+      "ifYou": "Se foi você, não precisa de fazer nada.",
+      "button": "Não fui eu",
+      "note": "O botão funciona uma vez durante {days} dias. Termina a sua sessão em todo o lado e envia-lhe um link para escolher uma nova palavra-passe.",
+      "footnote": "Você recebe este e-mail quando a senha, a autenticação em dois fatores ou as chaves de acesso da sua conta mudam. Nunca compartilhe sua senha nem seus códigos de login."
     }
   },
   "authErrors": {
