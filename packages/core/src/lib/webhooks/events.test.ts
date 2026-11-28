@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import { SCIM_DEACTIVATED_REASON } from "@ostiary/core/lib/scim";
-import { memberRoleEvents, userSnapshot, userUpdateEvents } from "@ostiary/core/lib/webhooks/events";
+import { memberRoleEvents, userSnapshot, userUpdateEvents, WEBHOOK_EVENT_TYPES, webhookEventGroup } from "@ostiary/core/lib/webhooks/events";
 import { nextRetryDelay, MAX_ATTEMPTS } from "@ostiary/core/lib/webhooks/outbox";
 
 const user = {
@@ -76,5 +76,14 @@ describe("retry schedule", () => {
     expect(total).toBeGreaterThan(20 * 3_600_000);
     expect(total).toBeLessThan(30 * 3_600_000);
     expect(nextRetryDelay(5)).toBeNull();
+  });
+});
+
+describe("webhookEventGroup", () => {
+  it("puts every event in a group", () => {
+    const groups = Object.groupBy(WEBHOOK_EVENT_TYPES, webhookEventGroup);
+    expect(groups.users).toEqual(["user.created", "user.updated", "user.deleted", "user.banned", "user.unbanned", "user.role_changed"]);
+    expect(groups.organizations).toHaveLength(3);
+    expect(groups.security).toHaveLength(10);
   });
 });

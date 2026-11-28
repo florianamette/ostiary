@@ -7,7 +7,7 @@ import { AdminWebhooksPanel } from "@/components/admin/webhooks/admin-webhooks-p
 import { db } from "@ostiary/core/db/index";
 import { webhookDelivery, webhookEndpoint } from "@ostiary/core/db/schema";
 import { brand } from "@ostiary/core/lib/brand";
-import { WEBHOOK_EVENT_TYPES } from "@ostiary/core/lib/webhooks/events";
+import { WEBHOOK_EVENT_TYPES, webhookEventGroup } from "@ostiary/core/lib/webhooks/events";
 import { AUTO_DISABLE_AFTER, webhooksAllowLocalhost } from "@ostiary/core/lib/webhooks/outbox";
 import { requireAdminSession } from "@/lib/require-admin-session";
 
@@ -46,7 +46,11 @@ export default async function AdminWebhooksPage({ params }: { params: Promise<{ 
       <PageHeader title={t("title")} description={t("description", { name: brand.name })} />
       <AdminWebhooksPanel
         // Message keys can't contain dots: user.created -> eventDescriptions.user_created.
-        eventTypes={WEBHOOK_EVENT_TYPES.map((type) => ({ type, description: t(`eventDescriptions.${type.replaceAll(".", "_")}`) }))}
+        eventTypes={WEBHOOK_EVENT_TYPES.map((type) => ({
+          type,
+          description: t(`eventDescriptions.${type.replaceAll(".", "_")}`),
+          group: webhookEventGroup(type),
+        }))}
         allowLocalhost={webhooksAllowLocalhost()}
         autoDisableAfter={AUTO_DISABLE_AFTER}
         endpoints={endpoints.map((row) => ({

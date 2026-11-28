@@ -35,6 +35,27 @@ export const WEBHOOK_EVENT_TYPES = [
 
 export type WebhookEventType = (typeof WEBHOOK_EVENT_TYPES)[number];
 
+/** How the console groups the events. */
+export type WebhookEventGroup = "users" | "security" | "organizations";
+
+const SECURITY_EVENT_TYPES: ReadonlySet<WebhookEventType> = new Set([
+  "user.signed_in",
+  "user.sign_in_locked",
+  "user.password_changed",
+  "user.password_reset",
+  "user.password_breached",
+  "user.two_factor_enabled",
+  "user.two_factor_disabled",
+  "user.passkey_added",
+  "user.passkey_removed",
+  "user.account_secured",
+]);
+
+export function webhookEventGroup(type: WebhookEventType): WebhookEventGroup {
+  if (type.startsWith("organization.")) return "organizations";
+  return SECURITY_EVENT_TYPES.has(type) ? "security" : "users";
+}
+
 /** Sent by "Send test event" only; endpoints do not subscribe to it. */
 export const TEST_EVENT_TYPE = "webhook.test";
 

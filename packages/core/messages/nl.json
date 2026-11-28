@@ -1473,7 +1473,7 @@
       },
       "webhooks": {
         "title": "Webhooks",
-        "description": "Ondertekende HTTPS-meldingen die je apps laten weten wanneer gebruikers, rollen of organisatielidmaatschappen in {name} veranderen.",
+        "description": "Ondertekende HTTPS-meldingen die je apps of beveiligingsmonitoring laten weten wanneer accounts, aanmeldingen of organisatielidmaatschappen in {name} veranderen.",
         "deliveries": "Bezorglogboek",
         "eventDescriptions": {
           "user_created": "Er wordt een account aangemaakt (registratie, beheerder, SSO, SCIM).",
@@ -1558,6 +1558,11 @@
             "title": "Dit endpoint verwijderen?",
             "description": "{url} ontvangt geen gebeurtenissen meer, en het leveringslogboek en de wachtende nieuwe pogingen worden verwijderd. Schakel het uit als je het wilt pauzeren.",
             "deleted": "Endpoint verwijderd"
+          },
+          "groups": {
+            "users": "Gebruikers",
+            "security": "Beveiliging",
+            "organizations": "Organisaties"
           }
         },
         "redeliver": {
@@ -2068,7 +2073,7 @@
       },
       "security": {
         "title": "Beveiliging",
-        "description": "Mislukte inlogpogingen, de accounts en adressen erachter, en geblokkeerde accounts.",
+        "description": "Wie hoe kan inloggen, en mislukte aanmeldingen en geblokkeerde accounts om in de gaten te houden.",
         "tiles": {
           "failed24h": "Mislukte inlogpogingen, 24 uur",
           "failed7d": "Mislukte inlogpogingen, 7 dagen",
@@ -2103,8 +2108,6 @@
           "permanent": "permanent"
         },
         "policy": {
-          "title": "Sessies en wachtwoorden",
-          "description": "Hoe lang mensen aangemeld blijven bij de auth-app en hoe wachtwoorden worden gekozen. Apps houden hun eigen tokens en refresh-tokens.",
           "edit": "Bewerken",
           "on": "Aan",
           "off": "Uit",
@@ -2120,7 +2123,6 @@
           "minPasswordLengthHint": "Geldt voor nieuwe wachtwoorden (registratie, reset, wijziging). Bestaande wachtwoorden blijven werken.",
           "passwordSignUp": "Registratie met wachtwoord",
           "passwordSignUpHint": "Uit: een account kan niet meer worden aangemaakt met e-mail en wachtwoord, alleen met een sociale provider of de SSO van de organisatie. Beheerders kunnen nog steeds accounts aanmaken en bestaande wachtwoorden blijven werken.",
-          "dialogDescription": "De auth-app past ze binnen een minuut toe.",
           "save": "Opslaan",
           "cancel": "Annuleren",
           "saved": "Beleid opgeslagen. De auth-app past het binnen een minuut toe.",
@@ -2149,7 +2151,30 @@
           "inactiveDisable": "Account uitschakelen",
           "inactiveDelete": "Account verwijderen",
           "inactiveDisableAfter": "Uitschakelen na {count, plural, one {# dag} other {# dagen}}",
-          "inactiveDeleteAfter": "Verwijderen na {count, plural, one {# dag} other {# dagen}}"
+          "inactiveDeleteAfter": "Verwijderen na {count, plural, one {# dag} other {# dagen}}",
+          "editGroup": "{group} bewerken",
+          "groups": {
+            "sessions": {
+              "title": "Sessies",
+              "description": "Hoelang je ingelogd blijft in de auth-app. Apps houden hun eigen tokens."
+            },
+            "passwords": {
+              "title": "Wachtwoorden",
+              "description": "Hoe wachtwoorden worden gekozen en geraden."
+            },
+            "twoFactor": {
+              "title": "Tweestapsverificatie",
+              "description": "Een tweede stap voor iedereen die inlogt bij een app."
+            },
+            "emails": {
+              "title": "Beveiligingsmails",
+              "description": "Wat mensen horen over aanmeldingen en wijzigingen van hun account."
+            },
+            "inactive": {
+              "title": "Inactieve accounts",
+              "description": "Wat er gebeurt met accounts die niemand gebruikt."
+            }
+          }
         },
         "emailDomains": {
           "title": "E-maildomeinen",
@@ -2215,6 +2240,10 @@
             "noCountries": "Geef minstens één land op.",
             "save": "De landen konden niet worden opgeslagen."
           }
+        },
+        "tabs": {
+          "settings": "Instellingen",
+          "monitoring": "Monitoring"
         }
       },
       "signingKeys": {

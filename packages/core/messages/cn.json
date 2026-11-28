@@ -1473,7 +1473,7 @@
       },
       "webhooks": {
         "title": "Webhook",
-        "description": "签名的 HTTPS 通知，在 {name} 的用户、角色和组织成员关系发生变化时通知你的应用。",
+        "description": "已签名的 HTTPS 通知，在 {name} 的账户、登录或组织成员关系发生变化时通知你的应用或安全监控。",
         "deliveries": "投递日志",
         "eventDescriptions": {
           "user_created": "创建了账户（注册、管理员、SSO、SCIM）。",
@@ -1558,6 +1558,11 @@
             "title": "删除此端点？",
             "description": "{url} 将不再接收事件，其投递日志和待处理的重试也会被删除。如需暂停，请改为停用。",
             "deleted": "端点已删除"
+          },
+          "groups": {
+            "users": "用户",
+            "security": "安全",
+            "organizations": "组织"
           }
         },
         "redeliver": {
@@ -2068,7 +2073,7 @@
       },
       "security": {
         "title": "安全",
-        "description": "登录失败记录、相关账户与 IP 地址，以及被封禁的账户。",
+        "description": "谁可以登录以及如何登录，以及需要关注的登录失败和被封禁账户。",
         "tiles": {
           "failed24h": "登录失败（24 小时）",
           "failed7d": "登录失败（7 天）",
@@ -2103,8 +2108,6 @@
           "permanent": "永久"
         },
         "policy": {
-          "title": "会话与密码",
-          "description": "用户在认证应用中保持登录的时长，以及密码的设置规则。各应用保留自己的令牌和刷新令牌。",
           "edit": "编辑",
           "on": "开启",
           "off": "关闭",
@@ -2120,7 +2123,6 @@
           "minPasswordLengthHint": "适用于新密码（注册、重置、更改）。现有密码继续有效。",
           "passwordSignUp": "使用密码注册",
           "passwordSignUpHint": "关闭：不能再用邮箱和密码创建账户，只能通过社交登录或组织的 SSO。管理员仍可创建账户，现有密码继续有效。",
-          "dialogDescription": "认证应用会在一分钟内应用这些设置。",
           "save": "保存",
           "cancel": "取消",
           "saved": "策略已保存。认证应用会在一分钟内应用。",
@@ -2149,7 +2151,30 @@
           "inactiveDisable": "停用账户",
           "inactiveDelete": "删除账户",
           "inactiveDisableAfter": "{count, plural, other {# 天}}后停用",
-          "inactiveDeleteAfter": "{count, plural, other {# 天}}后删除"
+          "inactiveDeleteAfter": "{count, plural, other {# 天}}后删除",
+          "editGroup": "编辑{group}",
+          "groups": {
+            "sessions": {
+              "title": "会话",
+              "description": "在认证应用中保持登录的时长。应用保留各自的令牌。"
+            },
+            "passwords": {
+              "title": "密码",
+              "description": "密码如何设置以及如何防止被猜中。"
+            },
+            "twoFactor": {
+              "title": "双重身份验证",
+              "description": "每个登录应用的人都需要的第二步。"
+            },
+            "emails": {
+              "title": "安全邮件",
+              "description": "会告知用户其账户登录和更改的哪些情况。"
+            },
+            "inactive": {
+              "title": "不活跃账户",
+              "description": "无人使用的账户会如何处理。"
+            }
+          }
         },
         "emailDomains": {
           "title": "邮箱域名",
@@ -2215,6 +2240,10 @@
             "noCountries": "请至少填写一个国家/地区。",
             "save": "无法保存国家/地区。"
           }
+        },
+        "tabs": {
+          "settings": "设置",
+          "monitoring": "监控"
         }
       },
       "signingKeys": {

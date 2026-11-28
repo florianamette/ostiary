@@ -1473,7 +1473,7 @@
       },
       "webhooks": {
         "title": "Webhooks",
-        "description": "Signerade HTTPS-aviseringar som meddelar dina appar när användare, roller och organisationsmedlemskap i {name} ändras.",
+        "description": "Signerade HTTPS-aviseringar som berättar för dina appar eller din säkerhetsövervakning när konton, inloggningar eller organisationsmedlemskap i {name} ändras.",
         "deliveries": "Leveranslogg",
         "eventDescriptions": {
           "user_created": "Ett konto skapas (registrering, administratör, SSO, SCIM).",
@@ -1558,6 +1558,11 @@
             "title": "Radera den här endpointen?",
             "description": "{url} slutar ta emot händelser, och dess leveranslogg och väntande nya försök raderas. Inaktivera den i stället om du vill pausa den.",
             "deleted": "Endpointen har raderats"
+          },
+          "groups": {
+            "users": "Användare",
+            "security": "Säkerhet",
+            "organizations": "Organisationer"
           }
         },
         "redeliver": {
@@ -2068,7 +2073,7 @@
       },
       "security": {
         "title": "Säkerhet",
-        "description": "Misslyckade inloggningsförsök, konton och adresser bakom dem samt avstängda konton.",
+        "description": "Vem som kan logga in och hur, och misslyckade inloggningar och spärrade konton att hålla koll på.",
         "tiles": {
           "failed24h": "Misslyckade inloggningar, 24 timmar",
           "failed7d": "Misslyckade inloggningar, 7 dagar",
@@ -2103,8 +2108,6 @@
           "permanent": "permanent"
         },
         "policy": {
-          "title": "Sessioner och lösenord",
-          "description": "Hur länge man förblir inloggad i autentiseringsappen och hur lösenord väljs. Appar behåller sina egna token och uppdateringstoken.",
           "edit": "Redigera",
           "on": "På",
           "off": "Av",
@@ -2120,7 +2123,6 @@
           "minPasswordLengthHint": "Gäller nya lösenord (registrering, återställning, byte). Befintliga lösenord fortsätter att fungera.",
           "passwordSignUp": "Registrering med lösenord",
           "passwordSignUpHint": "Av: det går inte längre att skapa ett konto med e-post och lösenord, bara med en social leverantör eller organisationens SSO. Administratörer kan fortfarande skapa konton och befintliga lösenord fortsätter att fungera.",
-          "dialogDescription": "Autentiseringsappen tillämpar dem inom en minut.",
           "save": "Spara",
           "cancel": "Avbryt",
           "saved": "Policyn sparades. Autentiseringsappen tillämpar den inom en minut.",
@@ -2149,7 +2151,30 @@
           "inactiveDisable": "Inaktivera kontot",
           "inactiveDelete": "Radera kontot",
           "inactiveDisableAfter": "Inaktivera efter {count, plural, one {# dag} other {# dagar}}",
-          "inactiveDeleteAfter": "Radera efter {count, plural, one {# dag} other {# dagar}}"
+          "inactiveDeleteAfter": "Radera efter {count, plural, one {# dag} other {# dagar}}",
+          "editGroup": "Redigera {group}",
+          "groups": {
+            "sessions": {
+              "title": "Sessioner",
+              "description": "Hur länge man förblir inloggad i autentiseringsappen. Appar behåller sina egna token."
+            },
+            "passwords": {
+              "title": "Lösenord",
+              "description": "Hur lösenord väljs och gissas."
+            },
+            "twoFactor": {
+              "title": "Tvåstegsverifiering",
+              "description": "Ett extra steg för alla som loggar in i en app."
+            },
+            "emails": {
+              "title": "Säkerhetsmejl",
+              "description": "Vad folk får veta om inloggningar och ändringar på sitt konto."
+            },
+            "inactive": {
+              "title": "Inaktiva konton",
+              "description": "Vad som händer med konton som ingen använder."
+            }
+          }
         },
         "emailDomains": {
           "title": "E-postdomäner",
@@ -2215,6 +2240,10 @@
             "noCountries": "Ange minst ett land.",
             "save": "Det gick inte att spara länderna."
           }
+        },
+        "tabs": {
+          "settings": "Inställningar",
+          "monitoring": "Övervakning"
         }
       },
       "signingKeys": {

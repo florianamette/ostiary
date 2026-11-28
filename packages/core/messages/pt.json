@@ -1473,7 +1473,7 @@
       },
       "webhooks": {
         "title": "Webhooks",
-        "description": "Notificações HTTPS assinadas que avisam as suas aplicações quando utilizadores, funções ou associações a organizações do {name} mudam.",
+        "description": "Notificações HTTPS assinadas que avisam as suas apps ou a sua monitorização de segurança quando mudam contas, inícios de sessão ou membros de organizações do {name}.",
         "deliveries": "Registo de entregas",
         "eventDescriptions": {
           "user_created": "Uma conta é criada (cadastro, administrador, SSO, SCIM).",
@@ -1558,6 +1558,11 @@
             "title": "Excluir este endpoint?",
             "description": "{url} deixa de receber eventos, e seu log de entregas e as novas tentativas pendentes são excluídos. Para pausá-lo, desative-o.",
             "deleted": "Endpoint excluído"
+          },
+          "groups": {
+            "users": "Utilizadores",
+            "security": "Segurança",
+            "organizations": "Organizações"
           }
         },
         "redeliver": {
@@ -2068,7 +2073,7 @@
       },
       "security": {
         "title": "Segurança",
-        "description": "Tentativas de login malsucedidas, as contas e os endereços por trás delas, e as contas banidas.",
+        "description": "Quem pode entrar e como, e as tentativas falhadas e contas bloqueadas a vigiar.",
         "tiles": {
           "failed24h": "Logins com falha, 24 horas",
           "failed7d": "Logins com falha, 7 dias",
@@ -2103,8 +2108,6 @@
           "permanent": "permanente"
         },
         "policy": {
-          "title": "Sessões e palavras-passe",
-          "description": "Quanto tempo se fica com sessão iniciada na aplicação de autenticação e como se escolhem as palavras-passe. As aplicações mantêm os seus próprios tokens e tokens de atualização.",
           "edit": "Editar",
           "on": "Ativado",
           "off": "Desativado",
@@ -2120,7 +2123,6 @@
           "minPasswordLengthHint": "Aplica-se a novas palavras-passe (registo, reposição, alteração). As palavras-passe existentes continuam a funcionar.",
           "passwordSignUp": "Registo com palavra-passe",
           "passwordSignUpHint": "Desativado: já não é possível criar uma conta com email e palavra-passe, apenas com um fornecedor social ou o SSO da organização. Os administradores podem continuar a criar contas e as palavras-passe existentes continuam a funcionar.",
-          "dialogDescription": "A aplicação de autenticação aplica-as em menos de um minuto.",
           "save": "Guardar",
           "cancel": "Cancelar",
           "saved": "Política guardada. A aplicação de autenticação aplica-a em menos de um minuto.",
@@ -2149,7 +2151,30 @@
           "inactiveDisable": "Desativar a conta",
           "inactiveDelete": "Eliminar a conta",
           "inactiveDisableAfter": "Desativar após {count, plural, one {# dia} other {# dias}}",
-          "inactiveDeleteAfter": "Eliminar após {count, plural, one {# dia} other {# dias}}"
+          "inactiveDeleteAfter": "Eliminar após {count, plural, one {# dia} other {# dias}}",
+          "editGroup": "Editar {group}",
+          "groups": {
+            "sessions": {
+              "title": "Sessões",
+              "description": "Quanto tempo se mantém a sessão na app de autenticação. As apps guardam os seus próprios tokens."
+            },
+            "passwords": {
+              "title": "Senhas",
+              "description": "Como as senhas são escolhidas e adivinhadas."
+            },
+            "twoFactor": {
+              "title": "Autenticação de dois fatores",
+              "description": "Um segundo passo para todos os que entram numa app."
+            },
+            "emails": {
+              "title": "Emails de segurança",
+              "description": "O que as pessoas ficam a saber sobre os acessos e alterações da sua conta."
+            },
+            "inactive": {
+              "title": "Contas inativas",
+              "description": "O que acontece às contas que ninguém usa."
+            }
+          }
         },
         "emailDomains": {
           "title": "Domínios de e-mail",
@@ -2215,6 +2240,10 @@
             "noCountries": "Indique pelo menos um país.",
             "save": "Não foi possível guardar os países."
           }
+        },
+        "tabs": {
+          "settings": "Definições",
+          "monitoring": "Monitorização"
         }
       },
       "signingKeys": {

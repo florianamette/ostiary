@@ -26,64 +26,26 @@ import { CheckboxField } from "@/components/admin/common/choice-field";
 import { DialogActions } from "@/components/admin/common/dialog-actions";
 import { useAdminAction } from "@/components/admin/common/use-admin-action";
 
-/** The session and password policy (lib/auth-policy.ts), with its edit dialog. */
-export function AuthPolicyCard({ policy }: { policy: AuthPolicy }) {
-  const t = useTranslations("admin.pages.security.policy");
-  const [editing, setEditing] = React.useState(false);
-  const yesNo = (value: boolean) => (value ? t("on") : t("off"));
-  const rows: [string, string][] = [
-    [t("sessionDays"), t("days", { count: policy.sessionDays })],
-    [t("extendSessions"), yesNo(policy.extendSessions)],
-    [t("signOutOnPasswordChange"), yesNo(policy.signOutOnPasswordChange)],
-    [t("minPasswordLength"), t("characters", { count: policy.minPasswordLength })],
-    [t("passwordSignUp"), yesNo(policy.passwordSignUp)],
-    [t("twoFactorEveryone"), yesNo(policy.twoFactorEveryone)],
-    [t("twoFactorGraceDays"), t("days", { count: policy.twoFactorGraceDays })],
-    [t("newDeviceEmail"), yesNo(policy.newDeviceEmail)],
-    [t("securityChangeEmail"), yesNo(policy.securityChangeEmail)],
-    [t("lockoutAttempts"), policy.lockoutAttempts === 0 ? t("lockoutNever") : t("wrongPasswords", { count: policy.lockoutAttempts })],
-    [
-      t("inactiveDays"),
-      policy.inactiveDays === 0
-        ? t("inactiveNever")
-        : t(policy.inactiveAction === "delete" ? "inactiveDeleteAfter" : "inactiveDisableAfter", { count: policy.inactiveDays }),
-    ],
-  ];
+/*
+ * The session and password policy (lib/auth-policy.ts), in groups: each card shows its settings
+ * and edits only those, saving them over the rest of the policy.
+ */
 
-  return (
-    <Card className="border-border/80 shadow-sm">
-      <CardHeader>
-        <CardTitle>{t("title")}</CardTitle>
-        <CardDescription className="max-w-3xl">{t("description")}</CardDescription>
-        <CardAction>
-          <Button variant="outline" size="sm" onClick={() => setEditing(true)}>
-            {t("edit")}
-          </Button>
-        </CardAction>
-      </CardHeader>
-      <CardContent>
-        <dl className="grid gap-4 text-sm sm:grid-cols-2 lg:grid-cols-3">
-          {rows.map(([label, value]) => (
-            <div key={label} className="space-y-1">
-              <dt className="text-muted-foreground text-xs">{label}</dt>
-              <dd className="font-medium">{value}</dd>
-            </div>
-          ))}
-        </dl>
-      </CardContent>
-      {editing ? <AuthPolicyDialog policy={policy} onClose={() => setEditing(false)} /> : null}
-    </Card>
-  );
-}
+type Translate = ReturnType<typeof useTranslations<"admin.pages.security.policy">>;
+type SetField = <K extends keyof AuthPolicy>(key: K, value: AuthPolicy[K]) => void;
+type FieldsProps = { draft: AuthPolicy; set: SetField; busy: boolean; t: Translate };
 
-function SwitchField(props: {
-  id: string;
-  label: string;
-  hint: string;
-  checked: boolean;
-  onChange: (value: boolean) => void;
-  disabled: boolean;
-}) {
+type Group = {
+  id: "sessions" | "passwords" | "twoFactor" | "emails" | "inactive";
+  /** The policy fields this group edits, the only ones its dialog saves. */
+  keys: (keyof AuthPolicyInput)[];
+  rows: (policy: AuthPolicy, t: Translate) => [string, string][];
+  Fields: (props: FieldsProps) => React.ReactNode;
+};
+
+const yesNo = (t: Translate, value: boolean) => (value ? t("on") : t("off"));
+
+function SwitchField(props: { id: string; label: string; hint: string; checked: boolean; onChange: (value: boolean) => void; disabled: boolean }) {
   return (
     <Field>
       <CheckboxField {...props} />
@@ -91,20 +53,273 @@ function SwitchField(props: {
   );
 }
 
-function AuthPolicyDialog({ policy, onClose }: { policy: AuthPolicy; onClose: () => void }) {
+function SelectField<V extends string | number>(props: {
+  id: string;
+  label: string;
+  hint: string;
+  value: V;
+  choices: readonly V[];
+  choiceLabel: (value: V) => string;
+  onChange: (value: V) => void;
+  disabled: boolean;
+}) {
+  return (
+    <Field>
+      <FieldLabel htmlFor={props.id}>{props.label}</FieldLabel>
+      <Select
+        value={String(props.value)}
+        onValueChange={(v) => props.onChange((typeof props.value === "number" ? Number(v) : v) as V)}
+        disabled={props.disabled}
+      >
+        <SelectTrigger id={props.id} className="w-full">
+          <SelectValue />
+        </SelectTrigger>
+        <SelectContent>
+          {props.choices.map((choice) => (
+            <SelectItem key={String(choice)} value={String(choice)}>
+              {props.choiceLabel(choice)}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+      <FieldDescription>{props.hint}</FieldDescription>
+    </Field>
+  );
+}
+
+const GROUPS: Group[] = [
+  {
+    id: "sessions",
+    keys: ["sessionDays", "extendSessions", "signOutOnPasswordChange"],
+    rows: (p, t) => [
+      [t("sessionDays"), t("days", { count: p.sessionDays })],
+      [t("extendSessions"), yesNo(t, p.extendSessions)],
+      [t("signOutOnPasswordChange"), yesNo(t, p.signOutOnPasswordChange)],
+    ],
+    Fields: ({ draft, set, busy, t }) => (
+      <>
+        <SelectField
+          id="policy-session-days"
+          label={t("sessionDays")}
+          hint={t("sessionDaysHint")}
+          value={draft.sessionDays}
+          choices={SESSION_DAYS}
+          choiceLabel={(days) => t("days", { count: days })}
+          onChange={(v) => set("sessionDays", v)}
+          disabled={busy}
+        />
+        <SwitchField
+          id="policy-extend-sessions"
+          label={t("extendSessions")}
+          hint={t("extendSessionsHint", { count: draft.sessionDays })}
+          checked={draft.extendSessions}
+          onChange={(v) => set("extendSessions", v)}
+          disabled={busy}
+        />
+        <SwitchField
+          id="policy-sign-out"
+          label={t("signOutOnPasswordChange")}
+          hint={t("signOutOnPasswordChangeHint")}
+          checked={draft.signOutOnPasswordChange}
+          onChange={(v) => set("signOutOnPasswordChange", v)}
+          disabled={busy}
+        />
+      </>
+    ),
+  },
+  {
+    id: "passwords",
+    keys: ["minPasswordLength", "passwordSignUp", "lockoutAttempts"],
+    rows: (p, t) => [
+      [t("minPasswordLength"), t("characters", { count: p.minPasswordLength })],
+      [t("passwordSignUp"), yesNo(t, p.passwordSignUp)],
+      [t("lockoutAttempts"), p.lockoutAttempts === 0 ? t("lockoutNever") : t("wrongPasswords", { count: p.lockoutAttempts })],
+    ],
+    Fields: ({ draft, set, busy, t }) => (
+      <>
+        <SelectField
+          id="policy-min-length"
+          label={t("minPasswordLength")}
+          hint={t("minPasswordLengthHint")}
+          value={draft.minPasswordLength}
+          choices={MIN_PASSWORD_LENGTHS}
+          choiceLabel={(length) => t("characters", { count: length })}
+          onChange={(v) => set("minPasswordLength", v)}
+          disabled={busy}
+        />
+        <SwitchField
+          id="policy-password-sign-up"
+          label={t("passwordSignUp")}
+          hint={t("passwordSignUpHint")}
+          checked={draft.passwordSignUp}
+          onChange={(v) => set("passwordSignUp", v)}
+          disabled={busy}
+        />
+        <SelectField
+          id="policy-lockout"
+          label={t("lockoutAttempts")}
+          hint={t("lockoutAttemptsHint", { minutes: LOCKOUT_MINUTES })}
+          value={draft.lockoutAttempts}
+          choices={LOCKOUT_ATTEMPTS}
+          choiceLabel={(count) => (count === 0 ? t("lockoutNever") : t("wrongPasswords", { count }))}
+          onChange={(v) => set("lockoutAttempts", v)}
+          disabled={busy}
+        />
+      </>
+    ),
+  },
+  {
+    id: "twoFactor",
+    keys: ["twoFactorEveryone", "twoFactorGraceDays"],
+    rows: (p, t) => [
+      [t("twoFactorEveryone"), yesNo(t, p.twoFactorEveryone)],
+      [t("twoFactorGraceDays"), p.twoFactorGraceDays === 0 ? t("noGrace") : t("days", { count: p.twoFactorGraceDays })],
+    ],
+    Fields: ({ draft, set, busy, t }) => (
+      <>
+        <SwitchField
+          id="policy-two-factor"
+          label={t("twoFactorEveryone")}
+          hint={t("twoFactorEveryoneHint")}
+          checked={draft.twoFactorEveryone}
+          onChange={(v) => set("twoFactorEveryone", v)}
+          disabled={busy}
+        />
+        <SelectField
+          id="policy-two-factor-grace"
+          label={t("twoFactorGraceDays")}
+          hint={t("twoFactorGraceDaysHint")}
+          value={draft.twoFactorGraceDays}
+          choices={TWO_FACTOR_GRACE_DAYS}
+          choiceLabel={(days) => (days === 0 ? t("noGrace") : t("days", { count: days }))}
+          onChange={(v) => set("twoFactorGraceDays", v)}
+          disabled={busy}
+        />
+      </>
+    ),
+  },
+  {
+    id: "emails",
+    keys: ["newDeviceEmail", "securityChangeEmail"],
+    rows: (p, t) => [
+      [t("newDeviceEmail"), yesNo(t, p.newDeviceEmail)],
+      [t("securityChangeEmail"), yesNo(t, p.securityChangeEmail)],
+    ],
+    Fields: ({ draft, set, busy, t }) => (
+      <>
+        <SwitchField
+          id="policy-new-device-email"
+          label={t("newDeviceEmail")}
+          hint={t("newDeviceEmailHint")}
+          checked={draft.newDeviceEmail}
+          onChange={(v) => set("newDeviceEmail", v)}
+          disabled={busy}
+        />
+        <SwitchField
+          id="policy-security-change-email"
+          label={t("securityChangeEmail")}
+          hint={t("securityChangeEmailHint")}
+          checked={draft.securityChangeEmail}
+          onChange={(v) => set("securityChangeEmail", v)}
+          disabled={busy}
+        />
+      </>
+    ),
+  },
+  {
+    id: "inactive",
+    keys: ["inactiveDays", "inactiveAction"],
+    rows: (p, t) => [
+      [
+        t("inactiveDays"),
+        p.inactiveDays === 0
+          ? t("inactiveNever")
+          : t(p.inactiveAction === "delete" ? "inactiveDeleteAfter" : "inactiveDisableAfter", { count: p.inactiveDays }),
+      ],
+    ],
+    Fields: ({ draft, set, busy, t }) => (
+      <>
+        <SelectField
+          id="policy-inactive-days"
+          label={t("inactiveDays")}
+          hint={t("inactiveDaysHint", { warning: INACTIVE_WARNING_DAYS })}
+          value={draft.inactiveDays}
+          choices={INACTIVE_DAYS}
+          choiceLabel={(days) => (days === 0 ? t("inactiveNever") : t("days", { count: days }))}
+          onChange={(v) => set("inactiveDays", v)}
+          disabled={busy}
+        />
+        {draft.inactiveDays ? (
+          <SelectField
+            id="policy-inactive-action"
+            label={t("inactiveAction")}
+            hint={t("inactiveActionHint")}
+            value={draft.inactiveAction}
+            choices={INACTIVE_ACTIONS}
+            choiceLabel={(action) => t(action === "delete" ? "inactiveDelete" : "inactiveDisable")}
+            onChange={(v) => set("inactiveAction", v)}
+            disabled={busy}
+          />
+        ) : null}
+      </>
+    ),
+  },
+];
+
+/** The policy's groups, one card each (lib/auth-policy.ts). */
+export function AuthPolicyCards({ policy }: { policy: AuthPolicy }) {
+  return (
+    <div className="grid gap-6 lg:grid-cols-2">
+      {GROUPS.map((group) => (
+        <PolicyGroupCard key={group.id} group={group} policy={policy} />
+      ))}
+    </div>
+  );
+}
+
+function PolicyGroupCard({ group, policy }: { group: Group; policy: AuthPolicy }) {
+  const t = useTranslations("admin.pages.security.policy");
+  const [editing, setEditing] = React.useState(false);
+  const title = t(`groups.${group.id}.title`);
+  return (
+    <Card className="border-border/80 shadow-sm">
+      <CardHeader>
+        <CardTitle>{title}</CardTitle>
+        <CardDescription>{t(`groups.${group.id}.description`)}</CardDescription>
+        <CardAction>
+          <Button variant="outline" size="sm" onClick={() => setEditing(true)} aria-label={t("editGroup", { group: title })}>
+            {t("edit")}
+          </Button>
+        </CardAction>
+      </CardHeader>
+      <CardContent>
+        <dl className="grid gap-4 text-sm sm:grid-cols-2">
+          {group.rows(policy, t).map(([label, value]) => (
+            <div key={label} className="space-y-1">
+              <dt className="text-muted-foreground text-xs">{label}</dt>
+              <dd className="font-medium">{value}</dd>
+            </div>
+          ))}
+        </dl>
+      </CardContent>
+      {editing ? <PolicyGroupDialog group={group} title={title} policy={policy} onClose={() => setEditing(false)} /> : null}
+    </Card>
+  );
+}
+
+function PolicyGroupDialog({ group, title, policy, onClose }: { group: Group; title: string; policy: AuthPolicy; onClose: () => void }) {
   const t = useTranslations("admin.pages.security.policy");
   const { busy, run } = useAdminAction(onClose);
   const [draft, setDraft] = React.useState<AuthPolicy>(policy);
-  const set = <K extends keyof AuthPolicy>(key: K, value: AuthPolicy[K]) => setDraft((d) => ({ ...d, [key]: value }));
+  const set: SetField = (key, value) => setDraft((d) => ({ ...d, [key]: value }));
+  const Fields = group.Fields;
 
   function save(e: React.FormEvent) {
     e.preventDefault();
     void run(async () => {
-      // The server sets when "everyone" and the inactive account rule started.
-      const policy: Partial<AuthPolicy> = { ...draft };
-      delete policy.twoFactorRequiredSince;
-      delete policy.inactiveSince;
-      const res = await updateAuthPolicy(policy as AuthPolicyInput);
+      // Only this group's fields: the server keeps the rest as stored, and sets the start dates.
+      const changes = Object.fromEntries(group.keys.map((key) => [key, draft[key]])) as Partial<AuthPolicyInput>;
+      const res = await updateAuthPolicy(changes);
       return res.ok ? res : { ok: false, error: t(`errors.${res.error}`) };
     }, t("saved"));
   }
@@ -114,156 +329,11 @@ function AuthPolicyDialog({ policy, onClose }: { policy: AuthPolicy; onClose: ()
       <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-lg">
         <form onSubmit={save} className="grid gap-6">
           <DialogHeader>
-            <DialogTitle>{t("title")}</DialogTitle>
-            <DialogDescription>{t("dialogDescription")}</DialogDescription>
+            <DialogTitle>{title}</DialogTitle>
+            <DialogDescription>{t(`groups.${group.id}.description`)}</DialogDescription>
           </DialogHeader>
           <FieldGroup>
-            <Field>
-              <FieldLabel htmlFor="policy-session-days">{t("sessionDays")}</FieldLabel>
-              <Select value={String(draft.sessionDays)} onValueChange={(v) => set("sessionDays", Number(v))} disabled={busy}>
-                <SelectTrigger id="policy-session-days" className="w-full">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {SESSION_DAYS.map((days) => (
-                    <SelectItem key={days} value={String(days)}>
-                      {t("days", { count: days })}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <FieldDescription>{t("sessionDaysHint")}</FieldDescription>
-            </Field>
-            <SwitchField
-              id="policy-extend-sessions"
-              label={t("extendSessions")}
-              hint={t("extendSessionsHint", { count: draft.sessionDays })}
-              checked={draft.extendSessions}
-              onChange={(v) => set("extendSessions", v)}
-              disabled={busy}
-            />
-            <SwitchField
-              id="policy-sign-out"
-              label={t("signOutOnPasswordChange")}
-              hint={t("signOutOnPasswordChangeHint")}
-              checked={draft.signOutOnPasswordChange}
-              onChange={(v) => set("signOutOnPasswordChange", v)}
-              disabled={busy}
-            />
-            <Field>
-              <FieldLabel htmlFor="policy-min-length">{t("minPasswordLength")}</FieldLabel>
-              <Select value={String(draft.minPasswordLength)} onValueChange={(v) => set("minPasswordLength", Number(v))} disabled={busy}>
-                <SelectTrigger id="policy-min-length" className="w-full">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {MIN_PASSWORD_LENGTHS.map((length) => (
-                    <SelectItem key={length} value={String(length)}>
-                      {t("characters", { count: length })}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <FieldDescription>{t("minPasswordLengthHint")}</FieldDescription>
-            </Field>
-            <SwitchField
-              id="policy-password-sign-up"
-              label={t("passwordSignUp")}
-              hint={t("passwordSignUpHint")}
-              checked={draft.passwordSignUp}
-              onChange={(v) => set("passwordSignUp", v)}
-              disabled={busy}
-            />
-            <SwitchField
-              id="policy-two-factor"
-              label={t("twoFactorEveryone")}
-              hint={t("twoFactorEveryoneHint")}
-              checked={draft.twoFactorEveryone}
-              onChange={(v) => set("twoFactorEveryone", v)}
-              disabled={busy}
-            />
-            <Field>
-              <FieldLabel htmlFor="policy-two-factor-grace">{t("twoFactorGraceDays")}</FieldLabel>
-              <Select value={String(draft.twoFactorGraceDays)} onValueChange={(v) => set("twoFactorGraceDays", Number(v))} disabled={busy}>
-                <SelectTrigger id="policy-two-factor-grace" className="w-full">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {TWO_FACTOR_GRACE_DAYS.map((days) => (
-                    <SelectItem key={days} value={String(days)}>
-                      {days === 0 ? t("noGrace") : t("days", { count: days })}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <FieldDescription>{t("twoFactorGraceDaysHint")}</FieldDescription>
-            </Field>
-            <SwitchField
-              id="policy-new-device-email"
-              label={t("newDeviceEmail")}
-              hint={t("newDeviceEmailHint")}
-              checked={draft.newDeviceEmail}
-              onChange={(v) => set("newDeviceEmail", v)}
-              disabled={busy}
-            />
-            <SwitchField
-              id="policy-security-change-email"
-              label={t("securityChangeEmail")}
-              hint={t("securityChangeEmailHint")}
-              checked={draft.securityChangeEmail}
-              onChange={(v) => set("securityChangeEmail", v)}
-              disabled={busy}
-            />
-            <Field>
-              <FieldLabel htmlFor="policy-lockout">{t("lockoutAttempts")}</FieldLabel>
-              <Select value={String(draft.lockoutAttempts)} onValueChange={(v) => set("lockoutAttempts", Number(v))} disabled={busy}>
-                <SelectTrigger id="policy-lockout" className="w-full">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {LOCKOUT_ATTEMPTS.map((count) => (
-                    <SelectItem key={count} value={String(count)}>
-                      {count === 0 ? t("lockoutNever") : t("wrongPasswords", { count })}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <FieldDescription>{t("lockoutAttemptsHint", { minutes: LOCKOUT_MINUTES })}</FieldDescription>
-            </Field>
-            <Field>
-              <FieldLabel htmlFor="policy-inactive-days">{t("inactiveDays")}</FieldLabel>
-              <Select value={String(draft.inactiveDays)} onValueChange={(v) => set("inactiveDays", Number(v))} disabled={busy}>
-                <SelectTrigger id="policy-inactive-days" className="w-full">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {INACTIVE_DAYS.map((days) => (
-                    <SelectItem key={days} value={String(days)}>
-                      {days === 0 ? t("inactiveNever") : t("days", { count: days })}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <FieldDescription>{t("inactiveDaysHint", { warning: INACTIVE_WARNING_DAYS })}</FieldDescription>
-            </Field>
-            {draft.inactiveDays ? (
-              <Field>
-                <FieldLabel htmlFor="policy-inactive-action">{t("inactiveAction")}</FieldLabel>
-                <Select value={draft.inactiveAction} onValueChange={(v) => set("inactiveAction", v as AuthPolicy["inactiveAction"])} disabled={busy}>
-                  <SelectTrigger id="policy-inactive-action" className="w-full">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {INACTIVE_ACTIONS.map((action) => (
-                      <SelectItem key={action} value={action}>
-                        {t(action === "delete" ? "inactiveDelete" : "inactiveDisable")}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <FieldDescription>{t("inactiveActionHint")}</FieldDescription>
-              </Field>
-            ) : null}
+            <Fields draft={draft} set={set} busy={busy} t={t} />
           </FieldGroup>
           <DialogActions busy={busy} onCancel={onClose} cancelLabel={t("cancel")} confirmLabel={t("save")} />
         </form>

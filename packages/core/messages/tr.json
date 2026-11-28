@@ -1473,7 +1473,7 @@
       },
       "webhooks": {
         "title": "Webhook'lar",
-        "description": "{name} kullanıcıları, rolleri veya kuruluş üyelikleri değiştiğinde uygulamalarınızı bilgilendiren imzalı HTTPS bildirimleri.",
+        "description": "{name} hesapları, girişleri veya kuruluş üyelikleri değiştiğinde uygulamalarınızı ya da güvenlik izlemenizi bilgilendiren imzalı HTTPS bildirimleri.",
         "deliveries": "Teslimat günlüğü",
         "eventDescriptions": {
           "user_created": "Bir hesap oluşturulur (kayıt, yönetici, SSO, SCIM).",
@@ -1558,6 +1558,11 @@
             "title": "Bu uç nokta silinsin mi?",
             "description": "{url} artık olay almaz; teslimat günlüğü ve bekleyen yeniden denemeleri silinir. Duraklatmak için bunun yerine devre dışı bırakın.",
             "deleted": "Uç nokta silindi"
+          },
+          "groups": {
+            "users": "Kullanıcılar",
+            "security": "Güvenlik",
+            "organizations": "Kuruluşlar"
           }
         },
         "redeliver": {
@@ -2068,7 +2073,7 @@
       },
       "security": {
         "title": "Güvenlik",
-        "description": "Başarısız giriş denemeleri, bunların arkasındaki hesaplar ve adresler ile yasaklanmış hesaplar.",
+        "description": "Kimin nasıl giriş yapabileceği ve takip edilecek başarısız girişler ile yasaklı hesaplar.",
         "tiles": {
           "failed24h": "Başarısız girişler, 24 saat",
           "failed7d": "Başarısız girişler, 7 gün",
@@ -2103,8 +2108,6 @@
           "permanent": "kalıcı"
         },
         "policy": {
-          "title": "Oturumlar ve parolalar",
-          "description": "Kimlik doğrulama uygulamasında ne kadar süre oturum açık kalınacağı ve parolaların nasıl seçileceği. Uygulamalar kendi belirteçlerini ve yenileme belirteçlerini korur.",
           "edit": "Düzenle",
           "on": "Açık",
           "off": "Kapalı",
@@ -2120,7 +2123,6 @@
           "minPasswordLengthHint": "Yeni parolalar için geçerlidir (kayıt, sıfırlama, değişiklik). Mevcut parolalar çalışmaya devam eder.",
           "passwordSignUp": "Parolayla kayıt",
           "passwordSignUpHint": "Kapalı: artık e-posta ve parolayla hesap oluşturulamaz; yalnızca bir sosyal sağlayıcıyla veya kuruluşun SSO'suyla. Yöneticiler hesap oluşturmaya devam edebilir ve mevcut parolalar çalışmaya devam eder.",
-          "dialogDescription": "Kimlik doğrulama uygulaması bunları bir dakika içinde uygular.",
           "save": "Kaydet",
           "cancel": "İptal",
           "saved": "İlke kaydedildi. Kimlik doğrulama uygulaması bir dakika içinde uygular.",
@@ -2149,7 +2151,30 @@
           "inactiveDisable": "Hesabı devre dışı bırak",
           "inactiveDelete": "Hesabı sil",
           "inactiveDisableAfter": "{count, plural, one {# gün} other {# gün}} sonra devre dışı bırak",
-          "inactiveDeleteAfter": "{count, plural, one {# gün} other {# gün}} sonra sil"
+          "inactiveDeleteAfter": "{count, plural, one {# gün} other {# gün}} sonra sil",
+          "editGroup": "{group} düzenle",
+          "groups": {
+            "sessions": {
+              "title": "Oturumlar",
+              "description": "Kimlik doğrulama uygulamasında ne kadar süre oturum açık kalınacağı. Uygulamalar kendi token’larını tutar."
+            },
+            "passwords": {
+              "title": "Parolalar",
+              "description": "Parolaların nasıl seçildiği ve tahmin edildiği."
+            },
+            "twoFactor": {
+              "title": "İki adımlı doğrulama",
+              "description": "Bir uygulamaya giriş yapan herkes için ikinci bir adım."
+            },
+            "emails": {
+              "title": "Güvenlik e-postaları",
+              "description": "Kişilere hesaplarındaki girişler ve değişiklikler hakkında ne bildirildiği."
+            },
+            "inactive": {
+              "title": "Etkin olmayan hesaplar",
+              "description": "Kimsenin kullanmadığı hesaplara ne olduğu."
+            }
+          }
         },
         "emailDomains": {
           "title": "E-posta alan adları",
@@ -2215,6 +2240,10 @@
             "noCountries": "En az bir ülke girin.",
             "save": "Ülkeler kaydedilemedi."
           }
+        },
+        "tabs": {
+          "settings": "Ayarlar",
+          "monitoring": "İzleme"
         }
       },
       "signingKeys": {

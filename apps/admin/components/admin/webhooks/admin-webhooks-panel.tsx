@@ -46,7 +46,7 @@ export type WebhookEndpointRow = {
   failed: number;
 };
 
-export type EventTypeOption = { type: string; description: string };
+export type EventTypeOption = { type: string; description: string; group: "users" | "security" | "organizations" };
 
 /**
  * Webhook endpoints: apps that want to hear about user and membership changes. Each delivery

@@ -1473,7 +1473,7 @@
       },
       "webhooks": {
         "title": "Webhooks",
-        "description": "Signierte HTTPS-Benachrichtigungen, die deine Apps informieren, wenn sich Benutzer, Rollen oder Organisationsmitgliedschaften in {name} ändern.",
+        "description": "Signierte HTTPS-Benachrichtigungen, die Ihre Apps oder Ihr Sicherheitsmonitoring informieren, wenn sich Konten, Anmeldungen oder Organisationsmitgliedschaften in {name} ändern.",
         "deliveries": "Zustellprotokoll",
         "eventDescriptions": {
           "user_created": "Ein Konto wird erstellt (Registrierung, Admin, SSO, SCIM).",
@@ -1558,6 +1558,11 @@
             "title": "Diesen Endpunkt löschen?",
             "description": "{url} empfängt keine Ereignisse mehr, und sein Zustellprotokoll sowie ausstehende Wiederholungen werden gelöscht. Um ihn zu pausieren, deaktivieren Sie ihn stattdessen.",
             "deleted": "Endpunkt gelöscht"
+          },
+          "groups": {
+            "users": "Benutzer",
+            "security": "Sicherheit",
+            "organizations": "Organisationen"
           }
         },
         "redeliver": {
@@ -2068,7 +2073,7 @@
       },
       "security": {
         "title": "Sicherheit",
-        "description": "Fehlgeschlagene Anmeldeversuche, die dahinterstehenden Konten und Adressen sowie gesperrte Konten.",
+        "description": "Wer sich wie anmelden kann, und fehlgeschlagene Anmeldungen und gesperrte Konten im Blick.",
         "tiles": {
           "failed24h": "Fehlgeschlagene Anmeldungen, 24 Stunden",
           "failed7d": "Fehlgeschlagene Anmeldungen, 7 Tage",
@@ -2103,8 +2108,6 @@
           "permanent": "dauerhaft"
         },
         "policy": {
-          "title": "Sitzungen und Passwörter",
-          "description": "Wie lange man in der Auth-App angemeldet bleibt und wie Passwörter gewählt werden. Apps behalten ihre eigenen Tokens und Refresh-Tokens.",
           "edit": "Bearbeiten",
           "on": "An",
           "off": "Aus",
@@ -2120,7 +2123,6 @@
           "minPasswordLengthHint": "Gilt für neue Passwörter (Registrierung, Zurücksetzen, Änderung). Bestehende Passwörter funktionieren weiter.",
           "passwordSignUp": "Registrierung mit Passwort",
           "passwordSignUpHint": "Aus: Konten können nicht mehr mit E-Mail und Passwort erstellt werden, nur mit einem Social-Anbieter oder dem SSO der Organisation. Admins können weiterhin Konten anlegen, und bestehende Passwörter funktionieren weiter.",
-          "dialogDescription": "Die Auth-App übernimmt sie innerhalb einer Minute.",
           "save": "Speichern",
           "cancel": "Abbrechen",
           "saved": "Richtlinie gespeichert. Die Auth-App übernimmt sie innerhalb einer Minute.",
@@ -2149,7 +2151,30 @@
           "inactiveDisable": "Konto deaktivieren",
           "inactiveDelete": "Konto löschen",
           "inactiveDisableAfter": "Nach {count, plural, one {# Tag} other {# Tagen}} deaktivieren",
-          "inactiveDeleteAfter": "Nach {count, plural, one {# Tag} other {# Tagen}} löschen"
+          "inactiveDeleteAfter": "Nach {count, plural, one {# Tag} other {# Tagen}} löschen",
+          "editGroup": "{group} bearbeiten",
+          "groups": {
+            "sessions": {
+              "title": "Sitzungen",
+              "description": "Wie lange man in der Auth-App angemeldet bleibt. Apps behalten ihre eigenen Tokens."
+            },
+            "passwords": {
+              "title": "Passwörter",
+              "description": "Wie Passwörter gewählt und erraten werden."
+            },
+            "twoFactor": {
+              "title": "Zwei-Faktor-Authentifizierung",
+              "description": "Ein zweiter Schritt für alle, die sich bei einer App anmelden."
+            },
+            "emails": {
+              "title": "Sicherheits-E-Mails",
+              "description": "Was Personen über Anmeldungen und Änderungen an ihrem Konto erfahren."
+            },
+            "inactive": {
+              "title": "Inaktive Konten",
+              "description": "Was mit Konten geschieht, die niemand nutzt."
+            }
+          }
         },
         "emailDomains": {
           "title": "E-Mail-Domains",
@@ -2215,6 +2240,10 @@
             "noCountries": "Geben Sie mindestens ein Land an.",
             "save": "Die Länder konnten nicht gespeichert werden."
           }
+        },
+        "tabs": {
+          "settings": "Einstellungen",
+          "monitoring": "Überwachung"
         }
       },
       "signingKeys": {

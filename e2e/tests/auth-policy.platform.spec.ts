@@ -14,17 +14,28 @@ test("the session and password policy applies to sign-up, passwords and new sess
   const user = await createUser(api, "policy");
   try {
     await adminPage.goto("/en/security");
-    await adminPage.locator('[data-slot="card"]').filter({ hasText: "Sessions and passwords" }).getByRole("button", { name: "Edit" }).click();
-    const dialog = adminPage.getByRole("dialog");
+    // Each group of the policy has its own card and dialog, saved on its own.
+    await adminPage.getByRole("button", { name: "Edit Sessions" }).click();
+    let dialog = adminPage.getByRole("dialog");
     await dialog.getByRole("combobox", { name: "Session lifetime" }).click();
     await adminPage.getByRole("option", { name: "1 day", exact: true }).click();
     await dialog.getByRole("checkbox", { name: "Extend sessions while in use" }).uncheck();
     await dialog.getByRole("checkbox", { name: "Sign out everywhere on a password change" }).check();
+    await dialog.getByRole("button", { name: "Save" }).click();
+    await expect(adminPage.getByText("Policy saved.")).toBeVisible();
+    await expect(dialog).toHaveCount(0);
+
+    await adminPage.getByRole("button", { name: "Edit Passwords" }).click();
+    dialog = adminPage.getByRole("dialog");
     await dialog.getByRole("combobox", { name: "Minimum password length" }).click();
     await adminPage.getByRole("option", { name: "16 characters" }).click();
     await dialog.getByRole("checkbox", { name: "Password sign-up" }).uncheck();
     await dialog.getByRole("button", { name: "Save" }).click();
-    await expect(adminPage.getByText("Policy saved.")).toBeVisible();
+    await expect(adminPage.getByText("Policy saved.").first()).toBeVisible();
+    await expect(dialog).toHaveCount(0);
+    // Each save changed only its group: the first one's changes are still there.
+    await adminPage.reload();
+    await expect(adminPage.locator('[data-slot="card"]').filter({ hasText: "Session lifetime" }).getByText("1 day")).toBeVisible();
 
     // The auth app picks the policy up within a minute.
     const closed = page.getByText(/Sign-up with a password is off|New accounts cannot be created here/);

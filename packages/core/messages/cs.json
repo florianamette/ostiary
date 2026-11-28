@@ -1473,7 +1473,7 @@
       },
       "webhooks": {
         "title": "Webhooky",
-        "description": "Podepsaná HTTPS oznámení, která vašim aplikacím sdělí, když se změní uživatelé, role nebo členství v organizacích v {name}.",
+        "description": "Podepsaná oznámení HTTPS, která informují vaše aplikace nebo bezpečnostní monitoring o změnách účtů, přihlášení a členství v organizacích v {name}.",
         "deliveries": "Protokol doručení",
         "eventDescriptions": {
           "user_created": "Je vytvořen účet (registrace, administrátor, SSO, SCIM).",
@@ -1558,6 +1558,11 @@
             "title": "Smazat tento endpoint?",
             "description": "{url} přestane dostávat události a jeho protokol doručení i čekající opakované pokusy se smažou. Chcete-li ho pozastavit, raději ho vypněte.",
             "deleted": "Endpoint smazán"
+          },
+          "groups": {
+            "users": "Uživatelé",
+            "security": "Zabezpečení",
+            "organizations": "Organizace"
           }
         },
         "redeliver": {
@@ -2068,7 +2073,7 @@
       },
       "security": {
         "title": "Zabezpečení",
-        "description": "Neúspěšné pokusy o přihlášení, účty a adresy, ze kterých pocházejí, a zablokované účty.",
+        "description": "Kdo a jak se může přihlásit a neúspěšná přihlášení a zablokované účty ke sledování.",
         "tiles": {
           "failed24h": "Neúspěšná přihlášení, 24 hodin",
           "failed7d": "Neúspěšná přihlášení, 7 dní",
@@ -2103,8 +2108,6 @@
           "permanent": "trvale"
         },
         "policy": {
-          "title": "Relace a hesla",
-          "description": "Jak dlouho zůstávají lidé přihlášeni k ověřovací aplikaci a jak se volí hesla. Aplikace si ponechávají vlastní tokeny a obnovovací tokeny.",
           "edit": "Upravit",
           "on": "Zapnuto",
           "off": "Vypnuto",
@@ -2120,7 +2123,6 @@
           "minPasswordLengthHint": "Platí pro nová hesla (registrace, obnovení, změna). Stávající hesla fungují dál.",
           "passwordSignUp": "Registrace s heslem",
           "passwordSignUpHint": "Vypnuto: účet už nelze vytvořit e-mailem a heslem, jen přes sociálního poskytovatele nebo SSO organizace. Správci mohou účty dál vytvářet a stávající hesla fungují dál.",
-          "dialogDescription": "Ověřovací aplikace je použije do minuty.",
           "save": "Uložit",
           "cancel": "Zrušit",
           "saved": "Zásady uloženy. Ověřovací aplikace je použije do minuty.",
@@ -2149,7 +2151,30 @@
           "inactiveDisable": "Deaktivovat účet",
           "inactiveDelete": "Smazat účet",
           "inactiveDisableAfter": "Deaktivovat po {count, plural, one {# dni} other {# dnech}}",
-          "inactiveDeleteAfter": "Smazat po {count, plural, one {# dni} other {# dnech}}"
+          "inactiveDeleteAfter": "Smazat po {count, plural, one {# dni} other {# dnech}}",
+          "editGroup": "Upravit: {group}",
+          "groups": {
+            "sessions": {
+              "title": "Relace",
+              "description": "Jak dlouho zůstává člověk přihlášen v ověřovací aplikaci. Aplikace si drží vlastní tokeny."
+            },
+            "passwords": {
+              "title": "Hesla",
+              "description": "Jak se hesla volí a hádají."
+            },
+            "twoFactor": {
+              "title": "Dvoufázové ověření",
+              "description": "Druhý krok pro každého, kdo se přihlašuje do aplikace."
+            },
+            "emails": {
+              "title": "Bezpečnostní e-maily",
+              "description": "Co se lidé dozvědí o přihlášeních a změnách svého účtu."
+            },
+            "inactive": {
+              "title": "Neaktivní účty",
+              "description": "Co se stane s účty, které nikdo nepoužívá."
+            }
+          }
         },
         "emailDomains": {
           "title": "E-mailové domény",
@@ -2215,6 +2240,10 @@
             "noCountries": "Uveďte alespoň jednu zemi.",
             "save": "Země se nepodařilo uložit."
           }
+        },
+        "tabs": {
+          "settings": "Nastavení",
+          "monitoring": "Sledování"
         }
       },
       "signingKeys": {
