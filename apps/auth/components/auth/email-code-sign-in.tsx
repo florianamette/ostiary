@@ -23,6 +23,7 @@ import { SIGN_IN_CODE_LENGTH, SIGN_IN_CODE_MINUTES } from "@ostiary/core/lib/sig
 import { useCaptcha } from "@/components/auth/captcha"
 import { authClient } from "@/lib/auth-client"
 import { useAuthErrorMessage } from "@/lib/auth-error-message"
+import { SIGN_IN_LINK_CALLBACK_HEADER } from "@ostiary/core/lib/sign-in-link-header"
 
 /**
  * "Email me a sign-in code": ask for a code, then type it, without leaving the page. Inside
@@ -69,9 +70,11 @@ export function EmailCodeSignIn({
     if (!headers) return
     setBusy(true)
     try {
+      // The email's sign-in link resumes where this form would (an app's sign-in), see sign-in-link.ts.
+      const linkHeaders = { ...headers, [SIGN_IN_LINK_CALLBACK_HEADER]: callbackURL }
       const { error } = await authClient.emailOtp.sendVerificationOtp(
         { email: value, type: "sign-in" },
-        { headers },
+        { headers: linkHeaders },
       )
       captcha.reset()
       if (error) {

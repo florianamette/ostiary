@@ -3147,7 +3147,10 @@
       "heading": "Votre code de connexion",
       "body": "Saisissez ce code sur la page de connexion {brand} pour terminer la connexion.",
       "note": "Le code expire dans {minutes} minutes et ne fonctionne qu’une fois.",
-      "footnote": "Vous n’avez pas demandé de code ? Ignorez cet e-mail : personne ne peut se connecter sans lui. Ne le communiquez jamais à personne."
+      "footnote": "Vous n’avez pas demandé de code ? Ignorez cet e-mail : personne ne peut se connecter sans lui. Ne le communiquez jamais à personne.",
+      "button": "Se connecter à {brand}",
+      "linkBody": "Ou utilisez ce bouton pour vous connecter sur cet appareil.",
+      "noteWithLink": "Le code et le bouton expirent dans {minutes} minutes et ne fonctionnent qu’une fois."
     },
     "deleteAccount": {
       "subject": "Confirmez la suppression de votre compte {brand}",
@@ -3217,5 +3220,14 @@
     "doneBody": "Votre nouveau mot de passe est enregistré et vos autres sessions ont été déconnectées.",
     "continue": "Continuer",
     "toAccount": "Aller à votre compte"
+  },
+  "signInLink": {
+    "title": "Connexion",
+    "description": "Se connecter en tant que {email}",
+    "note": "Vous serez connecté sur cet appareil et ramené là où vous avez commencé.",
+    "signIn": "Se connecter",
+    "invalidTitle": "Ce lien ne fonctionne plus",
+    "invalidBody": "Il a expiré ou a déjà été utilisé. Demandez un nouveau code sur la page de connexion.",
+    "toSignIn": "Aller à la connexion"
   }
 }

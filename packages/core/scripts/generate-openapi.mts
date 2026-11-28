@@ -47,6 +47,7 @@ const TAGS: [string, string, string][] = [
     ["Default", "Core", "Email and password sign-up and sign-in, sessions, the user's profile and linked accounts."],
     ["Username", "Username", "Sign-in with a username instead of an email address."],
     ["Email-otp", "Email codes", "Sign-in with a 6-digit code sent by email."],
+    ["Magic-link", "Sign-in links", "Verifies the sign-in link in the sign-in code email (links are created with the code, not requested on their own)."],
     ["Passkey", "Passkeys", "WebAuthn passkeys: registration, sign-in and management."],
     ["Two-factor", "Two-factor", "Authenticator app (TOTP), email codes and backup codes as a second step."],
     ["One-tap", "Google One Tap", "Sign-in with Google One Tap, when it is on in the admin console."],

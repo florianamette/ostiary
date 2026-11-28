@@ -3147,7 +3147,10 @@
       "heading": "Din inloggningskod",
       "body": "Ange den här koden på inloggningssidan för {brand} för att slutföra inloggningen.",
       "note": "Koden går ut om {minutes} minuter och fungerar bara en gång.",
-      "footnote": "Har du inte begärt någon kod? Ignorera det här mejlet: ingen kan logga in utan koden. Dela den aldrig med någon."
+      "footnote": "Har du inte begärt någon kod? Ignorera det här mejlet: ingen kan logga in utan koden. Dela den aldrig med någon.",
+      "button": "Logga in på {brand}",
+      "linkBody": "Eller använd knappen för att logga in på den här enheten.",
+      "noteWithLink": "Koden och knappen går ut om {minutes} minuter och fungerar bara en gång."
     },
     "deleteAccount": {
       "subject": "Bekräfta raderingen av ditt {brand}-konto",
@@ -3217,5 +3220,14 @@
     "doneBody": "Ditt nya lösenord är sparat och dina andra sessioner har loggats ut.",
     "continue": "Fortsätt",
     "toAccount": "Till ditt konto"
+  },
+  "signInLink": {
+    "title": "Logga in",
+    "description": "Logga in som {email}",
+    "note": "Du loggas in på den här enheten och kommer tillbaka dit du började.",
+    "signIn": "Logga in",
+    "invalidTitle": "Länken fungerar inte längre",
+    "invalidBody": "Den har gått ut eller har redan använts. Be om en ny kod på inloggningssidan.",
+    "toSignIn": "Till inloggningen"
   }
 }

@@ -3147,7 +3147,10 @@
       "heading": "O seu código de acesso",
       "body": "Introduza este código na página de início de sessão de {brand} para concluir o acesso.",
       "note": "O código expira dentro de {minutes} minutos e só funciona uma vez.",
-      "footnote": "Não pediu um código? Ignore este e-mail: ninguém consegue entrar sem ele. Nunca o partilhe com ninguém."
+      "footnote": "Não pediu um código? Ignore este e-mail: ninguém consegue entrar sem ele. Nunca o partilhe com ninguém.",
+      "button": "Iniciar sessão no {brand}",
+      "linkBody": "Ou use este botão para iniciar sessão neste dispositivo.",
+      "noteWithLink": "O código e o botão expiram em {minutes} minutos e só funcionam uma vez."
     },
     "deleteAccount": {
       "subject": "Confirme a exclusão da sua conta {brand}",
@@ -3217,5 +3220,14 @@
     "doneBody": "A nova palavra-passe está definida e as suas outras sessões foram terminadas.",
     "continue": "Continuar",
     "toAccount": "Ir para a sua conta"
+  },
+  "signInLink": {
+    "title": "Iniciar sessão",
+    "description": "Iniciar sessão como {email}",
+    "note": "Vai iniciar sessão neste dispositivo e voltar ao ponto onde começou.",
+    "signIn": "Iniciar sessão",
+    "invalidTitle": "Este link já não funciona",
+    "invalidBody": "Expirou ou já foi usado. Peça um novo código na página de início de sessão.",
+    "toSignIn": "Ir para o início de sessão"
   }
 }

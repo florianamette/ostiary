@@ -3147,7 +3147,10 @@
       "heading": "Il tuo codice di accesso",
       "body": "Inserisci questo codice nella pagina di accesso di {brand} per completare l’accesso.",
       "note": "Il codice scade tra {minutes} minuti e funziona una sola volta.",
-      "footnote": "Non hai richiesto un codice? Ignora questa email: nessuno può accedere senza. Non condividerlo mai con nessuno."
+      "footnote": "Non hai richiesto un codice? Ignora questa email: nessuno può accedere senza. Non condividerlo mai con nessuno.",
+      "button": "Accedi a {brand}",
+      "linkBody": "Oppure usa questo pulsante per accedere su questo dispositivo.",
+      "noteWithLink": "Il codice e il pulsante scadono tra {minutes} minuti e funzionano una sola volta."
     },
     "deleteAccount": {
       "subject": "Conferma l’eliminazione del tuo account {brand}",
@@ -3217,5 +3220,14 @@
     "doneBody": "La nuova password è impostata e le altre sessioni sono state disconnesse.",
     "continue": "Continua",
     "toAccount": "Vai al tuo account"
+  },
+  "signInLink": {
+    "title": "Accedi",
+    "description": "Accedi come {email}",
+    "note": "Accederai su questo dispositivo e tornerai al punto da cui sei partito.",
+    "signIn": "Accedi",
+    "invalidTitle": "Questo link non funziona più",
+    "invalidBody": "È scaduto o è già stato usato. Richiedi un nuovo codice dalla pagina di accesso.",
+    "toSignIn": "Vai all’accesso"
   }
 }

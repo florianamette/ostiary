@@ -3147,7 +3147,10 @@
       "heading": "Twój kod logowania",
       "body": "Wpisz ten kod na stronie logowania {brand}, aby dokończyć logowanie.",
       "note": "Kod wygaśnie za {minutes} minut i działa tylko raz.",
-      "footnote": "Nie prosiłeś o kod? Zignoruj tę wiadomość: bez kodu nikt się nie zaloguje. Nigdy nikomu go nie udostępniaj."
+      "footnote": "Nie prosiłeś o kod? Zignoruj tę wiadomość: bez kodu nikt się nie zaloguje. Nigdy nikomu go nie udostępniaj.",
+      "button": "Zaloguj się do {brand}",
+      "linkBody": "Albo użyj tego przycisku, aby zalogować się na tym urządzeniu.",
+      "noteWithLink": "Kod i przycisk wygasają za {minutes} min i działają tylko raz."
     },
     "deleteAccount": {
       "subject": "Potwierdź usunięcie konta {brand}",
@@ -3217,5 +3220,14 @@
     "doneBody": "Nowe hasło jest ustawione, a pozostałe sesje zostały wylogowane.",
     "continue": "Kontynuuj",
     "toAccount": "Przejdź do konta"
+  },
+  "signInLink": {
+    "title": "Zaloguj się",
+    "description": "Zaloguj się jako {email}",
+    "note": "Zostaniesz zalogowany na tym urządzeniu i wrócisz tam, gdzie zacząłeś.",
+    "signIn": "Zaloguj się",
+    "invalidTitle": "Ten link już nie działa",
+    "invalidBody": "Wygasł lub został już użyty. Poproś o nowy kod na stronie logowania.",
+    "toSignIn": "Przejdź do logowania"
   }
 }

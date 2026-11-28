@@ -3147,7 +3147,10 @@
       "heading": "Kirjautumiskoodisi",
       "body": "Viimeistele kirjautuminen syöttämällä tämä koodi {brand}-kirjautumissivulle.",
       "note": "Koodi vanhenee {minutes} minuutissa ja toimii vain kerran.",
-      "footnote": "Etkö pyytänyt koodia? Voit ohittaa tämän viestin: kukaan ei voi kirjautua ilman koodia. Älä koskaan kerro sitä kenellekään."
+      "footnote": "Etkö pyytänyt koodia? Voit ohittaa tämän viestin: kukaan ei voi kirjautua ilman koodia. Älä koskaan kerro sitä kenellekään.",
+      "button": "Kirjaudu palveluun {brand}",
+      "linkBody": "Tai kirjaudu tällä laitteella tämän painikkeen avulla.",
+      "noteWithLink": "Koodi ja painike vanhenevat {minutes} minuutissa ja toimivat vain kerran."
     },
     "deleteAccount": {
       "subject": "Vahvista {brand}-tilisi poistaminen",
@@ -3217,5 +3220,14 @@
     "doneBody": "Uusi salasanasi on asetettu ja muut istuntosi kirjattiin ulos.",
     "continue": "Jatka",
     "toAccount": "Siirry tiliisi"
+  },
+  "signInLink": {
+    "title": "Kirjaudu",
+    "description": "Kirjaudu tunnuksella {email}",
+    "note": "Sinut kirjataan sisään tällä laitteella ja palautetaan sinne, mistä aloitit.",
+    "signIn": "Kirjaudu",
+    "invalidTitle": "Linkki ei enää toimi",
+    "invalidBody": "Se on vanhentunut tai jo käytetty. Pyydä uusi koodi kirjautumissivulta.",
+    "toSignIn": "Siirry kirjautumiseen"
   }
 }

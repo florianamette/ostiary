@@ -23,6 +23,18 @@ describe("sign-in code email", () => {
     expect(content.code).toBe("042917");
   });
 
+  it.each(locales)("with a sign-in link, is complete in %s", (locale) => {
+    const link = "https://auth.example.test/en/sign-in-link?token=t";
+    const { content } = signInCodeEmail(locale, messages(locale), "042917", link);
+    for (const text of [...content.body, content.note ?? "", content.button?.label ?? ""]) {
+      expect(text.trim()).not.toBe("");
+      expect(text).not.toMatch(/[{}]/);
+    }
+    expect(content.code).toBe("042917");
+    expect(content.button?.url).toBe(link);
+    expect(content.note).toContain("10");
+  });
+
   it("shows the code instead of a button, in the email's language", () => {
     const { content } = signInCodeEmail("ar", messages("ar"), "123456");
     const { html, text } = renderEmail(content);

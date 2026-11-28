@@ -1773,6 +1773,11 @@
       "description": "Sign-in with a 6-digit code sent by email."
     },
     {
+      "name": "Sign-in links",
+      "x-displayName": "Sign-in links",
+      "description": "Verifies the sign-in link in the sign-in code email (links are created with the code, not requested on their own)."
+    },
+    {
       "name": "Passkeys",
       "x-displayName": "Passkeys",
       "description": "WebAuthn passkeys: registration, sign-in and management."
@@ -11245,6 +11250,165 @@
                     "token",
                     "user"
                   ]
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            },
+            "description": "Bad Request. Usually due to missing parameters, or invalid parameters."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                }
+              }
+            },
+            "description": "Unauthorized. Due to missing or invalid authentication."
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Forbidden. You do not have permission to access this resource or to perform this action."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Not Found. The requested resource was not found."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Too Many Requests. You have exceeded the rate limit. Try again later."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Internal Server Error. This is a problem with the server that you cannot fix."
+          }
+        }
+      }
+    },
+    "/magic-link/verify": {
+      "get": {
+        "tags": [
+          "Sign-in links"
+        ],
+        "description": "Verify magic link",
+        "operationId": "verifyMagicLink",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "description": "Verification token"
+            }
+          },
+          {
+            "name": "callbackURL",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "description": "URL to redirect after magic link verification, if not provided the user will be redirected to the root URL. Eg: \"/dashboard\""
+            }
+          },
+          {
+            "name": "errorCallbackURL",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "description": "URL to redirect after error."
+            }
+          },
+          {
+            "name": "newUserCallbackURL",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "description": "URL to redirect after new user signup. Only used if the user is registering for the first time."
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "session": {
+                      "$ref": "#/components/schemas/Session"
+                    },
+                    "user": {
+                      "$ref": "#/components/schemas/User"
+                    }
+                  }
                 }
               }
             }

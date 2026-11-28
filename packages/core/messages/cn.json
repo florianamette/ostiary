@@ -3147,7 +3147,10 @@
       "heading": "你的登录验证码",
       "body": "在 {brand} 登录页面输入此验证码即可完成登录。",
       "note": "验证码将在 {minutes} 分钟后失效，且只能使用一次。",
-      "footnote": "没有请求验证码？请忽略此邮件：没有验证码，任何人都无法登录。切勿将验证码告诉任何人。"
+      "footnote": "没有请求验证码？请忽略此邮件：没有验证码，任何人都无法登录。切勿将验证码告诉任何人。",
+      "button": "登录 {brand}",
+      "linkBody": "或使用此按钮在此设备上登录。",
+      "noteWithLink": "验证码和按钮将在 {minutes} 分钟后失效，且只能使用一次。"
     },
     "deleteAccount": {
       "subject": "确认删除你的 {brand} 账户",
@@ -3217,5 +3220,14 @@
     "doneBody": "新密码已设置，其他会话已退出。",
     "continue": "继续",
     "toAccount": "前往你的账户"
+  },
+  "signInLink": {
+    "title": "登录",
+    "description": "以 {email} 登录",
+    "note": "你将在此设备上登录，并返回开始的位置。",
+    "signIn": "登录",
+    "invalidTitle": "此链接已失效",
+    "invalidBody": "它已过期或已被使用。请在登录页面重新获取验证码。",
+    "toSignIn": "前往登录"
   }
 }

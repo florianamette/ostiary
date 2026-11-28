@@ -3147,7 +3147,10 @@
       "heading": "Innloggingskoden din",
       "body": "Skriv inn denne koden på innloggingssiden til {brand} for å fullføre innloggingen.",
       "note": "Koden utløper om {minutes} minutter og fungerer bare én gang.",
-      "footnote": "Har du ikke bedt om en kode? Se bort fra denne e-posten: ingen kan logge inn uten koden. Del den aldri med noen."
+      "footnote": "Har du ikke bedt om en kode? Se bort fra denne e-posten: ingen kan logge inn uten koden. Del den aldri med noen.",
+      "button": "Logg på {brand}",
+      "linkBody": "Eller bruk knappen for å logge på denne enheten.",
+      "noteWithLink": "Koden og knappen utløper om {minutes} minutter og fungerer bare én gang."
     },
     "deleteAccount": {
       "subject": "Bekreft slettingen av {brand}-kontoen din",
@@ -3217,5 +3220,14 @@
     "doneBody": "Det nye passordet er lagret, og de andre øktene dine er logget ut.",
     "continue": "Fortsett",
     "toAccount": "Gå til kontoen din"
+  },
+  "signInLink": {
+    "title": "Logg på",
+    "description": "Logg på som {email}",
+    "note": "Du blir logget på denne enheten og sendt tilbake dit du begynte.",
+    "signIn": "Logg på",
+    "invalidTitle": "Lenken fungerer ikke lenger",
+    "invalidBody": "Den er utløpt eller allerede brukt. Be om en ny kode på påloggingssiden.",
+    "toSignIn": "Gå til pålogging"
   }
 }
