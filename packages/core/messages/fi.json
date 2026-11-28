@@ -1473,7 +1473,7 @@
       },
       "webhooks": {
         "title": "Webhookit",
-        "description": "Allekirjoitetut HTTPS-ilmoitukset, jotka kertovat sovelluksillesi, kun {name}-käyttäjät, roolit tai organisaatiojäsenyydet muuttuvat.",
+        "description": "Allekirjoitetut HTTPS-ilmoitukset, jotka kertovat sovelluksillesi tai tietoturvavalvonnallesi, kun {name}-tilit, kirjautumiset tai organisaatiojäsenyydet muuttuvat.",
         "deliveries": "Toimitusloki",
         "eventDescriptions": {
           "user_created": "Tili luodaan (rekisteröityminen, ylläpitäjä, SSO, SCIM).",
@@ -1558,6 +1558,11 @@
             "title": "Poistetaanko tämä päätepiste?",
             "description": "{url} lakkaa vastaanottamasta tapahtumia, ja sen toimitusloki ja odottavat uudelleenyritykset poistetaan. Jos haluat keskeyttää sen, poista se käytöstä.",
             "deleted": "Päätepiste poistettu"
+          },
+          "groups": {
+            "users": "Käyttäjät",
+            "security": "Tietoturva",
+            "organizations": "Organisaatiot"
           }
         },
         "redeliver": {
@@ -2068,7 +2073,7 @@
       },
       "security": {
         "title": "Turvallisuus",
-        "description": "Epäonnistuneet kirjautumisyritykset, niiden taustalla olevat tilit ja osoitteet sekä estetyt tilit.",
+        "description": "Kuka voi kirjautua ja miten, sekä seurattavat epäonnistuneet kirjautumiset ja estetyt tilit.",
         "tiles": {
           "failed24h": "Epäonnistuneet kirjautumiset, 24 tuntia",
           "failed7d": "Epäonnistuneet kirjautumiset, 7 päivää",
@@ -2103,8 +2108,6 @@
           "permanent": "pysyvä"
         },
         "policy": {
-          "title": "Istunnot ja salasanat",
-          "description": "Kuinka kauan todennussovellukseen pysytään kirjautuneena ja miten salasanat valitaan. Sovellukset säilyttävät omat tunnisteensa ja päivitystunnisteensa.",
           "edit": "Muokkaa",
           "on": "Päällä",
           "off": "Pois",
@@ -2120,7 +2123,6 @@
           "minPasswordLengthHint": "Koskee uusia salasanoja (rekisteröinti, palautus, vaihto). Nykyiset salasanat toimivat edelleen.",
           "passwordSignUp": "Rekisteröinti salasanalla",
           "passwordSignUpHint": "Pois: tiliä ei voi enää luoda sähköpostilla ja salasanalla, vain sosiaalisen palvelun tai organisaation SSO:n kautta. Ylläpitäjät voivat yhä luoda tilejä, ja nykyiset salasanat toimivat edelleen.",
-          "dialogDescription": "Todennussovellus ottaa ne käyttöön minuutin kuluessa.",
           "save": "Tallenna",
           "cancel": "Peruuta",
           "saved": "Käytäntö tallennettu. Todennussovellus ottaa sen käyttöön minuutin kuluessa.",
@@ -2149,7 +2151,30 @@
           "inactiveDisable": "Poista tili käytöstä",
           "inactiveDelete": "Poista tili",
           "inactiveDisableAfter": "Poista käytöstä {count, plural, one {# päivän} other {# päivän}} jälkeen",
-          "inactiveDeleteAfter": "Poista {count, plural, one {# päivän} other {# päivän}} jälkeen"
+          "inactiveDeleteAfter": "Poista {count, plural, one {# päivän} other {# päivän}} jälkeen",
+          "editGroup": "Muokkaa: {group}",
+          "groups": {
+            "sessions": {
+              "title": "Istunnot",
+              "description": "Kuinka kauan kirjautuminen todennussovellukseen kestää. Sovellukset säilyttävät omat tunnisteensa."
+            },
+            "passwords": {
+              "title": "Salasanat",
+              "description": "Miten salasanat valitaan ja arvataan."
+            },
+            "twoFactor": {
+              "title": "Kaksivaiheinen tunnistautuminen",
+              "description": "Toinen vaihe kaikille, jotka kirjautuvat sovellukseen."
+            },
+            "emails": {
+              "title": "Tietoturvasähköpostit",
+              "description": "Mitä ihmisille kerrotaan tilinsä kirjautumisista ja muutoksista."
+            },
+            "inactive": {
+              "title": "Passiiviset tilit",
+              "description": "Mitä tapahtuu tileille, joita kukaan ei käytä."
+            }
+          }
         },
         "emailDomains": {
           "title": "Sähköpostiverkkotunnukset",
@@ -2215,6 +2240,10 @@
             "noCountries": "Anna vähintään yksi maa.",
             "save": "Maita ei voitu tallentaa."
           }
+        },
+        "tabs": {
+          "settings": "Asetukset",
+          "monitoring": "Valvonta"
         }
       },
       "signingKeys": {

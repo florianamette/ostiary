@@ -1473,7 +1473,7 @@
       },
       "webhooks": {
         "title": "Webhooki",
-        "description": "Podpisane powiadomienia HTTPS informujące Twoje aplikacje o zmianach użytkowników, ról i członkostwa w organizacjach w {name}.",
+        "description": "Podpisane powiadomienia HTTPS, które informują Twoje aplikacje lub monitoring bezpieczeństwa o zmianach kont, logowań i członkostw w organizacjach w {name}.",
         "deliveries": "Dziennik dostarczeń",
         "eventDescriptions": {
           "user_created": "Utworzono konto (rejestracja, administrator, SSO, SCIM).",
@@ -1558,6 +1558,11 @@
             "title": "Usunąć ten endpoint?",
             "description": "{url} przestanie otrzymywać zdarzenia, a jego dziennik dostarczeń i oczekujące ponowienia zostaną usunięte. Aby go wstrzymać, wyłącz go.",
             "deleted": "Endpoint usunięty"
+          },
+          "groups": {
+            "users": "Użytkownicy",
+            "security": "Bezpieczeństwo",
+            "organizations": "Organizacje"
           }
         },
         "redeliver": {
@@ -2068,7 +2073,7 @@
       },
       "security": {
         "title": "Bezpieczeństwo",
-        "description": "Nieudane próby logowania, konta i adresy, z których pochodzą, oraz zablokowane konta.",
+        "description": "Kto i jak może się logować oraz nieudane logowania i zablokowane konta do obserwowania.",
         "tiles": {
           "failed24h": "Nieudane logowania, 24 godziny",
           "failed7d": "Nieudane logowania, 7 dni",
@@ -2103,8 +2108,6 @@
           "permanent": "na stałe"
         },
         "policy": {
-          "title": "Sesje i hasła",
-          "description": "Jak długo użytkownicy pozostają zalogowani w aplikacji uwierzytelniania i jak wybierają hasła. Aplikacje zachowują własne tokeny i tokeny odświeżania.",
           "edit": "Edytuj",
           "on": "Włączone",
           "off": "Wyłączone",
@@ -2120,7 +2123,6 @@
           "minPasswordLengthHint": "Dotyczy nowych haseł (rejestracja, reset, zmiana). Istniejące hasła nadal działają.",
           "passwordSignUp": "Rejestracja z hasłem",
           "passwordSignUpHint": "Wyłączone: nie można już założyć konta za pomocą e-maila i hasła, tylko przez dostawcę społecznościowego lub SSO organizacji. Administratorzy nadal mogą tworzyć konta, a istniejące hasła nadal działają.",
-          "dialogDescription": "Aplikacja uwierzytelniania stosuje je w ciągu minuty.",
           "save": "Zapisz",
           "cancel": "Anuluj",
           "saved": "Zasady zapisane. Aplikacja uwierzytelniania zastosuje je w ciągu minuty.",
@@ -2149,7 +2151,30 @@
           "inactiveDisable": "Wyłącz konto",
           "inactiveDelete": "Usuń konto",
           "inactiveDisableAfter": "Wyłącz po {count, plural, one {# dniu} other {# dniach}}",
-          "inactiveDeleteAfter": "Usuń po {count, plural, one {# dniu} other {# dniach}}"
+          "inactiveDeleteAfter": "Usuń po {count, plural, one {# dniu} other {# dniach}}",
+          "editGroup": "Edytuj: {group}",
+          "groups": {
+            "sessions": {
+              "title": "Sesje",
+              "description": "Jak długo pozostaje się zalogowanym w aplikacji uwierzytelniania. Aplikacje mają własne tokeny."
+            },
+            "passwords": {
+              "title": "Hasła",
+              "description": "Jak hasła są wybierane i zgadywane."
+            },
+            "twoFactor": {
+              "title": "Uwierzytelnianie dwuskładnikowe",
+              "description": "Drugi krok dla każdego, kto loguje się do aplikacji."
+            },
+            "emails": {
+              "title": "E-maile o bezpieczeństwie",
+              "description": "Co ludzie dowiadują się o logowaniach i zmianach na swoim koncie."
+            },
+            "inactive": {
+              "title": "Nieaktywne konta",
+              "description": "Co dzieje się z kontami, których nikt nie używa."
+            }
+          }
         },
         "emailDomains": {
           "title": "Domeny e-mail",
@@ -2215,6 +2240,10 @@
             "noCountries": "Podaj co najmniej jeden kraj.",
             "save": "Nie udało się zapisać krajów."
           }
+        },
+        "tabs": {
+          "settings": "Ustawienia",
+          "monitoring": "Monitorowanie"
         }
       },
       "signingKeys": {

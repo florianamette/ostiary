@@ -1473,7 +1473,7 @@
       },
       "webhooks": {
         "title": "Webhooks",
-        "description": "Notificaciones HTTPS firmadas que avisan a tus aplicaciones cuando cambian los usuarios, los roles o las membresías de organizaciones de {name}.",
+        "description": "Notificaciones HTTPS firmadas que avisan a tus apps o a tu supervisión de seguridad cuando cambian las cuentas, los inicios de sesión o las membresías de organizaciones de {name}.",
         "deliveries": "Registro de entregas",
         "eventDescriptions": {
           "user_created": "Se crea una cuenta (registro, administrador, SSO, SCIM).",
@@ -1558,6 +1558,11 @@
             "title": "¿Eliminar este endpoint?",
             "description": "{url} deja de recibir eventos, y se eliminan su registro de entregas y los reintentos pendientes. Para pausarlo, desactívalo.",
             "deleted": "Endpoint eliminado"
+          },
+          "groups": {
+            "users": "Usuarios",
+            "security": "Seguridad",
+            "organizations": "Organizaciones"
           }
         },
         "redeliver": {
@@ -2068,7 +2073,7 @@
       },
       "security": {
         "title": "Seguridad",
-        "description": "Intentos fallidos de inicio de sesión, las cuentas y direcciones que los originan, y las cuentas bloqueadas.",
+        "description": "Quién puede iniciar sesión y cómo, y los inicios fallidos y cuentas bloqueadas que vigilar.",
         "tiles": {
           "failed24h": "Inicios de sesión fallidos, 24 horas",
           "failed7d": "Inicios de sesión fallidos, 7 días",
@@ -2103,8 +2108,6 @@
           "permanent": "permanente"
         },
         "policy": {
-          "title": "Sesiones y contraseñas",
-          "description": "Cuánto tiempo sigue iniciada la sesión en la aplicación de autenticación y cómo se eligen las contraseñas. Las aplicaciones conservan sus propios tokens y tokens de actualización.",
           "edit": "Editar",
           "on": "Activado",
           "off": "Desactivado",
@@ -2120,7 +2123,6 @@
           "minPasswordLengthHint": "Se aplica a las contraseñas nuevas (registro, restablecimiento, cambio). Las contraseñas existentes siguen funcionando.",
           "passwordSignUp": "Registro con contraseña",
           "passwordSignUpHint": "Desactivado: ya no se puede crear una cuenta con un correo y una contraseña, solo con un proveedor social o el SSO de la organización. Los administradores pueden seguir creando cuentas y las contraseñas existentes siguen funcionando.",
-          "dialogDescription": "La aplicación de autenticación los aplica en menos de un minuto.",
           "save": "Guardar",
           "cancel": "Cancelar",
           "saved": "Política guardada. La aplicación de autenticación la aplica en menos de un minuto.",
@@ -2149,7 +2151,30 @@
           "inactiveDisable": "Desactivar la cuenta",
           "inactiveDelete": "Eliminar la cuenta",
           "inactiveDisableAfter": "Desactivar tras {count, plural, one {# día} other {# días}}",
-          "inactiveDeleteAfter": "Eliminar tras {count, plural, one {# día} other {# días}}"
+          "inactiveDeleteAfter": "Eliminar tras {count, plural, one {# día} other {# días}}",
+          "editGroup": "Editar {group}",
+          "groups": {
+            "sessions": {
+              "title": "Sesiones",
+              "description": "Cuánto tiempo se mantiene la sesión en la app de autenticación. Las apps conservan sus propios tokens."
+            },
+            "passwords": {
+              "title": "Contraseñas",
+              "description": "Cómo se eligen y se adivinan las contraseñas."
+            },
+            "twoFactor": {
+              "title": "Autenticación en dos pasos",
+              "description": "Un segundo paso para todos los que inician sesión en una app."
+            },
+            "emails": {
+              "title": "Correos de seguridad",
+              "description": "Lo que se comunica a las personas sobre los accesos y cambios de su cuenta."
+            },
+            "inactive": {
+              "title": "Cuentas inactivas",
+              "description": "Qué pasa con las cuentas que nadie usa."
+            }
+          }
         },
         "emailDomains": {
           "title": "Dominios de correo",
@@ -2215,6 +2240,10 @@
             "noCountries": "Indica al menos un país.",
             "save": "No se pudieron guardar los países."
           }
+        },
+        "tabs": {
+          "settings": "Ajustes",
+          "monitoring": "Supervisión"
         }
       },
       "signingKeys": {

@@ -1473,7 +1473,7 @@
       },
       "webhooks": {
         "title": "Webhooks",
-        "description": "Signed HTTPS notifications that tell your apps when {name} users, roles and organization memberships change.",
+        "description": "Signed HTTPS notifications that tell your apps or security monitoring when {name} accounts, sign-ins and organization memberships change.",
         "deliveries": "Delivery log",
         "eventDescriptions": {
           "user_created": "An account is created (sign-up, admin, SSO, SCIM).",
@@ -1558,6 +1558,11 @@
             "title": "Delete this endpoint?",
             "description": "{url} stops receiving events, and its delivery log and pending retries are deleted. To pause it, disable it instead.",
             "deleted": "Endpoint deleted"
+          },
+          "groups": {
+            "users": "Users",
+            "security": "Security",
+            "organizations": "Organizations"
           }
         },
         "redeliver": {
@@ -2068,7 +2073,7 @@
       },
       "security": {
         "title": "Security",
-        "description": "Failed sign-in attempts, the accounts and addresses behind them, and banned accounts.",
+        "description": "Who can sign in and how, and the failed sign-ins and banned accounts to keep an eye on.",
         "tiles": {
           "failed24h": "Failed sign-ins, 24 hours",
           "failed7d": "Failed sign-ins, 7 days",
@@ -2103,8 +2108,6 @@
           "permanent": "permanent"
         },
         "policy": {
-          "title": "Sessions and passwords",
-          "description": "How long people stay signed in to the auth app and how passwords are chosen. Apps keep their own tokens and refresh tokens.",
           "edit": "Edit",
           "on": "On",
           "off": "Off",
@@ -2120,7 +2123,6 @@
           "minPasswordLengthHint": "Applies to new passwords (sign-up, reset, change). Existing passwords keep working.",
           "passwordSignUp": "Password sign-up",
           "passwordSignUpHint": "Off: people can no longer create an account with an email and a password, only with a social provider or their organization's SSO. Admins can still create accounts, and existing passwords keep working.",
-          "dialogDescription": "The auth app applies these within a minute.",
           "save": "Save",
           "cancel": "Cancel",
           "saved": "Policy saved. The auth app applies it within a minute.",
@@ -2149,7 +2151,30 @@
           "inactiveDisable": "Disable the account",
           "inactiveDelete": "Delete the account",
           "inactiveDisableAfter": "Disable after {count, plural, one {# day} other {# days}}",
-          "inactiveDeleteAfter": "Delete after {count, plural, one {# day} other {# days}}"
+          "inactiveDeleteAfter": "Delete after {count, plural, one {# day} other {# days}}",
+          "editGroup": "Edit {group}",
+          "groups": {
+            "sessions": {
+              "title": "Sessions",
+              "description": "How long people stay signed in to the auth app. Apps keep their own tokens."
+            },
+            "passwords": {
+              "title": "Passwords",
+              "description": "How passwords are chosen and guessed."
+            },
+            "twoFactor": {
+              "title": "Two-factor authentication",
+              "description": "A second step for everyone who signs in to an app."
+            },
+            "emails": {
+              "title": "Security emails",
+              "description": "What people are told about their account's sign-ins and changes."
+            },
+            "inactive": {
+              "title": "Inactive accounts",
+              "description": "What happens to accounts nobody uses."
+            }
+          }
         },
         "emailDomains": {
           "title": "Email domains",
@@ -2215,6 +2240,10 @@
             "noCountries": "List at least one country.",
             "save": "Could not save the countries."
           }
+        },
+        "tabs": {
+          "settings": "Settings",
+          "monitoring": "Monitoring"
         }
       },
       "signingKeys": {

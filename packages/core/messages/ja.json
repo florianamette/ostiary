@@ -1473,7 +1473,7 @@
       },
       "webhooks": {
         "title": "Webhook",
-        "description": "{name} のユーザー、ロール、組織メンバーシップが変わったときにアプリへ知らせる署名付き HTTPS 通知です。",
+        "description": "{name} のアカウント、サインイン、組織メンバーシップが変わったときに、アプリやセキュリティ監視に知らせる署名付き HTTPS 通知です。",
         "deliveries": "配信ログ",
         "eventDescriptions": {
           "user_created": "アカウントが作成された（新規登録、管理者、SSO、SCIM）。",
@@ -1558,6 +1558,11 @@
             "title": "このエンドポイントを削除しますか？",
             "description": "{url} はイベントを受信しなくなり、配信ログと保留中の再試行も削除されます。一時停止するには、代わりに無効にしてください。",
             "deleted": "エンドポイントを削除しました"
+          },
+          "groups": {
+            "users": "ユーザー",
+            "security": "セキュリティ",
+            "organizations": "組織"
           }
         },
         "redeliver": {
@@ -2068,7 +2073,7 @@
       },
       "security": {
         "title": "セキュリティ",
-        "description": "失敗したサインイン試行、その対象アカウントと送信元アドレス、利用停止中のアカウント。",
+        "description": "誰がどのようにサインインできるか、および注意すべきサインイン失敗と利用停止中のアカウント。",
         "tiles": {
           "failed24h": "サインイン失敗（24 時間）",
           "failed7d": "サインイン失敗（7 日間）",
@@ -2103,8 +2108,6 @@
           "permanent": "無期限"
         },
         "policy": {
-          "title": "セッションとパスワード",
-          "description": "認証アプリにサインインしたままでいられる期間と、パスワードの決め方。アプリは独自のトークンとリフレッシュトークンを保持します。",
           "edit": "編集",
           "on": "オン",
           "off": "オフ",
@@ -2120,7 +2123,6 @@
           "minPasswordLengthHint": "新しいパスワード（登録・リセット・変更）に適用されます。既存のパスワードは引き続き使えます。",
           "passwordSignUp": "パスワードでの登録",
           "passwordSignUpHint": "オフ：メールアドレスとパスワードではアカウントを作成できなくなり、ソーシャルプロバイダーか組織の SSO のみになります。管理者は引き続きアカウントを作成でき、既存のパスワードも使えます。",
-          "dialogDescription": "認証アプリは 1 分以内に適用します。",
           "save": "保存",
           "cancel": "キャンセル",
           "saved": "ポリシーを保存しました。認証アプリは 1 分以内に適用します。",
@@ -2149,7 +2151,30 @@
           "inactiveDisable": "アカウントを無効化",
           "inactiveDelete": "アカウントを削除",
           "inactiveDisableAfter": "{count, plural, other {# 日}}後に無効化",
-          "inactiveDeleteAfter": "{count, plural, other {# 日}}後に削除"
+          "inactiveDeleteAfter": "{count, plural, other {# 日}}後に削除",
+          "editGroup": "{group}を編集",
+          "groups": {
+            "sessions": {
+              "title": "セッション",
+              "description": "認証アプリへのサインインが続く期間。アプリは独自のトークンを保持します。"
+            },
+            "passwords": {
+              "title": "パスワード",
+              "description": "パスワードの決め方と推測への対策。"
+            },
+            "twoFactor": {
+              "title": "2 段階認証",
+              "description": "アプリにサインインするすべての人への 2 つ目のステップ。"
+            },
+            "emails": {
+              "title": "セキュリティメール",
+              "description": "アカウントのサインインや変更について本人に知らせる内容。"
+            },
+            "inactive": {
+              "title": "非アクティブなアカウント",
+              "description": "誰も使っていないアカウントの扱い。"
+            }
+          }
         },
         "emailDomains": {
           "title": "メールドメイン",
@@ -2215,6 +2240,10 @@
             "noCountries": "国を 1 つ以上入力してください。",
             "save": "国を保存できませんでした。"
           }
+        },
+        "tabs": {
+          "settings": "設定",
+          "monitoring": "モニタリング"
         }
       },
       "signingKeys": {

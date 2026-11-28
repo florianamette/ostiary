@@ -53,17 +53,22 @@ const policySchema = z
 
 type Result = { ok: true } | { ok: false; error: "invalid" | "save" };
 
-/** Saves the session and password policy. The auth app applies it within a minute. */
-export async function updateAuthPolicy(input: AuthPolicyInput): Promise<Result> {
+/**
+ * Saves some of the session and password policy (one group of the console's cards), over the
+ * stored rest: a group never puts back another group's older values. The auth app applies it
+ * within a minute.
+ */
+export async function updateAuthPolicy(input: Partial<AuthPolicyInput>): Promise<Result> {
   return adminAction(
-    z.tuple([policySchema]),
+    z.tuple([policySchema.partial()]),
     [input],
-    async ([policy], { session, audit }): Promise<Result> => {
+    async ([changes], { session, audit }): Promise<Result> => {
       let previous: AuthPolicy;
       let saved: AuthPolicy;
       try {
         previous = await loadAuthPolicy();
-        saved = await saveAuthPolicy(policy, session.user.id, previous);
+        // saveAuthPolicy sets the start dates itself (twoFactorRequiredSince, inactiveSince).
+        saved = await saveAuthPolicy({ ...previous, ...changes }, session.user.id, previous);
       } catch (error) {
         console.error("Could not save the session and password policy", error);
         return { ok: false, error: "save" };

@@ -1473,7 +1473,7 @@
       },
       "webhooks": {
         "title": "Webhook",
-        "description": "Notifiche HTTPS firmate che avvisano le tue app quando cambiano utenti, ruoli o appartenenze alle organizzazioni di {name}.",
+        "description": "Notifiche HTTPS firmate che avvisano le tue app o il tuo monitoraggio di sicurezza quando cambiano account, accessi o appartenenze alle organizzazioni di {name}.",
         "deliveries": "Registro delle consegne",
         "eventDescriptions": {
           "user_created": "Viene creato un account (registrazione, amministratore, SSO, SCIM).",
@@ -1558,6 +1558,11 @@
             "title": "Eliminare questo endpoint?",
             "description": "{url} smette di ricevere eventi, e il suo registro delle consegne e i nuovi tentativi in sospeso vengono eliminati. Per metterlo in pausa, disattivalo invece.",
             "deleted": "Endpoint eliminato"
+          },
+          "groups": {
+            "users": "Utenti",
+            "security": "Sicurezza",
+            "organizations": "Organizzazioni"
           }
         },
         "redeliver": {
@@ -2068,7 +2073,7 @@
       },
       "security": {
         "title": "Sicurezza",
-        "description": "Tentativi di accesso non riusciti, gli account e gli indirizzi da cui provengono, e gli account bannati.",
+        "description": "Chi può accedere e come, e gli accessi non riusciti e gli account bloccati da tenere d’occhio.",
         "tiles": {
           "failed24h": "Accessi non riusciti, 24 ore",
           "failed7d": "Accessi non riusciti, 7 giorni",
@@ -2103,8 +2108,6 @@
           "permanent": "permanente"
         },
         "policy": {
-          "title": "Sessioni e password",
-          "description": "Per quanto tempo si resta connessi all'app di autenticazione e come si scelgono le password. Le app conservano i propri token e token di aggiornamento.",
           "edit": "Modifica",
           "on": "Attivo",
           "off": "Disattivo",
@@ -2120,7 +2123,6 @@
           "minPasswordLengthHint": "Si applica alle nuove password (registrazione, ripristino, modifica). Le password esistenti continuano a funzionare.",
           "passwordSignUp": "Registrazione con password",
           "passwordSignUpHint": "Disattivo: non si può più creare un account con email e password, solo con un provider social o con l'SSO della propria organizzazione. Gli admin possono ancora creare account e le password esistenti continuano a funzionare.",
-          "dialogDescription": "L'app di autenticazione le applica entro un minuto.",
           "save": "Salva",
           "cancel": "Annulla",
           "saved": "Criterio salvato. L'app di autenticazione lo applica entro un minuto.",
@@ -2149,7 +2151,30 @@
           "inactiveDisable": "Disattiva l’account",
           "inactiveDelete": "Elimina l’account",
           "inactiveDisableAfter": "Disattiva dopo {count, plural, one {# giorno} other {# giorni}}",
-          "inactiveDeleteAfter": "Elimina dopo {count, plural, one {# giorno} other {# giorni}}"
+          "inactiveDeleteAfter": "Elimina dopo {count, plural, one {# giorno} other {# giorni}}",
+          "editGroup": "Modifica {group}",
+          "groups": {
+            "sessions": {
+              "title": "Sessioni",
+              "description": "Per quanto tempo si resta connessi all’app di autenticazione. Le app mantengono i propri token."
+            },
+            "passwords": {
+              "title": "Password",
+              "description": "Come vengono scelte e indovinate le password."
+            },
+            "twoFactor": {
+              "title": "Autenticazione a due fattori",
+              "description": "Un secondo passaggio per chiunque acceda a un’app."
+            },
+            "emails": {
+              "title": "Email di sicurezza",
+              "description": "Cosa viene comunicato sugli accessi e le modifiche del proprio account."
+            },
+            "inactive": {
+              "title": "Account inattivi",
+              "description": "Cosa succede agli account che nessuno usa."
+            }
+          }
         },
         "emailDomains": {
           "title": "Domini email",
@@ -2215,6 +2240,10 @@
             "noCountries": "Indica almeno un paese.",
             "save": "Impossibile salvare i paesi."
           }
+        },
+        "tabs": {
+          "settings": "Impostazioni",
+          "monitoring": "Monitoraggio"
         }
       },
       "signingKeys": {

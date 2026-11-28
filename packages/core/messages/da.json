@@ -1473,7 +1473,7 @@
       },
       "webhooks": {
         "title": "Webhooks",
-        "description": "Signerede HTTPS-notifikationer, der fortæller dine apps, når brugere, roller og organisationsmedlemskaber i {name} ændres.",
+        "description": "Signerede HTTPS-notifikationer, der fortæller dine apps eller din sikkerhedsovervågning, når konti, login eller organisationsmedlemskaber i {name} ændres.",
         "deliveries": "Leveringslog",
         "eventDescriptions": {
           "user_created": "En konto oprettes (tilmelding, administrator, SSO, SCIM).",
@@ -1558,6 +1558,11 @@
             "title": "Slet dette endpoint?",
             "description": "{url} modtager ikke længere hændelser, og dets leveringslog og ventende genforsøg slettes. Deaktiver det i stedet for at sætte det på pause.",
             "deleted": "Endpoint slettet"
+          },
+          "groups": {
+            "users": "Brugere",
+            "security": "Sikkerhed",
+            "organizations": "Organisationer"
           }
         },
         "redeliver": {
@@ -2068,7 +2073,7 @@
       },
       "security": {
         "title": "Sikkerhed",
-        "description": "Mislykkede loginforsøg, kontiene og adresserne bag dem samt udelukkede konti.",
+        "description": "Hvem kan logge ind og hvordan, og mislykkede login og spærrede konti at holde øje med.",
         "tiles": {
           "failed24h": "Mislykkede logins, 24 timer",
           "failed7d": "Mislykkede logins, 7 dage",
@@ -2103,8 +2108,6 @@
           "permanent": "permanent"
         },
         "policy": {
-          "title": "Sessioner og adgangskoder",
-          "description": "Hvor længe man forbliver logget ind i godkendelsesappen, og hvordan adgangskoder vælges. Apps beholder deres egne tokens og opdateringstokens.",
           "edit": "Rediger",
           "on": "Til",
           "off": "Fra",
@@ -2120,7 +2123,6 @@
           "minPasswordLengthHint": "Gælder nye adgangskoder (oprettelse, nulstilling, skift). Eksisterende adgangskoder virker fortsat.",
           "passwordSignUp": "Oprettelse med adgangskode",
           "passwordSignUpHint": "Fra: man kan ikke længere oprette en konto med e-mail og adgangskode, kun med en social udbyder eller organisationens SSO. Administratorer kan stadig oprette konti, og eksisterende adgangskoder virker fortsat.",
-          "dialogDescription": "Godkendelsesappen anvender dem inden for et minut.",
           "save": "Gem",
           "cancel": "Annuller",
           "saved": "Politikken er gemt. Godkendelsesappen anvender den inden for et minut.",
@@ -2149,7 +2151,30 @@
           "inactiveDisable": "Deaktiver kontoen",
           "inactiveDelete": "Slet kontoen",
           "inactiveDisableAfter": "Deaktiver efter {count, plural, one {# dag} other {# dage}}",
-          "inactiveDeleteAfter": "Slet efter {count, plural, one {# dag} other {# dage}}"
+          "inactiveDeleteAfter": "Slet efter {count, plural, one {# dag} other {# dage}}",
+          "editGroup": "Rediger {group}",
+          "groups": {
+            "sessions": {
+              "title": "Sessioner",
+              "description": "Hvor længe man forbliver logget ind i godkendelsesappen. Apps beholder deres egne tokens."
+            },
+            "passwords": {
+              "title": "Adgangskoder",
+              "description": "Hvordan adgangskoder vælges og gættes."
+            },
+            "twoFactor": {
+              "title": "Totrinsbekræftelse",
+              "description": "Et ekstra trin for alle, der logger ind i en app."
+            },
+            "emails": {
+              "title": "Sikkerheds-e-mails",
+              "description": "Hvad folk får at vide om login og ændringer på deres konto."
+            },
+            "inactive": {
+              "title": "Inaktive konti",
+              "description": "Hvad der sker med konti, som ingen bruger."
+            }
+          }
         },
         "emailDomains": {
           "title": "E-maildomæner",
@@ -2215,6 +2240,10 @@
             "noCountries": "Angiv mindst ét land.",
             "save": "Landene kunne ikke gemmes."
           }
+        },
+        "tabs": {
+          "settings": "Indstillinger",
+          "monitoring": "Overvågning"
         }
       },
       "signingKeys": {

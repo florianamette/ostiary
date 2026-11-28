@@ -1473,7 +1473,7 @@
       },
       "webhooks": {
         "title": "Webhooks",
-        "description": "Signerte HTTPS-varsler som forteller appene dine når brukere, roller og organisasjonsmedlemskap i {name} endres.",
+        "description": "Signerte HTTPS-varsler som forteller appene eller sikkerhetsovervåkingen din når kontoer, pålogginger eller organisasjonsmedlemskap i {name} endres.",
         "deliveries": "Leveringslogg",
         "eventDescriptions": {
           "user_created": "En konto opprettes (registrering, administrator, SSO, SCIM).",
@@ -1558,6 +1558,11 @@
             "title": "Slette dette endepunktet?",
             "description": "{url} slutter å motta hendelser, og leveringsloggen og ventende nye forsøk slettes. Deaktiver det i stedet hvis du vil sette det på pause.",
             "deleted": "Endepunktet er slettet"
+          },
+          "groups": {
+            "users": "Brukere",
+            "security": "Sikkerhet",
+            "organizations": "Organisasjoner"
           }
         },
         "redeliver": {
@@ -2068,7 +2073,7 @@
       },
       "security": {
         "title": "Sikkerhet",
-        "description": "Mislykkede innloggingsforsøk, kontoene og adressene bak dem, og utestengte kontoer.",
+        "description": "Hvem som kan logge på og hvordan, og mislykkede pålogginger og utestengte kontoer å følge med på.",
         "tiles": {
           "failed24h": "Mislykkede innlogginger, 24 timer",
           "failed7d": "Mislykkede innlogginger, 7 dager",
@@ -2103,8 +2108,6 @@
           "permanent": "permanent"
         },
         "policy": {
-          "title": "Økter og passord",
-          "description": "Hvor lenge man forblir innlogget i autentiseringsappen, og hvordan passord velges. Apper beholder sine egne tokener og oppdateringstokener.",
           "edit": "Rediger",
           "on": "På",
           "off": "Av",
@@ -2120,7 +2123,6 @@
           "minPasswordLengthHint": "Gjelder nye passord (registrering, tilbakestilling, bytte). Eksisterende passord fortsetter å virke.",
           "passwordSignUp": "Registrering med passord",
           "passwordSignUpHint": "Av: man kan ikke lenger opprette konto med e-post og passord, bare med en sosial leverandør eller organisasjonens SSO. Administratorer kan fortsatt opprette kontoer, og eksisterende passord fortsetter å virke.",
-          "dialogDescription": "Autentiseringsappen tar dem i bruk innen ett minutt.",
           "save": "Lagre",
           "cancel": "Avbryt",
           "saved": "Retningslinjene er lagret. Autentiseringsappen tar dem i bruk innen ett minutt.",
@@ -2149,7 +2151,30 @@
           "inactiveDisable": "Deaktiver kontoen",
           "inactiveDelete": "Slett kontoen",
           "inactiveDisableAfter": "Deaktiver etter {count, plural, one {# dag} other {# dager}}",
-          "inactiveDeleteAfter": "Slett etter {count, plural, one {# dag} other {# dager}}"
+          "inactiveDeleteAfter": "Slett etter {count, plural, one {# dag} other {# dager}}",
+          "editGroup": "Rediger {group}",
+          "groups": {
+            "sessions": {
+              "title": "Økter",
+              "description": "Hvor lenge man forblir pålogget i autentiseringsappen. Apper beholder egne tokener."
+            },
+            "passwords": {
+              "title": "Passord",
+              "description": "Hvordan passord velges og gjettes."
+            },
+            "twoFactor": {
+              "title": "Totrinnsbekreftelse",
+              "description": "Et ekstra steg for alle som logger på en app."
+            },
+            "emails": {
+              "title": "Sikkerhets-e-post",
+              "description": "Hva folk får vite om pålogginger og endringer på kontoen sin."
+            },
+            "inactive": {
+              "title": "Inaktive kontoer",
+              "description": "Hva som skjer med kontoer ingen bruker."
+            }
+          }
         },
         "emailDomains": {
           "title": "E-postdomener",
@@ -2215,6 +2240,10 @@
             "noCountries": "Oppgi minst ett land.",
             "save": "Kunne ikke lagre landene."
           }
+        },
+        "tabs": {
+          "settings": "Innstillinger",
+          "monitoring": "Overvåking"
         }
       },
       "signingKeys": {

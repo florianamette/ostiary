@@ -22,7 +22,8 @@ import {
 import { Link } from "@/i18n/navigation";
 import { requireAdminSession } from "@/lib/require-admin-session";
 import { getSecurityStats } from "@/lib/security-stats";
-import { AuthPolicyCard } from "@/components/admin/security/auth-policy-card";
+import { AuthPolicyCards } from "@/components/admin/security/auth-policy-card";
+import { SecurityTabs } from "@/components/admin/security/security-tabs";
 import { loadAuthPolicy } from "@ostiary/core/lib/auth-policy";
 import { EmailDomainPolicyCard } from "@/components/admin/security/email-domain-policy-card";
 import { loadEmailDomainPolicy } from "@ostiary/core/lib/email-domain-policy";
@@ -38,9 +39,16 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return { title: t("title") };
 }
 
-export default async function SecurityPage({ params }: { params: Promise<{ locale: string }> }) {
+export default async function SecurityPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ locale: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
   await requireAdminSession();
   const { locale } = await params;
+  const view = (await searchParams).view === "monitoring" ? "monitoring" : "settings";
   const t = await getTranslations({ locale, namespace: "admin.pages.security" });
   const [stats, policy, domainPolicy, countryPolicy] = await Promise.all([
     getSecurityStats(),
@@ -53,12 +61,17 @@ export default async function SecurityPage({ params }: { params: Promise<{ local
     <div className="space-y-6">
       <PageHeader title={t("title")} description={t("description")} />
 
-      <AuthPolicyCard policy={policy} />
-
-      <EmailDomainPolicyCard policy={domainPolicy} />
-
-      <CountryPolicyCard policy={countryPolicy} configured={countrySourceConfigured()} />
-
+      <SecurityTabs
+        initial={view}
+        settings={
+          <>
+            <AuthPolicyCards policy={policy} />
+            <EmailDomainPolicyCard policy={domainPolicy} />
+            <CountryPolicyCard policy={countryPolicy} configured={countrySourceConfigured()} />
+          </>
+        }
+        monitoring={
+          <>
       <StatTiles
         locale={locale}
         tiles={[
@@ -147,6 +160,9 @@ export default async function SecurityPage({ params }: { params: Promise<{ local
           </ul>
         )}
       </Section>
+          </>
+        }
+      />
     </div>
   );
 }
