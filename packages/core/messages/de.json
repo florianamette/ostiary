@@ -182,7 +182,8 @@
       "notLinked": "Dieses Konto ist noch nicht mit einem {name}-Konto verbunden. Melden Sie sich auf andere Weise an und verbinden Sie es dann in Ihren Sicherheitseinstellungen.",
       "noEmail": "Dieses Konto hat keine E-Mail-Adresse übermittelt. Versuche es später erneut oder melde dich anders an.",
       "signUpDisabled": "Für diese Adresse gibt es noch kein Konto, und mit dieser Anmeldemethode kann keines erstellt werden. Melde dich auf andere Weise an.",
-      "createFailed": "Mit dieser Anmeldung konnte kein Konto erstellt werden. Deine E-Mail-Adresse ist hier möglicherweise nicht erlaubt: Versuche eine andere Adresse oder melde dich anders an."
+      "createFailed": "Mit dieser Anmeldung konnte kein Konto erstellt werden. Deine E-Mail-Adresse ist hier möglicherweise nicht erlaubt: Versuche eine andere Adresse oder melde dich anders an.",
+      "sessionRefused": "Die Anmeldung wurde abgelehnt. Wenn Sie das für einen Fehler halten, wenden Sie sich an Ihren Administrator."
     },
     "app": {
       "signIn": "Melden Sie sich an, um zu <app>{name}</app> fortzufahren",
@@ -2030,7 +2031,9 @@
           },
           "security": {
             "update_policy": "Sitzungs- und Passwortrichtlinie geändert",
-            "update_email_domains": "Erlaubte E-Mail-Domains geändert"
+            "update_email_domains": "Erlaubte E-Mail-Domains geändert",
+            "update_countries": "Länder geändert",
+            "country_refused": "Anmeldung aus einem Land abgelehnt"
           }
         },
         "actorPlaceholder": "Nach Ausführendem suchen (E-Mail)…",
@@ -2143,6 +2146,37 @@
             "invalidDomain": "Einer der Einträge ist kein Domainname wie example.com.",
             "noDomains": "Gib mindestens eine Domain an.",
             "save": "Die E-Mail-Domains konnten nicht gespeichert werden."
+          }
+        },
+        "countries": {
+          "title": "Länder",
+          "description": "Aus welchen Ländern man sich anmelden und registrieren kann. Plattform-Admins können sich immer anmelden; eine Anfrage mit unbekanntem Land wird zugelassen.",
+          "notConfigured": "Setzen Sie COUNTRY_HEADER (ein Header Ihres Proxys, z. B. cf-ipcountry) oder GEOIP_DATABASE (eine MaxMind-GeoLite2-Country-Datei) in beiden Apps, um dies zu aktivieren. Auf Vercel funktioniert es ohne.",
+          "edit": "Bearbeiten",
+          "mode": "Wer sich anmelden kann",
+          "modes": {
+            "any": "Jedes Land",
+            "allow": "Nur diese Länder",
+            "block": "Jedes Land außer diesen"
+          },
+          "modeHints": {
+            "any": "Keine Einschränkung nach Land.",
+            "allow": "Anmeldungen und Registrierungen aus anderen Ländern werden abgelehnt.",
+            "block": "Anmeldungen und Registrierungen aus den aufgeführten Ländern werden abgelehnt."
+          },
+          "allowed": "Erlaubte Länder",
+          "blocked": "Gesperrte Länder",
+          "none": "Keine",
+          "countriesHint": "Zweistellige Ländercodes (ISO 3166-1), durch Kommas oder Leerzeichen getrennt: FR, DE, US.",
+          "dialogDescription": "Admins können sich weiterhin von überall anmelden. Die Auth-App übernimmt dies innerhalb einer Minute.",
+          "save": "Speichern",
+          "cancel": "Abbrechen",
+          "saved": "Länder gespeichert. Die Auth-App übernimmt sie innerhalb einer Minute.",
+          "errors": {
+            "invalid": "Wählen Sie eine der angebotenen Optionen.",
+            "invalidCountry": "Ein Eintrag ist kein zweistelliger Ländercode wie FR.",
+            "noCountries": "Geben Sie mindestens ein Land an.",
+            "save": "Die Länder konnten nicht gespeichert werden."
           }
         }
       },
@@ -3176,7 +3210,8 @@
       "ifYou": "Wenn Sie das waren, müssen Sie nichts tun.",
       "button": "Das war ich nicht",
       "note": "Die Schaltfläche funktioniert einmal innerhalb von {days} Tagen. Sie meldet Sie überall ab und sendet Ihnen einen Link, um ein neues Passwort festzulegen.",
-      "footnote": "Sie erhalten diese E-Mail, wenn sich Ihr Konto auf einem neuen Gerät anmeldet. Geben Sie Ihr Passwort oder Anmeldecodes niemals weiter."
+      "footnote": "Sie erhalten diese E-Mail, wenn sich Ihr Konto auf einem neuen Gerät anmeldet. Geben Sie Ihr Passwort oder Anmeldecodes niemals weiter.",
+      "location": "Ort: {country}"
     }
   },
   "authErrors": {
@@ -3196,7 +3231,8 @@
     "emailNotVerified": "Bestätige zuerst deine E-Mail-Adresse.",
     "invalidToken": "Dieser Link ist ungültig oder abgelaufen.",
     "publicOrganization": "Die Mitglieder der Organisation Public werden nur von Plattform-Administratoren verwaltet.",
-    "emailDomainNotAllowed": "Mit dieser E-Mail-Domain kann hier kein Konto erstellt werden. Verwende eine andere Adresse."
+    "emailDomainNotAllowed": "Mit dieser E-Mail-Domain kann hier kein Konto erstellt werden. Verwende eine andere Adresse.",
+    "countryNotAllowed": "Die Anmeldung aus Ihrem Land ist hier nicht erlaubt."
   },
   "secureAccount": {
     "title": "Konto absichern",

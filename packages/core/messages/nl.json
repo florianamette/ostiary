@@ -182,7 +182,8 @@
       "notLinked": "Dat account is nog niet gekoppeld aan een {name}-account. Log op een andere manier in en koppel het daarna via je beveiligingsinstellingen.",
       "noEmail": "Dat account heeft geen e-mailadres gedeeld. Probeer het later opnieuw of meld je op een andere manier aan.",
       "signUpDisabled": "Er is nog geen account voor dat adres en met deze aanmeldmethode kan er geen worden aangemaakt. Meld je op een andere manier aan.",
-      "createFailed": "Er kon geen account worden aangemaakt met deze aanmelding. Je e-mailadres is hier mogelijk niet toegestaan: probeer een ander adres of meld je op een andere manier aan."
+      "createFailed": "Er kon geen account worden aangemaakt met deze aanmelding. Je e-mailadres is hier mogelijk niet toegestaan: probeer een ander adres of meld je op een andere manier aan.",
+      "sessionRefused": "Aanmelden is geweigerd. Denk je dat dit een vergissing is, neem dan contact op met je beheerder."
     },
     "app": {
       "signIn": "Log in om door te gaan naar <app>{name}</app>",
@@ -2030,7 +2031,9 @@
           },
           "security": {
             "update_policy": "Sessie- en wachtwoordbeleid gewijzigd",
-            "update_email_domains": "Toegestane e-maildomeinen gewijzigd"
+            "update_email_domains": "Toegestane e-maildomeinen gewijzigd",
+            "update_countries": "Heeft de landen gewijzigd",
+            "country_refused": "Heeft een aanmelding uit een land geweigerd"
           }
         },
         "actorPlaceholder": "Zoeken op wie het deed (e-mail)…",
@@ -2143,6 +2146,37 @@
             "invalidDomain": "Een van de items is geen domeinnaam, zoals example.com.",
             "noDomains": "Geef minstens één domein op.",
             "save": "De e-maildomeinen konden niet worden opgeslagen."
+          }
+        },
+        "countries": {
+          "title": "Landen",
+          "description": "Vanuit welke landen je kunt aanmelden en registreren. Platformbeheerders kunnen altijd aanmelden; een verzoek uit een onbekend land wordt toegestaan.",
+          "notConfigured": "Stel COUNTRY_HEADER (een header die je proxy zet, zoals cf-ipcountry) of GEOIP_DATABASE (een MaxMind GeoLite2 Country-bestand) in op beide apps om dit in te schakelen. Op Vercel werkt het zonder.",
+          "edit": "Bewerken",
+          "mode": "Wie kan aanmelden",
+          "modes": {
+            "any": "Elk land",
+            "allow": "Alleen deze landen",
+            "block": "Elk land behalve deze"
+          },
+          "modeHints": {
+            "any": "Geen beperking op land.",
+            "allow": "Aanmeldingen en registraties uit andere landen worden geweigerd.",
+            "block": "Aanmeldingen en registraties uit de opgegeven landen worden geweigerd."
+          },
+          "allowed": "Toegestane landen",
+          "blocked": "Geblokkeerde landen",
+          "none": "Geen",
+          "countriesHint": "Landcodes van twee letters (ISO 3166-1), gescheiden door komma’s of spaties: FR, DE, US.",
+          "dialogDescription": "Beheerders kunnen nog steeds overal vandaan aanmelden. De auth-app past dit binnen een minuut toe.",
+          "save": "Opslaan",
+          "cancel": "Annuleren",
+          "saved": "Landen opgeslagen. De auth-app past ze binnen een minuut toe.",
+          "errors": {
+            "invalid": "Kies een van de aangeboden opties.",
+            "invalidCountry": "Een van de items is geen landcode van twee letters, zoals FR.",
+            "noCountries": "Geef minstens één land op.",
+            "save": "De landen konden niet worden opgeslagen."
           }
         }
       },
@@ -3176,7 +3210,8 @@
       "ifYou": "Was jij dit, dan hoef je niets te doen.",
       "button": "Dit was ik niet",
       "note": "De knop werkt één keer binnen {days} dagen. Hij meldt je overal af en mailt je een link om een nieuw wachtwoord te kiezen.",
-      "footnote": "Je krijgt deze e-mail wanneer je account aanmeldt vanaf een nieuw apparaat. Deel nooit je wachtwoord of aanmeldcodes."
+      "footnote": "Je krijgt deze e-mail wanneer je account aanmeldt vanaf een nieuw apparaat. Deel nooit je wachtwoord of aanmeldcodes.",
+      "location": "Locatie: {country}"
     }
   },
   "authErrors": {
@@ -3196,7 +3231,8 @@
     "emailNotVerified": "Bevestig eerst je e-mailadres.",
     "invalidToken": "Deze link is ongeldig of verlopen.",
     "publicOrganization": "De leden van de organisatie Public worden alleen door platformbeheerders beheerd.",
-    "emailDomainNotAllowed": "Met dit e-maildomein kan hier geen account worden aangemaakt. Gebruik een ander adres."
+    "emailDomainNotAllowed": "Met dit e-maildomein kan hier geen account worden aangemaakt. Gebruik een ander adres.",
+    "countryNotAllowed": "Aanmelden vanuit je land is hier niet toegestaan."
   },
   "secureAccount": {
     "title": "Beveilig je account",

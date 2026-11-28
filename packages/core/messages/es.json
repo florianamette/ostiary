@@ -182,7 +182,8 @@
       "notLinked": "Esa cuenta aún no está conectada a una cuenta de {name}. Inicia sesión de otra forma y conéctala desde tu configuración de seguridad.",
       "noEmail": "Esa cuenta no compartió una dirección de correo. Inténtalo más tarde o inicia sesión de otra forma.",
       "signUpDisabled": "Todavía no hay ninguna cuenta para esa dirección y este método de inicio de sesión no puede crearla. Inicia sesión de otra forma.",
-      "createFailed": "No se pudo crear una cuenta con ese inicio de sesión. Es posible que tu dirección de correo no esté permitida aquí: prueba con otra dirección o inicia sesión de otra forma."
+      "createFailed": "No se pudo crear una cuenta con ese inicio de sesión. Es posible que tu dirección de correo no esté permitida aquí: prueba con otra dirección o inicia sesión de otra forma.",
+      "sessionRefused": "Se rechazó el inicio de sesión. Si crees que es un error, contacta con tu administrador."
     },
     "app": {
       "signIn": "Inicia sesión para continuar en <app>{name}</app>",
@@ -2030,7 +2031,9 @@
           },
           "security": {
             "update_policy": "Cambió la política de sesiones y contraseñas",
-            "update_email_domains": "Cambió los dominios de correo permitidos"
+            "update_email_domains": "Cambió los dominios de correo permitidos",
+            "update_countries": "Cambió los países",
+            "country_refused": "Rechazó un inicio de sesión desde un país"
           }
         },
         "actorPlaceholder": "Buscar por quién actuó (correo)…",
@@ -2143,6 +2146,37 @@
             "invalidDomain": "Una de las entradas no es un nombre de dominio, como example.com.",
             "noDomains": "Indica al menos un dominio.",
             "save": "No se pudieron guardar los dominios de correo."
+          }
+        },
+        "countries": {
+          "title": "Países",
+          "description": "Desde qué países se puede iniciar sesión y crear una cuenta. Los administradores de la plataforma siempre pueden iniciar sesión; una solicitud cuyo país se desconoce se acepta.",
+          "notConfigured": "Define COUNTRY_HEADER (un encabezado que pone tu proxy, como cf-ipcountry) o GEOIP_DATABASE (un archivo MaxMind GeoLite2 Country) en ambas aplicaciones para activarlo. En Vercel funciona sin ellos.",
+          "edit": "Editar",
+          "mode": "Quién puede iniciar sesión",
+          "modes": {
+            "any": "Cualquier país",
+            "allow": "Solo estos países",
+            "block": "Cualquier país excepto estos"
+          },
+          "modeHints": {
+            "any": "Sin restricción por país.",
+            "allow": "Se rechazan los inicios de sesión y registros desde otros países.",
+            "block": "Se rechazan los inicios de sesión y registros desde los países indicados."
+          },
+          "allowed": "Países permitidos",
+          "blocked": "Países bloqueados",
+          "none": "Ninguno",
+          "countriesHint": "Códigos de país de dos letras (ISO 3166-1), separados por comas o espacios: FR, DE, US.",
+          "dialogDescription": "Los administradores pueden seguir iniciando sesión desde cualquier lugar. La aplicación de autenticación lo aplica en menos de un minuto.",
+          "save": "Guardar",
+          "cancel": "Cancelar",
+          "saved": "Países guardados. La aplicación de autenticación los aplica en menos de un minuto.",
+          "errors": {
+            "invalid": "Elige una de las opciones disponibles.",
+            "invalidCountry": "Una de las entradas no es un código de país de dos letras, como FR.",
+            "noCountries": "Indica al menos un país.",
+            "save": "No se pudieron guardar los países."
           }
         }
       },
@@ -3176,7 +3210,8 @@
       "ifYou": "Si fuiste tú, no tienes que hacer nada.",
       "button": "No fui yo",
       "note": "El botón funciona una vez durante {days} días. Cierra tu sesión en todas partes y te envía un enlace para elegir una contraseña nueva.",
-      "footnote": "Recibes este correo cuando tu cuenta inicia sesión desde un dispositivo nuevo. Nunca compartas tu contraseña ni tus códigos de inicio de sesión."
+      "footnote": "Recibes este correo cuando tu cuenta inicia sesión desde un dispositivo nuevo. Nunca compartas tu contraseña ni tus códigos de inicio de sesión.",
+      "location": "Ubicación: {country}"
     }
   },
   "authErrors": {
@@ -3196,7 +3231,8 @@
     "emailNotVerified": "Verifica primero tu dirección de correo.",
     "invalidToken": "Este enlace no es válido o ha caducado.",
     "publicOrganization": "Los miembros de la organización Public solo los gestionan los administradores de la plataforma.",
-    "emailDomainNotAllowed": "No se pueden crear cuentas con este dominio de correo aquí. Usa otra dirección."
+    "emailDomainNotAllowed": "No se pueden crear cuentas con este dominio de correo aquí. Usa otra dirección.",
+    "countryNotAllowed": "No se permite iniciar sesión desde tu país aquí."
   },
   "secureAccount": {
     "title": "Protege tu cuenta",

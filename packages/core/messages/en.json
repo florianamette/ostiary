@@ -182,7 +182,8 @@
       "notLinked": "That account isn't connected to a {name} account yet. Sign in another way, then connect it from your security settings.",
       "noEmail": "That account didn't share an email address. Try again later or sign in another way.",
       "signUpDisabled": "There's no account for that address yet, and this sign-in method can't create one. Sign in another way.",
-      "createFailed": "Could not create an account with that sign-in. Your email address may not be allowed here: try another address or sign in another way."
+      "createFailed": "Could not create an account with that sign-in. Your email address may not be allowed here: try another address or sign in another way.",
+      "sessionRefused": "Signing in was refused. If you think this is a mistake, contact your administrator."
     },
     "app": {
       "signIn": "Sign in to continue to <app>{name}</app>",
@@ -2030,7 +2031,9 @@
           },
           "security": {
             "update_policy": "Changed the session and password policy",
-            "update_email_domains": "Changed the allowed email domains"
+            "update_email_domains": "Changed the allowed email domains",
+            "update_countries": "Changed the countries",
+            "country_refused": "Refused a sign-in from a country"
           }
         },
         "actorPlaceholder": "Search by who acted (email)…",
@@ -2143,6 +2146,37 @@
             "invalidDomain": "One of the entries isn't a domain name, such as example.com.",
             "noDomains": "List at least one domain.",
             "save": "Could not save the email domains."
+          }
+        },
+        "countries": {
+          "title": "Countries",
+          "description": "Which countries people can sign in and sign up from. Platform admins can always sign in; a request whose country is unknown is allowed.",
+          "notConfigured": "Set COUNTRY_HEADER (a header your proxy sets, such as cf-ipcountry) or GEOIP_DATABASE (a MaxMind GeoLite2 Country file) on both apps to turn this on. On Vercel it works without them.",
+          "edit": "Edit",
+          "mode": "Who can sign in",
+          "modes": {
+            "any": "Any country",
+            "allow": "Only these countries",
+            "block": "Any country except these"
+          },
+          "modeHints": {
+            "any": "No restriction on the country.",
+            "allow": "Sign-ins and sign-ups from other countries are refused.",
+            "block": "Sign-ins and sign-ups from the listed countries are refused."
+          },
+          "allowed": "Allowed countries",
+          "blocked": "Blocked countries",
+          "none": "None",
+          "countriesHint": "Two-letter country codes (ISO 3166-1), separated by commas or spaces: FR, DE, US.",
+          "dialogDescription": "Admins can still sign in from anywhere. The auth app applies this within a minute.",
+          "save": "Save",
+          "cancel": "Cancel",
+          "saved": "Countries saved. The auth app applies them within a minute.",
+          "errors": {
+            "invalid": "Choose one of the options offered.",
+            "invalidCountry": "One of the entries isn't a two-letter country code, such as FR.",
+            "noCountries": "List at least one country.",
+            "save": "Could not save the countries."
           }
         }
       },
@@ -3176,7 +3210,8 @@
       "ifYou": "If this was you, there's nothing to do.",
       "button": "This wasn't me",
       "note": "The button works once within {days} days. It signs you out everywhere and emails you a link to choose a new password.",
-      "footnote": "You get this email when your account signs in from a new device. Never share your password or sign-in codes."
+      "footnote": "You get this email when your account signs in from a new device. Never share your password or sign-in codes.",
+      "location": "Location: {country}"
     }
   },
   "authErrors": {
@@ -3196,7 +3231,8 @@
     "emailNotVerified": "Verify your email address first.",
     "invalidToken": "This link is invalid or has expired.",
     "publicOrganization": "The Public organization's members are managed by platform admins only.",
-    "emailDomainNotAllowed": "Accounts with this email domain can't be created here. Use another address."
+    "emailDomainNotAllowed": "Accounts with this email domain can't be created here. Use another address.",
+    "countryNotAllowed": "Signing in from your country is not allowed here."
   },
   "secureAccount": {
     "title": "Secure your account",

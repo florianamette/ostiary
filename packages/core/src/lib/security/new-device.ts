@@ -12,6 +12,7 @@ import { emailLocale } from "@ostiary/core/lib/email/email-locale";
 import { queueNewDeviceEmail, SECURE_ACCOUNT_LINK_DAYS } from "@ostiary/core/lib/email/queue-new-device-email";
 import { env } from "@ostiary/core/lib/env";
 import { describeUserAgent } from "@ostiary/core/lib/security/user-agent";
+import { requestCountry } from "@ostiary/core/lib/country";
 import { getBaseURL } from "@ostiary/core/lib/url";
 
 /*
@@ -112,6 +113,7 @@ export async function noticeSignIn(ctx: GenericEndpointContext | null | undefine
             at: now,
             device,
             ipAddress,
+            country: await requestCountry(ctx.headers),
             locale,
         });
         await recordAudit({

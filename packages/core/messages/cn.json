@@ -182,7 +182,8 @@
       "notLinked": "该账户尚未关联到 {name} 账户。请先用其他方式登录，再在安全设置中关联。",
       "noEmail": "该账户未提供电子邮件地址。请稍后重试，或使用其他方式登录。",
       "signUpDisabled": "该地址尚无账户，且此登录方式无法创建账户。请使用其他方式登录。",
-      "createFailed": "无法通过此登录方式创建账户。你的邮箱地址可能不被允许：请尝试其他地址或用其他方式登录。"
+      "createFailed": "无法通过此登录方式创建账户。你的邮箱地址可能不被允许：请尝试其他地址或用其他方式登录。",
+      "sessionRefused": "登录被拒绝。如果你认为这是错误，请联系管理员。"
     },
     "app": {
       "signIn": "登录以继续前往 <app>{name}</app>",
@@ -2030,7 +2031,9 @@
           },
           "security": {
             "update_policy": "更改了会话与密码策略",
-            "update_email_domains": "更改了允许的邮箱域名"
+            "update_email_domains": "更改了允许的邮箱域名",
+            "update_countries": "修改了国家/地区",
+            "country_refused": "拒绝了来自某国家/地区的登录"
           }
         },
         "actorPlaceholder": "按操作者（邮箱）搜索…",
@@ -2143,6 +2146,37 @@
             "invalidDomain": "其中一项不是域名，例如 example.com。",
             "noDomains": "请至少填写一个域名。",
             "save": "无法保存邮箱域名。"
+          }
+        },
+        "countries": {
+          "title": "国家/地区",
+          "description": "允许从哪些国家/地区登录和注册。平台管理员始终可以登录；国家/地区未知的请求会被允许。",
+          "notConfigured": "要启用此功能，请在两个应用中设置 COUNTRY_HEADER（代理设置的请求头，如 cf-ipcountry）或 GEOIP_DATABASE（MaxMind GeoLite2 Country 文件）。在 Vercel 上无需设置。",
+          "edit": "编辑",
+          "mode": "谁可以登录",
+          "modes": {
+            "any": "任何国家/地区",
+            "allow": "仅限这些国家/地区",
+            "block": "除这些以外的任何国家/地区"
+          },
+          "modeHints": {
+            "any": "不限制国家/地区。",
+            "allow": "来自其他国家/地区的登录和注册将被拒绝。",
+            "block": "来自所列国家/地区的登录和注册将被拒绝。"
+          },
+          "allowed": "允许的国家/地区",
+          "blocked": "屏蔽的国家/地区",
+          "none": "无",
+          "countriesHint": "两位字母国家代码（ISO 3166-1），用逗号或空格分隔：FR, DE, US。",
+          "dialogDescription": "管理员仍可从任何地方登录。认证应用会在一分钟内生效。",
+          "save": "保存",
+          "cancel": "取消",
+          "saved": "国家/地区已保存。认证应用会在一分钟内生效。",
+          "errors": {
+            "invalid": "请选择提供的选项之一。",
+            "invalidCountry": "某个条目不是两位字母国家代码，例如 FR。",
+            "noCountries": "请至少填写一个国家/地区。",
+            "save": "无法保存国家/地区。"
           }
         }
       },
@@ -3176,7 +3210,8 @@
       "ifYou": "如果是你本人，无需任何操作。",
       "button": "不是我",
       "note": "此按钮在 {days} 天内可使用一次。它会让你在所有地方退出登录，并通过邮件发送设置新密码的链接。",
-      "footnote": "当你的账户在新设备上登录时，你会收到这封邮件。切勿与任何人分享你的密码或登录码。"
+      "footnote": "当你的账户在新设备上登录时，你会收到这封邮件。切勿与任何人分享你的密码或登录码。",
+      "location": "位置：{country}"
     }
   },
   "authErrors": {
@@ -3196,7 +3231,8 @@
     "emailNotVerified": "请先验证您的邮箱地址。",
     "invalidToken": "此链接无效或已过期。",
     "publicOrganization": "Public 组织的成员仅由平台管理员管理。",
-    "emailDomainNotAllowed": "无法在此使用该邮箱域名创建账户。请使用其他地址。"
+    "emailDomainNotAllowed": "无法在此使用该邮箱域名创建账户。请使用其他地址。",
+    "countryNotAllowed": "此处不允许从你所在的国家/地区登录。"
   },
   "secureAccount": {
     "title": "保护你的账户",

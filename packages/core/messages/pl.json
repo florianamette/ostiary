@@ -182,7 +182,8 @@
       "notLinked": "To konto nie jest jeszcze połączone z kontem {name}. Zaloguj się w inny sposób, a potem połącz je w ustawieniach bezpieczeństwa.",
       "noEmail": "To konto nie udostępniło adresu e-mail. Spróbuj później lub zaloguj się w inny sposób.",
       "signUpDisabled": "Dla tego adresu nie ma jeszcze konta, a ta metoda logowania nie może go utworzyć. Zaloguj się w inny sposób.",
-      "createFailed": "Nie udało się utworzyć konta przy tym logowaniu. Twój adres e-mail może nie być tu dozwolony: spróbuj innego adresu lub zaloguj się inaczej."
+      "createFailed": "Nie udało się utworzyć konta przy tym logowaniu. Twój adres e-mail może nie być tu dozwolony: spróbuj innego adresu lub zaloguj się inaczej.",
+      "sessionRefused": "Logowanie zostało odrzucone. Jeśli uważasz, że to błąd, skontaktuj się z administratorem."
     },
     "app": {
       "signIn": "Zaloguj się, aby przejść do <app>{name}</app>",
@@ -2030,7 +2031,9 @@
           },
           "security": {
             "update_policy": "Zmieniono zasady sesji i haseł",
-            "update_email_domains": "Zmieniono dozwolone domeny e-mail"
+            "update_email_domains": "Zmieniono dozwolone domeny e-mail",
+            "update_countries": "Zmienił(a) kraje",
+            "country_refused": "Odrzucono logowanie z kraju"
           }
         },
         "actorPlaceholder": "Szukaj po wykonawcy (e-mail)…",
@@ -2143,6 +2146,37 @@
             "invalidDomain": "Jeden z wpisów nie jest nazwą domeny, taką jak example.com.",
             "noDomains": "Podaj co najmniej jedną domenę.",
             "save": "Nie udało się zapisać domen e-mail."
+          }
+        },
+        "countries": {
+          "title": "Kraje",
+          "description": "Z jakich krajów można się logować i rejestrować. Administratorzy platformy zawsze mogą się zalogować; żądanie z nieznanego kraju jest dozwolone.",
+          "notConfigured": "Aby to włączyć, ustaw w obu aplikacjach COUNTRY_HEADER (nagłówek ustawiany przez proxy, np. cf-ipcountry) lub GEOIP_DATABASE (plik MaxMind GeoLite2 Country). Na Vercel działa bez nich.",
+          "edit": "Edytuj",
+          "mode": "Kto może się logować",
+          "modes": {
+            "any": "Dowolny kraj",
+            "allow": "Tylko te kraje",
+            "block": "Dowolny kraj oprócz tych"
+          },
+          "modeHints": {
+            "any": "Brak ograniczeń co do kraju.",
+            "allow": "Logowania i rejestracje z innych krajów są odrzucane.",
+            "block": "Logowania i rejestracje z wymienionych krajów są odrzucane."
+          },
+          "allowed": "Dozwolone kraje",
+          "blocked": "Zablokowane kraje",
+          "none": "Brak",
+          "countriesHint": "Dwuliterowe kody krajów (ISO 3166-1), oddzielone przecinkami lub spacjami: FR, DE, US.",
+          "dialogDescription": "Administratorzy nadal mogą logować się z dowolnego miejsca. Aplikacja uwierzytelniania zastosuje to w ciągu minuty.",
+          "save": "Zapisz",
+          "cancel": "Anuluj",
+          "saved": "Kraje zapisane. Aplikacja uwierzytelniania zastosuje je w ciągu minuty.",
+          "errors": {
+            "invalid": "Wybierz jedną z dostępnych opcji.",
+            "invalidCountry": "Jeden z wpisów nie jest dwuliterowym kodem kraju, np. FR.",
+            "noCountries": "Podaj co najmniej jeden kraj.",
+            "save": "Nie udało się zapisać krajów."
           }
         }
       },
@@ -3176,7 +3210,8 @@
       "ifYou": "Jeśli to Ty, nie musisz nic robić.",
       "button": "To nie ja",
       "note": "Przycisk działa raz przez {days} dni. Wylogowuje Cię wszędzie i wysyła link do ustawienia nowego hasła.",
-      "footnote": "Otrzymujesz tę wiadomość, gdy Twoje konto loguje się z nowego urządzenia. Nigdy nie udostępniaj hasła ani kodów logowania."
+      "footnote": "Otrzymujesz tę wiadomość, gdy Twoje konto loguje się z nowego urządzenia. Nigdy nie udostępniaj hasła ani kodów logowania.",
+      "location": "Lokalizacja: {country}"
     }
   },
   "authErrors": {
@@ -3196,7 +3231,8 @@
     "emailNotVerified": "Najpierw zweryfikuj swój adres e-mail.",
     "invalidToken": "Ten link jest nieprawidłowy lub wygasł.",
     "publicOrganization": "Członkami organizacji Public zarządzają wyłącznie administratorzy platformy.",
-    "emailDomainNotAllowed": "Nie można tu utworzyć konta z tą domeną e-mail. Użyj innego adresu."
+    "emailDomainNotAllowed": "Nie można tu utworzyć konta z tą domeną e-mail. Użyj innego adresu.",
+    "countryNotAllowed": "Logowanie z Twojego kraju nie jest tu dozwolone."
   },
   "secureAccount": {
     "title": "Zabezpiecz swoje konto",

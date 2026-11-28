@@ -182,7 +182,8 @@
       "notLinked": "Den konto er endnu ikke forbundet med en {name}-konto. Log ind på en anden måde, og forbind den derefter fra dine sikkerhedsindstillinger.",
       "noEmail": "Kontoen delte ikke en e-mailadresse. Prøv igen senere, eller log ind på en anden måde.",
       "signUpDisabled": "Der findes endnu ingen konto for den adresse, og denne loginmetode kan ikke oprette en. Log ind på en anden måde.",
-      "createFailed": "Der kunne ikke oprettes en konto med det login. Din e-mailadresse er måske ikke tilladt her: prøv en anden adresse, eller log ind på en anden måde."
+      "createFailed": "Der kunne ikke oprettes en konto med det login. Din e-mailadresse er måske ikke tilladt her: prøv en anden adresse, eller log ind på en anden måde.",
+      "sessionRefused": "Login blev afvist. Hvis du mener, det er en fejl, så kontakt din administrator."
     },
     "app": {
       "signIn": "Log ind for at fortsætte til <app>{name}</app>",
@@ -2030,7 +2031,9 @@
           },
           "security": {
             "update_policy": "Ændrede politikken for sessioner og adgangskoder",
-            "update_email_domains": "Ændrede de tilladte e-maildomæner"
+            "update_email_domains": "Ændrede de tilladte e-maildomæner",
+            "update_countries": "Ændrede landene",
+            "country_refused": "Afviste et login fra et land"
           }
         },
         "actorPlaceholder": "Søg efter hvem der handlede (e-mail)…",
@@ -2143,6 +2146,37 @@
             "invalidDomain": "En af posterne er ikke et domænenavn, som example.com.",
             "noDomains": "Angiv mindst ét domæne.",
             "save": "E-maildomænerne kunne ikke gemmes."
+          }
+        },
+        "countries": {
+          "title": "Lande",
+          "description": "Fra hvilke lande man kan logge ind og oprette konto. Platformsadministratorer kan altid logge ind; en anmodning fra et ukendt land tillades.",
+          "notConfigured": "Angiv COUNTRY_HEADER (en header, din proxy sætter, f.eks. cf-ipcountry) eller GEOIP_DATABASE (en MaxMind GeoLite2 Country-fil) i begge apps for at slå det til. På Vercel virker det uden.",
+          "edit": "Rediger",
+          "mode": "Hvem kan logge ind",
+          "modes": {
+            "any": "Alle lande",
+            "allow": "Kun disse lande",
+            "block": "Alle lande undtagen disse"
+          },
+          "modeHints": {
+            "any": "Ingen begrænsning på land.",
+            "allow": "Login og tilmeldinger fra andre lande afvises.",
+            "block": "Login og tilmeldinger fra de angivne lande afvises."
+          },
+          "allowed": "Tilladte lande",
+          "blocked": "Blokerede lande",
+          "none": "Ingen",
+          "countriesHint": "Landekoder på to bogstaver (ISO 3166-1), adskilt af kommaer eller mellemrum: FR, DE, US.",
+          "dialogDescription": "Administratorer kan stadig logge ind fra alle steder. Godkendelsesappen anvender det inden for et minut.",
+          "save": "Gem",
+          "cancel": "Annuller",
+          "saved": "Landene er gemt. Godkendelsesappen anvender dem inden for et minut.",
+          "errors": {
+            "invalid": "Vælg en af mulighederne.",
+            "invalidCountry": "En af posterne er ikke en landekode på to bogstaver som FR.",
+            "noCountries": "Angiv mindst ét land.",
+            "save": "Landene kunne ikke gemmes."
           }
         }
       },
@@ -3176,7 +3210,8 @@
       "ifYou": "Hvis det var dig, skal du ikke gøre noget.",
       "button": "Det var ikke mig",
       "note": "Knappen virker én gang inden for {days} dage. Den logger dig ud overalt og mailer dig et link til at vælge en ny adgangskode.",
-      "footnote": "Du får denne mail, når din konto logger ind fra en ny enhed. Del aldrig din adgangskode eller dine loginkoder."
+      "footnote": "Du får denne mail, når din konto logger ind fra en ny enhed. Del aldrig din adgangskode eller dine loginkoder.",
+      "location": "Sted: {country}"
     }
   },
   "authErrors": {
@@ -3196,7 +3231,8 @@
     "emailNotVerified": "Bekræft din e-mailadresse først.",
     "invalidToken": "Linket er ugyldigt eller udløbet.",
     "publicOrganization": "Medlemmerne af organisationen Public administreres kun af platformens administratorer.",
-    "emailDomainNotAllowed": "Konti med dette e-maildomæne kan ikke oprettes her. Brug en anden adresse."
+    "emailDomainNotAllowed": "Konti med dette e-maildomæne kan ikke oprettes her. Brug en anden adresse.",
+    "countryNotAllowed": "Login fra dit land er ikke tilladt her."
   },
   "secureAccount": {
     "title": "Beskyt din konto",
