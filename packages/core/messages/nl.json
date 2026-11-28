@@ -1689,7 +1689,14 @@
           "twoFactorReset": "Tweestapsverificatie uitgeschakeld",
           "reset": "Resetten",
           "resetTwoFactorTitle": "Tweestapsverificatie resetten voor {email}?",
-          "resetTwoFactorDescription": "De authenticator-app, back-upcodes en vertrouwde apparaten van deze gebruiker werken niet meer, en diegene logt alleen met een wachtwoord in tot het opnieuw is ingesteld. Doe dit pas als je hebt bevestigd wie het vraagt. Dit wordt vastgelegd in het auditlogboek."
+          "resetTwoFactorDescription": "De authenticator-app, back-upcodes en vertrouwde apparaten van deze gebruiker werken niet meer, en diegene logt alleen met een wachtwoord in tot het opnieuw is ingesteld. Doe dit pas als je hebt bevestigd wie het vraagt. Dit wordt vastgelegd in het auditlogboek.",
+          "requirePasswordChange": "Wachtwoordwijziging vereisen",
+          "cancelPasswordChange": "Wachtwoordwijziging annuleren",
+          "requirePasswordChangeTitle": "Nieuw wachtwoord vereisen voor {email}?",
+          "requirePasswordChangeDescription": "Bij de volgende aanmelding of wanneer diegene het account opent, moet een nieuw wachtwoord gekozen worden voordat het verder kan. Andere sessies worden bij de wijziging afgemeld. Dit wordt vastgelegd in het auditlogboek.",
+          "passwordChangeRequired": "Wachtwoordwijziging vereist",
+          "passwordChangeCancelled": "Wachtwoordwijziging geannuleerd",
+          "passwordChangeError": "Kon het verzoek om wachtwoordwijziging niet bijwerken."
         },
         "detail": {
           "emailVerified": "E-mailadres geverifieerd",
@@ -1730,7 +1737,9 @@
             "unnamed": "Naamloos",
             "empty": "Geen inlogmethoden.",
             "twoFactor": "Tweestapsverificatie <muted>(authenticator-app)</muted>",
-            "managedByYou": "Beheerd vanuit je account"
+            "managedByYou": "Beheerd vanuit je account",
+            "changeRequired": "Wijziging vereist",
+            "breached": "Gelekt"
           },
           "organizations": {
             "title": "Organisaties",
@@ -1936,7 +1945,9 @@
             "new_device_sign_in": "Aangemeld vanaf een nieuw apparaat",
             "secure_account": "Heeft het account beveiligd (Dit was ik niet)",
             "password_breached": "Wachtwoord gevonden in een datalek",
-            "sign_in_locked": "Inloggen met wachtwoord geblokkeerd na verkeerde wachtwoorden"
+            "sign_in_locked": "Inloggen met wachtwoord geblokkeerd na verkeerde wachtwoorden",
+            "require_password_change": "Heeft een wachtwoordwijziging vereist",
+            "cancel_password_change": "Heeft een wachtwoordwijziging geannuleerd"
           },
           "oauth_client": {
             "create": "OAuth-client geregistreerd",
@@ -3291,7 +3302,8 @@
     "doneTitle": "Wachtwoord gewijzigd",
     "doneBody": "Je nieuwe wachtwoord is ingesteld en je andere sessies zijn afgemeld.",
     "continue": "Doorgaan",
-    "toAccount": "Naar je account"
+    "toAccount": "Naar je account",
+    "adminDescription": "Een beheerder vraagt je een nieuw wachtwoord te kiezen. Kies er een om verder te gaan. Je andere sessies worden afgemeld."
   },
   "signInLink": {
     "title": "Aanmelden",

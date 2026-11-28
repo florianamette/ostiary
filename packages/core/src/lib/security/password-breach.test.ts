@@ -35,7 +35,7 @@ vi.mock("better-auth/plugins", async (importOriginal) => ({
 import * as dbModule from "@ostiary/core/db/index";
 import * as schema from "@ostiary/core/db/schema";
 import { createAuth } from "@ostiary/core/lib/auth-factory";
-import { passwordBreachPending } from "@ostiary/core/lib/security/password-breach";
+import { passwordBreachPending, passwordChangeRequired, requirePasswordChange } from "@ostiary/core/lib/security/password-breach";
 
 const { db } = dbModule;
 const pglite = (dbModule as unknown as { client: PGlite }).client;
@@ -109,5 +109,24 @@ describe("breached password at sign-in", () => {
         expect((await call("/sign-in/email", { email: who.email, password: who.password })).status).toBe(200);
         expect(await passwordBreachPending(who.id)).toBe(false);
         failing.mockRestore();
+    });
+});
+
+describe("password change required by an admin", () => {
+    it("stops the person until the password changes, and keeps a breached reason", async () => {
+        const who = await account("Admin-reset-password-0006");
+        await requirePasswordChange(who.id);
+        expect(await passwordChangeRequired(who.id)).toBe("admin");
+        const signIn = await call("/sign-in/email", { email: who.email, password: who.password });
+        expect(signIn.status).toBe(200);
+        const changed = await call("/change-password", { currentPassword: who.password, newPassword: "A-new-strong-password-0007", revokeOtherSessions: true }, signIn.cookie);
+        expect(changed.status).toBe(200);
+        expect(await passwordChangeRequired(who.id)).toBeNull();
+
+        const leaked = await account("Leaked-password-0008");
+        breachedPasswords.add(leaked.password);
+        await call("/sign-in/email", { email: leaked.email, password: leaked.password });
+        await requirePasswordChange(leaked.id);
+        expect(await passwordChangeRequired(leaked.id)).toBe("breached");
     });
 });

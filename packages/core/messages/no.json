@@ -1689,7 +1689,14 @@
           "twoFactorReset": "Tofaktorautentisering er slått av",
           "reset": "Tilbakestill",
           "resetTwoFactorTitle": "Tilbakestille tofaktorautentisering for {email}?",
-          "resetTwoFactorDescription": "Autentiseringsappen, reservekodene og de klarerte enhetene slutter å virke, og vedkommende logger inn med bare passordet til tofaktor er satt opp igjen. Gjør dette bare når du har bekreftet hvem som spør. Dette registreres i revisjonsloggen."
+          "resetTwoFactorDescription": "Autentiseringsappen, reservekodene og de klarerte enhetene slutter å virke, og vedkommende logger inn med bare passordet til tofaktor er satt opp igjen. Gjør dette bare når du har bekreftet hvem som spør. Dette registreres i revisjonsloggen.",
+          "requirePasswordChange": "Krev passordbytte",
+          "cancelPasswordChange": "Avbryt passordbytte",
+          "requirePasswordChangeTitle": "Kreve nytt passord for {email}?",
+          "requirePasswordChangeDescription": "Neste gang personen logger på eller åpner kontoen, må et nytt passord velges før det går videre. Personens andre økter logges ut ved byttet. Dette registreres i revisjonsloggen.",
+          "passwordChangeRequired": "Passordbytte kreves",
+          "passwordChangeCancelled": "Passordbytte avbrutt",
+          "passwordChangeError": "Kunne ikke oppdatere forespørselen om passordbytte."
         },
         "detail": {
           "emailVerified": "E-post bekreftet",
@@ -1730,7 +1737,9 @@
             "unnamed": "Uten navn",
             "empty": "Ingen innloggingsmetoder.",
             "twoFactor": "Tofaktorautentisering <muted>(autentiseringsapp)</muted>",
-            "managedByYou": "Administreres fra kontoen din"
+            "managedByYou": "Administreres fra kontoen din",
+            "changeRequired": "Bytte kreves",
+            "breached": "Lekket"
           },
           "organizations": {
             "title": "Organisasjoner",
@@ -1936,7 +1945,9 @@
             "new_device_sign_in": "Logget på fra en ny enhet",
             "secure_account": "Sikret kontoen sin (Det var ikke meg)",
             "password_breached": "Passord funnet i en datalekkasje",
-            "sign_in_locked": "Pålogging med passord låst etter feil passord"
+            "sign_in_locked": "Pålogging med passord låst etter feil passord",
+            "require_password_change": "Krevde et passordbytte",
+            "cancel_password_change": "Avbrøt et passordbytte"
           },
           "oauth_client": {
             "create": "Registrerte OAuth-klient",
@@ -3291,7 +3302,8 @@
     "doneTitle": "Passordet er endret",
     "doneBody": "Det nye passordet er lagret, og de andre øktene dine er logget ut.",
     "continue": "Fortsett",
-    "toAccount": "Gå til kontoen din"
+    "toAccount": "Gå til kontoen din",
+    "adminDescription": "En administrator ber deg velge et nytt passord. Velg ett for å fortsette. De andre øktene dine logges ut."
   },
   "signInLink": {
     "title": "Logg på",

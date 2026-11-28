@@ -1689,7 +1689,14 @@
           "twoFactorReset": "Uwierzytelnianie dwuskładnikowe wyłączone",
           "reset": "Resetuj",
           "resetTwoFactorTitle": "Zresetować uwierzytelnianie dwuskładnikowe dla {email}?",
-          "resetTwoFactorDescription": "Aplikacja uwierzytelniająca, kody zapasowe i zaufane urządzenia tego użytkownika przestaną działać, a będzie on logował się samym hasłem, dopóki ponownie tego nie skonfiguruje. Zrób to dopiero po potwierdzeniu, kto o to prosi. Zostanie to zapisane w dzienniku audytu."
+          "resetTwoFactorDescription": "Aplikacja uwierzytelniająca, kody zapasowe i zaufane urządzenia tego użytkownika przestaną działać, a będzie on logował się samym hasłem, dopóki ponownie tego nie skonfiguruje. Zrób to dopiero po potwierdzeniu, kto o to prosi. Zostanie to zapisane w dzienniku audytu.",
+          "requirePasswordChange": "Wymagaj zmiany hasła",
+          "cancelPasswordChange": "Anuluj zmianę hasła",
+          "requirePasswordChangeTitle": "Wymagać nowego hasła od {email}?",
+          "requirePasswordChangeDescription": "Przy następnym logowaniu lub otwarciu konta ta osoba będzie musiała wybrać nowe hasło, zanim przejdzie dalej. Jej pozostałe sesje zostaną wylogowane po zmianie. Zostanie to zapisane w dzienniku audytu.",
+          "passwordChangeRequired": "Wymagana zmiana hasła",
+          "passwordChangeCancelled": "Anulowano zmianę hasła",
+          "passwordChangeError": "Nie udało się zaktualizować żądania zmiany hasła."
         },
         "detail": {
           "emailVerified": "E-mail zweryfikowany",
@@ -1730,7 +1737,9 @@
             "unnamed": "Bez nazwy",
             "empty": "Brak metod logowania.",
             "twoFactor": "Uwierzytelnianie dwuskładnikowe <muted>(aplikacja uwierzytelniająca)</muted>",
-            "managedByYou": "Zarządzane z Twojego konta"
+            "managedByYou": "Zarządzane z Twojego konta",
+            "changeRequired": "Wymagana zmiana",
+            "breached": "Ujawnione"
           },
           "organizations": {
             "title": "Organizacje",
@@ -1936,7 +1945,9 @@
             "new_device_sign_in": "Zalogowano z nowego urządzenia",
             "secure_account": "Zabezpieczył(a) konto (To nie ja)",
             "password_breached": "Hasło znalezione w wycieku",
-            "sign_in_locked": "Logowanie hasłem zablokowane po błędnych hasłach"
+            "sign_in_locked": "Logowanie hasłem zablokowane po błędnych hasłach",
+            "require_password_change": "Wymagał zmiany hasła",
+            "cancel_password_change": "Anulował zmianę hasła"
           },
           "oauth_client": {
             "create": "Zarejestrowano klienta OAuth",
@@ -3291,7 +3302,8 @@
     "doneTitle": "Hasło zmienione",
     "doneBody": "Nowe hasło jest ustawione, a pozostałe sesje zostały wylogowane.",
     "continue": "Kontynuuj",
-    "toAccount": "Przejdź do konta"
+    "toAccount": "Przejdź do konta",
+    "adminDescription": "Administrator prosi o wybranie nowego hasła. Wybierz je, aby kontynuować. Pozostałe sesje zostaną wylogowane."
   },
   "signInLink": {
     "title": "Zaloguj się",

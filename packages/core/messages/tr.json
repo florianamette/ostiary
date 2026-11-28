@@ -1689,7 +1689,14 @@
           "twoFactorReset": "İki faktörlü kimlik doğrulama kapatıldı",
           "reset": "Sıfırla",
           "resetTwoFactorTitle": "{email} için iki faktörlü kimlik doğrulama sıfırlansın mı?",
-          "resetTwoFactorDescription": "Kimlik doğrulama uygulaması, yedek kodları ve güvenilir cihazları çalışmayı bırakır; yeniden ayarlayana kadar yalnızca parolasıyla giriş yapar. Bunu yalnızca talepte bulunan kişinin kimliğini doğruladıktan sonra yapın. Bu işlem denetim günlüğüne kaydedilir."
+          "resetTwoFactorDescription": "Kimlik doğrulama uygulaması, yedek kodları ve güvenilir cihazları çalışmayı bırakır; yeniden ayarlayana kadar yalnızca parolasıyla giriş yapar. Bunu yalnızca talepte bulunan kişinin kimliğini doğruladıktan sonra yapın. Bu işlem denetim günlüğüne kaydedilir.",
+          "requirePasswordChange": "Parola değişikliği iste",
+          "cancelPasswordChange": "Parola değişikliğini iptal et",
+          "requirePasswordChangeTitle": "{email} için yeni parola istensin mi?",
+          "requirePasswordChangeDescription": "Bir sonraki girişinde veya hesabını açtığında devam etmeden önce yeni bir parola seçmesi gerekir. Değiştirdiğinde diğer oturumları kapatılır. Bu işlem denetim günlüğüne kaydedilir.",
+          "passwordChangeRequired": "Parola değişikliği istendi",
+          "passwordChangeCancelled": "Parola değişikliği iptal edildi",
+          "passwordChangeError": "Parola değişikliği isteği güncellenemedi."
         },
         "detail": {
           "emailVerified": "E-posta doğrulandı",
@@ -1730,7 +1737,9 @@
             "unnamed": "Adsız",
             "empty": "Giriş yöntemi yok.",
             "twoFactor": "İki faktörlü kimlik doğrulama <muted>(kimlik doğrulama uygulaması)</muted>",
-            "managedByYou": "Kendi hesabınızdan yönetilir"
+            "managedByYou": "Kendi hesabınızdan yönetilir",
+            "changeRequired": "Değişiklik gerekli",
+            "breached": "Sızdırılmış"
           },
           "organizations": {
             "title": "Kuruluşlar",
@@ -1936,7 +1945,9 @@
             "new_device_sign_in": "Yeni bir cihazdan oturum açtı",
             "secure_account": "Hesabını güvenceye aldı (Bu ben değildim)",
             "password_breached": "Parola bir veri sızıntısında bulundu",
-            "sign_in_locked": "Yanlış şifrelerden sonra şifreyle giriş kilitlendi"
+            "sign_in_locked": "Yanlış şifrelerden sonra şifreyle giriş kilitlendi",
+            "require_password_change": "Parola değişikliği istedi",
+            "cancel_password_change": "Parola değişikliğini iptal etti"
           },
           "oauth_client": {
             "create": "OAuth istemcisi kaydetti",
@@ -3291,7 +3302,8 @@
     "doneTitle": "Parola değiştirildi",
     "doneBody": "Yeni parolanız ayarlandı ve diğer oturumlarınız kapatıldı.",
     "continue": "Devam et",
-    "toAccount": "Hesabınıza gidin"
+    "toAccount": "Hesabınıza gidin",
+    "adminDescription": "Bir yönetici yeni bir parola seçmenizi istedi. Devam etmek için bir parola seçin. Diğer oturumlarınız kapatılacak."
   },
   "signInLink": {
     "title": "Oturum aç",

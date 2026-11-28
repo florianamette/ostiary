@@ -1689,7 +1689,14 @@
           "twoFactorReset": "Totrinsgodkendelse slået fra",
           "reset": "Nulstil",
           "resetTwoFactorTitle": "Nulstil totrinsgodkendelse for {email}?",
-          "resetTwoFactorDescription": "Brugerens godkendelsesapp, backupkoder og betroede enheder holder op med at virke, og vedkommende logger ind med adgangskoden alene, indtil det er konfigureret igen. Gør det kun, når du har bekræftet, hvem der spørger. Dette registreres i revisionsloggen."
+          "resetTwoFactorDescription": "Brugerens godkendelsesapp, backupkoder og betroede enheder holder op med at virke, og vedkommende logger ind med adgangskoden alene, indtil det er konfigureret igen. Gør det kun, når du har bekræftet, hvem der spørger. Dette registreres i revisionsloggen.",
+          "requirePasswordChange": "Kræv adgangskodeskift",
+          "cancelPasswordChange": "Annuller adgangskodeskift",
+          "requirePasswordChangeTitle": "Kræv en ny adgangskode for {email}?",
+          "requirePasswordChangeDescription": "Næste gang personen logger ind eller åbner sin konto, skal der vælges en ny adgangskode, før der kan fortsættes. Personens andre sessioner logges ud ved skiftet. Dette registreres i revisionsloggen.",
+          "passwordChangeRequired": "Adgangskodeskift krævet",
+          "passwordChangeCancelled": "Adgangskodeskift annulleret",
+          "passwordChangeError": "Kunne ikke opdatere anmodningen om adgangskodeskift."
         },
         "detail": {
           "emailVerified": "E-mail bekræftet",
@@ -1730,7 +1737,9 @@
             "unnamed": "Unavngivet",
             "empty": "Ingen loginmetoder.",
             "twoFactor": "Totrinsgodkendelse <muted>(godkendelsesapp)</muted>",
-            "managedByYou": "Administreres fra din konto"
+            "managedByYou": "Administreres fra din konto",
+            "changeRequired": "Skift krævet",
+            "breached": "Lækket"
           },
           "organizations": {
             "title": "Organisationer",
@@ -1936,7 +1945,9 @@
             "new_device_sign_in": "Loggede ind fra en ny enhed",
             "secure_account": "Beskyttede sin konto (Det var ikke mig)",
             "password_breached": "Adgangskode fundet i et datalæk",
-            "sign_in_locked": "Login med adgangskode låst efter forkerte adgangskoder"
+            "sign_in_locked": "Login med adgangskode låst efter forkerte adgangskoder",
+            "require_password_change": "Krævede et adgangskodeskift",
+            "cancel_password_change": "Annullerede et adgangskodeskift"
           },
           "oauth_client": {
             "create": "Registrerede OAuth-klient",
@@ -3291,7 +3302,8 @@
     "doneTitle": "Adgangskoden er ændret",
     "doneBody": "Din nye adgangskode er gemt, og dine andre sessioner er logget ud.",
     "continue": "Fortsæt",
-    "toAccount": "Gå til din konto"
+    "toAccount": "Gå til din konto",
+    "adminDescription": "En administrator beder dig vælge en ny adgangskode. Vælg en for at fortsætte. Dine andre sessioner bliver logget ud."
   },
   "signInLink": {
     "title": "Log ind",

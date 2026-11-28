@@ -1689,7 +1689,14 @@
           "twoFactorReset": "双重身份验证已关闭",
           "reset": "重置",
           "resetTwoFactorTitle": "为 {email} 重置双重身份验证？",
-          "resetTwoFactorDescription": "其身份验证器应用、备用代码和受信任设备都将失效，在重新设置之前只需密码即可登录。请仅在确认请求者身份后执行此操作。此操作会记录在审计日志中。"
+          "resetTwoFactorDescription": "其身份验证器应用、备用代码和受信任设备都将失效，在重新设置之前只需密码即可登录。请仅在确认请求者身份后执行此操作。此操作会记录在审计日志中。",
+          "requirePasswordChange": "要求更改密码",
+          "cancelPasswordChange": "取消密码更改要求",
+          "requirePasswordChangeTitle": "要求 {email} 设置新密码？",
+          "requirePasswordChangeDescription": "下次登录或打开账户时，必须先选择新密码才能继续。更改后，其其他会话将被注销。此操作会记录在审计日志中。",
+          "passwordChangeRequired": "已要求更改密码",
+          "passwordChangeCancelled": "已取消密码更改要求",
+          "passwordChangeError": "无法更新密码更改要求。"
         },
         "detail": {
           "emailVerified": "邮箱已验证",
@@ -1730,7 +1737,9 @@
             "unnamed": "未命名",
             "empty": "没有登录方式。",
             "twoFactor": "双重身份验证 <muted>（身份验证器应用）</muted>",
-            "managedByYou": "在你的账户中管理"
+            "managedByYou": "在你的账户中管理",
+            "changeRequired": "需要更改",
+            "breached": "已泄露"
           },
           "organizations": {
             "title": "组织",
@@ -1936,7 +1945,9 @@
             "new_device_sign_in": "在新设备上登录",
             "secure_account": "保护了自己的账户（不是我）",
             "password_breached": "密码出现在泄露数据中",
-            "sign_in_locked": "多次密码错误后已锁定密码登录"
+            "sign_in_locked": "多次密码错误后已锁定密码登录",
+            "require_password_change": "要求更改密码",
+            "cancel_password_change": "取消了密码更改要求"
           },
           "oauth_client": {
             "create": "注册了 OAuth 客户端",
@@ -3291,7 +3302,8 @@
     "doneTitle": "密码已修改",
     "doneBody": "新密码已设置，其他会话已退出。",
     "continue": "继续",
-    "toAccount": "前往你的账户"
+    "toAccount": "前往你的账户",
+    "adminDescription": "管理员要求你选择一个新密码。请选择一个以继续。你的其他会话将被注销。"
   },
   "signInLink": {
     "title": "登录",

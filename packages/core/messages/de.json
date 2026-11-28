@@ -1689,7 +1689,14 @@
           "twoFactorReset": "Zwei-Faktor-Authentifizierung ausgeschaltet",
           "reset": "Zurücksetzen",
           "resetTwoFactorTitle": "Zwei-Faktor-Authentifizierung für {email} zurücksetzen?",
-          "resetTwoFactorDescription": "Die Authenticator-App, die Backup-Codes und die vertrauenswürdigen Geräte des Benutzers funktionieren nicht mehr, und er meldet sich nur mit seinem Passwort an, bis er sie erneut einrichtet. Tun Sie dies nur, wenn Sie bestätigt haben, wer die Anfrage stellt. Dies wird im Audit-Log festgehalten."
+          "resetTwoFactorDescription": "Die Authenticator-App, die Backup-Codes und die vertrauenswürdigen Geräte des Benutzers funktionieren nicht mehr, und er meldet sich nur mit seinem Passwort an, bis er sie erneut einrichtet. Tun Sie dies nur, wenn Sie bestätigt haben, wer die Anfrage stellt. Dies wird im Audit-Log festgehalten.",
+          "requirePasswordChange": "Passwortänderung verlangen",
+          "cancelPasswordChange": "Passwortänderung aufheben",
+          "requirePasswordChangeTitle": "Neues Passwort für {email} verlangen?",
+          "requirePasswordChangeDescription": "Bei der nächsten Anmeldung oder beim Öffnen des Kontos muss die Person ein neues Passwort wählen, bevor es weitergeht. Ihre anderen Sitzungen werden bei der Änderung abgemeldet. Dies wird im Audit-Log festgehalten.",
+          "passwordChangeRequired": "Passwortänderung verlangt",
+          "passwordChangeCancelled": "Passwortänderung aufgehoben",
+          "passwordChangeError": "Die Anfrage zur Passwortänderung konnte nicht aktualisiert werden."
         },
         "detail": {
           "emailVerified": "E-Mail-Adresse verifiziert",
@@ -1730,7 +1737,9 @@
             "unnamed": "Unbenannt",
             "empty": "Keine Anmeldemethoden.",
             "twoFactor": "Zwei-Faktor-Authentifizierung <muted>(Authenticator-App)</muted>",
-            "managedByYou": "Über Ihr Konto verwaltet"
+            "managedByYou": "Über Ihr Konto verwaltet",
+            "changeRequired": "Änderung verlangt",
+            "breached": "Kompromittiert"
           },
           "organizations": {
             "title": "Organisationen",
@@ -1936,7 +1945,9 @@
             "new_device_sign_in": "Von neuem Gerät angemeldet",
             "secure_account": "Konto abgesichert (Das war ich nicht)",
             "password_breached": "Passwort in einem Datenleck gefunden",
-            "sign_in_locked": "Passwort-Anmeldung nach falschen Passwörtern gesperrt"
+            "sign_in_locked": "Passwort-Anmeldung nach falschen Passwörtern gesperrt",
+            "require_password_change": "Hat eine Passwortänderung verlangt",
+            "cancel_password_change": "Hat eine Passwortänderung aufgehoben"
           },
           "oauth_client": {
             "create": "OAuth-Client registriert",
@@ -3291,7 +3302,8 @@
     "doneTitle": "Passwort geändert",
     "doneBody": "Ihr neues Passwort ist gesetzt und Ihre anderen Sitzungen wurden abgemeldet.",
     "continue": "Weiter",
-    "toAccount": "Zu Ihrem Konto"
+    "toAccount": "Zu Ihrem Konto",
+    "adminDescription": "Ein Administrator bittet Sie, ein neues Passwort zu wählen. Wählen Sie eines, um fortzufahren. Ihre anderen Sitzungen werden abgemeldet."
   },
   "signInLink": {
     "title": "Anmelden",

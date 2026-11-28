@@ -1689,7 +1689,14 @@
           "twoFactorReset": "Authentification à deux facteurs désactivée",
           "reset": "Réinitialiser",
           "resetTwoFactorTitle": "Réinitialiser l’authentification à deux facteurs de {email} ?",
-          "resetTwoFactorDescription": "Son application d’authentification, ses codes de secours et ses appareils de confiance cessent de fonctionner, et l’utilisateur se connecte avec son seul mot de passe jusqu’à ce qu’il la configure à nouveau. Ne le faites qu’après avoir confirmé l’identité du demandeur. Cette action est consignée dans le journal d’audit."
+          "resetTwoFactorDescription": "Son application d’authentification, ses codes de secours et ses appareils de confiance cessent de fonctionner, et l’utilisateur se connecte avec son seul mot de passe jusqu’à ce qu’il la configure à nouveau. Ne le faites qu’après avoir confirmé l’identité du demandeur. Cette action est consignée dans le journal d’audit.",
+          "requirePasswordChange": "Exiger un changement de mot de passe",
+          "cancelPasswordChange": "Annuler le changement de mot de passe",
+          "requirePasswordChangeTitle": "Exiger un nouveau mot de passe pour {email} ?",
+          "requirePasswordChangeDescription": "À sa prochaine connexion ou ouverture de son compte, la personne devra choisir un nouveau mot de passe avant de continuer. Ses autres sessions seront déconnectées lors du changement. Cette action est enregistrée dans le journal d’audit.",
+          "passwordChangeRequired": "Changement de mot de passe exigé",
+          "passwordChangeCancelled": "Changement de mot de passe annulé",
+          "passwordChangeError": "Impossible de mettre à jour la demande de changement de mot de passe."
         },
         "detail": {
           "emailVerified": "E-mail vérifié",
@@ -1730,7 +1737,9 @@
             "unnamed": "Sans nom",
             "empty": "Aucune méthode de connexion.",
             "twoFactor": "Authentification à deux facteurs <muted>(application d’authentification)</muted>",
-            "managedByYou": "Géré depuis votre compte"
+            "managedByYou": "Géré depuis votre compte",
+            "changeRequired": "Changement exigé",
+            "breached": "Compromis"
           },
           "organizations": {
             "title": "Organisations",
@@ -1936,7 +1945,9 @@
             "new_device_sign_in": "Connexion depuis un nouvel appareil",
             "secure_account": "A sécurisé son compte (Ce n’était pas moi)",
             "password_breached": "Mot de passe trouvé dans une fuite",
-            "sign_in_locked": "Connexion par mot de passe bloquée après des mots de passe erronés"
+            "sign_in_locked": "Connexion par mot de passe bloquée après des mots de passe erronés",
+            "require_password_change": "A exigé un changement de mot de passe",
+            "cancel_password_change": "A annulé un changement de mot de passe"
           },
           "oauth_client": {
             "create": "Client OAuth enregistré",
@@ -3291,7 +3302,8 @@
     "doneTitle": "Mot de passe modifié",
     "doneBody": "Votre nouveau mot de passe est enregistré et vos autres sessions ont été déconnectées.",
     "continue": "Continuer",
-    "toAccount": "Aller à votre compte"
+    "toAccount": "Aller à votre compte",
+    "adminDescription": "Un administrateur vous demande de choisir un nouveau mot de passe. Choisissez-en un pour continuer. Vos autres sessions seront déconnectées."
   },
   "signInLink": {
     "title": "Connexion",

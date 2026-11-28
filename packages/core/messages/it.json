@@ -1689,7 +1689,14 @@
           "twoFactorReset": "Autenticazione a due fattori disattivata",
           "reset": "Reimposta",
           "resetTwoFactorTitle": "Reimpostare l’autenticazione a due fattori per {email}?",
-          "resetTwoFactorDescription": "La sua app di autenticazione, i codici di backup e i dispositivi attendibili smettono di funzionare, e accederà con la sola password finché non la configurerà di nuovo. Fallo solo dopo aver verificato chi lo sta chiedendo. L’operazione viene registrata nel registro di audit."
+          "resetTwoFactorDescription": "La sua app di autenticazione, i codici di backup e i dispositivi attendibili smettono di funzionare, e accederà con la sola password finché non la configurerà di nuovo. Fallo solo dopo aver verificato chi lo sta chiedendo. L’operazione viene registrata nel registro di audit.",
+          "requirePasswordChange": "Richiedi un cambio di password",
+          "cancelPasswordChange": "Annulla il cambio di password",
+          "requirePasswordChangeTitle": "Richiedere una nuova password a {email}?",
+          "requirePasswordChangeDescription": "Al prossimo accesso o quando apre il proprio account, dovrà scegliere una nuova password prima di continuare. Le altre sessioni verranno disconnesse al cambio. L’operazione viene registrata nel registro di audit.",
+          "passwordChangeRequired": "Cambio di password richiesto",
+          "passwordChangeCancelled": "Cambio di password annullato",
+          "passwordChangeError": "Impossibile aggiornare la richiesta di cambio password."
         },
         "detail": {
           "emailVerified": "Email verificata",
@@ -1730,7 +1737,9 @@
             "unnamed": "Senza nome",
             "empty": "Nessun metodo di accesso.",
             "twoFactor": "Autenticazione a due fattori <muted>(app di autenticazione)</muted>",
-            "managedByYou": "Gestito dal tuo account"
+            "managedByYou": "Gestito dal tuo account",
+            "changeRequired": "Cambio richiesto",
+            "breached": "Compromessa"
           },
           "organizations": {
             "title": "Organizzazioni",
@@ -1936,7 +1945,9 @@
             "new_device_sign_in": "Accesso da un nuovo dispositivo",
             "secure_account": "Ha protetto il proprio account (Non sono stato io)",
             "password_breached": "Password trovata in una violazione",
-            "sign_in_locked": "Accesso con password bloccato dopo password errate"
+            "sign_in_locked": "Accesso con password bloccato dopo password errate",
+            "require_password_change": "Ha richiesto un cambio di password",
+            "cancel_password_change": "Ha annullato un cambio di password"
           },
           "oauth_client": {
             "create": "Client OAuth registrato",
@@ -3291,7 +3302,8 @@
     "doneTitle": "Password modificata",
     "doneBody": "La nuova password è impostata e le altre sessioni sono state disconnesse.",
     "continue": "Continua",
-    "toAccount": "Vai al tuo account"
+    "toAccount": "Vai al tuo account",
+    "adminDescription": "Un amministratore ti chiede di scegliere una nuova password. Sceglila per continuare. Le altre sessioni verranno disconnesse."
   },
   "signInLink": {
     "title": "Accedi",

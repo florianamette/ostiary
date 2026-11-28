@@ -6,6 +6,7 @@ import { formatDateTime, PageHeader } from "@/components/admin/common/page-heade
 import { Section, SectionEmpty } from "@/components/admin/common/section";
 import {
   AdminUserDetailActions,
+  RequirePasswordChangeButton,
   ResetTwoFactorButton,
   RevokeSessionButton,
 } from "@/components/admin/users/admin-user-detail-actions";
@@ -33,6 +34,7 @@ import {
 import { listUserApiKeys } from "@ostiary/core/lib/api-keys";
 import { env } from "@ostiary/core/lib/env";
 import { countryName } from "@ostiary/core/lib/country-policy-options";
+import { passwordChangeRequired } from "@ostiary/core/lib/security/password-breach";
 import { getHtmlLang } from "@ostiary/core/i18n/locale-html";
 import type { AppLocale } from "@ostiary/core/i18n/routing";
 import { ApiKeysTable } from "@/components/admin/api-keys/api-keys-table";
@@ -65,7 +67,7 @@ export default async function AdminUserPage({
   const [u] = await db.select().from(user).where(eq(user.id, id));
   if (!u) notFound();
 
-  const [sessions, accounts, passkeys, memberships, events, audits, apiKeys, directories] = await Promise.all([
+  const [sessions, accounts, passkeys, memberships, events, audits, apiKeys, directories, passwordChange] = await Promise.all([
     db.select().from(session).where(and(eq(session.userId, id), gt(session.expiresAt, new Date()))).orderBy(desc(session.updatedAt)),
     db.select({ id: account.id, providerId: account.providerId, createdAt: account.createdAt }).from(account).where(eq(account.userId, id)),
     db.select({ id: passkey.id, name: passkey.name, deviceType: passkey.deviceType, createdAt: passkey.createdAt }).from(passkey).where(eq(passkey.userId, id)),
@@ -93,6 +95,7 @@ export default async function AdminUserPage({
       .from(scimUser)
       .innerJoin(organization, eq(organization.id, scimUser.provisioningDomainId))
       .where(eq(scimUser.userId, id)),
+    passwordChangeRequired(id),
   ]);
 
   const t = await getTranslations({ locale, namespace: "admin.pages.users" });
@@ -216,8 +219,18 @@ export default async function AdminUserPage({
                     <SocialProviderIcon provider={a.providerId} className="size-4" />
                   ) : null}
                   {providerLabel(a.providerId)}
+                  {a.providerId === "credential" && passwordChange ? (
+                    <Badge variant="outline">
+                      {passwordChange === "admin" ? t("detail.signInMethods.changeRequired") : t("detail.signInMethods.breached")}
+                    </Badge>
+                  ) : null}
                 </span>
-                <span className="text-muted-foreground">{formatDateTime(a.createdAt, locale)}</span>
+                <span className="flex items-center gap-2 text-muted-foreground">
+                  {formatDateTime(a.createdAt, locale)}
+                  {a.providerId === "credential" && u.id !== admin.user.id && passwordChange !== "breached" ? (
+                    <RequirePasswordChangeButton userId={u.id} email={u.email} required={passwordChange === "admin"} />
+                  ) : null}
+                </span>
               </li>
             ))}
             {passkeys.map((p) => (

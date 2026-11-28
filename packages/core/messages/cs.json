@@ -1689,7 +1689,14 @@
           "twoFactorReset": "Dvoufázové ověření bylo vypnuto",
           "reset": "Resetovat",
           "resetTwoFactorTitle": "Resetovat dvoufázové ověření pro {email}?",
-          "resetTwoFactorDescription": "Ověřovací aplikace, záložní kódy a důvěryhodná zařízení uživatele přestanou fungovat a bude se přihlašovat jen heslem, dokud si ověření znovu nenastaví. Udělejte to, jen když jste ověřili, kdo o to žádá. Akce se zaznamená do auditního protokolu."
+          "resetTwoFactorDescription": "Ověřovací aplikace, záložní kódy a důvěryhodná zařízení uživatele přestanou fungovat a bude se přihlašovat jen heslem, dokud si ověření znovu nenastaví. Udělejte to, jen když jste ověřili, kdo o to žádá. Akce se zaznamená do auditního protokolu.",
+          "requirePasswordChange": "Vyžadovat změnu hesla",
+          "cancelPasswordChange": "Zrušit změnu hesla",
+          "requirePasswordChangeTitle": "Vyžadovat nové heslo pro {email}?",
+          "requirePasswordChangeDescription": "Při příštím přihlášení nebo otevření účtu bude muset tato osoba zvolit nové heslo, než bude pokračovat. Její ostatní relace budou při změně odhlášeny. Záznam se uloží do protokolu auditu.",
+          "passwordChangeRequired": "Změna hesla vyžadována",
+          "passwordChangeCancelled": "Změna hesla zrušena",
+          "passwordChangeError": "Požadavek na změnu hesla se nepodařilo aktualizovat."
         },
         "detail": {
           "emailVerified": "E-mail ověřen",
@@ -1730,7 +1737,9 @@
             "unnamed": "Bez názvu",
             "empty": "Žádné metody přihlášení.",
             "twoFactor": "Dvoufázové ověření <muted>(ověřovací aplikace)</muted>",
-            "managedByYou": "Spravováno z vašeho účtu"
+            "managedByYou": "Spravováno z vašeho účtu",
+            "changeRequired": "Vyžadována změna",
+            "breached": "Uniklé"
           },
           "organizations": {
             "title": "Organizace",
@@ -1936,7 +1945,9 @@
             "new_device_sign_in": "Přihlášení z nového zařízení",
             "secure_account": "Zabezpečil(a) svůj účet (Nebyl(a) jsem to já)",
             "password_breached": "Heslo nalezeno v úniku dat",
-            "sign_in_locked": "Přihlášení heslem zablokováno po chybných heslech"
+            "sign_in_locked": "Přihlášení heslem zablokováno po chybných heslech",
+            "require_password_change": "Vyžádal změnu hesla",
+            "cancel_password_change": "Zrušil změnu hesla"
           },
           "oauth_client": {
             "create": "Registrace klienta OAuth",
@@ -3291,7 +3302,8 @@
     "doneTitle": "Heslo změněno",
     "doneBody": "Nové heslo je nastaveno a ostatní relace byly odhlášeny.",
     "continue": "Pokračovat",
-    "toAccount": "Přejít na účet"
+    "toAccount": "Přejít na účet",
+    "adminDescription": "Administrátor vás žádá o zvolení nového hesla. Zvolte ho, abyste mohli pokračovat. Vaše ostatní relace budou odhlášeny."
   },
   "signInLink": {
     "title": "Přihlásit se",

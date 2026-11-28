@@ -4,19 +4,26 @@ import * as React from "react";
 import { ShieldAlertIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 
+import type { PasswordChangeReason } from "@ostiary/core/lib/security/password-breach";
+
 import { Button } from "@ostiary/core/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@ostiary/core/components/ui/card";
 import { ContinueSignIn } from "@/components/auth/continue-sign-in";
 import { DashboardChangePasswordForm } from "@/components/dashboard/dashboard-change-password-form";
 import { Link } from "@/i18n/navigation";
 
-/** The breached-password step: change it (signing out everywhere else), then go on. */
+/**
+ * The change-password step, for a breached password or an admin's request: change it (signing
+ * out everywhere else), then go on.
+ */
 export function BreachedPasswordForm({
   pending,
+  reason,
   resumesApp,
   minPasswordLength,
 }: {
   pending: boolean;
+  reason: PasswordChangeReason | null;
   resumesApp: boolean;
   minPasswordLength: number;
 }) {
@@ -50,7 +57,7 @@ export function BreachedPasswordForm({
           <ShieldAlertIcon className="size-5 text-destructive" aria-hidden />
           {t("title")}
         </CardTitle>
-        <CardDescription>{t("description")}</CardDescription>
+        <CardDescription>{reason === "admin" ? t("adminDescription") : t("description")}</CardDescription>
       </CardHeader>
       <CardContent>
         <DashboardChangePasswordForm

@@ -1689,7 +1689,14 @@
           "twoFactorReset": "Tvåfaktorsautentisering har stängts av",
           "reset": "Återställ",
           "resetTwoFactorTitle": "Återställa tvåfaktorsautentiseringen för {email}?",
-          "resetTwoFactorDescription": "Användarens autentiseringsapp, reservkoder och betrodda enheter slutar fungera, och hen loggar in med bara lösenordet tills tvåfaktorsautentisering konfigureras igen. Gör detta bara när du har bekräftat vem som frågar. Detta registreras i granskningsloggen."
+          "resetTwoFactorDescription": "Användarens autentiseringsapp, reservkoder och betrodda enheter slutar fungera, och hen loggar in med bara lösenordet tills tvåfaktorsautentisering konfigureras igen. Gör detta bara när du har bekräftat vem som frågar. Detta registreras i granskningsloggen.",
+          "requirePasswordChange": "Kräv lösenordsbyte",
+          "cancelPasswordChange": "Avbryt lösenordsbyte",
+          "requirePasswordChangeTitle": "Kräva ett nytt lösenord för {email}?",
+          "requirePasswordChangeDescription": "Nästa gång personen loggar in eller öppnar sitt konto måste ett nytt lösenord väljas innan det går vidare. Personens andra sessioner loggas ut vid bytet. Detta registreras i granskningsloggen.",
+          "passwordChangeRequired": "Lösenordsbyte krävs",
+          "passwordChangeCancelled": "Lösenordsbyte avbrutet",
+          "passwordChangeError": "Det gick inte att uppdatera begäran om lösenordsbyte."
         },
         "detail": {
           "emailVerified": "E-post verifierad",
@@ -1730,7 +1737,9 @@
             "unnamed": "Namnlös",
             "empty": "Inga inloggningsmetoder.",
             "twoFactor": "Tvåfaktorsautentisering <muted>(autentiseringsapp)</muted>",
-            "managedByYou": "Hanteras från ditt konto"
+            "managedByYou": "Hanteras från ditt konto",
+            "changeRequired": "Byte krävs",
+            "breached": "Läckt"
           },
           "organizations": {
             "title": "Organisationer",
@@ -1936,7 +1945,9 @@
             "new_device_sign_in": "Loggade in från en ny enhet",
             "secure_account": "Skyddade sitt konto (Det var inte jag)",
             "password_breached": "Lösenordet hittades i en dataläcka",
-            "sign_in_locked": "Inloggning med lösenord låst efter fel lösenord"
+            "sign_in_locked": "Inloggning med lösenord låst efter fel lösenord",
+            "require_password_change": "Krävde ett lösenordsbyte",
+            "cancel_password_change": "Avbröt ett lösenordsbyte"
           },
           "oauth_client": {
             "create": "Registrerade OAuth-klient",
@@ -3291,7 +3302,8 @@
     "doneTitle": "Lösenordet har ändrats",
     "doneBody": "Ditt nya lösenord är sparat och dina andra sessioner har loggats ut.",
     "continue": "Fortsätt",
-    "toAccount": "Till ditt konto"
+    "toAccount": "Till ditt konto",
+    "adminDescription": "En administratör ber dig välja ett nytt lösenord. Välj ett för att fortsätta. Dina andra sessioner loggas ut."
   },
   "signInLink": {
     "title": "Logga in",

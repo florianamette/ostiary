@@ -1,0 +1,1 @@
+ALTER TABLE "password_breach" ADD COLUMN "reason" text DEFAULT 'breached' NOT NULL;

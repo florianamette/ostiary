@@ -92,4 +92,6 @@ export const passwordBreach = pgTable("password_breach", {
     .primaryKey()
     .references(() => user.id, { onDelete: "cascade" }),
   detectedAt: timestamp("detected_at", { withTimezone: true }).defaultNow().notNull(),
+  /** "breached": found in a breach at sign-in. "admin": an admin asked for a new password. */
+  reason: text("reason").default("breached").notNull(),
 });
