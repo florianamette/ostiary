@@ -1485,7 +1485,17 @@
           "user_role_changed": "Změní se role účtu na platformě.",
           "organization_member_added": "Někdo se připojí k organizaci.",
           "organization_member_removed": "Někdo opustí organizaci nebo je z ní odebrán.",
-          "organization_member_role_changed": "Změní se role člena v organizaci."
+          "organization_member_role_changed": "Změní se role člena v organizaci.",
+          "user_signed_in": "Někdo se přihlásí, s údajem, zda jde o nové zařízení.",
+          "user_sign_in_locked": "Přihlašování heslem je po opakovaně špatných heslech pozastaveno.",
+          "user_password_changed": "Heslo je změněno.",
+          "user_password_reset": "Heslo je obnoveno odkazem nebo kódem z e-mailu.",
+          "user_password_breached": "Heslo použité k přihlášení se objeví v úniku dat.",
+          "user_two_factor_enabled": "Dvoufázové ověření je zapnuto.",
+          "user_two_factor_disabled": "Dvoufázové ověření je vypnuto.",
+          "user_passkey_added": "Je přidán přístupový klíč.",
+          "user_passkey_removed": "Je odebrán přístupový klíč.",
+          "user_account_secured": "Někdo se odhlásí všude z e-mailu o novém zařízení nebo o zabezpečení (To jsem nebyl já)."
         },
         "panel": {
           "events": "Události",

@@ -1485,7 +1485,17 @@
           "user_role_changed": "Tilin alustarooli muuttuu.",
           "organization_member_added": "Joku liittyy organisaatioon.",
           "organization_member_removed": "Joku poistuu tai poistetaan organisaatiosta.",
-          "organization_member_role_changed": "Jäsenen rooli organisaatiossa muuttuu."
+          "organization_member_role_changed": "Jäsenen rooli organisaatiossa muuttuu.",
+          "user_signed_in": "Joku kirjautuu sisään, ja tieto siitä, onko laite uusi.",
+          "user_sign_in_locked": "Salasanalla kirjautuminen keskeytetään toistuvien väärien salasanojen jälkeen.",
+          "user_password_changed": "Salasana vaihdetaan.",
+          "user_password_reset": "Salasana nollataan sähköpostilla saadulla linkillä tai koodilla.",
+          "user_password_breached": "Kirjautumiseen käytetty salasana löytyy tietovuodosta.",
+          "user_two_factor_enabled": "Kaksivaiheinen tunnistautuminen otetaan käyttöön.",
+          "user_two_factor_disabled": "Kaksivaiheinen tunnistautuminen poistetaan käytöstä.",
+          "user_passkey_added": "Pääsyavain lisätään.",
+          "user_passkey_removed": "Pääsyavain poistetaan.",
+          "user_account_secured": "Joku kirjautuu ulos kaikkialta uuden laitteen tai tietoturvan sähköpostista (En ollut minä)."
         },
         "panel": {
           "events": "Tapahtumat",

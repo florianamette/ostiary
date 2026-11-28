@@ -19,6 +19,17 @@ export const WEBHOOK_EVENT_TYPES = [
   "organization.member.added",
   "organization.member.removed",
   "organization.member.role_changed",
+  // Security events, from the account's Recent activity (account-activity.ts).
+  "user.signed_in",
+  "user.sign_in_locked",
+  "user.password_changed",
+  "user.password_reset",
+  "user.password_breached",
+  "user.two_factor_enabled",
+  "user.two_factor_disabled",
+  "user.passkey_added",
+  "user.passkey_removed",
+  "user.account_secured",
 ] as const;
 
 export type WebhookEventType = (typeof WEBHOOK_EVENT_TYPES)[number];

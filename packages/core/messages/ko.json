@@ -1485,7 +1485,17 @@
           "user_role_changed": "계정의 플랫폼 역할이 변경됨.",
           "organization_member_added": "누군가 조직에 참여함.",
           "organization_member_removed": "누군가 조직을 떠나거나 조직에서 제거됨.",
-          "organization_member_role_changed": "조직 내 멤버의 역할이 변경됨."
+          "organization_member_role_changed": "조직 내 멤버의 역할이 변경됨.",
+          "user_signed_in": "누군가 로그인할 때(새 기기 여부 포함).",
+          "user_sign_in_locked": "잘못된 비밀번호가 반복되어 비밀번호 로그인이 일시 중지될 때.",
+          "user_password_changed": "비밀번호가 변경될 때.",
+          "user_password_reset": "이메일로 받은 링크나 코드로 비밀번호가 재설정될 때.",
+          "user_password_breached": "로그인에 사용된 비밀번호가 데이터 유출에서 발견될 때.",
+          "user_two_factor_enabled": "2단계 인증이 켜질 때.",
+          "user_two_factor_disabled": "2단계 인증이 꺼질 때.",
+          "user_passkey_added": "패스키가 추가될 때.",
+          "user_passkey_removed": "패스키가 삭제될 때.",
+          "user_account_secured": "새 기기 또는 보안 이메일에서 모든 곳에서 로그아웃할 때(본인이 아님)."
         },
         "panel": {
           "events": "이벤트",

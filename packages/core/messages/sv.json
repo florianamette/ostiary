@@ -1485,7 +1485,17 @@
           "user_role_changed": "Ett kontos plattformsroll ändras.",
           "organization_member_added": "Någon går med i en organisation.",
           "organization_member_removed": "Någon lämnar eller tas bort från en organisation.",
-          "organization_member_role_changed": "En medlems roll i en organisation ändras."
+          "organization_member_role_changed": "En medlems roll i en organisation ändras.",
+          "user_signed_in": "Någon loggar in, med om det är en ny enhet.",
+          "user_sign_in_locked": "Inloggning med lösenord pausas efter upprepade felaktiga lösenord.",
+          "user_password_changed": "Ett lösenord ändras.",
+          "user_password_reset": "Ett lösenord återställs från en länk eller kod via e-post.",
+          "user_password_breached": "Ett lösenord som använts för inloggning finns i ett dataläckage.",
+          "user_two_factor_enabled": "Tvåstegsverifiering aktiveras.",
+          "user_two_factor_disabled": "Tvåstegsverifiering inaktiveras.",
+          "user_passkey_added": "En nyckel läggs till.",
+          "user_passkey_removed": "En nyckel tas bort.",
+          "user_account_secured": "Någon loggar ut överallt från ett e-postmeddelande om ny enhet eller säkerhet (Det var inte jag)."
         },
         "panel": {
           "events": "Händelser",

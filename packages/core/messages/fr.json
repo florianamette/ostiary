@@ -1485,7 +1485,17 @@
           "user_role_changed": "Le rôle d’un compte sur la plateforme change.",
           "organization_member_added": "Quelqu’un rejoint une organisation.",
           "organization_member_removed": "Quelqu’un quitte une organisation ou en est retiré.",
-          "organization_member_role_changed": "Le rôle d’un membre dans une organisation change."
+          "organization_member_role_changed": "Le rôle d’un membre dans une organisation change.",
+          "user_signed_in": "Quelqu’un se connecte, en indiquant s’il s’agit d’un nouvel appareil.",
+          "user_sign_in_locked": "La connexion par mot de passe est suspendue après des mots de passe erronés répétés.",
+          "user_password_changed": "Un mot de passe est modifié.",
+          "user_password_reset": "Un mot de passe est réinitialisé depuis un lien ou un code reçu par e-mail.",
+          "user_password_breached": "Un mot de passe utilisé pour se connecter figure dans une fuite de données.",
+          "user_two_factor_enabled": "L’authentification à deux facteurs est activée.",
+          "user_two_factor_disabled": "L’authentification à deux facteurs est désactivée.",
+          "user_passkey_added": "Une clé d’accès est ajoutée.",
+          "user_passkey_removed": "Une clé d’accès est supprimée.",
+          "user_account_secured": "Quelqu’un se déconnecte partout depuis un e-mail de nouvel appareil ou de sécurité (Ce n’était pas moi)."
         },
         "panel": {
           "events": "Événements",

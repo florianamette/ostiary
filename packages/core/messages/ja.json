@@ -1485,7 +1485,17 @@
           "user_role_changed": "アカウントのプラットフォームロールが変更された。",
           "organization_member_added": "誰かが組織に参加した。",
           "organization_member_removed": "誰かが組織から退出した、または削除された。",
-          "organization_member_role_changed": "組織内のメンバーのロールが変更された。"
+          "organization_member_role_changed": "組織内のメンバーのロールが変更された。",
+          "user_signed_in": "誰かがサインインしたとき（新しいデバイスかどうかを含む）。",
+          "user_sign_in_locked": "パスワードの入力ミスが続き、パスワードでのサインインが一時停止されたとき。",
+          "user_password_changed": "パスワードが変更されたとき。",
+          "user_password_reset": "メールのリンクまたはコードでパスワードがリセットされたとき。",
+          "user_password_breached": "サインインに使われたパスワードがデータ漏えいで見つかったとき。",
+          "user_two_factor_enabled": "2 段階認証が有効になったとき。",
+          "user_two_factor_disabled": "2 段階認証が無効になったとき。",
+          "user_passkey_added": "パスキーが追加されたとき。",
+          "user_passkey_removed": "パスキーが削除されたとき。",
+          "user_account_secured": "新しいデバイスまたはセキュリティのメールからすべての場所でサインアウトしたとき（心当たりがない）。"
         },
         "panel": {
           "events": "イベント",
