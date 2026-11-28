@@ -409,7 +409,6 @@
           "previous": "Önceki",
           "next": "Sonraki",
           "page": "Sayfa {page} / {total}",
-          "footnote": "Veriler <code>{getClients}</code> kaynağından gelir. Kaydetme ve düzenleme (<code>{skipConsent}</code> dahil) <code>{create}</code> ve <code>{update}</code> çağrılarını kullanır; diğer değişiklikler <code>{deleteClient}</code> ve <code>{rotateSecret}</code> kullanır. <docs>OAuth provider</docs> belgelerine bakın. İstemciler giriş yapmış kullanıcıyla (veya yapılandırılmışsa <code>{clientReference}</code> ile) sınırlıdır. Kendini kaydeden istemcilerin sahibi yoktur ve hepsi listelenir; devre dışı bırakılabilir veya silinebilir, ancak düzenlenemezler.",
           "duplicates": "×{count}",
           "duplicatesHint": "{count} özdeş kendini kaydeden istemci",
           "showDuplicates": "{count} istemcinin tümünü göster",
@@ -1619,7 +1618,6 @@
           "previous": "Önceki",
           "next": "Sonraki",
           "pageOf": "Sayfa {page} / {pages}",
-          "poweredBy": "<link>Better Auth admin eklentisinin</link> <code>listUsers</code>, <code>createUser</code>, <code>setRole</code>, <code>updateUser</code>, <code>setUserPassword</code> ve ilgili yöntemleriyle çalışır. Yönetici olarak giriş yapmış olmanız gerekir.",
           "import": "Kullanıcıları içe aktar"
         },
         "status": {
@@ -2488,7 +2486,8 @@
         "pageOf": "Sayfa {page} / {pages}",
         "showing": "{total} kayıttan {from}-{to} arası gösteriliyor"
       },
-      "passwordCompromised": "Bu parola bir veri sızıntısında görüldü. Başka bir parola seçin."
+      "passwordCompromised": "Bu parola bir veri sızıntısında görüldü. Başka bir parola seçin.",
+      "docs": "Belgeler"
     },
     "urlCheck": {
       "tooLong": "URL çok uzun.",

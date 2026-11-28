@@ -409,7 +409,6 @@
           "previous": "Edellinen",
           "next": "Seuraava",
           "page": "Sivu {page} / {total}",
-          "footnote": "Tiedot lähteestä <code>{getClients}</code>. Rekisteröinti ja muokkaus (myös <code>{skipConsent}</code>) kutsuvat <code>{create}</code>- ja <code>{update}</code>-päätepisteitä; muut muutokset käyttävät päätepisteitä <code>{deleteClient}</code> ja <code>{rotateSecret}</code>. Katso <docs>OAuth provider</docs> -dokumentaatio. Asiakkaat rajataan kirjautuneeseen käyttäjään (tai kohteeseen <code>{clientReference}</code>, kun se on määritetty). Itse rekisteröityneillä asiakkailla ei ole omistajaa, ja ne kaikki näytetään; ne voi poistaa käytöstä tai poistaa, mutta niitä ei voi muokata.",
           "duplicates": "×{count}",
           "duplicatesHint": "{count} identtistä itse rekisteröitynyttä asiakasta",
           "showDuplicates": "Näytä kaikki {count}",
@@ -1619,7 +1618,6 @@
           "previous": "Edellinen",
           "next": "Seuraava",
           "pageOf": "Sivu {page} / {pages}",
-          "poweredBy": "Toteutettu <link>Better Auth admin -lisäosan</link> metodeilla <code>listUsers</code>, <code>createUser</code>, <code>setRole</code>, <code>updateUser</code>, <code>setUserPassword</code> ja muilla vastaavilla. Sinun on oltava kirjautunut ylläpitäjänä.",
           "import": "Tuo käyttäjiä"
         },
         "status": {
@@ -2488,7 +2486,8 @@
         "pageOf": "Sivu {page} / {pages}",
         "showing": "Näytetään {from}–{to} / {total}"
       },
-      "passwordCompromised": "Tämä salasana on löytynyt tietovuodosta. Valitse toinen."
+      "passwordCompromised": "Tämä salasana on löytynyt tietovuodosta. Valitse toinen.",
+      "docs": "Dokumentaatio"
     },
     "urlCheck": {
       "tooLong": "URL-osoite on liian pitkä.",

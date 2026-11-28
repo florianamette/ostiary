@@ -409,7 +409,6 @@
           "previous": "Назад",
           "next": "Далее",
           "page": "Страница {page} / {total}",
-          "footnote": "Данные из <code>{getClients}</code>. Регистрация и изменение (включая <code>{skipConsent}</code>) вызывают <code>{create}</code> и <code>{update}</code>; остальные изменения используют <code>{deleteClient}</code> и <code>{rotateSecret}</code>. См. документацию <docs>OAuth provider</docs>. Клиенты привязаны к вошедшему пользователю (или к <code>{clientReference}</code>, если настроено). Самостоятельно зарегистрированные клиенты не имеют владельца и показываются все; их можно отключить или удалить, но не изменить.",
           "duplicates": "×{count}",
           "duplicatesHint": "Одинаковых самостоятельно зарегистрированных клиентов: {count}",
           "showDuplicates": "Показать все ({count})",
@@ -1619,7 +1618,6 @@
           "previous": "Назад",
           "next": "Далее",
           "pageOf": "Страница {page} / {pages}",
-          "poweredBy": "Работает на <code>listUsers</code>, <code>createUser</code>, <code>setRole</code>, <code>updateUser</code>, <code>setUserPassword</code> и связанных методах <link>плагина admin Better Auth</link>. Необходимо войти как администратор.",
           "import": "Импорт пользователей"
         },
         "status": {
@@ -2488,7 +2486,8 @@
         "pageOf": "Страница {page} / {pages}",
         "showing": "Показано {from}–{to} из {total}"
       },
-      "passwordCompromised": "Этот пароль обнаружен в утечке данных. Выберите другой."
+      "passwordCompromised": "Этот пароль обнаружен в утечке данных. Выберите другой.",
+      "docs": "Документация"
     },
     "urlCheck": {
       "tooLong": "URL слишком длинный.",

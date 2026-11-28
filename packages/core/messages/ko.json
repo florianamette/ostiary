@@ -409,7 +409,6 @@
           "previous": "이전",
           "next": "다음",
           "page": "{page} / {total} 페이지",
-          "footnote": "데이터 출처: <code>{getClients}</code>. 등록과 편집(<code>{skipConsent}</code> 포함)은 <code>{create}</code> 및 <code>{update}</code>를 호출하고, 그 밖의 변경은 <code>{deleteClient}</code>와 <code>{rotateSecret}</code>을 사용합니다. <docs>OAuth 제공자</docs> 문서를 참고하세요. 클라이언트는 로그인한 사용자(또는 구성된 경우 <code>{clientReference}</code>) 범위로 제한됩니다. 자체 등록 클라이언트는 소유자가 없으며 모두 표시됩니다. 비활성화하거나 삭제할 수 있지만 편집할 수는 없습니다.",
           "duplicates": "×{count}",
           "duplicatesHint": "동일한 자체 등록 클라이언트 {count}개",
           "showDuplicates": "{count}개 모두 보기",
@@ -1619,7 +1618,6 @@
           "previous": "이전",
           "next": "다음",
           "pageOf": "{page} / {pages} 페이지",
-          "poweredBy": "<link>Better Auth 관리자 플러그인</link>의 <code>listUsers</code>, <code>createUser</code>, <code>setRole</code>, <code>updateUser</code>, <code>setUserPassword</code> 및 관련 메서드를 사용합니다. 관리자로 로그인해야 합니다.",
           "import": "사용자 가져오기"
         },
         "status": {
@@ -2488,7 +2486,8 @@
         "pageOf": "{page} / {pages} 페이지",
         "showing": "{total}명 중 {from}-{to}"
       },
-      "passwordCompromised": "이 비밀번호는 데이터 유출에서 발견되었습니다. 다른 비밀번호를 선택하세요."
+      "passwordCompromised": "이 비밀번호는 데이터 유출에서 발견되었습니다. 다른 비밀번호를 선택하세요.",
+      "docs": "문서"
     },
     "urlCheck": {
       "tooLong": "URL이 너무 깁니다.",

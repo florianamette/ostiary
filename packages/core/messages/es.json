@@ -409,7 +409,6 @@
           "previous": "Anterior",
           "next": "Siguiente",
           "page": "Página {page} / {total}",
-          "footnote": "Datos de <code>{getClients}</code>. Registrar y editar (incluido <code>{skipConsent}</code>) llaman a <code>{create}</code> y <code>{update}</code>; el resto de cambios usan <code>{deleteClient}</code> y <code>{rotateSecret}</code>. Consulta la documentación del <docs>proveedor OAuth</docs>. Los clientes se limitan al usuario que ha iniciado sesión (o a <code>{clientReference}</code> si está configurado). Los clientes autorregistrados no tienen propietario y se muestran todos; se pueden desactivar o eliminar, pero no editar.",
           "duplicates": "×{count}",
           "duplicatesHint": "{count} clientes autorregistrados idénticos",
           "showDuplicates": "Mostrar los {count}",
@@ -1619,7 +1618,6 @@
           "previous": "Anterior",
           "next": "Siguiente",
           "pageOf": "Página {page} / {pages}",
-          "poweredBy": "Funciona con <code>listUsers</code>, <code>createUser</code>, <code>setRole</code>, <code>updateUser</code>, <code>setUserPassword</code> y métodos relacionados del <link>plugin de administración de Better Auth</link>. Debes haber iniciado sesión como administrador.",
           "import": "Importar usuarios"
         },
         "status": {
@@ -2488,7 +2486,8 @@
         "pageOf": "Página {page} / {pages}",
         "showing": "Mostrando {from}-{to} de {total}"
       },
-      "passwordCompromised": "Esta contraseña apareció en una filtración de datos. Elige otra."
+      "passwordCompromised": "Esta contraseña apareció en una filtración de datos. Elige otra.",
+      "docs": "Documentación"
     },
     "urlCheck": {
       "tooLong": "La URL es demasiado larga.",

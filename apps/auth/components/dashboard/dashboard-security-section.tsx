@@ -10,6 +10,8 @@ import { DashboardPasskeysSection } from "@/components/dashboard/dashboard-passk
 import { DashboardTwoFactorSection } from "@/components/dashboard/dashboard-two-factor-section";
 import type { SocialProviderOption } from "@ostiary/core/lib/social-provider-meta";
 import { countryName } from "@ostiary/core/lib/country-policy-options";
+import { describeUserAgent } from "@ostiary/core/lib/security/user-agent";
+import { Badge } from "@ostiary/core/components/ui/badge";
 import { getHtmlLang } from "@ostiary/core/i18n/locale-html";
 import type { AppLocale } from "@ostiary/core/i18n/routing";
 import { Button } from "@ostiary/core/components/ui/button";
@@ -90,7 +92,14 @@ export function DashboardSecuritySection({
   adminConsoleUrl?: string;
 }) {
   const t = useTranslations("dashboard.security");
+  const tActivity = useTranslations("dashboard.activity");
   const locale = useLocale();
+  /** "Chrome on macOS", as Recent activity names it. */
+  const deviceName = (userAgent: string | null | undefined) => {
+    const { browser, system } = describeUserAgent(userAgent ?? null);
+    if (browser && system) return tActivity("deviceOn", { browser, system });
+    return browser || system || t("unknownDevice");
+  };
   const when = (d: Date, key: "started" | "expires") => {
     const date = formatWhen(d, getHtmlLang(locale as AppLocale));
     return date ? t(`${key}At`, { date }) : t(key);
@@ -201,17 +210,15 @@ export function DashboardSecuritySection({
                 <TableBody>
                   {sessions.map((s) => {
                     const isCurrent = s.id === currentSessionId;
-                    const ua = s.userAgent?.trim();
-                    const deviceLabel = isCurrent
-                      ? t("currentSession")
-                      : ua
-                        ? ua.slice(0, 72) + (ua.length > 72 ? "…" : "")
-                        : t("unknownDevice");
+                    const deviceLabel = deviceName(s.userAgent);
                     return (
                       <TableRow key={s.id}>
                         <TableCell className="max-w-[min(100%,18rem)] align-top text-sm">
                           <div className="flex flex-col gap-1">
-                            <span className="font-medium">{deviceLabel}</span>
+                            <span className="flex flex-wrap items-center gap-2 font-medium">
+                              <span title={s.userAgent ?? undefined}>{deviceLabel}</span>
+                              {isCurrent ? <Badge variant="secondary">{t("currentSession")}</Badge> : null}
+                            </span>
                             <span className="text-xs text-muted-foreground">
                               {when(s.createdAt, "started")}
                             </span>

@@ -409,7 +409,6 @@
           "previous": "前へ",
           "next": "次へ",
           "page": "{page} / {total} ページ",
-          "footnote": "データは <code>{getClients}</code> から取得しています。登録と編集（<code>{skipConsent}</code> を含む）は <code>{create}</code> と <code>{update}</code> を呼び出し、その他の変更は <code>{deleteClient}</code> と <code>{rotateSecret}</code> を使います。<docs>OAuth プロバイダー</docs>のドキュメントを参照してください。クライアントはサインイン中のユーザー（設定されている場合は <code>{clientReference}</code>）に紐づきます。自己登録クライアントには所有者がおらず、すべて表示されます。無効化や削除はできますが、編集はできません。",
           "duplicates": "×{count}",
           "duplicatesHint": "同一の自己登録クライアント {count} 件",
           "showDuplicates": "{count} 件すべて表示",
@@ -1619,7 +1618,6 @@
           "previous": "前へ",
           "next": "次へ",
           "pageOf": "{page} / {pages} ページ",
-          "poweredBy": "<link>Better Auth 管理プラグイン</link>の <code>listUsers</code>、<code>createUser</code>、<code>setRole</code>、<code>updateUser</code>、<code>setUserPassword</code> などのメソッドを使用しています。管理者としてサインインしている必要があります。",
           "import": "ユーザーをインポート"
         },
         "status": {
@@ -2488,7 +2486,8 @@
         "pageOf": "{page} / {pages} ページ",
         "showing": "{total} 件中 {from}-{to} 件を表示"
       },
-      "passwordCompromised": "このパスワードはデータ漏えいで見つかっています。別のパスワードを選んでください。"
+      "passwordCompromised": "このパスワードはデータ漏えいで見つかっています。別のパスワードを選んでください。",
+      "docs": "ドキュメント"
     },
     "urlCheck": {
       "tooLong": "URL が長すぎます。",

@@ -409,7 +409,6 @@
           "previous": "Vorige",
           "next": "Volgende",
           "page": "Pagina {page} / {total}",
-          "footnote": "Gegevens uit <code>{getClients}</code>. Registreren en bewerken (inclusief <code>{skipConsent}</code>) roepen <code>{create}</code> en <code>{update}</code> aan; andere wijzigingen gebruiken <code>{deleteClient}</code> en <code>{rotateSecret}</code>. Zie de documentatie van de <docs>OAuth provider</docs>. Clients zijn beperkt tot de ingelogde gebruiker (of <code>{clientReference}</code> als dat is ingesteld). Zelf geregistreerde clients hebben geen eigenaar en worden allemaal getoond; ze kunnen worden uitgeschakeld of verwijderd, niet bewerkt.",
           "duplicates": "×{count}",
           "duplicatesHint": "{count} identieke zelf geregistreerde clients",
           "showDuplicates": "Alle {count} tonen",
@@ -1619,7 +1618,6 @@
           "previous": "Vorige",
           "next": "Volgende",
           "pageOf": "Pagina {page} / {pages}",
-          "poweredBy": "Werkt met <code>listUsers</code>, <code>createUser</code>, <code>setRole</code>, <code>updateUser</code>, <code>setUserPassword</code> en verwante methoden uit de <link>Better Auth admin-plug-in</link>. Je moet ingelogd zijn als beheerder.",
           "import": "Gebruikers importeren"
         },
         "status": {
@@ -2488,7 +2486,8 @@
         "pageOf": "Pagina {page} / {pages}",
         "showing": "{from}-{to} van {total} weergegeven"
       },
-      "passwordCompromised": "Dit wachtwoord is in een datalek opgedoken. Kies een ander."
+      "passwordCompromised": "Dit wachtwoord is in een datalek opgedoken. Kies een ander.",
+      "docs": "Documentatie"
     },
     "urlCheck": {
       "tooLong": "De URL is te lang.",

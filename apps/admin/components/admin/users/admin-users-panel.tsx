@@ -12,7 +12,7 @@ import { ListSearch, TableMessageRow, TablePagination } from "@/components/admin
 import { ExportCsvButton } from "@/components/admin/common/export-csv-button";
 import { useListParams } from "@/components/admin/common/use-list-params";
 import { usePagination } from "@/components/admin/common/use-pagination";
-import { ExternalLink } from "@/components/admin/common/external-link";
+import { DocsLink } from "@/components/admin/common/docs-link";
 import { formatShortDate } from "@/components/admin/common/page-header";
 import { Badge } from "@ostiary/core/components/ui/badge";
 import { Button } from "@ostiary/core/components/ui/button";
@@ -123,10 +123,20 @@ export function AdminUsersPanel({
               <TableMessageRow colSpan={6}>{t("list.empty")}</TableMessageRow>
             ) : (
               users.map((user) => (
-                <TableRow key={user.id}>
+                <TableRow
+                  key={user.id}
+                  className="cursor-pointer"
+                  // The whole row opens the user; the link stays the keyboard and screen-reader target.
+                  onClick={(e) => {
+                    const target = e.target as HTMLElement;
+                    // Menus and dialogs opened from the row are portals: their clicks bubble here too.
+                    if (!e.currentTarget.contains(target) || target.closest("a, button, input")) return;
+                    e.currentTarget.querySelector<HTMLAnchorElement>("a[data-row-link]")?.click();
+                  }}
+                >
                   <TableCell>
                     <div className="flex flex-col gap-0.5">
-                      <Link href={`/users/${user.id}`} className="font-medium underline-offset-4 hover:underline">
+                      <Link href={`/users/${user.id}`} data-row-link className="font-medium underline-offset-4 hover:underline">
                         {user.name}
                       </Link>
                       <span className="text-muted-foreground text-xs">
@@ -223,16 +233,7 @@ export function AdminUsersPanel({
         />
       </div>
 
-      <p className="text-muted-foreground text-xs">
-        {t.rich("list.poweredBy", {
-          code: (chunks) => (
-            <code className="rounded bg-muted px-1 py-0.5 font-mono">{chunks}</code>
-          ),
-          link: (chunks) => (
-            <ExternalLink href="https://better-auth.com/docs/plugins/admin">{chunks}</ExternalLink>
-          ),
-        })}
-      </p>
+      <DocsLink path="admin-console#users" />
     </div>
   );
 }

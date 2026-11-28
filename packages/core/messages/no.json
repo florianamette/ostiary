@@ -409,7 +409,6 @@
           "previous": "Forrige",
           "next": "Neste",
           "page": "Side {page} / {total}",
-          "footnote": "Data fra <code>{getClients}</code>. Registrering og redigering (inkludert <code>{skipConsent}</code>) kaller <code>{create}</code> og <code>{update}</code>; andre endringer bruker <code>{deleteClient}</code> og <code>{rotateSecret}</code>. Se dokumentasjonen for <docs>OAuth-leverandøren</docs>. Klienter er knyttet til den innloggede brukeren (eller <code>{clientReference}</code> når den er konfigurert). Selvregistrerte klienter har ingen eier og vises alle; de kan deaktiveres eller slettes, men ikke redigeres.",
           "duplicates": "×{count}",
           "duplicatesHint": "{count} identiske selvregistrerte klienter",
           "showDuplicates": "Vis alle {count}",
@@ -1619,7 +1618,6 @@
           "previous": "Forrige",
           "next": "Neste",
           "pageOf": "Side {page} / {pages}",
-          "poweredBy": "Drevet av <code>listUsers</code>, <code>createUser</code>, <code>setRole</code>, <code>updateUser</code>, <code>setUserPassword</code> og tilhørende metoder fra <link>Better Auth admin-pluginen</link>. Du må være logget inn som administrator.",
           "import": "Importer brukere"
         },
         "status": {
@@ -2488,7 +2486,8 @@
         "pageOf": "Side {page} / {pages}",
         "showing": "Viser {from}–{to} av {total}"
       },
-      "passwordCompromised": "Passordet har dukket opp i en datalekkasje. Velg et annet."
+      "passwordCompromised": "Passordet har dukket opp i en datalekkasje. Velg et annet.",
+      "docs": "Dokumentasjon"
     },
     "urlCheck": {
       "tooLong": "URL-en er for lang.",

@@ -409,7 +409,6 @@
           "previous": "पिछला",
           "next": "अगला",
           "page": "पेज {page} / {total}",
-          "footnote": "डेटा <code>{getClients}</code> से। रजिस्टर और संपादन (<code>{skipConsent}</code> सहित) <code>{create}</code> और <code>{update}</code> को कॉल करते हैं; अन्य बदलाव <code>{deleteClient}</code> और <code>{rotateSecret}</code> का उपयोग करते हैं। <docs>OAuth provider</docs> दस्तावेज़ देखें। क्लाइंट साइन इन किए गए उपयोगकर्ता (या कॉन्फ़िगर होने पर <code>{clientReference}</code>) तक सीमित हैं। स्व-रजिस्टर्ड क्लाइंट का कोई स्वामी नहीं होता और वे सभी सूचीबद्ध होते हैं; उन्हें अक्षम या हटाया जा सकता है, संपादित नहीं।",
           "duplicates": "×{count}",
           "duplicatesHint": "{count} एक जैसे स्व-रजिस्टर्ड क्लाइंट",
           "showDuplicates": "सभी {count} दिखाएँ",
@@ -1619,7 +1618,6 @@
           "previous": "पिछला",
           "next": "अगला",
           "pageOf": "पेज {page} / {pages}",
-          "poweredBy": "<link>Better Auth admin plugin</link> के <code>listUsers</code>, <code>createUser</code>, <code>setRole</code>, <code>updateUser</code>, <code>setUserPassword</code> और संबंधित मेथड द्वारा संचालित। आपको एडमिन के रूप में साइन इन होना चाहिए।",
           "import": "उपयोगकर्ता आयात करें"
         },
         "status": {
@@ -2488,7 +2486,8 @@
         "pageOf": "पेज {page} / {pages}",
         "showing": "{total} में से {from}-{to} दिखाए जा रहे हैं"
       },
-      "passwordCompromised": "यह पासवर्ड किसी डेटा लीक में पाया गया है। कोई दूसरा चुनें।"
+      "passwordCompromised": "यह पासवर्ड किसी डेटा लीक में पाया गया है। कोई दूसरा चुनें।",
+      "docs": "दस्तावेज़"
     },
     "urlCheck": {
       "tooLong": "URL बहुत लंबा है।",

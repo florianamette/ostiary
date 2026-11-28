@@ -409,7 +409,6 @@
           "previous": "السابق",
           "next": "التالي",
           "page": "الصفحة {page} / {total}",
-          "footnote": "البيانات من <code>{getClients}</code>. يستدعي التسجيل والتعديل (بما في ذلك <code>{skipConsent}</code>) كلًّا من <code>{create}</code> و<code>{update}</code>؛ وتستخدم التغييرات الأخرى <code>{deleteClient}</code> و<code>{rotateSecret}</code>. راجع وثائق <docs>OAuth provider</docs>. يقتصر العملاء على المستخدم المسجّل دخوله (أو <code>{clientReference}</code> عند إعداده). العملاء المسجّلون ذاتيًا بلا مالك ويُعرضون جميعًا؛ يمكن تعطيلهم أو حذفهم، لا تعديلهم.",
           "duplicates": "×{count}",
           "duplicatesHint": "عملاء مسجّلون ذاتيًا متطابقون: {count}",
           "showDuplicates": "عرض الكل ({count})",
@@ -1619,7 +1618,6 @@
           "previous": "السابق",
           "next": "التالي",
           "pageOf": "الصفحة {page} / {pages}",
-          "poweredBy": "يعتمد على <code>listUsers</code> و<code>createUser</code> و<code>setRole</code> و<code>updateUser</code> و<code>setUserPassword</code> والدوال المرتبطة بها من <link>إضافة الإدارة في Better Auth</link>. يجب أن تكون مسجّل الدخول بصفتك مسؤولًا.",
           "import": "استيراد المستخدمين"
         },
         "status": {
@@ -2488,7 +2486,8 @@
         "pageOf": "الصفحة {page} / {pages}",
         "showing": "عرض {from}-{to} من {total}"
       },
-      "passwordCompromised": "ظهرت كلمة المرور هذه في تسريب بيانات. اختر كلمة مرور أخرى."
+      "passwordCompromised": "ظهرت كلمة المرور هذه في تسريب بيانات. اختر كلمة مرور أخرى.",
+      "docs": "التوثيق"
     },
     "urlCheck": {
       "tooLong": "عنوان URL طويل جدًا.",

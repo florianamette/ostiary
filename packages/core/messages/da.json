@@ -409,7 +409,6 @@
           "previous": "Forrige",
           "next": "Næste",
           "page": "Side {page} / {total}",
-          "footnote": "Data fra <code>{getClients}</code>. Registrering og redigering (inklusive <code>{skipConsent}</code>) kalder <code>{create}</code> og <code>{update}</code>; andre ændringer bruger <code>{deleteClient}</code> og <code>{rotateSecret}</code>. Se dokumentationen til <docs>OAuth provider</docs>. Klienter er afgrænset til den loggede ind bruger (eller <code>{clientReference}</code>, når det er konfigureret). Selvregistrerede klienter har ingen ejer og vises alle; de kan deaktiveres eller slettes, men ikke redigeres.",
           "duplicates": "×{count}",
           "duplicatesHint": "{count} identiske selvregistrerede klienter",
           "showDuplicates": "Vis alle {count}",
@@ -1619,7 +1618,6 @@
           "previous": "Forrige",
           "next": "Næste",
           "pageOf": "Side {page} / {pages}",
-          "poweredBy": "Drevet af <code>listUsers</code>, <code>createUser</code>, <code>setRole</code>, <code>updateUser</code>, <code>setUserPassword</code> og relaterede metoder fra <link>Better Auth admin-pluginet</link>. Du skal være logget ind som administrator.",
           "import": "Importér brugere"
         },
         "status": {
@@ -2488,7 +2486,8 @@
         "pageOf": "Side {page} / {pages}",
         "showing": "Viser {from}-{to} af {total}"
       },
-      "passwordCompromised": "Adgangskoden er dukket op i et datalæk. Vælg en anden."
+      "passwordCompromised": "Adgangskoden er dukket op i et datalæk. Vælg en anden.",
+      "docs": "Dokumentation"
     },
     "urlCheck": {
       "tooLong": "URL'en er for lang.",
