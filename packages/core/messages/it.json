@@ -2112,7 +2112,9 @@
           "twoFactorGraceDaysHint": "Chi non ha i due fattori riceve la richiesta a ogni accesso a un'app e può continuare fino ad allora. Il periodo parte quando attivi questa opzione, o dalla creazione dell'account.",
           "noGrace": "Nessuno: richiesta subito",
           "newDeviceEmail": "Email per accesso da nuovo dispositivo",
-          "newDeviceEmailHint": "Le persone ricevono un’email quando il loro account accede da un browser mai usato prima, con un pulsante per disconnettersi ovunque e reimpostare la password. Gli accessi tramite il SSO di un’organizzazione non inviano email."
+          "newDeviceEmailHint": "Le persone ricevono un’email quando il loro account accede da un browser mai usato prima, con un pulsante per disconnettersi ovunque e reimpostare la password. Gli accessi tramite il SSO di un’organizzazione non inviano email.",
+          "securityChangeEmail": "Email per modifiche di sicurezza",
+          "securityChangeEmailHint": "Le persone ricevono un’email quando cambiano la password, l’autenticazione a due fattori o le passkey, con un pulsante per disconnettersi ovunque e reimpostare la password. Le modifiche fatte da un admin non inviano email."
         },
         "emailDomains": {
           "title": "Domini email",
@@ -3212,6 +3214,34 @@
       "note": "Il pulsante funziona una sola volta entro {days} giorni. Ti disconnette ovunque e ti invia un link per scegliere una nuova password.",
       "footnote": "Ricevi questa email quando il tuo account accede da un nuovo dispositivo. Non condividere mai la tua password o i codici di accesso.",
       "location": "Luogo: {country}"
+    },
+    "securityChange": {
+      "subjects": {
+        "password_changed": "La tua password {brand} è stata cambiata",
+        "password_reset": "La tua password {brand} è stata reimpostata",
+        "two_factor_enabled": "L’autenticazione a due fattori è stata attivata",
+        "two_factor_disabled": "L’autenticazione a due fattori è stata disattivata",
+        "passkey_added": "È stata aggiunta una passkey al tuo account {brand}",
+        "passkey_removed": "È stata rimossa una passkey dal tuo account {brand}"
+      },
+      "bodies": {
+        "password_changed": "La password dell’account {brand} {email} è appena stata cambiata.",
+        "password_reset": "La password dell’account {brand} {email} è appena stata reimpostata con un link inviato a questo indirizzo. Tutti i dispositivi sono stati disconnessi.",
+        "two_factor_enabled": "L’autenticazione a due fattori è appena stata attivata per l’account {brand} {email}.",
+        "two_factor_disabled": "L’autenticazione a due fattori è appena stata disattivata per l’account {brand} {email}. Ora per accedere basta la password.",
+        "passkey_added": "È appena stata aggiunta una passkey all’account {brand} {email}. Permette di accedere senza password.",
+        "passkey_removed": "È appena stata rimossa una passkey dall’account {brand} {email}."
+      },
+      "when": "Quando: {when}",
+      "device": "Dispositivo: {device}",
+      "deviceOn": "{browser} su {system}",
+      "unknownDevice": "Browser sconosciuto",
+      "ipAddress": "Indirizzo IP: {ip}",
+      "unknownIp": "sconosciuto",
+      "ifYou": "Se sei stato tu, non devi fare nulla.",
+      "button": "Non sono stato io",
+      "note": "Il pulsante funziona una sola volta entro {days} giorni. Ti disconnette ovunque e ti invia un link per scegliere una nuova password.",
+      "footnote": "Ricevi questa email quando cambiano la password, l’autenticazione a due fattori o le passkey del tuo account. Non condividere mai la password o i codici di accesso."
     }
   },
   "authErrors": {

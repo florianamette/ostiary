@@ -29,6 +29,7 @@ export function AuthPolicyCard({ policy }: { policy: AuthPolicy }) {
     [t("twoFactorEveryone"), yesNo(policy.twoFactorEveryone)],
     [t("twoFactorGraceDays"), t("days", { count: policy.twoFactorGraceDays })],
     [t("newDeviceEmail"), yesNo(policy.newDeviceEmail)],
+    [t("securityChangeEmail"), yesNo(policy.securityChangeEmail)],
   ];
 
   return (
@@ -184,6 +185,14 @@ function AuthPolicyDialog({ policy, onClose }: { policy: AuthPolicy; onClose: ()
               hint={t("newDeviceEmailHint")}
               checked={draft.newDeviceEmail}
               onChange={(v) => set("newDeviceEmail", v)}
+              disabled={busy}
+            />
+            <SwitchField
+              id="policy-security-change-email"
+              label={t("securityChangeEmail")}
+              hint={t("securityChangeEmailHint")}
+              checked={draft.securityChangeEmail}
+              onChange={(v) => set("securityChangeEmail", v)}
               disabled={busy}
             />
           </FieldGroup>

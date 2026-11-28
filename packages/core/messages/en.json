@@ -2112,7 +2112,9 @@
           "twoFactorGraceDaysHint": "People without two-factor authentication are asked at each app sign-in and can continue until then. It starts when you turn this on, or when the account is created.",
           "noGrace": "None: required at once",
           "newDeviceEmail": "Email on new-device sign-in",
-          "newDeviceEmailHint": "People get an email when their account signs in from a browser it hasn't used before, with a button to sign out everywhere and reset the password. Sign-ins through an organization's SSO are not emailed."
+          "newDeviceEmailHint": "People get an email when their account signs in from a browser it hasn't used before, with a button to sign out everywhere and reset the password. Sign-ins through an organization's SSO are not emailed.",
+          "securityChangeEmail": "Email on security changes",
+          "securityChangeEmailHint": "People get an email when their password, two-factor authentication or passkeys change, with a button to sign out everywhere and reset the password. Changes made by an admin are not emailed."
         },
         "emailDomains": {
           "title": "Email domains",
@@ -3212,6 +3214,34 @@
       "note": "The button works once within {days} days. It signs you out everywhere and emails you a link to choose a new password.",
       "footnote": "You get this email when your account signs in from a new device. Never share your password or sign-in codes.",
       "location": "Location: {country}"
+    },
+    "securityChange": {
+      "subjects": {
+        "password_changed": "Your {brand} password was changed",
+        "password_reset": "Your {brand} password was reset",
+        "two_factor_enabled": "Two-factor authentication was turned on",
+        "two_factor_disabled": "Two-factor authentication was turned off",
+        "passkey_added": "A passkey was added to your {brand} account",
+        "passkey_removed": "A passkey was removed from your {brand} account"
+      },
+      "bodies": {
+        "password_changed": "The password of the {brand} account {email} was just changed.",
+        "password_reset": "The password of the {brand} account {email} was just reset with a link sent to this address. Every device was signed out.",
+        "two_factor_enabled": "Two-factor authentication was just turned on for the {brand} account {email}.",
+        "two_factor_disabled": "Two-factor authentication was just turned off for the {brand} account {email}. Signing in now needs only the password.",
+        "passkey_added": "A passkey was just added to the {brand} account {email}. It can be used to sign in without a password.",
+        "passkey_removed": "A passkey was just removed from the {brand} account {email}."
+      },
+      "when": "When: {when}",
+      "device": "Device: {device}",
+      "deviceOn": "{browser} on {system}",
+      "unknownDevice": "Unknown browser",
+      "ipAddress": "IP address: {ip}",
+      "unknownIp": "unknown",
+      "ifYou": "If this was you, there's nothing to do.",
+      "button": "This wasn't me",
+      "note": "The button works once within {days} days. It signs you out everywhere and emails you a link to choose a new password.",
+      "footnote": "You get this email when your account's password, two-factor authentication or passkeys change. Never share your password or sign-in codes."
     }
   },
   "authErrors": {

@@ -2112,7 +2112,9 @@
           "twoFactorGraceDaysHint": "Personer uden totrinsgodkendelse bliver spurgt ved hvert app-login og kan fortsætte indtil da. Fristen starter, når du slår dette til, eller når kontoen oprettes.",
           "noGrace": "Ingen: påkrævet straks",
           "newDeviceEmail": "Mail ved login fra ny enhed",
-          "newDeviceEmailHint": "Personer får en mail, når deres konto logger ind fra en browser, den ikke har brugt før, med en knap til at logge ud overalt og nulstille adgangskoden. Login via en organisations SSO sender ingen mail."
+          "newDeviceEmailHint": "Personer får en mail, når deres konto logger ind fra en browser, den ikke har brugt før, med en knap til at logge ud overalt og nulstille adgangskoden. Login via en organisations SSO sender ingen mail.",
+          "securityChangeEmail": "E-mail ved sikkerhedsændringer",
+          "securityChangeEmailHint": "Folk får en e-mail, når deres adgangskode, totrinsgodkendelse eller adgangsnøgler ændres, med en knap til at logge ud overalt og nulstille adgangskoden. Ændringer foretaget af en admin sender ingen e-mail."
         },
         "emailDomains": {
           "title": "E-maildomæner",
@@ -3212,6 +3214,34 @@
       "note": "Knappen virker én gang inden for {days} dage. Den logger dig ud overalt og mailer dig et link til at vælge en ny adgangskode.",
       "footnote": "Du får denne mail, når din konto logger ind fra en ny enhed. Del aldrig din adgangskode eller dine loginkoder.",
       "location": "Sted: {country}"
+    },
+    "securityChange": {
+      "subjects": {
+        "password_changed": "Din {brand}-adgangskode er blevet ændret",
+        "password_reset": "Din {brand}-adgangskode er blevet nulstillet",
+        "two_factor_enabled": "Totrinsgodkendelse er blevet slået til",
+        "two_factor_disabled": "Totrinsgodkendelse er blevet slået fra",
+        "passkey_added": "Der er tilføjet en adgangsnøgle til din {brand}-konto",
+        "passkey_removed": "Der er fjernet en adgangsnøgle fra din {brand}-konto"
+      },
+      "bodies": {
+        "password_changed": "Adgangskoden til {brand}-kontoen {email} er lige blevet ændret.",
+        "password_reset": "Adgangskoden til {brand}-kontoen {email} er lige blevet nulstillet med et link sendt til denne adresse. Alle enheder er blevet logget ud.",
+        "two_factor_enabled": "Totrinsgodkendelse er lige blevet slået til for {brand}-kontoen {email}.",
+        "two_factor_disabled": "Totrinsgodkendelse er lige blevet slået fra for {brand}-kontoen {email}. Nu kræver login kun adgangskoden.",
+        "passkey_added": "Der er lige tilføjet en adgangsnøgle til {brand}-kontoen {email}. Den kan bruges til at logge ind uden adgangskode.",
+        "passkey_removed": "Der er lige fjernet en adgangsnøgle fra {brand}-kontoen {email}."
+      },
+      "when": "Hvornår: {when}",
+      "device": "Enhed: {device}",
+      "deviceOn": "{browser} på {system}",
+      "unknownDevice": "Ukendt browser",
+      "ipAddress": "IP-adresse: {ip}",
+      "unknownIp": "ukendt",
+      "ifYou": "Hvis det var dig, skal du ikke gøre noget.",
+      "button": "Det var ikke mig",
+      "note": "Knappen virker én gang inden for {days} dage. Den logger dig ud overalt og mailer dig et link til at vælge en ny adgangskode.",
+      "footnote": "Du får denne e-mail, når adgangskoden, totrinsgodkendelsen eller adgangsnøglerne til din konto ændres. Del aldrig din adgangskode eller dine loginkoder."
     }
   },
   "authErrors": {

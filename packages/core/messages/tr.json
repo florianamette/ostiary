@@ -2112,7 +2112,9 @@
           "twoFactorGraceDaysHint": "İki adımlı doğrulaması olmayanlara her uygulama oturum açışında sorulur ve o zamana kadar devam edebilirler. Süre bunu açtığınızda ya da hesap oluşturulduğunda başlar.",
           "noGrace": "Yok: hemen gerekli",
           "newDeviceEmail": "Yeni cihazdan oturum açılınca e-posta",
-          "newDeviceEmailHint": "Kişiler, hesaplarında daha önce kullanılmamış bir tarayıcıdan oturum açıldığında, her yerde oturumu kapatıp parolayı sıfırlamaya yarayan bir düğmeyle e-posta alır. Bir kuruluşun SSO'su üzerinden yapılan girişler e-posta göndermez."
+          "newDeviceEmailHint": "Kişiler, hesaplarında daha önce kullanılmamış bir tarayıcıdan oturum açıldığında, her yerde oturumu kapatıp parolayı sıfırlamaya yarayan bir düğmeyle e-posta alır. Bir kuruluşun SSO'su üzerinden yapılan girişler e-posta göndermez.",
+          "securityChangeEmail": "Güvenlik değişikliklerinde e-posta",
+          "securityChangeEmailHint": "Kullanıcılar şifreleri, iki adımlı doğrulamaları veya geçiş anahtarları değiştiğinde, her yerden çıkış yapıp şifreyi sıfırlamak için bir düğme içeren bir e-posta alır. Bir yöneticinin yaptığı değişiklikler için e-posta gönderilmez."
         },
         "emailDomains": {
           "title": "E-posta alan adları",
@@ -3212,6 +3214,34 @@
       "note": "Düğme {days} gün içinde bir kez çalışır. Her yerde oturumunuzu kapatır ve yeni bir parola seçmeniz için size bir bağlantı gönderir.",
       "footnote": "Hesabınızda yeni bir cihazdan oturum açıldığında bu e-postayı alırsınız. Parolanızı veya giriş kodlarınızı asla paylaşmayın.",
       "location": "Konum: {country}"
+    },
+    "securityChange": {
+      "subjects": {
+        "password_changed": "{brand} şifreniz değiştirildi",
+        "password_reset": "{brand} şifreniz sıfırlandı",
+        "two_factor_enabled": "İki adımlı doğrulama açıldı",
+        "two_factor_disabled": "İki adımlı doğrulama kapatıldı",
+        "passkey_added": "{brand} hesabınıza bir geçiş anahtarı eklendi",
+        "passkey_removed": "{brand} hesabınızdan bir geçiş anahtarı kaldırıldı"
+      },
+      "bodies": {
+        "password_changed": "{brand} hesabı {email} için şifre az önce değiştirildi.",
+        "password_reset": "{brand} hesabı {email} için şifre, bu adrese gönderilen bir bağlantıyla az önce sıfırlandı. Tüm cihazlarda oturum kapatıldı.",
+        "two_factor_enabled": "{brand} hesabı {email} için iki adımlı doğrulama az önce açıldı.",
+        "two_factor_disabled": "{brand} hesabı {email} için iki adımlı doğrulama az önce kapatıldı. Artık giriş için yalnızca şifre yeterli.",
+        "passkey_added": "{brand} hesabı {email} hesabına az önce bir geçiş anahtarı eklendi. Şifresiz giriş için kullanılabilir.",
+        "passkey_removed": "{brand} hesabı {email} hesabından az önce bir geçiş anahtarı kaldırıldı."
+      },
+      "when": "Ne zaman: {when}",
+      "device": "Cihaz: {device}",
+      "deviceOn": "{system} üzerinde {browser}",
+      "unknownDevice": "Bilinmeyen tarayıcı",
+      "ipAddress": "IP adresi: {ip}",
+      "unknownIp": "bilinmiyor",
+      "ifYou": "Bu sizseniz bir şey yapmanıza gerek yok.",
+      "button": "Bu ben değildim",
+      "note": "Düğme {days} gün içinde bir kez çalışır. Her yerde oturumunuzu kapatır ve yeni bir parola seçmeniz için size bir bağlantı gönderir.",
+      "footnote": "Bu e-postayı hesabınızın şifresi, iki adımlı doğrulaması veya geçiş anahtarları değiştiğinde alırsınız. Şifrenizi veya giriş kodlarınızı asla paylaşmayın."
     }
   },
   "authErrors": {

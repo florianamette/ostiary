@@ -2112,7 +2112,9 @@
           "twoFactorGraceDaysHint": "Osoby bez dwóch składników są pytane przy każdym logowaniu do aplikacji i mogą kontynuować do tego czasu. Liczy się od włączenia tej opcji albo od utworzenia konta.",
           "noGrace": "Brak: wymagane od razu",
           "newDeviceEmail": "E-mail przy logowaniu z nowego urządzenia",
-          "newDeviceEmailHint": "Użytkownicy dostają e-mail, gdy ich konto loguje się z przeglądarki, której wcześniej nie używało, z przyciskiem do wylogowania wszędzie i zresetowania hasła. Logowania przez SSO organizacji nie wysyłają wiadomości."
+          "newDeviceEmailHint": "Użytkownicy dostają e-mail, gdy ich konto loguje się z przeglądarki, której wcześniej nie używało, z przyciskiem do wylogowania wszędzie i zresetowania hasła. Logowania przez SSO organizacji nie wysyłają wiadomości.",
+          "securityChangeEmail": "E-mail przy zmianach zabezpieczeń",
+          "securityChangeEmailHint": "Użytkownicy dostają e-mail, gdy zmienia się ich hasło, uwierzytelnianie dwuskładnikowe lub klucze dostępu, z przyciskiem do wylogowania wszędzie i zresetowania hasła. Zmiany wprowadzone przez admina nie wysyłają e-maila."
         },
         "emailDomains": {
           "title": "Domeny e-mail",
@@ -3212,6 +3214,34 @@
       "note": "Przycisk działa raz przez {days} dni. Wylogowuje Cię wszędzie i wysyła link do ustawienia nowego hasła.",
       "footnote": "Otrzymujesz tę wiadomość, gdy Twoje konto loguje się z nowego urządzenia. Nigdy nie udostępniaj hasła ani kodów logowania.",
       "location": "Lokalizacja: {country}"
+    },
+    "securityChange": {
+      "subjects": {
+        "password_changed": "Hasło do {brand} zostało zmienione",
+        "password_reset": "Hasło do {brand} zostało zresetowane",
+        "two_factor_enabled": "Włączono uwierzytelnianie dwuskładnikowe",
+        "two_factor_disabled": "Wyłączono uwierzytelnianie dwuskładnikowe",
+        "passkey_added": "Do Twojego konta {brand} dodano klucz dostępu",
+        "passkey_removed": "Z Twojego konta {brand} usunięto klucz dostępu"
+      },
+      "bodies": {
+        "password_changed": "Hasło do konta {brand} {email} zostało właśnie zmienione.",
+        "password_reset": "Hasło do konta {brand} {email} zostało właśnie zresetowane za pomocą linku wysłanego na ten adres. Wszystkie urządzenia zostały wylogowane.",
+        "two_factor_enabled": "W koncie {brand} {email} właśnie włączono uwierzytelnianie dwuskładnikowe.",
+        "two_factor_disabled": "W koncie {brand} {email} właśnie wyłączono uwierzytelnianie dwuskładnikowe. Do logowania wystarcza teraz hasło.",
+        "passkey_added": "Do konta {brand} {email} właśnie dodano klucz dostępu. Pozwala on logować się bez hasła.",
+        "passkey_removed": "Z konta {brand} {email} właśnie usunięto klucz dostępu."
+      },
+      "when": "Kiedy: {when}",
+      "device": "Urządzenie: {device}",
+      "deviceOn": "{browser} w systemie {system}",
+      "unknownDevice": "Nieznana przeglądarka",
+      "ipAddress": "Adres IP: {ip}",
+      "unknownIp": "nieznany",
+      "ifYou": "Jeśli to Ty, nie musisz nic robić.",
+      "button": "To nie ja",
+      "note": "Przycisk działa raz przez {days} dni. Wylogowuje Cię wszędzie i wysyła link do ustawienia nowego hasła.",
+      "footnote": "Otrzymujesz tę wiadomość, gdy zmienia się hasło, uwierzytelnianie dwuskładnikowe lub klucze dostępu Twojego konta. Nigdy nie udostępniaj hasła ani kodów logowania."
     }
   },
   "authErrors": {

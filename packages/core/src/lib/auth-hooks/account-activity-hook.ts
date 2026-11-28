@@ -1,12 +1,14 @@
 import type { BetterAuthPlugin } from "better-auth";
 import { createAuthMiddleware } from "better-auth/api";
 
-import { recordAccountEvent, type AccountEventType } from "@ostiary/core/lib/account-activity";
+import type { AccountEventType } from "@ostiary/core/lib/account-activity";
+import { recordSecurityEvent } from "@ostiary/core/lib/security/security-change";
 
 /*
  * "Recent activity" for the changes made through Better Auth endpoints while signed in. Email
  * and two-factor changes are written by the user update hook (database-hooks.ts), password
- * resets by the reset callback, sign-ins by the sign-in check.
+ * resets by the reset callback, sign-ins by the sign-in check. Changes to the sign-in methods
+ * are also emailed (security/security-change.ts).
  */
 
 const SIGNED_IN_ENDPOINTS: Record<string, AccountEventType> = {
@@ -30,7 +32,7 @@ export const accountActivityEvents = {
                     const user = ctx.context.session?.user;
                     // An admin viewing the account (impersonation) is in the audit log instead.
                     if (!user || (ctx.context.session?.session as { impersonatedBy?: string | null } | undefined)?.impersonatedBy) return;
-                    await recordAccountEvent(SIGNED_IN_ENDPOINTS[ctx.path], user.id, { headers: ctx.headers });
+                    await recordSecurityEvent(SIGNED_IN_ENDPOINTS[ctx.path], user.id, ctx.headers);
                 }),
             },
         ],

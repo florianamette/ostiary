@@ -2112,7 +2112,9 @@
           "twoFactorGraceDaysHint": "Kdo dvoufázové ověření nemá, dostane výzvu při každém přihlášení do aplikace a může do té doby pokračovat. Lhůta začíná zapnutím této volby, nebo vytvořením účtu.",
           "noGrace": "Žádná: vyžadováno hned",
           "newDeviceEmail": "E-mail při přihlášení z nového zařízení",
-          "newDeviceEmailHint": "Lidé dostanou e-mail, když se jejich účet přihlásí z prohlížeče, který dosud nepoužíval, s tlačítkem pro odhlášení všude a obnovení hesla. Přihlášení přes SSO organizace e-mail neposílají."
+          "newDeviceEmailHint": "Lidé dostanou e-mail, když se jejich účet přihlásí z prohlížeče, který dosud nepoužíval, s tlačítkem pro odhlášení všude a obnovení hesla. Přihlášení přes SSO organizace e-mail neposílají.",
+          "securityChangeEmail": "E-mail při změnách zabezpečení",
+          "securityChangeEmailHint": "Lidé dostanou e-mail, když se změní jejich heslo, dvoufázové ověření nebo přístupové klíče, s tlačítkem pro odhlášení všude a obnovení hesla. Změny provedené adminem e-mail neposílají."
         },
         "emailDomains": {
           "title": "E-mailové domény",
@@ -3212,6 +3214,34 @@
       "note": "Tlačítko funguje jednou během {days} dnů. Odhlásí vás všude a pošle vám odkaz pro nastavení nového hesla.",
       "footnote": "Tento e-mail dostáváte, když se váš účet přihlásí z nového zařízení. Nikdy nesdílejte své heslo ani přihlašovací kódy.",
       "location": "Místo: {country}"
+    },
+    "securityChange": {
+      "subjects": {
+        "password_changed": "Vaše heslo k {brand} bylo změněno",
+        "password_reset": "Vaše heslo k {brand} bylo obnoveno",
+        "two_factor_enabled": "Dvoufázové ověření bylo zapnuto",
+        "two_factor_disabled": "Dvoufázové ověření bylo vypnuto",
+        "passkey_added": "Do vašeho účtu {brand} byl přidán přístupový klíč",
+        "passkey_removed": "Z vašeho účtu {brand} byl odebrán přístupový klíč"
+      },
+      "bodies": {
+        "password_changed": "Heslo k účtu {brand} {email} bylo právě změněno.",
+        "password_reset": "Heslo k účtu {brand} {email} bylo právě obnoveno pomocí odkazu odeslaného na tuto adresu. Všechna zařízení byla odhlášena.",
+        "two_factor_enabled": "U účtu {brand} {email} bylo právě zapnuto dvoufázové ověření.",
+        "two_factor_disabled": "U účtu {brand} {email} bylo právě vypnuto dvoufázové ověření. K přihlášení teď stačí heslo.",
+        "passkey_added": "Do účtu {brand} {email} byl právě přidán přístupový klíč. Lze jím se přihlásit bez hesla.",
+        "passkey_removed": "Z účtu {brand} {email} byl právě odebrán přístupový klíč."
+      },
+      "when": "Kdy: {when}",
+      "device": "Zařízení: {device}",
+      "deviceOn": "{browser} v systému {system}",
+      "unknownDevice": "Neznámý prohlížeč",
+      "ipAddress": "IP adresa: {ip}",
+      "unknownIp": "neznámá",
+      "ifYou": "Pokud jste to byli vy, nemusíte nic dělat.",
+      "button": "Nebyl(a) jsem to já",
+      "note": "Tlačítko funguje jednou během {days} dnů. Odhlásí vás všude a pošle vám odkaz pro nastavení nového hesla.",
+      "footnote": "Tento e-mail dostáváte, když se změní heslo, dvoufázové ověření nebo přístupové klíče vašeho účtu. Nikdy nesdílejte své heslo ani přihlašovací kódy."
     }
   },
   "authErrors": {

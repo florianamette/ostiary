@@ -2112,7 +2112,9 @@
           "twoFactorGraceDaysHint": "A quien no la tenga se le pide en cada inicio de sesión en una aplicación y puede continuar hasta entonces. Empieza cuando activas esto, o al crear la cuenta.",
           "noGrace": "Ninguno: obligatoria de inmediato",
           "newDeviceEmail": "Correo al iniciar sesión desde un dispositivo nuevo",
-          "newDeviceEmailHint": "Las personas reciben un correo cuando su cuenta inicia sesión desde un navegador que no había usado antes, con un botón para cerrar sesión en todas partes y restablecer la contraseña. Los inicios de sesión mediante el SSO de una organización no envían correo."
+          "newDeviceEmailHint": "Las personas reciben un correo cuando su cuenta inicia sesión desde un navegador que no había usado antes, con un botón para cerrar sesión en todas partes y restablecer la contraseña. Los inicios de sesión mediante el SSO de una organización no envían correo.",
+          "securityChangeEmail": "Correo en cambios de seguridad",
+          "securityChangeEmailHint": "Las personas reciben un correo cuando cambian su contraseña, su autenticación en dos pasos o sus llaves de acceso, con un botón para cerrar sesión en todas partes y restablecer la contraseña. Los cambios hechos por un admin no envían correo."
         },
         "emailDomains": {
           "title": "Dominios de correo",
@@ -3212,6 +3214,34 @@
       "note": "El botón funciona una vez durante {days} días. Cierra tu sesión en todas partes y te envía un enlace para elegir una contraseña nueva.",
       "footnote": "Recibes este correo cuando tu cuenta inicia sesión desde un dispositivo nuevo. Nunca compartas tu contraseña ni tus códigos de inicio de sesión.",
       "location": "Ubicación: {country}"
+    },
+    "securityChange": {
+      "subjects": {
+        "password_changed": "Se cambió tu contraseña de {brand}",
+        "password_reset": "Se restableció tu contraseña de {brand}",
+        "two_factor_enabled": "Se activó la autenticación en dos pasos",
+        "two_factor_disabled": "Se desactivó la autenticación en dos pasos",
+        "passkey_added": "Se añadió una llave de acceso a tu cuenta de {brand}",
+        "passkey_removed": "Se quitó una llave de acceso de tu cuenta de {brand}"
+      },
+      "bodies": {
+        "password_changed": "Se acaba de cambiar la contraseña de la cuenta de {brand} {email}.",
+        "password_reset": "Se acaba de restablecer la contraseña de la cuenta de {brand} {email} con un enlace enviado a esta dirección. Se cerró la sesión en todos los dispositivos.",
+        "two_factor_enabled": "Se acaba de activar la autenticación en dos pasos en la cuenta de {brand} {email}.",
+        "two_factor_disabled": "Se acaba de desactivar la autenticación en dos pasos en la cuenta de {brand} {email}. Ahora basta la contraseña para iniciar sesión.",
+        "passkey_added": "Se acaba de añadir una llave de acceso a la cuenta de {brand} {email}. Sirve para iniciar sesión sin contraseña.",
+        "passkey_removed": "Se acaba de quitar una llave de acceso de la cuenta de {brand} {email}."
+      },
+      "when": "Cuándo: {when}",
+      "device": "Dispositivo: {device}",
+      "deviceOn": "{browser} en {system}",
+      "unknownDevice": "Navegador desconocido",
+      "ipAddress": "Dirección IP: {ip}",
+      "unknownIp": "desconocida",
+      "ifYou": "Si fuiste tú, no tienes que hacer nada.",
+      "button": "No fui yo",
+      "note": "El botón funciona una vez durante {days} días. Cierra tu sesión en todas partes y te envía un enlace para elegir una contraseña nueva.",
+      "footnote": "Recibes este correo cuando cambian la contraseña, la autenticación en dos pasos o las llaves de acceso de tu cuenta. Nunca compartas tu contraseña ni tus códigos de inicio de sesión."
     }
   },
   "authErrors": {

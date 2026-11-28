@@ -128,7 +128,8 @@ export async function noticeSignIn(ctx: GenericEndpointContext | null | undefine
     }
 }
 
-async function createSecureAccountToken(userId: string): Promise<string> {
+/** A single-use "This wasn't me" token for the account (see consumeSecureAccountToken). */
+export async function createSecureAccountToken(userId: string): Promise<string> {
     const token = randomToken();
     const now = new Date();
     await db.insert(verification).values({
