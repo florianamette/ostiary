@@ -14,6 +14,7 @@ import { beforeAll, describe, expect, it, vi } from "vitest";
 vi.hoisted(() => {
     process.env.REQUIRE_ADMIN_2FA = "false";
     process.env.IP_ADDRESS_HEADERS = "x-real-ip";
+    process.env.COUNTRY_HEADER = "cf-ipcountry";
 });
 
 vi.mock("@ostiary/core/db/index", async () => {
@@ -57,8 +58,8 @@ async function account() {
     return { id, email, password };
 }
 
-async function call(path: string, body: unknown, cookie?: string, ip = "198.51.100.20") {
-    const headers = new Headers({ "content-type": "application/json", origin: BASE, "user-agent": FIREFOX, "x-real-ip": ip });
+async function call(path: string, body: unknown, cookie?: string, ip = "198.51.100.20", country = "XX") {
+    const headers = new Headers({ "content-type": "application/json", origin: BASE, "user-agent": FIREFOX, "x-real-ip": ip, "cf-ipcountry": country });
     if (cookie) headers.set("cookie", cookie);
     const response = await auth.handler(new Request(`${BASE}/api/auth${path}`, { method: "POST", headers, body: JSON.stringify(body) }));
     expect(response.status, await response.clone().text()).toBe(200);
@@ -76,8 +77,8 @@ describe("account activity", () => {
     it("records sign-ins with their session, and password and session changes", async () => {
         const who = await account();
         const first = await call("/sign-in/email", { email: who.email, password: who.password });
-        const second = await call("/sign-in/email", { email: who.email, password: who.password }, undefined, "203.0.113.30");
-        await call("/change-password", { currentPassword: who.password, newPassword: `${who.password}-new` }, second.cookie);
+        const second = await call("/sign-in/email", { email: who.email, password: who.password }, undefined, "203.0.113.30", "FR");
+        await call("/change-password", { currentPassword: who.password, newPassword: `${who.password}-new` }, second.cookie, "203.0.113.30", "FR");
         await call("/revoke-other-sessions", {}, second.cookie);
 
         const sessions = await db.select().from(schema.session).where(eq(schema.session.userId, who.id));
@@ -85,9 +86,11 @@ describe("account activity", () => {
         const page = await listAccountActivity(who.id, { currentSessionId: sessions[0].id });
         expect(page.items.map((i) => i.type)).toEqual(["sessions_revoked", "password_changed", "sign_in", "sign_in"]);
         const [latestSignIn, firstSignIn] = page.items.filter((i) => i.type === "sign_in");
-        expect(latestSignIn).toMatchObject({ ipAddress: "203.0.113.30", userAgent: FIREFOX, current: true, openSessionId: sessions[0].id });
-        // The first sign-in's session was signed out with the others.
-        expect(firstSignIn).toMatchObject({ openSessionId: null, current: false, newDevice: false });
+        expect(latestSignIn).toMatchObject({ ipAddress: "203.0.113.30", userAgent: FIREFOX, country: "FR", current: true, openSessionId: sessions[0].id });
+        expect(sessions[0].country).toBe("FR");
+        // The first sign-in's session was signed out with the others. Cloudflare's XX: unknown.
+        expect(firstSignIn).toMatchObject({ openSessionId: null, current: false, newDevice: false, country: null });
+        expect(page.items.find((i) => i.type === "password_changed")?.country).toBe("FR");
         expect(first.cookie).toBeTruthy();
     });
 

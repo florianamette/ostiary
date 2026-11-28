@@ -4,6 +4,7 @@ import { and, desc, eq, gte, inArray, lt } from "drizzle-orm";
 import { db } from "@ostiary/core/db/index";
 import { accountEvent, session as sessionTable } from "@ostiary/core/db/schema";
 import { clientIp } from "@ostiary/core/lib/auth-events";
+import { requestCountry } from "@ostiary/core/lib/country";
 import { env } from "@ostiary/core/lib/env";
 
 /*
@@ -42,6 +43,8 @@ export type AccountEventDetails = {
     userAgent?: string | null;
     sessionId?: string | null;
     newDevice?: boolean;
+    /** Already worked out by the caller; otherwise from `headers`. */
+    country?: string | null;
 };
 
 export async function recordAccountEvent(type: AccountEventType, userId: string, details: AccountEventDetails = {}): Promise<void> {
@@ -53,6 +56,7 @@ export async function recordAccountEvent(type: AccountEventType, userId: string,
             type,
             ipAddress: details.ipAddress ?? clientIp(headers),
             userAgent: (details.userAgent ?? headers?.get("user-agent") ?? null)?.slice(0, 512) ?? null,
+            country: details.country !== undefined ? details.country : await requestCountry(headers),
             sessionId: details.sessionId ?? null,
             newDevice: details.newDevice ?? false,
         });
@@ -67,6 +71,8 @@ export type AccountActivityItem = {
     at: string;
     ipAddress: string | null;
     userAgent: string | null;
+    /** ISO 3166-1 alpha-2, when known. */
+    country: string | null;
     newDevice: boolean;
     /** For a sign-in whose session is still open: its id, to sign it out. */
     openSessionId: string | null;
@@ -117,6 +123,7 @@ export async function listAccountActivity(
             at: r.createdAt.toISOString(),
             ipAddress: r.ipAddress,
             userAgent: r.userAgent,
+            country: r.country,
             newDevice: r.newDevice,
             openSessionId: r.sessionId && openIds.has(r.sessionId) ? r.sessionId : null,
             current: Boolean(r.sessionId && r.sessionId === options.currentSessionId),

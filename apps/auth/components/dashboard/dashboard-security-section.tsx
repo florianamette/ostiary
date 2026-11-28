@@ -9,6 +9,7 @@ import { DashboardConnectedAccounts } from "@/components/dashboard/dashboard-con
 import { DashboardPasskeysSection } from "@/components/dashboard/dashboard-passkeys-section";
 import { DashboardTwoFactorSection } from "@/components/dashboard/dashboard-two-factor-section";
 import type { SocialProviderOption } from "@ostiary/core/lib/social-provider-meta";
+import { countryName } from "@ostiary/core/lib/country-policy-options";
 import { getHtmlLang } from "@ostiary/core/i18n/locale-html";
 import type { AppLocale } from "@ostiary/core/i18n/routing";
 import { Button } from "@ostiary/core/components/ui/button";
@@ -42,6 +43,8 @@ type SessionRow = {
   expiresAt: Date;
   ipAddress?: string | null;
   userAgent?: string | null;
+  /** ISO 3166-1 alpha-2, when known (session.additionalFields in auth-factory.ts). */
+  country?: string | null;
 };
 
 function formatWhen(d: Date, locale: string): string | null {
@@ -65,6 +68,7 @@ async function listSessions(): Promise<SessionRow[]> {
     expiresAt: new Date(s.expiresAt),
     ipAddress: s.ipAddress,
     userAgent: s.userAgent,
+    country: "country" in s && typeof s.country === "string" ? s.country : null,
   }));
 }
 
@@ -217,7 +221,8 @@ export function DashboardSecuritySection({
                           </div>
                         </TableCell>
                         <TableCell className="hidden align-top text-sm text-muted-foreground md:table-cell">
-                          {s.ipAddress ?? t("none")}
+                          {[s.country ? countryName(getHtmlLang(locale as AppLocale), s.country) : null, s.ipAddress].filter(Boolean).join(" · ") ||
+                            t("none")}
                         </TableCell>
                         <TableCell className="text-right align-top">
                           <Button

@@ -133,6 +133,7 @@ async function collect(db: Database, u: typeof user.$inferSelect, options: { ins
         expiresAt: session.expiresAt,
         ipAddress: session.ipAddress,
         userAgent: session.userAgent,
+        country: session.country,
         impersonatedBy: session.impersonatedBy,
         activeOrganizationId: session.activeOrganizationId,
       })
@@ -325,6 +326,7 @@ async function collect(db: Database, u: typeof user.$inferSelect, options: { ins
         type: accountEvent.type,
         ipAddress: accountEvent.ipAddress,
         userAgent: accountEvent.userAgent,
+        country: accountEvent.country,
         newDevice: accountEvent.newDevice,
         createdAt: accountEvent.createdAt,
       })

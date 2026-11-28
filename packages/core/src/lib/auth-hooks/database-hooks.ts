@@ -22,6 +22,7 @@ import { auditActor } from "@ostiary/core/lib/auth-hooks/audit-hook";
 import { TWO_STEP_SIGN_IN_PATHS } from "@ostiary/core/lib/auth-hooks/sign-in-plugins";
 import { noticeSignIn } from "@ostiary/core/lib/security/new-device";
 import { countryRefusal, refusedCountry } from "@ostiary/core/lib/country-policy";
+import { requestCountry } from "@ostiary/core/lib/country";
 import { isPlatformAdmin } from "@ostiary/core/lib/admin/user-has-admin-role";
 import { runAfterResponse } from "@ostiary/core/lib/background";
 import { userUpdateEvents } from "@ostiary/core/lib/auth-hooks/account-activity-hook";
@@ -196,6 +197,7 @@ export function databaseHooks() {
                         data: {
                             ...sess,
                             expiresAt,
+                            country: await requestCountry(context?.headers),
                             activeOrganizationId: sess.activeOrganizationId ?? PUBLIC_ORGANIZATION_ID,
                         },
                     };

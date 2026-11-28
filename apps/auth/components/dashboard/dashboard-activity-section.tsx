@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useFormatter, useTranslations } from "next-intl";
+import { useFormatter, useLocale, useTranslations } from "next-intl";
 
 import { Badge } from "@ostiary/core/components/ui/badge";
 import { Button } from "@ostiary/core/components/ui/button";
@@ -9,6 +9,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@osti
 import { Skeleton } from "@ostiary/core/components/ui/skeleton";
 import { useAsyncResource } from "@ostiary/core/hooks/use-async-resource";
 import type { AccountActivityItem, AccountActivityPage } from "@ostiary/core/lib/account-activity";
+import { getHtmlLang } from "@ostiary/core/i18n/locale-html";
+import type { AppLocale } from "@ostiary/core/i18n/routing";
+import { countryName } from "@ostiary/core/lib/country-policy-options";
 import { describeUserAgent } from "@ostiary/core/lib/security/user-agent";
 import { getMyActivity, signOutMySession } from "@/lib/account-activity-actions";
 import { useAuthAction } from "@/lib/use-auth-action";
@@ -19,13 +22,15 @@ async function loadFirstPage(): Promise<AccountActivityPage> {
   return page;
 }
 
-/** "Chrome on macOS · 203.0.113.9", whatever is known. */
+/** "Chrome on macOS · France · 203.0.113.9", whatever is known. */
 function useWhere() {
   const t = useTranslations("dashboard.activity");
+  const locale = useLocale();
   return (item: AccountActivityItem) => {
     const { browser, system } = describeUserAgent(item.userAgent);
     const device = browser && system ? t("deviceOn", { browser, system }) : browser || system || (item.userAgent ? t("unknownDevice") : null);
-    return [device, item.ipAddress].filter(Boolean).join(" · ");
+    const country = item.country ? countryName(getHtmlLang(locale as AppLocale), item.country) : null;
+    return [device, country, item.ipAddress].filter(Boolean).join(" · ");
   };
 }
 

@@ -163,6 +163,8 @@ export const session = pgTable(
       .notNull(),
     ipAddress: text("ip_address"),
     userAgent: text("user_agent"),
+    /** ISO 3166-1 alpha-2, when a country source is configured (lib/country.ts). */
+    country: text("country"),
     userId: text("user_id")
       .notNull()
       .references(() => user.id, { onDelete: "cascade" }),
