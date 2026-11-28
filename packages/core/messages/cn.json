@@ -409,7 +409,6 @@
           "previous": "上一页",
           "next": "下一页",
           "page": "第 {page} / {total} 页",
-          "footnote": "数据来自 <code>{getClients}</code>。注册和编辑（包括 <code>{skipConsent}</code>）调用 <code>{create}</code> 和 <code>{update}</code>；其他修改使用 <code>{deleteClient}</code> 和 <code>{rotateSecret}</code>。请参阅 <docs>OAuth provider</docs> 文档。客户端的范围限定为当前登录用户（配置后则为 <code>{clientReference}</code>）。自行注册的客户端没有所有者，全部列出；它们可以停用或删除，但不能编辑。",
           "duplicates": "×{count}",
           "duplicatesHint": "{count} 个相同的自行注册客户端",
           "showDuplicates": "显示全部 {count} 个",
@@ -1619,7 +1618,6 @@
           "previous": "上一页",
           "next": "下一页",
           "pageOf": "第 {page} / {pages} 页",
-          "poweredBy": "基于 <link>Better Auth admin 插件</link>的 <code>listUsers</code>、<code>createUser</code>、<code>setRole</code>、<code>updateUser</code>、<code>setUserPassword</code> 等方法。你必须以管理员身份登录。",
           "import": "导入用户"
         },
         "status": {
@@ -2488,7 +2486,8 @@
         "pageOf": "第 {page} / {pages} 页",
         "showing": "第 {from}-{to} 条，共 {total} 条"
       },
-      "passwordCompromised": "此密码出现在数据泄露中，请选择其他密码。"
+      "passwordCompromised": "此密码出现在数据泄露中，请选择其他密码。",
+      "docs": "文档"
     },
     "urlCheck": {
       "tooLong": "URL 过长。",

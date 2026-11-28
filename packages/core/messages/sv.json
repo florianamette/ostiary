@@ -409,7 +409,6 @@
           "previous": "Föregående",
           "next": "Nästa",
           "page": "Sida {page} / {total}",
-          "footnote": "Data från <code>{getClients}</code>. Registrering och redigering (inklusive <code>{skipConsent}</code>) anropar <code>{create}</code> och <code>{update}</code>; övriga ändringar använder <code>{deleteClient}</code> och <code>{rotateSecret}</code>. Se dokumentationen för <docs>OAuth provider</docs>. Klienter är knutna till den inloggade användaren (eller <code>{clientReference}</code> om det är konfigurerat). Självregistrerade klienter har ingen ägare och visas alla; de kan inaktiveras eller raderas men inte redigeras.",
           "duplicates": "×{count}",
           "duplicatesHint": "{count} identiska självregistrerade klienter",
           "showDuplicates": "Visa alla {count}",
@@ -1619,7 +1618,6 @@
           "previous": "Föregående",
           "next": "Nästa",
           "pageOf": "Sida {page} / {pages}",
-          "poweredBy": "Drivs av <code>listUsers</code>, <code>createUser</code>, <code>setRole</code>, <code>updateUser</code>, <code>setUserPassword</code> och relaterade metoder från <link>Better Auth admin plugin</link>. Du måste vara inloggad som administratör.",
           "import": "Importera användare"
         },
         "status": {
@@ -2488,7 +2486,8 @@
         "pageOf": "Sida {page} / {pages}",
         "showing": "Visar {from}–{to} av {total}"
       },
-      "passwordCompromised": "Lösenordet har förekommit i ett dataläckage. Välj ett annat."
+      "passwordCompromised": "Lösenordet har förekommit i ett dataläckage. Välj ett annat.",
+      "docs": "Dokumentation"
     },
     "urlCheck": {
       "tooLong": "URL:en är för lång.",

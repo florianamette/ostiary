@@ -16,7 +16,7 @@ test("the login page names the app for a signed authorization only", async ({ ad
   await expect(page.getByRole("main").getByText(`Sign in to continue to ${client.client_name}`)).toBeVisible();
 
   await page.goto(`/en/login?client_id=${encodeURIComponent(client.client_id)}`);
-  await expect(page.getByRole("main").getByText("Login to your account")).toBeVisible();
+  await expect(page.getByRole("main").getByText("Sign in to your account")).toBeVisible();
   await expect(page.getByRole("main").getByText(/Sign in to continue to/)).toHaveCount(0);
   await expect(page.getByRole("main").getByText(client.client_name!)).toHaveCount(0);
 });

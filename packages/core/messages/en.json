@@ -1,11 +1,11 @@
 {
   "layout": {
     "title": "Sign in",
-    "description": "Log in to your work tools and profile."
+    "description": "Sign in to your work tools and profile."
   },
   "auth": {
     "login": {
-      "title": "Login to your account",
+      "title": "Sign in to your account",
       "description": "Sign in with your email or username and password.",
       "identifierLabel": "Email or username",
       "identifierPlaceholder": "you@example.com or your_username",
@@ -13,7 +13,7 @@
       "emailPlaceholder": "m@example.com",
       "passwordLabel": "Password",
       "forgotPasswordLink": "Forgot password?",
-      "submit": "Login",
+      "submit": "Sign in",
       "submitting": "Signing in…",
       "noAccount": "Don't have an account?",
       "signUpLink": "Sign up",
@@ -154,7 +154,7 @@
       "submitting": "Creating account…",
       "hasAccount": "Already have an account?",
       "signInLink": "Sign in",
-      "loginLink": "Login",
+      "loginLink": "Sign in",
       "afterRegisterRedirect": "Account created. Check your email to verify before signing in.",
       "errors": {
         "signUpFailed": "Could not create your account. Try again.",
@@ -409,7 +409,6 @@
           "previous": "Previous",
           "next": "Next",
           "page": "Page {page} / {total}",
-          "footnote": "Data from <code>{getClients}</code>. Register and edit (including <code>{skipConsent}</code>) call <code>{create}</code> and <code>{update}</code>; other mutations use <code>{deleteClient}</code> and <code>{rotateSecret}</code>. See the <docs>OAuth provider</docs> docs. Clients are scoped to the signed-in user (or <code>{clientReference}</code> when configured). Self-registered clients have no owner and are all listed; they can be disabled or deleted, not edited.",
           "duplicates": "×{count}",
           "duplicatesHint": "{count} identical self-registered clients",
           "showDuplicates": "Show all {count}",
@@ -1619,7 +1618,6 @@
           "previous": "Previous",
           "next": "Next",
           "pageOf": "Page {page} / {pages}",
-          "poweredBy": "Powered by <code>listUsers</code>, <code>createUser</code>, <code>setRole</code>, <code>updateUser</code>, <code>setUserPassword</code>, and related methods from the <link>Better Auth admin plugin</link>. You must be signed in as an admin.",
           "import": "Import users"
         },
         "status": {
@@ -2488,7 +2486,8 @@
         "pageOf": "Page {page} / {pages}",
         "showing": "Showing {from}-{to} of {total}"
       },
-      "passwordCompromised": "This password appeared in a data breach. Choose a different one."
+      "passwordCompromised": "This password appeared in a data breach. Choose a different one.",
+      "docs": "Documentation"
     },
     "urlCheck": {
       "tooLong": "The URL is too long.",

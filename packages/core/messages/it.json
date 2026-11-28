@@ -409,7 +409,6 @@
           "previous": "Precedente",
           "next": "Successiva",
           "page": "Pagina {page} / {total}",
-          "footnote": "Dati da <code>{getClients}</code>. Registrazione e modifica (incluso <code>{skipConsent}</code>) chiamano <code>{create}</code> e <code>{update}</code>; le altre modifiche usano <code>{deleteClient}</code> e <code>{rotateSecret}</code>. Vedi la documentazione dell’<docs>OAuth provider</docs>. I client sono limitati all’utente connesso (o a <code>{clientReference}</code> se configurato). I client autoregistrati non hanno proprietario e sono tutti elencati; possono essere disattivati o eliminati, non modificati.",
           "duplicates": "×{count}",
           "duplicatesHint": "{count} client autoregistrati identici",
           "showDuplicates": "Mostra tutti i {count}",
@@ -1619,7 +1618,6 @@
           "previous": "Precedente",
           "next": "Successiva",
           "pageOf": "Pagina {page} / {pages}",
-          "poweredBy": "Basato su <code>listUsers</code>, <code>createUser</code>, <code>setRole</code>, <code>updateUser</code>, <code>setUserPassword</code> e metodi correlati del <link>plugin admin di Better Auth</link>. Devi aver effettuato l’accesso come amministratore.",
           "import": "Importa utenti"
         },
         "status": {
@@ -2488,7 +2486,8 @@
         "pageOf": "Pagina {page} / {pages}",
         "showing": "{from}-{to} di {total}"
       },
-      "passwordCompromised": "Questa password è comparsa in una violazione di dati. Scegline un'altra."
+      "passwordCompromised": "Questa password è comparsa in una violazione di dati. Scegline un'altra.",
+      "docs": "Documentazione"
     },
     "urlCheck": {
       "tooLong": "L’URL è troppo lungo.",

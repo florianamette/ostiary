@@ -409,7 +409,6 @@
           "previous": "Zurück",
           "next": "Weiter",
           "page": "Seite {page} / {total}",
-          "footnote": "Daten aus <code>{getClients}</code>. Registrieren und Bearbeiten (einschließlich <code>{skipConsent}</code>) rufen <code>{create}</code> und <code>{update}</code> auf; andere Änderungen verwenden <code>{deleteClient}</code> und <code>{rotateSecret}</code>. Siehe die Dokumentation zum <docs>OAuth-Provider</docs>. Clients sind dem angemeldeten Benutzer zugeordnet (oder <code>{clientReference}</code>, falls konfiguriert). Selbst registrierte Clients haben keinen Eigentümer und werden alle aufgeführt; sie können deaktiviert oder gelöscht, aber nicht bearbeitet werden.",
           "duplicates": "×{count}",
           "duplicatesHint": "{count} identische selbst registrierte Clients",
           "showDuplicates": "Alle {count} anzeigen",
@@ -1619,7 +1618,6 @@
           "previous": "Zurück",
           "next": "Weiter",
           "pageOf": "Seite {page} / {pages}",
-          "poweredBy": "Basiert auf <code>listUsers</code>, <code>createUser</code>, <code>setRole</code>, <code>updateUser</code>, <code>setUserPassword</code> und verwandten Methoden des <link>Better-Auth-Admin-Plugins</link>. Sie müssen als Administrator angemeldet sein.",
           "import": "Benutzer importieren"
         },
         "status": {
@@ -2488,7 +2486,8 @@
         "pageOf": "Seite {page} / {pages}",
         "showing": "{from}–{to} von {total}"
       },
-      "passwordCompromised": "Dieses Passwort ist in einem Datenleck aufgetaucht. Wähle ein anderes."
+      "passwordCompromised": "Dieses Passwort ist in einem Datenleck aufgetaucht. Wähle ein anderes.",
+      "docs": "Dokumentation"
     },
     "urlCheck": {
       "tooLong": "Die URL ist zu lang.",

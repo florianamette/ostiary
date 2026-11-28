@@ -409,7 +409,6 @@
           "previous": "Anterior",
           "next": "Próxima",
           "page": "Página {page} / {total}",
-          "footnote": "Dados de <code>{getClients}</code>. Registrar e editar (incluindo <code>{skipConsent}</code>) chamam <code>{create}</code> e <code>{update}</code>; as outras alterações usam <code>{deleteClient}</code> e <code>{rotateSecret}</code>. Veja a documentação do <docs>provedor OAuth</docs>. Os clientes são vinculados ao usuário conectado (ou a <code>{clientReference}</code> quando configurado). Os clientes autorregistrados não têm dono e são todos listados; podem ser desativados ou excluídos, mas não editados.",
           "duplicates": "×{count}",
           "duplicatesHint": "{count} clientes autorregistrados idênticos",
           "showDuplicates": "Mostrar todos os {count}",
@@ -1619,7 +1618,6 @@
           "previous": "Anterior",
           "next": "Próxima",
           "pageOf": "Página {page} / {pages}",
-          "poweredBy": "Com tecnologia de <code>listUsers</code>, <code>createUser</code>, <code>setRole</code>, <code>updateUser</code>, <code>setUserPassword</code> e métodos relacionados do <link>plugin admin do Better Auth</link>. Você precisa estar conectado como administrador.",
           "import": "Importar usuários"
         },
         "status": {
@@ -2488,7 +2486,8 @@
         "pageOf": "Página {page} / {pages}",
         "showing": "Exibindo {from}-{to} de {total}"
       },
-      "passwordCompromised": "Esta palavra-passe apareceu numa fuga de dados. Escolha outra."
+      "passwordCompromised": "Esta palavra-passe apareceu numa fuga de dados. Escolha outra.",
+      "docs": "Documentação"
     },
     "urlCheck": {
       "tooLong": "A URL é longa demais.",

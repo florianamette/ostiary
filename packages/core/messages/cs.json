@@ -409,7 +409,6 @@
           "previous": "Předchozí",
           "next": "Další",
           "page": "Stránka {page} / {total}",
-          "footnote": "Data z <code>{getClients}</code>. Registrace a úpravy (včetně <code>{skipConsent}</code>) volají <code>{create}</code> a <code>{update}</code>; ostatní změny používají <code>{deleteClient}</code> a <code>{rotateSecret}</code>. Viz dokumentaci <docs>OAuth provider</docs>. Klienti jsou omezeni na přihlášeného uživatele (nebo na <code>{clientReference}</code>, pokud je nastaveno). Samoregistrovaní klienti nemají vlastníka a zobrazují se všichni; lze je vypnout nebo smazat, ne upravit.",
           "duplicates": "×{count}",
           "duplicatesHint": "Identických samoregistrovaných klientů: {count}",
           "showDuplicates": "Zobrazit všechny ({count})",
@@ -1619,7 +1618,6 @@
           "previous": "Předchozí",
           "next": "Další",
           "pageOf": "Stránka {page} / {pages}",
-          "poweredBy": "Využívá <code>listUsers</code>, <code>createUser</code>, <code>setRole</code>, <code>updateUser</code>, <code>setUserPassword</code> a související metody z <link>pluginu Better Auth admin</link>. Musíte být přihlášeni jako administrátor.",
           "import": "Importovat uživatele"
         },
         "status": {
@@ -2488,7 +2486,8 @@
         "pageOf": "Stránka {page} / {pages}",
         "showing": "Zobrazeno {from}–{to} z {total}"
       },
-      "passwordCompromised": "Toto heslo se objevilo v úniku dat. Zvolte jiné."
+      "passwordCompromised": "Toto heslo se objevilo v úniku dat. Zvolte jiné.",
+      "docs": "Dokumentace"
     },
     "urlCheck": {
       "tooLong": "URL je příliš dlouhá.",

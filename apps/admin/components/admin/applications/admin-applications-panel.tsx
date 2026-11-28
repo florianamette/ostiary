@@ -16,7 +16,7 @@ import { readChoice } from "@/components/admin/common/list-params";
 import { useAdminList } from "@/components/admin/common/use-admin-list";
 import { useListParams } from "@/components/admin/common/use-list-params";
 import { usePagination } from "@/components/admin/common/use-pagination";
-import { ExternalLink } from "@/components/admin/common/external-link";
+import { DocsLink } from "@/components/admin/common/docs-link";
 import { Alert, AlertDescription, AlertTitle } from "@ostiary/core/components/ui/alert";
 import { Button } from "@ostiary/core/components/ui/button";
 import {
@@ -393,21 +393,7 @@ export function AdminApplicationsPanel({
         />
       </div>
 
-      <p className="text-muted-foreground text-xs">
-        {t.rich("footnote", {
-          getClients: "GET /api/admin/oauth-clients",
-          skipConsent: "skip_consent",
-          create: "POST /api/admin/oauth-clients",
-          update: "PATCH /api/admin/oauth-clients/[clientId]",
-          deleteClient: "DELETE /api/admin/oauth-clients/[clientId]",
-          rotateSecret: "POST /api/admin/oauth-clients/[clientId]/rotate-secret",
-          clientReference: "clientReference",
-          code: (chunks) => <code className="rounded bg-muted px-1 py-0.5 font-mono">{chunks}</code>,
-          docs: (chunks) => (
-            <ExternalLink href="https://better-auth.com/docs/plugins/oauth-provider#list-clients">{chunks}</ExternalLink>
-          ),
-        })}
-      </p>
+      <DocsLink path="connect-an-app" />
     </div>
     </ScopeOptionsContext.Provider>
   );

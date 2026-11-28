@@ -346,6 +346,10 @@ export function LoginForm({
                     {lastUsedMethod === "phone-number" ? <LastUsedBadge spaced /> : null}
                   </Button>
                 ) : null}
+                {/* Organization SSO: a sign-in method like the others, not a footnote. */}
+                <Button type="button" variant="outline" className="mt-2 w-full sm:w-auto" asChild>
+                  <Link href="/sso">{tSso("signInLink")}</Link>
+                </Button>
                 <SocialSignInButtons
                   providers={socialProviders}
                   callbackURL={callbackURL}
@@ -369,11 +373,6 @@ export function LoginForm({
               </Field>
             </FieldGroup>
           </form>
-          <p className="text-center text-sm text-muted-foreground">
-            <Link href="/sso" className="underline-offset-4 hover:underline">
-              {tSso("signInLink")}
-            </Link>
-          </p>
         </CardContent>
       </Card>
     </div>

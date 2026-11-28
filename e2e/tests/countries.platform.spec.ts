@@ -70,7 +70,7 @@ test("the country policy decides where people can sign in and sign up from", asy
     await page.goto("/en/login");
     await page.getByRole("textbox", { name: "Email or username" }).fill(user.email);
     await page.getByRole("textbox", { name: "Password" }).fill(user.password);
-    await page.getByRole("button", { name: "Login", exact: true }).click();
+    await page.getByRole("button", { name: "Sign in", exact: true }).click();
     await expect(page.getByText("Signing in from your country is not allowed here.")).toBeVisible();
 
     const refused = await query(`select 1 from audit_log where action = 'security.country_refused' and metadata->>'country' = 'FR'`);

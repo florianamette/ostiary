@@ -409,7 +409,6 @@
           "previous": "Précédent",
           "next": "Suivant",
           "page": "Page {page} / {total}",
-          "footnote": "Données issues de <code>{getClients}</code>. L’enregistrement et la modification (y compris <code>{skipConsent}</code>) appellent <code>{create}</code> et <code>{update}</code> ; les autres modifications utilisent <code>{deleteClient}</code> et <code>{rotateSecret}</code>. Voir la documentation <docs>OAuth provider</docs>. Les clients sont rattachés à l’utilisateur connecté (ou à <code>{clientReference}</code> s’il est configuré). Les clients auto-enregistrés n’ont pas de propriétaire et sont tous listés ; ils peuvent être désactivés ou supprimés, mais pas modifiés.",
           "duplicates": "×{count}",
           "duplicatesHint": "{count} clients auto-enregistrés identiques",
           "showDuplicates": "Afficher les {count}",
@@ -1619,7 +1618,6 @@
           "previous": "Précédent",
           "next": "Suivant",
           "pageOf": "Page {page} / {pages}",
-          "poweredBy": "Repose sur <code>listUsers</code>, <code>createUser</code>, <code>setRole</code>, <code>updateUser</code>, <code>setUserPassword</code> et les méthodes associées du <link>plugin admin de Better Auth</link>. Vous devez être connecté en tant qu’administrateur.",
           "import": "Importer des utilisateurs"
         },
         "status": {
@@ -2488,7 +2486,8 @@
         "pageOf": "Page {page} / {pages}",
         "showing": "{from}-{to} sur {total}"
       },
-      "passwordCompromised": "Ce mot de passe figure dans une fuite de données. Choisissez-en un autre."
+      "passwordCompromised": "Ce mot de passe figure dans une fuite de données. Choisissez-en un autre.",
+      "docs": "Documentation"
     },
     "urlCheck": {
       "tooLong": "L’URL est trop longue.",

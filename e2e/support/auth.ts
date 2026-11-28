@@ -86,5 +86,5 @@ export async function loginViaUi(page: Page, email: string, password: string, go
   if (goto) await page.goto("/en/login");
   await page.getByRole("textbox", { name: "Email or username" }).fill(email);
   await page.getByRole("textbox", { name: "Password" }).fill(password);
-  await page.getByRole("button", { name: "Login", exact: true }).click();
+  await page.getByRole("button", { name: "Sign in", exact: true }).click();
 }

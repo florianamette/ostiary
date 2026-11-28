@@ -108,6 +108,12 @@ export function DashboardShell({
     [showOrganizations, showApiKeys],
   );
   const activeId = useActiveSection(sectionIds);
+  const navRef = React.useRef<HTMLUListElement>(null);
+  // On a narrow screen the tabs scroll sideways: keep the current one in view.
+  React.useEffect(() => {
+    const active = navRef.current?.querySelector<HTMLElement>('[aria-current="true"]');
+    active?.scrollIntoView({ block: "nearest", inline: "nearest" });
+  }, [activeId]);
 
   const sections = [
     { id: "overview", href: "/dashboard", label: t("nav.overview") },
@@ -152,7 +158,11 @@ export function DashboardShell({
           className="border-t border-border/60"
           aria-label={t("navAria")}
         >
-          <ul className="mx-auto flex max-w-4xl gap-1 overflow-x-auto px-2 text-sm [scrollbar-width:none] md:px-4 [&::-webkit-scrollbar]:hidden">
+          {/* The fade on the right says the tabs go on when they overflow (phones). */}
+          <ul
+            ref={navRef}
+            className="mx-auto flex max-w-4xl gap-1 overflow-x-auto px-2 pr-8 text-sm [mask-image:linear-gradient(to_right,black_calc(100%-2.5rem),transparent)] [scrollbar-width:none] md:px-4 md:[mask-image:none] [&::-webkit-scrollbar]:hidden"
+          >
             {sections.map((item) => {
               const isActive = item.id === activeId;
               return (

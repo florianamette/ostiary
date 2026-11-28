@@ -409,7 +409,6 @@
           "previous": "Poprzednia",
           "next": "Następna",
           "page": "Strona {page} / {total}",
-          "footnote": "Dane z <code>{getClients}</code>. Rejestracja i edycja (w tym <code>{skipConsent}</code>) wywołują <code>{create}</code> i <code>{update}</code>; pozostałe zmiany używają <code>{deleteClient}</code> i <code>{rotateSecret}</code>. Zobacz dokumentację <docs>OAuth provider</docs>. Klienci są przypisani do zalogowanego użytkownika (lub do <code>{clientReference}</code>, jeśli skonfigurowano). Klienci zarejestrowani samodzielnie nie mają właściciela i są wyświetlani wszyscy; można ich wyłączyć lub usunąć, ale nie edytować.",
           "duplicates": "×{count}",
           "duplicatesHint": "Identycznych klientów zarejestrowanych samodzielnie: {count}",
           "showDuplicates": "Pokaż wszystkie ({count})",
@@ -1619,7 +1618,6 @@
           "previous": "Poprzednia",
           "next": "Następna",
           "pageOf": "Strona {page} / {pages}",
-          "poweredBy": "Korzysta z <code>listUsers</code>, <code>createUser</code>, <code>setRole</code>, <code>updateUser</code>, <code>setUserPassword</code> i powiązanych metod <link>wtyczki admin Better Auth</link>. Musisz być zalogowany jako administrator.",
           "import": "Importuj użytkowników"
         },
         "status": {
@@ -2488,7 +2486,8 @@
         "pageOf": "Strona {page} / {pages}",
         "showing": "Wyświetlono {from}-{to} z {total}"
       },
-      "passwordCompromised": "To hasło pojawiło się w wycieku danych. Wybierz inne."
+      "passwordCompromised": "To hasło pojawiło się w wycieku danych. Wybierz inne.",
+      "docs": "Dokumentacja"
     },
     "urlCheck": {
       "tooLong": "URL jest za długi.",
