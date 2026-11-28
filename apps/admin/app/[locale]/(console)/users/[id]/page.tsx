@@ -32,6 +32,9 @@ import {
 } from "@ostiary/core/db/schema";
 import { listUserApiKeys } from "@ostiary/core/lib/api-keys";
 import { env } from "@ostiary/core/lib/env";
+import { countryName } from "@ostiary/core/lib/country-policy-options";
+import { getHtmlLang } from "@ostiary/core/i18n/locale-html";
+import type { AppLocale } from "@ostiary/core/i18n/routing";
 import { ApiKeysTable } from "@/components/admin/api-keys/api-keys-table";
 import { toAdminApiKeyRows } from "@/lib/api-key-rows";
 import { SocialProviderIcon } from "@ostiary/core/components/brand/social-provider-icon";
@@ -185,7 +188,9 @@ export default async function AdminUserPage({
                     {shortAgent(s.userAgent, deviceLabels)}
                     {s.impersonatedBy ? <Badge variant="outline" className="ml-2">{t("detail.sessions.impersonated")}</Badge> : null}
                   </TableCell>
-                  <TableCell className="hidden font-mono text-xs text-muted-foreground md:table-cell">{s.ipAddress ?? "-"}</TableCell>
+                  <TableCell className="hidden font-mono text-xs text-muted-foreground md:table-cell">
+                    {[s.country ? countryName(getHtmlLang(locale as AppLocale), s.country) : null, s.ipAddress].filter(Boolean).join(" · ") || "-"}
+                  </TableCell>
                   <TableCell className="hidden text-sm text-muted-foreground sm:table-cell">{formatDateTime(s.updatedAt, locale)}</TableCell>
                   <TableCell className="text-right">
                     <RevokeSessionButton userId={u.id} sessionId={s.id} />

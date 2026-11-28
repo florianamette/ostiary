@@ -88,9 +88,11 @@ export async function noticeSignIn(ctx: GenericEndpointContext | null | undefine
             .values({ id: randomUUID(), userId: signedIn.userId, deviceHash, userAgent, ipAddress, createdAt: now, lastSeenAt: now })
             .onConflictDoUpdate({ target: [knownDevice.userId, knownDevice.deviceHash], set: { userAgent, ipAddress, lastSeenAt: now } });
         await ctx.setSignedCookie(cookie.name, deviceId, ctx.context.secret, cookie.attributes);
+        const country = await requestCountry(ctx.headers);
         await recordAccountEvent("sign_in", signedIn.userId, {
             ipAddress,
             userAgent,
+            country,
             sessionId: signedIn.id,
             newDevice: !known && !firstDevice,
         });
@@ -113,7 +115,7 @@ export async function noticeSignIn(ctx: GenericEndpointContext | null | undefine
             at: now,
             device,
             ipAddress,
-            country: await requestCountry(ctx.headers),
+            country,
             locale,
         });
         await recordAudit({

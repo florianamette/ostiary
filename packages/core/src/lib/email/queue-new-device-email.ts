@@ -6,6 +6,7 @@ import { queueEmail } from "@ostiary/core/lib/email/send";
 import { getHtmlLang } from "@ostiary/core/i18n/locale-html";
 import type { AppLocale } from "@ostiary/core/i18n/routing";
 import type { DeviceName } from "@ostiary/core/lib/security/user-agent";
+import { countryName } from "@ostiary/core/lib/country-policy-options";
 import type en from "../../../messages/en.json";
 
 type Messages = typeof en;
@@ -22,14 +23,6 @@ export type NewDeviceEmailInput = {
     /** ISO 3166-1 alpha-2, when known (country.ts). */
     country?: string | null;
 };
-
-function countryName(lang: string, code: string): string {
-    try {
-        return new Intl.DisplayNames([lang], { type: "region" }).of(code) ?? code;
-    } catch {
-        return code;
-    }
-}
 
 /** Subject and content of the new-device sign-in email, in the given locale's messages. */
 export function newDeviceEmail(locale: AppLocale, messages: Messages, input: NewDeviceEmailInput): { subject: string; content: EmailContent } {

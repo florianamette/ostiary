@@ -57,3 +57,12 @@ export function countryAllowed(country: string | null, policy: CountryPolicy): b
   const listed = policy.countries.includes(country.toUpperCase());
   return policy.mode === "allow" ? listed : !listed;
 }
+
+/** A country's name in the given language ("FR" in "fr": "France"), or the code itself. */
+export function countryName(lang: string, code: string): string {
+  try {
+    return new Intl.DisplayNames([lang], { type: "region" }).of(code) ?? code;
+  } catch {
+    return code;
+  }
+}

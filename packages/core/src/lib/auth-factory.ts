@@ -527,6 +527,10 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
             // Required by @better-auth/oauth-provider as soon as any session option is set (its
             // init throws otherwise). Sessions already live in the database here, so no change.
             storeSessionInDatabase: true,
+            // Set on create (auth-hooks/database-hooks.ts), shown in the dashboard's sessions list.
+            additionalFields: {
+                country: { type: "string", required: false, input: false },
+            },
         },
         user: {
             validateUserInfo,

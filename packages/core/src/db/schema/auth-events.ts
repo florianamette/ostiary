@@ -68,6 +68,8 @@ export const accountEvent = pgTable(
     type: text("type").notNull(),
     ipAddress: text("ip_address"),
     userAgent: text("user_agent"),
+    /** ISO 3166-1 alpha-2, when a country source is configured (lib/country.ts). */
+    country: text("country"),
     /** For a sign-in: the session it started, to sign it out while it is open. */
     sessionId: text("session_id"),
     /** For a sign-in: from a browser the account had not used (lib/security/new-device.ts). */
