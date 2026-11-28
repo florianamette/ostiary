@@ -1935,7 +1935,8 @@
             "remove_phone_number": "Telefon numarasını kaldırdı",
             "new_device_sign_in": "Yeni bir cihazdan oturum açtı",
             "secure_account": "Hesabını güvenceye aldı (Bu ben değildim)",
-            "password_breached": "Parola bir veri sızıntısında bulundu"
+            "password_breached": "Parola bir veri sızıntısında bulundu",
+            "sign_in_locked": "Yanlış şifrelerden sonra şifreyle giriş kilitlendi"
           },
           "oauth_client": {
             "create": "OAuth istemcisi kaydetti",
@@ -2114,7 +2115,11 @@
           "newDeviceEmail": "Yeni cihazdan oturum açılınca e-posta",
           "newDeviceEmailHint": "Kişiler, hesaplarında daha önce kullanılmamış bir tarayıcıdan oturum açıldığında, her yerde oturumu kapatıp parolayı sıfırlamaya yarayan bir düğmeyle e-posta alır. Bir kuruluşun SSO'su üzerinden yapılan girişler e-posta göndermez.",
           "securityChangeEmail": "Güvenlik değişikliklerinde e-posta",
-          "securityChangeEmailHint": "Kullanıcılar şifreleri, iki adımlı doğrulamaları veya geçiş anahtarları değiştiğinde, her yerden çıkış yapıp şifreyi sıfırlamak için bir düğme içeren bir e-posta alır. Bir yöneticinin yaptığı değişiklikler için e-posta gönderilmez."
+          "securityChangeEmailHint": "Kullanıcılar şifreleri, iki adımlı doğrulamaları veya geçiş anahtarları değiştiğinde, her yerden çıkış yapıp şifreyi sıfırlamak için bir düğme içeren bir e-posta alır. Bir yöneticinin yaptığı değişiklikler için e-posta gönderilmez.",
+          "lockoutAttempts": "Şifreyle girişi şu kadar sonra kilitle",
+          "lockoutAttemptsHint": "{minutes} dakika içinde aynı e-posta veya kullanıcı adı için yanlış şifreler. Ardından bir hesap olsun ya da olmasın şifreyle giriş {minutes} dakika durur. Geçiş anahtarları, giriş kodları ve bağlantıları, sosyal giriş ve SSO çalışmaya devam eder.",
+          "lockoutNever": "Asla",
+          "wrongPasswords": "{count, plural, one {# yanlış şifre} other {# yanlış şifre}}"
         },
         "emailDomains": {
           "title": "E-posta alan adları",
@@ -2899,7 +2904,8 @@
         "session_revoked": "Bir oturum kapatıldı",
         "sessions_revoked": "Diğer oturumlar kapatıldı",
         "account_secured": "Her yerde oturum kapatıldı (Bu ben değildim)",
-        "password_breached": "Parola bir veri sızıntısında bulundu"
+        "password_breached": "Parola bir veri sızıntısında bulundu",
+        "sign_in_locked": "Yanlış şifrelerden sonra şifreyle giriş duraklatıldı"
       }
     }
   },

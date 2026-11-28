@@ -1935,7 +1935,8 @@
             "remove_phone_number": "Heeft het telefoonnummer verwijderd",
             "new_device_sign_in": "Aangemeld vanaf een nieuw apparaat",
             "secure_account": "Heeft het account beveiligd (Dit was ik niet)",
-            "password_breached": "Wachtwoord gevonden in een datalek"
+            "password_breached": "Wachtwoord gevonden in een datalek",
+            "sign_in_locked": "Inloggen met wachtwoord geblokkeerd na verkeerde wachtwoorden"
           },
           "oauth_client": {
             "create": "OAuth-client geregistreerd",
@@ -2114,7 +2115,11 @@
           "newDeviceEmail": "E-mail bij aanmelding vanaf nieuw apparaat",
           "newDeviceEmailHint": "Mensen krijgen een e-mail wanneer hun account aanmeldt vanaf een browser die het nog niet eerder gebruikte, met een knop om overal af te melden en het wachtwoord te herstellen. Aanmeldingen via de SSO van een organisatie sturen geen e-mail.",
           "securityChangeEmail": "E-mail bij beveiligingswijzigingen",
-          "securityChangeEmailHint": "Mensen krijgen een e-mail wanneer hun wachtwoord, tweestapsverificatie of passkeys veranderen, met een knop om overal uit te loggen en het wachtwoord opnieuw in te stellen. Wijzigingen door een admin sturen geen e-mail."
+          "securityChangeEmailHint": "Mensen krijgen een e-mail wanneer hun wachtwoord, tweestapsverificatie of passkeys veranderen, met een knop om overal uit te loggen en het wachtwoord opnieuw in te stellen. Wijzigingen door een admin sturen geen e-mail.",
+          "lockoutAttempts": "Inloggen met wachtwoord blokkeren na",
+          "lockoutAttemptsHint": "Verkeerde wachtwoorden voor hetzelfde e-mailadres of dezelfde gebruikersnaam binnen {minutes} minuten. Inloggen met wachtwoord stopt dan {minutes} minuten, of er nu een account bestaat of niet. Passkeys, inlogcodes en -links, sociale login en SSO blijven werken.",
+          "lockoutNever": "Nooit",
+          "wrongPasswords": "{count, plural, one {# verkeerd wachtwoord} other {# verkeerde wachtwoorden}}"
         },
         "emailDomains": {
           "title": "E-maildomeinen",
@@ -2899,7 +2904,8 @@
         "session_revoked": "Een sessie afgemeld",
         "sessions_revoked": "Afgemeld bij andere sessies",
         "account_secured": "Overal afgemeld (Dit was ik niet)",
-        "password_breached": "Wachtwoord gevonden in een datalek"
+        "password_breached": "Wachtwoord gevonden in een datalek",
+        "sign_in_locked": "Inloggen met wachtwoord gepauzeerd na verkeerde wachtwoorden"
       }
     }
   },

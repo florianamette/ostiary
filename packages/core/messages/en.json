@@ -1935,7 +1935,8 @@
             "remove_phone_number": "Removed their phone number",
             "new_device_sign_in": "Signed in from a new device",
             "secure_account": "Secured their account (This wasn't me)",
-            "password_breached": "Password found in a breach"
+            "password_breached": "Password found in a breach",
+            "sign_in_locked": "Password sign-in locked after wrong passwords"
           },
           "oauth_client": {
             "create": "Registered OAuth client",
@@ -2114,7 +2115,11 @@
           "newDeviceEmail": "Email on new-device sign-in",
           "newDeviceEmailHint": "People get an email when their account signs in from a browser it hasn't used before, with a button to sign out everywhere and reset the password. Sign-ins through an organization's SSO are not emailed.",
           "securityChangeEmail": "Email on security changes",
-          "securityChangeEmailHint": "People get an email when their password, two-factor authentication or passkeys change, with a button to sign out everywhere and reset the password. Changes made by an admin are not emailed."
+          "securityChangeEmailHint": "People get an email when their password, two-factor authentication or passkeys change, with a button to sign out everywhere and reset the password. Changes made by an admin are not emailed.",
+          "lockoutAttempts": "Lock password sign-in after",
+          "lockoutAttemptsHint": "Wrong passwords for the same email or username within {minutes} minutes. Password sign-in for it then stops for {minutes} minutes, whether or not an account has it. Passkeys, sign-in codes and links, social sign-in and SSO keep working.",
+          "lockoutNever": "Never",
+          "wrongPasswords": "{count, plural, one {# wrong password} other {# wrong passwords}}"
         },
         "emailDomains": {
           "title": "Email domains",
@@ -2899,7 +2904,8 @@
         "session_revoked": "A session signed out",
         "sessions_revoked": "Signed out of other sessions",
         "account_secured": "Signed out everywhere (This wasn't me)",
-        "password_breached": "Password found in a breach"
+        "password_breached": "Password found in a breach",
+        "sign_in_locked": "Password sign-in paused after wrong passwords"
       }
     }
   },

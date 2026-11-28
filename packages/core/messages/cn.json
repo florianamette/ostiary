@@ -1935,7 +1935,8 @@
             "remove_phone_number": "移除了自己的手机号",
             "new_device_sign_in": "在新设备上登录",
             "secure_account": "保护了自己的账户（不是我）",
-            "password_breached": "密码出现在泄露数据中"
+            "password_breached": "密码出现在泄露数据中",
+            "sign_in_locked": "多次密码错误后已锁定密码登录"
           },
           "oauth_client": {
             "create": "注册了 OAuth 客户端",
@@ -2114,7 +2115,11 @@
           "newDeviceEmail": "新设备登录时发送邮件",
           "newDeviceEmailHint": "当账户在从未使用过的浏览器上登录时，用户会收到一封邮件，其中有在所有地方退出并重置密码的按钮。通过组织 SSO 的登录不会发送邮件。",
           "securityChangeEmail": "安全变更时发送邮件",
-          "securityChangeEmailHint": "当用户的密码、双重验证或通行密钥发生变化时，会收到一封邮件，其中有一个按钮可在所有设备上退出登录并重置密码。管理员所做的更改不会发送邮件。"
+          "securityChangeEmailHint": "当用户的密码、双重验证或通行密钥发生变化时，会收到一封邮件，其中有一个按钮可在所有设备上退出登录并重置密码。管理员所做的更改不会发送邮件。",
+          "lockoutAttempts": "密码登录锁定条件",
+          "lockoutAttemptsHint": "{minutes} 分钟内同一邮箱或用户名输入错误密码的次数。之后无论账户是否存在，该邮箱或用户名的密码登录都会停止 {minutes} 分钟。通行密钥、登录验证码和链接、社交登录和 SSO 仍可使用。",
+          "lockoutNever": "从不",
+          "wrongPasswords": "{count, plural, other {# 次密码错误}}"
         },
         "emailDomains": {
           "title": "邮箱域名",
@@ -2899,7 +2904,8 @@
         "session_revoked": "已退出一个会话",
         "sessions_revoked": "已退出其他会话",
         "account_secured": "已在所有地方退出（不是我）",
-        "password_breached": "密码出现在泄露数据中"
+        "password_breached": "密码出现在泄露数据中",
+        "sign_in_locked": "多次密码错误后已暂停密码登录"
       }
     }
   },

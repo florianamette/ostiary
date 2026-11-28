@@ -1935,7 +1935,8 @@
             "remove_phone_number": "Removeu o seu número de telefone",
             "new_device_sign_in": "Iniciou sessão num novo dispositivo",
             "secure_account": "Protegeu a sua conta (Não fui eu)",
-            "password_breached": "Palavra-passe encontrada numa fuga de dados"
+            "password_breached": "Palavra-passe encontrada numa fuga de dados",
+            "sign_in_locked": "Login com senha bloqueado após senhas erradas"
           },
           "oauth_client": {
             "create": "Registrou cliente OAuth",
@@ -2114,7 +2115,11 @@
           "newDeviceEmail": "Email ao iniciar sessão num novo dispositivo",
           "newDeviceEmailHint": "As pessoas recebem um email quando a conta inicia sessão num navegador que nunca usou, com um botão para terminar sessão em todo o lado e repor a palavra-passe. Inícios de sessão pelo SSO de uma organização não enviam email.",
           "securityChangeEmail": "E-mail em alterações de segurança",
-          "securityChangeEmailHint": "As pessoas recebem um e-mail quando a senha, a autenticação em dois fatores ou as chaves de acesso mudam, com um botão para sair de todos os lugares e redefinir a senha. Alterações feitas por um admin não enviam e-mail."
+          "securityChangeEmailHint": "As pessoas recebem um e-mail quando a senha, a autenticação em dois fatores ou as chaves de acesso mudam, com um botão para sair de todos os lugares e redefinir a senha. Alterações feitas por um admin não enviam e-mail.",
+          "lockoutAttempts": "Bloquear o login com senha após",
+          "lockoutAttemptsHint": "Senhas erradas para o mesmo e-mail ou nome de usuário em {minutes} minutos. O login com senha para ele é então interrompido por {minutes} minutos, exista ou não uma conta. Chaves de acesso, códigos e links de login, login social e SSO continuam funcionando.",
+          "lockoutNever": "Nunca",
+          "wrongPasswords": "{count, plural, one {# senha errada} other {# senhas erradas}}"
         },
         "emailDomains": {
           "title": "Domínios de e-mail",
@@ -2899,7 +2904,8 @@
         "session_revoked": "Uma sessão terminada",
         "sessions_revoked": "Sessão terminada nas outras sessões",
         "account_secured": "Sessão terminada em todo o lado (Não fui eu)",
-        "password_breached": "Palavra-passe encontrada numa fuga de dados"
+        "password_breached": "Palavra-passe encontrada numa fuga de dados",
+        "sign_in_locked": "Login com senha pausado após senhas erradas"
       }
     }
   },

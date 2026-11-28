@@ -8,7 +8,7 @@ import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle }
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@ostiary/core/components/ui/dialog";
 import { Field, FieldDescription, FieldGroup, FieldLabel } from "@ostiary/core/components/ui/field";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@ostiary/core/components/ui/select";
-import { MIN_PASSWORD_LENGTHS, SESSION_DAYS, TWO_FACTOR_GRACE_DAYS, type AuthPolicy } from "@ostiary/core/lib/auth-policy-options";
+import { LOCKOUT_ATTEMPTS, LOCKOUT_MINUTES, MIN_PASSWORD_LENGTHS, SESSION_DAYS, TWO_FACTOR_GRACE_DAYS, type AuthPolicy } from "@ostiary/core/lib/auth-policy-options";
 
 import { updateAuthPolicy } from "@/app/[locale]/(console)/security/actions";
 import { CheckboxField } from "@/components/admin/common/choice-field";
@@ -30,6 +30,7 @@ export function AuthPolicyCard({ policy }: { policy: AuthPolicy }) {
     [t("twoFactorGraceDays"), t("days", { count: policy.twoFactorGraceDays })],
     [t("newDeviceEmail"), yesNo(policy.newDeviceEmail)],
     [t("securityChangeEmail"), yesNo(policy.securityChangeEmail)],
+    [t("lockoutAttempts"), policy.lockoutAttempts === 0 ? t("lockoutNever") : t("wrongPasswords", { count: policy.lockoutAttempts })],
   ];
 
   return (
@@ -195,6 +196,22 @@ function AuthPolicyDialog({ policy, onClose }: { policy: AuthPolicy; onClose: ()
               onChange={(v) => set("securityChangeEmail", v)}
               disabled={busy}
             />
+            <Field>
+              <FieldLabel htmlFor="policy-lockout">{t("lockoutAttempts")}</FieldLabel>
+              <Select value={String(draft.lockoutAttempts)} onValueChange={(v) => set("lockoutAttempts", Number(v))} disabled={busy}>
+                <SelectTrigger id="policy-lockout" className="w-full">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {LOCKOUT_ATTEMPTS.map((count) => (
+                    <SelectItem key={count} value={String(count)}>
+                      {count === 0 ? t("lockoutNever") : t("wrongPasswords", { count })}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <FieldDescription>{t("lockoutAttemptsHint", { minutes: LOCKOUT_MINUTES })}</FieldDescription>
+            </Field>
           </FieldGroup>
           <DialogActions busy={busy} onCancel={onClose} cancelLabel={t("cancel")} confirmLabel={t("save")} />
         </form>

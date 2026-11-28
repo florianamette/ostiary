@@ -1935,7 +1935,8 @@
             "remove_phone_number": "Odebral(a) své telefonní číslo",
             "new_device_sign_in": "Přihlášení z nového zařízení",
             "secure_account": "Zabezpečil(a) svůj účet (Nebyl(a) jsem to já)",
-            "password_breached": "Heslo nalezeno v úniku dat"
+            "password_breached": "Heslo nalezeno v úniku dat",
+            "sign_in_locked": "Přihlášení heslem zablokováno po chybných heslech"
           },
           "oauth_client": {
             "create": "Registrace klienta OAuth",
@@ -2114,7 +2115,11 @@
           "newDeviceEmail": "E-mail při přihlášení z nového zařízení",
           "newDeviceEmailHint": "Lidé dostanou e-mail, když se jejich účet přihlásí z prohlížeče, který dosud nepoužíval, s tlačítkem pro odhlášení všude a obnovení hesla. Přihlášení přes SSO organizace e-mail neposílají.",
           "securityChangeEmail": "E-mail při změnách zabezpečení",
-          "securityChangeEmailHint": "Lidé dostanou e-mail, když se změní jejich heslo, dvoufázové ověření nebo přístupové klíče, s tlačítkem pro odhlášení všude a obnovení hesla. Změny provedené adminem e-mail neposílají."
+          "securityChangeEmailHint": "Lidé dostanou e-mail, když se změní jejich heslo, dvoufázové ověření nebo přístupové klíče, s tlačítkem pro odhlášení všude a obnovení hesla. Změny provedené adminem e-mail neposílají.",
+          "lockoutAttempts": "Zablokovat přihlášení heslem po",
+          "lockoutAttemptsHint": "Chybná hesla pro stejný e-mail nebo uživatelské jméno během {minutes} minut. Přihlášení heslem se pak na {minutes} minut zastaví, ať účet existuje, nebo ne. Přístupové klíče, přihlašovací kódy a odkazy, sociální přihlášení a SSO fungují dál.",
+          "lockoutNever": "Nikdy",
+          "wrongPasswords": "{count, plural, one {# chybném heslu} few {# chybných heslech} many {# chybného hesla} other {# chybných heslech}}"
         },
         "emailDomains": {
           "title": "E-mailové domény",
@@ -2899,7 +2904,8 @@
         "session_revoked": "Relace odhlášena",
         "sessions_revoked": "Odhlášeno z ostatních relací",
         "account_secured": "Odhlášeno všude (Nebyl(a) jsem to já)",
-        "password_breached": "Heslo nalezeno v úniku dat"
+        "password_breached": "Heslo nalezeno v úniku dat",
+        "sign_in_locked": "Přihlášení heslem pozastaveno po chybných heslech"
       }
     }
   },

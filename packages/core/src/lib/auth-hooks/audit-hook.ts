@@ -9,6 +9,7 @@ import { clientIp, recordAuthEvent } from "@ostiary/core/lib/auth-events";
 import { markDynamicRegistration } from "@ostiary/core/lib/client-registration-policy";
 import { PASSWORD_SIGN_IN_PATHS } from "@ostiary/core/lib/auth-hooks/sign-in-plugins";
 import { type Bag, str } from "@ostiary/core/lib/auth-hooks/values";
+import { isLockoutRefusal, noticeFailedPassword } from "@ostiary/core/lib/security/sign-in-lockout";
 
 type AuditTarget = "user" | "oauth_client" | "sso_provider" | "organization";
 type Actor = { id: string; email: string };
@@ -89,8 +90,11 @@ export function auditRequests() {
         const body = (ctx.body ?? {}) as Bag;
 
         if (PASSWORD_SIGN_IN_PATHS.has(ctx.path) && failed) {
+            // Refused by the lockout: no password was checked, and counting it would extend the lock.
+            if (isLockoutRefusal(returned)) return;
             const identifier = typeof body.email === "string" ? body.email : typeof body.username === "string" ? body.username : null;
             await recordAuthEvent("sign_in_failed", null, { identifier, ipAddress: clientIp(ctx.headers) });
+            await noticeFailedPassword(identifier, ctx.headers);
             return;
         }
 

@@ -1935,7 +1935,8 @@
             "remove_phone_number": "Fjernet telefonnummeret sitt",
             "new_device_sign_in": "Logget på fra en ny enhet",
             "secure_account": "Sikret kontoen sin (Det var ikke meg)",
-            "password_breached": "Passord funnet i en datalekkasje"
+            "password_breached": "Passord funnet i en datalekkasje",
+            "sign_in_locked": "Pålogging med passord låst etter feil passord"
           },
           "oauth_client": {
             "create": "Registrerte OAuth-klient",
@@ -2114,7 +2115,11 @@
           "newDeviceEmail": "E-post ved pålogging fra ny enhet",
           "newDeviceEmailHint": "Folk får en e-post når kontoen logges på fra en nettleser den ikke har brukt før, med en knapp for å logge ut overalt og tilbakestille passordet. Pålogginger via en organisasjons SSO sender ingen e-post.",
           "securityChangeEmail": "E-post ved sikkerhetsendringer",
-          "securityChangeEmailHint": "Folk får en e-post når passordet, tofaktorautentiseringen eller tilgangsnøklene deres endres, med en knapp for å logge ut overalt og tilbakestille passordet. Endringer gjort av en admin sender ingen e-post."
+          "securityChangeEmailHint": "Folk får en e-post når passordet, tofaktorautentiseringen eller tilgangsnøklene deres endres, med en knapp for å logge ut overalt og tilbakestille passordet. Endringer gjort av en admin sender ingen e-post.",
+          "lockoutAttempts": "Lås pålogging med passord etter",
+          "lockoutAttemptsHint": "Feil passord for samme e-post eller brukernavn innen {minutes} minutter. Pålogging med passord stoppes da i {minutes} minutter, enten en konto finnes eller ikke. Tilgangsnøkler, påloggingskoder og -lenker, sosial pålogging og SSO virker fortsatt.",
+          "lockoutNever": "Aldri",
+          "wrongPasswords": "{count, plural, one {# feil passord} other {# feil passord}}"
         },
         "emailDomains": {
           "title": "E-postdomener",
@@ -2899,7 +2904,8 @@
         "session_revoked": "En økt logget ut",
         "sessions_revoked": "Logget ut av andre økter",
         "account_secured": "Logget ut overalt (Det var ikke meg)",
-        "password_breached": "Passord funnet i en datalekkasje"
+        "password_breached": "Passord funnet i en datalekkasje",
+        "sign_in_locked": "Pålogging med passord satt på pause etter feil passord"
       }
     }
   },

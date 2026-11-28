@@ -1935,7 +1935,8 @@
             "remove_phone_number": "Ha rimosso il proprio numero di telefono",
             "new_device_sign_in": "Accesso da un nuovo dispositivo",
             "secure_account": "Ha protetto il proprio account (Non sono stato io)",
-            "password_breached": "Password trovata in una violazione"
+            "password_breached": "Password trovata in una violazione",
+            "sign_in_locked": "Accesso con password bloccato dopo password errate"
           },
           "oauth_client": {
             "create": "Client OAuth registrato",
@@ -2114,7 +2115,11 @@
           "newDeviceEmail": "Email per accesso da nuovo dispositivo",
           "newDeviceEmailHint": "Le persone ricevono un’email quando il loro account accede da un browser mai usato prima, con un pulsante per disconnettersi ovunque e reimpostare la password. Gli accessi tramite il SSO di un’organizzazione non inviano email.",
           "securityChangeEmail": "Email per modifiche di sicurezza",
-          "securityChangeEmailHint": "Le persone ricevono un’email quando cambiano la password, l’autenticazione a due fattori o le passkey, con un pulsante per disconnettersi ovunque e reimpostare la password. Le modifiche fatte da un admin non inviano email."
+          "securityChangeEmailHint": "Le persone ricevono un’email quando cambiano la password, l’autenticazione a due fattori o le passkey, con un pulsante per disconnettersi ovunque e reimpostare la password. Le modifiche fatte da un admin non inviano email.",
+          "lockoutAttempts": "Blocca l’accesso con password dopo",
+          "lockoutAttemptsHint": "Password errate per la stessa email o lo stesso nome utente in {minutes} minuti. L’accesso con password si ferma poi per {minutes} minuti, che esista o no un account. Passkey, codici e link di accesso, accesso social e SSO continuano a funzionare.",
+          "lockoutNever": "Mai",
+          "wrongPasswords": "{count, plural, one {# password errata} other {# password errate}}"
         },
         "emailDomains": {
           "title": "Domini email",
@@ -2899,7 +2904,8 @@
         "session_revoked": "Una sessione disconnessa",
         "sessions_revoked": "Disconnesso dalle altre sessioni",
         "account_secured": "Disconnesso ovunque (Non sono stato io)",
-        "password_breached": "Password trovata in una violazione"
+        "password_breached": "Password trovata in una violazione",
+        "sign_in_locked": "Accesso con password sospeso dopo password errate"
       }
     }
   },
