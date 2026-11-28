@@ -1933,7 +1933,8 @@
             "import": "Toi käyttäjiä",
             "remove_phone_number": "Poisti puhelinnumeronsa",
             "new_device_sign_in": "Kirjautui uudelta laitteelta",
-            "secure_account": "Suojasi tilinsä (Se en ollut minä)"
+            "secure_account": "Suojasi tilinsä (Se en ollut minä)",
+            "password_breached": "Salasana löytyi tietovuodosta"
           },
           "oauth_client": {
             "create": "Rekisteröi OAuth-asiakkaan",
@@ -2861,7 +2862,8 @@
         "passkey_removed": "Pääsyavain poistettu",
         "session_revoked": "Istunto kirjattu ulos",
         "sessions_revoked": "Kirjauduttu ulos muista istunnoista",
-        "account_secured": "Kirjauduttu ulos kaikkialta (Se en ollut minä)"
+        "account_secured": "Kirjauduttu ulos kaikkialta (Se en ollut minä)",
+        "password_breached": "Salasana löytyi tietovuodosta"
       }
     }
   },
@@ -3207,5 +3209,13 @@
       "invalid": "Linkki on vanhentunut tai jo käytetty. Nollaa varmuuden vuoksi salasanasi kirjautumissivulta.",
       "failed": "Jokin meni pieleen. Yritä uudelleen."
     }
+  },
+  "breachedPassword": {
+    "title": "Vaihda salasanasi",
+    "description": "Salasana, jolla juuri kirjauduit, löytyy julkisesta tietovuodosta, joten muut voivat tietää sen. Valitse uusi jatkaaksesi. Muut istuntosi kirjataan ulos.",
+    "doneTitle": "Salasana vaihdettu",
+    "doneBody": "Uusi salasanasi on asetettu ja muut istuntosi kirjattiin ulos.",
+    "continue": "Jatka",
+    "toAccount": "Siirry tiliisi"
   }
 }

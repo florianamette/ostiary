@@ -1933,7 +1933,8 @@
             "import": "Importerte brukere",
             "remove_phone_number": "Fjernet telefonnummeret sitt",
             "new_device_sign_in": "Logget på fra en ny enhet",
-            "secure_account": "Sikret kontoen sin (Det var ikke meg)"
+            "secure_account": "Sikret kontoen sin (Det var ikke meg)",
+            "password_breached": "Passord funnet i en datalekkasje"
           },
           "oauth_client": {
             "create": "Registrerte OAuth-klient",
@@ -2861,7 +2862,8 @@
         "passkey_removed": "Tilgangsnøkkel fjernet",
         "session_revoked": "En økt logget ut",
         "sessions_revoked": "Logget ut av andre økter",
-        "account_secured": "Logget ut overalt (Det var ikke meg)"
+        "account_secured": "Logget ut overalt (Det var ikke meg)",
+        "password_breached": "Passord funnet i en datalekkasje"
       }
     }
   },
@@ -3207,5 +3209,13 @@
       "invalid": "Denne lenken er utløpt eller allerede brukt. Tilbakestill passordet fra påloggingssiden for sikkerhets skyld.",
       "failed": "Noe gikk galt. Prøv igjen."
     }
+  },
+  "breachedPassword": {
+    "title": "Bytt passord",
+    "description": "Passordet du nettopp logget på med finnes i en offentlig datalekkasje, så andre kan kjenne det. Velg et nytt for å fortsette. De andre øktene dine blir logget ut.",
+    "doneTitle": "Passordet er endret",
+    "doneBody": "Det nye passordet er lagret, og de andre øktene dine er logget ut.",
+    "continue": "Fortsett",
+    "toAccount": "Gå til kontoen din"
   }
 }

@@ -1933,7 +1933,8 @@
             "import": "Importó usuarios",
             "remove_phone_number": "Quitó su número de teléfono",
             "new_device_sign_in": "Inició sesión desde un dispositivo nuevo",
-            "secure_account": "Protegió su cuenta (No fui yo)"
+            "secure_account": "Protegió su cuenta (No fui yo)",
+            "password_breached": "Contraseña encontrada en una filtración"
           },
           "oauth_client": {
             "create": "Registró un cliente OAuth",
@@ -2861,7 +2862,8 @@
         "passkey_removed": "Llave de acceso eliminada",
         "session_revoked": "Se cerró una sesión",
         "sessions_revoked": "Se cerraron las demás sesiones",
-        "account_secured": "Sesión cerrada en todas partes (No fui yo)"
+        "account_secured": "Sesión cerrada en todas partes (No fui yo)",
+        "password_breached": "Contraseña encontrada en una filtración"
       }
     }
   },
@@ -3207,5 +3209,13 @@
       "invalid": "Este enlace caducó o ya se usó. Por seguridad, restablece tu contraseña desde la página de inicio de sesión.",
       "failed": "Algo salió mal. Inténtalo de nuevo."
     }
+  },
+  "breachedPassword": {
+    "title": "Cambia tu contraseña",
+    "description": "La contraseña con la que acabas de iniciar sesión aparece en una filtración de datos pública, así que otras personas podrían conocerla. Elige una nueva para continuar. Se cerrarán tus demás sesiones.",
+    "doneTitle": "Contraseña cambiada",
+    "doneBody": "Tu nueva contraseña está guardada y se cerraron tus demás sesiones.",
+    "continue": "Continuar",
+    "toAccount": "Ir a tu cuenta"
   }
 }

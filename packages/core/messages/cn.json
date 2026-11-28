@@ -1933,7 +1933,8 @@
             "import": "导入了用户",
             "remove_phone_number": "移除了自己的手机号",
             "new_device_sign_in": "在新设备上登录",
-            "secure_account": "保护了自己的账户（不是我）"
+            "secure_account": "保护了自己的账户（不是我）",
+            "password_breached": "密码出现在泄露数据中"
           },
           "oauth_client": {
             "create": "注册了 OAuth 客户端",
@@ -2861,7 +2862,8 @@
         "passkey_removed": "已移除通行密钥",
         "session_revoked": "已退出一个会话",
         "sessions_revoked": "已退出其他会话",
-        "account_secured": "已在所有地方退出（不是我）"
+        "account_secured": "已在所有地方退出（不是我）",
+        "password_breached": "密码出现在泄露数据中"
       }
     }
   },
@@ -3207,5 +3209,13 @@
       "invalid": "此链接已过期或已被使用。为安全起见，请在登录页面重置密码。",
       "failed": "出了点问题，请重试。"
     }
+  },
+  "breachedPassword": {
+    "title": "请修改密码",
+    "description": "你刚才登录使用的密码出现在公开的数据泄露中，其他人可能知道它。请设置新密码以继续。你的其他会话将被退出。",
+    "doneTitle": "密码已修改",
+    "doneBody": "新密码已设置，其他会话已退出。",
+    "continue": "继续",
+    "toAccount": "前往你的账户"
   }
 }

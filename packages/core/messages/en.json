@@ -1933,7 +1933,8 @@
             "import": "Imported users",
             "remove_phone_number": "Removed their phone number",
             "new_device_sign_in": "Signed in from a new device",
-            "secure_account": "Secured their account (This wasn't me)"
+            "secure_account": "Secured their account (This wasn't me)",
+            "password_breached": "Password found in a breach"
           },
           "oauth_client": {
             "create": "Registered OAuth client",
@@ -2861,7 +2862,8 @@
         "passkey_removed": "Passkey removed",
         "session_revoked": "A session signed out",
         "sessions_revoked": "Signed out of other sessions",
-        "account_secured": "Signed out everywhere (This wasn't me)"
+        "account_secured": "Signed out everywhere (This wasn't me)",
+        "password_breached": "Password found in a breach"
       }
     }
   },
@@ -3207,5 +3209,13 @@
       "invalid": "This link has expired or was already used. To be safe, reset your password from the sign-in page.",
       "failed": "Something went wrong. Try again."
     }
+  },
+  "breachedPassword": {
+    "title": "Change your password",
+    "description": "The password you just signed in with appears in a public data breach, so others may know it. Choose a new one to continue. Your other sessions will be signed out.",
+    "doneTitle": "Password changed",
+    "doneBody": "Your new password is set and your other sessions were signed out.",
+    "continue": "Continue",
+    "toAccount": "Go to your account"
   }
 }

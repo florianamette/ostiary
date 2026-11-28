@@ -126,7 +126,8 @@ export const envSchema = z
      * New passwords are checked against Have I Been Pwned (only the first five characters of
      * their SHA-1 hash are sent) at sign-up, change, reset and when an admin sets one. "off"
      * for a server that cannot reach api.pwnedpasswords.com: there, every such request would
-     * fail. On by default.
+     * fail. Also checks the password again at each password sign-in, and asks for a new one if it
+     * has since turned up in a breach (that lookup never blocks a sign-in). On by default.
      */
     PASSWORD_BREACH_CHECK: optional(z.enum(["on", "off"])).transform((v) => v ?? "on"),
     /**

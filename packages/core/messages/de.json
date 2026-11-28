@@ -1933,7 +1933,8 @@
             "import": "Benutzer importiert",
             "remove_phone_number": "Hat die Telefonnummer entfernt",
             "new_device_sign_in": "Von neuem Gerät angemeldet",
-            "secure_account": "Konto abgesichert (Das war ich nicht)"
+            "secure_account": "Konto abgesichert (Das war ich nicht)",
+            "password_breached": "Passwort in einem Datenleck gefunden"
           },
           "oauth_client": {
             "create": "OAuth-Client registriert",
@@ -2861,7 +2862,8 @@
         "passkey_removed": "Passkey entfernt",
         "session_revoked": "Eine Sitzung abgemeldet",
         "sessions_revoked": "Von anderen Sitzungen abgemeldet",
-        "account_secured": "Überall abgemeldet (Das war ich nicht)"
+        "account_secured": "Überall abgemeldet (Das war ich nicht)",
+        "password_breached": "Passwort in einem Datenleck gefunden"
       }
     }
   },
@@ -3207,5 +3209,13 @@
       "invalid": "Dieser Link ist abgelaufen oder wurde bereits verwendet. Setzen Sie Ihr Passwort sicherheitshalber über die Anmeldeseite zurück.",
       "failed": "Etwas ist schiefgelaufen. Versuchen Sie es erneut."
     }
+  },
+  "breachedPassword": {
+    "title": "Ändern Sie Ihr Passwort",
+    "description": "Das Passwort, mit dem Sie sich gerade angemeldet haben, taucht in einem öffentlichen Datenleck auf, andere könnten es also kennen. Wählen Sie ein neues, um fortzufahren. Ihre anderen Sitzungen werden abgemeldet.",
+    "doneTitle": "Passwort geändert",
+    "doneBody": "Ihr neues Passwort ist gesetzt und Ihre anderen Sitzungen wurden abgemeldet.",
+    "continue": "Weiter",
+    "toAccount": "Zu Ihrem Konto"
   }
 }

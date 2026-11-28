@@ -1933,7 +1933,8 @@
             "import": "Importerade användare",
             "remove_phone_number": "Tog bort sitt telefonnummer",
             "new_device_sign_in": "Loggade in från en ny enhet",
-            "secure_account": "Skyddade sitt konto (Det var inte jag)"
+            "secure_account": "Skyddade sitt konto (Det var inte jag)",
+            "password_breached": "Lösenordet hittades i en dataläcka"
           },
           "oauth_client": {
             "create": "Registrerade OAuth-klient",
@@ -2861,7 +2862,8 @@
         "passkey_removed": "Nyckel borttagen",
         "session_revoked": "En session utloggad",
         "sessions_revoked": "Utloggad från andra sessioner",
-        "account_secured": "Utloggad överallt (Det var inte jag)"
+        "account_secured": "Utloggad överallt (Det var inte jag)",
+        "password_breached": "Lösenordet hittades i en dataläcka"
       }
     }
   },
@@ -3207,5 +3209,13 @@
       "invalid": "Länken har gått ut eller har redan använts. Återställ för säkerhets skull lösenordet från inloggningssidan.",
       "failed": "Något gick fel. Försök igen."
     }
+  },
+  "breachedPassword": {
+    "title": "Byt lösenord",
+    "description": "Lösenordet du just loggade in med finns i en offentlig dataläcka, så andra kan känna till det. Välj ett nytt för att fortsätta. Dina andra sessioner loggas ut.",
+    "doneTitle": "Lösenordet har ändrats",
+    "doneBody": "Ditt nya lösenord är sparat och dina andra sessioner har loggats ut.",
+    "continue": "Fortsätt",
+    "toAccount": "Till ditt konto"
   }
 }

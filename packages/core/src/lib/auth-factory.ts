@@ -120,6 +120,7 @@ import {
 } from "@ostiary/core/lib/auth-hooks/sign-in-plugins";
 import { accountActivityEvents } from "@ostiary/core/lib/auth-hooks/account-activity-hook";
 import { recordAccountEvent } from "@ostiary/core/lib/account-activity";
+import { clearPasswordBreach, passwordBreachPending, passwordBreachSignInCheck } from "@ostiary/core/lib/security/password-breach";
 
 export { RECENT_SIGN_IN_SECONDS };
 
@@ -361,12 +362,15 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
         // Only for clients that ask with prompt=select_account (e.g. a native app signing in
         // through the system browser, whose session may belong to someone else).
         selectAccount: { page: "/select-account", shouldRedirect: () => false },
-        // After sign-in, before consent: two-factor authentication required by the policy or an
-        // organization (two-factor-policy.ts). The page resumes with /oauth2/continue.
+        // After sign-in, before consent: a password found in a breach must be changed first
+        // (security/password-breach.ts; the page sends it on to /change-password), then
+        // two-factor authentication required by the policy or an organization
+        // (two-factor-policy.ts). The pages resume with /oauth2/continue.
         postLogin: {
             page: "/two-factor/required",
             consentReferenceId: () => undefined,
-            shouldRedirect: ({ user, isContinuation }) => shouldPromptForTwoFactor(user, isContinuation),
+            shouldRedirect: async ({ user, isContinuation }) =>
+                (await passwordBreachPending(user.id)) || shouldPromptForTwoFactor(user, isContinuation),
         },
         // Replaced from the database before each request, see syncProviderScopes.
         scopes: [...OIDC_SCOPES, ...ENV_API_SCOPES],
@@ -569,6 +573,7 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
             onPasswordReset: async ({ user }, request) => {
                 await revokeUserAccess(user, "password_reset", null, request ? clientIp(request.headers) : null);
                 await recordAccountEvent("password_reset", user.id, { headers: request?.headers });
+                await clearPasswordBreach(user.id);
             },
             sendResetPassword: async ({ user, url }) => {
                 queuePasswordResetEmail({ to: user.email, url });
@@ -617,6 +622,7 @@ export function createAuth({ baseURL, trustedOrigins, cookieDomain }: AuthFactor
             externalSignInTwoFactor(twoFactorPlugin, baseURL),
             passwordSignInEvents,
             accountActivityEvents,
+            passwordBreachSignInCheck(),
             adminEmailChangeUnverifies,
             // "Email me a sign-in code": a 6-digit code, typed on the sign-in page that asked for
             // it, so an OAuth sign-in carries on in that tab even when the email is read on a phone.

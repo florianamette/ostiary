@@ -148,6 +148,13 @@
       "when": 1795821981660,
       "tag": "0020_account_events",
       "breakpoints": true
+    },
+    {
+      "idx": 21,
+      "version": "7",
+      "when": 1795822474428,
+      "tag": "0021_password_breach",
+      "breakpoints": true
     }
   ]
 }

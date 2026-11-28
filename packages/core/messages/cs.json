@@ -1933,7 +1933,8 @@
             "import": "Import uživatelů",
             "remove_phone_number": "Odebral(a) své telefonní číslo",
             "new_device_sign_in": "Přihlášení z nového zařízení",
-            "secure_account": "Zabezpečil(a) svůj účet (Nebyl(a) jsem to já)"
+            "secure_account": "Zabezpečil(a) svůj účet (Nebyl(a) jsem to já)",
+            "password_breached": "Heslo nalezeno v úniku dat"
           },
           "oauth_client": {
             "create": "Registrace klienta OAuth",
@@ -2861,7 +2862,8 @@
         "passkey_removed": "Přístupový klíč odebrán",
         "session_revoked": "Relace odhlášena",
         "sessions_revoked": "Odhlášeno z ostatních relací",
-        "account_secured": "Odhlášeno všude (Nebyl(a) jsem to já)"
+        "account_secured": "Odhlášeno všude (Nebyl(a) jsem to já)",
+        "password_breached": "Heslo nalezeno v úniku dat"
       }
     }
   },
@@ -3207,5 +3209,13 @@
       "invalid": "Platnost odkazu vypršela nebo už byl použit. Pro jistotu si obnovte heslo na přihlašovací stránce.",
       "failed": "Něco se pokazilo. Zkuste to znovu."
     }
+  },
+  "breachedPassword": {
+    "title": "Změňte heslo",
+    "description": "Heslo, kterým jste se právě přihlásili, se objevilo ve veřejném úniku dat, takže ho mohou znát i jiní. Pro pokračování zvolte nové. Vaše ostatní relace budou odhlášeny.",
+    "doneTitle": "Heslo změněno",
+    "doneBody": "Nové heslo je nastaveno a ostatní relace byly odhlášeny.",
+    "continue": "Pokračovat",
+    "toAccount": "Přejít na účet"
   }
 }

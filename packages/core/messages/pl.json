@@ -1933,7 +1933,8 @@
             "import": "Zaimportowano użytkowników",
             "remove_phone_number": "Usunął(-ęła) swój numer telefonu",
             "new_device_sign_in": "Zalogowano z nowego urządzenia",
-            "secure_account": "Zabezpieczył(a) konto (To nie ja)"
+            "secure_account": "Zabezpieczył(a) konto (To nie ja)",
+            "password_breached": "Hasło znalezione w wycieku"
           },
           "oauth_client": {
             "create": "Zarejestrowano klienta OAuth",
@@ -2861,7 +2862,8 @@
         "passkey_removed": "Usunięto klucz dostępu",
         "session_revoked": "Wylogowano sesję",
         "sessions_revoked": "Wylogowano inne sesje",
-        "account_secured": "Wylogowano wszędzie (To nie ja)"
+        "account_secured": "Wylogowano wszędzie (To nie ja)",
+        "password_breached": "Hasło znalezione w wycieku"
       }
     }
   },
@@ -3207,5 +3209,13 @@
       "invalid": "Ten link wygasł lub został już użyty. Dla bezpieczeństwa zresetuj hasło na stronie logowania.",
       "failed": "Coś poszło nie tak. Spróbuj ponownie."
     }
+  },
+  "breachedPassword": {
+    "title": "Zmień hasło",
+    "description": "Hasło, którym właśnie się zalogowałeś, występuje w publicznym wycieku danych, więc inni mogą je znać. Wybierz nowe, aby kontynuować. Twoje pozostałe sesje zostaną wylogowane.",
+    "doneTitle": "Hasło zmienione",
+    "doneBody": "Nowe hasło jest ustawione, a pozostałe sesje zostały wylogowane.",
+    "continue": "Kontynuuj",
+    "toAccount": "Przejdź do konta"
   }
 }
