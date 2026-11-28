@@ -14,7 +14,7 @@ async function markBreached(email: string) {
 }
 
 async function changePassword(page: import("@playwright/test").Page, current: string) {
-  await expect(page.getByText("Change your password")).toBeVisible();
+  await expect(page.getByRole("main").getByText("Change your password")).toBeVisible();
   await page.getByLabel("Current password").fill(current);
   await page.getByLabel("New password", { exact: true }).fill(`${current}-new`);
   await page.getByLabel("Confirm new password").fill(`${current}-new`);
@@ -46,7 +46,7 @@ test("the account page sends a breached password to the change step", async ({ a
   await loginViaUi(page, user.email, user.password);
   await page.waitForURL(/\/change-password$/);
   await changePassword(page, user.password);
-  await expect(page.getByText("Password changed", { exact: true })).toBeVisible();
+  await expect(page.getByRole("main").getByText("Password changed", { exact: true })).toBeVisible();
   await page.getByRole("link", { name: "Go to your account" }).click();
   await page.waitForURL(/\/dashboard/);
   await expect(page.getByRole("list", { name: "Recent activity" }).getByText("Password changed")).toBeVisible();
